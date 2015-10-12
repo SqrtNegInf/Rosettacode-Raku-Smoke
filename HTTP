@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/HTTP
+#c# 2015-10-11 <>RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# my 1st RC edit!   $socket.send --> $socket.print 
+
+die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+
+use LWP::Simple;
+my $result = LWP::Simple.get("http://www.biobyte.com");
+say $result;
+
+use Test;
+say 'ok 1 -' if $result.chars > 1000;
+
+#my $socket = IO::Socket::INET.new(host => "www.google.com", port => 80,);
+#$socket.print("GET / HTTP/1.0\r\n\r\n");
+#print $socket.recv();
+#$socket.close;
