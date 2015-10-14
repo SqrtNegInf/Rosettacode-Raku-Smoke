@@ -1,0 +1,51 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Rosetta_Code/Fix_code_tags
+#c# 2015-10-14 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @langs = < foo bar baz
+    abap actionscript actionscript3 ada apache applescript apt_sources
+    asm asp autoit avisynth bash basic4gl bf blitzbasic bnf boo c caddcl
+    cadlisp cfdg cfm cil c_mac cobol cpp cpp-qt csharp css d delphi
+    diff _div dos dot eiffel email fortran freebasic genero gettext
+    glsl gml gnuplot groovy haskell hq9plus html4strict idl ini inno
+    intercal io java java5 javascript kixtart klonec klonecpp latex lisp
+    lolcode lotusformulas lotusscript lscript lua m68k make matlab mirc
+    modula3 mpasm mxml mysql nsis objc ocaml ocaml-brief oobas oracle11
+    oracle8 pascal per perl php php-brief pic16 pixelbender plsql povray
+    powershell progress prolog providex python qbasic rails reg robots
+    ruby sas scala scheme scilab sdlbasic smalltalk smarty sql tcl teraterm
+    text thinbasic tsql typoscript vb vbnet verilog vhdl vim visualfoxpro
+    visualprolog whitespace winbatch xml xorg_conf xpp z80
+>;
+
+my $test_code = qq :to 'INPUT';
+Lorem ipsum <code foo>saepe audire</code> elaboraret ne quo, id equidem
+atomorum inciderint usu. <foo>In sit inermis deleniti percipit</foo>,
+ius ex tale civibus omittam. <barf>Vix ut doctus cetero invenire</barf>, his eu
+altera electram. Tota adhuc altera te sea, <code bar>soluta appetere ut mel</bar>.
+Quo quis graecis vivendo te, <baz>posse nullam lobortis ex usu</code>. Eam volumus perpetua
+constituto id, mea an omittam fierent vituperatoribus.
+INPUT
+
+my $output = qq :to 'EXPECTED';
+Lorem ipsum <lang foo>saepe audire</lang> elaboraret ne quo, id equidem
+atomorum inciderint usu. <lang foo>In sit inermis deleniti percipit</lang>,
+ius ex tale civibus omittam. <barf>Vix ut doctus cetero invenire</barf>, his eu
+altera electram. Tota adhuc altera te sea, <lang bar>soluta appetere ut mel</lang>.
+Quo quis graecis vivendo te, <lang baz>posse nullam lobortis ex usu</lang>. Eam volumus perpetua
+constituto id, mea an omittam fierent vituperatoribus.
+EXPECTED
+ 
+for @langs -> $l {
+    $test_code ~~ s:g [ '<'  $l '>' ] = "<lang $l>";
+    $test_code ~~ s:g [ '</' $l '>' ] = '</' ~ 'lang>';
+}
+ 
+$test_code ~~ s:g [ '<code '(.+?) '>' (.*?) '</code>' ] = "<lang $0>{$1}</"~"lang>";
+ 
+$test_code.say;
+
+use Test;
+is $test_code, $output, 'Substituted tags';
