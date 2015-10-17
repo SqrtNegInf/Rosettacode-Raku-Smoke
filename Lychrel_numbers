@@ -1,0 +1,69 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Lychrel_numbers
+#c# 2015-10-17 <RC, 2018-04-22 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# speed of language was not improving, but algorithm change brought 27x speed-up:
+#    20161123: 1911.232u 24.260s 32:49.18 98.2%
+#    20171027: 1972.841u  6.163s 33:01.60 99.8%
+#    20180422:   70.895u  0.424s  1:11.00  100%
+
+# Works with: Rakudo version 2018.03
+
+my %lychrels;
+my @seeds;
+my @palindromes;
+my $count;
+my $max = 500;
+my $limit = '10_000';
+ 
+for 1 .. $limit -> $int {
+    my @test;
+    my $index = 0;
+    if $int.&is-lychrel {
+        #print "\b" x 20, "Found Lychrel: $int";
+        %lychrels.push: ($int => @test).invert;
+        @palindromes.push: $int if $int == $int.flip;
+        $count++;
+    }
+    #print "\b" x 20;
+ 
+    sub is-lychrel (Int $l) {
+        return True if $index++ > $max;
+        @test.push: my $m = $l + $l.flip;
+        return False if $m == $m.flip;
+        $m.&is-lychrel;
+    }
+}
+ 
+for %lychrels{*}»[0].unique.sort -> $ly {
+    my $next = False;
+    for %lychrels -> $l {
+        for $l.value[1..*] -> $lt {
+            $next = True and last if $ly == $lt;
+            last if $ly < $lt;
+        }
+        last if $next;
+    }
+    next if $next;
+    @seeds.push: $ly;
+}
+ 
+my @res;
+@res.push: "   Number of Lychrel seed numbers < $limit: "~ +@seeds;
+@res.push: "             Lychrel seed numbers < $limit: "~ join ", ", @seeds;
+@res.push: "Number of Lychrel related numbers < $limit: "~ +$count - @seeds;
+@res.push: "    Number of Lychrel palindromes < $limit: "~ +@palindromes;
+@res.push: "              Lychrel palindromes < $limit: "~ join ", ", @palindromes;
+.say for @res;
+
+my $ref = qq:to/END/;
+   Number of Lychrel seed numbers < 10_000: 5
+             Lychrel seed numbers < 10_000: 196, 879, 1997, 7059, 9999
+Number of Lychrel related numbers < 10_000: 244
+    Number of Lychrel palindromes < 10_000: 3
+              Lychrel palindromes < 10_000: 4994, 8778, 9999
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
