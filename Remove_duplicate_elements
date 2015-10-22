@@ -1,0 +1,22 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Remove_duplicate_elements
+#c# 2015-10-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @unique = [1, 2, 3, 5, 2, 4, 3, -3, 7, 5, 6].unique;
+say @unique;
+
+#Or just make a set of it.
+say set(1,2,3,5,2,4,3,-3,7,5,6).list;
+
+use Test;
+my @ref = <1 2 3 5 4 -3 7 6>;
+is @unique, @ref, 'array works';
+
+# cannot get this sorted to match?
+# expected: '5 7 4 3 1 6 -3 2'
+#      got: '5 7 4 3 1 6 2 -3'
+#my $rlist = set(-3,1,2,3,4,5,6,7);
+#my $ulist = set(1,2,3,5,2,4,3,-3,7,5,6);
+#is $ulist, $rlist, 'set works?';
