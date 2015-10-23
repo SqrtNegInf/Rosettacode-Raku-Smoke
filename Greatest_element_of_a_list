@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Greatest_element_of_a_list
+#c# 2015-10-23 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+
+# The built-in function works with any type that defines ordering.
+
+say max 10, 4, 5, -2, 11;
+say max <zero one two three four five six seven eight nine>;
+
+use Test;
+is 11, (max 10, 4, 5, -2, 11), 'Max: 10, 4, 5, -2, 11';
+is 'zero', (max <zero one two three four five six seven eight nine>), 'Max: <zero one two three four five six seven eight nine>';
