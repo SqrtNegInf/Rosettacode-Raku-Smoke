@@ -1,0 +1,157 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/FizzBuzz
+#c# 2015-10-23 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo Star version 2015-09-10
+# for each should get:
+#  27 Fizz
+#  14 Buzz
+#   6 FizzBuzz
+
+# for all 5 versions should get:
+# 135 Fizz
+#  70 Buzz
+#  30 FizzBuzz
+
+# Most straightforwardly:
+my @res1;
+for 1 .. 100 {    when $_ %% (3 & 5) { @res1.push: 'FizzBuzz'; }
+    when $_ %% 3       { @res1.push: 'Fizz'; }
+    when $_ %% 5       { @res1.push: 'Buzz'; }
+    default            { @res1.push: $_; }
+}
+
+# Or abusing multi subs:
+multi sub fizzbuzz(Int $ where * %% 15) { 'FizzBuzz' }
+multi sub fizzbuzz(Int $ where * %%  5) { 'Buzz' }
+multi sub fizzbuzz(Int $ where * %%  3) { 'Fizz' }
+multi sub fizzbuzz(Int $number        ) { $number }
+my @res2 = (1 .. 100)».&fizzbuzz.join("\n");
+
+# Concisely (readable):
+my @res3.push: 'Fizz' x $_ %% 3 ~ 'Buzz' x $_ %% 5 || $_ for 1 .. 100;
+
+#Shortest FizzBuzz to date:
+my @res4.push: "Fizz"x$_%%3~"Buzz"x$_%%5||$_ for 1..100;
+
+# And here's an implementation that never checks for divisibility:
+my @res5.push: $_ for
+    (
+      (flat ('' xx 2, 'Fizz') xx *)
+      Z~
+      (flat ('' xx 4, 'Buzz') xx *)
+    )
+    Z||
+    1 .. 100;
+
+my $ref = qq:to/END/;
+1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+16
+17
+Fizz
+19
+Buzz
+Fizz
+22
+23
+Fizz
+Buzz
+26
+Fizz
+28
+29
+FizzBuzz
+31
+32
+Fizz
+34
+Buzz
+Fizz
+37
+38
+Fizz
+Buzz
+41
+Fizz
+43
+44
+FizzBuzz
+46
+47
+Fizz
+49
+Buzz
+Fizz
+52
+53
+Fizz
+Buzz
+56
+Fizz
+58
+59
+FizzBuzz
+61
+62
+Fizz
+64
+Buzz
+Fizz
+67
+68
+Fizz
+Buzz
+71
+Fizz
+73
+74
+FizzBuzz
+76
+77
+Fizz
+79
+Buzz
+Fizz
+82
+83
+Fizz
+Buzz
+86
+Fizz
+88
+89
+FizzBuzz
+91
+92
+Fizz
+94
+Buzz
+Fizz
+97
+98
+Fizz
+Buzz
+END
+
+use Test;
+is @res1.join("\n"), chomp $ref;
+is @res2.join("\n"), chomp $ref;
+is @res3.join("\n"), chomp $ref;
+is @res4.join("\n"), chomp $ref;
+is @res5.join("\n"), chomp $ref;
