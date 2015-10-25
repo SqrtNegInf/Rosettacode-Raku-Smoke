@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Execute_a_system_command
+#c# 2015-10-25 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+run "uname" or die $!; # output to stdout
+
+my @ls1 = qx/uname/;    # output to variable
+
+my $cmd = 'uname';
+my @ls2 = qqx/$cmd/;  # same thing with interpolation
+
+use Test;
+is @ls1, "Darwin\n", 'Yup, we are running Darwin';
+is @ls2, "Darwin\n", 'Yup, we are running Darwin';
