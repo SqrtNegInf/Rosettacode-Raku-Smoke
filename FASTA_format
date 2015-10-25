@@ -1,0 +1,38 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/FASTA_format
+#c# 2015-10-25 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+grammar FASTA {
+ 
+    rule TOP    { <entry>+ }
+    rule entry  { \> <title> <sequence> }
+    token title { <.alnum>+ }
+    token sequence { ( <.alnum>+ )+ % \n { make $0.join } }
+ 
+}
+ 
+FASTA.parse: q:to /§/;
+>Rosetta_Example_1
+THERECANBENOSPACE
+>Rosetta_Example_2
+THERECANBESEVERAL
+LINESBUTTHEYALLMUST
+BECONCATENATED
+§
+ 
+my $out = ~gather {
+for $/<entry>[] {
+    take ~.<title>, " : ", .<sequence>.made;
+}
+}
+
+
+my $ref =  q:to /§/;
+Rosetta_Example_1  :  THERECANBENOSPACE Rosetta_Example_2  :  THERECANBESEVERALLINESBUTTHEYALLMUSTBECONCATENATED
+§
+$ref ~~ s/\n//;
+
+use Test;
+is $out, $ref, 'Masta of FASTA';
