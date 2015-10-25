@@ -1,0 +1,22 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/A+B
+#c# 2015-10-24 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $fh = open('ref/a+b.txt');
+my @res;
+
+@res.push: [+] $fh.get.words;
+
+#$*IN.get.words.reduce(* + *).say;
+@res.push: $fh.get.words.reduce(* + *);
+
+#my ($a,$b) = $*IN.get.split(" ");
+my ($a,$b) = $fh.get.split(" ");
+@res.push: $a + $b;
+
+.say for @res;
+
+use Test;
+is @res.join(' '), '3 4 5';
