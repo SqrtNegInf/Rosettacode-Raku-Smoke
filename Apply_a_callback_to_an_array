@@ -1,0 +1,36 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Apply_a_callback_to_an_array
+#c# 2015-10-25 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015.10-11
+
+# we neither need a variable for the array nor for the function
+my @a0 = [1,2,3,4,5]>>.&({ 2 * $^x + 3});
+
+sub function { 2 * $^x + 3 };
+my @array = 1 .. 5;
+
+# via map function
+my @a1 = gather { take $_ for map &function, @array }
+
+# via map method
+my @a2 = gather { take $_ for @array.map(&function) }
+
+# via for loop
+my @a3 = gather {
+    for @array {
+        take function($_);
+    }
+}
+
+# via the "hyper" metaoperator and method indirection
+my @a4 = @array».&function;
+
+use Test;
+is @a0, qw<5 7 9 11 13>, 'Raw';
+is @a1, qw<5 7 9 11 13>, 'Function callback works, version 1';
+is @a2, qw<5 7 9 11 13>, 'Function callback works, version 2';
+is @a3, qw<5 7 9 11 13>, 'Function callback works, version 3';
+is @a4, qw<5 7 9 11 13>, 'Function callback works, version 4';
