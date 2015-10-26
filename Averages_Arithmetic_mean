@@ -1,0 +1,12 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Averages/Arithmetic_mean
+#c# 2015-10-25 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015.10-11
+multi mean([]) { Failure.new('mean on empty list is not defined') }; # Failure-objects are lazy exceptions
+multi mean (@a) { ([+] @a) / @a }
+
+use Test;
+is-approx mean([1, 2, pi]), 2.0471975511966, 'average of: 1, 2, pi';
