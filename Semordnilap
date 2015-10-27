@@ -1,0 +1,34 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Semordnilap
+#c# 2015-10-27 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $words = set slurp("ref/unixdict.txt").lines;
+#my $words = set slurp("/usr/share/dict/words").lines;
+
+my @sems = reverse sort gather for $words.flat -> $word {
+    next if $word.key.chars < 3;
+    my $drow = $word.key.flip;
+    take $drow if $drow ∈ $words and $drow lt $word;
+}
+
+my @res;
+(@res.push: $_ ~ ' ' ~ $_.flip) for @sems[^10];
+.say for @res;
+
+my $ref = qq:to/END/;
+wow wow
+way yaw
+tot tot
+tort trot
+toot toot
+tnt tnt
+tit tit
+tenet tenet
+teet teet
+tat tat
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
