@@ -1,0 +1,22 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Random_numbers
+#c# 2015-10-27 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# Works with: Rakudo version #22 "Thousand Oaks"
+sub randnorm ($mean, $stddev) {
+    $mean + $stddev * sqrt(-2 * log rand) * cos(2 * pi * rand)
+}
+
+my @nums = randnorm(1, 0.5) xx 10000;
+
+# Checking
+say my $mean = @nums R/ [+] @nums;
+say my $stddev = sqrt $mean**2 R- @nums R/ [+] @nums X** 2;
+
+use Test;
+is-approx $mean.round(.05), 1.000, 'Mean around 1.0';
+is-approx $stddev.round(.05), 0.500, 'Std.Dev. around 0.50';
