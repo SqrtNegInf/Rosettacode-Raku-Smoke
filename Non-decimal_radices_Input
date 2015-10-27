@@ -1,0 +1,53 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Non-decimal_radices/Input
+#c# 2015-10-26 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#By defaultall strings of digits are parsed as base 10 numbers, including those with a leading zero. Numbers with a prefix 0b, 0o, 0d or 0x are parsed as binary, octal, decimal or hexadecimal respectively., 'Yup, all strings of digits are parsed as base 10 numbers, including those with a leading zero. Numbers with a prefix 0b, 0o, 0d or 0x are parsed as binary, octal, decimal or hexadecimal respectively.';
+
+is (0b11011), 27, 'Yup, 27';
+is (0o11011), 4617, 'Yup, 4617';
+is (0d11011), 11011, 'Yup, 11011';
+is (0x11011), 69649, 'Yup, 69649';
+
+#Additionallythere are built-in adverbial prefix operators to parse strings of "digits" of radix 2 through radix 36 into decimal. They will fail with a runtime error if they are fed a digit that is not valid in that radix., 'Yup, there are built-in adverbial prefix operators to parse strings of "digits" of radix 2 through radix 36 into decimal. They will fail with a runtime error if they are fed a digit that is not valid in that radix.';
+
+use Test;
+my $n = '11011';
+is (:2($n)),  27, 'Yup, 27';
+is (:3($n)),  112, 'Yup, 112';
+is (:4($n)),  325, 'Yup, 325';
+is (:5($n)),  756, 'Yup, 756';
+is (:6($n)),  1519, 'Yup, 1519';
+is (:7($n)),  2752, 'Yup, 2752';
+is (:8($n)),  4617, 'Yup, 4617';
+is (:9($n)),  7300, 'Yup, 7300';
+is (:10($n)),  11011, 'Yup, 11011';
+is (:11($n)),  15984, 'Yup, 15984';
+is (:12($n)),  22477, 'Yup, 22477';
+is (:13($n)),  30772, 'Yup, 30772';
+is (:14($n)),  41175, 'Yup, 41175';
+is (:15($n)),  54016, 'Yup, 54016';
+is (:16($n)),  69649, 'Yup, 69649';
+is (:17($n)),  88452, 'Yup, 88452';
+is (:18($n)),  110827, 'Yup, 110827';
+is (:19($n)),  137200, 'Yup, 137200';
+is (:20($n)),  168021, 'Yup, 168021';
+is (:21($n)),  203764, 'Yup, 203764';
+is (:22($n)),  244927, 'Yup, 244927';
+is (:23($n)),  292032, 'Yup, 292032';
+is (:24($n)),  345625, 'Yup, 345625';
+is (:25($n)),  406276, 'Yup, 406276';
+is (:26($n)),  474579, 'Yup, 474579';
+is (:27($n)),  551152, 'Yup, 551152';
+is (:28($n)),  636637, 'Yup, 636637';
+is (:29($n)),  731700, 'Yup, 731700';
+is (:30($n)),  837031, 'Yup, 837031';
+is (:31($n)),  953344, 'Yup, 953344';
+is (:32($n)),  1081377, 'Yup, 1081377';
+is (:33($n)),  1221892, 'Yup, 1221892';
+is (:34($n)),  1375675, 'Yup, 1375675';
+is (:35($n)),  1543536, 'Yup, 1543536';
+is (:36($n)),  1726309, 'Yup, 1726309';
+
