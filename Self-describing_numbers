@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Self-describing_numbers
+#c# 2015-10-28 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+use Test;
+plan 14;
+is sdn($_), True, "Sure is! $_" for <1210 2020 21200 3211000 42101000 521001000 6210001000>;
+is sdn($_), False, "No way! $_" for <1 2 3 10 27 101 115508>;
+
+#for @values -> $test {
+#    say "$test is {sdn($test)?? ''!! 'NOT ' }a self describing number.";
+#}
+
+sub sdn($n) {
+    my $s = $n.Str;
+    my $chars = $s.chars;
+    my @a = +«$s.comb;
+    my @b;
+    for @a -> $i {
+        return False if $i >= $chars;
+        ++@b[$i];
+    }
+    @b[$_] //= 0 for ^$chars;
+    @a eqv @b;
+}
+
+#.say if .&sdn for ^9999999;
