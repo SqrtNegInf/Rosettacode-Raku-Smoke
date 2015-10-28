@@ -1,0 +1,55 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Count_in_factors
+#c# 2015-10-27 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# for JVM: UnwindException
+
+constant @primes = 2, |(3, 5, 7 ... *).grep: *.is-prime;
+
+multi factors(1) { 1 }
+multi factors(Int $remainder is copy) {
+  gather for @primes -> $factor {
+
+    # if remainder < factor², we're done
+    if $factor * $factor > $remainder {
+      take $remainder if $remainder > 1;
+      last;
+    }
+
+    # How many times can we divide by this prime?
+    while $remainder %% $factor {
+        take $factor;
+        last if ($remainder div= $factor) === 1;
+    }
+  }
+}
+
+#The first twenty numbers:
+my $ref = qq:to/END/;
+1: 1
+2: 2
+3: 3
+4: 2 × 2
+5: 5
+6: 2 × 3
+7: 7
+8: 2 × 2 × 2
+9: 3 × 3
+10: 2 × 5
+11: 11
+12: 2 × 2 × 3
+13: 13
+14: 2 × 7
+15: 3 × 5
+16: 2 × 2 × 2 × 2
+17: 17
+18: 2 × 3 × 3
+19: 19
+20: 2 × 2 × 5
+END
+
+my @res.push: ("$_:", factors($_).join(" × ")) for 1..20;
+.say for @res;
+use Test;
+is @res.join("\n"), chomp $ref;
