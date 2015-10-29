@@ -1,0 +1,36 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Greatest_common_divisor
+#c# 2015-10-29 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub gcd1 (Int $a is copy, Int $b is copy) {
+   $a & $b == 0 and fail;
+   ($a, $b) = ($b, $a % $b) while $b;
+   return abs $a;
+}
+
+#Recursive
+multi gcd2 (0,      0)      { fail }
+multi gcd2 (Int $a, 0)      { abs $a }
+multi gcd2 (Int $a, Int $b) { gcd2 $b, $a % $b }
+
+# Concise
+#my &gcd = { ( abs $^a, abs $^b, * % * ... 0)[*-2] } # doesn't work
+my &gcd = { ($^a.abs, $^b.abs, * % * ... 0)[*-2] }
+
+#Actually, it's a built-in infix
+my $gcd = 6 gcd 27;
+
+#Because it's an infix, you can use it with various meta-operators:
+# [gcd] @list;         # reduce with gcd
+# @alist Zgcd @blist;  # lazy zip with gcd
+# @alist Xgcd @blist;  # lazy cross with gcd
+# @alist »gcd« @blist; # parallel gcd
+
+use Test;
+is (49865 gcd 69811), '9973';
+is gcd(49865, 69811), '9973';
+is gcd1(49865, 69811), '9973';
+is gcd2(49865, 69811), '9973';
+
