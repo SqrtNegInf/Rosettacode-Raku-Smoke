@@ -1,0 +1,238 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sailors,_coconuts_and_a_monkey_problem
+#c# 2015-10-29 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# J version:
+#  I.(=<.)%&5 verb def'4*(y-1)%5'^:5 i.10000
+# 3121
+
+my @res;
+
+# Works with: rakudo version 2015.09
+#There is nowhere in the spec where it explicitly states that the sailors cannot equally share zero coconuts in the morning. Actually, The On-Line Encyclopedia of Integer Sequences A002021 considers the cases for 1 and 2 sailors equally sharing zero coconuts in the morning to be the correct answer.
+#This will test combinations of sailors and coconuts to see if they form a valid pairing. The first 6 are done using brute force, testing every combination until a valid one is found. For cases of 7 to 15 sailors, it uses a carefully crafted filter to drastically reduce the number of trials needed to find a valid case (to one, as it happens...:-) )
+
+my @ones = flat 'th', 'st', 'nd', 'rd', 'th' xx 6;
+my @teens = 'th' xx 10;
+my @suffix = lazy flat (@ones, @teens, @ones xx 8) xx *;
+
+# brute force the first six
+for 1 .. 6 -> $sailors { for $sailors .. * -> $coconuts { last if check( $sailors, $coconuts ) } }
+
+# finesse 7 through 15
+for 7 .. 15 -> $sailors { next if check( $sailors, coconuts( $sailors ) ) }
+
+sub is_valid ( $sailors is copy, $nuts is copy ) {
+    return 0, 0 if $sailors == $nuts == 1;
+    my @shares;
+    for ^$sailors {
+        return () unless $nuts % $sailors == 1;
+        push @shares, ($nuts - 1) div $sailors;
+        $nuts -= (1 + $nuts div $sailors);
+    }
+    push @shares, $nuts div $sailors;
+    return @shares if !?($nuts % $sailors);
+}
+
+sub check ($sailors, $coconuts) {
+    if my @piles = is_valid($sailors, $coconuts) {
+        @res.push: "\nSailors $sailors: Coconuts $coconuts:";
+        for ^(@piles - 1) -> $k {
+             @res.push: "{$k+1}@suffix[$k+1] takes @piles[$k], gives 1 to the monkey."
+        }
+        @res.push: "The next morning, each sailor takes @piles[*-1]\nwith none left over for the monkey.";
+        return True;
+    }
+    False;
+}
+
+multi sub coconuts ( $sailors where { $sailors % 2 == 0 } ) { ($sailors - 1) * ($sailors ** $sailors - 1) }
+multi sub coconuts ( $sailors where { $sailors % 2 == 1 } ) { $sailors ** $sailors - $sailors + 1 }
+
+my $ref = qq:to/END/;
+
+Sailors 1: Coconuts 1:
+1st takes 0, gives 1 to the monkey.
+The next morning, each sailor takes 0
+with none left over for the monkey.
+
+Sailors 2: Coconuts 3:
+1st takes 1, gives 1 to the monkey.
+2nd takes 0, gives 1 to the monkey.
+The next morning, each sailor takes 0
+with none left over for the monkey.
+
+Sailors 3: Coconuts 25:
+1st takes 8, gives 1 to the monkey.
+2nd takes 5, gives 1 to the monkey.
+3rd takes 3, gives 1 to the monkey.
+The next morning, each sailor takes 2
+with none left over for the monkey.
+
+Sailors 4: Coconuts 765:
+1st takes 191, gives 1 to the monkey.
+2nd takes 143, gives 1 to the monkey.
+3rd takes 107, gives 1 to the monkey.
+4th takes 80, gives 1 to the monkey.
+The next morning, each sailor takes 60
+with none left over for the monkey.
+
+Sailors 5: Coconuts 3121:
+1st takes 624, gives 1 to the monkey.
+2nd takes 499, gives 1 to the monkey.
+3rd takes 399, gives 1 to the monkey.
+4th takes 319, gives 1 to the monkey.
+5th takes 255, gives 1 to the monkey.
+The next morning, each sailor takes 204
+with none left over for the monkey.
+
+Sailors 6: Coconuts 233275:
+1st takes 38879, gives 1 to the monkey.
+2nd takes 32399, gives 1 to the monkey.
+3rd takes 26999, gives 1 to the monkey.
+4th takes 22499, gives 1 to the monkey.
+5th takes 18749, gives 1 to the monkey.
+6th takes 15624, gives 1 to the monkey.
+The next morning, each sailor takes 13020
+with none left over for the monkey.
+
+Sailors 7: Coconuts 823537:
+1st takes 117648, gives 1 to the monkey.
+2nd takes 100841, gives 1 to the monkey.
+3rd takes 86435, gives 1 to the monkey.
+4th takes 74087, gives 1 to the monkey.
+5th takes 63503, gives 1 to the monkey.
+6th takes 54431, gives 1 to the monkey.
+7th takes 46655, gives 1 to the monkey.
+The next morning, each sailor takes 39990
+with none left over for the monkey.
+
+Sailors 8: Coconuts 117440505:
+1st takes 14680063, gives 1 to the monkey.
+2nd takes 12845055, gives 1 to the monkey.
+3rd takes 11239423, gives 1 to the monkey.
+4th takes 9834495, gives 1 to the monkey.
+5th takes 8605183, gives 1 to the monkey.
+6th takes 7529535, gives 1 to the monkey.
+7th takes 6588343, gives 1 to the monkey.
+8th takes 5764800, gives 1 to the monkey.
+The next morning, each sailor takes 5044200
+with none left over for the monkey.
+
+Sailors 9: Coconuts 387420481:
+1st takes 43046720, gives 1 to the monkey.
+2nd takes 38263751, gives 1 to the monkey.
+3rd takes 34012223, gives 1 to the monkey.
+4th takes 30233087, gives 1 to the monkey.
+5th takes 26873855, gives 1 to the monkey.
+6th takes 23887871, gives 1 to the monkey.
+7th takes 21233663, gives 1 to the monkey.
+8th takes 18874367, gives 1 to the monkey.
+9th takes 16777215, gives 1 to the monkey.
+The next morning, each sailor takes 14913080
+with none left over for the monkey.
+
+Sailors 10: Coconuts 89999999991:
+1st takes 8999999999, gives 1 to the monkey.
+2nd takes 8099999999, gives 1 to the monkey.
+3rd takes 7289999999, gives 1 to the monkey.
+4th takes 6560999999, gives 1 to the monkey.
+5th takes 5904899999, gives 1 to the monkey.
+6th takes 5314409999, gives 1 to the monkey.
+7th takes 4782968999, gives 1 to the monkey.
+8th takes 4304672099, gives 1 to the monkey.
+9th takes 3874204889, gives 1 to the monkey.
+10th takes 3486784400, gives 1 to the monkey.
+The next morning, each sailor takes 3138105960
+with none left over for the monkey.
+
+Sailors 11: Coconuts 285311670601:
+1st takes 25937424600, gives 1 to the monkey.
+2nd takes 23579476909, gives 1 to the monkey.
+3rd takes 21435888099, gives 1 to the monkey.
+4th takes 19487170999, gives 1 to the monkey.
+5th takes 17715609999, gives 1 to the monkey.
+6th takes 16105099999, gives 1 to the monkey.
+7th takes 14640999999, gives 1 to the monkey.
+8th takes 13309999999, gives 1 to the monkey.
+9th takes 12099999999, gives 1 to the monkey.
+10th takes 10999999999, gives 1 to the monkey.
+11th takes 9999999999, gives 1 to the monkey.
+The next morning, each sailor takes 9090909090
+with none left over for the monkey.
+
+Sailors 12: Coconuts 98077104930805:
+1st takes 8173092077567, gives 1 to the monkey.
+2nd takes 7492001071103, gives 1 to the monkey.
+3rd takes 6867667648511, gives 1 to the monkey.
+4th takes 6295362011135, gives 1 to the monkey.
+5th takes 5770748510207, gives 1 to the monkey.
+6th takes 5289852801023, gives 1 to the monkey.
+7th takes 4849031734271, gives 1 to the monkey.
+8th takes 4444945756415, gives 1 to the monkey.
+9th takes 4074533610047, gives 1 to the monkey.
+10th takes 3734989142543, gives 1 to the monkey.
+11th takes 3423740047331, gives 1 to the monkey.
+12th takes 3138428376720, gives 1 to the monkey.
+The next morning, each sailor takes 2876892678660
+with none left over for the monkey.
+
+Sailors 13: Coconuts 302875106592241:
+1st takes 23298085122480, gives 1 to the monkey.
+2nd takes 21505924728443, gives 1 to the monkey.
+3rd takes 19851622826255, gives 1 to the monkey.
+4th takes 18324574916543, gives 1 to the monkey.
+5th takes 16914992230655, gives 1 to the monkey.
+6th takes 15613838982143, gives 1 to the monkey.
+7th takes 14412774445055, gives 1 to the monkey.
+8th takes 13304099487743, gives 1 to the monkey.
+9th takes 12280707219455, gives 1 to the monkey.
+10th takes 11336037433343, gives 1 to the monkey.
+11th takes 10464034553855, gives 1 to the monkey.
+12th takes 9659108818943, gives 1 to the monkey.
+13th takes 8916100448255, gives 1 to the monkey.
+The next morning, each sailor takes 8230246567620
+with none left over for the monkey.
+
+Sailors 14: Coconuts 144456088732254195:
+1st takes 10318292052303871, gives 1 to the monkey.
+2nd takes 9581271191425023, gives 1 to the monkey.
+3rd takes 8896894677751807, gives 1 to the monkey.
+4th takes 8261402200769535, gives 1 to the monkey.
+5th takes 7671302043571711, gives 1 to the monkey.
+6th takes 7123351897602303, gives 1 to the monkey.
+7th takes 6614541047773567, gives 1 to the monkey.
+8th takes 6142073830075455, gives 1 to the monkey.
+9th takes 5703354270784351, gives 1 to the monkey.
+10th takes 5295971822871183, gives 1 to the monkey.
+11th takes 4917688121237527, gives 1 to the monkey.
+12th takes 4566424684006275, gives 1 to the monkey.
+13th takes 4240251492291541, gives 1 to the monkey.
+14th takes 3937376385699288, gives 1 to the monkey.
+The next morning, each sailor takes 3656135215292196
+with none left over for the monkey.
+
+Sailors 15: Coconuts 437893890380859361:
+1st takes 29192926025390624, gives 1 to the monkey.
+2nd takes 27246730957031249, gives 1 to the monkey.
+3rd takes 25430282226562499, gives 1 to the monkey.
+4th takes 23734930078124999, gives 1 to the monkey.
+5th takes 22152601406249999, gives 1 to the monkey.
+6th takes 20675761312499999, gives 1 to the monkey.
+7th takes 19297377224999999, gives 1 to the monkey.
+8th takes 18010885409999999, gives 1 to the monkey.
+9th takes 16810159715999999, gives 1 to the monkey.
+10th takes 15689482401599999, gives 1 to the monkey.
+11th takes 14643516908159999, gives 1 to the monkey.
+12th takes 13667282447615999, gives 1 to the monkey.
+13th takes 12756130284441599, gives 1 to the monkey.
+14th takes 11905721598812159, gives 1 to the monkey.
+15th takes 11112006825558015, gives 1 to the monkey.
+The next morning, each sailor takes 10371206370520814
+with none left over for the monkey.
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
