@@ -1,0 +1,49 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Detect_division_by_zero
+#c# 2015-11-01 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#    $! not set?
+
+use lib 'libtest'; # DH work-around for problems with JVM and Test::Output
+
+my &testcode = sub {
+
+sub div($a, $b) {
+    my $r;
+    try {
+        $r = $a / $b;
+        CATCH {
+            #say "tried to divide by zero!" if $! ~~ "Divide by zero"; # $! not set?
+            default { note "Unexpected exception, $_!" }
+        }
+    }
+    return $r // Nil;
+}
+
+say div(10,2);
+say div(1, sin(0));
+
+}
+
+
+my $out = qq:to/OUT/;
+5
+Nil
+OUT
+
+my $err = qq:to/ERR/;
+Unexpected exception, Attempt to divide 1 by zero using /!
+ERR
+
+say $out;
+say $err;
+
+use Test;
+use Test::Output;
+is stdout-from(&testcode), $out;
+is stderr-from(&testcode), $err;
+
+#is div(10,2), '5';
+#say div(1, sin(0)); # undef, and prints "tried to divide by zero"
+#say div(1,0); # Inf, 1/0 constants are substituted for Infinity
