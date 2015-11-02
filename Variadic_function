@@ -1,0 +1,49 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Variadic_function
+#c# 2015-11-01 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version #25 "Minneapolis"
+#If a subroutine has no formal parameters but mentions the variables @_ or %_ in its body, it will accept arbitrary positional or keyword arguments, respectively. You can even use both in the same function.
+
+my @res1;
+
+sub foo {
+   #.say for @_;
+   #say .key, ': ', .value for %_;
+   @res1.push: $_ for @_;
+   @res1.push: .key ~ ': ' ~ .value for %_;
+}
+
+foo 1, 2, command => 'buckle my shoe', 3, 4, order => 'knock at the door';
+
+#Perl 6 also supports slurpy arrays and hashes, which are formal parameters that consume extra positional and keyword arguments like @_ and %_. You can make a parameter slurpy with the * twigil. This implementation of &foo works just like the last:
+
+my @res2;
+sub foo1 (*@positional, *%named) {
+   #.say for @positional;
+   #say .key, ': ', .value for %named;
+   @res2.push: $_ for @positional;
+   @res2.push: .key ~ ': ' ~ .value for %named;
+}
+
+foo1 1, 2, command => 'buckle my shoe', 3, 4, order => 'knock at the door';
+
+#Unlike in Perl 5, arrays and hashes aren't flattened automatically. Use the | operator to flatten:
+#foo |@ary, |%hsh;
+
+.say for sort @res1;
+
+my $ref = qq:to/END/;
+1
+2
+3
+4
+command: buckle my shoe
+order: knock at the door
+END
+
+use Test;
+is (sort @res1).join("\n"), chomp $ref;
+is (sort @res2).join("\n"), chomp $ref;
