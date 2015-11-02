@@ -1,0 +1,23 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Find_the_missing_permutation
+#c# 2015-11-02 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @givens = <ABCD CABD ACDB DACB BCDA ACBD ADCB CDAB DABC BCAD CADB CDBA
+                CBAD ABDC ADBC BDCA DCBA BACD BADC BDAC CBDA DBCA DCAB>;
+
+my @perms = [<A B C D>].permutations.map: *.join;
+#my @perms = [<A B C D>].permutations.tree.map: *.join;
+
+say my $result = $_ when none(@givens) for @perms;
+
+#Of course, all of these solutions are working way too hard,
+#when you can just xor all the bits,
+#and the missing one will just pop right out:
+
+say [~^] @givens;
+
+use Test;
+is $result, 'DBAC';
+is ([~^] @givens), 'DBAC';
