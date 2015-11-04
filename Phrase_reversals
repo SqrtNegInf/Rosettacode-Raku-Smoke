@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Phrase_reversals
+#c# 2015-11-03 <RC, 2018-04-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $s = 'rosetta code phrase reversal';
+
+put 'Input              : ', my $r1 = $s;
+put 'String reversed    : ', my $r2 = $s.flip;
+put 'Each word reversed : ', my $r3 = $s.words».flip;
+put 'Word-order reversed: ', my $r4 = $s.words.reverse;
+
+use Test;
+is $r1, 'rosetta code phrase reversal', 'orginal';
+is $r2, 'lasrever esarhp edoc attesor', 'flip string';
+is $r3, 'attesor edoc esarhp lasrever', 'flip words';
+is $r4, 'reversal phrase code rosetta', 'word order reversed';
