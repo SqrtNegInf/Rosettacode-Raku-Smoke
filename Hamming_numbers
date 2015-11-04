@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Hamming_numbers
+#c# 2015-11-04 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#The limit scaling is not required, but it cuts down on a bunch of unnecessary calculation.
+
+my $limit = 32;
+
+sub powers_of ($radix) { 1, |[\*] $radix xx * }
+
+my @hammings = 
+  (   powers_of(2)[^ $limit ]       X*
+      powers_of(3)[^($limit * 2/3)] X* 
+      powers_of(5)[^($limit * 1/2)]
+  ).sort;
+
+say my $first20 = @hammings[^20];
+say my $millionth = @hammings[1690]; # zero indexed
+
+use Test;
+is $first20, '1 2 3 4 5 6 8 9 10 12 15 16 18 20 24 25 27 30 32 36', 'First 20';
+is $millionth, 2125764000, '1 millionth';
