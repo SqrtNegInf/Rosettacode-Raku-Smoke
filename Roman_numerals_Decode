@@ -1,0 +1,57 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Roman_numerals/Decode
+#c# 2015-11-04 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#A non-validating version:
+sub rton1($r) {
+    [+] gather $r.uc ~~ /
+        ^
+        [
+        | M  { take 1000 }
+        | CM { take 900 }
+        | D  { take 500 }
+        | CD { take 400 }
+        | C  { take 100 }
+        | XC { take 90 }
+        | L  { take 50 }
+        | XL { take 40 }
+        | X  { take 10 }
+        | IX { take 9 }
+        | V  { take 5 }
+        | IV { take 4 }
+        | I  { take 1 }
+        ]+
+        $
+    /;
+}
+
+say "$_ => &rton1($_)" for <MCMXC MDCLXVI MMVIII>;
+
+#A validating version. Also handles older forms such as 'IIXX' and "IIII".
+sub rton2($r) {
+    [+] gather $r.uc ~~ /
+        ^
+        ( (C*)M { take 1000 - 100 * $0.chars } )*
+        ( (C*)D { take  500 - 100 * $0.chars } )?
+        ( (X*)C { take  100 -  10 * $0.chars } )*
+        ( (X*)L { take   50 -  10 * $0.chars } )?
+        ( (I*)X { take   10 -       $0.chars } )*
+        ( (I*)V { take    5 -       $0.chars } )?
+        (     I { take    1                  } )*
+        [ $ || { return NaN } ]
+    /;
+}
+
+say "$_ => ", rton2($_) for <MCMXC mdclxvi MMViii IIXX ILL>;
+
+use Test;
+is rton1('MCMXC'), 1990, 'MCMXC => 1990';
+is rton1('mdclxvi'), 1666, 'mdclxvi => 1666';
+is rton1('MMViii'), 2008, 'MMViii => 2008';
+is rton2('MCMXC'), 1990, 'MCMXC => 1990';
+is rton2('mdclxvi'), 1666, 'mdclxvi => 1666';
+is rton2('MMViii'), 2008, 'MMViii => 2008';
+is rton2('IIXX'), 18, 'IIXX => 18';
+is rton2('ILL'), NaN, 'ILL => NaN';
