@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Inheritance/Single
+#c# 2015-11-04 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015-09-16
+class Animal {}
+class Dog is Animal {}
+class Cat is Animal {}
+class Lab is Dog {}
+class Collie is Dog {}
+
+say my $r1 = Collie.^parents;     # undefined type object
+say my $r2 = Collie.new.^parents; # instantiated object
+
+use Test;
+is $r1.gist, '((Dog) (Animal))';
+is $r2.gist, '((Dog) (Animal))';
+
+#The .^parents notation indicates a method call to the object's metaobject rather than to the object itself.
