@@ -1,0 +1,58 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Substring/Top_and_tail
+#c# 2015-11-04 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# Unicode problem
+#`{ java.nio.charset.MalformedInputException: Input length = 1
+  in method print at gen/jvm/CORE.setting line 35089
+  in sub say at gen/jvm/CORE.setting line 35924
+  in block <unit> at Substring_Top_and_tail line 36
+}
+
+#Perl6 provides both functional and method forms of substr. Note that, unlike in Perl5, offsets from the end do not use negative numbers, but instead require a function expressing the negative offset relative to the length parameter, which is supplied by the operator. The form *-1 is just a simple way to write such a function.
+
+#We use musical sharps and flats to illustrate that Perl is comfortable with characters from any Unicode plane.
+
+my $s = '𝄪♯♮♭𝄫';
+
+my $result = qq:to/END/;
+    Original:
+    $s
+
+    Remove first character:
+    { substr($s, 1) }
+    { $s.substr(1) }
+
+    Remove last character:
+    { substr($s, 0, *-1) }
+    { $s.substr( 0, *-1) }
+    { $s.chop }
+
+    Remove first and last characters:
+    { substr($s, 1, *-1) }
+    { $s.substr(1, *-1) }
+    END
+
+say $result;
+
+my $ref = qq:to/END/;
+Original:
+𝄪♯♮♭𝄫
+
+Remove first character:
+♯♮♭𝄫
+♯♮♭𝄫
+
+Remove last character:
+𝄪♯♮♭
+𝄪♯♮♭
+𝄪♯♮♭
+
+Remove first and last characters:
+♯♮♭
+♯♮♭
+END
+
+use Test;
+is $result, $ref;
