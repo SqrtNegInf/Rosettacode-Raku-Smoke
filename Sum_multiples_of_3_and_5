@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sum_multiples_of_3_and_5
+#c# 2015-11-03 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub sum35($n) { [+] grep * %% (3|5), ^$n; }
+#say sum35 1000;
+
+#Here's an analytical approach that scales much better for large values.
+sub sum-mults($first, $limit) {
+    (my $last = $limit - 1) -= $last % $first;
+    ($last div $first) * ($first + $last) div 2;
+}
+
+sub sum35a(\n) {
+    sum-mults(3,n) + sum-mults(5,n) - sum-mults(15,n);
+}
+
+say sum35a($_) for 1,10,100...10**30;
+
+use Test;
+is (sum35 1000), 233168, '1000 -> 233168';
+is (sum35a 1000), 233168, 'analytic version';
