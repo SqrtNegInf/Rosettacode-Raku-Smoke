@@ -1,0 +1,95 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Knapsack_problem/Continuous
+#c# 2015-11-04 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#   Type check failed in binding to nu; expected Int but got Str ("3.8")
+
+# Works with: rakudo version 2015-09-16
+#This Solutions sorts the item by WEIGHT/VALUE
+
+class KnapsackItem {
+  has $.name;
+  has $.weight is rw;
+  has $.price is rw;
+  has $.ppw;
+
+  method new (Str $n, Rat $w, Int $p) {
+    self.bless(:name($n), :weight($w), :price($p), :ppw($w/$p))
+  }
+
+  method cut-maybe ($max-weight) {
+    return False if $max-weight > $.weight;
+    $.price = $max-weight / $.ppw;
+    $.weight = $.ppw * $.price;
+    return True;
+  }
+
+  method gist () { sprintf "%8s %1.2f %3.2f", $.name, $.weight, $.price }
+}
+
+my @res;
+my $max-w = 15;
+say    "Item    Portion Value";
+
+.say for gather
+    for < beef    3.8 36
+          pork    5.4 43
+          ham     3.6 90
+          greaves 2.4 45
+          flitch  4.0 30
+          brawn   2.5 56
+          welt    3.7 67
+          salami  3.0 95
+          sausage 5.9 98 >
+        ==> map({ KnapsackItem.new($^a, $^b, $^c) })
+        ==> sort *.ppw
+    {
+        my $last-one = .cut-maybe($max-w);
+        push @res, $_.gist;
+        take $_;
+        $max-w -= .weight;
+        last if $last-one;
+    }
+
+my $ref = qq:to/END/;
+  salami 3.00 95.00
+     ham 3.60 90.00
+   brawn 2.50 56.00
+ greaves 2.40 45.00
+    welt 3.50 63.38
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+#`{
+Died
+  in throw (gen/jvm/CORE.setting:34494)
+  in <anon> (gen/jvm/CORE.setting:37000)
+  in DIVIDE_NUMBERS (gen/jvm/CORE.setting:33288)
+  in infix:</> (gen/jvm/CORE.setting:33429)
+  in new (Knapsack_problem_Continuous:17)
+  in <anon> (Knapsack_problem_Continuous:45)
+  in pull-one (gen/jvm/CORE.setting:11110)
+  in push-all (gen/jvm/CORE.setting:2917)
+  in push-until-lazy (gen/jvm/CORE.setting:2930)
+  in reify-until-lazy (gen/jvm/CORE.setting:23126)
+  in sort (gen/jvm/CORE.setting:24251)
+  in sort (gen/jvm/CORE.setting:11803)
+  in sort (gen/jvm/CORE.setting:12396)
+  in sort (gen/jvm/CORE.setting:12395)
+  in <anon> (Knapsack_problem_Continuous:47)
+  in <anon> (gen/jvm/CORE.setting:21857)
+  in pull-one (gen/jvm/CORE.setting:21878)
+  in <unit> (Knapsack_problem_Continuous:35)
+  in <unit-outer> (Knapsack_problem_Continuous:1)
+  in eval (gen/jvm/stage2/NQPHLL.nqp:1168)
+  in evalfiles (gen/jvm/stage2/NQPHLL.nqp:1390)
+  in command_eval (gen/jvm/stage2/NQPHLL.nqp:1282)
+  in command_eval (src/Perl6/Compiler.nqp:42)
+  in command_line (gen/jvm/stage2/NQPHLL.nqp:1256)
+  in MAIN (gen/jvm/main.nqp:47)
+  in <mainline> (gen/jvm/main.nqp:38)
+  in <anon> (gen/jvm/main.nqp)
+}
