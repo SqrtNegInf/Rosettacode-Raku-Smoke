@@ -1,0 +1,31 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Subtractive_generator
+#c# 2015-11-04 <RC, 2018-04-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Translation of: Perl
+# Works with: Rakudo version 2018.03
+
+sub bentley-clever($seed) {
+    constant $mod = 1_000_000_000;
+    my @seeds = ($seed % $mod, 1, (* - *) % $mod ... *)[^55];
+    my @state = @seeds[ 34, (* + 34 ) % 55 ... 0 ];
+ 
+    sub subrand() {
+        push @state, (my $x = (@state.shift - @state[*-24]) % $mod);
+        $x;
+    }
+ 
+    subrand for 55 .. 219;
+ 
+    &subrand ... *;
+}
+ 
+my @sr = bentley-clever(292929);
+.say for @sr[^10];
+
+# Here we just make the seeder return the random sequence as a lazy list.
+
+use Test;
+is (join ' ', @sr[^10]), '467478574 512932792 539453717 20349702 615542081 378707948 933204586 824858649 506003769 380969305';
