@@ -1,0 +1,70 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Huffman_coding
+#c# 2015-11-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+use MONKEY-SEE-NO-EVAL;
+
+# Works with: rakudo version 2015-09-14
+sub huffman ($s) {
+    my $de = $s.chars;
+    my @q = $s.comb.classify({$_}).map({[+.value / $de, .key]}).sort;
+    while @q > 1 {
+	my ($a,$b) = @q.splice(0,2);
+	@q = sort flat $[$a[0] + $b[0], [$a[1], $b[1]]], @q;
+    }
+    sort *.value, gather walk @q[0][1], '';
+}
+
+multi walk (@node, $prefix) {
+    walk @node[0], $prefix ~ 1;
+    walk @node[1], $prefix ~ 0;
+}
+multi walk ($node, $prefix) { take $node => $prefix }
+
+say .perl for huffman('this is an example for huffman encoding');
+
+#`{
+
+:d("000000")
+:c("000001")
+:x("00001")
+:i("0001")
+:f("0010")
+:e("0011")
+" " => "010"
+:a("0110")
+:u("01110")
+:t("01111")
+:s("1000")
+:r("10010")
+:p("10011")
+:n("101")
+:o("1100")
+:m("1101")
+:h("1110")
+:l("11110")
+:g("11111")
+}
+
+#To demonstrate that the table can do a round trip:
+
+my $str = 'this is an example for huffman encoding';
+my %enc = huffman $str;
+my %dec = %enc.invert;
+say $str;
+my $huf = %enc{$str.comb}.join;
+say $huf;
+my $rx = join('|', map { "'" ~ .key ~ "'" }, %dec);
+$rx = EVAL '/' ~ $rx ~ '/';
+say my $rt = $huf.subst(/<$rx>/, -> $/ {%dec{~$/}}, :g);
+
+#`<
+this is an example for huffman encoding
+0111111100001100001000011000010011010101000110000101101101100111111000110100010110010010010111001110001000101101011010101000111010000011100000000000110111111
+this is an example for huffman encoding
+>
+
+use Test;
+is $rt, $str, 'round-trip';
