@@ -1,0 +1,42 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Catalan_numbers/Pascal's_triangle#Perl_6
+#c# 2015-11-09 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+constant @pascal = [1], -> @p { [0, |@p Z+ |@p, 0] } ... *;
+ 
+constant @catalan = gather for 2, 4 ... * -> $ix {
+    my @row := @pascal[$ix];
+    my $mid = +@row div 2;
+    take [-] @row[$mid, $mid+1]
+}
+ 
+.say for my @res = @catalan[^20];
+
+my $ref = qq:to/END/;
+1
+2
+5
+14
+42
+132
+429
+1430
+4862
+16796
+58786
+208012
+742900
+2674440
+9694845
+35357670
+129644790
+477638700
+1767263190
+6564120420
+END
+
+use Test;
+#is @catalan[10], 58786, '10th element good';
+is @res.join("\n"), chomp $ref;
