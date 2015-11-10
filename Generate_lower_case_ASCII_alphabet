@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Generate_lower_case_ASCII_alphabet
+#c# 2015-11-09 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-10-21
+
+my @letters = 'a'..'z';
+
+# 'a'..'z' is a range literal, it constructs an immutable Range object.
+# Assigning to an @ variable flattens it into an Array.
+
+use Test;
+is @letters, 'a b c d e f g h i j k l m n o p q r s t u v w x y z';
