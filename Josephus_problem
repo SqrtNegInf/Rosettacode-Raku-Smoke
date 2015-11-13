@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Josephus_problem
+#c# 2015-11-12 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Straightforward implementation of the executioner's algorithm:
+
+#sub Execute(@prisoner is rw, $k) {
+sub Execute(@prisoner, $k) {
+    until @prisoner == 1 {
+	@prisoner.=rotate($k - 1);
+	@prisoner.shift;
+    }
+}
+
+my @prisoner = ^41;
+Execute @prisoner, 3;
+say "Prisoner {@prisoner} survived.";
+
+# We don't have to use numbers. Any list will do:
+my @dalton = <Joe Jack William Averell Rantanplan>;
+Execute @dalton, 2;
+say "{@dalton} survived.";
+
+
+use Test;
+is @prisoner, 30, '30 survives';
+is ~@dalton, 'William', 'W. is lucky guy';
