@@ -1,0 +1,22 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Jensen's_Device#Perl_6
+#c# 2015-11-12 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Rather than playing tricks like Perl 5 does, the declarations of the formal parameters are quite straightforward in Perl 6:
+
+sub sum($i is rw, $lo, $hi, &term) {
+    my $temp = 0;
+    loop ($i = $lo; $i <= $hi; $i++) {
+        $temp += term;
+    }
+    return $temp;
+}
+ 
+my $i;
+say my $out = sum $i, 1, 100, { 1 / $i };
+
+use Test;
+is-approx $out, 5.187377, 'Nailed it';
+
