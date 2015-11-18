@@ -1,0 +1,10 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Binary_digits
+#c# 2015-11-18 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+say .fmt("%b") for 5, 50, 9000;
+
+use Test;
+is (50.fmt("%b")), 110010, 'Binary: love it or hate it';
