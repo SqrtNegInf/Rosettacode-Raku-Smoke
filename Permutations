@@ -1,0 +1,78 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Permutations
+#c# 2015-11-19 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#First, you can just use the built-in method on any list type.
+
+.put for <a b c>.permutations;
+my @res1 = <a b c>.permutations;
+
+my $ref1 = qq:to/END/;
+a b c
+a c b
+b a c
+b c a
+c a b
+c b a
+END
+
+use Test;
+is @res1.join("\n"), chomp $ref1;
+
+#Here is some generic code that works with any ordered type. To force lexicographic ordering, change after to gt. To force numeric order, replace it with >.
+
+sub next_perm ( @a is copy ) {
+    my $j = @a.end - 1;
+    return Nil if --$j < 0 while @a[$j] after @a[$j+1];
+
+    my $aj = @a[$j];
+    my $k  = @a.end;
+    $k-- while $aj after @a[$k];
+    @a[ $j, $k ] .= reverse;
+
+    my $r = @a.end;
+    my $s = $j + 1;
+    @a[ $r--, $s++ ] .= reverse while $r > $s;
+    return $(@a);
+}
+
+.put for [<a b c>], &next_perm ...^ !*;
+my @res2 = [<a b c>], &next_perm ...^ !*;
+is @res2.join("\n"), chomp $ref1;
+
+# Here is another non-recursive implementation, which returns a lazy list. It also works with any type.
+
+sub permute(@items) {
+   my @seq := 1..+@items;
+   gather for (^[*] @seq) -> $n is copy {
+      my @order;
+      for @seq {
+         unshift @order, $n mod $_;
+         $n div= $_;
+      }
+      my @i-copy = @items;
+      take map { | @i-copy.splice($_, 1) }, @order;
+   }
+}
+#.say for permute( <a b c> );
+.put for permute( 'a'..'c' );
+my @res3 = permute( 'a'..'c' );
+is @res3.join("\n"), chomp $ref1;
+
+# Finally, if you just want zero-based numbers, you can call the built-in function:
+
+.put for permutations(3);
+my @res4 = permutations(3);
+
+my $ref2 = qq:to/END/;
+0 1 2
+0 2 1
+1 0 2
+1 2 0
+2 0 1
+2 1 0
+END
+
+is @res4.join("\n"), chomp $ref2;
