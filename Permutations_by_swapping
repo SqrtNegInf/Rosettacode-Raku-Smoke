@@ -1,0 +1,32 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Permutations_by_swapping
+#c# 2015-11-20 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub insert($x, @xs) { ([flat @xs[0 ..^ $_], $x, @xs[$_ .. *]] for 0 .. +@xs) }
+sub order($sg, @xs) { $sg > 0 ?? @xs !! @xs.reverse }
+ 
+multi perms([]) {
+    [] => +1
+}
+ 
+multi perms([$x, *@xs]) {
+    perms(@xs).map({ |order($_.value, insert($x, $_.key)) }) Z=> |(+1,-1) xx *
+}
+ 
+my @res.push: $_.gist for perms([0..2]);
+.say for @res;
+
+my $ref = qq:to/END/;
+[0 1 2] => 1
+[1 0 2] => -1
+[1 2 0] => 1
+[2 1 0] => -1
+[2 0 1] => 1
+[0 2 1] => -1
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
