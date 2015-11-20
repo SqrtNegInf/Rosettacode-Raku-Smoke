@@ -1,0 +1,100 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Combinations_and_permutations
+#c# 2015-11-20 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Perl 6 can't compute arbitrary large floating point values, thus we will use logarithms, as is often needed when dealing with combinations. We'll also use a Stirling method to approximate ln(n!):
+
+#Notice that Perl6 can process arbitrary long integers, though. So it's not clear whether using floating points is useful in this case.
+
+multi P($n, $k) { [*] $n - $k + 1 .. $n }
+multi C($n, $k) { P($n, $k) / [*] 1 .. $k }
+
+sub lstirling(\n) {
+    n < 10 ?? lstirling(n+1) - log(n+1) !!
+    .5*log(2*pi*n)+ n*log(n/e+1/(12*e*n))
+}
+
+role Logarithm {
+    method gist {
+	my $e = (self/10.log).Int;
+	sprintf "%.8fE%+d", exp(self - $e*10.log), $e;
+    }
+}
+multi P($n, $k, :$float!) {
+    (lstirling($n) - lstirling($n -$k))
+    but Logarithm
+}
+multi C($n, $k, :$float!) {
+    (lstirling($n) - lstirling($n -$k) - lstirling($k))
+    but Logarithm
+}
+
+my @res;
+#say "Exact results:";
+for 1..12 -> $n {
+    my $p = $n div 3;
+    @res.push: "P($n, $p) = "~ P($n, $p);
+}
+
+for 10, 20 ... 60 -> $n {
+    my $p = $n div 3;
+    @res.push: "C($n, $p) = "~ C($n, $p);
+}
+
+#say '';
+#say "Floating point approximations:";
+for 5, 50, 500, 1000, 5000, 15000 -> $n {
+    my $p = $n div 3;
+    @res.push: "P($n, $p) = "~ P($n, $p, :float);
+}
+
+for 100, 200 ... 1000 -> $n {
+    my $p = $n div 3;
+    @res.push: "C($n, $p) = "~ C($n, $p, :float);
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+P(1, 0) = 1
+P(2, 0) = 1
+P(3, 1) = 3
+P(4, 1) = 4
+P(5, 1) = 5
+P(6, 2) = 30
+P(7, 2) = 42
+P(8, 2) = 56
+P(9, 3) = 504
+P(10, 3) = 720
+P(11, 3) = 990
+P(12, 4) = 11880
+C(10, 3) = 120
+C(20, 6) = 38760
+C(30, 10) = 30045015
+C(40, 13) = 12033222880
+C(50, 16) = 4923689695575
+C(60, 20) = 4191844505805495
+P(5, 1) = 1.6094379124341005
+P(50, 16) = 59.89693942169964
+P(500, 166) = 1000.5846082753349
+P(1000, 333) = 2237.59675936876
+P(5000, 1666) = 13875.000418238902
+P(15000, 5000) = 47133.88121127967
+C(100, 33) = 60.94797444498198
+C(200, 66) = 124.02073218446498
+C(300, 100) = 187.93448719785454
+C(400, 133) = 251.21125750252963
+C(500, 166) = 314.51920097349273
+C(600, 200) = 378.542650203824
+C(700, 233) = 441.8860122470576
+C(800, 266) = 505.2390420791519
+C(900, 300) = 569.294330174919
+C(1000, 333) = 632.662050176921
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+is P(12, 4), 11880, 'Exact result';
+is C(60, 20), 4191844505805495, 'Float result';
+is C(100,33).perl, '294692427022540894366527900.0', 'Float approx.';
