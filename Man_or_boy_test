@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Man_or_boy_test
+#c# 2015-11-23 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN StackOverflowError
+
+# This solution avoids creating the closure B if $k <= 0 (that is, nearly every time).
+
+sub A($k is copy, &x1, &x2, &x3, &x4, &x5) {
+    $k <= 0
+        ?? x4() + x5()
+        !! (my &B = { A(--$k, &B, &x1, &x2, &x3, &x4) })();
+};
+
+say my $out = A(10, {1}, {-1}, {-1}, {1}, {0});
+
+use Test;
+is $out, -67, 'Manly Perl 6!';
