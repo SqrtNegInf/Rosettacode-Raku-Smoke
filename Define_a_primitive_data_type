@@ -1,0 +1,36 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Define_a_primitive_data_type
+#c# 2015-11-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+use lib 'libtest'; # DH work-around for problems with JVM and Test::Output
+
+my &testcode = sub {
+
+subset OneToTen of Int where 1..10;
+
+my OneToTen $n = 5;
+say $n;
+
+try {
+    $n += 6;
+    CATCH { default { note "$_!" } }
+}
+
+}
+
+use Test;
+use Test::Output;
+
+say "5";
+say "Type check failed in assignment to \$n; expected OneToTen but got Int (11)!";
+is stdout-from(&testcode), "5\n";
+is stderr-from(&testcode), "Type check failed in assignment to \$n; expected OneToTen but got Int (11)!\n";
+
+# Here the result 11 fails to smartmatch against the range 1..10, so the
+# second assignment throws an exception. You may use any valid smartmatch
+# predicate within a where clause, so the following one-argument closure is
+# also legal:
+
+subset Prime of Int where -> $n { $n > 1 and so $n %% none 2 .. $n.sqrt }
