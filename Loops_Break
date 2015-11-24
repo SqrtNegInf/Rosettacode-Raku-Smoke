@@ -1,0 +1,128 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Loops/Break
+#c# 2015-11-23 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 12345;
+
+my @res;
+# Works with: Rakudo version #21 "Seattle"
+loop {
+    @res.push: my $n = (0..19).pick;
+    last if $n == 10;
+    @res.push: (0..19).pick;
+}
+
+.say for @res;
+
+my $moar = qq:to/END/;
+15
+4
+16
+16
+11
+19
+0
+10
+0
+19
+2
+1
+14
+8
+2
+2
+0
+0
+9
+5
+4
+19
+15
+3
+5
+17
+10
+END
+
+my $jvm = qq:to/END/;
+17
+2
+14
+9
+4
+13
+9
+0
+6
+9
+15
+18
+16
+8
+2
+14
+3
+11
+11
+19
+14
+0
+14
+4
+8
+12
+7
+13
+13
+8
+7
+13
+16
+13
+8
+15
+13
+14
+2
+14
+18
+13
+14
+4
+13
+8
+3
+13
+1
+2
+16
+0
+8
+16
+8
+0
+18
+14
+12
+8
+15
+19
+15
+14
+7
+4
+13
+10
+0
+19
+10
+END
+
+use Test;
+if $*VM ~~ /jvm/ {
+is @res.join("\n"), chomp $jvm;
+} else {
+is @res.join("\n"), chomp $moar;
+}
