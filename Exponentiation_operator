@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Exponentiation_operator
+#c# 2015-11-27 <RC, 2018-04-01 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+subset Natural of Int where { $^n >= 0 }
+
+multi pow (0,     0)            { fail '0⁰ is undefined' }
+multi pow ($base, Natural $exp) { [*] $base xx $exp }
+multi pow ($base, Int $exp)     { 1 / pow $base, -$exp }
+
+sub infix:<***> ($a, $b) { pow $a, $b }
+
+#Examples of use:
+say pow .75, -5;
+say .75 *** -5;
+
+use Test;
+is (pow .75, -5), 4.213992;
+is (0.75 *** -5), 4.213992;
