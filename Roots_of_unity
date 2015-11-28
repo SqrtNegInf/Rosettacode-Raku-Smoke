@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Roots_of_unity
+#c# 2015-11-28 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub roots-of-unity (Int \n where 1..*) {
+    map { exp 2i * pi/n * $_ }, ^n;
+}
+
+printf "%+.5f%+.5fi\n", .reals for roots-of-unity 10;
+my @res;
+push @res, sprintf "%+.5f%+.5fi", .reals for roots-of-unity 10;
+
+my $ref = qq:to/END/;
++1.00000+0.00000i
++0.80902+0.58779i
++0.30902+0.95106i
+-0.30902+0.95106i
+-0.80902+0.58779i
+-1.00000+0.00000i
+-0.80902-0.58779i
+-0.30902-0.95106i
++0.30902-0.95106i
++0.80902-0.58779i
+END
+
+use Test;
+is (join "\n", @res), chomp $ref;
