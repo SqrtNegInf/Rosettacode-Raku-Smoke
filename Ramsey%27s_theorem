@@ -1,0 +1,42 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Ramsey's_theorem
+#c# 2015-11-28 <RC, 2017-01-19 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @a = [ 0 xx 17 ] xx 17;
+@a[$_;$_] = '-' for ^17;
+ 
+for flat ^17 X 1,2,4,8 -> $i, $k {
+    my $j = ($i + $k) % 17;
+    @a[$i;$j] = @a[$j;$i] = 1;
+}
+.say for @a;
+
+my $ref = qq:to/END/;
+- 1 1 0 1 0 0 0 1 1 0 0 0 1 0 1 1
+1 - 1 1 0 1 0 0 0 1 1 0 0 0 1 0 1
+1 1 - 1 1 0 1 0 0 0 1 1 0 0 0 1 0
+0 1 1 - 1 1 0 1 0 0 0 1 1 0 0 0 1
+1 0 1 1 - 1 1 0 1 0 0 0 1 1 0 0 0
+0 1 0 1 1 - 1 1 0 1 0 0 0 1 1 0 0
+0 0 1 0 1 1 - 1 1 0 1 0 0 0 1 1 0
+0 0 0 1 0 1 1 - 1 1 0 1 0 0 0 1 1
+1 0 0 0 1 0 1 1 - 1 1 0 1 0 0 0 1
+1 1 0 0 0 1 0 1 1 - 1 1 0 1 0 0 0
+0 1 1 0 0 0 1 0 1 1 - 1 1 0 1 0 0
+0 0 1 1 0 0 0 1 0 1 1 - 1 1 0 1 0
+0 0 0 1 1 0 0 0 1 0 1 1 - 1 1 0 1
+1 0 0 0 1 1 0 0 0 1 0 1 1 - 1 1 0
+0 1 0 0 0 1 1 0 0 0 1 0 1 1 - 1 1
+1 0 1 0 0 0 1 1 0 0 0 1 0 1 1 - 1
+1 1 0 1 0 0 0 1 1 0 0 0 1 0 1 1 -
+END
+
+use Test;
+is @a.join("\n"), chomp $ref;
+ 
+for combinations(17,4).Array -> $quartet { # DH change
+    my $links = [+] $quartet.combinations(2).map: -> $i,$j { @a[$i;$j] }
+    die "Bogus!" unless 0 < $links < 6;
+}
