@@ -1,0 +1,37 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Create_a_two-dimensional_array_at_runtime
+#c# 2015-11-29 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# Works with: rakudo version 2015.09
+
+#my ($major,$minor) = prompt("Dimensions? ").comb(/\d+/);
+my ($major,$minor) = <3 5>.comb(/\d+/);
+my @array = [ '@' xx $minor ] xx $major;
+@array[ *.rand ][ *.rand ] = ' ';
+.say for @array;
+
+#Natively shaped arrays are a flexible feature for declaring typed,
+#potentially multi-dimensional arrays, potentially with pre-defined
+#dimensions. It will make memory-efficient matrix storage and operations
+#possible.
+
+#my ($major,$minor) = +« prompt("Dimensions? ").comb(/\d+/);
+($major,$minor) = +« <3 5>.comb(/\d+/);
+my @a[$major;$minor] = (7 xx $minor ) xx $major;
+@a[$major div 2;$minor div 2] = 42;
+#@a[($major/2).floor;($minor/2).floor] = 42;
+
+say @a;
+
+use Test;
+is @a.gist, '[[7 7 7 7 7] [7 7 42 7 7] [7 7 7 7 7]]';
+if $*VM ~~ /jvm/ {
+is @array.gist, '[[@ @ @ @ @] [@ @ @ @  ] [@ @ @ @ @]]';
+} else {
+is @array.gist, '[[@ @ @ @ @] [@ @ @ @ @] [@   @ @ @]]';
+}
+
