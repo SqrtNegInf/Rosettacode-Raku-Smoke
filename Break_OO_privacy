@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Break_OO_privacy
+#c# 2015-11-30 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2012-01-27
+#We may call into the MOP (Meta-Object Protocol) via the .^ operator, and the MOP knows all about the object, including any supposedly private bits. We ask for its attributes, find the correct one, and get its value.
+
+class Foo {
+    has $!shyguy = 42;
+}
+my Foo $foo .= new;
+
+my $out = $foo.^attributes.first('$!shyguy').get_value($foo);
+
+use Test;
+is $out, 42;
