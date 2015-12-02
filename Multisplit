@@ -1,0 +1,40 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Multisplit
+#c# 2015-12-01 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub multisplit($str, @seps) { $str.split(/ (||@seps) /, :v) }
+
+my @chunks = multisplit( 'a!===b=!=c==d', < == != = > );
+
+# Print the strings.
+my @res.push: @chunks».Str.perl;
+
+# Print the positions of the separators.
+for grep Match, @chunks -> $s {
+    @res.push: "  $s   from $s.from() to $s.to()";
+}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+["a", "!=", "", "==", "b", "=", "", "!=", "c", "==", "d"]
+  !=   from 1 to 3
+  ==   from 3 to 5
+  =   from 6 to 7
+  !=   from 7 to 9
+  ==   from 10 to 12
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+#`{
+Using the array @seps in a pattern automatically does alternation.
+By default this would do longest-term matching (that is, | semantics), but we can force it to do left-to-right matching by embedding the array in a short-circuit alternation (that is, || semantics).
+As it happens, with the task's specified list of separators, it doesn't make any difference.
+
+
+Perl 6 automatically returns Match objects that will stringify to the matched pattern, but can also be interrogated for their match positions, as illustrated above by post-processing the results two different ways.
+}
