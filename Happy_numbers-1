@@ -1,0 +1,23 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Happy_numbers
+#c# 2015-12-03 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# for JVM: 'state %seen' fails in 'loop' or 'while' construct
+
+# Works with: rakudo version 2015-09-13
+
+sub happy (Int $n is copy --> Bool) {
+# for ^1_000_000 -> $i { # DH - work-around for JVM bug
+  loop {
+      state %seen;
+      $n = [+] $n.comb.map: { $_ ** 2 }
+      return True  if $n == 1;
+      return False if %seen{$n}++;
+  }
+}
+
+say join ' ', grep(&happy, 1 .. *)[^8];
+
+use Test;
+is (join ' ', grep(&happy, 1 .. *)[^8]), '1 7 10 13 19 23 28 31';
