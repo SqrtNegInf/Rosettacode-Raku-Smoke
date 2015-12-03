@@ -1,0 +1,45 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Associative_array/Iteration
+#c# 2015-12-02 <RC, 2017-10-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version #21 "Seattle"
+my %pairs = hello => 13, world => 31, '!' => 71;
+
+my @res;
+
+#for %pairs.kv -> $k, $v {
+#    @res.push: "(k,v) = ($k, $v)";
+#}
+
+# stable order
+for %pairs.sort(*.value)>>.kv -> ($k, $v) {
+    @res.push: "(k,v) = ($k, $v)";
+}
+
+{ @res.push: "$^a => $^b" } for sort %pairs.kv;
+
+@res.push: "key = $_" for sort %pairs.keys;
+
+@res.push: "value = $_" for sort %pairs.values;
+
+.say for @res;
+
+my $ref = qq:to/END/;
+(k,v) = (hello, 13)
+(k,v) = (world, 31)
+(k,v) = (!, 71)
+! => 13
+31 => 71
+hello => world
+key = !
+key = hello
+key = world
+value = 13
+value = 31
+value = 71
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
