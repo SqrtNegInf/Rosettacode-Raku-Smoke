@@ -1,0 +1,36 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Inverted_index
+#c# 2015-12-03 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#   simple-minded, doesn't handle punctuation
+
+my @res;
+
+# Works with: rakudo version 2015-09-16
+#sub MAIN (*@files) {
+my @files = ('ref/sample.txt', 'ref/sample1.txt', 'ref/sample2.txt');
+
+    my %norm;
+    do for @files -> $file {
+        %norm.push: $file X=> slurp($file).lc.words;
+    }
+    (my %inv).push: %norm.invert.unique;
+
+    #while prompt("Search terms: ").words -> @words {
+    my @words = ('glorp', 'zizzer');
+        for @words -> $word {
+            @res.push: "$word => {(%inv.{$word.lc}).split(' ').sort.join(' ')//'(not found)'}";
+        }
+    #}
+#}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+glorp => ref/sample.txt ref/sample1.txt
+zizzer => ref/sample1.txt ref/sample2.txt
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
