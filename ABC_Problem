@@ -1,0 +1,48 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/ABC_Problem
+#c# 2015-12-04 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+use MONKEY-SEE-NO-EVAL;
+
+# Works with: rakudo version 2015-09-97
+#Blocks are stored as precompiled regexes. We do an initial pass on the blockset to include in the list only those regexes that match somewhere in the current word. Conveniently, regexes scan the word for us.
+
+multi can-spell-word(Str $word, @blocks) {
+    my @regex = @blocks.map({ EVAL "/{.comb.join('|')}/" }).grep: { .ACCEPTS($word.uc) }
+    can-spell-word $word.uc.comb.list, @regex;
+}
+
+multi can-spell-word([$head,*@tail], @regex) {
+    for @regex -> $re {
+        if $head ~~ $re {
+            return True unless @tail;
+            return False if @regex == 1;
+            return True if can-spell-word @tail, list @regex.grep: * !=== $re;
+        }
+    }
+    False;
+}
+
+my @b = <BO XK DQ CP NA GT RE TG QD FS JW HU VI AN OB ER FS LY PC ZM>;
+
+my @res;
+for <A BaRK BOoK tREaT COmMOn SqUAD CoNfuSE> {
+    @res.push: "$_     &can-spell-word($_, @b)";
+    
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+A     True
+BaRK     True
+BOoK     False
+tREaT     True
+COmMOn     False
+SqUAD     True
+CoNfuSE     True
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
