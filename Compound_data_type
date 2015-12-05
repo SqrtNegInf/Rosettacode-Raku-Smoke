@@ -1,0 +1,31 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Compound_data_type
+#c# 2015-12-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version #24 "Seoul"
+
+#Array
+my @point = 3, 8;
+say @point;
+
+# Hash
+my %point = x => 3, y => 8;
+say %point;
+
+# Class instance
+class Point { has $.x is rw; has $.y is rw; }
+my Point $point .= new(x => 3, y => 8);
+say $point;
+
+# Set
+my $s1 = set <a b c d>; # order is not preserved
+my $s2 = set <c d e f>;
+say $s1 (&) $s2; # OUTPUT«set(c, e)»
+say $s1 ∩ $s2; # we also do Unicode
+
+use Test;
+is $point.perl, 'Point.new(x => 3, y => 8)';
+is ($s1 (&) $s2).gist, 'set(c d)'; # OUTPUT«set(c, e)»
+is ($s1 ∩ $s2).gist, 'set(c d)';
