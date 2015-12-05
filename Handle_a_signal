@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Handle_a_signal
+#c# 2015-12-05 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+# We note with glee that the task does not require us to print consecutive integers, 
+# so we'll print Fibonacci numbers instead. :-)
+
+signal(Signal::SIGINT).tap: {
+    note "Took { now - INIT now } seconds.";
+    exit;
+}
+
+for 0, 1, *+* ... * {
+    sleep 0.5;
+    .say;
+}
+
