@@ -1,0 +1,68 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Collections
+#c# 2015-12-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Perl 6 has both mutable and immutable containers of various sorts. Here are some of the most common ones:
+
+# Mutable
+
+# Array
+my @array = 1,2,3;
+@array.push: 4,5,6;
+ 
+# Hash
+my %hash = 'a' => 1, 'b' => 2;
+%hash<c d> = 3,4;
+%hash.push: 'e' => 5, 'f' => 6;
+say %hash;
+ 
+# SetHash
+my $s = SetHash.new: <a b c>;
+say $s ∪= <d e f>;
+ 
+# BagHash
+my $b = BagHash.new: <b a k l a v a>;
+say $b ⊎= <a b c>;
+
+# Immutable
+
+# List
+my @list := 1,2,3;
+my @newlist := |@list, 4,5,6; # |@list will slip @list into the surrounding list instead of creating a list of lists
+say @newlist;
+ 
+# Set
+my $set = set <a b c>;
+my $newset = $set ∪ <d e f>;
+say $newset;
+ 
+# Bag
+my $bag = bag <b a k l a v a>;
+my $newbag = $bag ⊎ <b e e f>;
+say $newbag;
+
+# Pair list (cons list)
+
+my $tail = d => e => f => Nil;
+my $new = a => b => c => $tail;
+say $new;
+
+# P6opaque object (immutable in structure)
+class Something { has $.foo; has $.bar };
+my $obj = Something.new: foo => 1, bar => 2;
+say $obj;
+my $newobj = $obj but role { has $.baz = 3 } # anonymous mixin
+say $newobj;
+
+say '--';
+
+use Test;
+is %hash.perl, '{:a(1), :b(2), :c(3), :d(4), :e(5), :f(6)}';
+is @newlist, '1 2 3 4 5 6';
+is (sort $s ∪= <d e f>).gist, '(set(a b c d e f))';
+is (sort $b ⊎= <a b c>).gist, '(Bag(a(5), b(3), c(2), k, l, v))';
+is (sort $newset).gist, '(set(a b c d e f))';
+is (sort $newbag).gist, '(Bag(a(3), b(2), e(2), f, k, l, v))';
+is $newobj.perl, 'Something+{<anon|1>}.new(baz => 3, foo => 1, bar => 2)';
