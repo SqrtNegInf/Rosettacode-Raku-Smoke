@@ -1,0 +1,57 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Singly-linked_list/Traversal
+#c# 2015-12-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Built-in list processing in Perl is not specifically based on singly-linked lists,
+# but works at a higher abstraction level that encapsulates such
+# implementation choices. Nonetheless, it's trivial to use the Pair type to
+# build what is essentially a Lisp-style cons list, and in fact, the => pair
+# constructor is right associative for precisely that reason.
+# We traverse such a list here using a 3-part loop:
+
+my $list = 1 => 2 => 3 => 4 => 5 => 6 => Mu;
+
+my @res;
+loop (my $l = $list; $l; $l.=value) {
+    @res.push: $l.key;
+}
+
+.say for @res;
+
+#`{
+
+It would be pretty easy to make such lists iterable as normal Perl lists,
+if anyone really cared to...
+Well, shoot, let's just go ahead and do it.
+We'll pretend the Pair type is really a list type.
+(And we show how you turn an ordinary list into a cons list using a reduction.
+Note how the [=>] reduction is also right associative,
+just like the base operator.)
+}
+
+use MONKEY-TYPING;
+augment class Pair {
+    method traverse () {
+        gather loop (my $l = self; $l; $l.=value) {
+            take $l.key;
+        }
+    }
+}
+
+my $ilist = [=>] 'A' .. 'Z', Mu;
+say ~$ilist.traverse;
+
+my $ref = qq:to/END/;
+1
+2
+3
+4
+5
+6
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+is ~$ilist.traverse, 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z';
