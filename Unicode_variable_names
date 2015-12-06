@@ -1,0 +1,37 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Unicode_variable_names
+#c# 2015-12-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res;
+
+# Perl 6 is written in Unicode so, with narrow restrictions, nearly any Unicode letter can be used in identifiers.
+# See Perl 6 Synopsis 02. - http://perlcabal.org/syn/S02.html#Names
+
+my $Δ = 1;
+$Δ++;
+@res.push: $Δ;
+
+#Function and subroutine names can also use Unicode characters: (as can methods, classes, packages, whatever...)
+
+my @ᐁ = (0, 45, 60, 90);
+ 
+sub π { pi };
+ 
+sub postfix:<°>($degrees) { $degrees * π / 180 };
+ 
+for @ᐁ -> $ಠ_ಠ { @res.push: sin $ಠ_ಠ° };
+
+.say for @res;
+
+my $ref = qq:to/END/;
+2
+0
+0.7071067811865475
+0.8660254037844386
+1
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
