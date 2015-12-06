@@ -1,0 +1,36 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Rate_counter
+#c# 2015-12-06 <RC, 2018-05-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# testing reflects 2nd-run speed-up (but overall covers a very broad range)
+
+use Test;
+
+sub runrate($N where $N > 0, &todo) {
+    my $n = $N;
+
+    my $start = now;
+    todo() while --$n;
+    my $end = now;
+
+    say "Start time: ", DateTime.new($start).Str;
+    say "End time: ", DateTime.new($end).Str;
+    my $elapsed = $end - $start;
+
+    say "Elapsed time: $elapsed seconds";
+    say "Rate: { ($N / $elapsed).fmt('%.2f') } per second\n";
+    return $N / $elapsed;
+}
+
+sub factorial($n) { (state @)[$n] //= $n < 2 ?? 1 !! $n * factorial($n-1) }
+
+my $rate1 = runrate 10000, { state $n = 1; factorial($n++) }
+my $rate2 = runrate 10000, { state $n = 1; factorial($n++) }
+say "Rate ratio between 1st/2nd runs: " ~ $rate2/$rate1;
+
+ok 1.1 < $rate2/$rate1 < 15;
+
+#`{
+The Instant type in Perl 6 is defined to be based on TAI seconds, and represented with rational numbers that are more than sufficiently accurate to represent your clock's accuracy. The actual accuracy will depend on your clock's accuracy (even if you don't have an atomic clock in your kitchen, your smartphone can track various orbiting atomic clocks, right?) modulo the vagaries of returning the atomic time (or unreasonable facsimile) via system calls and library APIs.
+}
