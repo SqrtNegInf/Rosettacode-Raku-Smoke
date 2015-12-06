@@ -1,0 +1,40 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Queue/Usage
+#c# 2015-12-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Perl 6 maintains the same list operators of Perl, for this task, the operations are:
+ 
+# push (aka enqueue) -- @list.push
+# pop (aka dequeue)  -- @list.shift
+# empty              --!@list.elems
+# but there's also @list.pop which removes a item from the end,
+# and @list.unshift which add a item on the start of the list.
+
+my @queue = < a >;
+
+@queue.push('b', 'c'); # [ a, b, c ]
+
+my @res;
+@res.push: @queue.shift; # a
+@res.push: @queue.pop; # c
+
+@res.push: @queue.perl; # [ b ]
+@res.push: @queue.elems; # 1
+
+@queue.unshift('A'); # [ A, b ]
+@queue.push('C'); # [ A, b, C ]
+@res.push: @queue;
+.say for @res;
+
+my $ref = qq:to/END/;
+a
+c
+["b"]
+1
+A b C
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
