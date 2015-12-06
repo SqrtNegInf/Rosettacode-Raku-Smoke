@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Function_Composition
+#c# 2015-12-06 <RC, 2017-05-05 <RC, 2018-04-10 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# must obey: edbbc44 commit by TimToady, infix:<->($n) should not negate
+
+# Works with: rakudo version 2015-09-30
+# The function composition operator is ∘, U+2218 RING OPERATOR (with a "Texas" version o for the Unicode challenged). Here we compose a routine, an operator, and a lambda:
+
+sub triple($n) { 3 * $n }
+
+#my &f = &triple ∘ &[-] ∘ { $^n + 2 }; # DH fails, &[-] does nothing now
+my &f = &triple ∘ &prefix:<-> ∘ { $^n + 2 }; # revert to this
+say &f(5); # prints "-21".
+
+use Test;
+is &f(5), -21;
