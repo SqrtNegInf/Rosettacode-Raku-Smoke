@@ -1,0 +1,40 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Bitmap
+#c# 2015-12-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+class Pixel { has UInt ($.R, $.G, $.B) }
+class Bitmap {
+    has UInt ($.width, $.height);
+    has Pixel @!data;
+
+    method fill(Pixel $p) {
+        @!data = $p.clone xx ($!width*$!height)
+    }
+    method pixel(
+	$i where ^$!width,
+	$j where ^$!height
+	--> Pixel
+    ) is rw { @!data[$i*$!width + $j] }
+
+    method set-pixel ($i, $j, Pixel $p) {
+	self.pixel($i, $j) = $p.clone;
+    }
+    method get-pixel ($i, $j) returns Pixel {
+	self.pixel($i, $j);
+    }
+}
+
+my Bitmap $b = Bitmap.new( width => 10, height => 10);
+
+$b.fill( Pixel.new( R => 0, G => 0, B => 200) );
+
+$b.set-pixel( 7, 5, Pixel.new( R => 100, G => 200, B => 0) );
+
+use Test;
+is $b.perl, 'Bitmap.new(width => 10, height => 10)', 'Bitmap.new(width => 10, height => 10)';
+is $b.get-pixel( 1, 0).perl, 'Pixel.new(R => 0, G => 0, B => 200)', 'Pixel.new(R => 0, G => 0, B => 200)';
+is $b.get-pixel( 7, 5).perl, 'Pixel.new(R => 100, G => 200, B => 0)', 'Pixel.new(R => 100, G => 200, B => 0)';
+
+#Thanks to the rw trait on the pixel method, we don't actually need to define two separate methods, set-pixel and get-pixel, but that is an explicit requirement of the task.  (Beware your presuppositions!  In Perl 6, accessors only determine identity, not use.  In particular, identity is considered orthogonal to lvalue/rvalue context.)
