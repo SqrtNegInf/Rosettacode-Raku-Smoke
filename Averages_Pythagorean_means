@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Averages/Pythagorean_means
+#c# 2015-12-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub A { ([+] @_) / @_ }
+sub G { ([*] @_) ** (1 / @_) }
+sub H { @_ / [+] 1 X/ @_ }
+
+say "A(1,...,10) = ", A(1..10);
+say "G(1,...,10) = ", G(1..10);
+say "H(1,...,10) = ", H(1..10);
+
+
+use Test;
+is A(1..10), 5.5;
+is G(1..10).round(.0000000000001), 4.5287286881168;
+is H(1..10), 3.414172;
