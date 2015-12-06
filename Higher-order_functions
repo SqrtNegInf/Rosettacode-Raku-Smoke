@@ -1,0 +1,35 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Higher-order_functions
+#c# 2015-12-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# The best type to use for the parameter of a higher-order function is Callable (implied by the & sigil), a role common to all function-like objects. For an example of defining and calling a second-order function, see Functional Composition.
+# Convenient syntax is provided for anonymous functions,
+# either a bare block, or a parameterized block introduced with ->, which serves as a "lambda":
+
+my @res;
+
+sub twice(&todo) {
+   todo(); todo(); # declaring &todo also defines bare function
+}
+twice { @res.push: "Boing!" }
+
+sub twice-with-param(&todo) {
+    todo(0); todo(1);
+}
+twice-with-param -> $time {
+   @res.push: "{$time+1}: Hello!"
+}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+Boing!
+Boing!
+1: Hello!
+2: Hello!
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
