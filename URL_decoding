@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/URL_decoding
+#c# 2015-12-06 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#N# java.util.regex.PatternSyntaxException: Unknown character property name {hexdigit} near index 11
+
+my $url = "http%3A%2F%2Ffoo%20bar%2F";
+ 
+say my $out = $url.subst: :g,
+    /'%'(<:hexdigit>**2)/,
+    ->  ($ord          ) { chr(:16(~$ord)) }
+
+#Alternately, you can use an in-place substitution:
+
+$url ~~ s:g[ '%' (<:hexdigit> ** 2) ] = chr :16(~$0);
+say $url;
+
+use Test;
+is $out, 'http://foo bar/';
+is $url, 'http://foo bar/';
