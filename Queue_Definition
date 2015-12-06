@@ -1,0 +1,41 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Queue/Definition
+#c# 2015-12-05 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#We could build a new container class to do FIFO pretty easily, but Arrays already do everything needed by a FIFO queue, so it is easier to just compose a Role on the existing Array class.
+
+role FIFO {
+    method enqueue ( *@values ) { # Add values to queue, returns the number of values added.
+        self.push: @values;
+        return @values.elems;
+    }
+    method dequeue ( ) {         # Remove and return the first value from the queue.
+                                 # Return Nil if queue is empty.
+        return self.elems ?? self.shift !! Nil;
+    }
+    method is-empty ( ) {        # Check to see if queue is empty. Returns Boolean value.
+        return self.elems == 0;
+    }
+}
+
+
+my @queue does FIFO;
+
+use Test;
+is @queue.is-empty, True;
+for <A B C> -> $i { say @queue.enqueue: $i } 
+#is (@queue.enqueue: <A B C>), 3;
+is (@queue.enqueue: Any), 1;
+is (@queue.enqueue: 7, 8), 2;
+is @queue.is-empty, False;
+is @queue.dequeue, 'A';
+is @queue.elems, 4;
+is @queue.dequeue, 'B';
+is @queue.is-empty, False;
+is @queue.enqueue('OHAI!'), 1;
+say @queue.dequeue until @queue.is-empty; # -> C \n Any() \n 7 \n 8 \n OHAI!
+is @queue.is-empty, True;
+is @queue.dequeue, Nil;
+
