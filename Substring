@@ -1,0 +1,17 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Substring
+#c# 2015-12-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $str = 'abcdefgh';
+my $n = 2;
+my $m = 3;
+say my $t1 = $str.substr($n, $m);
+say my $t2 = $str.substr($n);
+say my $t3 = $str.substr(0, *-1);
+say my $t4 = $str.substr($str.index('d'), $m);
+say my $t5 = $str.substr($str.index('de'), $m);
+
+use Test;
+is ($t1, $t2, $t3, $t4, $t5), 'cde cdefgh abcdefg def def';
