@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Unix/ls
+#c# 2015-12-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# There is a dir builtin command which returns a list of IO::Path objects. We stringify them all with a hyperoperator before sorting the strings.
+
+.say for my @res = ~«'test'.IO.dir;
+
+my $ref = qq:to/END/;
+test/dir1
+test/dir2
+test/not-in-kansas.txt
+test/reverse_words.txt
+test/sample.txt
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
