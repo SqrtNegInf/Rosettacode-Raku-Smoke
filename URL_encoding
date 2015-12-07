@@ -1,0 +1,12 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/URL_encoding
+#c# 2015-12-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $url = 'http://foo bar/';
+
+say my $out = $url.subst(/<-alnum>/, *.ord.fmt("%%%02X"), :g);
+
+use Test;
+is $out, 'http%3A%2F%2Ffoo%20bar%2F';
