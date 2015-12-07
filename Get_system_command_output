@@ -1,0 +1,38 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Get_system_command_output
+#c# 2015-12-06 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+
+die 'This will hang!' if $*VM ~~ /jvm/;  # hangs under JVM, so bail now
+
+#If you don't want to execute it in shell (and you probably don't), then use this:
+
+#say run($command, $arg1, $arg2, :out).out.slurp-rest;
+
+#Unfortunately, it is very long to type, but that is the only way to pass your variables as arguments safely.
+
+#You might be tempted to start using shell when you have to pipe something, but even in that case there is no need to do so. See this code:
+
+my $p1 = run 'echo', 'Hello, world', :out;
+my $p2 = run 'cat', '-n', :in($p1.out), :out;
+say my $result = $p2.out.slurp-rest;
+
+use Test;
+is $result, "     1\tHello, world\n";
+
+#See docs for more info.
+
+#If you really want to run something in shell and you understand potential security problems, then you can use qx// (interpolates environment variables) or qqx// (interpolates normally). See the docs for more info.
+
+my $ref = qq:to/END/;
+Array_concatenation
+Array_length
+Array_length.1
+Array_search
+Arrays
+END
+
+say $result = qx[ls Array*];
+is $result, $ref;
+
