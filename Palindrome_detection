@@ -1,0 +1,32 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Palindrome_detection
+#c# 2015-12-08 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+subset Palindrom of Str where {
+    .flip eq $_ given .comb(/\w+/).join.lc
+}
+
+my @tests = q:to/END/.lines;
+    A man, a plan, a canal: Panama.
+    My dog has fleas
+    Madam, I'm Adam.
+    1 on 1
+    In girum imus nocte et consumimur igni
+    END
+
+for @tests { say $_ ~~ Palindrom, "\t", $_ }
+
+#`{
+
+True	A man, a plan, a canal: Panama.
+False	My dog has fleas
+True	Madam, I'm Adam.
+False	1 on 1
+True	In girum imus nocte et consumimur igni
+}
+
+use Test;
+is ('A man, a plan, a canal: Panama.' ~~ Palindrom), True;
+is ('A man, a plan, a canal: Oregon!' ~~ Palindrom), False;
