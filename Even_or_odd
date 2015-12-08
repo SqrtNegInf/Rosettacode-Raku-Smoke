@@ -1,0 +1,17 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Even_or_odd
+#c# 2015-12-08 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Perl 6 doesn't have a built-in for this, but with subsets it's easy to define a predicate for it.
+
+subset Even of Int where * %% 2;
+subset Odd of Int where * % 2;
+
+say 1 ~~ Even; # false
+say 1 ~~ Odd;  # true
+say 1.5 ~~ Odd; # false ( 1.5 is not an Int )
+
+use Test;
+is (1 ~~ Even, 1 ~~ Odd, 1.5 ~~ Odd), "False True False";
