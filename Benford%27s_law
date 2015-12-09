@@ -1,0 +1,49 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Benford's_law
+#c# 2015-12-09 <>RC, 2016-10-25 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2016-11-30: old version works again, but keeping my version, as is clearer code, and twice as fast
+#n# 2016-10-24: broke at: This is Rakudo version 2016.10-48-gaaec517 built on MoarVM version 2016.10-15-g715e39a
+
+use Test;
+my $result;
+
+sub benford1(@a) { bag +« flat @a».comb: /<( <[ 1..9 ]> )> <[ , . \d ]>*/ }
+sub benford2(@a) { bag +« @a».substr(0,1) }
+ 
+sub show(%distribution) {
+    $result = '';
+    printf "%9s %9s  %s\n", <Actual Expected Deviation>;
+    for 1 .. 9 -> $digit {
+        my $actual = %distribution{$digit} * 100 / [+] %distribution.values;
+        $result ~= "$actual ";
+        my $expected = (1 + 1 / $digit).log(10) * 100;
+        printf "%d: %5.2f%% | %5.2f%% | %.2f%%\n",
+          $digit, $actual, $expected, abs($expected - $actual);
+    }
+}
+ 
+#multi MAIN($file) { show benford $file.IO.lines }
+multi MAIN() { 
+my $ref = '30.1 17.7 12.5 9.6 8 6.7 5.6 5.3 4.5 ';
+show benford1 ( 1, 1, 2, *+* ... * )[^1000];
+is $result, $ref;
+show benford2 ( 1, 1, 2, *+* ... * )[^1000];
+is $result, $ref;
+}
+
+#`{ First 1000 Fibonaccis
+
+   Actual  Expected  Deviation
+1: 30.10% | 30.10% | 0.00%
+2: 17.70% | 17.61% | 0.09%
+3: 12.50% | 12.49% | 0.01%
+4:  9.60% |  9.69% | 0.09%
+5:  8.00% |  7.92% | 0.08%
+6:  6.70% |  6.69% | 0.01%
+7:  5.60% |  5.80% | 0.20%
+8:  5.30% |  5.12% | 0.18%
+9:  4.50% |  4.58% | 0.08%
+
+}
