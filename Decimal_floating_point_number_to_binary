@@ -1,0 +1,12 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Decimal_floating_point_number_to_binary
+#c# 2015-12-10 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+given "23.34375"   { say "$_ => ", :10($_).base(2) }
+given "1011.11101" { say "$_ => ", :2($_).base(10) }
+
+use Test;
+is 23.34375.base(2), 10111.01011;
+is :2("1011.11101").base(10), 11.90625;
