@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Strip_a_set_of_characters_from_a_string
+#c# 2015-12-10 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub strip_chars ( $s, $chars ) {
+    return $s.trans( $chars.comb X=> '' );
+}
+
+my $str = 'She was a soul stripper. She took my heart!';
+say strip_chars( $str, 'aei' );
+
+use Test;
+is strip_chars( $str, 'aei' ), 'Sh ws  soul strppr. Sh took my hrt!';
