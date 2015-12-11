@@ -1,0 +1,42 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Horner's_rule_for_polynomial_evaluation#Perl_6
+#c# 2015-12-11 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub horner1 ( @coeffs, $x ) {
+    @coeffs.reverse.reduce: { $^a * $x + $^b };
+}
+ 
+say horner1( [ -19, 7, -4, 6 ], 3 );
+
+#A recursive version would spare us the need for reversing the list of coefficients. However, special care must be taken in order to write it, because the way Perl 6 implements lists is not optimized for this kind of treatment. Lisp-style lists are, and fortunately it is possible to emulate them with Pairs and the reduction meta-operator:
+
+multi horner2(Numeric $c, $) { $c }
+multi horner2(Pair $c, $x) {
+    $c.key + $x * horner2( $c.value, $x ) 
+}
+ 
+say horner2( [=>](-19, 7, -4, 6 ), 3 );
+
+#We can also use the composition operator:
+
+sub horner3 ( @coeffs, $x ) {
+    ([o] map { $_ + $x * * }, @coeffs)(0);
+}
+ 
+say horner3( [ -19, 7, -4, 6 ], 3 );
+
+#One advantage of using the composition operator is that it allows for the use of an infinite list of coefficients.
+
+sub horner4 ( @coeffs, $x ) {
+    map { .(0) }, [\o] map { $_ + $x * * }, @coeffs;
+}
+ 
+say horner4( [ 1 X/ (1, |[\*] 1 .. *) ], i*pi )[20];
+
+use Test;
+is horner1( [ -19, 7, -4, 6 ], 3 ), 128;
+is horner2( [=>](-19, 7, -4, 6 ), 3 ), 128;
+is horner3( [ -19, 7, -4, 6 ], 3 ), 128;
+is-approx horner4( [ 1 X/ (1, |[\*] 1 .. *) ], i*pi )[20], -0.9999999999243492-5.289185159542186E-10i
