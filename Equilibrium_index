@@ -1,0 +1,67 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Equilibrium_index
+#c# 2015-12-11 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub equilibrium_index(@list) {
+    my ($left,$right) = 0, [+] @list;
+
+    gather for @list.kv -> $i, $x {
+        $right -= $x;
+        take $i if $left == $right;
+        $left += $x;
+    }
+}
+
+my @list = -7, 1, 5, 2, -4, 3, 0;
+.say for equilibrium_index(@list); # DH change (no 'grep' needed, compare to below)
+
+#And here's an FP solution that manages to remain O(n):
+
+sub equilibrium_index1(@list) {
+    my @a = [\+] @list;
+    my @b = reverse [\+] reverse @list;
+    ^@list Zxx (@a »==« @b); 
+}
+.say for equilibrium_index1(@list).grep(/\d/);
+
+#The [\+] is a reduction that returns a list of partial results. The »==« is a vectorized equality comparison; it returns a vector of true and false. The Zxx is a zip with the list replication operator, so we return only the elements of the left list where the right list is true (which is taken to mean 1 here). And the ^@list is just shorthand for 0 ..^ @list. We could just as easily have used @list.keys there.
+
+
+# single pass (more explanatory text at RC)
+
+sub eq_index ( *@list ) {
+    my $sum = 0;
+ 
+    my %h = @list.keys.classify: {
+        $sum += @list[$_];
+        $sum * 2 - @list[$_];
+    };
+ 
+    return %h{$sum} // [];
+}
+ 
+say eq_index < -7  1  5  2 -4  3  0 >; # 3 6
+say eq_index <  2  4  6             >; # (no eq point)
+say eq_index <  2  9  2             >; # 1
+say eq_index <  1 -1  1 -1  1 -1  1 >; # 0 1 2 3 4 5 6
+
+my @res;
+push @res, eq_index < -7  1  5  2 -4  3  0 >;
+push @res, eq_index <  2  4  6             >;
+push @res, eq_index <  2  9  2             >;
+push @res, eq_index <  1 -1  1 -1  1 -1  1 >;
+
+my $ref = qq:to/END/;
+3 6
+
+1
+0 1 2 3 4 5 6
+END
+
+use Test;
+is equilibrium_index(@list), "3 6";
+is equilibrium_index1(@list), '   3   6';
+is @res.join("\n"), chomp $ref;
+#is (join "\n", @res), chomp $ref;
