@@ -1,0 +1,36 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Stern-Brocot_sequence
+#c# 2015-12-11 <>RC, 2017-03-29 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+constant @Stern-Brocot = 1, 1, {
+    |(@_[$_ - 1] + @_[$_], @_[$_]) given ++$
+} ... *;
+
+say @Stern-Brocot[^15];
+
+my @res;
+for (flat 1..10, 100) -> $ix { # DH change
+    @res.push: "first occurrence of $ix is at index : " ~ 1 + @Stern-Brocot.first($ix, :k);
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+first occurrence of 1 is at index : 1
+first occurrence of 2 is at index : 3
+first occurrence of 3 is at index : 5
+first occurrence of 4 is at index : 9
+first occurrence of 5 is at index : 11
+first occurrence of 6 is at index : 33
+first occurrence of 7 is at index : 19
+first occurrence of 8 is at index : 21
+first occurrence of 9 is at index : 35
+first occurrence of 10 is at index : 39
+first occurrence of 100 is at index : 1179
+END
+
+use Test;
+is @Stern-Brocot[^15], '1 1 2 1 3 2 3 1 4 3 5 2 5 3 4';
+is @res.join("\n"), chomp $ref;
+is (so 1 == all map ^1000: { [gcd] @Stern-Brocot[$_, $_ + 1] }), True;
