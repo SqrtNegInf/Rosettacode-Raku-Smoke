@@ -1,0 +1,36 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Function_frequency
+#c# 2015-12-12 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n#  needs periodic updates as codgen evolves?
+
+#Here we just examine the ast of the Perl 6 compiler (which is written in Perl 6) to look for function calls.
+
+my $cmd = run 'perl6', '--target=ast', 'Sorting_algorithms_Quicksort', :out, :err;
+my $text = $cmd.out.slurp-rest;
+my $err  = $cmd.err.slurp-rest;
+
+my %fun;
+for $text.lines {
+    %fun{$0}++ if / '(call &' (.*?) ')' /
+}
+
+my @res.push: .kv for %fun.invert.sort.reverse[^10];
+.put for @res;
+
+my $ref = qq:to/END/;
+4 quicksort
+2 srand
+2 put
+2 is
+2 infix:</>
+2 infix:<+>
+2 flat
+1 prefix:<^>
+1 infix:<,>
+1 METAOP_NEGATE
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
