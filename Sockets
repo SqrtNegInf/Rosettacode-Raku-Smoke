@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sockets
+#c# 2015-12-14 <>RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Will fail with a connect error if there is not a socket server of some kind available on the specified host and port.
+
+# for use with 'Echo_server'
+my $host = 'localhost';
+my $port = 12321;
+
+#my $host = '127.0.0.1';
+#my $port = 2567;
+
+my $client = IO::Socket::INET.new(:$host, :$port);
+$client.print( 'hello socket world' );
+$client.close;
+
