@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Remove_lines_from_a_file
+#c# 2015-12-16 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: calendar-2016.txt
+
+#sub MAIN ($filename, $beg, $len) {
+    my $filename = 'run/calendar-2016.txt'; 
+    my $beg = 3;
+    my $len = 8;
+
+    qqx[/usr/bin/cal 2016 > $filename];
+    my @lines = split /^^/, slurp $filename;
+    unlink $filename;
+    splice(@lines,$beg,$len) == $len or warn "Too few lines";
+    spurt $filename, @lines;
+#}
