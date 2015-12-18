@@ -1,0 +1,57 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Reduced_row_echelon_form
+#c# 2015-12-18 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Re-implemented without the pseudocode, expressed as elementary matrix row operations. See
+#http://unapologetic.wordpress.com/2009/08/27/elementary-row-and-column-operations/
+#and
+#http://unapologetic.wordpress.com/2009/09/03/reduced-row-echelon-form/
+#First, a procedural version:
+
+# using Z+=, Z-=, X*=, and X/= to scale and shear.
+
+sub swap_rows    ( @M,         $r1, $r2 ) { @M[ $r1, $r2 ] = @M[ $r2, $r1 ] };
+sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r] »*» $scale   };
+#sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r] »*» $scale   };
+sub shear_row    ( @M, $scale, $r1, $r2 ) { @M[$r1] = @M[$r1].list »+» ( @M[$r2] »*» $scale ) };
+sub reduce_row   ( @M,         $r,  $c  ) { scale_row( @M, 1/@M[$r][$c], $r ) };
+sub clear_column ( @M,         $r,  $c  ) {
+    for @M.keys.grep( * != $r ) -> $row_num {
+        shear_row( @M, -1*@M[$row_num][$c], $row_num, $r );
+    }
+}
+
+my @M = (
+    [<  1   2   -1    -4 >],
+    [<  2   3   -1   -11 >],
+    [< -2   0   -3    22 >],
+);
+
+my $column_count = +@( @M[0] );
+
+my $current_col = 0;
+while all( @M».[$current_col] ) == 0 {
+    $current_col++;
+    return if $current_col == $column_count; # Matrix was all-zeros.
+}
+
+for @M.keys -> $current_row {
+    reduce_row(   @M, $current_row, $current_col );
+    clear_column( @M, $current_row, $current_col );
+    $current_col++;
+    return if $current_col == $column_count;
+}
+
+say @($_)».fmt('%4g') for @M;
+
+#`{
+Reduced Row Echelon Form Matrix
+     1      0      0     -8
+     0      1      0      1
+     0      0      1     -2
+}
+
+use Test;
+is @M, '1 0 0 -8 0 1 0 1 0 0 1 -2';
