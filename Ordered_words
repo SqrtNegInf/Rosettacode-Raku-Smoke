@@ -1,0 +1,13 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Ordered_words
+#c# 2015-12-19 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $result = 'ref/unixdict.txt'.IO.lines.grep({ [le] .comb }).classify(*.chars).max(*.key).value;
+say $result;
+
+my $ref = 'abbott accent accept access accost almost bellow billow biopsy chilly choosy choppy effort floppy glossy knotty';
+
+use Test;
+is $result, $ref;
