@@ -1,0 +1,66 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Word_wrap
+#c# 2015-12-20 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $s = "In olden times when wishing still helped one, there lived a king
+whose daughters were all beautiful, but the youngest was so beautiful
+that the sun itself, which has seen so much, was astonished whenever
+it shone in her face.  Close-by-the-king's-castle-lay-a-great-dark
+forest, and under an old lime-tree in the forest was a well, and when
+the day was very warm, the king's child went out into the forest and
+sat down by the side of the cool fountain, and when she was bored she
+took a golden ball, and threw it up on high and caught it, and this
+ball was her favorite plaything.";
+
+$s ~~ s:g/»\s+/ /;
+$s ~~ s/\s*$/\n\n/;
+
+say $s.subst(/ \s* (. ** 1..66) \s /, -> $/ { "$0\n" }, :g);
+say "---\n";
+say $s.subst(/ \s* (. ** 1..25) \s /, -> $/ { "$0\n" }, :g);
+
+my $ref1 = qq:to/END/;
+In olden times when wishing still helped one, there lived a king
+whose daughters were all beautiful, but the youngest was so
+beautiful that the sun itself, which has seen so much, was
+astonished whenever it shone in her face. 
+Close-by-the-king's-castle-lay-a-great-dark forest, and under an
+old lime-tree in the forest was a well, and when the day was very
+warm, the king's child went out into the forest and sat down by
+the side of the cool fountain, and when she was bored she took a
+golden ball, and threw it up on high and caught it, and this ball
+was her favorite plaything.
+END
+
+my $ref2 = qq:to/END/;
+In olden times when
+wishing still helped one,
+there lived a king whose
+daughters were all
+beautiful, but the
+youngest was so beautiful
+that the sun itself,
+which has seen so much,
+was astonished whenever
+it shone in her face. 
+Close-by-the-king's-castle-lay-a-great-dark
+forest, and under an old
+lime-tree in the forest
+was a well, and when the
+day was very warm, the
+king's child went out
+into the forest and sat
+down by the side of the
+cool fountain, and when
+she was bored she took a
+golden ball, and threw it
+up on high and caught it,
+and this ball was her
+favorite plaything.
+END
+
+use Test;
+is ($s.subst(/ \s* (. ** 1..66) \s /, -> $/ { "$0\n" }, :g)), "$ref1\n";
+is ($s.subst(/ \s* (. ** 1..25) \s /, -> $/ { "$0\n" }, :g)), "$ref2\n";
