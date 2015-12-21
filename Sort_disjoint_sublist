@@ -1,0 +1,34 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sort_disjoint_sublist
+#c# 2015-12-20 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Inline
+#Using L-value slice of the array, and `sort` as a mutating method:
+
+my @values  = 7, 6, 5, 4, 3, 2, 1, 0;
+my @indices = 6, 1, 7;
+ 
+@values[ @indices.sort ] .= sort;
+ 
+@values.perl.say;
+
+#Iterative
+
+sub disjointSort( @values, @indices --> List ) {
+   my @sortedValues = @values[ @indices ].sort ;
+   for @indices.sort -> $insert {
+      @values[ $insert ] = @sortedValues.shift ;
+   }
+   return @values ;
+}
+ 
+my @v = ( 7 , 6 , 5 , 4 , 3 , 2 , 1 , 0 ) ;
+my @i = ( 6 , 1 , 7 ) ;
+my @sortedValues = disjointSort( @v, @i ) ;
+@sortedValues.perl.say ;
+
+use Test;
+is @values, '7 0 5 4 3 2 1 6';
+is @sortedValues, '7 0 5 4 3 2 1 6';
