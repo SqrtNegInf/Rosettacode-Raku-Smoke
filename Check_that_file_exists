@@ -1,0 +1,22 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Check_that_file_exists
+#c# 2015-12-20 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#   update RC with optional task
+
+say 'ref/unixdict.txt'.IO ~~ :e;
+say 'other'.IO ~~ :d;
+say '/unixdict.txt'.IO ~~ :e;
+say '/other'.IO ~~ :d;
+
+say '---';
+run ('touch', "Abdu'l-Bahá.txt");
+#run ('touch', 'Abdu\'l-Bahá.txt');
+say Q{Abdu'l-Bahá.txt}.IO ~~ :e;
+say 'Abdu\'l-Bahá.txt'.IO ~~ :e;
+say "Abdu'l-Bahá.txt".IO ~~ :e;
+unlink Q{Abdu'l-Bahá.txt};
+
+use Test;
+is ('ref/unixdict.txt'.IO ~~ :e, ';edf%a$d.!XYZ'.IO !~~ :e), 'True True';
