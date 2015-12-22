@@ -1,0 +1,17 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Empty_string
+#c# 2015-12-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $s = '';
+say my $result = 'String is empty Ex.A' unless $s;
+say $result ~= 'String is not empty Ex.B' if $s;
+$s = '0';
+say $result ~= 'String is empty Ex.C' unless $s;
+say $result ~= 'String is not empty Ex.D' if $s;
+
+#Unlike in Perl 5, only empty strings test as false - the string "0" tests as true now.
+
+use Test;
+is $result, "String is empty Ex.AString is not empty Ex.D";
