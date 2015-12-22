@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Comma_quibbling
+#c# 2015-12-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub comma-quibbling(@A) {
+    <{ }>.join: @A < 2 ?? @A !! "@A[0..*-2].join(', ') and @A[*-1]";
+}
+
+say comma-quibbling($_) for
+    [], [<ABC>], [<ABC DEF>], [<ABC DEF G H>];
+
+use Test;
+is comma-quibbling([]), '{}';
+is comma-quibbling([<ABC>]), '{ABC}';
+is comma-quibbling([<ABC DEF>]), '{ABC and DEF}';
+is comma-quibbling([<ABC DEF G H>]), '{ABC, DEF, G and H}';
