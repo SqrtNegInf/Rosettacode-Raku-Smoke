@@ -1,0 +1,39 @@
+#!/usr/bin/env perl6 do-not-check
+#u# http://rosettacode.org/wiki/Input_loop
+#c# 2015-12-23 <RC
+#t# nocode
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 'pipe': NYI or just an example?
+
+#`{{
+
+#In Perl 6, filehandles etc. provide the .lines and .words methods which return lazy lists, and can thus they be iterated using a for loop...
+
+
+## Line-by-line (line endings are automatically stripped)
+#From a file:
+for "filename.txt".IO.lines -> $line {
+    ...
+}
+#From standard input:
+for $*IN.lines -> $line {
+    ...
+}
+
+#From a pipe:
+for pipe("find -iname '*.txt'").lines -> $filename {
+    ...
+}
+
+#From a pipe, with custom line separator (in this example to handle filenames containing newlines):
+for pipe("find -iname '*.txt' -print0", :nl«\0»).lines -> $filename {
+    ...
+}
+
+#Word-by-word, from a file 
+for "filename.txt".IO.words -> $word {
+    ...
+}
+
+}}
