@@ -1,0 +1,13 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Terminal_control/Display_an_extended_character
+#c# 2015-12-23 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+#To demonstrate we're not limited to Latin-1, we'll print the fullwidth variant.
+
+say '￡';
+say "\x[FFE1]";
+say "\c[FULLWIDTH POUND SIGN]";
+0xffe1.chr.say;
