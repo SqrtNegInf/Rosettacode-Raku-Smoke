@@ -1,0 +1,47 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Identity_matrix
+#c# 2015-12-29 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-09-15
+sub identity-matrix($n) {
+    my @id;
+    for flat ^$n X ^$n -> $i, $j {
+        @id[$i][$j] = +($i == $j);
+    }
+    @id;
+}
+ 
+.say for identity-matrix(5);
+
+my @res1.push: $_ for identity-matrix(5);
+.say for @res1;
+
+#On the other hand, this may be clearer and/or faster:
+sub identity-matrix1($n) {
+    my @id = [0 xx $n] xx $n;
+    @id[$_][$_] = 1 for ^$n;
+    @id;
+}
+
+my @res2.push: $_ for identity-matrix1(5);
+
+#Here is yet an other way to do it:
+sub identity-matrix2($n) {
+    [1, |(0 xx $n-1)], *.rotate(-1) ... *[*-1]
+}
+my @res3.push: $_ for identity-matrix2(5);
+
+my $ref = qq:to/END/;
+1 0 0 0 0
+0 1 0 0 0
+0 0 1 0 0
+0 0 0 1 0
+0 0 0 0 1
+END
+
+use Test;
+is @res1.join("\n"), chomp $ref;
+is @res2.join("\n"), chomp $ref;
+is @res3.join("\n"), chomp $ref;
