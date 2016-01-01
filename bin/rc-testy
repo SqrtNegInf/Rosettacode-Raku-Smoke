@@ -1,0 +1,18 @@
+#!/usr/local/bin/perl
+## RC code lacking 'use Test' (unless a good excuse)
+#  David H.  2016-09-12
+
+#file [1-Z]* | g perl6 | pf 's/:.*//'| g -v '\.[1-9]$' > perl6.txt
+
+for my $f (@ARGV) {
+    next unless $f =~ /^[1-Z].*$/;
+    next if $f eq 'Empty_program';
+    next if $f =~ /\.[0-9]$/;
+
+    $text = `cat $f`;
+    next unless $text =~ /MOAR: OK/ms;
+    next if $text =~ /RC file:/ms;
+    next if $text =~ /#t#[^\n]+(interactive|output varies|graphical|trivial|toodamnslow|skiptest)/ms;
+    next if $text =~ /\n\s*use Test;/ms;
+    print "$f\n" 
+}
