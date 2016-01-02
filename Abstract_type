@@ -1,0 +1,26 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Abstract_type
+#c# 2016-01-02 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Perl 6 supports roles, which are a bit like interfaces, but unlike interfaces in Java they can also contain some implementation.
+
+role A {
+    # must be filled in by the class it is composed into
+    method abstract() { ... };
+
+    # can be overridden in the class, but that's not mandatory
+    method concrete() { say '# 42'; return 42; };
+}
+
+class SomeClass does A {
+    method abstract() {
+        say "# made concrete in class"; return 'glorp';
+    }
+}
+
+use Test;
+my $obj = SomeClass.new;
+is $obj.abstract(), 'glorp';
+is $obj.concrete(), '42';
