@@ -1,0 +1,26 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Arithmetic-geometric_mean
+#c# 2016-01-01 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub agm( $a is copy, $g is copy ) {
+    ($a, $g) = ($a + $g)/2, sqrt $a * $g until $a ≅ $g;
+    return $a;
+}
+
+say agm 1, 1/sqrt 2;
+
+
+# It's also possible to write it recursively:
+
+sub agm1( $a, $g ) {
+    $a ≅ $g ?? $a !! agm1(|@$_)
+        given ($a + $g)/2, sqrt $a * $g;
+}
+
+say agm1 1, 1/sqrt 2;
+
+use Test;
+is (agm 1, 1/sqrt 2).fmt('%.15f'), 0.847213084793979;
+is (agm1 1, 1/sqrt 2).fmt('%.15f'), 0.847213084793979;
