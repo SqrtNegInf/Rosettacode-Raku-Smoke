@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Generator/Exponential
+#c# 2016-01-02 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# As with Haskell, generators are disguised as lazy lists in Perl6.
+
+my @squares = powers(2);
+my @cubes   = powers(3);
+
+sub powers($m) { $m XR** 0..* }
+
+sub infix:<with-out> (@orig, @veto) {
+    gather for @veto -> $veto { 
+        take @orig.shift while @orig[0] before $veto;
+        @orig.shift if @orig[0] eqv $veto;
+    }
+}
+
+say my $out = (@squares with-out @cubes)[20 ..^ 20+10].join(' ');
+
+use Test;
+is $out, '529 576 625 676 784 841 900 961 1024 1089';
