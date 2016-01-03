@@ -1,0 +1,50 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Arithmetic_evaluation
+#c# 2016-01-02 <>RC, 2018-04-01 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub ev (Str $s --> Numeric) {
+
+    grammar expr {
+        token TOP { ^ <sum> $ }
+        token sum { <product> (('+' || '-') <product>)* }
+        token product { <factor> (('*' || '/') <factor>)* }
+        token factor { <unary_minus>? [ <parens> || <literal> ] }
+        token unary_minus { '-' }
+        token parens { '(' <sum> ')' }
+        token literal { \d+ ['.' \d+]? || '.' \d+ }
+    }
+
+    my sub minus ($b) { $b ?? -1 !! +1 }
+
+    my sub sum ($x) {
+        [+] flat product($x<product>), map
+            { minus($^y[0] eq '-') * product $^y<product> },
+            |($x[0] or [])
+    }
+
+    my sub product ($x) {
+        [*] flat factor($x<factor>), map
+            { factor($^y<factor>) ** minus($^y[0] eq '/') },
+            |($x[0] or [])
+    }
+
+    my sub factor ($x) {
+        minus($x<unary_minus>) * ($x<parens>
+          ?? sum $x<parens><sum>
+          !! $x<literal>)
+    }
+
+    say "S: $s";
+    expr.parse([~] split /\s+/, $s);
+    $/ or fail 'No parse.';
+    sum $/<sum>;
+
+}
+
+use Test;
+is (ev '5'),                                    5;
+is (ev '1 + 2 - 3 * 4 / 5'),                    0.6;
+is (ev '((11+15)*15)* 2 + (3) * -4 *1'),        768;
+is (ev '1 + 5*3.4 - .5  -4 / -2 * (3+4) -6'),   25.5;
