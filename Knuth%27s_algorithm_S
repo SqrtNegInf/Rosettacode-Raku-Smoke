@@ -1,0 +1,43 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Knuth's_algorithm_S#Perl_6
+#c# 2016-01-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+sub s_of_n_creator($n) {
+    my @sample;
+    my $i = 0;
+    -> $item {
+        if ++$i <= $n {
+            push @sample, $item;
+        }
+        elsif $i.rand < $n {
+            @sample[$n.rand] = $item;
+        }
+        @sample;
+    }
+}
+ 
+my @items = 0..9;
+my @bin;
+ 
+for ^100000 {
+    my &s_of_n = s_of_n_creator(3);
+    my @sample;
+    for @items -> $item {
+        @sample = s_of_n($item);
+    }
+    for @sample -> $s {
+        @bin[$s]++;
+    }
+}
+
+say @bin.join(" ");
+
+my $moar = '29758 29798 30112 30236 29902 29913 29862 29891 30382 30146';
+my $jvm  = '30155 30207 30016 30169 30044 29973 29725 29932 30041 29738';
+
+use Test;
+is @bin.join(" "), $*VM ~~ /jvm/ ?? $jvm !! $moar;
