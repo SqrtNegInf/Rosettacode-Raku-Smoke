@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Strip_comments_from_a_string
+#c# 2016-01-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#$*IN.slurp.subst(/ \h* <[ #; ]> \N* /, '', :g).print
+
+my $test1 = '$a = 4; # this is a comment';
+say my $result1 = $test1.subst(/ \h* <[ # ]> \N* /, '', :g);
+my $test2 = '   # this is nothing but a comment';
+say my $result2 = $test2.subst(/ \h* <[ # ]> \N* /, '', :g);
+
+use Test;
+is $result1, '$a = 4;';
+is $result2, '';
