@@ -1,0 +1,41 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Strip_block_comments
+#c# 2016-01-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+say my @res = sample().split(/ '/*' .+? '*/' /);
+
+sub sample {
+'   /**
+    * Some comments
+    * longer comments here that we can parse.
+    *
+    * Rahoo
+    */
+    function subroutine() {
+     a = /* inline comment */ b + c;
+    }
+    /*/ <-- tricky comments */
+
+    /**
+     * Another comment.
+     */
+    function something() {
+    }
+'}
+
+my $ref = q:to/END/;
+   
+    function subroutine() {
+     a =  b + c;
+    }
+    
+
+    
+    function something() {
+    }
+END
+
+use Test;
+is @res.join(''), $ref;
