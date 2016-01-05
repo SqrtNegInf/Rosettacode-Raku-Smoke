@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Read_a_file_line_by_line
+#c# 2016-01-05 <RC
+#t# trivial
+#m# MOAR: OK
+#j#  JVM: OK
+
+#The lines method is lazy so the following code does indeed read the file line by line, and not all at once.
+
+for open('ref/test.txt').lines
+{
+  .say
+}
+
+#In order to be more explicit about the file being read on line at a time, one can write:
+
+my $f = open 'ref/test.txt';
+while my $line = $f.get {
+    say $line;
+}
