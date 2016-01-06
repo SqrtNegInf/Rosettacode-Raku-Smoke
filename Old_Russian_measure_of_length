@@ -1,0 +1,73 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Old_Russian_measure_of_length
+#c# 2016-01-06 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Fairly straightfoward. Define a hash of conversion factors then apply them. Does some basic error trapping. Makes no attempt to do correct pluralization because I have no idea what the correct plurals are and little interest in researching them. Conversion factors from Wikipedia: Obsolete Russian units of measurement.
+
+say convert(1, 'Meter');
+say '';
+say convert(1, 'milia');
+exit;
+
+sub convert (Real $magnitude, $unit) {
+     my %factor =
+        tochka     => 0.000254,
+        liniya     => 0.00254,
+        diuym      => 0.0254,
+        vershok    => 0.04445,
+        piad       => 0.1778,
+        fut        => 0.3048,
+        arshin     => 0.7112,
+        sazhen     => 2.1336,
+        versta     => 1066.8,
+        milia      => 7467.6,
+        centimeter => 0.01,
+        meter      => 1.0,
+        kilometer  => 1000.0,
+    ;
+
+    unless %factor{$unit.lc}:exists { warn "No such unit '$unit'"; return } 
+    my $meters = $magnitude * %factor{$unit.lc};
+    my $result.push: "$magnitude $unit to:\n";
+    $result ~= sprintf "%10s: %s\n", $_,  $meters / %factor{$_} unless $_ eq $unit.lc
+      for %factor.keys.sort:{ +%factor{$_} }
+    return $result;
+}
+
+my $ref1 = qq:to/END/;
+1 meter to:
+    tochka: 3937.007874
+    liniya: 393.700787
+centimeter: 100
+     diuym: 39.370079
+   vershok: 22.497188
+      piad: 5.624297
+       fut: 3.28084
+    arshin: 1.406074
+    sazhen: 0.468691
+ kilometer: 0.001
+    versta: 0.000937
+     milia: 0.000134
+END
+
+my $ref2 = qq:to/END/;
+1 milia to:
+    tochka: 29400000
+    liniya: 2940000
+centimeter: 746760
+     diuym: 294000
+   vershok: 168000
+      piad: 42000
+       fut: 24500
+    arshin: 10500
+     meter: 7467.6
+    sazhen: 3500
+ kilometer: 7.4676
+    versta: 7
+END
+
+use Test;
+is convert(1, 'meter'), $ref1;
+is convert(1, 'milia'), $ref2;
