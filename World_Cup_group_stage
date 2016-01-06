@@ -1,0 +1,42 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/World_Cup_group_stage
+#c# 2016-01-06 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Translation of: Python
+
+constant scoring = 0, 1, 3;
+my @histo = [0 xx 10] xx 4;
+my @alto  = [0 xx 10] xx 4; # alternate histogram
+
+for [X] ^3 xx 6 -> @results {
+    my @s;
+
+    for @results Z (^4).combinations(2) -> ($r, @g) {
+        @s[@g[0]] += scoring[$r];
+        @s[@g[1]] += scoring[2 - $r];
+    }
+
+    for (@histo Z @s.sort)  -> (@h, $v) {
+        @h[$v]++;
+    }
+
+    @alto[$_][(@s.sort)[$_]]++ for ^4; # alternate method
+
+}
+
+my @res.push: .fmt('%3d',' ') for @histo.reverse;
+my @alt.push: .fmt('%3d',' ') for @alto.reverse;
+.say for @res;
+
+my $ref = qq:to/END/;
+  0   0   0   1  14 148 152 306   0 108
+  0   0   4  33 338 172 164  18   0   0
+  0  18 136 273 290   4   8   0   0   0
+108 306 184 125   6   0   0   0   0   0
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+is @alt.join("\n"), chomp $ref;
