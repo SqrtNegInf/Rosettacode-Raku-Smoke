@@ -1,0 +1,31 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Extract_file_extension
+#c# 2016-01-06 <RC
+#t# graphical
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub extension ( Str $filename --> Str ) {
+    given $filename.split(/\./)[*-1] {
+        when $filename   { "" }
+        when / <[\/_]> / { "" }
+        default          { "." ~ $_ }
+    }
+}
+
+say "$_ -> ", extension($_) for (
+    'mywebsite.com/picture/image.png',
+    'http://mywebsite.com/picture/image.png',
+    'myuniquefile.longextension',
+    'IAmAFileWithoutExtension',
+    '/path/to.my/file',
+    'file.odd_one',
+);
+
+use Test;
+is extension('mywebsite.com/picture/image.png'), '.png';
+is extension('http://mywebsite.com/picture/image.png'), '.png';
+is extension('myuniquefile.longextension'), '.longextension';
+is extension('IAmAFileWithoutExtension'), '';
+is extension('/path/to.my/file'), '';
+is extension('file.odd_one'), '';
