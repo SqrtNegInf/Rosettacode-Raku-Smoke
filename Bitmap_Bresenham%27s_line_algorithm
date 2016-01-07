@@ -1,0 +1,69 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Bitmap/Bresenham's_line_algorithm#Perl_6
+#c# 2016-01-07 <RC
+#t# graphical
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: bresenham.ppm
+
+class Pixel { has UInt ($.R, $.G, $.B) }
+class Bitmap {
+    has UInt ($.width, $.height);
+    has Pixel @!data;
+
+    method fill(Pixel $p) {
+        @!data = $p.clone xx ($!width*$!height)
+    }
+    method pixel(
+	$i where ^$!width,
+	$j where ^$!height
+	--> Pixel
+    ) is rw { @!data[$i*$!width + $j] }
+
+    method data { @!data }
+
+}
+
+role PPM {
+    method P6 returns Blob {
+    "P6\n{self.width} {self.height}\n255\n".encode('ascii')
+    ~ Blob.new: flat map { .R, .G, .B }, self.data
+    }
+}
+
+sub line(Bitmap $bitmap, $x0 is copy, $x1 is copy, $y0 is copy, $y1 is copy) {
+    my $steep = abs($y1 - $y0) > abs($x1 - $x0);
+    if $steep {
+        ($x0, $y0) = ($y0, $x0);
+        ($x1, $y1) = ($y1, $x1);
+    } 
+    if $x0 > $x1 {
+        ($x0, $x1) = ($x1, $x0);
+        ($y0, $y1) = ($y1, $y0);
+    }
+    my $Δx = $x1 - $x0;
+    my $Δy = abs($y1 - $y0);
+    my $error = 0;
+    my $Δerror = $Δy / $Δx;
+    my $y-step = $y0 < $y1 ?? 1 !! -1;
+    my $y = $y0;
+    for $x0 .. $x1 -> $x {
+        if $steep {
+            $bitmap.pixel($y, $x) = Pixel.new: :R(99), :G(99), :B(99);
+        } else {
+            $bitmap.pixel($x, $y) = Pixel.new: :R(99), :G(99), :B(99);
+        }
+
+        $error += $Δerror;
+        if $error >= 0.5 {
+            $y += $y-step;
+            $error -= 1.0;
+        } 
+    } 
+}
+
+my Bitmap $b = Bitmap.new(width => 100, height => 100) but PPM;
+$b.fill( Pixel.new( R => 0, G => 0, B => 0));
+line($b, 0, 99, 5, 92);
+my $out = open('run/bresenham.ppm', :w);
+$out.write: $b.P6;
