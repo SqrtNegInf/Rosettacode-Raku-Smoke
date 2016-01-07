@@ -1,0 +1,75 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Bitmap/Midpoint_circle_algorithm
+#c# 2016-01-07 <RC
+#t# graphical
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: midpoint.ppm
+
+class Pixel { has UInt ($.R, $.G, $.B) }
+class Bitmap {
+    has UInt ($.width, $.height);
+    has Pixel @!data;
+
+    method fill(Pixel $p) {
+        @!data = $p.clone xx ($!width*$!height)
+    }
+    method pixel(
+	$i where ^$!width,
+	$j where ^$!height
+	--> Pixel
+    ) is rw { @!data[$i*$!width + $j] }
+
+    method set-pixel ($i, $j, Pixel $p) {
+	self.pixel($i, $j) = $p.clone;
+    }
+    method get-pixel ($i, $j) returns Pixel {
+	self.pixel($i, $j);
+    }
+}
+
+# Translation of: C
+# We'll augment the Pixel and Bitmap classes.
+
+use MONKEY-TYPING;
+augment class Pixel { method Str { "$.R $.G $.B" } }
+augment class Bitmap {
+    method P3 {
+        join "\n", <<P3 "$.width $.height" 255>>,
+        do for ^($.width*$.height) { join ' ', @!data[$_] }
+    }
+    method raster-circle ( $x0, $y0, $r, Pixel $value ) {
+        my $f = 1 - $r;
+        my $ddF_x = 0;
+        my $ddF_y = -2 * $r;
+        my ($x, $y) = 0, $r;
+        self.set-pixel($x0, $y0 + $r, $value);
+        self.set-pixel($x0, $y0 - $r, $value);
+        self.set-pixel($x0 + $r, $y0, $value);
+        self.set-pixel($x0 - $r, $y0, $value);
+        while $x < $y {
+            if $f >= 0 {
+                $y--;
+                $ddF_y += 2;
+                $f += $ddF_y;
+            }
+            $x++;
+            $ddF_x += 2;
+            $f += $ddF_x + 1;    
+            self.set-pixel($x0 + $x, $y0 + $y, $value);
+            self.set-pixel($x0 - $x, $y0 + $y, $value);
+            self.set-pixel($x0 + $x, $y0 - $y, $value);
+            self.set-pixel($x0 - $x, $y0 - $y, $value);
+            self.set-pixel($x0 + $y, $y0 + $x, $value);
+            self.set-pixel($x0 - $y, $y0 + $x, $value);
+            self.set-pixel($x0 + $y, $y0 - $x, $value);
+            self.set-pixel($x0 - $y, $y0 - $x, $value);
+        }
+    }
+}
+
+my Bitmap $b = Bitmap.new( width => 32, height => 32);
+$b.fill( Pixel.new( R => 0, G => 0, B => 0) );
+$b.raster-circle(16, 16, 15, Pixel.new(R=>0, G=>0, B=>100));
+my $out = open('run/midpoint.ppm', :w);
+$out.say: $b.P3;
