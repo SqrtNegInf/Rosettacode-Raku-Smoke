@@ -1,0 +1,74 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Align_columns
+#c# 2016-01-06 <RC, 2018-04-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Works with: Rakudo version 2018.03
+
+# Call with parameter left (default), center or right.
+
+my @lines = 
+q|Given$a$text$file$of$many$lines,$where$fields$within$a$line$
+are$delineated$by$a$single$'dollar'$character,$write$a$program
+that$aligns$each$column$of$fields$by$ensuring$that$words$in$each$
+column$are$separated$by$at$least$one$space.
+Further,$allow$for$each$word$in$a$column$to$be$either$left$
+justified,$right$justified,$or$center$justified$within$its$column.
+|.lines;
+ 
+my @widths;
+ 
+my @res1;
+for @lines { for .split('$').kv { @widths[$^key] max= $^word.chars; } }
+#for @lines { say |.split('$').kv.map: { (align @widths[$^key], $^word) ~ " "; } }
+for @lines { @res1.push: .split('$').kv.map: { (align @widths[$^key], $^word) ~ " "; } }
+.put for @res1;
+ 
+#sub align($column_width, $word, $aligment = @*ARGS[0]) {
+sub align($column_width, $word, $aligment = 'left') {
+        my $lr = $column_width - $word.chars;
+        my $c  = $lr / 2;
+        given ($aligment) {
+                when "center" { " " x $c.ceiling ~ $word ~ " " x $c.floor }
+                when "right"  { " " x $lr        ~ $word                  }
+                default       {                    $word ~ " " x $lr      }
+        }
+}
+
+# Or a more functional version, called like ./align.p6 left input.txt, which however only supports left and right alignment (not center):
+
+my @res2;
+#sub MAIN ($alignment where 'left'|'right', $file) {
+    my $file = 'ref/align_columns.txt';
+    my $alignment = 'left';
+    my @lines1 := $file.IO.lines.map(*.split('$').cache).cache;
+       @widths = roundrobin(|@lines1).map(*».chars.max);
+    my $align  = {left=>'-', right=>''}{$alignment};
+    my $format = @widths.map( '%' ~ ++$ ~ '$' ~ $align ~ * ~ 's' ).join(' '); # ~ "\n";
+    @res2.push: sprintf $format, |$_ for @lines1;
+#}
+.put for @res1;
+
+
+my $ref1= qq:to/END/;
+Given       a           text        file    of      many       lines,      where     fields   within   a       line   
+are         delineated  by          a       single  'dollar'   character,  write     a        program 
+that        aligns      each        column  of      fields     by          ensuring  that     words    in      each   
+column      are         separated   by      at      least      one         space.   
+Further,    allow       for         each    word    in         a           column    to       be       either  left   
+justified,  right       justified,  or      center  justified  within      its       column. 
+END
+
+my $ref2= qq:to/END/;
+Given      a          text       file   of     many      lines,     where    fields  within  a      line 
+are        delineated by         a      single 'dollar'  character, write    a       program             
+that       aligns     each       column of     fields    by         ensuring that    words   in     each 
+column     are        separated  by     at     least     one        space.                               
+Further,   allow      for        each   word   in        a          column   to      be      either left 
+justified, right      justified, or     center justified within     its      column.                     
+END
+
+use Test;
+is @res1.join("\n"), chomp $ref1;
+is @res2.join("\n"), chomp $ref2;
