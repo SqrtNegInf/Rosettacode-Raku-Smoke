@@ -1,0 +1,49 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Unbias_a_random_generator
+#c# 2016-01-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# Translation of: Perl
+sub randN ( $n where 3..6 ) {
+    return ( $n.rand / ($n - 1) ).Int;
+}
+
+sub unbiased ( $n where 3..6 ) {
+    my $n1;
+    repeat { $n1 = randN($n) } until $n1 != randN($n);
+    return $n1;
+}
+
+my @res;
+my $iterations = 1000;
+for 3 .. 6 -> $n {
+    my ( @raw, @fixed );
+    for ^$iterations {
+        @raw[      randN($n) ]++;
+        @fixed[ unbiased($n) ]++;
+    }
+    @res.push: sprintf "N=%d   randN:%s,%4.1f%%   unbiased:%s,%4.1f%%",
+        $n, map { .perl, .[1] * 100 / $iterations }, @raw, @fixed;
+}
+.say for @res;
+
+my $moar = qq:to/END/;
+N=3   randN:[677, 323],32.3%   unbiased:[495, 505],50.5%
+N=4   randN:[754, 246],24.6%   unbiased:[508, 492],49.2%
+N=5   randN:[781, 219],21.9%   unbiased:[515, 485],48.5%
+N=6   randN:[818, 182],18.2%   unbiased:[503, 497],49.7%
+END
+
+my $jvm = qq:to/END/;
+N=3   randN:[656, 344],34.4%   unbiased:[515, 485],48.5%
+N=4   randN:[757, 243],24.3%   unbiased:[496, 504],50.4%
+N=5   randN:[804, 196],19.6%   unbiased:[502, 498],49.8%
+N=6   randN:[848, 152],15.2%   unbiased:[517, 483],48.3%
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
