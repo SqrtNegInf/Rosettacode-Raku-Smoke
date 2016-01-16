@@ -1,0 +1,57 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Copy_a_string
+#c# 2016-01-16 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# incomplete: read-only bind NYI
+
+# There is no special handling needed to copy a string; just assign it to a new variable:
+my @res;
+
+my $original = 'Hello.';
+my $copy = $original;
+@res.push: $copy;            # prints "Hello."
+$copy = 'Goodbye.';
+@res.push: $copy;            # prints "Goodbye."
+@res.push: $original;        # prints "Hello."
+# You can also bind a new variable to an existing one so that each refers to, and can modify the same string.
+
+my $original1 = 'Hello.';
+my $bound := $original1;
+@res.push: $bound;           # prints "Hello."
+$bound = 'Goodbye.';
+@res.push: $bound;           # prints "Goodbye."
+@res.push: $original1;        # prints "Goodbye."
+
+.say for @res;
+
+my $ref = qq:to/END/;
+Hello.
+Goodbye.
+Hello.
+Hello.
+Goodbye.
+Goodbye.
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+# DH: NYI read-only bind
+
+#`{{
+# You can also create a read-only binding which will allow read access to the string but prevent modification except through the original variable.
+
+my $original = 'Hello.';
+my $bound-ro ::= $original;
+say $bound-ro;        # prints "Hello."
+try {
+  $bound-ro = 'Runtime error!';
+  CATCH {
+    say "$!";         # prints "Cannot modify readonly value"
+  };
+};
+say $bound-ro;        # prints "Hello."
+$original = 'Goodbye.';
+say $bound-ro;        # prints "Goodbye."
+}}
