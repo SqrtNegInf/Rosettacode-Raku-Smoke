@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Literals/Integer
+#c# 2016-01-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#These all print 255.
+
+my @res;
+@res.push: 255;
+@res.push: 0d255;
+@res.push: 0xff;
+@res.push: 0o377;
+@res.push: 0b1111_1111;
+
+@res.push: :10<255>;
+@res.push: :16<ff>;
+@res.push: :8<377>;
+@res.push: :2<1111_1111>;
+@res.push: :3<100110>;
+@res.push: :4<3333>;
+@res.push: :12<193>;
+@res.push: :36<73>;
+
+say @res.join(' ');
+
+use Test;
+is @res.join(' '), chop '255 ' x 13;
+
+#There is a specced form for bases above 36, but rakudo does not yet implement it.
