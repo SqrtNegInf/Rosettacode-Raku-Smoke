@@ -1,0 +1,76 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Real_constants_and_functions
+#c# 2016-01-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res;
+
+@res.push: e;            # e
+@res.push: π; # or pi    # pi
+@res.push: τ; # or tau   # tau
+
+# Common mathmatical function are availble
+# as subroutines and as numeric methods.
+# It is a matter of personal taste and
+# programming style as to which is used.
+@res.push: sqrt 2;       # Square root
+@res.push: 2.sqrt;       # Square root
+
+# If you omit a base, does natural logarithm
+@res.push: log 2;        # Natural logarithm
+@res.push: 2.log;        # Natural logarithm
+
+# Specify a base if other than e
+@res.push: log 4, 10;    # Base 10 logarithm
+@res.push: 4.log(10);    # Base 10 logarithm
+@res.push: 4.log10;      # Convenience, base 10 only logarithm
+
+@res.push: exp 7;        # Exponentiation base e
+@res.push: 7.exp;        # Exponentiation base e
+
+# Specify a base if other than e
+@res.push: exp 7, 4;     # Exponentiation
+@res.push: 7.exp(4);     # Exponentiation
+@res.push: 4 ** 7;       # Exponentiation
+
+@res.push: abs -2;       # Absolute value
+@res.push: (-2).abs;     # Absolute value
+
+@res.push: floor -3.5;   # Floor
+@res.push: (-3.5).floor; # Floor
+
+@res.push: ceiling pi;   # Ceiling
+@res.push: pi.ceiling;   # Ceiling
+
+@res.push: e ** π\i + 1 ≅ 0; #:-)
+
+.say for @res;
+
+my $ref = qq:to/END/;
+2.718281828459045
+3.141592653589793
+6.283185307179586
+1.4142135623730951
+1.4142135623730951
+0.6931471805599453
+0.6931471805599453
+0.6020599913279623
+0.6020599913279623
+0.6020599913279623
+1096.6331584284585
+1096.6331584284585
+16384
+16384
+16384
+2
+2
+-4
+-4
+4
+4
+True
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
