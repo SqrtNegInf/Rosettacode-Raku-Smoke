@@ -1,0 +1,33 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Roots_of_a_function
+#c# 2016-01-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Uses exact arithmetic.
+
+sub f($x) { $x*$x*$x - 3*$x*$x + 2*$x }  # aka x^3 - 3x^2 + 2x
+
+my $start = -100;
+my $stop = 100;
+my $step = 0.01;
+
+my $results;
+for $start, * + $step ... $stop -> $x {
+    state $sign = 0;
+    given f($x) {
+        my $next = .sign;
+        when 0.0 {
+            say "Root found at $x";
+            $results ~= "Root found at $x ";
+        }
+        when $sign and $next != $sign {
+            say "Root found near $x";
+            $results ~= "Root found near $x ";
+        }
+        NEXT $sign = $next;
+    }
+}
+
+use Test;
+is $results, "Root found at 0 Root found at 1 Root found at 2 ";
