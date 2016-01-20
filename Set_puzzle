@@ -1,0 +1,111 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Set_puzzle
+#c# 2016-01-19 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# The trick here is to allocate three different bits for each enum, with the result that the cards of a matching set OR together to produce a 4-digit octal number that contains only the digits 1, 2, 4, or 7. This OR is done by funny looking [+|], which is the reduction form of +|, which is the numeric bitwise OR. (Because Perl 6 stole the bare | operator for composing junctions instead.)
+
+enum Color (red => 0o1000, green =>  0o2000, purple => 0o4000);
+enum Count (one =>  0o100, two =>     0o200, three =>   0o400);
+enum Shape (oval =>  0o10, squiggle => 0o20, diamond =>  0o40);
+enum Style (solid =>  0o1, open =>      0o2, striped =>   0o4);
+
+my @deck = sort Color.enums X Count.enums X Shape.enums X Style.enums;  # DH change
+my @res;
+
+sub MAIN($DRAW = 9, $GOAL = $DRAW div 2) {
+    sub show-cards(@c) { { @res.push: sprintf "%9s%7s%10s%9s", @c[$_;*]».key } for ^@c }
+    #sub show-cards(@c) { { printf "%9s%7s%10s%9s\n", @c[$_;*]».key } for ^@c } # DH change
+
+    my @combinations = [^$DRAW].combinations(3);
+
+    my @draw;
+    repeat until (my @sets) == $GOAL {
+        @draw = @deck.pick($DRAW);
+        my @bits = @draw.map: { [+] @^enums».value }
+        @sets = gather for @combinations -> @c {
+            take @draw[@c].item when /^ <[1247]>+ $/ given ( [+|] @bits[@c] ).base(8);
+        }
+    }
+
+    @res.push: "Drew $DRAW cards:";
+    show-cards @draw;
+    for @sets.kv -> $i, @cards {
+        @res.push: "\nSet {$i+1}:";
+        show-cards @cards;
+    }
+.say for @res;
+
+my $moar = qq:to/END/;
+Drew 9 cards:
+      red    one  squiggle  striped
+    green    one      oval     open
+      red    two      oval  striped
+      red    one      oval     open
+    green    two   diamond     open
+    green  three  squiggle     open
+      red    one   diamond    solid
+   purple    two  squiggle    solid
+    green    one      oval  striped
+
+Set 1:
+      red    one  squiggle  striped
+      red    one      oval     open
+      red    one   diamond    solid
+
+Set 2:
+      red    one  squiggle  striped
+    green  three  squiggle     open
+   purple    two  squiggle    solid
+
+Set 3:
+    green    one      oval     open
+    green    two   diamond     open
+    green  three  squiggle     open
+
+Set 4:
+      red    two      oval  striped
+    green    two   diamond     open
+   purple    two  squiggle    solid
+END
+
+my $jvm = qq:to/END/;
+Drew 9 cards:
+   purple  three  squiggle     open
+    green    one   diamond  striped
+      red    two  squiggle  striped
+      red    two   diamond  striped
+      red    one  squiggle    solid
+      red  three  squiggle     open
+      red    one      oval    solid
+    green  three  squiggle     open
+    green    two      oval    solid
+
+Set 1:
+   purple  three  squiggle     open
+      red  three  squiggle     open
+    green  three  squiggle     open
+
+Set 2:
+    green    one   diamond  striped
+    green  three  squiggle     open
+    green    two      oval    solid
+
+Set 3:
+      red    two  squiggle  striped
+      red    one  squiggle    solid
+      red  three  squiggle     open
+
+Set 4:
+      red    two   diamond  striped
+      red  three  squiggle     open
+      red    one      oval    solid
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
+}
