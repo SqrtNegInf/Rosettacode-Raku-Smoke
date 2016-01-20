@@ -1,0 +1,17 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/String_length
+#c# 2016-01-20 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Byte Length
+say 'møøse'.encode('UTF-8').bytes;
+
+# Character Length
+say 'møøse'.codes;
+
+# Grapheme Length
+say 'møøse'.chars;
+
+use Test;
+is ('møøse'.encode('UTF-8').bytes, 'møøse'.codes, 'møøse'.chars), '7 5 5';
