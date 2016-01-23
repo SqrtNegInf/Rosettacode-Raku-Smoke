@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Entropy
+#c# 2016-01-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-09-09
+
+sub entropy(@a) {
+    [+] map -> \p { p * -log p }, bag(@a).values »/» +@a;
+}
+
+say log(2) R/ entropy '1223334444'.comb;
+
+
+# In case we would like to add this function to Perl 6's core, here is one way it could be done:
+
+use MONKEY-TYPING;
+augment class Bag {
+    method entropy {
+	[+] map -> \p { - p * log p },
+	self.values »/» +self;
+    }
+}
+
+say '1223334444'.comb.Bag.entropy / log 2;
+
+use Test;
+is-approx (log(2) R/ entropy '1223334444'.comb).round(.00000000000001), 1.84643934467102;
