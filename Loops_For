@@ -1,0 +1,34 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Loops/For
+#c# 2016-01-23 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version #22 "Thousand Oaks"
+my $result;
+for ^5 {
+	for 0..$_ {
+		$result ~= "*";
+	}
+	$result ~= "\n";
+}
+put $result;
+
+my $ref = qq:to/END/;
+*
+**
+***
+****
+*****
+END
+
+use Test;
+is $result, $ref;
+
+#or using only one for loop:
+my @res.push: '*' x $_ for 1..5;
+
+is @res.join("\n"), chomp $ref;
+
+#or without using any loops at all:
+is ([\~] "*" xx 5).join("\n"), chomp $ref;
