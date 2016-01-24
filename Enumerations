@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Enumerations
+#c# 2016-01-23 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+enum Fruit <Apple Banana Cherry>; # Numbered 0 through 2.
+
+enum ClassicalElement (
+    Earth => 5,
+    'Air',  # gets the value 6
+    'Fire', # gets the value 7
+    Water => 10,
+);
+
+use Test;
+is Cherry == 2, True;
+is Earth == 5, True;
+is Air   == 6, True;
+is Fire  == 7, True;
+is Water == 10, True;
