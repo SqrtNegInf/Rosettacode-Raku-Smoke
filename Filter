@@ -1,0 +1,23 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Filter
+#c# 2016-01-23 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015.12
+
+my @a = 1..6;
+my @even = grep * %% 2, @a;
+
+#Alternatively:
+my @even1 = @a.grep(* %% 2);
+
+#Destructive:
+@a .= grep(* %% 2);
+
+my $ref = '2 4 6';
+
+use Test;
+is @even, $ref;
+is @even1, $ref;
+is @a, $ref;
