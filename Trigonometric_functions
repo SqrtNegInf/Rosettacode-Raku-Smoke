@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Trigonometric_functions
+#c# 2016-01-26 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res;
+
+@res.push: sin(pi/3).fmt('%.13f');
+@res.push: sin(pi/3).fmt('%.13f');
+@res.push: cos(pi/4).fmt('%.13f');
+@res.push: tan(pi/6).fmt('%.13f');
+@res.push: asin(sqrt(3)/2).fmt('%.13f');
+@res.push: acos(1/sqrt 2).fmt('%.13f');
+@res.push: atan(1/sqrt 3).fmt('%.13f');
+
+.say for @res;
+
+my $ref = qq:to/END/;
+0.8660254037844
+0.8660254037844
+0.7071067811865
+0.5773502691896
+1.0471975511966
+0.7853981633974
+0.5235987755983
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
