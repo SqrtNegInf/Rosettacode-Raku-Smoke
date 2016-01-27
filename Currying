@@ -1,0 +1,13 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Currying
+#c# 2016-01-27 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# All callable objects have an "assuming" method that can do partial application of either positional or named arguments. Here we curry the built-in subtraction operator.
+
+my &negative = &infix:<->.assuming(0);
+say negative 1;
+
+use Test;
+is (negative 1), -1;
