@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Loops/For_with_a_specified_step
+#c# 2016-01-27 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2010.07
+# With at least two values on the left-hand side, the sequence operator (...) can infer an arithmetic series. (With at least three values, it can infer a geometric sequence, too.)
+
+my $result;
+for 2, 4 ... 8 {
+    $result ~= "$_, ";
+}
+
+say $result ~ 'whom do we appreciate?';
+
+use Test;
+is $result, '2, 4, 6, 8, ';
