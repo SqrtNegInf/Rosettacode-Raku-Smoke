@@ -1,0 +1,17 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Mutual_recursion
+#c# 2016-01-30 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# downgraded Unicode names to ASCII
+
+multi F(0) { 1 }; multi M(0) { 0 }
+multi F(\n) { n - M(F(n - 1)) }
+multi M(\n) { n - F(M(n - 1)) }
+
+put map &F, ^20;
+put map &M, ^20;
+
+use Test;
+is (map &F, ^20), '1 1 2 2 3 3 4 5 5 6 6 7 8 8 9 9 10 11 11 12';
+is (map &M, ^20), '0 0 1 2 2 3 4 4 5 6 6 7 7 8 9 9 10 11 11 12';
