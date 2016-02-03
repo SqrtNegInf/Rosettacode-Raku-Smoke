@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Host_introspection
+#c# 2016-02-02 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN ($*VM.config NYI?)
+
+use experimental :pack;
+
+# Works with: Rakudo version 2015-09-14
+say $*VM.config<ptr_size>;
+say my $endian = pack('N', 123456789).unpack('V') == 123456789 ?? 'big-endian' !! 'little-endian';
+
+use Test;
+is $*VM.config<ptr_size>, '8';
+is $endian, 'little-endian';
