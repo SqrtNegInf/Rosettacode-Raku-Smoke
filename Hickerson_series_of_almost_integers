@@ -1,0 +1,40 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Hickerson_series_of_almost_integers
+#c# 2016-02-02 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-09-13
+# We'll use FatRat values, and a series for an approximation of ln(2).
+
+constant ln2 = [+] (1/2.FatRat, */2 ... *) Z/ 1 .. 100;
+constant h = [\*] 1/2, |(1..*) X/ ln2;
+
+my @res;
+for h[1..17] {
+   @res.push: .round(0.001)
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+1.041
+3.003
+12.996
+74.999
+541.002
+4683.001
+47292.999
+545834.998
+7087261.002
+102247563.005
+1622632572.998
+28091567594.982
+526858348381.001
+10641342970443.085
+230283190977853.037
+5315654681981354.513
+130370767029135900.458
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
