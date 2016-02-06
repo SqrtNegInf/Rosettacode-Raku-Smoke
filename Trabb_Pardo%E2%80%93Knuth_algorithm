@@ -1,0 +1,33 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Trabb_Pardo%E2%80%93Knuth_algorithm
+#c# 2016-02-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#my @nums = prompt("Please type 11 space-separated numbers: ").words
+#    until @nums == 11;
+my @nums = <10 -1 1 2 3 4 4.3 4.305 4.303 4.302 4.301>;
+
+my @res;
+for @nums.reverse -> $n {
+    my $r = $n.abs.sqrt + 5 * $n ** 3;
+    @res.push: "$n { $r > 400?? 'Urk!'!! $r }";
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+4.301 399.8862997477268
+4.302 Urk!
+4.303 Urk!
+4.305 Urk!
+4.3 399.6086441353328
+4 322
+3 136.73205080756887
+2 41.41421356237309
+1 6
+-1 -4
+10 Urk!
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
