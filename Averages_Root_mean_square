@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Averages/Root_mean_square
+#c# 2016-02-10 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015.12
+sub rms(*@nums) { sqrt [+](@nums X** 2) / @nums }
+
+say rms 1..10;
+
+
+#Here's a slightly more concise version, albeit arguably less readable:
+sub rms1 { sqrt @_ R/ [+] @_ X** 2 }
+say rms1 1..10;
+
+
+use Test;
+is (rms  1..10).round(.0000000000001), 6.2048368229954;
+is (rms1 1..10).round(.0000000000001), 6.2048368229954;
