@@ -1,0 +1,52 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Conditional_structures
+#c# 2016-02-13 <RC
+#t# nocode
+#m# MOAR: OK
+#j#  JVM: OK
+
+#`{{
+
+if/else
+if, else, elsif, unless, and given work much as they do in Perl 5, with the following differences:
+
+    All the parentheses are now optional.
+    unless no longer permits elsif or else blocks.
+    If the block of an if, elsif, or unless has a nonzero arity, the value of the conditional expression is used as an argument to the block:
+
+}}
+
+    if won() -> $prize {
+        say "You won $prize.";
+    }
+
+
+sub won { };
+
+# If an else block has a nonzero arity, it receives the value of the condition tested by the last if or elsif. 
+
+# given/when
+# 
+# Switch structures are done by topicalization and by smartmatching in Perl 6. They are somewhat orthogonal, you can use a given block without when, and vice versa. But the typical use is:
+
+given lc prompt("Done? ") {
+    when 'yes' { return }
+    when 'no'  { next }
+    default    { say "Please answer either yes or no." }
+}
+
+#`{{
+when blocks are allowed in any block that topicalizes $_, including a for loop (assuming one of its loop variables is bound to $_) or the body of a method (if you have declared the invocant as $_)." See Synopsis 4.
+
+There are also statement modifier forms of all of the above.
+Ternary operator
+
+The ternary operator looks like this:
+
+$expression ?? do_something !! do_fallback
+
+Other short-circuiting operators
+
+and, or, &&, || and // work as in Perl 5. 
+
+}}
