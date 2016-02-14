@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Averages/Mode
+#c# 2016-02-13 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015.12
+
+sub mode (*@a) {
+    my %counts;
+    ++%counts{$_} for @a;
+    my $max = [max] values %counts;
+    return |map { .key }, grep { .value == $max }, %counts.pairs;
+}
+
+use Test;
+is mode(1, 3, 6, 6, 6, 6, 7, 7, 12, 12, 17), 6;
+is mode(1, 1, 2, 4, 4), '1 4' if $*VM ~~ /Moar/;
+is mode(1, 1, 2, 4, 4), '4 1' if $*VM ~~ /JVM/;
