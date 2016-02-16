@@ -1,0 +1,25 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sum_digits_of_an_integer
+#c# 2016-02-16 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# This will handle input numbers in any base from 2 to 36.
+# The results are in base 10.
+
+say Σ $_ for <1 1234 1020304 fe f0e DEADBEEF>;
+
+sub Σ { [+] $^n.comb.map: { :36($_) } }
+
+#`{ Output:
+1
+10
+10
+29
+29
+104
+} 
+
+use Test;
+is (Σ 1234), 10;
+is (Σ 'DEADBEEF'), 104;
