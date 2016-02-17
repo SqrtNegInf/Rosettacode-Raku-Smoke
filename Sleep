@@ -1,0 +1,17 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sleep
+#c# 2016-02-17 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+# The sleep function argument is in units of seconds, but these may be fractional (to the limits of your system's clock).
+
+#my $sec = prompt("Sleep for how many microfortnights? ") * 1.2096;
+my $sec = 2 * 1.2096;
+say "Sleeping...";
+sleep $sec;
+say "Awake!";
+
+# Note that 1.2096 is a rational number in Perl6, not floating point, so precision can be maintained even when dealing with very small powers of ten.
+
