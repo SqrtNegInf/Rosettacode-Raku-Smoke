@@ -1,0 +1,27 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/First-class_functions/Use_numbers_analogously
+#c# 2016-02-19 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015-09-10
+
+sub multiplied ($g, $f) { return { $g * $f * $^x } }
+
+my $x  = 2.0;
+my $xi = 0.5;
+my $y  = 4.0;
+my $yi = 0.25;
+my $z  = $x + $y;
+my $zi = 1.0 / ( $x + $y );
+
+my @numbers = $x, $y, $z;
+my @inverses = $xi, $yi, $zi;
+
+for flat @numbers Z @inverses { say multiplied($^g, $^f)(.5) }
+my $out = gather { for flat @numbers Z @inverses { take multiplied($^g, $^f)(.5) } }
+
+use Test;
+is $out, '0.5 0.5 0.5';
+
+# The structure of this is identical to first-class function task.
