@@ -1,0 +1,13 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Globally_replace_text_in_several_files
+#c# 2016-02-24 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#p# RC prep: cp ref/replace.base run/replace1.txt; cp ref/replace.base run/replace1.txt; cp ref/replace.base run/replace1.txt
+#f# RC file: replace3.txt
+#    just checking on 3rd modified file
+
+# Current Perl 6 implementations do not yet support the -i flag for editing files in place, so we roll our own (rather unsafe) version:
+
+slurp($_).subst('Goodbye London!', 'Hello New York!', :g) ==> spurt($_)
+    for <run/replace1.txt run/replace2.txt run/replace3.txt>;
