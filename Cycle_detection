@@ -1,0 +1,57 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Cycle_detection
+#c# 2016-02-29 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2016-01
+#Pretty much a line for line translation of the Python code on the Wikipedia page.
+
+sub cyclical-function (\x) { (x * x + 1) % 255 };
+
+my ( $l, $s ) = brent( &cyclical-function, 3 );
+
+my $result;
+
+put join ', ', (3, -> \x { cyclical-function(x) } ... *)[^20], '...';
+say $result = "Cycle length $l.";
+say $result ~= "Cycle start index $s.";
+say $result ~= (3, -> \x { cyclical-function(x) } ... *)[$s .. $s + $l - 1];
+
+sub brent (&f, $x0) {
+    my $power = my $λ = 1;
+    my $tortoise = $x0;
+    my $hare = f($x0);
+    while ($tortoise != $hare) {
+        if $power == $λ {
+            $tortoise = $hare;
+            $power *= 2;
+            $λ = 0;
+        }
+        $hare = f($hare);
+        $λ += 1;
+    }
+
+    my $μ = 0;
+    $tortoise = $hare = $x0;
+    for ^$λ -> $i {
+        $hare = f($hare)
+    }
+
+    while ($tortoise != $hare) {
+        $tortoise = f($tortoise);
+        $hare = f($hare);
+        $μ += 1;
+    }
+    return $λ, $μ;
+}
+
+#`{
+3, 10, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, ...
+Cycle length 6.
+Cycle start index 2.
+(101 2 5 26 167 95)
+}
+
+use Test;
+is $result, 'Cycle length 6.Cycle start index 2.101 2 5 26 167 95';
