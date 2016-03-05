@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Truncatable_primes
+#c# 2016-03-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015.09
+
+constant ltp = $[2, 3, 5, 7], -> @ltp {
+    $[ grep { .&is-prime }, ((1..9) X~ @ltp) ]
+} ... *;
+
+constant rtp = $[2, 3, 5, 7], -> @rtp {
+    $[ grep { .&is-prime }, (@rtp X~ (1..9)) ]
+} ... *;
+
+say "Lowest  ltp = ", ltp[1][0];
+say "Lowest  rtp = ", rtp[1][0];
+#say "Highest ltp = ", ltp[5][*-1];
+#say "Highest rtp = ", rtp[5][*-1];
+
+use Test;
+is ltp[5][*-1], 998443, 'highest ltp: 998443';
+is rtp[5][*-1], 739399, 'highest rtp: 739399';
