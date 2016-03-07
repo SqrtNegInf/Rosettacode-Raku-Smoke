@@ -1,0 +1,33 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Averages/Simple_moving_average
+#c# 2016-03-07 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#    this might not be correct math...
+
+sub sma(Int \P where * > 0) returns Sub {
+    sub ($x) {
+        state @a = 0 xx P;
+        @a.push($x).shift;
+        P R/ [+] @a;
+    }
+}
+
+my $sma = sma(3);
+my @res;
+for <1 2 3 2 7>  {
+    push @res, $sma($_);
+    printf  "append $_ --> sma = %.2f  (with period 3)\n", @res[*-1];
+    #printf  "append $_ --> sma = %.2f  (with period 3)\n", $sma($_);
+}
+
+#`{
+append 1 --> sma = 1.00  (with period 3)
+append 2 --> sma = 1.50  (with period 3)
+append 3 --> sma = 2.00  (with period 3)
+append 2 --> sma = 2.33  (with period 3)
+append 7 --> sma = 4.00  (with period 3)
+}
+
+use Test;
+is @res.join(" "), '0.333333 1 2 2.333333 4';
