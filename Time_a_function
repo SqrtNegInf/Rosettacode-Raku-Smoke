@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Time_a_function
+#c# 2016-03-12 <RC, 2018-05-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Follows modern trend toward measuring wall-clock time, since CPU time is becoming rather ill-defined in the age of multicore, and doesn't reflect IO overhead in any case.
+
+my $start = now;
+(^10000000).pick(100000);
+say my $delta = now - $start;
+
+use Test;
+ok 0.1 < $delta < 1   if ! $*VM ~~ /jvm/;;
+ok 1.2 < $delta < 7   if   $*VM ~~ /jvm/;;
