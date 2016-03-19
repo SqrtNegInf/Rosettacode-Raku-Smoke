@@ -1,0 +1,34 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sparkline_in_unicode
+#c# 2016-03-19 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+constant @bars = '▁' ... '█';
+#while prompt 'Numbers separated by anything: ' -> $_ {
+
+my @res;
+sub xxx ($_) {
+    my @numbers = map +*, .comb(/ '-'? \d+ ['.' \d+]? /);
+    my ($mn,$mx) = @numbers.minmax.bounds;
+    @res.push: "min: $mn.fmt('%5f'); max: $mx.fmt('%5f')"; 
+    my $div = ($mx - $mn) / (@bars - 1);
+    @res.push: @bars[ (@numbers X- $mn) X/ $div ].join;
+}
+
+xxx(<9 18 27 36 45 54 63 72 63 54 45 36 27 18 9>);
+xxx(<1.5, 0.5 3.5, 2.5 5.5, 4.5 7.5, 6.5>);
+xxx(<3 2 1 0 -1 -2 -3 -4 -3 -2 -1 0 1 2 3>);
+.say for @res;
+
+my $ref = qq:to/END/;
+min: 9.000000; max: 72.000000
+▁▂▃▄▅▆▇█▇▆▅▄▃▂▁
+min: 0.500000; max: 7.500000
+▂▁▄▃▆▅█▇
+min: -4.000000; max: 3.000000
+█▇▆▅▄▃▂▁▂▃▄▅▆▇█
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
