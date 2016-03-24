@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/N'th
+#c# 2016-03-24 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my %irregulars = <1 st 2 nd 3 rd>, (11..13 X=> 'th');
+ 
+sub nth ($n) { $n ~ ( %irregulars{$n % 100} // %irregulars{$n % 10} // 'th' ) }
+ 
+my @res.push: .list».&nth for [^26], [250..265], [1000..1025];
+
+my %irregulars2 = <1 ˢᵗ 2 ⁿᵈ 3 ʳᵈ>, (11..13 X=> 'ᵗʰ');
+ 
+sub uninth ($n) { $n ~ ( %irregulars2{$n % 100} // %irregulars2{$n % 10} // 'ᵗʰ' ) }
+ 
+@res.push: .list».&uninth for [^26], [250..265], [1000..1025];
+.say for @res;
+
+my $ref = qq:to/END/;
+0th 1th 2th 3th 4th 5th 6th 7th 8th 9th 10th 11th 12th 13th 14th 15th 16th 17th 18th 19th 20th 21th 22th 23th 24th 25th
+250th 251th 252th 253th 254th 255th 256th 257th 258th 259th 260th 261th 262th 263th 264th 265th
+1000th 1001th 1002th 1003th 1004th 1005th 1006th 1007th 1008th 1009th 1010th 1011th 1012th 1013th 1014th 1015th 1016th 1017th 1018th 1019th 1020th 1021th 1022th 1023th 1024th 1025th
+0ᵗʰ 1ᵗʰ 2ᵗʰ 3ᵗʰ 4ᵗʰ 5ᵗʰ 6ᵗʰ 7ᵗʰ 8ᵗʰ 9ᵗʰ 10ᵗʰ 11ᵗʰ 12ᵗʰ 13ᵗʰ 14ᵗʰ 15ᵗʰ 16ᵗʰ 17ᵗʰ 18ᵗʰ 19ᵗʰ 20ᵗʰ 21ᵗʰ 22ᵗʰ 23ᵗʰ 24ᵗʰ 25ᵗʰ
+250ᵗʰ 251ᵗʰ 252ᵗʰ 253ᵗʰ 254ᵗʰ 255ᵗʰ 256ᵗʰ 257ᵗʰ 258ᵗʰ 259ᵗʰ 260ᵗʰ 261ᵗʰ 262ᵗʰ 263ᵗʰ 264ᵗʰ 265ᵗʰ
+1000ᵗʰ 1001ᵗʰ 1002ᵗʰ 1003ᵗʰ 1004ᵗʰ 1005ᵗʰ 1006ᵗʰ 1007ᵗʰ 1008ᵗʰ 1009ᵗʰ 1010ᵗʰ 1011ᵗʰ 1012ᵗʰ 1013ᵗʰ 1014ᵗʰ 1015ᵗʰ 1016ᵗʰ 1017ᵗʰ 1018ᵗʰ 1019ᵗʰ 1020ᵗʰ 1021ᵗʰ 1022ᵗʰ 1023ᵗʰ 1024ᵗʰ 1025ᵗʰ
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
