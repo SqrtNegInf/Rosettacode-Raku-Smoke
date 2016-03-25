@@ -1,0 +1,31 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/String_case
+#c# 2016-03-25 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#In Perl 6, case modification is implemented as builtin subroutine or method:
+
+my $word = "alpha BETA" ;
+my @res;
+@res.push: uc $word;         # all uppercase (subroutine call)
+@res.push: $word.uc;         # all uppercase (method call)
+# from now on we use only method calls as examples
+@res.push: $word.lc;         # all lowercase
+@res.push: $word.tc;         # first letter titlecase
+@res.push: $word.tclc;       # first letter titlecase, rest lowercase
+#say $word.tcuc;       # first letter titlecase, rest uppercase  #DH long gone from Rakudo
+@res.push: $word.wordcase;   # capitalize each word
+.say for @res;
+
+my $ref = qq:to/END/;
+ALPHA BETA
+ALPHA BETA
+alpha beta
+Alpha BETA
+Alpha beta
+Alpha Beta
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
