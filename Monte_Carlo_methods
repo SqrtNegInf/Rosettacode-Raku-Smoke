@@ -1,0 +1,47 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Monte_Carlo_methods
+#c# 2016-03-31 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# We'll consider the upper-right quarter of the unitary disk centered at the origin. Its area is π 4 {\displaystyle \pi \over 4} .
+
+my @random_distances = ([+] rand**2 xx 2) xx *;
+ 
+sub approximate_pi(Int $n) {
+    4 * @random_distances[^$n].grep(* < 1) / $n
+}
+ 
+say "Monte-Carlo π approximation:";
+my @res.push: "$_ iterations:  " ~ approximate_pi $_
+    for 100, 1_000, 10_000;
+
+# We don't really need to write a function, though. A lazy list would do:
+
+my @pi = ([\+] 4 * (1 > [+] rand**2 xx 2) xx *) Z/ 1 .. *;
+@res.push: @pi[10, 1000, 10_000];
+
+.say for @res;
+
+my $moar = qq:to/END/;
+100 iterations:  3.08
+1000 iterations:  3.132
+10000 iterations:  3.1356
+3.272727 3.112887 3.143686
+END
+
+my $jvm = qq:to/END/;
+100 iterations:  3.12
+1000 iterations:  3.152
+10000 iterations:  3.1256
+3.272727 3.204795 3.144086
+END
+
+use Test;
+if $*VM ~~ /jvm/ {
+is @res.join("\n"), chomp $jvm;
+} else {
+is @res.join("\n"), chomp $moar;
+}
