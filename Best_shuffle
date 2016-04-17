@@ -1,0 +1,58 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Best_shuffle
+#c# 2016-04-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+ 
+my @res.push: sprintf "%s, %s, (%d)", $_, best-shuffle $_
+    for <abracadabra seesaw elk grrrrrr up a>;
+.say for @res;
+
+# Translation of: Sidef
+# Works with: Rakudo Star version 2015.12
+
+sub best-shuffle(Str $orig) {
+ 
+    my @s = $orig.comb;
+    my @t = @s.pick(*);
+ 
+    for ^@s -> $i {
+        for ^@s -> $j {
+            if $i != $j and @t[$i] ne @s[$j] and @t[$j] ne @s[$i] {
+                @t[$i, $j] = @t[$j, $i];
+                last;
+            }
+        }
+    }
+ 
+    my $count = 0;
+    for @t.kv -> $k,$v {
+        ++$count if $v eq @s[$k]
+    }
+ 
+    return (@t.join, $count);
+}
+
+my $moar = qq:to/END/;
+abracadabra, baaradacabr, (0)
+seesaw, wasees, (0)
+elk, kel, (0)
+grrrrrr, rgrrrrr, (5)
+up, pu, (0)
+a, a, (1)
+END
+
+my $jvm = qq:to/END/;
+abracadabra, daaracarabb, (0)
+seesaw, eswesa, (0)
+elk, lke, (0)
+grrrrrr, rrrgrrr, (5)
+up, pu, (0)
+a, a, (1)
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
