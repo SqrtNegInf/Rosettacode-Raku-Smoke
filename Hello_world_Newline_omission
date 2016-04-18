@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Hello_world/Newline_omission
+#c# 2016-04-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# A newline is not added automatically to print or printf
+
+print "Goodbye, World!";
+printf "%s", "Goodbye, World!";
+
+my $result = sprintf "%s", 'Goodbye, World!';
+
+say '';
+use Test;
+is $result, "Goodbye, World!";
