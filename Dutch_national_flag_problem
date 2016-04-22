@@ -1,0 +1,123 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Dutch_national_flag_problem
+#c# 2016-04-22 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+#Here are five ways to do it, all one liners (apart from the test apparatus).
+
+enum NL <red white blue>;
+my @colors;
+my @res;
+ 
+sub how'bout (&this-way) {
+    sub show {
+        @res.push: @colors;
+        @res.push: "Ordered: ", [<=] @colors;
+    }
+ 
+    @colors = NL.roll(20);
+    show;
+    this-way;
+    show;
+}
+ 
+@res.push: "Using functional sort";
+how'bout { @colors = sort *.value, @colors }
+ 
+@res.push: "Using in-place sort";
+how'bout { @colors .= sort: *.value }
+ 
+@res.push: "Using a Bag";
+how'bout { @colors = flat red, white, blue Zxx bag(@colors».key)<red white blue> }
+ 
+@res.push: "Using the classify method";
+how'bout { @colors = flat (.list for %(@colors.classify: *.value){0,1,2}) }
+ 
+@res.push: "Using multiple greps";
+how'bout { @colors = flat (.grep(red), .grep(white), .grep(blue) given @colors) }
+
+.say for @res;
+
+use Test;
+my $moar = q:to/END/;
+Using functional sort
+red red red red red red white white white white blue blue blue blue blue blue blue blue blue blue
+Ordered: 
+False
+red red red red red red white white white white blue blue blue blue blue blue blue blue blue blue
+Ordered: 
+True
+Using in-place sort
+red red red red red red white white white white blue blue blue blue blue blue blue blue blue blue
+Ordered: 
+False
+red red red red red red white white white white blue blue blue blue blue blue blue blue blue blue
+Ordered: 
+True
+Using a Bag
+red red red red red red white white white white blue blue blue blue blue blue blue blue blue blue
+Ordered: 
+False
+red red red red red red white white white white blue blue blue blue blue blue blue blue blue blue
+Ordered: 
+True
+Using the classify method
+red red red red red red white white white white blue blue blue blue blue blue blue blue blue blue
+Ordered: 
+False
+red red red red red red white white white white blue blue blue blue blue blue blue blue blue blue
+Ordered: 
+True
+Using multiple greps
+red red red red red red white white white white blue blue blue blue blue blue blue blue blue blue
+Ordered: 
+False
+red red red red red red white white white white blue blue blue blue blue blue blue blue blue blue
+Ordered: 
+True
+END
+
+my $jvm = q:to/END/;
+Using functional sort
+red red red red red red white white white white white white white white white blue blue blue blue blue
+Ordered: 
+False
+red red red red red red white white white white white white white white white blue blue blue blue blue
+Ordered: 
+True
+Using in-place sort
+red red red red red red white white white white white white white white white blue blue blue blue blue
+Ordered: 
+False
+red red red red red red white white white white white white white white white blue blue blue blue blue
+Ordered: 
+True
+Using a Bag
+red red red red red red white white white white white white white white white blue blue blue blue blue
+Ordered: 
+False
+red red red red red red white white white white white white white white white blue blue blue blue blue
+Ordered: 
+True
+Using the classify method
+red red red red red red white white white white white white white white white blue blue blue blue blue
+Ordered: 
+False
+red red red red red red white white white white white white white white white blue blue blue blue blue
+Ordered: 
+True
+Using multiple greps
+red red red red red red white white white white white white white white white blue blue blue blue blue
+Ordered: 
+False
+red red red red red red white white white white white white white white white blue blue blue blue blue
+Ordered: 
+True
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
