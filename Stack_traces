@@ -1,0 +1,31 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Stack_traces
+#c# 2016-05-04 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# passing test depends on keeping same line numbering...
+
+my $moar = qq:to/END/;
+  in sub g at Stack_traces line 26
+  in sub f at Stack_traces line 30
+  in sub MAIN at Stack_traces line 31
+END
+
+my $jvm = qq:to/END/;
+  in method new at gen/jvm/CORE.setting line 29490
+  in sub g at Stack_traces line 25
+  in sub f at Stack_traces line 29
+  in sub MAIN at Stack_traces line 30
+  in sub MAIN_HELPER at gen/jvm/CORE.setting line 36617
+END
+
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+
+sub g { 
+    say my $result = Backtrace.new.concise;
+    use Test;
+    #is $result, $ref;
+}
+sub f { g }
+sub MAIN { f }
