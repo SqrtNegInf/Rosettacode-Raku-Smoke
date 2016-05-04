@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Empty_directory
+#c# 2016-05-04 <RC, 2018-05-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub dir-is-empty ($d) { not dir $d }
+
+#say dir-is-empty @*ARGS[0];
+say my $r1 = dir-is-empty "test";
+say my $r2 = dir-is-empty "test/dir1";
+say my $r3 = dir-is-empty "test/dir2";
+say my $r4 = dir-is-empty "test/dir3";
+
+use Test;
+is ($r1,$r2,$r3,$r4), 'False False False True';
+
+#The dir function returns a lazy list of filenames, excluding "." and ".." automatically. Any boolean context (in this case the not function) will do just enough work on the lazy list to determine whether there are any elements, so we don't have to count the directory entries, or even read them all into memory, if there are more than one buffer's worth.
