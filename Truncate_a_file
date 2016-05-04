@@ -1,0 +1,28 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Truncate_a_file
+#c# 2016-05-04 <>RC
+#m# MOAR: OK
+#p# RC prep: cp ref/truncate.base run/truncate.txt
+#j#  JVM: BROKEN
+
+die 'NativeCall...' if $*VM ~~ /jvm/;
+
+# Works with: Rakudo Star version 2013-02
+use NativeCall;
+ 
+sub truncate(Str, int32 --> int32) is native {*}
+ 
+sub MAINly ($file, $to = 100) {
+    given $file.IO { 
+        .e        or die "$file doesn't exist";
+        .w        or die "$file isn't writable";
+        .s >= $to or die "$file is not big enough to truncate";
+    }
+    truncate($file, $to) == 0 or die "Truncation was unsuccessful";
+}
+
+my $fn = 'run/truncate.txt';
+MAINly($fn);
+
+use Test;
+is $fn.IO.s, '100';
