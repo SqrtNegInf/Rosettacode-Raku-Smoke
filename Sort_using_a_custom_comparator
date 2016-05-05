@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sort_using_a_custom_comparator
+#c# 2016-05-04 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @strings = <Here are some sample strings to be sorted>;
+my @sorted_strings = sort { $^a.chars <=> $^b.chars or $^a.lc cmp $^b.lc }, @strings;
+.say for @sorted_strings;
+
+# This behavior is triggered by use of an arity 2 sort routine.
+
+# If instead the function you feed to sort is of arity 1, it will do the Schwartzian transform for you, automatically sorting numeric fields numerically, and strings fields stringily:
+
+say my @sorted2 = sort -> $x { [ $x.chars, $x.lc ] }, @strings;
+
+my $ref = qq:to/END/;
+be
+to
+are
+Here
+some
+sample
+sorted
+strings
+END
+
+use Test;
+is @sorted_strings.join("\n"), chomp $ref;;
+is @sorted2.join("\n"), chomp $ref;;
