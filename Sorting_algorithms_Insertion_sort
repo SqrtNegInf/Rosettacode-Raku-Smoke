@@ -1,0 +1,31 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sorting_algorithms/Insertion_sort
+#c# 2016-05-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+sub insertion_sort ( @a is copy ) {
+    for 1 .. @a.end -> $i {
+        my $value = @a[$i];
+        my $j;
+        loop ( $j = $i-1; $j >= 0 and @a[$j] > $value; $j-- ) {
+            @a[$j+1] = @a[$j];
+        }
+        @a[$j+1] = $value;
+    }
+    return @a;
+}
+ 
+my @data = 22, 7, 2, -5, 8, 4;
+say 'input  = ' ~ @data;
+say 'output = ' ~ @data.&insertion_sort;
+
+# input  = 22 7 2 -5 8 4
+# output = -5 2 4 7 8 22
+
+my @weights = (^50).map: { 100 + ( 1000.rand.Int / 10 ) };
+
+use Test;
+is @weights.sort, @weights.&insertion_sort;
