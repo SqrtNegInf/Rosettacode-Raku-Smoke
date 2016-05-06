@@ -1,0 +1,25 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sorting_algorithms/Stooge_sort
+#c# 2016-05-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub stoogesort( @L, $i = 0, $j = @L.end ) {
+    @L[$j,$i] = @L[$i,$j] if @L[$i] > @L[$j];
+ 
+    my $interval = $j - $i;
+ 
+    if $interval > 1 {
+         my $t = ( $interval + 1 ) div 3;
+         stoogesort( @L, $i   , $j-$t );
+         stoogesort( @L, $i+$t, $j    );
+         stoogesort( @L, $i   , $j-$t );
+    }
+    return @L;
+}
+ 
+my @L = 1, 4, 5, 3, -6, 3, 7, 10, -2, -5;
+put stoogesort(@L);
+ 
+use Test;
+is stoogesort(@L), @L.sort;
