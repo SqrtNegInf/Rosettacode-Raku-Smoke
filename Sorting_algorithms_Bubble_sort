@@ -1,0 +1,26 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sorting_algorithms/Bubble_sort
+#c# 2016-05-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# Works with: Rakudo version #24 "Seoul"
+
+sub bubble_sort (@a) {
+    for ^@a -> $i {
+        for $i ^..^ @a -> $j {
+            @a[$j] < @a[$i] and @a[$i, $j] = @a[$j, $i];
+        }
+    }
+}
+
+my @weights = (^50).map: { 100 + ( 1000.rand.Int / 10 ) };
+my @copy = @weights;
+@weights.&bubble_sort;
+put @weights;
+#say @copy.sort.Str eq @weights.Str ?? 'ok' !! 'not ok';
+
+use Test;
+is @copy.sort, @weights;
