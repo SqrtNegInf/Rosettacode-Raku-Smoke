@@ -1,0 +1,82 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Morse_code
+#c# 2016-05-07 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-09-24
+
+#Here we use the user as the audio device.
+#Just read the output, leaving extra pauses where indicated
+#by either whitespace or underscore.
+
+my %m = ' ', '_ _ ',
+|<
+    !	---.
+    "	.-..-.
+    $	...-..-
+    '	.----.
+    (	-.--.
+    )	-.--.-
+    +	.-.-.
+    ,	--..--
+    -	-....-
+    .	.-.-.-
+    /	-..-.
+    :	---...
+    ;	-.-.-.
+    =	-...-
+    ?	..--..
+    @	.--.-.
+    [	-.--.
+    ]	-.--.-
+    _	..--.-
+    0	-----
+    1	.----
+    2	..---
+    3	...--
+    4	....-
+    5	.....
+    6	-....
+    7	--...
+    8	---..
+    9	----.
+    A	.-
+    B	-...
+    C	-.-.
+    D	-..
+    E	.
+    F	..-.
+    G	--.
+    H	....
+    I	..
+    J	.---
+    K	-.-
+    L	.-..
+    M	--
+    N	-.
+    O	---
+    P	.--.
+    Q	--.-
+    R	.-.
+    S	...
+    T	-
+    U	..-
+    V	...-
+    W	.--
+    X	-..-
+    Y	-.--
+    Z	--..
+>.map: -> $c, $m is copy {
+    $m.=subst(rx/'-'/, 'dash ', :g);
+    $m.=subst(rx/'.'/, 'dot ', :g);
+    $c => $m ~ '_';
+}
+ 
+#say prompt("Gimme a string: ").uc.comb.map: { %m{$_} // "<scratch> " }
+say my $result = 'What hath God wrought?'.uc.comb.map: { %m{$_} // "<scratch> " }
+
+my $ref = 'dot dash dash _ dot dot dot dot _ dot dash _ dash _ _ _  dot dot dot dot _ dot dash _ dash _ dot dot dot dot _ _ _  dash dash dot _ dash dash dash _ dash dot dot _ _ _  dot dash dash _ dot dash dot _ dash dash dash _ dot dot dash _ dash dash dot _ dot dot dot dot _ dash _ dot dot dash dash dot dot _';
+
+use Test;
+is $result, chomp $ref;
