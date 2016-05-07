@@ -1,0 +1,28 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sorting_algorithms/Quicksort
+#c# 2016-05-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# Empty list sorts to the empty list
+ multi quicksort([]) { () }
+ 
+ # Otherwise, extract first item as pivot...
+ multi quicksort([$pivot, *@rest]) {
+     # Partition.
+     my $before := @rest.grep(* before $pivot);
+     my $after  := @rest.grep(* !before $pivot);
+ 
+     # Sort the partitions.
+     flat quicksort($before), $pivot, quicksort($after)
+ }
+
+my @weights = (^50).map: { 100 + ( 1000.rand.Int / 10 ) };
+put @weights.&quicksort;
+
+use Test;
+is @weights.sort, @weights.&quicksort;
+
+# Note that $before and $after are bound to lazy lists, so the partitions can (at least in theory) be sorted in parallel.
