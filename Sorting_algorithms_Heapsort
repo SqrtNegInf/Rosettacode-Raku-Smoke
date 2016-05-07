@@ -1,0 +1,45 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sorting_algorithms/Heapsort
+#c# 2016-05-06 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+#   different than other sorts, in-place
+
+sub heap_sort ( @list ) {
+    for ( 0 ..^ +@list div 2 ).reverse -> $start {
+        _sift_down $start, @list.end, @list;
+    }
+ 
+    for ( 1 ..^ +@list ).reverse -> $end {
+        @list[ 0, $end ] .= reverse;
+        _sift_down 0, $end-1, @list;
+    }
+}
+ 
+sub _sift_down ( $start, $end, @list ) {
+    my $root = $start;
+    while ( my $child = $root * 2 + 1 ) <= $end {
+        $child++ if $child + 1 <= $end and [<] @list[ $child, $child+1 ];
+        return if @list[$root] >= @list[$child];
+        @list[ $root, $child ] .= reverse;
+        $root = $child;
+    }
+}
+ 
+my @data = 6, 7, 2, 1, 8, 9, 5, 3, 4;
+say 'Input  = ' ~ @data;
+@data.&heap_sort;
+say 'Output = ' ~ @data;
+
+# Input  = 6 7 2 1 8 9 5 3 4
+# Output = 1 2 3 4 5 6 7 8 9
+
+my @weights = (^50).map: { 100 + ( 1000.rand.Int ) / 10 };
+my @copy = @weights;
+@weights.&heap_sort;
+
+use Test;
+is @copy.sort, @weights;
+
