@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sorting_algorithms/Radix_sort
+#c# 2016-05-06 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# A base-10 radix sort, done on the string representation of the integers. Signs are handled by in-place reversal of the '-' bucket on the last iteration. (The sort in there is not cheating; it only makes sure we process the buckets in the right order, since classify might return the buckets in random order. It might be more efficient to create our own ordered buckets, but this is succinct.)
+
+sub radsort (@ints) {
+    my $maxlen = [max] @ints».chars;
+    my @list = @ints».fmt("\%0{$maxlen}d");
+ 
+    for reverse ^$maxlen -> $r {
+        my @buckets = @list.classify( *.substr($r,1) ).sort: *.key;
+        @buckets[0].value = @buckets[0].value.reverse.List # DH change
+            if !$r and @buckets[0].key eq '-';
+        @list = flat @buckets.map: *.value.values;
+        #@list = flat map *.value.values, @buckets; # no different
+    }
+    @list».Int;
+}
+ 
+"$_ ".print for radsort my @data = (-2_000 .. 2_000).roll(20);
+say();
+
+use Test;
+is (radsort @data), @data.sort;
