@@ -1,0 +1,46 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Loops/Nested
+#c# 2016-05-10 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+my @a = [ (1..20).roll(10) ] xx *;
+
+my @res; my $data;
+LINE: for @a -> @line {
+    $data = '';
+    for @line -> $elem {
+        $data ~= " $elem";
+        last LINE if $elem == 20;
+    }
+    @res.push: $data;
+}
+@res.push: $data;
+
+.say for @res;
+
+my $moar = qq:to/END/;
+ 13 12 1 8 10 16 16 6 8 14
+ 6 6 4 17 13 11 14 15 3 9
+ 2 3 1 4 13 5 14 19 18 19
+ 5 18 6 20
+END
+my $moar-old = qq:to/END/;
+ 12 14 18 15 9 12 15 10 3 4
+ 7 11 3 5 10 3 10 9 11 11
+ 18 1 18 6 15 16 17 2 19 3
+ 3 3 9 12 20
+END
+
+my $jvm = qq:to/END/;
+ 8 15 11 14 20
+END
+
+use Test;
+if $*VM ~~ /jvm/ {
+is @res.join("\n"), chomp $jvm;
+} else {
+is @res.join("\n"), chomp $moar;
+}
