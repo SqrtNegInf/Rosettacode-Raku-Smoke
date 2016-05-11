@@ -1,0 +1,10 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Show_the_epoch
+#c# 2016-05-10 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+say DateTime.new(0);
+
+use Test;
+is DateTime.new(0), '1970-01-01T00:00:00Z';
