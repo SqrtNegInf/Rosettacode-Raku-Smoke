@@ -1,0 +1,55 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Iterated_digits_squaring
+#c# 2016-05-10 <RC
+#t# toodamnslow
+#m# MOAR: OK
+#j#  JVM: OK
+#   20161123: 185.736u 0.326s  3:06.32 99.8%
+#   20170609: 735.353u 1.498s 12:21.60 99.3% WTF??
+#   20180314: 183.113u 0.450s  3:03.85 99.8% back to normal
+
+# here's where things went south
+# 693.705u 1.168s 11:42.91 98.8%  ccfa5e5  (Jun 8th)
+# 297.162u 0.660s  4:58.39 99.8%  1ac7996  (Jun 7th)
+
+# We can reduce this to 4 minutes by writing in the NQP (Not Quite Perl6) subset of the language:
+
+use nqp;
+
+my $cache := nqp::list_i();
+nqp::bindpos_i($cache, 650, 0);
+nqp::bindpos_i($cache, 1, 1);
+nqp::bindpos_i($cache, 89, 89);
+ 
+sub Euler92(int $n) {
+    $n < 650
+	?? nqp::bindpos_i($cache,$n,ids($n))
+	!! ids($n)
+}
+ 
+sub ids(int $num --> int) {
+    my int $n = $num;
+    my int $ten = 10;
+    my int $sum = 0;
+    my int $t;
+    my int $c;
+    repeat until $n == 89 or $n == 1 {
+	$sum = 0;
+	repeat {
+	    $t = nqp::div_i($n, $ten);
+	    $c = $n - $t * $ten;
+	    $sum = $sum + $c * $c;
+	} while $n = $t;
+	$n = nqp::atpos_i($cache,$sum) || $sum;
+    }
+    $n;
+}
+ 
+my int $cnt = 0;
+for 1 .. 100_000_000 -> int $n {
+   $cnt = $cnt + 1 if Euler92($n) == 89;
+}
+say $cnt;
+
+use Test;
+is $cnt, 85744333;
