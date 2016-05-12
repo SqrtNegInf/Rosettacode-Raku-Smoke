@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Create_a_file
+#c# 2016-05-12 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#    cf 'Delete_a_file'
+ 
+#for '.', '' -> $prefix {
+#    mkdir "$prefix/docs" || die;
+#    open "$prefix/output.txt", :w;
+#}
+
+open  'test_file.txt', :w;
+mkdir 'test_dir';
+
+use Test;
+is 'test_file.txt'.IO ~~ :e, True;
+is 'test_dir'.IO ~~ :e, True;
