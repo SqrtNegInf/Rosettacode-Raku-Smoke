@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Runtime_evaluation/In_an_environment
+#c# 2016-05-12 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-12-22
+# For security, you must explicitly allow use of 'EVAL'.
+
+use MONKEY-SEE-NO-EVAL;
+sub eval_with_x($code, *@x) { [R-] @x.map: -> \x { EVAL $code } }
+ 
+say eval_with_x('3 * x', 5, 10);      # Says "15".
+say eval_with_x('3 * x', 5, 10, 50);  # Says "105".
+
+
+use Test;
+is eval_with_x('3 * x', 5, 10), 15;
+is eval_with_x('3 * x', 5, 10, 50), 105;
