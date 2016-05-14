@@ -1,0 +1,47 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Literals/Floating_point
+#c# 2016-05-13 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# difference between MOAR/JVM is just 'e-09' vs 'E-9'
+
+# Floating point numbers (the Num type) are written in the standard 'e' scientific notation:
+
+say 2e2;      # same as 200e0, 2e2, 200.0e0  and 2.0e2
+say 6.02e23;
+say -2e48;
+say 1e-9;
+say 1e0;
+
+my @res;
+@res.push: 2e2;      # same as 200e0, 2e2, 200.0e0  and 2.0e2
+@res.push: 6.02e23;
+@res.push: -2e48;
+@res.push: 1e-9;
+@res.push: 1e0;
+
+my $moar = q:to/END/;
+200
+6.02e+23
+-2e+48
+1e-09
+1
+END
+
+my $jvm = q:to/END/;
+200
+6.02E23
+-2.0E48
+1.0E-9
+1
+END
+
+use Test;
+if $*VM ~~ /jvm/ {
+is @res.join("\n"), chomp $jvm;
+} else {
+is @res.join("\n"), chomp $moar;
+}
+
+# A number like 3.1416 is specifically not floating point, but rational (the Rat type), equivalent to 3927/1250. On the other hand, Num(3.1416) would be considered a floating literal though by virtue of mandatory constant folding.
+
