@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Loops/N_plus_one_half
+#c# 2016-05-14 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $result;
+for 1 .. 10 {
+    $result ~= $_;
+    last when 10;
+    $result ~= ', ';
+}
+say $result;
+ 
+use Test;
+is $result, '1, 2, 3, 4, 5, 6, 7, 8, 9, 10';
