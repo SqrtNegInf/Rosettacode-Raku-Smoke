@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Check_input_device_is_a_terminal
+#c# 2016-05-15 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015.12
+say $*IN.t ?? "Input comes from tty." !! "Input doesn't come from tty.";
+
+#`{
+$ perl6 istty.p6
+Input comes from tty.
+$ true | perl6 istty.p6
+Input doesn't come from tty.
+}
