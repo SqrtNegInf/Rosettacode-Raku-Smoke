@@ -1,0 +1,39 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Loops/While
+#c# 2016-05-14 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Here is a straightforward translation of the task description:
+
+my @res1;
+my $n = 1024; while $n > 0 { @res1.push: $n; $n div= 2 }
+.say for @res1;
+
+# The same thing with a C-style loop and a bitwise shift operator:
+my @res2;
+{
+loop (my $n = 1024; $n > 0; $n +>= 1) { @res2.push: $n }
+}
+
+#And here's how you'd really write it, using a sequence operator that intuits the division for you:
+my @res3.push: $_ for 1024, 512, 256 ... 1;
+
+my $ref = qq:to/END/;
+1024
+512
+256
+128
+64
+32
+16
+8
+4
+2
+1
+END
+
+use Test;
+is @res1.join("\n"), chomp $ref;
+is @res2.join("\n"), chomp $ref;
+is @res3.join("\n"), chomp $ref;
