@@ -1,0 +1,12 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/String_append
+#c# 2016-05-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $str = "foo";
+$str ~= "bar";
+say $str;
+
+use Test;
+is $str, 'foobar';
