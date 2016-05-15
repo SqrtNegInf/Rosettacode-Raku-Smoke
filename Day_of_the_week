@@ -1,0 +1,14 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Day_of_the_week
+#c# 2016-05-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2010.07
+
+# As Perl 5, except DateTime is built-in, so you don't need to download a module of that name:
+
+say my $result = join ' ', grep { Date.new($_, 12, 25).day-of-week == 7 }, 2008 .. 2121;
+
+use Test;
+is $result, '2011 2016 2022 2033 2039 2044 2050 2061 2067 2072 2078 2089 2095 2101 2107 2112 2118';
