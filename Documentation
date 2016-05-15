@@ -1,0 +1,39 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Documentation
+#c# 2016-05-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# got some questions:
+#n# if '@res.push: &marine.WHY' (which saves no output?) isn't called, the subsequent push's don't work
+#n# also on STDOUT: (if try to capture via '@res.push:', then goes to STDERR?)
+#n#  No documentation available for type 'Method'.
+#n#  Perhaps it can be found at https://docs.perl6.org/type/Method
+
+#Similarly to Perl 5, Perl 6 is documented using Pod (a redesigned version of POD). However, it's not simply ignored by the parser as in Perl 5, it's an internal part of the language spec and can be used to attach documentation objects to almost any part of the code.
+
+my @res;
+
+#= it's yellow
+sub marine { ... }
+@res.push: &marine.WHY; # "it's yellow"
+ 
+#= a shaggy little thing
+class Sheep {
+    #= not too scary
+    method roar { 'roar!' }
+}
+@res.push: Sheep.WHY; # "a shaggy little thing"
+say Sheep.^find_method('roar').WHY; # "not too scary"
+
+.say for @res; #exit;
+
+# A compiler has a built-in --doc switch that will generate documentation from a given source file.
+
+my $ref = qq:to/END/;
+a shaggy little thing
+not too scary
+END
+
+
+use Test;
+is @res.join("\n"), chomp $ref;
