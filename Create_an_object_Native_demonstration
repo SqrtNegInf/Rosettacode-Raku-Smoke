@@ -1,0 +1,82 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Create_an_object/Native_demonstration
+#c# 2016-05-15 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+use lib 'libtest'; # DH work-around for problems with JVM and Test::Output
+
+# Works with: rakudo version 2015.10-29
+
+# Here we use delegation to handle all the normal hash methods that we don't need to override to define our new class.
+class FixedHash {
+        has $.hash handles *;
+        method new(*@args) { self.bless: hash => Hash.new: @args }
+        method AT-KEY(FixedHash:D: $key is copy) is rw {
+                $!hash.EXISTS-KEY($key) ?? $!hash.AT-KEY($key) !! Failure.new(q{can't store value for unknown key});
+        }
+        method DELETE-KEY($key) { $!hash.{$key} = Nil }
+}
+ 
+use Test;
+use Test::Output;
+
+# Testing
+my $fh = FixedHash.new: "a" => 1, "b" => 2;
+say $fh<a b>;
+is $fh<a b>, '1 2';
+
+$fh<b>:delete;
+say my $out1 = output-from {say $fh<a b>};
+is $out1, "(1 (Any))\n";
+
+$fh<b> = 42;
+say $fh<a b>;
+is $fh<a b>, '1 42';
+
+#say $fh<c>; # error
+my &test1 = sub {
+try {
+    say $fh<c>;
+    CATCH { default { note "$_"; } }
+}
+}
+say my $err1 = stderr-from(&test1);
+is $err1, "can't store value for unknown key\n";
+
+#$fh<c> = 43; # error
+my &test2 = sub {
+try {
+    $fh<c> = 43;
+    CATCH { default { note "$_"; } }
+}
+}
+say my $err2 = stderr-from(&test2);
+is $err2, "can't store value for unknown key\n";
+
+#By defining FALLBACK any class can handle undefined method calls. Since any class inherits plenty of methods from Any our magic object will be more of a novice conjurer then a master wizard proper.
+
+class Magic {
+        has %.hash;
+        multi method FALLBACK($name, |c) is rw { # this will eat any extra parameters
+                %.hash{$name}
+        }
+ 
+        multi method FALLBACK($name) is rw {
+                %.hash{$name}
+        }
+}
+ 
+my $magic = Magic.new;
+say $magic.foo = 10;
+is $magic.foo, '10';
+
+# $magic.defined = False  # error
+my &test3 = sub {
+try {
+    $magic.defined = False;
+    CATCH { default { note "$_"; } }
+}
+}
+say my $err3 = stderr-from(&test3);
+is $err3, "Cannot modify an immutable Bool (True)\n";
