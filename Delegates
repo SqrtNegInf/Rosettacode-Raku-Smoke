@@ -1,0 +1,45 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Delegates
+#c# 2016-05-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+class Non-Delegate  { }
+ 
+class Delegate {
+	method thing {
+		return "delegate implementation"
+	}
+}
+ 
+class Delegator {
+	has $.delegate is rw;
+ 
+	method operation {
+		$.delegate.^can( 'thing' ) ?? $.delegate.thing
+		!! "default implementation"
+	}
+}
+ 
+my Delegator $d .= new;
+ 
+my @res.push: "empty: "~$d.operation;
+ 
+$d.delegate = Non-Delegate.new;
+ 
+@res.push: "Non-Delegate: "~$d.operation;
+ 
+$d.delegate = Delegate.new;
+ 
+@res.push: "Delegate: "~$d.operation;
+
+.say for @res;
+
+my $ref = qq:to/END/;
+empty: default implementation
+Non-Delegate: default implementation
+Delegate: delegate implementation
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
