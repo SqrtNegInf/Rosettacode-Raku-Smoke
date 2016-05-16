@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Longest_string_challenge
+#c# 2016-05-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $l = '';  # Sample longest string seen.
+my $a = '';  # Accumulator to save longest strings.
+
+my $fh = open "ref/lsc.txt", :r;
+ 
+while $fh.get() -> $s {
+   my $n = "$s\n";
+   if $n.substr($l.chars) {     # Is new string longer?
+       $a = $l = $n;            # Reset accumulator.
+   }
+   elsif !$l.substr($n.chars) { # Same length?
+      $a ~= $n;                 # Accumulate it.
+   }
+}
+print $a;
+
+my $ref = qq:to/END/;
+ccc
+ddd
+ggg
+END
+
+use Test;
+is $a, $ref;
