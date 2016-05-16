@@ -1,0 +1,56 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Deal_cards_for_FreeCell
+#c# 2016-05-15 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-09-06
+
+srand 123456;
+my @res;
+
+sub dealgame ($game-number = 1) {
+    sub ms-lcg-method($seed = $game-number) { ( 214013 * $seed + 2531011 ) % 2**31 }
+ 
+    # lazy list of the random sequence
+    my @ms-lcg = |(&ms-lcg-method ... *).map: * +> 16;
+ 
+    constant CardBlock = 0x1f0a0;
+    my @deck = gather for flat(1..11,13,14) X+ (48,32...0) -> $off {
+        take chr CardBlock + $off;
+    }
+ 
+    my @game = gather while @deck {
+        @deck[@ms-lcg.shift % @deck, @deck-1] .= reverse;
+        take @deck.pop;
+    }
+ 
+    @res.push: "Game #$game-number";
+    @res.push: @game.splice(0, 8 min +@game) while @game;
+}
+ 
+dealgame;
+dealgame 617;
+.say for @res;
+
+my $ref = qq:to/END/;
+Game #1
+🃋 🃂 🂹 🃛 🃅 🂷 🃗 🂵
+🃎 🃞 🂩 🂥 🃁 🃝 🂾 🂳
+🂢 🂮 🃉 🃍 🂫 🂡 🂱 🃓
+🃔 🃕 🂪 🂽 🂴 🃑 🃄 🂧
+🂣 🃊 🂤 🂺 🂸 🃒 🂻 🃇
+🃆 🂨 🃈 🂭 🃖 🃃 🃘 🃚
+🂦 🃙 🂲 🂶
+Game #617
+🃇 🃁 🃕 🂣 🂥 🃘 🃂 🂱
+🃊 🂧 🃍 🃑 🃆 🂸 🂡 🂾
+🂺 🃝 🂳 🃉 🂦 🃈 🃃 🃚
+🃎 🂵 🂩 🃓 🂨 🂷 🃄 🂫
+🃔 🂭 🃙 🂹 🃗 🂶 🃒 🂢
+🂤 🂪 🂲 🃅 🃛 🃖 🂻 🂽
+🃋 🂮 🃞 🂴
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
