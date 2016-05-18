@@ -1,0 +1,34 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Tokenize_a_string_with_escaping
+#c# 2016-05-18 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub tokenize ($string, :$sep!, :$esc!) {
+    return $string.match(/([ <!before $sep | $esc> . | $esc . ]*)+ % $sep/)\
+                  .[0].map(*.subst: /$esc )> ./, '', :g);
+}
+ 
+my @res.push: "'$_'" for tokenize 'one^|uno||three^^^^|four^^^|^cuatro|', sep => '|', esc => '^';
+.say for @res;
+
+my $ref = qq:to/END/;
+'one|uno'
+''
+'three^^'
+'four^|cuatro'
+''
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+#`{
+ Notable Perl 6 innovations that make this different from the equivalent #Perl solution:
+
+ string variables can be safely interpolated into regexes without having to 'quotemeta' them
+ regexes matches return a nested Match object which allows retrieving all results for a given capture group (rather than just the last thing that it matched), thus getting rid of the need for repeated global matching
+ the <field>+ % <delimiter> regex construct allows handling the delimiters in a more idiomatic way
+ the )> regex construct can be used to exclude anything that follows it from the returned match result
+}
+
