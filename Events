@@ -1,0 +1,48 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Events
+#c# 2016-05-18 <RC, 2018-05-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# work-around change in order of program sleeping / task start 
+
+my @res;
+
+# Translation of: Go
+@res.push: now, " program start";
+my $event = Channel.new;
+ 
+my $todo = start {
+    @res.push: now, " task start";
+    $event.receive;
+    @res.push: now, " event reset by task";
+}
+ 
+@res.push: now, " program sleeping";
+sleep 1;
+@res.push: now, " program signaling event";
+$event.send(0);
+await $todo;
+
+.say for @res;
+
+# See also Handle_a_signal#Perl_6 for an example of using Supplies to do reactive programming based on events (Unix signals in this case).
+
+my $ref = qq:to/END/;
+ program start
+ task start
+ program signaling event
+ event reset by task
+END
+
+my $refx = qq:to/END/;
+ program start
+ program sleeping
+ task start
+ program signaling event
+ event reset by task
+END
+
+use Test;
+is @res.elems, 10;
+is @res.grep(/start|task|event/).join("\n"), chomp $ref;
+#is @res.grep(/program|task/).join("\n"), chomp $ref;
