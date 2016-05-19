@@ -1,0 +1,46 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Extend_your_language
+#c# 2016-05-19 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Writing the conditional blocks is no problem, since there's no distinction between built-in closures and user-defined. The if2 is currently just a function call, which requires a comma after the second condition; eventually we will be able to drop that in user-defined code, but none of our implementations can define parse actions in the statement_control category quite yet. (That syntax is special insofar as it's the only place Perl 6 allows two terms in a row.) So currently it requires the comma until the implementations catch up with the spec on that subject.
+#This solution is hygienic in both lexical and dynamic variables; the only caveat is that the user's program must avoid the dynamic variable being used by the implementation of conditional, $*IF2. This does not seem like a great hardship. (The conditionals will also nest correctly since that's how dynamic variables behave.)
+
+my &if2  = -> \a, \b, &x { my @*IF2 = ?a,?b; x }
+ 
+my &if-both    = -> &x { x if @*IF2 eq (True,True) }
+my &if-first   = -> &x { x if @*IF2 eq (True,False) }
+my &if-second  = -> &x { x if @*IF2 eq (False,True) }
+my &if-neither = -> &x { x if @*IF2 eq (False,False)}
+ 
+sub test ($a,$b) {
+    $_ = "G";          # Demo correct scoping of topic.
+    my $got = "o";     # Demo correct scoping of lexicals.
+    my $*got = "t";    # Demo correct scoping of dynamics.
+ 
+    if2 $a, $b, {
+        if-both { return "$_$got$*got both" }
+        if-first { return "$_$got$*got first" }
+        if-second { return "$_$got$*got second" }
+        if-neither { return "$_$got$*got neither" }
+    }
+}
+
+my @res;
+ @res.push: test |$_ for 1,0 X 1,0;
+#@res.push: test |$_ for <1 0> X <1 0>;
+#@res.push: test |$_ for [1,0] X [1,0]; # or parentheses
+#@res.push: test |$_ for [X] (1,0) xx 2;
+#@res.push: test |$_ for [X] ^2 xx 2; # but different order, preface with 'reverse' to fix that
+.say for @res;
+
+my $ref = qq:to/END/;
+Got both
+Got first
+Got second
+Got neither
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
