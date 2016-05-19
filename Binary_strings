@@ -1,0 +1,113 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Binary_strings
+#c# 2016-05-19 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# infix:<cmp> obsolete?: Rakudo version 2018.03-143-g111f67a4b built on MoarVM version 2018.03-59-gfc1bb3126
+
+# Perl 6 is perfectly fine with NUL *characters* in strings:
+my Str $s = 'nema' ~ 0.chr ~ 'problema!';
+my @res.push: $s;
+
+# However, Perl 6 makes a clear distinction between strings
+# (i.e. sequences of characters), like your name, or …
+my Str $str = "My God, it's full of chars!";
+# … and sequences of bytes (called Bufs), for example a PNG image, or …
+my Buf $buf = Buf.new(255, 0, 1, 2, 3);
+@res.push: $buf.gist;
+
+# Strs can be encoded into Blobs … # DH change
+my Blob $this = 'round-trip'.encode('ascii'); #DH change 
+# … and Blobs can be decoded into Strs … # DH change
+my Str $that = $this.decode('ascii');
+@res.push: $that;
+
+# So it's all there. Nevertheless, let's solve this task explicitly
+# in order to see some nice language features:
+
+# We define a class …
+class ByteStr {
+    # … that keeps an array of bytes, and we delegate some
+    # straight-forward stuff directly to this attribute:
+    # (Note: "has byte @.bytes" would be nicer, but that is
+    # not yet implemented in rakudo)
+    has Int @.bytes handles(< Bool elems gist push >);
+
+    # A handful of methods …
+    method clone() {
+        self.new(:@.bytes);
+    }
+
+    method substr(Int $pos, Int $length) {
+        self.new(:bytes(@.bytes[$pos .. $pos + $length - 1]));
+    }
+
+    method replace(*@substitutions) {
+        my %h = @substitutions;
+        @.bytes.=map: { %h{$_} // $_ }
+    }
+}
+
+# A couple of operators for our new type:
+multi infix:<cmp>(ByteStr $x, ByteStr $y) { $x.bytes.join cmp $y.bytes.join }
+multi infix:<~>  (ByteStr $x, ByteStr $y) { ByteStr.new(:bytes(|$x.bytes, |$y.bytes)) } # DH change
+
+# create some byte strings (destruction not needed due to garbage collection)
+my ByteStr $b0 = ByteStr.new;
+my ByteStr $b1 = ByteStr.new(:bytes( |'foo'.ords, 0, 10, |'bar'.ords )); # DH change
+
+# assignment ($b1 and $b2 contain the same ByteStr object afterwards):
+my ByteStr $b2 = $b1;
+
+# comparing:
+@res.push: sprintf "b0 cmp b1 = %s", $b0 cmp $b1;
+@res.push: sprintf "b1 cmp b2 = %s", $b1 cmp $b2;
+
+# cloning:
+my $clone = $b1.clone;
+$b1.replace('o'.ord => 0);
+@res.push: sprintf "b1 = %s", $b1.gist;
+@res.push: sprintf "b2 = %s", $b2.gist;
+@res.push: sprintf "clone = %s", $clone.gist;
+
+# to check for (non-)emptiness we evaluate the ByteStr in boolean context:
+@res.push: sprintf "b0 is %s", $b0 ?? 'not empty' !! 'empty';
+@res.push: sprintf "b1 is %s", $b1 ?? 'not empty' !! 'empty';
+
+# appending a byte:
+$b1.push: 123;
+@res.push: sprintf "appended = %s", $b1.gist;
+
+# extracting a substring:
+my $sub = $b1.substr(2, 4);
+@res.push: sprintf "substr = %s", $sub.gist;
+
+# replacing a byte:
+$b2.replace(102 => 103);
+@res.push: sprintf "replaced = %s", $b2.gist;
+
+# joining:
+my ByteStr $b3 = $b1 ~ $sub;
+@res.push: sprintf "joined = %s", $b3.gist;
+
+.say for @res;
+
+use Test;
+my $ref = qq:to/END/;
+nema{0.chr}problema!
+Buf:0x<ff 00 01 02 03>
+round-trip
+b0 cmp b1 = Less
+b1 cmp b2 = Same
+b1 = [102 0 0 0 10 98 97 114]
+b2 = [102 0 0 0 10 98 97 114]
+clone = [102 111 111 0 10 98 97 114]
+b0 is empty
+b1 is not empty
+appended = [102 0 0 0 10 98 97 114 123]
+substr = [0 0 10 98]
+replaced = [103 0 0 0 10 98 97 114 123]
+joined = [103 0 0 0 10 98 97 114 123 0 0 10 98]
+END
+
+is @res.join("\n"), chomp $ref;
