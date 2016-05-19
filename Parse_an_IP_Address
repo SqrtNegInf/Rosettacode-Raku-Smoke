@@ -1,0 +1,179 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Parse_an_IP_Address
+#c# 2016-05-19 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN 
+#n# java.util.regex.PatternSyntaxException: Unknown character property name {hexdigit}
+
+grammar IP_Addr {
+    token TOP { ^ [ <IPv4> | <IPv6> ] $ }
+ 
+    token IPv4 {
+        [ <d8> +% '.' ] <?{ $<d8> == 4 }> <port>?
+                { @*by8 = @$<d8> }
+    }
+ 
+    token IPv6 {
+        |     <ipv6>
+        | '[' <ipv6> ']' <port>
+    }
+ 
+    token ipv6 {
+        | <h16> +% ':' <?{ $<h16> == 8 }>
+                { @*by16 = @$<h16> }
+ 
+        | [ (<h16>) +% ':']? '::' (<h16>) +% ':' <?{ @$0 + @$1 <= 8 }>
+                { @*by16 = @$0, '0' xx 8 - (@$0 + @$1), @$1 }
+ 
+        | '::ffff:' <IPv4> 
+                { @*by16 = '0' xx 5, 'ffff', by8to16 @*by8 }
+    }
+ 
+    token d8  { (\d+) <?{ $0 < 256   }> }
+    token d16 { (\d+) <?{ $0 < 65536 }> }
+    #token h16 { (<[0..9 a..f]>+) <?{ @$0 <= 4 }> } # JVM works
+    token h16 { (<:hexdigit>+) <?{ @$0 <= 4 }> }
+ 
+    token port {
+        ':' <d16> { $*port = +$<d16> }
+    }
+}
+ 
+sub by8to16 (@m) { gather for @m -> $a,$b { take ($a * 256 + $b).fmt("%04x") } }
+ 
+my @cases = <
+    127.0.0.1
+    127.0.0.1:80
+    ::1
+    [::1]:80
+    2605:2700:0:3::4713:93e3
+    [2605:2700:0:3::4713:93e3]:80
+    2001:db8:85a3:0:0:8a2e:370:7334
+    2001:db8:85a3::8a2e:370:7334
+    [2001:db8:85a3:8d3:1319:8a2e:370:7348]:443
+    192.168.0.1
+    ::ffff:192.168.0.1
+    ::ffff:71.19.147.227
+    [::ffff:71.19.147.227]:80
+    ::
+    256.0.0.0
+    g::1
+    0000
+    0000:0000
+    0000:0000:0000:0000:0000:0000:0000:0000
+    0000:0000:0000::0000:0000
+    0000::0000::0000:0000
+    ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+    ffff:ffff:ffff:fffg:ffff:ffff:ffff:ffff
+    fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+    fff:ffff:0:ffff:ffff:ffff:ffff:ffff
+>;
+ 
+my @res;
+for @cases -> $addr {
+    my @*by8;
+    my @*by16;
+    my $*port;
+ 
+    IP_Addr.parse($addr);
+ 
+    @res.push: $addr;
+    if @*by16 {
+        @res.push: "  IPv6: "~ @*by16».map({:16(~$_)})».fmt("%04x").join;
+        @res.push: "  Port: "~ $*port if $*port;
+    }
+    elsif @*by8 {
+        @res.push: "  IPv4: "~ @*by8».fmt("%02x").join;
+        @res.push: "  Port: "~ $*port if $*port;
+    }
+    else {
+        @res.push: "  BOGUS!";
+    }
+    @res.push: '';
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+127.0.0.1
+  IPv4: 7f000001
+
+127.0.0.1:80
+  IPv4: 7f000001
+  Port: 80
+
+::1
+  IPv6: 0000 0000 0000 0000 0000 0000 00000001
+
+[::1]:80
+  IPv6: 0000 0000 0000 0000 0000 0000 00000001
+  Port: 80
+
+2605:2700:0:3::4713:93e3
+  IPv6: 2605 2700 0000 00030000 00004713 93e3
+
+[2605:2700:0:3::4713:93e3]:80
+  IPv6: 2605 2700 0000 00030000 00004713 93e3
+  Port: 80
+
+2001:db8:85a3:0:0:8a2e:370:7334
+  IPv6: 20010db885a3000000008a2e03707334
+
+2001:db8:85a3::8a2e:370:7334
+  IPv6: 2001 0db8 85a30000 00008a2e 0370 7334
+
+[2001:db8:85a3:8d3:1319:8a2e:370:7348]:443
+  IPv6: 20010db885a308d313198a2e03707348
+  Port: 443
+
+192.168.0.1
+  IPv4: c0a80001
+
+::ffff:192.168.0.1
+  IPv6: 0000 0000 0000 0000 0000ffffc0a8 0001
+
+::ffff:71.19.147.227
+  IPv6: 0000 0000 0000 0000 0000ffff4713 93e3
+
+[::ffff:71.19.147.227]:80
+  IPv6: 0000 0000 0000 0000 0000ffff4713 93e3
+  Port: 80
+
+::
+  BOGUS!
+
+256.0.0.0
+  BOGUS!
+
+g::1
+  BOGUS!
+
+0000
+  BOGUS!
+
+0000:0000
+  BOGUS!
+
+0000:0000:0000:0000:0000:0000:0000:0000
+  IPv6: 00000000000000000000000000000000
+
+0000:0000:0000::0000:0000
+  IPv6: 0000 0000 00000000 0000 00000000 0000
+
+0000::0000::0000:0000
+  IPv6: 00000000 0000 0000 0000 0000 00000000
+
+ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+  IPv6: ffffffffffffffffffffffffffffffff
+
+ffff:ffff:ffff:fffg:ffff:ffff:ffff:ffff
+  BOGUS!
+
+fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+  IPv6: 0fffffffffffffffffffffffffffffff
+
+fff:ffff:0:ffff:ffff:ffff:ffff:ffff
+  IPv6: 0fffffff0000ffffffffffffffffffff
+END
+
+use Test;
+is @res.join("\n"), $ref;
