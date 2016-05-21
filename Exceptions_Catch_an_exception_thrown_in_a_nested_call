@@ -1,0 +1,35 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Exceptions/Catch_an_exception_thrown_in_a_nested_call
+#c# 2016-05-20 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+use lib 'libtest'; # DH work-around for problems with JVM and Test::Output
+
+# Translation of: Perl
+
+my &testcode = sub { 
+sub foo() {
+    for 0..1 -> $i {
+        bar $i;
+        CATCH {
+            when /U0/ { say "Function foo caught exception U0" }
+            default { note "Unexpected exception $_!" } 
+        }
+    }
+}
+ 
+sub bar($i) { baz $i }
+ 
+sub baz($i) { die "U$i" }
+ 
+foo;
+
+}
+
+use Test;
+use Test::Output;
+print "Function foo caught exception U0\n";
+print "Unexpected exception U1!\n";
+is stdout-from(&testcode), "Function foo caught exception U0\n";
+is stderr-from(&testcode), "Unexpected exception U1!\n";
