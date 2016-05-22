@@ -1,0 +1,43 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Card_shuffles
+#c# 2016-05-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+ 
+sub overhand ( @cards ) {
+    my @splits = roll 10, ^( @cards.elems div 5 )+1;
+    @cards.rotor( @splits  ,:partial ).reverse.flat
+}
+ 
+sub riffle ( @pile is copy ) {
+    my @pile2 = @pile.splice: @pile.elems div 2 ;
+ 
+    roundrobin(
+        @pile.rotor(  (1 .. 3).roll(7), :partial ),
+        @pile2.rotor( (1 .. 3).roll(9), :partial ),
+    ).flat
+}
+ 
+my @cards = ^20;
+@cards.=&overhand for ^10;
+put @cards;
+ 
+my @cards2 = ^20;
+@cards2.=&riffle for ^10;
+put @cards2;
+ 
+put my $cards3 = (^20).pick(*);
+
+use Test;
+if $*VM ~~ /jvm/ {
+is @cards,  '10 3 0 2 9 4 5 1 6 7 16 19 8 18 11 14 13 15 12 17';
+is @cards2, '0 11 4 3 16 17 13 2 6 1 5 14 12 15 19 18 8 9 7 10';
+is $cards3, '7 8 11 16 15 4 10 17 3 13 9 0 14 1 6 5 19 2 18 12';
+} else {
+is @cards,  '6 1 2 13 0 3 9 18 8 5 4 10 11 19 7 14 16 12 17 15';
+#is @cards2, '0 9 13 11 8 19 14 10 17 12 4 2 6 15 1 3 5 18 7 16'; # changed on 2017-08-10
+is @cards2, '0 10 1 19 16 14 3 4 18 9 15 13 12 17 8 7 6 11 5 2';
+is $cards3, '17 8 18 14 2 9 15 5 6 10 12 4 7 13 3 1 0 11 19 16';
+}
