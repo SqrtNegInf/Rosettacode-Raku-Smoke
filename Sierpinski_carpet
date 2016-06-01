@@ -1,0 +1,71 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sierpinski_carpet
+#c# 2016-06-01 <RC, 2018-04-11 <>RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Translation of: Tcl
+
+sub carpet
+{
+    (['#'], -> @c {
+       [ 
+        |@c.map({$_ x 3}), 
+        |@c.map({ $_ ~ $_.trans('#'=>' ') ~ $_}),
+        |@c.map({$_ x 3}) 
+       ]
+    } ... *).map: { .join("\n") };
+}
+ 
+my @res1 = carpet[3];
+.say for @res1;
+
+# Same as above, structured as an array bound to a sequence, with a separate sub for clarity.
+
+sub weave ( @c ) {
+   [
+    |@c.map({ $_ x 3 }),
+    |@c.map({ $_ ~ .trans( '#' => ' ' ) ~ $_ }),
+    |@c.map({ $_ x 3 })
+   ]
+}
+ 
+my @carpet = ( ['#'], &weave ... * ).map: { .join: "\n" };
+ 
+my @res2 = @carpet[3];
+
+# Output of both versions matches task example.
+
+my $ref = qq:to/END/;
+###########################
+# ## ## ## ## ## ## ## ## #
+###########################
+###   ######   ######   ###
+# #   # ## #   # ## #   # #
+###   ######   ######   ###
+###########################
+# ## ## ## ## ## ## ## ## #
+###########################
+#########         #########
+# ## ## #         # ## ## #
+#########         #########
+###   ###         ###   ###
+# #   # #         # #   # #
+###   ###         ###   ###
+#########         #########
+# ## ## #         # ## ## #
+#########         #########
+###########################
+# ## ## ## ## ## ## ## ## #
+###########################
+###   ######   ######   ###
+# #   # ## #   # ## #   # #
+###   ######   ######   ###
+###########################
+# ## ## ## ## ## ## ## ## #
+###########################
+END
+
+use Test;
+is @res1.join("\n"), chomp $ref;
+is @res2.join("\n"), chomp $ref;
