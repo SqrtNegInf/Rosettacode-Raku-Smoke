@@ -1,0 +1,11 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Hostname
+#c# 2016-06-02 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $host = qx[/bin/hostname];
+say $host;
+
+use Test;
+is (chomp $host), 'Mac-Pro.local';
