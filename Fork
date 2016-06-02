@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Fork
+#c# 2016-06-01 <>RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# Java HotSpot(TM) 64-Bit Server VM warning: Attempt to protect stack guard pages failed.
+#n# Java HotSpot(TM) 64-Bit Server VM warning: Attempt to deallocate stack guard pages failed.
+
+die 'NativeCall...' if $*VM ~~ /jvm/;
+
+use NativeCall;
+
+sub fork() returns int32 is native { ... }
+ 
+if fork() -> $pid {
+    use Test; ok $pid > 0;
+    print "I am the proud parent of $pid.\n";
+}
+else {
+    print "I am a child.  Have you seen my mommy?\n";
+}
