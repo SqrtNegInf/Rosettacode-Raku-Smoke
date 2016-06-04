@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Make_directory_path
+#c# 2016-06-04 <>RC, 2018-05-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+use Test;
+
+# There is a built-in function for this:
+
+is ('path/to/dir'.IO ~~ :e), False;
+mkdir 'path/to/dir';
+is ('path/to/dir'.IO ~~ :e), True;
+
+run 'rm', '-rf', 'path';  # clean up
