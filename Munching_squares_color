@@ -1,0 +1,28 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Munching_squares
+#c# 2016-06-04 <RC, 2017-06-04 >RC
+#t# graphical
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: munching_color.ppm
+#    this is 2nd example from RC URL
+
+# Another way more colorful put into Munching_squares_color:
+my @colors = map -> $r, $g, $b { Buf.new: $r, $g, $b },
+		map -> $x { floor ($x/256) ** 3 * 256 },
+		    (flat (0...255) Z
+		     (255...0) Z
+		     flat (0,2...254),(254,252...0)
+            );
+
+my $PPM = open "run/munching_color.ppm", :w or die "Can't create munching_color.ppm: $!"; # DH change
+
+$PPM.print: qq:to/EOH/;
+    P6
+    # munching.pgm
+    256 256 
+    255
+    EOH
+ 
+$PPM.write: @colors[$_] for ^256 X+^ ^256;
+$PPM.close;
