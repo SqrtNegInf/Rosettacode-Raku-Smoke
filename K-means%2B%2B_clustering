@@ -1,0 +1,56 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/K-means%2B%2B_clustering
+#c# 2016-06-04 <RC, 2018-05-02 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 'sort' tweak broke JVM
+#n# hash order randomization requires upgrade
+
+srand 123456;
+
+# Works with: rakudo version 2015-09-16
+
+# We use Complex numbers to represent points in the plane. We feed the algorithm with three artificially made clouds of points so we can easily see if the output makes sense.
+
+sub infix:«-means++»(Int $K, @data) {
+    my @means = @data.pick;
+    until @means == $K {
+        my @cumulD2 = [\+] @data.map: -> $x {
+            min @means.map: { abs($x - $_)**2 }
+        }
+        my $rand = rand * @cumulD2[*-1];
+        @means.push: @data[
+            (^@data).first: { @cumulD2[$_] > $rand }
+        ];
+    }
+    sub cluster { @data.classify: -> $x { @means.min: { abs($_ - $x) } } }
+    loop (
+        my %cluster;
+        $*VM ~~ /jvm/ ?? $*TOLERANCE < [+] (@means Z-      keys (%cluster = cluster))».abs X** 2 
+                      !! $*TOLERANCE < [+] (@means Z- sort keys (%cluster = cluster))».abs X** 2;
+        @means = %cluster.values.map( { .elems R/ [+] @$_ } )
+    ) { ; }
+    return @means;
+}
+ 
+my @centers = 0, 5, 3 + 2i;
+my @data = flat @centers.map: { ($_ + .5 - rand + (.5 - rand) * i) xx 100 }
+@data.=pick(*);
+
+my @res.push: $_ for 3-means++ @data;
+.say for @res.sort; #exit;
+my $moar = qq:to/END/;
+0.3243842840356872-0.11383716306674518i
+2.854089402783239+1.9858181682522411i
+5.279935312435028+0.26303240700345887i
+END
+
+my $jvm = qq:to/END/;
+-0.007324319785103137+0.00961466848024936i
+3.035379159691816+1.9881933944981593i
+4.974818116361712+9.982341769055136E-4i
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.sort.join("\n"), chomp $ref;
