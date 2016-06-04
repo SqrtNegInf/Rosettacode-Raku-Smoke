@@ -1,0 +1,14 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/MD5
+#c# 2016-06-04 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Library Digest::MD5
+
+use Digest::MD5;
+
+say my $result = Digest::MD5.md5_hex: "The quick brown fox jumped over the lazy dog's back";
+
+use Test;
+is $result, 'e38ca1d920c4b8b8d3946b2c72f01680';
