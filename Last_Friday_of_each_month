@@ -1,0 +1,55 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Last_Friday_of_each_month
+#c# 2016-06-04 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res0;
+sub MAIN0 (Int $year = Date.today.year) {
+    my @fri;
+    for Date.new("$year-01-01") .. Date.new("$year-12-31") {
+        @fri[.month] = .Str if .day-of-week == 5;
+    }
+    @res0.push: $_ for @fri[1..12];
+}
+
+# A solution without a result array to store things in:
+
+my @res1;
+sub MAIN1 (Int $year = Date.today.year) {
+    @res1.push: ~.value.reverse.first: *.day-of-week == 5
+        for classify *.month, Date.new("$year-01-01") .. Date.new("$year-12-31");
+}
+# Here, classify sorts the dates into one bin per month (but preserves the order in each bin). We then take the list inside each bin (.value) and find the last (.reverse.first) date which is a Friday.
+
+# Another variation where the data flow can be read left to right using feed operators:
+
+my @res2;
+sub MAIN2 (Int $year = Date.today.year) {
+    @res2.push: $_ for Date.new("$year-01-01") .. Date.new("$year-12-31") ==> classify *.month ==>
+             map *.value.reverse.first: *.day-of-week == 5
+}
+
+MAIN0(2038); say @res0.join("\n");
+MAIN1(2038);
+MAIN2(2038);
+
+my $ref = qq:to/END/;
+2038-01-29
+2038-02-26
+2038-03-26
+2038-04-30
+2038-05-28
+2038-06-25
+2038-07-30
+2038-08-27
+2038-09-24
+2038-10-29
+2038-11-26
+2038-12-31
+END
+
+use Test;
+is @res0.join("\n"), chomp $ref;
+is (sort @res1).join("\n"), chomp $ref;
+is (sort @res2).join("\n"), chomp $ref;
