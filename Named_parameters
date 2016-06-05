@@ -1,0 +1,46 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Named_parameters
+#c# 2016-06-04 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#`{{
+# Perl 6's support for optional parameters is much like Python's. Consider this declaration:
+
+sub funkshun ($a, $b?, $c = 15, :$d, *@e, *%f) {
+   ...
+}
+
+ In the above signature:
+
+ $a is a mandatory parameter that can be passed by position (funkshun 15, ...) or by name (funkshun a => 15, ...).
+ $b is an optional parameter that can be passed by position or by name. By default, it's undefined.
+ $c is an optional parameter that can be passed by position or by name. Its default value is 15.
+ $d is an optional parameter that can only be passed by name. By default, it's undefined.
+ @e is a slurpy array: it receives any leftover positional arguments.
+ %f is a slurpy hash: it receives any leftover named arguments.
+
+}}
+
+my @res;
+
+#So, if we defined the function like this:
+sub funkshun ($a, $b?, :$c = 15, :$d, *@e, *%f) {  # DH change (just needed a ':' before the 'c')
+   @res.push: "$a $b $c $d";
+   @res.push: join ' ', @e;
+   @res.push: join ' ', sort keys %f;
+}
+
+# this particularly thorny call:
+
+funkshun 'Alfa', k1 => 'v1', c => 'Charlie', 'Bravo', 'e1', d => 'Delta', 'e2', k2 => 'v2';
+.say for @res;
+
+my $ref = qq:to/END/;
+Alfa Bravo Charlie Delta
+e1 e2
+k1 k2
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
