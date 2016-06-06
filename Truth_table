@@ -1,0 +1,66 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Truth_table
+#c# 2016-06-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#    1st vs 2nd/3rd output screwy
+
+use MONKEY-SEE-NO-EVAL;
+
+sub MAINly ($x) {
+    my @n = $x.comb(/<ident>/);
+    my &fun = EVAL "-> {('\\' «~« @n).join(',')} \{ [{ (|@n,"so $x").join(',') }] \}";
+
+    my @out.push: (|@n,$x).join("\t");
+    my @xxx = map &fun, flat map { .fmt("\%0{+@n}b").comb».Int».so }, 0 ..^ 2**@n;
+    for @xxx -> $row {
+        @out.push: "\n" ~ $row.join("\t");
+    }
+    return @out;
+}
+
+my @res = MAINly('A ^ B');
+@res.push: MAINly('foo & bar | baz');
+@res.push: MAINly('Jim & (Spock ^ Bones) | Scotty');
+.say for @res;
+
+my $ref = qq:to/END/;
+A	B	A ^ B
+
+False	False	False
+
+False	True	True
+
+True	False	True
+
+True	True	False
+foo	bar	baz	foo & bar | baz 
+False	False	False	False 
+False	False	True	True 
+False	True	False	False 
+False	True	True	True 
+True	False	False	False 
+True	False	True	True 
+True	True	False	True 
+True	True	True	True
+Jim	Spock	Bones	Scotty	Jim & (Spock ^ Bones) | Scotty 
+False	False	False	False	False 
+False	False	False	True	True 
+False	False	True	False	False 
+False	False	True	True	True 
+False	True	False	False	False 
+False	True	False	True	True 
+False	True	True	False	False 
+False	True	True	True	True 
+True	False	False	False	False 
+True	False	False	True	True 
+True	False	True	False	True 
+True	False	True	True	True 
+True	True	False	False	True 
+True	True	False	True	True 
+True	True	True	False	False 
+True	True	True	True	True
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
