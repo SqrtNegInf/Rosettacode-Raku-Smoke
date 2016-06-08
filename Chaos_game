@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Chaos_game
+#c# 2016-06-08 <RC
+#t# graphical
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#f# RC file: chaos-game-perl6.png
+
+die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+
+srand 123456;
+
+# Works with: Rakudo version 2016.05
+
+use Image::PNG::Portable;
+ 
+my ($w, $h) = (640, 640);
+ 
+my $png = Image::PNG::Portable.new: :width($w), :height($h);
+ 
+my @vertex = [0, 0], [$w, 0], [$w/2, $h];
+ 
+my ($x, $y) = (0, 0);
+ 
+for ^1e5 {
+    ($x, $y) = do given @vertex[3.rand] -> @v { ((($x, $y) »+« @v) »/» 2)».Int };
+    $png.set: $x, $y, 0, 255, 0;
+}
+ 
+$png.write: 'run/chaos-game-perl6.png';
