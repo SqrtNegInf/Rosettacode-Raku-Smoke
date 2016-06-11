@@ -1,0 +1,45 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Respond_to_an_unknown_method_call
+#c# 2016-06-11 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res;
+
+class Farragut {
+    method FALLBACK ($name, *@rest) {
+        say "{self.WHAT.perl}: $name.tc() the @rest[], full speed ahead!";
+        @res.push: "{self.WHAT.perl}: $name.tc() the @rest[], full speed ahead!";
+    }
+}
+ 
+class Sparrow is Farragut { }
+ 
+Farragut.damn: 'torpedoes';
+Sparrow.hoist: <Jolly Roger mateys>;
+
+# Farragut: Damn the torpedoes, full speed ahead!
+# Sparrow: Hoist the Jolly Roger mateys, full speed ahead!
+# FALLBACK will be called for any method that is not defined. Since any class inherits from Any, there will be plenty of already defined methods. Those which are not defined can also be used as L-Values by the magic of is rw.
+
+class L-Value { 
+    our $.value = 10;
+    method FALLBACK($name, |c) is rw { $.value }
+}
+ 
+my $l = L-Value.new;
+say $l.any-odd-name; # 10
+@res.push: $l.any-odd-name; # 10
+$l.some-other-name = 42;
+say $l.i-dont-know; # 42
+@res.push: $l.i-dont-know; # 42
+
+my $ref = qq:to/END/;
+Farragut: Damn the torpedoes, full speed ahead!
+Sparrow: Hoist the Jolly Roger mateys, full speed ahead!
+10
+42
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
