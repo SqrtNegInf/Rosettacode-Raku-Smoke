@@ -1,0 +1,81 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Read_a_configuration_file
+#c# 2016-06-11 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# This demonstrates several interesting features of Perl 6, including full grammar support, derived grammars, alternation split across derivations, and longest-token matching that works across derivations. It also shows off Perl 6's greatly cleaned up regex syntax.
+
+my $fullname;
+my $favouritefruit;
+my $needspeeling = False;
+my $seedsremoved = False;
+my @otherfamily;
+
+grammar ConfFile {
+    token TOP {
+	:my $*linenum = 0;
+	^ <fullline>* [$ || (\N*) { die "MSG0 Parse failed at $0" } ]
+    }
+
+    token fullline {
+	<?before .>
+	{ ++$*linenum }
+	<line> 
+ 	[ \n || { die "MSG1 Parse failed at line $*linenum" } ]
+    }
+
+    proto token line() {*}
+
+    token line:missed { { 'Rhu Barber, Harry Barber' } ('Rhu Barber, Harry Barber') { die "Intercpt: $0" } }
+    token line:misc  { {} (\S+) { die "Unrecognized word: $0" } }
+
+    token line:sym<comment> { ^^ [ ';' | '#' ] \N* }
+    token line:sym<blank>   { ^^ \h* $$ }
+
+    token line:sym<fullname>       {:i fullname»       <rest> { $fullname = $<rest>.trim } } # DH removed [0]
+    token line:sym<favouritefruit> {:i favouritefruit» <rest> { $favouritefruit = $<rest>.trim } } # DH removed [0]
+    token line:sym<needspeeling>   {:i needspeeling»    <yes> { $needspeeling = defined $<yes> } } # DH removed [0]
+    token rest { \h* '='? (\N*) }
+    token yes { :i \h* '='? \h*
+    	[
+	    || ([yes|true|1]) 
+	    || [no|false|0] 
+	    || (<?>)
+	] \h*
+    }
+}
+
+grammar MyConfFile is ConfFile {
+    # works fine, but not so 'pure' as TimToady's version
+    token line:sym<otherfamily>    {:i otherfamily»    <rest> { @otherfamily = $<rest>.split(',')».trim } } #DH new
+
+    # DH too hard to fix (this captures comma)
+    #token line:sym<otherfamily>    {:i otherfamily»    <many>* { @otherfamily = $<many>».trim } }
+    #token many { \h* ([ <![,]> \N ]+)+ ','? } 
+
+    #token many { \h*'='? ([ <![,]> \N ]*) ** ',' } # original, error on '**'
+}
+
+MyConfFile.parsefile('ref/file.cfg');
+
+#.perl.say for :$fullname, :$favouritefruit, :$needspeeling, :$seedsremoved, :@otherfamily;
+
+my @res;
+@res.push: "fullname: $fullname";
+@res.push: "favouritefruit: $favouritefruit";
+@res.push: "needspeeling: $needspeeling";
+@res.push: "seedsremoved: $seedsremoved";
+@res.push: "otherfamily: "; @res[*-1] ~= @otherfamily.perl;
+.say for @res;
+
+my $ref = qq:to/END/;
+fullname: Foo Barber
+favouritefruit: banana
+needspeeling: True
+seedsremoved: False
+otherfamily: ["Rhu Barber", "Harry Barber"]
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
