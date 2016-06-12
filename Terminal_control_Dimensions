@@ -1,0 +1,14 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Terminal_control/Dimensions
+#c# 2016-06-12 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+#   had to be tweaked for local 'stty' output format
+
+# Using stty just for the heck of it.
+
+my $stty = qx[stty -a];
+my $lines = $stty.match(/ ( \d+) ' rows'/);
+my $cols  = $stty.match(/ ( \d+) ' columns'/);
+say "$lines $cols";
