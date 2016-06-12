@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Terminal_control/Coloured_text
+#c# 2016-06-12 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+use Terminal::ANSIColor;
+ 
+say colored('RED ON WHITE', 'bold red on_white');
+say colored('GREEN', 'bold green');
+say colored('BLUE ON YELLOW', 'bold blue on_yellow');
+say colored('MAGENTA', 'bold magenta');
+say colored('CYAN ON RED', 'bold cyan on_red');
+say colored('YELLOW', 'bold yellow');
