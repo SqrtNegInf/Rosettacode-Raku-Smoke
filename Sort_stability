@@ -1,0 +1,27 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sort_stability
+#c# 2016-06-12 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# The sort built-in (available as sub and method) is stable.
+# Short demonstration for sorting only on the second item of each array:
+
+my @cities =
+    ['UK', 'London'],
+    ['US', 'New York'],
+    ['US', 'Birmingham'],
+    ['UK', 'Birmingham'],
+    ;
+ 
+.say for @cities.sort: { .[1] };
+
+my $ref = qq:to/END/;
+['UK', 'London'],
+['US', 'New York'],
+['US', 'Birmingham'],
+['UK', 'Birmingham'],
+END
+
+use Test;
+is (@cities.sort: { .[1] }), 'US Birmingham UK Birmingham UK London US New York';
