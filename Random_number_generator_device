@@ -1,0 +1,27 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Random_number_generator_(device)
+#c# 2016-06-12 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#    weak tests
+
+use experimental :pack;
+
+my $UR = open("/dev/urandom", :bin) or die "Can't open /dev/urandom: $!";
+
+# fixed list size
+my $n = 20;
+my @res1.push: $_ for $UR.read(4*$n).unpack("L*")[^$n];
+.say for @res1;
+
+say '--';
+
+# lazy list 
+#my @random-spigot = $UR.read(1024).unpack("L*")[1..*]; # also works
+my @random-spigot = $UR.read(1024).unpack("L*") ... *;
+my @res2.push: $_ for @random-spigot[^20];
+.say for @res2;
+
+use Test;
+is +@res1, 20;
+is +@res2, 20;
