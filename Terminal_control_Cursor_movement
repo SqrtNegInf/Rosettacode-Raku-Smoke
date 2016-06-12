@@ -1,0 +1,23 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Terminal_control/Cursor_movement
+#c# 2016-06-12 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+shell "tput cub1"; sleep 1;                 # one position to the left 
+shell "tput cuf1"; sleep 1;                 # one position to the right
+shell "tput cuu1"; sleep 1;                 # up one line
+shell "tput cud1"; sleep 1;                 # down one line
+shell "tput cr";   sleep 1;                 # beginning of line
+shell "tput home"; sleep 1;                 # top left corner
+ 
+# breaks here
+$_ = qx[stty -a </dev/tty 2>&1];
+my $rows = + m/<(\d+)> ' rows'/;
+my $cols = + m/<(\d+)> ' columns'/;
+#my $rows = +m/'rows '    <(\d+)>/;
+#my $cols = +m/'columns ' <(\d+)>/;
+ 
+#shell "tput hpa $cols";             # end of line        # not on Mac OS X?
+shell "tput cup $rows $cols";       # bottom right corner
