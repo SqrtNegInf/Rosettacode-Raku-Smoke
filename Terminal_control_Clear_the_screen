@@ -1,0 +1,9 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Terminal_control/Clear_the_screen
+#c# 2016-06-12 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub clear { print state $ = qx[clear] }
+clear;
