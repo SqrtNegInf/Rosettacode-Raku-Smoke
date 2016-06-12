@@ -1,0 +1,50 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Rosetta_Code/Find_bare_lang_tags
+#c# 2016-06-12 <RC, 2018-04-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Translation of: Perl
+# The only tricky thing here is the use of the ms form of match, short for m:sigspace. This causes whitespace in the regex to be considered "significant", that is, it matches optional whitespace at those positions, as if you'd put \s* there. Of course, the regexes themselves are in Perl 6 syntax, which is quite different from Perl 5 regex syntax (and arguably much cleaner). Regex syntax is perhaps the area in which Perl 6 diverges most from Perl 5.
+
+my $lang = '(no language)';
+my $total = 0;
+my %blanks;
+
+my $text = q:to/END/;
+Description
+
+<lang>Pseudocode</lang>
+
+=={{header|C}}==
+<lang C>printf("Hello world!\n");</lang>
+
+=={{header|Perl}}==
+<lang>print "Hello world!\n"</lang>
+END
+ 
+#for lines() {
+for split "\n", $text {
+  when / '<lang>' / {
+    %blanks{$lang}++;
+    $total++;
+  }
+  when ms/ '==' '{{' 'header' '|' ( <-[}]>+? ) '}}' '==' / {
+    $lang = $0.lc;
+  }
+}
+ 
+my @res;
+@res.push: "$total bare language tag{ 's' if $total != 1 }\n";
+@res.push: .value ~ ' in ' ~ .key for %blanks.sort;
+.say for @res;
+
+my $ref = qq:to/END/;
+2 bare language tags
+
+1 in (no language)
+1 in perl
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
