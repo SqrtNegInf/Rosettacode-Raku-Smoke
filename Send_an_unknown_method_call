@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Send_an_unknown_method_call
+#c# 2016-06-12 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Just for the fun of it, we'll mix in an anonymous role into an integer instead of defining a class.
+
+my $object = 42 but role { method add-me($x) { self + $x } }
+my $name = 'add-me';
+say $object."$name"(5);  # 47
+# The double quotes are required, by the way; without them the variable would be interpreted as a hard ref to a method.
+
+use Test;
+is  $object."$name"(5), 47;
