@@ -1,0 +1,95 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Ternary_logic
+#c# 2016-06-14 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+enum Trit <Foo Moo Too>;
+ 
+sub prefix:<¬> (Trit $a) { Trit(1-($a-1)) }
+ 
+sub infix:<∧> (Trit $a, Trit $b) is equiv(&infix:<*>) { $a min $b }
+sub infix:<∨> (Trit $a, Trit $b) is equiv(&infix:<+>) { $a max $b }
+ 
+sub infix:<⇒> (Trit $a, Trit $b) is equiv(&infix:<..>) { ¬$a max $b }
+sub infix:<≡> (Trit $a, Trit $b) is equiv(&infix:<eq>) { Trit(1 + ($a-1) * ($b-1)) }
+
+# The precedence of each operator is specified as equivalent to an existing operator.  We've taken the liberty of using a double arrow for implication, to avoid confusing it with ⊃, (U+2283 SUPERSET OF).
+# To test, we use this code:
+
+my @res;
+
+@res.push: '¬';
+@res.push: "Too {¬Too}";
+@res.push: "Moo {¬Moo}";
+@res.push: "Foo {¬Foo}";
+ 
+sub tbl (&op,$name) {
+    @res.push: '';
+    @res.push: "$name   Too Moo Foo";
+    @res.push: "   ╔═══════════";
+    @res.push: "Too║{op Too,Too} {op Too,Moo} {op Too,Foo}";
+    @res.push: "Moo║{op Moo,Too} {op Moo,Moo} {op Moo,Foo}";
+    @res.push: "Foo║{op Foo,Too} {op Foo,Moo} {op Foo,Foo}";
+}
+ 
+tbl(&infix:<∧>, '∧');
+tbl(&infix:<∨>, '∨');
+tbl(&infix:<⇒>, '⇒');
+tbl(&infix:<≡>, '≡');
+ 
+@res.push: '';
+@res.push: 'Precedence tests should all print "Too":';
+@res.push: ~(
+    Foo ∧ Too ∨ Too ≡ Too,
+    Foo ∧ (Too ∨ Too) ≡ Foo,
+    Too ∨ Too ∧ Foo ≡ Too,
+    (Too ∨ Too) ∧ Foo ≡ Foo,
+ 
+    ¬Too ∧ Too ∨ Too ≡ Too,
+    ¬Too ∧ (Too ∨ Too) ≡ ¬Too,
+    Too ∨ Too ∧ ¬Too ≡ Too,
+    (Too ∨ Too) ∧ ¬Too ≡ ¬Too,
+ 
+    Foo ∧ Too ∨ Foo ⇒ Foo ≡ Too,
+    Foo ∧ Too ∨ Too ⇒ Foo ≡ Foo,
+);
+
+.say for @res;
+
+my $ref = qq:to/END/;
+¬
+Too Foo
+Moo Moo
+Foo Too
+
+∧   Too Moo Foo
+   ╔═══════════
+Too║Too Moo Foo
+Moo║Moo Moo Foo
+Foo║Foo Foo Foo
+
+∨   Too Moo Foo
+   ╔═══════════
+Too║Too Too Too
+Moo║Too Moo Moo
+Foo║Too Moo Foo
+
+⇒   Too Moo Foo
+   ╔═══════════
+Too║Too Moo Foo
+Moo║Too Moo Moo
+Foo║Too Too Too
+
+≡   Too Moo Foo
+   ╔═══════════
+Too║Too Moo Foo
+Moo║Moo Moo Moo
+Foo║Foo Moo Too
+
+Precedence tests should all print "Too":
+Too Too Too Too Too Too Too Too Too Too
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
