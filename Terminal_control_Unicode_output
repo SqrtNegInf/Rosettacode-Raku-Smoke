@@ -1,0 +1,10 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Terminal_control/Unicode_output
+#c# 2016-06-14 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+die "Terminal can't handle UTF-8"
+    unless first(*.defined, %*ENV<LC_ALL LC_CTYPE LANG>) ~~ /:i 'utf-8'/;
+say "△";
