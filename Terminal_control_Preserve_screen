@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Terminal_control/Preserve_screen
+#c# 2016-06-14 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+print "\e[?1049h\e[H";
+say "Alternate buffer!";
+ 
+for 3,2...1 {
+    print "\rGoing back in: $_";
+    sleep 1;
+}
+ 
+print "\e[?1049l";
