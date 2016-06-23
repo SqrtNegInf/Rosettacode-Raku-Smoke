@@ -1,0 +1,59 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Stream_Merge
+#c# 2016-06-23 <RC 2018-03-16 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub merge_streams ( @streams ) {
+    my @s = @streams.map({ hash( STREAM => $_, HEAD => .get ) })\
+                    .grep({ .<HEAD>.defined });
+ 
+    return gather while @s {
+        my $h = @s.min: *.<HEAD>;
+        take $h<HEAD>;
+        $h<HEAD> := $h<STREAM>.get # DH change
+            orelse @s .= grep( { $_ !=== $h } );
+    }
+}
+
+say merge_streams([ @*ARGS».&open ]);
+
+my @files = <ref/stream-merge.1 ref/stream-merge.2 ref/stream-merge.3>;
+my @res =  merge_streams([ @files».&open ]);
+.say for @res;
+
+my $ref = qq:to/END/;
+0B
+3C
+4C
+0C
+5B
+3B
+5C
+6B
+1B
+4B
+6C
+7A
+7C
+8A
+5A
+1A
+2A
+0A
+4A
+6A
+3A
+8B
+7B
+8C
+9A
+9B
+2B
+9C
+1C
+2C
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
