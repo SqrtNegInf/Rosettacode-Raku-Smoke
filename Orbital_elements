@@ -1,0 +1,44 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Orbital_elements
+#c# 2016-07-07 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+
+die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+
+# We'll use the Clifford geometric algebra library but only for the vector operations.
+
+sub position(
+    Real :$semimajor-axis,
+    Real :$eccentricity,
+    Real :$inclination,
+    Real :$longitude-of-ascending-node,
+    Real :$argument-of-periapsis,
+    Real :$true-anomaly
+) {
+    use Clifford;
+    my ($i, $j, $k) = @e[^3];
+ 
+    sub rotate($a is rw, $b is rw, Real \α) {
+        ($a, $b) = cos(α)*$a + sin(α)*$b, -sin(α)*$a + cos(α)*$b;
+    }
+    rotate($i, $j, $longitude-of-ascending-node);
+    rotate($j, $k, $inclination);
+    rotate($i, $j, $argument-of-periapsis);
+ 
+    my \l = $semimajor-axis*(1 - $eccentricity**2);
+    my \r = l/(1 + $eccentricity*cos($true-anomaly));
+ 
+    (r*cos($true-anomaly)*$i + r*sin($true-anomaly)*$j) X· @e[^3];
+}
+ 
+say my $result = position
+    semimajor-axis => 1,
+    eccentricity => 0.1,
+    inclination => 0,
+    longitude-of-ascending-node => pi/6,
+    argument-of-periapsis => 0,
+    true-anomaly => 0;
+ 
+use Test;
+is $result.gist, '(0.7794228634059948 0.4499999999999999 0)';
