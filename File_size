@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/File_size
+#c# 2016-07-30 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $fn = 'ref/lines_of_text.txt';
+
+# Works with: Rakudo version 2015.12
+say my $r1 = $fn.IO.s;
+say my $r2 = "./$fn".IO.s;
+exit;
+
+# Cross-platform version of the second one:
+
+say my $r3 = $*SPEC.rootdir.IO.child("/Users/dhoekman/perl6/Rosetta-Code/$fn").s;
+
+use Test;
+is ($r1, $r2, $r3), '35 35 35';
