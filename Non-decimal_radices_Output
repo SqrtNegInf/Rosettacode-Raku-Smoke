@@ -1,0 +1,26 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Non-decimal_radices/Output
+#c# 2016-07-31 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Calling the .base method on a number returns a string:
+
+say 30.base(2);   # "11110"
+say 30.base(8);   # "36"
+say 30.base(10);  # "30"
+say 30.base(16);  # "1E"
+say 30.base(30);  # "10"
+
+#Alternatively, printf can be used for some common number bases:
+
+for 0..33 -> $n {
+  printf " %6b %3o %2d %2X\n", $n xx 4;
+}
+
+use Test;
+is 30.base(2),   "11110";
+is 30.base(8),   "36";
+is 30.base(10),  "30";
+is 30.base(16),  "1E";
+is 30.base(30),  "10";
