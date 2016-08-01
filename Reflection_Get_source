@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Reflection/Get_source
+#c# 2016-08-01 <>RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# Too many positionals passed; expected 1 arguments but got 2)
+
+# A full path is provided for built-in routines/methods. However for routines exported by pre-compiled modules a precompilation hash is returned, not a proper file path. 
+
+say &sum.file;
+say Date.^find_method("day-of-week").file;
+
+use Test;
+# still a precompilation hash?
+is &is.file, 'perl#sources/C712FE6969F786C9380D643DF17E85D06868219E (Test)';
+
+is &sum.file, 'SETTING::src/core/Any.pm6';
+is Date.^find_method("day-of-week").file, 'SETTING::src/core/Dateish.pm6';
