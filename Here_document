@@ -1,0 +1,56 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Here_document
+#c# 2016-08-01 <RC, 2018-04-25 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# on RC, skip intermediate variables
+#n# extra spaces in the 'Bob Dylan' line?
+
+# Heredocs in Perl 6 use the :to modifier to a quoting operator,
+# such as q or qq.
+# The indentation of the end marker is removed from every line.
+
+my $color = 'green';
+ 
+my $text = qq :to 'END';
+    some line
+    color: $color
+    another line
+    END
+
+say $text;
+say '=====';
+
+# Note that the quotes around the "END" are not magic --- the marker is just a regular string; it's the `q` or `qq` that decides whether or not the heredoc interpolates.
+#Multiple here docs may be stacked on top of each other.
+
+my $contrived_example = 'Dylan';
+sub freewheelin() {
+        return q :to 'QUOTE', '-- ', qq :to 'AUTHOR';
+          I'll let you be in my dream,
+            if I can be in yours.
+        QUOTE
+                Bob $contrived_example
+                AUTHOR
+}
+
+print freewheelin(); 
+say '=====';
+
+# Both q and qq are specialised forms of Q which comes with many adverbs. Here a heredoc that only interpolates @-sigils.
+
+my @a = <1 2 3 4>;
+ 
+my $s = Q :array :to 'EOH';
+    123 \n '"`
+        @a$bc
+        @a[]
+    EOH
+ 
+say $s;
+
+use Test;
+is $text, "some line\ncolor: $color\nanother line\n";
+is freewheelin(), "  I'll let you be in my dream,\n    if I can be in yours.\n --  Bob Dylan\n";
+#is freewheelin(), "  I'll let you be in my dream,\n    if I can be in yours.\n-- Bob Dylan\n"; # more accurate?
+is $s, "123 \\n '\"`\n    \@a\$bc\n    1 2 3 4\n";
