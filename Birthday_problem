@@ -1,0 +1,93 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Birthday_problem
+#c# 2016-08-03 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# marked incomplete on RC
+#n# got super-slow in early Dec 2017
+
+srand 123456;
+
+# This example is incomplete. Please ensure that it meets all task requirements and remove this message.
+
+# For a start, we can show off how to get the exact solution. If we pick n people, the total number of possible arrangements of birthdays is 365n. Among those possibilities, there are Cn365 where all birthdays are different. For each of these, there are n! possible ways to arrange the n people. So the solution is 1 - n!Cn365/365n, which in Perl 6 can be written:
+
+#say "$_ :", 1 - combinations(365, $_)/365**$_ * [*] 1..$_ for ^Inf;
+#say "$_ :", 1 - combinations(365, $_)/365**$_ * [*] 1..$_ for ^100;
+
+my @res1;
+push @res1, ("$_ :", 1 - combinations(365, $_)/365**$_ * [*] 1..$_) for ^10;
+.say for @res1;
+
+# Now comparing with a simulation:
+
+use experimental :cached;
+
+sub theory($n) is cached { 1 - combinations(365, $n)/365**$n* [*] 1..$n }
+#sub theory($n) { 1 - combinations(365, $n)/365**$n* [*] 1..$n }
+sub simulation(:number-of-people($n), :sample-size($N) = 1_000) {
+    $N R/ grep ?*, ((^365).roll($n).unique !== $n) xx $N;
+}
+ 
+
+#2 independent people in a group of 23 share a common birthday. (0.506)
+#3 independent people in a group of 88 share a common birthday. (0.510)
+#4 independent people in a group of 187 share a common birthday. (0.500)
+#5 independent people in a group of 314 share a common birthday. (0.507)
+my @res2;
+#for 2 .. Inf -> $n {
+for 2 .. 5 -> $c {
+    #@res2.push: sprintf "%3d people, theory: %.4f, simulation: %.4f", 
+    for 2..Inf -> $n {
+        my $p = theory($n);
+        if ($p > .5) { 
+    say "p: $p";
+            printf "%3d people, theory: %.4f, simulation: %.4f", 
+                $n, theory($n), simulation(number-of-people => $n);
+            exit;
+        }
+    }
+}
+#.say for @res2;
+
+my $moar1 = qq:to/END/;
+0 : 0
+1 : 0
+2 : 0.002740
+3 : 0.0082042
+4 : 0.016355912
+5 : 0.027135573700
+6 : 0.04046248364911
+7 : 0.0562357030959754
+8 : 0.0743352923516690285
+9 : 0.0946238338891667
+END
+
+my $jvm1 = qq:to/END/;
+0 : 0
+1 : 0
+2 : 0.002740
+3 : 0.0082042
+4 : 0.016355912
+5 : 0.027135573700
+6 : 0.04046248364911
+7 : 0.0562357030959754
+8 : 0.0743352923516690285
+9 : 0.09462383388916673
+END
+
+my $moar2 = qq:to/END/;
+2 independent people in a group of 23 share a common birthday. (0.506)
+3 independent people in a group of 88 share a common birthday. (0.510)
+4 independent people in a group of 187 share a common birthday. (0.500)
+5 independent people in a group of 314 share a common birthday. (0.507)
+END
+
+use Test;
+#my $ref1 = $*VM ~~ /jvm/ ?? $jvm1 !! $moar1;
+#is @res1.join("\n"), chomp $ref1;
+
+#my $ref2 = $*VM ~~ /jvm/ ?? $jvm2 !! $moar2;
+
+use Test;
+#is @res2.join("\n"), chomp $ref2;
