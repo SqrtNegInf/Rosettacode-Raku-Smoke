@@ -1,0 +1,53 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Permutations_with_repetitions
+#c# 2016-08-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# We can use the X operator ("cartesian product") to cross the list with itself.
+# For n = 2:
+my @k = <a b c>;
+my @res0.push: $_ for @k X @k;
+#say '--';
+
+# For arbitrary n:
+my @k1 = <a b c>;
+my $n = 2;
+my @res1.push: $_ for [X] @k1 xx $n;
+.say for @res1;
+say '--';
+
+my $ref1 = qq:to/END/;
+a a
+a b
+a c
+b a
+b b
+b c
+c a
+c b
+c c
+END
+
+# Here is an other approach, counting all k**n possibilities in base k:
+my @k2 = <a b c>;
+$n = 2;
+my @res2.push: @k2[.polymod: +@k2 xx $n-1] for ^@k2**$n;
+.say for @res2;
+
+my $ref2 = qq:to/END/;
+a a
+b a
+c a
+a b
+b b
+c b
+a c
+b c
+c c
+END
+
+use Test;
+is @res0.join("\n"), chomp $ref1;
+is @res1.join("\n"), chomp $ref1;
+is @res2.join("\n"), chomp $ref2;
