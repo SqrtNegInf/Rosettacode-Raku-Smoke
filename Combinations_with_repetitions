@@ -1,0 +1,57 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Combinations_with_repetitions
+#c# 2016-08-06 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# One could simply generate all permutations, and then remove "duplicates":
+my @S = <iced jam plain>;
+my $k = 2;
+my @res1.push: $_ for [X](@S xx $k).unique(as => *.sort.cache, with => &[eqv]);
+.put for @res1;
+
+# Alternatively, a recursive solution:
+# Translation of: Haskell
+
+proto combs_with_rep (UInt, @) {*}
+ 
+multi combs_with_rep (0,  @)  { () }
+multi combs_with_rep (1,  @a)  { map { $_, }, @a }
+multi combs_with_rep ($,  []) { () }
+multi combs_with_rep ($n, [$head, *@tail]) {
+    |combs_with_rep($n - 1, ($head, |@tail)).map({ $head, |@_ }),
+    |combs_with_rep($n, @tail);
+}
+ 
+my @res2.push: $_ for combs_with_rep( 2, [< iced jam plain >] );
+ 
+# Extra credit:
+sub postfix:<!> { [*] 1..$^n }
+sub combs_with_rep_count ($k, $n) { ($n + $k - 1)! / $k! / ($n - 1)! }
+ 
+say my $cnt = combs_with_rep_count( 3, 10 );
+
+#`{
+(iced iced)
+(iced jam)
+(iced plain)
+(jam jam)
+(jam plain)
+(plain plain)
+220
+}
+
+my $ref = qq:to/END/;
+iced iced
+iced jam
+iced plain
+jam jam
+jam plain
+plain plain
+END
+
+use Test;
+is @res1.join("\n"), chomp $ref;
+is @res2.join("\n"), chomp $ref;
+is $cnt, 220;
+
