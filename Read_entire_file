@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Read_entire_file
+#c# 2016-08-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2010.07
+my $string1 = slurp 'ref/sample.txt';
+
+#The default encoding is UTF-8. The :enc adverb can be used to specify a different one:
+#my $string1 = slurp 'sample.txt', :enc<UTF-16>;
+
+#IO::Path objects also provide slurp as a method:
+my $string2 = 'ref/sample.txt'.IO.slurp;
+
+my $ref = qq:to/END/;
+An inverted index is a data structure used to create full text search.
+This is done entirely in memory.
+
+Given a set of text files, implement a program to create an inverted index.
+Also create a user interface to do a search using that inverted index which
+returns a list of files that contain the query term / terms. The search
+index can be in memory.
+
+snorp glorp yorp 
+END
+
+use Test;
+is $string1, $ref;
+is $string2, $ref;
