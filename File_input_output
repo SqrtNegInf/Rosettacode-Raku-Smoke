@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/File_input/output
+#c# 2016-08-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: input_output.txt
+
+# If it is okay to have a temporary copy of the entire file in memory:
+
+# Works with: Rakudo version 2016.07
+#spurt "output.txt", slurp "input.txt";
+
+#Otherwise, copying line-by line:
+my $in = open "ref/input_output.txt";
+my $out = open "run/input_output.txt", :w;
+for $in.lines -> $line {
+    $out.say: $line;
+}
+$in.close;
+$out.close;
