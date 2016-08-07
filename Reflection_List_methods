@@ -1,0 +1,32 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Reflection/List_methods
+#c# 2016-08-06 <RC, 2018-05-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# updated test as output format changed
+
+# You can get a list of an object's methods using .^methods, which is part of the Meta Object Protocol.
+# Each is represented as a Method object that contains a bunch of info:
+
+class Foo {
+    method foo ($x)      { }
+    method bar ($x, $y)  { }
+    method baz ($x, $y?) { }
+}
+ 
+my $object = Foo.new;
+ 
+my @res;
+for $object.^methods {
+    say join ", ", .name, .arity, .count, .signature.gist;
+    @res.push: join ", ", .name, .arity, .count, .signature.gist;
+}
+
+my $ref = q:to/END/;
+foo, 2, 2, (Foo: $x, *%_)
+bar, 3, 3, (Foo: $x, $y, *%_)
+baz, 2, 3, (Foo: $x, $y?, *%_)
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
