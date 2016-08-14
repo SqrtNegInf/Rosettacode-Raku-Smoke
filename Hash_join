@@ -1,0 +1,49 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Hash_join
+#c# 2016-08-14 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# The .classify method returns a multimap represented as a Hash whose values are Arrays.
+
+# Works with: Rakudo version 2016.07
+sub hash-join(@a, &a, @b, &b) {
+    my %hash := @b.classify(&b);
+ 
+    @a.map: -> $a {
+        |(%hash{a $a} // next).map: -> $b { [$a, $b] }
+    }
+}
+
+my @A =
+    [27, "Jonah"],
+    [18, "Alan"],
+    [28, "Glory"],
+    [18, "Popeye"],
+    [28, "Alan"],
+;
+ 
+my @B =
+    ["Jonah", "Whales"],
+    ["Jonah", "Spiders"],
+    ["Alan", "Ghosts"],
+    ["Alan", "Zombies"],
+    ["Glory", "Buffy"],
+;
+ 
+my @res.push: $_ for hash-join @A, *[1], @B, *[0];
+.say for @res;
+
+my $ref = qq:to/END/;
+27 Jonah Jonah Whales
+27 Jonah Jonah Spiders
+18 Alan Alan Ghosts
+18 Alan Alan Zombies
+28 Glory Glory Buffy
+28 Alan Alan Ghosts
+28 Alan Alan Zombies
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
