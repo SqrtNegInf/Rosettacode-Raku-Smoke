@@ -1,0 +1,43 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sorting_algorithms/Selection_sort
+#c# 2016-08-14 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Solution 1:
+
+sub selection_sort ( @a is copy ) {
+    for 0 ..^ @a.end -> $i {
+        my $min = [ $i+1 .. @a.end ].min: { @a[$_] };
+        @a[$i, $min] = @a[$min, $i] if @a[$i] > @a[$min];
+    }
+    return @a;
+}
+ 
+my @data = 22, 7, 2, -5, 8, 4;
+say 'input   = ' ~ @data;
+say 'output1 = ' ~ my $out1 = @data.&selection_sort;
+ 
+# input  = 22 7 2 -5 8 4
+# output = -5 2 4 7 8 22
+
+# Solution 2:
+
+sub selectionSort(@tmp) {
+    for ^@tmp -> $i {
+        my $min = $i; 
+        @tmp[$i, $_] = @tmp[$_, $i] if @tmp[$min] > @tmp[$_] for $i^..^@tmp;  
+        #my $min = $i;
+        #$min = $_ if @tmp[$min] > @tmp[$_] for $i^..^@tmp;
+        #@tmp[$i, $min] = @tmp[$min, $i] if $min != $i;
+    }
+    return @tmp;
+}
+
+say 'output2 = ' ~ my $out2 = @data.&selectionSort;
+ 
+# input  = 22 7 2 -5 8 4
+# output = -5 2 4 7 8 22
+use Test;
+is $out1, '-5 2 4 7 8 22';
+is $out2, '-5 2 4 7 8 22';
