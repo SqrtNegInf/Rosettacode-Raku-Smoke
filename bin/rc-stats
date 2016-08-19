@@ -1,0 +1,68 @@
+#!/usr/local/bin/perl
+## summarize benchmark runs
+#c# 2016-08-18 2016-08-23 2016-08-24 2016-12-29 2018-01-17 2018-02-10 2018-02-13 2018-03-28 2018-04-12
+#
+
+chdir "$ENV{HOME}/perl6/Rosetta-Code" || die;
+
+my $pcre = '/usr/local/bin/pcregrep';
+
+my $days = $ARGV[0] || 1; # if just digits, show 'd' days, otherwise match directory names
+
+my @dir = glob("bench/20*");
+
+for my $d (reverse sort @dir) { 
+    next if $d =~ /moar|jvm|gz/; 
+    if ($days =~ /\D/) { next unless $d =~ /$days/ }
+    else {               last if $cnt++ == $days   }
+    tally($d);
+}
+
+exit unless defined $ARGV[1];
+
+#print "\n==== no tests? ====\n";
+#print `grep 'MOAR: OK' [1-Z]* | pcregrep -v '\\.\\d' | perl -npe 's/:.*//' | xargs grep dummy | grep :is | perl -npe 's/:.*//'`;
+
+#print "\n==== no 'use Test' ====\n";
+#print `./bin/rc-testy [1-Z]*`;
+
+#exit unless defined $ARGV[2];
+
+print "\n==== BROKEN ====\n\n";
+print `grep 'MOAR: BROKEN' [1-Z]* | $pcre -v '\\.\\d' | perl -npe 's/:.*//'`;
+
+#####
+sub tally {
+my($dir) = @_;
+my($m,$s,$t,$cnt,$sum,@top);
+
+open ERR, "grep user $dir/*err |";
+while ($_ = <ERR>) {
+    $cnt++;
+    #($m,$s) = /user\s+(\d+)m(.*)s/;
+    #$time = 60*$m + $s;
+    ($time) = /user\s+(\d+)/;
+    #print STDERR "$_\n" if $time > 500;
+    push @top, int($time) if $time > 100;
+    $sum += $time;
+}
+
+my $top;
+
+#$okerr = 0; # obsolete?
+
+$isbad = '(not ok|not yet implemented)';
+
+for my $t (sort { $b <=> $a } @top) { $top .= "$t "; last if length $top > 30}
+(my $path = $dir) =~ s/bench.//;
+$err    = `$pcre 'STDERR|^Files.*differ' $dir/*out | wc -l`; $err =~ s/\s//g; 
+$notok  = `$pcre '$isbad' $dir/*out | wc -l`; $notok =~ s/\s//g;
+$ok     = `$pcre 'ok \\d|are identical\$' $dir/*out | wc -l`; $ok =~ s/\s//g;
+#$err   -= $okerr;
+
+printf "$path Secs: %5d  Tasks: $cnt  OK: %4d  Err: %2d !OK: %2d  Top: $top\n", int($sum), $ok, $err, $notok ;
+system("$pcre -l 'STDERR|^Files.*differ' $dir/*out | perl -npe 's#.*/##;s/.out//'") if $err > 0;
+print "\n";
+
+close ERR;
+}
