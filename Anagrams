@@ -1,0 +1,35 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Anagrams
+#c# 2016-08-21 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @anagrams = 'ref/unixdict.txt'.IO.words.classify(*.comb.sort.join).values;
+
+my $max = @anagrams».elems.max;
+ 
+my @res1 ~= "$_\n" for sort @anagrams.grep(*.elems == $max);
+.say for @res1;
+
+my $ref = qq:to/END/;
+abel able bale bela elba
+alger glare lager large regal
+angel angle galen glean lange
+caret carte cater crate trace
+elan lane lean lena neal
+evil levi live veil vile
+END
+
+#Just for the fun of it, here's a one-liner that uses no temporaries.  Since it would be rather long, we've oriented it vertically:
+
+my @res2 ~= "$_\n" for           # print each element of the array made this way:
+    sort
+    'ref/unixdict.txt'.IO.words      # load words from file
+    .classify(*.comb.sort.join)  # group by common anagram
+    .classify(*.value.elems)     # group by number of anagrams in a group
+    .max(*.key).value            # get the group with highest number of anagrams
+    .map(*.value);               # get all groups of anagrams in the group just selected
+
+use Test;
+is @res1, $ref;
+is @res2, $ref;
