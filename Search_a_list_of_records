@@ -1,0 +1,38 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Search_a_list_of_records
+#c# 2016-08-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# The built-in method .first fulfills the requirements of this task.
+
+# It takes any smart-matcher as a predicate. The :k adverb makes it return the key (i.e. numerical index) instead of the value of the element.
+
+# Works with: Rakudo version 2016.08
+my @cities =
+  { name => 'Lagos',                population => 21.0  },
+  { name => 'Cairo',                population => 15.2  },
+  { name => 'Kinshasa-Brazzaville', population => 11.3  },
+  { name => 'Greater Johannesburg', population =>  7.55 },
+  { name => 'Mogadishu',            population =>  5.85 },
+  { name => 'Khartoum-Omdurman',    population =>  4.98 },
+  { name => 'Dar Es Salaam',        population =>  4.7  },
+  { name => 'Alexandria',           population =>  4.58 },
+  { name => 'Abidjan',              population =>  4.4  },
+  { name => 'Casablanca',           population =>  3.98 },
+;
+ 
+say my $a1 = @cities.first(*<name> eq 'Dar Es Salaam', :k);
+say my $a2 = @cities.first(*<population> < 5).<name>;
+say my $a3 = @cities.first(*<name>.match: /^A/).<population>;
+
+#`{ Output:
+6
+Khartoum-Omdurman
+4.58
+}
+
+use Test;
+is $a1, 6;
+is $a2, 'Khartoum-Omdurman';
+is $a3, 4.58;
