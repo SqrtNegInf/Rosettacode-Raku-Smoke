@@ -1,0 +1,27 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Input/Output_for_Lines_of_Text
+#c# 2016-08-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my $fh = open('ref/lines_of_text.txt');
+my @res.push: $fh.get for ^$fh.get;
+.say for @res;
+
+use Test;
+is @res.elems, '3';
+
+#`{{ Verbose version:
+
+sub do-stuff ($line) {
+    say $line;
+    #@res.push: $line;
+}
+ 
+my $n = +get;
+for ^$n {
+    my $line = get;
+    do-stuff $line;
+}
+
+#}}
