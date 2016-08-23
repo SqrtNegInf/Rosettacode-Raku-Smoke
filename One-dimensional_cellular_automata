@@ -1,0 +1,94 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/One-dimensional_cellular_automata
+#c# 2016-08-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2014-02-27
+
+#`{
+We'll make a general algorithm capable of computing any cellular automata 
+as defined by Stephen Wolfram's 
+famous book A new kind of Science.  
+We will take the liberty of wrapping the array of cells 
+as it does not affect the result much 
+and it makes the implementation a lot easier.
+}
+
+class Automaton {
+    has $.rule;
+    has @.cells;
+    has @.code = $!rule.fmt('%08b').flip.comb».Int;
+ 
+    method gist { "|{ @!cells.map({+$_ ?? '#' !! ' '}).join }|" }
+ 
+    method succ {
+        self.new: :$!rule, :@!code, :cells( 
+            @!code[
+                    4 «*« @!cells.rotate(-1)
+                »+« 2 «*« @!cells
+                »+«       @!cells.rotate(1)
+            ]
+        )
+    }
+}
+
+#The rule proposed for this task is rule 0b01101000 = 104
+
+my @padding = 0 xx 5;
+my Automaton $a .= new:
+    rule  => 104,
+    cells => flat @padding, '111011010101'.comb, @padding
+;
+
+my @res1.push: $a++.gist for ^10;
+.say for @res1;
+
+my $ref1 = qq:to/END/;
+|     ### ## # # #     |
+|     # ##### # #      |
+|      ##   ## #       |
+|      ##   ###        |
+|      ##   # #        |
+|      ##    #         |
+|      ##              |
+|      ##              |
+|      ##              |
+|      ##              |
+END
+
+# Rule 104 is not particularly interesting so here is Rule 90, 
+# which shows a Sierpinski Triangle.
+
+@padding = 0 xx 25;
+my Automaton $b .= new: :rule(90), :cells(flat @padding, 1, @padding);
+
+my@res2.push: $b++.gist for ^20;
+.say for @res2;
+
+my $ref2 = qq:to/END/;
+|                         #                         |
+|                        # #                        |
+|                       #   #                       |
+|                      # # # #                      |
+|                     #       #                     |
+|                    # #     # #                    |
+|                   #   #   #   #                   |
+|                  # # # # # # # #                  |
+|                 #               #                 |
+|                # #             # #                |
+|               #   #           #   #               |
+|              # # # #         # # # #              |
+|             #       #       #       #             |
+|            # #     # #     # #     # #            |
+|           #   #   #   #   #   #   #   #           |
+|          # # # # # # # # # # # # # # # #          |
+|         #                               #         |
+|        # #                             # #        |
+|       #   #                           #   #       |
+|      # # # #                         # # # #      |
+END
+
+use Test;
+is @res1.join("\n"), chomp $ref1;
+is @res2.join("\n"), chomp $ref2;
