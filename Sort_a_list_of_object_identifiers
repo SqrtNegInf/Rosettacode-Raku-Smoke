@@ -1,0 +1,37 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sort_a_list_of_object_identifiers
+#c# 2016-08-24 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# The sort routine accepts a sort key callback as the first argument. Here we generate a list of integers as the sort key for each OID, which gets sorted lexicographically with numeric comparison by default.
+
+my @s1 = sort *.comb(/\d+/)».Int, my @data = <
+    1.3.6.1.4.1.11.2.17.19.3.4.0.10
+    1.3.6.1.4.1.11.2.17.5.2.0.79
+    1.3.6.1.4.1.11.2.17.19.3.4.0.4
+    1.3.6.1.4.1.11150.3.4.0.1
+    1.3.6.1.4.1.11.2.17.19.3.4.0.1
+    1.3.6.1.4.1.11150.3.4.0
+>;
+
+# Alternatively, using the sprintf-based approach used by the Perl solution, for comparison (input elided):
+my @s2 = sort *.split('.').fmt('%08d'), @data;
+
+# Or if using a third-party module is acceptable:
+use Sort::Naturally;
+my @s3 = sort &naturally, @data;
+
+my @soln = <
+1.3.6.1.4.1.11.2.17.5.2.0.79
+1.3.6.1.4.1.11.2.17.19.3.4.0.1
+1.3.6.1.4.1.11.2.17.19.3.4.0.4
+1.3.6.1.4.1.11.2.17.19.3.4.0.10
+1.3.6.1.4.1.11150.3.4.0
+1.3.6.1.4.1.11150.3.4.0.1
+>;
+
+use Test;
+is @s1, @soln;
+is @s2, @soln;
+is @s3, @soln;
