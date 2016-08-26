@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Averages/Median
+#c# 2016-08-25 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2016.08
+
+sub median {
+  my @a = sort @_;
+  return (@a[(*-1) div 2] + @a[* div 2]) / 2;
+}
+
+#`{
+Notes:
+
+ The div operator does integer division. The / operator (rational number division) would work too, since the array subscript automatically coerces to Int, but using div is more explicit (i.e. clearer to readers) as well as faster, and thus recommended in cases like this.
+ The * inside the subscript stands for the array's length (see documentation).
+}
+
+#In a slightly more compact way:
+sub median1 { @_.sort[(*-1)/2, */2].sum / 2 }
+
+use Test;
+is median(28.207,74.916, 51.695, 72.486, 51.118, 3.241, 73.807), 51.695;
+is median(27.984, 89.172, 0.250, 66.316, 41.805, 60.043), 50.924;
+is median1(28.207,74.916, 51.695, 72.486, 51.118, 3.241, 73.807), 51.695;
+is median1(27.984, 89.172, 0.250, 66.316, 41.805, 60.043), 50.924;
+
