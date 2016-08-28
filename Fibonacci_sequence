@@ -1,0 +1,48 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Fibonacci_sequence
+#c# 2016-08-28 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# This constructs the fibonacci sequence as a lazy infinite list.
+my constant @fib1 = 0, 1, *+* ... *;
+
+# If you really need a function for it:
+sub fib1 ($n) { @fib1[$n] }
+
+# To support negative indices:
+constant @neg-fib = 0, 1, *-* ... *;
+sub fib2 ($n) { $n >= 0 ?? @fib1[$n] !! @neg-fib[-$n] }
+
+# Iterative
+sub fib3 (Int $n --> Int) {
+    $n > 1 or return $n;
+    my ($prev, $this) = 0, 1;
+    ($prev, $this) = $this, $this + $prev for 1 ..^ $n;
+    return $this;
+}
+
+# Recursive
+use experimental :cached;
+proto fib4 (Int $n --> Int) is cached {*}
+multi fib4 (0)  { 0 }
+multi fib4 (1)  { 1 }
+multi fib4 ($n) { fib4($n - 1) + fib4($n - 2) }
+
+# Analytic
+sub fib5 (Int $n --> Int) {
+    constant φ1 = 1 / constant φ = (1 + sqrt 5)/2;
+    constant invsqrt5 = 1 / sqrt 5;
+ 
+    floor invsqrt5 * (φ**$n + φ1**$n);
+}
+
+use Test;
+my $ref1 = qw< 0 1 1 2 3 5 8 13 21 34 >;
+my $ref2 = qw< 0 1 -1 2 -3 5 -8 13 -21 34 >;
+
+is (@fib1[^10]), $ref1, 'as lazy infinite list';
+is (@fib1[^10]), $ref1, 'generated iteratively';
+is (@neg-fib[^10]), $ref2, 'with support for negative indicies';
+is (gather { take fib4($_) for ^10 }), $ref1, 'generated recursively';
+is (gather { take fib5($_) for ^10 }), $ref1, 'generated analytically';
