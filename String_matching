@@ -1,0 +1,51 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/String_matching
+#c# 2016-08-28 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# The "full program" boilerplate was obscuring the interesting stuff. Show individual expressions only, like the #Perl solution.
+
+my $needle = 'food';
+my $haystack = qq:to/END/;
+food on the table
+eat food, good food
+table on the food
+END
+
+$haystack ~~ s/\n$//;
+my @res;
+
+# Using string methods:
+@res.push: $haystack.starts-with($needle); # True if $haystack starts with $needle
+@res.push: $haystack.contains($needle);    # True if $haystack contains $needle
+@res.push: $haystack.ends-with($needle);   # True if $haystack ends with $needle
+
+# Using regexes:
+@res.push: so $haystack ~~ /^ $needle  /; # True if $haystack starts with $needle
+@res.push: so $haystack ~~ /  $needle  /; # True if $haystack contains $needle
+@res.push: so $haystack ~~ /  $needle $/; # True if $haystack ends with $needle
+
+# Using substr:
+@res.push: substr($haystack, 0, $needle.chars) eq $needle; # True if $haystack starts with $needle
+@res.push: substr($haystack, *-$needle.chars) eq $needle;  # True if $haystack ends with $needle
+
+# Bonus task:
+@res.push: $haystack.match($needle, :g)».from;  # List of all positions where $needle appears in $haystack
+
+.say for @res;
+
+my $ref = qq:to/END/;
+True
+True
+True
+True
+True
+True
+True
+True
+0 22 33 51
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
