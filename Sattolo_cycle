@@ -1,0 +1,23 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sattolo_cycle
+#c# 2016-08-30 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# This modifies the array passed as argument, in-place.
+
+my @a = ^10;
+sattolo-cycle(@a);
+put @a;
+
+sub sattolo-cycle (@array) {
+    for reverse 1 .. @array.end -> $i {
+        my $j = (^$i).pick;
+        @array[$j, $i] = @array[$i, $j];
+    }
+}
+
+use Test;
+is (sort @a), ^10;
