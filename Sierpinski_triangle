@@ -1,0 +1,44 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sierpinski_triangle
+#c# 2016-09-03 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Translation of: Perl
+
+sub sierpinski ($n) {
+    my @down  = '*';
+    my $space = ' ';
+    for ^$n {
+        @down = |("$space$_$space" for @down), |("$_ $_" for @down);
+        $space x= 2;
+    }
+    return @down;
+}
+ 
+.say for sierpinski 4;
+
+my $sier;
+for sierpinski 4 { $_ ~~ s/\s+$//; $sier ~= "$_\n"; }
+
+my $ref = qq:to /STOP/;
+               *
+              * *
+             *   *
+            * * * *
+           *       *
+          * *     * *
+         *   *   *   *
+        * * * * * * * *
+       *               *
+      * *             * *
+     *   *           *   *
+    * * * *         * * * *
+   *       *       *       *
+  * *     * *     * *     * *
+ *   *   *   *   *   *   *   *
+* * * * * * * * * * * * * * * *
+STOP
+
+use Test;
+is $sier, $ref;
