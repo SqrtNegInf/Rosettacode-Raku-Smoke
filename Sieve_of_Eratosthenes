@@ -1,0 +1,42 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sieve_of_Eratosthenes
+#c# 2016-09-16 <RC, 2017-02-18 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub sieve( Int $limit ) {
+    my @is-prime = False, False, slip True xx $limit - 1;
+ 
+    gather for @is-prime.kv -> $number, $is-prime {
+        if $is-prime {
+            take $number;
+            loop (my $s = $number**2; $s <= $limit; $s += $number) {            # >
+                @is-prime[$s] = False;
+            }
+        }
+    }
+}
+ 
+(sieve 100).join(",").say;
+
+# A set-based approach
+# More or less the same as the first Python example:
+
+sub eratsieve($n) {
+    # Requires n(1 - 1/(log(n-1))) storage
+    my $multiples = set();
+    gather for 2..$n -> $i {  # DH 20170218  remove 'lazy'
+        unless $i (&) $multiples { # is subset
+            take $i;
+            $multiples (+)= set($i**2, *+$i ... (* > $n)); # union
+        }
+    }
+}
+ 
+put flat eratsieve(100);
+
+my $ref = '2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97';
+
+use Test;
+is ((sieve 100).join(' ')), chomp $ref;
+is (flat eratsieve(100)), chomp $ref;
