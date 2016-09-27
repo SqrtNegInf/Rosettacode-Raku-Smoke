@@ -1,0 +1,143 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Compiler/lexical_analyzer
+#c# 2016-09-27 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# This is more complicated than strictly necessary for this task. It is set up to be easily adapted to do syntax analysis.
+# (Note: there are several bogus comments added solely to help with syntax highlighting.)
+
+# Works with: Rakudo version 2016.08
+
+my @res;
+
+grammar tiny_C {
+    rule TOP { ^ <.whitespace>? <tokens> + % <.whitespace> <.whitespace> <eoi> }
+ 
+    rule whitespace { [ <comment> + % <ws> | <ws> ] }
+ 
+    token comment    { '/*' ~ '*/' .*? }
+ 
+    token tokens {
+        [
+        | <operator>   { make $/<operator>.ast   }
+        | <keyword>    { make $/<keyword>.ast    }
+        | <symbol>     { make $/<symbol>.ast     }
+        | <identifier> { make $/<identifier>.ast }
+        | <integer>    { make $/<integer>.ast    }
+        | <char>       { make $/<char>.ast       }
+        | <string>     { make $/<string>.ast     }
+        | <error>
+        ]
+    }
+ 
+    proto token operator    {*}
+    token operator:sym<*>   { '*'               { make 'Op_multiply'    } }
+    token operator:sym</>   { '/'<!before '*'>  { make 'Op_divide'      } }
+    token operator:sym<%>   { '%'               { make 'Op_mod'         } }
+    token operator:sym<+>   { '+'               { make 'Op_add'         } }
+    token operator:sym<->   { '-'               { make 'Op_subtract'    } }
+    token operator:sym('<='){ '<='              { make 'Op_lessequal'   } }
+    token operator:sym('<') { '<'               { make 'Op_less'        } }
+    token operator:sym('>='){ '>='              { make 'Op_greaterequal'} }
+    token operator:sym('>') { '>'               { make 'Op_greater'     } }
+    token operator:sym<==>  { '=='              { make 'Op_equal'       } }
+    token operator:sym<!=>  { '!='              { make 'Op_notequal'    } }
+    token operator:sym<!>   { '!'               { make 'Op_not'         } }
+    token operator:sym<=>   { '='               { make 'Op_assign'      } }
+    token operator:sym<&&>  { '&&'              { make 'Op_and'         } }
+    token operator:sym<||>  { '||'              { make 'Op_or'          } }
+ 
+    proto token keyword      {*}
+    token keyword:sym<if>    { 'if'    { make 'Keyword_if'    } }
+    token keyword:sym<else>  { 'else'  { make 'Keyword_else'  } }
+    token keyword:sym<putc>  { 'putc'  { make 'Keyword_putc'  } }
+    token keyword:sym<while> { 'while' { make 'Keyword_while' } }
+    token keyword:sym<print> { 'print' { make 'Keyword_print' } }
+ 
+    proto token symbol  {*}
+    token symbol:sym<(> { '(' { make 'LeftParen'  } }
+    token symbol:sym<)> { ')' { make 'RightParen' } }
+    token symbol:sym<{> { '{' { make 'LeftBrace'  } }
+    token symbol:sym<}> { '}' { make 'RightBrace' } }
+    token symbol:sym<;> { ';' { make 'Semicolon'   } }
+    token symbol:sym<,> { ',' { make 'Comma'       } }
+ 
+    token identifier { <[_A..Za..z]><[_A..Za..z0..9]>* { make 'Identifier ' ~ $/ } }
+    token integer    { <[0..9]>+                       { make 'Integer '    ~ $/ } }
+ 
+    token char {
+        '\'' [<-[']> | '\n' | '\\\\'] '\''
+        { make 'Char_Literal ' ~ $/.subst("\\n", "\n").substr(1, *-1).ord }
+    }
+ 
+    token string {
+        '"' <-["\n]>* '"' #'
+        {
+            make 'String ' ~ $/;
+            note 'Error: Unknown escape sequence.' and exit if (~$/ ~~ m:r/ <!after <[\\]>>[\\<-[n\\]>]<!before <[\\]>> /);
+        }
+    }
+ 
+    token eoi { $ { make 'End_of_input' } }
+ 
+    token error {
+        | '\'''\''                   { note 'Error: Empty character constant.' and exit }
+        | '\'' <-[']> ** {2..*} '\'' { note 'Error: Multi-character constant.' and exit }
+        | '/*' <-[*]>* $             { note 'Error: End-of-file in comment.'   and exit }
+        | '"' <-["]>* $              { note 'Error: End-of-file in string.'    and exit }
+        | '"' <-["]>*? \n            { note 'Error: End of line in string.'    and exit } #'
+    }
+}
+ 
+sub parse_it ( $c_code ) {
+    my $l;
+    my @pos = gather for $c_code.lines>>.chars.kv -> $line, $v {
+        take [ $line + 1, $_ ] for 1 .. ($v+1); # v+1 for newline
+        $l = $line+2;
+    }
+    @pos.push: [ $l, 1 ]; # capture eoi
+ 
+    for flat $c_code<tokens>.list, $c_code<eoi> -> $m {
+        @res.push: join "\t", @pos[$m.from].fmt('%3d'), $m.ast;
+    }
+}
+ 
+#my $tokenizer = tiny_C.parse(@*ARGS[0].IO.slurp);
+my $tokenizer = tiny_C.parse('ref/compiler_lexical_analyzer.txt'.IO.slurp);
+parse_it( $tokenizer );
+.say for @res;
+
+my $ref = qq:to/END/;
+  5  15	Keyword_print
+  5  41	Op_subtract
+  6  15	Keyword_putc
+  6  41	Op_less
+  7  15	Keyword_if
+  7  41	Op_greater
+  8  15	Keyword_while
+  8  41	Op_lessequal
+  9  15	LeftBrace
+  9  41	Op_notequal
+ 10  15	RightBrace
+ 10  41	Op_and
+ 11  15	LeftParen
+ 11  41	Semicolon
+ 12  15	RightParen
+ 12  41	Comma
+ 13  15	Op_subtract
+ 13  41	Op_assign
+ 14  15	Op_multiply
+ 14  41	Integer 42
+ 15  15	Op_divide
+ 15  41	String "String literal"
+ 16  15	Op_add
+ 16  41	Identifier variable_name
+ 17  26	Char_Literal 10
+ 18  26	Char_Literal 92
+ 19  26	Char_Literal 32
+ 20   1	End_of_input
+END
+
+use Test;
+is (join "\n", @res), chomp $ref;
