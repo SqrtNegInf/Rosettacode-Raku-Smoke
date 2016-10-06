@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Nested_function
+#c# 2016-10-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub make-List ($separator = ') '){
+    my $count = 1;
+ 
+    sub make-Item ($item) { "{$count++}$separator$item" }
+ 
+    join "\n", <first second third>».&make-Item;
+}
+ 
+put my $result = make-List('. ');
+
+my $ref = qq:to/END/;
+1. first
+2. second
+3. third
+END
+
+use Test;
+is $result, chomp $ref;
