@@ -1,0 +1,79 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Tonelli-Shanks_algorithm
+#c# 2016-10-29 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# downgraded Unicode names to ASCII
+
+# MOAR kludge: not working for very large values (Cannot unbox 164 bit wide bigint into native integer)
+
+# Works with: Rakudo version 2016.10
+# Translation of the Wikipedia pseudocode, heavily influenced by Sidef and Python.
+
+#  Legendre operator (n│p)
+sub infix:<│> (Int \n, Int \p where p.is-prime && (p != 2)) {
+    given n.expmod( (p-1) div 2, p ) {
+        when 0  {  0 }
+        when 1  {  1 }
+        default { -1 }
+    }
+}
+ 
+sub tonelli-shanks ( \n, \p where (n│p) > 0 ) {
+    my $Q = p - 1;
+    my $S = 0;
+    $Q +>= 1 and $S++ while $Q %% 2;
+    return n.expmod((p+1) div 4, p) if $S == 1;
+    my $c = ((2..p).first: (*│p) < 0).expmod($Q, p);
+    my $R = n.expmod( ($Q+1) +> 1, p );
+    my $t = n.expmod( $Q, p );
+    while ($t-1) % p {
+        my $b;
+        my $t2 = $t² % p;
+        for 1 .. $S {
+            if ($t2-1) %% p {
+                $b = $c.expmod(1 +< ($S-1-$_), p);
+                $S = $_;
+                last;
+            }
+            $t2 = $t2² % p;
+        }
+        $R = ($R * $b) % p;
+        $c = $b² % p;
+        $t = ($t * $c) % p;
+    }
+    $R;
+}
+ 
+my @tests = (
+    (10, 13),
+    (56, 101),
+    (1030, 10009),
+    (1032, 10009),
+    (44402, 100049),
+    (665820697, 1000000009),
+    (881398088036, 1000000000039),
+    (41660815127637347468140745042827704103445750172002, 100000000000000000000000000000000000000000000000577)
+);
+ 
+my @res;
+for @tests -> ($n, $p) {
+    try my $t = tonelli-shanks($n, $p);
+    @res.push: "No solution for ({$n}, {$p})" and next if !$t or ($t² - $n) % $p;
+    @res.push: "Roots of $n are ($t, {$p-$t}) mod $p";
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+Roots of 10 are (7, 6) mod 13
+Roots of 56 are (37, 64) mod 101
+Roots of 1030 are (1632, 8377) mod 10009
+No solution for (1032, 10009)
+Roots of 44402 are (30468, 69581) mod 100049
+Roots of 665820697 are (378633312, 621366697) mod 1000000009
+Roots of 881398088036 are (791399408049, 208600591990) mod 1000000000039
+Roots of 41660815127637347468140745042827704103445750172002 are (32102985369940620849741983987300038903725266634508, 67897014630059379150258016012699961096274733366069) mod 100000000000000000000000000000000000000000000000577
+END
+
+use Test;
+is (join "\n", @res), chomp $ref;
