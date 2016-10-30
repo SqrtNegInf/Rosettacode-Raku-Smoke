@@ -1,0 +1,85 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Cipolla%27s_algorithm
+#c# 2016-10-29 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# downgraded Unicode names to ASCII
+
+# Works with: Rakudo version 2016.10
+# Translation of: Sidef
+#  Legendre operator (n│p)
+sub infix:<│> (Int \n, Int \p where p.is-prime && (p != 2)) {
+    given n.expmod( (p-1) div 2, p ) {
+        when 0  {  0 }
+        when 1  {  1 }
+        default { -1 }
+    }
+}
+ 
+# a coordinate in a Field of p elements
+class Fp {
+    has Int $.x;
+    has Int $.y;
+}
+ 
+sub cipolla ( Int \n, Int \p ) {
+#    note "Invalid parameters ({n}, {p})"
+#      and return Nil if (n│p) != 1;
+      return Nil if (n│p) != 1;
+    my $ω2;
+    my $a = 0;
+    loop {
+        last if ($ω2 = ($a² - n) % p)│p < 0;
+        $a++;
+    }
+ 
+    # define a local multiply operator for Field coordinates
+    multi sub infix:<*> ( Fp $a, Fp $b ){
+        Fp.new: :x(($a.x * $b.x + $a.y * $b.y * $ω2) % p),
+                :y(($a.x * $b.y + $b.x * $a.y)       % p)
+    }
+ 
+    my $r = Fp.new: :x(1),  :y(0);
+    my $s = Fp.new: :x($a), :y(1);
+ 
+    for (p+1) +> 1, * +> 1 ... 1 {
+        $r *= $s if $_ % 2;
+        $s *= $s;
+    }
+    return Nil if $r.y;
+    $r.x;
+}
+ 
+my @tests = (
+    (10, 13),
+    (56, 101),
+    (8218, 10007),
+    (8219, 10007),
+    (331575, 1000003),
+    (665165880, 1000000007),
+    (881398088036, 1000000000039),
+    (34035243914635549601583369544560650254325084643201,
+      100000000000000000000000000000000000000000000000151)
+);
+
+my @res;
+for @tests -> ($n, $p) {
+   my $r = cipolla($n, $p);
+       $r ?? @res.push: "Roots of $n are ($r, {$p-$r}) mod $p"
+          !! @res.push: "No solution for ($n, $p)"
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+Roots of 10 are (6, 7) mod 13
+Roots of 56 are (37, 64) mod 101
+Roots of 8218 are (9872, 135) mod 10007
+No solution for (8219, 10007)
+Roots of 331575 are (855842, 144161) mod 1000003
+Roots of 665165880 are (475131702, 524868305) mod 1000000007
+Roots of 881398088036 are (791399408049, 208600591990) mod 1000000000039
+Roots of 34035243914635549601583369544560650254325084643201 are (82563118828090362261378993957450213573687113690751, 17436881171909637738621006042549786426312886309400) mod 100000000000000000000000000000000000000000000000151
+END
+
+use Test;
+is (join "\n", @res), chomp $ref;
