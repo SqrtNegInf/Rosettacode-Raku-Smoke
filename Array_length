@@ -1,0 +1,37 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Array_length
+#c# 2016-11-27 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015.12
+# To get the number of elements of an array in Perl 6 you put the array in a coercing Numeric context, or call elems on it.
+
+my @res;
+
+my @array = <apple orange banana>;
+ 
+@res.push: @array.elems;  # 3
+@res.push: elems @array;  # 3
+@res.push: +@array;       # 3
+@res.push: @array + 1;    # 4
+ 
+#Watch out for infinite/lazy arrays though. You can't get the length of those.
+
+my @infinite = 1 .. Inf;  # 1, 2, 3, 4, ...
+ 
+@res.push: @infinite[5000];  # 5001
+#@res.push: @infinite.elems;  # Throws exception "Cannot .elems a lazy list"
+
+.say for @res;
+
+my $ref = qq:to/END/;
+3
+3
+3
+4
+5001
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
