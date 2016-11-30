@@ -1,0 +1,39 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Amb
+#c# 2016-11-30 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#    but only works for certain random seeds (so not updated on RC)
+
+srand 12345; #works
+#srand 123456; # fails
+
+use MONKEY-SEE-NO-EVAL;
+
+sub amb($var,*@a) {
+#say "V: $var";
+#print 'a: '; print "$_, " for @a; say '';
+    "[{ @a.pick(*).map: {"||\{ $var = '$_' }"} }]";
+}
+ 
+sub joins ($word1, $word2) {
+#    say "W1: $word1 W2: $word2";
+    substr($word1,*-1,1) eq substr($word2,0,1)
+}
+ 
+my $result;
+'' ~~ m/
+    :my ($a,$b,$c,$d);
+    <{ amb '$a', <the that a> }>
+    <{ amb '$b', <frog elephant thing> }>
+    <?{ joins $a, $b }>
+    <{ amb '$c', <walked treaded grows> }>
+    <?{ joins $b, $c }>
+    <{ amb '$d', <slowly quickly> }>
+    <?{ joins $c, $d }>
+    { say "$a $b $c $d";
+      use Test;
+      is "$a $b $c $d", 'that thing grows slowly';
+    }
+    <!>
+/;
