@@ -1,0 +1,47 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Spiral_matrix
+#c# 2016-11-30 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub spiral_matrix ( $n ) {
+    my @sm;
+    my $len = $n;
+    my $pos = 0;
+ 
+    for ^($n/2).ceiling -> $i {
+        my $j = $i +  1;
+        my $e = $n - $j;
+ 
+        @sm[$i     ][$i + $_] = $pos++ for         ^(  $len); # Top
+        @sm[$j + $_][$e     ] = $pos++ for         ^(--$len); # Right
+        @sm[$e     ][$i + $_] = $pos++ for reverse ^(  $len); # Bottom
+        @sm[$j + $_][$i     ] = $pos++ for reverse ^(--$len); # Left
+    }
+ 
+    return @sm;
+}
+ 
+my @res4.push: .fmt('%3d') for spiral_matrix(4);
+.say for @res4;
+my @res5.push: .fmt('%3d') for spiral_matrix(5);
+.say for @res5;
+
+my $ref4 = qq:to/END4/;
+  0   1   2   3
+ 11  12  13   4
+ 10  15  14   5
+  9   8   7   6
+END4
+
+my $ref5 = qq:to/END5/;
+  0   1   2   3   4
+ 15  16  17  18   5
+ 14  23  24  19   6
+ 13  22  21  20   7
+ 12  11  10   9   8
+END5
+
+use Test;
+is @res4.join("\n"), chomp $ref4;
+is @res5.join("\n"), chomp $ref5;
