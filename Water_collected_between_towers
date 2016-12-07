@@ -1,0 +1,73 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Water_collected_between_towers
+#c# 2016-12-07 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#`{{
+In a two-dimensional world, we begin with any bar-chart (or row of close-packed 'towers', each of unit width), 
+and then it rains, filling any convex enclosures in the chart with water.
+
+
+9               ██           9               ██    
+8               ██           8               ██    
+7     ██        ██           7     ██░░░░░░░░██    
+6     ██  ██    ██           6     ██░░██░░░░██    
+5 ██  ██  ██  ████           5 ██░░██░░██░░████    
+4 ██  ██  ████████           4 ██░░██░░████████    
+3 ██████  ████████           3 ██████░░████████    
+2 ████████████████  ██       2 ████████████████░░██
+1 ████████████████████       1 ████████████████████
+
+Haskell[edit]
+Following cdk's Haskell solution at Stack Overflow:
+
+waterCollected :: [Int] -> Int
+waterCollected xs = 
+    -- water collects only in flanked concavities
+    -- (i.e. where there is a gap between the high tide mark
+    --       and the sea bed beneath)
+    sum (filter (> 0) (zipWith (-) levels xs))
+      where
+        -- high tide is the level of the lower of the
+        -- two flanking walls
+        levels = zipWith min 
+            (init $ scanr max 0 xs)
+            (tail $ scanl max 0 xs)
+ 
+main :: IO ()   
+main = mapM_ (putStrLn . show . waterCollected) [
+    [1, 5, 3, 7, 2],
+    [5, 3, 7, 2, 6, 4, 5, 9, 1, 2],
+    [5, 5, 5, 5],
+    [5, 6, 7, 8],
+    [8, 7, 7, 6],
+    [6, 7, 10, 7, 6]]
+
+}}
+
+# Translation of: Haskell
+
+sub max_l ( @a ) {  [\max] @a }
+sub max_r ( @a ) { ([\max] @a.reverse).reverse }
+ 
+sub water_collected ( @towers ) {
+    return 0 if @towers <= 2;
+ 
+    my @levels = max_l(@towers) »min« max_r(@towers);
+ 
+    return ( @levels »-« @towers ).grep( * > 0 ).sum;
+}
+ 
+put my $result = map &water_collected,
+    [ 1, 5,  3, 7, 2 ],
+    [ 5, 3,  7, 2, 6, 4, 5, 9, 1, 2 ],
+    [ 2, 6,  3, 5, 2, 8, 1, 4, 2, 2, 5, 3, 5, 7, 4, 1 ],
+    [ 5, 5,  5, 5 ],
+    [ 5, 6,  7, 8 ],
+    [ 8, 7,  7, 6 ],
+    [ 6, 7, 10, 7, 6 ],
+;
+
+use Test;
+is $result, '2 14 35 0 0 0 0';
