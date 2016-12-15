@@ -1,0 +1,31 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Angle_difference_between_two_bearings
+#c# 2016-12-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub infix:<∠> (Int $b1, Int $b2) {
+   (my $b = ($b2 - $b1 + 720) % 360) > 180 ?? $b - 360 !! $b;
+}
+ 
+my @res;
+for 20, 45,
+   -45, 45,
+   -85, 90,
+   -95, 90,
+   -45, 125,
+   -45, 145
+  -> $b1, $b2 { @res.push: "$b1 ∠ $b2 = "~ $b1 ∠ $b2 }
+.say for @res;
+
+my $ref = qq:to/END/;
+20 ∠ 45 = 25
+-45 ∠ 45 = 90
+-85 ∠ 90 = 175
+-95 ∠ 90 = -175
+-45 ∠ 125 = 170
+-45 ∠ 145 = -170
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
