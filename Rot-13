@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Rot-13
+#c# 2016-12-17 <RC, 2018-04-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#   special case of 'Substitution_Cipher'
+
+# this is on RC now:
+# print slurp.trans: ['A'..'Z','a'..'z'] => ['N'..'Z','A'..'M','n'..'z','a'..'m'];
+
+# embedding into a routine:
+sub rot13 ($text) { $text.trans('A..Za..z' => 'N..ZA..Mn..za..m') }
+
+my $ref  = 'All Cretans Are Liars';
+
+say $ref;
+say rot13($ref);
+say rot13(rot13($ref));
+
+use Test;
+is rot13(rot13($ref)), $ref;
