@@ -1,0 +1,47 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/MAC_Vendor_Lookup
+#c# 2017-01-15 <RC, 2018-04-07 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+
+#n# Apparently there is some rate limiting on place now, sleep a bit between requests.
+
+die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+
+use HTTP::UserAgent;
+ 
+my $ua = HTTP::UserAgent.new;
+ 
+$ua.timeout = 10; # seconds
+ 
+my $server = 'http://api.macvendors.com/';
+ 
+sub lookup ($mac) {
+    my $response = $ua.get: "$server+$mac";
+    sleep 1; 
+    return $response.is-success ?? $response.content !! 'N/A';
+ 
+    CATCH {             # Normally you would report some information about what
+        default { Nil } # went wrong, but the task specifies to ignore errors.
+    }
+}
+ 
+my @res;
+for <
+BC:5F:F4
+FC-A1-3E
+10:dd:b1
+23:45:67
+> -> $mac { @res.push: lookup $mac }
+
+.say for @res;
+
+my $ref = qq:to/END/;
+ASRock Incorporation
+Samsung Electronics Co.,Ltd
+Apple, Inc.
+N/A
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
