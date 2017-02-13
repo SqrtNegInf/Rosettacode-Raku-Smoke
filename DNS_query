@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/DNS_query
+#c# 2017-02-13 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+use Net::DNS;
+ 
+my $resolver = Net::DNS.new('8.8.8.8');
+ 
+my $ip4 = $resolver.lookup('A',    'orange.kame.net');
+my $ip6 = $resolver.lookup('AAAA', 'orange.kame.net');
+ 
+say my $res_ip4 = $ip4[0].octets.join: '.';
+say my $res_ip6 = $ip6[0].octets.».fmt("%.2X").join.comb(4).join: ':';
+
+use Test;
+is $res_ip4, '203.178.141.194';
+is $res_ip6, '2001:0200:0DFF:FFF1:0216:3EFF:FEB1:44D7';
