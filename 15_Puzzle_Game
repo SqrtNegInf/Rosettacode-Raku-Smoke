@@ -1,0 +1,164 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/15_Puzzle_Game
+#t# interactive
+#c# 2017-03-21 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# reading keyboard input not ideal
+
+die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+
+srand 123456;
+
+# Works with: Rakudo version 2017.03
+# Most of this is interface code. Reused substantial portions from the 2048 task. Use the arrow keys to slide tiles, press 'q' to quit or 'n' for a new puzzle. Requires a POSIX termios aware terminal. Ensures that the puzzle is solvable by shuffling the board with an even number of swaps, then checking for even taxicab parity for the empty space.
+
+use Term::termios;
+ 
+my  $saved   = Term::termios.new(fd => 1).getattr;
+my  $termios = Term::termios.new(fd => 1).getattr;
+# Set the tty to raw mode
+$termios.makeraw;
+
+# raw mode interferes with carriage returns, so
+# set flags needed to emulate it manually
+#$termios.unset_iflags(<BRKINT ICRNL ISTRIP IXON>);
+#$termios.unset_lflags(< ECHO ICANON IEXTEN ISIG>);
+#$termios.setattr(:DRAIN);
+ 
+# reset terminal to original setting on exit
+END { $saved.setattr(:NOW) }
+ 
+constant n    = 4; # board size
+constant cell = 6; # cell width
+ 
+constant $top = join '─' x cell, '┌', '┬' xx n-1, '┐';
+constant $mid = join '─' x cell, '├', '┼' xx n-1, '┤';
+constant $bot = join '─' x cell, '└', '┴' xx n-1, '┘';
+ 
+my %dir = (  # DH not using this
+   "\e[A" => 'up',
+   "\e[B" => 'down',
+   "\e[C" => 'right',
+   "\e[D" => 'left',
+);
+ 
+my @solved = [1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,' '];
+my @board;
+new();
+ 
+sub new () {
+    loop {
+       @board = shuffle();
+       last if parity-ok(@board);
+   }
+}
+ 
+sub parity-ok (@b) {
+    my $row = @b.first(/' '/,:k);
+    my $col = @b[$row].first(/' '/,:k);
+    so ([3,3] <<->> [$row,$col]).sum %% 2;
+}
+ 
+sub shuffle () {
+    my @c = [1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,' '];
+    for (^16).pick(*) -> $y, $x {
+        my ($yd, $ym, $xd, $xm) = ($y div n, $y mod n, $x div n, $x mod n);
+        my $temp    = @c[$ym;$yd];
+        @c[$ym;$yd] = @c[$xm;$xd];
+        @c[$xm;$xd] = $temp;
+    }
+    @c;
+}
+ 
+sub row (@row) { '│' ~ (join '│', @row».&center) ~ '│' }
+ 
+sub center ($s){
+    my $c   = cell - $s.chars;
+    my $pad = ' ' x ceiling($c/2);
+    sprintf "%{cell}s", "$s$pad";
+}
+ 
+sub draw-board {
+    run('clear');
+    print qq:to/END/;
+ 
+ 
+	Press direction arrows to move.
+ 
+	Press q to quit. Press n for a new puzzle.
+ 
+	$top
+	{ join "\n\t$mid\n\t", map { .&row }, @board }
+	$bot
+ 
+	{ (so @board ~~ @solved) ?? 'Solved!!' !! '' }
+END
+}
+ 
+sub slide (@c is copy) {
+    my $t = (grep { /' '/ }, :k, @c)[0];
+    return @c unless $t and $t > 0;
+    @c[$t,$t-1] = @c[$t-1,$t];
+    @c;
+}
+ 
+multi sub move('up') {
+    map { @board[*;$_] = reverse slide reverse @board[*;$_] }, ^n;
+}
+ 
+multi sub move('down') {
+    map { @board[*;$_] = slide @board[*;$_] }, ^n;
+}
+ 
+multi sub move('left') {
+    map { @board[$_] = reverse slide reverse @board[$_] }, ^n;
+}
+ 
+multi sub move('right') {
+    map { @board[$_] = slide @board[$_] }, ^n;
+}
+ 
+loop {
+    draw-board;
+ 
+    # Read up to 4 bytes from keyboard buffer.
+    # Page navigation keys are 3-4 bytes each.
+    # Specifically, arrow keys are 3.
+    my $key = $*IN.read(4).decode;
+    # Hash %dir = {"\x[1B][A" => "up", "\x[1B][B" => "down", "\x[1B][C" => "right", "\x[1B][D" => "left"}
+
+    #move %dir{$key} if so %dir{$key};
+    move 'up'    if $key.substr(*-2,1) eq 'A';
+    move 'down'  if $key.substr(*-2,1) eq 'B';
+    move 'right' if $key.substr(*-2,1) eq 'C';
+    move 'left'  if $key.substr(*-2,1) eq 'D';
+    last  if $key ~~ /^q/; # (q)uit
+    new() if $key ~~ /^n/;
+}
+
+#`{ Sample screen shot:
+
+
+	Press direction arrows to move.
+
+	Press q to quit. Press n for a new puzzle.
+
+	┌──────┬──────┬──────┬──────┐
+	│  2   │  1   │  10  │  14  │
+	├──────┼──────┼──────┼──────┤
+	│  15  │  11  │  12  │      │
+	├──────┼──────┼──────┼──────┤
+	│  13  │  3   │  6   │  7   │
+	├──────┼──────┼──────┼──────┤
+	│  9   │  4   │  5   │  8   │
+	└──────┴──────┴──────┴──────┘
+
+}
+
+my $ref = qq:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
