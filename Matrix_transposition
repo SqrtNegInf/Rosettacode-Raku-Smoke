@@ -1,0 +1,43 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Matrix_transposition
+#c# 2017-04-18 <RC, 2018-04-10 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# transposition can be done with the reduced zip meta-operator 
+# on list-of-lists data structures
+
+my @res = [Z] (<A B C D>,<E F G H>,<I J K L>);
+#my @res = [Z] ('A'..'L').rotor: 4;
+
+# for native shaped arrays, a more traditional procedure of copying item-by-item
+# in this example, the resulting matrix is also a native shaped array
+
+my @b[3;4] =
+  [
+    [<A B C D>],
+    [<E F G H>],
+    [<I J K L>],
+  ];
+
+(my $n, my $m) = @b.shape;
+my @c[$m;$n];
+for ^$m X ^$n -> (\i, \j) {
+   @c[i;j] = @b[j;i];
+}
+
+@res.push: @c.gist;
+
+.say for @res;
+#exit;
+
+my $ref = qq:to/END/;
+A E I
+B F J
+C G K
+D H L
+[[A E I] [B F J] [C G K] [D H L]]
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
