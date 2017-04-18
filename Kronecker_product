@@ -1,0 +1,39 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Kronecker_product
+#c# 2017-04-18 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2017.01-34-g700a077
+
+my @res;
+
+sub kronecker_product ( @a, @b ) {
+    return (@a X @b).map: { .[0].list X* .[1].list };
+}
+ 
+@res.push: $_ for kronecker_product([ <1 2>, <3 4> ], [ <0 5>, <6 7> ]);
+say '';
+@res.push: $_ for kronecker_product([ <0 1 0>,   <1 1 1>,   <0 1 0>  ],
+                           [ <1 1 1 1>, <1 0 0 1>, <1 1 1 1>]);
+.say for @res;
+
+my $ref = qq:to/END/;
+0 5 0 10
+6 7 12 14
+0 15 0 20
+18 21 24 28
+0 0 0 0 1 1 1 1 0 0 0 0
+0 0 0 0 1 0 0 1 0 0 0 0
+0 0 0 0 1 1 1 1 0 0 0 0
+1 1 1 1 1 1 1 1 1 1 1 1
+1 0 0 1 1 0 0 1 1 0 0 1
+1 1 1 1 1 1 1 1 1 1 1 1
+0 0 0 0 1 1 1 1 0 0 0 0
+0 0 0 0 1 0 0 1 0 0 0 0
+0 0 0 0 1 1 1 1 0 0 0 0
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
