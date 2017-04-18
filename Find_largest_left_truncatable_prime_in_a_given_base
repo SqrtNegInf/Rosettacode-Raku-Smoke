@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Find_largest_left_truncatable_prime_in_a_given_base
+#c# 2017-04-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Pretty fast for bases 3 .. 11. 12 is slow. 18 is glacial.
+
+my @res;
+
+for 3 .. 9 -> $base {  # DH change
+    @res.push: "Starting base $base...";
+    my @stems = grep { .is-prime }, ^$base;
+    my $temp = '';
+    for 1 .. * -> $digits {
+        $temp ~= ' ' ~ @stems.elems;
+        my @new;
+        my $place = $base ** $digits;
+        for 1 ..^ $base -> $digit {
+            my $left = $digit * $place;
+            for @stems -> $stem {
+	        my $new = $left + $stem;
+	        @new.push($new) if $new.is-prime;
+            }
+        }
+        last unless @new;
+        @stems = @new;
+    }
+    @res.push: $temp;
+    @res.push: "Largest ltp in base $base = { @stems.tail } or :$base\<{@stems.tail.base($base)}>";
+}
+
+.say for @res;
+
+my $result = qq:to/END/;
+Starting base 3...
+ 1 1 1
+Largest ltp in base 3 = 23 or :3<212>
+Starting base 4...
+ 2 2 3 3 3 3
+Largest ltp in base 4 = 4091 or :4<333323>
+Starting base 5...
+ 2 4 4 3 1 1
+Largest ltp in base 5 = 7817 or :5<222232>
+Starting base 6...
+ 3 4 12 25 44 54 60 62 59 51 35 20 12 7 3 2 1
+Largest ltp in base 6 = 4836525320399 or :6<14141511414451435>
+Starting base 7...
+ 3 6 6 4 1 1 1
+Largest ltp in base 7 = 817337 or :7<6642623>
+Starting base 8...
+ 4 12 29 50 66 77 61 51 38 27 17 8 3 2 1
+Largest ltp in base 8 = 14005650767869 or :8<313636165537775>
+Starting base 9...
+ 4 9 15 17 24 16 9 6 5 3
+Largest ltp in base 9 = 1676456897 or :9<4284484465>
+END
+
+use Test;
+is @res.join("\n"), chomp $result;
