@@ -1,0 +1,27 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Word_break_problem
+#c# 2017-05-12 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2017.04
+# This implementation does not necessarily find every combination, it returns the one with the longest matching tokens.
+
+my @words = <a bc abc cd b>;
+my $regex = @words.join('|');
+ 
+my @res.push: "$_: " ~ word-break($_) for <abcd abbc abcbcd acdbc abcdd>;
+.say for @res;
+ 
+sub word-break (Str $word) { ($word ~~ / ^ (<$regex>)+ $ /)[0] // "Not possible" }
+
+my $ref = qq:to/END/;
+abcd: a b cd
+abbc: a b bc
+abcbcd: abc b cd
+acdbc: a cd bc
+abcdd: Not possible
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
