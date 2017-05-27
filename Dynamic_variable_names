@@ -1,0 +1,35 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Dynamic_variable_names
+#c# 2017-05-26 <RC, 2018-04-01 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Works with: Rakudo version 2018.03
+
+#You can interpolate strings as variable names:
+
+our $our-var = 'The our var';
+my  $my-var  = 'The my var';
+ 
+my $name  = 'foo';
+#my $name  = prompt 'Variable name: ';
+my $value = $::('name'); # use the right sigil, etc
+ 
+my @res;
+
+@res.push: qq/Var ($name) starts with value ｢$value｣/;
+ 
+$::('name') = 137;
+ 
+@res.push: qq/Var ($name) ends with value ｢{$::('name')}｣/;
+
+.say for @res;
+
+my $ref = qq:to/END/;
+Var (foo) starts with value ｢foo｣
+Var (137) ends with value ｢137｣
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
