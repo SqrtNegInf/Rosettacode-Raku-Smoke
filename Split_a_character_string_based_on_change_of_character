@@ -1,0 +1,44 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Split_a_character_string_based_on_change_of_character
+#c# 2017-06-02 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# noticed on 2018-03-20, test 1 ok, test 2 not ok
+
+# Works with: Rakudo version 2016.12
+sub group-chars ($str) { $str.comb: / (.) $0* / }
+ 
+# Testing:
+ 
+for Q[gHHH5YY++///\], Q[fff﻿﻿﻿n⃗n⃗n⃗»»»  ℵℵ☄☄☃☃̂☃🤔🇺🇸🤦‍♂️👨‍👩‍👧‍👦] -> $string {
+    put 'Original: ', $string;
+    put '   Split: ', group-chars($string).join(', ');
+}
+
+#`{
+The second test-case is to show that Perl 6 works with strings on the Unicode grapheme level, handles combiners and zero width characters up to Unicode Version 9.0, and the newer multi byte emoji characters up to Version 4.0 correctly. (Perl 6 provisionally handles Unicode Versions 10 and Emoji Version 5.0 but they aren't released yet so aren't officially supported.) For those of you with browsers unable to display the second string, it consists of:
+
+ {LATIN SMALL LETTER F} x 3
+ {ZERO WIDTH NO-BREAK SPACE} x 3
+ {LATIN SMALL LETTER N COMBINING RIGHT ARROW ABOVE} x 3
+ {RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK} x 3
+ {SPACE} x 2,
+ {ALEF SYMBOL} x 2,
+ {COMET} x 2,
+ {SNOWMAN} x 1,
+ {SNOWMAN COMBINING CIRCUMFLEX ACCENT} x 1
+ {SNOWMAN} x 1,
+ {THINKING FACE} x 1
+ {REGIONAL INDICATOR SYMBOL LETTER U REGIONAL INDICATOR SYMBOL LETTER S} x 1
+ {FACE PALM ZERO WIDTH JOINER MALE SIGN VARIATION SELECTOR-16} x 1
+ {MAN ZERO WIDTH JOINER WOMAN ZERO WIDTH JOINER GIRL ZERO WIDTH JOINER BOY} x 1
+
+}
+
+use Test;
+my $string = Q[gHHH5YY++///\];
+my $ref    = Q[g, HHH, 5, YY, ++, ///, \], 
+is (group-chars($string).join(', ')), $ref;
+$string    = Q[fff﻿﻿﻿n⃗n⃗n⃗»»»  ℵℵ☄☄☃☃̂☃🤔🇺🇸🤦‍♂️👨‍👩‍👧‍👦];
+$ref       = Q[fff, ﻿﻿﻿, n⃗n⃗n⃗, »»»,   , ℵℵ, ☄☄, ☃, ☃̂, ☃, 🤔, 🇺🇸, 🤦‍♂️, 👨‍👩‍👧‍👦];
+is (group-chars($string).join(', ')), $ref;
