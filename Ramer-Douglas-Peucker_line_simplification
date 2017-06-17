@@ -1,0 +1,52 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Ramer-Douglas-Peucker_line_simplification
+#c# 2017-06-17 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# good use-case for dual-assign sigil-less
+
+# Works with: Rakudo version 2017.05
+#Translation of: C++
+
+sub norm (*@list) { @list»².sum.sqrt }
+ 
+sub perpendicular-distance (@start, @end where @end !eqv @start, @point) {
+    return 0 if @point eqv any(@start, @end);
+    my ( $Δx,  $Δy)  =   @end «-» @start;
+    my ($Δpx, $Δpy)  = @point «-» @start;
+    ($Δx, $Δy) «/=» norm $Δx, $Δy;
+    norm ($Δpx, $Δpy) «-» ($Δx, $Δy) «*» ($Δx*$Δpx + $Δy*$Δpy);
+}
+
+# if dual-assign of sigil-less vars were allowed (and otherwise maximally utilize sigil-less style)
+sub perpendicular-distance-alt (\start, \end where end !eqv start, \point) {
+    return 0 if point eqv any(start, end);
+    my ( $Δx,  $Δy)  =   end «-» start;
+    my ($Δpx, $Δpy)  = point «-» start;
+#    my ( \Δx,  \Δy)  =   end «-» start; # NYI
+#    my (\Δpx, \Δpy)  = point «-» start; # NYI
+    my \Δx  = $Δx; my \Δy  = $Δy; my \Δpx = $Δpx; my \Δpy = $Δpy; # instead make sigil-less in a separate step
+
+    # maxed-out on Unicode…
+    (Δx, Δy) «÷=» norm Δx, Δy;
+    norm (Δpx, Δpy) «-» (Δx, Δy) «×» (Δx×Δpx + Δy×Δpy);  
+}
+ 
+sub Ramer-Douglas-Peucker(@points where * > 1, \ε = 1) {
+    return @points if @points == 2;
+    my @d = (^@points).map: { perpendicular-distance-alt |@points[0, *-1, $_] };
+    my ($index, $dmax) = @d.first: @d.max, :kv;
+    return flat
+      Ramer-Douglas-Peucker( @points[0..$index], ε )[^(*-1)],
+      Ramer-Douglas-Peucker( @points[$index..*], ε )
+      if $dmax > ε;
+    @points[0, *-1];
+}
+ 
+# TESTING
+say my $result = Ramer-Douglas-Peucker(
+   [(0,0),(1,0.1),(2,-0.1),(3,5),(4,6),(5,7),(6,8.1),(7,9),(8,9),(9,9)]
+);
+
+use Test;
+is $result.gist, '((0 0) (2 -0.1) (3 5) (7 9) (9 9))';
