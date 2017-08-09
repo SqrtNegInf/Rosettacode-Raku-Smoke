@@ -1,0 +1,32 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Egyptian_division
+#c# 2017-08-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Works with: Rakudo version 2017.07
+# Only works with positive real numbers, not negative or complex.
+
+sub  egyptian-divmod (Real $dividend is copy where * > 0, Real $divisor where * > 0) {
+    my @multiples = map { 2 ** $_ => 2 ** $_ * $divisor }, ^Inf;
+    my @table = @multiples[ ^@multiples.first: *.value > $dividend, :k ].reverse;
+    my $accumulator = 0;
+    @table.map: {$dividend -= .value, $accumulator += .key if $dividend >= .value}
+    $accumulator, $dividend;
+}
+ 
+#TESTING
+my @res;
+for 580,34, 578,34, 7532795332300578,235117 -> $n, $d {
+    @res.push: sprintf "Egyption divmod %s %% %s = %s remainder %s", $n, $d, |egyptian-divmod( $n, $d )
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+Egyption divmod 580 % 34 = 17 remainder 2
+Egyption divmod 578 % 34 = 17 remainder 0
+Egyption divmod 7532795332300578 % 235117 = 32038497141 remainder 81
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
