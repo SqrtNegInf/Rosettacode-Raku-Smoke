@@ -1,0 +1,37 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Pythagorean_quadruples
+#c# 2017-08-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# too slow at original limit
+
+my \N = 257; # 2200;
+my @sq = (0 .. N)»²;
+my @not = False xx N;
+@not[0] = True;
+ 
+for 1 .. N -> $d {
+    my $last = 0;
+    for $d ... ($d/3).ceiling -> $a {
+        for 1 .. ($a/2).ceiling -> $b {
+            last if (my $ab = @sq[$a] + @sq[$b]) > @sq[$d];
+            if (@sq[$d] - $ab).sqrt.narrow ~~ Int {
+                @not[$d] = True;
+                $last = 1;
+                last
+            }
+        }
+        last if $last;
+    }
+}
+ 
+say my $result = @not.grep( *.not, :k );
+
+my $ref = qq:to/END/;
+1 2 4 5 8 10 16 20 32 40 64 80 128 160 256
+END
+#1 2 4 5 8 10 16 20 32 40 64 80 128 160 256 320 512 640 1024 1280 2048
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is $result, chomp $ref;
