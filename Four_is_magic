@@ -1,0 +1,58 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Four_is_magic
+#c# 2017-10-04 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+
+# Works with: Rakudo version 2017.09
+
+use Lingua::EN::Numbers::Cardinal;
+ 
+sub card ($n) { cardinal($n).subst(/','/, '', :g) }
+ 
+sub magic (Int $int is copy) {
+    my $string;
+    loop {
+       $string ~= "{ card($int) } is ";
+       if $int = ($int == 4) ?? 0 !! card($int).chars {
+           $string ~= "{ card($int) }, "
+       } else {
+           $string ~= "magic.\n";
+           last
+       }
+   }
+   $string.tc
+}
+ 
+my @res.push: .&magic for 0, 4, 6, 11, 13, 75, 337, -164, 9876543209, 2**256;
+
+.say for @res;
+
+my $ref = qq:to/END/;
+Zero is four, four is magic.
+
+Four is magic.
+
+Six is three, three is five, five is four, four is magic.
+
+Eleven is six, six is three, three is five, five is four, four is magic.
+
+Thirteen is eight, eight is five, five is four, four is magic.
+
+Seventy-five is twelve, twelve is six, six is three, three is five, five is four, four is magic.
+
+Three hundred thirty-seven is twenty-six, twenty-six is ten, ten is three, three is five, five is four, four is magic.
+
+Negative one hundred sixty-four is thirty-one, thirty-one is ten, ten is three, three is five, five is four, four is magic.
+
+Nine billion eight hundred seventy-six million five hundred forty-three thousand two hundred nine is ninety-seven, ninety-seven is twelve, twelve is six, six is three, three is five, five is four, four is magic.
+
+One hundred fifteen quattuorvigintillion seven hundred ninety-two trevigintillion eighty-nine duovigintillion two hundred thirty-seven unvigintillion three hundred sixteen vigintillion one hundred ninety-five novemdecillion four hundred twenty-three octodecillion five hundred seventy septendecillion nine hundred eighty-five sexdecillion eight quindecillion six hundred eighty-seven quattuordecillion nine hundred seven tredecillion eight hundred fifty-three duodecillion two hundred sixty-nine undecillion nine hundred eighty-four decillion six hundred sixty-five nonillion six hundred forty octillion five hundred sixty-four septillion thirty-nine sextillion four hundred fifty-seven quintillion five hundred eighty-four quadrillion seven trillion nine hundred thirteen billion one hundred twenty-nine million six hundred thirty-nine thousand nine hundred thirty-six is eight hundred sixty-nine, eight hundred sixty-nine is twenty-four, twenty-four is eleven, eleven is six, six is three, three is five, five is four, four is magic.
+
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
