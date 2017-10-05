@@ -1,0 +1,47 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Four_is_the_number_of_letters_in_the_...
+#c# 2017-10-04 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+
+# Works with: Rakudo version 2017.09
+# Uses the Lingua::EN::Numbers::Cardinal module to generate both cardinal and ordinal numbers. This module places commas in number words between 3-orders-of-magnitude clusters. E.G. 12345678.&ordinal becomes: twelve million, three hundred forty-five thousand, six hundred seventy-eighth. Uses a custom 'no-commas' routine to filter them out for accurate character counts. Generates the 'sentence' lazily so only the words needed are ever calculated and reified.
+
+use Lingua::EN::Numbers::Cardinal;
+ 
+my $index = 1;
+my @sentence = flat 'Four is the number of letters in the first word of this sentence, '.words,
+  { @sentence[$index++].&alpha.&cardinal, 'in', 'the', |($index.&ordinal.&no-commas~',').words } ... * ;
+ 
+sub alpha ( $str ) { $str.subst(/\W/, '', :g).chars }
+sub no-commas ( $str ) { $str.subst(',', '', :g) }
+sub count ( $index ) { @sentence[^$index].join(' ').chars ~ " characters in the sentence, up to and including this word.\n" }
+ 
+say 'First 201 word lengths in the sequence:';
+put ' ', map { @sentence[$_].&alpha.fmt("%2d") ~ (((1+$_) %% 25) ?? "\n" !! '') }, ^201;
+say 201.&count;
+ 
+my @res;
+#for 1e3, 1e4, 1e5, 1e6, 1e7 {
+for 1e3, 1e4, 1e5 {
+    @res.push: "{.&ordinal.tc} word, '{@sentence[$_ - 1]}', has {@sentence[$_ - 1].&alpha} characters. ", .&count
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+One thousandth word, 'in', has 2 characters. 
+6249 characters in the sentence, up to and including this word.
+
+Ten thousandth word, 'in', has 2 characters. 
+64097 characters in the sentence, up to and including this word.
+
+One hundred thousandth word, 'one', has 3 characters. 
+659455 characters in the sentence, up to and including this word.
+
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
