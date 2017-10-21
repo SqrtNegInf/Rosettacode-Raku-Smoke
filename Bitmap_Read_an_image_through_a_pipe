@@ -1,0 +1,50 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Bitmap/Read_an_image_through_a_pipe
+#c# 2017-10-21 <RC
+#t# graphical
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: camelia.ppm
+#n# JVM image looks the same, but…  First observed with: Rakudo version 2018.03-223-g72c7c5bf4
+
+# Works with: Rakudo version 2017.09
+# Uses pieces from  Bitmap and  Read a PPM file tasks. Included here to make a complete, runnable program.
+# Uses imagemagick convert to pipe the image in.
+
+class Pixel { has UInt ($.R, $.G, $.B) }
+class Bitmap {
+    has UInt ($.width, $.height);
+    has Pixel @.data;
+}
+ 
+role PPM {
+    method P6 returns Blob {
+	"P6\n{self.width} {self.height}\n255\n".encode('ascii')
+	~ Blob.new: flat map { .R, .G, .B }, self.data
+    }
+}
+ 
+sub getline ( $proc ) {
+    my $line = '#'; # skip comment when reading a .png
+    $line = $proc.out.get while $line.substr(0,1) eq '#';
+    $line;
+}
+ 
+my $filename = 'ref/camelia.png';
+ 
+my $proc = run '/opt/local/bin/convert', $filename, 'ppm:-', :enc('ISO-8859-1'), :out;
+ 
+my $type = getline($proc);
+my ($width, $height) = getline($proc).split: ' ';
+my $depth = getline($proc);
+ 
+my Bitmap $b = Bitmap.new( width => $width.Int, height => $height.Int) but PPM;
+ 
+$b.data = $proc.out.slurp.ords.rotor(3).map:
+  { Pixel.new(R => .[0], G => .[1], B => .[2]) };
+ 
+'run/camelia.ppm'.IO.open(:bin, :w).write: $b.P6;
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
