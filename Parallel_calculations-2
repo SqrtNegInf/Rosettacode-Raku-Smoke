@@ -1,0 +1,58 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Parallel_calculations
+#c# 2017-10-27 <RC, 2018-02-28 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# Exception in thread "Thread-1" org.perl6.nqp.runtime.UnwindException
+#n#  older version of task; unlike up-to-date version, this shows wall-clock benefit of .race:
+#n#     69.168u 0.426s 0:19.66 353.9%
+#n#     67.238u 0.228s 1:07.22 100.3%
+
+srand 123456;
+
+# Using the prime-factors routine as defined in the prime decomposition task:
+
+my @nums = (1_000_000 .. 100_000_000).pick: 10000;
+#my \factories = @nums.map: *.&prime-factors; # slowest way to run
+my \factories = @nums.race.map: *.&prime-factors.cache; # does .cache do anything here?
+
+#say my $gmf = ([max] (factories»[0] »=>« @nums)).value; # same result as below
+#say my $gmf = (factories»[0] »=>« @nums).reduce(&max).value; # sometimes works? prototype handling keeps changing
+say my $gmf = (factories»[0] »=>« @nums).reduce(* max *).value;
+ 
+sub prime-factors ( Int $n where * > 0 ) {
+    return $n if $n.is-prime;
+    return [] if $n == 1;
+    my $factor = find-factor( $n );
+    sort flat prime-factors( $factor ), prime-factors( $n div $factor );
+}
+ 
+sub find-factor ( Int $n, $constant = 1 ) {
+    my $x      = 2;
+    my $rho    = 1;
+    my $factor = 1;
+    while $factor == 1 {
+        $rho *= 2;
+        my $fixed = $x;
+        for ^$rho {
+            $x = ( $x * $x + $constant ) % $n;
+            $factor = ( $x - $fixed ) gcd $n;
+            last if 1 < $factor;
+        }
+    }
+    $factor = find-factor( $n, $constant + 1 ) if $n == $factor;
+    $factor;
+}
+
+#`{
+The second line takes the list of numbers and converts then to a HyperSeq that is stored in a raw variable. Any HyperSeq overloads map and grep to convert and pick values in worker threads. The runtime will pick the number of OS-level threads and assign worker threads to them while avoiding stalling in any part of the program. A HyperSeq is lazy, so the computation of values will happen in chunks as they are requested in the third line.
+Beside HyperSeq and its (allowed to be) out-of-order equivalent RaceSeq, Rakudo supports primitive threads, locks and highlevel promises. Using channels and supplies values can be move thread-safely from one thread to another. A react-block can be used as a central hub for message passing.
+In Perl 6 most errors are bottled up Exceptions inside Failure objects that remember where they are created and thrown when used. This is useful to pass errors from one thread to another without losing file and linennumber of the source file that caused the error.
+In the future hyper operators, junctions and feeds will be candidates for autothreading.
+}
+
+
+use Test;
+is $gmf, 99911887;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
