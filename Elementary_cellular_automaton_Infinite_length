@@ -1,0 +1,64 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Elementary_cellular_automaton/Infinite_length
+#c# 2018-02-07 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+#This version, while it is capable of working with infinite length cellular automata, makes the assumption that any cells which have not been explicitly examined are in a 'null' state, neither '0' or '1'. Further it makes the assumption that a null cell, on being examined, initially contains nothing (░). Otherwise it would take infinite time to calculate every row and would be exceptionally boring to watch.
+#Based heavily on the code from the One-dimensional cellular automata task. Example uses rule 90 (Sierpinski triangle).
+
+class Automaton {
+    has $.rule;
+    has @.cells;
+    has @.code = $!rule.fmt('%08b').flip.comb».Int;
+ 
+    method gist { @!cells.map({+$_ ?? '▲' !! '░'}).join }
+ 
+    method succ {
+        self.new: :$!rule, :@!code, :cells(
+            ' ',
+            |@!code[
+                    4 «*« @!cells.rotate(-1)
+                »+« 2 «*« @!cells
+                »+«       @!cells.rotate(1)
+            ],
+            ' '
+        )
+    }
+}
+ 
+my Automaton $a .= new: :rule(90), :cells(flat '010'.comb);
+ 
+# display the first 20 rows
+my @res.push: $a++.gist for ^20;
+
+.say for @res; 
+ 
+# then calculate the other infinite number of rows, (may take a while)
+#$a++ for ^Inf;
+
+my $ref = qq:to/END/;
+░▲░
+░▲░▲░
+░▲░░░▲░
+░▲░▲░▲░▲░
+░▲░░░░░░░▲░
+░▲░▲░░░░░▲░▲░
+░▲░░░▲░░░▲░░░▲░
+░▲░▲░▲░▲░▲░▲░▲░▲░
+░▲░░░░░░░░░░░░░░░▲░
+░▲░▲░░░░░░░░░░░░░▲░▲░
+░▲░░░▲░░░░░░░░░░░▲░░░▲░
+░▲░▲░▲░▲░░░░░░░░░▲░▲░▲░▲░
+░▲░░░░░░░▲░░░░░░░▲░░░░░░░▲░
+░▲░▲░░░░░▲░▲░░░░░▲░▲░░░░░▲░▲░
+░▲░░░▲░░░▲░░░▲░░░▲░░░▲░░░▲░░░▲░
+░▲░▲░▲░▲░▲░▲░▲░▲░▲░▲░▲░▲░▲░▲░▲░▲░
+░▲░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▲░
+░▲░▲░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▲░▲░
+░▲░░░▲░░░░░░░░░░░░░░░░░░░░░░░░░░░▲░░░▲░
+░▲░▲░▲░▲░░░░░░░░░░░░░░░░░░░░░░░░░▲░▲░▲░▲░
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
