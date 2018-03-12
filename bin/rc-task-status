@@ -1,0 +1,222 @@
+#!/usr/local/bin/perl
+## RC task status
+#c# 2018-03-12 2018-03-19 2018-04-02 2018-04-29 2018-05-18
+
+use warnings;
+use strict 'vars';
+
+my(%P);
+
+print `perl6 -v`; 
+
+# update only once a day
+if (.95 < -M "Category:Programming_Tasks") {
+print "updating from RC…\n";
+system <<"END";
+mv Category:Programming_Tasks Category:Programming_Tasks~
+mv Category:Draft_Programming_Tasks Category:Draft_Programming_Tasks~
+mv Reports:Tasks_not_implemented_in_Perl_6 Reports:Tasks_not_implemented_in_Perl_6~
+/opt/local/bin/curl -s -O http://rosettacode.org/wiki/Category:Programming_Tasks
+/opt/local/bin/curl -s -O http://rosettacode.org/wiki/Category:Draft_Programming_Tasks
+/opt/local/bin/curl -s -O http://rosettacode.org/wiki/Reports:Tasks_not_implemented_in_Perl_6
+END
+}
+
+
+## characterize RC tasks
+
+# check task source code 
+open P, "<Category:Programming_Tasks";
+while ($_ = <P>) { examine($_) }
+
+# ditto, and mark as draft
+open D, "<Category:Draft_Programming_Tasks";
+while ($_ = <D>) { examine($_); mark($_,'D') }
+
+# un-implemented (no code) or un-reliable (marked broken at RC)
+open U, "<Reports:Tasks_not_implemented_in_Perl_6";
+while ($_ = <U>) { mark($_,'U') }
+
+# ignored tasks from hard-coded list
+while ($_ = <DATA>) { chomp; mark($_,'X') }
+
+# format column headers with ASCII line-drawings
+my @cols = (
+'Moar: Good/Bad',           # M
+'JVM: Good/Bad',            # J
+'Touched (modified by me)', # T
+'sKipping validation',      # K
+'Interactive',              # I
+'Random seed',              # R
+'File output',              # F
+'Draft',                    # D
+'Ignoring',                 # X
+'Void (no local copy)',     # V
+'Un-implemented/reliable',  # U
+);
+
+my $max = scalar @cols;
+my $n = $max;
+for my $c (@cols) {
+    $n--;
+    print '|' x ($max-$n-1) . '+' . '-' x $n . "--> $c\n";
+}
+print '|' x $max . "\n";
+
+# display program status table
+for my $p (sort keys %P) {
+    (print $P{$p}{$_} // '.') for qw(M J T K I R F D X V U);
+    print " $p\n";
+}
+
+#####
+# record a known task condition
+sub mark {
+my($l,$t) = @_;
+my($p);
+
+    if ($t eq 'X') { return unless $p = pfix($l)  }
+    else           { return unless $p = pname($l) }
+    $P{$p}{$t} = $t;
+}
+
+#####
+# look for programs under base name, and with suffixes
+sub examine {
+my($l) = @_;
+
+    return unless my $p = pname($l);
+
+    my $cnt = 0;
+    $cnt += document("${p}");
+    $cnt += document("${p}-1");
+    $cnt += document("${p}-2");
+    $cnt += document("${p}-3");
+    $P{$p}{'V'} = 'V' if 0 == $cnt; # don't seem to have this program
+}
+
+#####
+# study task source code, set various condition flags
+sub document {
+my($p) = @_;
+my($prog,$header,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
+
+    $prog = "../$p";
+    return 0 if ! -e $prog;
+    return 0 if defined $P{$p}{'M'};
+
+    $header = `grep '^#[mjcft]#' $prog`;
+
+    $P{$p}{'M'} = $header =~ /MOAR:\s*OK/ ? 'G' : 'B';
+    $compiles = `perl6 -c $prog 2>&1 1>/dev/null`;
+    $mout = "../bench/moar/$p.out";
+    $merr = (-e $mout) ? `grep STDERR $mout` : undef;
+    $P{$p}{'M'} = '!' if $compiles =~ /SORRY/ || ($P{$p}{'M'} eq 'G' && $merr);
+
+    $P{$p}{'J'} = $header =~ /JVM:\s*OK/ ? 'G' : 'B';
+    $jout = "../bench/jvm/$p.out";
+    $jerr = (-e $jout) ? `grep STDERR $jout` : undef;
+    $P{$p}{'J'} = '!' if $P{$p}{'J'} eq 'G' && $jerr;
+
+    $skip = 'interactive|toodamnslow|skiptest|nocode|forever|broken';  # cf. def in 'rc-moar'
+    $P{$p}{'K'} = $header =~ /$skip/             ? 'K' : '.';
+    $P{$p}{'T'} = $header =~ />RC/               ? 'T' : '.';
+    $P{$p}{'F'} = $header =~ /#f#.*RC file/i     ? 'F' : '.';
+    $P{$p}{'I'} = $header =~ /#t#.*interactive/i ? 'I' : '.';
+
+    $srand = `grep srand $prog`;
+    $P{$p}{'R'} = $srand =~ /\bsrand \d/         ? 'R' : '.';
+
+    return 1; # to increment counter
+}
+
+#####
+# extract potential program names, validate & clean-up
+sub pname {
+my($l) = @_;
+
+    return '' unless $l =~ m#<li><a href="/wiki/# && $l !~ /Category:/;
+    my($p) = $l =~ m#<li><a href="/wiki/(.*?)"#;
+    return '' if $p =~ /Niecza|Pugs|Rakudo/;    # stray stuff from 'unimplemented'
+    $p =~ s/Brain\*\*\*\*/Brainfuck/;           # 'fix' Brainfuck name
+    return pfix($p);
+}
+
+#####
+# standardize program name
+sub pfix { 
+my($p) = @_;
+
+    $p =~ s#/#_#g;
+    $p =~ s#\$#_#g;
+    $p =~ s#[()]##g;
+    return $p;
+}
+
+# these are being ignored, for various reasons
+__DATA__
+Arena_storage_pool
+Aspect_Oriented_Programming
+Assertions
+Bitmap_PPM_conversion_through_a_pipe
+Call_a_function
+Call_a_function_in_a_shared_library
+Call_an_object_method
+Color_of_a_screen_pixel
+Command-line_arguments
+Concurrent_computing
+Create_a_file_on_magnetic_tape
+Deepcopy
+Doubly-linked_list_Traversal
+Flow-control_structures
+Function_prototype
+GUI/Maximum_window_dimensions
+GUI_component_interaction
+GUI_enabling/disabling_of_controls
+Hello_world/Line_printer
+Hello_world/Newbie
+Interactive_programming
+JortSort
+Linux_CPU_utilization
+Max_licenses_in_use
+Memory_layout_of_a_data_structure
+Modulinos
+Most_frequent_k_chars_distance
+Mouse_position
+Musical_scale
+Mutex
+Narcissist
+Native_shebang
+Null_object
+OLE_Automation
+OpenGL
+Operator_precedence
+Parametrized_SQL_statement
+Program_termination
+RCRPG
+Random_number_generator_(included)
+Record_sound
+Scope_modifiers
+Selective_File_Copy
+Self-hosting_compiler
+Shell_one-liner
+Simple_windowed_application
+Singly-linked_list_Element_definition
+Singly-linked_list_Element_insertion
+Snake
+Speech_synthesis
+Stair-climbing_puzzle
+Table_creation/Postal_addresses
+Terminal_control_Positional_read
+Terminal_control_Hiding_the_cursor
+Undefined_values
+User_input/Graphical
+Variable_size_Set
+Variables
+Video_display_modes
+Weather_Routing
+Window_creation
+Window_creation/X11
+Window_management
+Write_to_Windows_event_log
+Yahoo!_search_interface
