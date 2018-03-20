@@ -1,0 +1,31 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Introspection
+#c# 2018-03-20 <>RC, 2018-05-17 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# testing is vague
+
+#use v6.0;   # require Perl 6.0 # DH-change this fails
+use v6;   # require Perl 6
+ 
+my $bloop = -123;
+ 
+my $result;
+if MY::{'$bloop'}.defined and CORE::{'&abs'}.defined { say $result = abs $bloop }
+ 
+my @ints = ($_ when Int for PROCESS::.values);
+say "Number of PROCESS vars of type Int: ", +@ints;
+#say "PROCESS vars of type Int add up to ", [+] @ints;
+
+#`{
+123
+Number of PROCESS vars of type Int: 1
+PROCESS vars of type Int add up to 28785
+Obviously Perl 6 doesn't maintain a lot of global integer variables... :-)
+Nevertheless, you can use similar code to access all the variables in any package you like,
+such as the GLOBAL package, which typically has absolutely nothing in it. Since the PROCESS package is even more global than GLOBAL, we used that instead. Go figure...
+}
+
+use Test;
+is $result, 123;
+is +@ints, 2;
