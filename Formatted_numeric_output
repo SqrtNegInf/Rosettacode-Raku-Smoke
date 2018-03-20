@@ -1,0 +1,11 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Formatted_numeric_output
+#c# 2018-03-20 <RC
+#t# trivial
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $out = 7.125.fmt('%09.3f');
+
+use Test;
+is $out, '00007.125';
