@@ -1,0 +1,13 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Infinity
+#c# 2018-03-20 <RC, 2018-04-15 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Inf support is required by language spec on all abstract Numeric types (in the absence of subset constraints) including Num, Rat and Int types. Native integers cannot support Inf, so attempting to assign Inf will result in an exception; native floats are expected to follow IEEE standards including +/- Inf and NaN.
+
+#say my $x = 1.5/0;  # Attempt to divide 3 by zero using div # DH odd message?
+say my $x = (1.5/0).Num;
+
+use Test;
+is $x, 'Inf';
