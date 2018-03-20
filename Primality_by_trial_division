@@ -1,0 +1,129 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Primality_by_trial_division
+#c# 2018-03-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Here we use a "none" junction which will autothread through the %% "is divisible by" operator to assert that $i is not divisible by 2 or any of the numbers up to its square root. Read it just as you would English: "Integer $i is prime if it is greater than one and is divisible by none of 2, 3, up to the square root of $i."
+
+sub prime (Int $i --> Bool) {
+    $i > 1 and so $i %% none 2..$i.sqrt;
+}
+
+# This can easily be improved in two ways. First, we generate the primes so we only divide by those, instead of all odd numbers. Second, we memoize the result using the //= idiom of Perl, which does the right-hand calculation and assigns it only if the left side is undefined. We avoid recalculating the square root each time. Note the mutual recursion that depends on the implicit laziness of list evaluation:
+
+my @primes = 2, 3, 5, -> $p { ($p+2, $p+4 ... &prime)[*-1] } ... *;
+my @isprime = False,False;   # 0 and 1 are not prime by definition
+sub prime1($i) {
+    my \limit = $i.sqrt.floor;
+    @isprime[$i] //= so ($i %% none @primes ...^ { $_ > limit })
+}
+ 
+my @res.push: "$_ is{ "n't" x !prime1($_) } prime." for 1 .. 100;
+.say for @res; 
+
+my $ref = qq:to/END/;
+1 isn't prime.
+2 is prime.
+3 is prime.
+4 isn't prime.
+5 is prime.
+6 isn't prime.
+7 is prime.
+8 isn't prime.
+9 isn't prime.
+10 isn't prime.
+11 is prime.
+12 isn't prime.
+13 is prime.
+14 isn't prime.
+15 isn't prime.
+16 isn't prime.
+17 is prime.
+18 isn't prime.
+19 is prime.
+20 isn't prime.
+21 isn't prime.
+22 isn't prime.
+23 is prime.
+24 isn't prime.
+25 isn't prime.
+26 isn't prime.
+27 isn't prime.
+28 isn't prime.
+29 is prime.
+30 isn't prime.
+31 is prime.
+32 isn't prime.
+33 isn't prime.
+34 isn't prime.
+35 isn't prime.
+36 isn't prime.
+37 is prime.
+38 isn't prime.
+39 isn't prime.
+40 isn't prime.
+41 is prime.
+42 isn't prime.
+43 is prime.
+44 isn't prime.
+45 isn't prime.
+46 isn't prime.
+47 is prime.
+48 isn't prime.
+49 isn't prime.
+50 isn't prime.
+51 isn't prime.
+52 isn't prime.
+53 is prime.
+54 isn't prime.
+55 isn't prime.
+56 isn't prime.
+57 isn't prime.
+58 isn't prime.
+59 is prime.
+60 isn't prime.
+61 is prime.
+62 isn't prime.
+63 isn't prime.
+64 isn't prime.
+65 isn't prime.
+66 isn't prime.
+67 is prime.
+68 isn't prime.
+69 isn't prime.
+70 isn't prime.
+71 is prime.
+72 isn't prime.
+73 is prime.
+74 isn't prime.
+75 isn't prime.
+76 isn't prime.
+77 isn't prime.
+78 isn't prime.
+79 is prime.
+80 isn't prime.
+81 isn't prime.
+82 isn't prime.
+83 is prime.
+84 isn't prime.
+85 isn't prime.
+86 isn't prime.
+87 isn't prime.
+88 isn't prime.
+89 is prime.
+90 isn't prime.
+91 isn't prime.
+92 isn't prime.
+93 isn't prime.
+94 isn't prime.
+95 isn't prime.
+96 isn't prime.
+97 is prime.
+98 isn't prime.
+99 isn't prime.
+100 isn't prime.
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
