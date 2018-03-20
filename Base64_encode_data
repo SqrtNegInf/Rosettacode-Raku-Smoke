@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Base64_encode_data
+#c# 2018-03-20 <RC, 2018-03-22 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+ 
+my $buf = slurp("ref/rc.ico", :bin);
+say my $result = buf-to-Base64($buf);
+
+sub buf-to-Base64($buf) {
+    my @base64map = flat 'A' .. 'Z', 'a' .. 'z', ^10, '+', '/';
+    join '', gather for $buf.list -> $a, $b = [], $c = [] {
+        my $triplet = ($a +< 16) +| ($b +< 8) +| $c;
+        take @base64map[($triplet +> (6 * 3)) +& 0x3F];
+        take @base64map[($triplet +> (6 * 2)) +& 0x3F];
+        if $c.elems {
+            take @base64map[($triplet +> (6 * 1)) +& 0x3F];
+            take @base64map[($triplet +> (6 * 0)) +& 0x3F];
+        }
+        elsif $b.elems {
+            take @base64map[($triplet +> (6 * 1)) +& 0x3F];
+            take '=';
+        }
+        else { take '==' }
+    }
+}
+
+use Test;
+is $result.substr(0,   34), 'AAABAAIAEBAAAAAAAABoBQAAJgAAACAgAA';
+is $result.substr(*-23,23), 'QAAAAEAAAABAAAAAQAAAAE=';
