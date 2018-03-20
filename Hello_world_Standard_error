@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Hello_world/Standard_error
+#c# 2018-03-20 <RC, 2018-05-17
+#m# MOAR: OK
+#j# JVM:  OK
+
+use lib 'libtest';
+
+sub testcode {
+note "Goodbye, World!";
+}
+
+use Test;
+use Test::Output;
+is stderr-from(&testcode), "Goodbye, World!\n";
