@@ -1,0 +1,17 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Compile-time_calculation
+#c# 2018-03-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+constant $y = [*] 2..9;
+say $y;
+
+# Like Perl 5, we also have a BEGIN block, but it also works to introduce a blockless statement,
+# the value of which will be stored up to be used in the surrounding expression at run time:
+
+say my $x = (BEGIN [*] 2..10);
+
+use Test;
+is $y, 362880;
+is $x, 3628800;
