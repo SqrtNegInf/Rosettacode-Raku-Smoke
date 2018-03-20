@@ -1,0 +1,40 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Separate_the_house_number_from_the_street_name
+#c# 2018-03-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+#`{
+An unquestioning translation of the Scala example's regex to show how we lay out such regexes for readability in Perl 6, except that we take the liberty of leaving the space out of the house number.
+(Hard constants like 1940 and 1945 are a code smell,
+and the task should probably not require such constants unless there is a standard to point to that mandates them.)
+So expect this solution to change if the task is actually defined reasonably, such as by specifying that four-digit house numbers are excluded in Europe.
+(In contrast, four- and five-digit house numbers are not uncommon
+in places such as the U.S. where each block gets a hundred house numbers
+to play with, and there are cities with hundreds of blocks along a street.)
+}
+
+my @res;
+{
+m[
+    ( .*? )
+ 
+    [
+        \s+
+        (
+        | \d+ [ \- | \/ ] \d+
+        | <!before 1940 | 1945> \d+ <[ a..z I . / \x20 ]>* \d*
+        )
+    ]?
+ 
+    $
+]; @res.push: [$0, $1] } for slurp("ref/house-numbers.txt").lines;
+
+say @res.gist;
+
+my $ref = qq:to/END/;
+[[｢Plataanstraat｣ ｢5｣] [｢Straat｣ ｢12｣] [｢Straat｣ ｢12 II｣] [｢Dr. J. Straat｣ ｢12｣] [｢Dr. J. Straat｣ ｢12 a｣] [｢Dr. J. Straat｣ ｢12-14｣] [｢Laan 1940 – 1945｣ ｢37｣] [｢Plein 1940｣ ｢2｣] [｢1213-laan｣ ｢11｣] [｢16 april 1944 Pad｣ ｢1｣] [｢1e Kruisweg｣ ｢36｣] [｢Laan 1940-’45｣ ｢66｣] [｢Laan ’40-’45｣ (Any)] [｢Langeloërduinen｣ ｢3 46｣] [｢Marienwaerdt 2e Dreef｣ ｢2｣] [｢Provincialeweg N205｣ ｢1｣] [｢Rivium 2e Straat｣ ｢59.｣] [｢Nieuwe gracht｣ ｢20rd｣] [｢Nieuwe gracht｣ ｢20rd 2｣] [｢Nieuwe gracht｣ ｢20zw /2｣] [｢Nieuwe gracht｣ ｢20zw/3｣] [｢Nieuwe gracht｣ ｢20 zw/4｣] [｢Bahnhofstr.｣ ｢4｣] [｢Wertstr.｣ ｢10｣] [｢Lindenhof｣ ｢1｣] [｢Nordesch｣ ｢20｣] [｢Weilstr.｣ ｢6｣] [｢Harthauer Weg｣ ｢2｣] [｢Mainaustr.｣ ｢49｣] [｢August-Horch-Str.｣ ｢3｣] [｢Marktplatz｣ ｢31｣] [｢Schmidener Weg｣ ｢3｣] [｢Karl-Weysser-Str.｣ ｢6｣]]
+END
+
+use Test;
+is @res.gist, chomp $ref;
