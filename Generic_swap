@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Generic_swap
+#t# trivial
+#c# 2018-03-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# As Perl 5. Perl 6 supports type constraints for variables and subroutines, unlike Perl 5, but the default is still to permit all values.
+# Alternatively, you can write it like this:
+
+my $x = 'a';
+my $y = 'b';
+
+say "x: $x\ty: $y";
+($x, $y) .= reverse;
+say "x: $x\ty: $y";
+
+use Test;
+is "$x $y", 'b a';
