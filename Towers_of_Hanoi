@@ -1,0 +1,40 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Towers_of_Hanoi
+#c# 2018-03-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+subset Peg of Int where 1|2|3;
+ 
+my @res;
+
+multi hanoi (0,      Peg $a,     Peg $b,     Peg $c)     { }
+multi hanoi (Int $n, Peg $a = 1, Peg $b = 2, Peg $c = 3) {
+    hanoi $n - 1, $a, $c, $b;
+    @res.push: "Move $a to $b.";
+    hanoi $n - 1, $c, $b, $a;
+}
+
+hanoi(4);
+.say for @res;
+
+my $ref = qq:to/END/;
+Move 1 to 3.
+Move 1 to 2.
+Move 3 to 2.
+Move 1 to 3.
+Move 2 to 1.
+Move 2 to 3.
+Move 1 to 3.
+Move 1 to 2.
+Move 3 to 2.
+Move 3 to 1.
+Move 2 to 1.
+Move 3 to 2.
+Move 1 to 3.
+Move 1 to 2.
+Move 3 to 2.
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
