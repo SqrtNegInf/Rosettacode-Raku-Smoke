@@ -1,0 +1,266 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Letter_frequency
+#c# 2018-03-20 <RC, 2018-05-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# for MOAR: .value & .key sorting to stabilize order of output when duplicate values
+#n# but JVM doesn't have that yet (as of 2018-05-18) so just do a .key sort
+
+# In perl6, whenever you want to count things in a collection, the rule of thumb is to use the Bag structure.
+
+my @res;
+
+if $*VM ~~ /jvm/ {
+@res.push: .&ws for slurp("ref/word-count.txt").comb.Bag.sort: *.key;
+} else {
+@res.push: .&ws for slurp("ref/word-count.txt").comb.Bag.sort: { -.value, .key }
+}
+.say for @res[0..15]; say '...'; .say for @res[*-15..*];
+ 
+sub ws ($pair) { 
+    $pair.key ~~ /\n/
+    ?? ('NEW LINE' => $pair.value)
+    !! $pair.key ~~ /\s/
+    ?? ($pair.key.uniname => $pair.value)
+    !! $pair
+}
+
+my $moar = q:to/END/;
+SPACE	522095
+e	325692
+t	222916
+a	199790
+o	180974
+h	170210
+n	167006
+i	165201
+s	157585
+r	145118
+d	106987
+l	97131
+NEW LINE	67663
+u	67340
+c	62717
+m	56021
+f	53494
+w	53301
+,	48784
+g	46060
+p	39932
+y	37985
+b	34276
+.	30589
+v	24045
+"	14340
+k	14169
+T	12547
+-	11037
+I	10067
+A	7355
+H	6600
+M	6206
+;	5885
+E	4968
+C	4583
+S	4392
+'	3938
+x	3692
+!	3539
+R	3531
+P	3424
+O	3401
+j	3390
+B	3185
+W	3180
+N	3053
+?	2976
+F	2754
+G	2508
+:	2468
+J	2448
+L	2444
+q	2398
+V	2200
+_	2070
+z	1847
+D	1756
+é	1326
+Y	1238
+U	895
+1	716
+8	412
+X	333
+K	321
+è	292
+3	259
+2	248
+5	220
+0	218
+*	181
+4	181
+(	173
+)	173
+6	167
+É	146
+7	143
+Q	135
+[	122
+]	122
+9	117
+æ	106
+=	75
+ê	74
+Z	59
+à	59
+â	56
+/	50
+<	50
+>	50
+ç	48
+NO-BREAK SPACE	45
+î	39
+ü	37
+|	36
+ô	34
+#	26
+ï	18
+ù	18
+Æ	10
+û	9
++	5
+È	5
+ë	5
+À	4
+$	2
+@	2
+Ç	2
+ñ	2
+%	1
+&	1
+{	1
+}	1
+½	1
+END
+
+my $jvm = q:to/END/;
+NEW LINE	67663
+SPACE	522095
+!	3539
+"	14340
+#	26
+$	2
+%	1
+&	1
+'	3938
+(	173
+)	173
+*	181
++	5
+,	48784
+-	11037
+.	30589
+/	50
+0	218
+1	716
+2	248
+3	259
+4	181
+5	220
+6	167
+7	143
+8	412
+9	117
+:	2468
+;	5885
+<	50
+=	75
+>	50
+?	2976
+@	2
+A	7355
+B	3185
+C	4583
+D	1756
+E	4968
+F	2754
+G	2508
+H	6600
+I	10067
+J	2448
+K	321
+L	2444
+M	6206
+N	3053
+O	3401
+P	3424
+Q	135
+R	3531
+S	4392
+T	12547
+U	895
+V	2200
+W	3180
+X	333
+Y	1238
+Z	59
+[	122
+]	122
+_	2070
+a	199790
+b	34276
+c	62717
+d	106987
+e	325692
+f	53494
+g	46060
+h	170210
+i	165201
+j	3390
+k	14169
+l	97131
+m	56021
+n	167006
+o	180974
+p	39932
+q	2398
+r	145118
+s	157585
+t	222916
+u	67340
+v	24045
+w	53301
+x	3692
+y	37985
+z	1847
+{	1
+|	36
+}	1
+NO-BREAK SPACE	45
+½	1
+À	4
+Æ	10
+Ç	2
+È	5
+É	146
+à	59
+â	56
+æ	106
+ç	48
+è	292
+é	1326
+ê	74
+ë	5
+î	39
+ï	18
+ñ	2
+ô	34
+ù	18
+û	9
+ü	37
+﻿	1
+END
+# DH where does that last item come from?
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
