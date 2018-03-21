@@ -1,0 +1,32 @@
+stop:
+http://en.wikipedia.org/wiki/Erich_K
+http://mediawiki.org/).
+parser:
+http://en.wikipedia.org/wiki/-)
+ftp://domain.name/path(balanced_brackets)/foo.html
+ftp://domain.name/path(balanced_brackets)/ending.in.dot.
+ftp://domain.name/path(unbalanced_brackets/ending.in.dot.
+ftp://domain.name/path/embedded
+ftp://domain.name/dangling_close_paren)
+(｢stop:｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢stop:｣
+  scheme => ｢stop｣ ｢http://en.wikipedia.org/wiki/Erich_K｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢http://en.wikipedia.org/wiki/Erich_K｣
+  scheme => ｢http｣ ｢http://mediawiki.org/).｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢http://mediawiki.org/).｣
+  scheme => ｢http｣ ｢parser:｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢parser:｣
+  scheme => ｢parser｣ ｢http://en.wikipedia.org/wiki/-)｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢http://en.wikipedia.org/wiki/-)｣
+  scheme => ｢http｣ ｢ftp://domain.name/path(balanced_brackets)/foo.html｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢ftp://domain.name/path(balanced_brackets)/foo.html｣
+  scheme => ｢ftp｣ ｢ftp://domain.name/path(balanced_brackets)/ending.in.dot.｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢ftp://domain.name/path(balanced_brackets)/ending.in.dot.｣
+  scheme => ｢ftp｣ ｢ftp://domain.name/path(unbalanced_brackets/ending.in.dot.｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢ftp://domain.name/path(unbalanced_brackets/ending.in.dot.｣
+  scheme => ｢ftp｣ ｢ftp://domain.name/path/embedded｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢ftp://domain.name/path/embedded｣
+  scheme => ｢ftp｣ ｢ftp://domain.name/dangling_close_paren)｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢ftp://domain.name/dangling_close_paren)｣
+  scheme => ｢ftp｣)
+We matched stop: http://en.wikipedia.org/wiki/Erich_K http://mediawiki.org/). parser: http://en.wikipedia.org/wiki/-) ftp://domain.name/path(balanced_brackets)/foo.html ftp://domain.name/path(balanced_brackets)/ending.in.dot. ftp://domain.name/path(unbalanced_brackets/ending.in.dot. ftp://domain.name/path/embedded ftp://domain.name/dangling_close_paren), which is a List at position 73 to 593
