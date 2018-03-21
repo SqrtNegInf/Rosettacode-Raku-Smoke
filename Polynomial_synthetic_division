@@ -1,0 +1,43 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Polynomial_synthetic_division
+#c# 2018-03-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+#Translation of: Python
+# Works with: Rakudo version 2016.09
+
+sub synthetic-division ( @numerator, @denominator ) {
+    my @result = @numerator.clone;
+    my $end    = @denominator.end;
+ 
+    for ^@numerator-$end -> $i {
+        next unless @result[$i];
+        @result[$i] /= @denominator[0];
+        @result[$i+$_] -= @denominator[$_] * @result[$i] for 1..$end;
+    }
+ 
+    'quotient' => @result[0 ..^ *-$end],
+    'remainder' => @result[*-$end .. *];
+}
+ 
+my @tests =
+[1, -12, 0, -42], [1, -3],
+[1, 0, 0, 0, -2], [1, 1, 1, 1];
+ 
+my @res;
+for @tests -> @n, @d {
+    my %result = synthetic-division( @n, @d );
+    @res.push: "[{@n}] / [{@d}] = [%result<quotient>], remainder [%result<remainder>]";
+}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+[1 -12 0 -42] / [1 -3] = [1 -9 -27], remainder [-123]
+[1 0 0 0 -2] / [1 1 1 1] = [1 -1], remainder [0 0 -1]
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
