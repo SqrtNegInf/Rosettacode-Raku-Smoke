@@ -1,0 +1,83 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Dining_philosophers
+#t# skiptest
+#c# 2018-03-21 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# Died with the exception: java.lang.NullPointerException
+
+srand 123456;
+
+# Works with: rakudo version 2015-09-09
+# We use locking mutexes for the forks, and a lollipop to keep the last person who finished eating from getting hungry until the next person finishes eating, which prevents a cycle of dependency from forming. The algorithm should scale to many philosophers, and no philosopher need be singled out to be left-handed, so it's fair in that sense.
+
+class Fork {
+    has $!lock = Lock.new;
+    method grab($who, $which) {
+	say "$who grabbing $which fork";
+	$!lock.lock;
+    }
+    method drop($who, $which) {
+	say "$who dropping $which fork";
+	$!lock.unlock;
+    }
+}
+ 
+class Lollipop {
+    has $!channel = Channel.new;
+    method mine($who) { $!channel.send($who) }
+    method yours { $!channel.receive }
+}
+ 
+sub dally($sec) { sleep 0.01 + rand * $sec }
+ 
+sub MAIN(*@names) {
+    @names ||= <Aristotle Kant Spinoza Marx Russell>;
+ 
+    my @lfork = Fork.new xx @names;
+    my @rfork = @lfork.rotate;
+ 
+    my $lollipop = Lollipop.new;
+    start { $lollipop.yours; }
+ 
+    my $cnt = 0;
+    my @philosophers = do for flat @names Z @lfork Z @rfork -> $n, $l, $r {
+	start { 
+	    sleep 1 + rand*4;
+	    loop {
+		$l.grab($n,'left');
+		dally 1;  # give opportunity for deadlock
+		$r.grab($n,'right');
+		say "$n eating";
+		dally 10;
+		$l.drop($n,'left');
+		$r.drop($n,'right');
+ 
+		$lollipop.mine($n);
+		sleep 1;  # lick at least once
+		say "$n lost lollipop to $lollipop.yours(), now digesting";
+ 
+		dally 20;
+	    }
+	}
+    }
+    sink await @philosophers;
+}
+
+#`{
+Aristotle grabbing left fork
+Kant grabbing left fork
+Kant grabbing right fork
+Kant eating
+Aristotle grabbing right fork
+Marx grabbing left fork
+Marx grabbing right fork
+Marx eating
+Russell grabbing left fork
+Spinoza grabbing left fork
+Kant dropping left fork
+Kant dropping right fork
+Aristotle eating
+Spinoza grabbing right fork
+^C
+}
