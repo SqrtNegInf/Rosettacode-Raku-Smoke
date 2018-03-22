@@ -1,0 +1,118 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Execute_a_Markov_algorithm
+#c# 2018-03-21 <RC, 2018-05-17 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# runs one rules/test from 'ref', and unary multiplication in-line
+
+# Run this without arguments and it will scan the cwd for rules.* files and their corresponding test.*.
+# Run it with two filenames or one filename and some text to run a rulefile on the file contents or the given text.
+# Add --verbose to see the replacements step-by-step.
+
+use Test;
+
+grammar Markov {
+    token TOP {
+        ^ [^^ [<rule> | <comment>] $$ [\n|$]]* $
+        { make $<rule>>>.ast }
+    }
+    token comment {
+        <before ^^> '#' \N*
+        { make Nil }
+    }
+    token ws {
+        [' '|\t]*
+    }
+    rule rule {
+        <before ^^>$<pattern>=[\N+?] '->'
+        $<terminal>=[\.]?$<replacement>=[\N*]
+        { make {:pattern($<pattern>.Str),
+                :replacement($<replacement>.Str),
+                :terminal($<terminal>.Str eq ".")} }
+    }
+}
+ 
+sub run(:$ruleset, :$start_value, :$verbose?) {
+    my $value = $start_value;
+    my @rules = Markov.parse($ruleset).ast.list;
+    loop {
+        my $beginning = $value;
+        for @rules {
+            my $prev = $value;
+            $value = $value.subst(.<pattern>, .<replacement>);
+            say $value if $verbose && $value ne $prev;
+            return $value if .<terminal>;
+            last if $value ne $prev;
+        }
+        last if $value eq $beginning;
+    }
+    return $value;
+}
+ 
+multi sub MAIN(Bool :$verbose?) {
+    my @rulefiles = 'ref'.IO.dir.grep(/rules.+/).sort; # DH change
+    for @rulefiles -> $rulefile {
+        my $testfile = $rulefile.subst("rules", "test");
+        my $start_value = (try slurp($testfile).trim-trailing)
+                          // prompt("please give a start value: ");
+ 
+        my $ruleset = slurp($rulefile);
+        say $start_value.perl();
+        say my $result = run(:$ruleset, :$start_value, :$verbose).perl;
+        say '';
+        is $result, '"I bought a bag of apples from my brother."';
+    }
+}
+ 
+multi sub MAIN(Str $rulefile where *.IO.f, Str $input where *.IO.f, Bool :$verbose?) {
+    my $ruleset = slurp($rulefile);
+    my $start_value = slurp($input).trim-trailing;
+    say "starting with $start_value.perl()";
+    say run(:$ruleset, :$start_value, :$verbose).perl;
+}
+ 
+multi sub MAIN(Str $rulefile where *.IO.f, *@pieces, Bool :$verbose?) {
+    my $ruleset = slurp($rulefile);
+    my $start_value = @pieces.join(" ");
+    say "starting with $start_value.perl()";
+    say run(:$ruleset, :$start_value, :$verbose).perl;
+}
+
+my $ruleset = q:to/END/;
+### Unary Multiplication Engine, for testing Markov Algorithm implementations
+### By Donal Fellows.
+# Unary addition engine
+_+1 -> _1+
+1+1 -> 11+
+# Pass for converting from the splitting of multiplication into ordinary
+# addition
+1! -> !1
+,! -> !+
+_! -> _
+# Unary multiplication by duplicating left side, right side times
+1*1 -> x,@y
+1x -> xX
+X, -> 1,1
+X1 -> 1X
+_x -> _X
+,x -> ,X
+y1 -> 1y
+y_ -> _
+# Next phase of applying
+1@1 -> x,@y
+1@_ -> @_
+,@_ -> !_
+++ -> +
+# Termination cleanup for addition
+_1 -> 1
+1+_ -> 1
+_+_ -> 
+END
+
+my $start_value = '_1111*11111_';
+
+say "starting with $start_value.perl()";
+say my $result = run(:$ruleset, :$start_value).perl;
+
+is $result, '"11111111111111111111"';
+say '';
