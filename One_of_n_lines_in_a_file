@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/One_of_n_lines_in_a_file
+#c# 2018-03-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+srand 123456;
+
+# Translation of: Python
+
+sub one_of_n($n) {
+    my $choice;
+    $choice = $_ if .rand < 1 for 1 .. $n;
+    $choice - 1;
+}
+ 
+sub one_of_n_test($n = 10, $trials = 10_000) {
+    my @bins;
+    @bins[one_of_n($n)]++ for ^$trials;
+    @bins;
+}
+ 
+say my $result = one_of_n_test();
+
+my $moar = '952 1009 1059 999 986 980 978 995 994 1048';
+my $jvm  = '1017 971 994 988 978 1059 950 960 1043 1040';
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is $result, chomp $ref;
