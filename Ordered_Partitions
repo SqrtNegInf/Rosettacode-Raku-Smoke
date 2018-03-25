@@ -1,0 +1,53 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Ordered_Partitions
+#c# 2018-03-24 <RC, 2018-05-01 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# there is a Rakduo bug in the gather/take construction?
+
+#`{{
+sub partition(@mask is copy) {
+    my $last = [+] @mask or return [] xx 1; # @mask; # DH have to use 'xx', return a .Seq, not an array
+    sort gather for @mask.kv -> $k,$v {
+        next unless $v;
+        temp @mask[$k] -= 1;
+        for partition @mask { .take.[$k].push($last) }
+    }
+}
+ 
+#.say for partition [2,0,2];
+#.say for reverse partition [2,2];
+}}
+
+sub partition(@mask is copy) {
+    my @op;
+    my $last = [+] @mask or return [] xx 1;
+    for @mask.kv -> $k, $v {
+        next unless $v;
+        temp @mask[$k] -= 1;
+        for partition @mask -> @p {
+            @p[$k].push: $last;
+            @op.push: @p;
+        }
+    }
+    return @op;
+}
+
+my @res = partition [2,0,2];
+#my @res = partition [1,1,1];
+#my @res = partition [1,2,1];
+#say +@res; 
+.say for reverse @res; 
+
+my $ref = qq:to/END/;
+[[1, 2], (Any), [3, 4]]
+[[1, 3], (Any), [2, 4]]
+[[2, 3], (Any), [1, 4]]
+[[1, 4], (Any), [2, 3]]
+[[2, 4], (Any), [1, 3]]
+[[3, 4], (Any), [1, 2]]
+END
+
+use Test;
+is @res.gist, '[[[3 4] (Any) [1 2]] [[2 4] (Any) [1 3]] [[1 4] (Any) [2 3]] [[2 3] (Any) [1 4]] [[1 3] (Any) [2 4]] [[1 2] (Any) [3 4]]]';
+#is @res.join("\n"), chomp $ref;
