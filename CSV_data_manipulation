@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/CSV_data_manipulation
+#c# 2018-03-25 <RC, 2018-03-25 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: output.csv
+
+# On the face of it this task is pretty simple. Especially given the sample CSV file and the total lack of specification of what changes to make to the file. Something like this would suffice.
+
+my $csvfile = 'ref/input.csv';
+my $fh = open($csvfile, :r);
+my @header = $fh.get.split(',');
+my @csv = map {[.split(',')]>>.Num}, $fh.lines;
+close $fh;
+
+my $out = open('run/output.csv', :w);
+$out.say((@header,'SUM').join(','));
+$out.say((@$_, [+] @$_).join(',')) for @csv;
+close $out;
+
+#`{
+But if your CSV file is at all complex you are better off using a CSV parsing module. (Complex meaning fields that contain commas, quotes, newlines, etc.)
+
+use Text::CSV;
+my $csvfile = './whatever.csv';
+my @csv = Text::CSV.parse-file($csvfile);
+modify(@csv); # do whatever;
+csv-write-file( @csv, :file($csvfile) );
+}
