@@ -1,0 +1,33 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Call_a_function_in_a_shared_library
+#c# 2018-04-01 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+
+# Works with: Rakudo version 2018.03
+use NativeCall;
+ 
+#constant libX11 = '/usr/lib/x86_64-linux-gnu/libX11.so.6';
+constant libX11 = '/opt/local/lib/libX11.dylib';
+ 
+sub XOpenDisplay(Str $s --> int32) is native(libX11) {*}
+sub XCloseDisplay(int32 $i --> int32) is native(libX11) {*}
+ 
+if try my $d = XOpenDisplay ":0.0" {
+    say "ID = $d";
+    XCloseDisplay($d);
+}
+else {
+    say "No library {libX11}!";
+    say "Use this window instead --> ⬜";
+}
+
+# Output:
+# ID = 124842864
+
+my $ref = qq:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
