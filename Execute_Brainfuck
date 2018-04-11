@@ -1,0 +1,72 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Execute_Brain****/Perl_6
+#c# 2018-04-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Works with: Rakudo version 2018.03
+
+class BFInterpreter {
+    has @.code;
+    has @!mem;
+    has @!loop_stack;
+    has @!input_buffer;
+    has $!m;
+    has $!c;
+ 
+    method new (Str $code) {
+        BFInterpreter.bless(code => $code.lines.comb);
+    }
+ 
+    method run {
+        my $output;
+        $!c = 0;
+        $!m = 0;
+        while $!c < @.code {
+            given @.code[$!c] {
+                when '>' { $!m++ }
+                when '<' { $!m-- }
+                when '+' { @!mem[$!m]++ }
+                when '-' { @!mem[$!m]-- }
+                when '.' { $output ~= @!mem[$!m].chr } # DH change
+                #when '.' { @!mem[$!m].chr.print }
+                when ',' {
+                    @!input_buffer = $*IN.get.comb unless @!input_buffer.elems > 0;
+                    @!mem[$!m] = @!input_buffer.shift;
+                }
+                when '[' {
+                    @!mem[$!m] == 0 ?? self!jump !! @!loop_stack.push($!c);
+                }
+                when ']' {
+                    my $b = @!loop_stack.pop - 1;
+                    $!c = $b if @!mem[$!m] > 0;
+                }
+            }
+	    $!c++;
+        }
+        return $output;
+    }
+ 
+    method !jump {
+        my $depth = 1;
+        while $depth {
+            $!c++;
+            die "unbalanced code" if $!c >= @.code.elems;
+            $depth++ if @.code[$!c] eq '[';
+            $depth-- if @.code[$!c] eq ']';
+        }
+    }
+}
+ 
+# Test: "Hello World" program:
+ 
+my $code = "++++++++++
+           [>+++++++>++++++++++>+++>+<<<<-]
+           >++.>+.+++++++..+++.>++.<<+++++++++++++++.>.
+           +++.------.--------.>+.>.";
+ 
+my $bfi = BFInterpreter.new($code);
+say my $result = $bfi.run;
+
+use Test;
+is chomp($result), 'Hello World!';
