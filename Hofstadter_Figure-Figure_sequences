@@ -1,0 +1,46 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Hofstadter_Figure-Figure_sequences
+#c# 2018-04-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Works with: Rakudo version 2018.03
+
+my %r = 1 => 1;
+my %s = 1 => 2;
+
+sub ffr ($n) { %r{$n} //= ffr($n - 1) + ffs($n - 1) }
+ 
+sub ffs ($n) { %s{$n} //= (grep none(map &ffr, 1..$n), max(%s.values)+1..*)[0] }
+
+#`{{
+sub ffr ($n) {
+        return %r{$n} if %r{$n}:exists;
+        %r{$n} = ffr($n - 1) + ffs($n - 1);
+        return %r{$n};
+}
+ 
+sub ffs ($n) {
+        return %s{$n} if %s{$n}:exists;
+        %s{$n} = (grep none( map &ffr, 1..$n), max(%s.values)+1..*)[0];
+        return %s{$n};
+}
+}}
+ 
+my @ffr = map &ffr, 1..*;
+ 
+my @ffs = map &ffs, 1..*;
+ 
+my @res.push: @ffr[^10];
+ 
+@res.push: "Rawks!" if 1...1000 eqv sort |@ffr[^40], |@ffs[^960];
+
+.say for @res;
+
+my $ref = qq:to/END/;
+1 3 7 12 18 26 35 45 56 69
+Rawks!
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
