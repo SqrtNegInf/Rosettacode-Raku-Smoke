@@ -1,0 +1,25 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Euler%27s_identity
+#c# 2018-04-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# how to type "invisible times"?
+
+# Works with: Rakudo version 2018.03
+
+#Implementing an "invisible times" operator (Unicode character (U+2062)) to more closely emulate the layout. Alas, Perl 6 does not do symbolic calculations at this time and is limited to IEEE 754 floating point for transcendental and irrational number calculations.
+# e, i and π are all available as built-in constants in Perl 6.
+ 
+#sub infix:<?> is tighter(&infix:<**>) { $^a * $^b };
+ 
+my @res = 'e**iπ + 1 ≅ 0 : ' ~ (e**(i×π) + 1 ≅ 0);
+@res.push: 'Error: '~ e**(i×π) + 1;
+.say for @res;
+
+my $ref = qq:to/END/;
+e**iπ + 1 ≅ 0 : True
+Error: 0+1.2246467991473532e-16i
+END
+
+use Test;
+is @res.join("\n").lc, chomp $ref.lc;
