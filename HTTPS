@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/HTTPS
+#c# 2018-04-25 <RC, 2018-05-17 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+
+# Works with: Rakudo version 2017.09
+
+# There are several modules that provide HTTPS capability. WWW and HTTP::UserAgent are probably the most popular right now, but others exist.
+
+use WWW;
+my $result1 = get 'https://google.com/';
+
+use HTTP::UserAgent;
+my $result2 = HTTP::UserAgent.new.get('https://google.com/').content;
+
+use Test;
+ok $result1 ~~ /'Feeling Lucky'/;
+ok $result2 ~~ /'Feeling Lucky'/;
