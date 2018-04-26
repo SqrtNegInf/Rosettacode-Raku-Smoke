@@ -1,0 +1,26 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Jewels_and_Stones
+#c# 2018-04-25 <RC, 2018-04-27 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# warning avoided
+
+sub count-jewels ( Str $j, Str $s --> Int ) {
+    my %counts_of_all = $s.comb.Bag;
+    my @jewel_list    = $j.comb.unique;
+    return %counts_of_all ∩ @jewel_list.Bag ?? %counts_of_all{ @jewel_list }.sum !! 0;
+    #return %counts_of_all{ @jewel_list }.sum // 0;
+}
+ 
+my @res;
+@res.push: count-jewels 'aA' , 'aAAbbbb';
+@res.push: count-jewels 'z'  , 'ZZ';
+.say for @res;
+
+my $ref = qq:to/END/;
+3
+0
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
