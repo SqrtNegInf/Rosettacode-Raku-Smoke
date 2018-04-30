@@ -1,0 +1,88 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Simple_database
+#c# 2018-04-30 <RC
+#t# skiptest
+#m# MOAR: OK
+#j# JVM:  OK
+
+# client.p6
+
+use JSON::Fast;
+
+multi MAIN('set', $topic,  $message='', :$server='localhost', :$port='3333', :$json='') {
+    my %msg = function => 'set' , topic=> $topic , message=> $message ;
+    %msg{"message"} = from-json( $json ) if $json ;
+    sendmsg( %msg , $server, $port) ;
+}
+multi MAIN('add', $topic,  $json, :$server='localhost', :$port='3333' ) {
+    my %msg = function => 'set' , topic=> $topic;
+    %msg{"message"} = from-json( $json ) if $json ;
+    sendmsg( %msg , $server, $port) ;
+}
+multi MAIN('get', $topic, :$server='localhost', :$port='3333') {
+    my %msg = function => 'get' , topic=> $topic ;
+    sendmsg( %msg , $server, $port) ;
+}
+multi MAIN('delete', $topic, :$server='localhost', :$port='3333') {
+    my %msg = function => 'delete' , topic=> $topic ;
+    sendmsg( %msg , $server, $port) ;
+}
+multi MAIN('dump', :$server='localhost', :$port='3333') {
+    my %msg = function => 'dump'  ;
+    sendmsg( %msg , $server, $port) ;
+}
+multi MAIN('addindex', $key, :$server='localhost', :$port='3333') {
+    my %msg = function => 'addindex', key => $key  ;
+    sendmsg( %msg , $server, $port) ;
+}
+multi MAIN('reportindex', $key, :$server='localhost', :$port='3333') {
+    my %msg = function => 'reportindex', key => $key  ;
+    sendmsg( %msg , $server, $port) ;
+}
+multi MAIN('reportlastindex', $key, :$server='localhost', :$port='3333') {
+    my %msg = function => 'reportlastindex', key => $key  ;
+    sendmsg( %msg , $server, $port) ;
+}
+multi MAIN('reportlast', :$server='localhost', :$port='3333') {
+    my %msg = function => 'reportlast' ;
+    sendmsg( %msg , $server, $port) ;
+}
+sub sendmsg( %msg , $server, $port){
+    my $conn = await IO::Socket::Async.connect( $server , $port );
+    $conn.print: to-json( %msg,:!pretty)~"\n";
+    react {
+        whenever $conn.Supply -> $data {
+            print $data;
+            $conn.close;
+        }
+    }
+}
+#`{{
+
+./client.p6 addindex constructor
+./client.p6 addindex date
+
+./client.p6 add 2007 '{"date":"2007-11-04","constructor":"Ducati","name":"Casey Stoner"}'
+./client.p6 add 2008 '{"date":"2008-10-26","constructor":"Yamaha","name":"Valentino Rossi"}'
+./client.p6 add 2009 '{"date":"2009-11-08","constructor":"Yamaha","name":"Valentino Rossi"}'
+./client.p6 add 2010 '{"date":"2010-11-17","constructor":"Yamaha","name":"Jorge Lorenzo"}'
+./client.p6 add 2011 '{"date":"2011-11-06","constructor":"Honda","name":"Casey Stoner"}'
+./client.p6 add 2012 '{"date":"2012-11-11","constructor":"Yamaha","name":"Jorge Lorenzo"}'
+./client.p6 add 2013 '{"date":"2013-11-10","constructor":"Honda","name":"Marc Márquez"}'
+./client.p6 add 2014 '{"date":"2014-11-09","constructor":"Honda","name":"Marc Márquez"}'
+./client.p6 add 2015 '{"date":"2015-11-08","constructor":"Yamaha","name":"Jorge Lorenzo"}'
+./client.p6 add 2016 '{"date":"2016-11-13","constructor":"Honda","name":"Marc Márquez"}'
+./client.p6 add 2017 '{"date":"2017-11-12","constructor":"Honda","name":"Marc Márquez"}'
+
+./client.p6 reportlast
+./client.p6 reportlastindex constructor
+./client.p6 reportindex date
+
+}}
+
+my $ref = qq:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
