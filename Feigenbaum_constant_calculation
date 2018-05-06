@@ -1,0 +1,52 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Feigenbaum_constant_calculation
+#c# 2018-05-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+# Works with: Rakudo version 2018.04.01
+# Translation of: Ring
+my $a1 = 1;
+my $a2 = 0;
+my $d = 3.2;
+ 
+say ' i d';
+ 
+for 2 .. 13 -> $exp {
+    my $a = $a1 + ($a1 - $a2) / $d;
+    do {
+        my $x = 0;
+        my $y = 0;
+        for ^2 ** $exp {
+            $y = 1 - 2 * $y * $x;
+            $x = $a - $x × $x;
+            #$x = $a - $x²; # glibc on OS X has a bug in recent versions...
+        }
+        $a -= $x / $y;
+    } xx 10;
+     $d = ($a1 - $a2) / ($a - $a1);
+     ($a2, $a1) = ($a1, $a);
+     #printf "%2d %.8f\n", $exp, $d;
+     @res.push: sprintf "%2d %.8f", $exp, $d;
+}
+.say for @res;
+
+my $ref = qq:to/END/;
+ 2 3.21851142
+ 3 4.38567760
+ 4 4.60094928
+ 5 4.65513050
+ 6 4.66611195
+ 7 4.66854858
+ 8 4.66906066
+ 9 4.66917155
+10 4.66919515
+11 4.66920026
+12 4.66920098
+13 4.66920537
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
