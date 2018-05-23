@@ -6,15 +6,15 @@
 
 # There is a dir builtin command which returns a list of IO::Path objects. We stringify them all with a hyperoperator before sorting the strings.
 
-.say for my @res = ~«'test'.IO.dir;
+.say for my @res = ~«'ref/test'.IO.dir;
 
 my $ref = qq:to/END/;
-test/dir1
-test/dir2
-test/dir3
-test/not-in-kansas.txt
-test/reverse_words.txt
-test/sample.txt
+ref/test/dir1
+ref/test/dir2
+ref/test/dir3
+ref/test/not-in-kansas.txt
+ref/test/reverse_words.txt
+ref/test/sample.txt
 END
 
 use Test;
