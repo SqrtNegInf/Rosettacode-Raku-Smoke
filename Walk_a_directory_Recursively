@@ -6,13 +6,12 @@
 
 use File::Find;
 
-my @res.push: $_ for find(dir => 'test').grep(/kansas/);
+my @res.push: $_ for find(dir => 'ref/test').grep(/kansas/);
 .say for @res;
-#exit;
 
 my $ref = qq:to/END/;
-test/not-in-kansas.txt
-test/dir1/not-in-kansas.txt
+ref/test/not-in-kansas.txt
+ref/test/dir1/not-in-kansas.txt
 END
 
 use Test;
