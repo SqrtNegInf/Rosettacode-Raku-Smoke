@@ -7,10 +7,10 @@
 sub dir-is-empty ($d) { not dir $d }
 
 #say dir-is-empty @*ARGS[0];
-say my $r1 = dir-is-empty "test";
-say my $r2 = dir-is-empty "test/dir1";
-say my $r3 = dir-is-empty "test/dir2";
-say my $r4 = dir-is-empty "test/dir3";
+say my $r1 = dir-is-empty "ref/test";
+say my $r2 = dir-is-empty "ref/test/dir1";
+say my $r3 = dir-is-empty "ref/test/dir2";
+say my $r4 = dir-is-empty "ref/test/dir3";
 
 use Test;
 is ($r1,$r2,$r3,$r4), 'False False False True';
