@@ -1,0 +1,48 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Nested_templated_data
+#c# 2018-05-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Works with: Rakudo version 2018.04.01
+
+# Explicitly not using strings, using one data structure to fill in another. Since it isn't a string, the output format removes the newlines from the template; line feeds aren't particularly significant in Perl 6 data structures. It does preserve the nesting though. In the second example, payload "buckets" that don't exist result in an undefined value being inserted; by default: Any.
+
+my @payloads = <
+  Payload#0
+  Payload#1
+  Payload#2
+  Payload#3
+  Payload#4
+  Payload#5
+  Payload#6
+>;
+ 
+my @res;
+sub template ($pattern) { @payloads[|$pattern] };
+ 
+for [
+     (((1, 2),
+       (3, 4, 1),
+       5),),
+ 
+     (((1, 2),
+       (10, 4, 1),
+       5),)
+    ] {
+  @res.push: '      Template: '~ $_.perl;
+  @res.push: "Data structure: { template($_).perl }\n";
+}
+.say for @res; 
+
+my $ref = q:to/END/;
+      Template: $(((1, 2), (3, 4, 1), 5),)
+Data structure: ((("Payload#1", "Payload#2"), ("Payload#3", "Payload#4", "Payload#1"), "Payload#5"),)
+
+      Template: $(((1, 2), (10, 4, 1), 5),)
+Data structure: ((("Payload#1", "Payload#2"), (Any, "Payload#4", "Payload#1"), "Payload#5"),)
+
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
