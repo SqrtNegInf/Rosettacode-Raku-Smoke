@@ -1,83 +1,49 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sorting_algorithms/Strand_sort
-#c# 2015-12-07 <RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
-#  {{Works with|rakudo|2018.03}} or {{broken|Perl 6}}  
+#c# 2018-05-29 <>RC
+#m# MOAR: OK
+#j# JVM:  OK
 
-srand 123456;
-
-# merge
-#sub infix:<M> (@x, @y) {
-sub merge (@x, @y) {
-print 'M0 - x: '; say @x.perl; print 'M0 - y; '; say @y.perl;
-
-#    return @y unless @x; return @x unless @y;
-#    return flat @x, @y unless @x and @y;
-#
-#    my @floop = flat gather {
-     my @floop;
-	while @x and @y {
-#    say "x-end: @x[*-1]  y-end: @y[*-1]";
-	    my $tmp = @x[*-1] cmp @y[*-1];
-		if ($tmp == 1) { @floop.push: flat @x.pop; say 'more -- '; say @floop.perl }
-		if ($tmp == -1) { @floop.push: flat @y.pop ; say 'less -- '; say @floop.perl }
-		if ($tmp == 0) { @floop.push: flat @x.pop; @floop.push: flat @y.pop; say 'same -- '; say @floop.perl }
-#say $cnt++; #dd @x; dd @y; die 'Wowza';
-	}
-#	@floop.push: flat @x, @y; dd @floop;
-    #}
-#   say '-->';
-#    dd @x; dd @y; dd  @floop;
-    say 'out::  ' ~ @floop.perl ~ ' x:' ~ @x.perl ~ ' y: ' ~ @y.perl;
-    return flat @x, @y, @floop;
+sub infix:<M> (@x-in, @y-in) {
+    my @x = | @x-in;
+    my @y = | @y-in;
+    flat @x, @y, 
+        reverse gather while @x and @y {
+            take do given @x[*-1] cmp @y[*-1] {
+                when More { pop @x }
+                when Less { pop @y }
+                when Same { pop(@x), pop(@y) }
+            }
+        }
 }
- 
+
 sub strand (@x) {
-#    say 'x in'; dd @x;
-    my $prev = -Inf;
     my $i = 0;
-    my @glorp = flat gather while $i < @x {
-	   if @x[$i] before $prev {
-	       $i++;
-       } else {
-           take $prev = splice(@x, $i, 1)[0];
-	   }
+    my $prev = -Inf;
+    gather while $i < @x {
+    	@x[$i] before $prev ?? $i++ !! take $prev = splice(@x, $i, 1)[0];
     }
-    #dd @glorp;
-#    say 'x out'; dd @x;
-    return @glorp;
 }
+
+# maybe too terse, but it does work
+# gather @x[$i] before $prev ?? $i++ !! take $prev = splice(@x, $i, 1)[0] while $i < @x; 
  
 sub strand_sort (@x is copy) {
     my @out;
-    while (@x) {
-        my @strand = strand(@x);
-        my @temp = merge(@out , @strand);
-        @out = @temp;
-    }
-    #@out M= strand(@x) while @x;
-    return @out;
+    @out M= strand(@x) while @x;
+    @out;
 }
-
-my @a = (^100).roll(10);
-say "Before @a[]";
-@a = strand_sort(@a);
-say "After  @a[]";
-exit;
  
-@a = <The quick brown fox jumps over the lazy dog>;
-say "Before @a[]";
-@a = strand_sort(@a);
-say "After  @a[]";
+my @n = (1, 20, 64, 72, 48, 75, 96, 55, 42, 74);
+say "Before {@n}";
+@n = strand_sort(@n);
+say "After  {@n}";
 
-my $ref = qq:to/END/;
-Before 1 20 64 72 48 75 96 55 42 74
-After  1 20 42 48 55 64 72 74 75 96
-Before The quick brown fox jumps over the lazy dog
-After  The brown dog fox jumps lazy over quick the
-END
+my @c = <The quick brown fox jumps over the lazy dog>;
+say "Before {@c}";
+@c = strand_sort(@c);
+say "After  {@c}";
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
+is (sort @n), strand_sort(@n);
+is (sort @c), strand_sort(@c);
