@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fibonacci_sequence
-#c# 2016-08-28 <RC
+#c# 2016-08-28 <RC, 2018-05-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# removed 'cached' feature, no speed-up
 
 # This constructs the fibonacci sequence as a lazy infinite list.
 my constant @fib1 = 0, 1, *+* ... *;
@@ -23,8 +24,7 @@ sub fib3 (Int $n --> Int) {
 }
 
 # Recursive
-use experimental :cached;
-proto fib4 (Int $n --> Int) is cached {*}
+proto fib4 (Int $n --> Int) {*}
 multi fib4 (0)  { 0 }
 multi fib4 (1)  { 1 }
 multi fib4 ($n) { fib4($n - 1) + fib4($n - 2) }
