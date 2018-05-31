@@ -1,13 +1,12 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/I.Q._Puzzle
-#c# 2017-06-08 <RC
+#c# 2017-06-08 <RC, 2018-05-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+# removed cache feature, made it slower
 
 # Works with: Rakudo version 2017.05
 # Translation of: Sidef
-
-use experimental :cached;
 
 my @res;
  
@@ -29,7 +28,7 @@ constant @moves =
  
 my $format = (1..5).map: {' ' x 5-$_, "%d " x $_, "\n"};
  
-sub solve(@board, @move, $turns = 1) is cached {
+sub solve(@board, @move, $turns = 1) {
     return "   Solved" if $turns + 1 == @board;
     return Nil if @board[@move[1]] == 0;
     my $valid = do given @board[@move[0]] {
