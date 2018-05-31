@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl
 ## recent Perl 6 updates on RosettaCode
-#c# 2016-02-07 2016-02-08 2016-02-09 2016-03-15 2018-01-30 2018-04-27 2018-04-30 2018-05-01
+#c# 2016-02-07 2016-02-08 2016-02-09 2016-03-15 2018-01-30 2018-04-27 2018-04-30 2018-05-01 2018-05-31
 
 open RC, qq{/opt/local/bin/curl -s 'http://rosettacode.org/mw/index.php?title=Special:RecentChanges&limit=500&namespace=0' |};
 
@@ -9,7 +9,7 @@ $new = 'N';
 
 while (<RC>) {
     ($date) = m#<h4>(\d+ \S+) 20\d\d</h4># if m/<h4>/;
-    next unless /Perl_6/; # for now…
+    next unless /Perl_6|SqrtNegInf/;
 
     ($user)  = m#Special:Contributions/(.*?)"#;
     next if $user =~ /Robbie|CraigD/i; # users known to be adding non-Perl6 code...
