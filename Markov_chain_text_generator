@@ -48,9 +48,8 @@ if $*VM ~~ /jvm/ {
    %dict = add-to-dict $text, :$n;
 } else {
     my %dictx = add-to-dict $text, :$n;
-    my @dict := array-hash();
-    @dict.push: $_ => %dictx{$_} for sort %dictx.keys;
-    %dict := @dict;
+    %dict := array-hash();
+    %dict{$_} = %dictx{$_} for sort %dictx.keys;
 }
 # end kludge
 
