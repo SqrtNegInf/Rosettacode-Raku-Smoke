@@ -1,4 +1,4 @@
-This is Rakudo version 2018.04.1-122-gd1d31fd57 built on MoarVM version 2018.04.1-121-gd634d24cf
+This is Rakudo version 2018.05-43-gc80ea2f28 built on MoarVM version 2018.05-34-gdb5029122
 implementing Perl 6.c.
 updating from RC…
 +------------> Moar: Good/Bad
@@ -50,8 +50,8 @@ GG......... Almost_prime-1
 GG......... Almost_prime-2
 ..........U Amb
 GG......... Amb-1
-BB...R..... Amb-2
-GG...R..... Amb-3
+G!T..R..... Amb-2
+GGT..R..... Amb-3
 GG......... Amicable_pairs
 GG......... Anagrams
 GG......... Anagrams_Deranged_anagrams
@@ -84,7 +84,7 @@ GG...R..... Atomic_updates
 .......D.VU AudioAlarm
 .......D.VU Audio_Overlap_Loop
 .......D.VU Audio_frequency_generator
-GGTK.R..... Average_loop_length
+GGT..R..... Average_loop_length
 GG......... Averages_Arithmetic_mean
 GG......... Averages_Mean_angle
 GG......... Averages_Mean_time_of_day
@@ -334,12 +334,12 @@ GGT........ Factors_of_a_Mersenne_number
 GG......... Factors_of_an_integer
 GG......... Farey_sequence
 GG......... Fast_Fourier_transform
-GG.....D... Faulhaber%27s_formula
+GGT....D... Faulhaber%27s_formula
 GG.....D... Faulhaber%27s_triangle
 GG.....D... Feigenbaum_constant_calculation
 .......D.VU Fibonacci_heap
 GGT........ Fibonacci_n-step_number_sequences
-GG......... Fibonacci_sequence
+GGT........ Fibonacci_sequence
 GG......... Fibonacci_word
 GG......... Fibonacci_word_fractal
 GG.....D... File_extension_is_in_extensions_list
@@ -456,7 +456,7 @@ GG......... Hostname
 .........VU Hough_transform
 GG......... Huffman_coding
 GG.KI...... Hunt_The_Wumpus
-GG.....D... I.Q._Puzzle
+GGT....D... I.Q._Puzzle
 GG......... IBAN
 .......D.VU IPC_via_named_pipe
 .......D.VU IRC_gateway
@@ -521,7 +521,7 @@ GG...R..... Knuth_shuffle
 .......D... Koch_curve
 GG....F.... Koch_curve-1
 GG....F.... Koch_curve-2
-.......D.VU Kolakoski_sequence
+GG......... Kolakoski_sequence
 .......D.VU Kosaraju
 GG......... Kronecker_product
 GB....F.... Kronecker_product_based_fractals
@@ -653,6 +653,7 @@ GGT........ Natural_sorting
 GG.KI...... Nautical_bell
 GG......... Negative_base_numbers
 GG......... Nested_function
+GG.....D... Nested_templated_data
 GGT........ Non-continuous_subsequences
 GG......... Non-decimal_radices_Convert
 GG......... Non-decimal_radices_Input
@@ -794,7 +795,7 @@ GG.....D... Read_a_file_character_by_character_UTF8
 GG......... Read_a_file_line_by_line
 GG.K....... Read_a_specific_line_from_a_file
 GG......... Read_entire_file
-.......D.VU Readline_interface
+.......D.V. Readline_interface
 GG......... Real_constants_and_functions
 ........XVU Record_sound
 .......D.VU Recursive_descent_parser_generator
@@ -941,7 +942,7 @@ GG......... Sorting_algorithms_Selection_sort
 GG...R..... Sorting_algorithms_Shell_sort
 GG......... Sorting_algorithms_Sleep_sort
 GG......... Sorting_algorithms_Stooge_sort
-BB...R....U Sorting_algorithms_Strand_sort
+GGT........ Sorting_algorithms_Strand_sort
 .......D.VU Sorting_algorithms_Tree_sort_on_a_linked_list
 GG......... Soundex
 GG......... Sparkline_in_unicode
@@ -1072,7 +1073,7 @@ GG...R..... Unbias_a_random_generator
 GG......... Unicode_strings
 GG......... Unicode_variable_names
 GG......... Universal_Turing_machine
-!G......... Unix_ls
+GG......... Unix_ls
 .......D.VU Untrusted_environment
 GG....F.... Update_a_configuration_file
 .........VU Use_another_language_to_call_a_function
