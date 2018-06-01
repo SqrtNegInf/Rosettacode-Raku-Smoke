@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Nested_templated_data
-#c# 2018-05-28 <RC
+#c# 2018-05-28 <RC, 2018-06-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -8,16 +8,8 @@
 
 # Explicitly not using strings, using one data structure to fill in another. Since it isn't a string, the output format removes the newlines from the template; line feeds aren't particularly significant in Perl 6 data structures. It does preserve the nesting though. In the second example, payload "buckets" that don't exist result in an undefined value being inserted; by default: Any.
 
-my @payloads = <
-  Payload#0
-  Payload#1
-  Payload#2
-  Payload#3
-  Payload#4
-  Payload#5
-  Payload#6
->;
- 
+say join "\n  ", '##PAYLOADS:', |my @payloads = 'Payload#' X~ ^7;
+
 my @res;
 sub template ($pattern) { @payloads[|$pattern] };
  
