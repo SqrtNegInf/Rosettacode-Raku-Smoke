@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Search_a_list_of_records
-#c# 2016-08-22 <RC
+#c# 2015-12-03 <>RC, 2016-08-22 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# migrated from 'Array_search'
 
 # The built-in method .first fulfills the requirements of this task.
 
@@ -25,12 +26,6 @@ my @cities =
 say my $a1 = @cities.first(*<name> eq 'Dar Es Salaam', :k);
 say my $a2 = @cities.first(*<population> < 5).<name>;
 say my $a3 = @cities.first(*<name>.match: /^A/).<population>;
-
-#`{ Output:
-6
-Khartoum-Omdurman
-4.58
-}
 
 use Test;
 is $a1, 6;
