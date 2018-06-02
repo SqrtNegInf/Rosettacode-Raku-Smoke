@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl
 ## RC task status
-#c# 2018-03-12 2018-03-19 2018-04-02 2018-04-29 2018-05-18
+#c# 2018-03-12 2018-03-19 2018-04-02 2018-04-29 2018-05-18 2018-06-02
 
 use warnings;
 use strict 'vars';
@@ -22,7 +22,6 @@ mv Reports:Tasks_not_implemented_in_Perl_6 Reports:Tasks_not_implemented_in_Perl
 END
 }
 
-
 ## characterize RC tasks
 
 # check task source code 
@@ -40,19 +39,20 @@ while ($_ = <U>) { mark($_,'U') }
 # ignored tasks from hard-coded list
 while ($_ = <DATA>) { chomp; mark($_,'X') }
 
-# format column headers with ASCII line-drawings
+# column headers with task totals
 my @cols = (
-'Moar: Good/Bad',           # M
-'JVM: Good/Bad',            # J
-'Touched (modified by me)', # T
-'sKipping validation',      # K
-'Interactive',              # I
-'Random seed',              # R
-'File output',              # F
-'Draft',                    # D
-'Ignoring',                 # X
-'Void (no local copy)',     # V
-'Un-implemented/reliable',  # U
+"Moar: Good/Bad [${\tally('M','G')}/${\tally('M','B')}]",       # M
+"JVM: Good/Bad [${\tally('J','G')}/${\tally('J','B')}]",        # J
+"SmOke testing [${\tally('O')}]",                               # O
+"sKipping validation [${\tally('K')}]",                         # K
+"Interactive [${\tally('I')}]",                                 # I
+"Touched (modified by me) [${\tally('T')}]",                    # T
+"Random seed [${\tally('R')}]",                                 # R
+"File output [${\tally('F')}]",                                 # F
+"Draft [${\tally('D')}]",                                       # D
+"Ignoring [${\tally('X')}]",                                    # X
+"Void (no local copy) [${\tally('V')}]",                        # V
+"Un-implemented/reliable [${\tally('U')}]",                     # U
 );
 
 my $max = scalar @cols;
@@ -63,9 +63,9 @@ for my $c (@cols) {
 }
 print '|' x $max . "\n";
 
-# display program status table
+# display full task status table
 for my $p (sort keys %P) {
-    (print $P{$p}{$_} // '.') for qw(M J T K I R F D X V U);
+    (print $P{$p}{$_} // '.') for qw(M J O K I T R F D X V U);
     print " $p\n";
 }
 
@@ -81,7 +81,7 @@ my($p);
 }
 
 #####
-# look for programs under base name, and with suffixes
+# look for task under base name, and with suffixes
 sub examine {
 my($l) = @_;
 
@@ -92,24 +92,25 @@ my($l) = @_;
     $cnt += document("${p}-1");
     $cnt += document("${p}-2");
     $cnt += document("${p}-3");
-    $P{$p}{'V'} = 'V' if 0 == $cnt; # don't seem to have this program
+    $P{$p}{'V'} = 'V' if 0 == $cnt; # don't seem to have this task
 }
 
 #####
 # study task source code, set various condition flags
 sub document {
 my($p) = @_;
-my($prog,$header,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
+my($task,$header,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
 
-    $prog = "../$p";
-    return 0 if ! -e $prog;
+    $task = "../$p";
+    return 0 if ! -e $task;
     return 0 if defined $P{$p}{'M'};
 
-    $header = `grep '^#[mjcft]#' $prog`;
+    $header = `grep '^#[mjcft]#' $task`;
 
     $P{$p}{'M'} = $header =~ /MOAR:\s*OK/ ? 'G' : 'B';
-    $compiles = `perl6 -c $prog 2>&1 1>/dev/null`;
+    $compiles = `perl6 -c $task 2>&1 1>/dev/null`;
     $mout = "../bench/moar/$p.out";
+    $P{$p}{'O'} = -e $mout ? 'O' : '.';
     $merr = (-e $mout) ? `grep STDERR $mout` : undef;
     $P{$p}{'M'} = '!' if $compiles =~ /SORRY/ || ($P{$p}{'M'} eq 'G' && $merr);
 
@@ -124,14 +125,14 @@ my($prog,$header,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
     $P{$p}{'F'} = $header =~ /#f#.*RC file/i     ? 'F' : '.';
     $P{$p}{'I'} = $header =~ /#t#.*interactive/i ? 'I' : '.';
 
-    $srand = `grep srand $prog`;
+    $srand = `grep srand $task`;
     $P{$p}{'R'} = $srand =~ /\bsrand \d/         ? 'R' : '.';
 
     return 1; # to increment counter
 }
 
 #####
-# extract potential program names, validate & clean-up
+# extract potential task names, validate & clean-up
 sub pname {
 my($l) = @_;
 
@@ -143,7 +144,7 @@ my($l) = @_;
 }
 
 #####
-# standardize program name
+# standardize task name
 sub pfix { 
 my($p) = @_;
 
@@ -153,6 +154,16 @@ my($p) = @_;
     return $p;
 }
 
+#####
+# column totals
+sub tally {
+my($col,$val) = @_;
+$val = $col unless $val;
+my $x;
+for my $k (keys %P) { $x++ if $P{$k}{$col} eq $val }
+return $x;
+}
+
 # these are being ignored, for various reasons
 __DATA__
 Arena_storage_pool
@@ -160,7 +171,6 @@ Aspect_Oriented_Programming
 Assertions
 Bitmap_PPM_conversion_through_a_pipe
 Call_a_function
-Call_a_function_in_a_shared_library
 Call_an_object_method
 Color_of_a_screen_pixel
 Command-line_arguments
