@@ -5,9 +5,9 @@
 #j#  JVM: OK
 #n# the 'while' is cheating, not uploaded to RC
 
-srand 123456;
-
 use MONKEY-SEE-NO-EVAL;
+
+srand 123456;
 
 sub amb($var,*@a) {
     "[{ @a.pick(*).map: {"||\{ $var = '$_' }"} }]";
