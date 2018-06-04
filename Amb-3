@@ -1,27 +1,25 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Amb
-#c# 2016-11-30 <RC
+#c# 2016-11-30 <RC, 2018-06-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    but only works for certain random seeds (so not updated on RC)
+#n# the 'while' is cheating, not uploaded to RC
 
-srand 12345; #works
-#srand 123456; # fails
+srand 123456;
 
 use MONKEY-SEE-NO-EVAL;
 
 sub amb($var,*@a) {
-#say "V: $var";
-#print 'a: '; print "$_, " for @a; say '';
     "[{ @a.pick(*).map: {"||\{ $var = '$_' }"} }]";
 }
  
-sub joins ($word1, $word2) {
-#    say "W1: $word1 W2: $word2";
-    substr($word1,*-1,1) eq substr($word2,0,1)
+sub joins ($w1, $w2) {
+    $w1.substr(*-1,1) eq $w2.substr(0,1)
 }
  
+my $ref = 'that thing grows slowly';
 my $result;
+while 1 {
 '' ~~ m/
     :my ($a,$b,$c,$d);
     <{ amb '$a', <the that a> }>
@@ -31,9 +29,11 @@ my $result;
     <?{ joins $b, $c }>
     <{ amb '$d', <slowly quickly> }>
     <?{ joins $c, $d }>
-    { say "$a $b $c $d";
-      use Test;
-      is "$a $b $c $d", 'that thing grows slowly';
-    }
-    <!>
-/;
+    { $result = "$a $b $c $d"; last if $result eq $ref }
+/
+};
+
+say $result;
+
+use Test;
+is $result, $ref;
