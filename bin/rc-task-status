@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl
 ## RC task status
-#c# 2018-03-12 2018-03-19 2018-04-02 2018-04-29 2018-05-18 2018-06-02
+#c# 2018-03-12 2018-03-19 2018-04-02 2018-04-29 2018-05-18 2018-06-02 2018-06-03
 
 use warnings;
 use strict 'vars';
@@ -160,7 +160,7 @@ sub tally {
 my($col,$val) = @_;
 $val = $col unless $val;
 my $x;
-for my $k (keys %P) { $x++ if $P{$k}{$col} eq $val }
+for my $p (keys %P) { $x++ if defined $P{$p}{$col} && $P{$p}{$col} eq $val }
 return $x;
 }
 
