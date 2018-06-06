@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Extend_your_language
-#c# 2016-05-19 <>RC
+#c# 2016-05-19 <>RC, 2018-06-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -27,13 +27,12 @@ sub test ($a,$b) {
     }
 }
 
-my @res;
- @res.push: test |$_ for 1,0 X 1,0;
-#@res.push: test |$_ for <1 0> X <1 0>;
-#@res.push: test |$_ for [1,0] X [1,0]; # or parentheses
-#@res.push: test |$_ for [X] (1,0) xx 2;
-#@res.push: test |$_ for [X] ^2 xx 2; # but different order, preface with 'reverse' to fix that
-.say for @res;
+my @res1.push: test |$_ for 1,0 X 1,0;
+my @res2.push: test |$_ for <1 0> X <1 0>;
+my @res3.push: test |$_ for [1,0] X [1,0];
+my @res4.push: test |$_ for (1,0) X (1,0);
+my @res5.push: test |$_ for [X] (1,0) xx 2;
+.say for @res1;
 
 my $ref = qq:to/END/;
 Got both
@@ -43,4 +42,8 @@ Got neither
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res1.join("\n"), chomp $ref;
+is @res2.join("\n"), chomp $ref;
+is @res3.join("\n"), chomp $ref;
+is @res4.join("\n"), chomp $ref;
+is @res5.join("\n"), chomp $ref;
