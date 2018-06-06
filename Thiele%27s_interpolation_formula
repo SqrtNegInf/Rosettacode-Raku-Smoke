@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Thiele\'s_interpolation_formula
-#c# 2016-05-01 <>RC
-#m# MOAR: BROKEN
+#c# 2016-05-01 <>RC, 2018-06-05 >RC
+#m# MOAR: OK
 #j#  JVM: OK
 #n# hash key order dependency (as of 2018-05-17, JVM doesn't have this 'upgrade')
 #  made default table size 12, 'invcos' converges slowly
@@ -24,10 +24,10 @@ multi sub thiele($x, %f, $ord) {
   my &f = {%f{$^a}};                # f(x) as a table lookup
  
   # Caveat: depends on the fact that Rakudo maintains key order within hashes
-  my $a = ρ(&f, %f.keys[^($ord +1)]);
-  my $b = ρ(&f, %f.keys[^($ord -1)]);
+  my $a = ρ(&f, %f.keys.sort[^($ord +1)]);
+  my $b = ρ(&f, %f.keys.sort[^($ord -1)]);
  
-  my $num = $x - %f.keys[$ord];
+  my $num = $x - %f.keys.sort[$ord];
   my $cont = thiele($x, %f, $ord +1);
  
   # Thiele always takes this form:
@@ -58,9 +58,8 @@ sub MAIN($tblsz = 12) {
 
 use Test;
 if $*VM ~~ /jvm/ {
-is ($sin_pi, $cos_pi, $tan_pi), '3.1415926535896297 3.138737076584235 3.141590905400981';
-#                          got: '3.1415926535896297 3.138725858331842 3.1415868236099156'
+is ($sin_pi, $cos_pi, $tan_pi), '3.1415926535896332 3.1387243219841157 3.1416331607611547';
 } else {
-is ($sin_pi, $cos_pi, $tan_pi), '3.1415926535896306 3.1387344638346546 3.141592112874032';
+is ($sin_pi, $cos_pi, $tan_pi), '3.1415926535896332 3.1387243219840935 3.14163334892717';
 }
 }
