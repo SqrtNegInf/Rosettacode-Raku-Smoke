@@ -1,0 +1,28 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/XML/Output
+#c# 2018-06-10 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for JVM: ecosystem...
+
+# Works with: Rakudo version 2018.05
+use XML::Writer;
+ 
+my @students =
+    [ Q[April],         Q[Bubbly: I'm > Tam and <= Emily] ],
+    [ Q[Tam O'Shanter], Q[Burns: "When chapman billies leave the street ..."] ],
+    [ Q[Emily],         Q[Short & shrift] ]
+;
+ 
+my @lines = map { :Character[:name(.[0]), .[1]] }, @students;
+ 
+say my $document = XML::Writer.serialize( CharacterRemarks => @lines );
+
+my $ref = qq:to/END/;
+<CharacterRemarks><Character name="April">Bubbly: I'm &gt; Tam and &lt;= Emily</Character>
+<Character name="Tam O'Shanter">Burns: &quot;When chapman billies leave the street ...&quot;</Character>
+<Character name="Emily">Short &amp; shrift</Character></CharacterRemarks>
+END
+
+use Test;
+is $document, $ref;
