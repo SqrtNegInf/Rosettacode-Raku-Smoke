@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/XML/DOM_serialization
+#c# 2018-06-10 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for JVM: ecosystem...
+
+# Works with: Rakudo version 2018.05
+use XML;
+use XML::Writer;
+ 
+say my $document = XML::Document.new(
+    XML::Writer.serialize( :root[ :element['Some text here', ], ] )
+);
+
+my $ref = qq:to/END/;
+<?xml version="1.0"?><root><element>Some text here</element></root>
+END
+
+use Test;
+is $document, chomp $ref;
