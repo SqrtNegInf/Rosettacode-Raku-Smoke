@@ -1,18 +1,18 @@
-This is Rakudo version 2018.05-67-gc49bbc934 built on MoarVM version 2018.05-107-g7ea08c9a3
+This is Rakudo version 2018.05-78-g20bf96f9e built on MoarVM version 2018.05-110-geed6fbb31
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [911/12]
-|+------------> JVM: Good/Bad [840/81]
-||+-----------> SmOke testing [825]
++-------------> Moar: Good/Bad [914/12]
+|+------------> JVM: Good/Bad [839/85]
+||+-----------> SmOke testing [828]
 |||+----------> sKipping validation [92]
 ||||+---------> Interactive [53]
 |||||+--------> Touched (modified by me) [194]
 ||||||+-------> Random seed [105]
 |||||||+------> File output [65]
-||||||||+-----> Draft [224]
+||||||||+-----> Draft [223]
 |||||||||+----> Ignoring [64]
-||||||||||+---> Void (no local copy) [199]
-|||||||||||+--> Un-implemented/reliable [155]
+||||||||||+---> Void (no local copy) [196]
+|||||||||||+--> Un-implemented/reliable [151]
 ||||||||||||
 GGO......... 100_doors
 GB.KI.R..... 15_Puzzle_Game
@@ -78,7 +78,7 @@ GGO......... Array_length
 GGO......... Arrays
 ........DXV. Aspect_Oriented_Programming
 .........XV. Assertions
-........D.VU Assertions_in_design_by_contract
+GBO.....D... Assertions_in_design_by_contract
 GGO......... Associative_array_Creation
 GGO......... Associative_array_Iteration
 GGO...R..... Atomic_updates
@@ -714,7 +714,7 @@ GGO...R..... Password_generator
 GGO......... Pathological_floating_point_problems
 GGO..TR..... Pattern_matching
 GG.KI.R..... Penney%27s_game
-GGO....FD... Penrose_tiling
+GBO....FD... Penrose_tiling
 GGO..T.F.... Pentagram
 ........D.VU Pentomino_tiling
 ..........VU Percentage_difference_between_images
@@ -877,7 +877,7 @@ GGO......... Send_an_unknown_method_call
 GGO.....D... Separate_the_house_number_from_the_street_name
 GGO......... Sequence_of_non-squares
 GGO......... Sequence_of_primes_by_trial_division
-GGO..T..D... Sequence_of_primorial_primes
+GGO..T...... Sequence_of_primorial_primes
 GGO......... Set
 GGO......... Set_consolidation
 GGO......... Set_of_real_numbers
@@ -1098,7 +1098,7 @@ GGO.....D... Vector
 GGO..T...... Vector_products
 GGO......... Verify_distribution_uniformity_Chi-squared_test
 GGO...R..... Verify_distribution_uniformity_Naive
-.........XVU Video_display_modes
+.........XV. Video_display_modes
 GGO..T...... Vigen%C3%A8re_cipher
 ..........VU Vigen%C3%A8re_cipher_Cryptanalysis
 GGO......... Visualize_a_tree
@@ -1125,9 +1125,9 @@ GGO....F.... Write_entire_file
 GGO....F.... Write_float_arrays_to_a_text_file
 GGO..TR..... Write_language_name_in_3D_ASCII
 .........XVU Write_to_Windows_event_log
-..........VU XML_DOM_serialization
+GBO......... XML_DOM_serialization
 GBO..T...... XML_Input
-..........VU XML_Output
+GBO......... XML_Output
 ........D.VU XML_Validation
 GBO......... XML_XPath
 GGO..T...... Xiaolin_Wu%27s_line_algorithm
