@@ -1,0 +1,37 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Spinning_rod_animation/Text
+#c# 2018-06-11 <RC
+#t# skiptest
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Works with: Rakudo version 2018.05
+#Traditionally this is know as a throbber or progress indicator.
+#This will accept an array of elements to use as its throbber frames, and optionally a delay before it returns the next element.
+
+class throbber {
+    has @.members;
+    has $.delay is rw = 0;
+    has $!index = 0;
+    method next {
+        $!index = ($!index + 1) % +@.members;
+        sleep $.delay if $.delay;
+        "\b" ~ @.members[$!index];
+    }
+}
+ 
+my $rod = throbber.new( :members(< | / - \ >), :delay(.25) );
+print "\e[?25lLong running process...  ";
+print $rod.next for ^20;
+ 
+ 
+my $clock = throbber.new( :members("🕐" .. "🕛") );
+print "\b \nSomething else with a delay...  ";
+until my $done {
+    # do something in a loop;
+    sleep 1/12; # simulate processing delay
+    print $clock.next;
+    $done = True if $++ >= 60;
+}
+ 
+END { print "\b \e[?25h\n" } # clean up on exit
