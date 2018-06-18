@@ -1,0 +1,137 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/ASCII_art_diagram_converter
+#c# 2018-06-17 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+srand 123456;
+
+# Works with: Rakudo version 2018.05
+use experimental :pack;
+ 
+grammar RFC1025 {
+    rule  TOP {  <.line-separator> [<line> <.line-separator>]+ }
+    rule  line-separator { \s* '+--'+ '+' }
+    token line  { \s* '|' +%% <field>  }
+    token field { \s* <label> \s* }
+    token label { \w+[\s+\w+]* }
+}
+ 
+sub bits ($item) { ($item.chars + 1) div 3 }
+ 
+sub deconstruct ($bits, %struct) {
+    map { $bits.substr(.<from>, .<bits>) }, @(%struct<fields>);
+}
+ 
+my $diagram = q:to/END/;
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                      ID                       |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |QR|   Opcode  |AA|TC|RD|RA|   Z    |   RCODE   |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                    QDCOUNT                    |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                    ANCOUNT                    |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                    NSCOUNT                    |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                    ARCOUNT                    |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+END
+ 
+my $datagram = RFC1025.parse($diagram);
+ 
+my %structure;
+for $datagram.<line> -> $line {
+    FIRST %structure<line-width> = $line.&bits;
+    state $from = 0;
+    %structure<fields>.push: %(:bits(.&bits), :ID(.<label>.Str), :from($from.clone), :to(($from+=.&bits)-1))
+      for $line<field>;
+}
+ 
+my @res;
+@res.push: 'Line width: '~ %structure<line-width>~ ' bits';
+@res.push: sprintf("Name: %7s, bit count: %2d, bit %2d to bit %2d", .<ID>, .<bits>, .<from>, .<to>) for @(%structure<fields>);
+#@res.push: "\nGenerate a random 12 byte \"header\"";
+my $buf = Buf.new((^0xFF .roll) xx 12);
+@res.push: "\nShow it converted to a bit string";
+@res.push: my $bitstr = $buf.unpack('C*')».fmt("%08b").join;
+@res.push: "\nAnd unpack it";
+@res.push: sprintf("%7s, %02d bits: %s", %structure<fields>[$_]<ID>,  %structure<fields>[$_]<bits>,
+  deconstruct($bitstr, %structure)[$_]) for ^@(%structure<fields>);
+
+.say for @res; 
+
+my $moar = qq:to/END/;
+Line width: 16 bits
+Name:      ID, bit count: 16, bit  0 to bit 15
+Name:      QR, bit count:  1, bit 16 to bit 16
+Name:  Opcode, bit count:  4, bit 17 to bit 20
+Name:      AA, bit count:  1, bit 21 to bit 21
+Name:      TC, bit count:  1, bit 22 to bit 22
+Name:      RD, bit count:  1, bit 23 to bit 23
+Name:      RA, bit count:  1, bit 24 to bit 24
+Name:       Z, bit count:  3, bit 25 to bit 27
+Name:   RCODE, bit count:  4, bit 28 to bit 31
+Name: QDCOUNT, bit count: 16, bit 32 to bit 47
+Name: ANCOUNT, bit count: 16, bit 48 to bit 63
+Name: NSCOUNT, bit count: 16, bit 64 to bit 79
+Name: ARCOUNT, bit count: 16, bit 80 to bit 95
+
+Show it converted to a bit string
+110000000000011000110111111000110010110001010000111110100110111001111010001001100100011010000111
+
+And unpack it
+     ID, 16 bits: 1100000000000110
+     QR, 01 bits: 0
+ Opcode, 04 bits: 0110
+     AA, 01 bits: 1
+     TC, 01 bits: 1
+     RD, 01 bits: 1
+     RA, 01 bits: 1
+      Z, 03 bits: 110
+  RCODE, 04 bits: 0011
+QDCOUNT, 16 bits: 0010110001010000
+ANCOUNT, 16 bits: 1111101001101110
+NSCOUNT, 16 bits: 0111101000100110
+ARCOUNT, 16 bits: 0100011010000111
+END
+
+my $jvm = qq:to/END/;
+Line width: 16 bits
+Name:      ID, bit count: 16, bit  0 to bit 15
+Name:      QR, bit count:  1, bit 16 to bit 16
+Name:  Opcode, bit count:  4, bit 17 to bit 20
+Name:      AA, bit count:  1, bit 21 to bit 21
+Name:      TC, bit count:  1, bit 22 to bit 22
+Name:      RD, bit count:  1, bit 23 to bit 23
+Name:      RA, bit count:  1, bit 24 to bit 24
+Name:       Z, bit count:  3, bit 25 to bit 27
+Name:   RCODE, bit count:  4, bit 28 to bit 31
+Name: QDCOUNT, bit count: 16, bit 32 to bit 47
+Name: ANCOUNT, bit count: 16, bit 48 to bit 63
+Name: NSCOUNT, bit count: 16, bit 64 to bit 79
+Name: ARCOUNT, bit count: 16, bit 80 to bit 95
+
+Show it converted to a bit string
+001001110110111011010110110010100000110101111111000100110100000100111000101111100011011101111101
+
+And unpack it
+     ID, 16 bits: 0010011101101110
+     QR, 01 bits: 1
+ Opcode, 04 bits: 1010
+     AA, 01 bits: 1
+     TC, 01 bits: 1
+     RD, 01 bits: 0
+     RA, 01 bits: 1
+      Z, 03 bits: 100
+  RCODE, 04 bits: 1010
+QDCOUNT, 16 bits: 0000110101111111
+ANCOUNT, 16 bits: 0001001101000001
+NSCOUNT, 16 bits: 0011100010111110
+ARCOUNT, 16 bits: 0011011101111101
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
