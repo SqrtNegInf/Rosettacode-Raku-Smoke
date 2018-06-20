@@ -1,19 +1,18 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/ASCII_art_diagram_converter
-#c# 2018-06-17 <RC
+#c# 2018-06-17 <RC, 2018-06-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
+# Works with: Rakudo version 2018.05
+
 srand 123456;
 
-# Works with: Rakudo version 2018.05
-use experimental :pack;
- 
 grammar RFC1025 {
     rule  TOP {  <.line-separator> [<line> <.line-separator>]+ }
-    rule  line-separator { \s* '+--'+ '+' }
-    token line  { \s* '|' +%% <field>  }
-    token field { \s* <label> \s* }
+    rule  line-separator { <.ws> '+--'+ '+' }
+    token line  { <.ws> '|' +%% <field>  }
+    token field  { \s* <label> \s* }
     token label { \w+[\s+\w+]* }
 }
  
@@ -23,7 +22,22 @@ sub deconstruct ($bits, %struct) {
     map { $bits.substr(.<from>, .<bits>) }, @(%struct<fields>);
 }
  
+sub interpret ($header) {
+    my $datagram = RFC1025.parse($header);
+    my %struct;
+    for $datagram.<line> -> $line {
+        FIRST %struct<line-width> = $line.&bits;
+        state $from = 0;
+        %struct<fields>.push: %(:bits(.&bits), :ID(.<label>.Str), :from($from.clone), :to(($from+=.&bits)-1))
+          for $line<field>;
+    }
+    %struct
+}
+ 
+use experimental :pack;
+ 
 my $diagram = q:to/END/;
+ 
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
     |                      ID                       |
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -37,17 +51,10 @@ my $diagram = q:to/END/;
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
     |                    ARCOUNT                    |
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ 
 END
  
-my $datagram = RFC1025.parse($diagram);
- 
-my %structure;
-for $datagram.<line> -> $line {
-    FIRST %structure<line-width> = $line.&bits;
-    state $from = 0;
-    %structure<fields>.push: %(:bits(.&bits), :ID(.<label>.Str), :from($from.clone), :to(($from+=.&bits)-1))
-      for $line<field>;
-}
+my %structure = interpret($diagram);
  
 my @res;
 @res.push: 'Line width: '~ %structure<line-width>~ ' bits';
