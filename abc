@@ -1,0 +1,32 @@
+Line width: 16 bits
+Name:      ID, bit count: 16, bit  0 to bit 15
+Name:      QR, bit count:  1, bit 16 to bit 16
+Name:  Opcode, bit count:  4, bit 17 to bit 20
+Name:      AA, bit count:  1, bit 21 to bit 21
+Name:      TC, bit count:  1, bit 22 to bit 22
+Name:      RD, bit count:  1, bit 23 to bit 23
+Name:      RA, bit count:  1, bit 24 to bit 24
+Name:       Z, bit count:  3, bit 25 to bit 27
+Name:   RCODE, bit count:  4, bit 28 to bit 31
+Name: QDCOUNT, bit count: 16, bit 32 to bit 47
+Name: ANCOUNT, bit count: 16, bit 48 to bit 63
+Name: NSCOUNT, bit count: 16, bit 64 to bit 79
+Name: ARCOUNT, bit count: 16, bit 80 to bit 95
+
+Show it converted to a bit string
+100101001010000001101101000011111101001110000111001111010101110000011100000000110001101000110111
+
+And unpack it
+     ID, 16 bits: 1001010010100000
+     QR, 01 bits: 0
+ Opcode, 04 bits: 1101
+     AA, 01 bits: 1
+     TC, 01 bits: 0
+     RD, 01 bits: 1
+     RA, 01 bits: 0
+      Z, 03 bits: 000
+  RCODE, 04 bits: 1111
+QDCOUNT, 16 bits: 1101001110000111
+ANCOUNT, 16 bits: 0011110101011100
+NSCOUNT, 16 bits: 0001110000000011
+ARCOUNT, 16 bits: 0001101000110111
