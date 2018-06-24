@@ -5,7 +5,7 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 # Works with: Rakudo version 2018.03
 #
