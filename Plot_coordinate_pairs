@@ -4,7 +4,7 @@
 #m# MOAR: BROKEN
 #j#  JVM: BROKEN
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 # Generate an SVG image file.
 
