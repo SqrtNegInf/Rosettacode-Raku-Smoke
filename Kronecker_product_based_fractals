@@ -6,7 +6,7 @@
 #j#  JVM: BROKEN
 #f# RC file: kronecker-carpet-perl6.png
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 # Works with: Rakudo version 2017.03
 sub kronecker-product ( @a, @b ) { (@a X @b).map: { (.[0].list X* .[1].list).Array } }
