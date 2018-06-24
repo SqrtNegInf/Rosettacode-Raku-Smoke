@@ -7,7 +7,7 @@
 #f# RC file: sine.svg
 #n# ha ha
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 # What a horribly underspecified task. Ah well, gives me lots of wiggle room to cheat in various ways.
 
