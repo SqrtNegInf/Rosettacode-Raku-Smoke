@@ -6,7 +6,7 @@
 #j#  JVM: BROKEN
 #f# RC file: color-wheel-perl6.png
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 # Works with: Rakudo version 2016.08
 
