@@ -6,7 +6,7 @@
 
 #n# Apparently there is some rate limiting on place now, sleep a bit between requests.
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use HTTP::UserAgent;
  
