@@ -5,7 +5,7 @@
 #j#  JVM: BROKEN
 #n# my 1st RC edit!   $socket.send --> $socket.print 
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use LWP::Simple;
 my $result = LWP::Simple.get("http://www.biobyte.com");
