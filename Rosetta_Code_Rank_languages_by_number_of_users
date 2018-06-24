@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 # Works with: Rakudo version 2017.11
 # Use the mediawiki API rather than web scraping since it is much faster and less resource intensive. Show languages with more than 25 users since that is still a pretty short list and to demonstrate how tied rankings are handled. Change the $minimum parameter to adjust what the cut-off point will be.
