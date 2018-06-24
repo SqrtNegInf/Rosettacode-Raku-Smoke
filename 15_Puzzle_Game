@@ -1,16 +1,17 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/15_Puzzle_Game
 #t# interactive
-#c# 2017-03-21 <RC
+#c# 2017-03-21 <RC, 2018-06-23 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# reading keyboard input not ideal
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 srand 123456;
 
-# Works with: Rakudo version 2017.03
+# Works with: Rakudo version 2018.06
+
 # Most of this is interface code. Reused substantial portions from the 2048 task. Use the arrow keys to slide tiles, press 'q' to quit or 'n' for a new puzzle. Requires a POSIX termios aware terminal. Ensures that the puzzle is solvable by shuffling the board with an even number of swaps, then checking for even taxicab parity for the empty space.
 
 use Term::termios;
@@ -102,20 +103,22 @@ sub slide (@c is copy) {
     @c[$t,$t-1] = @c[$t-1,$t];
     @c;
 }
+
+proto sub move (|) {*};
  
-multi sub move('up') {
+multi move('up') {
     map { @board[*;$_] = reverse slide reverse @board[*;$_] }, ^n;
 }
  
-multi sub move('down') {
+multi move('down') {
     map { @board[*;$_] = slide @board[*;$_] }, ^n;
 }
  
-multi sub move('left') {
+multi move('left') {
     map { @board[$_] = reverse slide reverse @board[$_] }, ^n;
 }
  
-multi sub move('right') {
+multi move('right') {
     map { @board[$_] = slide @board[$_] }, ^n;
 }
  
