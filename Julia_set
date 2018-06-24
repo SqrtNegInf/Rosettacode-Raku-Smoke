@@ -15,7 +15,7 @@
 # Translation of: Perl with the pallette swapped, just because.
 # Works with: Rakudo version 2016.03
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
  
 use Image::PNG::Portable;
 
