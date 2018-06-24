@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 # Works with: Rakudo version 2017.05
 # This implementation takes a starting directory (defaults to the current directory) and has a few flags to set behaviour: --minsize, minimum file size to look at, defaults to 5 bytes; and --recurse, recurse into the directory structure, default True. It finds files of the same size, calculates hashes to compare, then reports files that hash the same. Uses the very fast but cryptographically poor xxHash library to hash the files.
