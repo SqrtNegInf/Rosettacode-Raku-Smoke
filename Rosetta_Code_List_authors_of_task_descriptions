@@ -5,7 +5,7 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use HTTP::UserAgent;
 use URI::Escape;
