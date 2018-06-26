@@ -13,7 +13,7 @@ sub funkshun ($a, $b?, $c = 15, :$d, *@e, *%f) {
 
  In the above signature:
 
- $a is a mandatory parameter that can be passed by position (funkshun 15, ...) or by name (funkshun a => 15, ...).
+ $a is a mandatory parameter accepted by position (funkshun 15, ...) or by name (funkshun a => 15, ...).
  $b is an optional parameter that can be passed by position or by name. By default, it's undefined.
  $c is an optional parameter that can be passed by position or by name. Its default value is 15.
  $d is an optional parameter that can only be passed by name. By default, it's undefined.
