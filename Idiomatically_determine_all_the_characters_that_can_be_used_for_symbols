@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols
-#c# 2018-03-20 <RC
+#c# 2018-03-20 <RC, 2018-06-25 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 'unival' NYI
@@ -11,7 +11,14 @@ sub postfix:<𒋦>($n) { return "$n trilobites" }
  
 sub term:<𝍧> { unival('𝍧') }
  
-say my $out = 𝍧𒋦;
+say my $out1 = 𝍧𒋦;
+
+# And here is a Zalgo-text symbol:
+
+sub Z̧̔ͩ͌͑̉̎A̢̲̙̮̹̮͍̎L̔ͧ́͆G̰̬͎͔̱̅ͣͫO͙̔ͣ̈́̈̽̎ͣ ($n) { return "$n COMES" }
+ 
+ 
+say my $out2 = Z̧̔ͩ͌͑̉̎A̢̲̙̮̹̮͍̎L̔ͧ́͆G̰̬͎͔̱̅ͣͫO͙̔ͣ̈́̈̽̎ͣ 'HE';
 
 #`{
 Of course, as in other languages, most of the characters you'll typically see in names are going to be alphanumerics from ASCII (or maybe Unicode), but that's a convention, not a limitation, due to the syntactic category notation demonstrated above, which can introduce any sequence of characters as a term or operator.
@@ -49,5 +56,6 @@ END
 # That being said, even the whitespace restriction is arbitrary, and can be bypassed by deriving a new grammar and switching to it. We view all other languages as dialects of Perl 6, even the insane ones. :-)
 
 use Test;
-is $out, '8 trilobites';
+is $out1, '8 trilobites';
+is $out2, 'HE COMES';
 is @res.join("\n"), chomp $ref;
