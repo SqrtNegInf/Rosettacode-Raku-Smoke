@@ -18,9 +18,12 @@ my @nums = 64921987050997300559,  70251412046988563035,  71774104902986066597,
            259826672618677756753, 262872058330672763871, 267440136898665274575,
            278352769033314050117, 281398154745309057242, 292057004737291582187;
  
-my \factories = @nums.hyper(:batch(3)).map: *.&prime-factors.cache;
-say my $gmf = {}.append(factories»[0] »=>« @nums).max: {+.key};
-say 'Run time: ', now - INIT now;
+my @factories = @nums.hyper(:3batch).map: *.&prime-factors.cache;
+my $gmf = {}.append(@factories»[0] »=>« @nums).max: {+.key};
+#printf "%21d factors: %s\n", |$_ for @nums Z @factories;
+say "\nGreatest minimum factor: ", $gmf.key;
+say "from: { $gmf.value }\n";
+#say 'Run time: ', now - INIT now;
  
 sub prime-factors ( Int $n where * > 0 ) {
     return $n if $n.is-prime;
