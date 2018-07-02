@@ -1,5 +1,22 @@
 # Smoke testing Perl 6 Rosettacode tasks
 
+I was at the Perl Conference when the coffee mugs were thrown and the idea of 
+what was to become Perl 6 was born. Sounded great to me. I checked up on the
+news of the new language from time to time, being patient knowing that Rome 2.x 
+wasn't built in a day...
+
+Time passed. 
+
+I kept plugging away with Perl 5. 
+
+Time passed. 
+Children were born. 
+I kept plugging away with Perl 5. 
+
+Time passed. 
+I kept plugging away with Perl 5. 
+Empires rose and fell...
+
 Header:
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Take_notes_on_the_command_line
