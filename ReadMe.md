@@ -1,5 +1,9 @@
 # Smoke testing Perl 6 Rosettacode tasks
 
+This space intentionally left blank.
+
+## Back-story
+
 I was at the Perl Conference when the coffee mugs were thrown and the idea of 
 what was to become Perl 6 was born. Sounded great to me. I checked up on the
 news about the language from time to time, being patient, knowing that Rome 2.0 
@@ -7,43 +11,76 @@ wasn't built in a day...
 
 Time passed. 
 RFC's rained from the sky.
-I kept plugging away with Perl 5. 
 
 Time passed. 
 Children were born. 
-I kept plugging away with Perl 5. 
 
 Time passed. 
 Hair turned gray.
-I kept plugging away with Perl 5. 
 
 Time passed. 
 Empires rose and fell.
-I kept plugging... (you get the idea)
+
+Time... (you get the idea)
+
+The whole time I kept plugging away with Perl 5, and happy to be doing so, but with the 
+dream of merging the **Perl Way** with enhancements drawn from *APL*...
+
+But at the end of 2015 with the 6.c release looking like it really was going to happen, 
+I decided to put some effort into learning the current state of Perl 6, via the examples on Rosettacode.
+And one of the first tasks I looked at was **broken**.  Checked the current docs, saw the problem, thought:
+I can fix that...  Kept pulling the thread on that sweater for 2+ years.
 
 ## Smoking is Good (for Perl 6)
 
-Precisely because of the very long gestation and continued evolution,
+Precisely because of the very long gestation, and continued evolution,
 Perl 6 tasks on Rosettacode 
-were really susceptible to bit-rot. I remember some guy named
+were really susceptible to bit-rot. I seem to remember some guy named
 [Tim](http://rosettacode.org/wiki/User:TimToady) found out 
 that his own 
 [Forest fire](http://rosettacode.org/wiki/Forest_fire) 
-task was broken 
-the day before he was jetting off to a conference
-where he wanted to use it as an example.
+code was broken 
+the day before he was off to a conference
+where he wanted to demonstrate it. Oops. *Someone* had to do *something*.
+
+Daily testing results have been saved since 2016-09-01, at which point just under 600
+tasks were in the system.  In early 2018 task count plateaued at a bit over 900.  For each
+task the `stdout` (and any `stderr`) are saved and tested against expected output 
+
+Both MoarVM and JVM backends are being tested.  MoarVM is `pull`'d daily, JVM less often,
+about once a month.  Fewer tasks work with JVM.  A couple
+dozen crash, and it's hard to get JVM to work with modules (in particular, tasks that produce image 
+output are affected by this).
+
+Real Soon Now I will put up a pretty front-end, but for now you can view
+task status report in 
+[glorious mono-chrome ASCII](meta/task.txt) (very suitable for grepping).
 
 ## Timeline
 
-Work began (though I didn't know it at the time) just before the 6.c *Christmas* release.
+Work began (though I didn't know it at the time) just before the *Christmas* release
+in late 2015. A lot of tasks worked as-is, but a wide variety of small changes were needed (turns out 
+debugging is a pretty good way to learn a language).   
+Many of the initial fixes were handling fallout from the GLR (**Great List Refactor**), 
+where the 'fix' was a single `|`, but the trick was finding out where it was needed...
 
-Daily smoke-testing results have been saved since 2016-09-01, at which point just under 600
-tasks were in the system.
+There were also Niecza-specific solutions, which were retired.
 
-Now substantially complete.  
+Now substantially complete, 99+% of the time tasks "just work",
+aside from necessary under-the-hood upgrades like hash-key randomization.
+
+## Tools
+
+Using a small set of Perl 5 programs I wrote, which are [here](./bin).
+
+Why are these written in Perl 5 not Perl 6?  In my defense, when I first started I didn't
+know Perl 6 that well. Plus, 6 wasn't always working 100%, so the tools might not have been
+reliable.
 
 ## MTYEWTKATLOP6ST
-#### More than you ever want to know about the logistics of Perl 6 smoke testing
+##### (more than you ever wanted to know about the logistics of Perl 6 smoke testing)
+
+### Header
 
 I keep track of the status of each task with custom header inserted right after
 the hash-bang line:  
@@ -93,18 +130,30 @@ command-line input
 ```
 
 When it is not practical to have a self-contained test, capture
-output to a file, and test for differences:
-diff ref/<fn> run/<fn>
+output to a file, and test for differences with
+`diff ref/<fn> run/<fn>`
 ```
 #f# RC file: take-notes.txt
 ```
 
-## Footer/Testing:
+### Footer
 
-`$ref` - Reference output
-`@res` - Results from program
+After downloading, I modify the task to capture program output
 
-Testing varies, but typically:
+`@res` - results from program
+
+`$ref` - reference output
+
+The simplest tests then are just:
 ```
 @res.join("\n"), chomp $ref;
 ```
+
+
+
+### Random
+
+If the task involves `.rand`, `.pick`, `.roll` or any other source randomness, I set
+a fixed seed with `srand 123456`,  otherwise there's no way to get
+consistent output to test.  MoarVM and JVM differ in the random sequence they emit, 
+so separate results must be tested for each.
