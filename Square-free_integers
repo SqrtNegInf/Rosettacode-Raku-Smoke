@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Square-free_integers
-#c# 2018-07-05 <RC
+#c# 2018-07-05 <RC, 2018-07-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -16,6 +16,10 @@ sub prime-factors ( Int $n where * > 0 ) {
 }
  
 sub find-factor ( Int $n, $constant = 1 ) {
+    return 2 unless $n +& 1;
+    if (my $gcd = $n gcd 6541380665835015) > 1 {
+        return $gcd if $gcd != $n
+    }
     my $x      = 2;
     my $rho    = 1;
     my $factor = 1;
@@ -33,7 +37,7 @@ sub find-factor ( Int $n, $constant = 1 ) {
 }
  
 # Task routine
-multi is-square-free (Int $n) { my @v = $n.&prime-factors.Bag.values; not @v.sum/@v > 1 }
+sub is-square-free (Int $n) { my @v = $n.&prime-factors.Bag.values; @v.sum/@v <= 1 }
  
 # The Task
 # Parts 1 & 2
