@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
+use experimental :pack;
+
 use Net::DNS;
  
 my $resolver = Net::DNS.new('8.8.8.8');
