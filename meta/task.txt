@@ -1,15 +1,15 @@
-This is Rakudo version 2018.06-219-gb30800c8e built on MoarVM version 2018.06-230-g0daa14c87
+This is Rakudo version 2018.06-222-g7d9ca4fa0 built on MoarVM version 2018.06-238-gfae91a6eb
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [918/12]
-|+------------> JVM: Good/Bad [842/89]
-||+-----------> SmOke testing [832]
++-------------> Moar: Good/Bad [917/12]
+|+------------> JVM: Good/Bad [843/89]
+||+-----------> SmOke testing [833]
 |||+----------> sKipping validation [95]
 ||||+---------> Interactive [53]
 |||||+--------> Touched (modified by me) [194]
 ||||||+-------> Random seed [106]
-|||||||+------> File output [65]
-||||||||+-----> Draft [221]
+|||||||+------> File output [66]
+||||||||+-----> Draft [222]
 |||||||||+----> Ignoring [64]
 ||||||||||+---> Void (no local copy) [191]
 |||||||||||+--> Un-implemented/reliable [146]
@@ -237,7 +237,7 @@ GGO.....D... Currency
 GGO......... Currying
 GGO......... Cut_a_rectangle
 GGO.....D... Cycle_detection
-GGO......... DNS_query
+!GO......... DNS_query
 GGO.....D... Damm_algorithm
 ........D.VU Data_Encryption_Standard
 GGO..T...... Date_format
@@ -330,7 +330,7 @@ GGO......... Extensible_prime_generator
 GGO.....D... Extract_file_extension
 GGO..T...... Extreme_floating_point_values
 GGO......... FASTA_format
-GBO......... FTP
+!BO......... FTP
 GGO......... Factorial
 GGO..T...... Factors_of_a_Mersenne_number
 GGO......... Factors_of_an_integer
@@ -713,6 +713,7 @@ GGO..T...... Pascal_matrix_generation
 GGO...R..... Password_generator
 GGO......... Pathological_floating_point_problems
 GGO..TR..... Pattern_matching
+GGO....FD... Peano_curve
 GG.KI.R..... Penney%27s_game
 GBO....FD... Penrose_tiling
 GGO..T.F.... Pentagram
