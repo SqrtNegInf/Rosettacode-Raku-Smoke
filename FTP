@@ -6,6 +6,8 @@
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
+use experimental :pack;
+
 # Works with: rakudo version 2018.04
 
 use Net::FTP;
