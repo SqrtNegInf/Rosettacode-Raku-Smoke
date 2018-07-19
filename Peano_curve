@@ -1,0 +1,47 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Peano_curve
+#c# 2018-07-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: peano_curve.svg
+
+# Works with: Rakudo version 2018.06
+
+use SVG;
+
+my $fh = open("run/peano_curve.svg", :w) || die;
+ 
+role Lindenmayer {
+    has %.rules;
+    method succ {
+        self.comb.map( { %!rules{$^c} // $c } ).join but Lindenmayer(%!rules)
+    }
+}
+ 
+my $peano = 'L' but Lindenmayer( { 'L' => 'LFRFL-F-RFLFR+F+LFRFL', 'R' => 'RFLFR+F+LFRFL-F-RFLFR' } );
+ 
+$peano++ xx 4;
+my @points = (10, 10);
+ 
+for $peano.comb {
+    state ($x, $y) = @points[0,1];
+    state $d = 0 + 8i;
+    when 'F' { @points.append: ($x += $d.re).round(1), ($y += $d.im).round(1) }
+    when /< + - >/ { $d *= "{$_}1i" }
+    default { }
+}
+ 
+$fh.say: SVG.serialize(
+    svg => [
+        :660width, :660height, :style<stroke:lime>,
+        :rect[:width<100%>, :height<100%>, :fill<black>],
+        :polyline[ :points(@points.join: ','), :fill<black> ],
+    ],
+);
+
+my $ref = qq:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
