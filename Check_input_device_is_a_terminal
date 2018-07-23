@@ -3,6 +3,7 @@
 #c# 2016-05-15 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# tests as 'ok' when run from batch
 
 # Works with: Rakudo version 2015.12
 say my $result = $*IN.t ?? "Input comes from tty." !! "Input doesn't come from tty.";
@@ -15,4 +16,4 @@ Input doesn't come from tty.
 }
 
 use Test;
-is $result, 'Input comes from tty.';
+is $result, q[Input doesn't comes from tty.];
