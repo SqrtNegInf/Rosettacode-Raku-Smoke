@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Similar_string_groups
+#c# 2018-07-24 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Works with: Rakudo Star version 2018.04.1
+
+sub are-similar ( (Str $a, Str $b) --> Bool ) {
+    my @ne = map { .[0] ~ .[1] if .[0] ne .[1] }, ($a.comb Z $b.comb);
+ 
+    return @ne == 0
+        || @ne == 2 && @ne[0] eq @ne[1].flip;
+}
+ 
+.say for my @res = <tars rats arts star>.combinations(2).grep: &are-similar;
+
+my $ref = qq:to/END/;
+tars rats
+rats arts
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
