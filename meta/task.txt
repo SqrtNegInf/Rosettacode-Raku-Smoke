@@ -1,17 +1,17 @@
-This is Rakudo version 2018.06-245-g9d1e624ae built on MoarVM version 2018.06-310-gba906c429
+This is Rakudo version 2018.06-247-ga71e370bb built on MoarVM version 2018.06-314-g4199a9564
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [921/12]
-|+------------> JVM: Good/Bad [846/89]
-||+-----------> SmOke testing [836]
++-------------> Moar: Good/Bad [921/14]
+|+------------> JVM: Good/Bad [847/90]
+||+-----------> SmOke testing [837]
 |||+----------> sKipping validation [95]
 ||||+---------> Interactive [52]
 |||||+--------> Touched (modified by me) [194]
 ||||||+-------> Random seed [107]
 |||||||+------> File output [67]
-||||||||+-----> Draft [224]
+||||||||+-----> Draft [225]
 |||||||||+----> Ignoring [64]
-||||||||||+---> Void (no local copy) [192]
+||||||||||+---> Void (no local copy) [191]
 |||||||||||+--> Un-implemented/reliable [148]
 ||||||||||||
 GGO......... 100_doors
@@ -164,7 +164,7 @@ GGO......... Character_codes
 GG.KI....... Chat_server
 GGO.....D... Chebyshev_coefficients
 GGO..T...... Check_Machin-like_formulas
-!GO.....D... Check_input_device_is_a_terminal
+GGO.....D... Check_input_device_is_a_terminal
 GG.KI...D... Check_output_device_is_a_terminal
 GGO..T...... Check_that_file_exists
 ..........VU Checkpoint_synchronization
@@ -206,7 +206,7 @@ GGO......... Compiler_lexical_analyzer
 ..........VU Compiler_syntax_analyzer
 ..........VU Compiler_virtual_machine_interpreter
 GGO......... Compound_data_type
-.........XV. Concurrent_computing
+BB.......X.. Concurrent_computing
 GG.K........ Conditional_structures
 GGO....F.... Conjugate_transpose
 GGO......... Constrained_genericity
@@ -330,7 +330,7 @@ GGO......... Extensible_prime_generator
 GGO.....D... Extract_file_extension
 GGO..T...... Extreme_floating_point_values
 GGO......... FASTA_format
-GBO......... FTP
+BBO......... FTP
 GGO......... Factorial
 GGO..T...... Factors_of_a_Mersenne_number
 GGO......... Factors_of_an_integer
@@ -795,7 +795,7 @@ GGO...R..... Random_numbers
 GGO......... Range_expansion
 GGO......... Range_extraction
 GGO......... Ranking_methods
-GGO......... Rate_counter
+!GO......... Rate_counter
 GGO......... Ray-casting_algorithm
 GGO..T...... Read_a_configuration_file
 GGO.....D... Read_a_file_character_by_character_UTF8
@@ -897,7 +897,7 @@ GGO....F.... Sierpinski_pentagon
 GGO......... Sierpinski_triangle
 GGO....F.... Sierpinski_triangle_Graphical
 GGO..T...... Sieve_of_Eratosthenes
-........D.VU Similar_string_groups
+GGO.....D... Similar_string_groups
 GB.K........ Simple_database
 .........XV. Simple_windowed_application
 ..........VU Simulate_input_Keyboard
@@ -1006,6 +1006,7 @@ GGO......... Sum_multiples_of_3_and_5
 GGO..T...... Sum_of_a_series
 GGO......... Sum_of_squares
 GGO......... Sum_to_100
+........D.VU Sunflower_fractal
 GGO..T.F.... Superellipse
 ........D.VU Superpermutation_minimisation
 ..........VU Sutherland-Hodgman_polygon_clipping
