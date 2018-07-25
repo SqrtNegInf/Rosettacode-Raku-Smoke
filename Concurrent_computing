@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Concurrent_computing
+#c# 2018-07-24 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# remove 'pugs' reference, re-write
+
+# Hyper-operators are unordered:
+
+my @words = <Enjoy Rosetta Code>;
+@words».say;
+
+my $ref = qq:to/END/;
+Rosetta
+Code
+Enjoy
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
