@@ -1,0 +1,35 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sunflower_fractal
+#c# 2018-07-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: sunflower.svg
+
+# Works with: Rakudo version 2018.06
+
+# This is not really a fractal. It is more accurately an example of a Fibonacci spiral or Phi-packing.
+
+use SVG;
+
+my $fh = open("run/sunflower.svg", :w) || die;
+ 
+my $seeds  = 3000;
+my @center = 300, 300;
+my $scale  = 5;
+ 
+constant \φ = (1 + 5.sqrt) / 2;
+ 
+my @c = map {
+    my ($x, $y) = ($scale * .sqrt) «*« |cis($_ * φ * π).reals »+« @center;
+    [ $x.round(.01), $y.round(.01), (.sqrt * $scale / 100).round(.1) ]
+}, 1 .. $seeds;
+ 
+$fh.say: SVG.serialize(
+    svg => [
+        :600width, :600height, :style<stroke:gold>,
+        :rect[:width<100%>, :height<100%>, :fill<black>],
+        |@c.map( { :circle[ :cx($_[0]), :cy($_[1]), :r($_[2]) ] } ),
+    ],
+);
+
+# See: Phi packing (SVG image)
