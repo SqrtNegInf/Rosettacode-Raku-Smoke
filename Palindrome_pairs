@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Palindrome_pairs
+#c# 2018-07-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my @words = <abcd dcba lls s sssll Nod don't>; #'
+ 
+sub is-palindrome (Str $s) { $_ eq .flip given $s.lc.comb(/\w/).join }
+ 
+for @words.combinations(2)  { 
+    @res.push: "({.join: ','})" if .join.&is-palindrome;
+    @res.push: "({.reverse.join: ','})" if .reverse.join.&is-palindrome;
+}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+(abcd,dcba)
+(dcba,abcd)
+(s,lls)
+(lls,sssll)
+(don't,Nod)
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
