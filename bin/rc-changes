@@ -9,7 +9,8 @@ $new = 'N';
 
 while (<RC>) {
     ($date) = m#<h4>(\d+ \S+) 20\d\d</h4># if m/<h4>/;
-    next unless /Perl_6|SqrtNegInf/;
+    next unless /Perl|SqrtNegInf/;
+    #next unless /Perl_6|SqrtNegInf/;
 
     ($user)  = m#Special:Contributions/(.*?)"#;
     next if $user =~ /Robbie|CraigD/i; # users known to be adding non-Perl6 code...
