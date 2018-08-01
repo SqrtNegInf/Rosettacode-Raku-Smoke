@@ -1,10 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Array_concatenation
-#c# 2015-12-14 <RC
+#c# 2015-12-14 <RC, 2018-07-31 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
 # Works with: rakudo version 2015-10-01
+
+# 2018-07-31 the prefix:<|> operator (called "slip") flattens Arrays
+# my @array3 = |@array1, |@array2;
 
 # the prefix:<|> operator (called "slip") can be used to interpolate arrays into a list:
 sub cat-arrays(@a, @b) { 
@@ -20,6 +23,7 @@ cat-arrays(@a1,@a2).join(", ").say;
 
 use Test;
 is cat-arrays(@a1,@a2).join(", "), '1, 2, 3, 2, 3, 4';
+is (|@a1, | @a2), '1 2 3 2 3 4';
 
 # another way, that modifies @a1
 push @a1, |@a2; say @a1;
