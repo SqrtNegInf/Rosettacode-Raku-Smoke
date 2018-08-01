@@ -1,9 +1,8 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/FTP
 #c# 2016-06-01 <RC, 2018-04-25 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#n# ftp site is down, need a new one?
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -13,14 +12,15 @@ use experimental :pack;
 
 use Net::FTP;
  
-my $ftp = Net::FTP.new(:host('mirrors.sohu.com'), :passive);
+#my $ftp = Net::FTP.new(:host('mirrors.sohu.com'), :passive); # gone?
+my $ftp = Net::FTP.new(:host('ftp.netbsd.org'), :passive);
  
 $ftp.login();
  
 my @res.push: $_<name> for $ftp.ls();
 .say for @res;
- 
+
 #$ftp.get( 'index.html', :binary );
 
 use Test;
-ok set('FreeBSD', 'OpenBSD', 'debian', 'centos') ⊆ @res.SetHash;
+ok set('NetBSD-archive') ⊆ @res.SetHash;
