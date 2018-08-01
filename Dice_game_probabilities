@@ -3,6 +3,7 @@
 #c# 2018-03-20 <RC, 2018-03-23 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2018-07-31 significant digits default changed?
 
 sub likelihoods ($roll) {
     my ($dice, $faces) = $roll.comb(/\d+/);
@@ -28,6 +29,11 @@ my @res;
 .say for @res;
 
 my $ref = qq:to/END/;
+0.573144077	<48679795/84934656>
+0.64278862872	<3781171969/5882450000>
+END
+
+my $refx = qq:to/END/;
 0.57314407678	<48679795/84934656>
 0.642788628718	<3781171969/5882450000>
 END
