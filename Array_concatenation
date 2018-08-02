@@ -1,20 +1,24 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Array_concatenation
-#c# 2015-12-14 <RC, 2018-07-31 <RC
+#c# 2015-12-14 <RC, 2018-07-31 <RC, 2018-08-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 # Works with: Rakudo version 2018.06
 my @array1 = 1, 2, 3;
 my @array2 = 4, 5, 6;
- 
-# If you want to concatenate two arrays to form a third,
-# use the slip operator "|", to flatten each array.
+
+# If you want to concatenate two array to form a third,
+# either use the slip operator "|", to flatten each array.
  
 my @res = my @array3 = |@array1, |@array2;
  
+# or just flatten both arrays in one fell swoop
+ 
+@res.push: @array3 = flat @array1, @array2;
+ 
 # On the other hand, if you just want to add the elements
-# of a one array to another, use the .append method.
+# of the second array to the first, use the .append method.
  
 @res.push: @array1.append: @array2;
 
@@ -27,6 +31,7 @@ my $ref = qq:to/END/;
 4
 5
 6
+1 2 3 4 5 6
 1 2 3 4 5 6
 END
 
