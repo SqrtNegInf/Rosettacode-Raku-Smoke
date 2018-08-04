@@ -2,8 +2,9 @@
 #u# http://rosettacode.org/wiki/Sorting_algorithms/Sleep_sort
 #c# 2016-05-06 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j#  JVM: BROKEN
 #n# flaps when .roll used
+#n# 2018-08-03 JVM stopped working?
 
 my @res;
 await map -> $delay { start { sleep 0.5+$delay ; @res.push: $delay } },
