@@ -25,10 +25,16 @@ my @res = (@attr-names Z=> @attr).gist;
 
 .say for @res;
 
-my $ref = qq:to/END/;
+my $moar = qq:to/END/;
 (Str => 15 Int => 18 Wis => 16 Dex => 8 Con => 14 Cha => 13)
 Sum: 84, with 3 attributes >= 15
 END
 
+my $jvm = qq:to/END/;
+(Str => 16 Int => 13 Wis => 10 Dex => 8 Con => 15 Cha => 14)
+Sum: 76, with 2 attributes >= 15
+END
+
 use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
