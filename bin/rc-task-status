@@ -43,7 +43,7 @@ while ($_ = <DATA>) { chomp; mark($_,'X') }
 my @cols = (
 "Moar: Good/Bad [${\tally('M','G')}/${\tally('M','B')}]",       # M
 "JVM: Good/Bad [${\tally('J','G')}/${\tally('J','B')}]",        # J
-"SmOke testing [${\tally('O')}]",                               # O
+"smOke testing [${\tally('O')}]",                               # O
 "sKipping validation [${\tally('K')}]",                         # K
 "Interactive [${\tally('I')}]",                                 # I
 "Touched (modified by me) [${\tally('T')}]",                    # T
