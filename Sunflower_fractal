@@ -20,7 +20,7 @@ my $scale  = 5;
 constant \φ = (1 + 5.sqrt) / 2;
  
 my @c = map {
-    my ($x, $y) = ($scale * .sqrt) «*« |cis($_ * φ * π).reals »+« @center;
+    my ($x, $y) = ($scale * .sqrt) «*« |cis($_ * φ * τ).reals »+« @center;
     [ $x.round(.01), $y.round(.01), (.sqrt * $scale / 100).round(.1) ]
 }, 1 .. $seeds;
  
