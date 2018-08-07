@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Recaman%27s_sequence
-#c# 2018-08-05 <RC
+#c# 2018-08-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -25,7 +25,7 @@ my int $i = 0;
 loop {
     next if (my int $this = @recamans[$i++]) > 1000 or @seen[$this];
     @seen[$this] = 1;
-    @res.push: "Range 0..1000 covered by terms up to a[{$i - 1}]" and last if sum(@seen) == 1001;
+    @res.push: "Range 0..1000 covered by terms up to a[{$i - 1}]" and last if ++$ == 1001;
 }
 
 .say for @res;
