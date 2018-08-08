@@ -20,7 +20,7 @@ my @res.push: "First fifteen terms of Recaman's sequence: "~ @recamans[^15];
  
 @res.push: "First duplicate at term: a[{ @recamans.first({@recamans[^$_].Bag.values.max == 2})-1 }]";
  
-my int @seen = 0 xx 1001;
+my @seen;
 my int $i = 0;
 loop {
     next if (my int $this = @recamans[$i++]) > 1000 or @seen[$this];
