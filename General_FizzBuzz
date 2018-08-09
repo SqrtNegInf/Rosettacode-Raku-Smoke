@@ -16,7 +16,6 @@ class FizzBuzz {
     }
 }
  
- 
 # Sub implementing the specific requirements of the task.
 sub GeneralFizzBuzz (Int $upto, @schema?) {
     my $ping = FizzBuzz.new;
@@ -28,10 +27,13 @@ my @res;
 
 # The task
 @res.push: 'Using: 20 ' ~ <3 Fizz 5 Buzz 7 Baxx>;
-@res.push: $_ for GeneralFizzBuzz(20, <3 Fizz 5 Buzz 7 Baxx>);
- 
+@res.push: join ' ', GeneralFizzBuzz(20, <3 Fizz 5 Buzz 7 Baxx>);
 @res.push: '';
  
+@res.push: 'Same result via alternate algorithm:';
+@res.push: genfizzbuzz1(20, <3 Fizz 5 Buzz 7 Baxx>);
+@res.push: '';
+
 # And for fun
 @res.push: 'Using: 21 ' ~ <2 Pip 4 Squack 5 Pocketa 7 Queep>;
 @res.push: join ', ', GeneralFizzBuzz(21, <2 Pip 4 Squack 5 Pocketa 7 Queep>);
@@ -46,31 +48,15 @@ sub genfizzbuzz1($n, +@fb) {
         }
     ) Z|| 1..$n
 }
- 
-#.say for genfizzbuzz1(20, <3 Fizz 5 Buzz 7 Baxx>);
+
+.say for @res;
 
 my $ref = qq:to/END/;
 Using: 20 3 Fizz 5 Buzz 7 Baxx
-1
-2
-Fizz
-4
-Buzz
-Fizz
-Baxx
-8
-Fizz
-Buzz
-11
-Fizz
-13
-Baxx
-FizzBuzz
-16
-17
-Fizz
-19
-Buzz
+1 2 Fizz 4 Buzz Fizz Baxx 8 Fizz Buzz 11 Fizz 13 Baxx FizzBuzz 16 17 Fizz 19 Buzz
+
+Same result via alternate algorithm:
+1 2 Fizz 4 Buzz Fizz Baxx 8 Fizz Buzz 11 Fizz 13 Baxx FizzBuzz 16 17 Fizz 19 Buzz
 
 Using: 21 2 Pip 4 Squack 5 Pocketa 7 Queep
 1, Pip, 3, PipSquack, Pocketa, Pip, Queep, PipSquack, 9, PipPocketa, 11, PipSquack, 13, PipQueep, Pocketa, PipSquack, 17, Pip, 19, PipSquackPocketa, Queep
