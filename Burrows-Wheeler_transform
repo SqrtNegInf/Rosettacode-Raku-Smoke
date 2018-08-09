@@ -1,30 +1,28 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Burrows–Wheeler_transform
-#c# 2018-08-07 <RC
+#c# 2018-08-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
 my @res;
 
-# STX and ETX can be any characters that don't appear
-# in the text as long as STX sorts before ETX.
+# STX can be any character that doesn't appear in the text.
+# Using a visible character here for ease of viewing. 
  
 constant \STX = '👍';
-constant \ETX = '👎';
- 
+
 # Burrows-Wheeler transform
 sub transform (Str $s is copy) {
-    die "String can't contain STX or ETX characters." if $s.contains: STX|ETX;
-    $s = STX ~ $s ~ ETX;
-    my $l = $s.chars;
-    (^$l).map({ $s.comb.list.rotate: $_ }).sort[*;*-1].join
+    note "String can't contain STX character." and exit if $s.contains: STX;
+    $s = STX ~ $s;
+    (^$s.chars).map({ $s.comb.list.rotate: $_ }).sort[*;*-1].join
 }
  
 # Burrows-Wheeler inverse transform
 sub ɯɹoɟsuɐɹʇ (Str $s) {
-    my @t = '' xx my $l = $s.chars;
-    @t = ($s.comb Z~ @t).sort for ^$l;
-    @t.first( *.starts-with: STX ).substr(1, $l - 2)
+    my @t = $s.comb.sort;
+    @t = ($s.comb Z~ @t).sort for 1..^$s.chars;
+    @t.first( *.ends-with: STX ).chop
 }
  
 # TESTING
@@ -41,19 +39,19 @@ for |<BANANA dogwood SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES>,
 
 my $ref = qq:to/END/;
 Original:            BANANA
-Transformed:         BNN👍AA👎A
+Transformed:         BNN👍AAA
 Inverse transformed: BANANA
 
 Original:            dogwood
-Transformed:         👍ooodwg👎d
+Transformed:         👍ooodwgd
 Inverse transformed: dogwood
 
 Original:            SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES
-Transformed:         TEXYDST.E.IXIXIXXSSMPPS.B..E.👍.UESFXDIIOIIIT👎S
+Transformed:         TEXYDST.E.IXIXIXXSSMPPS.B..E.👍.UESFXDIIOIIITS
 Inverse transformed: SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES
 
 Original:            TO BE OR NOT TO BE OR WANT TO BE OR NOT?
-Transformed:         OOORREEETTRTW   BBB  ATTT   NNOOONOO👍   👎?
+Transformed:         OOORREEETTRTW   BBB  ATTT   NNOOONOO👍   ?
 Inverse transformed: TO BE OR NOT TO BE OR WANT TO BE OR NOT?
 
 END
