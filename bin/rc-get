@@ -47,7 +47,11 @@ print F <<EOP;
 #j# JVM:  BROKEN OK
 #  {{Works with|rakudo|$ym}} or {{broken|Perl 6}}  
 
+my \@res;
+
 $perl6
+
+.say for \@res;
 
 my \$ref = qq:to/END/;
 END
