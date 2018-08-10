@@ -1,16 +1,15 @@
 #!/usr/local/bin/perl
 ## recent Perl 6 updates on RosettaCode
-#c# 2016-02-07 2016-02-08 2016-02-09 2016-03-15 2018-01-30 2018-04-27 2018-04-30 2018-05-01 2018-05-31
+#c# 2016-02-07 2016-02-08 2016-02-09 2016-03-15 2018-01-30 2018-04-27 2018-04-30 2018-05-01 2018-05-31 2018-08-09
 
-open RC, qq{/opt/local/bin/curl -s 'http://rosettacode.org/mw/index.php?title=Special:RecentChanges&limit=500&namespace=0' |};
+open RC, qq{/opt/local/bin/curl --netrc -s 'http://rosettacode.org/mw/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' |};
 
 $cnt = 0;
 $new = 'N';
 
 while (<RC>) {
-    ($date) = m#<h4>(\d+ \S+) 20\d\d</h4># if m/<h4>/;
-    next unless /Perl|SqrtNegInf/;
-    #next unless /Perl_6|SqrtNegInf/;
+    next unless /Perl/i;
+    #next unless /Perl|SqrtNegInf/i; # now must authenticate, so my login is on every line...
 
     ($user)  = m#Special:Contributions/(.*?)"#;
     next if $user =~ /Robbie|CraigD/i; # users known to be adding non-Perl6 code...
@@ -22,6 +21,7 @@ while (<RC>) {
     }
     $title =~ s/_/ /g;
 
+    ($date) = m#<h4>(\d+ \S+) 20\d\d</h4># if m/<h4>/;
     ($time) = m/[;>](\d\d:\d\d)[&<]/;
 
     $line = sprintf "%5s %-15s %-15s %s\n", $time, $date, $user, $title; # the slug
