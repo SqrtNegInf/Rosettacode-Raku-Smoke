@@ -1,0 +1,61 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Vibrating_rectangles
+#t# interactive
+#c# 2018-08-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Works with: Rakudo version 2018.06
+# Ok. The task description is essentially non-existent. In looking at the reference implementation (Ring) it seems like we are supposed to draw a series of concentric rectangles and then alter the colors step-wise. No actual vibration apparent.
+# Could fire up a GUI but WTH, let's try it at a command line with ANSI.
+# Draws a series of concentric rectangles then rotates through the color palette. Every three seconds, chooses new random palette colors and reverses rotation direction.
+
+# box drawing characters
+my %r = :tl<┌>, :h<─>, :tr<┐>, :v<│>, :bl<└>, :br<┘>;
+ 
+my %colors = rd => "\e[1;31m", gn => "\e[1;32m", yw => "\e[1;33m",
+             bu => "\e[1;34m", mg => "\e[1;35m", cy => "\e[1;36m";
+ 
+# color palette
+my @c = flat %colors<rd> xx 12, %colors<bu> xx 12, %colors<yw> xx 12;
+ 
+my @vibe;
+ 
+rect($_, 30-$_) for 0..13;
+ 
+print "\e[?25l"; # hide the cursor
+ 
+signal(SIGINT).tap: {
+    print "\e[0H\e[0J\e[?25h"; # clean up on exit
+    exit;
+}
+ 
+my $rot = 1;
+ 
+loop {
+    display @vibe;
+    @c.=rotate($rot);
+    if ++$ %% 30 {
+        @c = |%colors.values.roll(3);
+        @c = sort(flat @c xx 12);
+        $rot *= -1;
+    }
+    rect($_, 30-$_) for 0..13;
+    sleep .1;
+}
+ 
+sub rect ($b, $e) {
+    @vibe[$b;$b..$e] = @c[$b % @c]~%r<tl>, |((%r<h>) xx ($e - $b - 1)), %r<tr>~"\e[0m";
+    @vibe[$e;$b..$e] = @c[$b % @c]~%r<bl>, |((%r<h>) xx ($e - $b - 1)), %r<br>~"\e[0m";
+    ($b ^..^ $e).map: { @vibe[$_;$b] = @vibe[$_;$e] = @c[$b % @c]~%r<v>~"\e[0m" }
+}
+ 
+sub display (@rect) {
+    print "\e[0H\e[0J\n\n";
+    for @rect -> @row {
+        print "\t\t\t";
+        print $_ // ' ' for @row;
+        print "\n";
+    }
+}
+#See: Vibrating rectangles (.gif image)
