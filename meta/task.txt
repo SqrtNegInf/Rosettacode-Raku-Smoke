@@ -1,17 +1,17 @@
-This is Rakudo version 2018.06-407-g3301ddb1c built on MoarVM version 2018.06-399-g4fc267b60
+This is Rakudo version 2018.06-427-g229fa2c1f built on MoarVM version 2018.06-417-g1e4b2c84d
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [930/13]
-|+------------> JVM: Good/Bad [852/92]
++-------------> Moar: Good/Bad [932/13]
+|+------------> JVM: Good/Bad [853/92]
 ||+-----------> smOke testing [843]
-|||+----------> sKipping validation [96]
-||||+---------> Interactive [52]
+|||+----------> sKipping validation [97]
+||||+---------> Interactive [53]
 |||||+--------> Touched (modified by me) [194]
 ||||||+-------> Random seed [107]
 |||||||+------> File output [69]
 ||||||||+-----> Draft [230]
 |||||||||+----> Ignoring [63]
-||||||||||+---> Void (no local copy) [191]
+||||||||||+---> Void (no local copy) [190]
 |||||||||||+--> Un-implemented/reliable [147]
 ||||||||||||
 GGO......... 100_doors
@@ -799,7 +799,7 @@ GGO...R..... Random_numbers
 GGO......... Range_expansion
 GGO......... Range_extraction
 GGO......... Ranking_methods
-!GO......... Rate_counter
+GGO......... Rate_counter
 GGO......... Ray-casting_algorithm
 GGO..T...... Read_a_configuration_file
 GGO.....D... Read_a_file_character_by_character_UTF8
@@ -911,7 +911,7 @@ GB.K........ Simple_database
 GBO....FD... Sine_wave
 GGO......... Singleton
 .........XV. Singly-linked_list_Element_definition
-.........XV. Singly-linked_list_Element_insertion
+.........XVU Singly-linked_list_Element_insertion
 ........D.VU Singly-linked_list_Element_removal
 GGO......... Singly-linked_list_Traversal
 GG.KI....... Sleep
@@ -1113,7 +1113,7 @@ GGO.....D... Vector
 GGO..T...... Vector_products
 GGO......... Verify_distribution_uniformity_Chi-squared_test
 GGO...R..... Verify_distribution_uniformity_Naive
-........D.VU Vibrating_rectangles
+GG.KI...D... Vibrating_rectangles
 .........XV. Video_display_modes
 GGO..T...... Vigen%C3%A8re_cipher
 ..........VU Vigen%C3%A8re_cipher_Cryptanalysis
