@@ -1,0 +1,17 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Hello_world/Line_printer
+#t# skiptest
+#c# 2018-08-12 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my $lp = open '/dev/lp0', :w;
+$lp.say: 'Hello World!';
+$lp.close;
+
+#Or using given to avoid having to write the variable name repeatedly:
+
+given open '/dev/lp0', :w {
+    .say: 'Hello World!';
+    .close;
+}
