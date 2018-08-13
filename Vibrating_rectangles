@@ -21,7 +21,7 @@ my @c = flat %colors<rd> xx 12, %colors<bu> xx 12, %colors<yw> xx 12;
  
 my @vibe;
  
-rect($_, 30-$_) for 0..13;
+rect($_, 31-$_) for 0..15;
  
 print "\e[?25l"; # hide the cursor
  
@@ -40,7 +40,7 @@ loop {
         @c = sort(flat @c xx 12);
         $rot *= -1;
     }
-    rect($_, 30-$_) for 0..13;
+    rect($_, 31-$_) for 0..15;
     sleep .1;
 }
  
