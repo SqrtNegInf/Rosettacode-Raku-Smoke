@@ -4,6 +4,7 @@
 #t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
+#n# forget why "no 'cache'" is there...
 
 # 'slower' method for 1 million
 #    20161123:  488.091u 3.883s 9:32.62 85.9% 
@@ -11,15 +12,18 @@
 #    20170123: 1575.136u 9.628s 24:57.94 105.7 [for JVM]
 #    20170501:  249.983u 1.430s 4:20.06 96.6% ( no 'cache')
 #    20171027:  214.505u 1.022s 3:35.54 99.9% ( no 'cache')
+#    20180814:  193.769u 1.137s 3:14.83 100.0%
 #    _NEXT_
 
 # 'faster' method, compare with *-nqp
 #    20170613:  769.361u 2.068s 12:54.36 99.6% 
+#    20180814:  409.173u 0.882s  6:50.60 99.8%
 
 # both runs combined
 #    20161123: 1186.824u 4.596s 19:55.32 99.6%
 #    20170123:  854.808u 2.839s 14:23.53 99.3%
 #    20170501:  824.575u 1.494s 13:47.88 99.7% ( no 'cache')
+#    20180814:  590.162u 1.695s  9:52.00 99.9%
 
 #This fairly abstract version does caching and filtering to reduce the number of values it needs to check and moves calculations out of the hot loop, but is still interminably slow... even for just up to 1,000,000.
 
