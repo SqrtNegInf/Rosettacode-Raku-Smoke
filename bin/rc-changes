@@ -6,6 +6,7 @@ open RC, qq{/opt/local/bin/curl --netrc -s 'http://rosettacode.org/mw/index.php?
 
 $cnt = 0;
 $new = 'N';
+$not_these_users =~ qr/Robbie|CraigD|Chunes|Gerard/i;  # skip users known to be adding non-Perl X code...
 
 while (<RC>) {
     ($day,$mon) = m#<h4>(\d+) (\S+) 20\d\d</h4># if m/<h4>/; $day =~ s/^(\d)$/0$1/;
@@ -13,7 +14,7 @@ while (<RC>) {
     $DB::single = 1 if /Hail/;
     next unless /Perl|SqrtNegInf/i;                # catches Perl 5/6, and any of mine
     ($user)  = m#:Contributions/(.*?)"#;
-    next if $user =~ /Robbie|CraigD/i;  # skip users known to be adding non-Perl X code...
+    next if $user =~ $not_these_users;  # skip users known to be adding non-Perl X code...
 
     ($title) = /mw-changeslist-title/ ? /mw-changeslist-title">(.*?)</ : /index.php.title=(.*?)&/;
     ($time) = m/[;>](\d\d:\d\d)[&<]/;
