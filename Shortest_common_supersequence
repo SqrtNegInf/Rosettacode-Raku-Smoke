@@ -1,0 +1,45 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Longest_common_subsequence
+#c# 2015-11-30 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# borrowed code from 'Longest_common_subsequence' task
+
+my @res;
+
+sub lcs(Str $xstr, Str $ystr) { # longest common subsequence
+    return "" unless $xstr && $ystr;
+    my ($x, $xs, $y, $ys) = $xstr.substr(0, 1), $xstr.substr(1), $ystr.substr(0, 1), $ystr.substr(1);
+    return $x eq $y
+        ?? $x ~ lcs($xs, $ys)
+        !! max(:by{ $^a.chars }, lcs($xstr, $ys), lcs($xs, $ystr) );
+}
+
+sub scs ($u, $v) { # shortest common supersequence
+    my @lcs = (lcs $u, $v).comb;
+    my $pat = '(.*)' ~ join('(.*)',@lcs) ~ '(.*)';
+    my $regex = "rx/$pat/".EVAL;
+    #my $rx = EVAL '/(.*)' ~ join('(.*)',@lcs) ~ '(.*)/'; # DH works, but requires 'MONKEY' pragma
+    my @u = ($u ~~ $regex).list;
+    my @v = ($v ~~ $regex).list;
+    my $scs = shift(@u) ~ shift(@v);
+    $scs ~= $_ ~ shift(@u) ~ shift(@v) for @lcs;
+    return $scs;
+}
+
+my $u = 'abcbdab';
+my $v = 'bdcaba';
+@res.push: sprintf "Strings: %s %s", $u, $v;
+@res.push: sprintf "Longest common subsequence:   %s", lcs $u, $v;
+@res.push: sprintf "Shortest common supersquence: %s", scs $u, $v;
+
+.say for @res;
+
+my $ref = q:to/EOD/;
+Strings: abcbdab bdcaba
+Longest common subsequence:   bcba
+Shortest common supersquence: abdcabdab
+EOD
+ 
+use Test;
+is @res.join("\n"), chomp $ref;
