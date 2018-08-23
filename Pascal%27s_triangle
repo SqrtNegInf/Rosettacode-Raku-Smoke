@@ -3,6 +3,7 @@
 #c# 2018-08-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# re-write 'pascal4' to get results returned, not printed on-the-fly
 
 # Works with: rakudo version 2015-10-03
 #using a lazy sequence generator[edit]
@@ -35,25 +36,15 @@ my @res3 = pascal3 10;
 #iterative[edit]
 #Translation of: Perl
 sub pascal4 ($n where $n >= 1) {
-   my @out = my @last = [1];
+   my @out.push: [ my @last = 1 ];
    for 1 .. $n - 1 -> $row {
-       #@out.push: @last = 1, |map({ @last[$_] + @last[$_ + 1] }, 0 .. $row - 2), 1;
-       @last = 1, |map({ @last[$_] + @last[$_ + 1] }, 0 .. $row - 2), 1;
-       @out[$row] = @last;
-dd @last;
-say '--';
-.say for @out; 
-say '--';
-#sleep 1;
+       @out.push: [@last = 1, |map({ @last[$_] + @last[$_ + 1] }, 0 .. $row - 2), 1];
    }
-   return @out;
+   @out;
 }
  
-my @res4 = pascal4 4;
+my @res4 = pascal4 10;
 #Non-positive inputs throw a type check error.
-
-#.say for @res4;
-exit;
 
 my $ref = q:to/END/;
 1
