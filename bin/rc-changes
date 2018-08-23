@@ -13,7 +13,6 @@ $not_these_users = 'Robbie|CraigD|Chunes|Gerard|Cwt1078';
 while (<RC>) {
     ($day,$mon) = m#<h4>(\d+) (\S+) 20\d\d</h4># if m/<h4>/; $day =~ s/^(\d)$/0$1/;
 
-    #$DB::single = 1 if /Cwt1078/;
     next unless m#Perl|:Contributions/SqrtNegInf#i;       # catches Perl 5/6, and any of mine
     ($user)  = m#:Contributions/(.*?)"#;
     next if $user =~ /$not_these_users/i;
