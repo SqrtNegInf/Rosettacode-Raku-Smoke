@@ -3,6 +3,7 @@
 #c# 2018-08-18 <RC
 #m# MOAR: BROKEN
 #j# JVM:  BROKEN
+#n# 'bit' not defined
 
 my @res;
 
@@ -21,13 +22,12 @@ enum T_RS232 <
     ring_indicator
 >;
  
-my bit @signal[T_RS232];
- 
-@signal[signal_ground] = 1;
+#my bit @signal[T_RS232];
+#@signal[signal_ground] = 1;
 
 #In the absence of shaped arrays, you can do the usual bit-twiddling tricks on a native integer of sufficient size. (Such an integer could presumably be mapped directly to a device register.)
 
-$signal +|= 1 +< signal_ground;
+#$signal +|= 1 +< signal_ground;
 
 #Using a native int is likelier to work on a big-endian machine in any case. Another almost-there solution is the mapping of C representational types into Perl 6 for native interfaces, but it does not yet support bit fields.
 
