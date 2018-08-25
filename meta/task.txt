@@ -1,7 +1,7 @@
-This is Rakudo version 2018.06-480-gea387a12a built on MoarVM version 2018.06-434-ge530be4d3
+This is Rakudo version 2018.06-481-g5d1cec5a4 built on MoarVM version 2018.06-434-ge530be4d3
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [935/12]
++-------------> Moar: Good/Bad [935/13]
 |+------------> JVM: Good/Bad [857/92]
 ||+-----------> smOke testing [845]
 |||+----------> sKipping validation [98]
@@ -9,7 +9,7 @@ updating from RC…
 |||||+--------> Touched (modified by me) [195]
 ||||||+-------> Random seed [107]
 |||||||+------> File output [69]
-||||||||+-----> Draft [228]
+||||||||+-----> Draft [227]
 |||||||||+----> Ignoring [60]
 ||||||||||+---> Void (no local copy) [188]
 |||||||||||+--> Un-implemented/reliable [149]
@@ -177,7 +177,7 @@ GGO..T...... Check_that_file_exists
 GGO......... Chinese_remainder_theorem
 GGO......... Chinese_zodiac
 GGO......... Cholesky_decomposition
-........D.VU Church_Numerals
+..........VU Church_Numerals
 GGO.....D... Cipolla%27s_algorithm
 GGO......... Circles_of_given_radius_through_two_points
 GGO......... Classes
@@ -611,7 +611,7 @@ GGO...R..... Maze_generation
 GGO...R..... Maze_solving
 ..........VU Median_filter
 GGO......... Memory_allocation
-!B.......... Memory_layout_of_a_data_structure
+BB.......... Memory_layout_of_a_data_structure
 GG.KI....... Menu
 GBO.....D... Mersenne_primes
 GGO......... Metaprogramming
@@ -801,7 +801,7 @@ GGO...R..... Random_numbers
 GGO......... Range_expansion
 GGO......... Range_extraction
 GGO......... Ranking_methods
-GGO......... Rate_counter
+!GO......... Rate_counter
 GGO......... Ray-casting_algorithm
 GGO..T...... Read_a_configuration_file
 GGO.....D... Read_a_file_character_by_character_UTF8
@@ -880,7 +880,7 @@ GGO......... Secure_temporary_file
 GGO......... Self-describing_numbers
 ........DXV. Self-hosting_compiler
 GGO..T...... Self-referential_sequence
-!GO..TR..... Semiprime-1
+GGO..TR..... Semiprime-1
 GGO......... Semiprime-2
 GGO..T...... Semordnilap
 GGO......... Send_an_unknown_method_call
