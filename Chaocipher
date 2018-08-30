@@ -1,17 +1,20 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Chaocipher
-#c# 2018-04-26 <RC
+#c# 2018-04-26 <RC, 2018-08-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 # Works with: Rakudo version 2018.03
 
-my $left   = <HXUCZVAMDSLKPEFJRIGTWOBNYQ>;
-my $right  = <PTLNBQDEOYSFAVZKGJRIHWXUMC>;
+my @left;
+my @right;
+
+sub reset {
+    @left  = <HXUCZVAMDSLKPEFJRIGTWOBNYQ>.comb;
+    @right = <PTLNBQDEOYSFAVZKGJRIHWXUMC>.comb;
+}
  
 sub encode ($letter) {
-    state @left  = $left.comb;
-    state @right = $right.comb;
     my $index = (@right.grep: $letter.uc, :k)[0];
     my $enc   = @left[$index];
     left-permute(@left, $index);
@@ -20,8 +23,6 @@ sub encode ($letter) {
 }
  
 sub decode ($letter) {
-    state @left  = $left.comb;
-    state @right = $right.comb;
     my $index = (@left.grep: $letter.uc, :k)[0];
     my $dec   = @right[$index];
     left-permute(@left, $index);
@@ -40,8 +41,8 @@ sub left-permute (@left, $index) {
 }
  
 my @res;
-@res.push: 'WELLDONEISBETTERTHANWELLSAID'.comb».&encode.join;
-@res.push: 'OAHQHCNYNXTSZJRRHJBYHQKSOUJY'.comb».&decode.join;
+reset; @res.push: 'WELLDONEISBETTERTHANWELLSAID'.comb».&encode.join;
+reset; @res.push: 'OAHQHCNYNXTSZJRRHJBYHQKSOUJY'.comb».&decode.join;
 .say for @res;
 
 my $ref = qq:to/END/;
