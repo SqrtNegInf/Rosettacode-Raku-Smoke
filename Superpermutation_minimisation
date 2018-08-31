@@ -1,0 +1,33 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Superpermutation_minimisation
+#c# 2018-08-30 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res;
+
+for 1..8 -> $len {
+  my $pre = my $post = my $t = '';
+  for  ('a'..'z')[^$len].permutations -> @p {
+     $t = @p.join('');
+     $post ~= $t        unless index($post ,$t);
+     $pre   = $t ~ $pre unless index($pre, $t);
+  }
+  @res.push: sprintf "%1d: %8d %8d", $len, $pre.chars, $post.chars;
+}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+1:        1        1
+2:        4        4
+3:       12       15
+4:       48       64
+5:      240      325
+6:     1440     1956
+7:    10080    13699
+8:    80640   109600
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
