@@ -14,7 +14,7 @@ sub linear-combination(@coeff) {
         || '0'
 }
 
-push my @res, linear-combination($_) for 
+my @res.push: linear-combination($_) for 
 [1, 2, 3],
 [0, 1, 2, 3],
 [1, 0, 3, 4],
