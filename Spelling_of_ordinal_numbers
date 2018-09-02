@@ -18,7 +18,11 @@ In Perl 6, 123, 00123.0, & 1.23e2 are not all integers. They are
 respectively an Int (integer), a Rat (rational number) and a Num (floating
 point number). For this task it doesn't much matter as the ordinal routine
 coerces its argument to an Int, but to Perl 6 they are different things
-even though they all evaluate to the string 123.  It is not really clear
+even though they all evaluate to the string 123.  
+
+Note that the different integer forms of 123 are evaluated on use, not on assignment. They can be passed around in parameters, but until they are used numerically, they retain their stringy characteristics.
+
+It is not really clear
 what is meant by "Write a driver and a function...". Well, the function
 part is clear enough; driver not so much. Perhaps this will suffice.
 }
