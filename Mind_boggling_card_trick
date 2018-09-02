@@ -1,0 +1,90 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Mind_boggling_card_trick
+#c# 2018-09-01 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+srand 123456;
+
+my @res;
+
+# Works with: Rakudo version 2018.08
+
+# Generate a shuffled deck
+my @deck = shuffle;
+@res.push: 'Shuffled deck:          '~ @deck;
+ 
+my (@discard, @red, @black);
+
+# Deal cards following task description
+deal(@deck, @discard, @red, @black);
+ 
+@res.push: 'Discard pile:           '~ @discard;
+@res.push: '"Red"   pile:           '~ @red;
+@res.push: '"Black" pile:           '~ @black;
+ 
+# swap a the same random number of random
+# cards between the red and black piles
+my $amount = ^(+@red min +@black) .roll;
+@res.push: 'Number of cards to swap: '~ $amount;
+swap(@red, @black, $amount);
+ 
+@res.push: 'Red pile after swaps:   '~ @red;
+@res.push: 'Black pile after swaps: '~ @black;
+ 
+@res.push: 'Number of Red   cards in the Red   pile: '~ +@red.grep('R');
+@res.push: 'Number of Black cards in the Black pile: '~ +@black.grep('B');
+ 
+sub shuffle { (flat 'R' xx 26, 'B' xx 26).pick: * }
+ 
+sub deal (@deck, @d, @r, @b) {
+    while @deck.elems {
+        my $top = @deck.shift;
+        if $top eq 'R' {
+            @r.push: @deck.shift;
+        }
+        else {
+            @b.push: @deck.shift;
+        }
+        @d.push: $top;
+    }
+}
+ 
+sub swap (@r, @b, $a) {
+    my @ri  = ^@r .pick($a);
+    my @bi  = ^@b .pick($a);
+    my @rs  = @r[@ri];
+    my @bs  = @b[@bi];
+    @r[@ri] = @bs;
+    @b[@bi] = @rs;
+}
+
+.say for @res;
+
+my $moar = q:to/END/;
+Shuffled deck:          B R B B R R B B R B B R R B B R R B R R R B B B R R B B B B B B R B R B B B R R R R R R R B R R R R B B
+Discard pile:           B B R B R B R B R R R B R B B B R R B R R R R R R B
+"Red"   pile:           R B B B R B R B B R R R B R R
+"Black" pile:           R B B R R B B B B B B
+Number of cards to swap: 8
+Red pile after swaps:   R B B B R B B B B B R B B R R
+Black pile after swaps: R R B R R R B B R B B
+Number of Red   cards in the Red   pile: 5
+Number of Black cards in the Black pile: 5
+END
+
+my $jvm = q:to/END/;
+Shuffled deck:          R B R B R R R R B B B R R R R B B B R B R B B R B B R B B R B R B R B R R B R R B B B R B R B R R B B R
+Discard pile:           R R R R B B R R B R R B B R B B B B R R B B B B R B
+"Red"   pile:           B B R R R B B B B B R B
+"Black" pile:           B R B R B R R R R B R R R R
+Number of cards to swap: 10
+Red pile after swaps:   R R R R R R R B R R R R
+Black pile after swaps: B B B B B B B B B B B R R R
+Number of Red   cards in the Red   pile: 11
+Number of Black cards in the Black pile: 11
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
