@@ -1,0 +1,47 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Show_Ascii_table
+#c# 2018-08-09 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: ASCII_table.txt
+#n# on RC, now outputs wiki-table (cf 'Show_Ascii_table-2')
+#n# characters in output table cause Malformed-UTF error, so test file
+#n# dumbed-down ASCII boxing, top/mid/bot now all the same
+
+my @res;
+
+constant \N = 16;
+constant \cell = 5;
+constant $top = join '-' x cell, '|', '|' xx N-1, '|';
+constant $mid = join '-' x cell, '|', '|' xx N-1, '|';
+constant $bot = join '-' x cell, '|', '|' xx N-1, '|';
+
+sub row (*@row) { '|' ~ (join '|', @row>>.&center) ~ "|\n" }
+
+sub center ($s){
+    my $c   = cell - $s.chars;
+    my $pad = ' ' x ceiling($c/2);
+    sprintf "%{cell}s", "$s$pad";
+}
+
+sub name ($n) {
+    given $n {
+        when * < 33 { (0x2400 + $n).chr }
+        when 127  { 'x' }
+        default   { $n.chr }
+    }
+}
+
+my @rows = map -> @row {
+    row(@row>>.fmt(" %02X")) ~
+    row(@row>>.fmt("%03d")) ~
+    row(@row>>.&name)
+}, ^128 .rotor: N;
+
+@res.push: $top;
+@res.push: @rows.join: "$mid\n";
+@res[*-1] = chop @res[*-1]; # DH formatting fix
+@res.push: $bot;
+
+my $fh = open('run/ASCII_table.txt', :w);
+$fh.say: $_ for @res;
