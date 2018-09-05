@@ -16,8 +16,9 @@ shell "tput home"; sleep 1;                 # top left corner
 $_ = qx[stty -a </dev/tty 2>&1];
 my $rows = + m/<(\d+)> ' rows'/;
 my $cols = + m/<(\d+)> ' columns'/;
-#my $rows = +m/'rows '    <(\d+)>/;
-#my $cols = +m/'columns ' <(\d+)>/;
+$rows--;
+$cols--;
  
 #shell "tput hpa $cols";             # end of line        # not on Mac OS X?
 shell "tput cup $rows $cols";       # bottom right corner
+sleep 3;
