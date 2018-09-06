@@ -3,14 +3,17 @@
 #c# 2016-08-30 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-srand 123456;
+#n# better testing; let it be random to see if it ever fails
 
 # This modifies the array passed as argument, in-place.
 
-my @a = ^10;
+my $max = 30;
+my $f = "%2d";
+
+my @a = ^$max;
+say @a».fmt($f);
 sattolo-cycle(@a);
-put @a;
+say @a».fmt($f);
 
 sub sattolo-cycle (@array) {
     for reverse 1 .. @array.end -> $i {
@@ -20,4 +23,4 @@ sub sattolo-cycle (@array) {
 }
 
 use Test;
-is (sort @a), ^10;
+ok (@a >>==<< ^$max).none;
