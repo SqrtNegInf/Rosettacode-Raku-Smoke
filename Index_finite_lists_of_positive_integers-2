@@ -2,7 +2,8 @@
 #u# http://rosettacode.org/wiki/Index_finite_lists_of_positive_integers
 #c# 2016-04-17 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
+#n# JVM sometimes hangs?
 
 srand 123456;
 
@@ -39,7 +40,11 @@ multi compress(@n is copy) {
 }
 
 sub rank(@n) { compress (compress(@n), @n - 1)}
-sub unrank(Int $n) { my ($a, $b) = expand $n, 2; expand $a, $b + 1 }
+sub unrank(Int $n) { 
+    my ($a, $b) = expand $n, 2; 
+    ($b, $a) = ($a, $b) if $a < $b; # DH 2018-09-07 provisional fix for JVM
+    expand $a, $b + 1 
+}
 
 my @list = (^10).roll((2..20).pick);
 
