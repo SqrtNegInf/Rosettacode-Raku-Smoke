@@ -3,9 +3,9 @@
 #c# 2016-04-17 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# JVM sometimes hangs?
+#n# JVM hangs when values returned from 'expand' are out of order (bigger first, then smaller)
 
-srand 123456;
+#srand 123456;
 
 # Here is a bijective solution that does not use string operations.
 
