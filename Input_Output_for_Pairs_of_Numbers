@@ -1,10 +1,26 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Input/Output_for_Pairs_of_Numbers
 #c# 2016-06-04 <RC
-#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+#i# RC cli: ref/lines_of_numbers.txt
+#n# 2018-09-10 added testing
 
-for ^get() { say [+] get.words }
+my @res;
+
+for ^get() { @res.push: [+] get.words }
+
+.say for @res;
+
+my $ref = qq:to/END/;
+3
+30
+2
+102
+10
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
 
 # This does more than the task asks. It will sum as many numbers as you care to put on each line, and the numbers need not be integers, but may also be a mix of rational, floating-point, or complex numbers. More subtly, get can read from a file specified as a command-line argument, but defaults to taking STDIN if no filename is specified.
