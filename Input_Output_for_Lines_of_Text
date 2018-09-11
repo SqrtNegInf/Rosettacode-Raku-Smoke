@@ -3,13 +3,23 @@
 #c# 2016-08-22 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#i# RC cli: ref/lines_of_text.txt
+#n# 2018-09-10 added better testing
 
 my $fh = open('ref/lines_of_text.txt');
 my @res.push: $fh.get for ^$fh.get;
+
 .say for @res;
 
+my $ref = qq:to/END/;
+hi
+hello
+goodbye
+END
+
 use Test;
-is @res.elems, '3';
+#is @res.elems, '3';
+is @res.join("\n"), chomp $ref;
 
 #`{{ Verbose version:
 
