@@ -140,6 +140,8 @@ my($l) = @_;
     my($p) = $l =~ m#<li><a href="/wiki/(.*?)"#;
     return '' if $p =~ /Niecza|Pugs|Rakudo/;    # stray stuff from 'unimplemented'
     $p =~ s/Brain\*\*\*\*/Brainfuck/;           # 'fix' Brainfuck name
+    $p =~ s/%E2%80%93/-/;                       # e.g. Burrows%E2%80%93Wheeler_transform
+    $p =~ s/%E2%80%99//;                        # e.g. Ukkonen%E2%80%99s
     return pfix($p);
 }
 
