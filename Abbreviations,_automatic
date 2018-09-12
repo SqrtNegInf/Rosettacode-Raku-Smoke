@@ -3,19 +3,17 @@
 #c# 2017-09-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# too much golfing, vs RC?
 
 # Saving the "Days of Week, Also Known As" table to a local file DoWAKA.txt. Note: lines that have duplicate day names will get ∞ as the minimum number of characters, as there is no amount of characters that can be entered to distinguish the days uniquely. It is somewhat unclear as to what is meant by "return a null string". I have chosen to return Nil.
 
 sub auto-abbreviate ( Str $string ) {
     return Nil unless my @words = $string.words;
-    my $max = @words».chars.max;
-    for 0 .. $max {
-        return $_  if +@words».substr(0, $_).Set == @words;
-        return '∞' if $_ == $max;
-    }
+    return $_ if @words».substr(0, $_).Set == @words for 1 .. @words».chars.max;
+    return '∞';
 }
  
-my @res.push: auto-abbreviate($_) ~ '  ' ~ $_ for './DoWAKA.txt'.IO.lines;
+my @res.push: auto-abbreviate($_) ~ '  ' ~ $_ for 'ref/DoWAKA.txt'.IO.lines;
 .say for @res;
 
 my $ref = qq:to/END/;
