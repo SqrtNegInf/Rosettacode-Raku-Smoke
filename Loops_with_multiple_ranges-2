@@ -5,6 +5,7 @@
 #j# JVM:  OK
 #n# alternate method to generate $j; being very literal-minded here...
 #n# partial implementation, never got product to come out right (and .Seq issues)
+#n# Thundergnat merged this into one sequence on RC
 
 my \x     =  5;
 my \y     = -5;
@@ -22,6 +23,7 @@ my $j = flat
            555  to   (550 - y)           , 
             22  to        -28  by -three ,
           1927  to       1939            ,
+          #1927  to       1939  by    one , # works too...
              x  to          y  by      z ,
          11**x  to (11**x+one);
 
@@ -31,20 +33,3 @@ say 'sum ' ~ my $result = [+] $j».abs;
 
 use Test;
 is $result, 348173;
-
-#`{
-
-An alternate method for generating the 'j' sequence, using user-defined operators to preserve the 'X to Y by Z' layout of the example code.
-<lang perl6>sub infix:<to> { $^a...$^b }
-sub infix:<by> { ($^a.split(' '))[0,$^b.abs ... *] }
-
-$j = flat
-    -three  to       3**3  by  three ,
-    -seven  to      seven  by      x ,
-       555  to   (550 - y)           ,
-        22  to        -28  by -three ,
-      1927  to       1939            ,
-         x  to          y  by      z ,
-     11**x  to (11**x+one);</lang>
-
-}
