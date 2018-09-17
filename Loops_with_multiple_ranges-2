@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# alternate method to generate $j; being very literal-minded here...
-#n# partial implementation, never got product to come out right (and .Seq issues)
+#n# .Seq issues: chose to use @j not $j, skip 'cache' (xref -1 version)
 #n# Thundergnat merged this into one sequence on RC
 
 my \x     =  5;
@@ -15,9 +15,9 @@ my \three =  3;
 my \seven =  7;
 
 sub infix:<to> { $^a...$^b }
-sub infix:<by> { ($^a.split(' '))[0,$^b.abs ... *] }
+sub infix:<by> { $^a[0,$^b.abs ... *] }
 
-my $j = flat
+my @j = flat
         -three  to       3**3  by  three ,
         -seven  to      seven  by      x ,
            555  to   (550 - y)           , 
@@ -27,9 +27,9 @@ my $j = flat
              x  to          y  by      z ,
          11**x  to (11**x+one);
 
-#say $j.WHAT;
-say 'sum ' ~ my $result = [+] $j».abs;
-#say ([\*] $j.grep: so *).first: *.abs > 2**27;
+say 'sum ' ~ my $sum = [+] @j».abs;
+say 'product ' ~ my $prod = ([\*] @j.grep: so *).first: *.abs > 2**27;
 
 use Test;
-is $result, 348173;
+is $sum, 348173;
+is $prod, -793618560;
