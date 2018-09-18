@@ -3,6 +3,7 @@
 #c# 2018-09-16 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# Thundergant left out 'Start equal stop: negative increment'
 
 my @res;
 
@@ -20,6 +21,7 @@ for   -2,    2,    1, # Normal
       -2,    2,   10, # First increment is beyond stop value
        2,   -2,    1, # Start more than stop: positive increment
        2,    2,    1, # Start equal stop: positive increment
+       2,    2,   -1, # Start equal stop: negative increment
        2,    2,    0, # Start equal stop: zero increment
        0,    0,    0, # Start equal stop equal zero: zero increment
  
@@ -58,6 +60,7 @@ Start:  -2, Stop:   2, Increment:  -1 | -2 -3 -4 -5 -6 -7 -8 -9 -10 -11 -12 -13 
 Start:  -2, Stop:   2, Increment:  10 | -2 8 18 28 38 48 58 68 78 88 98 108 118 128 138
 Start:   2, Stop:  -2, Increment:   1 | 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
 Start:   2, Stop:   2, Increment:   1 | 2
+Start:   2, Stop:   2, Increment:  -1 | 2
 Start:   2, Stop:   2, Increment:   0 | 2
 Start:   0, Stop:   0, Increment:   0 | 0
 Start:   1, Stop: Inf, Increment:   3 | 1 4 7 10 13 16 19 22 25 28 31 34 37 40 43
