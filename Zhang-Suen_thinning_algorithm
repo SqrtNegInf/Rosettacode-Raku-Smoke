@@ -1,12 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Zhang-Suen_thinning_algorithm
-#c# 2015-12-20 <RC
+#c# 2015-12-20 <RC, 2016-12-19 >RC, 2018-09-18 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# did in-line data for RC version
 
 #Takes the original image from a file that may be based on any characters whose low bits are 0 or 1 (which conveniently includes . and #).
-
-constant DEBUG = 0;
 
 my @lines = ([.ords X+& 1] for slurp("ref/zhang-suen.txt").lines); # The low bits Just Work.
 my \v = +@lines;
@@ -38,11 +37,11 @@ repeat while my @goners1 or my @goners2 {
 
     @goners1 = seewhite (0,2,4), (2,4,6);
     @black[@goners1] = 0 xx *;
-    say "Ping: {[+] @black} remaining after removing ", @goners1 if DEBUG;
+    say "Ping: {[+] @black} remaining after removing ", @goners1;
 
     @goners2 = seewhite (0,2,6), (0,4,6);
     @black[@goners2] = 0 xx *;
-    say "Pong: {[+] @black} remaining after removing ", @goners2 if DEBUG;
+    say "Pong: {[+] @black} remaining after removing ", @goners2;
 }
 
 my @res.push: @black.splice(0,h).join.trans('01' => '.#') while @black;
