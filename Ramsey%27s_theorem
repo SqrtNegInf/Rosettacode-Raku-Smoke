@@ -1,14 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Ramsey's_theorem
-#c# 2015-11-28 <RC, 2017-01-19 >RC
+#c# 2015-11-28 <RC, 2017-01-19 >RC, 2018-09-22 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# .Array work-around obsolete, factored out array size constant 
 
-my @a = [ 0 xx 17 ] xx 17;
-@a[$_;$_] = '-' for ^17;
+my $n = 17;
+my @a = [ 0 xx $n ] xx $n;
+@a[$_;$_] = '-' for ^$n;
  
-for flat ^17 X 1,2,4,8 -> $i, $k {
-    my $j = ($i + $k) % 17;
+for flat ^$n X 1,2,4,8 -> $i, $k {
+    my $j = ($i + $k) % $n;
     @a[$i;$j] = @a[$j;$i] = 1;
 }
 .say for @a;
@@ -36,7 +38,7 @@ END
 use Test;
 is @a.join("\n"), chomp $ref;
  
-for combinations(17,4).Array -> $quartet { # DH change
+for combinations($n,4) -> $quartet { # DH change
     my $links = [+] $quartet.combinations(2).map: -> $i,$j { @a[$i;$j] }
     die "Bogus!" unless 0 < $links < 6;
 }
