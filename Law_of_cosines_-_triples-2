@@ -5,8 +5,9 @@
 #j#  JVM: OK 
 #n# see -1 variant (that one uploaded to RC)
 #n# extra credit 10_000 is just toodamnslow
-#n# manually verified results by printing out triplets:
+#n# manually verified results by printing out all 28393 triplets, and doing:
 #n#   perl -a -e 'print unless $F[0]==$F[1] && $F[1]==$F[2]' <fn> | wc -l
+#n# sqrt more expensive than **2, build a hash and do lookups?
 
 my @res;
 
