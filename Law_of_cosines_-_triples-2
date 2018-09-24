@@ -14,9 +14,9 @@ my @res;
 sub triples ($n, @angles) {
     my $sq-as-set = set my @squares = 1..$n X**2;
     my %triples; my %c2;
-    for flat @squares X @squares -> $a2, $b2 {
-        next if $a2 > $b2;
-        (my $a, my $b) = ($a2,$b2)».sqrt».floor; # without 'floor', ∈ test mostly fails
+    for flat 1..$n X 1..$n -> $a, $b {
+        next if $a > $b;
+        my $a2 = $a**2; my $b2 = $b**2;
         my $ab = $a * $b;
         %c2{@angles} = $a2 + $b2 X+ -$ab, 0, $ab; # does X do the math, then throw away extra results?
         %triples{$_}{~($a, $b, %c2{$_}.sqrt)}++ if %c2{$_} ∈ $sq-as-set for @angles;
@@ -27,13 +27,14 @@ sub triples ($n, @angles) {
 #my %x = triples(10000,[60]); dd %x; exit;
 
 # 10_000 too slow, just proof-of-concept for smaller N
-for 13, 100, 500, 1000 -> $n {
+#for 13, 100, 500, 1000 -> $n {
+for 500 -> $n {
     @res.push: "Non-equilateral n=$n/60°: " ~ [+] ([!=] .split(' ') for triples($n,[60]){60}.keys);
 }
 
 #    13     0.802u  0.115s    0:00.61
 #   100     2.155u  0.148s    0:01.86
-#   500    29.274u  0.202s    0:29
+#   500    29.274u  0.202s    0:29                  19.156u 0.160s 0:18.93
 #  1000   115.684u  0.449s    1:56
 # 10000 14920.686u 99.103s 3:57:16 (non-optimized)
 # 10000                    3:13:41 (optimized)
