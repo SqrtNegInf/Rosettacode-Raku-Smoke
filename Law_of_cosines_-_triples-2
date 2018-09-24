@@ -26,7 +26,7 @@ sub triples ($n, @angles) {
 #my %x = triples(10000,[60]); dd %x; exit;
 
 # 10_000 too slow, just proof-of-concept for smaller N
-for 500 -> $n {
+for 13, 100, 500, 1000 -> $n {
     @res.push: "Non-equilateral n=$n/60°: " ~ [+] ([!=] .split(' ') for triples($n,[60]){60}.keys);
 }
 
@@ -35,6 +35,7 @@ for 500 -> $n {
 #   500    29.274u  0.202s    0:29
 #  1000   115.684u  0.449s    1:56
 # 10000 14920.686u 99.103s 3:57:16 (non-optimized)
+# 10000                    3:13:41 (optimized)
 
 say my $result = join "\n", @res;
 
