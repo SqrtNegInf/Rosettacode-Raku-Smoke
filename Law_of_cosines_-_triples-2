@@ -16,13 +16,14 @@ sub triples ($n, @angles) {
     my %triples; my %c2;
     for flat 1..$n X 1..$n -> $a, $b {
         next if $a > $b;
-        my $a2 = $a**2; 
-        my $b2 = $b**2;
+        #my $a2 = $a**2; 
+        #my $b2 = $b**2;
+        my $ab2 = $a**2 + $b**2;  # small bump, 10 units faster
         my $ab = $a * $b;
 
         # does X do the math, then throw away extra results?
-        #%c2{@angles} = $a2 + $b2 X+ (-$ab, 0, $ab)[^+@angles];
-        %c2{@angles} = $a2 + $b2 X+ -$ab, 0, $ab; 
+        #%c2{@angles} = $a2 + $b2 X+ (-$ab, 0, $ab)[^+@angles]; # slower
+        %c2{@angles} = $ab2 X+ -$ab, 0, $ab; 
 
         #%triples{$_}{~($a, $b, %c{%c2{$_}})}++ if %c2{$_} ∈ $sq-as-set for @angles;  # definitely slower
         %triples{$_}{~($a, $b, %c2{$_}.sqrt)}++ if %c2{$_} ∈ $sq-as-set for @angles;
