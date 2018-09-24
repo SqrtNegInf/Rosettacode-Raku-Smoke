@@ -4,10 +4,10 @@
 #m# MOAR: OK
 #j#  JVM: OK 
 #n# see -1 variant (that one uploaded to RC)
-#n# extra credit 10_000 is just toodamnslow
+#n# extra credit is just toodamnslow -- how to make it fast and still keep it a general-purpose algorithm?
 #n# manually verified results by printing out all 28393 triplets, and doing:
 #n#   perl -a -e 'print unless $F[0]==$F[1] && $F[1]==$F[2]' <fn> | wc -l
-#n# sqrt more expensive than **2, build a hash and do lookups?
+#n# remaining .sqrt more expensive than **2, build a hash and do lookups?
 
 my @res;
 
@@ -16,7 +16,8 @@ sub triples ($n, @angles) {
     my %triples; my %c2;
     for flat 1..$n X 1..$n -> $a, $b {
         next if $a > $b;
-        my $a2 = $a**2; my $b2 = $b**2;
+        my $a2 = $a**2; 
+        my $b2 = $b**2;
         my $ab = $a * $b;
         %c2{@angles} = $a2 + $b2 X+ -$ab, 0, $ab; # does X do the math, then throw away extra results?
         %triples{$_}{~($a, $b, %c2{$_}.sqrt)}++ if %c2{$_} ∈ $sq-as-set for @angles;
