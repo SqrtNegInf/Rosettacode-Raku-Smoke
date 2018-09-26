@@ -1,0 +1,75 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Hough_transform
+#c# 2018-09-25 >RC
+#t# skiptest
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
+#f# RC file: hough.png
+#n# to get GD installed: ln -s /opt/local/lib/libgd.3.dylib /usr/local/lib/libgd.dylib
+
+use GD;
+
+my $filename = 'ref/pentagon.ppm';
+my $in = open($filename, :r, :enc<iso-8859-1>);
+my ($type, $dim, $depth) = $in.lines[^3];
+ 
+my $outfile = 'run/hough.pgm';
+# my $out = open($outfile, :w, :enc<iso-8859-1>);
+# $out.say("P5\n$dim\n$depth");
+ 
+
+my $image = GD::Image.new(460, 360);
+exit() unless $image;
+
+for $in.lines.ords -> $r, $g, $b {
+
+#$image.pixel($x, $y, @colors.pick);
+
+sub hough {
+    my($im)     = shift;
+    my($width)  = shift || 460;
+    my($height) = shift || 360;
+    my(@canvas);
+ 
+    $height = 2 * int $height/2;
+ 
+    my $xsize = $im->getwidth();
+    my $ysize = $im->getheight();
+ 
+    #$ht = Imager->new(xsize => $width, ysize => $height);
+    for my $i (0..$height-1) { for my $j (0..$width-1) { $canvas[$i;$j] = 255 } } 
+
+    #$ht->box(filled => 1, color => 'white');
+ 
+    my $rmax = sqrt($xsize**2 + $ysize**2);
+    my $dr   = 2 * $rmax / $height;
+    my $dth  = 3.141593 / $width;
+ 
+    for my $x (0..$xsize-1) {
+      for my $y (0..$ysize-1) {
+        my $col = $im->getpixel(x => $x, y => $y);
+        my($r,$g,$b) = $col->rgba;
+        next if $r==255; # && $g==255 && $b==255;
+        for my $k (0..$width-1) {
+            my $th = $dth*$k;
+            my $r = ($x*cos($th) + $y*sin($th));
+            my $iry = ($height/2 + int($r/$dr + 0.5));
+            #$ht->setpixel(x => $k, y => $iry, color => [($canvas[$iry][$k]--) x 3]);
+        }
+      }
+    }
+    return $ht;
+}
+ 
+#$img = Imager->new(file => 'ref/pentagon.png');
+#$ht  = hough($img);
+#$ht->write(        file => 'run/hough.png');
+
+    #my $gs = $r * 0.2126 + $g * 0.7152 + $b * 0.0722;
+    #$out.print: chr($gs min 255);
+}
+ 
+#$in.close;
+my $png_fh = $image.open("run/hough-new.png", "wb");
+$image.output($png_fh, GD_PNG);
+$png_fh.close;
