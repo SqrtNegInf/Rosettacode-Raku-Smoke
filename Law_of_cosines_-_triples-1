@@ -1,41 +1,75 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
-#c# 2018-09-23 >RC, 2018-09-23 <RC
+#c# 2018-09-25 <RC
 #m# MOAR: OK
-#j#  JVM: OK 
-#n# see -2 variant for 'extra credit'
-#n# Thundergant++ adds 'natural' sorting of tuples
+#j# JVM:  BROKEN
 
 my @res;
 
-sub triples ($n, @angles) {
-    my $sq-as-set = set my @squares = 1..$n X**2; # (1..$n) >>**>> 2
-    my %triples; my %c2;
-    for flat @squares X @squares -> $a2, $b2 {
-        (my $a, my $b) = ($a2,$b2)».sqrt».floor; 
-        my $ab = $a * $b;
-        %c2{@angles} = $a2 + $b2 X+ 0, -$ab, $ab; 
-        %triples{$_}{~sort $a, $b, %c2{$_}.sqrt}++ if %c2{$_} ∈ $sq-as-set for @angles;
+multi triples (60, $n) {
+    my %sq = (1..$n).map: { .² => $_ };
+    my %triples;
+    #(1..^$n).race(:8degree).map: -> $a {
+    for 1..^$n -> $a {
+        for $a^..$n -> $b {
+            my $cos = $a * $a + $b * $b - $a * $b;
+            %triples{~($a, %sq{$cos}, $b)}++ and last if %sq{$cos}:exists;
+        }
     }
-    %triples;
+    %triples.keys
 }
-
+ 
+multi triples (90, $n) {
+    my %sq = (1..$n).map: { .² => $_ };
+    my %triples;
+    #(1..^$n).race(:8degree).map: -> $a {
+    for 1..^$n -> $a {
+        for $a^..$n -> $b {
+            my $cos = $a * $a + $b * $b;
+            %triples{~($a, $b, %sq{$cos})}++ and last if %sq{$cos}:exists;
+        }
+    }
+    %triples.keys
+}
+ 
+multi triples (120, $n) {
+    my %sq = (1..$n).map: { .² => $_ };
+    my %triples;
+    #(1..^$n).race(:8degree).map: -> $a {
+    for 1..^$n -> $a {
+        for $a^..$n -> $b {
+            my $cos = $a * $a + $b * $b + $a * $b;
+           %triples{~($a, $b, %sq{$cos})}++ and last if %sq{$cos}:exists;
+        }
+    }
+    %triples.keys
+}
+ 
 use Sort::Naturally;
  
 my $n = 13;
-say "Integer triangular triples for sides 1..$n:";
-my %itt = triples($n, (90, 60, 120));
-for %itt.keys.sort: {+%itt{$^a}} -> $angle {
-    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +%itt{$angle}, %itt{$angle}.keys.sort(*.&naturally).join(', ');
+@res.push: "Integer triangular triples for sides 1..$n:";
+for 120, 90, 60 -> $angle {
+    my @itt = triples($angle, $n);
+    if $angle == 60 { push @itt, "$_ $_ $_" for 1..$n }
+    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +@itt, @itt.sort(*.&naturally).join(', ');
 }
+ 
+my ($angle, $count) = 60, 10_000;
+@res.push: "\nExtra credit:";
+@res.push: "$angle° integer triples in the range 1..$count where the sides are not all the same length: "~ +triples($angle, $count);
 
 .say for @res;
 
-my $ref = qq:to/END/;
+my $ref = q:to/END/;
+Integer triangular triples for sides 1..13:
 Angle 120° has  2 solutions: 3 5 7, 7 8 13
 Angle  90° has  3 solutions: 3 4 5, 5 12 13, 6 8 10
 Angle  60° has 15 solutions: 1 1 1, 2 2 2, 3 3 3, 3 7 8, 4 4 4, 5 5 5, 5 7 8, 6 6 6, 7 7 7, 8 8 8, 9 9 9, 10 10 10, 11 11 11, 12 12 12, 13 13 13
+
+Extra credit:
+60° integer triples in the range 1..10000 where the sides are not all the same length: 18394
 END
 
-use Test; 
+use Test;
 is @res.join("\n"), chomp $ref;
