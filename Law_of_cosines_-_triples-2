@@ -1,60 +1,42 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
-#c# 2018-09-23
+#c# 2018-09-23 >RC
 #m# MOAR: OK
 #j#  JVM: OK 
-#n# see -1 variant (that one uploaded to RC)
-#n# extra credit is just toodamnslow -- how to make it fast and still keep it a general-purpose algorithm?
-#n# manually verified results by printing out all 28393 triplets, and doing:
-#n#   perl -a -e 'print unless $F[0]==$F[1] && $F[1]==$F[2]' <fn> | wc -l
+#n# for JVM: module
+#n# 'elegant' version (no longer on RC)
+#n# no extra-credit, lesson learned: 'X' operator is expensive
 
 my @res;
 
 sub triples ($n, @angles) {
-    my $sq-as-set = set my @squares = 1..$n X**2;
-    #my %c = flat @squares Z (1..$n);
+    my $sq-as-set = set my @squares = 1..$n X**2; # (1..$n) >>**>> 2
     my %triples; my %c2;
-    for flat 1..$n X 1..$n -> $a, $b {
-        next if $a > $b;
-        #my $a2 = $a**2; 
-        #my $b2 = $b**2;
-        my $ab2 = $a**2 + $b**2;  # small bump, 10 units faster
+    for flat @squares X @squares -> $a2, $b2 {
+        (my $a, my $b) = ($a2,$b2)».sqrt».floor; 
         my $ab = $a * $b;
-
-        # does X do the math, then throw away extra results?
-        #%c2{@angles} = $a2 + $b2 X+ (-$ab, 0, $ab)[^+@angles]; # slower
-        %c2{@angles} = $ab2 X+ -$ab, 0, $ab; 
-
-        #%triples{$_}{~($a, $b, %c{%c2{$_}})}++ if %c2{$_} ∈ $sq-as-set for @angles;  # definitely slower
-        %triples{$_}{~($a, $b, %c2{$_}.sqrt)}++ if %c2{$_} ∈ $sq-as-set for @angles;
+        %c2{@angles} = $a2 + $b2 X+ 0, -$ab, $ab; 
+        %triples{$_}{~sort $a, $b, %c2{$_}.sqrt}++ if %c2{$_} ∈ $sq-as-set for @angles;
     }
     %triples;
 }
 
-#my %x = triples(10000,[60]); dd %x; exit;
-
-# 10_000 too slow, just proof-of-concept for smaller N
-#for 10000 -> $n {
-for 13, 100, 500, 1000 -> $n {
-    @res.push: "Non-equilateral n=$n/60°: " ~ [+] ([!=] .split(' ') for triples($n,[60]){60}.keys);
+use Sort::Naturally;
+ 
+my $n = 13;
+say "Integer triangular triples for sides 1..$n:";
+my %itt = triples($n, (90, 60, 120));
+for %itt.keys.sort: {+%itt{$^a}} -> $angle {
+    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +%itt{$angle}, %itt{$angle}.keys.sort(*.&naturally).join(', ');
 }
 
-#    13     0.802u  0.115s    0:00.61
-#   100     2.155u  0.148s    0:01.86
-#   500    19.156u  0.160s    0:18.93  
-#  1000   115.684u  0.449s    1:56                  79.540u 0.929s with >= 
-# 10000 14920.686u 99.103s 3:57:16 (non-optimized)
-# 10000  8505.770u 50.869s 2:09:16 (optimized)
-
-say my $result = join "\n", @res;
+.say for @res;
 
 my $ref = qq:to/END/;
-Non-equilateral n=13/60°: 2
-Non-equilateral n=100/60°: 70
-Non-equilateral n=500/60°: 546
-Non-equilateral n=1000/60°: 1260
+Angle 120° has  2 solutions: 3 5 7, 7 8 13
+Angle  90° has  3 solutions: 3 4 5, 5 12 13, 6 8 10
+Angle  60° has 15 solutions: 1 1 1, 2 2 2, 3 3 3, 3 7 8, 4 4 4, 5 5 5, 5 7 8, 6 6 6, 7 7 7, 8 8 8, 9 9 9, 10 10 10, 11 11 11, 12 12 12, 13 13 13
 END
-#Non-equilateral n=10000/60°: 18394
 
 use Test; 
-is $result, chomp $ref;
+is @res.join("\n"), chomp $ref;
