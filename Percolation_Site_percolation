@@ -3,6 +3,7 @@
 #c# 2017-03-06 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# temp fix?
 
 srand 123456;
 
@@ -29,7 +30,7 @@ my @drip.push: .join for @site;
 my $tests = 100;
 say "Doing $tests trials at each porosity:";
 my @res;
-for .1, .2 ... 1 -> $p {
+for |.1, .2 ... 1 -> $p {
     @res.push: sprintf "p = %0.1f: %0.3f" , $p, (sum percolate($p) xx $tests) / $tests;
 }
 
