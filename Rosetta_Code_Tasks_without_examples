@@ -19,7 +19,7 @@ my $page   = "http://rosettacode.org/wiki/Category:Programming_Tasks";
 my $html   = $ua.get($page).content;
 my $xmldoc = parse-html($html, :TAG<div>, :id<mw-pages>);
 my @tasks  = parse-html($xmldoc[0].Str, :TAG<li>).Str.comb( /'/wiki/' <-["]>+ / )».substr(6); #"
-my $f      = open("./RC_Programming_Tasks.txt", :w)  or die "$!\n";
+my $f      = open("./run/RC_Programming_Tasks.txt", :w)  or die "$!\n";
 note "Writing Programming_Tasks file...";
 $f.print( @tasks.join("\n") );
 $f.close;
