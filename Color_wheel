@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Color_wheel
-#c# 2016-08-23 <RC
+#c# 2016-08-23 <RC, 2018-09-26 <RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: BROKEN
@@ -23,7 +23,7 @@ color-wheel($out);
 $out.write: 'run/color-wheel-perl6.png';
  
 sub color-wheel ( $png ) {
-    for ^$w -> $x {
+    ^$w .race.map: -> $x {
         for ^$h -> $y {
             my $vector    = $center - $x - $y*i;
             my $magnitude = $vector.abs * 2 / $w;
@@ -45,5 +45,6 @@ sub hsv2rgb ( $h, $s, $v ){ # inputs normalized 0-1
         when 2/3..^(5/6) { $x, 0, $c }
         when 5/6..1      { $c, 0, $x }
     }
-    ( $r, $g, $b ) = map { (($_+$m) * 255).Int }, $r, $g, $b;
+    #( $r, $g, $b ) = map { (($_+$m) * 255).Int }, $r, $g, $b;
+    ( $r, $g, $b ).map: ((*+$m) * 255).Int
 }
