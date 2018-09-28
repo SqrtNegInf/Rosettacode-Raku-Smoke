@@ -1,8 +1,8 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Ranking_methods
-#c# 2015-10-29 <RC, 2018-09-26 >RC
-#m# MOAR: BROKEN
-#j#  JVM: BROKEN
+#c# 2018-09-27 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
 
 my @scores =
     Solomon => 44,
@@ -13,7 +13,7 @@ my @scores =
     Barry   => 41,
     Stephen => 39;
 
-sub tiers (@s) { @s.classify(*.value).pairs.sort.reverse.map: { [.value».key] } }
+sub tiers (@s) { @s.classify(*.value).pairs.sort.reverse.map: { .value».key } }
 
 sub standard (@s) {
     my $rank = 1;
@@ -44,15 +44,51 @@ sub fractional (@s) {
     }
 }
 
-say   "Standard:";   .say for   standard @scores;
-say "\nModified:";   .say for   modified @scores;
-say "\nDense:";      .say for      dense @scores;
-say "\nOrdinal:";    .say for    ordinal @scores;
-say "\nFractional:"; .say for fractional @scores;
+my @res;
+push @res.push:   "Standard:";   @res.push: $_ for   standard @scores;
+push @res.push: "\nModified:";   @res.push: $_ for   modified @scores;
+push @res.push: "\nDense:";      @res.push: $_ for      dense @scores;
+push @res.push: "\nOrdinal:";    @res.push: $_ for    ordinal @scores;
+push @res.push: "\nFractional:"; @res.push: $_ for fractional @scores;
 
-use Test;
+.say for @res;
 
-#`{
+my $ref = qq:to/EOD/;
+Standard:
+1	Solomon
+2	Jason Errol
+4	Garry Bernard Barry
+7	Stephen
+
+Modified:
+1	Solomon
+3	Jason Errol
+6	Garry Bernard Barry
+7	Stephen
+
+Dense:
+1	Solomon
+2	Jason Errol
+3	Garry Bernard Barry
+4	Stephen
+
+Ordinal:
+1	Solomon
+2	Jason
+3	Errol
+4	Garry
+5	Bernard
+6	Barry
+7	Stephen
+
+Fractional:
+1	Solomon
+2.5	Jason Errol
+5	Garry Bernard Barry
+7	Stephen
+EOD
+
+my $refx = qq:to/EOD/;
 Standard:
 1 => ["Solomon"]
 2 => ["Jason", "Errol"]
@@ -85,4 +121,7 @@ Fractional:
 2.5 => ["Jason", "Errol"]
 5.0 => ["Garry", "Bernard", "Barry"]
 7.0 => ["Stephen"]
-}
+EOD
+
+use Test;
+is @res.join("\n"), chomp $ref;
