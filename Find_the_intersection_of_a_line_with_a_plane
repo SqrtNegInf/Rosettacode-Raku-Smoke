@@ -17,7 +17,7 @@ class Plane {
     has $.n;  # normal
 }
  
-sub infix:<dot> ( @a, @b where +@a == +@b ) { [+] @a <<*>> @b } # dot product
+sub infix:<dot> ( @a, @b where +@a == +@b ) { [+] @a <<*>> @b }
  
 sub line-plane-intersection ($L, $P) {
     my $cos = $P.n dot $L.u; # cosine between normal & ray
