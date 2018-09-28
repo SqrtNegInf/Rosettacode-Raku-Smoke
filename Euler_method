@@ -3,7 +3,6 @@
 #c# 2015-12-31 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# temp fix?
 
 sub euler ( &f, $y0, $a, $b, $h ) {
     my $y = $y0;
@@ -32,7 +31,7 @@ my @e;
 
 say 'Time Analytic   Step2   Step5  Step10     Err2     Err5    Err10';
 
-for |INITIAL_TIME, * + 10 ... * >= FINAL_TIME -> $t {
+for INITIAL_TIME, * + 10 ... * >= FINAL_TIME -> $t {
 
     my $exact = AMBIENT_TEMP + (INITIAL_TEMP - AMBIENT_TEMP)
                               * (-COOLING_RATE * $t).exp;
