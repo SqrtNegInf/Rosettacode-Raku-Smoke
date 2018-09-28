@@ -1,15 +1,15 @@
-This is Rakudo version 2018.09-43-gddb5f8fc4 built on MoarVM version 2018.09-90-gb5eb48c2e
+This is Rakudo version 2018.09-53-g8c4546bb5 built on MoarVM version 2018.09-92-g1325e4ca6
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [940/14]
-|+------------> JVM: Good/Bad [866/95]
-||+-----------> smOke testing [858]
++-------------> Moar: Good/Bad [947/13]
+|+------------> JVM: Good/Bad [867/94]
+||+-----------> smOke testing [859]
 |||+----------> sKipping validation [96]
 ||||+---------> Interactive [52]
 |||||+--------> Touched (modified by me) [205]
 ||||||+-------> Random seed [107]
 |||||||+------> File output [71]
-||||||||+-----> Draft [222]
+||||||||+-----> Draft [215]
 |||||||||+----> Ignoring [63]
 ||||||||||+---> Void (no local copy) [184]
 |||||||||||+--> Un-implemented/reliable [147]
@@ -32,9 +32,9 @@ GGO......... ABC_Problem
 GGO......... AKS_test_for_primes
 GGO...R.D... ASCII_art_diagram_converter
 ..........VU AVL_tree
-GGO..T..D... Abbreviations,_automatic
-GGO.....D... Abbreviations,_easy
-GGO.....D... Abbreviations,_simple
+GGO..T...... Abbreviations,_automatic
+GGO......... Abbreviations,_easy
+GGO......... Abbreviations,_simple
 GGO......... Abstract_type
 GGO..T...... Abundant,_deficient_and_perfect_number_classifications
 GGO......... Accumulator_factory
@@ -65,7 +65,7 @@ GGO......... Append_a_record_to_the_end_of_a_text_file
 GGO......... Apply_a_callback_to_an_array
 GGO......... Apply_a_digital_filter_direct_form_II_transposed
 GGO......... Arbitrary-precision_integers_included
-!BO....F.... Archimedean_spiral
+GBO....F.... Archimedean_spiral
 .........XV. Arena_storage_pool
 GGO......... Arithmetic-geometric_mean
 GGO......... Arithmetic-geometric_mean_Calculate_Pi
@@ -312,7 +312,7 @@ GGO..T...... Equilibrium_index
 GGO......... Ethiopian_multiplication
 GGO......... Euler%27s_identity
 GGO..T...... Euler%27s_sum_of_powers_conjecture
-!GO......... Euler_method
+GGO......... Euler_method
 GGO......... Evaluate_binomial_coefficients
 GGO......... Even_or_odd
 GGO......... Events
@@ -352,7 +352,7 @@ GGO.....D... File_extension_is_in_extensions_list
 GGO....F.... File_input_output
 GBO..T...... File_modification_time
 GGO......... File_size
-!GO.....D... File_size_distribution
+GGO.....D... File_size_distribution
 GGO......... Filter
 GBO.....D... Find_URI_in_text
 GGO..T...... Find_common_directory_path
@@ -406,7 +406,7 @@ GGO......... General_FizzBuzz
 ........D.VU Generalised_floating_point_multiplication
 GGO..TR..... Generate_Chess960_starting_position
 GGO......... Generate_lower_case_ASCII_alphabet
-GGO...R.D... Generate_random_chess_position
+GGO...R..... Generate_random_chess_position
 GGO..T...... Generator_Exponential
 GGO......... Generic_swap
 GGO...R.D... Geometric_algebra
@@ -524,7 +524,7 @@ GBO......... Knapsack_problem_Continuous
 GGO......... Knapsack_problem_Unbounded
 GGO...R..... Knight%27s_tour
 GGO...R..... Knuth%27s_algorithm_S
-GGO...R.D... Knuth%27s_power_tree
+GGO...R..... Knuth%27s_power_tree
 GGO...R..... Knuth_shuffle
 ........D... Koch_curve
 GGO....F.... Koch_curve-1
@@ -537,7 +537,7 @@ GGO....F.... LU_decomposition
 GGO......... LZW_compression
 GGO...R..... Langton%27s_ant
 GGO......... Largest_int_from_concatenated_ints
-GGO.....D... Largest_number_divisible_by_its_digits
+GGO......... Largest_number_divisible_by_its_digits
 GGO......... Last_Friday_of_each_month
 GG.K..R..... Last_letter-first_letter
 ........D... Law_of_cosines_-_triples
@@ -736,10 +736,10 @@ GGO..T.F.... Pentagram
 ........D.VU Pentomino_tiling
 ..........VU Percentage_difference_between_images
 ........D.VU Perceptron
-!GO......... Percolation_Bond_percolation
+GGO......... Percolation_Bond_percolation
 GGO...R..... Percolation_Mean_cluster_density
-!GO...R..... Percolation_Mean_run_density
-!GO...R..... Percolation_Site_percolation
+GGO...R..... Percolation_Mean_run_density
+GGO...R..... Percolation_Site_percolation
 GGO......... Perfect_numbers
 GGO......... Perfect_shuffle
 GGO..T..D... Perlin_noise
@@ -808,7 +808,7 @@ GGO..T...... Random_number_generator_device
 GGO...R..... Random_numbers
 GGO......... Range_expansion
 GGO......... Range_extraction
-BB...T...... Ranking_methods
+GGO..T...... Ranking_methods
 !GO......... Rate_counter
 GGO......... Ray-casting_algorithm
 GGO..T...... Read_a_configuration_file
@@ -982,7 +982,7 @@ GGO......... Spiral_matrix-2
 GBO......... Split_a_character_string_based_on_change_of_character
 ........D.VU Spoof_game
 GBO......... Square-free_integers
-GGO.....D... Square_but_not_cube
+GGO......... Square_but_not_cube
 GGO..T...... Stable_marriage_problem
 GGO......... Stack
 GGO......... Stack_traces
