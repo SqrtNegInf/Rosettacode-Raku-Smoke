@@ -3,7 +3,6 @@
 #c# 2017-03-08 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# temp fix? 
 
 srand $*VM ~~ /jvm/ ?? 1234567 !! 123456;
 
@@ -29,7 +28,7 @@ my @drip.push: .join for @bond;
 my $tests = 100;
 say "Doing $tests trials at each porosity:";
 my @res;
-for |.1, .2 ... 1 -> $p {
+for .1, .2 ... 1 -> $p {
     @res.push: sprintf "p = %0.1f: %0.2f", $p, (sum percolate($p) xx $tests) / $tests
 }
 .say for @res;
