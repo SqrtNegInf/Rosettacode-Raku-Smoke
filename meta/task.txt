@@ -1,18 +1,18 @@
-This is Rakudo version 2018.09-53-g8c4546bb5 built on MoarVM version 2018.09-92-g1325e4ca6
+This is Rakudo version 2018.09-59-g5f3579eb0 built on MoarVM version 2018.09-98-g67f85dc71
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [947/13]
-|+------------> JVM: Good/Bad [867/94]
++-------------> Moar: Good/Bad [948/13]
+|+------------> JVM: Good/Bad [866/96]
 ||+-----------> smOke testing [859]
 |||+----------> sKipping validation [96]
 ||||+---------> Interactive [52]
-|||||+--------> Touched (modified by me) [205]
+|||||+--------> Touched (modified by me) [206]
 ||||||+-------> Random seed [107]
 |||||||+------> File output [71]
-||||||||+-----> Draft [215]
+||||||||+-----> Draft [216]
 |||||||||+----> Ignoring [63]
-||||||||||+---> Void (no local copy) [184]
-|||||||||||+--> Un-implemented/reliable [147]
+||||||||||+---> Void (no local copy) [185]
+|||||||||||+--> Un-implemented/reliable [148]
 ||||||||||||
 GGO......... 100_doors
 GB.KI.R..... 15_Puzzle_Game
@@ -352,7 +352,7 @@ GGO.....D... File_extension_is_in_extensions_list
 GGO....F.... File_input_output
 GBO..T...... File_modification_time
 GGO......... File_size
-GGO.....D... File_size_distribution
+GGO..T..D... File_size_distribution
 GGO......... Filter
 GBO.....D... Find_URI_in_text
 GGO..T...... Find_common_directory_path
@@ -540,7 +540,6 @@ GGO......... Largest_int_from_concatenated_ints
 GGO......... Largest_number_divisible_by_its_digits
 GGO......... Last_Friday_of_each_month
 GG.K..R..... Last_letter-first_letter
-........D... Law_of_cosines_-_triples
 GBO......... Law_of_cosines_-_triples-1
 GGO..T...... Law_of_cosines_-_triples-2
 GGO......... Leap_year
@@ -685,6 +684,7 @@ GGO......... Number_names
 GGO......... Number_reversal_game
 GGO..T...... Numeric_error_propagation
 GG.K........ Numerical_integration
+........D.VU Numerical_integration_Adaptive_Simpson%27s_method
 GGO......... Numerical_integration_Gauss-Legendre_Quadrature
 .........XVU OLE_Automation
 ..........VU Object_serialization
@@ -732,7 +732,7 @@ GGO..TR..... Pattern_matching
 GGO....FD... Peano_curve
 GG.KI.R..... Penney%27s_game
 GBO....FD... Penrose_tiling
-GGO..T.F.... Pentagram
+GBO..T.F.... Pentagram
 ........D.VU Pentomino_tiling
 ..........VU Percentage_difference_between_images
 ........D.VU Perceptron
@@ -809,7 +809,7 @@ GGO...R..... Random_numbers
 GGO......... Range_expansion
 GGO......... Range_extraction
 GGO..T...... Ranking_methods
-!GO......... Rate_counter
+GGO......... Rate_counter
 GGO......... Ray-casting_algorithm
 GGO..T...... Read_a_configuration_file
 GGO.....D... Read_a_file_character_by_character_UTF8
@@ -876,6 +876,7 @@ GGO......... SHA-256
 ..........VU SOAP
 .........XVU SQL-based_authentication
 ..........VU Safe_addition
+!B......D... Safe_primes_and_unsafe_primes
 GGO......... Sailors,_coconuts_and_a_monkey_problem
 GGO......... Same_Fringe
 GGO.....D... Sattolo_cycle
