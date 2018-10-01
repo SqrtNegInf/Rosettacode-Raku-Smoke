@@ -3,18 +3,24 @@
 #c# 2016-03-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   but slow...
+#n# clear, but slow...
 
-my @primes := 3, |(flat map( { $^i-1, $i+1 }, (6, 12, 18 ... *))).grep: *.is-prime;
+my @primes := 2, |(3,5,7 ... *).grep: *.is-prime;
+ 
 my %conspiracy;
-my $previous = 2;
-my $upto = 10000; #_000;
+#my $upto = 1_000_000;
+my $upto = 10_000;
  
-map { my $l = $_ % 10; %conspiracy{"$previous → $l count:"}++; $$previous = $l }, @primes[^$upto];
- 
-say "$_ \tfrequency: {($_.value/$upto*100).round(.01)} %" for %conspiracy.sort;
+@primes[^($upto+1)].reduce: -> $a, $b {
+    my $d = $b % 10;
+    %conspiracy{"$a → $d count:"}++;
+    $d;
+}
+
 my @res;
 push @res, "$_\tfrequency: {($_.value/$upto*100).round(.01)} %" for %conspiracy.sort;
+
+.say for @res;
 
 my $ref = qq:to/END/;
 1 → 1 count:	365	frequency: 3.65 %
