@@ -1,15 +1,15 @@
-This is Rakudo version 2018.09-59-g5f3579eb0 built on MoarVM version 2018.09-98-g67f85dc71
+This is Rakudo version 2018.09-66-g479348f31 built on MoarVM version 2018.09-98-g67f85dc71
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [948/13]
-|+------------> JVM: Good/Bad [866/96]
-||+-----------> smOke testing [859]
++-------------> Moar: Good/Bad [945/13]
+|+------------> JVM: Good/Bad [866/97]
+||+-----------> smOke testing [861]
 |||+----------> sKipping validation [96]
 ||||+---------> Interactive [52]
 |||||+--------> Touched (modified by me) [206]
 ||||||+-------> Random seed [107]
 |||||||+------> File output [71]
-||||||||+-----> Draft [216]
+||||||||+-----> Draft [217]
 |||||||||+----> Ignoring [63]
 ||||||||||+---> Void (no local copy) [185]
 |||||||||||+--> Un-implemented/reliable [148]
@@ -109,7 +109,7 @@ GGO...R..... Best_shuffle
 ........D.VU Bilinear_interpolation
 GGO......... Binary_digits
 GGO......... Binary_search
-GGO..T...... Binary_strings
+!GO..T...... Binary_strings
 GGO...R.D..U Birthday_problem
 GGO......... Bitcoin_address_validation
 GGO......... Bitcoin_public_point_to_address
@@ -124,7 +124,7 @@ GGO....F.... Bitmap_Midpoint_circle_algorithm
 GGO....F.... Bitmap_Read_a_PPM_file
 GBO....F.... Bitmap_Read_an_image_through_a_pipe
 GGO....F.... Bitmap_Write_a_PPM_file
-GGO..T...... Bitwise_IO
+!GO..T...... Bitwise_IO
 GGO..T...... Bitwise_operations
 ........D.VU Black_Box
 ........D.VU Blackjack_strategy
@@ -797,7 +797,7 @@ GGO......... Queue_Usage
 GGO...R..... Quickselect_algorithm
 GG.K........ Quine
 .........XV. RCRPG
-GGO..T...... RIPEMD-160
+!GO..T...... RIPEMD-160
 GGO...R..... RPG_Attributes_Generator
 GGO..T...... RSA_code
 ........D.VU Railway_circuit
@@ -871,12 +871,12 @@ GGO......... Runtime_evaluation
 GGO..T...... Runtime_evaluation_In_an_environment
 GGO......... S-Expressions
 GGO..T...... SEDOLs
-GGO..T...... SHA-1
-GGO......... SHA-256
+!GO..T...... SHA-1
+!GO......... SHA-256
 ..........VU SOAP
 .........XVU SQL-based_authentication
 ..........VU Safe_addition
-!B......D... Safe_primes_and_unsafe_primes
+GBO.....D... Safe_primes_and_unsafe_primes
 GGO......... Sailors,_coconuts_and_a_monkey_problem
 GGO......... Same_Fringe
 GGO.....D... Sattolo_cycle
@@ -903,6 +903,7 @@ GGO......... Set_consolidation
 GGO......... Set_of_real_numbers
 GGO..TR..... Set_puzzle
 GGO...R..... Seven-sided_dice_from_five-sided_dice
+GBO.....D... Sexy_primes
 .........XV. Shell_one-liner
 GGO......... Shoelace_formula_for_polygonal_area
 GGO..T...... Short-circuit_evaluation
