@@ -1,9 +1,9 @@
-This is Rakudo version 2018.09-66-g479348f31 built on MoarVM version 2018.09-98-g67f85dc71
+This is Rakudo version 2018.09-70-gab83b9d82 built on MoarVM version 2018.09-116-g80397b20f
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [945/13]
++-------------> Moar: Good/Bad [945/14]
 |+------------> JVM: Good/Bad [866/97]
-||+-----------> smOke testing [861]
+||+-----------> smOke testing [862]
 |||+----------> sKipping validation [96]
 ||||+---------> Interactive [52]
 |||||+--------> Touched (modified by me) [206]
@@ -42,7 +42,7 @@ GGO......... Ackermann_function
 .........XVU Active_Directory_Connect
 ..........VU Active_Directory_Search_for_a_user
 ..........VU Active_object
-GGO......... Add_a_variable_to_a_class_instance_at_runtime
+!GO......... Add_a_variable_to_a_class_instance_at_runtime
 ........D.VU Addition-chain_exponentiation
 ........D.VU Addition_chains
 GGO......... Address_of_a_variable
@@ -109,7 +109,7 @@ GGO...R..... Best_shuffle
 ........D.VU Bilinear_interpolation
 GGO......... Binary_digits
 GGO......... Binary_search
-!GO..T...... Binary_strings
+GGO..T...... Binary_strings
 GGO...R.D..U Birthday_problem
 GGO......... Bitcoin_address_validation
 GGO......... Bitcoin_public_point_to_address
@@ -124,7 +124,7 @@ GGO....F.... Bitmap_Midpoint_circle_algorithm
 GGO....F.... Bitmap_Read_a_PPM_file
 GBO....F.... Bitmap_Read_an_image_through_a_pipe
 GGO....F.... Bitmap_Write_a_PPM_file
-!GO..T...... Bitwise_IO
+GGO..T...... Bitwise_IO
 GGO..T...... Bitwise_operations
 ........D.VU Black_Box
 ........D.VU Blackjack_strategy
@@ -283,10 +283,10 @@ GGO......... Doubly-linked_list_Element_insertion
 GBO....F.... Dragon_curve
 GG.KI....... Draw_a_clock
 GGO....F.... Draw_a_cuboid
-!B.K........ Draw_a_pixel
+BB.K........ Draw_a_pixel
 BB.......... Draw_a_rotating_cube
 GGO..T.F.... Draw_a_sphere
-!B.K....D... Draw_pixel_2
+BB.K....D... Draw_pixel_2
 GGO..TR..... Dutch_national_flag_problem
 GGO......... Dynamic_variable_names
 GGO......... EKG_sequence_convergence
@@ -705,16 +705,16 @@ GGO......... Order_disjoint_list_items
 GGO..TR..... Order_two_numerical_lists
 GGO..T...... Ordered_Partitions
 GGO......... Ordered_words
-GGO.....D... P-value_correction
+!GO.....D... P-value_correction
 GGO......... Palindrome_detection
 GGO......... Pangram_checker
 GGO..T...... Paraffins
-BB.......... Parallel_Brute_Force
+GBO......... Parallel_Brute_Force
 GBO......... Parallel_calculations
 GBO...R..... Parallel_calculations-2
 GGO......... Parametric_polymorphism
 .........XV. Parametrized_SQL_statement
-GGO....FD... Parse_EBNF
+!GO....FD... Parse_EBNF
 GBO......... Parse_an_IP_Address
 GGO.....D... Parse_command-line_arguments
 GGO......... Parsing_RPN_calculator_algorithm
@@ -751,7 +751,7 @@ GGO......... Permutations_by_swapping
 GGO.....D... Permutations_with_repetitions
 GGO......... Pernicious_numbers
 GGO......... Phrase_reversals
-GGO..T...... Pi
+!GO..T...... Pi
 GGO..TR..... Pick_random_element
 GG.KI....... Pig_the_dice_game
 GGO...RF.... Pig_the_dice_game_Player
@@ -767,7 +767,7 @@ GGO..TR..... Poker_hand_analyser
 GGO......... Polymorphic_copy
 GGO..T...... Polymorphism
 GGO..T...... Polynomial_long_division
-GBO......... Polynomial_regression
+!BO......... Polynomial_regression
 GGO.....D... Polynomial_synthetic_division
 ..........VU Polyspiral
 GGO......... Population_count
@@ -797,7 +797,7 @@ GGO......... Queue_Usage
 GGO...R..... Quickselect_algorithm
 GG.K........ Quine
 .........XV. RCRPG
-!GO..T...... RIPEMD-160
+GGO..T...... RIPEMD-160
 GGO...R..... RPG_Attributes_Generator
 GGO..T...... RSA_code
 ........D.VU Railway_circuit
@@ -871,8 +871,8 @@ GGO......... Runtime_evaluation
 GGO..T...... Runtime_evaluation_In_an_environment
 GGO......... S-Expressions
 GGO..T...... SEDOLs
-!GO..T...... SHA-1
-!GO......... SHA-256
+GGO..T...... SHA-1
+GGO......... SHA-256
 ..........VU SOAP
 .........XVU SQL-based_authentication
 ..........VU Safe_addition
@@ -1064,7 +1064,7 @@ GGO......... Text_processing_1
 GGO......... Text_processing_2
 GGO......... Text_processing_Max_licenses_in_use
 ........D.VU Text_to_HTML
-GGO......... Textonyms
+!GO......... Textonyms
 ..........VU The_ISAAC_Cipher
 GG.KI....... The_Name_Game
 GGO....F.... The_Twelve_Days_of_Christmas
