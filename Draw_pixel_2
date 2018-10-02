@@ -8,6 +8,8 @@
 # Works with: Rakudo version 2018.05
 # Coordinates of random pixel displayed in window title. To make the single pixel show up better I filled in the drawing area background with black to get better contrast.
 
+
+#`{{
 use GTK::Simple;
 use GTK::Simple::DrawingArea;
 use Cairo;
@@ -43,3 +45,4 @@ END
 use Test;
 #my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 #is @res.join("\n"), chomp $ref;
+}}
