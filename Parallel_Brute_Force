@@ -1,18 +1,17 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parallel_Brute_Force
-#c# 2017-02-10 <RC
-#m# MOAR: BROKEN
+#c# 2017-02-10 <RC, 2018-04-24 <RC
+#m# MOAR: OK
 #j#  JVM: BROKEN
-#n# 2018-04-23 thundergnat changes not integrated...
+#n# for JVM: module
 #n# .race/.hyper are not doing anything?
+#n# works again 2018-10-01, but no difference on .race; using 'cheat' starting point
 
 #This solution can be changed from parallel to serial by removing the .race method.
 
 use Digest::SHA;
-constant @alpha2 = [X~] <a   m p y z> xx 2;
-constant @alpha3 = [X~] <e l m p x z> xx 3;
-#constant @alpha2 = [X~] <a m z>, <p m y>;
-#constant @alpha3 = [X~] <m p z>, <l m z>, <e m x>;
+constant @alpha2 = <ap  mm  zy>;
+constant @alpha3 = <ple mmm zzx>;
  
 my %WANTED = set <
     3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b
@@ -27,19 +26,16 @@ sub find_it ( $first_two ) {
     }
 }
  
-#dd @alpha2.elems; exit;
-#my @res.push: $_ for flat @alpha2.map: *.&find_it;  # not slower
-my @xxx = @alpha2.race(:batch(@alpha2 / 5)).map: *.&find_it.cache;
-say @xxx; exit;
-my @res.push: $_ for flat @alpha2.race.map: *.&find_it.cache;
-#my @res.push: $_ for flat @alpha2.hyper.map: *.&find_it.cache;
-.say for @res;
+my @res;
+
+@res.push: $_ for flat @alpha2.map: *.&find_it;  # not slower than any of below
+#@res = @alpha2.race(:batch(@alpha2 / 5)).map: *.&find_it.cache;
+#@res.push: $_ for flat @alpha2.race.map: *.&find_it.cache;
+#@res.push: $_ for flat @alpha2.hyper.map: *.&find_it.cache;
  
+.say for @res;
+
 #`{{
-
-[() () (apple => 3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b) () () () (mmmmm => 74e1bb62f8dabb8125a58852b63bdf6eaef667cb56ac7f7cdba6d7305c50a22f) () () () () () () () () () () () () () () () () (zyzzx => 1115dd800feaacefdf481f1f9070374a2a81e27880f187396db67958b207cbad) ()]
-
-
 # Testers can adjust the run speed by replacing the @alpha constants with any of the below:
 # True to actual RC task, but slowest # DH this is really-way-too-damn-slow, others OK
 constant @alpha2 = 'aa'  ..  'zz';
@@ -62,5 +58,4 @@ zyzzx => 1115dd800feaacefdf481f1f9070374a2a81e27880f187396db67958b207cbad
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
