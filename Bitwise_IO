@@ -21,5 +21,5 @@ say my $encode = encode-ascii 'STRING';
 say my $result = decode-ascii $encode;
 
 use Test;
-is $encode.gist, 'Buf:0x<03 8b 99 29 4a e5>';
+is $encode.gist, 'Buf:0x<03 8B 99 29 4A E5>';
 is $result, 'STRING';
