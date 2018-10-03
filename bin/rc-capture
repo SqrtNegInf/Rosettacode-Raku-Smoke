@@ -1,0 +1,55 @@
+#!/usr/local/bin/perl
+## capture the command-line, stdout and stderr
+#  2018-10-02 filter out out 'JIT ERROR' 
+
+# default temp file names
+$prefix = '/tmp/rc-capture.std';
+$out = "$prefix.out.$$";
+$err = "$prefix.err.$$";
+$err_raw = "$prefix.raw.$$";
+
+# usage
+exec "pod2text $0" unless @ARGV;
+
+if ($#ARGV == 0 && $ARGV[0] =~ /[\s>]/) {
+        ($cmd,$args,$out) = $ARGV[0] =~ /(\S+)\s*(.*)?>+\s*(.*)/;
+} else {
+        $args = join ' ', @ARGV;
+}
+
+#system "$cmd $args > $out 2> $err";
+system "$cmd $args > $out 2> $err_raw; grep -v 'JIT ERROR' $err_raw > $err";
+
+print "::CMD::\n$cmd $args\n\n";
+print "::STDOUT::\n" . `cat $out` . "\n" unless -z $out;
+print "::STDERR::\n" . `cat $err` . "\n" unless -z $err;
+
+unlink $out, $err, $err_raw;
+
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+=head1 NAME
+
+rc-capture - capture command-line, stdout and stderr
+
+=head1 SYNOPSIS
+
+rc-capture B<command> [ B<args> ]
+
+=head1 DESCRIPTION
+
+Captures the command-line, stdout and stderr, then present them on STDOUT,
+in that order.  The three sections of output are marked with the lines:
+
+        ::CMD:: ::STDOUT:: ::STDERR::
+
+If the 'command' being executed needs to redirect it's own STDOUT
+you must quote the entire command string:
+
+        Capture 'find / -type l -print > all_links'
+
+Note that appending (B<E<gt>E<gt>>) with STDOUT will not work.
+
+=head1 AUTHOR
+
+David Hoekman <dhoekman@halcyon.com>
