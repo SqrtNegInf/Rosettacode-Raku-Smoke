@@ -3,6 +3,7 @@
 #c# 2018-09-27 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# output style differs from what's on RC
 
 my @scores =
     Solomon => 44,
@@ -86,41 +87,6 @@ Fractional:
 2.5	Jason Errol
 5	Garry Bernard Barry
 7	Stephen
-EOD
-
-my $refx = qq:to/EOD/;
-Standard:
-1 => ["Solomon"]
-2 => ["Jason", "Errol"]
-4 => ["Garry", "Bernard", "Barry"]
-7 => ["Stephen"]
-
-Modified:
-1 => ["Solomon"]
-3 => ["Jason", "Errol"]
-6 => ["Garry", "Bernard", "Barry"]
-7 => ["Stephen"]
-
-Dense:
-1 => ["Solomon"]
-2 => ["Jason", "Errol"]
-3 => ["Garry", "Bernard", "Barry"]
-4 => ["Stephen"]
-
-Ordinal:
-1 => "Solomon"
-2 => "Jason"
-3 => "Errol"
-4 => "Garry"
-5 => "Bernard"
-6 => "Barry"
-7 => "Stephen"
-
-Fractional:
-1.0 => ["Solomon"]
-2.5 => ["Jason", "Errol"]
-5.0 => ["Garry", "Bernard", "Barry"]
-7.0 => ["Stephen"]
 EOD
 
 use Test;
