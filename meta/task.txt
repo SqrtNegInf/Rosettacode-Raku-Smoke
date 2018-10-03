@@ -1,7 +1,7 @@
-This is Rakudo version 2018.09-70-gab83b9d82 built on MoarVM version 2018.09-116-g80397b20f
+This is Rakudo version 2018.09-71-g107477b41 built on MoarVM version 2018.09-116-g80397b20f
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [945/14]
++-------------> Moar: Good/Bad [950/14]
 |+------------> JVM: Good/Bad [866/97]
 ||+-----------> smOke testing [862]
 |||+----------> sKipping validation [96]
@@ -42,7 +42,7 @@ GGO......... Ackermann_function
 .........XVU Active_Directory_Connect
 ..........VU Active_Directory_Search_for_a_user
 ..........VU Active_object
-!GO......... Add_a_variable_to_a_class_instance_at_runtime
+GGO......... Add_a_variable_to_a_class_instance_at_runtime
 ........D.VU Addition-chain_exponentiation
 ........D.VU Addition_chains
 GGO......... Address_of_a_variable
@@ -705,7 +705,7 @@ GGO......... Order_disjoint_list_items
 GGO..TR..... Order_two_numerical_lists
 GGO..T...... Ordered_Partitions
 GGO......... Ordered_words
-!GO.....D... P-value_correction
+GGO.....D... P-value_correction
 GGO......... Palindrome_detection
 GGO......... Pangram_checker
 GGO..T...... Paraffins
@@ -714,7 +714,7 @@ GBO......... Parallel_calculations
 GBO...R..... Parallel_calculations-2
 GGO......... Parametric_polymorphism
 .........XV. Parametrized_SQL_statement
-!GO....FD... Parse_EBNF
+GGO....FD... Parse_EBNF
 GBO......... Parse_an_IP_Address
 GGO.....D... Parse_command-line_arguments
 GGO......... Parsing_RPN_calculator_algorithm
@@ -751,7 +751,7 @@ GGO......... Permutations_by_swapping
 GGO.....D... Permutations_with_repetitions
 GGO......... Pernicious_numbers
 GGO......... Phrase_reversals
-!GO..T...... Pi
+GGO..T...... Pi
 GGO..TR..... Pick_random_element
 GG.KI....... Pig_the_dice_game
 GGO...RF.... Pig_the_dice_game_Player
@@ -767,7 +767,7 @@ GGO..TR..... Poker_hand_analyser
 GGO......... Polymorphic_copy
 GGO..T...... Polymorphism
 GGO..T...... Polynomial_long_division
-!BO......... Polynomial_regression
+GBO......... Polynomial_regression
 GGO.....D... Polynomial_synthetic_division
 ..........VU Polyspiral
 GGO......... Population_count
@@ -809,7 +809,7 @@ GGO...R..... Random_numbers
 GGO......... Range_expansion
 GGO......... Range_extraction
 GGO..T...... Ranking_methods
-GGO......... Rate_counter
+!GO......... Rate_counter
 GGO......... Ray-casting_algorithm
 GGO..T...... Read_a_configuration_file
 GGO.....D... Read_a_file_character_by_character_UTF8
@@ -1064,7 +1064,7 @@ GGO......... Text_processing_1
 GGO......... Text_processing_2
 GGO......... Text_processing_Max_licenses_in_use
 ........D.VU Text_to_HTML
-!GO......... Textonyms
+GGO......... Textonyms
 ..........VU The_ISAAC_Cipher
 GG.KI....... The_Name_Game
 GGO....F.... The_Twelve_Days_of_Christmas
