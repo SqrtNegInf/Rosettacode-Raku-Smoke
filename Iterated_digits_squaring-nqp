@@ -5,15 +5,11 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #   20161123: 185.736u 0.326s  3:06.32 99.8%
-#   20170609: 735.353u 1.498s 12:21.60 99.3% WTF??
-#   20180314: 183.113u 0.450s  3:03.85 99.8% back to normal
+#   20180314: 183.113u 0.450s  3:03.85 99.8%
 #   20180814: 163.367u 0.447s  2:44.22 99.7%
+#   20181004: 141.835u 0.425s  2:22.25 100.0%
 
-# here's where things went south
-# 693.705u 1.168s 11:42.91 98.8%  ccfa5e5  (Jun 8th)
-# 297.162u 0.660s  4:58.39 99.8%  1ac7996  (Jun 7th)
-
-# We can reduce this to 4 minutes by writing in the NQP (Not Quite Perl6) subset of the language:
+# We can reduce this to X minutes by writing in the NQP (Not Quite Perl6) subset of the language:
 
 use nqp;
 
