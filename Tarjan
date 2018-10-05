@@ -1,0 +1,83 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Tarjan
+#c# 2018-10-04 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub tarjan (%k) {
+    my %onstack;
+    my %index;
+    my %lowlink;
+    my @stack;
+    my @connected;
+ 
+    sub strong-connect ($v) {
+         state $index = 0;
+         %index{$v}   = $index;
+         %lowlink{$v} = $index;
+         ++$index;
+         @stack.push: $v;
+         %onstack{$v} = True;
+         for |%k{$v} -> $w {
+             if not %index{$w}.defined {
+                strong-connect($w);
+                %lowlink{$v} = %lowlink{$v} min %lowlink{$w};
+             }
+             elsif %onstack{$w} {
+                 %lowlink{$v} = %lowlink{$v} min %index{$w};
+             }
+        }
+        if %lowlink{$v} eq %index{$v} {
+            my @node;
+            repeat {
+                @node.push: @stack.pop;
+                %onstack{@node.tail} = False;
+            } while @node.tail ne $v;
+            @connected.push: @node;
+        }
+    }
+ 
+    .&strong-connect unless %index{$_} for %k.keys.sort;
+ 
+    @connected
+}
+ 
+# TESTING
+ 
+-> $test { @res.push: "\nStrongly connected components:"; @res.push: |tarjan($test).sort».sort } for
+ 
+# hash of vertex, edge list pairs
+(((1),(2),(0),(1,2,4),(3,5),(2,6),(5),(4,6,7)).pairs.hash),
+ 
+# Same layout test data with named vertices instead of numbered.
+%(:Andy<Bart>,
+  :Bart<Carl>,
+  :Carl<Andy>,
+  :Dave<Bart Carl Earl>,
+  :Earl<Dave Fred>,
+  :Fred<Carl Gary>,
+  :Gary<Fred>,
+  :Hank<Earl Gary Hank>
+);
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+Strongly connected components:
+0 1 2
+3 4
+5 6
+7
+
+Strongly connected components:
+Andy Bart Carl
+Dave Earl
+Fred Gary
+Hank
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
