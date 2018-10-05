@@ -14,15 +14,10 @@ srand 123456;
 unit sub MAIN ( :$file='ref/alice-10K.txt', :$n=2, :$words=100, );
  
 sub add-to-dict ( $text, :$n=2, ) {
-#    my @prefix-suffix = $text.words.rotor: $n, 1 => -$n ;
-#    @prefix-suffix.pop;
-# Error:
-# Rotorizing gap is out of range. Is: -2, should be in -0..^Inf;
-# Ensure a negative gap is not larger than the length of the sublist
-
     my @words = $text.words;
 
 # DH 2017-01-31 4x slower than .rotor version
+# DH 2018-10-04 now comparable in speed
 if (False) {
     my @prefix-suffix;
     for ^(@words-$n) -> $i {
@@ -41,7 +36,7 @@ if (False) {
 my $text = slurp $file;
 
 # DH 2018-05-07 
-# kludge for MOAR: create %dict with array-hash to obtain stable key order (after sort); much slower, but enables testing...
+# kludge for MOAR: create %dict with array-hash to obtain stable key order (after sort); a little slower, but enables testing...
 # start kludge
 my %dict;
 if $*VM ~~ /jvm/ {
