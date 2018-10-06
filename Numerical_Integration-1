@@ -5,6 +5,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #   20161123: 18213.707u 129.950s 5:11:41.81 98.0%
+#   20181004: 12358.237u  77.530s 3:33:55.73 96.8%
 #   _NEXT_
 
 use MONKEY-SEE-NO-EVAL; #DH
@@ -28,7 +29,7 @@ sub midrect(&f, $a, $b, $n) {
 sub trapez(&f, $a, $b, $n) {
     my $h = ($b - $a) / $n;
     # Too many arguments in flattening array.
-    #$h / 2 * [+] f($a), f($b), |do f($_) * 2 for $a+$h, $a+$h+$h ... $b-$h;
+#   $h / 2 * [+] f($a), f($b), |do f($_) * 2 for $a+$h, $a+$h+$h ... $b-$h;
     my $partial-sum += f($_) * 2 for $a+$h, $a+$h+$h ... $b-$h; #DH
     $h / 2 * [+] f($a), f($b), $partial-sum;
 }
