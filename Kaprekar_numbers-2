@@ -1,13 +1,18 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Kaprekar_numbers
-#c# 2015-12-05 <RC
+#c# 2015-12-05 <RC, 2018-10-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#     with base 17: very slow, broken (puts out more results than K-3)
-#    20161123: 12946.216u 383.841s 3:44:04.17 99.1% 
-#    20170123: 11099.346u 213.517s 3:22:29.73 93.1%
-#    20171027:  8394.155u  80.415s 2:21:35.74 99.7%
-#    _NEXT_
+#n# 2018-10-05 added '.race', ginormous speed-up 
+#n# small bug: why doesn't .hyper doesn't heep result in order?
+#n#  including base 10 & base 17:
+#n#  20161123: 12946.216u 383.841s 3:44:04.17 99.1%  (with 10:1e5/17:1e5)
+#n#  20170123: 11099.346u 213.517s 3:22:29.73 93.1%  ( " )
+#n#  20171027:  8394.155u  80.415s 2:21:35.74 99.7%  ( " )
+#n#  20181004:  8869.908u  62.636s 2:29:16.12 99.7%  ( " )
+#n#  20181005    599.969u  80.040s    2:37.84 430.8% (with 10:1e5/17:1e5)
+#n#  20181005    748.930u  21.489s    3:23.42 378.7% (with 10:1e6/17:1e5)
+#n#  _NEXT_
 
 # Numeric version (medium)
 
@@ -31,8 +36,11 @@ use Test;
 is $out, $ref1;
 
 my $n;
-say "\n\nBase 10 Kaprekar numbers < :10<1_000_000> = ", $n = [+] (1 if kaprekar $_ for ^100_000);
+(^100_000).race.map: { $n++ if kaprekar $_ }
+say "\n\nBase 10 Kaprekar numbers < :10<1_000_000> = $n";
 is $n, 24;
+#say "\n\nBase 10 Kaprekar numbers < :10<1_000_000> = ", $n = [+] (1 if kaprekar $_ for ^100_000);
+#is $n, 54;
 
 exit;
 
@@ -41,18 +49,22 @@ say "\nBase 17 Kaprekar numbers < :17<100_000>";
 my &k17 = &kaprekar.assuming(:base(17));
  
 my @res;
-for ^:17<1000000> -> $n {
+#for ^:16<100000> -> $n {
+(^:17<100000>).hyper.map: -> $n {
+#(^:17<100000>).race.map: -> $n {
     my ($h,$l) = k17 $n;
     next unless $l;
     my $n17 = $n.base(17);
     my $s17 = ($n * $n).base(17);
     my $h17 = $h.base(17);
-    @res.push: "$n $n17 $s17 ($h17 + $s17.substr(* - $h17.chars))";
+    @res.push: "$n $n17 $s17 ($h17 + $s17.substr(* - max(1,($s17.chars - $h17.chars))))";
+    #@res.push: "$n $n17 $s17 ($h17 + $s17.substr(* - $h17.chars))";
 }
 
+@res .= sort({$^a.chars <=> $^b.chars});
 .say for @res;
 
-use Test;
+
 my $ref2 = qq:to/END/;
 1 1 1 (0 + 1)
 16 G F1 (F + 1)
@@ -83,4 +95,5 @@ my $ref2 = qq:to/END/;
 1419856 GGGGG GGGGF00001 (GGGGF + 00001)
 END
 
+use Test;
 is @res.join("\n"), chomp $ref2;
