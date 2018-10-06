@@ -4,9 +4,10 @@
 #t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
-#    20161123: 4611.173u 6.166s 1:17:04.06 99.8%
-#    20170123: 2993.912u 7.279s   50:15.47 99.5%
-#    20171027: 3887.080u 7.286s 1:04:57.74 99.9%
+#    20161123: 4611.173u   6.166s 1:17:04.06  99.8%
+#    20171027: 3887.080u   7.286s 1:04:57.74  99.9%
+#    20181004: 2036.873u   3.757s   34:05.58  99.7% 
+#    20181005: 3165.355u 869.295s   38:20.58 175.3%  with .race, no benefit
 #    _NEXT_
 
 my @pairs =
@@ -23,6 +24,7 @@ my %name = @pairs.hash.invert;
 
 my @res;
  
+#(1..^@weights).race.map: -> $n {
 for 1..^@weights -> $n {
     given @weights.combinations($n).first({ 0 == [+] @^comb }) {
     when .so { @res.push: "Length $n: " ~ .map: {%name{$_}} }
