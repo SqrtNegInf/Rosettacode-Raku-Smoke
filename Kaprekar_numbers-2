@@ -4,14 +4,15 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2018-10-05 added '.race', ginormous speed-up 
-#n# small bug: why doesn't .hyper doesn't heep result in order?
+#n# small bug: why doesn't .hyper doesn't keep result in order?
 #n#  including base 10 & base 17:
-#n#  20161123: 12946.216u 383.841s 3:44:04.17 99.1%  (with 10:1e5/17:1e5)
+#n#  20161123: 12946.216u 383.841s 3:44:04.17 99.1%  (with 10:1e5/17:1e6)
 #n#  20170123: 11099.346u 213.517s 3:22:29.73 93.1%  ( " )
 #n#  20171027:  8394.155u  80.415s 2:21:35.74 99.7%  ( " )
 #n#  20181004:  8869.908u  62.636s 2:29:16.12 99.7%  ( " )
 #n#  20181005    599.969u  80.040s    2:37.84 430.8% (with 10:1e5/17:1e5)
-#n#  20181005    748.930u  21.489s    3:23.42 378.7% (with 10:1e6/17:1e5)
+#n#  20181005    748.930u  21.489s    3:23.42 378.7% (with 10:1e6/17:1e5) ! doing more
+#n#  20181006  10899.558u 259.860s   50:13.82 370.2% (with 10:1e6/17:1e6) ! doing much more
 #n#  _NEXT_
 
 # Numeric version (medium)
@@ -49,9 +50,9 @@ say "\nBase 17 Kaprekar numbers < :17<100_000>";
 my &k17 = &kaprekar.assuming(:base(17));
  
 my @res;
-#for ^:16<100000> -> $n {
-(^:17<100000>).hyper.map: -> $n {
-#(^:17<100000>).race.map: -> $n {
+(^:17<100_000>).hyper.map: -> $n {
+#(^:17<100_000>).race.map: -> $n {
+#^:17<100_000> -> $n {
     my ($h,$l) = k17 $n;
     next unless $l;
     my $n17 = $n.base(17);
@@ -63,7 +64,6 @@ my @res;
 
 @res .= sort({$^a.chars <=> $^b.chars});
 .say for @res;
-
 
 my $ref2 = qq:to/END/;
 1 1 1 (0 + 1)
