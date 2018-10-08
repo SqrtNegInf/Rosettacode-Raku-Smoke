@@ -1,12 +1,14 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Numerical_Integration
 #c# 2015-12-16 <RC
-#t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
+#n# only running the two fastest examples
+
 #   20161123: 18213.707u  129.950s 5:11:41.81 98.0%
 #   20181004: 12358.237u   77.530s 3:33:55.73 96.8%
 #   20181005: 21706.381u 1122.124s 1:55:54.67 328.2%  # with 'Promise'
+#   20181005: 39669.164u 1460.891s 1:58:50.37 576.8%  # extra Promise, no benefit
 #   _NEXT_
 
 use MONKEY-SEE-NO-EVAL; #DH
@@ -48,25 +50,31 @@ sub simpsons(&f, $a, $b, $n) {
     ($h / 6) * (f($a) + f($b) + 4*$sum1 + 2*$sum2);
 }
 
-sub try'em($f, $a, $b, $n, $exact) {
+sub integrate($f, $a, $b, $n, $exact) {
     my @r0;
+    my $e = 0.000001;
     @r0.push: "$f\n   in [$a..$b] / $n\n";
-    @r0.push: '              exact result: '~ $exact;
+    @r0.push: '             exact result: '~ $exact.round($e);
 
     my (@r1,@r2,@r3,@r4,@r5);
     my &f;
     EVAL "&f = $f";
-    my $p1 = Promise.start( { @r1.push: '     rectangle method left: '~ leftrect  &f, $a, $b, $n } );
-    my $p2 = Promise.start( { @r2.push: '    rectangle method right: '~ rightrect &f, $a, $b, $n } );
-    my $p3 = Promise.start( { @r3.push: '      rectangle method mid: '~ midrect   &f, $a, $b, $n } );
-    my $p4 = Promise.start( { @r4.push: 'composite trapezoidal rule: '~ trapez    &f, $a, $b, $n } );
-    my $p5 = Promise.start( { @r5.push: '   quadratic simpsons rule: '~ simpsons  &f, $a, $b, $n } );
+    my $p1 = Promise.start( { @r1.push: '     rectangle method left: '~  leftrect(&f, $a, $b, $n).round($e) } );
+    my $p2 = Promise.start( { @r2.push: '    rectangle method right: '~ rightrect(&f, $a, $b, $n).round($e) } );
+    my $p3 = Promise.start( { @r3.push: '      rectangle method mid: '~   midrect(&f, $a, $b, $n).round($e) } );
+    my $p4 = Promise.start( { @r4.push: 'composite trapezoidal rule: '~    trapez(&f, $a, $b, $n).round($e) } );
+    my $p5 = Promise.start( { @r5.push: '   quadratic simpsons rule: '~  simpsons(&f, $a, $b, $n).round($e) } );
 
-    my $result = await $p1, $p2, $p3, $p4, $p5;
+    await $p1, $p2, $p3, $p4, $p5;
     @r0, @r1, @r2, @r3, @r4, @r5;
 }
 
 # Note that these integrations are done with rationals rather than floats, so should be fairly precise (though of course with so few iterations they are not terribly accurate (except when they are)).  Some of the sums do overflow into Num (floating point)--currently rakudo allows 64-bit denominators--but at least all of the interval arithmetic is exact.
+
+#integrate('{ $_ ** 3 }', 0, 1, 100, 0.25);
+#integrate('1 / *', 1, 100, 1000, log(100));
+#integrate('*.self', 0, 5_000, 5_000_000, 12_500_000);
+#integrate('*.self', 0, 6_000, 6_000_000, 18_000_000);
 
 use Test;
 
@@ -80,23 +88,25 @@ my $ref1 = q:to/END1/;
 composite trapezoidal rule: 0.250025
    quadratic simpsons rule: 0.25
 END1
-my @res1 = try'em '{ $_ ** 3 }', 0, 1, 100, 0.25;
+my @res1 = integrate '{ $_ ** 3 }', 0, 1, 100, 0.25;
 .say for @res1; say '';
-#is @res1.join("\n"), chomp $ref1;
+is @res1.join("\n"), chomp $ref1;
 
 my $ref2 = q:to/END2/;
 1 / *
    in [1..100] / 1000
-              exact result: 4.605170185988092
-     rectangle method left: 4.654991057514682
-    rectangle method right: 4.556981057514681
-      rectangle method mid: 4.604762548678376
-composite trapezoidal rule: 4.605986057514682
-   quadratic simpsons rule: 4.605170384957145
+              exact result: 4.60517
+     rectangle method left: 4.654991
+    rectangle method right: 4.556981
+      rectangle method mid: 4.604763
+composite trapezoidal rule: 4.605986
+   quadratic simpsons rule: 4.60517
 END2
-my @res2 = try'em '1 / *', 1, 100, 1000, log(100);
+my @res2 = integrate '1 / *', 1, 100, 1000, log(100);
 .say for @res2; say '';
-#is @res2.join("\n"), chomp $ref2;
+is @res2.join("\n"), chomp $ref2;
+
+exit;
 
 my $ref3 = q:to/END3/;
 *.self
@@ -108,9 +118,9 @@ my $ref3 = q:to/END3/;
 composite trapezoidal rule: 12500000
    quadratic simpsons rule: 12500000
 END3
-my @res3 = try'em '*.self', 0, 5_000, 5_000_000, 12_500_000;
+my @res3 = integrate '*.self', 0, 5_000, 5_000_000, 12_500_000;
 .say for @res3; say '';
-#is @res3.join("\n"), chomp $ref3;
+is @res3.join("\n"), chomp $ref3;
 
 my $ref4 = q:to/END4/;
 *.self
@@ -122,6 +132,6 @@ my $ref4 = q:to/END4/;
 composite trapezoidal rule: 18000000
    quadratic simpsons rule: 18000000
 END4
-my @res4 = try'em '*.self', 0, 6_000, 6_000_000, 18_000_000;
+my @res4 = integrate '*.self', 0, 6_000, 6_000_000, 18_000_000;
 .say for @res4; say '';
-#is @res4.join("\n"), chomp $ref4;
+is @res4.join("\n"), chomp $ref4;
