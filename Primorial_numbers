@@ -1,28 +1,37 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Primorial_numbers
-#c# 2016-01-04 <RC
+#c# 2016-01-04 <RC, 20180-10-09 >RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j#  JVM: BROKEN
+#n# module allows code to do a bit more, in the same time as before (but breaks JVM)
+#n# but adding 10e5 is slow:     443.190u 11.120s 8:01.77 94.3%
+#n# but adding 10e6 is glacial:  xxx
 
-constant @primes = (1..*).grep(*.is-prime);
+my @res;
+
+# the old way to generate primes
+#constant @primes = (1..*).grep(*.is-prime); 
+
+# faster way to generate primes
+use Math::Primesieve;
+my $sieve = Math::Primesieve.new;
+my @primes = $sieve.primes(105_000);
 
 sub primorial($n) { [*] @primes[^$n] }
 
-say "First ten primorials: {(primorial $_ for ^10)}";
-#say "primorial(10^$_) has {primorial(10**$_).chars} digits" for 1..4;
+@res.push: "First ten primorials: {(primorial $_ for ^10)}";
+@res.push: "primorial(10^$_) has {primorial(10**$_).chars} digits" for 1..4;
 
-#`{
+.say for @res;
 
+my $ref = qq:to/END/;
 First ten primorials: 1 2 6 30 210 2310 30030 510510 9699690 223092870
 primorial(10^1) has 10 digits
 primorial(10^2) has 220 digits
 primorial(10^3) has 3393 digits
 primorial(10^4) has 45337 digits
-^C
-
-If let running long enough, it should be able to find the 100000th primorial too, but I cut it off because it was so slow. Implementing a proper prime sieve would help matters.
-}
+END
+# primorial(10^5) has 563921 digits
 
 use Test;
-is (primorial $_ for ^10), '1 2 6 30 210 2310 30030 510510 9699690 223092870';
-is (primorial 10**3).chars, 3393;
+is @res.join("\n"), chomp $ref;
