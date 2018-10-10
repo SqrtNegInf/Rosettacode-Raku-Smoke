@@ -1,12 +1,12 @@
-This is Rakudo version 2018.09-382-g7e86d4e30 built on MoarVM version 2018.09-124-g588873f7a
+This is Rakudo version 2018.09-394-g7c9b2955d built on MoarVM version 2018.09-124-g588873f7a
 implementing Perl 6.c.
 updating from RC…
 +-------------> Moar: Good/Bad [957/13]
-|+------------> JVM: Good/Bad [872/99]
-||+-----------> smOke testing [868]
+|+------------> JVM: Good/Bad [872/100]
+||+-----------> smOke testing [869]
 |||+----------> sKipping validation [96]
 ||||+---------> Interactive [52]
-|||||+--------> Touched (modified by me) [207]
+|||||+--------> Touched (modified by me) [208]
 ||||||+-------> Random seed [107]
 |||||||+------> File output [71]
 ||||||||+-----> Draft [216]
@@ -779,7 +779,8 @@ GGO......... Primality_by_trial_division
 GGO.....D... Prime_conspiracy
 GGO......... Prime_decomposition
 GGO..T...... Primes_-_allocate_descendants_to_their_ancestors
-GGO......... Primorial_numbers
+GBO..T...... Primorial_numbers
+GGO......... Primorial_numbers-2
 GGO......... Priority_queue
 GGO...R..... Probabilistic_choice
 GBO..T...... Problem_of_Apollonius
@@ -810,7 +811,7 @@ GGO...R..... Random_numbers
 GGO......... Range_expansion
 GGO......... Range_extraction
 GGO..T...... Ranking_methods
-GGO......... Rate_counter
+!GO......... Rate_counter
 GGO......... Ray-casting_algorithm
 GGO..T...... Read_a_configuration_file
 GGO.....D... Read_a_file_character_by_character_UTF8
