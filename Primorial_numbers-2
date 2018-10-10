@@ -1,0 +1,41 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Primorial_numbers
+#c# 2016-01-04 <RC, 2018-10-09
+#m# MOAR: OK
+#j#  JVM: OK
+#n# caching version
+#n# speed-up techniques allow code to do a bit more, in the same time as before
+#n# but memory requirements explode (from saving all the intermediate primorials...)
+
+my @res;
+
+use Math::Primesieve;
+
+my $sieve = Math::Primesieve.new;
+
+my @primes = $sieve.primes(1_000_000);
+
+sub primorial($n) { 
+    state @primorial;
+    @primorial[0,1] = (1,2);
+
+    return @primorial[$n] if @primorial >  $n;
+    @primorial.push: @primorial[*-1] * @primes[$_] for @primorial-1 .. $n;
+    return @primorial[$n];
+}
+
+@res.push: "First ten primorials: {(primorial $_ for ^10)}";
+@res.push: "primorial(10^$_) has {primorial(10**$_).chars} digits" for 1..4;
+
+.say for @res;
+
+my $ref = qq:to/END/;
+First ten primorials: 1 2 6 30 210 2310 30030 510510 9699690 223092870
+primorial(10^1) has 10 digits
+primorial(10^2) has 220 digits
+primorial(10^3) has 3393 digits
+primorial(10^4) has 45337 digits
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
