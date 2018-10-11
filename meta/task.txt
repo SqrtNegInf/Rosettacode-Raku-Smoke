@@ -1,4 +1,4 @@
-This is Rakudo version 2018.09-394-g7c9b2955d built on MoarVM version 2018.09-124-g588873f7a
+This is Rakudo version 2018.09-404-g8cc3d5d7d built on MoarVM version 2018.09-124-g588873f7a
 implementing Perl 6.c.
 updating from RC…
 +-------------> Moar: Good/Bad [957/13]
@@ -6,10 +6,10 @@ updating from RC…
 ||+-----------> smOke testing [869]
 |||+----------> sKipping validation [96]
 ||||+---------> Interactive [52]
-|||||+--------> Touched (modified by me) [208]
+|||||+--------> Touched (modified by me) [209]
 ||||||+-------> Random seed [107]
 |||||||+------> File output [71]
-||||||||+-----> Draft [216]
+||||||||+-----> Draft [215]
 |||||||||+----> Ignoring [63]
 ||||||||||+---> Void (no local copy) [181]
 |||||||||||+--> Un-implemented/reliable [144]
@@ -769,7 +769,7 @@ GGO......... Polymorphic_copy
 GGO..T...... Polymorphism
 GGO..T...... Polynomial_long_division
 GBO......... Polynomial_regression
-GGO.....D... Polynomial_synthetic_division
+GGO..T..D... Polynomial_synthetic_division
 ..........VU Polyspiral
 GGO......... Population_count
 GGO......... Power_set
@@ -811,7 +811,7 @@ GGO...R..... Random_numbers
 GGO......... Range_expansion
 GGO......... Range_extraction
 GGO..T...... Ranking_methods
-!GO......... Rate_counter
+GGO......... Rate_counter
 GGO......... Ray-casting_algorithm
 GGO..T...... Read_a_configuration_file
 GGO.....D... Read_a_file_character_by_character_UTF8
@@ -878,7 +878,7 @@ GGO......... SHA-256
 ..........VU SOAP
 .........XVU SQL-based_authentication
 ..........VU Safe_addition
-GBO.....D... Safe_primes_and_unsafe_primes
+GBO......... Safe_primes_and_unsafe_primes
 GGO......... Sailors,_coconuts_and_a_monkey_problem
 GGO......... Same_Fringe
 GGO.....D... Sattolo_cycle
@@ -1134,7 +1134,7 @@ GG.KI...D... Vibrating_rectangles
 GGO..T...... Vigen%C3%A8re_cipher
 ..........VU Vigen%C3%A8re_cipher_Cryptanalysis
 GGO......... Visualize_a_tree
-GGO......... Vogel%27s_approximation_method
+!GO......... Vogel%27s_approximation_method
 GBO...RF.... Voronoi_diagram
 GGO......... Walk_a_directory_Non-recursively
 GGO......... Walk_a_directory_Recursively
