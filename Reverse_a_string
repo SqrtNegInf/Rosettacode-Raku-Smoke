@@ -3,24 +3,34 @@
 #c# 2015-11-22 <>RC, 2018-09-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# JVM only partial
 
-my @res;
+my @res1;
+my @res2;
 
 # Works with: rakudo version 2018.08
 
 #Perl 6 handles graphemes, multi-byte characters and emoji correctly by default.
 
-@res.push: "hello world".flip;
-@res.push: "as⃝df̅".flip;
-@res.push: 'ℵΑΩ 駱駝道 🤔 🇸🇧 🇺🇸 🇬🇧‍ 👨‍👩‍👧‍👦🆗🗺'.flip;
+@res1.push: "hello world".flip;
+@res2.push: "as⃝df̅".flip;
+@res2.push: 'ℵΑΩ 駱駝道 🤔 🇸🇧 🇺🇸 🇬🇧‍ 👨‍👩‍👧‍👦🆗🗺'.flip;
 
-.say for @res;
+.say for @res1;
+.say for @res2;
 
-my $ref = q:to/END/;
+my $ref1 = q:to/END/;
 dlrow olleh
+END
+
+my $ref2 = q:to/END/;
 f̅ds⃝a
 🗺🆗👨‍👩‍👧‍👦 🇬🇧‍ 🇺🇸 🇸🇧 🤔 道駝駱 ΩΑℵ
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res1.join("\n"), chomp $ref1;
+
+exit if $*VM ~~ /jvm/;
+
+is @res2.join("\n"), chomp $ref2;
