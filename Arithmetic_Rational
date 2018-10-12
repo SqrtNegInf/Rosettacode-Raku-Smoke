@@ -3,14 +3,30 @@
 #c# 2016-08-02 <>RC, 2018-05-19 <RC, 2018-09-26 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# different subroutines, to handle JVM failure with .hyper
 #n# with .hyper for 2**19: 478.079u 50.641s 2:03.58 427%
 
 # Perl 6 supports rational arithmetic natively.
 
 my @res;
 
-#for 2..2**19 -> $candidate {
-#for 2..2**15 -> $candidate {
+sub jvm {
+for 2..2**15 -> $candidate {
+    my $sum = 1 / $candidate;
+    for 2 .. ceiling(sqrt($candidate)) -> $factor {
+        if $candidate %% $factor {
+            $sum += 1 / $factor + 1 / ($candidate / $factor);
+        }
+    }
+    if $sum.nude[1] == 1 {
+        push @res, ("Sum of reciprocal factors of $candidate = $sum exactly", $sum == 1 ?? ", perfect!" !! ".");
+        say @res[*-1];
+    }
+}
+}
+
+sub moar {
+#(2..2**19).hyper.map: -> $candidate {
 (2..2**15).hyper.map: -> $candidate {
     my $sum = 1 / $candidate;
     for 2 .. ceiling(sqrt($candidate)) -> $factor {
@@ -23,6 +39,9 @@ my @res;
         say @res[*-1];
     }
 }
+}
+
+$*VM ~~ /jvm/ ?? jvm() !! moar();
 
 my $ref = qq:to/END/;
 Sum of reciprocal factors of 2 = 2 exactly .
