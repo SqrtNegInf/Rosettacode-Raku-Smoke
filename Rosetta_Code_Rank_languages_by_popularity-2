@@ -2,7 +2,8 @@
 #u# http://www.rosettacode.org/wiki/Rosetta_Code/Rank_languages_by_popularity
 #c# 2016-05-21 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j#  JVM: BROKEN
+#n# java.lang.IllegalStateException: Current state = CODING, new state = FLUSHED
 #    (with 'curl -o' for 'wget -O')
 
 my $languages =  qx{curl -s -o - 'http://rosettacode.org/wiki/Category:Programming_Languages'};
