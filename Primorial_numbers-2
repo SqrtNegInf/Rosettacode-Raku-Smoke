@@ -9,11 +9,12 @@
 
 my @res;
 
-use Math::Primesieve;
-
-my $sieve = Math::Primesieve.new;
-
-my @primes = $sieve.primes(1_000_000);
+# work-around for JVM
+use MONKEY-SEE-NO-EVAL;
+my @primes;
+my $sieve;
+if $*VM ~~ /jvm/ { @primes = lazy gather for 1 .. * { .take if $_.is-prime } }
+else             { EVAL 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes = $sieve.primes(1_000_000);' }
 
 sub primorial($n) { 
     state @primorial;
