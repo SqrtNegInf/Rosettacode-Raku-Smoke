@@ -5,7 +5,9 @@
 #j#  JVM: BROKEN
 #n# module allows code to do a bit more, in the same time as before (but breaks JVM)
 #n# but adding 10e5 is slow:     443.190u 11.120s 8:01.77 94.3%
-#n# but adding 10e6 is glacial:  xxx
+#n# but adding 10e6 is glacial:  (never ran it long enough to get timing info.)
+
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 my @res;
 
