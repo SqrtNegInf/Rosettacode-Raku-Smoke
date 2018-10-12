@@ -3,7 +3,9 @@
 #c# 2015-12-03 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# for JVM: 'state %seen' fails in 'loop' or 'while' construct
+#n# for JVM: 'state %seen' fails in 'loop' or 'while' construct, but OK if bogus 'for' used
+
+die "JVM so borked, not worth running" if $*VM ~~ /jvm/;
 
 # Works with: rakudo version 2015-09-13
 
@@ -17,7 +19,7 @@ sub happy (Int $n is copy --> Bool) {
   }
 }
 
-say join ' ', grep(&happy, 1 .. *)[^8];
+say my $result = join ' ', grep(&happy, 1 .. *)[^8];
 
 use Test;
-is (join ' ', grep(&happy, 1 .. *)[^8]), '1 7 10 13 19 23 28 31';
+is $result, '1 7 10 13 19 23 28 31';
