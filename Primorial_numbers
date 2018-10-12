@@ -1,23 +1,19 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Primorial_numbers
-#c# 2016-01-04 <RC, 20180-10-09 >RC
+#c# 2016-01-04 <RC, 2018-10-09 >RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
-#n# module allows code to do a bit more, in the same time as before (but breaks JVM)
+#j#  JVM: OK
 #n# but adding 10e5 is slow:     443.190u 11.120s 8:01.77 94.3%
 #n# but adding 10e6 is glacial:  (never ran it long enough to get timing info.)
 
-BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
-
 my @res;
 
-# the old way to generate primes
-#constant @primes = (1..*).grep(*.is-prime); 
-
-# faster way to generate primes
-use Math::Primesieve;
-my $sieve = Math::Primesieve.new;
-my @primes = $sieve.primes(105_000);
+# work-around for JVM
+use MONKEY-SEE-NO-EVAL;
+my @primes;
+my $sieve;
+if $*VM ~~ /jvm/ { @primes = lazy gather for 1 .. * { .take if $_.is-prime } }
+else             { EVAL 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes = $sieve.primes(105_000);' }
 
 sub primorial($n) { [*] @primes[^$n] }
 
