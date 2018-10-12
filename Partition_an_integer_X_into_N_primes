@@ -6,15 +6,29 @@
 #n# didn't change primes generation on RC
 #n# old prime generator broke with this commit?  https://github.com/rakudo/rakudo/commit/5210d7028d
 
+use MONKEY-SEE-NO-EVAL;
+
 # 2205.352u 7.882s 38:44.95 95.1%  # slow and wrong!
 #my @primes = 2, 3, 5, -> $p { ($p + 2, $p + 4 ... {&is-prime}).tail } ... *; # lazy infinite list of primes
 
-# about 50% faster
-use Math::Primesieve;
-my $sieve = Math::Primesieve.new;
-my @primes = $sieve.primes(50_000);
+my @primes;
+my $sieve;
 
-# about 20% faster
+if $*VM ~~ /jvm/ {
+@primes = lazy gather for 1 .. * { .take if $_.is-prime }
+
+} else {
+
+# about 50% faster (Moar)
+EVAL " 
+use Math::Primesieve 
+$sieve = Math::Primesieve.new;
+@primes = $sieve.primes(50_000);
+"
+
+}
+
+# about 20% faster (Moar)
 #constant @primes = 2, |(3, 5, 7 ... *).grep: *.is-prime;
 
 # baseline
