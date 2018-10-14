@@ -1,18 +1,18 @@
-This is Rakudo version 2018.09-417-g2c43d2bf5 built on MoarVM version 2018.09-124-g588873f7a
+This is Rakudo version 2018.09-426-g8e4d17a79 built on MoarVM version 2018.09-124-g588873f7a
 implementing Perl 6.c.
 updating from RC…
 +-------------> Moar: Good/Bad [958/13]
-|+------------> JVM: Good/Bad [872/99]
-||+-----------> smOke testing [869]
+|+------------> JVM: Good/Bad [871/101]
+||+-----------> smOke testing [870]
 |||+----------> sKipping validation [96]
 ||||+---------> Interactive [52]
-|||||+--------> Touched (modified by me) [209]
+|||||+--------> Touched (modified by me) [210]
 ||||||+-------> Random seed [108]
-|||||||+------> File output [70]
-||||||||+-----> Draft [215]
+|||||||+------> File output [71]
+||||||||+-----> Draft [216]
 |||||||||+----> Ignoring [63]
-||||||||||+---> Void (no local copy) [181]
-|||||||||||+--> Un-implemented/reliable [144]
+||||||||||+---> Void (no local copy) [182]
+|||||||||||+--> Un-implemented/reliable [145]
 ||||||||||||
 GGO......... 100_doors
 GB.KI.R..... 15_Puzzle_Game
@@ -371,6 +371,7 @@ GGO......... First-class_functions_Use_numbers_analogously
 GGO..T...... First_class_environments
 GGO......... Five_weekends
 GGO.....D... Fivenum
+........D.VU Fixed_length_records
 GGO......... FizzBuzz
 GGO......... Flatten_a_list
 GGO...R..... Flipping_bits_game
@@ -537,7 +538,7 @@ GGO....F.... LU_decomposition
 GGO......... LZW_compression
 GGO...R..... Langton%27s_ant
 GGO......... Largest_int_from_concatenated_ints
-GGO......... Largest_number_divisible_by_its_digits
+GBO..T...... Largest_number_divisible_by_its_digits
 GGO......... Last_Friday_of_each_month
 GG.K..R..... Last_letter-first_letter
 GBO......... Law_of_cosines_-_triples-1
@@ -558,7 +559,7 @@ GGO......... Literals_Integer
 GG.K........ Literals_String
 GGO..T...... Logical_operations
 GGO..T...... Long_multiplication
-GGO......... Long_primes
+GBO......... Long_primes
 GGO.....D... Longest_Common_Substring
 GGO..T..D... Longest_common_prefix
 GGO......... Longest_common_subsequence
@@ -741,7 +742,8 @@ GGO......... Percolation_Bond_percolation
 GGO...R..... Percolation_Mean_cluster_density
 GGO...R..... Percolation_Mean_run_density
 GGO...R..... Percolation_Site_percolation
-GGO......... Perfect_numbers
+GGO......... Perfect_numbers-1
+GGO......... Perfect_numbers-2
 GGO......... Perfect_shuffle
 GGO..T..D... Perlin_noise
 GGO......... Permutation_test
@@ -811,7 +813,7 @@ GGO...R..... Random_numbers
 GGO......... Range_expansion
 GGO......... Range_extraction
 GGO..T...... Ranking_methods
-GGO......... Rate_counter
+!GO......... Rate_counter
 GGO......... Ray-casting_algorithm
 GGO..T...... Read_a_configuration_file
 GGO.....D... Read_a_file_character_by_character_UTF8
@@ -1041,7 +1043,7 @@ GGO.....D... Table_creation
 GGO....F.... Take_notes_on_the_command_line
 ........D.VU Tamagotchi_emulator
 GGO.....D... Tarjan
-GGO......... Taxicab_numbers
+GGO....F.... Taxicab_numbers
 GGO......... Temperature_conversion
 GG.KI....... Terminal_control_Clear_the_screen
 GG.KI....... Terminal_control_Coloured_text
