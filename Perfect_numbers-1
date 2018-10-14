@@ -1,12 +1,17 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Perfect_numbers
-#c# 2016-01-19 <RC, 2018-04-23 <RC
+#c# 2016-01-19 <RC, 2018-04-23 <RC, 2018-11-13 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# nearly 4x speed-up with .hyper:
+#n#  before: 27.897u 0.231s 0:27.96 100.5%
+#n#  after:  26.412u 0.935s 0:07.13 383.4%
 
 sub is-perf($n) { $n == [+] grep $n %% *, 1 .. $n div 2 }
 
-put my $result = (grep {.&is-perf}, 1..∞)[^4];
+# put my $result = (grep {.&is-perf}, 1..∞)[^4];
+
+put my $result = ((1..Inf).hyper.grep: {.&is-perf})[^4];
 
 use Test;
 is $result, '6 28 496 8128';
