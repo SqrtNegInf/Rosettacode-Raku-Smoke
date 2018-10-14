@@ -4,15 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# possible fixes for @alphabet
-my @g =   flat('A' .. 'Z'), ' '; say 'g: ', @g; # bad
-my @b =   flat('A' .. 'Z'), ' '; say 'b: ', @b; # bad
-my @f =   slip 'A' .. 'Z',  ' '; say 'f: ', @f; # bad
-my @c =   flat 'A' .. 'Z',  ' '; say 'c: ', @c;
-my @e =   slip('A' .. 'Z'), ' '; say 'e: ', @e;
-my @a =      |('A' .. 'Z'), ' '; say 'a: ', @a; # using this
-say ' ';
-
 #No blocking here. Algorithm doesn't really work if either red or black text begins with 'A'.
 
 constant $n = 9516311845790656153499716760847001433441357;
