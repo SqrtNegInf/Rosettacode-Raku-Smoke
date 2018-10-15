@@ -1,15 +1,15 @@
-This is Rakudo version 2018.09-426-g8e4d17a79 built on MoarVM version 2018.09-124-g588873f7a
+This is Rakudo version 2018.09-433-g7d99bf1b6 built on MoarVM version 2018.09-124-g588873f7a
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [958/13]
-|+------------> JVM: Good/Bad [871/101]
++-------------> Moar: Good/Bad [959/13]
+|+------------> JVM: Good/Bad [870/102]
 ||+-----------> smOke testing [870]
 |||+----------> sKipping validation [96]
 ||||+---------> Interactive [52]
-|||||+--------> Touched (modified by me) [210]
+|||||+--------> Touched (modified by me) [211]
 ||||||+-------> Random seed [108]
 |||||||+------> File output [71]
-||||||||+-----> Draft [216]
+||||||||+-----> Draft [215]
 |||||||||+----> Ignoring [63]
 ||||||||||+---> Void (no local copy) [182]
 |||||||||||+--> Un-implemented/reliable [145]
@@ -371,7 +371,7 @@ GGO......... First-class_functions_Use_numbers_analogously
 GGO..T...... First_class_environments
 GGO......... Five_weekends
 GGO.....D... Fivenum
-........D.VU Fixed_length_records
+..........VU Fixed_length_records
 GGO......... FizzBuzz
 GGO......... Flatten_a_list
 GGO...R..... Flipping_bits_game
@@ -636,7 +636,7 @@ GGO.....D... Monads_List_monad
 ........D.VU Monads_Writer_monad
 GGO...R..... Monte_Carlo_methods
 GBO.....D... Montgomery_reduction
-GGO...R..... Monty_Hall_problem
+GBO..TR..... Monty_Hall_problem
 ........D.VU Morpion_solitaire
 GGO......... Morse_code
 ........DXV. Most_frequent_k_chars_distance
@@ -813,7 +813,7 @@ GGO...R..... Random_numbers
 GGO......... Range_expansion
 GGO......... Range_extraction
 GGO..T...... Ranking_methods
-!GO......... Rate_counter
+GGO......... Rate_counter
 GGO......... Ray-casting_algorithm
 GGO..T...... Read_a_configuration_file
 GGO.....D... Read_a_file_character_by_character_UTF8
