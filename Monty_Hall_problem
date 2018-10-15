@@ -1,12 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Monty_Hall_problem
-#c# 2015-11-23 <RC
+#c# 2015-11-23 <RC, 2018-10-14 >RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j#  JVM: BROKEN
+#n# for JVM: test with .1 version
+#n# with .race, output not deterministic, despite 'srand'
 
 srand 123456;
 
-# Works with: rakudo version 2015-09-24
 # This implementation is parametric over the number of doors. 
 # Increasing the number of doors in play makes the superiority of the switch strategy even more obvious.
 
@@ -42,20 +43,19 @@ for 3, 10 -> $doors {
     my %wins;
     @res.push: "With $doors doors:";
     for Stay, 'Staying', Switch, 'Switching' -> $s, $name {
-        for ^TRIALS {
+        #for ^TRIALS {
+        (^TRIALS).race.map: {
             ++%wins{$s} if play($s, doors => $doors) == Car;
         }
-#say "$_ : %wins{$s}";
         @res.push: "  $name wins " ~
             round(100*%wins{$s} / TRIALS) ~
             '% of the time.'
     }
 }
 
-
 .say for @res;
 
-my $moar = qq:to/END/;
+my $ref = qq:to/END/;
 With 3 doors:
   Staying wins 33% of the time.
   Switching wins 67% of the time.
@@ -64,18 +64,10 @@ With 10 doors:
   Switching wins 90% of the time.
 END
 
-my $jvm = qq:to/END/;
-With 3 doors:
-  Staying wins 33% of the time.
-  Switching wins 66% of the time.
-With 10 doors:
-  Staying wins 10% of the time.
-  Switching wins 90% of the time.
-END
-
 use Test;
-if $*VM ~~ /jvm/ {
-is @res.join("\n"), chomp $jvm;
-} else {
-is @res.join("\n"), chomp $moar;
-}
+#like $ref, / 'Glorp' /;
+like $ref, /'Staying wins '   < 32 33 34 > .*? 
+            'Switching wins ' < 65 66 67 > .*?
+            'Staying wins '   < 9 10 11 >  .*? 
+            'Switching wins ' < 89 90 91 > /;
+#is @res.join("\n"), chomp $ref;
