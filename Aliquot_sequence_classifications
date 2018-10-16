@@ -3,6 +3,7 @@
 #c# 2016-01-02 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 'state @seq' brings immeasurable speed-up, not on RC
 
 sub propdivsum (\x) {
     my @l = x > 1, gather for 2 .. x.sqrt.floor -> \d {
@@ -19,8 +20,8 @@ multi quality ($,1)  { 'aspiring' }
 multi quality ($,$n) { "cyclic-$n" }
 
 sub aliquotidian ($x) {
+    state @seq; @seq = $x, &propdivsum ... *;
     my %seen;
-    my @seq = $x, &propdivsum ... *;
     for 0..16 -> $to {
         my $this = @seq[$to] or return "$x\tterminating\t[@seq[^$to]]";
         last if $this > 140737488355328;
@@ -34,17 +35,9 @@ sub aliquotidian ($x) {
 
 }
 
-aliquotidian($_).say for flat
-    1..10,
-    11, 12, 28, 496, 220, 1184, 12496, 1264460,
-    790, 909, 562, 1064, 1488;
+my @res.push: aliquotidian $_ for flat 1..10, <11 12 28 496 220 1184 12496 1264460 790 909 562 1064 1488 15355717786080>;
 
-my @res;
-(push @res, aliquotidian($_).sprintf) for flat
-    1..10,
-    11, 12, 28, 496, 220, 1184, 12496, 1264460,
-    790, 909, 562, 1064, 1488,
-    15355717786080;
+.say for @res;
 
 my $ref = qq:to/END/;
 1	terminating	[1]
