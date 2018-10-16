@@ -7,6 +7,7 @@
 #n# for JVM: module
 #n# to get GD installed: ln -s /opt/local/lib/libgd.3.dylib /usr/local/lib/libgd.dylib
 #n# GD interface limits us to 255 colors, so only transform darker pixels in input
+#n# not using .race as cannot exactly control pixel color assigments, so testing would fail
 
 use GD;
 
@@ -34,7 +35,7 @@ for $in.lines.ords -> $r, $g, $b {
     my $x =  $p % $xsize;
     my $y = ($p / $xsize).floor;
         
-    #(0..^$width).race.map: -> $k {
+    #(0..^$width).race.map: -> $k {  # faster, but non-deterministic
     for (0..^$width) -> $k {
         my $th = $dth*$k;
         my $r   = ($x*cos($th) + $y*sin($th));
