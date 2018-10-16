@@ -28,7 +28,7 @@ sub kaprekar( Int $n, Int :$base = 10 ) {
     }
     ();
 }
- 
+
 my $out ~= " $_" if .&kaprekar for ^10_000;
 say $out;
 
@@ -49,9 +49,9 @@ is $n, 24;
 exit;
 
 say "\nBase 17 Kaprekar numbers < :17<100_000>";
- 
+
 my &k17 = &kaprekar.assuming(:base(17));
- 
+
 my @res;
 sub jvm {
 for ^:17<100_000> -> $n {
