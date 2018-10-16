@@ -1,18 +1,18 @@
-This is Rakudo version 2018.09-433-g7d99bf1b6 built on MoarVM version 2018.09-124-g588873f7a
+This is Rakudo version 2018.09-445-ge1ebffeb8 built on MoarVM version 2018.09-125-g8c2dd3ad2
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [959/13]
-|+------------> JVM: Good/Bad [870/102]
-||+-----------> smOke testing [870]
++-------------> Moar: Good/Bad [958/13]
+|+------------> JVM: Good/Bad [868/105]
+||+-----------> smOke testing [871]
 |||+----------> sKipping validation [96]
 ||||+---------> Interactive [52]
-|||||+--------> Touched (modified by me) [211]
+|||||+--------> Touched (modified by me) [212]
 ||||||+-------> Random seed [108]
-|||||||+------> File output [71]
+|||||||+------> File output [72]
 ||||||||+-----> Draft [215]
 |||||||||+----> Ignoring [63]
-||||||||||+---> Void (no local copy) [182]
-|||||||||||+--> Un-implemented/reliable [145]
+||||||||||+---> Void (no local copy) [181]
+|||||||||||+--> Un-implemented/reliable [143]
 ||||||||||||
 GGO......... 100_doors
 GB.KI.R..... 15_Puzzle_Game
@@ -371,7 +371,7 @@ GGO......... First-class_functions_Use_numbers_analogously
 GGO..T...... First_class_environments
 GGO......... Five_weekends
 GGO.....D... Fivenum
-..........VU Fixed_length_records
+..........V. Fixed_length_records
 GGO......... FizzBuzz
 GGO......... Flatten_a_list
 GGO...R..... Flipping_bits_game
@@ -445,7 +445,7 @@ GGO......... Hello_world_Standard_error
 GGO......... Hello_world_Text
 GG.KI....... Hello_world_Web_server
 GGO..T...... Here_document
-GGO..T...... Heronian_triangles
+!GO..T...... Heronian_triangles
 ........D.VU Hexapawn
 GGO......... Hickerson_series_of_almost_integers
 GGO......... Higher-order_functions
@@ -685,7 +685,7 @@ GGO......... Number_names
 GGO......... Number_reversal_game
 GGO..T...... Numeric_error_propagation
 GG.K........ Numerical_integration-1
-G!O......... Numerical_integration-2
+!!O......... Numerical_integration-2
 ........D.VU Numerical_integration_Adaptive_Simpson%27s_method
 GGO......... Numerical_integration_Gauss-Legendre_Quadrature
 .........XVU OLE_Automation
@@ -746,7 +746,7 @@ GGO......... Perfect_numbers-1
 GGO......... Perfect_numbers-2
 GGO......... Perfect_shuffle
 GGO..T..D... Perlin_noise
-GGO......... Permutation_test
+GBO......... Permutation_test
 GGO......... Permutations
 GGO......... Permutations_Derangements
 GGO...R..... Permutations_Rank_of_a_permutation
@@ -772,7 +772,7 @@ GGO..T...... Polymorphism
 GGO..T...... Polynomial_long_division
 GBO......... Polynomial_regression
 GGO..T..D... Polynomial_synthetic_division
-..........VU Polyspiral
+GBO....F.... Polyspiral
 GGO......... Population_count
 GGO......... Power_set
 GG.K........ Pragmatic_directives
@@ -792,7 +792,7 @@ GGO..T...... Program_name
 ........D.VU Proof
 GGO..T...... Proper_divisors
 GGO....F.... Pythagoras_tree
-GGO......... Pythagorean_quadruples
+GBO......... Pythagorean_quadruples
 GGO......... Pythagorean_triples
 ..........VU QR_decomposition
 GGO......... Quaternion_type
@@ -1137,7 +1137,7 @@ GGO..T...... Vigen%C3%A8re_cipher
 ..........VU Vigen%C3%A8re_cipher_Cryptanalysis
 GGO......... Visualize_a_tree
 GGO......... Vogel%27s_approximation_method
-GBO...RF.... Voronoi_diagram
+GBO..TRF.... Voronoi_diagram
 GGO......... Walk_a_directory_Non-recursively
 GGO......... Walk_a_directory_Recursively
 GGO......... Water_collected_between_towers
