@@ -8,10 +8,10 @@
 # Works with: rakudo version 2015-10-20
 #Here is a straight-forward, naive brute force implementation:
 
-constant limit = 100;
+my $limit = 100;
 
 my @res1;
-for [X] [^limit] xx 3 -> (\a, \b, \c) {
+for [X] [^$limit] xx 3 -> (\a, \b, \c) {
     @res1.push: [a, b, c] if a < b < c and a**2 + b**2 == c**2
 }
 .say for @res1;
@@ -75,9 +75,10 @@ is @res1.join("\n"), chomp $ref1;
 #Here is a slightly less naive brute force implementation that is not really practical for large perimeter limits. It's pretty zippy up to about 10000 though.
 
 my %triples;
-my $limit = 10000;
+$limit = 10000;
 
-for 3 .. $limit/2 -> $c {
+#for 3 .. $limit/2 -> $c {
+(3 .. $limit/2).race.map: -> $c {
    for 1 .. $c -> $a {
        my $b = ($c * $c - $a * $a).sqrt;
        last if $c + $a + $b > $limit;
