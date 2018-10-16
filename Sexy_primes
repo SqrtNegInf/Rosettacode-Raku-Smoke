@@ -13,7 +13,7 @@ my $sieve = Math::Primesieve.new;
 my $max = 1_000_035;
 my @primes = $sieve.primes($max);
  
-my $fiter = @primes.Set;
+my $filter = @primes.Set;
 my $primes = @primes.categorize: { .&sexy }
  
 @res.push: "Total primes less than {comma $max}: "~ comma +@primes;
@@ -31,12 +31,12 @@ for <pair 2 triplet 3 quadruplet 4 quintuplet 5> -> $sexy, $cnt {
  
 sub sexy ($i) {
     gather {
-        take 'quintuplet' if all($fiter{$i «+« (6,12,18,24)});
-        take 'quadruplet' if all($fiter{$i «+« (6,12,18)});
-        take 'triplet'    if all($fiter{$i «+« (6,12)});
-        take 'pair'       if $fiter{$i + 6};
+        take 'quintuplet' if all($filter{$i «+« (6,12,18,24)});
+        take 'quadruplet' if all($filter{$i «+« (6,12,18)});
+        take 'triplet'    if all($filter{$i «+« (6,12)});
+        take 'pair'       if $filter{$i + 6};
 		take (($i >= $max - 6) && ($i + 6).is-prime) ||
-		(so any($fiter{$i «+« (6, -6)})) ?? 'sexy' !! 'unsexy';
+		(so any($filter{$i «+« (6, -6)})) ?? 'sexy' !! 'unsexy';
     }
 }
  
