@@ -5,6 +5,8 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #f# RC file: kronecker-carpet-perl6.png
+#n# xx file: kronecker-vicsek-perl6.png
+#n# xx file: kronecker-six-perl6.png
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -30,7 +32,8 @@ for  'vicsek', @vicsek, 4,
   -> $name,    @shape,  $order {
     my @img = kronecker-fractal( @shape, $order );
     my $png = Image::PNG::Portable.new: :width(@img[0].elems), :height(@img.elems);
-    for ^@img[0] X ^@img -> ($x, $y) {
+    #for ^@img[0] X ^@img -> ($x, $y) {
+    (^@img[0] X ^@img).race.map: -> ($x, $y) {
         $png.set: $x, $y, |( @img[$y;$x] ?? <255 255 32> !! <16 16 16> );
     }
     $png.write: "run/kronecker-{$name}-perl6.png";
