@@ -2,14 +2,15 @@
 #u# http://rosettacode.org/wiki/Pythagorean_quadruples
 #c# 2017-08-23 <RC
 #m# MOAR: OK
-#j# JVM:  OK
-#n# too slow at original limit
+#j# JVM:  BROKEN
+#n# too slow at original limit; .race becomes helpful up above 1000
 
 my \N = 257; # 2200;
 my @sq = (0 .. N)»²;
 my @not = False xx N;
 @not[0] = True;
  
+#(1 .. N).race.map: -> $d {
 for 1 .. N -> $d {
     my $last = 0;
     for $d ... ($d/3).ceiling -> $a {
