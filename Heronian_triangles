@@ -1,17 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Heronian_triangles
-#c# 2015-10-26 <>RC
+#c# 2015-10-26 <>RC, 2018-10-15 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# .race in 1st or 2nd loop give same speed-up (but not 3rd!); no, cannot nest them, blows up 
 
-# pretty slow...
-
-# Works with: rakudo version 2015-01-03
+my @res;
 
 sub hero($a, $b, $c) {
     my $s = ($a + $b + $c) / 2;
-    my $a2 = $s * ($s - $a) * ($s - $b) * ($s - $c);
-    $a2.sqrt;
+    ($s * ($s - $a) * ($s - $b) * ($s - $c)).sqrt;
+    #([*] $s, |($s X- $a,$b,$c)).sqrt # slow
 }
 
 sub heronian-area($a, $b, $c) {
@@ -24,34 +23,66 @@ sub primitive-heronian-area($a, $b, $c) {
 }
 
 sub show(@data) {
-    say "   Area Perimeter   Sides";
+    @res.push: "   Area Perimeter   Sides";
     for @data -> [$area, $perim, $c, $b, $a] {
-	printf "%6d%6d%12s\n", $area, $perim, "$a×$b×$c";
+    @res.push: sprintf "%6d%6d%12s", $area, $perim, "$a×$b×$c";
     }
 }
 
 sub MAIN ($maxside = 200, $first = 10, $witharea = 210) {
-    my @h = sort gather
-        for 1 .. $maxside -> $c {
-            for 1 .. $c -> $b {
-                for $c - $b + 1 .. $b -> $a {
-                    if primitive-heronian-area($a,$b,$c) -> $area {
-                        take [$area, $a+$b+$c, $c, $b, $a];
-                    }
+    my @h;
+    #(flat (^$maxside X ^$maxside).grep: {.[0] < .[1]}).race.map: -> $c, $b {  # much slower than no .race at all?
+    (1 .. $maxside).race.map: -> $c {
+        for 1 .. $c -> $b {
+            for $c - $b + 1 .. $b -> $a {
+                if primitive-heronian-area($a,$b,$c) -> $area {
+                    @h.push: [$area, $a+$b+$c, $c, $b, $a];
                 }
             }
         }
+    }
 
-    say "Primitive Heronian triangles with sides up to $maxside: ", +@h;
+    @h .= sort;
+    @res.push: "Primitive Heronian triangles with sides up to $maxside:", +@h;
 
-    say "\nFirst $first:";
+    @res.push: "\nFirst $first:";
     show(@h[^$first]);
 
-    say "\nArea $witharea:";
+    @res.push: "\nArea $witharea:";
     show @h.grep: *[0] == $witharea;
 
-use Test;
-is (@h[0]), (6,12,5,4,3), 'row 1';
-is (@h[9]), (60,40,17,15,8), 'row 9';
+    .say for @res;
+
+    my $ref = qq:to/END/;
+Primitive Heronian triangles with sides up to 200:
+517
+
+First 10:
+   Area Perimeter   Sides
+     6    12       3×4×5
+    12    16       5×5×6
+    12    18       5×5×8
+    24    32     4×13×15
+    30    30     5×12×13
+    36    36     9×10×17
+    36    54     3×25×26
+    42    42     7×15×20
+    60    36    10×13×13
+    60    40     8×15×17
+
+Area 210:
+   Area Perimeter   Sides
+   210    70    17×25×28
+   210    70    20×21×29
+   210    84    12×35×37
+   210    84    17×28×39
+   210   140     7×65×68
+   210   300   3×148×149
+END
+
+    use Test;
+    is @res.join("\n"), chomp $ref;
+#    is (@h[0]), (6,12,5,4,3), 'row 1';
+#    is (@h[9]), (60,40,17,15,8), 'row 9';
 
 }
