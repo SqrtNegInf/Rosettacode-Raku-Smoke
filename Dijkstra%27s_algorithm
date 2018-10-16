@@ -3,10 +3,10 @@
 #c# 2018-03-12 <RC, 2018-03-23 >RC
 #m# MOAR: OK
 #j# JVM:  OK
- 
+
 class Graph {
   has (%.edges, %.nodes);
- 
+
   method new(*@args) {  # DH - works same with/without the '*'
     my (%edges, %nodes);
     for @args {
@@ -16,7 +16,7 @@ class Graph {
     }
     self.bless(edges => %edges, nodes => %nodes);
   }
- 
+
   method neighbours ($source) {
     my (%neighbours, $edges);
     $edges = self.nodes{$source};
@@ -25,20 +25,20 @@ class Graph {
     }   
     return %neighbours
   }
- 
+
   method dijkstra ($source, $dest) {
     my (%node_data, $v, $u); my @q = self.nodes.keys;
- 
+
     for self.nodes.keys {%node_data{$_}{'dist'} = Inf;%node_data{$_}{'prev'} = '';}
     %node_data{$source}{'dist'} = 0;
- 
+
     while @q {
       my ($mindist, $idx) = @((map {[%node_data{@q[$_]}{'dist'},$_]},^@q).min(*[0]));
       $u = @q[$idx];
- 
+
       if $mindist eq Inf {
         return ();
- 
+
       } elsif $u eq $dest {
         my @s; 
         while %node_data{$u}{'prev'} {@s.unshift($u); $u = %node_data{$u}{'prev'}}
@@ -49,7 +49,7 @@ class Graph {
         @q.splice($idx,1);
 
       }
- 
+
       for self.neighbours($u).kv -> $v, $edge {
         my $alt = %node_data{$u}{'dist'} + $edge[2];
         if $alt < %node_data{$v}{'dist'} {
@@ -59,10 +59,10 @@ class Graph {
     }
   }
 }
- 
+
 say my @a = Graph.new([["a", "b", 7],  ["a", "c", 9],  ["a", "f", 14], ["b", "c", 10],  # DH - change to AoA
                   ["b", "d", 15], ["c", "d", 11], ["c", "f", 2],  ["d", "e", 6],
                   ["e", "f", 9]]).dijkstra('a', 'e');
- 
+
 use Test;
 is @a, chomp 'a c f e';
