@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+## 
+#  2018-10-16
+
+sub MAIN($dir = "%*ENV<HOME>/perl6/Rosetta-Code/bench/moar") {
+
+    my $num = rx/<[\.0..9]>+/;
+
+    my @dirs = $dir.IO;
+    while @dirs {
+        for @dirs.pop.dir -> $path {
+            next unless $path ~~ /err $$/;
+            my $text = $path.IO.slurp;
+            my ($r, $u, $s) = ($text ~~ m:g/<after \t> ($num)/).list;
+            printf "%5.1f %5.1f %s\n", $r, $u+$s, $path.basename;
+        }
+    }
+}
