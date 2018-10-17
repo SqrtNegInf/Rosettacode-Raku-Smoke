@@ -37,6 +37,7 @@ File: 21_Game
 #c# 2018-10-16 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# JVM cannot do 'prompt'? (which is commented out for automated testing)
 
 File: 24_game
 #!/usr/bin/env perl6
@@ -3316,7 +3317,7 @@ File: History_variables.0
 File: Hofstadter-Conway__10,000_sequence
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Hofstadter-Conway_$10,000_sequence
-#c# 2016-05-08 <RC, 2018-10-16 >RC
+#c# 2016-05-08 <RC, 2018-10-16 >RC, 2018-10-16 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# .race provides no benefit here
@@ -5565,10 +5566,10 @@ File: Perlin_noise
 File: Permutation_test
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Permutation_test
-#c# 2015-11-20 <RC
+#c# 2015-11-20 <RC, 2018-10-16 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# .race makes output non-deterministic
+#n# .race requires atomic ++ op
 
 File: Permutation_test.1
 #!/usr/bin/env perl6
