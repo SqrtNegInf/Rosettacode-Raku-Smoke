@@ -14,7 +14,8 @@ for dir($dir, test => /'-m' $$/) -> $path {
     next unless "$path/$task.err".IO ~~ :e;
     my $text = "$path/$task.err".IO.slurp;
     my ($r, $u, $s) = ($text ~~ m:g/<after \t> ($num)/).list;
-    printf "%5.1f\t%5.1f\t%s\n", $r, $u+$s, $path.basename; #.subst('.err', '');
+    next unless $r;
+    printf "%5.1f\t%5.1f\t%s\n", $r, $u+$s, $path.basename;
 }
 
 }
