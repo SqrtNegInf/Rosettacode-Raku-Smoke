@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+## for a single task, for all dates, run-time as real (wall-clock) and user + system (total CPU)
+#  2018-10-16
+# real and user+system moving in different directions is a sign that .race/.hyper in use
+
+my $dir = "%*ENV<HOME>/perl6/Rosetta-Code/bench";
+
+sub MAIN ( Str $task ) {
+
+my $num = rx/<[\.0..9]>+/;
+
+for dir($dir, test => /'-m' $$/) -> $path {
+    next unless $path.d;
+    next unless "$path/$task.err".IO ~~ :e;
+    my $text = "$path/$task.err".IO.slurp;
+    my ($r, $u, $s) = ($text ~~ m:g/<after \t> ($num)/).list;
+    printf "%5.1f\t%5.1f\t%s\n", $r, $u+$s, $path.basename; #.subst('.err', '');
+}
+
+}
