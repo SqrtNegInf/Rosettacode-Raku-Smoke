@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Hofstadter-Conway_$10,000_sequence
-#c# 2016-05-08 <RC, 2018-10-16 >RC
+#c# 2016-05-08 <RC, 2018-10-16 >RC, 2018-10-16 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# .race provides no benefit here
@@ -9,8 +9,9 @@
 # Note that @a is a lazy array, and the Z variants are "zipwith" operators.
 
 my $n = 3;
-my @a = (0,1,1, -> $p { @a[$p] + @a[$n++ - $p] } ... *);
 my $last55;
+my @a = (0,1,1, -> $p { @a[$p] + @a[$n++ - $p] } ... *);
+@a[2**20]; # pre-calculate sequence
 
 for 1..19 -> $power {
     my @range := 2**$power .. 2**($power+1)-1;
