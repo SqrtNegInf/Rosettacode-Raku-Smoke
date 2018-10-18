@@ -14,7 +14,7 @@
 #  forever - hangs, never terminates
 #  broken - hangs, never terminates
 
-use warnings;
+#use warnings;
 
 use Parallel::ForkManager;
 
@@ -69,7 +69,7 @@ for my $prog (@ARGV) {
     $difftest =~ s/\.BEND/.moar/ if $mode ne 'jvm';
     $difftest =~ s/\.BEND/.jvm/  if $mode eq 'jvm';
 
-    if (%Solo{$prog}) { @P_one_at_a_time.push: $prog; } else { @Programs.push: $prog; };
+    if (defined %Solo{$prog}) { push @P_one_at_a_time, $prog } else { push @Programs, $prog }
     $Ppre{$prog} =  $precmd if $precmd ne '';
     $Prun{$prog} =  $clargs if $clargs ne '';
     $Pfile{$prog} = $difftest if $difftest ne '';
