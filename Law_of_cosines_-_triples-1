@@ -1,50 +1,52 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
-#c# 2018-09-25 <RC, 2018-10-17 >RC
+#c# 2018-09-25 <RC, 2018-10-18 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# added atomic ops to avoid race condition
+#n# added atomic ops to avoid race condition, and must use fixed-size @triples
+#n# jnthn: SqrtNegInf: @a is not threadsafe; it's an auto-resizing array
+#n# jnthn: SqrtNegInf: Declare it fixed-size instead: `my @a[60];`
 
 my @res;
 
 multi triples (60, $n) {
     my %sq = (1..$n).map: { .² => $_ };
     my atomicint $i = 0;
-    my @triples;
+    my @triples[2*$n];
     (1..^$n).race.map: -> $a {
         for $a^..$n -> $b {
             my $cos = $a * $a + $b * $b - $a * $b;
-            (@triples[$i⚛++] = ~ ($a, %sq{$cos}, $b)) if %sq{$cos}:exists;
+            (@triples[$i⚛++] = $a, %sq{$cos}, $b) if %sq{$cos}:exists;
             #(@triples[$i⚛++] = ~ ($a, %sq{$cos}, $b)) and last if %sq{$cos}:exists;  # why not short-circuit?
         }
     }
-    @triples
+    @triples.grep:{$_ !eqv Any};
 }
 
 multi triples (90, $n) {
     my %sq = (1..$n).map: { .² => $_ };
     my atomicint $i = 0;
-    my @triples;
+    my @triples[2*$n];
     (1..^$n).race.map: -> $a {
         for $a^..$n -> $b {
             my $cos = $a * $a + $b * $b;
-            @triples[$i⚛++] = ~ $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
+            @triples[$i⚛++] = $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
         }
     }
-    @triples
+    @triples.grep:{$_ !eqv Any};
 }
 
 multi triples (120, $n) {
     my %sq = (1..$n).map: { .² => $_ };
     my atomicint $i = 0;
-    my @triples;
+    my @triples[2*$n];
     (1..^$n).race.map: -> $a {
         for $a^..$n -> $b {
             my $cos = $a * $a + $b * $b + $a * $b;
-            @triples[$i⚛++] = ~ $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
+            @triples[$i⚛++] = $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
         }
     }
-    @triples;
+    @triples.grep:{$_ !eqv Any};
 }
 
 use Sort::Naturally;
