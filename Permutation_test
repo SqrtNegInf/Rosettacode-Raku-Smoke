@@ -15,7 +15,7 @@ my int @all = flat @treated, @control;
 
 my $base = stats( @treated, @all );
 
-my atomicint @trials = 0, 0, 0;
+my atomicint @trials[3] = 0, 0, 0;
 
 @all.combinations(+@treated).race.map: { @trials[ 1 + ( stats( $_, @all ) <=> $base ) ]⚛++ } 
 
