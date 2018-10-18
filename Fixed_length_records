@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Fixed_length_records
+#c# 2018-10-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: flr-outfile.dat
+#n# don't display on STDERR, as trips automated testing 
+
+#Link to a copy of the input file used: flr-infile.dat
+#Essentially the same as task Selective_File_Copy except more boring.
+
+my $in = "ref/flr-infile.dat".IO.open(:r :bin) or warn $!;
+$*OUT  = './run/flr-outfile.dat'.IO.open(:w, :bin) or die $!; # open a file in binary mode for writing
+
+while my $record = $in.read(80) {                       # read in fixed sized binary chunks
+     $*OUT.write: $record.=reverse;                      # write reversed records out to $outfile
+     #$*ERR.say: $record.decode('ASCII');                 # display decoded records on STDERR
+}
+close $*OUT;
