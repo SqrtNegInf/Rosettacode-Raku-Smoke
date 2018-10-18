@@ -1,18 +1,18 @@
-This is Rakudo version 2018.09-446-g5aef7bd45 built on MoarVM version 2018.09-131-g1d6562bfd
+This is Rakudo version 2018.09-451-g4bf55b1ef built on MoarVM version 2018.09-131-g1d6562bfd
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [961/13]
++-------------> Moar: Good/Bad [960/13]
 |+------------> JVM: Good/Bad [869/105]
 ||+-----------> Smoke testing [871]
 |||+----------> sKipping validation [97]
 ||||+---------> Interactive [52]
-|||||+--------> Touched (modified by me) [215]
-||||||+-------> Random seed [110]
+|||||+--------> Touched (modified by me) [218]
+||||||+-------> Random seed [109]
 |||||||+------> File output [72]
-||||||||+-----> Draft [215]
+||||||||+-----> Draft [216]
 |||||||||+----> Ignoring [63]
-||||||||||+---> Void (no local copy) [180]
-|||||||||||+--> Un-implemented/reliable [142]
+||||||||||+---> Void (no local copy) [181]
+|||||||||||+--> Un-implemented/reliable [143]
 ||||||||||||
 GGS......... 100_doors
 GB.KI.R..... 15_Puzzle_Game
@@ -298,6 +298,7 @@ GGS..T...... Element-wise_operations
 GGS......... Elementary_cellular_automaton
 GGS.....D... Elementary_cellular_automaton_Infinite_length
 GGS..T..D... Elementary_cellular_automaton_Random_Number_Generator
+........D.VU Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T..D... Elliptic_curve_arithmetic
 GGS..T...... Emirp_primes
 GGS......... Empty_directory
@@ -428,7 +429,7 @@ GBS..T...... HTTP
 GBS......... HTTPS
 GG.K........ HTTPS_Authenticated
 ..........VU HTTPS_Client-authenticated
-GGS......... Hailstone_sequence
+GGS..T...... Hailstone_sequence
 GGS..T...... Hamming_numbers
 GG.KI....... Handle_a_signal
 GBS......... Happy_numbers-1
@@ -541,7 +542,7 @@ GGS......... Largest_int_from_concatenated_ints
 GBS..T...... Largest_number_divisible_by_its_digits
 GGS......... Last_Friday_of_each_month
 GG.K..R..... Last_letter-first_letter
-GBS......... Law_of_cosines_-_triples-1
+GBS..T...... Law_of_cosines_-_triples-1
 GGS..T...... Law_of_cosines_-_triples-2
 GGS......... Leap_year
 GGS......... Least_common_multiple
@@ -746,7 +747,7 @@ GGS......... Perfect_numbers-1
 GGS......... Perfect_numbers-2
 GGS......... Perfect_shuffle
 GGS..T..D... Perlin_noise
-GBS..TR..... Permutation_test
+GBS..T...... Permutation_test
 GGS......... Permutations
 GGS......... Permutations_Derangements
 GGS...R..... Permutations_Rank_of_a_permutation
@@ -813,7 +814,7 @@ GGS...R..... Random_numbers
 GGS......... Range_expansion
 GGS......... Range_extraction
 GGS..T...... Ranking_methods
-GGS......... Rate_counter
+!GS......... Rate_counter
 GGS......... Ray-casting_algorithm
 GGS..T...... Read_a_configuration_file
 GGS.....D... Read_a_file_character_by_character_UTF8
@@ -996,7 +997,7 @@ GGS......... Stack_traces
 GG.K........ Start_from_a_main_routine
 GG.KI...D... Starting_a_web_browser
 GGS..T...... State_name_puzzle
-GGS...R..... Statistics_Basic
+GGS..TR..... Statistics_Basic
 GGS...R..... Statistics_Normal_distribution
 GGS......... Stem-and-leaf_plot
 GGS..T...... Stern-Brocot_sequence
