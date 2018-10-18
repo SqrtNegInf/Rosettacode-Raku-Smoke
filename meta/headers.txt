@@ -3082,7 +3082,7 @@ File: HTTPS_Authenticated
 File: Hailstone_sequence
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Hailstone_sequence
-#c# 2016-09-04 <RC
+#c# 2016-09-04 <RC, 2018-10-17 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -4001,9 +4001,10 @@ File: Last_letter-first_letter
 File: Law_of_cosines_-_triples-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
-#c# 2018-09-25 <RC
+#c# 2018-09-25 <RC, 2018-10-17 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# added atomic ops to avoid race condition
 
 File: Law_of_cosines_-_triples-1.1
 #!/usr/bin/env perl6
@@ -4013,7 +4014,7 @@ File: Law_of_cosines_-_triples-1.1
 #j# JVM:  BROKEN
 #  for JVM: .race and module
 #n# Thundergnat's performant version (but with .race it sometimes gives 18383 for 'extra credit')
-#n# could be @triples not %triples now?
+#n# see main code, use @triples not %triples, atomic ops and no more problem
 
 File: Law_of_cosines_-_triples-2
 #!/usr/bin/env perl6
@@ -5566,7 +5567,7 @@ File: Perlin_noise
 File: Permutation_test
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Permutation_test
-#c# 2015-11-20 <RC, 2018-10-16 >RC
+#c# 2015-11-20 <RC, 2018-10-17 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# .race requires atomic ++ op
