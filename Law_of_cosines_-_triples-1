@@ -11,7 +11,7 @@ multi triples (60, $n) {
     my %sq = (1..$n).map: { .² => $_ };
     my atomicint $i = 0;
     my @triples;
-    (1..^$n).race(:8degree).map: -> $a {
+    (1..^$n).race.map: -> $a {
         for $a^..$n -> $b {
             my $cos = $a * $a + $b * $b - $a * $b;
             (@triples[$i⚛++] = ~ ($a, %sq{$cos}, $b)) if %sq{$cos}:exists;
@@ -25,7 +25,7 @@ multi triples (90, $n) {
     my %sq = (1..$n).map: { .² => $_ };
     my atomicint $i = 0;
     my @triples;
-    (1..^$n).race(:8degree).map: -> $a {
+    (1..^$n).race.map: -> $a {
         for $a^..$n -> $b {
             my $cos = $a * $a + $b * $b;
             @triples[$i⚛++] = ~ $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
@@ -38,7 +38,7 @@ multi triples (120, $n) {
     my %sq = (1..$n).map: { .² => $_ };
     my atomicint $i = 0;
     my @triples;
-    (1..^$n).race(:8degree).map: -> $a {
+    (1..^$n).race.map: -> $a {
         for $a^..$n -> $b {
             my $cos = $a * $a + $b * $b + $a * $b;
             @triples[$i⚛++] = ~ $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
