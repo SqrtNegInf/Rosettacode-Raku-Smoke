@@ -18,6 +18,13 @@ use warnings;
 
 use Parallel::ForkManager;
 
+# some program to test run solo
+%Solo = (
+'Pythagorean_triples' => 1,
+'Law_of_cosines_-_triples-1' => 1,
+'Rate_counter' => 1,
+);
+
 $mode = $0 =~ /moar/i ? 'moar' : 'jvm';
 
 system "rakudobrew switch $mode-master";
@@ -62,13 +69,23 @@ for my $prog (@ARGV) {
     $difftest =~ s/\.BEND/.moar/ if $mode ne 'jvm';
     $difftest =~ s/\.BEND/.jvm/  if $mode eq 'jvm';
 
-    push @Programs, $prog;
+    if (%Solo{$prog}) { @P_one_at_a_time.push: $prog; } else { @Programs.push: $prog; };
     $Ppre{$prog} =  $precmd if $precmd ne '';
     $Prun{$prog} =  $clargs if $clargs ne '';
     $Pfile{$prog} = $difftest if $difftest ne '';
 }
 
-# run in parallel 
+for my $prog (@P_one_at_a_time) {
+
+    my $run = $prog;
+    $run .= " $Prun{$prog}" if defined $Prun{$prog};
+
+    system "$Ppre{$prog}" if defined $Ppre{$prog};
+    system "rc-runone '$exe $run' > bench/$dir/$prog.out 2> bench/$dir/$prog.err";
+    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$prog.out" if defined $Pfile{$prog};
+}
+
+# run remainder in parallel 
 my $pm = Parallel::ForkManager->new(8);
 RUN:
 for my $prog (@Programs) {
