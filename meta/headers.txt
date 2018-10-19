@@ -2679,6 +2679,15 @@ File: Fivenum
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: Fixed_length_records
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Fixed_length_records
+#c# 2018-10-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: flr-outfile.dat
+#n# don't display on STDERR, as trips automated testing 
+
 File: FizzBuzz
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/FizzBuzz
@@ -2800,6 +2809,7 @@ File: Four_is_the_number_of_letters_in_the_...
 #c# 2017-10-04 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# full run: 6469.673u 124.008s 2:12:20.72 83.0%
 
 File: Fractal_tree
 #!/usr/bin/env perl6
@@ -4001,10 +4011,12 @@ File: Last_letter-first_letter
 File: Law_of_cosines_-_triples-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
-#c# 2018-09-25 <RC, 2018-10-17 >RC
+#c# 2018-09-25 <RC, 2018-10-18 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# added atomic ops to avoid race condition
+#n# added atomic ops to avoid race condition, and must use fixed-size @triples
+#n# jnthn: SqrtNegInf: @a is not threadsafe; it's an auto-resizing array
+#n# jnthn: SqrtNegInf: Declare it fixed-size instead: `my @a[60];`
 
 File: Law_of_cosines_-_triples-1.1
 #!/usr/bin/env perl6
@@ -4024,6 +4036,7 @@ File: Law_of_cosines_-_triples-2
 #j#  JVM: OK 
 #n# for JVM: module
 #n# 'elegant' version (no longer on RC)
+#n# NB: three different uses of 'X' meta-op
 #n# no extra-credit, lesson learned: 'X' operator is expensive
 
 File: Leap_year
@@ -5782,13 +5795,21 @@ File: Polynomial_synthetic_division
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: Polyspiral
+File: Polyspiral-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Polyspiral
-#c# 2018-10-15 <RC
-#m# MOAR: OK
-#j# JVM:  BROKEN
-#f# RC file: polyspiral.svg
+#c# 2018-10-18 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+#  {{Works with|rakudo|2018.10}} or {{broken|Perl 6}}  
+
+File: Polyspiral-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Polyspiral
+#c# 2018-10-18 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+#  {{Works with|rakudo|2018.10}} or {{broken|Perl 6}}  
 
 File: Population_count
 #!/usr/bin/env perl6
