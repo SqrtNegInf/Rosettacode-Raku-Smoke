@@ -1,9 +1,9 @@
-This is Rakudo version 2018.09-451-g4bf55b1ef built on MoarVM version 2018.09-131-g1d6562bfd
+This is Rakudo version 2018.09-463-g136164427 built on MoarVM version 2018.09-132-g304f568f1
 implementing Perl 6.c.
 updating from RC…
-+-------------> Moar: Good/Bad [960/13]
-|+------------> JVM: Good/Bad [869/105]
-||+-----------> Smoke testing [871]
++-------------> Moar: Good/Bad [961/13]
+|+------------> JVM: Good/Bad [870/106]
+||+-----------> Smoke testing [870]
 |||+----------> sKipping validation [97]
 ||||+---------> Interactive [52]
 |||||+--------> Touched (modified by me) [218]
@@ -11,7 +11,7 @@ updating from RC…
 |||||||+------> File output [72]
 ||||||||+-----> Draft [216]
 |||||||||+----> Ignoring [63]
-||||||||||+---> Void (no local copy) [181]
+||||||||||+---> Void (no local copy) [180]
 |||||||||||+--> Un-implemented/reliable [143]
 ||||||||||||
 GGS......... 100_doors
@@ -372,7 +372,7 @@ GGS......... First-class_functions_Use_numbers_analogously
 GGS..T...... First_class_environments
 GGS......... Five_weekends
 GGS.....D... Fivenum
-..........V. Fixed_length_records
+GGS....F.... Fixed_length_records
 GGS......... FizzBuzz
 GGS......... Flatten_a_list
 GGS...R..... Flipping_bits_game
@@ -773,7 +773,8 @@ GGS..T...... Polymorphism
 GGS..T...... Polynomial_long_division
 GBS......... Polynomial_regression
 GGS..T..D... Polynomial_synthetic_division
-GBS....F.... Polyspiral
+!B.......... Polyspiral-1
+!B.......... Polyspiral-2
 GGS......... Population_count
 GGS......... Power_set
 GG.K........ Pragmatic_directives
@@ -794,7 +795,7 @@ GGS..T...... Program_name
 GGS..T...... Proper_divisors
 GGS....F.... Pythagoras_tree
 GBS......... Pythagorean_quadruples
-GGS......... Pythagorean_triples
+GG.......... Pythagorean_triples
 ..........VU QR_decomposition
 GGS......... Quaternion_type
 GGS..T...... Queue_Definition
@@ -814,7 +815,7 @@ GGS...R..... Random_numbers
 GGS......... Range_expansion
 GGS......... Range_extraction
 GGS..T...... Ranking_methods
-!GS......... Rate_counter
+GGS......... Rate_counter
 GGS......... Ray-casting_algorithm
 GGS..T...... Read_a_configuration_file
 GGS.....D... Read_a_file_character_by_character_UTF8
