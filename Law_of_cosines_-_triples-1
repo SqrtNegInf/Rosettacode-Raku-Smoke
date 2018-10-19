@@ -20,7 +20,7 @@ multi triples (60, $n) {
             #(@triples[$i⚛++] = ~ ($a, %sq{$cos}, $b)) and last if %sq{$cos}:exists;  # why not short-circuit?
         }
     }
-    @triples.grep:{$_ !eqv Any};
+    @triples.grep: so *
 }
 
 multi triples (90, $n) {
@@ -33,7 +33,7 @@ multi triples (90, $n) {
             @triples[$i⚛++] = $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
         }
     }
-    @triples.grep:{$_ !eqv Any};
+    @triples.grep: so *
 }
 
 multi triples (120, $n) {
@@ -46,7 +46,7 @@ multi triples (120, $n) {
             @triples[$i⚛++] = $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
         }
     }
-    @triples.grep:{$_ !eqv Any};
+    @triples.grep: so *
 }
 
 use Sort::Naturally;
