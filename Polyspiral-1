@@ -1,13 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Polyspiral
-#c# 2018-10-15 <RC
-#m# MOAR: OK
-#j# JVM:  BROKEN
-#f# RC file: polyspiral.svg
+#c# 2018-10-18 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+#  {{Works with|rakudo|2018.10}} or {{broken|Perl 6}}  
 
 my @res;
 
-# Sort of an ersatz animation. Write updates to a svg file, most modern viewers will update as the content changes.
+
+# Works with: Rakudo version 2018.09
+SVG "pseudo-animation"[edit]
+Sort of an ersatz animation. Write updates to a svg file, most modern viewers will update as the content changes.
 
 use SVG;
 my $w = 600;
@@ -27,7 +30,7 @@ for 3..33  -> $a {
         ($x1, $y1) = $x2, $y2;
     }
  
-    my $fname = "run/polyspiral.svg".IO.open(:w);
+    my $fname = "./polyspiral-perl6.svg".IO.open(:w);
     $fname.say( SVG.serialize(
         svg => [
             width => $w, height => $h, style => 'stroke:rgb(0,0,0)',
@@ -53,3 +56,104 @@ sub hsv2rgb ( $h, $s, $v ){ # inputs normalized 0-1
     }
     ( $r, $g, $b ).map: ((*+$m) * 255).Int
 }
+
+Output:
+See polyspiral-perl6.gif (offsite animated gif image)
+
+SDL full animation[edit]
+Uses the same basic algorithm but fully animated. Use the up / down arrow keys to speed up / slow down the update speed. Use left / right arrow keys to reverse the "direction" of angle change.
+
+use SDL2::Raw;
+ 
+my $width  = 1400;
+my $height = 1000;
+ 
+SDL_Init(VIDEO);
+ 
+my $window = SDL_CreateWindow(
+    'Polyspiral',
+    SDL_WINDOWPOS_CENTERED_MASK,
+    SDL_WINDOWPOS_CENTERED_MASK,
+    $width, $height,
+    OPENGL
+);
+ 
+my $render = SDL_CreateRenderer($window, -1, ACCELERATED +| PRESENTVSYNC);
+ 
+my $event = SDL_Event.new;
+ 
+enum ARROW_KEYS (
+    K_UP    => 82,
+    K_DOWN  => 81,
+    K_LEFT  => 80,
+    K_RIGHT => 79,
+);
+ 
+my $angle = 0;
+my $lines = 240;
+my @rgb = (^$lines).map: { hsv2rgb(($_ * 360/$lines % 360)/360, 1, 1).list };
+my ($x1, $y1);
+my $sleep = 0.03;
+my $dir = 1;
+ 
+main: loop {
+    $angle = ($angle + $dir * .01/π) % τ;
+    ($x1, $y1) = $width div 2, $height div 2;
+ 
+    while SDL_PollEvent($event) {
+        my $casted_event = SDL_CastEvent($event);
+        given $casted_event {
+            when *.type == QUIT { last main }
+            when *.type == KEYDOWN {
+                if ARROW_KEYS(.scancode) -> $comm {
+                    given $comm {
+                        when 'K_LEFT'  { $dir = -1 }
+                        when 'K_RIGHT' { $dir = 1 }
+                        when 'K_UP'    { $sleep -= .01; $sleep = 0 if $sleep < 0 }
+                        when 'K_DOWN'  { $sleep += .01 }
+                    }
+                }
+            }
+        }
+    }
+ 
+    for ^$lines {
+        my $length = 3 + 3 * $_;
+        my ($x2, $y2) = ($x1, $y1) «+« (|cis($angle * $_).reals »*» $length)».round(1);
+        SDL_SetRenderDrawColor($render, |@rgb[$_], 255);
+        SDL_RenderDrawLine($render, $x1, $y1, $x2, $y2);
+        ($x1, $y1) = $x2, $y2;
+    }
+ 
+    SDL_RenderPresent($render);
+    sleep($sleep);
+    SDL_SetRenderDrawColor($render, 0, 0, 0, 0);
+    SDL_RenderClear($render);
+}
+ 
+SDL_Quit();
+ 
+sub hsv2rgb ( $h, $s, $v ){ # inputs normalized 0-1
+    my $c = $v * $s;
+    my $x = $c * (1 - abs( (($h*6) % 2) - 1 ) );
+    my $m = $v - $c;
+    my ($r, $g, $b) = do given $h {
+        when   0..^(1/6) { $c, $x, 0 }
+        when 1/6..^(1/3) { $x, $c, 0 }
+        when 1/3..^(1/2) { 0, $c, $x }
+        when 1/2..^(2/3) { 0, $x, $c }
+        when 2/3..^(5/6) { $x, 0, $c }
+        when 5/6..1      { $c, 0, $x }
+    }
+    ( $r, $g, $b ).map: ((*+$m) * 255).Int
+}
+
+
+.say for @res;
+
+my $ref = q:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
