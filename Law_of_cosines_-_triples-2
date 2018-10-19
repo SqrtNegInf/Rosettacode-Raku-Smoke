@@ -5,6 +5,7 @@
 #j#  JVM: OK 
 #n# for JVM: module
 #n# 'elegant' version (no longer on RC)
+#n# NB: three different uses of 'X' meta-op
 #n# no extra-credit, lesson learned: 'X' operator is expensive
 
 my @res;
@@ -12,7 +13,7 @@ my @res;
 sub triples ($n, @angles) {
     my $sq-as-set = set my @squares = 1..$n X**2; # (1..$n) >>**>> 2
     my %triples; my %c2;
-    for flat @squares X @squares -> $a2, $b2 {
+    for flat (@squares X @squares).grep: {.[0] <= .[1]} -> $a2, $b2 {
         (my $a, my $b) = ($a2,$b2)».sqrt».floor; 
         my $ab = $a * $b;
         %c2{@angles} = $a2 + $b2 X+ 0, -$ab, $ab; 
