@@ -75,6 +75,7 @@ for my $prog (@ARGV) {
     $Pfile{$prog} = $difftest if $difftest ne '';
 }
 
+# run some programs solo (those with .race/.hyper, or have real-time aspect)
 for my $prog (@P_one_at_a_time) {
 
     my $run = $prog;
