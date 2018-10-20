@@ -33,7 +33,6 @@ File: 2048
 File: 21_Game
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/21_Game
-#t# skiptest
 #c# 2018-10-16 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -1986,6 +1985,13 @@ File: Dynamic_variable_names.1
 #j#  JVM: OK
 
 File: EKG_sequence_convergence
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/EKG_sequence_convergence
+#c# 2018-08-08 <RC, 2018-10-19 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: EKG_sequence_convergence.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/EKG_sequence_convergence
 #c# 2018-08-08 <RC
@@ -4332,10 +4338,9 @@ File: Loops_While
 File: Loops_Wrong_ranges
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Loops/Wrong_ranges
-#c# 2018-09-16 <RC
+#c# 2018-09-16 <RC, 2018-10-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# Thundergant left out 'Start equal stop: negative increment'
 
 File: Loops_with_multiple_ranges-1
 #!/usr/bin/env perl6
@@ -5799,17 +5804,17 @@ File: Polyspiral-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Polyspiral
 #c# 2018-10-18 <RC
-#m# MOAR: BROKEN OK
+#m# MOAR: OK
 #j# JVM:  BROKEN OK
-#  {{Works with|rakudo|2018.10}} or {{broken|Perl 6}}  
+#f# RC file: polyspiral.svg
 
 File: Polyspiral-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Polyspiral
-#c# 2018-10-18 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
-#  {{Works with|rakudo|2018.10}} or {{broken|Perl 6}}  
+#t# interactive
+#c# 2018-10-19 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
 
 File: Population_count
 #!/usr/bin/env perl6
@@ -6927,6 +6932,7 @@ File: Similar_string_groups
 #c# 2018-07-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# delete from RC, dubious permissions
 
 File: Simple_database
 #!/usr/bin/env perl6
