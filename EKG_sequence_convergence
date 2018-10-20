@@ -1,10 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/EKG_sequence_convergence
-#c# 2018-08-08 <RC
+#c# 2018-08-08 <RC, 2018-10-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-# Works with: Rakudo Star version 2018.04.1
+my @res;
 
 sub infix:<shares-divisors-with> { ($^a gcd $^b) > 1 }
  
@@ -16,17 +16,31 @@ sub next-EKG ( *@s ) {
  
 sub EKG ( Int $start ) {  1, $start, &next-EKG … *  }
  
-#@res.push: "EKG($_): "~ .&EKG.head(10) for 2, 5, 7;
-my @res.push: "EKG($_): "~ .&EKG.head(30) for 2, 5, 7, 9, 10;
+sub converge-at ( @ints ) {
+    my @ekgs = @ints.map: &EKG;
+ 
+    return (2 .. *).first: -> $i {
+        [==]  @ekgs.map(     *.[$i]     ) and
+        [===] @ekgs.map( *.head($i).Set )
+    }
+}
+ 
+@res.push: "EKG($_): "~ .&EKG.head(10) for 2, 5, 7, 9, 10;
+ 
+for [5, 7], [2, 5, 7, 9, 10] -> @ints {
+    @res.push: "EKGs of (@ints[]) converge at term {$_+1}" with converge-at(@ints);
+}
 
 .say for @res;
 
 my $ref = qq:to/END/;
-EKG(2): 1 2 4 6 3 9 12 8 10 5 15 18 14 7 21 24 16 20 22 11 33 27 30 25 35 28 26 13 39 36
-EKG(5): 1 5 10 2 4 6 3 9 12 8 14 7 21 15 18 16 20 22 11 33 24 26 13 39 27 30 25 35 28 32
-EKG(7): 1 7 14 2 4 6 3 9 12 8 10 5 15 18 16 20 22 11 33 21 24 26 13 39 27 30 25 35 28 32
-EKG(9): 1 9 3 6 2 4 8 10 5 15 12 14 7 21 18 16 20 22 11 33 24 26 13 39 27 30 25 35 28 32
-EKG(10): 1 10 2 4 6 3 9 12 8 14 7 21 15 5 20 16 18 22 11 33 24 26 13 39 27 30 25 35 28 32
+EKG(2): 1 2 4 6 3 9 12 8 10 5
+EKG(5): 1 5 10 2 4 6 3 9 12 8
+EKG(7): 1 7 14 2 4 6 3 9 12 8
+EKG(9): 1 9 3 6 2 4 8 10 5 15
+EKG(10): 1 10 2 4 6 3 9 12 8 14
+EKGs of (5 7) converge at term 21
+EKGs of (2 5 7 9 10) converge at term 45
 END
 
 use Test;
