@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# for JVM: test with .1 version
-#n# with .race, output not deterministic, despite 'srand'
+#n# with .race, output not deterministic, despite 'srand' and atomic op
 
 srand 123456;
 
@@ -40,15 +40,14 @@ constant TRIALS = 10000;
 
 my @res;
 for 3, 10 -> $doors {
-    my %wins;
+    my atomicint @wins[2];
     @res.push: "With $doors doors:";
     for Stay, 'Staying', Switch, 'Switching' -> $s, $name {
-        #for ^TRIALS {
         (^TRIALS).race.map: {
-            ++%wins{$s} if play($s, doors => $doors) == Car;
+            @wins[$s]⚛++ if play($s, doors => $doors) == Car;
         }
         @res.push: "  $name wins " ~
-            round(100*%wins{$s} / TRIALS) ~
+            round(100*@wins[$s] / TRIALS) ~
             '% of the time.'
     }
 }
@@ -65,9 +64,7 @@ With 10 doors:
 END
 
 use Test;
-#like $ref, / 'Glorp' /;
 like $ref, /'Staying wins '   < 32 33 34 > .*? 
             'Switching wins ' < 65 66 67 > .*?
             'Staying wins '   < 9 10 11 >  .*? 
             'Switching wins ' < 89 90 91 > /;
-#is @res.join("\n"), chomp $ref;
