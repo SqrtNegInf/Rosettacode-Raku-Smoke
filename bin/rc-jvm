@@ -76,6 +76,7 @@ for my $prog (@ARGV) {
 }
 
 # run some programs solo (those with .race/.hyper, or have real-time aspect)
+$DB::single = 1;
 for my $prog (@P_one_at_a_time) {
 
     my $run = $prog;
@@ -85,6 +86,8 @@ for my $prog (@P_one_at_a_time) {
     system "rc-runone '$exe $run' > bench/$dir/$prog.out 2> bench/$dir/$prog.err";
     system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$prog.out" if defined $Pfile{$prog};
 }
+
+#exit;
 
 # run remainder in parallel 
 my $pm = Parallel::ForkManager->new(8);
