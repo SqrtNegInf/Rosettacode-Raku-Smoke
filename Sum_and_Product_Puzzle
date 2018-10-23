@@ -16,6 +16,7 @@ my @all-pairs = (|($_ X $_+1 .. 98) for 2..97);
 # Fact 1:
 my %p-unique := Set.new: map ~*, grep-unique &product, @all-pairs;
 my @s-pairs = @all-pairs.grep: { none (%p-unique{~$_} for sums sum $_) };
+dd @s-pairs;  exit;
  
 # Fact 2:
 my @p-pairs = grep-unique &product, @s-pairs;
