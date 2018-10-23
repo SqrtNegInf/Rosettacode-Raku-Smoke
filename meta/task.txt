@@ -1,18 +1,18 @@
-This is Rakudo version 2018.09-488-gf0210794d built on MoarVM version 2018.09-136-gd8e0a529a
+This is Rakudo version 2018.09-491-g64b3dbd79 built on MoarVM version 2018.09-137-g4582780a5
 implementing Perl 6.c.
 updating from RC…
 +-------------> Moar: Good/Bad [960/13]
-|+------------> JVM: Good/Bad [870/106]
-||+-----------> Smoke testing [873]
+|+------------> JVM: Good/Bad [871/106]
+||+-----------> Smoke testing [874]
 |||+----------> sKipping validation [97]
 ||||+---------> Interactive [53]
 |||||+--------> Touched (modified by me) [218]
 ||||||+-------> Random seed [109]
 |||||||+------> File output [73]
-||||||||+-----> Draft [216]
+||||||||+-----> Draft [214]
 |||||||||+----> Ignoring [63]
 ||||||||||+---> Void (no local copy) [180]
-|||||||||||+--> Un-implemented/reliable [143]
+|||||||||||+--> Un-implemented/reliable [142]
 ||||||||||||
 GGS......... 100_doors
 GB.KI.R..... 15_Puzzle_Game
@@ -170,6 +170,7 @@ GGS.....D... Check_input_device_is_a_terminal
 GG.KI...D... Check_output_device_is_a_terminal
 GGS..T...... Check_that_file_exists
 ..........VU Checkpoint_synchronization
+GGS.....D... Cheryl%27s_Birthday
 ........D.VU Chess_player
 ........D.VU Chess_player_Move_generation
 ........D.VU Chess_player_Program_options_and_user_interface
@@ -474,8 +475,8 @@ GGS......... IBAN
 GGS......... I_before_E_except_after_C-1
 GBS......... I_before_E_except_after_C-2
 GGS......... Identity_matrix
-GBS.....D... Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols
-GGS.....D... Idiomatically_determine_all_the_lowercase_and_uppercase_letters
+GBS......... Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols
+GGS......... Idiomatically_determine_all_the_lowercase_and_uppercase_letters
 ..........VU Image_convolution
 GB.K........ Image_noise
 GGS.....D... Imaginary_base_numbers
@@ -581,7 +582,6 @@ GGS......... Loops_N_plus_one_half
 GGS...R..... Loops_Nested
 GGS......... Loops_While
 GGS......... Loops_Wrong_ranges
-........D... Loops_with_multiple_ranges
 GGS......... Loops_with_multiple_ranges-1
 GGS..T...... Loops_with_multiple_ranges-2
 GGS......... Lucas-Lehmer_test
@@ -851,7 +851,7 @@ GGS......... Return_multiple_values
 GGS..T...... Reverse_a_string
 GGS.....D... Reverse_the_gender_of_a_string
 GGS......... Reverse_words_in_a_string
-........D.VU Robots
+........D.V. Robots
 GG.KITR..... Rock-paper-scissors
 GGS......... Roman_numerals_Decode
 GGS......... Roman_numerals_Encode
@@ -1026,7 +1026,7 @@ GGS......... Subtractive_generator
 GGS......... Sudoku-1
 GG.K........ Sudoku-2
 GGS..T..D... Suffix_tree
-GGS......... Sum_and_Product_Puzzle
+!GS......... Sum_and_Product_Puzzle
 GGS......... Sum_and_product_of_an_array
 GGS......... Sum_digits_of_an_integer
 GGS......... Sum_multiples_of_3_and_5
