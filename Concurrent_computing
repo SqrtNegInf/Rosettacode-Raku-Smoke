@@ -1,14 +1,15 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Concurrent_computing
 #c# 2018-07-24 <RC
-#m# MOAR: BROKEN
+#t# skiptest
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# remove 'pugs' reference, re-write
 
 # Hyper-operators are unordered:
 
 my @words = <Enjoy Rosetta Code>;
-@words».say;
+(^@words).race.map: { say @words[$_] }
 
 my $ref = qq:to/END/;
 Rosetta
