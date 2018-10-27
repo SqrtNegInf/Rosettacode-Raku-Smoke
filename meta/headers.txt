@@ -5420,8 +5420,8 @@ File: Partition_an_integer_X_into_N_primes
 #c# 2017-03-05 <RC, 2018-03-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# didn't change primes generation on RC
-#n# old prime generator broke with this commit?  https://github.com/rakudo/rakudo/commit/5210d7028d
+#n# small boost with external library (didn't change primes generation on RC)
+#n# original prime generator broke with this commit?  https://github.com/rakudo/rakudo/commit/5210d7028d
 
 File: Pascal%27s_triangle
 #!/usr/bin/env perl6
@@ -5878,10 +5878,10 @@ File: Primality_by_trial_division.1
 File: Prime_conspiracy
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Prime_conspiracy
-#c# 2016-03-19 <RC
+#c# 2016-03-19 <RC, 2018-10-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# clear, but slow...
+#n# stopped trying the 100_000_000 calculation after two hours (ate memory too)
 
 File: Prime_conspiracy.1
 #!/usr/bin/env perl6
@@ -5889,7 +5889,8 @@ File: Prime_conspiracy.1
 #c# 2016-03-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# why doesn't '$$previous' cause an error?
+#n# clear, but slow...
+# 52.872u 0.440s 0:53.16 100.2
 
 File: Prime_decomposition
 #!/usr/bin/env perl6
