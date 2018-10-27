@@ -1,16 +1,20 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Prime_conspiracy
-#c# 2016-03-19 <RC
+#c# 2016-03-19 <RC, 2018-10-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# clear, but slow...
+#n# stopped trying the 100_000_000 calculation after two hours (ate memory too)
 
-my @primes := 2, |(3,5,7 ... *).grep: *.is-prime;
- 
+# work-around for JVM
+use MONKEY-SEE-NO-EVAL;
+my @primes;
+my $sieve;
 my %conspiracy;
-#my $upto = 1_000_000;
-my $upto = 10_000;
- 
+my $upto = 1_000_000;
+
+if $*VM ~~ /jvm/ { @primes = lazy gather for 1 .. * { .take if $_.is-prime } }
+else             { EVAL 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes = $sieve.n-primes($upto+1);' }
+
 @primes[^($upto+1)].reduce: -> $a, $b {
     my $d = $b % 10;
     %conspiracy{"$a → $d count:"}++;
@@ -23,25 +27,25 @@ push @res, "$_\tfrequency: {($_.value/$upto*100).round(.01)} %" for %conspiracy.
 .say for @res;
 
 my $ref = qq:to/END/;
-1 → 1 count:	365	frequency: 3.65 %
-1 → 3 count:	833	frequency: 8.33 %
-1 → 7 count:	889	frequency: 8.89 %
-1 → 9 count:	397	frequency: 3.97 %
-2 → 3 count:	1	frequency: 0.01 %
-3 → 1 count:	529	frequency: 5.29 %
-3 → 3 count:	324	frequency: 3.24 %
-3 → 5 count:	1	frequency: 0.01 %
-3 → 7 count:	754	frequency: 7.54 %
-3 → 9 count:	907	frequency: 9.07 %
-5 → 7 count:	1	frequency: 0.01 %
-7 → 1 count:	655	frequency: 6.55 %
-7 → 3 count:	722	frequency: 7.22 %
-7 → 7 count:	323	frequency: 3.23 %
-7 → 9 count:	808	frequency: 8.08 %
-9 → 1 count:	935	frequency: 9.35 %
-9 → 3 count:	636	frequency: 6.36 %
-9 → 7 count:	541	frequency: 5.41 %
-9 → 9 count:	379	frequency: 3.79 %
+1 → 1 count:	42853	frequency: 4.29 %
+1 → 3 count:	77475	frequency: 7.75 %
+1 → 7 count:	79453	frequency: 7.95 %
+1 → 9 count:	50153	frequency: 5.02 %
+2 → 3 count:	1	frequency: 0 %
+3 → 1 count:	58255	frequency: 5.83 %
+3 → 3 count:	39668	frequency: 3.97 %
+3 → 5 count:	1	frequency: 0 %
+3 → 7 count:	72828	frequency: 7.28 %
+3 → 9 count:	79358	frequency: 7.94 %
+5 → 7 count:	1	frequency: 0 %
+7 → 1 count:	64230	frequency: 6.42 %
+7 → 3 count:	68595	frequency: 6.86 %
+7 → 7 count:	39603	frequency: 3.96 %
+7 → 9 count:	77586	frequency: 7.76 %
+9 → 1 count:	84596	frequency: 8.46 %
+9 → 3 count:	64371	frequency: 6.44 %
+9 → 7 count:	58130	frequency: 5.81 %
+9 → 9 count:	42843	frequency: 4.28 %
 END
 
 use Test;
