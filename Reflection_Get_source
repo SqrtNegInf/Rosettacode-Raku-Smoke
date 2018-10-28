@@ -12,7 +12,8 @@ say Date.^find_method("day-of-week").file;
 
 use Test;
 # still a precompilation hash?
-is &is.file, 'perl#sources/C712FE6969F786C9380D643DF17E85D06868219E (Test)';
+#is &is.file, 'perl#sources/C712FE6969F786C9380D643DF17E85D06868219E (Test)';
+is &is.file, 'perl#sources/2D4A7CA10695CD2B374573413D261A660E282E2A (Test)';
 
 is &sum.file, 'SETTING::src/core/Any.pm6';
 is Date.^find_method("day-of-week").file, 'SETTING::src/core/Dateish.pm6';
