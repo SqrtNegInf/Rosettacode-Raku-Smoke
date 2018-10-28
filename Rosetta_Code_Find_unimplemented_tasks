@@ -3,6 +3,7 @@
 #c# 2018-04-30 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2018-10-27 'use v6' issue with 'Sort::Naturally', omit for now
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -10,7 +11,7 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 use HTTP::UserAgent;
 use URI::Escape;
 use JSON::Fast;
-use Sort::Naturally;
+#use Sort::Naturally;
  
 unit sub MAIN( Str :$lang = 'Perl_6' );
  
@@ -24,7 +25,8 @@ my @impl;
 @impl = get-cat $lang;
  
 say "Unimplemented tasks in $lang:";
-.say for (@total (-) @impl).keys.sort: *.&naturally;
+.say for (@total (-) @impl).keys.sort;
+#.say for (@total (-) @impl).keys.sort: *.&naturally;
  
 sub get-cat ($category) {
     flat mediawiki-query(
