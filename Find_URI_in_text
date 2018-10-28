@@ -4,11 +4,12 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
+use v6.c;
+
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 # Works with: Rakudo version 2018.03
 
-use v6;
 use IETF::RFC_Grammar::URI;
  
 my @res.push: q:to/EOF/.match(/ <IETF::RFC_Grammar::URI::absolute-URI> /, :g).list.join("\n");
