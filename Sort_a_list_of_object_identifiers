@@ -3,6 +3,9 @@
 #c# 2016-08-24 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 'use v6' issues, skipping 3rd version for now
+
+#use Sort::Naturally;
 
 # The sort routine accepts a sort key callback as the first argument. Here we generate a list of integers as the sort key for each OID, which gets sorted lexicographically with numeric comparison by default.
 
@@ -19,8 +22,7 @@ my @s1 = sort *.comb(/\d+/)».Int, my @data = <
 my @s2 = sort *.split('.').fmt('%08d'), @data;
 
 # Or if using a third-party module is acceptable:
-use Sort::Naturally;
-my @s3 = sort &naturally, @data;
+#my @s3 = sort &naturally, @data;
 
 my @soln = <
 1.3.6.1.4.1.11.2.17.5.2.0.79
@@ -34,4 +36,4 @@ my @soln = <
 use Test;
 is @s1, @soln;
 is @s2, @soln;
-is @s3, @soln;
+#is @s3, @soln;
