@@ -2,13 +2,13 @@
 #u# http://rosettacode.org/wiki/Draw_a_pixel
 #t# skiptest
 #c# 2018-06-13 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
+#n# sort-of works, draws on 2nd screen, top of window cut off
 
 # Works with: Rakudo version 2018.05
 # Really? Draw a single pixel? Sigh.
 
-#`{{
 use GTK::Simple;
 use GTK::Simple::DrawingArea;
 use Cairo;
@@ -31,12 +31,3 @@ sub rect-do( $d, $ctx ) {
  
 my $ctx = $da.add-draw-handler( &rect-do );
 $app.run;
-
-
-my $ref = qq:to/END/;
-END
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
-}}
