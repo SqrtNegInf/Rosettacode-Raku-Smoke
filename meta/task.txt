@@ -1,18 +1,18 @@
-This is Rakudo version 2018.09-530-gf81146ae9 built on MoarVM version 2018.09-141-gb2e870c6f
+This is Rakudo version 2018.10-20-gd73272e4c built on MoarVM version 2018.10
 implementing Perl 6.d.
 updating from RC…
-+-------------> Moar: Good/Bad [958/12]
-|+------------> JVM: Good/Bad [872/107]
-||+-----------> Smoke testing [876]
-|||+----------> sKipping validation [99]
-||||+---------> Interactive [54]
-|||||+--------> Touched (modified by me) [220]
++-------------> Moar: Good/Bad [964/10]
+|+------------> JVM: Good/Bad [873/108]
+||+-----------> Smoke testing [877]
+|||+----------> sKipping validation [100]
+||||+---------> Interactive [55]
+|||||+--------> Touched (modified by me) [221]
 ||||||+-------> Random seed [109]
-|||||||+------> File output [73]
+|||||||+------> File output [74]
 ||||||||+-----> Draft [215]
 |||||||||+----> Ignoring [63]
-||||||||||+---> Void (no local copy) [181]
-|||||||||||+--> Un-implemented/reliable [143]
+||||||||||+---> Void (no local copy) [179]
+|||||||||||+--> Un-implemented/reliable [141]
 ||||||||||||
 GGS......... 100_doors
 GB.KI.R..... 15_Puzzle_Game
@@ -58,7 +58,7 @@ GGS......... Amicable_pairs
 GGS......... Anagrams
 GGS......... Anagrams_Deranged_anagrams
 GGS..T...... Angle_difference_between_two_bearings
-..........VU Animate_a_pendulum
+GB.KI....... Animate_a_pendulum
 ..........VU Animation
 GGS......... Anonymous_recursion
 GGS......... Append_a_record_to_the_end_of_a_text_file
@@ -284,10 +284,11 @@ GGS......... Doubly-linked_list_Element_insertion
 GBS....F.... Dragon_curve
 GG.KI....... Draw_a_clock
 GGS....F.... Draw_a_cuboid
-BB.K........ Draw_a_pixel
+GB.K........ Draw_a_pixel
 BB.......... Draw_a_rotating_cube
-GGS..T.F.... Draw_a_sphere
-BB.K....D... Draw_pixel_2
+GGS..T.F.... Draw_a_sphere-1
+GBS....F.... Draw_a_sphere-2
+GB.K....D... Draw_pixel_2
 GGS..TR..... Dutch_national_flag_problem
 GGS......... Dynamic_variable_names
 GGS......... EKG_sequence_convergence
@@ -686,7 +687,7 @@ GGS......... Nth_root
 GGS......... Number_names
 GGS......... Number_reversal_game
 GGS..T...... Numeric_error_propagation
-........D.VU Numerical_and_alphabetical_suffixes
+GGS.....D... Numerical_and_alphabetical_suffixes
 GG.K........ Numerical_integration-1
 G!S......... Numerical_integration-2
 ........D.VU Numerical_integration_Adaptive_Simpson%27s_method
@@ -867,7 +868,7 @@ GG.K........ Rosetta_Code_Fix_code_tags
 !B.K....D... Rosetta_Code_List_authors_of_task_descriptions
 GBS.....D... Rosetta_Code_Rank_languages_by_number_of_users
 GBS......... Rosetta_Code_Rank_languages_by_popularity-1
-GBS......... Rosetta_Code_Rank_languages_by_popularity-2
+G!S..T...... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K....D... Rosetta_Code_Run_examples
 ........D.VU Rosetta_Code_Tasks_sorted_by_average_lines_of_code
 BB.K....D... Rosetta_Code_Tasks_without_examples
@@ -949,7 +950,7 @@ GGS......... Solve_a_Numbrix_puzzle
 ........D.VU Solve_a_Rubik%27s_Cube
 GGS......... Solve_the_no_connection_puzzle
 ........DXVU Solving_coin_problems
-!GS......... Sort_a_list_of_object_identifiers
+GGS......... Sort_a_list_of_object_identifiers
 GGS..T...... Sort_an_array_of_composite_structures
 GGS..T...... Sort_an_integer_array
 GGS......... Sort_disjoint_sublist
@@ -1137,7 +1138,7 @@ GGS......... Verify_distribution_uniformity_Chi-squared_test
 GGS...R..... Verify_distribution_uniformity_Naive
 ........D... Vibrating_rectangles
 GG.KI....... Vibrating_rectangles-1
-GBSKI....... Vibrating_rectangles-2
+GB.KI....... Vibrating_rectangles-2
 .........XV. Video_display_modes
 GGS..T...... Vigen%C3%A8re_cipher
 ..........VU Vigen%C3%A8re_cipher_Cryptanalysis
