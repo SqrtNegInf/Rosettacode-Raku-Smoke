@@ -1,10 +1,8 @@
 #!/usr/bin/env perl6
 #u# http://www.rosettacode.org/wiki/Rosetta_Code/Rank_languages_by_popularity
-#c# 2016-05-21 <RC
+#c# 2016-05-21 <RC, 2018-10-28 >RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
-#n# java.lang.IllegalStateException: Current state = CODING, new state = FLUSHED
-#    (with 'curl -o' for 'wget -O')
+#j#  JVM: OK
 
 my $languages =  qx{curl -s -o - 'http://rosettacode.org/wiki/Category:Programming_Languages'};
 my $categories = qx{curl -s -o - 'http://www.rosettacode.org/mw/index.php?title=Special:Categories&limit=5000'};
@@ -19,15 +17,15 @@ my \languages = set gather for @lines {
  
 @lines = $categories.lines;
 my @freq = sort -*.[0], gather for @lines {
-    take [+$1, ~$0] if
+    take [+$1.subst(",", ""), ~$0] if
         / '<li><a href="/wiki/Category:' .*? '" title="Category:' .*? '">'
         (.*?) <?{ ~$0 ∈ languages }>
-        '</a>' .*? '(' (\d+) ' member' /;
+        '</a>' .*? '(' (<[, 0..9]>+) ' member' /;
 }
  
 my @res;
 for @freq.kv -> $i, @l {
-    @res.push: sprintf "%d:\t%3d - %s\n", $i+1, |@l;
+    @res.push: sprintf "%d:\t%4d - %s", $i+1, |@l;
     last if 20 == $i;
 }
 .say for @res;
@@ -36,4 +34,3 @@ use Test;
 ok 660 < +@freq;
 @res.join("\n") ~~ m/(\d+) ' - Perl 6'/;
 ok 950 ≤ +$0;
-
