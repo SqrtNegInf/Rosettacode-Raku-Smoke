@@ -323,6 +323,14 @@ File: Angle_difference_between_two_bearings
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: Animate_a_pendulum
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Animate_a_pendulum
+#t# interactive
+#c# 2018-10-28 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
 File: Anonymous_recursion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Anonymous_recursion
@@ -1941,8 +1949,9 @@ File: Draw_a_pixel
 #u# http://rosettacode.org/wiki/Draw_a_pixel
 #t# skiptest
 #c# 2018-06-13 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
+#n# sort-of works, draws on 2nd screen, top of window cut off
 
 File: Draw_a_rotating_cube
 #!/usr/bin/env perl6
@@ -1953,7 +1962,7 @@ File: Draw_a_rotating_cube
 #n# external library required
 #n# cannot find .so library (Mac OS X: .dylib)
 
-File: Draw_a_sphere
+File: Draw_a_sphere-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Draw_a_sphere
 #c# 2015-11-05 <RC, 2017-06-04 >RC
@@ -1963,13 +1972,22 @@ File: Draw_a_sphere
 #f# RC file: draw_a_sphere.pgm
 #n# out-of-date relative to RC, version requiring 'Cairo' added by Thundergnat
 
+File: Draw_a_sphere-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Draw_a_sphere
+#c# 2018-10-28 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: sphere2.png
+
 File: Draw_pixel_2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Draw_pixel_2
 #t# skiptest
 #c# 2018-06-13 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
+#n# sort-of works, draws on 2nd screen, top of window cut off
 
 File: Dutch_national_flag_problem
 #!/usr/bin/env perl6
@@ -5143,6 +5161,13 @@ File: Numerical_Integration-2.1
 #   20181005: 21706.381u 1122.124s 1:55:54.67 328.2%  # with 'Promise'
 #   _NEXT_
 
+File: Numerical_and_alphabetical_suffixes
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Numerical_and_alphabetical_suffixes
+#c# 2018-10-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: Numerical_integration_Gauss-Legendre_Quadrature
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Numerical_integration/Gauss-Legendre_Quadrature
@@ -6538,11 +6563,9 @@ File: Rosetta_Code_Rank_languages_by_popularity-1
 File: Rosetta_Code_Rank_languages_by_popularity-2
 #!/usr/bin/env perl6
 #u# http://www.rosettacode.org/wiki/Rosetta_Code/Rank_languages_by_popularity
-#c# 2016-05-21 <RC
+#c# 2016-05-21 <RC, 2018-10-28 >RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
-#n# java.lang.IllegalStateException: Current state = CODING, new state = FLUSHED
-#    (with 'curl -o' for 'wget -O')
+#j#  JVM: OK
 
 File: Rosetta_Code_Run_examples
 #!/usr/bin/env perl6
