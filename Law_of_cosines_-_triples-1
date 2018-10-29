@@ -6,6 +6,7 @@
 #n# added atomic ops to avoid race condition, and must use fixed-size @triples
 #n# jnthn: SqrtNegInf: @a is not threadsafe; it's an auto-resizing array
 #n# jnthn: SqrtNegInf: Declare it fixed-size instead: `my @a[60];`
+#n# Sort::Naturally has 'use v6' issue
 
 my @res;
 
@@ -49,31 +50,33 @@ multi triples (120, $n) {
     @triples.grep: so *
 }
 
-use Sort::Naturally;
+#use Sort::Naturally;
 
 my $n = 13;
 @res.push: "Integer triangular triples for sides 1..$n:";
 for 120, 90, 60 -> $angle {
     my @itt = triples($angle, $n);
     if $angle == 60 { push @itt, "$_ $_ $_" for 1..$n }
-    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +@itt, @itt.sort(*.&naturally).join(', ');
+    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +@itt, @itt.sort.join(', ');
+    #@res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +@itt, @itt.sort(*.&naturally).join(', ');
 }
 
 my ($angle, $count) = 60, 10_000;
 @res.push: "\nExtra credit:";
 @res.push: "$angle° integer triples in the range 1..$count where the sides are not all the same length: "~ +triples($angle, $count);
 
-.say for @res;
+.say for @res; exit;
 
 my $ref = q:to/END/;
 Integer triangular triples for sides 1..13:
 Angle 120° has  2 solutions: 3 5 7, 7 8 13
 Angle  90° has  3 solutions: 3 4 5, 5 12 13, 6 8 10
-Angle  60° has 15 solutions: 1 1 1, 2 2 2, 3 3 3, 3 7 8, 4 4 4, 5 5 5, 5 7 8, 6 6 6, 7 7 7, 8 8 8, 9 9 9, 10 10 10, 11 11 11, 12 12 12, 13 13 13
+Angle  60° has 15 solutions: 1 1 1, 10 10 10, 11 11 11, 12 12 12, 13 13 13, 2 2 2, 3 3 3, 3 7 8, 4 4 4, 5 5 5, 5 7 8, 6 6 6, 7 7 7, 8 8 8, 9 9 9
 
 Extra credit:
 60° integer triples in the range 1..10000 where the sides are not all the same length: 18394
 END
 
+#Angle  60° has 15 solutions: 1 1 1, 2 2 2, 3 3 3, 3 7 8, 4 4 4, 5 5 5, 5 7 8, 6 6 6, 7 7 7, 8 8 8, 9 9 9, 10 10 10, 11 11 11, 12 12 12, 13 13 13
 use Test;
 is @res.join("\n"), chomp $ref;
