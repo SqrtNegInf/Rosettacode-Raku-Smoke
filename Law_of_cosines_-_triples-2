@@ -7,6 +7,7 @@
 #n# 'elegant' version (no longer on RC)
 #n# NB: three different uses of 'X' meta-op
 #n# no extra-credit, lesson learned: 'X' operator is expensive
+#n# Sort::Naturally has 'use v6' issue
 
 my @res;
 
@@ -22,13 +23,14 @@ sub triples ($n, @angles) {
     %triples;
 }
 
-use Sort::Naturally;
+#use Sort::Naturally;
  
 my $n = 13;
 say "Integer triangular triples for sides 1..$n:";
 my %itt = triples($n, (90, 60, 120));
 for %itt.keys.sort: {+%itt{$^a}} -> $angle {
-    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +%itt{$angle}, %itt{$angle}.keys.sort(*.&naturally).join(', ');
+    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +%itt{$angle}, %itt{$angle}.keys.sort.join(', ');
+    #@res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +%itt{$angle}, %itt{$angle}.keys.sort(*.&naturally).join(', ');
 }
 
 .say for @res;
@@ -36,8 +38,9 @@ for %itt.keys.sort: {+%itt{$^a}} -> $angle {
 my $ref = qq:to/END/;
 Angle 120° has  2 solutions: 3 5 7, 7 8 13
 Angle  90° has  3 solutions: 3 4 5, 5 12 13, 6 8 10
-Angle  60° has 15 solutions: 1 1 1, 2 2 2, 3 3 3, 3 7 8, 4 4 4, 5 5 5, 5 7 8, 6 6 6, 7 7 7, 8 8 8, 9 9 9, 10 10 10, 11 11 11, 12 12 12, 13 13 13
+Angle  60° has 15 solutions: 1 1 1, 10 10 10, 11 11 11, 12 12 12, 13 13 13, 2 2 2, 3 3 3, 3 7 8, 4 4 4, 5 5 5, 5 7 8, 6 6 6, 7 7 7, 8 8 8, 9 9 9
 END
+#Angle  60° has 15 solutions: 1 1 1, 2 2 2, 3 3 3, 3 7 8, 4 4 4, 5 5 5, 5 7 8, 6 6 6, 7 7 7, 8 8 8, 9 9 9, 10 10 10, 11 11 11, 12 12 12, 13 13 13
 
 use Test; 
 is @res.join("\n"), chomp $ref;
