@@ -4050,6 +4050,7 @@ File: Law_of_cosines_-_triples-1
 #n# added atomic ops to avoid race condition, and must use fixed-size @triples
 #n# jnthn: SqrtNegInf: @a is not threadsafe; it's an auto-resizing array
 #n# jnthn: SqrtNegInf: Declare it fixed-size instead: `my @a[60];`
+#n# Sort::Naturally has 'use v6' issue
 
 File: Law_of_cosines_-_triples-1.1
 #!/usr/bin/env perl6
@@ -4071,6 +4072,7 @@ File: Law_of_cosines_-_triples-2
 #n# 'elegant' version (no longer on RC)
 #n# NB: three different uses of 'X' meta-op
 #n# no extra-credit, lesson learned: 'X' operator is expensive
+#n# Sort::Naturally has 'use v6' issue
 
 File: Leap_year
 #!/usr/bin/env perl6
