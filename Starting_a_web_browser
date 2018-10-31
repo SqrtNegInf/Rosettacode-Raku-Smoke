@@ -1,12 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Starting_a_web_browser
-#t# interactive
 #c# 2017-10-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#f# RC file: streets_and_numbers.html
+#n# daily testing of HTML generation, the 'open browser' part works fine too
 
-# Works with: Rakudo version 2017.09
-# Uses the code from the Separate the house number from the street name task almost verbatim. Included here to make a complete, runnable example.
+# Uses the code from the Separate the house number from the street name task almost verbatim. 
+# Included here to make a complete, runnable example.
 
 use File::Temp;
  
@@ -90,19 +91,16 @@ sub content {
     </html>
     END
 }
+
+# DH dump the content to the file
+spurt 'run/streets_and_numbers.html', content;
  
 # Use a temporary file name and file handle
-my ($fn, $fh) = tempfile :suffix('.html');
-#$fn = 'abc.html';
-#say $fn; exit;
-say $fh; exit;
- 
-# dump the content to the file
-$fh.spurt: content;
+#my ($fn, $fh) = tempfile :suffix('.html');
  
 # use appropriate command for Windows or X11
 # other OSs/WMs may need different invocation
-#my $command = $*DISTRO.is-win ?? "start $fn" !! "xdg-open $fn";
+#my $command = $*DISTRO.is-win ?? "start $fn" !! "open $fn"; # DH macOS
  
 # start the browser
 #shell $command;
