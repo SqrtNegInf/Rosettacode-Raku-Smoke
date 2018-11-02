@@ -1,10 +1,10 @@
-This is Rakudo version 2018.10-36-g4c05a0b13 built on MoarVM version 2018.10-26-g318e1ec55
+This is Rakudo version 2018.10-49-g94dd0a411 built on MoarVM version 2018.10-26-g318e1ec55
 implementing Perl 6.d.
 updating from RC…
-+-------------> Moar: Good/Bad [966/10]
-|+------------> JVM: Good/Bad [873/108]
++-------------> Moar: Good/Bad [963/10]
+|+------------> JVM: Good/Bad [872/109]
 ||+-----------> Smoke testing [878]
-|||+----------> sKipping validation [99]
+|||+----------> sKipping validation [100]
 ||||+---------> Interactive [54]
 |||||+--------> Touched (modified by me) [221]
 ||||||+-------> Random seed [109]
@@ -353,7 +353,7 @@ GGS......... Fibonacci_word
 GGS......... Fibonacci_word_fractal
 GGS.....D... File_extension_is_in_extensions_list
 GGS....F.... File_input_output
-GBS..T...... File_modification_time
+!BS..T...... File_modification_time
 GGS......... File_size
 GGS..T..D... File_size_distribution
 GGS......... Filter
@@ -687,7 +687,7 @@ GGS......... Nth_root
 GGS......... Number_names
 GGS......... Number_reversal_game
 GGS..T...... Numeric_error_propagation
-GGS.....D... Numerical_and_alphabetical_suffixes
+GBSK....D... Numerical_and_alphabetical_suffixes
 GG.K........ Numerical_integration-1
 G!S......... Numerical_integration-2
 ........D.VU Numerical_integration_Adaptive_Simpson%27s_method
@@ -1019,7 +1019,7 @@ GGS......... Strip_a_set_of_characters_from_a_string
 GGS......... Strip_block_comments
 GGS......... Strip_comments_from_a_string
 GGS...R..... Strip_control_codes_and_extended_characters_from_a_string
-GGS..T...... Strip_whitespace_from_a_string_Top_and_tail
+!GS..T...... Strip_whitespace_from_a_string_Top_and_tail
 GGS......... Subleq
 GG.K....D... Subset_sum_problem
 GGS...R.D... Substitution_Cipher
@@ -1161,7 +1161,7 @@ GGS.....D... Word_break_problem
 GGS.....D... Word_count
 ..........VU Word_search
 GGS......... Word_wrap
-GGS..T...... World_Cup_group_stage
+!GS..T...... World_Cup_group_stage
 GGS....F.... Write_entire_file
 GGS....F.... Write_float_arrays_to_a_text_file
 GGS..TR..... Write_language_name_in_3D_ASCII
