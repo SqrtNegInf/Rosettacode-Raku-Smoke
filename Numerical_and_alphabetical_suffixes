@@ -1,6 +1,5 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Numerical_and_alphabetical_suffixes
-#t# skiptest
 #c# 2018-11-01 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -67,12 +66,10 @@ sub units (Str $str) {
 #9!   9!!   9!!!   9!!!!   9!!!!!   9!!!!!!   9!!!!!!!   9!!!!!!!!   9!!!!!!!!!
 #.017k!!
 #===
- 
-#my $result;
-#for $test.words {
-#    $result .= sprintf("%16s: %s\n", $_, comma($_.&units))
-#}
-#say $result;
+#printf "%16s: %s\n", $_, comma .&units for $test.words;
+
+# Task required stupid layout
+# say "\n In: $_\nOut: ", .words.map({comma .&units}).join('  ') for $test.lines;
 
 @res.push: sprintf "%16s: %s", $_, comma .&units for <
   2greatGRo   24Gros  288Doz  1,728pairs  172.8SCOre
@@ -85,11 +82,6 @@ sub units (Str $str) {
 >;
 
 say my $result = join "\n", @res;
-
-#printf "%16s: %s\n", $_, comma .&units for $test.words;
- 
-# Task required stupid layout
-# say "\n In: $_\nOut: ", .words.map({comma .&units}).join('  ') for $test.lines;
 
 my $ref = q:to/END/;
        2greatGRo: 3,456
@@ -123,5 +115,4 @@ END
 
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
