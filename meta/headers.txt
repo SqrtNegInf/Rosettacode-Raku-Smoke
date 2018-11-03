@@ -5167,8 +5167,7 @@ File: Numerical_Integration-2.1
 File: Numerical_and_alphabetical_suffixes
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Numerical_and_alphabetical_suffixes
-#t# skiptest
-#c# 2018-11-01 <RC
+#c# 2018-10-27 <RC, 2018-11-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -7662,6 +7661,15 @@ File: Subleq
 #j#  JVM: OK
 
 File: Subset_sum_problem
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Subset_sum_problem
+#c# 2016-03-19 <RC, 2018-11-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# .hyper brings no speed-up, dis-ordered results ?
+#n# starting with length 28, slow-down is massive (nearly 30 minutes wall-time) as it works through all combinations
+
+File: Subset_sum_problem.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Subset_sum_problem
 #c# 2016-03-19 <RC
