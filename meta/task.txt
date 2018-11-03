@@ -1,18 +1,18 @@
-This is Rakudo version 2018.10-49-g94dd0a411 built on MoarVM version 2018.10-26-g318e1ec55
+This is Rakudo version 2018.10-57-gbfe2ad63f built on MoarVM version 2018.10-26-g318e1ec55
 implementing Perl 6.d.
 updating from RC…
-+-------------> Moar: Good/Bad [963/10]
++-------------> Moar: Good/Bad [964/10]
 |+------------> JVM: Good/Bad [872/109]
-||+-----------> Smoke testing [878]
-|||+----------> sKipping validation [100]
+||+-----------> Smoke testing [879]
+|||+----------> sKipping validation [98]
 ||||+---------> Interactive [54]
 |||||+--------> Touched (modified by me) [221]
 ||||||+-------> Random seed [109]
 |||||||+------> File output [75]
-||||||||+-----> Draft [215]
+||||||||+-----> Draft [216]
 |||||||||+----> Ignoring [63]
-||||||||||+---> Void (no local copy) [179]
-|||||||||||+--> Un-implemented/reliable [141]
+||||||||||+---> Void (no local copy) [180]
+|||||||||||+--> Un-implemented/reliable [142]
 ||||||||||||
 GGS......... 100_doors
 GB.KI.R..... 15_Puzzle_Game
@@ -239,6 +239,7 @@ GGS..T..D... Create_an_object_Native_demonstration
 GGS......... Cumulative_standard_deviation
 GGS......... Currency
 GGS......... Currying
+........D.VU Curve_that_touches_three_points
 GGS......... Cut_a_rectangle
 GGS.....D... Cycle_detection
 GGS......... DNS_query
@@ -353,7 +354,7 @@ GGS......... Fibonacci_word
 GGS......... Fibonacci_word_fractal
 GGS.....D... File_extension_is_in_extensions_list
 GGS....F.... File_input_output
-!BS..T...... File_modification_time
+GBS..T...... File_modification_time
 GGS......... File_size
 GGS..T..D... File_size_distribution
 GGS......... Filter
@@ -687,7 +688,7 @@ GGS......... Nth_root
 GGS......... Number_names
 GGS......... Number_reversal_game
 GGS..T...... Numeric_error_propagation
-GBSK....D... Numerical_and_alphabetical_suffixes
+GBS.....D... Numerical_and_alphabetical_suffixes
 GG.K........ Numerical_integration-1
 G!S......... Numerical_integration-2
 ........D.VU Numerical_integration_Adaptive_Simpson%27s_method
@@ -818,7 +819,7 @@ GGS...R..... Random_numbers
 GGS......... Range_expansion
 GGS......... Range_extraction
 GGS..T...... Ranking_methods
-GGS......... Rate_counter
+!GS......... Rate_counter
 GGS......... Ray-casting_algorithm
 GGS..T...... Read_a_configuration_file
 GGS.....D... Read_a_file_character_by_character_UTF8
@@ -857,7 +858,7 @@ GGS......... Reverse_words_in_a_string
 ........D.V. Robots
 GG.KITR..... Rock-paper-scissors
 GGS......... Roman_numerals_Decode
-GGS......... Roman_numerals_Encode
+!GS......... Roman_numerals_Encode
 GGS......... Roots_of_a_function
 GGS......... Roots_of_a_quadratic_function
 GGS......... Roots_of_unity
@@ -1019,9 +1020,9 @@ GGS......... Strip_a_set_of_characters_from_a_string
 GGS......... Strip_block_comments
 GGS......... Strip_comments_from_a_string
 GGS...R..... Strip_control_codes_and_extended_characters_from_a_string
-!GS..T...... Strip_whitespace_from_a_string_Top_and_tail
+GGS..T...... Strip_whitespace_from_a_string_Top_and_tail
 GGS......... Subleq
-GG.K....D... Subset_sum_problem
+GGS.....D... Subset_sum_problem
 GGS...R.D... Substitution_Cipher
 GGS......... Substring
 GBS......... Substring_Top_and_tail
@@ -1161,7 +1162,7 @@ GGS.....D... Word_break_problem
 GGS.....D... Word_count
 ..........VU Word_search
 GGS......... Word_wrap
-!GS..T...... World_Cup_group_stage
+GGS..T...... World_Cup_group_stage
 GGS....F.... Write_entire_file
 GGS....F.... Write_float_arrays_to_a_text_file
 GGS..TR..... Write_language_name_in_3D_ASCII
