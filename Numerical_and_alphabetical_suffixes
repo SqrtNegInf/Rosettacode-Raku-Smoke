@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Numerical_and_alphabetical_suffixes
-#c# 2018-11-01 <RC
+#c# 2018-10-27 <RC, 2018-11-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -54,7 +54,7 @@ sub units (Str $str) {
     my $ret = $val<>;
     $ret = [*] $ret, |@suf.map: { %suffix{$_} } if @suf[0];
     $ret = [*] ($ret, * - $fact.chars …^ * < 2) if $fact.chars;
-    $ret.?precise ?? $ret.precise !! $ret
+    $ret.?precise // $ret
 }
  
 #my $test = q:to '===';
