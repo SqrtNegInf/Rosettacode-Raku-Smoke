@@ -49,6 +49,14 @@ File: 24_game
 File: 24_game_Solve
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game/Solve
+#c# 2016-05-10 <RC, 2018-11-03 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# for JVM, use .1 for testing
+
+File: 24_game_Solve.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/24_game/Solve
 #c# 2016-05-10 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -234,7 +242,7 @@ File: Aliquot_sequence_classifications
 #c# 2016-01-02 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 'state @seq' brings immeasurable speed-up, not on RC
+#n# 2018-11-03 at one point 'state @seq' brought a huge speed-up?  Now no diff.
 
 File: Almost_prime-1
 #!/usr/bin/env perl6
@@ -1087,6 +1095,7 @@ File: Chaos_game
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #f# RC file: chaos-game-perl6.png
+#n# see '.race' version below
 
 File: Character_codes
 #!/usr/bin/env perl6
@@ -1519,6 +1528,14 @@ File: Count_occurrences_of_a_substring
 #j#  JVM: OK
 
 File: Count_the_coins
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Count_the_coins
+#c# 2015-12-05 <RC, 2018-04-13 >RC, 2018-11-03 <RC
+#m# MOAR: OK
+#j# JVM:  OK (partial)
+#n# for large $ values in recursive, JVM gives: StackOverflowError
+
+File: Count_the_coins.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Count_the_coins
 #c# 2015-12-05 <RC, 2018-04-13 >RC
@@ -2197,6 +2214,13 @@ File: Euler%27s_identity
 
 File: Euler%27s_sum_of_powers_conjecture
 #!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Euler%27s_sum_of_powers_conjecture
+#c# 2018-11-03 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: Euler%27s_sum_of_powers_conjecture.1
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Euler's_sum_of_powers_conjecture#Perl_6
 #c# 2016-01-09 <>RC
 #m# MOAR: OK
@@ -2407,7 +2431,9 @@ File: Farey_sequence
 #c# 2016-05-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# an example of where .race does not help: costs of setup/management swamp the fairly trivial calculations
+#n# an example of where .race does not help: 
+#n#    in the 'farey' routine: the costs of setup/management swamp the fairly trivial calculations
+#n#    calling 'farey':        time dominated by the 1000 run (?)
 
 File: Fast_Fourier_transform
 #!/usr/bin/env perl6
@@ -2917,6 +2943,13 @@ File: Gamma_function.1
 #n# older error?  Type check failed in binding to nu; expected Int but got Num (1.0000000000000002e0)
 
 File: Gauss-Jordan_matrix_inversion
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Gauss-Jordan_matrix_inversion
+#c# 2018-04-05 <RC, 2018-11-03 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: Gauss-Jordan_matrix_inversion.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Gauss-Jordan_matrix_inversion
 #c# 2018-04-05 <RC
@@ -5941,6 +5974,7 @@ File: Prime_decomposition
 #c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2018-11-03 no benefit with 'race' here
 #n# 2018-08-22 Inline::Perl5 version works fine (and fast) but clobbers JVM
 
 File: Prime_decomposition.1
@@ -7755,6 +7789,13 @@ File: Suffix_tree
 #c# 2016-05-15 <RC, 2017-02-01 >RC, 2018-04-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: Suffixation_of_decimal_numbers
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Suffixation_of_decimal_numbers
+#c# 2018-11-03 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
 
 File: Sum_and_Product_Puzzle
 #!/usr/bin/env perl6
