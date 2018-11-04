@@ -3,7 +3,7 @@
 #c# 2016-01-02 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 'state @seq' brings immeasurable speed-up, not on RC
+#n# 2018-11-03 at one point 'state @seq' brought a huge speed-up?  Now no diff.
 
 sub propdivsum (\x) {
     my @l = x > 1, gather for 2 .. x.sqrt.floor -> \d {
@@ -20,7 +20,8 @@ multi quality ($,1)  { 'aspiring' }
 multi quality ($,$n) { "cyclic-$n" }
 
 sub aliquotidian ($x) {
-    state @seq; @seq = $x, &propdivsum ... *;
+    #state @seq; @seq = $x, &propdivsum ... *;
+    my @seq = $x, &propdivsum ... *;
     my %seen;
     for 0..16 -> $to {
         my $this = @seq[$to] or return "$x\tterminating\t[@seq[^$to]]";
