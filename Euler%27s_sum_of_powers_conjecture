@@ -1,34 +1,34 @@
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Euler's_sum_of_powers_conjecture#Perl_6
-#c# 2016-01-09 <>RC
+#u# http://rosettacode.org/wiki/Euler%27s_sum_of_powers_conjecture
+#c# 2018-11-03 <RC
 #m# MOAR: OK
-#j#  JVM: OK
-#   why so very very slow??
+#j# JVM:  OK
+
+# Translation of: Python
+
+my $result;
 
 constant MAX = 250;
  
-my %p5{Int};
+my %po5{Int};
 my %sum2{Int};
  
-for 1..MAX -> $i {
-    %p5{$i**5} = $i;
+(1..MAX).map: -> $i {
+    %po5{$i**5} = $i;
     for 1..MAX -> $j {
         %sum2{$i**5 + $j**5} = ($i, $j);
     }
 }
-
-my $result;
+ 
 my @sk = %sum2.keys.sort;
-loopy: {
-for %p5.keys.sort -> $p {
+%po5.keys.sort.race.map: -> $p {
     for @sk -> $s {
         next if $p <= $s;
         if %sum2{$p - $s} {
-            say $result = ((sort |%sum2{$s}[],|%sum2{$p-$s}[]) X~ '⁵').join(' + ') ~ " =  %p5{$p}" ~ "⁵";
-            last;
+            $result = ((sort |%sum2{$s}[],|%sum2{$p-$s}[]) X~ '⁵').join(' + ') ~ " =  %po5{$p}" ~ "⁵";
+            last
         }
     }
-}
 }
 
 use Test;
