@@ -1,28 +1,27 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Gauss-Jordan_matrix_inversion
-#c# 2018-04-05 <RC
+#c# 2018-04-05 <RC, 2018-11-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-# Works with: Rakudo version 2018.03
+my @res;
 
 # Uses bits and pieces from other tasks, Reduced row echelon form primarily.
-my @res;
 
 sub gauss-jordan-invert (@m where *.&is-square) {
     ^@m .map: { @m[$_].append: identity(+@m)[$_] };
     @m.&rref[*]»[+@m .. *];
 }
- 
+
 sub is-square (@m) { so @m == all @m[*] }
- 
+
 sub identity ($n) { [ 1, |(0 xx $n-1) ], *.rotate(-1) ... *.tail }
- 
+
 # reduced row echelon form (Gauss-Jordan elimination)
 sub rref (@m) {
     return unless @m;
     my ($lead, $rows, $cols) = 0, +@m, +@m[0];
- 
+
     for ^$rows -> $r {
         $lead < $cols or return @m;
         my $i = $r;
@@ -42,52 +41,49 @@ sub rref (@m) {
     }
     @m
 }
- 
+
 sub rat-or-int ($num) {
     return $num unless $num ~~ Rat;
     return $num.narrow if $num.narrow.WHAT ~~ Int;
     $num.nude.join: '/';
 }
- 
+
 sub say_it ($message, @array) {
+    my $max;
+    @array.map: {$max max= [max] |$_».&rat-or-int.comb(/\S+/)».chars};
     @res.push: "\n$message";
-    #$_».&rat-or-int.fmt(" %6s").put for @array;
-    @res.push: $_».&rat-or-int.fmt(" %6s") for @array;
+    #$_».&rat-or-int.fmt(" %{$max}s").put for @array;
+    @res.push: $_».&rat-or-int.fmt(" %{$max}s") for @array;
 }
- 
-my @tests = (
-    [
-      [ 1, 2, 3 ],
-      [ 4, 1, 6 ],
-      [ 7, 8, 9 ]
-    ],
-    [
-      [ 2, -1,  0 ],
-      [-1,  2, -1 ],
-      [ 0, -1,  2 ]
-    ],
-    [
-      [ -1, -2, 3, 2 ],
-      [ -4, -1, 6, 2 ],
-      [  7, -8, 9, 1 ],
-      [  1, -2, 1, 3 ]
-    ],
-);
- 
-for @tests -> @matrix {
+
+sub to-matrix ($str) { [$str.split(';').map(*.words.Array)] }
+
+my @tests =
+  '1 2 3; 4 1 6; 7 8 9',
+  '2 -1 0; -1 2 -1; 0 -1 2',
+  '-1 -2 3 2; -4 -1 6 2; 7 -8 9 1; 1 -2 1 3',
+  '1 2 3 4; 5 6 7 8; 9 33 11 12; 13 14 15 17',
+  '3 1 8 9 6; 6 2 8 10 1; 5 7 2 10 3; 3 2 7 7 9; 3 5 6 1 1',
+  '-4525/6238  2529/6238 -233/3119 1481/3119 -639/6238;
+    1033/6238 -1075/6238  342/3119 -447/3119  871/6238;
+    1299/6238  -289/6238 -204/3119 -390/3119  739/6238;
+     782/3119  -222/3119  237/3119 -556/3119 -177/3119;
+    -474/3119   -17/3119  -24/3119  688/3119 -140/3119';
+
+@tests.map: {
+    my @matrix = .&to-matrix;
     say_it( 'Original Matrix:', @matrix );
     say_it( 'Gauss-Jordan Inverted Matrix:', gauss-jordan-invert @matrix );
-    say "\n";
 }
- 
+
 .say for @res;
 
-my $ref = qq:to/END/;
+my $ref = q:to/END/;
 
 Original Matrix:
-      1       2       3
-      4       1       6
-      7       8       9
+ 1  2  3
+ 4  1  6
+ 7  8  9
 
 Gauss-Jordan Inverted Matrix:
  -13/16     1/8    3/16
@@ -95,26 +91,66 @@ Gauss-Jordan Inverted Matrix:
   25/48     1/8   -7/48
 
 Original Matrix:
-      2      -1       0
-     -1       2      -1
-      0      -1       2
+  2  -1   0
+ -1   2  -1
+  0  -1   2
 
 Gauss-Jordan Inverted Matrix:
-    3/4     1/2     1/4
-    1/2       1     1/2
-    1/4     1/2     3/4
+ 3/4  1/2  1/4
+ 1/2    1  1/2
+ 1/4  1/2  3/4
 
 Original Matrix:
-     -1      -2       3       2
-     -4      -1       6       2
-      7      -8       9       1
-      1      -2       1       3
+ -1  -2   3   2
+ -4  -1   6   2
+  7  -8   9   1
+  1  -2   1   3
 
 Gauss-Jordan Inverted Matrix:
  -21/23   17/69  13/138   19/46
  -38/23   15/23    1/23   15/23
  -16/23   25/69  11/138    9/46
  -13/23   16/69   -2/69   13/23
+
+Original Matrix:
+  1   2   3   4
+  5   6   7   8
+  9  33  11  12
+ 13  14  15  17
+
+Gauss-Jordan Inverted Matrix:
+   19/184  -199/184     -1/46       1/2
+     1/23     -2/23      1/23         0
+ -441/184   813/184     -1/46      -3/2
+        2        -3         0         1
+
+Original Matrix:
+  3   1   8   9   6
+  6   2   8  10   1
+  5   7   2  10   3
+  3   2   7   7   9
+  3   5   6   1   1
+
+Gauss-Jordan Inverted Matrix:
+ -4525/6238   2529/6238   -233/3119   1481/3119   -639/6238
+  1033/6238  -1075/6238    342/3119   -447/3119    871/6238
+  1299/6238   -289/6238   -204/3119   -390/3119    739/6238
+   782/3119   -222/3119    237/3119   -556/3119   -177/3119
+  -474/3119    -17/3119    -24/3119    688/3119   -140/3119
+
+Original Matrix:
+ -4525/6238   2529/6238   -233/3119   1481/3119   -639/6238
+  1033/6238  -1075/6238    342/3119   -447/3119    871/6238
+  1299/6238   -289/6238   -204/3119   -390/3119    739/6238
+   782/3119   -222/3119    237/3119   -556/3119   -177/3119
+  -474/3119    -17/3119    -24/3119    688/3119   -140/3119
+
+Gauss-Jordan Inverted Matrix:
+  3   1   8   9   6
+  6   2   8  10   1
+  5   7   2  10   3
+  3   2   7   7   9
+  3   5   6   1   1
 END
 
 use Test;
