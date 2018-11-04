@@ -1,65 +1,69 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Count_the_coins
-#c# 2015-12-05 <RC, 2018-04-13 >RC
+#c# 2015-12-05 <RC, 2018-04-13 >RC, 2018-11-03 <RC
 #m# MOAR: OK
-#j#  JVM: OK (partial)
+#j# JVM:  OK (partial)
 #n# for large $ values in recursive, JVM gives: StackOverflowError
-
-# Works with: rakudo version 2015.09
-# Translation of: Ruby
-
-# Recursive (cached)
 
 my @res;
 
-sub change($amount, @coins) {
-    my @cache = $[1 xx @coins];
+# Works with: rakudo version 2018.10
+
+# Recursive (cached)
+sub change-r($amount, @coins) {
+    my @cache = [1 xx @coins], |([] xx $amount);
  
     multi ways($n where $n >= 0, @now [$coin,*@later]) {
-        @cache[$n][+@later] //= ways($n - $coin, @now) + ways($n, @later);
+        @cache[$n;+@later] //= ways($n - $coin, @now) + ways($n, @later);
     }
     multi ways($,@) { 0 }
  
     # more efficient to start with coins sorted in descending order
-    ways($amount, @coins.sort(-*).list);  
+    ways($amount, @coins.sort(-*).list);
 }
  
-@res.push: change    1_00, [1,5,10,25];
-@res.push: change  100_00, [1,5,10,25] if $*VM  ~~ /jvm/; # DH JVM OK
-@res.push: change 1000_00, [1,5,10,25] if $*VM !~~ /jvm/; # DH JVM fails
-
-# Iterative is a little faster
+# Iterative
 sub change-i(\n, @coins) {
     my @table = [1 xx @coins], [0 xx @coins] xx n;
-    for 1..n X ^@coins -> (\i, \j) {
+    (1..n).map: -> \i {
+        for ^@coins -> \j {
         my \c = @coins[j];
-        @table[i][j] = [+]
-            @table[i - c][j    ] // 0,
-            @table[i    ][j - 1] // 0;
+        @table[i;j] = [+]
+            @table[i - c;j] // 0,
+            @table[i;j - 1] // 0;
+        }
     }
     @table[*-1][*-1];
 }
  
+# moar: 40.481u 1.194s 0:54.75 76.1%
+#say "Iterative:";
 @res.push: change-i    1_00, [1,5,10,25];
 @res.push: change-i 1000_00, [1,5,10,25];
 @res.push: change-i 1000_00, [1,5,10,25,50,100];
+ 
+# moar: 56.895u 1.055s 1:17.43 74.8%
+#say "\nRecursive:";
+@res.push: change-r    1_00, [1,5,10,25];
+@res.push: change-r  100_00, [1,5,10,25] if $*VM  ~~ /jvm/; # DH JVM OK
+@res.push: change-r 1000_00, [1,5,10,25] if $*VM !~~ /jvm/; # DH JVM fails
 
 .say for @res;
 
 my $moar = qq:to/END/;
 242
 133423351001
+13398445413854501
 242
 133423351001
-13398445413854501
 END
 
 my $jvm = qq:to/END/;
 242
-134235101
-242
 133423351001
 13398445413854501
+242
+134235101
 END
 
 use Test;
