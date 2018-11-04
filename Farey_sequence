@@ -3,7 +3,9 @@
 #c# 2016-05-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# an example of where .race does not help: costs of setup/management swamp the fairly trivial calculations
+#n# an example of where .race does not help: 
+#n#    in the 'farey' routine: the costs of setup/management swamp the fairly trivial calculations
+#n#    calling 'farey':        time dominated by the 1000 run (?)
 
 #sub farey ($order) { unique 0/1, |(1..$order).map: { |(1..$^d).map: { $^n/$d } } }
 # above croaks at 362, as there are 65703 items in list [as of 2016.05.21]
@@ -20,6 +22,7 @@ sub farey ($order) {
 my @res.push: "Farey sequence order ";
 @res.push: "$_: " ~ .&farey.sort.map: *.nude.join('/') for 1..11;
 @res.push: "Farey sequence order $_ has " ~ [.&farey].elems ~ ' elements.' for 100, 200 ... 1000;
+#(100, 200 ... 1000).race.map: { @res.push: "Farey sequence order $_ has " ~ [.&farey].elems ~ ' elements.' }
 .say for @res;
 
 my $ref = qq:to/END/;
