@@ -1,8 +1,8 @@
-This is Rakudo version 2018.10-57-gbfe2ad63f built on MoarVM version 2018.10-26-g318e1ec55
+This is Rakudo version 2018.10-69-g235965401 built on MoarVM version 2018.10-72-g4fbaeee5f
 implementing Perl 6.d.
 updating from RC…
-+-------------> Moar: Good/Bad [964/10]
-|+------------> JVM: Good/Bad [872/109]
++-------------> Moar: Good/Bad [964/11]
+|+------------> JVM: Good/Bad [871/111]
 ||+-----------> Smoke testing [879]
 |||+----------> sKipping validation [98]
 ||||+---------> Interactive [54]
@@ -22,7 +22,7 @@ GB.KI.R..... 15_Puzzle_Game
 GB.KI.R..... 2048
 GGS...R.D... 21_Game
 GG.KI.R..... 24_game
-GGS......... 24_game_Solve
+GBS..T...... 24_game_Solve
 GGS......... 4-rings_or_4-squares_puzzle
 GGS......... 99_Bottles_of_Beer
 GGS......... 9_billion_names_of_God_the_integer
@@ -315,7 +315,7 @@ GGS......... Environment_variables
 GGS..T...... Equilibrium_index
 GGS......... Ethiopian_multiplication
 GGS......... Euler%27s_identity
-GGS..T...... Euler%27s_sum_of_powers_conjecture
+GGS......... Euler%27s_sum_of_powers_conjecture
 GGS......... Euler_method
 GGS......... Evaluate_binomial_coefficients
 GGS......... Even_or_odd
@@ -611,7 +611,7 @@ GGS......... Map_range
 GG.KI.R.D... Mastermind
 GGS......... Matrix-exponentiation_operator
 GGS......... Matrix_arithmetic
-........D.VU Matrix_chain_multiplication
+..........VU Matrix_chain_multiplication
 GGS......... Matrix_multiplication
 GGS..T...... Matrix_transposition
 .........X.. Max_licenses_in_use
@@ -858,7 +858,7 @@ GGS......... Reverse_words_in_a_string
 ........D.V. Robots
 GG.KITR..... Rock-paper-scissors
 GGS......... Roman_numerals_Decode
-!GS......... Roman_numerals_Encode
+GGS......... Roman_numerals_Encode
 GGS......... Roots_of_a_function
 GGS......... Roots_of_a_quadratic_function
 GGS......... Roots_of_unity
@@ -987,7 +987,7 @@ GGS......... Sparkline_in_unicode
 GG.K........ Special_characters
 GG.K........ Special_variables
 .........XV. Speech_synthesis
-GBS......... Spelling_of_ordinal_numbers
+!BS......... Spelling_of_ordinal_numbers
 GG.K........ Spinning_rod_animation_Text
 GGS..T...... Spiral_matrix-1
 GGS......... Spiral_matrix-2
@@ -1030,6 +1030,7 @@ GGS......... Subtractive_generator
 GGS......... Sudoku-1
 GG.K........ Sudoku-2
 GGS..T..D... Suffix_tree
+BB......D... Suffixation_of_decimal_numbers
 GGS......... Sum_and_Product_Puzzle
 GGS......... Sum_and_product_of_an_array
 GGS......... Sum_digits_of_an_integer
