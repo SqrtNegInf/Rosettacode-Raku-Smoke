@@ -5,78 +5,74 @@
 #j# JVM:  BROKEN OK
 #n# new version, no EVAL
 
-my @res;
-
-#No EVAL[edit]
-#Alternately, a version that doesn't use EVAL. More general case. Able to handle 3 or 4 integers, able to select the goal value.
+# Alternately, a version that doesn't use EVAL. More general case. Able to handle 3 or 4 integers, able to select the goal value.
 
 my $ref = q:to/END/;
-(((1 + 7) * 3) * 1)
-((1 + 7) * (3 * 1))
-((3 + 1) * (7 - 1))
-(((7 + 1) * 3) * 1)
-((7 + 1) * (3 * 1))
-(((1 + 7) * 3) / 1)
-((1 + 7) * (3 / 1))
-(((7 + 1) * 3) / 1)
-((7 + 1) * (3 / 1))
-((7 - 1) * (3 + 1))
-((3 * (1 + 7)) * 1)
-(3 * ((1 + 7) * 1))
-(3 * (1 + (7 * 1)))
-((3 * (1 + 7)) / 1)
-(3 * ((1 + 7) / 1))
-(3 * (1 + (7 / 1)))
-((1 * 3) * (1 + 7))
-((3 * 1) * (7 + 1))
-(1 * (3 * (1 + 7)))
-(3 * ((1 * 7) + 1))
-(3 * (1 * (7 + 1)))
-((3 / 1) * (7 + 1))
-(3 / (1 / (7 + 1)))
+(((1 * 1) + 7) * 3)
+(((1 * 7) + 1) * 3)
 (((1 + 7) * 1) * 3)
-((1 + 7) * (1 * 3))
-((1 + (7 * 1)) * 3)
-((1 + (1 * 7)) * 3)
-(((7 + 1) * 1) * 3)
-((7 + 1) * (1 * 3))
-((7 + (1 * 1)) * 3)
+(((1 + 7) * 3) * 1)
+(((1 + 7) * 3) / 1)
 (((1 + 7) / 1) * 3)
-((1 + (7 / 1)) * 3)
-((1 + 7) / (1 / 3))
+(((1 / 1) + 7) * 3)
+(((7 * 1) + 1) * 3)
+(((7 + 1) * 1) * 3)
+(((7 + 1) * 3) * 1)
+(((7 + 1) * 3) / 1)
 (((7 + 1) / 1) * 3)
+(((7 / 1) + 1) * 3)
+((1 * (1 + 7)) * 3)
+((1 * (7 + 1)) * 3)
+((1 * 3) * (1 + 7))
+((1 * 3) * (7 + 1))
+((1 + (1 * 7)) * 3)
+((1 + (7 * 1)) * 3)
+((1 + (7 / 1)) * 3)
+((1 + 3) * (7 - 1))
+((1 + 7) * (1 * 3))
+((1 + 7) * (3 * 1))
+((1 + 7) * (3 / 1))
+((1 + 7) / (1 / 3))
+((3 * (1 + 7)) * 1)
+((3 * (1 + 7)) / 1)
+((3 * (7 + 1)) * 1)
+((3 * (7 + 1)) / 1)
+((3 * 1) * (1 + 7))
+((3 * 1) * (7 + 1))
+((3 + 1) * (7 - 1))
+((3 / 1) * (1 + 7))
+((3 / 1) * (7 + 1))
+((7 + (1 * 1)) * 3)
 ((7 + (1 / 1)) * 3)
+((7 + 1) * (1 * 3))
+((7 + 1) * (3 * 1))
+((7 + 1) * (3 / 1))
 ((7 + 1) / (1 / 3))
 ((7 - 1) * (1 + 3))
-(((1 * 7) + 1) * 3)
-((1 * (7 + 1)) * 3)
-(1 * ((7 + 1) * 3))
-(((1 * 1) + 7) * 3)
-(((7 * 1) + 1) * 3)
-((1 * (1 + 7)) * 3)
+((7 - 1) * (3 + 1))
 (1 * ((1 + 7) * 3))
-(3 * (1 + (1 * 7)))
-((3 * 1) * (1 + 7))
-(3 * ((1 * 1) + 7))
-(3 * (1 * (1 + 7)))
-(3 * ((1 / 1) + 7))
-(((1 / 1) + 7) * 3)
-(((7 / 1) + 1) * 3)
-((3 / 1) * (1 + 7))
-(3 / (1 / (1 + 7)))
-((1 + 3) * (7 - 1))
-((3 * (7 + 1)) * 1)
-(3 * ((7 + 1) * 1))
-(3 * (7 + (1 * 1)))
-((3 * (7 + 1)) / 1)
-(3 * ((7 + 1) / 1))
-(3 * (7 + (1 / 1)))
-((1 * 3) * (7 + 1))
+(1 * ((7 + 1) * 3))
+(1 * (3 * (1 + 7)))
 (1 * (3 * (7 + 1)))
+(3 * ((1 * 1) + 7))
+(3 * ((1 * 7) + 1))
+(3 * ((1 + 7) * 1))
+(3 * ((1 + 7) / 1))
+(3 * ((1 / 1) + 7))
 (3 * ((7 * 1) + 1))
-(3 * ((7 / 1) + 1)))
-64 solutions found for 1 7 3 1
-
+(3 * ((7 + 1) * 1))
+(3 * ((7 + 1) / 1))
+(3 * ((7 / 1) + 1))
+(3 * (1 * (1 + 7)))
+(3 * (1 * (7 + 1)))
+(3 * (1 + (1 * 7)))
+(3 * (1 + (7 * 1)))
+(3 * (1 + (7 / 1)))
+(3 * (7 + (1 * 1)))
+(3 * (7 + (1 / 1)))
+(3 / (1 / (1 + 7)))
+(3 / (1 / (7 + 1)))
+64 equations evaluate to 24 using: 1 7 3 1
 END
 
 my %*SUB-MAIN-OPTS = :named-anywhere;
@@ -97,7 +93,10 @@ sub MAIN (*@parameters, Int :$goal = 24) {
         @numbers = 3,3,8,8;
         say 'Running demonstration with: ', |@numbers, "\n";
     }
-    solve @numbers, $goal
+    my @res = solve @numbers, $goal;
+    .say for @res;
+    use Test;
+    is @res.join("\n"), chomp $ref;
 }
 
 sub solve (@numbers, $goal = 24) {
@@ -107,7 +106,6 @@ sub solve (@numbers, $goal = 24) {
     my @order = (^(@numbers - 1)).permutations;
     my @sol;
     @sol[250]; # preallocate some stack space
-
     my $batch = ceiling +@perms/4;
 
     @perms.race(:batch($batch)).map: -> @p {
@@ -119,12 +117,10 @@ sub solve (@numbers, $goal = 24) {
         }
     }
     @sol.=unique;
-    @res.push: sort @sol.join: "\n";
-    @res.push: +@sol~ " solution{+@sol == 1 ?? '' !! 's'} found for {@numbers}";
-
-#    .say for @res;
-    use Test;
-    is @res.join("\n"), chomp $ref;
+    my $pl = +@sol == 1 ?? '' !! 's';
+    my $sg = $pl ?? '' !! 's';
+    @sol.push: +@sol~ " equation{$pl} evaluate{$sg} to $goal using: {@numbers}";
+    return @sol.sort;
 }
 
 sub evaluate ( @digit, @ops, @orders ) {
@@ -133,7 +129,7 @@ sub evaluate ( @digit, @ops, @orders ) {
 
     for ^@orders {
         my $this  = @orders[$_];
-        my $order = ($this - @offset[$this]) % +@orders;
+        my $order = $this - @offset[$this];
         my $op    = @ops[$this];
         my $result = op( $op, @result[$order;0], @result[$order+1;0] );
         return [ NaN, Str ] unless defined $result;
@@ -150,37 +146,38 @@ multi op ( '/', $m, $n ) { $n == 0 ?? fail() !! $m / $n }
 multi op ( '*', $m, $n ) { $m * $n }
 
 my $txt = "\e[0;96m";
-my $cmd = "\e[0;92m>";
+my $cmd = "\e[0;92m> {$*EXECUTABLE-NAME} {$*PROGRAM-NAME}";
 sub USAGE {
     say qq:to
     '========================================================================'
     {$txt}Supply 3 or 4 integers on the command line, and optionally a value
     to equate to.
 
-    Integers may be all one group: {$cmd} {$*EXECUTABLE-NAME} {$*PROGRAM-NAME} 2233{$txt}
-          Or, separated by spaces: {$cmd} {$*EXECUTABLE-NAME} {$*PROGRAM-NAME} 2 4 6 7{$txt}
+    Integers may be all one group: {$cmd} 2233{$txt}
+          Or, separated by spaces: {$cmd} 2 4 6 7{$txt}
 
     If you wish to supply multi-digit or negative numbers, you must
-        separate them with spaces: {$cmd} {$*EXECUTABLE-NAME} {$*PROGRAM-NAME} -2 6 12{$txt}
+        separate them with spaces: {$cmd} -2 6 12{$txt}
 
     If you wish to use a different equate value,
-    supply a new --goal parameter: {$cmd} {$*EXECUTABLE-NAME} {$*PROGRAM-NAME} --goal=17 2 -3 1 9{$txt}
+    supply a new --goal parameter: {$cmd} --goal=17 2 -3 1 9{$txt}
 
     If you don't supply any parameters, will use 24 as the goal, will run a
     demo and will show this message.\e[0m
     ========================================================================
 }
 
-#`{
+#`{{
 When supplied 1399 on the command line:
 
 (((9 - 1) / 3) * 9)
 ((9 - 1) / (3 / 9))
-(((9 - 1) * 9) / 3)
-((9 - 1) * (9 / 3))
 ((9 / 3) * (9 - 1))
 (9 / (3 / (9 - 1)))
 ((9 * (9 - 1)) / 3)
 (9 * ((9 - 1) / 3))
-8 solutions found for 1399
-}
+(((9 - 1) * 9) / 3)
+((9 - 1) * (9 / 3))
+8 equations evaluate to 24 using: 1 3 9 9
+}}
+
