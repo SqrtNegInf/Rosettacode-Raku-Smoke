@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Suffixation_of_decimal_numbers
-#c# 2018-11-03 <RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
+#c# 2018-11-05 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# the test '+$type ~~ Int' yields and intermittent bug (not on RC)
 
 my @res;
 
@@ -12,7 +13,8 @@ my @res;
 # If you desire the number to be rounded, pass in a number representing the placed past the decimal to round to. If you pass in a negative number for rounding, it will round to a negative number of places past the decimal.
 
 sub sufficate ($val is copy, $type is copy = 'M', $round is copy = Any) {
-   if +$type ~~ Int { $round = $type; $type = 'M' }
+   #if (+$type ~~ Int) { $round = $type; $type = 'M' }
+   if ($type ~~ /^^ \d $$/) { $round = $type; $type = 'M' }
    my $s = '';
    if $val.substr(0,1) eq '-' { $s = '-'; $val.=substr(1) }
    $val.=subst(',', '', :g);
@@ -63,9 +65,9 @@ my @tests =
    '1122334455 Q', # bad unit type example
 ;
  
-my @res.push: sprintf "%33s : %s\n", $_, sufficate(|.words) for @tests;
-
-.say for @res;
+#printf "%33s : %s", $_, sufficate(|.words) for @tests; exit;
+@res.push: sprintf "%33s : %s", $_, sufficate(|.words) for @tests; 
+.say for @res; 
 
 my $ref = q:to/END/;
                        87,654,321 : 87.654321M
@@ -81,7 +83,6 @@ my $ref = q:to/END/;
                      347,344 M -2 : 300K
                      1122334455 Q : What we have here is a failure to communicate...
 END
-#                 703674818560 B 2 : 655.35Gi
 
 use Test;
 is @res.join("\n"), chomp $ref;
