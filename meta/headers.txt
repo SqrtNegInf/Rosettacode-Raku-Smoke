@@ -1253,7 +1253,7 @@ File: Collections
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: Color_wheel
+File: Color_wheel.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Color_wheel
 #c# 2016-08-23 <RC, 2018-09-26 <RC
@@ -1262,7 +1262,7 @@ File: Color_wheel
 #j#  JVM: BROKEN
 #f# RC file: color-wheel-perl6.png
 
-File: Color_wheel.1
+File: Color_wheel.2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Color_wheel
 #c# 2016-08-22 <RC
@@ -3792,7 +3792,7 @@ File: Josephus_problem
 File: Julia_set
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Julia_set
-#c# 2016-03-25 <RC, 2018-09-26 <RC
+#c# 2016-03-25 <RC, 2018-09-26 <RC, 2018-11-05 <RC
 #t# graphical
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -3800,6 +3800,16 @@ File: Julia_set
 #n# running time is no longer an issue!
 
 File: Julia_set.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Julia_set
+#c# 2016-03-25 <RC, 2018-09-26 <RC
+#t# graphical
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: julia-set-perl6.png
+#n# running time is no longer an issue!
+
+File: Julia_set.2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Julia_set
 #c# 2016-03-25 <RC
@@ -4009,6 +4019,7 @@ File: Kronecker_product_based_fractals
 #f# RC file: kronecker-vicsek-perl6.png
 #n# xx file: kronecker-six-perl6.png
 #n# 2018-10-31 Moar bug?  https://gist.github.com/SqrtNegInf/2b0ccf921e2c5b529432555c74ece006
+#n# 2018-11-05 still an open issue on GH: https://github.com/rakudo/rakudo/issues/2453
 
 File: LU_decomposition
 #!/usr/bin/env perl6
@@ -5804,7 +5815,7 @@ File: Pinstripe_Display
 File: Plasma_effect
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Plasma_effect
-#c# 2016-06-30 <RC
+#c# 2016-06-30 <RC, 2018-11-04 >RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: BROKEN
@@ -7801,9 +7812,10 @@ File: Suffix_tree
 File: Suffixation_of_decimal_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Suffixation_of_decimal_numbers
-#c# 2018-11-03 <RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
+#c# 2018-11-05 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# the test '+$type ~~ Int' yields and intermittent bug (not on RC)
 
 File: Sum_and_Product_Puzzle
 #!/usr/bin/env perl6
