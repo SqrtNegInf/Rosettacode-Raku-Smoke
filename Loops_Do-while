@@ -5,21 +5,24 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-my $val = 0;
+my $val1 = 0;
 repeat {
-    say ++$val;
-} while $val % 6;
+    say ++$val1;
+} while $val1 % 6;
 #repeat ... until condition is equivalent to do ... while not condition.
 
-$val = 0;
+my $val2 = 0;
 repeat {
-    say ++$val;
-} until $val %% 6;
+    say ++$val2;
+} until $val2 %% 6;
 #(Here we've used %%, the "divisible-by" operator.)
 
 
 #You can also put the condition before the block, without changing the order of evaluation.
-$val = 0;
-repeat while $val % 6 {
-    say ++$val;
+my $val3 = 0;
+repeat while $val3 % 6 {
+    say ++$val3;
 }
+
+use Test;
+ok ($val1 == 6 and $val2 == 6 and $val3 == 6);
