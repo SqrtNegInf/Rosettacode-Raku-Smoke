@@ -59,7 +59,8 @@ File: 24_game_Solve-2
 #u# http://rosettacode.org/wiki/24_game/Solve
 #c# 2018-11-04 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN OK
+#j# JVM:  OK
+#i# RC cli: 1 7 3 1
 #n# new version, no EVAL
 
 File: 24_game_Solve.1
@@ -1724,6 +1725,7 @@ File: Deconvolution_2D%2B-1
 #j#  JVM: OK
 #n# copy of 'Deconvolution_2D%2B' for testing 2D, 4D cases
 #n# changes in that file need to be propagated here
+#n# .race didn't make a big difference here
 
 File: Define_a_primitive_data_type
 #!/usr/bin/env perl6
@@ -2133,6 +2135,14 @@ File: Elliptic_curve_arithmetic
 #j#  JVM: OK
 
 File: Emirp_primes
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Emirp_primes
+#c# 2016-03-01 <RC, 2016-08-22 <>RC, 2018-11-06 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# for JVM, use .1 for testing
+
+File: Emirp_primes.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Emirp_primes
 #c# 2016-03-01 <RC, 2016-08-22 <>RC
@@ -7933,7 +7943,7 @@ File: Table_creation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Table_creation
 #c# 2017-09-25 <RC
-#t# trivial
+#t# nocode
 #m# MOAR: OK
 #j# JVM:  OK
 
