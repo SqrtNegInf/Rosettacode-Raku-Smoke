@@ -14,7 +14,12 @@ for open('ref/test.txt').lines
 
 #In order to be more explicit about the file being read on line at a time, one can write:
 
+my $result;
 my $f = open 'ref/test.txt';
 while my $line = $f.get {
     say $line;
+    $result ~= $line;
 }
+
+use Test;
+is $result, '124';
