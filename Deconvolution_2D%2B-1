@@ -5,13 +5,14 @@
 #j#  JVM: OK
 #n# copy of 'Deconvolution_2D%2B' for testing 2D, 4D cases
 #n# changes in that file need to be propagated here
+#n# .race didn't make a big difference here
 
 # Deconvolution of N dimensional matrices
 sub deconvolve-N ( @g, @f ) {
     my @hsize = @g.shape »-« @f.shape »+» 1;
 
-    my @toSolve = coords(@g.shape).map:
-      { [row(@g, @f, $^coords, @hsize)] };
+    my @toSolve = coords(@g.shape).map: { [row(@g, @f, $^coords, @hsize)] };
+    #my @toSolve = coords(@g.shape).hyper.map: { [row(@g, @f, $^coords, @hsize)] };
 
     my @solved = rref( @toSolve );
 
