@@ -7,7 +7,7 @@ use strict 'vars';
 
 my(%P);
 
-print `perl6 -v`; 
+print `$ENV{HOME}/.rakudobrew/bin/perl6 -v`; 
 
 # update only once a day
 if (.95 < -M "Category:Programming_Tasks") {
@@ -47,6 +47,7 @@ my @cols = (
 "sKipping validation [${\tally('K')}]",                         # K
 "Interactive [${\tally('I')}]",                                 # I
 "Touched (modified by me) [${\tally('T')}]",                    # T
+"Concurrent [${\tally('C')}]",                                  # C
 "Random seed [${\tally('R')}]",                                 # R
 "File output [${\tally('F')}]",                                 # F
 "Draft [${\tally('D')}]",                                       # D
@@ -65,7 +66,7 @@ print '|' x $max . "\n";
 
 # display full task status table
 for my $p (sort keys %P) {
-    (print $P{$p}{$_} // '.') for qw(M J S K I T R F D X V U);
+    (print $P{$p}{$_} // '.') for qw(M J S K I T C R F D X V U);
     print " $p\n";
 }
 
@@ -99,7 +100,7 @@ my($l) = @_;
 # study task source code, set various condition flags
 sub document {
 my($p) = @_;
-my($task,$header,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
+my($task,$header,@concur,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
 
     $task = "../$p";
     return 0 if ! -e $task;
@@ -108,7 +109,7 @@ my($task,$header,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
     $header = `grep '^#[mjcft]#' $task`;
 
     $P{$p}{'M'} = $header =~ /MOAR:\s*OK/ ? 'G' : 'B';
-    $compiles = `perl6 -c $task 2>&1 1>/dev/null`;
+    $compiles = `$ENV{HOME}/.rakudobrew/bin/perl6 -c $task 2>&1 1>/dev/null`;
     $mout = "../bench/moar/$p.out";
     $P{$p}{'S'} = -e $mout ? 'S' : '.';
     $merr = (-e $mout) ? `grep STDERR $mout` : undef;
@@ -124,6 +125,15 @@ my($task,$header,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
     $P{$p}{'T'} = $header =~ />RC/               ? 'T' : '.';
     $P{$p}{'F'} = $header =~ /#f#.*RC file/i     ? 'F' : '.';
     $P{$p}{'I'} = $header =~ /#t#.*interactive/i ? 'I' : '.';
+
+    my $rh = '(race|hyper)';
+    @concur = `/usr/local/bin/pcregrep '\\.$rh' $task`;
+    if (@concur) {
+        my $active = grep { /^[^#\n]+$rh/ } @concur;
+        $P{$p}{'C'} = $active > 0                ? 'C' : 'c';
+    } else {
+        $P{$p}{'C'} =                                    '.';
+    }
 
     $srand = `grep srand $task`;
     $P{$p}{'R'} = $srand =~ /\bsrand \d/         ? 'R' : '.';
@@ -177,7 +187,6 @@ Bitmap_PPM_conversion_through_a_pipe
 Call_an_object_method
 Color_of_a_screen_pixel
 Command-line_arguments
-Concurrent_computing
 Create_a_file_on_magnetic_tape
 Deepcopy
 Doubly-linked_list_Traversal
