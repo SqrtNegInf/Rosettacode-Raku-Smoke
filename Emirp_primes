@@ -1,17 +1,23 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Emirp_primes
-#c# 2016-03-01 <RC, 2016-08-22 <>RC
+#c# 2016-03-01 <RC, 2016-08-22 <>RC, 2018-11-06 >RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j#  JVM: BROKEN
+#n# for JVM, use .1 for testing
 
-#Build a lazy list using Perl 6's builtin &is-prime, then display results based on parameters passed in.The default is to display an array slice starting and stopping at the given indicies. Alternately, ask for all values between two endpoints.
+use Math::Primesieve;
+
+sub prime-hash (Int $max) {
+    my $sieve = Math::Primesieve.new;
+    my @primes = $sieve.primes($max);
+    @primes.Set;
+}
 
 sub MAIN-as-sub ($start, $stop = Nil, $display = <slice>) {
     my $end = $stop // $start; 
+    my %primes = prime-hash(100*$end);
     my @emirps = lazy gather for 1 .. * -> $n {
-        take $n if $n.is-prime 
-          and (+$n.flip).is-prime
-          and $n != +($n.flip)
+        take $n if %primes{$n} and %primes{$n.flip} and $n != $n.flip
     }
 
     given $display {
@@ -32,7 +38,11 @@ my $a1 = '13 17 31 37 71 73 79 97 107 113 149 157 167 179 199 311 337 347 359 38
 #Run with passed parameters: 7700 8000 values
 my $a2 = '7717 7757 7817 7841 7867 7879 7901 7927 7949 7951 7963';
 
+say my $result1 =  MAIN-as-sub(1, 20);
+say my $result2 = |MAIN-as-sub(7700, 8000, 'values');
+say my $result3 = MAIN-as-sub(10_000);
+
 use Test;
-is MAIN-as-sub(1, 20), $a1;
-is (MAIN-as-sub(7700, 8000, 'values')), $a2;
-is MAIN-as-sub(1000), '70529';
+is $result1, $a1;
+is $result2, $a2;
+is $result3, '948349';
