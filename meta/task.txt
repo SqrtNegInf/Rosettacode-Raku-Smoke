@@ -1,9 +1,9 @@
-This is Rakudo version 2018.10-91-gcbbe16edd built on MoarVM version 2018.10-72-g4fbaeee5f
+This is Rakudo version 2018.10-98-gec2848c43 built on MoarVM version 2018.10-72-g4fbaeee5f
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [966/10]
-|+-------------> JVM: Good/Bad [872/111]
-||+------------> Smoke testing [880]
++--------------> Moar: Good/Bad [967/10]
+|+-------------> JVM: Good/Bad [873/111]
+||+------------> Smoke testing [881]
 |||+-----------> sKipping validation [99]
 ||||+----------> Interactive [54]
 |||||+---------> Touched (modified by me) [222]
@@ -12,8 +12,8 @@ updating from RC…
 ||||||||+------> File output [75]
 |||||||||+-----> Draft [216]
 ||||||||||+----> Ignoring [62]
-|||||||||||+---> Void (no local copy) [180]
-||||||||||||+--> Un-implemented/reliable [142]
+|||||||||||+---> Void (no local copy) [179]
+||||||||||||+--> Un-implemented/reliable [141]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -115,7 +115,7 @@ GGS..T....... Binary_strings
 GGS....R.D..U Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
-!GS.......... Bitmap
+GGS.......... Bitmap
 GGS.....F.... Bitmap_B%C3%A9zier_curves_Cubic
 GGS.....F.... Bitmap_B%C3%A9zier_curves_Quadratic
 GGS.....F.... Bitmap_Bresenham%27s_line_algorithm
@@ -693,7 +693,7 @@ GGS..T....... Numeric_error_propagation
 GBS......D... Numerical_and_alphabetical_suffixes
 GG.K......... Numerical_integration-1
 G!S.......... Numerical_integration-2
-.........D.VU Numerical_integration_Adaptive_Simpson%27s_method
+GGS......D... Numerical_integration_Adaptive_Simpson%27s_method
 GGS.......... Numerical_integration_Gauss-Legendre_Quadrature
 ..........XVU OLE_Automation
 ...........VU Object_serialization
@@ -821,7 +821,7 @@ GGS....R..... Random_numbers
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
-!GS.......... Rate_counter
+GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS......D... Read_a_file_character_by_character_UTF8
@@ -1139,7 +1139,7 @@ GGS.......... Variadic_function
 GGS......D... Vector
 GGS..T....... Vector_products
 GGS.......... Verify_distribution_uniformity_Chi-squared_test
-GGS....R..... Verify_distribution_uniformity_Naive
+!GS....R..... Verify_distribution_uniformity_Naive
 .........D... Vibrating_rectangles
 GG.KI........ Vibrating_rectangles-1
 GB.KI........ Vibrating_rectangles-2
@@ -1185,4 +1185,4 @@ GGS..T....... Zeckendorf_number_representation
 GGS.......... Zero_to_the_zero_power
 GGS..T....... Zhang-Suen_thinning_algorithm
 GGS..T....... Zig-zag_matrix-1
-GGS.......... Zig-zag_matrix-2
+!GS.......... Zig-zag_matrix-2
