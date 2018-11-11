@@ -4,6 +4,12 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
+#`{
+I get 10100 + 1010 = 101000, aka 11 + 7 = 18 which contradicts the Perl 6 output of 10100 +z 1010 = 100101 # addition.
+My output matches the first test of the tcl entry, which obviously also disagrees with the Perl output.
+In turn the next line is 100101 -z 100 = 100010 # subtraction, which I read as 17-3 = 15.
+}
+
 # This is a somewhat limited implementation of Zeckendorf arithmetic operators. They only handle positive integer values. There are no actual calculations, everything is done with string manipulations, so it doesn't matter what glyphs you use for 1 and 0.
 
 # Works with: rakudo version 2015.09
@@ -107,25 +113,18 @@ sub z($a) { $a.trans([<1 0>] => [$z1, $z0]) };
  
 say "Using the glyph '$z1' for 1 and '$z0' for 0\n";
  
-my $fmt = "%-22s = %15s  %s\n";
+my $fmt = "%-22s = %15s  %s";
  
 my $zeck = $z1;
  
 my @res;
 @res.push: sprintf( $fmt, "$zeck++z", $zeck++z, '# increment' ) for 1 .. 10;
- 
 @res.push: sprintf $fmt, "$zeck +z {z('1010')}", $zeck +z= z('1010'), '# addition';
- 
 @res.push: sprintf $fmt, "$zeck -z {z('100')}", $zeck -z= z('100'), '# subtraction';
- 
 @res.push: sprintf $fmt, "$zeck *z {z('100101')}", $zeck *z= z('100101'), '# multiplication';
- 
 @res.push: sprintf $fmt, "$zeck /z {z('100')}", $zeck /z= z('100'), '# division';
- 
 @res.push: sprintf( $fmt, "$zeck--z", $zeck--z, '# decrement' ) for 1 .. 5;
- 
 @res.push: sprintf $fmt, "$zeck *z {z('101001')}", $zeck *z= z('101001'), '# multiplication';
- 
 @res.push: sprintf $fmt, "$zeck /z {z('100')}", $zeck /z= z('100'), '# division';
 
 .say for @res; 
@@ -134,47 +133,26 @@ my @res;
 
 my $ref = qq:to/END/;
 1++z                   =              10  # increment
-
 10++z                  =             100  # increment
-
 100++z                 =             101  # increment
-
 101++z                 =            1000  # increment
-
 1000++z                =            1001  # increment
-
 1001++z                =            1010  # increment
-
 1010++z                =           10000  # increment
-
 10000++z               =           10001  # increment
-
 10001++z               =           10010  # increment
-
 10010++z               =           10100  # increment
-
 10100 +z 1010          =          100101  # addition
-
 100101 -z 100          =          100010  # subtraction
-
 100010 *z 100101       =    100001000001  # multiplication
-
 100001000001 /z 100    =       101010001  # division
-
 101010001--z           =       101010000  # decrement
-
 101010000--z           =       101001010  # decrement
-
 101001010--z           =       101001001  # decrement
-
 101001001--z           =       101001000  # decrement
-
 101001000--z           =       101000101  # decrement
-
 101000101 *z 101001    = 101010000010101  # multiplication
-
 101010000010101 /z 100 = 1001010001001 remainder 10  # division
-
 END
 
 use Test;
