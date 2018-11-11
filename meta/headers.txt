@@ -252,6 +252,15 @@ File: Aliquot_sequence_classifications
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2018-11-03 at one point 'state @seq' brought a huge speed-up?  Now no diff.
+#n# .race doesn't help here
+
+File: Aliquot_sequence_classifications.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Aliquot_sequence_classifications
+#c# 2016-01-02 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2018-11-03 at one point 'state @seq' brought a huge speed-up?  Now no diff.
 
 File: Almost_prime-1
 #!/usr/bin/env perl6
@@ -348,6 +357,14 @@ File: Animate_a_pendulum
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
+File: Animation
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Animation
+#t# interactive
+#c# 2018-11-RC >RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+
 File: Anonymous_recursion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Anonymous_recursion
@@ -384,6 +401,15 @@ File: Arbitrary-precision_integers_included
 #j# JVM:  OK
 
 File: Archimedean_spiral
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Archimedean_spiral
+#c# 2018-03-21 <RC, 2018-11-10 <RC
+#t# graphical
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: archimedean-spiral.png
+
+File: Archimedean_spiral.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Archimedean_spiral
 #c# 2018-03-21 <RC
@@ -1254,6 +1280,16 @@ File: Collections
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: Color_quantization
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Color_quantization
+#t# skiptest
+#c# 2018-11-10 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN
+#f# RC file: quantum-frog-16.png
+#n# need ver. 7 of ImageMagick
+
 File: Color_wheel.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Color_wheel
@@ -1681,6 +1717,15 @@ File: Deal_cards_for_FreeCell
 File: Death_Star
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Death_Star
+#c# 2016-02-24 <RC, 2017-06-04 >RC, 2018-11-10 <RC
+#t# graphical
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: deathstar-perl6.pgm
+
+File: Death_Star.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Death_Star
 #c# 2016-02-24 <RC, 2017-06-04 >RC
 #t# graphical
 #m# MOAR: OK
@@ -1992,12 +2037,11 @@ File: Draw_a_rotating_cube
 File: Draw_a_sphere-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Draw_a_sphere
-#c# 2015-11-05 <RC, 2017-06-04 >RC
+#c# 2015-11-05 <RC, 2017-06-04 >RC, 2018-11-10 <RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: draw_a_sphere.pgm
-#n# out-of-date relative to RC, version requiring 'Cairo' added by Thundergnat
 
 File: Draw_a_sphere-2
 #!/usr/bin/env perl6
@@ -2444,6 +2488,14 @@ File: Factors_of_an_integer
 #j#  JVM: OK
 
 File: Farey_sequence
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Farey_sequence
+#c# 2016-05-21 <RC, 2018-11-10 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for JVM, use .1 version
+
+File: Farey_sequence.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Farey_sequence
 #c# 2016-05-21 <RC
@@ -3270,9 +3322,9 @@ File: Haversine_formula
 File: Hello_world_Graphical
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Hello_world/Graphical
+#t# interactive
 #c# 2018-04-01 <RC
-#t# graphical
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 
 File: Hello_world_Line_printer
@@ -3900,6 +3952,14 @@ File: Kernighans_large_earthquake_problem
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: Keyboard_input_Keypress_check
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Keyboard_input/Keypress_check
+#t# interactive
+#c# 2018-11-10 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
 File: Keyboard_input_Obtain_a_Y_or_N_response
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Keyboard_input/Obtain_a_Y_or_N_response
@@ -4113,7 +4173,6 @@ File: Law_of_cosines_-_triples-1
 #n# added atomic ops to avoid race condition, and must use fixed-size @triples
 #n# jnthn: SqrtNegInf: @a is not threadsafe; it's an auto-resizing array
 #n# jnthn: SqrtNegInf: Declare it fixed-size instead: `my @a[60];`
-#n# Sort::Naturally has 'use v6' issue
 
 File: Law_of_cosines_-_triples-1.1
 #!/usr/bin/env perl6
@@ -4135,7 +4194,6 @@ File: Law_of_cosines_-_triples-2
 #n# 'elegant' version (no longer on RC)
 #n# NB: three different uses of 'X' meta-op
 #n# no extra-credit, lesson learned: 'X' operator is expensive
-#n# Sort::Naturally has 'use v6' issue
 
 File: Leap_year
 #!/usr/bin/env perl6
@@ -6599,7 +6657,6 @@ File: Rosetta_Code_Find_unimplemented_tasks
 #c# 2018-04-30 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# 2018-10-27 'use v6' issue with 'Sort::Naturally', omit for now
 
 File: Rosetta_Code_Fix_code_tags
 #!/usr/bin/env perl6
@@ -8521,11 +8578,19 @@ File: Validate_International_Securities_Identification_Number.1
 File: Vampire_number
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Vampire_number
+#c# 2016-09-07 <RC, 2018-11-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# thundergnat's additions do more (25 vs 8) in same time
+
+File: Vampire_number.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Vampire_number
 #c# 2016-09-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: Vampire_number.1
+File: Vampire_number.2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Vampire_number
 #c# 2016-05-19 <>RC
