@@ -6,7 +6,6 @@
 #n# added atomic ops to avoid race condition, and must use fixed-size @triples
 #n# jnthn: SqrtNegInf: @a is not threadsafe; it's an auto-resizing array
 #n# jnthn: SqrtNegInf: Declare it fixed-size instead: `my @a[60];`
-#n# Sort::Naturally has 'use v6' issue
 
 my @res;
 
@@ -50,15 +49,14 @@ multi triples (120, $n) {
     @triples.grep: so *
 }
 
-#use Sort::Naturally;
+use Sort::Naturally;
 
 my $n = 13;
 @res.push: "Integer triangular triples for sides 1..$n:";
 for 120, 90, 60 -> $angle {
     my @itt = triples($angle, $n);
     if $angle == 60 { push @itt, "$_ $_ $_" for 1..$n }
-    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +@itt, @itt.sort.join(', ');
-    #@res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +@itt, @itt.sort(*.&naturally).join(', ');
+    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +@itt, @itt.sort(*.&naturally).join(', ');
 }
 
 my ($angle, $count) = 60, 10_000;
