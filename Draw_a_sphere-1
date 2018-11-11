@@ -1,53 +1,46 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Draw_a_sphere
-#c# 2015-11-05 <RC, 2017-06-04 >RC
+#c# 2015-11-05 <RC, 2017-06-04 >RC, 2018-11-10 <RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: draw_a_sphere.pgm
-#n# out-of-date relative to RC, version requiring 'Cairo' added by Thundergnat
 
-#Translation of: C
-#The C code is modified to output a .pgm file.
-
-# Works with: Rakudo version 2015.09
+my $width = my $height = 255; # must be odd
  
-my $x = my $y = 255;
-$x +|= 1; # must be odd
-
 my @light = normalize([ 3, 2, -5 ]);
-
+ 
 my $depth = 255;
-
+ 
 sub MAIN ($outfile = 'run/draw_a_sphere.pgm') {
-    spurt $outfile, "P5\n$x $y\n$depth\n"; # DH change
-    my $out = open( $outfile, :a, :bin ) or die "$!\n"; # DH change
-    $out.write( Blob.new(draw_sphere( ($x-1)/2, .9, .2) ) );
+    spurt $outfile, "P5\n$width $height\n$depth\n"; # .pgm header
+    my $out = open( $outfile, :a, :bin ) or die "$!\n";
+    $out.write( Blob.new(draw_sphere( ($width-1)/2, .9, .2) ) );
     $out.close;
 }
-
-sub normalize (@vec) { return @vec »/» ([+] @vec »*« @vec).sqrt }
  
-sub dot (@x, @y) { return -([+] @x »*« @y) max 0 }
-
-#sub normalize (@vec) { return @vec»/» ([+] @vec»*«@vec).sqrt }
-#
-#sub dot (@x, @y) { return -([+] @x»*«@y) max 0 }
-
+sub normalize (@vec) { @vec »/» ([+] @vec »*« @vec).sqrt }
+ 
+sub dot (@x, @y) { -([+] @x »*« @y) max 0 }
+ 
 sub draw_sphere ( $rad, $k, $ambient ) {
-    my @pixels;
+    my @pixels[$height];
     my $r2 = $rad * $rad;
     my @range = -$rad .. $rad;
-    for flat @range X @range -> $x, $y {
-        if (my $x2 = $x * $x) + (my $y2 = $y * $y) < $r2 {
-            my @vector = normalize([$x, $y, ($r2 - $x2 - $y2).sqrt]);
-            my $intensity = dot(@light, @vector) ** $k + $ambient;
-            my $pixel = (0 max ($intensity * $depth).Int) min $depth;
-            @pixels.push($pixel);
+    @range.hyper.map: -> $x {
+        my @row[$width];
+        @range.map: -> $y {
+            if (my $x2 = $x * $x) + (my $y2 = $y * $y) < $r2 {
+                my @vector = normalize([$x, $y, ($r2 - $x2 - $y2).sqrt]);
+                my $intensity = dot(@light, @vector) ** $k + $ambient;
+                my $pixel = (0 max ($intensity * $depth).Int) min $depth;
+                @row[$y+$rad] = $pixel;
+            }
+            else {
+                @row[$y+$rad] = 0;
+            }
         }
-        else {
-            @pixels.push(0);
-        }
+        @pixels[$x+$rad] = @row;
     }
-    return @pixels;
+    flat |@pixels.map: *.list;
 }
