@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Keyboard_input/Keypress_check
+#t# interactive
+#c# 2018-11-10 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Term::ReadKey;
+ 
+react {
+    whenever key-pressed(:!echo) {
+        given .fc {
+            when 'q' { done }
+            default { .uniname.say }
+        }
+    }
+}
