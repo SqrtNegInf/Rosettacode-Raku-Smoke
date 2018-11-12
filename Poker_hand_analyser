@@ -1,14 +1,12 @@
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Playing_cards
-#c# 2016-08-03 <>RC
+#u# http://rosettacode.org/wiki/Poker_hand_analyser
+#c# 2016-08-03 <>RC, 2018-11-11 <RC
 #m# MOAR: OK
-#j#  JVM: OK
-#n#  not perfect:  straight-flush not ID'd
-#n#   made some new methods...
+#j# JVM:  OK
 
-#srand 123456;
+my @res;
 
-#This solution handles jokers. It has been written as a Perl 6 grammar.
+# This solution handles jokers. It has been written to use a Perl 6 grammar.
  
 grammar PokerHand {
  
@@ -16,18 +14,6 @@ grammar PokerHand {
     # 2013-12-21: handle 'joker' wildcards; maximum of two
  
     rule TOP {
-        <hand>
- 
-        :my ($n, $flush, $straight);
-        {
-            $n        = n-of-a-kind($<hand>);
-            $flush    = flush($<hand>);
-            $straight = straight($<hand>);
-         }
-         <rank($n[0], $n[1], $flush, $straight)>
-     }
- 
-    rule hand {
          :my %*PLAYED;
          { %*PLAYED = () }
          [ <face-card> | <joker> ]**5
@@ -48,50 +34,54 @@ grammar PokerHand {
     }
  
     token face {:i <[2..9 jqka]> | 10 }
-    token suit {<[♥ ♦ ♣ ♠]>} 
+    token suit {<[♥ ♦ ♣ ♠]>}
 
-    multi token rank(5,$,$,$)                   { $<five-of-a-kind>=<?> }
-    multi token rank($,$f,$s  where {$f && $s}) { $<straight-flush>=<?> } # DH change?
-    multi token rank(4,$,$,$)                   { $<four-of-a-kind>=<?> }
-    multi token rank($,$,$f,$ where {$f})       { $<flush>=<?> }
-    multi token rank($,$,$,$s where {$s})       { $<straight>=<?> }
-    multi token rank(3,2,$,$)                   { $<full-house>=<?> }
-    multi token rank(3,$,$,$)                   { $<three-of-a-kind>=<?> }
-    multi token rank(2,2,$,$)                   { $<two-pair>=<?> }
-    multi token rank(2,$,$,$)                   { $<one-pair>=<?> }
-    multi token rank($,$,$,$) is default        { $<high-card>=<?> }
+}
+ 
+class PokerHand::Actions {
+    method TOP($/) {
+        my UInt @n    = n-of-a-kind($/);
+        my $flush     = flush($/);
+        my $straight  = straight($/);
+        make rank(@n[0], @n[1], $flush, $straight);
+    }
+    multi sub rank(5,$,$,$)                    { 'five-of-a-kind' }
+    multi sub rank($,$,$f,$s where {$f && $s}) { 'straight-flush' }
+    multi sub rank(4,$,$,$)                    { 'four-of-a-kind' }
+    multi sub rank($,$,$f,$ where {$f})        { 'flush' }
+    multi sub rank($,$,$,$s where {$s})        { 'straight' }
+    multi sub rank(3,2,$,$)                    { 'full-house' }
+    multi sub rank(3,$,$,$)                    { 'three-of-a-kind' }
+    multi sub rank(2,2,$,$)                    { 'two-pair' }
+    multi sub rank(2,$,$,$)                    { 'one-pair' }
+    multi sub rank($,$,$,$) is default         { 'high-card' }
  
    sub n-of-a-kind($/) {
-        my %faces := bag @<face-card>.map( -> $/ {~$<face>.lc} );
-        my @counts = %faces.values.sort.reverse;
-        @counts[0] += @<joker>;
+       my %faces := bag @<face-card>.map: -> $/ {~$<face>.lc};
+       my @counts = %faces.values.sort.reverse;
+       @counts[0] += @<joker>;
        return @counts;
     }
  
     sub flush($/) {
-        my %suits := set @<face-card>.map( -> $/ {~$<suit>} );
-        return +%suits == 1;
+        my @suits = unique @<face-card>.map: -> $/ {~$<suit>};
+        return +@suits == 1;
     }
  
    sub straight($/) {
-        # allow both ace-low and ace-high straights
-        constant @Seq = < a 2 3 4 5 6 7 8 9 10 j q k a >.map: *.Str;
-        my $faces = set @<face-card>.map( -> $/ {~$<face>.lc} );
-        my $jokers = +@<joker>;
+       # allow both ace-low and ace-high straights
+       constant @Faces = [ "a 2 3 4 5 6 7 8 9 10 j q k a".split: ' ' ];
+       constant @Possible-Straights = [ (0 .. (+@Faces - 5)).map: {  set @Faces[$_ .. $_+4] } ];
  
-        for 0..(+@Seq - 5) {
+       my $faces = set @<face-card>.map: -> $/ {~$<face>.lc};
+       my $non-jokers = 5 - +@<joker>;
  
-            my $run = set @Seq[$_ .. $_+4];
- 
-            return True
-                if +($faces ∩ $run) == 5 - $jokers;
-        }
-        return False;
-    }
+       return ?( @Possible-Straights.first: { +($faces ∩ $_) == $non-jokers; } );
+     }
 }
-
-my @res;
-
+ 
+my PokerHand::Actions $actions .= new;
+ 
 for ("2♥ 2♦ 2♣ k♣ q♦",   # three-of-a-kind
      "2♥ 5♠ 7♦ 8♣ 9♠",   # high-card
      "a♠ 2♦ 3♣ 4♣ 5♦",   # straight
@@ -115,39 +105,41 @@ for ("2♥ 2♦ 2♣ k♣ q♦",   # three-of-a-kind
      "joker  Q♦ joker  A♠ 10♠",  # straight
      "joker  Q♦ joker  A♦ 10♦",  # straight-flush  # DH ?
      "joker  2♦ 2♠  joker  q♦",  # four of a kind
-   ) {
-   PokerHand.parse($_);
-   my $rank = $<rank>
-      ?? $<rank>.caps
-      !! 'invalid';
-   @res.push: "$_: $rank";
+    ) {
+    my $rank = do with PokerHand.parse($_, :$actions) {
+        .ast;
+    }
+    else {
+        'invalid';
+    }
+    @res.push: "$_: $rank";
 }
-
+ 
 .say for @res;
 
-my $ref = qq:to/END/;
-2♥ 2♦ 2♣ k♣ q♦: three-of-a-kind	
-2♥ 5♠ 7♦ 8♣ 9♠: high-card	
-a♠ 2♦ 3♣ 4♣ 5♦: straight	
-2♥ 3♠ 2♦ 3♣ 3♦: full-house	
-2♥ 7♠ 2♦ 3♣ 3♦: two-pair	
-2♥ 7♥ 7♦ 7♣ 7♠: four-of-a-kind	
-10♠ j♠ q♠ k♠ a♠: flush	
-4♥ 4♠ k♠ 5♦ 10♠: one-pair	
-q♣ 10♣ 7♣ 6♣ 4♣: flush	
-joker  2♦  2♠  k♠  q♦: three-of-a-kind	
-joker  5♠  7♦  8♠  9♦: straight	
-joker  2♦  3♠  4♠  5♠: straight	
-joker  3♥  2♦  3♠  3♦: four-of-a-kind	
-joker  7♥  2♦  3♠  3♦: three-of-a-kind	
-joker  7♥  7♦  7♠  7♣: five-of-a-kind	
-joker  j♠  q♠  k♠  A♠: flush	
-joker  4♣  k♣  5♦ 10♠: one-pair	
-joker  k♣  7♣  6♣  4♣: flush	
-joker  2♦ joker  4♠  5♠: straight	
-joker  Q♦ joker  A♠ 10♠: straight	
-joker  Q♦ joker  A♦ 10♦: flush	
-joker  2♦ 2♠  joker  q♦: four-of-a-kind	
+my $ref = q:to/END/;
+2♥ 2♦ 2♣ k♣ q♦: three-of-a-kind
+2♥ 5♠ 7♦ 8♣ 9♠: high-card
+a♠ 2♦ 3♣ 4♣ 5♦: straight
+2♥ 3♠ 2♦ 3♣ 3♦: full-house
+2♥ 7♠ 2♦ 3♣ 3♦: two-pair
+2♥ 7♥ 7♦ 7♣ 7♠: four-of-a-kind
+10♠ j♠ q♠ k♠ a♠: straight-flush
+4♥ 4♠ k♠ 5♦ 10♠: one-pair
+q♣ 10♣ 7♣ 6♣ 4♣: flush
+joker  2♦  2♠  k♠  q♦: three-of-a-kind
+joker  5♠  7♦  8♠  9♦: straight
+joker  2♦  3♠  4♠  5♠: straight
+joker  3♥  2♦  3♠  3♦: four-of-a-kind
+joker  7♥  2♦  3♠  3♦: three-of-a-kind
+joker  7♥  7♦  7♠  7♣: five-of-a-kind
+joker  j♠  q♠  k♠  A♠: straight-flush
+joker  4♣  k♣  5♦ 10♠: one-pair
+joker  k♣  7♣  6♣  4♣: flush
+joker  2♦ joker  4♠  5♠: straight
+joker  Q♦ joker  A♠ 10♠: straight
+joker  Q♦ joker  A♦ 10♦: straight-flush
+joker  2♦ 2♠  joker  q♦: four-of-a-kind
 END
 
 use Test;
