@@ -1,18 +1,19 @@
-This is Rakudo version 2018.10-124-g63ae9dcc5 built on MoarVM version 2018.10-75-g1bf132125
+This is Rakudo version 2018.10-125-gfa5215b61 built on MoarVM version 2018.10-75-g1bf132125
 implementing Perl 6.d.
-+--------------> Moar: Good/Bad [969/11]
-|+-------------> JVM: Good/Bad [872/115]
+updating from RC…
++--------------> Moar: Good/Bad [971/11]
+|+-------------> JVM: Good/Bad [873/117]
 ||+------------> Smoke testing [881]
-|||+-----------> sKipping validation [103]
-||||+----------> Interactive [57]
+|||+-----------> sKipping validation [106]
+||||+----------> Interactive [59]
 |||||+---------> Touched (modified by me) [223]
 ||||||+--------> Concurrent [29]
-|||||||+-------> Random seed [109]
+|||||||+-------> Random seed [108]
 ||||||||+------> File output [76]
-|||||||||+-----> Draft [216]
+|||||||||+-----> Draft [217]
 ||||||||||+----> Ignoring [62]
-|||||||||||+---> Void (no local copy) [176]
-||||||||||||+--> Un-implemented/reliable [139]
+|||||||||||+---> Void (no local copy) [174]
+||||||||||||+--> Un-implemented/reliable [137]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -167,7 +168,7 @@ GGS.......... Character_codes
 GG.KI........ Chat_server
 GGS......D... Chebyshev_coefficients
 GGS..T....... Check_Machin-like_formulas
-!GS......D... Check_input_device_is_a_terminal
+GGS......D... Check_input_device_is_a_terminal
 GG.KI....D... Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
 ...........VU Checkpoint_synchronization
@@ -181,7 +182,7 @@ GGS.......... Chinese_zodiac
 GGS.......... Cholesky_decomposition
 ...........VU Church_Numerals
 GGS......D... Cipolla%27s_algorithm
-GGS.......... Circles_of_given_radius_through_two_points
+!GS.......... Circles_of_given_radius_through_two_points
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
 GGS....R..... Closures_Value_capture
@@ -225,6 +226,7 @@ GGS.......... Convert_seconds_to_compound_duration
 GGS......D... Convex_hull
 GGS.......... Conway%27s_Game_of_Life
 GGS..T....... Copy_a_string
+GG.K.....D... Copy_stdin_to_stdout
 GBS.......... Count_in_factors-1
 GGS.......... Count_in_factors-2
 GGS.......... Count_in_octal
@@ -772,7 +774,7 @@ GGS..T...D... Playfair_cipher
 GGS..T.R..... Playing_cards
 BB........... Plot_coordinate_pairs
 GGS.......... Pointers_and_references
-GGS..T.R..... Poker_hand_analyser
+GGS..T....... Poker_hand_analyser
 GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GGS..T....... Polynomial_long_division
@@ -820,7 +822,7 @@ GGS....R..... Random_numbers
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
-!GS.......... Rate_counter
+GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS......D... Read_a_file_character_by_character_UTF8
@@ -1063,8 +1065,8 @@ BB.KI.....X.. Terminal_control_Hiding_the_cursor
 GG.KI........ Terminal_control_Inverse_video
 ..........XVU Terminal_control_Positional_read
 GG.KI........ Terminal_control_Preserve_screen
-.........D.VU Terminal_control_Restricted_width_positional_input_No_wrapping
-.........D.VU Terminal_control_Restricted_width_positional_input_With_wrapping
+!B.KI....D... Terminal_control_Restricted_width_positional_input_No_wrapping
+!B.KI....D... Terminal_control_Restricted_width_positional_input_With_wrapping
 GG.KI........ Terminal_control_Ringing_the_terminal_bell
 GG.KI........ Terminal_control_Unicode_output
 GGS..T....... Ternary_logic
