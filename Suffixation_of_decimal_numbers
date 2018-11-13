@@ -27,7 +27,7 @@ sub sufficate ($val is copy, $type is copy = 'M', $round is copy = Any) {
    my %s = do given $type {
        when 'M' { <K M G T P E Z Y X W V U> Z=> (1000, * * 1000 … *) }
        when 'B' { <Ki Mi Gi Ti Pi Ei Zi Yi Xi Wi Vi Ui> Z=> (1024, * * 1024 … *) }
-       when 'G' { google => 10**100 }
+       when 'G' { googol => 10**100 }
        default { return 'What we have here is a failure to communicate...' }
    }
    my $k = do given $val {
@@ -79,7 +79,7 @@ my $ref = q:to/END/;
           456,789,100,000,000 B 5 : 415.44727Ti
       456,789,100,000.000e+00 M 0 : 457G
                       +16777216 B : 16Mi
-                        1.2e101 G : 12google
+                        1.2e101 G : 12googol
                      347,344 M -2 : 300K
                      1122334455 Q : What we have here is a failure to communicate...
 END
