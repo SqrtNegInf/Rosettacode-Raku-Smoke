@@ -12,8 +12,8 @@ my @res;
 
 use Term::termios;
  
-constant $saved   = Term::termios.new(fd => 1).getattr;
-constant $termios = Term::termios.new(fd => 1).getattr;
+my $saved   = Term::termios.new(fd => 1).getattr;
+my $termios = Term::termios.new(fd => 1).getattr;
 $termios.makeraw;
 
 # raw mode interferes with carriage returns, so
