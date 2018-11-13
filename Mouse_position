@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Mouse_position
+#t# interactive
+#c# 2018-11-12 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+
+# Works with: rakudo/jvm version 2013-12-03
+use java::awt::MouseInfo:from<java>;
+ 
+given MouseInfo.getPointerInfo.getLocation {
+    say .getX, 'x', .getY;
+}
+
+my $ref = q:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
