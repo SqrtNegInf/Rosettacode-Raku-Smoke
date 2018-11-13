@@ -1658,6 +1658,13 @@ File: Currying
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: Curve_that_touches_three_points
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Curve_that_touches_three_points
+#c# 2018-11-12 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
 File: Cut_a_rectangle
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cut_a_rectangle
@@ -3120,7 +3127,7 @@ File: Globally_replace_text_in_several_files
 #c# 2016-02-24 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#p# RC prep: cp ref/replace.base run/replace1.txt; cp ref/replace.base run/replace1.txt; cp ref/replace.base run/replace1.txt
+#p# RC prep: cp ref/replace.base run/replace1.txt; cp ref/replace.base run/replace2.txt; cp ref/replace.base run/replace3.txt
 #f# RC file: replace3.txt
 #    just checking on 3rd modified file
 
@@ -4964,6 +4971,14 @@ File: Morse_code
 #c# 2016-05-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: Mouse_position
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Mouse_position
+#t# interactive
+#c# 2018-11-12 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
 
 File: Move-to-front_algorithm
 #!/usr/bin/env perl6
@@ -7107,7 +7122,7 @@ File: Sierpinski_triangle
 File: Sierpinski_triangle_Graphical
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sierpinski_triangle/Graphical
-#c# 2015-10-16 <RC
+#c# 2015-10-16 <RC, 2018-11-12 >RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
