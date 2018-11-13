@@ -1,19 +1,19 @@
 This is Rakudo version 2018.10-125-gfa5215b61 built on MoarVM version 2018.10-75-g1bf132125
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [971/11]
-|+-------------> JVM: Good/Bad [873/117]
-||+------------> Smoke testing [881]
-|||+-----------> sKipping validation [106]
-||||+----------> Interactive [59]
-|||||+---------> Touched (modified by me) [223]
++--------------> Moar: Good/Bad [974/11]
+|+-------------> JVM: Good/Bad [873/119]
+||+------------> Smoke testing [882]
+|||+-----------> sKipping validation [107]
+||||+----------> Interactive [60]
+|||||+---------> Touched (modified by me) [224]
 ||||||+--------> Concurrent [29]
 |||||||+-------> Random seed [108]
 ||||||||+------> File output [76]
-|||||||||+-----> Draft [217]
-||||||||||+----> Ignoring [62]
-|||||||||||+---> Void (no local copy) [174]
-||||||||||||+--> Un-implemented/reliable [137]
+|||||||||+-----> Draft [216]
+||||||||||+----> Ignoring [61]
+|||||||||||+---> Void (no local copy) [172]
+||||||||||||+--> Un-implemented/reliable [136]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -182,7 +182,7 @@ GGS.......... Chinese_zodiac
 GGS.......... Cholesky_decomposition
 ...........VU Church_Numerals
 GGS......D... Cipolla%27s_algorithm
-!GS.......... Circles_of_given_radius_through_two_points
+GGS.......... Circles_of_given_radius_through_two_points
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
 GGS....R..... Closures_Value_capture
@@ -242,7 +242,7 @@ GGS..T...D... Create_an_object_Native_demonstration
 GGS.......... Cumulative_standard_deviation
 GGS.......... Currency
 GGS.......... Currying
-.........D.VU Curve_that_touches_three_points
+GBS......D... Curve_that_touches_three_points
 GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
 GGS.......... DNS_query
@@ -419,7 +419,7 @@ GGS..T....... Generator_Exponential
 GGS.......... Generic_swap
 GGS....R.D... Geometric_algebra
 GBS.......... Get_system_command_output
-!GS.....F.... Globally_replace_text_in_several_files
+GGS.....F.... Globally_replace_text_in_several_files
 GG.KI..R..... Go_Fish
 GGS.......... Gray_code
 GGS..T..F.... Grayscale_image
@@ -465,7 +465,7 @@ GGS.......... Hofstadter_Figure-Figure_sequences
 GGS..T....... Hofstadter_Q_sequence
 GGS.......... Holidays_related_to_Easter
 ...........VU Honeycombs
-GGS.......... Horizontal_sundial_calculations
+!GS.......... Horizontal_sundial_calculations
 GGS.......... Horner%27s_rule_for_polynomial_evaluation
 GBS.......... Host_introspection
 GGS.......... Hostname
@@ -647,7 +647,7 @@ GBS..TCR..... Monty_Hall_problem
 .........D.VU Morpion_solitaire
 GGS.......... Morse_code
 .........DXV. Most_frequent_k_chars_distance
-..........XV. Mouse_position
+!B.KI........ Mouse_position
 GGS.......... Move-to-front_algorithm
 GGS......D... Multi-dimensional_array
 .........D.VU Multidimensional_Newton-Raphson_method
@@ -928,7 +928,7 @@ GGS.......... Show_the_epoch
 GGS..T....... Sierpinski_carpet
 GGS.....F.... Sierpinski_pentagon
 GGS.......... Sierpinski_triangle
-GGS.....F.... Sierpinski_triangle_Graphical
+GGS..T..F.... Sierpinski_triangle_Graphical
 GGS..T....... Sieve_of_Eratosthenes
 GB.K......... Simple_database
 ..........XV. Simple_windowed_application
@@ -966,7 +966,7 @@ GGS....R.D... Sorting_Algorithms_Circle_Sort
 GGS..T....... Sorting_algorithms_Bead_sort
 GGS.......... Sorting_algorithms_Bogosort
 GGS....R..... Sorting_algorithms_Bubble_sort
-GGS....R..... Sorting_algorithms_Cocktail_sort
+!GS....R..... Sorting_algorithms_Cocktail_sort
 GGS....R..... Sorting_algorithms_Comb_sort
 GGS..T.R..... Sorting_algorithms_Counting_sort
 GGS......D... Sorting_algorithms_Cycle_sort
@@ -1033,7 +1033,7 @@ GGS.......... Subtractive_generator
 GGS.......... Sudoku-1
 GG.K......... Sudoku-2
 GGS..T...D... Suffix_tree
-GGS......D... Suffixation_of_decimal_numbers
+GGS.......... Suffixation_of_decimal_numbers
 GGS.......... Sum_and_Product_Puzzle
 GGS.......... Sum_and_product_of_an_array
 GGS.......... Sum_digits_of_an_integer
@@ -1065,8 +1065,8 @@ BB.KI.....X.. Terminal_control_Hiding_the_cursor
 GG.KI........ Terminal_control_Inverse_video
 ..........XVU Terminal_control_Positional_read
 GG.KI........ Terminal_control_Preserve_screen
-!B.KI....D... Terminal_control_Restricted_width_positional_input_No_wrapping
-!B.KI....D... Terminal_control_Restricted_width_positional_input_With_wrapping
+GB.KI....D... Terminal_control_Restricted_width_positional_input_No_wrapping
+GB.KI....D... Terminal_control_Restricted_width_positional_input_With_wrapping
 GG.KI........ Terminal_control_Ringing_the_terminal_bell
 GG.KI........ Terminal_control_Unicode_output
 GGS..T....... Ternary_logic
