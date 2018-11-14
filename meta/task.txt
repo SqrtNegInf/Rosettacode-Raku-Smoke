@@ -1,9 +1,9 @@
-This is Rakudo version 2018.10-125-gfa5215b61 built on MoarVM version 2018.10-75-g1bf132125
+This is Rakudo version 2018.10-126-gd5a751d94 built on MoarVM version 2018.10-75-g1bf132125
 implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [974/11]
-|+-------------> JVM: Good/Bad [873/119]
-||+------------> Smoke testing [882]
+|+-------------> JVM: Good/Bad [872/119]
+||+------------> Smoke testing [881]
 |||+-----------> sKipping validation [107]
 ||||+----------> Interactive [60]
 |||||+---------> Touched (modified by me) [224]
@@ -12,7 +12,7 @@ updating from RC…
 ||||||||+------> File output [76]
 |||||||||+-----> Draft [216]
 ||||||||||+----> Ignoring [61]
-|||||||||||+---> Void (no local copy) [172]
+|||||||||||+---> Void (no local copy) [173]
 ||||||||||||+--> Un-implemented/reliable [136]
 |||||||||||||
 GGS.......... 100_doors
@@ -265,6 +265,7 @@ GGS.......... Delete_a_file
 GGS..T...D... Deming%27s_Funnel
 GGS.......... Department_Numbers
 GGS.......... Detect_division_by_zero
+...........V. Determinant_and_permanent
 GGS.......... Determine_if_a_string_is_numeric
 GG.K.T....... Determine_if_only_one_instance_is_running
 .........D.VU Determine_if_two_triangles_overlap
@@ -465,7 +466,7 @@ GGS.......... Hofstadter_Figure-Figure_sequences
 GGS..T....... Hofstadter_Q_sequence
 GGS.......... Holidays_related_to_Easter
 ...........VU Honeycombs
-!GS.......... Horizontal_sundial_calculations
+GGS.......... Horizontal_sundial_calculations
 GGS.......... Horner%27s_rule_for_polynomial_evaluation
 GBS.......... Host_introspection
 GGS.......... Hostname
@@ -613,7 +614,6 @@ GGS.......... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GG.KI..R.D... Mastermind
 GGS.......... Matrix-exponentiation_operator
-GGS.......... Matrix_arithmetic
 ...........VU Matrix_chain_multiplication
 GGS.......... Matrix_multiplication
 GGS..T....... Matrix_transposition
@@ -822,7 +822,7 @@ GGS....R..... Random_numbers
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
-GGS.......... Rate_counter
+!GS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS......D... Read_a_file_character_by_character_UTF8
@@ -966,7 +966,7 @@ GGS....R.D... Sorting_Algorithms_Circle_Sort
 GGS..T....... Sorting_algorithms_Bead_sort
 GGS.......... Sorting_algorithms_Bogosort
 GGS....R..... Sorting_algorithms_Bubble_sort
-!GS....R..... Sorting_algorithms_Cocktail_sort
+GGS....R..... Sorting_algorithms_Cocktail_sort
 GGS....R..... Sorting_algorithms_Comb_sort
 GGS..T.R..... Sorting_algorithms_Counting_sort
 GGS......D... Sorting_algorithms_Cycle_sort
