@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Poker_hand_analyser
-#c# 2016-08-03 <>RC, 2018-11-11 <RC
+#c# 2016-08-03 <>RC, 2018-11-11 <RC, 2018-11-13 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -88,9 +88,10 @@ for ("2♥ 2♦ 2♣ k♣ q♦",   # three-of-a-kind
      "2♥ 3♠ 2♦ 3♣ 3♦",   # full-house
      "2♥ 7♠ 2♦ 3♣ 3♦",   # two-pair
      "2♥ 7♥ 7♦ 7♣ 7♠",   # four-of-a-kind
-     "10♠ j♠ q♠ k♠ a♠",  # straight-flush  #DH ?
+     "10♠ j♠ q♠ k♠ a♠",  # straight-flush
      "4♥ 4♠ k♠ 5♦ 10♠",  # one-pair
      "q♣ 10♣ 7♣ 6♣ 4♣",  # flush
+     "a♥ a♥ 3♣ 4♣ 5♦",   # invalid
      ## EXTRA CREDIT ##
      "joker  2♦  2♠  k♠  q♦",  # three-of-a-kind
      "joker  5♠  7♦  8♠  9♦",  # straight
@@ -103,7 +104,7 @@ for ("2♥ 2♦ 2♣ k♣ q♦",   # three-of-a-kind
      "joker  k♣  7♣  6♣  4♣",  # flush
      "joker  2♦ joker  4♠  5♠",  # straight
      "joker  Q♦ joker  A♠ 10♠",  # straight
-     "joker  Q♦ joker  A♦ 10♦",  # straight-flush  # DH ?
+     "joker  Q♦ joker  A♦ 10♦",  # straight-flush
      "joker  2♦ 2♠  joker  q♦",  # four of a kind
     ) {
     my $rank = do with PokerHand.parse($_, :$actions) {
@@ -127,6 +128,7 @@ a♠ 2♦ 3♣ 4♣ 5♦: straight
 10♠ j♠ q♠ k♠ a♠: straight-flush
 4♥ 4♠ k♠ 5♦ 10♠: one-pair
 q♣ 10♣ 7♣ 6♣ 4♣: flush
+a♥ a♥ 3♣ 4♣ 5♦: invalid
 joker  2♦  2♠  k♠  q♦: three-of-a-kind
 joker  5♠  7♦  8♠  9♦: straight
 joker  2♦  3♠  4♠  5♠: straight
