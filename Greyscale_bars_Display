@@ -6,8 +6,8 @@
 #j#  JVM: OK
 #f# RC file: greybars.pgm
 
-my  $width = 1280/4;
-my $height = 768/4;
+my  $width = 1280;
+my $height = 768;
 my $PGM = open "run/greybars.pgm", :w or die "Can't create greybars.pgm: $!";
 
 $PGM.print: qq:to/EOH/;
