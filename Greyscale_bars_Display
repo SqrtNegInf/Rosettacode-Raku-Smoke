@@ -6,13 +6,12 @@
 #j#  JVM: OK
 #f# RC file: greybars.pgm
 
-my  $width = 1280;
-my $height = 768;
-my $PGM = open "run/greybars.pgm", :w or die "Can't create greybars.pgm: $!";
+my ($width,$height) = 1280,768;
+my $PGM = open "run/Greyscale-bars-perl6.pgm", :w or die "Can't create Greyscale-bars-perl6.pgm: $!";
 
 $PGM.print: qq:to/EOH/;
     P2
-    # greybars.pgm
+    # Greyscale-bars-perl6.pgm
     $width $height
     65535
     EOH
@@ -32,7 +31,6 @@ $PGM.say: $line for ^$h3;
 $line = ~(@nums Zxx divvy($width,64));
 $PGM.say: $line for ^$h4;
 $PGM.close;
-#shell "/Users/dhoekman/.iterm2/imgcat greybars.pgm";
 
 sub divvy($all, $div) {    my @marks = ((1/$div,2/$div ... 1) X* $all)>>.round;
     @marks Z- 0,|@marks;
