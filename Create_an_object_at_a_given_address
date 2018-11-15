@@ -7,7 +7,7 @@
 
 # Perl 6 has fairly comprehensive facilities for accessing allocating and accessing memory and also declaring C-style structs, via the NativeCall interface, as this example demonstrates.
 
-use v6;
+#use v6;
 use NativeCall;
 use NativeCall::Types;
  
@@ -30,7 +30,7 @@ class SampleObject is repr('CStruct') {
  
 my $offset-p =  $base-p.clone.add(64);
 my $object-p := nativecast(Pointer[SampleObject], $offset-p);
-note "creating object at address {+$object-p}";
+#note "creating object at address {+$object-p}";
  
 my $struct := $object-p.deref;
  
@@ -54,6 +54,12 @@ is @bytes-written[0], 42, 'object first field';
  
 # second field 'bar'
 is @bytes-written[1], 99, 'object second field';
+
+# verify that changing the origin changes the object values
+memset($base-p, 1, 100); # set every byte to 1
+ 
+is $struct.foo, 256 + 1, 'short updated at origin';
+is $struct.bar, 1, 'byte updated at origin';
  
 # tidy up
 free($base-p);
