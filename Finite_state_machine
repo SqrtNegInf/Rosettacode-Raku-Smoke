@@ -1,0 +1,109 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Finite_state_machine
+#c# 2018-11-15 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# providing canned responses for testing
+
+my @res;
+
+#===== The state machine =====#
+ 
+class StateMachine {
+    class State {...}
+    class Transition {...}
+ 
+    has State %!state;
+    has &.choose-transition is rw;
+ 
+    method add-state(Str $id, &action)
+    {
+        %!state{$id} = State.new(:$id, :&action);
+    }
+ 
+    multi method add-transition(Str $from, Str $to)
+    {
+        %!state{$from}.implicit-next = %!state{$to};
+    }
+ 
+    multi method add-transition(Str $from, $id, Str $to)
+    {
+        %!state{$from}.explicit-next.push: Transition.new(:$id, to => %!state{$to});
+    }
+ 
+    method run(Str $initial-state)
+    {
+        my $state = %!state{$initial-state};
+ 
+        loop {
+            $state.action.();
+            if $state.implicit-next -> $_ { $state = $_; }
+            elsif $state.explicit-next -> $_ { $state = &.choose-transition.(|$_).to; }
+            else { last; }
+        }
+    }
+ 
+    class Transition {
+        has $.id;
+        has State $.to;
+    }
+    class State {
+        has $.id;
+        has &.action;
+        has State $.implicit-next is rw;
+        has Transition @.explicit-next;
+    }
+}
+ 
+ 
+#===== Usage example: Console-based vending machine =====#
+ 
+
+my @canned = qw<2 1 1 1>;
+my StateMachine $machine .= new;
+ 
+$machine.choose-transition = sub (*@transitions) {
+    @res.push: "[{.key + 1}] {.value.id}" for @transitions.pairs;
+    loop {
+        my $n = val shift @canned;
+        #my $n = val get;
+        return @transitions[$n - 1] if $n ~~ Int && $n ~~ 1..@transitions;
+        @res.push: "Invalid input; try again.";
+    }
+}
+ 
+$machine.add-state("ready",     { @res.push: "Please deposit coins.";                     });
+$machine.add-state("waiting",   { @res.push: "Please select a product.";                  });
+$machine.add-state("dispense",  { sleep 2; @res.push: "Please remove product from tray."; });
+$machine.add-state("refunding", { sleep 1; @res.push: "Refunding money...";               });
+$machine.add-state("exit",      { @res.push: "Shutting down...";                          });
+ 
+$machine.add-transition("ready",     "quit",    "exit");
+$machine.add-transition("ready",     "deposit", "waiting");
+$machine.add-transition("waiting",   "select",  "dispense");
+$machine.add-transition("waiting",   "refund",  "refunding");
+$machine.add-transition("dispense",  "remove",  "ready");
+$machine.add-transition("refunding",            "ready");
+ 
+$machine.run("ready");
+
+
+.say for @res;
+
+my $ref = q:to/END/;
+Please deposit coins.
+[1] quit
+[2] deposit
+Please select a product.
+[1] select
+[2] refund
+Please remove product from tray.
+[1] remove
+Please deposit coins.
+[1] quit
+[2] deposit
+Shutting down...
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
