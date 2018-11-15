@@ -1,19 +1,19 @@
-This is Rakudo version 2018.10-126-gd5a751d94 built on MoarVM version 2018.10-75-g1bf132125
+This is Rakudo version 2018.10-135-gc3f03e677 built on MoarVM version 2018.10-75-g1bf132125
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [974/11]
-|+-------------> JVM: Good/Bad [872/119]
-||+------------> Smoke testing [881]
-|||+-----------> sKipping validation [107]
++--------------> Moar: Good/Bad [977/11]
+|+-------------> JVM: Good/Bad [876/120]
+||+------------> Smoke testing [883]
+|||+-----------> sKipping validation [110]
 ||||+----------> Interactive [60]
-|||||+---------> Touched (modified by me) [224]
+|||||+---------> Touched (modified by me) [225]
 ||||||+--------> Concurrent [29]
 |||||||+-------> Random seed [108]
 ||||||||+------> File output [76]
 |||||||||+-----> Draft [216]
 ||||||||||+----> Ignoring [61]
-|||||||||||+---> Void (no local copy) [173]
-||||||||||||+--> Un-implemented/reliable [136]
+|||||||||||+---> Void (no local copy) [168]
+||||||||||||+--> Un-implemented/reliable [131]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -238,7 +238,7 @@ GGS.......... Create_a_file
 GGS..T.R..... Create_a_two-dimensional_array_at_runtime
 GGS....R..... Create_an_HTML_table
 GGS..T...D... Create_an_object_Native_demonstration
-...........VU Create_an_object_at_a_given_address
+!BS.......... Create_an_object_at_a_given_address
 GGS.......... Cumulative_standard_deviation
 GGS.......... Currency
 GGS.......... Currying
@@ -260,12 +260,12 @@ GGS..T....... Deconvolution_2D%2B
 GGS...c...... Deconvolution_2D%2B-1
 ..........XV. Deepcopy
 GGS.......... Define_a_primitive_data_type
-GGS.......... Delegates
+!GS.......... Delegates
 GGS.......... Delete_a_file
 GGS..T...D... Deming%27s_Funnel
 GGS.......... Department_Numbers
 GGS.......... Detect_division_by_zero
-...........V. Determinant_and_permanent
+GGS.......... Determinant_and_permanent
 GGS.......... Determine_if_a_string_is_numeric
 GG.K.T....... Determine_if_only_one_instance_is_running
 .........D.VU Determine_if_two_triangles_overlap
@@ -428,14 +428,14 @@ GGS..T....... Greatest_common_divisor
 GGS....R..... Greatest_element_of_a_list
 GGS.......... Greatest_subsequential_sum
 .........D.VU Greed
-GGS.....F.... Greyscale_bars_Display
+!GS..T..F.... Greyscale_bars_Display
 GG.KI..R..... Guess_the_number
 GG.KI..R..... Guess_the_number_With_feedback
 GG.KI........ Guess_the_number_With_feedback_player
 GBS..T....... HTTP
 GBS.......... HTTPS
 GG.K......... HTTPS_Authenticated
-...........VU HTTPS_Client-authenticated
+...........V. HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
 GGS..T....... Hamming_numbers
 GG.KI........ Handle_a_signal
@@ -799,7 +799,7 @@ GBS..T....... Problem_of_Apollonius
 GGS..T....... Program_name
 ..........XV. Program_termination
 .........D.VU Proof
-GGS..T....... Proper_divisors
+GGS..Tc...... Proper_divisors
 GGS.....F.... Pythagoras_tree
 GBS...c...... Pythagorean_quadruples
 GGS...C...... Pythagorean_triples
@@ -822,7 +822,7 @@ GGS....R..... Random_numbers
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
-!GS.......... Rate_counter
+GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS......D... Read_a_file_character_by_character_UTF8
@@ -906,7 +906,7 @@ GGS..T.R..... Semiprime-1
 GGS.......... Semiprime-2
 GGS..T....... Semordnilap
 GGS.......... Send_an_unknown_method_call
-...........VU Send_email
+...........V. Send_email
 GGS......D... Separate_the_house_number_from_the_street_name
 GGS.......... Sequence_of_non-squares
 GGS.......... Sequence_of_primes_by_trial_division
@@ -937,9 +937,9 @@ GB.K......... Simple_database
 .........D.VU Simulated_annealing
 GBS.....FD... Sine_wave
 GGS.......... Singleton
-..........XV. Singly-linked_list_Element_definition
-..........XVU Singly-linked_list_Element_insertion
-.........D.VU Singly-linked_list_Element_removal
+GG.K......X.. Singly-linked_list_Element_definition
+GG.K......X.. Singly-linked_list_Element_insertion
+GG.K.....D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GG.KI........ Sleep
 GGS.......... Smith_numbers
