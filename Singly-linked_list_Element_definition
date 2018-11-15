@@ -1,0 +1,32 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Singly-linked_list/Element_definition
+#t# nocode
+#c# 2018-11-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+
+#`{{
+With Pair[edit]
+A Pair (constructed with the => operator) can be treated as a cons cell, and thus used to build a linked lists:
+
+my $elem = 42 => $nextelem;
+However, because this is not the primary purpose of the Pair type, it suffers from the following limitations:
+
+ The naming of Pair's accessor methods is not idiomatic for this use case (.key for the cell's value, and .value for the link to the next cell).
+ A Pair (unlike an Array) does not automatically wrap its keys/values in item containers &#8211; so each cell of the list will be immutable once created, making element insertion/deletion impossible (except inserting at the front).
+ It provides no built-in convenience methods for iterating/modifying/transforming such a list.
+With custom type[edit]
+For more flexibility, one would create a custom type:
+}}
+
+class Cell {
+    has      $.value is rw;
+    has Cell $.next  is rw;
+ 
+    # ...convenience methods here...
+}
+ 
+sub cons ($value, $next) { Cell.new(:$value, :$next) }
+ 
+my $list = cons 10, (cons 20, (cons 30, Nil));
