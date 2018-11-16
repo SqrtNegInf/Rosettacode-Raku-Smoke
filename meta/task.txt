@@ -1,9 +1,9 @@
-This is Rakudo version 2018.10-135-gc3f03e677 built on MoarVM version 2018.10-75-g1bf132125
+This is Rakudo version 2018.10-145-gf7007ac0e built on MoarVM version 2018.10-77-g6236eb5de
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [977/11]
-|+-------------> JVM: Good/Bad [876/120]
-||+------------> Smoke testing [883]
++--------------> Moar: Good/Bad [982/11]
+|+-------------> JVM: Good/Bad [876/121]
+||+------------> Smoke testing [884]
 |||+-----------> sKipping validation [110]
 ||||+----------> Interactive [60]
 |||||+---------> Touched (modified by me) [225]
@@ -12,8 +12,8 @@ updating from RC…
 ||||||||+------> File output [76]
 |||||||||+-----> Draft [216]
 ||||||||||+----> Ignoring [61]
-|||||||||||+---> Void (no local copy) [168]
-||||||||||||+--> Un-implemented/reliable [131]
+|||||||||||+---> Void (no local copy) [167]
+||||||||||||+--> Un-implemented/reliable [130]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -88,7 +88,7 @@ GGS....R..... Atomic_updates
 .........D.VU AudioAlarm
 .........D.VU Audio_Overlap_Loop
 .........D.VU Audio_frequency_generator
-!GS..T.R..... Average_loop_length
+GGS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -238,7 +238,7 @@ GGS.......... Create_a_file
 GGS..T.R..... Create_a_two-dimensional_array_at_runtime
 GGS....R..... Create_an_HTML_table
 GGS..T...D... Create_an_object_Native_demonstration
-!BS.......... Create_an_object_at_a_given_address
+GBS.......... Create_an_object_at_a_given_address
 GGS.......... Cumulative_standard_deviation
 GGS.......... Currency
 GGS.......... Currying
@@ -260,7 +260,7 @@ GGS..T....... Deconvolution_2D%2B
 GGS...c...... Deconvolution_2D%2B-1
 ..........XV. Deepcopy
 GGS.......... Define_a_primitive_data_type
-!GS.......... Delegates
+GGS.......... Delegates
 GGS.......... Delete_a_file
 GGS..T...D... Deming%27s_Funnel
 GGS.......... Department_Numbers
@@ -373,7 +373,7 @@ GGS......D... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
 GGS.......... Find_the_missing_permutation
-.........D.VU Finite_state_machine
+GBS......D... Finite_state_machine
 GGS.......... First-class_functions
 GGS.......... First-class_functions_Use_numbers_analogously
 GGS..T....... First_class_environments
@@ -428,7 +428,7 @@ GGS..T....... Greatest_common_divisor
 GGS....R..... Greatest_element_of_a_list
 GGS.......... Greatest_subsequential_sum
 .........D.VU Greed
-!GS..T..F.... Greyscale_bars_Display
+GGS..T..F.... Greyscale_bars_Display
 GG.KI..R..... Guess_the_number
 GG.KI..R..... Guess_the_number_With_feedback
 GG.KI........ Guess_the_number_With_feedback_player
@@ -557,7 +557,7 @@ GGS..T....... Left_factorials
 GGS.......... Leonardo_numbers
 GGS.......... Letter_frequency
 GGS.......... Levenshtein_distance
-GGS..T...D... Levenshtein_distance_Alignment
+!GS..T...D... Levenshtein_distance_Alignment
 GGS.......... Linear_congruential_generator
 .........DXV. Linux_CPU_utilization
 GGS.......... List_comprehensions
@@ -611,7 +611,7 @@ GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
 GGS.......... Map_range
-!GS..T.R.D... Markov_chain_text_generator
+GGS..T.R.D... Markov_chain_text_generator
 GG.KI..R.D... Mastermind
 GGS.......... Matrix-exponentiation_operator
 ...........VU Matrix_chain_multiplication
