@@ -1,12 +1,12 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sierpinski_triangle/Graphical
-#c# 2015-10-16 <RC, 2018-11-12 >RC
+#c# 2015-10-16 <RC, 2018-11-12 >RC, , 2018-11-16 <RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: sierpinski_triangle.svg
 
-my $levels = 6;
+my $levels = 8;
 my $side   = 512;
 my $height = get_height($side);
  
@@ -33,7 +33,7 @@ sub fractal ( $x1, $y1, $x2, $y2, $x3, $y3, $r is copy ) {
     $svg ~= fractal( $x3, $y1, $x3-$side/2, $y1-$height, $x3+$side/2, $y1-$height, $r);
 }
  
-my $fh = open('run/sierpinski_triangle.svg', :w);
+my $fh = open('run/sierpinski_triangle.svg', :w) orelse .die;
 $fh.print: qq:to/EOD/,
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
