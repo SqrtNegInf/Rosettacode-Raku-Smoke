@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Draw_a_sphere
-#c# 2015-11-05 <RC, 2017-06-04 >RC, 2018-11-10 <RC
+#c# 2015-11-05 <RC, 2017-06-04 >RC, 2018-11-10 <RC, 2018-11-16 >RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
@@ -14,7 +14,7 @@ my $depth = 255;
  
 sub MAIN ($outfile = 'run/draw_a_sphere.pgm') {
     spurt $outfile, "P5\n$width $height\n$depth\n"; # .pgm header
-    my $out = open( $outfile, :a, :bin ) or die "$!\n";
+    my $out = open( $outfile, :a, :bin ) orelse .die;
     $out.write( Blob.new(draw_sphere( ($width-1)/2, .9, .2) ) );
     $out.close;
 }
