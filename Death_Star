@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Death_Star
-#c# 2016-02-24 <RC, 2017-06-04 >RC, 2018-11-10 <RC
+#c# 2016-02-24 <RC, 2017-06-04 >RC, 2018-11-10 <RC, 2018-11-16 >RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
@@ -39,7 +39,7 @@ my $neg = sphere.new(
  
 sub MAIN ($outfile = 'run/deathstar-perl6.pgm') {
     spurt $outfile, ("P5\n$width $height\n$depth\n"); # .pgm header
-    my $out = open( $outfile, :a, :bin ) or die "$!\n";
+    my $out = open( $outfile, :a, :bin ) orelse .die;
     say 'Working...';
     $out.write( Blob.new( |draw_ds(3, .15) ) );
     say 'File written.';
