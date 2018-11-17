@@ -4,11 +4,12 @@
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# xx file: kronecker-carpet-perl6.png
 #f# RC file: kronecker-vicsek-perl6.png
+#n# xx file: kronecker-carpet-perl6.png
 #n# xx file: kronecker-six-perl6.png
 #n# 2018-10-31 Moar bug?  https://gist.github.com/SqrtNegInf/2b0ccf921e2c5b529432555c74ece006
 #n# 2018-11-05 still an open issue on GH: https://github.com/rakudo/rakudo/issues/2453
+#n# 2018-11-16 after Moar/NQP bump, I see the fix woo-hoo
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -27,9 +28,9 @@ my @vicsek = ( [0, 1, 0], [1, 1, 1], [0, 1, 0] );
 my @carpet = ( [1, 1, 1], [1, 0, 1], [1, 1, 1] );
 my @six    = ( [0,1,1,1,0], [1,0,0,0,1], [1,0,0,0,0], [1,1,1,1,0], [1,0,0,0,1], [1,0,0,0,1], [0,1,1,1,0] );
  
-for  'vicsek', @vicsek, 4   # DH just do one image, to avoid bug
-#     'carpet', @carpet, 4, # DH add back after bug fix
-#     'six',    @six,    3  # DH add back after bug fix
+for  'vicsek', @vicsek, 4,
+     'carpet', @carpet, 4,
+     'six',    @six,    3
   -> $name,    @shape,  $order {
     my @img = kronecker-fractal( @shape, $order );
     my $png = Image::PNG::Portable.new: :width(@img[0].elems), :height(@img.elems);
