@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Grayscale_image
-#c# 2016-05-11 <>RC
+#c# 2016-05-11 <>RC, 2018-11-17 <RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
@@ -11,13 +11,13 @@
 
 sub MAIN ($filename = 'ref/bitmap.ppm') {
  
-    my $in = open($filename, :r, :enc<iso-8859-1>);
+    my $in = open($filename, :r, :enc<iso-8859-1>) or die $in;
  
     my ($type, $dim, $depth) = $in.lines[^3];
  
     #my $outfile = $filename.subst('.ppm', '.pgm');
     my $outfile = 'run/grayscale.pgm';
-    my $out = open($outfile, :w, :enc<iso-8859-1>);
+    my $out = open($outfile, :w, :enc<iso-8859-1>) or die $out;
  
     $out.say("P5\n$dim\n$depth");
  
