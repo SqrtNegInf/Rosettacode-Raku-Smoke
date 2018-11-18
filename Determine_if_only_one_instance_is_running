@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Determine_if_only_one_instance_is_running
-#c# 2016-03-07 <>RC, 2018-04-01 <RC
+#c# 2016-03-07 <>RC, 2018-04-01 <RC, 2018-11-17 >RC
 #t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
@@ -23,7 +23,7 @@ END {
     try unlink $lockpid;
 }
 
-my $pidfile = open "$lockpid", :w or die "Can't create $lockpid: $!";
+my $pidfile = open "$lockpid", :w orelse .die;
 $pidfile.say($pid);
 $pidfile.close;
 
