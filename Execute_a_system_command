@@ -1,10 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Execute_a_system_command
-#c# 2015-10-25 <RC
+#c# 2015-10-25 <RC, 2018-11-16 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-run "uname" or die $!; # output to stdout
+run "uname" orelse .die; # output to stdout
 
 my @ls1 = qx/uname/;    # output to variable
 
