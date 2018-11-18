@@ -1,12 +1,12 @@
-This is Rakudo version 2018.10-155-g86ce4f4eb built on MoarVM version 2018.10-79-gdd27d548a
+This is Rakudo version 2018.10-156-g50f2207bb built on MoarVM version 2018.10-79-gdd27d548a
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [983/11]
++--------------> Moar: Good/Bad [981/11]
 |+-------------> JVM: Good/Bad [876/121]
 ||+------------> Smoke testing [884]
 |||+-----------> sKipping validation [110]
 ||||+----------> Interactive [60]
-|||||+---------> Touched (modified by me) [225]
+|||||+---------> Touched (modified by me) [229]
 ||||||+--------> Concurrent [30]
 |||||||+-------> Random seed [108]
 ||||||||+------> File output [76]
@@ -333,7 +333,7 @@ GGS.......... Execute_Brainfuck
 GGS.....F.... Execute_HQ9%2B
 GGS.......... Execute_SNUSP
 GGS.......... Execute_a_Markov_algorithm
-GGS.......... Execute_a_system_command
+GGS..T....... Execute_a_system_command
 GGS.......... Exponentiation_operator
 GGS.......... Exponentiation_order
 GGS..T....... Extend_your_language
@@ -585,7 +585,7 @@ GGS.......... Loops_Foreach
 GGS.......... Loops_Increment_loop_index_within_loop_body
 GG.KI........ Loops_Infinite
 GGS.......... Loops_N_plus_one_half
-GGS....R..... Loops_Nested
+!GS....R..... Loops_Nested
 GGS.......... Loops_While
 GGS.......... Loops_Wrong_ranges
 GGS.......... Loops_with_multiple_ranges-1
@@ -724,7 +724,7 @@ GBS...C...... Parallel_calculations
 GBS...CR..... Parallel_calculations-2
 GGS.......... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
-GGS.....FD... Parse_EBNF
+GGS..T..FD... Parse_EBNF
 GBS.......... Parse_an_IP_Address
 GGS......D... Parse_command-line_arguments
 GGS.......... Parsing_RPN_calculator_algorithm
@@ -926,7 +926,7 @@ GGS.....F.... Show_Ascii_table-1
 GGS.....F.... Show_Ascii_table-2
 GGS.......... Show_the_epoch
 GGS..T....... Sierpinski_carpet
-GGS.....F.... Sierpinski_pentagon
+GGS..T..F.... Sierpinski_pentagon
 GGS.......... Sierpinski_triangle
 GGS..T..F.... Sierpinski_triangle_Graphical
 GGS..T....... Sieve_of_Eratosthenes
@@ -935,7 +935,7 @@ GB.K......... Simple_database
 ..........XVU Simulate_input_Keyboard
 ...........VU Simulate_input_Mouse
 .........D.VU Simulated_annealing
-GBS.....FD... Sine_wave
+!BS..T..FD... Sine_wave
 GGS.......... Singleton
 GG.K......X.. Singly-linked_list_Element_definition
 GG.K......X.. Singly-linked_list_Element_insertion
