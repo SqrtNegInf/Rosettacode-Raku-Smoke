@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sine_wave
-#c# 2018-05-19 <RC
+#c# 2018-05-19 <RC, 2018-11-17 >RC
 #t# graphical
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -19,8 +19,8 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 #say "\e[H\e[J", 'No?, ok how about this:';
  
 use SVG;
-my $filename = 'run/sine.svg';
-my $out = open($filename, :w)  or die "$!\n";
+my $filename = 'bogus/sine.svg';
+my $out = open($filename, :w) orelse .die;
 $out.say: SVG.serialize(
     svg => [
         width => 400, height => 150, style => 'stroke:rgb(0,0,255)',
