@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/File_modification_time
-#c# 2016-05-21 <RC, 2016-11-02 >RC
+#c# 2016-05-21 <RC, 2016-11-02 >RC, 2018-11-17 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #p# RC prep: cp -p ref/mod-time.txt run
@@ -23,7 +23,7 @@ class utimbuf is repr('CStruct') {
 sub sysutime(Str, utimbuf --> int32) is native is symbol('utime') {*} # DH change, from 'int'
  
 sub MAIN (Str $file = 'README') {
-    my $mtime = $file.IO.modified // die "Can't stat $file: $!";
+    my $mtime = $file.IO.modified  orelse .die;
  
     my $ubuff = utimbuf.new(:atime(time),:mtime($mtime));
  
