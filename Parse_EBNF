@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parse_EBNF
-#c# 2018-03-21 <RC
+#c# 2018-03-21 <RC, 2018-11-17 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: ebnf.BEND
@@ -130,7 +130,7 @@ for @tests -> $test {
     $grammar ~~ m/^'grammar '(\w+)/;
     my $title = $0;
     my $fn = 'EBNFtest'~$i++;
-    my $fh = open($fn, :w) or die "$!\n";
+    my $fh = open($fn, :w) orelse .die;
     $fh.say( "\{\n", $grammar );
     $fh.say( qq|say "Parsing EBNF grammar '$title':\\n";| );
     $fh.say( qq|say q<{$test<ebnf>.subst(/^^\h*/,'',:g)}>;| );
