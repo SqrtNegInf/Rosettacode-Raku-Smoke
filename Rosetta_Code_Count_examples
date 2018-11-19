@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/Count_examples
-#c# 2018-03-30 <RC
+#c# 2018-03-30 <RC, 2018-11-19 >RC
 #t# skiptest
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -68,7 +68,7 @@ my $draftcnt = $count - $taskcnt;
 my $total    = sum %tasks{*}»<count>;
  
 # Dump table to a file
-my $out = open($tablefile, :w)  or die "$!\n";
+my $out = open($tablefile, :w)  orelse .die;
  
 # Add table boilerplate and caption
 $out.say:
