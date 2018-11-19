@@ -4,6 +4,7 @@
 #t# skiptest
 #m# MOAR: BROKEN
 #j# JVM:  BROKEN
+#n# skip writing output to fail, and panic goes away, but it hangs after a short while, cause unknown...
 #n# MoarVM panic: Internal error: zeroed target thread ID in work pass
 #n# flaps: sometimes works, sometimes doesn't
 
@@ -19,7 +20,7 @@ my $page   = "http://rosettacode.org/wiki/Category:Programming_Tasks";
 my $html   = $ua.get($page).content;
 my $xmldoc = parse-html($html, :TAG<div>, :id<mw-pages>);
 my @tasks  = parse-html($xmldoc[0].Str, :TAG<li>).Str.comb( /'/wiki/' <-["]>+ / )».substr(6); #"
-my $f      = open("./run/RC_Programming_Tasks.txt", :w)  or die "$!\n";
+my $f      = open("./run/RC_Programming_Tasks.txt", :w) orelse .die;
 note "Writing Programming_Tasks file...";
 $f.print( @tasks.join("\n") );
 $f.close;
@@ -31,7 +32,7 @@ for 'Programming_Tasks' -> $category
  
     note "Loading $category file...";
     note "Retreiving tasks...";
-    my @entries = "./RC_{$category}.txt".IO.slurp.lines;
+    my @entries = "./run/RC_{$category}.txt".IO.slurp.lines;
  
     for @entries -> $title {
         note $title;
@@ -46,11 +47,12 @@ for 'Programming_Tasks' -> $category
         my $task = cleanup $0.Str;
  
         # save to a file
-        my $fh = $taskfile.IO.open :a;
- 
-        $fh.put: "<hr>\n     $title\n<hr>\n$task";
- 
-        $fh.close;
+        #my $fh = $taskfile.IO.open :a;
+        #$fh.put: "<hr>\n     $title\n<hr>\n$task";
+        #$fh.close;
+
+        # 2018-11-18
+        say "$title\n$task\n\n";
  
         sleep 3; # Don't pound the server
     }
