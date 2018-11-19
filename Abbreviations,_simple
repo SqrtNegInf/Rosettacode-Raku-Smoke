@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Abbreviations,_simple
-#c# 2017-09-19 <RC
+#c# 2017-09-19 <RC, 2018-11-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -17,12 +17,12 @@ refresh renum 3 repeat 3 replace 1 Creplace 2 reset 3 restore 4 rgtLEFT right 2 
 > ~~ m:g/ (<.alpha>+) \s* (\d*) /;
 
 my %abr = '' => '', |$/.map: {
-    my $abbrv = $_[0].Str.fc;
+    my $abbrv = .[0].Str.fc;
     |map { $abbrv.substr( 0, $_ ) => $abbrv.uc },
-    +($_[1].Str || $_[0].Str.chars) .. $_[0].Str.chars;
+    +(.[1].Str || .[0].Str.chars) .. .[0].Str.chars;
 };
  
-sub abbr-simple ( $str ) { %abr{$str.fc} // '*error*' }
+sub abbr-simple ( $str ) { %abr{$str.trim.fc} // '*error*' }
 
 my @res;
 for 'riG   rePEAT copies  put mo   rest    types   fup.    6       poweRin', '' -> $str {
