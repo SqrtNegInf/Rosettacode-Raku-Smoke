@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/List_authors_of_task_descriptions
-#c# 2018-03-31 <RC
+#c# 2018-03-31 <RC, 2018-11-19 >RC
 #t# skiptest
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -79,7 +79,7 @@ my $taskcnt  = +%tasks.grep: *.value.<category> eq %cat<Programming_Tasks>;
 my $draftcnt = $count - $taskcnt;
  
 # Open a file handle to dump table in
-my $out = open($tablefile, :w)  or die "$!\n";
+my $out = open($tablefile, :w)  orelse .die;
  
 # Add table boilerplate and header
 $out.say:
