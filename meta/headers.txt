@@ -169,7 +169,7 @@ File: Abbreviations,_easy.1
 File: Abbreviations,_simple
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Abbreviations,_simple
-#c# 2017-09-19 <RC
+#c# 2017-09-19 <RC, 2018-11-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -1833,10 +1833,10 @@ File: Department_Numbers
 File: Detect_division_by_zero
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Detect_division_by_zero
-#c# 2015-11-01 <RC
+#c# 2015-11-01 <RC, 2018-11-19 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    $! not set?
+#n# now testing both variants
 
 File: Determinant_and_permanent
 #!/usr/bin/env perl6
@@ -2848,7 +2848,7 @@ File: Fivenum
 File: Fixed_length_records
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fixed_length_records
-#c# 2018-10-18 <RC
+#c# 2018-10-18 <RC, 2018-11-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: flr-outfile.dat
@@ -4199,7 +4199,7 @@ File: Last_Friday_of_each_month
 File: Last_letter-first_letter
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Last_letter-first_letter
-#c# 2016-01-05 <RC
+#c# 2016-01-05 <RC, 2018-11-19 >RC
 #t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
@@ -6116,6 +6116,17 @@ File: Prime_conspiracy.1
 File: Prime_decomposition
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Prime_decomposition
+#c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC, 2018-11-15 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for JVM: use .1 version
+#n# 2018-11-15 thundergnat++ ekes out a little boost with race(:1batch)
+#n# 2018-11-03 no benefit with 'race' here
+#n# 2018-08-22 Inline::Perl5 version works fine (and fast) but clobbers JVM
+
+File: Prime_decomposition.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Prime_decomposition
 #c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -6401,7 +6412,7 @@ File: Read_a_configuration_file.0
 File: Read_a_file_character_by_character_UTF8
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Read_a_file_character_by_character/UTF8
-#c# 2016-06-11 <RC
+#c# 2016-06-11 <RC, 2018-11-19 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -6697,7 +6708,7 @@ File: Roots_of_unity
 File: Rosetta_Code_Count_examples
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/Count_examples
-#c# 2018-03-30 <RC
+#c# 2018-03-30 <RC, 2018-11-19 >RC
 #t# skiptest
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -6727,7 +6738,7 @@ File: Rosetta_Code_Fix_code_tags
 File: Rosetta_Code_List_authors_of_task_descriptions
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/List_authors_of_task_descriptions
-#c# 2018-03-31 <RC
+#c# 2018-03-31 <RC, 2018-11-19 >RC
 #t# skiptest
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -6785,6 +6796,7 @@ File: Rosetta_Code_Tasks_without_examples
 #t# skiptest
 #m# MOAR: BROKEN
 #j# JVM:  BROKEN
+#n# skip writing output to fail, and panic goes away, but it hangs after a short while, cause unknown...
 #n# MoarVM panic: Internal error: zeroed target thread ID in work pass
 #n# flaps: sometimes works, sometimes doesn't
 
@@ -7138,7 +7150,7 @@ File: Sierpinski_pentagon
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
-#f# RC file: pentagon.svg
+#f# RC file: sierpinski_pentagon.svg
 #n# fixed co-ordinates problem  ('transform' directive goes with each 'polygon')
 
 File: Sierpinski_pentagon.1
