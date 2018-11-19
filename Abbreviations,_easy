@@ -18,12 +18,12 @@ RIght LEft  SAVE  SET SHift SI  SORT  SOS  STAck STATus  TOP TRAnsfer Type Up
 > ~~ m:g/ ((<.:Lu>+) <.:Ll>*) /;
 
 my %abr = '' => '', |$/.map: {
-    my $abbrv = $_[0].Str.fc;
+    my $abbrv = .[0].Str.fc;
     |map { $abbrv.substr( 0, $_ ) => $abbrv.uc },
-    $_[0][0].Str.chars .. $abbrv.chars
+    .[0][0].Str.chars .. $abbrv.chars
 };
 
-sub abbr-easy ( $str ) { %abr{$str.fc} // '*error*' }
+sub abbr-easy ( $str ) { %abr{$str.trim.fc} // '*error*' }
 
 # Testing
 my @res;
