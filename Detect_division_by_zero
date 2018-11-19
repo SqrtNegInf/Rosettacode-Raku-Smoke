@@ -1,49 +1,64 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Detect_division_by_zero
-#c# 2015-11-01 <RC
+#c# 2015-11-01 <RC, 2018-11-19 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    $! not set?
+#n# now testing both variants
 
 use lib 'libtest'; # DH work-around for problems with JVM and Test::Output
 
-my &testcode = sub {
+use Test;
+use Test::Output;
+
+my &testcode1 = sub {
 
 sub div($a, $b) {
     my $r;
     try {
         $r = $a / $b;
         CATCH {
-            #say "tried to divide by zero!" if $! ~~ "Divide by zero"; # $! not set?
-            default { note "Unexpected exception, $_!" }
+            #say "tried to divide by zero!" if $! ~~ "Divide by zero"; # $! not set, this cannot work
+            default { note "Unexpected exception, $_" }
         }
     }
     return $r // Nil;
 }
-
 say div(10,2);
 say div(1, sin(0));
-
 }
 
-
-my $out = qq:to/OUT/;
+my $out1 = qq:to/OUT/;
 5
 Nil
 OUT
 
-my $err = qq:to/ERR/;
-Unexpected exception, Attempt to divide 1 by zero using /!
+my $err1 = qq:to/ERR/;
+Unexpected exception, Attempt to divide 1 by zero using /
 ERR
 
-say $out;
-say $err;
+say $out1; say $err1;
+is stdout-from(&testcode1), $out1;
+is stderr-from(&testcode1), $err1;
 
-use Test;
-use Test::Output;
-is stdout-from(&testcode), $out;
-is stderr-from(&testcode), $err;
+my &testcode2 = sub {
+multi div($a, $b) { return $a / $b }
+multi div($a, $b where { $b == 0 }) { note 'Attempt to divide by zero.'; return Nil }
 
-#is div(10,2), '5';
-#say div(1, sin(0)); # undef, and prints "tried to divide by zero"
-#say div(1,0); # Inf, 1/0 constants are substituted for Infinity
+say div(10, 2);
+say div(1, sin(0));
+}
+
+
+my $out2 = qq:to/OUT/;
+5
+Nil
+OUT
+
+my $err2 = qq:to/ERR/;
+Attempt to divide by zero.
+ERR
+
+say $out2; say $err2;
+is stdout-from(&testcode2), $out2;
+is stderr-from(&testcode2), $err2;
+
