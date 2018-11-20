@@ -19,7 +19,7 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 #say "\e[H\e[J", 'No?, ok how about this:';
  
 use SVG;
-my $filename = 'sine.svg';
+my $filename = 'run/sine.svg';
 my $out = open($filename, :w) orelse .die;
 $out.say: SVG.serialize(
     svg => [
