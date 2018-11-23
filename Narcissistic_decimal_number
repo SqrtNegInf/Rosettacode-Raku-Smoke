@@ -13,7 +13,6 @@ for 0 .. * {
 	.say;
     $nar ~= "$_ ";
 	last if $_ eq 93084;
-	#last if ++( state $) >= 15;
     }
 }
 
@@ -45,7 +44,7 @@ for (1..*) -> $d {
     last if $l > 20
 };
 
-.say for @res; #exit;
+.say for @res;
 
 my $ref1 = qq:to/END/;
 1	0
