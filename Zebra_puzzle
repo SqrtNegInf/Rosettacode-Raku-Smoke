@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Zebra_puzzle
-#c# 2018-11-21 <RC
+#c# 2018-11-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -33,7 +33,7 @@ sub MAIN {
         @res.push: .pairs.sort.map(*.value.fmt("%-9s")).join(' | ')
             for .list;
     }
- 
+
     .say for @res;
 
     my $ref = q:to/END/;
@@ -44,6 +44,8 @@ sub MAIN {
     green     | coffee    | german    | 4         | zebra     | prince   
     white     | beer      | swede     | 5         | dog       | blue-master
     END
+
+# Note: Facts can be shuffled by changing line 3 to my @facts = pick *, (. It seems to reliably find solutions, although execution times will vary (from under 1 sec up to about 10sec).
 
     use Test;
     is @res.join("\n"), chomp $ref;
@@ -84,17 +86,16 @@ multi sub generate(@houses, :next-to(%b)!, *%a ) {
  
 #| find all possible houses that match the given attributes
 multi sub generate(@houses, *%fact) {
-    my @scenarios;
-    for @houses.grep({plausible($_, %fact)}) -> $house {
+    @houses.grep({plausible($_, %fact)}).map: -> $house {
         my @scenario = @houses.clone;
         my $idx = $house<num> - 1;
         @scenario[$idx] = %( %$house, %fact );
-        @scenarios.push: @scenario;
+        @scenario;
     }
-    @scenarios;
 }
  
 #| attributes are plausible if they don't conflict with house values
 sub plausible(%house, %atts) {
     ! %atts.keys.first: { (%house{$_}:exists) && %house{$_} ne %atts{$_} };
 }
+ 
