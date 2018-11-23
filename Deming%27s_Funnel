@@ -50,15 +50,14 @@ constant @rule =
 my @res;
 
 for @rule {
-    @res.push: 'Rule ' ~ ++$ ~ ':';
+    @res.push: "Rule $(++$):";
     my $target = 0i;
     my @z = gather for @dz -> $dz {
-    take $target + $dz;
-    $target = .($target, $dz)
+        take $target + $dz;
+        $target = .($target, $dz)
     }
-    @res.push: sprintf "Mean    x, y   : %7.4f %7.4f", mean(@z».re), mean(@z».im);
+    @res.push: sprintf "Mean    x, y   : %7.4f %7.4f",   mean(@z».re),   mean(@z».im);
     @res.push: sprintf "Std dev x, y   : %7.4f %7.4f", stddev(@z».re), stddev(@z».im);
-
 }
 
 .say for @res;
