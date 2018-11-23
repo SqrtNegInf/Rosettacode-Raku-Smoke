@@ -1,12 +1,12 @@
-This is Rakudo version 2018.10-172-ge7ce194a7 built on MoarVM version 2018.10-90-g0939a10cd
+This is Rakudo version 2018.10-173-g8e27d5f5b built on MoarVM version 2018.10-91-g8c67e1697
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [984/11]
++--------------> Moar: Good/Bad [982/11]
 |+-------------> JVM: Good/Bad [876/122]
 ||+------------> Smoke testing [885]
 |||+-----------> sKipping validation [110]
 ||||+----------> Interactive [60]
-|||||+---------> Touched (modified by me) [235]
+|||||+---------> Touched (modified by me) [236]
 ||||||+--------> Concurrent [31]
 |||||||+-------> Random seed [108]
 ||||||||+------> File output [76]
@@ -66,7 +66,7 @@ GGS.......... Anonymous_recursion
 GGS.......... Append_a_record_to_the_end_of_a_text_file
 GGS.......... Apply_a_callback_to_an_array
 GGS.......... Apply_a_digital_filter_direct_form_II_transposed
-GGS.......... Arbitrary-precision_integers_included
+!GS.......... Arbitrary-precision_integers_included
 GBS...C.F.... Archimedean_spiral
 ..........XV. Arena_storage_pool
 GGS.......... Arithmetic-geometric_mean
@@ -377,7 +377,7 @@ GBS......D... Finite_state_machine
 GGS.......... First-class_functions
 GGS.......... First-class_functions_Use_numbers_analogously
 GGS..T....... First_class_environments
-GGS.......... Five_weekends
+!GS.......... Five_weekends
 GGS......D... Fivenum
 GGS..T..F.... Fixed_length_records
 GGS.......... FizzBuzz
@@ -1055,7 +1055,7 @@ GGS.....F.... Take_notes_on_the_command_line
 GGS......D... Tarjan
 GGS.....F.... Taxicab_numbers
 GGS.......... Temperature_conversion
-GG.KI........ Terminal_control_Clear_the_screen
+GG.KIT....... Terminal_control_Clear_the_screen
 GG.KI........ Terminal_control_Coloured_text
 GG.KI........ Terminal_control_Cursor_movement
 GG.KI........ Terminal_control_Cursor_positioning
