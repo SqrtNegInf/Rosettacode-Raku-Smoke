@@ -5,8 +5,6 @@
 #j# JVM:  OK
 #f# RC file: peano_curve.svg
 
-# Works with: Rakudo version 2018.06
-
 use SVG;
 
 my $fh = open("run/peano_curve.svg", :w) || die;
@@ -38,10 +36,3 @@ $fh.say: SVG.serialize(
         :polyline[ :points(@points.join: ','), :fill<black> ],
     ],
 );
-
-my $ref = qq:to/END/;
-END
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
