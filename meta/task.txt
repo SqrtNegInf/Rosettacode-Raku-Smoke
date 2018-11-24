@@ -1,12 +1,12 @@
-This is Rakudo version 2018.10-173-g8e27d5f5b built on MoarVM version 2018.10-91-g8c67e1697
+This is Rakudo version 2018.10-174-g10693d16f built on MoarVM version 2018.10-91-g8c67e1697
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [982/11]
++--------------> Moar: Good/Bad [983/11]
 |+-------------> JVM: Good/Bad [876/122]
 ||+------------> Smoke testing [885]
 |||+-----------> sKipping validation [110]
 ||||+----------> Interactive [60]
-|||||+---------> Touched (modified by me) [236]
+|||||+---------> Touched (modified by me) [238]
 ||||||+--------> Concurrent [31]
 |||||||+-------> Random seed [108]
 ||||||||+------> File output [76]
@@ -66,7 +66,7 @@ GGS.......... Anonymous_recursion
 GGS.......... Append_a_record_to_the_end_of_a_text_file
 GGS.......... Apply_a_callback_to_an_array
 GGS.......... Apply_a_digital_filter_direct_form_II_transposed
-!GS.......... Arbitrary-precision_integers_included
+GGS.......... Arbitrary-precision_integers_included
 GBS...C.F.... Archimedean_spiral
 ..........XV. Arena_storage_pool
 GGS.......... Arithmetic-geometric_mean
@@ -346,7 +346,7 @@ GBS.......... FTP
 GGS.......... Factorial
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
-GBS...C...... Farey_sequence
+!BS...C...... Farey_sequence
 GGS.......... Fast_Fourier_transform
 GGS..T...D... Faulhaber%27s_formula
 GGS......D... Faulhaber%27s_triangle
@@ -377,7 +377,7 @@ GBS......D... Finite_state_machine
 GGS.......... First-class_functions
 GGS.......... First-class_functions_Use_numbers_analogously
 GGS..T....... First_class_environments
-!GS.......... Five_weekends
+GGS.......... Five_weekends
 GGS......D... Fivenum
 GGS..T..F.... Fixed_length_records
 GGS.......... FizzBuzz
@@ -755,7 +755,7 @@ GGS.......... Perfect_numbers-2
 GGS.......... Perfect_shuffle
 GGS..T...D... Perlin_noise
 GBS..TC...... Permutation_test
-GGS.......... Permutations
+GGS..T....... Permutations
 GGS.......... Permutations_Derangements
 GGS....R..... Permutations_Rank_of_a_permutation
 GGS.......... Permutations_by_swapping
@@ -913,7 +913,7 @@ GGS.......... Sequence_of_primes_by_trial_division
 GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
-GGS.......... Set_of_real_numbers
+GGS..T....... Set_of_real_numbers
 GGS..T.R..... Set_puzzle
 GGS....R..... Seven-sided_dice_from_five-sided_dice
 GBS......D... Sexy_primes
