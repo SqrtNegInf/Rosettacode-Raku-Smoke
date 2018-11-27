@@ -11,12 +11,11 @@ sub cyclical-function (\x) { (x * x + 1) % 255 };
 
 my ( $l, $s ) = brent( &cyclical-function, 3 );
 
-my $result;
-
-put join ', ', (3, -> \x { cyclical-function(x) } ... *)[^20], '...';
-say $result = "Cycle length $l.";
-say $result ~= "Cycle start index $s.";
-say $result ~= (3, -> \x { cyclical-function(x) } ... *)[$s .. $s + $l - 1];
+my @res;
+@res.push: join ', ', (3, -> \x { cyclical-function(x) } ... *)[^20], '...';
+@res.push: "Cycle length $l.";
+@res.push: "Cycle start index $s.";
+@res.push: (3, -> \x { cyclical-function(x) } ... *)[$s .. $s + $l - 1];
 
 sub brent (&f, $x0) {
     my $power = my $λ = 1;
@@ -34,9 +33,7 @@ sub brent (&f, $x0) {
 
     my $μ = 0;
     $tortoise = $hare = $x0;
-    for ^$λ -> $i {
-        $hare = f($hare)
-    }
+    $hare = f($hare) for ^$λ;
 
     while ($tortoise != $hare) {
         $tortoise = f($tortoise);
@@ -46,12 +43,12 @@ sub brent (&f, $x0) {
     return $λ, $μ;
 }
 
-#`{
+my $ref = q:to/END/;
 3, 10, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, ...
 Cycle length 6.
 Cycle start index 2.
-(101 2 5 26 167 95)
-}
+101 2 5 26 167 95
+END
 
 use Test;
-is $result, 'Cycle length 6.Cycle start index 2.101 2 5 26 167 95';
+is @res.join("\n"), chomp $ref;
