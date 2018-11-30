@@ -3262,6 +3262,42 @@ File: HTTPS_Authenticated
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: HTTPS_Client-authenticated
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/HTTPS/Client-authenticated
+#c# 2018-11-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+ 
+# cert creation commands
+# openssl req -newkey rsa:4096 -keyout my_key.pem -out my_csr.pem -nodes -subj "/CN=ME"
+# openssl x509 -req -in my_csr.pem -signkey my_key.pem -out my_cert.pem
+ 
+use OpenSSL;
+ 
+my $host = "google.com";
+#my $host = "github.com";
+ 
+my $ssl = OpenSSL.new(:client);
+ 
+$ssl.use-certificate-file("meta/p6-cert.pem");
+$ssl.use-privatekey-file("meta/p6-key.pem");
+$ssl.check-private-key;
+ 
+my $s = IO::Socket::INET.new(:$host, :port(443)) orelse .die;
+ 
+$ssl.set-socket($s) orelse .die;
+$ssl.set-connect-state;
+$ssl.connect orelse .die;
+$ssl.write("GET / HTTP/1.1\r\n\r\n") orelse .die;
+say my $result = $ssl.read(1024) orelse .die;
+$s.close;
+$ssl.close;
+ 
+use Test;
+ok $result ~~ /^^ 'HTTP/1.1 200 OK' /;
+#is @res.join("\n"), chomp $ref;
+
 File: Hailstone_sequence
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Hailstone_sequence
@@ -4782,6 +4818,13 @@ File: Matrix-exponentiation_operator
 #c# 2016-02-16 <RC, 2017-03-12 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: Matrix_chain_multiplication
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Matrix_chain_multiplication
+#c# 2018-11-29 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: Matrix_multiplication
 #!/usr/bin/env perl6
@@ -6989,6 +7032,14 @@ File: Send_an_unknown_method_call
 #c# 2016-06-12 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: Send_email
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Send_email
+#c# 2018-11-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# incomplete: no attempt to send email (and pretty weak testing)
 
 File: Separate_the_house_number_from_the_street_name
 #!/usr/bin/env perl6
