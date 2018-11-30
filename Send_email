@@ -1,0 +1,39 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Send_email
+#c# 2018-11-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# incomplete: no attempt to send email (and pretty weak testing)
+
+my @res;
+
+# Reference: https://github.com/retupmoca/p6-Email-Simple
+use Email::Simple;
+ 
+my $raw-mail-text = q:to/EML/;
+Hi 
+Hello
+Good day
+EML
+
+my $eml = Email::Simple.new($raw-mail-text);
+ 
+my $new = Email::Simple.create(header => [['To', 'a@b.com'],
+                                          ['From', 'b@c.com'],
+                                          ['Subject', 'Woof'],
+                                          ['Date', 'Thu, 29 Nov 2018 11:34:53 -0800']],
+                               body => 'This is a test.');
+say my $result = ~$new;
+$result ~~ s:g/\r\n/\n/;
+
+my $ref = q:to/END/;
+To: a@b.com
+From: b@c.com
+Subject: Woof
+Date: Thu, 29 Nov 2018 11:34:53 -0800
+
+This is a test.
+END
+
+use Test;
+is $result, chomp $ref;
