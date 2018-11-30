@@ -1,0 +1,55 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/HTTPS/Client-authenticated
+#c# 2018-11-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+ 
+# cert creation commands
+# openssl req -newkey rsa:4096 -keyout my_key.pem -out my_csr.pem -nodes -subj "/CN=ME"
+# openssl x509 -req -in my_csr.pem -signkey my_key.pem -out my_cert.pem
+ 
+use OpenSSL;
+ 
+my $host = "google.com";
+#my $host = "github.com";
+ 
+my $ssl = OpenSSL.new(:client);
+ 
+$ssl.use-certificate-file("meta/p6-cert.pem");
+$ssl.use-privatekey-file("meta/p6-key.pem");
+$ssl.check-private-key;
+ 
+my $s = IO::Socket::INET.new(:$host, :port(443)) orelse .die;
+ 
+$ssl.set-socket($s) orelse .die;
+$ssl.set-connect-state;
+$ssl.connect orelse .die;
+$ssl.write("GET / HTTP/1.1\r\n\r\n") orelse .die;
+say my $result = $ssl.read(1024) orelse .die;
+$s.close;
+$ssl.close;
+ 
+use Test;
+ok $result ~~ /^^ 'HTTP/1.1 200 OK' /;
+#is @res.join("\n"), chomp $ref;
+
+#`{{
+HTTP/1.1 200 OK
+Date: Thu, 29 Nov 2018 22:07:00 GMT
+Expires: -1
+Cache-Control: private, max-age=0
+Content-Type: text/html; charset=ISO-8859-1
+P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+Server: gws
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+Set-Cookie: 1P_JAR=2018-11-29-22; expires=Sat, 29-Dec-2018 22:07:00 GMT; path=/; domain=.google.com
+Set-Cookie: NID=148=oyyqGUOPQDdFqpbk5aW13DQwKX4InE9eMcJD2TcG-n2qKk2y24moceU3Px9q_H5wNJVMzPW-5-XcBkMRk47HUjH6sRTgV-ahYZZSz0jT5VWCXyK42jzz1lqX3SM9ThZfPbTisHHWme4BN2SmSLncLbQ7_wR7ehMSGntdhvaHDe4; expires=Fri, 31-May-2019 22:07:00 GMT; path=/; domain=.google.com; HttpOnly
+Alt-Svc: quic=":443"; ma=2592000; v="44,43,39,35"
+Accept-Ranges: none
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+
+58f3
+<!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="en"><head><meta content="Search the world's information, including webpages, images, videos and more. Google has many special features to help you find ex
+}}
