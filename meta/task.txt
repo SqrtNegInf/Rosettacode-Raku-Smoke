@@ -1,10 +1,10 @@
-This is Rakudo version 2018.11-3-g2dbef9930 built on MoarVM version 2018.11
+This is Rakudo version 2018.11-4-g38bc682b0 built on MoarVM version 2018.11
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [987/11]
-|+-------------> JVM: Good/Bad [877/124]
++--------------> Moar: Good/Bad [986/11]
+|+-------------> JVM: Good/Bad [878/125]
 ||+------------> Smoke testing [888]
-|||+-----------> sKipping validation [110]
+|||+-----------> sKipping validation [111]
 ||||+----------> Interactive [61]
 |||||+---------> Touched (modified by me) [238]
 ||||||+--------> Concurrent [31]
@@ -12,8 +12,8 @@ updating from RC…
 ||||||||+------> File output [76]
 |||||||||+-----> Draft [212]
 ||||||||||+----> Ignoring [61]
-|||||||||||+---> Void (no local copy) [163]
-||||||||||||+--> Un-implemented/reliable [126]
+|||||||||||+---> Void (no local copy) [161]
+||||||||||||+--> Un-implemented/reliable [125]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -621,7 +621,7 @@ GGS..T....... Maximum_triangle_path_sum
 GGS....R..... Maze_generation
 GGS....R..... Maze_solving
 GGS.......... McNuggets_Problem
-...........V. Median_filter
+!B........... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GG.KI........ Menu
@@ -825,7 +825,7 @@ GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS..T...D... Read_a_file_character_by_character_UTF8
-GGS.......... Read_a_file_line_by_line
+!GS.......... Read_a_file_line_by_line
 GG.K......... Read_a_specific_line_from_a_file
 GGS.......... Read_entire_file
 .........D.V. Readline_interface
@@ -1036,7 +1036,7 @@ GGS.......... Suffixation_of_decimal_numbers
 GGS.......... Sum_and_Product_Puzzle
 GGS.......... Sum_and_product_of_an_array
 GGS.......... Sum_digits_of_an_integer
-GGS.......... Sum_multiples_of_3_and_5
+!GS.......... Sum_multiples_of_3_and_5
 GGS..T....... Sum_of_a_series
 GGS.......... Sum_of_squares
 GGS.......... Sum_to_100
@@ -1119,7 +1119,7 @@ GGS.......... Unicode_strings
 GGS.......... Unicode_variable_names
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
-.........D.VU Untrusted_environment
+GG.K.....D... Untrusted_environment
 GGS.....F.... Update_a_configuration_file
 ...........VU Use_another_language_to_call_a_function
 GGS......D... User_defined_pipe_and_redirection_operators
