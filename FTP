@@ -1,26 +1,32 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/FTP
-#c# 2016-06-01 <RC, 2018-04-25 <RC
+#c# 2016-06-01 <RC, 2018-04-25 <RC, 2018-11-30 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-use experimental :pack;
-
-# Works with: rakudo version 2018.04
-
 use Net::FTP;
  
-#my $ftp = Net::FTP.new(:host('mirrors.sohu.com'), :passive); # gone?
-my $ftp = Net::FTP.new(:host('ftp.netbsd.org'), :passive);
+my $host = 'speedtest.tele2.net';
+my $user = 'anonymous';
+my $password = '';
  
-$ftp.login();
+my $ftp = Net::FTP.new( host => $host, :passive );
+ 
+$ftp.login( user => $user, pass => $password );
+ 
+$ftp.cwd( 'upload' );
+ 
+$ftp.cwd( '/' );
  
 my @res.push: $_<name> for $ftp.ls();
 .say for @res;
-
-#$ftp.get( 'index.html', :binary );
+ 
+$ftp.get( '512KB.zip', :binary );
 
 use Test;
-ok set('NetBSD-archive') ⊆ @res.SetHash;
+ok set('512KB.zip') ⊆ @res.SetHash;
+ok '512KB.zip'.IO.e;
+
+unlink "512KB.zip" if "512KB.zip".IO.e;
