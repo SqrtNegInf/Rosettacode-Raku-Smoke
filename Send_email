@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Send_email
-#c# 2018-11-29 <RC
+#c# 2018-11-30 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# incomplete: no attempt to send email (and pretty weak testing)
@@ -37,3 +37,44 @@ END
 
 use Test;
 is $result, chomp $ref;
+
+#`{{ 
+# Note that the following will fail without an actual smtp server that
+# will accept anonymous emails on port 25 (Not very common anymore).
+# Most public email servers now require authentication and encryption.
+ 
+my $smtp-server = 'smtp.example.com';
+my $smtp-port   = 25;
+ 
+await IO::Socket::Async.connect($smtp-server, $smtp-port).then(
+    -> $smtp {
+        if $smtp.status {
+            given $smtp.result {
+                react {
+                    whenever .Supply() -> $response {
+                        if $response ~~ /^220/ {
+                            .print( join "\r\n",
+                                "EHLO $smtp-server",
+                                "MAIL FROM:<{$email.from}>",
+                                "RCPT TO:<{$email.to}>",
+                                "DATA", $email.body,
+                                '.', ''
+                            )
+                        }
+                        elsif $response ~~ /^250/ {
+                            .print("QUIT\r\n");
+                            done
+                        }
+                        else {
+                           say "Send email failed with: $response";
+                           done
+                        }
+                    }
+                    .close
+                }
+            }
+        }
+    }
+)
+
+}}
