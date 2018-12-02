@@ -97,10 +97,8 @@ sub pretty_print ( @array, $indent = 0 ) {
         pretty_print( $_, $indent + 2 ) for @array;
         say ' ' x $indent, "]{$indent??','!!''}";
     } else {
-        say ' ' x $indent, "[{say_it(@array)} ]{$indent??','!!''}";
+        say ' ' x $indent, "[{join ',', @array».fmt('%4s')} ]{$indent??','!!''}";
     }
-
-    sub say_it ( @array ) { return join ",", @array».fmt("%4s"); }
 }
 
 my @f[2;2;3;6] = (
