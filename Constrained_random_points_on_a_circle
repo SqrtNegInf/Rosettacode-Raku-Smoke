@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Constrained_random_points_on_a_circle
-#c# 2016-01-09 <RC
+#c# 2016-01-09 <RC, 2018-12-02 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: constrained_random_points.BEND
@@ -10,7 +10,6 @@ srand 123456;
 my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
 my $out = open("run/constrained_random_points.$ext", :w);
 
-# Works with: rakudo version 2015.09
 my @range = -15..16;
 
 my @points = gather for @range X @range -> ($x, $y) {
@@ -21,7 +20,7 @@ my @samples = @points.roll(100); # or .pick(100) to get distinct points
 # format and print
 my %matrix;
 for @range X @range -> ($x, $y) { %matrix{$y}{$x} = ' ' }
-%matrix{$_[1]}{$_[0]} = '*' for @samples;
+%matrix{.[1]}{.[0]} = '*' for @samples;
 $out.say: %matrix{$_}{@range}.join(' ') for @range;
 
 #Turning that program completely inside-out and reducing to a single statement with a single non-parameter variable, we get this version, which also works:
