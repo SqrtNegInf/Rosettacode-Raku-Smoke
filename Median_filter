@@ -1,5 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Median_filter
+#t# skiptest
 #c# 2018-11-30 <RC
 #m# MOAR: BROKEN
 #j# JVM:  BROKEN
@@ -7,9 +8,8 @@
 
 my @res;
 
-
+#`{{
 # This example is broken. It fails to compile or causes a runtime error. Please fix the code and remove this message.
-
 
 # Reference: https://github.com/azawawi/perl6-magickwand
  
@@ -38,6 +38,7 @@ LEAVE {
   $original.cleanup   if $original.defined;
   $o.cleanup if $o.defined;
 }
+}}
 
 
 .say for @res;
