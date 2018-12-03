@@ -1,12 +1,12 @@
 This is Rakudo version 2018.11-4-g38bc682b0 built on MoarVM version 2018.11
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [987/11]
++--------------> Moar: Good/Bad [989/12]
 |+-------------> JVM: Good/Bad [877/126]
 ||+------------> Smoke testing [888]
-|||+-----------> sKipping validation [111]
+|||+-----------> sKipping validation [112]
 ||||+----------> Interactive [61]
-|||||+---------> Touched (modified by me) [237]
+|||||+---------> Touched (modified by me) [238]
 ||||||+--------> Concurrent [32]
 |||||||+-------> Random seed [108]
 ||||||||+------> File output [76]
@@ -182,7 +182,7 @@ GGS.......... Chinese_zodiac
 GGS.......... Cholesky_decomposition
 ...........VU Church_Numerals
 GGS......D... Cipolla%27s_algorithm
-GGS.......... Circles_of_given_radius_through_two_points
+!GS.......... Circles_of_given_radius_through_two_points
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
 GGS....R..... Closures_Value_capture
@@ -216,7 +216,7 @@ GB.K.TC...... Concurrent_computing
 GG.K......... Conditional_structures
 GGS.....F.... Conjugate_transpose
 GGS.......... Constrained_genericity
-GGS....RF.... Constrained_random_points_on_a_circle
+GGS..T.RF.... Constrained_random_points_on_a_circle
 GGS..T....... Continued_fraction
 GGS.......... Continued_fraction_Arithmetic_Construct_from_rational_number
 GGS..T...D... Continued_fraction_Arithmetic_Gmatrix_NG,_Contined_Fraction_N
@@ -450,7 +450,7 @@ GG.K......... Hello_world_Line_printer
 GG.K......... Hello_world_Newbie
 GGS.......... Hello_world_Newline_omission
 GGS.......... Hello_world_Standard_error
-GGS.......... Hello_world_Text
+!GS.......... Hello_world_Text
 GG.KI........ Hello_world_Web_server
 GGS..T....... Here_document
 GGS..TC...... Heronian_triangles
@@ -621,7 +621,7 @@ GGS..T....... Maximum_triangle_path_sum
 GGS....R..... Maze_generation
 GGS....R..... Maze_solving
 GGS.......... McNuggets_Problem
-!B........... Median_filter
+BB.K......... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GG.KI........ Menu
@@ -653,7 +653,7 @@ GGS.......... Multi-dimensional_array
 GGS.......... Multifactorial
 GGS......D... Multiline_shebang
 GGS.......... Multiple_distinct_objects
-!B.K......... Multiple_regression
+GB.K......... Multiple_regression
 GGS.......... Multiplication_tables
 GBS..T....... Multiplicative_order
 GGS..T....... Multisplit
@@ -709,7 +709,7 @@ GGS....R..... One_of_n_lines_in_a_file
 GBS.......... OpenWebNet_Password
 ..........XV. Operator_precedence
 GGS..T....... Optional_parameters
-!BS......D... Orbital_elements
+GBS......D... Orbital_elements
 GGS.......... Order_disjoint_list_items
 GGS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_Partitions
@@ -777,7 +777,7 @@ GGS..T....... Poker_hand_analyser
 GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GGS..T....... Polynomial_long_division
-!BS.......... Polynomial_regression
+GBS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GBS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
@@ -978,7 +978,7 @@ GGS....R.D... Sorting_algorithms_Patience_sort
 GGS.......... Sorting_algorithms_Permutation_sort
 GGS....R..... Sorting_algorithms_Quicksort
 GGS..T.R..... Sorting_algorithms_Radix_sort
-!GS.......... Sorting_algorithms_Selection_sort
+GGS.......... Sorting_algorithms_Selection_sort
 GGS....R..... Sorting_algorithms_Shell_sort
 GGS.......... Sorting_algorithms_Sleep_sort
 GGS.......... Sorting_algorithms_Stooge_sort
