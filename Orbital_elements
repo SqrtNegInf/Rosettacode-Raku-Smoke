@@ -6,8 +6,6 @@
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-use lib 'lib';
-
 # We'll use the Clifford geometric algebra library but only for the vector operations.
 
 sub position(
