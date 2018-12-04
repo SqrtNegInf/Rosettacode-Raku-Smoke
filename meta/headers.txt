@@ -1473,7 +1473,7 @@ File: Constrained_genericity
 File: Constrained_random_points_on_a_circle
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Constrained_random_points_on_a_circle
-#c# 2016-01-09 <RC, 2018-12-02 >RC
+#c# 2016-01-09 <RC, 2018-12-03 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: constrained_random_points.BEND
@@ -6209,6 +6209,15 @@ File: Primes_-_allocate_descendants_to_their_ancestors
 #c# 2016-07-02 <RC, 2017-01-19 >RC, 2017-01-22 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: Primes_-_allocate_descendants_to_their_ancestors-1
+#!/usr/bin/env perl6
+#t# skiptest
+#u# http://rosettacode.org/wiki/Primes_-_allocate_descendants_to_their_ancestors
+#c# 2016-07-02 <RC, 2017-01-19 >RC, 2017-01-22 >RC, 2018-12-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# too slow to run every day, but much faster with .race (just over 6 minutes)
 
 File: Primorial_numbers
 #!/usr/bin/env perl6
