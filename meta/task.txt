@@ -1,18 +1,18 @@
 This is Rakudo version 2018.11-4-g38bc682b0 built on MoarVM version 2018.11
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [989/12]
-|+-------------> JVM: Good/Bad [877/126]
++--------------> Moar: Good/Bad [990/12]
+|+-------------> JVM: Good/Bad [878/126]
 ||+------------> Smoke testing [888]
-|||+-----------> sKipping validation [112]
+|||+-----------> sKipping validation [113]
 ||||+----------> Interactive [61]
-|||||+---------> Touched (modified by me) [238]
-||||||+--------> Concurrent [32]
+|||||+---------> Touched (modified by me) [239]
+||||||+--------> Concurrent [33]
 |||||||+-------> Random seed [108]
 ||||||||+------> File output [76]
-|||||||||+-----> Draft [212]
+|||||||||+-----> Draft [213]
 ||||||||||+----> Ignoring [61]
-|||||||||||+---> Void (no local copy) [161]
+|||||||||||+---> Void (no local copy) [162]
 ||||||||||||+--> Un-implemented/reliable [125]
 |||||||||||||
 GGS.......... 100_doors
@@ -182,7 +182,7 @@ GGS.......... Chinese_zodiac
 GGS.......... Cholesky_decomposition
 ...........VU Church_Numerals
 GGS......D... Cipolla%27s_algorithm
-!GS.......... Circles_of_given_radius_through_two_points
+GGS.......... Circles_of_given_radius_through_two_points
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
 GGS....R..... Closures_Value_capture
@@ -450,7 +450,7 @@ GG.K......... Hello_world_Line_printer
 GG.K......... Hello_world_Newbie
 GGS.......... Hello_world_Newline_omission
 GGS.......... Hello_world_Standard_error
-!GS.......... Hello_world_Text
+GGS.......... Hello_world_Text
 GG.KI........ Hello_world_Web_server
 GGS..T....... Here_document
 GGS..TC...... Heronian_triangles
@@ -789,6 +789,7 @@ GGS.......... Primality_by_trial_division
 GGS..T...D... Prime_conspiracy
 GBS...C...... Prime_decomposition
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
+GG.K.TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS..T....... Primorial_numbers
 GGS.......... Primorial_numbers-2
 GGS.......... Priority_queue
@@ -804,7 +805,7 @@ GBS...c...... Pythagorean_quadruples
 GGS...C...... Pythagorean_triples
 ...........VU QR_decomposition
 GGS.......... Quaternion_type
-GGS..T....... Queue_Definition
+!GS..T....... Queue_Definition
 GGS.......... Queue_Usage
 GGS....R..... Quickselect_algorithm
 GG.K......... Quine
@@ -973,7 +974,7 @@ GGS..T.R..... Sorting_algorithms_Gnome_sort
 GGS..T.R..... Sorting_algorithms_Heapsort
 GGS....R..... Sorting_algorithms_Insertion_sort
 GGS....R..... Sorting_algorithms_Merge_sort
-GGS....R..... Sorting_algorithms_Pancake_sort
+!GS....R..... Sorting_algorithms_Pancake_sort
 GGS....R.D... Sorting_algorithms_Patience_sort
 GGS.......... Sorting_algorithms_Permutation_sort
 GGS....R..... Sorting_algorithms_Quicksort
@@ -1023,6 +1024,7 @@ GGS.......... Strip_block_comments
 GGS.......... Strip_comments_from_a_string
 GGS....R..... Strip_control_codes_and_extended_characters_from_a_string
 GGS..T....... Strip_whitespace_from_a_string_Top_and_tail
+.........D.V. Strong_and_weak_primes
 GGS.......... Subleq
 GGS...c..D... Subset_sum_problem
 GGS....R.D... Substitution_Cipher
