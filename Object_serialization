@@ -1,0 +1,59 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Object_serialization
+#c# 2018-12-05 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+# Reference:
+# https://docs.perl6.org/language/classtut
+# https://github.com/teodozjan/perl-store
+ 
+use PerlStore::FileStore;
+ 
+class Point {
+    has Int $.x;
+    has Int $.y;
+}
+ 
+class Rectangle does  FileStore {
+    has Point $.lower;
+    has Point $.upper;
+ 
+    method area() returns Int {
+        ($!upper.x - $!lower.x) * ( $!upper.y - $!lower.y);
+    }
+}
+ 
+my $r1 = Rectangle.new(lower => Point.new(x => 0, y => 0),
+                      upper => Point.new(x => 10, y => 10));
+@res.push: "Create Rectangle1 with area " ~ $r1.area();
+@res.push: "Serialize Rectangle1 to object.dat";
+$r1.to_file('./run/objects.dat');
+@res.push: "";
+@res.push: "take a peek on object.dat ..";
+@res.push: slurp "./run/objects.dat";
+@res.push: "";
+@res.push: "Deserialize to Rectangle2";
+my $r2 = from_file('run/objects.dat');
+@res.push: "Rectangle2 is of type " ~ $r2.WHAT.perl;
+@res.push: "Rectangle2 area is " ~ $r2.area();
+
+.say for @res;
+
+my $ref = q:to/END/;
+Create Rectangle1 with area 100
+Serialize Rectangle1 to object.dat
+
+take a peek on object.dat ..
+Rectangle.new(lower => Point.new(x => 0, y => 0), upper => Point.new(x => 10, y => 10))
+
+
+Deserialize to Rectangle2
+Rectangle2 is of type Rectangle
+Rectangle2 area is 100
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
