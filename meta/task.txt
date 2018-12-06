@@ -1,19 +1,19 @@
-This is Rakudo version 2018.11-7-g194c84b91 built on MoarVM version 2018.11
+This is Rakudo version 2018.11-9-g9f5cc8d1b built on MoarVM version 2018.11
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [993/12]
-|+-------------> JVM: Good/Bad [878/127]
-||+------------> Smoke testing [889]
++--------------> Moar: Good/Bad [996/12]
+|+-------------> JVM: Good/Bad [878/130]
+||+------------> Smoke testing [892]
 |||+-----------> sKipping validation [113]
 ||||+----------> Interactive [61]
 |||||+---------> Touched (modified by me) [239]
-||||||+--------> Concurrent [33]
+||||||+--------> Concurrent [35]
 |||||||+-------> Random seed [108]
 ||||||||+------> File output [76]
-|||||||||+-----> Draft [213]
+|||||||||+-----> Draft [215]
 ||||||||||+----> Ignoring [61]
-|||||||||||+---> Void (no local copy) [161]
-||||||||||||+--> Un-implemented/reliable [125]
+|||||||||||+---> Void (no local copy) [160]
+||||||||||||+--> Un-implemented/reliable [124]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -696,7 +696,7 @@ G!S.......... Numerical_integration-2
 GGS......D... Numerical_integration_Adaptive_Simpson%27s_method
 GGS.......... Numerical_integration_Gauss-Legendre_Quadrature
 ..........XVU OLE_Automation
-...........VU Object_serialization
+GBS.......... Object_serialization
 GGS.......... Odd_word_problem
 GGS..T...D... Old_Russian_measure_of_length
 GGS..T....... Old_lady_swallowed_a_fly
@@ -752,6 +752,7 @@ GGS....R..... Percolation_Site_percolation
 GGS...C...... Perfect_numbers-1
 GGS.......... Perfect_numbers-2
 GGS.......... Perfect_shuffle
+GBS...C..D... Perfect_totient_numbers
 GGS..T...D... Perlin_noise
 GBS..TC...... Permutation_test
 GGS..T....... Permutations
@@ -1097,6 +1098,7 @@ GGS..T....... Topological_sort
 GGS......D... Topological_sort_Extracted_top_item
 GBS...C...... Topswops
 GGS..T....... Total_circles_area
+GBS...C..D... Totient_function
 GGS.......... Towers_of_Hanoi
 GGS.......... Trabb_Pardo-Knuth_algorithm
 GGS......D... Transportation_problem
