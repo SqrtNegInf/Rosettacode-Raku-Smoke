@@ -1,0 +1,59 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Terminal_control/Positional_read
+#c# 2018-12-06 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+use NCurses;
+ 
+# Reference:
+# https://github.com/azawawi/perl6-ncurses
+ 
+# Initialize curses window
+my $win = initscr() or die "Failed to initialize ncurses\n";
+ 
+# Print random text in a 10x10 grid
+ 
+srand 123456; # must be after 'initscr'?
+for ^10 { mvaddstr($_ , 0, (for ^10 {(41 .. 90).roll.chr}).join )};
+ 
+# Read
+ 
+my $icol = 3 - 1;
+my $irow = 6 - 1;
+ 
+my $ch = mvinch($irow,$icol);
+ 
+# Show result
+ 
+#mvaddstr($irow, $icol+10, 'Character at column 3, row 6 = ' ~ $ch.chr);
+ 
+#mvaddstr( LINES() - 2, 2, "Press any key to exit..." );
+ 
+# Refresh (this is needed)
+#nc_refresh;
+ 
+# Wait for a keypress
+#getch;
+ 
+# Cleanup
+LEAVE {
+    delwin($win) if $win;
+    endwin;
+}
+
+#`{
+S4Q:ZBLVDJ
+B86/?)JASE
+R?QT+-,1:1
+KXBFF7JT>L
+WL/K2P.58@
+Q+3E:1JP>Z  Character at column 3, row 6 = 3
+K-4+A=J*P3
+J1HCQYL8P?
+NVYL?G,S@L
+VPIQQ<8P?3
+}
+
+use Test;
+is $ch.chr, '3';
