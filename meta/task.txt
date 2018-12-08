@@ -1,18 +1,18 @@
-This is Rakudo version 2018.11-11-g07d95bf9b built on MoarVM version 2018.11
+This is Rakudo version 2018.11-13-gdd0301454 built on MoarVM version 2018.11
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [995/13]
-|+-------------> JVM: Good/Bad [878/132]
-||+------------> Smoke testing [893]
++--------------> Moar: Good/Bad [998/11]
+|+-------------> JVM: Good/Bad [879/131]
+||+------------> Smoke testing [894]
 |||+-----------> sKipping validation [113]
-||||+----------> Interactive [61]
+||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [239]
-||||||+--------> Concurrent [36]
+||||||+--------> Concurrent [35]
 |||||||+-------> Random seed [109]
 ||||||||+------> File output [76]
-|||||||||+-----> Draft [215]
+|||||||||+-----> Draft [216]
 ||||||||||+----> Ignoring [61]
-|||||||||||+---> Void (no local copy) [159]
+|||||||||||+---> Void (no local copy) [160]
 ||||||||||||+--> Un-implemented/reliable [122]
 |||||||||||||
 GGS.......... 100_doors
@@ -63,11 +63,11 @@ GGS..T....... Angle_difference_between_two_bearings
 GB.KI........ Animate_a_pendulum
 BB.KIT......U Animation
 GGS.......... Anonymous_recursion
-BB....C..D... Anti-primes
+GGS...c..D... Anti-primes
 GGS.......... Append_a_record_to_the_end_of_a_text_file
 GGS.......... Apply_a_callback_to_an_array
 GGS.......... Apply_a_digital_filter_direct_form_II_transposed
-!GS.......... Arbitrary-precision_integers_included
+GGS.......... Arbitrary-precision_integers_included
 GBS...C.F.... Archimedean_spiral
 ..........XV. Arena_storage_pool
 GGS.......... Arithmetic-geometric_mean
@@ -345,6 +345,7 @@ GGS..T....... Extreme_floating_point_values
 GGS.......... FASTA_format
 GBS.......... FTP
 GGS.......... Factorial
+.........D.VU Factorial_base_numbers_indexing_permutations_of_a_collection
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
 GBS...C...... Farey_sequence
@@ -622,7 +623,7 @@ GGS..T....... Maximum_triangle_path_sum
 GGS....R..... Maze_generation
 GGS....R..... Maze_solving
 GGS.......... McNuggets_Problem
-BB.K......... Median_filter
+...........V. Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GG.KI........ Menu
@@ -744,7 +745,7 @@ GG.KI..R..... Penney%27s_game
 GBS.....FD... Penrose_tiling
 GBS..T..F.... Pentagram
 .........D.VU Pentomino_tiling
-...........VU Percentage_difference_between_images
+GBS.......... Percentage_difference_between_images
 .........D.VU Perceptron
 GGS.......... Percolation_Bond_percolation
 GGS....R..... Percolation_Mean_cluster_density
@@ -912,7 +913,7 @@ GBS.......... Send_email
 GGS......D... Separate_the_house_number_from_the_street_name
 GGS.......... Sequence_of_non-squares
 GGS.......... Sequence_of_primes_by_trial_division
-GGS..T....... Sequence_of_primorial_primes
+!GS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
@@ -1066,7 +1067,7 @@ GG.KI........ Terminal_control_Dimensions
 GG.KI........ Terminal_control_Display_an_extended_character
 BB.KI.....X.. Terminal_control_Hiding_the_cursor
 GG.KI........ Terminal_control_Inverse_video
-!BS....R..X.. Terminal_control_Positional_read
+GB.KI..R..X.. Terminal_control_Positional_read
 GG.KI........ Terminal_control_Preserve_screen
 GB.KI....D... Terminal_control_Restricted_width_positional_input_No_wrapping
 GB.KI....D... Terminal_control_Restricted_width_positional_input_With_wrapping
