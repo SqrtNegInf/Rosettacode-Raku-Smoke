@@ -376,9 +376,8 @@ File: Anti-primes
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Anti-primes
 #c# 2018-12-06 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
-#  {{Works with|rakudo|2018.12}} or {{broken|Perl 6}}  
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: Append_a_record_to_the_end_of_a_text_file
 #!/usr/bin/env perl6
@@ -4902,15 +4901,6 @@ File: McNuggets_Problem.1
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: Median_filter
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Median_filter
-#t# skiptest
-#c# 2018-11-30 <RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
-#  {{Works with|rakudo|2018.11}} or {{broken|Perl 6}}  
-
 File: Memory_allocation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Memory_allocation
@@ -5805,6 +5795,53 @@ File: Pentagram.2
 #j#  JVM: BROKEN UnwindException
 #   2017-01-19 fixed bug revealed by change in .rotor, but code superseded
 
+File: Percentage_difference_between_images
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Percentage_difference_between_images
+#c# 2018-12-07 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# difference in output from RC examples due to library code, probably
+ 
+use GD::Raw;
+ 
+# Reference:
+# https://github.com/dagurval/perl6-gd-raw
+ 
+my $fh1 = fopen('ref/Lenna50.jpg', "rb") or die;
+my $img1 = gdImageCreateFromJpeg($fh1);
+my $fh2 = fopen('ref/Lenna100.jpg', "rb") or die;
+my $img2 = gdImageCreateFromJpeg($fh2);
+ 
+my $img1X = gdImageSX($img1);
+my $img1Y = gdImageSY($img1);
+my $img2X = gdImageSX($img2);
+my $img2Y = gdImageSY($img2);
+ 
+($img1X == $img2X and $img1Y == $img2Y) or die "Image dimensions must match.";
+ 
+my $diff = 0;
+my ($px1, $px2);
+loop (my $i = 0; $i < $img1X; $i++) {
+   loop (my $j = 0; $j < $img1Y; $j++) {
+ 
+      $px1 = gdImageGetPixel($img1, $i, $j);
+      $px2 = gdImageGetPixel($img2, $i, $j);
+ 
+      $diff += abs(gdImageRed($img1, $px1) - gdImageRed($img2, $px2));
+      $diff += abs(gdImageGreen($img1, $px1) - gdImageGreen($img2, $px2));
+      $diff += abs(gdImageBlue($img1, $px1) - gdImageBlue($img2, $px2));
+   }
+}
+ 
+say "%difference = ", my $result = $diff/($img1X*$img1Y*3*255)*100;
+ 
+gdImageDestroy($img1);
+gdImageDestroy($img2);
+ 
+use Test;
+is $result, '1.78189346';
+# 1.62559309816 (from different under-lying libraries?)
 File: Percolation_Bond_percolation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Percolation/Bond_percolation
@@ -8343,6 +8380,7 @@ File: Terminal_control_Inverse_video
 File: Terminal_control_Positional_read
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Terminal_control/Positional_read
+#t# interactive
 #c# 2018-12-06 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
