@@ -1,8 +1,7 @@
 This is Rakudo version 2018.11-13-gdd0301454 built on MoarVM version 2018.11
 implementing Perl 6.d.
-updating from RC…
-+--------------> Moar: Good/Bad [998/11]
-|+-------------> JVM: Good/Bad [879/131]
++--------------> Moar: Good/Bad [998/12]
+|+-------------> JVM: Good/Bad [876/132]
 ||+------------> Smoke testing [894]
 |||+-----------> sKipping validation [113]
 ||||+----------> Interactive [62]
@@ -10,10 +9,10 @@ updating from RC…
 ||||||+--------> Concurrent [35]
 |||||||+-------> Random seed [109]
 ||||||||+------> File output [76]
-|||||||||+-----> Draft [216]
-||||||||||+----> Ignoring [61]
-|||||||||||+---> Void (no local copy) [160]
-||||||||||||+--> Un-implemented/reliable [122]
+|||||||||+-----> Draft [213]
+||||||||||+----> Ignoring [60]
+|||||||||||+---> Void (no local copy) [159]
+||||||||||||+--> Un-implemented/reliable [121]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -24,7 +23,7 @@ GB.KI..R..... 2048
 GGS....R.D... 21_Game
 GG.KI..R..... 24_game
 GBS..TC...... 24_game_Solve-1
-GGS...C...... 24_game_Solve-2
+G!S...C...... 24_game_Solve-2
 GGS.......... 4-rings_or_4-squares_puzzle
 GGS.......... 99_Bottles_of_Beer
 GGS.......... 9_billion_names_of_God_the_integer
@@ -63,7 +62,7 @@ GGS..T....... Angle_difference_between_two_bearings
 GB.KI........ Animate_a_pendulum
 BB.KIT......U Animation
 GGS.......... Anonymous_recursion
-GGS...c..D... Anti-primes
+GGS...c...... Anti-primes
 GGS.......... Append_a_record_to_the_end_of_a_text_file
 GGS.......... Apply_a_callback_to_an_array
 GGS.......... Apply_a_digital_filter_direct_form_II_transposed
@@ -232,7 +231,7 @@ GBS.......... Count_in_factors-1
 GGS.......... Count_in_factors-2
 GGS.......... Count_in_octal
 GGS.......... Count_occurrences_of_a_substring
-GGS..T....... Count_the_coins
+G!S..T....... Count_the_coins
 GGS.......... Cramer%27s_rule
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
@@ -253,7 +252,7 @@ GGS..T....... Date_format
 GBS..T....... Date_manipulation
 GGS.......... Day_of_the_week
 GGS..T.R..... Deal_cards_for_FreeCell
-GGS..TC.F.... Death_Star
+G!S..TC.F.... Death_Star
 GGS......D... Decimal_floating_point_number_to_binary
 GG.KI....D... Decision_tables
 GGS..T....... Deconvolution_1D
@@ -292,7 +291,7 @@ GG.KI........ Draw_a_clock
 GGS.....F.... Draw_a_cuboid
 GB.K......... Draw_a_pixel
 BB........... Draw_a_rotating_cube
-GGS..TC.F.... Draw_a_sphere-1
+G!S..TC.F.... Draw_a_sphere-1
 GBS.....F.... Draw_a_sphere-2
 GB.K.....D... Draw_pixel_2
 GGS..T.R..... Dutch_national_flag_problem
@@ -345,7 +344,7 @@ GGS..T....... Extreme_floating_point_values
 GGS.......... FASTA_format
 GBS.......... FTP
 GGS.......... Factorial
-.........D.VU Factorial_base_numbers_indexing_permutations_of_a_collection
+BB.......D... Factorial_base_numbers_indexing_permutations_of_a_collection
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
 GBS...C...... Farey_sequence
@@ -551,7 +550,7 @@ GBS..TC...... Largest_number_divisible_by_its_digits
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
 GBS..TC...... Law_of_cosines_-_triples-1
-GGS..T....... Law_of_cosines_-_triples-2
+G!S..T....... Law_of_cosines_-_triples-2
 GGS.......... Leap_year
 GGS.......... Least_common_multiple
 GGS..T....... Left_factorials
@@ -596,7 +595,7 @@ GGS..T....... Lucky_and_even_lucky_numbers
 GGS.......... Ludic_numbers
 GGS.......... Luhn_test_of_credit_card_numbers
 GBS...c...... Lychrel_numbers
-GBS.......... MAC_Vendor_Lookup
+!BS.......... MAC_Vendor_Lookup
 GGS..T....... MD4
 GGS.......... MD5
 GGS.......... MD5_Implementation
@@ -694,7 +693,7 @@ GGS.......... Number_reversal_game
 GGS..T....... Numeric_error_propagation
 GBS......D... Numerical_and_alphabetical_suffixes
 GG.K......... Numerical_integration-1
-G!S.......... Numerical_integration-2
+GGS.......... Numerical_integration-2
 GGS......D... Numerical_integration_Adaptive_Simpson%27s_method
 GGS.......... Numerical_integration_Gauss-Legendre_Quadrature
 ..........XVU OLE_Automation
@@ -754,7 +753,7 @@ GGS....R..... Percolation_Site_percolation
 GGS...C...... Perfect_numbers-1
 GGS.......... Perfect_numbers-2
 GGS.......... Perfect_shuffle
-GBS...C..D... Perfect_totient_numbers
+GBS...C...... Perfect_totient_numbers
 GGS..T...D... Perlin_noise
 GBS..TC...... Permutation_test
 GGS..T....... Permutations
@@ -875,7 +874,7 @@ GG.K......... Rosetta_Code_Fix_code_tags
 GB.K.T...D... Rosetta_Code_List_authors_of_task_descriptions
 GBS......D... Rosetta_Code_Rank_languages_by_number_of_users
 GBS.......... Rosetta_Code_Rank_languages_by_popularity-1
-G!S..T....... Rosetta_Code_Rank_languages_by_popularity-2
+GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
 .........D.VU Rosetta_Code_Tasks_sorted_by_average_lines_of_code
 BB.K.....D... Rosetta_Code_Tasks_without_examples
@@ -913,7 +912,7 @@ GBS.......... Send_email
 GGS......D... Separate_the_house_number_from_the_street_name
 GGS.......... Sequence_of_non-squares
 GGS.......... Sequence_of_primes_by_trial_division
-!GS..T....... Sequence_of_primorial_primes
+GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
@@ -1027,7 +1026,7 @@ GGS.......... Strip_block_comments
 GGS.......... Strip_comments_from_a_string
 GGS....R..... Strip_control_codes_and_extended_characters_from_a_string
 GGS..T....... Strip_whitespace_from_a_string_Top_and_tail
-GBS......D... Strong_and_weak_primes
+GBS.......... Strong_and_weak_primes
 GGS.......... Subleq
 GGS...c..D... Subset_sum_problem
 GGS....R.D... Substitution_Cipher
@@ -1067,7 +1066,7 @@ GG.KI........ Terminal_control_Dimensions
 GG.KI........ Terminal_control_Display_an_extended_character
 BB.KI.....X.. Terminal_control_Hiding_the_cursor
 GG.KI........ Terminal_control_Inverse_video
-GB.KI..R..X.. Terminal_control_Positional_read
+GB.KI..R..... Terminal_control_Positional_read
 GG.KI........ Terminal_control_Preserve_screen
 GB.KI....D... Terminal_control_Restricted_width_positional_input_No_wrapping
 GB.KI....D... Terminal_control_Restricted_width_positional_input_With_wrapping
