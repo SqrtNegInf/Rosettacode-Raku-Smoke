@@ -3,6 +3,7 @@
 #c# 2015-10-30 <>RC, 2018-11-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# d'oh, was missing '* >', so .race was never terminating
 
 my @res;
 
@@ -22,7 +23,7 @@ sub propdiv (\x) {
  
 my @candidates;
 loop (my int $c = 30; $c <= 20_000; $c += 30) {
-#(30, *+30 ... 500_000).race.map: -> $c {
+#(30, *+30 ...^ * > 500_000).race.map: -> $c {
     my \mx = +propdiv($c);
     next if mx < @candidates - 1;
     @candidates[mx].push: $c
