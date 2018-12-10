@@ -4,8 +4,6 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-use v6.c;
-
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 # Works with: Rakudo version 2018.03
