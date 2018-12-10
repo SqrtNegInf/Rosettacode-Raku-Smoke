@@ -54,6 +54,13 @@ File: 24_game_Solve-1
 #j#  JVM: BROKEN
 #n# for JVM, use .1 for testing
 
+File: 24_game_Solve-1.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/24_game/Solve
+#c# 2016-05-10 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
 File: 24_game_Solve-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game/Solve
@@ -63,12 +70,14 @@ File: 24_game_Solve-2
 #i# RC cli: 1 7 3 1
 #n# new version, no EVAL
 
-File: 24_game_Solve.1
+File: 24_game_Solve-2.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game/Solve
-#c# 2016-05-10 <RC
+#c# 2018-11-04 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
+#i# RC cli: 1 7 3 1
+#n# new version, no EVAL
 
 File: 4-rings_or_4-squares_puzzle
 #!/usr/bin/env perl6
@@ -680,6 +689,13 @@ File: Base58Check_encoding
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Base58Check_encoding
 #c# 2017-07-13 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: Base64_decode_data
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Base64_decode_data
+#c# 2018-12-09 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -2079,6 +2095,15 @@ File: Draw_a_sphere-1
 #j#  JVM: OK
 #f# RC file: draw_a_sphere.pgm
 
+File: Draw_a_sphere-1.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Draw_a_sphere
+#c# 2015-11-05 <RC, 2017-06-04 >RC, 2018-11-10 <RC, 2018-11-16 >RC
+#t# graphical
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: draw_a_sphere.pgm
+
 File: Draw_a_sphere-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Draw_a_sphere
@@ -2505,6 +2530,13 @@ File: Factorial
 #c# 2015-12-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: Factorial_base_numbers_indexing_permutations_of_a_collection
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Factorial_base_numbers_indexing_permutations_of_a_collection
+#c# 2018-12-08 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
 
 File: Factors_of_a_Mersenne_number
 #!/usr/bin/env perl6
@@ -5697,6 +5729,13 @@ File: Partition_an_integer_X_into_N_primes
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: Partition_an_integer_X_into_N_primes.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Partition_an_integer_X_into_N_primes
+#c# 2017-03-05 <RC, 2018-03-13 >RC, 2018-11-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
 File: Pascal%27s_triangle
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pascal%27s_triangle
@@ -5887,6 +5926,13 @@ File: Perfect_numbers-1
 #n# nearly 4x speed-up with .hyper:
 #n#  before: 27.897u 0.231s 0:27.96 100.5%
 #n#  after:  26.412u 0.935s 0:07.13 383.4%
+
+File: Perfect_numbers-1.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Perfect_numbers
+#c# 2016-01-19 <RC, 2018-04-23 <RC
+#m# MOAR: OK
+#j#  JVM: OK
 
 File: Perfect_numbers-2
 #!/usr/bin/env perl6
@@ -6368,6 +6414,14 @@ File: Pythagorean_quadruples
 #n# too slow at original limit; .race becomes helpful up above 1000
 
 File: Pythagorean_triples
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Pythagorean_triples
+#c# 2016-01-09 <RC
+#m# MOAR: OK
+#j#  JVM: OK 
+#n# both backends are slow, limiting extent of runs
+
+File: Pythagorean_triples.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pythagorean_triples
 #c# 2016-01-09 <RC
@@ -7812,6 +7866,7 @@ File: Square-free_integers.1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# org.perl6.nqp.runtime.UnwindException / java.lang.NullPointerException
+#n# breakage is independent of .race issue
 
 File: Square_but_not_cube
 #!/usr/bin/env perl6
@@ -8895,14 +8950,15 @@ File: Vampire_number
 File: Vampire_number.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Vampire_number
-#c# 2016-09-07 <RC
+#c# 2016-09-07 <RC, 2018-11-10 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
+#n# thundergnat's additions do more (25 vs 8) in same time
 
 File: Vampire_number.2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Vampire_number
-#c# 2016-05-19 <>RC
+#c# 2016-09-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
