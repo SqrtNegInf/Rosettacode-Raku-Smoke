@@ -1,18 +1,19 @@
-This is Rakudo version 2018.11-13-gdd0301454 built on MoarVM version 2018.11
+This is Rakudo version 2018.11-22-gfd216fec4 built on MoarVM version 2018.11
 implementing Perl 6.d.
-+--------------> Moar: Good/Bad [998/12]
-|+-------------> JVM: Good/Bad [876/132]
-||+------------> Smoke testing [894]
+updating from RC…
++--------------> Moar: Good/Bad [1000/12]
+|+-------------> JVM: Good/Bad [879/132]
+||+------------> Smoke testing [895]
 |||+-----------> sKipping validation [113]
 ||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [239]
 ||||||+--------> Concurrent [35]
 |||||||+-------> Random seed [109]
 ||||||||+------> File output [76]
-|||||||||+-----> Draft [213]
+|||||||||+-----> Draft [214]
 ||||||||||+----> Ignoring [60]
 |||||||||||+---> Void (no local copy) [159]
-||||||||||||+--> Un-implemented/reliable [121]
+||||||||||||+--> Un-implemented/reliable [122]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -23,7 +24,7 @@ GB.KI..R..... 2048
 GGS....R.D... 21_Game
 GG.KI..R..... 24_game
 GBS..TC...... 24_game_Solve-1
-G!S...C...... 24_game_Solve-2
+GGS...C...... 24_game_Solve-2
 GGS.......... 4-rings_or_4-squares_puzzle
 GGS.......... 99_Bottles_of_Beer
 GGS.......... 9_billion_names_of_God_the_integer
@@ -104,6 +105,7 @@ GGS..T....... Balanced_ternary
 .........D.VU Banker%27s_algorithm
 GBS....RF.... Barnsley_fern
 GGS......D... Base58Check_encoding
+GGS......D... Base64_decode_data
 GGS..T...D... Base64_encode_data
 GGS..T....... Benford%27s_law
 GGS..T....... Bernoulli_numbers
@@ -231,7 +233,7 @@ GBS.......... Count_in_factors-1
 GGS.......... Count_in_factors-2
 GGS.......... Count_in_octal
 GGS.......... Count_occurrences_of_a_substring
-G!S..T....... Count_the_coins
+GGS..T....... Count_the_coins
 GGS.......... Cramer%27s_rule
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
@@ -252,7 +254,7 @@ GGS..T....... Date_format
 GBS..T....... Date_manipulation
 GGS.......... Day_of_the_week
 GGS..T.R..... Deal_cards_for_FreeCell
-G!S..TC.F.... Death_Star
+GGS..TC.F.... Death_Star
 GGS......D... Decimal_floating_point_number_to_binary
 GG.KI....D... Decision_tables
 GGS..T....... Deconvolution_1D
@@ -291,7 +293,7 @@ GG.KI........ Draw_a_clock
 GGS.....F.... Draw_a_cuboid
 GB.K......... Draw_a_pixel
 BB........... Draw_a_rotating_cube
-G!S..TC.F.... Draw_a_sphere-1
+GGS..TC.F.... Draw_a_sphere-1
 GBS.....F.... Draw_a_sphere-2
 GB.K.....D... Draw_pixel_2
 GGS..T.R..... Dutch_national_flag_problem
@@ -550,7 +552,7 @@ GBS..TC...... Largest_number_divisible_by_its_digits
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
 GBS..TC...... Law_of_cosines_-_triples-1
-G!S..T....... Law_of_cosines_-_triples-2
+GGS..T....... Law_of_cosines_-_triples-2
 GGS.......... Leap_year
 GGS.......... Least_common_multiple
 GGS..T....... Left_factorials
@@ -595,7 +597,7 @@ GGS..T....... Lucky_and_even_lucky_numbers
 GGS.......... Ludic_numbers
 GGS.......... Luhn_test_of_credit_card_numbers
 GBS...c...... Lychrel_numbers
-!BS.......... MAC_Vendor_Lookup
+GBS.......... MAC_Vendor_Lookup
 GGS..T....... MD4
 GGS.......... MD5
 GGS.......... MD5_Implementation
@@ -614,7 +616,7 @@ GGS.......... Map_range
 GGS..T.R.D... Markov_chain_text_generator
 GG.KI..R.D... Mastermind
 GGS.......... Matrix-exponentiation_operator
-GGS.......... Matrix_chain_multiplication
+GGS.........U Matrix_chain_multiplication
 GGS.......... Matrix_multiplication
 GGS..T....... Matrix_transposition
 ..........X.. Max_licenses_in_use
@@ -693,7 +695,7 @@ GGS.......... Number_reversal_game
 GGS..T....... Numeric_error_propagation
 GBS......D... Numerical_and_alphabetical_suffixes
 GG.K......... Numerical_integration-1
-GGS.......... Numerical_integration-2
+G!S.......... Numerical_integration-2
 GGS......D... Numerical_integration_Adaptive_Simpson%27s_method
 GGS.......... Numerical_integration_Gauss-Legendre_Quadrature
 ..........XVU OLE_Automation
@@ -732,7 +734,7 @@ GGS..T....... Parsing_RPN_to_infix_conversion
 GGS.......... Parsing_Shunting-yard_algorithm
 GGS.......... Partial_function_application
 .........D.VU Particle_Swarm_Optimization
-GGS..TC...... Partition_an_integer_X_into_N_primes
+G!S..TC...... Partition_an_integer_X_into_N_primes
 GGS.......... Pascal%27s_triangle
 GGS.......... Pascal%27s_triangle_Puzzle
 GGS..T....... Pascal_matrix_generation
@@ -1085,7 +1087,7 @@ GGS.......... Textonyms
 ...........VU The_ISAAC_Cipher
 GG.KI........ The_Name_Game
 GGS.....F.... The_Twelve_Days_of_Christmas
-GGS..T....... Thiele%27s_interpolation_formula
+G!S..T....... Thiele%27s_interpolation_formula
 GGS..T....... Thue-Morse
 GB.KI..R..... Tic-tac-toe
 .........D.VU Time-based_One-time_Password_Algorithm
