@@ -2,14 +2,15 @@
 #u# http://rosettacode.org/wiki/Partition_an_integer_X_into_N_primes
 #c# 2017-03-05 <RC, 2018-03-13 >RC, 2018-11-15 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j#  JVM: BROKEN
 
 # work-around for JVM
 use MONKEY-SEE-NO-EVAL;
 my @primes;
 my $sieve;
-if $*VM ~~ /jvm/ { @primes = lazy gather for 1 .. * { .take if $_.is-prime } }
-else             { EVAL 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes = $sieve.primes(50_000);' }
+
+use Math::Primesieve; 
+$sieve = Math::Primesieve.new; @primes = $sieve.primes(50_000);
  
 # short circuit for '1' partition
 multi partition ( Int $number, 1 ) { $number.is-prime ?? $number !! () }
