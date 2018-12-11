@@ -76,7 +76,6 @@ File: 24_game_Solve-2.1
 #c# 2018-11-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#i# RC cli: 1 7 3 1
 #n# new version, no EVAL
 
 File: 4-rings_or_4-squares_puzzle
@@ -387,6 +386,7 @@ File: Anti-primes
 #c# 2018-12-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# macOS/El Capitan bug -- cannot use concurrency here!
 
 File: Append_a_record_to_the_end_of_a_text_file
 #!/usr/bin/env perl6
@@ -3980,22 +3980,13 @@ File: Julia_set
 File: Julia_set.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Julia_set
-#c# 2016-03-25 <RC, 2018-09-26 <RC
-#t# graphical
-#m# MOAR: OK
-#j# JVM:  BROKEN
-#f# RC file: julia-set-perl6.png
-#n# running time is no longer an issue!
-
-File: Julia_set.2
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Julia_set
 #c# 2016-03-25 <RC
 #t# toodamnslow
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #f# RC file: julia-set-perl6.png
+#n# Error while compiling op nativecallinvoke, no registered operation handler
 
 File: Jump_anywhere
 #!/usr/bin/env perl6
@@ -4207,6 +4198,18 @@ File: Kronecker_product_based_fractals
 #n# 2018-10-31 Moar bug?  https://gist.github.com/SqrtNegInf/2b0ccf921e2c5b529432555c74ece006
 #n# 2018-11-05 still an open issue on GH: https://github.com/rakudo/rakudo/issues/2453
 #n# 2018-11-16 after Moar/NQP bump, I see the fix woo-hoo
+
+File: Kronecker_product_based_fractals.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Kronecker_product_based_fractals
+#c# 2017-04-18 <RC
+#t# graphical
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#f# RC file: kronecker-vicsek-perl6.png
+#n# xx file: kronecker-carpet-perl6.png
+#n# xx file: kronecker-six-perl6.png
+#n# Error while compiling op nativecallinvoke, no registered operation handler
 
 File: LU_decomposition
 #!/usr/bin/env perl6
@@ -5727,12 +5730,12 @@ File: Partition_an_integer_X_into_N_primes
 #u# http://rosettacode.org/wiki/Partition_an_integer_X_into_N_primes
 #c# 2017-03-05 <RC, 2018-03-13 >RC, 2018-11-15 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j#  JVM: BROKEN
 
 File: Partition_an_integer_X_into_N_primes.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Partition_an_integer_X_into_N_primes
-#c# 2017-03-05 <RC, 2018-03-13 >RC, 2018-11-15 <RC
+#c# 2017-03-05 <RC, 2018-03-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -6388,6 +6391,7 @@ File: Proper_divisors
 #c# 2015-10-30 <>RC, 2018-11-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# d'oh, was missing '* >', so .race was never terminating
 
 File: Proper_divisors.1
 #!/usr/bin/env perl6
@@ -8568,6 +8572,15 @@ File: The_Twelve_Days_of_Christmas
 #f# RC file: the_twelve_days.txt
 
 File: Thiele%27s_interpolation_formula
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Thiele\'s_interpolation_formula
+#c# 2016-05-01 <>RC, 2018-06-05 >RC, 2018-10-16 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# hash key order dependency (as of 2018-05-17, JVM doesn't have this 'upgrade')
+#  made default table size 12, 'invcos' converges slowly
+
+File: Thiele%27s_interpolation_formula.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Thiele\'s_interpolation_formula
 #c# 2016-05-01 <>RC, 2018-06-05 >RC, 2018-10-16 >RC
