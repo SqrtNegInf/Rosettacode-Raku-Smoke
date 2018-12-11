@@ -3,6 +3,7 @@
 #c# 2018-12-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# macOS/El Capitan bug -- cannot use concurrency here!
 
 my @res;
 
@@ -19,8 +20,8 @@ sub propdiv (\x) {
  
 my $last = 0;
  
+#my @anti-primes = lazy 1, |(|(2..59), 60, *+60 … *).hyper.grep: -> $c {
 my @anti-primes = lazy 1, |(|(2..59), 60, *+60 … *).grep: -> $c {
-#my @anti-primes = lazy 1, |(|(2..59), 60, *+30 … *).hyper.grep: -> $c {
     my \mx = +propdiv($c);
     next if mx <= $last;
     $last = mx;
