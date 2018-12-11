@@ -21,7 +21,7 @@ use Parallel::ForkManager;
 # some program to use .1 version
 %Dotversion = (
 '24_game_Solve-1' => 1,
-'24_game_Solve-2' => 1,
+'24_game_Solve-2' => 1, # broken?
 'Death_Star' => 1,
 'Draw_a_sphere-1' => 1,
 'Emirp_primes' => 1,
@@ -39,6 +39,7 @@ use Parallel::ForkManager;
 'Perfect_totient_numbers' => 1,
 'Prime_decomposition' => 1,
 'Pythagorean_triples' => 1,
+'Thiele%27s_interpolation_formula' => 1,
 'Topswops' => 1,
 'Totient_function' => 1,
 'Vampire_number' => 1,
@@ -46,21 +47,23 @@ use Parallel::ForkManager;
 
 # some program to test run solo
 %Solo = (
+'24_game_Solve-2' => 1,
 'Rate_counter' => 1,
 'Arithmetic_Rational' => 1,
 'Color_wheel' => 1,
-'Hough_transform' => 1,
-'Julia_set' => 1,
 'Kaprekar_numbers-2' => 1,
-'Kronecker_product_based_fractals' => 1,
 'Long_primes' => 1,
 'Parallel_calculations' => 1,
 'Parallel_calculations-2' => 1,
 'Permutation_test' => 1,
 'Square-free_integers' => 1,
-'Thiele%27s_interpolation_formula' => 1,
-'Voronoi_diagram' => 1,
 );
+
+# broken
+# 'Julia_set' => 1,
+# 'Kronecker_product_based_fractals' => 1,
+# 'Voronoi_diagram' => 1,
+# 'Hough_transform' => 1,
 
 $mode = $0 =~ /moar/i ? 'moar' : 'jvm';
 
@@ -82,6 +85,7 @@ system "date";
 my $skip = 'interactive|toodamnslow|skiptest|nocode|forever|broken';
 
 # find Perl6 programs
+$DB::single = 1;
 for my $prog (@ARGV) {
     next if $prog =~ /\.(pl|[0-9])$/;
     next if $prog =~ /^Temp-/;
@@ -106,9 +110,9 @@ for my $prog (@ARGV) {
     $difftest =~ s/\.BEND/.moar/ if $mode ne 'jvm';
     $difftest =~ s/\.BEND/.jvm/  if $mode eq 'jvm';
 
-    if    (defined %Solo{$prog})                          { push @P_one_at_a_time, $prog } 
-    elsif ($mode eq 'jvm' and defined %Dotversion{$prog}) { push @Programs, "$prog.1" }
-    else                                                  { push @Programs, $prog }
+    if ($mode eq 'jvm' and defined %Dotversion{$prog}) { push @Programs, "$prog.1" }
+    elsif (defined %Solo{$prog})                       { push @P_one_at_a_time, $prog } 
+    else                                               { push @Programs, $prog }
     $Ppre{$prog} =  $precmd if $precmd ne '';
     $Prun{$prog} =  $clargs if $clargs ne '';
     $Pfile{$prog} = $difftest if $difftest ne '';
