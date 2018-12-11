@@ -1,8 +1,8 @@
-This is Rakudo version 2018.11-22-gfd216fec4 built on MoarVM version 2018.11
+This is Rakudo version 2018.11-28-ga63c2ba83 built on MoarVM version 2018.11-18-gb8ba4707c
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1000/12]
-|+-------------> JVM: Good/Bad [879/132]
++--------------> Moar: Good/Bad [999/12]
+|+-------------> JVM: Good/Bad [879/133]
 ||+------------> Smoke testing [895]
 |||+-----------> sKipping validation [113]
 ||||+----------> Interactive [62]
@@ -10,7 +10,7 @@ updating from RC…
 ||||||+--------> Concurrent [35]
 |||||||+-------> Random seed [109]
 ||||||||+------> File output [76]
-|||||||||+-----> Draft [214]
+|||||||||+-----> Draft [213]
 ||||||||||+----> Ignoring [60]
 |||||||||||+---> Void (no local copy) [159]
 ||||||||||||+--> Un-implemented/reliable [122]
@@ -74,7 +74,7 @@ GGS.......... Arithmetic-geometric_mean
 GGS.......... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
 GGS.......... Arithmetic_Integer
-GGS..TC...... Arithmetic_Rational
+!GS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS..T....... Arithmetic_evaluation
 GGS.......... Array_concatenation
@@ -346,7 +346,7 @@ GGS..T....... Extreme_floating_point_values
 GGS.......... FASTA_format
 GBS.......... FTP
 GGS.......... Factorial
-BB.......D... Factorial_base_numbers_indexing_permutations_of_a_collection
+BB........... Factorial_base_numbers_indexing_permutations_of_a_collection
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
 GBS...C...... Farey_sequence
@@ -552,7 +552,7 @@ GBS..TC...... Largest_number_divisible_by_its_digits
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
 GBS..TC...... Law_of_cosines_-_triples-1
-GGS..T....... Law_of_cosines_-_triples-2
+G!S..T....... Law_of_cosines_-_triples-2
 GGS.......... Leap_year
 GGS.......... Least_common_multiple
 GGS..T....... Left_factorials
@@ -734,7 +734,7 @@ GGS..T....... Parsing_RPN_to_infix_conversion
 GGS.......... Parsing_Shunting-yard_algorithm
 GGS.......... Partial_function_application
 .........D.VU Particle_Swarm_Optimization
-G!S..TC...... Partition_an_integer_X_into_N_primes
+GBS..TC...... Partition_an_integer_X_into_N_primes
 GGS.......... Pascal%27s_triangle
 GGS.......... Pascal%27s_triangle_Puzzle
 GGS..T....... Pascal_matrix_generation
@@ -1087,7 +1087,7 @@ GGS.......... Textonyms
 ...........VU The_ISAAC_Cipher
 GG.KI........ The_Name_Game
 GGS.....F.... The_Twelve_Days_of_Christmas
-G!S..T....... Thiele%27s_interpolation_formula
+GGS..T....... Thiele%27s_interpolation_formula
 GGS..T....... Thue-Morse
 GB.KI..R..... Tic-tac-toe
 .........D.VU Time-based_One-time_Password_Algorithm
