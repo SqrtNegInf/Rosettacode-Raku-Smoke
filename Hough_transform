@@ -9,6 +9,8 @@
 #n# GD interface limits us to 255 colors, so only transform darker pixels in input
 #n# not using .race as cannot exactly control pixel color assigments, so testing would fail
 
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
+
 use GD;
 
 my $filename = 'ref/pentagon.ppm';
