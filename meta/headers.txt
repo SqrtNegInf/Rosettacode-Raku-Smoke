@@ -2535,8 +2535,8 @@ File: Factorial_base_numbers_indexing_permutations_of_a_collection
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Factorial_base_numbers_indexing_permutations_of_a_collection
 #c# 2018-12-08 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: Factors_of_a_Mersenne_number
 #!/usr/bin/env perl6
@@ -6433,6 +6433,13 @@ File: Pythagorean_triples.1
 #j#  JVM: OK 
 #n# both backends are slow, limiting extent of runs
 
+File: QR_decomposition
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/QR_decomposition
+#c# 2018-12-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: Quaternion_type
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Quaternion_type
@@ -7005,6 +7012,16 @@ File: Run-length_encoding
 #c# 2015-12-10 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: Run_as_a_daemon_or_service
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Run_as_a_daemon_or_service
+#t# skiptest
+#c# 2018-12-11 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# UNIX::Daemonize installed --/test
+#n# sometimes stalls?
 
 File: Run_examples
 #!/usr/bin/env perl6
