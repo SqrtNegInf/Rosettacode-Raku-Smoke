@@ -1,0 +1,25 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Run_as_a_daemon_or_service
+#t# skiptest
+#c# 2018-12-11 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# UNIX::Daemonize installed --/test
+#n# sometimes stalls?
+
+my @res;
+# https://github.com/hipek8/p6-UNIX-Daemonize/
+ 
+use UNIX::Daemonize;
+use File::Temp;
+ 
+my ($output, $filehandle) = tempfile(:tempdir("/tmp"),:!unlink) or die;
+ 
+say "Output now goes to ",$output;
+ 
+daemonize();
+ 
+loop {
+   sleep(1);
+   spurt $output, DateTime.now.Str~"\n", :append;
+}
