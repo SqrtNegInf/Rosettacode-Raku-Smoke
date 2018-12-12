@@ -6,29 +6,23 @@
 #j# JVM:  BROKEN
 #n# not getting this running on OS X…
 
-# Works with: Rakudo version 2018.03
+# Works with: Rakudo version 2018.11
 use NativeCall;
  
 #constant libX11 = '/usr/lib/x86_64-linux-gnu/libX11.so.6';
-constant libX11 = '/opt/local/lib/libX11.dylib';
+#constant X11 = '/opt/local/lib/libX11.dylib';
  
-sub XOpenDisplay(Str $s --> int32) is native(libX11) {*}
-sub XCloseDisplay(int32 $i --> int32) is native(libX11) {*}
+sub XOpenDisplay(Str $s --> int64) is native('X11') {*}
+sub XCloseDisplay(int64 $i --> int32) is native('X11') {*}
  
 if try my $d = XOpenDisplay ":0.0" {
     say "ID = $d";
     XCloseDisplay($d);
 }
 else {
-    say "No library {libX11}!";
+    say "No library X11 library!";
     say "Use this window instead --> ⬜";
 }
-
-# Output:
-# ID = 124842864
-
-my $ref = qq:to/END/;
-END
 
 use Test;
 #my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
