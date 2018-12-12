@@ -1,19 +1,19 @@
-This is Rakudo version 2018.11-28-ga63c2ba83 built on MoarVM version 2018.11-18-gb8ba4707c
+This is Rakudo version 2018.11-38-g011c6f11d built on MoarVM version 2018.11-18-gb8ba4707c
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [999/12]
-|+-------------> JVM: Good/Bad [879/133]
-||+------------> Smoke testing [895]
-|||+-----------> sKipping validation [113]
++--------------> Moar: Good/Bad [1003/11]
+|+-------------> JVM: Good/Bad [882/133]
+||+------------> Smoke testing [897]
+|||+-----------> sKipping validation [114]
 ||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [239]
 ||||||+--------> Concurrent [35]
-|||||||+-------> Random seed [109]
+|||||||+-------> Random seed [110]
 ||||||||+------> File output [76]
 |||||||||+-----> Draft [213]
 ||||||||||+----> Ignoring [60]
-|||||||||||+---> Void (no local copy) [159]
-||||||||||||+--> Un-implemented/reliable [122]
+|||||||||||+---> Void (no local copy) [157]
+||||||||||||+--> Un-implemented/reliable [121]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -74,7 +74,7 @@ GGS.......... Arithmetic-geometric_mean
 GGS.......... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
 GGS.......... Arithmetic_Integer
-!GS..TC...... Arithmetic_Rational
+GGS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS..T....... Arithmetic_evaluation
 GGS.......... Array_concatenation
@@ -346,7 +346,7 @@ GGS..T....... Extreme_floating_point_values
 GGS.......... FASTA_format
 GBS.......... FTP
 GGS.......... Factorial
-BB........... Factorial_base_numbers_indexing_permutations_of_a_collection
+GGS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
 GBS...C...... Farey_sequence
@@ -552,7 +552,7 @@ GBS..TC...... Largest_number_divisible_by_its_digits
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
 GBS..TC...... Law_of_cosines_-_triples-1
-G!S..T....... Law_of_cosines_-_triples-2
+GGS..T....... Law_of_cosines_-_triples-2
 GGS.......... Leap_year
 GGS.......... Least_common_multiple
 GGS..T....... Left_factorials
@@ -807,7 +807,7 @@ GGS..Tc...... Proper_divisors
 GGS.....F.... Pythagoras_tree
 GBS...c...... Pythagorean_quadruples
 GGS...C...... Pythagorean_triples
-...........V. QR_decomposition
+GGS.......... QR_decomposition
 GGS.......... Quaternion_type
 GGS..T....... Queue_Definition
 GGS.......... Queue_Usage
@@ -882,7 +882,7 @@ GB.K.....D... Rosetta_Code_Run_examples
 BB.K.....D... Rosetta_Code_Tasks_without_examples
 GGS.......... Rot-13
 GGS.......... Run-length_encoding
-.........D.VU Run_as_a_daemon_or_service
+GB.K.....D... Run_as_a_daemon_or_service
 GGS..T....... Runge-Kutta_method
 GGS.......... Runtime_evaluation
 GGS..T....... Runtime_evaluation_In_an_environment
