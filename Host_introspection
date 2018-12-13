@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Host_introspection
-#c# 2016-02-02 <RC, 2018-11-15 <RC, 2018-12-12 <RC
+#c# 2016-02-02 <RC, 2018-11-15 <RC, 2018-12-12 <>RC
 #m# MOAR: OK
 #j# JVM:  BROKEN 
+#n# presumably JVM will get the read-int16 method sooner than NativeCall?
 
 # java.lang.ClassCastException: org.perl6.nqp.sixmodel.reprs.CArrayInstance cannot be cast to org.perl6.nqp.sixmodel.reprs.CStructInstance
 #  in sub nativecast at /Users/dhoekman/.rakudobrew/jvm-master/install/share/perl6/sources/24DD121B5B4774C04A7084827BFAD92199756E03 (NativeCall) line 680
