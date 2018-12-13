@@ -19,19 +19,16 @@ my $bytes = nativecast(CArray[uint8], CArray[uint16].new(1));
 
 # Note: Rakudo 2018.12 is introducing the endian-sensitive read-int16 method, which makes endian detection a little easier:
 
-@res.push: blob8.new(1,0).read-int16(0) == 0 ?? "big-endian" !! "little-endian";
-#say blob8.new(1,0).read-int16(0) == 0 ?? "little-endian" !! "big-endian"; # this is backwards?
-
 # from S03-buf/read-num.t:
-#my constant my-NativeEndian =
-#   blob8.new(1,0).read-int16(0) == 1 ?? LittleEndian !! BigEndian;
+@res.push: blob8.new(1,0).read-int16(0) == 1 ?? LittleEndian !! BigEndian;
+#say blob8.new(1,0).read-int16(0) == 0 ?? "little-endian" !! "big-endian"; # this is backwards?
 
 .say for @res;
 
 my $ref = q:to/END/;
 8
 little-endian
-little-endian
+LittleEndian
 END
 
 use Test;
