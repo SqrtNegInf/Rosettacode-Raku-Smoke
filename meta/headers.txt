@@ -2182,6 +2182,32 @@ File: Echo_server.2
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: Eertree
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Eertree
+#c# 2018-12-13 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+ 
+my $str = "eertree";
+my @pal = ();
+my ($strrev,$strpal);
+ 
+for (1 .. $str.chars) -> $n {
+   for (1 .. $str.chars) -> $m {
+      $strrev = "";
+      $strpal = $str.substr($n-1, $m);
+      if ($strpal ne "") {
+         for ($strpal.chars ... 1) -> $p {
+            $strrev ~= $strpal.substr($p-1,1);
+         }
+         ($strpal eq $strrev) and @pal.push($strpal);
+      }
+   }
+}
+ 
+say my $result = @pal.unique;
+
 File: Egyptian_division
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Egyptian_division
@@ -3634,9 +3660,10 @@ File: Horner%27s_rule_for_polynomial_evaluation
 File: Host_introspection
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Host_introspection
-#c# 2016-02-02 <RC, 2018-11-15 <RC, 2018-12-12 <RC
+#c# 2016-02-02 <RC, 2018-11-15 <RC, 2018-12-12 <>RC
 #m# MOAR: OK
 #j# JVM:  BROKEN 
+#n# presumably JVM will get the read-int16 method sooner than NativeCall?
 
 File: Host_introspection.1
 #!/usr/bin/env perl6
@@ -9321,6 +9348,13 @@ File: Yin_and_yang.1
 #f# RC file: yin_and_yang.svg
 
 File: Zebra_puzzle
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Zebra_puzzle
+#c# 2018-11-22 <RC, 2018-12-12 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: Zebra_puzzle.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Zebra_puzzle
 #c# 2018-11-22 <RC
