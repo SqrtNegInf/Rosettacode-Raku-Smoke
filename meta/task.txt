@@ -1,19 +1,19 @@
-This is Rakudo version 2018.11-52-g06156a7ca built on MoarVM version 2018.11-32-gc32000ba8
+This is Rakudo version 2018.11-62-g01c56b484 built on MoarVM version 2018.11-33-gee6ea722c
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1002/11]
-|+-------------> JVM: Good/Bad [882/133]
-||+------------> Smoke testing [897]
++--------------> Moar: Good/Bad [1003/11]
+|+-------------> JVM: Good/Bad [883/133]
+||+------------> Smoke testing [898]
 |||+-----------> sKipping validation [114]
 ||||+----------> Interactive [62]
-|||||+---------> Touched (modified by me) [239]
+|||||+---------> Touched (modified by me) [240]
 ||||||+--------> Concurrent [35]
 |||||||+-------> Random seed [110]
 ||||||||+------> File output [76]
 |||||||||+-----> Draft [213]
 ||||||||||+----> Ignoring [60]
-|||||||||||+---> Void (no local copy) [157]
-||||||||||||+--> Un-implemented/reliable [121]
+|||||||||||+---> Void (no local copy) [156]
+||||||||||||+--> Un-implemented/reliable [120]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -300,7 +300,7 @@ GGS..T.R..... Dutch_national_flag_problem
 GGS.......... Dynamic_variable_names
 GGS.......... EKG_sequence_convergence
 GG.KIT....... Echo_server
-...........VU Eertree
+GGS.......... Eertree
 GGS.......... Egyptian_division
 GGS..T....... Egyptian_fractions
 GGS..T....... Element-wise_operations
@@ -470,7 +470,7 @@ GGS.......... Holidays_related_to_Easter
 ...........VU Honeycombs
 GGS.......... Horizontal_sundial_calculations
 GGS.......... Horner%27s_rule_for_polynomial_evaluation
-GBS.......... Host_introspection
+GBS..T....... Host_introspection
 GGS.......... Hostname
 GBS..Tc.F.... Hough_transform
 GGS.......... Huffman_coding
@@ -589,7 +589,7 @@ GG.KI........ Loops_Infinite
 GGS.......... Loops_N_plus_one_half
 GGS....R..... Loops_Nested
 GGS.......... Loops_While
-GGS.......... Loops_Wrong_ranges
+!GS.......... Loops_Wrong_ranges
 GGS.......... Loops_with_multiple_ranges-1
 GGS..T....... Loops_with_multiple_ranges-2
 GGS.......... Lucas-Lehmer_test
@@ -826,7 +826,7 @@ GGS....R..... Random_numbers
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
-!GS.......... Rate_counter
+GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS..T...D... Read_a_file_character_by_character_UTF8
