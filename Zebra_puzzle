@@ -58,14 +58,14 @@ multi sub solve(@houses, @facts [ ]) {
 #| process the next fact
 multi sub solve(@houses, @facts is copy) {
     my $fact = @facts.shift;
-    for gather speculate(@houses, |$fact) {
+    for gather consider(@houses, |$fact) {
         solve(@$_, @facts)
     }
 }
  
 #| find all possible solutions for pairs of houses with
 #| %a attributes, left of a house  with %b attributes
-multi sub speculate(@houses, :Left-Of(%b)!, *%a) {
+multi sub consider(@houses, :Left-Of(%b)!, *%a) {
     my @scenarios;
     for @houses {
         my $idx = .<num> - 1;
@@ -80,13 +80,13 @@ multi sub speculate(@houses, :Left-Of(%b)!, *%a) {
  
 #| find all possible pairs of houses with %a attributes, either side
 #! of a house  with %b attributes
-multi sub speculate(@houses, :Next-To(%b)!, *%a ) {
-    speculate(@houses, |%a, :Left-Of(%b) );
-    speculate(@houses, |%b, :Left-Of(%a) );
+multi sub consider(@houses, :Next-To(%b)!, *%a ) {
+    consider(@houses, |%a, :Left-Of(%b) );
+    consider(@houses, |%b, :Left-Of(%a) );
 }
  
 #| find all possible houses that match the given attributes
-multi sub speculate(@houses, *%fact) {
+multi sub consider(@houses, *%fact) {
     for @houses.grep({plausible($_, %fact)}) -> $house {
         my @scenario = @houses.clone;
         my $idx = $house<num> - 1;
