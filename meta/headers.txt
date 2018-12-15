@@ -6419,6 +6419,7 @@ File: Proper_divisors
 #m# MOAR: OK
 #j# JVM:  OK
 #n# d'oh, was missing '* >', so .race was never terminating
+#n# 2018-12-10: confirmed that there is a race condition if .race is used, but it doesn't affect the RC spec'd results
 
 File: Proper_divisors.1
 #!/usr/bin/env perl6
