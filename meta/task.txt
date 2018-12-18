@@ -1,9 +1,9 @@
-This is Rakudo version 2018.11-75-g7f3f77d43 built on MoarVM version 2018.11-38-gfa3411007
+This is Rakudo version 2018.11-82-ge7b61aff7 built on MoarVM version 2018.11-39-g987269ea9
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1005/11]
-|+-------------> JVM: Good/Bad [883/134]
-||+------------> Smoke testing [899]
++--------------> Moar: Good/Bad [1003/11]
+|+-------------> JVM: Good/Bad [883/135]
+||+------------> Smoke testing [900]
 |||+-----------> sKipping validation [114]
 ||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [240]
@@ -12,8 +12,8 @@ updating from RC…
 ||||||||+------> File output [77]
 |||||||||+-----> Draft [213]
 ||||||||||+----> Ignoring [60]
-|||||||||||+---> Void (no local copy) [155]
-||||||||||||+--> Un-implemented/reliable [119]
+|||||||||||+---> Void (no local copy) [154]
+||||||||||||+--> Un-implemented/reliable [117]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -128,7 +128,7 @@ GGS.....F.... Bitmap_Midpoint_circle_algorithm
 GGS.....F.... Bitmap_Read_a_PPM_file
 GBS.....F.... Bitmap_Read_an_image_through_a_pipe
 GGS.....F.... Bitmap_Write_a_PPM_file
-GGS..T....... Bitwise_IO
+!GS..T....... Bitwise_IO
 GGS..T....... Bitwise_operations
 .........D.VU Black_Box
 .........D.VU Blackjack_strategy
@@ -160,7 +160,7 @@ GGS.......... Carmichael_3_strong_pseudoprimes
 GGS.......... Cartesian_product_of_two_or_more_lists
 GGS.......... Case-sensitivity_of_identifiers
 GGS.......... Casting_out_nines
-GGS.......... Catalan_numbers
+!GS.......... Catalan_numbers
 GGS.......... Catalan_numbers_Pascal%27s_triangle
 GGS.......... Catamorphism
 ...........VU Catmull-Clark_subdivision_surface
@@ -485,7 +485,7 @@ GBS.......... I_before_E_except_after_C-2
 GGS.......... Identity_matrix
 GBS.......... Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols
 GGS.......... Idiomatically_determine_all_the_lowercase_and_uppercase_letters
-...........VU Image_convolution
+...........V. Image_convolution
 GB.KI........ Image_noise
 GGS.......... Imaginary_base_numbers
 GGS......D... Implicit_type_conversion
@@ -890,7 +890,7 @@ GGS.......... S-Expressions
 GGS..T....... SEDOLs
 GGS..T....... SHA-1
 GGS.......... SHA-256
-...........VU SOAP
+GBS.......... SOAP
 ..........XV. SQL-based_authentication
 ...........VU Safe_addition
 GBS.......... Safe_primes_and_unsafe_primes
@@ -954,7 +954,7 @@ GGS.......... Sokoban
 GGS.......... Solve_a_Hidato_puzzle
 GGS.......... Solve_a_Holy_Knight%27s_tour
 GGS..T....... Solve_a_Hopido_puzzle
-GGS.......... Solve_a_Numbrix_puzzle
+!GS.......... Solve_a_Numbrix_puzzle
 .........D.VU Solve_a_Rubik%27s_Cube
 GGS.......... Solve_the_no_connection_puzzle
 .........DXVU Solving_coin_problems
