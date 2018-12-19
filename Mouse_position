@@ -1,20 +1,43 @@
-#!/usr/bin/env perl6 # do-not-check
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mouse_position
 #t# interactive
-#c# 2018-11-12 <RC
-#m# MOAR: BROKEN
+#c# 2018-12-18 <RC
+#m# MOAR: OK
 #j# JVM:  BROKEN
+#n# install xdotool with: brew install xdotool
+#n# change defaults: defaults write org.x.X11 enable_test_extensions -boolean true
+#n# must start XQuartz for testing...
 
+#`{{
 # Works with: rakudo/jvm version 2013-12-03
 use java::awt::MouseInfo:from<java>;
  
 given MouseInfo.getPointerInfo.getLocation {
     say .getX, 'x', .getY;
 }
+}}
 
-my $ref = q:to/END/;
-END
+# An implementation that will work on any X11 windowing system. Reports mouse position, window ID# and window name for whichever window the mouse pointer is over. Automatically moves mouse for hands-off testing purposes.
 
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
+use X11::libxdo;
+my $xdo = Xdo.new;
+ 
+my ($dw, $dh) = $xdo.get-desktop-dimensions( 0 );
+ 
+sleep .25;
+ 
+for ^$dw -> $mx {
+    my $my = (($mx / $dh * τ).sin * 500).abs.Int + 200;
+    $xdo.move-mouse( $mx, $my, 0 );
+    my ($x, $y, $window-id, $screen) = $xdo.get-mouse-info;
+    my $name = (try $xdo.get-window-name($window-id) if $window-id)
+       // 'No name set';
+ 
+    my $line = "Mouse location: x=$x : y=$y\nWindow under mouse:\nWindow ID: " ~
+       $window-id ~ "\nWindow name: " ~ $name ~ "\nScreen #: $screen";
+ 
+    print "\e[H\e[J", $line;
+    sleep .001;
+}
+ 
+say '';
