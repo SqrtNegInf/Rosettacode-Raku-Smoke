@@ -1,16 +1,16 @@
-This is Rakudo version 2018.11-82-ge7b61aff7 built on MoarVM version 2018.11-39-g987269ea9
+This is Rakudo version 2018.11-85-g24c8e172f built on MoarVM version 2018.11-39-g987269ea9
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1003/11]
-|+-------------> JVM: Good/Bad [883/135]
++--------------> Moar: Good/Bad [1005/11]
+|+-------------> JVM: Good/Bad [883/136]
 ||+------------> Smoke testing [900]
-|||+-----------> sKipping validation [114]
-||||+----------> Interactive [62]
+|||+-----------> sKipping validation [115]
+||||+----------> Interactive [63]
 |||||+---------> Touched (modified by me) [240]
 ||||||+--------> Concurrent [35]
 |||||||+-------> Random seed [110]
 ||||||||+------> File output [77]
-|||||||||+-----> Draft [213]
+|||||||||+-----> Draft [214]
 ||||||||||+----> Ignoring [60]
 |||||||||||+---> Void (no local copy) [154]
 ||||||||||||+--> Un-implemented/reliable [117]
@@ -57,7 +57,7 @@ GGS.......... Amb-1
 GGS....R..... Amb-2
 GGS....R..... Amb-3
 GGS.......... Amicable_pairs
-GGS.......... Anagrams
+!GS.......... Anagrams
 GGS.......... Anagrams_Deranged_anagrams
 GGS..T....... Angle_difference_between_two_bearings
 GB.KI........ Animate_a_pendulum
@@ -128,7 +128,7 @@ GGS.....F.... Bitmap_Midpoint_circle_algorithm
 GGS.....F.... Bitmap_Read_a_PPM_file
 GBS.....F.... Bitmap_Read_an_image_through_a_pipe
 GGS.....F.... Bitmap_Write_a_PPM_file
-!GS..T....... Bitwise_IO
+GGS..T....... Bitwise_IO
 GGS..T....... Bitwise_operations
 .........D.VU Black_Box
 .........D.VU Blackjack_strategy
@@ -160,7 +160,7 @@ GGS.......... Carmichael_3_strong_pseudoprimes
 GGS.......... Cartesian_product_of_two_or_more_lists
 GGS.......... Case-sensitivity_of_identifiers
 GGS.......... Casting_out_nines
-!GS.......... Catalan_numbers
+GGS.......... Catalan_numbers
 GGS.......... Catalan_numbers_Pascal%27s_triangle
 GGS.......... Catamorphism
 ...........VU Catmull-Clark_subdivision_surface
@@ -547,7 +547,7 @@ GBS..TC.F.... Kronecker_product_based_fractals
 GGS.....F.... LU_decomposition
 GGS.......... LZW_compression
 GGS....R..... Langton%27s_ant
-GGS.......... Largest_int_from_concatenated_ints
+!GS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
@@ -616,6 +616,7 @@ GGS.......... Map_range
 GGS..T.R.D... Markov_chain_text_generator
 GG.KI..R.D... Mastermind
 GGS.......... Matrix-exponentiation_operator
+GB.KI....D... Matrix_Digital_Rain
 GGS.........U Matrix_chain_multiplication
 GGS.......... Matrix_multiplication
 GGS..T....... Matrix_transposition
@@ -649,7 +650,7 @@ GBS..TCR..... Monty_Hall_problem
 .........D.VU Morpion_solitaire
 GGS.......... Morse_code
 .........DXV. Most_frequent_k_chars_distance
-!B.KI........ Mouse_position
+GB.KI........ Mouse_position
 GGS.......... Move-to-front_algorithm
 GGS.......... Multi-dimensional_array
 .........D.VU Multidimensional_Newton-Raphson_method
@@ -826,7 +827,7 @@ GGS....R..... Random_numbers
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
-GGS.......... Rate_counter
+!GS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS..T...D... Read_a_file_character_by_character_UTF8
@@ -954,7 +955,7 @@ GGS.......... Sokoban
 GGS.......... Solve_a_Hidato_puzzle
 GGS.......... Solve_a_Holy_Knight%27s_tour
 GGS..T....... Solve_a_Hopido_puzzle
-!GS.......... Solve_a_Numbrix_puzzle
+GGS.......... Solve_a_Numbrix_puzzle
 .........D.VU Solve_a_Rubik%27s_Cube
 GGS.......... Solve_the_no_connection_puzzle
 .........DXVU Solving_coin_problems
