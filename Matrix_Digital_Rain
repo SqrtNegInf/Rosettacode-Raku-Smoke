@@ -1,16 +1,19 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Matrix_Digital_Rain
-#t# interactive
-#c# 2018-12-18 <RC
+#c# 2018-12-19 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
-my @codes = flat 'Α' .. 'Π', 'Σ' .. 'ѵ', 'Ѐ' .. 'ѵ', 'Ҋ' .. 'ԯ', 'Ϣ' .. 'ϯ',
-                 'Ⲁ' .. '⳩', '∀' .. '∗', '℀' .. '℺', '⨀' .. '⫿';
+# Kind of cheap and cheesy, but what the heck... Probably will only work in POSIX compatible terminal. Runs until you hit ^C to exit.
+
+signal(SIGINT).tap: { print "\e[H\e[J\e[?25h"; exit(0) }
+ 
+my @codes = flat 'A' .. 'Z';
  
 my ($rows,$cols) = qx/stty size/.words;
- 
-my @c = flat  "\e[38;2;255;255;255m", (255,240 … 30).map({"\e[38;2;0;$_;0m"}), "\e[38;2;0;25;0m" xx 200;
+
+my @c = flat  "\e[38;2;255;255;255m", (255,250 ... 30).map({"\e[38;2;0;$_;0m"}),
+              "\e[38;2;0;25;0m" xx 250;
 my $sz = +@c;
 my (@o, @s, @a);
 print "\e[?25l";
@@ -20,22 +23,22 @@ loop {
      my ($r,$c) = qx/stty size/.words;
      init($r, $c) if $r != $rows or $c != $cols;
      print "\e[1;1H";
-     for ^@s { print (@c[@a[$_]<fg>], @a[$_]<bg>, @s[$_]).join; };
-     @s[(^@s).pick] = @codes.roll for ^100;
-     for ^@s { @a[$_]<fg> = (@a[$_]<fg> + 1) % $sz; }
+     print join '', (^@s).map: {
+         @a[$_]<fg> = (@a[$_]<fg> + 1) % $sz;
+         flat @c[@a[$_]<fg>], @a[$_]<bg>, @s[$_];
+     }
+     @s[(^@s).pick] = @codes.roll for ^30;
 }
  
 sub init ($r, $c) {
-    @s = @codes.roll(($r - 1) * $c);
+    @s = @codes.roll($r * $c);
     ($rows,$cols) = $r, $c;
-    @a = {:fg((^@c).pick), :bg("\e[48;5;232m")} xx +@s;
+    @a = {:bg("\e[48;5;232m")} xx +@s;
     my @o = (^@c).pick xx $cols;
     for ^$rows -> $row {
         for ^$cols -> $col {
             @a[$row * $cols + $col]<fg> = @o[$col];
         }
-        @o = (^@o).map: {(@o[$_] - 1) % $sz};
+        @o = (^@o).map: {(@o[$_] - ($_ % 3)) % $sz};
     }
 }
- 
-END { print "\e[?25h \e[H\e[J";} # clear and reset screen
