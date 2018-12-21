@@ -1,19 +1,19 @@
-This is Rakudo version 2018.11-88-g6e7893bd3 built on MoarVM version 2018.11-47-g7b1eacea9
+This is Rakudo version 2018.11-123-gd998c1eab built on MoarVM version 2018.11-47-g7b1eacea9
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1006/11]
-|+-------------> JVM: Good/Bad [884/135]
-||+------------> Smoke testing [901]
-|||+-----------> sKipping validation [114]
-||||+----------> Interactive [62]
++--------------> Moar: Good/Bad [1007/11]
+|+-------------> JVM: Good/Bad [885/135]
+||+------------> Smoke testing [900]
+|||+-----------> sKipping validation [116]
+||||+----------> Interactive [63]
 |||||+---------> Touched (modified by me) [240]
 ||||||+--------> Concurrent [35]
 |||||||+-------> Random seed [110]
 ||||||||+------> File output [77]
 |||||||||+-----> Draft [214]
 ||||||||||+----> Ignoring [60]
-|||||||||||+---> Void (no local copy) [154]
-||||||||||||+--> Un-implemented/reliable [117]
+|||||||||||+---> Void (no local copy) [153]
+||||||||||||+--> Un-implemented/reliable [116]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -173,7 +173,7 @@ GGS..T....... Check_Machin-like_formulas
 GGS......D... Check_input_device_is_a_terminal
 GG.KI....D... Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
-...........VU Checkpoint_synchronization
+GG.K......... Checkpoint_synchronization
 GGS......D... Cheryl%27s_Birthday
 .........D.VU Chess_player
 .........D.VU Chess_player_Move_generation
@@ -234,7 +234,7 @@ GGS.......... Count_in_factors-2
 GGS.......... Count_in_octal
 GGS.......... Count_occurrences_of_a_substring
 GGS..T....... Count_the_coins
-!GS.......... Cramer%27s_rule
+GGS.......... Cramer%27s_rule
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
 GGS..T.R..... Create_a_two-dimensional_array_at_runtime
@@ -616,7 +616,7 @@ GGS.......... Map_range
 GGS..T.R.D... Markov_chain_text_generator
 GG.KI..R.D... Mastermind
 GGS.......... Matrix-exponentiation_operator
-!GS......D... Matrix_Digital_Rain
+GG.KI....D... Matrix_Digital_Rain
 GGS.........U Matrix_chain_multiplication
 GGS.......... Matrix_multiplication
 GGS..T....... Matrix_transposition
@@ -827,7 +827,7 @@ GGS....R..... Random_numbers
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
-GGS.......... Rate_counter
+!GS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS..T...D... Read_a_file_character_by_character_UTF8
@@ -949,7 +949,7 @@ GGS.......... Singly-linked_list_Traversal
 GG.KI........ Sleep
 GGS.......... Smith_numbers
 .........DXV. Snake
-GGS....RFD... Snake_And_Ladder
+!GS....RFD... Snake_And_Ladder
 GG.KIT....... Sockets
 GGS.......... Sokoban
 GGS.......... Solve_a_Hidato_puzzle
