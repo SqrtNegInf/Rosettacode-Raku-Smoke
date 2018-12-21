@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Checkpoint_synchronization
+#t# skiptest
+#c# 2018-12-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my $TotalWorkers = 3;
+my $BatchToRun = 3;
+my @TimeTaken = (5..35); # in seconds
+ 
+my $batch_progress = 0;
+my @batch_lock = map { Semaphore.new(1) } , ^$TotalWorkers;
+my $lock = Lock.new;
+ 
+sub assembly_line ($ID) {
+   my $wait;
+   for ^$BatchToRun -> $j {
+      $wait = @TimeTaken.roll;
+      say "Worker ",$ID," at batch $j will work for ",$wait," seconds ..";
+      sleep($wait);
+      $lock.protect: {
+         my $k = ++$batch_progress;
+         print "Worker ",$ID," is done and update batch $j complete counter ";
+         say "to $k of $TotalWorkers";
+         if ($batch_progress == $TotalWorkers) {
+            @res.push: ">>>>> batch $j completed.";
+            $batch_progress = 0; # reset for next batch
+            for @batch_lock { .release }; # and ready for next batch
+         };
+       };
+ 
+       @batch_lock[$ID].acquire; # for next batch
+       END { 
+       }
+   }
+}
+ 
+for ^$TotalWorkers -> $i {
+   Thread.start(
+      sub {
+         @batch_lock[$i].acquire;
+         assembly_line($i);
+      }
+   );
+
+
+.say for @res;
+
+my $ref = q:to/EOD/;
+>>>>> batch 0 completed.
+>>>>> batch 1 completed.
+>>>>> batch 2 completed.
+EOD
+
+use Test;
+is @res.join("\n"), chomp $ref;
+}
