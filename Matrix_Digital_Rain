@@ -1,45 +1,48 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Matrix_Digital_Rain
 #t# interactive
-#c# 2018-12-19 <RC
+#c# 2018-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-# Kind of cheap and cheesy, but what the heck... Probably will only work in POSIX compatible terminal. Runs until you hit ^C to exit.
+# Kind-of cheap and cheesy, but what the heck... Probably will only work in a POSIX compatible terminal. Runs until you hit ^C to exit.
+# The "lightning" effect is actually a bug, but I liked it so I kept it.
 
 signal(SIGINT).tap: { print "\e[H\e[J\e[?25h"; exit(0) }
  
 my @codes = flat 'A' .. 'Z';
  
 my ($rows,$cols) = qx/stty size/.words;
-
-my @c = flat  "\e[38;2;255;255;255m", (255,250 ... 30).map({"\e[38;2;0;$_;0m"}),
-              "\e[38;2;0;25;0m" xx 250;
+ 
+my @c = flat  "\e[38;2;255;255;255m", (255,245 ... 30).map({"\e[38;2;0;$_;0m"}),
+              "\e[38;2;0;25;0m" xx 75;
 my $sz = +@c;
 my (@o, @s, @a);
-print "\e[?25l";
+print "\e[?25l\e[48;5;232m";
 init($rows, $cols);
  
+my $delay;
+my ($r, $c);
+ 
 loop {
-     my ($r,$c) = qx/stty size/.words;
-     init($r, $c) if $r != $rows or $c != $cols;
+     if ++$delay %% 20 {
+         ($r, $c) = qx/stty size/.words;
+         init($r, $c) if $r != $rows or $c != $cols;
+         $delay = 0
+     }
      print "\e[1;1H";
      print join '', (^@s).map: {
-         @a[$_]<fg> = (@a[$_]<fg> + 1) % $sz;
-         flat @c[@a[$_]<fg>], @a[$_]<bg>, @s[$_];
+         @a[$_] = (@a[$_] + 1) % $sz;
+         flat @c[@a[$_]], @s[$_]
      }
      @s[(^@s).pick] = @codes.roll for ^30;
 }
- 
 sub init ($r, $c) {
     @s = @codes.roll($r * $c);
-    ($rows,$cols) = $r, $c;
-    @a = {:bg("\e[48;5;232m")} xx +@s;
+    ($rows, $cols) = $r, $c;
     my @o = (^@c).pick xx $cols;
     for ^$rows -> $row {
-        for ^$cols -> $col {
-            @a[$row * $cols + $col]<fg> = @o[$col];
-        }
+        @a[$row * $cols ..^ $row * $cols + $cols] = @o;
         @o = (^@o).map: {(@o[$_] - ($_ % 3)) % $sz};
     }
 }
