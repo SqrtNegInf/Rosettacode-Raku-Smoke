@@ -1,19 +1,19 @@
-This is Rakudo version 2018.11-123-gd998c1eab built on MoarVM version 2018.11-47-g7b1eacea9
+This is Rakudo version 2018.12-37-g45a945b5b built on MoarVM version 2018.12
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1007/11]
-|+-------------> JVM: Good/Bad [885/135]
-||+------------> Smoke testing [900]
-|||+-----------> sKipping validation [116]
-||||+----------> Interactive [63]
++--------------> Moar: Good/Bad [1009/11]
+|+-------------> JVM: Good/Bad [885/137]
+||+------------> Smoke testing [901]
+|||+-----------> sKipping validation [117]
+||||+----------> Interactive [64]
 |||||+---------> Touched (modified by me) [240]
 ||||||+--------> Concurrent [35]
 |||||||+-------> Random seed [110]
 ||||||||+------> File output [77]
 |||||||||+-----> Draft [214]
 ||||||||||+----> Ignoring [60]
-|||||||||||+---> Void (no local copy) [153]
-||||||||||||+--> Un-implemented/reliable [116]
+|||||||||||+---> Void (no local copy) [151]
+||||||||||||+--> Un-implemented/reliable [114]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -200,7 +200,7 @@ GGS.......... Combinations-1
 GBS.......... Combinations-2
 GGS.......... Combinations_and_permutations
 GGS..T....... Combinations_with_repetitions
-.........D.VU Combinations_with_repetitions_Square_Digit_Chain
+GBS......D... Combinations_with_repetitions_Square_Digit_Chain
 GGS.......... Comma_quibbling
 ..........XV. Command-line_arguments
 GGS.......... Commatizing_numbers
@@ -553,7 +553,7 @@ GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
 GBS..TC...... Law_of_cosines_-_triples-1
 GGS..T....... Law_of_cosines_-_triples-2
-GGS.......... Leap_year
+!GS.......... Leap_year
 GGS.......... Least_common_multiple
 GGS..T....... Left_factorials
 GGS.......... Leonardo_numbers
@@ -586,7 +586,7 @@ GGS.......... Loops_For_with_a_specified_step
 GGS.......... Loops_Foreach
 GGS.......... Loops_Increment_loop_index_within_loop_body
 GG.KI........ Loops_Infinite
-GGS.......... Loops_N_plus_one_half
+!GS.......... Loops_N_plus_one_half
 GGS....R..... Loops_Nested
 GGS.......... Loops_While
 GGS.......... Loops_Wrong_ranges
@@ -827,7 +827,7 @@ GGS....R..... Random_numbers
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
-!GS.......... Rate_counter
+GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS..T...D... Read_a_file_character_by_character_UTF8
@@ -937,7 +937,7 @@ GGS..T..F.... Sierpinski_triangle_Graphical
 GGS..T....... Sieve_of_Eratosthenes
 GB.K......... Simple_database
 ..........XV. Simple_windowed_application
-..........XVU Simulate_input_Keyboard
+GB.KI.....X.. Simulate_input_Keyboard
 ...........VU Simulate_input_Mouse
 .........D.VU Simulated_annealing
 GBS..T..FD... Sine_wave
@@ -949,7 +949,7 @@ GGS.......... Singly-linked_list_Traversal
 GG.KI........ Sleep
 GGS.......... Smith_numbers
 .........DXV. Snake
-!GS....RFD... Snake_And_Ladder
+GGS....RFD... Snake_And_Ladder
 GG.KIT....... Sockets
 GGS.......... Sokoban
 GGS.......... Solve_a_Hidato_puzzle
