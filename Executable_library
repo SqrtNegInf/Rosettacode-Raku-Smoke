@@ -1,9 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Executable_library
-#c# 2018-03-20 <RC, 2018-05-17 <RC
+#t# toodamnslow
+#c# 2018-03-20 <RC, 2018-05-17 <RC, 2018-12-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# uses module 'Hailstone.pm'
+#n# what happened on 2018-12-20 ?? (and concurrency doesn't really help this bug...)
 
 #`{{
 #The library can be written as a module:
@@ -28,7 +30,8 @@ hailstone(27) = 27 82 41 124 [...] 8 4 2 1
 
 use lib '.';
 use Hailstone;
-my %score; %score{hailstone($_).elems}++ for 1 .. 1000;
+#my %score; %score{hailstone($_).elems}++ for 1 .. 1000;
+(1 .. 1000).race.map: { %score{hailstone($_).elems}++ };
 say my $result = "Most common length is {.key}, occurring {.value} times." given max :by(*.value), %score;
 
 #Called with a command line as:
