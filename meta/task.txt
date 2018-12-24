@@ -1,13 +1,13 @@
-This is Rakudo version 2018.12-38-gc07cfe7af built on MoarVM version 2018.12
+This is Rakudo version 2018.12-39-g83f0fd6c9 built on MoarVM version 2018.12
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1012/11]
-|+-------------> JVM: Good/Bad [885/139]
++--------------> Moar: Good/Bad [1013/11]
+|+-------------> JVM: Good/Bad [887/138]
 ||+------------> Smoke testing [901]
-|||+-----------> sKipping validation [119]
+|||+-----------> sKipping validation [120]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [240]
-||||||+--------> Concurrent [35]
+||||||+--------> Concurrent [36]
 |||||||+-------> Random seed [110]
 ||||||||+------> File output [77]
 |||||||||+-----> Draft [214]
@@ -200,7 +200,7 @@ GGS.......... Combinations-1
 GBS.......... Combinations-2
 GGS.......... Combinations_and_permutations
 GGS..T....... Combinations_with_repetitions
-GBS......D... Combinations_with_repetitions_Square_Digit_Chain
+GGS......D... Combinations_with_repetitions_Square_Digit_Chain
 GGS.......... Comma_quibbling
 ..........XV. Command-line_arguments
 GGS.......... Commatizing_numbers
@@ -330,7 +330,7 @@ GGS....R..... Evolutionary_algorithm
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS.......... Executable_library
+!G.K..C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS.....F.... Execute_HQ9%2B
 GGS.......... Execute_SNUSP
@@ -362,7 +362,7 @@ GGS.......... Fibonacci_word_fractal
 GGS......D... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
 GBS..T....... File_modification_time
-GGS.......... File_size
+!GS.......... File_size
 GGS..T...D... File_size_distribution
 GGS.......... Filter
 GBS......D... Find_URI_in_text
@@ -508,6 +508,7 @@ GGS..T....... Introspection
 GGS..T....... Inverted_index
 GG.K......... Inverted_syntax
 GG.K..c...... Iterated_digits_squaring
+GGS.......... Iterated_digits_squaring-1
 GGS.......... JSON
 GGS.......... Jaro_distance
 GGS.......... Jensen%27s_Device
@@ -758,7 +759,7 @@ GGS.......... Perfect_numbers-2
 GGS.......... Perfect_shuffle
 GBS...C...... Perfect_totient_numbers
 GGS..T...D... Perlin_noise
-!BS..TC...... Permutation_test
+GBS..TC...... Permutation_test
 GGS..T....... Permutations
 GGS.......... Permutations_Derangements
 GGS....R..... Permutations_Rank_of_a_permutation
