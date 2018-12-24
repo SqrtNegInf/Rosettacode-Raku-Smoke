@@ -1,8 +1,8 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Combinations_with_repetitions/Square_Digit_Chain
-#c# 2018-12-21 <RC
+#c# 2018-12-21 <RC, 2018-12-23 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN OK
+#j# JVM:  OK
 
 my @res;
 
@@ -28,7 +28,7 @@ quietly { # sweep warnings under the carpet
 my @ks = (7, 8, 11, 14, 17);
  
 for @ks -> $k {
-   my @sums = 1,0;
+   my @sums is default(0) = 1,0;
    my $s;
    for (1 .. $k) -> $n {
       for ($n*81 ... 1) -> $i {
