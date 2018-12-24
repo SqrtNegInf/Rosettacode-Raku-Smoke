@@ -1412,9 +1412,9 @@ File: Combinations_with_repetitions.1
 File: Combinations_with_repetitions_Square_Digit_Chain
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Combinations_with_repetitions/Square_Digit_Chain
-#c# 2018-12-21 <RC
+#c# 2018-12-21 <RC, 2018-12-23 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN OK
+#j# JVM:  OK
 
 File: Comma_quibbling
 #!/usr/bin/env perl6
@@ -2462,10 +2462,12 @@ File: Exceptions_Catch_an_exception_thrown_in_a_nested_call
 File: Executable_library
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Executable_library
-#c# 2018-03-20 <RC, 2018-05-17 <RC
+#t# toodamnslow
+#c# 2018-03-20 <RC, 2018-05-17 <RC, 2018-12-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# uses module 'Hailstone.pm'
+#n# what happened on 2018-12-20 ?? (and concurrency doesn't really help this bug...)
 
 File: Execute_Brainfuck
 #!/usr/bin/env perl6
@@ -3954,6 +3956,13 @@ File: Iterated_digits_squaring
 #u# http://rosettacode.org/wiki/Iterated_digits_squaring
 #c# 2016-05-10 <RC, 2017-05-01 <RC
 #t# toodamnslow
+#m# MOAR: OK
+#j#  JVM: OK
+
+File: Iterated_digits_squaring-1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Iterated_digits_squaring
+#c# 2018-12-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
