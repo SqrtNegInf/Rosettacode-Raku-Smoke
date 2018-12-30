@@ -1,10 +1,10 @@
-This is Rakudo version 2018.12-70-g501231ee4 built on MoarVM version 2018.12-4-g1404d5168
+This is Rakudo version 2018.12-80-g87698317a built on MoarVM version 2018.12-4-g1404d5168
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1011/11]
-|+-------------> JVM: Good/Bad [887/138]
++--------------> Moar: Good/Bad [1014/11]
+|+-------------> JVM: Good/Bad [888/138]
 ||+------------> Smoke testing [902]
-|||+-----------> sKipping validation [119]
+|||+-----------> sKipping validation [120]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [240]
 ||||||+--------> Concurrent [36]
@@ -12,8 +12,8 @@ updating from RC…
 ||||||||+------> File output [77]
 |||||||||+-----> Draft [214]
 ||||||||||+----> Ignoring [60]
-|||||||||||+---> Void (no local copy) [149]
-||||||||||||+--> Un-implemented/reliable [112]
+|||||||||||+---> Void (no local copy) [148]
+||||||||||||+--> Un-implemented/reliable [111]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -124,7 +124,7 @@ GGS.....F.... Bitmap_Bresenham%27s_line_algorithm
 ...........VU Bitmap_Flood_fill
 GGS.....F.... Bitmap_Histogram
 GGS.....F.... Bitmap_Midpoint_circle_algorithm
-..........XVU Bitmap_PPM_conversion_through_a_pipe
+GG.K......X.. Bitmap_PPM_conversion_through_a_pipe
 GGS.....F.... Bitmap_Read_a_PPM_file
 GBS.....F.... Bitmap_Read_an_image_through_a_pipe
 GGS.....F.... Bitmap_Write_a_PPM_file
@@ -207,7 +207,7 @@ GGS.......... Commatizing_numbers
 GGS.......... Comments
 GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
-!GS.......... Compile-time_calculation
+GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
 ...........VU Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
@@ -981,7 +981,7 @@ GGS..T.R..... Sorting_algorithms_Heapsort
 GGS....R..... Sorting_algorithms_Insertion_sort
 GGS....R..... Sorting_algorithms_Merge_sort
 GGS....R..... Sorting_algorithms_Pancake_sort
-!GS....R.D... Sorting_algorithms_Patience_sort
+GGS....R.D... Sorting_algorithms_Patience_sort
 GGS.......... Sorting_algorithms_Permutation_sort
 GGS....R..... Sorting_algorithms_Quicksort
 GGS..T.R..... Sorting_algorithms_Radix_sort
@@ -1090,7 +1090,7 @@ GGS.......... Textonyms
 GG.KI........ The_Name_Game
 GGS.....F.... The_Twelve_Days_of_Christmas
 GGS..T....... Thiele%27s_interpolation_formula
-GGS..T....... Thue-Morse
+!GS..T....... Thue-Morse
 GB.KI..R..... Tic-tac-toe
 .........D.VU Time-based_One-time_Password_Algorithm
 GGS.......... Time_a_function
@@ -1184,7 +1184,7 @@ GBS..T....... XML_Input
 GBS.......... XML_Output
 .........D.VU XML_Validation
 GBS.......... XML_XPath
-!GS..T....... Xiaolin_Wu%27s_line_algorithm
+GGS..T....... Xiaolin_Wu%27s_line_algorithm
 GGS.......... Y_combinator
 ..........XVU Yahoo!_search_interface
 GGS.....F.... Yin_and_yang
