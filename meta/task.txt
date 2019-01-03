@@ -1,9 +1,9 @@
-This is Rakudo version 2018.12-95-gafccc2c02 built on MoarVM version 2018.12-13-g473324ee3
+This is Rakudo version 2018.12-120-g395d633db built on MoarVM version 2018.12-13-g473324ee3
 implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1014/11]
-|+-------------> JVM: Good/Bad [888/138]
-||+------------> Smoke testing [901]
+|+-------------> JVM: Good/Bad [888/139]
+||+------------> Smoke testing [902]
 |||+-----------> sKipping validation [121]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [240]
@@ -532,7 +532,7 @@ GG.KI........ Keyboard_input_Obtain_a_Y_or_N_response
 GG.KI........ Keyboard_macros
 GGS.......... Knapsack_problem_0-1
 GG.K......... Knapsack_problem_Bounded
-GBS.......... Knapsack_problem_Continuous
+!BS.......... Knapsack_problem_Continuous
 GGS.......... Knapsack_problem_Unbounded
 GGS....R..... Knight%27s_tour
 GGS....R..... Knuth%27s_algorithm_S
@@ -977,7 +977,7 @@ GGS....R..... Sorting_algorithms_Comb_sort
 GGS..T.R..... Sorting_algorithms_Counting_sort
 GGS......D... Sorting_algorithms_Cycle_sort
 GGS..T.R..... Sorting_algorithms_Gnome_sort
-!GS..T.R..... Sorting_algorithms_Heapsort
+GGS..T.R..... Sorting_algorithms_Heapsort
 GGS....R..... Sorting_algorithms_Insertion_sort
 GGS....R..... Sorting_algorithms_Merge_sort
 GGS....R..... Sorting_algorithms_Pancake_sort
@@ -1165,7 +1165,9 @@ GGS.......... Water_collected_between_towers
 .........D.VU Waveform_analysis_Top_and_tail
 .........DXVU Weather_Routing
 GBS..T....... Web_scraping
-GGS......D... Welch%27s_t-test
+.........D... Welch%27s_t-test
+!GS.......... Welch%27s_t-test-1
+GBS.......... Welch%27s_t-test-2
 ..........XV. Window_creation
 BB........X.. Window_creation_X11
 GB.KI.....X.. Window_management
