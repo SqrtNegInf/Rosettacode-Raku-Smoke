@@ -9,6 +9,7 @@ $msg_task = 'update of task';
 $msg_prog = 'update of control program';
 $msg_stat = 'daily update of task status';
 $msg_new  = 'initial commit of task';
+$msg_ref  = 'update of reference data';
 
 # new tasks
 for $new (`$git status | grep -v modified: | grep '^\t'`) {
@@ -23,6 +24,7 @@ for $modified (`$git status | grep modified:`) {
     chomp $modified;
     $modified =~ s/^.*:\s+//;
     if ($modified =~ m#^rc#)        { system qq[$git add $modified; $git commit -m "$msg_prog $modified"] }
+    elsif ($modified =~ m#ref/#)    { system qq[$git add $modified; $git commit -m "$msg_ref"] }
     elsif ($modified =~ /task.txt/) { system qq[$git add $modified; $git commit -m "$msg_stat"] }
     else                            { system qq[$git add $modified; $git commit -m "$msg_task $modified"] }
 }
