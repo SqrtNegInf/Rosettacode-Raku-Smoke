@@ -123,11 +123,12 @@ $DB::single = 1;
 for my $prog (@P_one_at_a_time) {
 
     my $run = $prog;
+    (my $pbase = $prog) =~ s/^..//;
     $run .= " $Prun{$prog}" if defined $Prun{$prog};
 
     system "$Ppre{$prog}" if defined $Ppre{$prog};
-    system "rc-runone '$exe $run' > bench/$dir/$prog.out 2> bench/$dir/$prog.err";
-    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$prog.out" if defined $Pfile{$prog};
+    system "rc-runone '$exe $run' > bench/$dir/$pbase.out 2> bench/$dir/$pbase.err";
+    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$pbase.out" if defined $Pfile{$prog};
 }
 
 #exit;
@@ -139,11 +140,12 @@ for my $prog (@Programs) {
     $pm->start and next RUN;
 
     my $run = $prog;
+    (my $pbase = $prog) =~ s/^..//;
     $run .= " $Prun{$prog}" if defined $Prun{$prog};
 
     system "$Ppre{$prog}" if defined $Ppre{$prog};
-    system "rc-runone '$exe $run' > bench/$dir/$prog.out 2> bench/$dir/$prog.err";
-    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$prog.out" if defined $Pfile{$prog};
+    system "rc-runone '$exe $run' > bench/$dir/$pbase.out 2> bench/$dir/$pbase.err";
+    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$pbase.out" if defined $Pfile{$prog};
 
     $pm->finish;
 }
