@@ -22,6 +22,8 @@ mv Reports:Tasks_not_implemented_in_Perl_6 Reports:Tasks_not_implemented_in_Perl
 END
 }
 
+sub path { return $_[0] =~ /^([A-Z])/ ? "$1/" : '0/' }
+
 ## characterize RC tasks
 
 # check task source code 
@@ -102,7 +104,8 @@ sub document {
 my($p) = @_;
 my($task,$header,@concur,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
 
-    $task = "../$p";
+    #$task = "../$p";
+    $task = '../' . path($p) . $p;
     return 0 if ! -e $task;
     return 0 if defined $P{$p}{'M'};
 
