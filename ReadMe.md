@@ -4,7 +4,7 @@ This space intentionally left blank.
 
 ## Back-story
 
-I was at the Perl Conference when the coffee mugs were thrown and the idea of 
+I was at The Perl Conference when the coffee mugs were thrown and the idea of 
 what was to become Perl 6 was born. Sounded great to me. I checked up on the
 news about the language from time to time, being patient, knowing that Rome 2.0 
 wasn't built in a day...
@@ -27,24 +27,23 @@ The whole time I kept plugging away with Perl 5, and happy to be doing so, but w
 dream of merging the **Perl Way** with enhancements drawn from *APL*...
 
 But at the end of 2015 with the 6.c release looking like it really was going to happen, 
-I decided to put some effort into learning the current state of Perl 6, via the examples on Rosettacode.
-And one of the first tasks I looked at was **broken**.  Checked the current docs, saw the problem, thought:
-I can fix that...  Kept pulling the thread on that sweater for 2+ years.
+I decided to put some effort into learning the current state of Perl 6, via the examples on Rosetta-Code.
+And one of the first tasks I looked at was **broken**. Oh the horror! Checked the docs, saw the problem, thought:
+I can fix that...  Have kept pulling the thread on that sweater for 3+ years.
 
 ## Smoking is Good (for Perl 6)
 
-Precisely because of the very long gestation, and continued evolution,
-Perl 6 tasks on Rosettacode 
-were really susceptible to bit-rot. I seem to remember some guy named
+Precisely because of the very long gestation and continued evolution of Perl 6, 
+tasks on Rosetta-Code were really susceptible to bit-rot. 
+For example, some guy named
 [Tim](http://rosettacode.org/wiki/User:TimToady) found out 
-that his own 
+that his very own 
 [Forest fire](http://rosettacode.org/wiki/Forest_fire) 
-code was broken 
-the day before he was off to a conference
+code was broken the day before he was off to a conference
 where he wanted to demonstrate it. Oops. *Someone* had to do *something*.
 
 Daily testing results have been saved since 2016-09-01, at which point just under 600
-tasks were in the system.  In early 2018 task count plateaued at a bit over 900.  For each
+tasks were in the system.  At start of 2019, task count is over 1000.  For each
 task the `stdout` (and any `stderr`) are saved and tested against expected output 
 
 Both MoarVM and JVM backends are being tested.  MoarVM is `pull`'d daily, JVM less often,
@@ -77,6 +76,12 @@ Why are these written in Perl 5 not Perl 6?  In my defense, when I first started
 know Perl 6 that well. Plus, 6 wasn't always working 100%, so the tools might not have been
 reliable.
 
+## To-Do
+
+Include testing of Javascript backend.
+
+Currently testing on just macOS, expand to Linux, Windows.
+
 ## MTYEWTKATLOP6ST
 ##### (more than you ever wanted to know about the logistics of Perl 6 smoke testing)
 
@@ -96,7 +101,7 @@ the hash-bang line:
 #f# RC file: take-notes.txt
 ```
 
-URL on Rosettacode
+URL on Rosetta-Code
 ```
 #u# http://rosettacode.org/wiki/Take_notes_on_the_command_line
 ```
@@ -105,8 +110,8 @@ Change dates / status
 ```
 #c# 2016-05-18 <RC
 ```
-<RC - read from Rosettacode
->RC - written to Rosettacode
+<RC - read from Rosetta-Code
+>RC - written to Rosetta-Code
 <>RC - read & written 
 
 Status of MoarVM backend, 'OK' or 'BROKEN'
@@ -149,9 +154,7 @@ The simplest tests then are just:
 @res.join("\n"), chomp $ref;
 ```
 
-
-
-### Random
+### Random-ness
 
 If the task involves `.rand`, `.pick`, `.roll` or any other source randomness, I set
 a fixed seed with `srand 123456`,  otherwise there's no way to get
