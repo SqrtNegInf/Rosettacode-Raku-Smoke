@@ -7,7 +7,7 @@
 
 #Here we just examine the ast of the Perl 6 compiler (which is written in Perl 6) to look for function calls.
 
-my $cmd = run 'perl6', '--target=ast', 'Sorting_algorithms_Quicksort', :out, :err;
+my $cmd = run 'perl6', '--target=ast', 'S/Sorting_algorithms_Quicksort', :out, :err;
 my $text = $cmd.out.slurp-rest;
 my $err  = $cmd.err.slurp-rest;
 
