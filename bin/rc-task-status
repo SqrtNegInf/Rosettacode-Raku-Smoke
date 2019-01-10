@@ -104,7 +104,6 @@ sub document {
 my($p) = @_;
 my($task,$header,@concur,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
 
-    #$task = "../$p";
     $task = '../' . path($p) . $p;
     return 0 if ! -e $task;
     return 0 if defined $P{$p}{'M'};
