@@ -22,15 +22,15 @@ for my $d (reverse sort @dir) {
 exit unless defined $ARGV[1];
 
 #print "\n==== no tests? ====\n";
-#print `grep 'MOAR: OK' [1-Z]* | pcregrep -v '\\.\\d' | perl -npe 's/:.*//' | xargs grep dummy | grep :is | perl -npe 's/:.*//'`;
+#print `grep 'MOAR: OK' [0-Z]/* | pcregrep -v '\\.\\d' | perl -npe 's/:.*//' | xargs grep dummy | grep :is | perl -npe 's/:.*//'`;
 
 #print "\n==== no 'use Test' ====\n";
-#print `./bin/rc-testy [1-Z]*`;
+#print `./bin/rc-testy [0-Z]/*`;
 
 #exit unless defined $ARGV[2];
 
 print "\n==== BROKEN ====\n\n";
-print `grep 'MOAR: BROKEN' [1-Z]* | $pcre -v '\\.\\d' | perl -npe 's/:.*//'`;
+print `grep 'MOAR: BROKEN' [0-Z]/* | $pcre -v '\\.\\d' | perl -npe 's/:.*//'`;
 
 #####
 sub tally {
@@ -58,7 +58,7 @@ $notok  = `$pcre '$isbad' $dir/*out | wc -l`; $notok =~ s/\s//g;
 $ok     = `$pcre 'ok \\d|are identical\$' $dir/*out | wc -l`; $ok =~ s/\s//g;
 
 printf "$path Secs: %5d RC: $rc Tasks: $cnt  OK: %4d  Err: %2d !OK: %2d  Top: $top\n", int($sum), $ok, $err, $notok ;
-system("$pcre -l 'STDERR|^Files.*differ' $dir/*out | perl -npe 's#.*/##;s/.out//'") if $err > 0;
+system("$pcre -l 'STDERR|^Files.*differ' $dir/*out | perl -npe 's#.*/##;s/\\.out//'") if $err > 0;
 print "\n";
 
 }
