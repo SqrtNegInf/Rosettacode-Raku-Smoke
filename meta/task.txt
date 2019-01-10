@@ -1,7 +1,7 @@
-This is Rakudo version 2018.12-181-g4d7cdc0f4 built on MoarVM version 2018.12-13-g473324ee3
+This is Rakudo version 2018.12-183-gf329d6c6c built on MoarVM version 2018.12-13-g473324ee3
 implementing Perl 6.d.
-+--------------> Moar: Good/Bad [1003/10]
-|+-------------> JVM: Good/Bad [888/139]
++--------------> Moar: Good/Bad [1015/11]
+|+-------------> JVM: Good/Bad [888/140]
 ||+------------> Smoke testing [902]
 |||+-----------> sKipping validation [121]
 ||||+----------> Interactive [66]
@@ -11,8 +11,8 @@ implementing Perl 6.d.
 ||||||||+------> File output [77]
 |||||||||+-----> Draft [214]
 ||||||||||+----> Ignoring [60]
-|||||||||||+---> Void (no local copy) [148]
-||||||||||||+--> Un-implemented/reliable [111]
+|||||||||||+---> Void (no local copy) [147]
+||||||||||||+--> Un-implemented/reliable [110]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -60,7 +60,7 @@ GGS.......... Anagrams
 GGS.......... Anagrams_Deranged_anagrams
 GGS..T....... Angle_difference_between_two_bearings
 GB.KI........ Animate_a_pendulum
-!B.KIT......U Animation
+BB.KIT......U Animation
 GGS.......... Anonymous_recursion
 GGS...c...... Anti-primes
 GGS.......... Append_a_record_to_the_end_of_a_text_file
@@ -88,7 +88,7 @@ GGS....R..... Atomic_updates
 .........D.VU AudioAlarm
 .........D.VU Audio_Overlap_Loop
 .........D.VU Audio_frequency_generator
-!GS..T.R..... Average_loop_length
+GGS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -110,7 +110,7 @@ GGS..T....... Benford%27s_law
 GGS..T....... Bernoulli_numbers
 GGS....R..... Best_shuffle
 GBS.....FD... Bilinear_interpolation
-!GS.......... Binary_digits
+GGS.......... Binary_digits
 GGS.......... Binary_search
 GGS..T....... Binary_strings
 GGS....R.D..U Birthday_problem
@@ -169,7 +169,7 @@ GGS.......... Character_codes
 GG.KI........ Chat_server
 GGS......D... Chebyshev_coefficients
 GGS..T....... Check_Machin-like_formulas
-GGS......D... Check_input_device_is_a_terminal
+GG.......D... Check_input_device_is_a_terminal
 GG.KI....D... Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
 GG.K......... Checkpoint_synchronization
@@ -290,11 +290,11 @@ GGS.......... Doubly-linked_list_Element_insertion
 GBS.....F.... Dragon_curve
 GG.KI........ Draw_a_clock
 GGS.....F.... Draw_a_cuboid
-!B.K......... Draw_a_pixel
+GB.K......... Draw_a_pixel
 BB........... Draw_a_rotating_cube
 GGS..TC.F.... Draw_a_sphere-1
 GBS.....F.... Draw_a_sphere-2
-!B.K.....D... Draw_pixel_2
+GB.K.....D... Draw_pixel_2
 GGS..T.R..... Dutch_national_flag_problem
 GGS.......... Dynamic_variable_names
 GGS.......... EKG_sequence_convergence
@@ -397,12 +397,12 @@ GGS..T....... Four_bit_adder
 GBS.......... Four_is_magic
 GBS.......... Four_is_the_number_of_letters_in_the_...
 GGS.....F.... Fractal_tree
-!BS.......... Fractran
+GBS.......... Fractran
 .........D.VU Free_polyominoes_enumeration
 GGS......D... French_Republican_calendar
 GGS..T....... Function_composition
 GG.K......... Function_definition
-GGS.......... Function_frequency
+!GS.......... Function_frequency
 ..........XV. Function_prototype
 .........D.VU Functional_coverage_tree
 ..........XVU GUI_Maximum_window_dimensions
@@ -421,7 +421,7 @@ GGS....R..... Generate_random_chess_position
 GGS..T....... Generator_Exponential
 GGS.......... Generic_swap
 GGS....R.D... Geometric_algebra
-GBS.......... Get_system_command_output
+!BS.......... Get_system_command_output
 GGS.....F.... Globally_replace_text_in_several_files
 GG.KI..R..... Go_Fish
 GGS.......... Gray_code
@@ -447,7 +447,7 @@ GGS.......... Harshad_or_Niven_series
 GGS.......... Hash_from_two_arrays
 GGS.......... Hash_join
 GGS.......... Haversine_formula
-!B.KI........ Hello_world_Graphical
+GB.KI........ Hello_world_Graphical
 GG.K......... Hello_world_Line_printer
 GG.K......... Hello_world_Newbie
 GGS.......... Hello_world_Newline_omission
@@ -526,7 +526,7 @@ GGS..TC...... Kaprekar_numbers-2
 GBS.......... Kaprekar_numbers-3
 GGS.......... Kernighans_large_earthquake_problem
 ...........VU Keyboard_input_Flush_the_keyboard_buffer
-!B.KI........ Keyboard_input_Keypress_check
+GB.KI........ Keyboard_input_Keypress_check
 GG.KI........ Keyboard_input_Obtain_a_Y_or_N_response
 GG.KI........ Keyboard_macros
 GGS.......... Knapsack_problem_0-1
@@ -613,7 +613,7 @@ GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
 GGS.......... Map_range
-!GS..T.R.D... Markov_chain_text_generator
+GGS..T.R.D... Markov_chain_text_generator
 GG.KI..R.D... Mastermind
 GGS.......... Matrix-exponentiation_operator
 GG.KI....D... Matrix_Digital_Rain
@@ -650,10 +650,10 @@ GBS..TCR..... Monty_Hall_problem
 .........D.VU Morpion_solitaire
 GGS.......... Morse_code
 .........DXV. Most_frequent_k_chars_distance
-!B.KI........ Mouse_position
+GB.KI........ Mouse_position
 GGS.......... Move-to-front_algorithm
 GGS.......... Multi-dimensional_array
-.........D.VU Multidimensional_Newton-Raphson_method
+GBS......D... Multidimensional_Newton-Raphson_method
 GGS.......... Multifactorial
 GGS......D... Multiline_shebang
 GGS.......... Multiple_distinct_objects
@@ -883,7 +883,7 @@ GB.K.....D... Rosetta_Code_Run_examples
 BB.K.....D... Rosetta_Code_Tasks_without_examples
 GGS.......... Rot-13
 GGS.......... Run-length_encoding
-!B.K.....D... Run_as_a_daemon_or_service
+GB.K.....D... Run_as_a_daemon_or_service
 GGS..T....... Runge-Kutta_method
 GGS.......... Runtime_evaluation
 GGS..T....... Runtime_evaluation_In_an_environment
@@ -937,8 +937,8 @@ GGS..T..F.... Sierpinski_triangle_Graphical
 GGS..T....... Sieve_of_Eratosthenes
 GB.K......... Simple_database
 ..........XV. Simple_windowed_application
-!B.KI.....X.. Simulate_input_Keyboard
-!B.KI........ Simulate_input_Mouse
+GB.KI.....X.. Simulate_input_Keyboard
+GB.KI........ Simulate_input_Mouse
 .........D.VU Simulated_annealing
 GBS..T..FD... Sine_wave
 GGS.......... Singleton
@@ -1169,7 +1169,7 @@ GGS.......... Welch%27s_t-test-1
 GBS.......... Welch%27s_t-test-2
 ..........XV. Window_creation
 BB........X.. Window_creation_X11
-!B.KI.....X.. Window_management
+GB.KI.....X.. Window_management
 GBS.......... Wireworld
 GGS......D... Word_break_problem
 GGS...c..D... Word_count
