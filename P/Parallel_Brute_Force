@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parallel_Brute_Force
-#c# 2017-02-10 <RC, 2018-04-24 <RC
+#c# 2017-02-10 <RC, 2018-04-24 <RC, 2019-01-09 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# for JVM: module
@@ -30,7 +30,7 @@ my @res;
 
 @res.push: $_ for flat @alpha2.map: *.&find_it;  # not slower than any of below
 #@res = @alpha2.race(:batch(@alpha2 / 5)).map: *.&find_it.cache;
-#@res.push: $_ for flat @alpha2.race.map: *.&find_it.cache;
+#@res.push: $_ for flat @alpha2.race(:1batch).map: *.&find_it.cache;
 #@res.push: $_ for flat @alpha2.hyper.map: *.&find_it.cache;
  
 .say for @res;
