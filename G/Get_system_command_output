@@ -26,13 +26,13 @@ is $result, "     1\tHello, world\n";
 #If you really want to run something in shell and you understand potential security problems, then you can use qx// (interpolates environment variables) or qqx// (interpolates normally). See the docs for more info.
 
 my $ref = qq:to/END/;
-Array_concatenation
-Array_concatenation.1
-Array_length
-Array_length.1
-Arrays
+A/Array_concatenation
+A/Array_concatenation.1
+A/Array_length
+A/Array_length.1
+A/Arrays
 END
 
-say $result = qx[ls Array*];
+say $result = qx[ls A/Array*];
 is $result, $ref;
 
