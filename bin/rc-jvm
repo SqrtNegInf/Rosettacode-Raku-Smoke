@@ -97,25 +97,30 @@ for my $prog (@ARGV) {
 
     $clargs = `grep 'RC.cli' $prog`; chomp $clargs; 
     $clargs =~ s/^.*RC.cli:\s+//; 
-#    $clargs =~ s/'/\\"/g;  # ??
     $clargs =~ s/"/\\"/g; 
+    $Prun{$prog} =  $clargs if $clargs ne '';
 
     $precmd = `grep 'RC.prep:' $prog`; chomp $precmd; 
     $precmd =~ s/^.*RC.prep:\s+//; 
     $precmd =~ s/\s+$//;
+    $Ppre{$prog} =  $precmd if $precmd ne '';
+
+    $pipe   = `grep 'RC.pipe:' $prog`; chomp $pipe; 
+    $pipe   =~ s/^.*RC.pipe:\s+//; 
+    $pipe   =~ s/\s+$//;
+    $Pipe{$prog} =  $pipe   if $pipe   ne '';
 
     $difftest = `grep 'RC.file' $prog`; chomp $difftest; 
     $difftest =~ s/^.*RC.file:\s+//; 
     $difftest =~ s/\s+$//;
     $difftest =~ s/\.BEND/.moar/ if $mode ne 'jvm';
     $difftest =~ s/\.BEND/.jvm/  if $mode eq 'jvm';
+    $Pfile{$prog} = $difftest if $difftest ne '';
 
     if ($mode eq 'jvm' and defined %Dotversion{$prog}) { push @Programs, "$prog.1" }
     elsif (defined %Solo{$prog})                       { push @P_one_at_a_time, $prog } 
     else                                               { push @Programs, $prog }
-    $Ppre{$prog} =  $precmd if $precmd ne '';
-    $Prun{$prog} =  $clargs if $clargs ne '';
-    $Pfile{$prog} = $difftest if $difftest ne '';
+
 }
 
 # run some programs solo (those with .race/.hyper, or have real-time aspect)
@@ -133,6 +138,7 @@ for my $prog (@P_one_at_a_time) {
 
 #exit;
 
+
 # run remainder in parallel 
 my $pm = Parallel::ForkManager->new(8);
 RUN:
@@ -144,7 +150,12 @@ for my $prog (@Programs) {
     $run .= " $Prun{$prog}" if defined $Prun{$prog};
 
     system "$Ppre{$prog}" if defined $Ppre{$prog};
-    system "rc-runone '$exe $run' > bench/$dir/$pbase.out 2> bench/$dir/$pbase.err";
+
+    #$exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe if $Pipe{$prog};
+    #$err = `time rc-capture '$exe $run' > bench/$dir/$pbase.out`;
+    #open E, ">bench/$dir/$pbase.err"; print E $err; close E;
+
+    system qq{rc-runone '$exe $run' > bench/$dir/$pbase.out 2> bench/$dir/$pbase.err};
     system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$pbase.out" if defined $Pfile{$prog};
 
     $pm->finish;
