@@ -1,9 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number/With_feedback
-#c# 2016-06-02 <RC
 #t# interactive
+#c# 2016-06-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#p# RC pipe: 10\n5\n3\n
 
 srand 123456;
 
@@ -30,14 +31,3 @@ repeat until my $guessed-right {
     }
 }
 say "Great you guessed right after $count attempts!";
-
-#`{
-Hello, please give me an upper boundary: 10 
-I'm thinking of a number from 1 to 10, try to guess it!
-Your guess: 5
-Sorry, my number is bigger.
-Your guess: 7
-Sorry, my number is smaller.
-Your guess: 6
-Great you guessed right after 3 attempts!
-}
