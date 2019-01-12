@@ -13,6 +13,7 @@ sub MAIN($dir = "%*ENV<HOME>/perl6/Rosetta-Code/bench/moar") {
             next unless $path ~~ /err $$/;
             my $text = $path.IO.slurp;
             my ($r, $u, $s) = ($text ~~ m:g/<after \t> ($num)/).list;
+            note $path unless $r;
             printf "%5.1f\t%5.1f\t%s\n", $r, $u+$s, $path.basename.subst('.err', '');
         }
     }
