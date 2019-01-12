@@ -151,11 +151,13 @@ for my $prog (@Programs) {
 
     system "$Ppre{$prog}" if defined $Ppre{$prog};
 
-    #$exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe if $Pipe{$prog};
-    #$err = `time rc-capture '$exe $run' > bench/$dir/$pbase.out`;
-    #open E, ">bench/$dir/$pbase.err"; print E $err; close E;
-
-    system qq{rc-runone '$exe $run' > bench/$dir/$pbase.out 2> bench/$dir/$pbase.err};
+    #if ($Pipe{$prog}) {
+        #$exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe if $Pipe{$prog};
+        #my $timings = `time $exe $run 1>bench/$dir/$pbase.out 2> bench/$dir/$pbase.tmp`;
+        #open E, ">bench/$dir/$pbase.err"; print E $timings; close E;
+    #} else {
+        system qq{rc-runone '$exe $run' > bench/$dir/$pbase.out 2> bench/$dir/$pbase.err};
+    #}
     system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$pbase.out" if defined $Pfile{$prog};
 
     $pm->finish;
