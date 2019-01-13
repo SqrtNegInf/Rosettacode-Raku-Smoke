@@ -1,6 +1,9 @@
 #!/usr/local/bin/perl
-# capture output from job, display timing
+# capture output from job, along with timings
 #  David H.  2016-07-31, 2018-10-02
+#  only called from rc-moar/rc-jvm, to allow proper handling of 3 streams of output:
+#    $ARGV[0] names the R.C. task, and 'rc-capture' bundles the task STDOUT/STDERR into one stream, this program's STDOUT
+#    'time' prints to STDERR, becomes this program's STDERR
 
 print `bin/rc-capture time $ARGV[0]`;
 #print `Capture time $ARGV[0]`;
