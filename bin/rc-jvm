@@ -140,10 +140,10 @@ for my $prog (@P_one_at_a_time) {
 
 
 # run remainder in parallel 
-my $pm = Parallel::ForkManager->new(8);
+#my $pm = Parallel::ForkManager->new(8);
 RUN:
 for my $prog (@Programs) {
-    $pm->start and next RUN;
+    #$pm->start and next RUN;
 
     my $run = $prog;
     (my $pbase = $prog) =~ s/^..//;
@@ -151,18 +151,23 @@ for my $prog (@Programs) {
 
     system "$Ppre{$prog}" if defined $Ppre{$prog};
 
-    #if ($Pipe{$prog}) {
-        #$exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe if $Pipe{$prog};
-        #my $timings = `time $exe $run 1>bench/$dir/$pbase.out 2> bench/$dir/$pbase.tmp`;
-        #open E, ">bench/$dir/$pbase.err"; print E $timings; close E;
-    #} else {
-        system qq{rc-runone '$exe $run' > bench/$dir/$pbase.out 2> bench/$dir/$pbase.err};
-    #}
-    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$pbase.out" if defined $Pfile{$prog};
+    $task = "bench/$dir/$pbase";
+    if ($Pipe{$prog}) {
+        $exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
+        my $timings = `bash -c "time $exe $run 1> $task.out 2> $task.tmp"`;
+print "T: $timings\n"; 
+        `echo '::STDERR::' >> $task.out` if ! -z "$task.tmp"; 
+        `cat $task.tmp >> $task.out` if ! -z "$task.tmp"; 
+        unlink "$task.tmp";
+        open E, ">$task.err"; print E $timings; close E;
+    } else {
+        system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
+    }
+    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> $task.out" if defined $Pfile{$prog};
 
-    $pm->finish;
+    #$pm->finish;
 }
-$pm->wait_all_children;
+#$pm->wait_all_children;
 
 # clean up
 system('bin/rc-ts');
