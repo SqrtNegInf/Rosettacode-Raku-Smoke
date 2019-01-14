@@ -18,7 +18,7 @@
 
 use Parallel::ForkManager;
 
-# some program to use .1 version
+# for JVM, test with .1 version
 %Dotversion = (
 '24_game_Solve-1' => 1,
 '24_game_Solve-2' => 1, # broken?
@@ -136,14 +136,11 @@ for my $prog (@P_one_at_a_time) {
     system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$pbase.out" if defined $Pfile{$prog};
 }
 
-#exit;
-
-
 # run remainder in parallel 
-#my $pm = Parallel::ForkManager->new(8);
+my $pm = Parallel::ForkManager->new(8);
 RUN:
 for my $prog (@Programs) {
-    #$pm->start and next RUN;
+    $pm->start and next RUN;
 
     my $run = $prog;
     (my $pbase = $prog) =~ s/^..//;
@@ -154,21 +151,28 @@ for my $prog (@Programs) {
     $task = "bench/$dir/$pbase";
     if ($Pipe{$prog}) {
         $exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
-        my $timings = `bash -c "time $exe $run 1> $task.out 2> $task.tmp"`;
-print "T: $timings\n"; 
-        `echo '::STDERR::' >> $task.out` if ! -z "$task.tmp"; 
-        `cat $task.tmp >> $task.out` if ! -z "$task.tmp"; 
+        ($u0,$s0) = cpu_time();
+        system qq{$exe $run 1> $task.out 2> $task.tmp};
+        ($u1,$s1) = cpu_time();
+        if (! -z "$task.tmp") { system qq{echo '::STDERR::' >> $task.out; cat $task.tmp >> $task.out} }
         unlink "$task.tmp";
-        open E, ">$task.err"; print E $timings; close E;
+        open E, ">$task.err"; 
+        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0, $u1-$u0, $s1-$s0;
+        close E;
     } else {
         system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
     }
     system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> $task.out" if defined $Pfile{$prog};
 
-    #$pm->finish;
+    $pm->finish;
 }
-#$pm->wait_all_children;
+$pm->wait_all_children;
 
 # clean up
 system('bin/rc-ts');
 system "date";
+
+sub cpu_time {
+  my ($user,$system,$cuser,$csystem) = times;
+  ($user+$cuser, $system+$csystem);
+}
