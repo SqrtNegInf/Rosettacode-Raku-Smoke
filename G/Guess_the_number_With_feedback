@@ -1,14 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number/With_feedback
-#X# interactive
 #c# 2016-06-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #p# RC pipe: 10\n5\n3\n
 
 srand 123456;
-
-note 'Glorp!';
 
 my $maxnum = prompt("Hello, please give me an upper boundary: ");
 until 0 < $maxnum < Inf {
