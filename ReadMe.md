@@ -106,13 +106,13 @@ URL on Rosetta-Code
 #u# http://rosettacode.org/wiki/Take_notes_on_the_command_line
 ```
 
-Change dates / status
+Change dates / status where
+* <RC - read from Rosetta-Code
+* >RC - written to Rosetta-Code
+* <>RC - read & written 
 ```
 #c# 2016-05-18 <RC
 ```
-<RC - read from Rosetta-Code
->RC - written to Rosetta-Code
-<>RC - read & written 
 
 Status of MoarVM backend, 'OK' or 'BROKEN'
 ```
@@ -148,7 +148,9 @@ output to a file, and test for differences with
 ```
 
 Notes to self
+```
 #n# blah blah blah woof woof
+```
 
 ### Footer
 
