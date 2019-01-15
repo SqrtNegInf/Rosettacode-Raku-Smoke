@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Menu
 #c# 2016-04-09 <RC
-#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+#=# RC pipe: 2
 
 sub menu ( $prompt, @items ) {
     return '' unless @items.elems;
@@ -23,3 +23,6 @@ say "You chose: $answer" if $answer.chars;
 
 $answer = menu( $prompt, @choices );
 say "You chose: $answer" if $answer.chars;
+
+use Test;
+is $answer, 'huff and puff';
