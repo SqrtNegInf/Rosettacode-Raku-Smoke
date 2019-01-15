@@ -1,12 +1,14 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Penney%27s_game
 #c# 2018-03-14 <RC
-#t# interactive
 #m# MOAR: OK
 #j# JVM:  OK
 #n# munged to avoid input, sleep times to zero
 
 srand 123456;
+
+my $result1;
+my $result2;
 
 enum Coin <Heads Tails>;
 enum Yay <Yay Good Super Hah Ooh Yipee Sweet Cool Yes Haha>;
@@ -60,7 +62,7 @@ sub your-choice($p is copy) {
  
     sub check($a,$b,$c) {
         given [$a,$b,$c] {
-            when @mine  { say "\n{Yay.pick}, I win, and you lose!"; Nil }
+            when @mine  { say $result2 = "\n{Yay.pick}, I win, and you lose!"; Nil }
             when @yours { say "\n{Boo.pick}, you win, but I'll beat you next time!"; Nil }
             default     { Coin.roll }
         }
@@ -80,6 +82,7 @@ sub your-choice($p is copy) {
     for |Coin.roll(3), &check ...^ :!defined {
         flipping;
         print "$_ ";
+        $result1 ~= "$_ ";    
     }
 #}
 
@@ -99,4 +102,10 @@ Cool, I win, and you lose!
 END
 
 use Test;
-#is @res.join("\n"), chomp $ref;
+if $*VM ~~ /jvm/ {
+is $result1, 'Tails Heads Tails Tails Tails Heads Heads Heads Tails ';
+is $result2, "\nHah, I win, and you lose!";
+} else {
+is $result1, 'Heads Tails Tails Heads Tails Tails Heads Heads Tails ';
+is $result2, "\nCool, I win, and you lose!";
+}
