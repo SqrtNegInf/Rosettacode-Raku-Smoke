@@ -108,7 +108,7 @@ URL on Rosetta-Code
 
 Change dates / status where
 * <RC - read from Rosetta-Code
-* >RC - written to Rosetta-Code
+* &gt;RC - written to Rosetta-Code
 * <>RC - read & written 
 ```
 #c# 2016-05-18 <RC
