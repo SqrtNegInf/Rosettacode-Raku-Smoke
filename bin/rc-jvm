@@ -105,6 +105,11 @@ for my $prog (@ARGV) {
     $precmd =~ s/\s+$//;
     $Ppre{$prog} =  $precmd if $precmd ne '';
 
+    $pipe   = `grep 'RC.pipe:' $prog`; chomp $pipe; 
+    $pipe   =~ s/^.*RC.pipe:\s+//; 
+    $pipe   =~ s/\s+$//;
+    $Pipe{$prog} =  $pipe   if $pipe   ne '';
+
     $difftest = `grep 'RC.file' $prog`; chomp $difftest; 
     $difftest =~ s/^.*RC.file:\s+//; 
     $difftest =~ s/\s+$//;
@@ -144,7 +149,19 @@ for my $prog (@Programs) {
     system "$Ppre{$prog}" if defined $Ppre{$prog};
 
     $task = "bench/$dir/$pbase";
-    system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
+    if ($Pipe{$prog}) {
+        $exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
+        ($u0,$s0) = cpu_time();
+        system qq{$exe $run 1> $task.out 2> $task.tmp};
+        ($u1,$s1) = cpu_time();
+        if (! -z "$task.tmp") { system qq{echo '::STDERR::' >> $task.out; cat $task.tmp >> $task.out} }
+        unlink "$task.tmp";
+        open E, ">$task.err"; 
+        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0, $u1-$u0, $s1-$s0;
+        close E;
+    } else {
+        system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
+    }
     system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> $task.out" if defined $Pfile{$prog};
 
     $pm->finish;
@@ -154,3 +171,8 @@ $pm->wait_all_children;
 # clean up
 system('bin/rc-ts');
 system "date";
+
+sub cpu_time {
+  my ($user,$system,$cuser,$csystem) = times;
+  ($user+$cuser, $system+$csystem);
+}
