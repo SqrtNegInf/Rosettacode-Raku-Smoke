@@ -1,0 +1,89 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Mayan_numerals
+#c# 2019-01-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Just a matter of converting to base twenty, then divmod 5 each digit and map to the appropriate glyph. Most of this is display code to deal with the cartouche requirement.
+
+sub mayan ($int) { $int.polymod(20 xx *).reverse.map: *.polymod(5) }
+ 
+sub display ($num, @digits) {
+    join "\n", '{|', "|+ $num",
+    '|- style="text-align: center; vertical-align: bottom;"',
+    (|@digits.map: {qq!| style="border: 1px solid black; width: 2.5em;" | $_!}),
+    '|}'
+}
+ 
+my @output = <4005 8017 326205 886205 1081439556 503491211079>.map:
+ { display $_, .&mayan.map: { (join '<br>', '●' x .[0], '——' xx .[1]) || 'Θ' } }
+ 
+my $result = @output.join: "\n<br>\n";
+
+my $ref = q:to/END/;
+{|
+|+ 4005
+|- style="text-align: center; vertical-align: bottom;"
+| style="border: 1px solid black; width: 2.5em;" | <br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | Θ
+| style="border: 1px solid black; width: 2.5em;" | <br>——
+|}
+<br>
+{|
+|+ 8017
+|- style="text-align: center; vertical-align: bottom;"
+| style="border: 1px solid black; width: 2.5em;" | ●
+| style="border: 1px solid black; width: 2.5em;" | Θ
+| style="border: 1px solid black; width: 2.5em;" | Θ
+| style="border: 1px solid black; width: 2.5em;" | ●●<br>——<br>——<br>——
+|}
+<br>
+{|
+|+ 326205
+|- style="text-align: center; vertical-align: bottom;"
+| style="border: 1px solid black; width: 2.5em;" | ●●
+| style="border: 1px solid black; width: 2.5em;" | Θ
+| style="border: 1px solid black; width: 2.5em;" | <br>——<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | <br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | <br>——
+|}
+<br>
+{|
+|+ 886205
+|- style="text-align: center; vertical-align: bottom;"
+| style="border: 1px solid black; width: 2.5em;" | <br>——
+| style="border: 1px solid black; width: 2.5em;" | <br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | <br>——<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | <br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | <br>——
+|}
+<br>
+{|
+|+ 1081439556
+|- style="text-align: center; vertical-align: bottom;"
+| style="border: 1px solid black; width: 2.5em;" | ●<br>——<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●●<br>——<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●●●<br>——<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●●●●<br>——<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●●●<br>——<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●●<br>——<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●<br>——<br>——<br>——
+|}
+<br>
+{|
+|+ 503491211079
+|- style="text-align: center; vertical-align: bottom;"
+| style="border: 1px solid black; width: 2.5em;" | ●●●●<br>——<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●●●<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●●<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●
+| style="border: 1px solid black; width: 2.5em;" | Θ
+| style="border: 1px solid black; width: 2.5em;" | ●
+| style="border: 1px solid black; width: 2.5em;" | ●●<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●●●<br>——<br>——
+| style="border: 1px solid black; width: 2.5em;" | ●●●●<br>——<br>——<br>——
+|}
+END
+
+use Test;
+is $result, chomp $ref;
