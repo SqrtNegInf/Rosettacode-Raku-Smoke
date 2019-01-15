@@ -1,27 +1,33 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Integer_comparison
 #c# 2016-05-18 <RC
-#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+#=# RC pipe: 1\n2\n3\n3
+
+my $result;
 
 my $a = prompt("1st int: ").floor;
 my $b = prompt("2nd int: ").floor;
  
 if $a < $b {
-    say 'Less';
+    say $result = 'Less';
 }
 elsif $a > $b {
-    say 'Greater';
+    say $result = 'Greater';
 }
 elsif $a == $b {
-    say 'Equal';
+    say $result = 'Equal';
 }
 
 # With <=>:
 
-say <Less Equal Greater>[($a <=> $b) + 1];
+($b,$a) = ($a,$b);
+say $result ~= ' ' ~ <Less Equal Greater>[($a <=> $b) + 1] ~ ' ';
 
 # A three-way comparison such as <=> actually returns an Order enum which stringifies into 'Decrease', 'Increase' or 'Same'. So if it's ok to use this particular vocabulary, you could say that this task is actually a built in:
 
-say prompt("1st int: ") <=> prompt("2nd int: ");
+say $result ~= prompt("1st int: ") <=> prompt("2nd int: ");
+
+use Test;
+is $result, 'Less Greater Same';
