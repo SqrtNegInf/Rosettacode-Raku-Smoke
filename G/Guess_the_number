@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number
-#t# interactive
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#=# RC pipe: 1\n2\n3
 
 srand 123456;
 
@@ -11,3 +11,5 @@ my $number = (1..10).pick;
 repeat {} until prompt("Guess a number: ") == $number;
 say "Guessed right!";
 
+use Test;
+is $number, 3;
