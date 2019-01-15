@@ -88,7 +88,7 @@ Currently testing on just macOS, expand to Linux, Windows.
 ### Header
 
 I keep track of the status of each task with custom header inserted right after
-the hash-bang line:  
+the hash-bang line, e.g.:  
 
 ```
 #!/usr/bin/env perl6
@@ -129,9 +129,15 @@ prepare to run - mostly moving files into place
 #p# RC prep: cp ref/take-notes.base run/take-notes.txt
 ```
 
-command-line input
+command-line input (single item)
 ```
 #i# RC cli: "new note 1"
+```
+
+Some programs require more interaction with the user while running,
+this allows multiple lines of text to be piped in
+```
+#=# RC pipe: 1\n2\n3
 ```
 
 When it is not practical to have a self-contained test, capture
@@ -140,6 +146,9 @@ output to a file, and test for differences with
 ```
 #f# RC file: take-notes.txt
 ```
+
+Notes to self
+#n# blah blah blah woof woof
 
 ### Footer
 
@@ -157,6 +166,6 @@ The simplest tests then are just:
 ### Random-ness
 
 If the task involves `.rand`, `.pick`, `.roll` or any other source randomness, I set
-a fixed seed with `srand 123456`,  otherwise there's no way to get
-consistent output to test.  MoarVM and JVM differ in the random sequence they emit, 
+a fixed seed with `srand 123456`, to get consistent output for testing. 
+MoarVM and JVM differ in the random sequence they emit, 
 so separate results must be tested for each.
