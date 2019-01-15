@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rock-paper-scissors
 #c# 2016-06-11 <>RC
-#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+#=# RC pipe: ro\nro\nro\nro\nq
 
 srand 123456;
 
@@ -38,10 +38,11 @@ my @stats = 0,0,0;
 my $round;
  
 while my $player = (prompt "Round {++$round}: " ~ $prompt).lc {
+    last if $player ~~ /q/; # DH change
     $player.=substr(0,2);
     say 'Invalid choice, try again.' and $round-- and next
       unless $player.chars == 2 and $player ~~ /<$keys>/;
-    my $computer = (flat %weight.keys.map( { $_ xx %weight{$_} } )).pick;
+    my $computer = (flat %weight.keys.sort.map( { $_ xx %weight{$_} } )).pick; # DH change
     %weight{$_.key}++ for %vs{$player}.grep( { $_.value[0] == 1 } );
     my $result = %vs{$player}{$computer}[0];
     @stats[$result]++;
@@ -51,28 +52,9 @@ while my $player = (prompt "Round {++$round}: " ~ $prompt).lc {
     say " - (W:{@stats[0]} L:{@stats[1]} T:{@stats[2]})\n",
 };
 
-#`{ 
-Round 1: [Ro]ck [Pa]per [Sc]issors? ro
-You chose Rock,  Computer chose Paper.
-Paper covers Rock: You Lose! - (W:0 L:1 T:0)
-
-Round 2: [Ro]ck [Pa]per [Sc]issors? pa
-You chose Paper,  Computer chose Scissors.
-Scissors cut Paper: You Lose! - (W:0 L:2 T:0)
-
-Round 3: [Ro]ck [Pa]per [Sc]issors? pa
-You chose Paper,  Computer chose Scissors.
-Scissors cut Paper: You Lose! - (W:0 L:3 T:0)
-
-Round 4: [Ro]ck [Pa]per [Sc]issors? ro
-You chose Rock,  Computer chose Rock.
-Tie. - (W:0 L:3 T:1)
-
-Round 5: [Ro]ck [Pa]per [Sc]issors? sc
-You chose Scissors,  Computer chose Scissors.
-Tie. - (W:0 L:3 T:2)
-...
-}
+print "\n";
+use Test;
+ok (@stats[0] == 1 and @stats[1] == 2 and @stats[2] == 1);
 
 #`{{
 # Here is example output from the same code only with a different %vs data structure implementing Rock-Paper-Scissors-Lizard-Spock.
