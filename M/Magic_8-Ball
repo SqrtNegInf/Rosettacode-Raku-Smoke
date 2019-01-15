@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Magic_8-Ball
 #c# 2018-04-24 <RC
-#t# interactive
 #m# MOAR: OK
 #j# JVM:  OK
+#=# RC pipe: who\nwhat\nwhen\nwhere\n\n
 
 srand 123456;
 
@@ -11,11 +11,23 @@ srand 123456;
 
 put 'Please enter your question or a blank line to quit.';
  
+my @res.push:
 ["It is certain", "It is decidedly so", "Without a doubt", "Yes, definitely",
  "You may rely on it", "As I see it, yes", "Most likely", "Outlook good",
  "Signs point to yes", "Yes", "Reply hazy, try again", "Ask again later",
  "Better not tell you now", "Cannot predict now", "Concentrate and ask again",
  "Don't bet on it", "My reply is no", "My sources say no", "Outlook not so good",
- "Very doubtful"].roll.put while prompt('? : ').chars;
+ "Very doubtful"].roll while prompt('? : ').chars;
 
-# Output very similar to C, Kotlin and zkl examples.
+my $ref = qq:to/END/;
+Cannot predict now
+You may rely on it
+Better not tell you now
+Better not tell you now
+END
+
+print "\n";
+.say for @res;
+
+use Test;
+is @res.join("\n"), chomp $ref;
