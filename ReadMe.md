@@ -129,6 +129,11 @@ prepare to run - mostly moving files into place
 #p# RC prep: cp ref/take-notes.base run/take-notes.txt
 ```
 
+Meta-tag, such as 'interactive', 'graphical', 'nocode', 'trivial', 'toodamnslow', 'runs forever'
+```
+#t# skiptest
+```
+
 command-line input (single item)
 ```
 #i# RC cli: "new note 1"
