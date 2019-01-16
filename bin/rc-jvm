@@ -151,13 +151,13 @@ for my $prog (@Programs) {
     $task = "bench/$dir/$pbase";
     if ($Pipe{$prog}) {
         $exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
-        ($u0,$s0) = cpu_time();
+        ($u0,$s0) = cpu_time(); $r0 = (time());
         system qq{$exe $run 1> $task.out 2> $task.tmp};
-        ($u1,$s1) = cpu_time();
+        ($u1,$s1) = cpu_time(); $r1 = (time());
         if (! -z "$task.tmp") { system qq{echo '::STDERR::' >> $task.out; cat $task.tmp >> $task.out} }
         unlink "$task.tmp";
         open E, ">$task.err"; 
-        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0, $u1-$u0, $s1-$s0;
+        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0, 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
         close E;
     } else {
         system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
