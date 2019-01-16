@@ -4,15 +4,14 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: 4*(3+1)+8
-#n# 'constant' bypasses 'srand'?  not exactly a bug, but unexpected
+#n# 'constant' evaluated at BEGIN phase, so do 'srand' then too
 
-srand 123456;
+BEGIN srand 123456;
 
 use MONKEY-SEE-NO-EVAL;
 
 say "Here are your digits: ", 
-#constant @digits = (1..9).roll(4)».Str;
-my @digits = (1..9).roll(4)».Str;
+constant @digits = (1..9).roll(4)».Str;
 
 grammar Exp24 {
     token TOP { ^ <exp> $ { fail unless EVAL($/) == 24 } }
