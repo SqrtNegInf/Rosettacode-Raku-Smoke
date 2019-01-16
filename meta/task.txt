@@ -2,17 +2,17 @@ This is Rakudo version 2018.12-183-gf329d6c6c built on MoarVM version 2018.12-13
 implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1017/11]
-|+-------------> JVM: Good/Bad [888/140]
-||+------------> Smoke testing [917]
-|||+-----------> sKipping validation [107]
-||||+----------> Interactive [52]
+|+-------------> JVM: Good/Bad [889/140]
+||+------------> Smoke testing [919]
+|||+-----------> sKipping validation [106]
+||||+----------> Interactive [51]
 |||||+---------> Touched (modified by me) [240]
 ||||||+--------> Concurrent [36]
 |||||||+-------> Random seed [111]
 ||||||||+------> File output [77]
 |||||||||+-----> Draft [215]
 ||||||||||+----> Ignoring [60]
-|||||||||||+---> Void (no local copy) [148]
+|||||||||||+---> Void (no local copy) [147]
 ||||||||||||+--> Un-implemented/reliable [110]
 |||||||||||||
 GGS.......... 100_doors
@@ -22,7 +22,7 @@ GB.KI..R..... 15_Puzzle_Game
 .........D.VU 16_Puzzle_Game
 GB.KI..R..... 2048
 GGS....R.D... 21_Game
-GG.KI..R..... 24_game
+GGS....R..... 24_game
 GBS..TC...... 24_game_Solve-1
 GGS...C...... 24_game_Solve-2
 GGS.......... 4-rings_or_4-squares_puzzle
@@ -127,7 +127,7 @@ GGS.....F.... Bitmap_Midpoint_circle_algorithm
 GG.K......X.. Bitmap_PPM_conversion_through_a_pipe
 GGS.....F.... Bitmap_Read_a_PPM_file
 GBS.....F.... Bitmap_Read_an_image_through_a_pipe
-GGS.....F.... Bitmap_Write_a_PPM_file
+!GS.....F.... Bitmap_Write_a_PPM_file
 GGS..T....... Bitwise_IO
 GGS..T....... Bitwise_operations
 .........D.VU Black_Box
@@ -330,7 +330,7 @@ GGS....R..... Evolutionary_algorithm
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS.....F.... Execute_HQ9%2B
 GGS.......... Execute_SNUSP
@@ -623,7 +623,7 @@ GGS.......... Matrix_multiplication
 GGS..T....... Matrix_transposition
 ..........X.. Max_licenses_in_use
 GGS..T....... Maximum_triangle_path_sum
-.........D.V. Mayan_numerals
+GGS......D... Mayan_numerals
 GGS....R..... Maze_generation
 GGS....R..... Maze_solving
 GGS.......... McNuggets_Problem
@@ -829,7 +829,7 @@ GGS....R..... Random_numbers
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
-GGS.......... Rate_counter
+!GS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS..T...D... Read_a_file_character_by_character_UTF8
