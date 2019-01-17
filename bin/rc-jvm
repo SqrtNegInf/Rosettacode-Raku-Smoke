@@ -11,6 +11,7 @@
 #  nocode - have no runnable code
 #  skiptest - hard to test
 #  interactive - requires user input
+#  gui - requires windowing system (X11,Tk,GTK,SDL)
 #  forever - hangs, never terminates
 #  broken - hangs, never terminates
 
@@ -82,7 +83,7 @@ $exe .= $mode eq 'jvm' ? '-j -I lib ' : '-m';
 
 system "date";
 
-my $skip = 'interactive|toodamnslow|skiptest|nocode|forever|broken';
+my $skip = 'interactive|gui|toodamnslow|skiptest|nocode|forever|broken';
 
 # find Perl6 programs
 $DB::single = 1;
