@@ -126,7 +126,7 @@ Status of JVM backend, 'OK' or 'BROKEN'
 
 prepare to run - mostly moving files into place
 ```
-#p# RC prep: cp ref/take-notes.base run/take-notes.txt
+#r# RC prep: cp ref/take-notes.base run/take-notes.txt
 ```
 
 Meta-tag, such as 'interactive', 'graphical', 'nocode', 'trivial', 'toodamnslow', 'runs forever'
