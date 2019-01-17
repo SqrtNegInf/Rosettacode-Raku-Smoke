@@ -1,14 +1,14 @@
 This is Rakudo version 2018.12-183-gf329d6c6c built on MoarVM version 2018.12-13-g473324ee3
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1017/11]
++--------------> Moar: Good/Bad [1019/11]
 |+-------------> JVM: Good/Bad [889/140]
-||+------------> Smoke testing [919]
-|||+-----------> sKipping validation [106]
-||||+----------> Interactive [51]
+||+------------> Smoke testing [924]
+|||+-----------> sKipping validation [102]
+||||+----------> Interactive [50]
 |||||+---------> Touched (modified by me) [240]
 ||||||+--------> Concurrent [36]
-|||||||+-------> Random seed [111]
+|||||||+-------> Random seed [112]
 ||||||||+------> File output [77]
 |||||||||+-----> Draft [215]
 ||||||||||+----> Ignoring [60]
@@ -127,7 +127,7 @@ GGS.....F.... Bitmap_Midpoint_circle_algorithm
 GG.K......X.. Bitmap_PPM_conversion_through_a_pipe
 GGS.....F.... Bitmap_Read_a_PPM_file
 GBS.....F.... Bitmap_Read_an_image_through_a_pipe
-!GS.....F.... Bitmap_Write_a_PPM_file
+GGS.....F.... Bitmap_Write_a_PPM_file
 GGS..T....... Bitwise_IO
 GGS..T....... Bitwise_operations
 .........D.VU Black_Box
@@ -173,7 +173,7 @@ GGS..T....... Check_Machin-like_formulas
 GGS......D... Check_input_device_is_a_terminal
 GG.KI....D... Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
-GG.K......... Checkpoint_synchronization
+GGS.......... Checkpoint_synchronization
 GGS......D... Cheryl%27s_Birthday
 .........D.VU Chess_player
 .........D.VU Chess_player_Move_generation
@@ -291,11 +291,11 @@ GGS.......... Doubly-linked_list_Element_insertion
 GBS.....F.... Dragon_curve
 GG.KI........ Draw_a_clock
 GGS.....F.... Draw_a_cuboid
-GB.K......... Draw_a_pixel
+GB.KI........ Draw_a_pixel
 BB........... Draw_a_rotating_cube
 GGS..TC.F.... Draw_a_sphere-1
 GBS.....F.... Draw_a_sphere-2
-GB.K.....D... Draw_pixel_2
+GB.KI....D... Draw_pixel_2
 GGS..T.R..... Dutch_national_flag_problem
 GGS.......... Dynamic_variable_names
 GGS.......... EKG_sequence_convergence
@@ -615,7 +615,7 @@ GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
 GGS.......... Map_range
 GGS..T.R.D... Markov_chain_text_generator
-GG.KI..R.D... Mastermind
+GGS....R.D... Mastermind
 GGS.......... Matrix-exponentiation_operator
 GG.K.....D... Matrix_Digital_Rain
 GGS.........U Matrix_chain_multiplication
@@ -634,7 +634,7 @@ GGS.......... Menu
 GBS......D... Mersenne_primes
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
-GG.KI........ Metronome
+GGS.......... Metronome
 GGS.......... Middle_three_digits
 GGS....R..... Miller-Rabin_primality_test
 GGS....R..... Mind_boggling_card_trick
@@ -770,7 +770,7 @@ GGS.......... Pernicious_numbers
 GGS.......... Phrase_reversals
 GGS..T....... Pi
 GGS..T.R..... Pick_random_element
-GG.KI........ Pig_the_dice_game
+GGS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
 ...........VU Pinstripe_Printer
@@ -829,7 +829,7 @@ GGS....R..... Random_numbers
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
-!GS.......... Rate_counter
+GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS..T...D... Read_a_file_character_by_character_UTF8
@@ -1134,7 +1134,7 @@ GGS.....F.... Update_a_configuration_file
 ...........VU Use_another_language_to_call_a_function
 GGS......D... User_defined_pipe_and_redirection_operators
 ..........XV. User_input_Graphical
-GG.KI........ User_input_Text
+GGS.......... User_input_Text
 .........D.VU Using_a_Speech_engine_to_highlight_words
 .........D.VU Using_the_Meetup.com_API
 .........D.VU VList
@@ -1170,7 +1170,7 @@ GBS..T....... Web_scraping
 GGS.......... Welch%27s_t-test-1
 GBS.......... Welch%27s_t-test-2
 ..........XV. Window_creation
-BB........X.. Window_creation_X11
+BB.KI.....X.. Window_creation_X11
 GB.KI.....X.. Window_management
 GBS.......... Wireworld
 GGS......D... Word_break_problem
