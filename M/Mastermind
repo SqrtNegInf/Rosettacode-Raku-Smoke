@@ -1,15 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mastermind
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
-#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+#=# RC pipe: ABCD\nEBCF
 
 srand 123456;
 
 use Test;  
-
-# Works with: Rakudo version 2017.01
 
 #By default, plays classic Mastermind using letters in place of colors. ( 4 chosen from 6, no repeats, 10 guess limit. ) Pass in parameters to modify the game. Enter a string of --length (default 4) letters with or without spaces. Guesses accept lower or upper case.
 
@@ -32,7 +30,6 @@ sub MAIN (
         my $guess = get-guess();
         next unless $guess.&is-valid;
         my $score = score($puzzle, $guess);
-        is $score, '● ● ● ●'; exit;
         win() if $score eq ($black xx $length).join: ' ';
         @guesses.push: [$guess, $score];
     }
@@ -65,34 +62,12 @@ sub MAIN (
  
     sub clearscr { $*KERNEL ~~ /'win32'/ ?? run('cls') !! run('clear') }
  
-    sub get-guess { $*VM ~~ /jvm/ ?? <C E B F>  !! <E B C F> }
     #sub get-guess { (uc prompt 'Your guess?: ').comb(/@valid/) }
+    sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! (uc prompt 'Your guess?: ').comb(/@valid/) }
  
     sub is-valid (@guess) { so $length == @guess }
  
-    sub win  { say 'You Win! The correct answer is: ', $puzzle; exit }
+    sub win  { say 'You Win! The correct answer is: ', $puzzle; say 'ok 1 -'; exit }
  
-    sub lose { say 'Too bad, you ran out of guesses. The solution was: ', $puzzle; exit }
+    sub lose { say 'Too bad, you ran out of guesses. The solution was: ', $puzzle; say 'not ok 1 -'; exit }
 }
-
-#`{Sample output:
-Valid letter, but wrong position: ○ - Correct letter and position: ●
-Guess the 4 element sequence containing the letters A B C D E F
-Repeats are not allowed. You have 4 guesses remaining.
-
-A B C D :: ○ ○ ○ -
-C A B E :: ● ○ ○ -
-D A E F :: ● ○ - -
-B A E C :: ● ○ ○ -
-D E B C :: ○ ○ ○ ○
-
-Your guess?: afdb
-You Win! The correct answer is: (A F D B)
-}
-
-my $ref = qq:to/END/;
-END
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
