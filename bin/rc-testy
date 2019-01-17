@@ -13,7 +13,7 @@ for my $f (@ARGV) {
     $text = `cat $f`;
     next unless $text =~ /MOAR: OK/ms;
     next if $text =~ /RC file:/ms;
-    next if $text =~ /#t#[^\n]+(interactive|output varies|graphical|trivial|toodamnslow|skiptest)/ms;
+    next if $text =~ /#t#[^\n]+(interactive|gui|output varies|graphical|trivial|toodamnslow|skiptest)/ms;
     next if $text =~ /\n\s*use Test;/ms;
     print "$f\n" 
 }
