@@ -1,15 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Checkpoint_synchronization
-#t# skiptest
 #c# 2018-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-#my @res;
+my @res;
 
-my $TotalWorkers = 3;
+use Test;
+
+my $TotalWorkers = 2;
 my $BatchToRun = 3;
-my @TimeTaken = (5..35); # in seconds
+my @TimeTaken = (1..5); # in seconds
  
 my $batch_progress = 0;
 my @batch_lock = map { Semaphore.new(1) } , ^$TotalWorkers;
@@ -36,24 +37,13 @@ sub assembly_line ($ID) {
          say "to $k of $TotalWorkers";
          if ($batch_progress == $TotalWorkers) {
             say ">>>>> batch $j completed.";
+            @res[$j] = True;
             $batch_progress = 0; # reset for next batch
             for @batch_lock { .release }; # and ready for next batch
          };
        };
  
+       { say 'ok 1 -'; exit } if @res[0] and @res[1] and @res[2];
        @batch_lock[$ID].acquire; # for next batch
    }
 }
-
-#`{{
-.say for @res;
-
-my $ref = q:to/EOD/;
->>>>> batch 0 completed.
->>>>> batch 1 completed.
->>>>> batch 2 completed.
-EOD
-
-use Test;
-is @res.join("\n"), chomp $ref;
-}}
