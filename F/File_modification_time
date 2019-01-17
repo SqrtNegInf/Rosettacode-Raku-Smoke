@@ -3,7 +3,7 @@
 #c# 2016-05-21 <RC, 2016-11-02 >RC, 2018-11-17 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#p# RC prep: cp -p ref/mod-time.txt run
+#r# RC prep: cp -p ref/mod-time.txt run
 #i# RC cli: run/mod-time.txt
 
 die 'NativeCall...' if $*VM ~~ /jvm/;
