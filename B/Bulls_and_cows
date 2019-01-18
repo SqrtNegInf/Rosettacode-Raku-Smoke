@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bulls_and_cows
 #c# 2016-05-10 <RC
-#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+#=# RC pipe: 1234\n7234\n7254
 
 srand 123456;
 
@@ -11,6 +11,7 @@ srand 123456;
 # Works with: Rakudo version 2015.12
 my $size = 4;
 my @secret = pick $size, '1' .. '9';
+
  
 for 1..* -> $guesses {
     my @guess;
@@ -30,3 +31,4 @@ for 1..* -> $guesses {
 }
  
 say 'A winner is you!';
+say 'ok 1 -';
