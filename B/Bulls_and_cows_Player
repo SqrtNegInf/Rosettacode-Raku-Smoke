@@ -13,15 +13,13 @@ srand 123456;
 # operator X to create the Cartesian Product of four times [1..9] and then get
 # all the elements where the number of unique digits is four.
 
-srand 123456;
-
-#my @candidates = ([X] [1..9] xx 4).tree.grep: *.uniq == 4;
 my @candidates = ([X] [1..9] xx 4).grep: *.unique == 4; #DH change
  
 repeat {
 	my $guess = @candidates.pick;
 	my ($bulls, $cows) = read-score;
 	@candidates .= grep: &score-correct;
+dd @candidates;
  
 	# note how we declare our two subroutines within the repeat block. This
 	# limits the scope in which the routines are known to the scope in which
