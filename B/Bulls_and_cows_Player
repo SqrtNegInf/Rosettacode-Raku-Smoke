@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bulls_and_cows/Player
 #c# 2016-05-10 <RC, 2018-03-23 >RC
-#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+#=# RC pipe: 2 1\n2 1\n2 1
 
 srand 123456;
 
@@ -13,22 +13,21 @@ srand 123456;
 # operator X to create the Cartesian Product of four times [1..9] and then get
 # all the elements where the number of unique digits is four.
 
-my @candidates = ([X] [1..9] xx 4).grep: *.unique == 4; #DH change
+my @candidates = ([X] [1..5] xx 4).grep: *.unique == 4; #DH change
  
 repeat {
 	my $guess = @candidates.pick;
 	my ($bulls, $cows) = read-score;
 	@candidates .= grep: &score-correct;
-dd @candidates;
  
 	# note how we declare our two subroutines within the repeat block. This
 	# limits the scope in which the routines are known to the scope in which
 	# they are needed and saves us a lot of arguments to our two routines.
 	sub score-correct($a) {
-		# use the Z (zip) meta operator along with == to construct the
-		# list ($a[0] == $b[0], $a[1] == $b[1], ...) and then add it up
-		# using the reduction meta operator [] and +.
-		my $exact = [+] $a Z== $guess;
+		# hyper operators used to construct the list:
+		#    ($a[0] == $b[0], $a[1] == $b[1], ...) 
+		# which is then added up with the reduction meta operator
+		my $exact = [+] $a >>==<< $guess; # DH change
  
 		# number of elements of $a that match any element of $b
 		my $loose = +$a.grep: any @$guess;
