@@ -5,7 +5,10 @@
 
 my $dir = "%*ENV<HOME>/perl6/Rosetta-Code/bench";
 
-sub MAIN ( Str $task ) {
+sub MAIN ( Str $input ) {
+
+my $task = $input;
+$task ~~ s/ <[0A..Z]>\/ //;
 
 my $num = rx/<[\.0..9]>+/;
 
