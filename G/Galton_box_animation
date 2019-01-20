@@ -1,14 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Galton_box_animation
 #c# 2016-02-09 <RC
-#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+#i# RC cli: 10 4
+#f# RC file: galton_box.dat
 
 srand 123456;
 
 # UPPER HALF BLOCK and LOWER HALF BLOCK alternate to give a somewhat smooth animation.
-# Works with: rakudo version 2015-09-12
+
+my $fh = open("run/galton_box.dat", :w) || die;
 
 my $row-count = 6;
 
@@ -90,7 +92,7 @@ sub display-board(@positions, @stats is copy, $halfstep) {
         }
         say "" for $padding...^10;
     }
-    say @output.join("");
+    $fh.say: @output.join("");
 }
 
 sub simulate($coins is copy) {
@@ -152,9 +154,7 @@ sub simulate($coins is copy) {
     }
 }
 
-#sub MAIN($coins = 20, $peg-lines = 6) {
 sub MAIN($coins =250, $peg-lines = 13) {
     $row-count = $peg-lines;
     simulate($coins);
 }
-
