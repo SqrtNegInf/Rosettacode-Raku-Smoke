@@ -35,6 +35,7 @@ sub eratsieve($n) {
  
 put flat eratsieve(100);
 
+#`{{ removed: modulus not sieve...
 # Using a chain of filters[edit]
 sub primes ( UInt $n ) {
     gather {
@@ -57,10 +58,11 @@ sub primes ( UInt $n ) {
 }
 
 put primes( 100 );
+}}
 
 my $ref = '2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97';
 
 use Test;
 is ((sieve 100).join(' ')), chomp $ref;
 is (flat eratsieve(100)), chomp $ref;
-is (primes(100)), chomp $ref;
+#is (primes(100)), chomp $ref;
