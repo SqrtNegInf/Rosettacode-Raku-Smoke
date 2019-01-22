@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Linux_CPU_utilization
+#t# skiptest
+#c# 2019-01-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# tested on Ubuntu 18
+
+my @res;
+
+my $last-total = 0;
+my $last-idle  = 0;
+ 
+loop {
+    my $Δ-total = (my $this-total = [+] my @cpu = "/proc/stat".IO.lines[0].words[1..*]) - $last-total;
+    my $Δ-idle  = (my $this-idle  = @cpu[3]) - $last-idle;
+    $last-total = $this-total;
+    $last-idle  = $this-idle;
+    print "\b" x 40, (100 * (1 - $Δ-idle / $Δ-total)).fmt("Utilization: %0.1f%% ");
+    sleep(1);
+}
