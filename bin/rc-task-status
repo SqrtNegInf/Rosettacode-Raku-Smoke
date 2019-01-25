@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl
 ## RC task status
-#c# 2018-03-12 2018-03-19 2018-04-02 2018-04-29 2018-05-18 2018-06-02 2018-06-03
+#c# 2018-03-12 2018-03-19 2018-04-02 2018-04-29 2018-05-18 2018-06-02 2018-06-03 2019-01-24
 
 use warnings;
 use strict 'vars';
@@ -154,6 +154,7 @@ my($l) = @_;
     $p =~ s/Brain\*\*\*\*/Brainfuck/;           # 'fix' Brainfuck name
     $p =~ s/%E2%80%93/-/;                       # e.g. Burrows%E2%80%93Wheeler_transform
     $p =~ s/%E2%80%99//;                        # e.g. Ukkonen%E2%80%99s
+    $p =~ s/0-1/0_1/;                           # Knapsack_problem_0-1, now in two versions: *_0_1-1, *_0_1-2
     return pfix($p);
 }
 
@@ -187,7 +188,6 @@ Aspect_Oriented_Programming
 Assertions
 Bitmap_PPM_conversion_through_a_pipe
 Call_an_object_method
-Code_segment_unload
 Color_of_a_screen_pixel
 Command-line_arguments
 Create_a_file_on_magnetic_tape
