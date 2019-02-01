@@ -18,12 +18,9 @@ my $water = '▒';
 enum Direction <DeadEnd Up Right Down Left>;
  
 say 'Sample percolation at .6';
-percolate(.6);
+say 'No percolation possible.' unless percolate(.6);
 my @drip.push: .join for @bond;
 .say for @drip;
-
-#.join.say for @bond;
-#say "\n";
  
 my $tests = 100;
 say "Doing $tests trials at each porosity:";
