@@ -1,0 +1,55 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Cuban_primes
+#c# 2019-02-02 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res;
+
+# After reading up a bit, the general form for cuban primes is prime numbers of the form ((x+k)3 - x3)/k where k mod 3 is not equal 0.
+# The cubans where k == 1 (the focus of this task) is one of many possible groups. In general, it seems like the cubans where k == 1 and k==2 are the two primary cases, but it is possible to have cubans with a k of any integer that is not a multiple of 3.
+# Here are the first 20 for each valid k up to 10:
+
+sub comma { $^i.flip.comb(3).join(',').flip }
+ 
+for 2..10 -> \k {
+    next if k %% 3;
+    my @cubans = lazy (1..Inf).hyper(:8degree).map({ (($_+k)³ - .³)/k }).grep: *.is-prime;
+    @res.push: "First 20 cuban primes where k = {k}:";
+    @res.push: @cubans[^20]».&comma».fmt("%7s").rotor(10).join: "\n";
+    @res.push: '';
+}
+ 
+
+
+.say for @res; 
+
+my $ref = q:to/END/;
+First 20 cuban primes where k = 2:
+     13     109     193     433     769   1,201   1,453   2,029   3,469   3,889
+  4,801  10,093  12,289  13,873  18,253  20,173  21,169  22,189  28,813  37,633
+
+First 20 cuban primes where k = 4:
+     31      79     151     367   1,087   1,327   1,879   2,887   3,271   4,111
+  4,567   6,079   7,207   8,431  15,991  16,879  17,791  19,687  23,767  24,847
+
+First 20 cuban primes where k = 5:
+     43      67      97     223     277     337     727     823   1,033   1,663
+  2,113   2,617   2,797   3,373   4,003   5,683   6,217   7,963  10,273  10,627
+
+First 20 cuban primes where k = 7:
+     73     103     139     181     229     283     409     643     733     829
+  1,039   1,153   1,399   1,531   1,669   2,281   2,803   3,181   3,583   3,793
+
+First 20 cuban primes where k = 8:
+    163     379     523     691     883   2,203   2,539   3,691   5,059   5,563
+  6,091   7,219   8,443   9,091  10,459  11,923  15,139  19,699  24,859  27,091
+
+First 20 cuban primes where k = 10:
+    457     613     997   1,753   2,053   2,377   4,357   6,373   9,433  13,093
+ 16,453  21,193  27,673  28,837  31,237  37,657  46,153  47,653  49,177  62,233
+END
+
+
+use Test;
+is @res.join("\n"), $ref;
