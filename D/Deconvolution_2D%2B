@@ -143,13 +143,26 @@ my @g[4;4;6] = (
   ]
 );
 
+# this works fine
+#my @h[2;3;4] = ( [[[-6, -8, -5, 9], [-7, 9, -6, -8], [2, -7, 9, 8],], [[7, 4, 4, -6], [9, 9, 4, -4], [-3, 7, -2, -3],],]);
+#my @ff = deconvolve-N( @g, @h );
+#dd @ff; exit;
+
+# 3/2/3  vs 4/4/6
+
 say "# {+@f.shape}D array:";
+my @h = deconvolve-N( @g, @f );
 say "h =";
-pretty_print( my @res = deconvolve-N( @g, @f ) );  # remove '@res' for RC
+pretty_print( @h );
+my @h-sh[2;3;4] = @(deconvolve-N( @g, @f ));
+my @ff = deconvolve-N( @g, @h-sh );
+#my @ff = deconvolve-N( @g, @(deconvolve-N( @g, @f )).shape(2,3,4) );
+say "\nff =";
+pretty_print( @ff );
 
 my $ref = qq:to/END/;
 [[[-6 -8 -5 9] [-7 9 -6 -8] [2 -7 9 8]] [[7 4 4 -6] [9 9 4 -4] [-3 7 -2 -3]]]
 END
 
 use Test;
-is @res.gist, chomp $ref;
+is @h.gist, chomp $ref;
