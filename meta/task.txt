@@ -1,19 +1,19 @@
 This is Rakudo version 2018.12-183-gf329d6c6c built on MoarVM version 2018.12-13-g473324ee3
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1032/10]
-|+-------------> JVM: Good/Bad [900/141]
-||+------------> Smoke testing [937]
-|||+-----------> sKipping validation [102]
-||||+----------> Interactive [49]
++--------------> Moar: Good/Bad [1034/10]
+|+-------------> JVM: Good/Bad [901/143]
+||+------------> Smoke testing [938]
+|||+-----------> sKipping validation [104]
+||||+----------> Interactive [51]
 |||||+---------> Touched (modified by me) [243]
 ||||||+--------> Concurrent [39]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [78]
 |||||||||+-----> Draft [217]
-||||||||||+----> Ignoring [60]
-|||||||||||+---> Void (no local copy) [143]
-||||||||||||+--> Un-implemented/reliable [107]
+||||||||||+----> Ignoring [58]
+|||||||||||+---> Void (no local copy) [140]
+||||||||||||+--> Un-implemented/reliable [106]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -46,7 +46,7 @@ GGS.......... Ackermann_function
 ...........VU Active_object
 GGS.......... Add_a_variable_to_a_class_instance_at_runtime
 .........D.VU Addition-chain_exponentiation
-.........D.VU Addition_chains
+GGS......D... Addition_chains
 GGS.......... Address_of_a_variable
 GGS.......... Align_columns
 GGS..Tc...... Aliquot_sequence_classifications
@@ -411,8 +411,8 @@ GGS.......... Function_frequency
 ..........XV. Function_prototype
 .........D.VU Functional_coverage_tree
 ..........XVU GUI_Maximum_window_dimensions
-..........XV. GUI_component_interaction
-..........XV. GUI_enabling_disabling_of_controls
+GB.KI........ GUI_component_interaction
+GB.KI........ GUI_enabling_disabling_of_controls
 GGS....RF.... Galton_box_animation
 GGS.......... Gamma_function
 GGS......D... Gauss-Jordan_matrix_inversion
@@ -553,7 +553,7 @@ GGS.......... Kronecker_product
 GBS..TC.F.... Kronecker_product_based_fractals
 GGS.....F.... LU_decomposition
 GGS.......... LZW_compression
-GGS....R..... Langton%27s_ant
+!GS....R..... Langton%27s_ant
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
 GGS.......... Last_Friday_of_each_month
