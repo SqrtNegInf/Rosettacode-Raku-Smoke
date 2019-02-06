@@ -1,18 +1,18 @@
 This is Rakudo version 2018.12-183-gf329d6c6c built on MoarVM version 2018.12-13-g473324ee3
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1034/10]
-|+-------------> JVM: Good/Bad [901/143]
-||+------------> Smoke testing [938]
++--------------> Moar: Good/Bad [1035/10]
+|+-------------> JVM: Good/Bad [902/143]
+||+------------> Smoke testing [939]
 |||+-----------> sKipping validation [104]
 ||||+----------> Interactive [51]
-|||||+---------> Touched (modified by me) [243]
+|||||+---------> Touched (modified by me) [244]
 ||||||+--------> Concurrent [39]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [78]
 |||||||||+-----> Draft [217]
 ||||||||||+----> Ignoring [58]
-|||||||||||+---> Void (no local copy) [140]
+|||||||||||+---> Void (no local copy) [139]
 ||||||||||||+--> Un-implemented/reliable [106]
 |||||||||||||
 GGS.......... 100_doors
@@ -94,7 +94,7 @@ GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
 GGS.......... Averages_Median
-GGS.......... Averages_Mode
+!GS.......... Averages_Mode
 GGS.......... Averages_Pythagorean_means
 GGS.......... Averages_Root_mean_square
 GGS.......... Averages_Simple_moving_average
@@ -244,7 +244,7 @@ GBS.......... Create_an_object_at_a_given_address
 .........D... Cuban_primes
 GGS...C...... Cuban_primes-1
 GGS...C...... Cuban_primes-2
-GGS...c...... Cuban_primes-3
+GGS.......... Cuban_primes-3
 GGS.......... Cumulative_standard_deviation
 GGS.......... Currency
 GGS.......... Currying
@@ -553,7 +553,7 @@ GGS.......... Kronecker_product
 GBS..TC.F.... Kronecker_product_based_fractals
 GGS.....F.... LU_decomposition
 GGS.......... LZW_compression
-!GS....R..... Langton%27s_ant
+GGS....R..... Langton%27s_ant
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
 GGS.......... Last_Friday_of_each_month
@@ -834,7 +834,7 @@ GGS..T...D... Ramsey%27s_theorem
 GGS..T....... Random_number_generator_device
 ..........XV. Random_number_generator_included
 GGS....R..... Random_numbers
-.........D.V. Range_consolidation
+GGS..T...D... Range_consolidation
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
