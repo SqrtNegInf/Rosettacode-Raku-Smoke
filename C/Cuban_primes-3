@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cuban_primes
-#c# 2019-02-03 <RC
+#c# 2019-02-03 <RC, 2019-02-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# concurrency doesn't really help here; turn off for JVM's sake
@@ -10,10 +10,8 @@ my @res;
 sub comma { $^i.flip.comb(3).join(',').flip }
  
 my \k = 2**128;
-my @cubans = lazy (0..Inf).map({ (($_+k)³ - .³)/k }).grep: *.is-prime;
-#my @cubans = lazy (0..Inf).hyper(:8degree).map({ (($_+k)³ - .³)/k }).grep: *.is-prime;
 put "First 10 cuban primes where k = {k}:";
-@res.push: .&comma for @cubans[^10];
+@res.push: .&comma for (lazy (0..Inf).map({ (($_+k)³ - .³)/k }).grep: *.is-prime)[^10];
 
 .say for @res;
 
