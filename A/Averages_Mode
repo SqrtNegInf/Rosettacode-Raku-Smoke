@@ -14,7 +14,7 @@ sub mode1 (*@a) {
  
 # Testing with arrays:
 @res = mode1 [1, 3, 6, 6, 6, 6, 7, 7, 12, 12, 17];
-@res.push: $_ for mode1 [1, 1, 2, 4, 4];
+@res.push: $_ for sort mode1 [1, 1, 2, 4, 4];
 say my $result = join "\n", @res;
 
 sub mode2 (*@a) {
