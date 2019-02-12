@@ -1,9 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Addition_chains
-#c# 2019-02-04 <RC
+#c# 2019-02-04 <RC, 2019-02-11 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# got rid of 'is copy' in parameter lists
+#n# updates made it Hdktam's code:
+#n#   got rid of 'is copy' in parameter lists
+#n#   kebab-case routine names
+#n#   removed 'LOOP' blocks, were irrelevant
+#n#   multi sub try-Permutation
+#n#   rearrange blocks, drop superstitous parens
+#n#   use $_ as notation for topic
+#n#   add return type-constraint for more routines
 
 my @res;
 
@@ -11,112 +18,102 @@ my @res;
  
 my @Example = ();
  
-sub checkSeq($pos, @seq, $n, $minLen)  {
-   if ($pos > $minLen || @seq[0] > $n) {
+sub check-Sequence($pos, @seq, $n, $minLen --> List)  {
+   if ($pos > $minLen or @seq[0] > $n) {
       return $minLen, 0;
    } elsif (@seq[0] == $n) {
       @Example = @seq;
       return $pos, 1;
    } elsif ($pos < $minLen) {
-      return tryPerm 0, $pos, @seq, $n, $minLen;
+      return try-Permutation 0, $pos, @seq, $n, $minLen;
    } else {
       return $minLen, 0;
    }
 }
 
-sub tryPerm($i, $pos, @seq, $n, $minLen) {
+multi sub try-Permutation($i, $pos, @seq, $n, $minLen --> List) {
    return $minLen, 0 if $i > $pos;
-   my @res1 = checkSeq $pos+1, (@seq[0]+@seq[$i],@seq).flat, $n, $minLen;
-   my @res2 = tryPerm $i+1, $pos, @seq, $n, @res1[0];
+   my @res1 = check-Sequence $pos+1, (@seq[0]+@seq[$i],@seq).flat, $n, $minLen;
+   my @res2 = try-Permutation $i+1, $pos, @seq, $n, @res1[0];
    if (@res2[0] < @res1[0]) {
       return @res2[0], @res2[1];
    } elsif (@res2[0] == @res1[0]) {
       return @res2[0], @res1[1]+@res2[1];
    } else {
-      say "Error in tryPerm";
+      note "Error in try-Permutation";
       return 0, 0;
    }
 }
 
-sub initTryPerm($x, $minLen) {
-   return tryPerm 0, 0, [1], $x, $minLen ;
+multi sub try-Permutation($x, $minLen --> List) {
+   return try-Permutation 0, 0, [1], $x, $minLen;
 }
 
-sub findBrauer($num, $minLen, $nbLimit) {
-   my ($actualMin, $brauer) = initTryPerm $num, $minLen ;
+sub find-Brauer($num, $minLen, $nbLimit) {
+   my ($actualMin, $brauer) = try-Permutation $num, $minLen;
    @res.push: "\nN = "~ $num;
-   @res.push: "Minimum length of chains : L($num) = $actualMin" ;
-   @res.push: "Number of minimum length Brauer chains : "~ $brauer ;
-   @res.push: "Brauer example : "~ @Example.reverse if $brauer > 0 ;
+   @res.push: "Minimum length of chains : L($num) = $actualMin";
+   @res.push: "Number of minimum length Brauer chains : "~ $brauer;
+   @res.push: "Brauer example : "~ @Example.reverse if $brauer > 0;
    @Example = ();
    if ($num ≤ $nbLimit) {
-      my $nonBrauer = findNonBrauer $num, $actualMin+1, $brauer ;
-      @res.push: "Number of minimum length non-Brauer chains : "~ $nonBrauer ;
-      @res.push: "Non-Brauer example : "~ @Example if $nonBrauer > 0 ;
+      my $nonBrauer = find-Non-Brauer $num, $actualMin+1, $brauer;
+      @res.push: "Number of minimum length non-Brauer chains : "~ $nonBrauer;
+      @res.push: "Non-Brauer example : "~ @Example if $nonBrauer > 0;
       @Example = ();
    } else {
       @res.push: "Non-Brauer analysis suppressed";
    }
 }
 
-sub isAdditionChain(@a --> Bool) {
-   for (2 .. @a.end) -> $i {
-      return False if @a[$i] > @a[$i-1]*2 ;
+sub is-Addition-Chain(@a --> Bool) {
+   for 2 .. @a.end -> $i {
+      return False if @a[$i] > @a[$i-1]*2;
       my $ok = False;
-      JLOOP: for ($i-1 … 0) -> $j {
-         for ($j … 0) -> $k {
-            if (@a[$j]+@a[$k] == @a[$i]) {
-               $ok = True;
-               last JLOOP;
-            }
+      for $i-1 … 0 -> $j {
+         for $j … 0 -> $k {
+            { $ok = True; last } if @a[$j]+@a[$k] == @a[$i];
          }
       }
       return False unless $ok;
    }
  
-   if (!isBrauer(@a) and !@Example.Bool) {
-      @Example = @a;
-   }
+   @Example = @a unless @Example or is-Brauer @a;
    return True;
 }
 
-sub isBrauer(@a --> Bool) {
-   for (2 .. @a.end) -> $i {
+sub is-Brauer(@a --> Bool) {
+   for 2 .. @a.end -> $i {
       my $ok = False;
-      ILOOP: for ($i-1 … 0) -> $j {
-         if (@a[$i-1]+@a[$j] == @a[$i]) {
-            $ok = True;
-            last ILOOP;
-         }
+      for $i-1 … 0 -> $j {
+         { $ok = True; last } if @a[$i-1]+@a[$j] == @a[$i];
       }
       return False unless $ok;
    }
    return True;
 }
 
-sub findNonBrauer($num, $len, $brauer) {
-   my @seq = (1 .. $len-1, $num).flat;
-   my $count = isAdditionChain(@seq) ?? 1 !! 0;
+sub find-Non-Brauer($num, $len, $brauer --> Int) {
+   my @seq   = flat 1 .. $len-1, $num;
+   my $count = is-Addition-Chain(@seq) ?? 1 !! 0;
  
-   sub nextChains($index) {
+   sub next-Chains($index) {
       loop {
-         nextChains($index+1) if $index < $len-1;
-         return if (@seq[$index]+$len-1-$index ≥ @seq[$len-1]);
+         next-Chains $index+1 if $index < $len-1;
+         return if @seq[$index]+$len-1-$index ≥ @seq[$len-1];
          @seq[$index]++;
-         for ($index^..^$len-1) { @seq[$^i] = @seq[$^i-1] + 1;}
-         $count++ if isAdditionChain(@seq);
+         for $index^..^$len-1 { @seq[$_] = @seq[$_-1] + 1 }
+         $count++ if is-Addition-Chain @seq;
       }
    }
  
-   nextChains(2);
+   next-Chains 2;
    return $count - $brauer;
 }
  
-my @nums = (7, 14, 21, 29, 32, 42, 64);  # unlock below for extra credits,
-                                         # 47, 79, 191, 382, 379, 379, 12509);
 say "Searching for Brauer chains up to a minimum length of 12:";
-for @nums { findBrauer $^i, 12, 79 } ;
- 
+find-Brauer $_, 12, 79 for 7, 14, 21, 29, 32, 42, 64 #`{, 47, 79, 191, 382, 379, 379, 12509 } ;
+
 .say for @res; 
 
 #Searching for Brauer chains up to a minimum length of 12:
