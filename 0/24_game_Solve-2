@@ -1,10 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game/Solve
-#c# 2018-11-04 <RC
+#c# 2018-11-04 <RC, 2019-02-13 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #i# RC cli: 1 7 3 1
 #n# new version, no EVAL
+#n# wasn't concurrency-safe (but doesn't really see a boost from it anyhow?)
 
 # Alternately, a version that doesn't use EVAL. More general case. Able to handle 3 or 4 integers, able to select the goal value.
 
@@ -95,7 +96,7 @@ sub MAIN (*@parameters, Int :$goal = 24) {
         say 'Running demonstration with: ', |@numbers, "\n";
     }
     my @res = solve @numbers, $goal;
-    .say for @res;
+    .say for @res; 
     use Test;
     is @res.join("\n"), chomp $ref;
 }
@@ -109,11 +110,12 @@ sub solve (@numbers, $goal = 24) {
     @sol[250]; # preallocate some stack space
     my $batch = ceiling +@perms/4;
 
-    @perms.race(:batch($batch)).map: -> @p {
+    my atomicint $i;
+    @perms.map: -> @p {
         for @ops -> @o {
             for @order -> @r {
                 my $result = evaluate(@p, @o, @r);
-                @sol.push: $result[1] if $result[0] and $result[0] == $goal;
+                @sol[$i⚛++] = $result[1] if $result[0] and $result[0] == $goal;
             }
         }
     }
