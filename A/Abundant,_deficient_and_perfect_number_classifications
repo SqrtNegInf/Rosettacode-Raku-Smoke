@@ -1,16 +1,18 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Abundant,_deficient_and_perfect_number_classifications
-#c# 2016-01-02 <>RC
+#c# 2016-01-02 <>RC, 2019-02-15 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
 
 sub propdivsum (\x) {
-    my @l = x > 1, gather for 2 .. x.sqrt.floor -> \d {
-        my \y = x div d;
-        if y * d == x { take d; take y unless y == d }
+    my @l = 1 if x > 1;
+    (2 .. x.sqrt.floor).map: -> \d {
+        unless x % d { @l.push: d; my \y = x div d; @l.push: y if y != d }
     }
-    [+] gather @l.deepmap(*.take);
+    sum @l
 }
+ 
+say bag (1..20000).map: { propdivsum($_) <=> $_ }
 
 say my @out = sort bag map { propdivsum($_) <=> $_ }, 1..20000;
 
