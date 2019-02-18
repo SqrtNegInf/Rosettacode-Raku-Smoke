@@ -1,7 +1,7 @@
 This is Rakudo version 2018.12-183-gf329d6c6c built on MoarVM version 2018.12-13-g473324ee3
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1038/10]
++--------------> Moar: Good/Bad [1039/10]
 |+-------------> JVM: Good/Bad [904/144]
 ||+------------> Smoke testing [940]
 |||+-----------> sKipping validation [106]
@@ -10,9 +10,9 @@ updating from RC…
 ||||||+--------> Concurrent [38]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [79]
-|||||||||+-----> Draft [216]
+|||||||||+-----> Draft [217]
 ||||||||||+----> Ignoring [57]
-|||||||||||+---> Void (no local copy) [137]
+|||||||||||+---> Void (no local copy) [138]
 ||||||||||||+--> Un-implemented/reliable [103]
 |||||||||||||
 GGS.......... 100_doors
@@ -43,7 +43,7 @@ GGS.......... Accumulator_factory
 GGS.......... Ackermann_function
 ..........XVU Active_Directory_Connect
 ...........VU Active_Directory_Search_for_a_user
-...........VU Active_object
+...........V. Active_object
 GGS.......... Add_a_variable_to_a_class_instance_at_runtime
 .........D.VU Addition-chain_exponentiation
 GGS..T...D... Addition_chains
@@ -441,7 +441,7 @@ GGS....R..... Guess_the_number_With_feedback_player
 GBS..T....... HTTP
 GBS.......... HTTPS
 GG.K......... HTTPS_Authenticated
-!BS.......... HTTPS_Client-authenticated
+GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
 GGS..T....... Hamming_numbers
 GG.KI........ Handle_a_signal
@@ -1135,6 +1135,7 @@ GGS....R..... Unbias_a_random_generator
 .........D.VU Unicode_polynomial_equation
 GGS.......... Unicode_strings
 GGS.......... Unicode_variable_names
+.........D.VU Unit_testing
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
 GG.K.....D... Untrusted_environment
