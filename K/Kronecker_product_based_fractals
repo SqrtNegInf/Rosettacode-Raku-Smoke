@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Kronecker_product_based_fractals
-#c# 2017-04-18 <RC, 2018-10-16 >RC
+#c# 2017-04-18 <RC, 2018-10-16 >RC, 2019-02-18 <RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: BROKEN
@@ -34,8 +34,11 @@ for  'vicsek', @vicsek, 4,
   -> $name,    @shape,  $order {
     my @img = kronecker-fractal( @shape, $order );
     my $png = Image::PNG::Portable.new: :width(@img[0].elems), :height(@img.elems);
-    (^@img[0] X ^@img).race.map: -> ($x, $y) {
-        $png.set: $x, $y, |( @img[$y;$x] ?? <255 255 32> !! <16 16 16> );
+#    (^@img[0] X ^@img).race.map: -> ($x, $y) {
+    (^@img[0]).race(:12batch).map: -> $x {
+        for ^@img -> $y {
+            $png.set: $x, $y, |( @img[$y;$x] ?? <255 255 32> !! <16 16 16> );
+        }
     }
     $png.write: "run/kronecker-{$name}-perl6.png";
 }
