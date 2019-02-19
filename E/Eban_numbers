@@ -1,0 +1,89 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Eban_numbers
+#c# 2019-02-18 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Lingua::EN::Numbers::Cardinal;
+ 
+sub nban ($seq, $n = 'e') { ($seq).map: { next if .&cardinal.contains($n); $_ } }
+ 
+sub comma { $^i.flip.comb(3).join(',').flip }
+ 
+for 'e', 't' -> $n {
+ 
+    my @ban = flat ((1 .. 99),).map: *.&nban($n);
+ 
+    my @orders = (2 .. 9).map({ 10**$_ X* 1..9 }).map: *.&nban($n);
+ 
+    for @orders -> @order {
+        next unless +@order;
+        my @these;
+        for @order {
+            my @extend = flat $_, flat @ban X+ $_;
+            @these.append: @extend;
+        }
+        @ban.append: @these
+    }
+    @ban.unshift(0) if 0.&nban($n);
+ 
+    @res.push: "\n============= {$n}-ban: =============";
+    my @k = @ban.grep: * <= 100;
+    @res.push: "{$n}-ban numbers up to 100: "~ +@k;
+    @res.push: @k;
+    @res.push: '';
+    my @j = @ban.grep: 1000 <= * <= 4000;
+    @res.push: "{$n}-ban numbers between 1,000 & 4,000: "~ +@j;
+    @res.push: @j;
+    @res.push: '';
+ 
+    for (1 .. 9).map: { 10**$_ }
+      -> $e {
+        my $f = @ban.first( * > $e, :k );
+        @res.push: sprintf "Up to %13s: %d",comma($e), $f ?? +@ban[^$f] !! +@ban;
+    }
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+============= e-ban: =============
+e-ban numbers up to 100: 19
+2 4 6 30 32 34 36 40 42 44 46 50 52 54 56 60 62 64 66
+
+e-ban numbers between 1,000 & 4,000: 21
+2000 2002 2004 2006 2030 2032 2034 2036 2040 2042 2044 2046 2050 2052 2054 2056 2060 2062 2064 2066 4000
+
+Up to            10: 3
+Up to           100: 19
+Up to         1,000: 19
+Up to        10,000: 79
+Up to       100,000: 399
+Up to     1,000,000: 399
+Up to    10,000,000: 1599
+Up to   100,000,000: 7999
+Up to 1,000,000,000: 7999
+
+============= t-ban: =============
+t-ban numbers up to 100: 9
+0 1 4 5 6 7 9 11 100
+
+t-ban numbers between 1,000 & 4,000: 0
+
+
+Up to            10: 7
+Up to           100: 9
+Up to         1,000: 56
+Up to        10,000: 56
+Up to       100,000: 56
+Up to     1,000,000: 57
+Up to    10,000,000: 392
+Up to   100,000,000: 393
+Up to 1,000,000,000: 2745
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
