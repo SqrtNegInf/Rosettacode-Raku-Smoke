@@ -1,19 +1,19 @@
 This is Rakudo version 2018.12-183-gf329d6c6c built on MoarVM version 2018.12-13-g473324ee3
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1039/10]
-|+-------------> JVM: Good/Bad [904/144]
-||+------------> Smoke testing [940]
-|||+-----------> sKipping validation [106]
++--------------> Moar: Good/Bad [1040/10]
+|+-------------> JVM: Good/Bad [905/145]
+||+------------> Smoke testing [941]
+|||+-----------> sKipping validation [107]
 ||||+----------> Interactive [52]
 |||||+---------> Touched (modified by me) [247]
 ||||||+--------> Concurrent [38]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [79]
-|||||||||+-----> Draft [217]
+|||||||||+-----> Draft [219]
 ||||||||||+----> Ignoring [57]
 |||||||||||+---> Void (no local copy) [138]
-||||||||||||+--> Un-implemented/reliable [103]
+||||||||||||+--> Un-implemented/reliable [104]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -43,7 +43,7 @@ GGS.......... Accumulator_factory
 GGS.......... Ackermann_function
 ..........XVU Active_Directory_Connect
 ...........VU Active_Directory_Search_for_a_user
-...........V. Active_object
+GG.K......... Active_object
 GGS.......... Add_a_variable_to_a_class_instance_at_runtime
 .........D.VU Addition-chain_exponentiation
 GGS..T...D... Addition_chains
@@ -302,6 +302,7 @@ GB.KI....D... Draw_pixel_2
 GGS..T.R..... Dutch_national_flag_problem
 GGS.......... Dynamic_variable_names
 GGS.......... EKG_sequence_convergence
+GBS......D... Eban_numbers
 GG.KIT....... Echo_server
 GGS.......... Eertree
 GGS.......... Egyptian_division
@@ -577,7 +578,7 @@ GG.K......... Literals_String
 GGS..T....... Logical_operations
 GGS..T....... Long_multiplication
 GBS...C...... Long_primes
-GGS......D... Longest_Common_Substring
+!GS......D... Longest_Common_Substring
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
 GGS.......... Longest_increasing_subsequence
@@ -905,6 +906,7 @@ GGS.......... SHA-256
 GBS.......... SOAP
 ..........XV. SQL-based_authentication
 GBS.......... Safe_addition
+.........D.VU Safe_mode
 GBS.......... Safe_primes_and_unsafe_primes
 GGS.......... Sailors,_coconuts_and_a_monkey_problem
 GGS.......... Same_Fringe
