@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+## xxx
+#  David H.  2019-02-22
+
+#printf "%.16f\n", $ep**(π*163**.5);
+#my FatRat $a = 163;
+#printf "%.16f\n", $ep**(π*(163**0.5).FatRat);
+#printf "%.16f\n", e**(π*163**.5);
+
+constant number-of-decimals = 100;
+
+multi sqrt(Int $n) {
+    .[*-1] given
+    1, { ($_ + $n div $_) div 2 } ... * == *
+}
+multi sqrt(FatRat $r --> FatRat) {
+    return FatRat.new:
+    sqrt($r.nude[0] * 10**(number-of-decimals*2) div $r.nude[1]),
+    10**number-of-decimals;
+}
+
+
+my FatRat ($a, $n) = 1.FatRat xx 2;
+my FatRat $g = sqrt(1/2.FatRat);
+my $z = .25;
+
+my $mypi;
+
+for ^10 {
+    given [ ($a + $g)/2, sqrt($a * $g) ] {
+        $z -= (.[0] - $a)**2 * $n;
+        $n += $n;
+        ($a, $g) = @$_;
+        $mypi = ($a ** 2 / $z).substr: 0, 2 + number-of-decimals;
+    }
+}
+
+multi fatpow (FatRat $base, FatRat $exp --> FatRat) { [*] $base xx $exp }
+
+my FatRat $myrt = sqrt(163.FatRat); 
+
+say $mypi;
+say $myrt;
+my $mypr = $mypi * $myrt;
+say $mypr;
+#say $mypr.WHAT;
+say 'pr: ' ~ $mypr.WHAT.gist;
+
+my $ep = FatRat(2718281828459045235360287471352662497757247093/1000000000000000000000000000000000000000000000);
+say 'ep: ' ~ $ep.WHAT.gist;
+
+printf "%.25f\n", fatpow($ep,$mypr);
+# 262_537_412_640_768_743.99999999999925
+
+#printf "%.40f\n", $ep**21;
+#printf "%.40f\n", $ep**21.1;
+#printf "%.40f\n", $ep**21.2;
+#my $x = 21.2453467023452394359234.FatRat;
+#printf "%.40f\n", $ep**$x;
+
