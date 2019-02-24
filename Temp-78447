@@ -7,7 +7,8 @@
 #printf "%.16f\n", $ep**(π*(163**0.5).FatRat);
 #printf "%.16f\n", e**(π*163**.5);
 
-constant number-of-decimals = 100;
+use Rat::Precise;
+constant number-of-decimals = 40;
 
 multi sqrt(Int $n) {
     .[*-1] given
@@ -18,6 +19,7 @@ multi sqrt(FatRat $r --> FatRat) {
     sqrt($r.nude[0] * 10**(number-of-decimals*2) div $r.nude[1]),
     10**number-of-decimals;
 }
+
 
 
 my FatRat ($a, $n) = 1.FatRat xx 2;
@@ -39,14 +41,17 @@ multi fatpow (FatRat $base, FatRat $exp --> FatRat) { [*] $base xx $exp }
 
 my FatRat $myrt = sqrt(163.FatRat); 
 
+
 say $mypi;
+#my $mypifr = $mypi.FatRat; say $mypifr; say $mypifr.WHAT; exit;
 say $myrt;
 my $mypr = $mypi * $myrt;
 say $mypr;
-#say $mypr.WHAT;
+#say $mypr.precise;# (40); 
 say 'pr: ' ~ $mypr.WHAT.gist;
 
-my $ep = FatRat(2718281828459045235360287471352662497757247093/1000000000000000000000000000000000000000000000);
+my $ep = 2.718281828459045235360287471352662497757247093.FatRat;
+#my $ep = FatRat(2718281828459045235360287471352662497757247093/1000000000000000000000000000000000000000000000);
 say 'ep: ' ~ $ep.WHAT.gist;
 
 printf "%.25f\n", fatpow($ep,$mypr);
