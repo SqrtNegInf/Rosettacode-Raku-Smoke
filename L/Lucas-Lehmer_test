@@ -1,15 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Lucas-Lehmer_test
-#c# 2016-02-18 <RC
+#c# 2016-02-18 <RC, 2019-02-24 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# using update, despite potentially un-safe concurrency 
 
 multi is_mersenne_prime(2) { True }
 multi is_mersenne_prime(Int $p) {
     my $m_p = 2 ** $p - 1;
     my $s = 4;
     #  Alternate but slightly slower:   $s = ($s * $s - 2)% $m_p  for 3..$p;
-    for (3 .. $p) {
+    for 3 .. $p {
       $s = $s.expmod(2, $m_p) - 2;
       $s += $m_p if $s < 0;
     }
@@ -17,10 +18,12 @@ multi is_mersenne_prime(Int $p) {
 }
 
 my @res;
-for 2..* {
-    @res.push: "M$_" if is-prime($_) and is_mersenne_prime($_);
-    last if $_ > 2300;
-}
+(2,3,5,7 … 2285).hyper(:8degree).grep( *.is-prime ).map: { next unless .&is_mersenne_prime; @res.push: "M$_" };
+
+#for 2..* {
+#    @res.push: "M$_" if is-prime($_) and is_mersenne_prime($_);
+#    last if $_ > 2300;
+#}
 
 my $ref = qq:to/END/;
 M2
