@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sparkline_in_unicode
-#c# 2016-03-19 <RC
+#c# 2016-03-19 <RC, 2019-02-24 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -9,11 +9,10 @@ constant @bars = '▁' ... '█';
 
 my @res;
 sub xxx ($_) {
-    my @numbers = map +*, .comb(/ '-'? \d+ ['.' \d+]? /);
+    my @numbers = map +*, .comb(/ '-'? [[\d+ ['.' \d*]?] | ['.' \d+]] /);
     my ($mn,$mx) = @numbers.minmax.bounds;
     @res.push: "min: $mn.fmt('%5f'); max: $mx.fmt('%5f')"; 
-    my $div = ($mx - $mn) / (@bars - 1);
-    @res.push: @bars[ (@numbers X- $mn) X/ $div ].join;
+    @res.push: @bars[ @numbers.map: { @bars * ($_ - $mn) / ($mx - $mn) min @bars - 1 } ].join;
 }
 
 xxx(<9 18 27 36 45 54 63 72 63 54 45 36 27 18 9>);
