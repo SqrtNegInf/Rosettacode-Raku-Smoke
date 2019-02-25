@@ -1,19 +1,19 @@
 This is Rakudo version 2018.12-183-gf329d6c6c built on MoarVM version 2018.12-13-g473324ee3
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1041/10]
++--------------> Moar: Good/Bad [1042/10]
 |+-------------> JVM: Good/Bad [906/145]
 ||+------------> Smoke testing [942]
 |||+-----------> sKipping validation [107]
 ||||+----------> Interactive [52]
 |||||+---------> Touched (modified by me) [247]
-||||||+--------> Concurrent [38]
+||||||+--------> Concurrent [39]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [79]
-|||||||||+-----> Draft [220]
+|||||||||+-----> Draft [219]
 ||||||||||+----> Ignoring [58]
 |||||||||||+---> Void (no local copy) [138]
-||||||||||||+--> Un-implemented/reliable [103]
+||||||||||||+--> Un-implemented/reliable [102]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -302,7 +302,7 @@ GB.KI....D... Draw_pixel_2
 GGS..T.R..... Dutch_national_flag_problem
 GGS.......... Dynamic_variable_names
 GGS.......... EKG_sequence_convergence
-GBS......D... Eban_numbers
+GBS.......... Eban_numbers
 GG.KIT....... Echo_server
 GGS.......... Eertree
 GGS.......... Egyptian_division
@@ -461,7 +461,7 @@ GGS.......... Hello_world_Standard_error
 GGS.......... Hello_world_Text
 GG.KI........ Hello_world_Web_server
 GGS..T....... Here_document
-!GS..TC...... Heronian_triangles
+GGS..TC...... Heronian_triangles
 .........D.VU Hexapawn
 GGS.......... Hickerson_series_of_almost_integers
 GGS.......... Higher-order_functions
@@ -601,7 +601,7 @@ GGS.......... Loops_While
 GGS.......... Loops_Wrong_ranges
 GGS.......... Loops_with_multiple_ranges-1
 GGS..T....... Loops_with_multiple_ranges-2
-GGS.......... Lucas-Lehmer_test
+GGS...C...... Lucas-Lehmer_test
 GGS..T....... Lucky_and_even_lucky_numbers
 GGS.......... Ludic_numbers
 GGS.......... Luhn_test_of_credit_card_numbers
@@ -907,7 +907,7 @@ GGS.......... SHA-256
 GBS.......... SOAP
 ..........XV. SQL-based_authentication
 GBS.......... Safe_addition
-.........D.VU Safe_mode
+.........D.V. Safe_mode
 GBS.......... Safe_primes_and_unsafe_primes
 GGS.......... Sailors,_coconuts_and_a_monkey_problem
 GGS.......... Same_Fringe
