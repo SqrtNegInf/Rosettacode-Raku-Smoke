@@ -1,0 +1,78 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/xxx
+#c# 2019-02-24 NOT ON rosettacode
+#m# MOAR: OK
+#j#  JVM: OK
+#n# calculate Ramanujan's number as per http://oeis.org/wiki/Ramanujan%27s_constant
+#n# cobbled together from other RC tasks and a custom ** operator
+#n# expand to 'almost integer' of Heegner series (19 43 67), make table of deltas, RC task?
+#n# https://oeis.org/A003173, https://en.wikipedia.org/wiki/Heegner_number
+
+use Rat::Precise;
+constant D = 35;
+#constant D = 42;
+
+sub prefix:<√> (Int $n) {
+    sqrt($n.FatRat);
+}
+
+multi sqrt(Int $n) {
+    .[*-1] given 1, { ($_ + $n div $_) div 2 } ... * == *
+}
+
+multi sqrt(FatRat $r --> FatRat) {
+    FatRat.new: sqrt($r.nude[0] * 10**(D*2) div $r.nude[1]), 10**D;
+}
+
+multi infix:<**> (FatRat $base, FatRat $exp where * >= 1 --> FatRat) {
+    2 R** $base**($exp/2);
+}
+
+multi infix:<**> (FatRat $base, FatRat $exp where * <  1 --> FatRat) {
+    constant ε = 10**-D;
+    my $low  = 0.FatRat;
+    my $high = 1.FatRat;
+    my $acc  = my $sqr = sqrt($base);
+    my $mid  = $high / 2;
+
+    while (abs($mid - $exp) > ε) {
+      $sqr = sqrt($sqr);
+      if ($mid <= $exp) { $low  = $mid; $acc *=   $sqr } 
+      else              { $high = $mid; $acc *= 1/$sqr }
+      $mid = ($low + $high) / 2;
+    }
+
+    $acc;
+}
+
+sub π (--> FatRat) {
+    my ($a, $n) = 1, 1;
+    my $g = sqrt 1/2.FatRat;
+    my $z = .25;
+    my $pi;
+
+    for ^5 {
+        given [ ($a + $g)/2, sqrt $a * $g ] {
+            $z -= (.[0] - $a)**2 * $n;
+            $n += $n;
+            ($a, $g) = @$_;
+            $pi = ($a ** 2 / $z).substr: 0, 2 + D;
+        }
+    }
+
+    $pi.FatRat;
+}
+
+sub postfix:<!> (Int $n) { (constant f = 1, |[\*] 1..*)[$n] }
+
+sub 𝑒 (--> FatRat) { sum map { FatRat.new(1,.!) }, ^D }
+
+my $Ramanujan = 𝑒() ** ( π() * √ 163 );
+say my $delta  = abs($Ramanujan - (640320**3 + 744)).precise(14);
+say my $result = $Ramanujan.precise(14);
+#say my $result = $Ramanujan.precise(22);
+
+use Test;
+is $delta,  '0.00000000000075';
+is $result, '262537412640768743.99999999999925';
+#is $result, '262537412640768743.9999999999992500725972';
