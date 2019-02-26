@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Heronian_triangles
-#c# 2015-10-26 <>RC, 2018-10-15 >RC
+#c# 2015-10-26 <>RC, 2018-10-15 >RC, 2019-02-25 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# .race in 1st or 2nd loop give same speed-up (but not 3rd!); no, cannot nest them, blows up 
@@ -33,7 +33,7 @@ sub MAIN ($maxside = 200, $first = 10, $witharea = 210) {
     my @hh[1000];
     my atomicint $i;
     #(flat (^$maxside X ^$maxside).grep: {.[0] < .[1]}).race.map: -> $c, $b {  # much slower than no .race at all?
-    (1 .. $maxside).race.map: -> $c {
+    (1 .. $maxside).race(:12batch).map: -> $c {
         for 1 .. $c -> $b {
             for $c - $b + 1 .. $b -> $a {
                 if primitive-heronian-area($a,$b,$c) -> $area {
