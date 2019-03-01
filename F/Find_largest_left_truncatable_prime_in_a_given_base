@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Find_largest_left_truncatable_prime_in_a_given_base
-#c# 2017-04-17 <RC
+#c# 2017-04-17 <RC, 2019-02-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -18,16 +18,13 @@ for 3 .. 9 -> $base {  # DH change
         my $place = $base ** $digits;
         for 1 ..^ $base -> $digit {
             my $left = $digit * $place;
-            for @stems -> $stem {
-	        my $new = $left + $stem;
-	        @new.push($new) if $new.is-prime;
-            }
+            @new.append: (@stems »+» $left).race(:8degree, :8batch).grep: *.is-prime
         }
         last unless @new;
         @stems = @new;
     }
     @res.push: $temp;
-    @res.push: "Largest ltp in base $base = { @stems.tail } or :$base\<{@stems.tail.base($base)}>";
+    @res.push: "Largest ltp in base $base = { @stems.max } or :$base\<{@stems.max.base($base)}>";
 }
 
 .say for @res;
