@@ -1,8 +1,8 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env perl6 
 #u# http://rosettacode.org/wiki/Keyboard_input/Flush_the_keyboard_buffer
 #t# interactive
 #c# 2019-03-02 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# usual kluge for macOS, doesn't heed ^C, have to kill from other shell
 
@@ -12,8 +12,10 @@ my @res;
 
 use Term::termios;
  
-constant $saved   = Term::termios.new( :fd($*IN.native-descriptor) ).getattr;
-constant $termios = Term::termios.new( :fd($*IN.native-descriptor) ).getattr;
+my  $saved   = Term::termios.new(fd => 1).getattr;
+my  $termios = Term::termios.new(fd => 1).getattr;
+#constant $saved   = Term::termios.new( :fd($*IN.native-descriptor) ).getattr;
+#constant $termios = Term::termios.new( :fd($*IN.native-descriptor) ).getattr;
 $termios.makeraw;
  
 # set some modified input flags
