@@ -1,7 +1,7 @@
-This is Rakudo version 2018.12-337-ga8cd286a4 built on MoarVM version 2018.12-117-gdcafbc4c7
+This is Rakudo version 2018.12-338-g9770c1aa1 built on MoarVM version 2018.12-117-gdcafbc4c7
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1043/10]
++--------------> Moar: Good/Bad [1032/10]
 |+-------------> JVM: Good/Bad [906/146]
 ||+------------> Smoke testing [942]
 |||+-----------> sKipping validation [108]
@@ -44,7 +44,7 @@ GGS.......... Ackermann_function
 ..........XVU Active_Directory_Connect
 ...........VU Active_Directory_Search_for_a_user
 GG.K......... Active_object
-GGS.......... Add_a_variable_to_a_class_instance_at_runtime
+!GS.......... Add_a_variable_to_a_class_instance_at_runtime
 .........D.VU Addition-chain_exponentiation
 GGS..T...D... Addition_chains
 GGS.......... Address_of_a_variable
@@ -82,7 +82,7 @@ GGS.......... Array_length
 GGS.......... Arrays
 .........DXV. Aspect_Oriented_Programming
 ..........XV. Assertions
-GBS......D... Assertions_in_design_by_contract
+!BS......D... Assertions_in_design_by_contract
 GGS.......... Associative_array_Creation
 GGS.......... Associative_array_Iteration
 GGS....R..... Atomic_updates
@@ -148,7 +148,7 @@ GGS.......... CUSIP
 GGS.......... Caesar_cipher
 GGS.......... Calculating_the_value_of_e
 GGS.......... Calendar
-GGS.......... Calendar_-_for_%22REAL%22_programmers
+!GS.......... Calendar_-_for_%22REAL%22_programmers
 GBS.......... Call_a_foreign-language_function
 GG.K......... Call_a_function
 BB.K......... Call_a_function_in_a_shared_library
@@ -239,7 +239,7 @@ GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
 GGS..T.R..... Create_a_two-dimensional_array_at_runtime
 GGS....R..... Create_an_HTML_table
-GGS..T...D... Create_an_object_Native_demonstration
+!GS..T...D... Create_an_object_Native_demonstration
 GBS.......... Create_an_object_at_a_given_address
 GGS...C...... Cuban_primes-1
 GGS...C...... Cuban_primes-2
@@ -264,12 +264,12 @@ GGS..T....... Deconvolution_1D
 GGS..T....... Deconvolution_2D%2B
 GGS...c...... Deconvolution_2D%2B-1
 ..........XV. Deepcopy
-GGS.......... Define_a_primitive_data_type
+!GS.......... Define_a_primitive_data_type
 GGS.......... Delegates
 GGS.......... Delete_a_file
 GGS..T...D... Deming%27s_Funnel
 GGS.......... Department_Numbers
-GGS..T....... Detect_division_by_zero
+!GS..T....... Detect_division_by_zero
 GGS.......... Determinant_and_permanent
 GGS.......... Determine_if_a_string_is_numeric
 GG.K.T....... Determine_if_only_one_instance_is_running
@@ -331,9 +331,9 @@ GGS.......... Evaluate_binomial_coefficients
 GGS.......... Even_or_odd
 GGS.......... Events
 GGS....R..... Evolutionary_algorithm
-GGS.......... Exceptions-1
-GGS.......... Exceptions-2
-GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
+!GS.......... Exceptions-1
+!GS.......... Exceptions-2
+!GS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
 GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS.....F.... Execute_HQ9%2B
@@ -964,7 +964,7 @@ GGS.......... Smith_numbers
 .........DXV. Snake
 GGS....RFD... Snake_And_Ladder
 GG.KIT....... Sockets
-GGS.......... Sokoban
+!GS.......... Sokoban
 GGS.......... Solve_a_Hidato_puzzle
 GGS.......... Solve_a_Holy_Knight%27s_tour
 GGS..T....... Solve_a_Hopido_puzzle
@@ -1066,7 +1066,7 @@ GGS..T....... Superpermutation_minimisation
 ...........VU Sutherland-Hodgman_polygon_clipping
 GGS.......... Symmetric_difference
 GGS.....F.... Synchronous_concurrency
-GGS.......... System_time
+!GS.......... System_time
 GG.K.....D... Table_creation
 ..........XV. Table_creation_Postal_addresses
 GGS.....F.... Take_notes_on_the_command_line
