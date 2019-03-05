@@ -4,9 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-use lib 'libtest'; # DH work-around for problems with JVM and Test::Output
-
-say DateTime.now;
+say my $result = DateTime.now;
 
 #dd DateTime.now.Instant;
 
@@ -14,6 +12,5 @@ say DateTime.now;
 # Instant $var = Instant.new(<2159577143734/1493>)
 
 use Test;
-use Test::Output;
-output-like {say DateTime.now}, /^20\d\d\-\d\d\-\d\dT\d\d\:\d\d\:\d\d\.\d+\-0\d\:00/;
-#                                 20 1 6 - 1 1 - 2 7T 2 1 : 2 7 : 3 4 . 358532-08:00
+ok $result ~~ /^20\d\d\-\d\d\-\d\dT\d\d\:\d\d\:\d\d\.\d+\-0\d\:00/;
+# e.g.          20 1 6 - 1 1 - 2 7T 2 1 : 2 7 : 3 4 . 358532-08:00
