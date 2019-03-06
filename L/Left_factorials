@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Left_factorials
-#c# 2015-11-07 <>RC, 2019-03-04 <RC
+#c# 2015-11-07 <>RC, 2019-03-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -11,11 +11,15 @@ my (@res1,@res2);
 # Note that this redefines the core prefix ! (not) function.
 # The last two lines are display code for the various sub task requirements.
 
-multi sub postfix:<!> ($n) { (constant f = 1, |[\*] 1..*)[$n] }
-multi sub  prefix:<!> ($k) { (constant l = 0, |[\+] (0..*).map: *!)[$k] }
+sub postfix:<!> ($n) { (constant f = 1, |[\*] 1..*)[$n] }
+sub  prefix:<!> ($k) { (constant l = 0, |[\+] (0..*).map: *!)[$k] }
  
-@res1.push: sprintf "!%d  = %s", $_, !$_ for 0 … 10, 20 … 110;
-@res1.push: sprintf "!%d has %d digits.", $_, (!$_).chars for 1000, 2000 … 10000;
+$ = !10000; # Pre-initialize
+ 
+@res1.push: $_ for ( 0 … 10, 20 … 110 ).hyper(:4batch).map: { sprintf "!%d  = %s", $_, !$_ };
+@res1.push: $_ for (1000, 2000 … 10000).hyper(:4batch).map: { sprintf "!%d has %d digits.", $_, chars !$_ };
+
+.say for @res1;
 
 my $ref = q:to/END/;
 !0  = 0
@@ -56,10 +60,10 @@ END
 constant fact = 1, |[\*] 1..*;
 constant leftfact = 0, |[\+] fact;
  
-@res2.push: sprintf "!%d  = %s", $_, leftfact[$_] for 0 … 10, 20 … 110;
-@res2.push: sprintf "!%d has %d digits.", $_, leftfact[$_].chars for 1000, 2000 … 10000;
-
-.say for @res1;
+$ = leftfact[10000]; # Pre-initialize
+ 
+@res2.push: $_ for ( 0 … 10, 20 … 110 ).hyper(:4batch).map: { sprintf "!%d  = %s", $_, leftfact[$_] };
+@res2.push: $_ for (1000, 2000 … 10000).hyper(:4batch).map: { sprintf "!%d has %d digits.", $_, chars leftfact[$_] };
 
 use Test;
 is @res1.join("\n"), chomp $ref;
