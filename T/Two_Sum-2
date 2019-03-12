@@ -22,7 +22,7 @@ sub two-sum-rl (@a, $sum) {
     map {.split(' ').sort.join(' ')},
     keys %(
      grep {.value == $sum}, %(
-      (^@a X ^@a) Z=> (@a X[+] @a)
+      (^@a X ^@a) Z=> (@a X+ @a)
      )
     )
 }
