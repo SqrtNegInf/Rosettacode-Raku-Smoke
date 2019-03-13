@@ -1,13 +1,12 @@
-#!/usr//bin/env perl6
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Two_Sum
 #c# 2019-03-10 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# terminally indecisive, wrote both left-to-right and right-to-left functional processing
-#n# 2nd routine sub-obtimal: why do I need to 'coerce' to hash with '%'?
 
 sub two-sum-lr (@a, $sum) {
-    # (((^@a X ^@a) Z=> (@a X+ @a)).grep($sum == *.value)>>.key.map:{ .split(' ').sort.join(' ')}).unique
+  # (((^@a X ^@a) Z=> (@a X+ @a)).grep($sum == *.value)>>.key.map:{ .split(' ').sort.join(' ')}).unique
     (
      (
       (^@a X ^@a) Z=> (@a X+ @a)
@@ -17,11 +16,11 @@ sub two-sum-lr (@a, $sum) {
 }
 
 sub two-sum-rl (@a, $sum) {
-    # unique map {.split(' ').sort.join(' ')}, keys %(grep {.value == $sum}, %((^@a X ^@a) Z=> (@a X[+] @a)))
+  # unique map {.split(' ').sort.join(' ')}, keys %(grep {.value == $sum}, ((^@a X ^@a) Z=> (@a X+ @a)))
     unique 
     map {.split(' ').sort.join(' ')},
     keys %(
-     grep {.value == $sum}, %(
+     grep {.value == $sum}, (
       (^@a X ^@a) Z=> (@a X+ @a)
      )
     )
