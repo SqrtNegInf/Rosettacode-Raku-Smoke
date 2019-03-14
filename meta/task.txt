@@ -1,18 +1,18 @@
 This is Rakudo version 2019.03-32-g33e2d7f4c built on MoarVM version 2019.03-2-gbb2dc6619
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1034/10]
-|+-------------> JVM: Good/Bad [907/146]
-||+------------> Smoke testing [943]
++--------------> Moar: Good/Bad [1035/10]
+|+-------------> JVM: Good/Bad [907/148]
+||+------------> Smoke testing [945]
 |||+-----------> sKipping validation [108]
 ||||+----------> Interactive [53]
 |||||+---------> Touched (modified by me) [249]
-||||||+--------> Concurrent [41]
+||||||+--------> Concurrent [42]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [79]
 |||||||||+-----> Draft [220]
 ||||||||||+----> Ignoring [58]
-|||||||||||+---> Void (no local copy) [139]
+|||||||||||+---> Void (no local copy) [137]
 ||||||||||||+--> Un-implemented/reliable [101]
 |||||||||||||
 GGS.......... 100_doors
@@ -182,7 +182,7 @@ GGS......D... Cheryl%27s_Birthday
 GGS.......... Chinese_remainder_theorem
 GGS.......... Chinese_zodiac
 GGS.......... Cholesky_decomposition
-.........D.V. Chowla_numbers
+GBS...C..D... Chowla_numbers
 ...........VU Church_Numerals
 GGS......D... Cipolla%27s_algorithm
 GGS.......... Circles_of_given_radius_through_two_points
@@ -645,7 +645,7 @@ GBS......D... Mersenne_primes
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
 GGS.......... Metronome
-.........D.V. Mian-Chowla_sequence
+GBS......D... Mian-Chowla_sequence
 GGS.......... Middle_three_digits
 GGS....R..... Miller-Rabin_primality_test
 GGS....R..... Mind_boggling_card_trick
@@ -992,7 +992,7 @@ GGS..T.R..... Sorting_algorithms_Counting_sort
 GGS......D... Sorting_algorithms_Cycle_sort
 GGS..T.R..... Sorting_algorithms_Gnome_sort
 GGS..T.R..... Sorting_algorithms_Heapsort
-GGS....R..... Sorting_algorithms_Insertion_sort
+!GS....R..... Sorting_algorithms_Insertion_sort
 GGS....R..... Sorting_algorithms_Merge_sort
 GGS....R..... Sorting_algorithms_Pancake_sort
 GGS....R.D... Sorting_algorithms_Patience_sort
