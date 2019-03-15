@@ -1,18 +1,14 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Left_factorials
-#c# 2015-11-07 <>RC, 2019-03-05 <RC
+#c# 2019-03-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 my (@res1,@res2);
 
-# Perl 6 doesn't have a built in factorial function, so the first line implements postfix ! factorial.
-# The newly implemented factorial function is used to implement left factorial using a prefix ! in the next line.
-# Note that this redefines the core prefix ! (not) function.
-# The last two lines are display code for the various sub task requirements.
+# Implement left factorial as a prefix !. Note that this redefines the core prefix ! (not) function.
 
-sub postfix:<!> ($n) { (constant f = 1, |[\*] 1..*)[$n] }
-sub  prefix:<!> ($k) { (constant l = 0, |[\+] (0..*).map: *!)[$k] }
+sub prefix:<!> ($k) { (constant l = 0, |[\+] 1, (|[\*] 1..*))[$k] }
  
 $ = !10000; # Pre-initialize
  
@@ -57,13 +53,14 @@ END
 
 # If you would rather not override prefix ! operator and you can live with just defining lazy lists and indexing into them, this should suffice; (and is in fact very slightly faster than the first example since it avoids routine dispatch overhead):
 
-constant fact = 1, |[\*] 1..*;
-constant leftfact = 0, |[\+] fact;
+constant leftfact = 0, |[\+] 1, (|[\*] 1..*);
  
 $ = leftfact[10000]; # Pre-initialize
  
 @res2.push: $_ for ( 0 … 10, 20 … 110 ).hyper(:4batch).map: { sprintf "!%d  = %s", $_, leftfact[$_] };
 @res2.push: $_ for (1000, 2000 … 10000).hyper(:4batch).map: { sprintf "!%d has %d digits.", $_, chars leftfact[$_] };
+
+#Same output.
 
 use Test;
 is @res1.join("\n"), chomp $ref;
