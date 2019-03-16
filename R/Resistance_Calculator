@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parallel_Resistor_Calculator
-#c# 2019-03-14 <RC
+#c# 2019-03-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -12,24 +12,24 @@ class Resistor {
     has Resistor ( $.a, $.b );
  
     method res ( ) {
-        given $!symbol {
-            when '+' { return $!a.res + $!b.res }
-            when '*' { return 1 / (1 / $!a.res  +  1 / $!b.res) }
-            default  { return $!resistance }
+        given $.symbol {
+            when '+' { return $.a.res + $.b.res }
+            when '*' { return 1 / (1 / $.a.res  +  1 / $.b.res) }
+            default  { return $.resistance }
         }
     }
  
     method set-voltage ( Numeric $voltage ) {
-        given $!symbol {
+        given $.symbol {
             when '+' {
-                my $ra = $!a.res;
-                my $rb = $!b.res;
-                $!a.set-voltage( $ra / ($ra+$rb) * $voltage );
-                $!b.set-voltage( $rb / ($ra+$rb) * $voltage );
+                my $ra = $.a.res;
+                my $rb = $.b.res;
+                $.a.set-voltage( $ra / ($ra+$rb) * $voltage );
+                $.b.set-voltage( $rb / ($ra+$rb) * $voltage );
             }
             when '*' {
-                $!a.set-voltage( $voltage );
-                $!b.set-voltage( $voltage );
+                $.a.set-voltage( $voltage );
+                $.b.set-voltage( $voltage );
             }
         }
         $!voltage = $voltage;
@@ -39,10 +39,10 @@ class Resistor {
  
     method report ( Int $level = 1 ) {
         my $pad = '| ' x $level;
-        my $f = ( self.res, $!voltage, self.current, self.effect ).fmt('%8.3f');
-        @res.push: "$f $pad$!symbol";
-        $!a.report( $level+1 ) if $!a;
-        $!b.report( $level+1 ) if $!b;
+        my $f = ( self.res, $.voltage, self.current, self.effect ).fmt('%8.3f');
+        @res.push: "$f $pad$.symbol";
+        $.a.report( $level+1 ) if $.a;
+        $.b.report( $level+1 ) if $.b;
     }
 }
 multi sub infix:<+> (Resistor $a, Resistor $b) { $a.new( symbol => '+', :$a, :$b ) }
