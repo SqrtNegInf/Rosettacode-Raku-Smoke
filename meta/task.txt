@@ -1,19 +1,19 @@
-This is Rakudo version 2019.03-32-g33e2d7f4c built on MoarVM version 2019.03-2-gbb2dc6619
+This is Rakudo version 2019.03-39-g23fca8f6f built on MoarVM version 2019.03-31-g6c7810ce7
 implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1035/10]
-|+-------------> JVM: Good/Bad [907/148]
-||+------------> Smoke testing [945]
+|+-------------> JVM: Good/Bad [908/148]
+||+------------> Smoke testing [946]
 |||+-----------> sKipping validation [108]
 ||||+----------> Interactive [53]
-|||||+---------> Touched (modified by me) [249]
+|||||+---------> Touched (modified by me) [248]
 ||||||+--------> Concurrent [42]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [79]
 |||||||||+-----> Draft [221]
 ||||||||||+----> Ignoring [58]
-|||||||||||+---> Void (no local copy) [138]
-||||||||||||+--> Un-implemented/reliable [102]
+|||||||||||+---> Void (no local copy) [137]
+||||||||||||+--> Un-implemented/reliable [101]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -565,7 +565,7 @@ GBS..TC...... Law_of_cosines_-_triples-1
 GGS..T....... Law_of_cosines_-_triples-2
 GGS.......... Leap_year
 GGS.......... Least_common_multiple
-GGS..TC...... Left_factorials
+GGS...C...... Left_factorials
 GGS.......... Leonardo_numbers
 GGS.......... Letter_frequency
 GGS.......... Levenshtein_distance
@@ -736,7 +736,6 @@ GGS.......... Palindrome_detection
 GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
-.........D.VU Parallel_Resistor_Calculator
 GBS...C...... Parallel_calculations
 GBS...CR..... Parallel_calculations-2
 GGS.......... Parametric_polymorphism
@@ -813,7 +812,7 @@ GG.K.TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS..T....... Primorial_numbers
 GGS.......... Primorial_numbers-2
 GGS.......... Priority_queue
-!GS....R..... Probabilistic_choice
+GGS....R..... Probabilistic_choice
 GBS..T....... Problem_of_Apollonius
 .........D.VU Process_SMIL_directives_in_XML_data
 GGS..T....... Program_name
@@ -867,11 +866,12 @@ GGS.......... Regular_expressions
 .........D.VU Remote_agent_Simulation
 GGS.......... Remove_duplicate_elements
 GGS.....F.... Remove_lines_from_a_file
-GGS.......... Rename_a_file
+!GS.......... Rename_a_file
 GGS....RF.... Rendezvous
 GBS.......... Rep-string
 GGS....R.D... Repeat
 GGS.......... Repeat_a_string
+GGS......D... Resistance_Calculator
 GGS..T....... Resistor_mesh
 GGS.......... Respond_to_an_unknown_method_call
 GG.KI........ Retrieve_and_search_chat_history
@@ -1025,7 +1025,7 @@ GGS.......... Stack_traces
 ..........XV. Stair-climbing_puzzle
 GG.K......... Start_from_a_main_routine
 GGS.....FD... Starting_a_web_browser
-GGS..T....... State_name_puzzle
+!GS..T....... State_name_puzzle
 GGS..T.R..... Statistics_Basic
 GGS....R..... Statistics_Normal_distribution
 GGS.......... Stem-and-leaf_plot
