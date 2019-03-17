@@ -1,16 +1,16 @@
-This is Rakudo version 2019.03-39-g23fca8f6f built on MoarVM version 2019.03-31-g6c7810ce7
+This is Rakudo version 2019.03-40-g4ffb4082b built on MoarVM version 2019.03-31-g6c7810ce7
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1035/10]
-|+-------------> JVM: Good/Bad [908/148]
-||+------------> Smoke testing [946]
++--------------> Moar: Good/Bad [1037/10]
+|+-------------> JVM: Good/Bad [909/148]
+||+------------> Smoke testing [947]
 |||+-----------> sKipping validation [108]
 ||||+----------> Interactive [53]
-|||||+---------> Touched (modified by me) [248]
+|||||+---------> Touched (modified by me) [249]
 ||||||+--------> Concurrent [42]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [79]
-|||||||||+-----> Draft [221]
+|||||||||+-----> Draft [222]
 ||||||||||+----> Ignoring [58]
 |||||||||||+---> Void (no local copy) [137]
 ||||||||||||+--> Un-implemented/reliable [101]
@@ -565,7 +565,7 @@ GBS..TC...... Law_of_cosines_-_triples-1
 GGS..T....... Law_of_cosines_-_triples-2
 GGS.......... Leap_year
 GGS.......... Least_common_multiple
-GGS...C...... Left_factorials
+GGS..TC...... Left_factorials
 GGS.......... Leonardo_numbers
 GGS.......... Letter_frequency
 GGS.......... Levenshtein_distance
@@ -583,7 +583,7 @@ GBS...C...... Long_primes
 GGS......D... Longest_Common_Substring
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
-GGS.......... Longest_increasing_subsequence
+!GS.......... Longest_increasing_subsequence
 GGS.......... Longest_string_challenge
 GGS.......... Look-and-say_sequence
 GGS.......... Loop_over_multiple_arrays_simultaneously
@@ -866,7 +866,7 @@ GGS.......... Regular_expressions
 .........D.VU Remote_agent_Simulation
 GGS.......... Remove_duplicate_elements
 GGS.....F.... Remove_lines_from_a_file
-!GS.......... Rename_a_file
+GGS.......... Rename_a_file
 GGS....RF.... Rendezvous
 GBS.......... Rep-string
 GGS....R.D... Repeat
@@ -1025,7 +1025,7 @@ GGS.......... Stack_traces
 ..........XV. Stair-climbing_puzzle
 GG.K......... Start_from_a_main_routine
 GGS.....FD... Starting_a_web_browser
-!GS..T....... State_name_puzzle
+GGS..T....... State_name_puzzle
 GGS..T.R..... Statistics_Basic
 GGS....R..... Statistics_Normal_distribution
 GGS.......... Stem-and-leaf_plot
@@ -1183,6 +1183,7 @@ GGS.......... Water_collected_between_towers
 .........D.VU Waveform_analysis_Top_and_tail
 .........DXVU Weather_Routing
 GBS..T....... Web_scraping
+GGS......D... Weird_numbers
 .........D... Welch%27s_t-test
 GGS.......... Welch%27s_t-test-1
 GBS.......... Welch%27s_t-test-2
