@@ -1,0 +1,67 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/State_name_puzzle
+#c# 2015-11-29 <RC, 2018-04-30 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# see if this remains buggy over time...
+
+my @states = <
+    Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware
+    Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky
+    Louisiana Maine Maryland Massachusetts Michigan Minnesota Mississippi
+    Missouri Montana Nebraska Nevada New_Hampshire New_Jersey New_Mexico
+    New_York North_Carolina North_Dakota Ohio Oklahoma Oregon Pennsylvania
+    Rhode_Island South_Carolina South_Dakota Tennessee Texas Utah Vermont
+    Virginia Washington West_Virginia Wisconsin Wyoming
+>;
+
+say "50 states:";
+.say for my @res1 = anastates @states;
+
+say "\n54 states:";
+.say for my @res2 = sort anastates @states, < New_Kory Wen_Kory York_New Kory_New New_Kory >;
+
+sub anastates (*@states) {
+    my @s = @states.unique».subst('_', ' ');
+
+    my @pairs = gather for ^@s -> $i {
+	for $i ^..^ @s -> $j {
+	    take [ @s[$i], @s[$j] ];
+	}
+    }
+
+    my $equivs = hash @pairs.classify: *.lc.comb.sort.join;
+
+    gather for $equivs.values -> @c {
+	for ^@c -> $i {
+	    for $i ^..^ @c -> $j {  # DH bug?
+		my $set = set @c[$i].list, @c[$j].list;
+		take @c[$i].list.join(', ') ~ ' = ' ~ @c[$j].list.join(', ') if $set == 4; # DH change
+		#take $set.keys.join(', ') if $set == 4;
+	    }
+	}
+    }
+}
+
+my $ref = qq:to/END/;
+New Kory, Kory New = Wen Kory, York New
+New Kory, Wen Kory = York New, Kory New
+New Kory, York New = Wen Kory, Kory New
+New York, Kory New = New Kory, Wen Kory
+New York, Kory New = New Kory, York New
+New York, Kory New = Wen Kory, York New
+New York, New Kory = Wen Kory, Kory New
+New York, New Kory = Wen Kory, York New
+New York, New Kory = York New, Kory New
+New York, Wen Kory = New Kory, Kory New
+New York, Wen Kory = New Kory, York New
+New York, Wen Kory = York New, Kory New
+New York, York New = New Kory, Kory New
+New York, York New = New Kory, Wen Kory
+New York, York New = Wen Kory, Kory New
+North Carolina, South Dakota = North Dakota, South Carolina
+END
+
+use Test;
+is @res1.join("\n"), 'North Carolina, South Dakota = North Dakota, South Carolina';
+is @res2.join("\n"), chomp $ref;
