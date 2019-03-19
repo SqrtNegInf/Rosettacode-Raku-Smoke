@@ -35,7 +35,7 @@ sub lis1(@deck is copy) {
     my @S = [@deck.shift() => Nil].item;
     for @deck -> $card {
         with first { @S[$_][*-1].key > $card }, ^@S -> $i {
-            #@S[$i].push: $card => @S[$i-1][*-1] // Nil # no longer works -- maybe it never should have?
+            #@S[$i].push: $card => @S[$i-1][*-1] // Nil
             @S[$i].push: $card => $i>0 ?? @S[$i-1][*-1] !! Nil # DH 2019-03-17 work-around
         } else {
             @S.push: [ $card => @S[*-1][*-1] // Nil ].item
