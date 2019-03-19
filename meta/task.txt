@@ -1,7 +1,7 @@
 This is Rakudo version 2019.03.1-46-g6d8077cec built on MoarVM version 2019.03-35-gd15906711
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1038/10]
++--------------> Moar: Good/Bad [1037/10]
 |+-------------> JVM: Good/Bad [909/148]
 ||+------------> Smoke testing [947]
 |||+-----------> sKipping validation [108]
@@ -12,8 +12,8 @@ updating from RC…
 ||||||||+------> File output [79]
 |||||||||+-----> Draft [222]
 ||||||||||+----> Ignoring [58]
-|||||||||||+---> Void (no local copy) [137]
-||||||||||||+--> Un-implemented/reliable [101]
+|||||||||||+---> Void (no local copy) [138]
+||||||||||||+--> Un-implemented/reliable [102]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -174,6 +174,7 @@ GGS......D... Check_input_device_is_a_terminal
 GG.KI....D... Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
 GGS.......... Checkpoint_synchronization
+.........D.VU Chemical_Calculator
 GGS......D... Cheryl%27s_Birthday
 .........D.VU Chess_player
 .........D.VU Chess_player_Move_generation
@@ -645,7 +646,7 @@ GBS......D... Mersenne_primes
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
 GGS.......... Metronome
-GBS......D... Mian-Chowla_sequence
+GBS.......... Mian-Chowla_sequence
 GGS.......... Middle_three_digits
 GGS....R..... Miller-Rabin_primality_test
 GGS....R..... Mind_boggling_card_trick
@@ -737,7 +738,7 @@ GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
 GBS...C...... Parallel_calculations
-GBS...CR..... Parallel_calculations-2
+!BS...CR..... Parallel_calculations-2
 GGS.......... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
