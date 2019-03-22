@@ -28,7 +28,7 @@ The best of those @subsets is saved at the new $max_subset.
 Consuming the array (.shift) allows us to skip tracking the starting point; it is always 0.
 The empty sequence is used to initialize $max_subset, which fufills the "all negative" requirement of the problem.
 Note that once the triangular comma bug is resolved, the inner-loop subset calculation line can be shortened to "my @subsets = [\,] @a;".
-# DH 20170104 -- resolved & updated on RC by 'thunergnat'
+# DH 20170104 -- resolved & updated on RC by thundergnat++
 }
 
 sub max_sub-seq ( *@a ) {
