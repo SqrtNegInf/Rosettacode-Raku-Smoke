@@ -3,7 +3,25 @@
 #c# 2015-11-29 <RC, 2018-04-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# see if this remains buggy over time...
+#n# 
+#n# a hard-to-reproduce two-pass/two-part bug 
+#n# (further complication: it does not trigger on every run of the program)
+#n#
+#n# the actual bug:
+#n#  off-by-one for upper end of range '$i ^..^ @s', goes 1 index past end of array
+#n#
+#n# conditions required to enable the bug:
+#n#   routine 'anastates' is called a 2nd time
+#n#   both 'trigger A' and 'trigger B' are active
+#n#
+#n# conditions that disable the bug:
+#n#   if either 'trigger A' or 'trigger B' is disabled (and corresponding 'work-around' A/B is used)
+#n#   'work-around C' is used
+#n#   MVM_SPESH_NODELAY=1 is set
+#n#
+#n# addtionally:
+#n#   the list of states as given enables the bug, deleting a few will 
+#n#   sometimes disable the bug (or just make it trigger less frequently)
 
 my @states = <
     Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware
@@ -15,53 +33,37 @@ my @states = <
     Virginia Washington West_Virginia Wisconsin Wyoming
 >;
 
-say "50 states:";
-.say for my @res1 = anastates @states;
+my (@res1,@res2);
+say 'RUN 1'; .say for @res1 = anastates @states;
+say 'RUN 2'; .say for @res2 = anastates @states;
 
-say "\n54 states:";
-.say for my @res2 = sort anastates @states, < New_Kory Wen_Kory York_New Kory_New New_Kory >;
-
-sub anastates (*@states) {
+sub anastates (@states) {
     my @s = @states.unique».subst('_', ' ');
 
-    my @pairs = gather for ^@s -> $i {
-	for $i ^..^ @s -> $j {
-	    take [ @s[$i], @s[$j] ];
-	}
+    my @pairs;
+    for ^@s -> $i {
+	    #for $i ^..  @s.end -> $j { # work-around A
+	    #for $i ^..^ +@s -> $j { # work-around A
+        my $range;
+	    for ($range = $i ^..^ @s) -> $j {
+#	    for $range -> $j { # trigger A
+#	    for $i ^..^ @s -> $j { # trigger A
+            put "j: $j"; # if not @s[$j].defined;
+	        @pairs.push: [ @s[$i], @s[$j] ];
+	    }
     }
 
     my $equivs = hash @pairs.classify: *.lc.comb.sort.join;
 
     gather for $equivs.values -> @c {
+    #my $cnt2 = +@c; # work-around C
 	for ^@c -> $i {
-	    for $i ^..^ @c -> $j {  # DH bug?
-		my $set = set @c[$i].list, @c[$j].list;
-		take @c[$i].list.join(', ') ~ ' = ' ~ @c[$j].list.join(', ') if $set == 4; # DH change
-		#take $set.keys.join(', ') if $set == 4;
+	    #for $i ^.. @c.end -> $j { # work-around B
+	    #for $i ^..^ +@c -> $j { # work-around B
+	    for $i ^..^ @c -> $j {  # trigger B
+            # stuff here not relevant to bug
 	    }
 	}
     }
 }
 
-my $ref = qq:to/END/;
-New Kory, Kory New = Wen Kory, York New
-New Kory, Wen Kory = York New, Kory New
-New Kory, York New = Wen Kory, Kory New
-New York, Kory New = New Kory, Wen Kory
-New York, Kory New = New Kory, York New
-New York, Kory New = Wen Kory, York New
-New York, New Kory = Wen Kory, Kory New
-New York, New Kory = Wen Kory, York New
-New York, New Kory = York New, Kory New
-New York, Wen Kory = New Kory, Kory New
-New York, Wen Kory = New Kory, York New
-New York, Wen Kory = York New, Kory New
-New York, York New = New Kory, Kory New
-New York, York New = New Kory, Wen Kory
-New York, York New = Wen Kory, Kory New
-North Carolina, South Dakota = North Dakota, South Carolina
-END
-
-use Test;
-is @res1.join("\n"), 'North Carolina, South Dakota = North Dakota, South Carolina';
-is @res2.join("\n"), chomp $ref;
