@@ -1,14 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/State_name_puzzle
 #c# 2015-11-29 <RC, 2018-04-30 >RC
-#m# MOAR: OK
-#j#  JVM: OK
 #n# 
 #n# a hard-to-reproduce two-pass/two-part bug 
 #n# (further complication: it does not trigger on every run of the program)
 #n#
 #n# the actual bug:
-#n#  off-by-one for upper end of range '$i ^..^ @s', goes 1 index past end of array
+#n#   off-by-one for upper end of range '$i ^..^ @s', goes one past end of array, so @pairs contains real values paired with 'Any'
+#n#   first seen: Rakudo version 2019.03-39-g23fca8f6f built on MoarVM version 2019.03-31-g6c7810ce7 (approx 2019-03-15)
 #n#
 #n# conditions required to enable the bug:
 #n#   routine 'anastates' is called a 2nd time
@@ -19,36 +18,22 @@
 #n#   'work-around C' is used
 #n#   MVM_SPESH_NODELAY=1 is set
 #n#
-#n# addtionally:
-#n#   the list of states as given enables the bug, deleting a few will 
-#n#   sometimes disable the bug (or just make it trigger less frequently)
+#n# additionally:
+#n#   the list of 'states' as given enables the bug, adding or deleting a few will 
+#n#   sometimes disable the bug (or just make it trigger less frequently?)
 
-my @states = <
-    Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware
-    Florida Georgia Hawaii Idaho Illinois Indiana Iowa Kansas Kentucky
-    Louisiana Maine Maryland Massachusetts Michigan Minnesota Mississippi
-    Missouri Montana Nebraska Nevada New_Hampshire New_Jersey New_Mexico
-    New_York North_Carolina North_Dakota Ohio Oklahoma Oregon Pennsylvania
-    Rhode_Island South_Carolina South_Dakota Tennessee Texas Utah Vermont
-    Virginia Washington West_Virginia Wisconsin Wyoming
->;
+my @states = < 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I K L M N O P Q R S T U V W X Y Z a b c d e f >;
+say 'RUN 1'; .say for my @res1 = anastates @states;
+say 'RUN 2'; .say for my @res2 = anastates @states;
 
-my (@res1,@res2);
-say 'RUN 1'; .say for @res1 = anastates @states;
-say 'RUN 2'; .say for @res2 = anastates @states;
-
-sub anastates (@states) {
-    my @s = @states.unique».subst('_', ' ');
-
+sub anastates (@s) {
     my @pairs;
     for ^@s -> $i {
-	    #for $i ^..  @s.end -> $j { # work-around A
-	    #for $i ^..^ +@s -> $j { # work-around A
-        my $range;
-	    for ($range = $i ^..^ @s) -> $j {
-#	    for $range -> $j { # trigger A
-#	    for $i ^..^ @s -> $j { # trigger A
-            put "j: $j"; # if not @s[$j].defined;
+	    #for $i ^..  @s.end -> $j { # work-around A1
+	    #for $i ^..^ +@s -> $j {    # work-around A2
+ 	    #my $range = $i ^..^ @s;    # work-around A3.1
+ 	    #for $range -> $j {         # work-around A3.2
+	    for $i ^..^ @s -> $j {      # trigger A
 	        @pairs.push: [ @s[$i], @s[$j] ];
 	    }
     }
@@ -56,14 +41,13 @@ sub anastates (@states) {
     my $equivs = hash @pairs.classify: *.lc.comb.sort.join;
 
     gather for $equivs.values -> @c {
-    #my $cnt2 = +@c; # work-around C
+    #my $cnt2 = +@c;                # work-around C
 	for ^@c -> $i {
-	    #for $i ^.. @c.end -> $j { # work-around B
-	    #for $i ^..^ +@c -> $j { # work-around B
-	    for $i ^..^ @c -> $j {  # trigger B
+	    #for $i ^.. @c.end -> $j {  # work-around B1
+	    #for $i ^..^ +@c -> $j {    # work-around B2
+	    for $i ^..^ @c -> $j {      # trigger B
             # stuff here not relevant to bug
 	    }
 	}
     }
 }
-
