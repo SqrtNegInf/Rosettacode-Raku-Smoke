@@ -1,0 +1,13 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://rt.perl.org/Public/Bug/Display.html?id=124108#ticket-history
+#c# 2015-11-04 open
+#n# JVM handles this better than Moar now
+
+say [max] 1..(1+2**15); # ok
+say [max] 1..(1+2**16); # bad
+say [max] 1..(1+2**17); # bad
+
+# improved error message reads: Too many arguments in flattening array.
+
+
