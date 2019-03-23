@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/2480
+#c# 2018-11-10 open, 2018-11-10 closed
+
+# good
+my @A = [[1], [2, 3]]; my @B = @A; @B[0][0] = 42;
+dd @B;
+
+# bad
+my @A1 = [[1], [2, 3]]; my @B1 = @A1 >>*>> 0; @B1[0][0] = 42;
+dd @B1;
+
+# fails by design (but irrelevant to issue at hand)
+#my Int @a = ^10; my @b := @a <<+>> 0; @b[0] = "foo"; 
+#dd @b
