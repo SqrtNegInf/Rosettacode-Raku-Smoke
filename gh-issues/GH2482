@@ -1,0 +1,23 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/2482
+#c# 2018-11-11 open, 2018-11-11 closed
+#n# bug source: P/Population count, S/Sum_of_a_Series A/Archimedean_spiral, etc
+#n# as of: Rakudo version 2018.10-119-g18ded174e built on MoarVM version 2018.10-75-g1bf132125
+
+# Cannot modify an immutable Num (0.5403023058681398)
+say 1 «*« |cis(1).reals x 2;   # bad
+
+# Cannot modify an immutable IntStr (1)
+say |<1 2> »xx» 2; # bad
+say <1 2> »xx» 2; # ok
+say flat <1 2> »xx» 2; # ok
+
+# Cannot modify an immutable Rat (0.89)
+say |cis(1).reals »*» 1;   # bad
+
+# Population count
+say 2 «**« ^3;
+
+# Sum_of_a_Series
+say (1..5) »**» 2;
