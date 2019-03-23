@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://rt.perl.org/Public/Bug/Display.html?id=126563#ticket-history
+#c#  20l5-03-18 open, 2016 closed
+#n# 'X' meta-operator fails with RHS input from parenthesized output of another 'X'
+
+use Test;
+
+my @z = <1 2>;
+my @y = <a b>;
+lives-ok { @y X~ (@y  X~ @y) },
+'X meta-op with RHS input from parenthesized output of another X does not crash (Str)';
+is-deeply (@y X~ (@y  X~ @y)), ("aaa", "aab", "aba", "abb", "baa", "bab", "bba", "bbb"),
+'X meta-op works with RHS input from parenthesized output of another X gives correct result (Str)';
+lives-ok { @z X* (@z  X* @z) },
+'X meta-op with RHS input from parenthesized output of another X does not crash (Int)';
+is-deeply (@z X* (@z  X* @z)), (1, 2, 2, 4, 2, 4, 4, 8),
+'X meta-op works with RHS input from parenthesized output of another X gives correct result (Int)';
+
