@@ -1,16 +1,17 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Data_Encryption_Standard
-#c# 2019-03-19 <RC
+#c# 2019-03-22 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 my @res;
 
-#This is mainly a translation from the Phix entry, with an additional example on UTF-8. Regarding the many conversions among different number/string formats, small (and hopefully reusable ) helper routines are created to serve the purpose.
+# This is mainly a translation from the Phix entry, with an additional example on UTF-8. Regarding the many conversions among different number/string formats, small (and hopefully reusable ) helper routines are created to serve the purpose.
+# Update 20190323: After a bug fixed an example does behave correctly and is now in line with the results from the C, D, Kotlin and Phix entries. By the way it seems .comb handle "\r\n" inconsistently, why? [1]
 
-# Translation of: Phix
- 
-#use v6.d; # DH not needed
+#Translation of: Phix
+
+#use v6.d;
 use experimental :pack;
  
 my \PC1 = <
@@ -90,7 +91,7 @@ sub h2u (\h) { pack("H" x h.chars/2, h ~~ m:g/../).decode('utf8') };
 # convert quadbits to hex
 sub q2h (\q) { [~] map { :2($_.Str).fmt('%X') }, q ~~ m:g/..../ };
  
-# convert quadbits to bytes
+# convert every two quadbits to bytes
 sub q2b (\q) { map { :2($_.Str) }, q ~~ m:g/. ** 8/ };
  
 # trun a 16 digit hexadecimal str to a 64 bits list
@@ -131,20 +132,24 @@ sub process_block(Str \message, \K is copy --> Str) { # return 8 quadbits
    return [~] map { res[$_-1] }, IP2 ; # inverse of the initial permutation
 }
  
-sub des(Str \key, Str $msg is copy, Bool \decode --> Str) { # return hexdecimal
-   my @K = get_subkeys key ; # 16 bit vectors, each with 48 elements
-   if decode {
-      @K = @K.reverse; # reverse the subkeys
-   } else {
-      my $P = 8 - $msg.encode('iso-8859-1').bytes % 8; # number of pad bytes
-      $msg ~= $P.chr x $P ; # CMS style padding as per RFC 1423 & RFC 5652
+sub des(Str \key, Str $msg is copy, Bool \DECODE --> Str) { # return hexdecimal
+   my @K; my \length = $msg.encode('iso-8859-1').bytes;
+   if ( DECODE and length % 8 ) { # early exit, avoid the subkeys computation
+      die "Message must be in multiples of 8 bytes"
+   } else { 
+      @K = DECODE ?? reverse get_subkeys key !! get_subkeys key  
    }
-   my $quad ~= process_block substr($msg, $_..$_+7), @K for 0, 8 … +$msg.comb-8;
+   {  my \P = 8 - length % 8; # number of pad bytes
+      $msg ~= P.chr x P ; # CMS style padding as per RFC 1423 & RFC 5652
+   } unless DECODE;
  
-   {  my @decrypt = q2b $quad; # quadbits to a byte list
+   my $quad ~= process_block substr($msg,$_,8), @K for 
+      0, 8 … $msg.encode('iso-8859-1').bytes-8;
+ 
+   {  my @decrypt = q2b $quad; # quadbits to a byte code point list
       @decrypt.pop xx @decrypt.tail; # remove padding
       return b2h ( [~] map { .chr } , @decrypt )
-   } if decode ;
+   } if DECODE ;
  
    return q2h $quad
 }
@@ -153,14 +158,16 @@ sub des(Str \key, Str $msg is copy, Bool \decode --> Str) { # return hexdecimal
 @res.push: des "133457799BBCDFF1", h2bytes("0123456789ABCDEF"), False;
 @res.push: des "0E329232EA6D0D73", h2bytes("8787878787878787"), False;
 @res.push: des "0E329232EA6D0D73", "Your lips are smoother than vaseline", False;
-@res.push: des "0E329232EA6D0D73", u2b("BMP: こんにちは ; Astral plane: 𝒳𝒴𝒵"), False;  # DH JVM fails on this
+#@res.push: des "0E329232EA6D0D73", "Your lips are smoother than vaseline\r\n", False;
+@res.push: des "0E329232EA6D0D73", u2b("BMP: こんにちは ; Astral plane: 𝒳𝒴𝒵"), False;
  
 @res.push: "Decryption examples:";
 @res.push: des "133457799BBCDFF1", h2bytes("85E813540F0AB405FDF2E174492922F8"), True;
 @res.push: des "0E329232EA6D0D73", h2bytes("0000000000000000A913F4CB0BD30F97"), True;
 @res.push: h2bytes des "0E329232EA6D0D73", h2bytes("C0999FDDE378D7ED727DA00BCA5A84EE47F269A4D6438190D9D52F78F535849980A2E7453703513E"), True;
+#@res.push: h2bytes des "0E329232EA6D0D73", h2bytes("C0999FDDE378D7ED727DA00BCA5A84EE47F269A4D6438190D9D52F78F53584997F922CCB5B068D99"), True;
 @res.push: h2u des "0E329232EA6D0D73", h2bytes("C040FB6A6E72D7C36D60CA9B9A35EB38D3194468AD808103C28E33AEF0B268D0E0366C160B028DDACF340003DCA8969343EBBD289DB94774"), True;
- 
+
 .say for @res;
 
 my $ref = q:to/END/;
@@ -177,4 +184,5 @@ BMP: こんにちは ; Astral plane: 𝒳𝒴𝒵
 END
 
 use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
