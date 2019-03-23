@@ -1,8 +1,8 @@
-This is Rakudo version 2019.03.1-102-g787d5bf6e built on MoarVM version 2019.03-44-g079d67002
+This is Rakudo version 2019.03.1-112-gc26ca6b08 built on MoarVM version 2019.03-44-g079d67002
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1039/10]
-|+-------------> JVM: Good/Bad [910/149]
++--------------> Moar: Good/Bad [1040/10]
+|+-------------> JVM: Good/Bad [912/147]
 ||+------------> Smoke testing [949]
 |||+-----------> sKipping validation [108]
 ||||+----------> Interactive [53]
@@ -10,10 +10,10 @@ updating from RC…
 ||||||+--------> Concurrent [42]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [79]
-|||||||||+-----> Draft [222]
+|||||||||+-----> Draft [223]
 ||||||||||+----> Ignoring [58]
-|||||||||||+---> Void (no local copy) [136]
-||||||||||||+--> Un-implemented/reliable [100]
+|||||||||||+---> Void (no local copy) [137]
+||||||||||||+--> Un-implemented/reliable [101]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -254,7 +254,7 @@ GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
 GGS.......... DNS_query
 GGS......D... Damm_algorithm
-GBS......D... Data_Encryption_Standard
+GGS......D... Data_Encryption_Standard
 GGS..T....... Date_format
 GBS..T....... Date_manipulation
 GGS.......... Day_of_the_week
@@ -608,7 +608,7 @@ GGS..T....... Lucky_and_even_lucky_numbers
 GGS.......... Ludic_numbers
 GGS.......... Luhn_test_of_credit_card_numbers
 GBS...c...... Lychrel_numbers
-!BS.......... MAC_Vendor_Lookup
+GBS.......... MAC_Vendor_Lookup
 GGS..T....... MD4
 GGS.......... MD5
 GGS.......... MD5_Implementation
@@ -646,7 +646,7 @@ GBS......D... Mersenne_primes
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
 GGS.......... Metronome
-GBS.......... Mian-Chowla_sequence
+GGS.......... Mian-Chowla_sequence
 GGS.......... Middle_three_digits
 GGS....R..... Miller-Rabin_primality_test
 GGS....R..... Mind_boggling_card_trick
@@ -873,6 +873,7 @@ GBS.......... Rep-string
 GGS....R.D... Repeat
 GGS.......... Repeat_a_string
 GGS......D... Resistance_Calculator
+.........D.VU Resistance_Network_Calculator
 GGS..T....... Resistor_mesh
 GGS.......... Respond_to_an_unknown_method_call
 GG.KI........ Retrieve_and_search_chat_history
