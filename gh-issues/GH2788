@@ -1,0 +1,17 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/2788
+#c# 2019-03-15 open
+#n#  as of: Rakudo version 2019.03-40-g4ffb4082b built on MoarVM version 2019.03-31-g6c7810ce7
+
+my @a = 1..2 Z 'a'..'b'; 
+dd @a;
+
+# good
+say @a[*-1][$_] // 42 for <0 -1>;
+say @a[$_][  1] // 42 for <0 -1>;
+say @a[ 1][ $_] // 42 for <0 -1>;
+say @a[$_][@a.elems-1] // 42 for <0 -1>; # according to docs, this is what *-1 transforms to
+
+# bad
+say @a[$_][*-1] // 42 for <0 -1>;
