@@ -1,0 +1,25 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/2490
+#c# 2019-11-15 open, 2019-11-16 closed
+#n# bug source: L/Levenshtein_distance_Alignment
+#n# as of: Rakudo version 2018.10-145-gf7007ac0e built on MoarVM version 2018.10-77-g6236eb5de
+
+#`{
+hope you don't mind that I'm the relayer of all this bad news about bugs
+but it stands to reason that when you're treading close to the edge on performance issues
+you might find that the code is a little bit fragile
+but I think everyone appreciates that you're going for the one P6 feature everyone wants -- more speed
+so keep on trucking, yours is no disgrace
+}
+
+my %h; %h<d s> = 42, 47; dd %h;
+
+my @b; @b[0]<a> = 42; @b[0]<b> = 47; dd @b; # this is fine
+
+my @a; @a[0]<a b> = 42, 47; dd @a; # this stopped working
+
+# and now for something completely different...
+# use @(@c[0]) for hard ref or @::(@c[0]) for symbolic ref
+#@{$a[0]}{qw<a b>} = (42, 47)
+
