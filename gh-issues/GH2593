@@ -1,0 +1,9 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/2593
+#c# 2019-01-09 open, 2019-01-10 closed
+#n# bug source: code in a module?
+#n# as of: Rakudo version 2018.12-64-gef565b2ba built on MoarVM version 2018.12-4-g1404d5168
+#n# xref: GH#2597
+
+index $_, 0 for 1 .. 10_000;
