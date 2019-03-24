@@ -2,11 +2,14 @@
 #u# http://rosettacode.org/wiki/State_name_puzzle
 #c# 2015-11-29 <RC, 2018-04-30 >RC
 #n# 
-#n# a hard-to-reproduce two-pass/two-part bug 
+#n# a flapping two-pass/two-part bug related to 'spesh delay'?
 #n# (further complication: it does not trigger on every run of the program)
 #n#
+#n# bug source: S/State_name_puzzle
+#n#
 #n# the actual bug:
-#n#   off-by-one for upper end of range '$i ^..^ @s', goes one past end of array, so @pairs contains real values paired with 'Any'
+#n#   off-by-one for upper end of range '$i ^..^ @s', goes one past end of array [NB: in the 'for x..y -> z' context]
+#n#   this leads to '@pairs' containing valid strings being paired with 'Any'
 #n#   first seen: Rakudo version 2019.03-39-g23fca8f6f built on MoarVM version 2019.03-31-g6c7810ce7 (approx 2019-03-15)
 #n#
 #n# conditions required to enable the bug:
@@ -14,7 +17,7 @@
 #n#   both 'trigger A' and 'trigger B' are active
 #n#
 #n# conditions that disable the bug:
-#n#   if either 'trigger A' or 'trigger B' is disabled (and corresponding 'work-around' A/B is used)
+#n#   if either 'trigger A' or 'trigger B' is disabled (and a corresponding 'work-around' A/B is used)
 #n#   'work-around C' is used
 #n#   MVM_SPESH_NODELAY=1 is set
 #n#
@@ -24,21 +27,24 @@
 
 my @states = < 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I K L M N O P Q R S T U V W X Y Z a b c d e f >;
 say 'RUN 1'; .say for my @res1 = anastates @states;
-say 'RUN 2'; .say for my @res2 = anastates @states;
+say 'RUN 2'; .say for my @res2 = anastates @states; # problem is always on 2nd call
 
 sub anastates (@s) {
     my @pairs;
+    #my $cnt1 = +@s;                # NO, does not help like 'work-around C' below
     for ^@s -> $i {
 	    #for $i ^..  @s.end -> $j { # work-around A1
 	    #for $i ^..^ +@s -> $j {    # work-around A2
  	    #my $range = $i ^..^ @s;    # work-around A3.1
  	    #for $range -> $j {         # work-around A3.2
 	    for $i ^..^ @s -> $j {      # trigger A
+            die "BUG" if ! defined @s[$j]; # bail when $j doesn't subscript a valid location in @s
 	        @pairs.push: [ @s[$i], @s[$j] ];
 	    }
     }
 
-    my $equivs = hash @pairs.classify: *.lc.comb.sort.join;
+    # this line generates errors (Use of uninitialized value of type Any in string context) when @pairs contains 'Any')
+    my $equivs = hash @pairs.classify: *.lc.comb.sort.join; 
 
     gather for $equivs.values -> @c {
     #my $cnt2 = +@c;                # work-around C
