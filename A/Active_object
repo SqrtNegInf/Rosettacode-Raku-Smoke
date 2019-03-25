@@ -32,8 +32,8 @@ class Integrator {
  
     method Input (&f-of-t) {
         self.f = &f-of-t;
-        self.init;
         self.now = now;
+        self.init;
     }
  
     method Output { self.value }
