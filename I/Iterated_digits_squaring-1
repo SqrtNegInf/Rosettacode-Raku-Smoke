@@ -22,7 +22,7 @@ sub endsWithOne($n --> Bool) {
 }
  
 my $k = 8; # 10**8
-my @sums is default(0) = 1,0;
+my @sums is default(0) = 1,0; # either this or wrap with 'quietly'
 my $s;
 for 1 .. $k -> $n {
     for $n*81 … 1 -> $i {
