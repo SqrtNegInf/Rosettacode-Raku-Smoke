@@ -3,6 +3,8 @@
 #c# 2018-12-21 <RC, 2018-12-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# compare with 'Iterated_digits_squaring-1' default trait on variable vs. use of 'quietly' to surpress warnings
+#n# minor changes not no RC
 
 my @res;
 
@@ -16,14 +18,14 @@ sub endsWithOne($n --> Bool) {
          $sum += $digit²;
          $nn = $nn div 10;
       }
-      ($sum == 1) and return True;
-      ($sum == 89) and return False;
+      return True  if $sum == 1;
+      return False if $sum == 89;
       $nn = $sum;
       $sum = 0;
    }
 }
  
-quietly { # sweep warnings under the carpet
+#quietly { # DH don't need because 'default' is used
  
 my @ks = (7, 8, 11, 14, 17);
  
@@ -34,19 +36,19 @@ for @ks -> $k {
       for ($n*81 ... 1) -> $i {
          for (1 .. 9) -> $j {
             $s = $j²;
-            if ($s > $i) { last };
+            last if $s > $i; # DH change
             @sums[$i] += @sums[$i-$s];
          }
       }
    }
    my $count1 = 0;
-   for (1 .. $k*81) -> $i { if (endsWithOne($i)) {$count1 += @sums[$i]} }
+   $count1 += @sums[$_] if endsWithOne($_) for 1 .. $k*81; # DH change
    my $limit = 10**$k - 1;
    @res.push: "For k = $k in the range 1 to $limit";
    @res.push: "$count1 numbers produce 1 and {$limit-$count1} numbers produce 89";
 }
  
-} # to be continued
+#} # to be continued
 
 .say for @res;
 
