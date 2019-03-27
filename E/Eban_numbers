@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Eban_numbers
-#c# 2019-02-18 <RC, 2019-02-22 <RC, 2019-03-20 <RC
+#c# 2019-02-18 <RC, 2019-02-22 <RC, 2019-03-20 <RC, 2019-03-26 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -47,7 +47,8 @@ sub count ($n, $upto) {
     my @count  = elems flat ((1 .. 99),).map: *.&nban($n);
     @count.push: @count.sum * @orders[$_] + @orders[$_] for ^(+@orders - 1);
     @count[0] += 1 if 0.&nban($n);
-    for ^(@count - 1) { if (10**(2+$_)).&nban($n) { @count[$_]++; @count[$_ + 1]-- } }
+#    for ^(@count - 1) { if (10**(2+$_)).&nban($n) { @count[$_]++; @count[$_ + 1]-- } }
+    for ^(@count - 1) { if @orders[$_].contains(1) { @count[$_]++; @count[$_ + 1]-- } }
     [\+] @count;
 }
  
@@ -63,8 +64,10 @@ for < e t subur > -> $n { # An assortment for demonstration
     my @k = @bans.grep: * < 1000;
     my @j = @bans.grep: 1000 <= * <= 4000;
     @res.push: "\n============= {$n}-ban: =============\n" ~
-        "{$n}-ban numbers up to 1000: {+@k}\n{@k».&comma.gist}\n\n" ~
-        "{$n}-ban numbers between 1,000 & 4,000: {+@j}\n{@j».&comma.gist}\n" ~
+        "{$n}-ban numbers up to 1000: {+@k}\n[{@k».&comma}]\n\n" ~
+        "{$n}-ban numbers between 1,000 & 4,000: {+@j}\n[{@j».&comma}]\n" ~
+#        "{$n}-ban numbers up to 1000: {+@k}\n{@k».&comma.gist}\n\n" ~
+#        "{$n}-ban numbers between 1,000 & 4,000: {+@j}\n{@j».&comma.gist}\n" ~
         "\nCounts of {$n}-ban numbers up to {cardinal 10**$upto}"
         ;
     my $s = max (1..$upto).map: { (10**$_).&cardinal.chars };
