@@ -23,9 +23,96 @@
 #n#   the list of 'states' as given enables the bug, adding or deleting a few will 
 #n#   sometimes disable the bug (or just make it trigger less frequently?)
 
+#`{{  
+RUN 2
+🥞 Modules and stuff
+🥞🥞 Populating the module list and the lookup hash
+🥞🥞 Generating fake modules for custom scripts
+🥞🥞 Resolving dependencies
+🥞🥞 Marking latest versions and their deps
+🥞🥞 Filtering out uninteresting modules
+🥞🥞 Detecting cyclic dependencies
+🥞🥞 Listing some early errors
+🥞 Processing
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+🥞🥞🥞 Testing State_name_puzzle-debug (new)
+🥞🥞 Almost done, waiting for all modules to finish
+🥞🥞🥞 Testing State_name_puzzle-debug (old)
+🥞🥞🥞 Testing State_name_puzzle-debug for flappiness
+🥞🥞🥞 Bisecting State_name_puzzle-debug
+Attempting to fetch 836c18ae2661f45a8bb595e91c4a988be02e44d2…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+Attempting to fetch 1ec4f171dd343441a47a2313f115d116864a39b1…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+Attempting to fetch d76fe0ae1a81e4798550385029c0568779c4dbc5…
+Attempting to fetch 7a3f468d2c481011c73345f77785cb249616f86a…
+Attempting to fetch 2633aad635d20ba6050ed216692369cc64cf8435…
+Attempting to fetch efb35b003fab51a74f71592729761df8ab61010f…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+Attempting to fetch aed292346ecf89a5b42edc190cb4ee2e83efb3d7…
+Attempting to fetch 23d215dc4c349fde3c6d47fd2e6e66fa60f8231c…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+Attempting to fetch 9e63da4787d637b4f749c623940fbaee3ff05fc3…
+Attempting to fetch ffaf3fc3f4d8a2e6efc620b72aafb70bbf3d8da8…
+Attempting to fetch ed074cd17f218d5b64774d8de572cd45362f7f59…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+Attempting to fetch 4825f31e297150d244cc655d41f17caafd0e7f9a…
+Attempting to fetch 6d8077cec3fd6510f2ffaa67f0b7443c0a2b70fa…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+🥞 Saving results
+🥞🥞 Saving the overview
+🥞🥞 Saving the json output
+🥞🥞 Saving the dot file
+🥞🥞 Creating an SVG image from the dot file
+🥞 Cleaning up
+
+
+
+RUN 1
+blin --old='2018-12' --new=HEAD --custom-script=State_name_puzzle-debug
+Attempting to fetch 87b71c2758df5a7f58be388abaa8353d2f0d59f4…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+Attempting to fetch 2732a286469f97efc5ca6425573c1ca21613d8c8…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+Attempting to fetch f76db01b5e5ecd6585dac7be3163a3c96e156deb…
+Attempting to fetch 9196db5c387586c96bc7c2ca5b2a1d60de34ac7a…
+Attempting to fetch ffe840999c6a971656e61ea2e0d904e3a4434a2c…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+Attempting to fetch 6e8df010f73027414d4d5ffd105722895e2f8302…
+Attempting to fetch 7b863b72aac89ddee02826266e28685b12b1f74f…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+Attempting to fetch 4ffb4082b04a87cdddca098bad0089d943651942…
+Attempting to fetch c9110654bd5e9dffc163627f13b896b25dff0679…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+Attempting to fetch 7bd3b3a0a8a3c1faaef602d2d3fe1e619e4ef640…
+Attempting to fetch f09156240a52b34bc356ef715bd955c8f4378cb4…
+⏳ 0 out of 1 modules processed (left: State_name_puzzle-debug)
+🥞 Saving results
+🥞🥞 Saving the overview
+🥞🥞 Saving the json output
+🥞🥞 Saving the dot file
+🥞🥞 Creating an SVG image from the dot file
+The spawned command 'dot' exited unsuccessfully (exit code: 1)
+  in sub MAIN at ./blin.p6 line 427
+  in block <unit> at ./blin.p6 line 11
+
+ub18:~/perl6/Rosetta-Code>m output/*
+lesspipe.sh: Command not found.
+{
+  "State_name_puzzle-debug": {
+RUN 1
+BUG
+State_name_puzzle-debug – Fail, Bisected: 7bd3b3a0a8a3c1faaef602d2d3fe1e619e4ef640 7b863b72aac89ddee0282digraph {
+State_name_puzzle-debug – Fail, Bisected: 7bd3b3a0a8a3c1faaef602d2d3fe1e619e4ef640 7b863b72aac89ddee0282RUN 1
+State_name_puzzle-debug – Fail, Bisected: 7bd3b3a0a8a3c1faaef602d2d3fe1e619e4ef640 7b863b72aac89ddee0282RUN 1
+BUG
+State_name_puzzle-debug – Fail, Bisected: 7bd3b3a0a8a3c1faaef602d2d3fe1e619e4ef640 7b863b72aac89ddee02826266e28685b12b1f74f f09156240a52b34bc356ef715bd955c8f4378cb4
+
+}}
+
 my @states = < A B C D E F G H I K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o >;
-say 'RUN 1'; .say for my @res1 = anastates @states;
-say 'RUN 2'; .say for my @res2 = anastates @states; # problem is always on 2nd call
+for (1..10) {say "RUN $_"; my @x = anastates @states; sleep 1; }
+#say 'RUN 2'; .say for my @res2 = anastates @states; # problem is always on 2nd call
 
 sub anastates (@s) {
     my @pairs;
