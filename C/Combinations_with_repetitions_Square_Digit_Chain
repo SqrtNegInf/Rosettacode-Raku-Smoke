@@ -4,19 +4,19 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# compare with 'Iterated_digits_squaring-1' default trait on variable vs. use of 'quietly' to surpress warnings
-#n# minor changes not no RC
+#n# minor changes not on RC
 
 my @res;
 
 sub endsWithOne($n --> Bool) {
    my $digit;
    my $sum = 0;
-   my $nn = $n;
+   my $nn  = $n;
    loop {
       while ($nn > 0) {
          $digit = $nn % 10;
-         $sum += $digit²;
-         $nn = $nn div 10;
+         $sum  += $digit²;
+         $nn    = $nn div 10;
       }
       return True  if $sum == 1;
       return False if $sum == 89;
