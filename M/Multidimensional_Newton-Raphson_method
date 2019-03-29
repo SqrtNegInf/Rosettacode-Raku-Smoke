@@ -58,24 +58,10 @@ my $funcs = [
    { $^x² - 2*$^y² - 20*$^z }
    { $^x² - $^y² + $^z² }
 ];
-
-my $guncs = [
-    { $^x² + $^y² + $^z² - 64 }
-    { -($^x²) + $^y² - $^z }
-    { $^x + $^y + $^z - 8 }
-];
-
-my $iuncs = [
-    { 3*$^x + 2*$^x*$^y + 4*$^y*$^z }
-    { 4/$^x + log($^x*$^y) + $^z**$^x }
-    { $^x * $^y * $^z }
-];
  
-my @guesses = (3,4,-2);
-#my @guesses = (1,1,0);
+my @guesses = (1,1,0);
  
-my @solution = solve_funcs $iuncs, @guesses, 300, .01;
-#my @solution = solve_funcs $funcs, @guesses, 20, 1e-8;
+my @solution = solve_funcs $funcs, @guesses, 20, 1e-8;
  
 say my $result = "Solution: " ~ join " ", @solution;
 
