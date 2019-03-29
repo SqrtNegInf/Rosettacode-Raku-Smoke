@@ -1,37 +1,50 @@
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/State_name_puzzle
-#c# 2015-11-29 <RC, 2018-04-30 >RC
-#n# 
-#n# an intermittant two-part/two-pass bug related to 'spesh delay'?
-#n#
-#n# bug source: S/State_name_puzzle
-#n#
-#n# the actual bug:
-#n#   off-by-one for upper end of range '$i ^..^ @s', goes one past end of array IFF in the 'for x..y -> z' context
-#n#   this leads to '@pairs' incorrectly containing valid strings being paired with 'Any'
-#n#   first seen: Rakudo version 2019.03-39-g23fca8f6f built on MoarVM version 2019.03-31-g6c7810ce7 (approx 2019-03-15)
-#n#
-#n# conditions required to enable the bug:
-#n#   routine 'anastates' is called a 2nd time
-#n#   both 'trigger A' and 'trigger B' are active
-#n#
-#n# conditions that disable the bug:
-#n#   if either 'trigger A' or 'trigger B' is disabled (and a corresponding 'work-around' A/B is used)
-#n#   MVM_SPESH_NODELAY=1 is set
-#n#
-#n# additionally:
-#n#   the list of 'states' as given enables the bug, adding or deleting a few will 
-#n#   sometimes disable the bug (or just make it trigger less frequently?)
-#n#   adding a 'sleep' seemed to increase the failure rate
-#n# 
-#n# blin --custom-script gave kind of random answers, but this occurred twice, and the time-frame was right, significant?:
-#n# (brackets the NQP bump)
-#n#   7bd3b3a0a8a3c1faaef602d2d3fe1e619e4ef640 7b863b72aac89ddee02826266e28685b12b1f74f f09156240a52b34bc356ef715bd955c8f4378cb4
-#n#
-#n# roughly 1/3 failure rate, with this distribution over 100 runs:
-#n#  28 fails after 2nd call
-#n#   8 fails after 3rd call
-#n#  64 doesn't fail
+#u# http://rosettacode.org/wiki/State_name_puzzle-debug
+#t# skiptest
+#c# not on RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# bug first noticed 2019-03-15, but relevant Rakudo change could be earlier (as bug doesn't trigger every run)
+    
+#`{{
+    an intermittant two-part/two-pass bug related to 'spesh delay'?
+   
+    the actual bug:
+      off-by-one for upper end of range '$i ^..^ @s', goes one past end of array IFF in the 'for x..y -> z' context
+      this leads to '@pairs' incorrectly containing valid strings being paired with 'Any'
+      first seen: Rakudo version 2019.03-39-g23fca8f6f built on MoarVM version 2019.03-31-g6c7810ce7 (approx 2019-03-15)
+   
+    conditions required to enable the bug:
+      routine 'anastates' is called a 2nd time
+      both 'trigger A' and 'trigger B' are active
+   
+    conditions that disable the bug:
+      if either 'trigger A' or 'trigger B' is disabled (and a corresponding 'work-around' A/B is used)
+      MVM_SPESH_NODELAY=1 is set
+    
+    blin --custom-script gave kind of random answers, but this occurred twice, and the time-frame was right, significant?:
+    (brackets the NQP bump)
+    7bd3b3a0a8a3c1faaef602d2d3fe1e619e4ef640 7b863b72aac89ddee02826266e28685b12b1f74f f09156240a52b34bc356ef715bd955c8f4378cb4
+   
+    additionally:
+      the list of 'states' as given enables the bug, adding or deleting a few will 
+      sometimes disable the bug (or just make it trigger less frequently?)
+      failure rate increases with longer time between runs (distribution over 100 runs):
+   
+        without 'sleep'
+         27 fails after 2nd call
+         73 doesn't fail
+   
+        with 'sleep 3'
+         28 fails after 2nd call
+          8 fails after 3rd call
+         64 doesn't fail
+   
+        with 'sleep 3'
+         49 fails after 2nd call
+         11 fails after 3rd call
+         40 doesn't fail
+}}
 
 my @states = < A B C D E F G H I K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o >;
 
