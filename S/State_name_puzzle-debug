@@ -7,10 +7,10 @@
 #n# bug first noticed 2019-03-15, but relevant Rakudo change could be earlier (as bug doesn't trigger every run)
     
 #`{{
-    an intermittant two-part/two-pass bug related to 'spesh delay'?
+    an intermittent two-part/two-pass bug related to 'spesh delay'?
    
     the actual bug:
-      off-by-one for upper end of range '$i ^..^ @s', goes one past end of array IFF in the 'for x..y -> z' context
+      off-by-one for upper end of range '$i ^..^ @s', goes one past end of array IFF in the context of a 'for' loop
       this leads to '@pairs' incorrectly containing valid strings being paired with 'Any'
       first seen: Rakudo version 2019.03-39-g23fca8f6f built on MoarVM version 2019.03-31-g6c7810ce7 (approx 2019-03-15)
    
