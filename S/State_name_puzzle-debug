@@ -15,7 +15,7 @@
       first seen: Rakudo version 2019.03-39-g23fca8f6f built on MoarVM version 2019.03-31-g6c7810ce7 (approx 2019-03-15)
    
     conditions required to enable the bug:
-      routine 'anastates' is called a 2nd time
+      routine 'anastates' is called a 2nd (or 3rd) time
       both 'trigger A' and 'trigger B' are active
    
     conditions that disable the bug:
@@ -40,7 +40,7 @@
           8 fails after 3rd call
          64 doesn't fail
    
-        with 'sleep 3'
+        with 'sleep 30'
          49 fails after 2nd call
          11 fails after 3rd call
          40 doesn't fail
