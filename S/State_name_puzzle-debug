@@ -5,6 +5,8 @@
 #m# MOAR: BROKEN
 #j#  JVM: OK  (Rakudo version 2018.11-13-gdd0301454 built on JVM)
 #n# bug first noticed 2019-03-15, but relevant Rakudo change could be earlier (as bug doesn't trigger every run)
+#n# 2019-04-01 regression caused by:
+#n#  https://github.com/MoarVM/MoarVM/commit/bc98cb9467ab2d5d408dff841f39ae8734a936a5
     
 #`{{
     an intermittent two-part/two-pass bug related to 'spesh delay'?
