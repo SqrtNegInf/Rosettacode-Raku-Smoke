@@ -1,37 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Zeckendorf_arithmetic
-#c# 2018-03-20 <RC
+#c# 2018-03-20 <RC, 2019-04-04 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# fixed add/subtract/divide
 
-#`{
-I get 10100 + 1010 = 101000, aka 11 + 7 = 18 which contradicts the Perl 6 output of 10100 +z 1010 = 100101 # addition.
-My output matches the first test of the tcl entry, which obviously also disagrees with the Perl output.
-In turn the next line is 100101 -z 100 = 100010 # subtraction, which I read as 17-3 = 15.
-}
-
-# This is a somewhat limited implementation of Zeckendorf arithmetic operators. They only handle positive integer values. There are no actual calculations, everything is done with string manipulations, so it doesn't matter what glyphs you use for 1 and 0.
-
-# Works with: rakudo version 2015.09
-
-#`{
-# Implemented arithmetic operators:
-
- addition: +z
- subtraction: -z
- multiplication: *z
- division: /z (more of a divmod really)
- post increment: ++z
- post decrement: --z
-
-Comparison operators:
-
- equal eqz
- not equal nez
- greater than gtz
- less than ltz
-}
- 
 my $z1 = '1'; # glyph to use for a '1'
 my $z0 = '0'; # glyph to use for a '0'
  
@@ -71,10 +44,10 @@ sub postfix:<--z>($a is rw) {
 }
  
 # addition
-sub infix:<+z>($a is copy, $b is copy) { $a++z while $b--z nez $z0; $a };
+sub infix:<+z>($a is copy, $b is copy) { $a++z; $a++z while $b--z nez $z0; $a };
  
 # subtraction
-sub infix:<-z>($a is copy, $b is copy) { $a--z while $b--z nez $z0; $a };
+sub infix:<-z>($a is copy, $b is copy) { $a--z; $a--z while $b--z nez $z0; $a };
  
 # multiplication
 sub infix:<*z>($a, $b) { 
@@ -96,10 +69,11 @@ sub infix:</z>($a is copy, $b is copy) {
     fail "Divide by zero" if $b eqz $z0;
     return $a if $a eqz $z0 or $b eqz $z1;
     my $c = $z0;
-    repeat { 
+    repeat {
         my $d = $b +z ($z1 ~ $z0);
         $c++z;
-        $a--z while $d--z nez $z0
+        $a++z;
+        $a--z while $d--z nez $z0;
     } until $a ltz $b;
     $c ~= " remainder $a" if $a nez $z0;
     $c
@@ -129,8 +103,6 @@ my @res;
 
 .say for @res; 
 
-#Using the glyph '1' for 1 and '0' for 0
-
 my $ref = qq:to/END/;
 1++z                   =              10  # increment
 10++z                  =             100  # increment
@@ -142,8 +114,8 @@ my $ref = qq:to/END/;
 10000++z               =           10001  # increment
 10001++z               =           10010  # increment
 10010++z               =           10100  # increment
-10100 +z 1010          =          100101  # addition
-100101 -z 100          =          100010  # subtraction
+10100 +z 1010          =          101000  # addition
+101000 -z 100          =          100010  # subtraction
 100010 *z 100101       =    100001000001  # multiplication
 100001000001 /z 100    =       101010001  # division
 101010001--z           =       101010000  # decrement
