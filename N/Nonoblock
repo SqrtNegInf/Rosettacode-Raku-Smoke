@@ -1,0 +1,72 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Non-continuous_subsequences
+#c# 2019-04-03 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# fairly literal translation of P5 version, not on RC
+
+#`{{
+for (5, [2,1]), (5, []), (10, [8]), (5, [2,3]), (15, [2,3,2,3]) -> ($cells, @blocks) {
+    my $header = join ' ', $cells, @blocks;
+    say "\n", $header, '='x$header.chars; # \n after underline?
+    my $letter = 'A';
+    my $row = join '.', map { $letter++ x $_ }, @blocks;
+    say "no solution\n" and next if $cells < $row.chars;
+    say $row ~= '.'x($cells - $row.chars);
+    say $row while $row ~~ s/^^ (\.*) <|w> (.*?) <|w> (\w+) \.<!|w> /$1$0.$2/;
+    say '';
+}
+}}
+
+my @res;
+
+for (5, [2,1]), (5, []), (10, [8]), (5, [2,3]), (15, [2,3,2,3]) -> ($cells, @blocks) {
+    @res.push: $cells ~ ' cells with blocks: ' ~ join ', ', @blocks;
+    #@res.push: join "\n", $header, '='x$header.chars;
+    my $letter = 'A';
+    my $row = join '.', map { $letter++ x $_ }, @blocks;
+    @res.push: "no solution\n" and next if $cells < $row.chars;
+    @res.push: $row ~= '.' x $cells - $row.chars;
+    @res.push: $row while $row ~~ s/^^ (\.*) <|w> (.*?) <|w> (\w+) \.<!|w> /$1$0.$2/; # arrgh, captures start with $0
+    @res.push: '';
+}
+
+say my $result = join "\n", @res;
+
+my $ref = qq:to/END/;
+5 cells with blocks: 2, 1
+AA.B.
+AA..B
+.AA.B
+
+5 cells with blocks:
+.....
+
+10 cells with blocks: 8
+AAAAAAAA..
+.AAAAAAAA.
+..AAAAAAAA
+
+5 cells with blocks: 2, 3
+no solution
+
+15 cells with blocks: 2, 3, 2, 3
+AA.BBB.CC.DDD..
+AA.BBB.CC..DDD.
+AA.BBB..CC.DDD.
+AA..BBB.CC.DDD.
+.AA.BBB.CC.DDD.
+AA.BBB.CC...DDD
+AA.BBB..CC..DDD
+AA..BBB.CC..DDD
+.AA.BBB.CC..DDD
+AA.BBB...CC.DDD
+AA..BBB..CC.DDD
+.AA.BBB..CC.DDD
+AA...BBB.CC.DDD
+.AA..BBB.CC.DDD
+..AA.BBB.CC.DDD
+END
+
+use Test;
+is($result,$ref);
