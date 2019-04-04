@@ -5,6 +5,7 @@
 #j#  JVM: OK
 #i# RC cli: 10 4
 #f# RC file: galton_box.dat
+#n# minor idiomatification
 
 srand 123456;
 
@@ -27,17 +28,15 @@ sub display-board(@positions, @stats is copy, $halfstep) {
             @tmpl.push: $[@stuff.join>>.ords.flat];
         }
         # three lines of space above
-        for 1..3 {
-            out "  ", " " x (2 * $row-count);
-        }
+        out "  ", " " x (2 * $row-count) for 1..3; # DH
+
         # $row-count lines of pegs
         for flat ($row-count...1) Z (1...$row-count) -> $spaces, $pegs {
             out "  ", " " x $spaces, ($peg xx $pegs).join(" "), " " x $spaces;
         }
         # four lines of space below
-        for 1..4 {
-            out "  ", " " x (2 * $row-count);
-        }
+        out "  ", " " x (2 * $row-count) for 1..4; # DH
+
         @tmpl
     }();
 
@@ -46,12 +45,8 @@ sub display-board(@positions, @stats is copy, $halfstep) {
     my @output;
     {
         # collect all the output and output it all at once at the end
-        sub say(Str $foo) {
-            @output.push: $foo, "\n";
-        }
-        sub print(Str $foo) {
-            @output.push: $foo;
-        }
+        sub   say(Str $foo) { @output.push: $foo, "\n" }
+        sub print(Str $foo) { @output.push: $foo       }
 
         # make some space above the picture
         say "" for ^10;
@@ -90,7 +85,7 @@ sub display-board(@positions, @stats is copy, $halfstep) {
             }
             say "";
         }
-        say "" for $padding...^10;
+        say "" for $padding..^10; # DH works same as ...^10;
     }
     $fh.say: @output.join("");
 }
