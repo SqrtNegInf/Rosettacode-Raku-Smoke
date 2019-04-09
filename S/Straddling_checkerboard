@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# now using .antipairs to invert translation table
+#n# flattened all elements of 'table', works just as well
 
 #The .trans method in Perl 6 improves on Perl 5's tr/// by allowing multi-character translation tables.
 #We build the full table during .new, which simplifies .encode and .decode.
@@ -36,10 +37,10 @@ class Straddling_Checkerboard {
         @!flat_board.splice( $u min $v, 0, Any );
         @!flat_board.splice( $u max $v, 0, Any );
 
-        @!table = [ ' ',             [ 0 ..  9] ],
+        @!table = [ ' ',|            [ 0 ..  9] ],
                   [ ' ',|@!flat_board[ 0 ..  9].map: {.defined ?? $_ !! ' '} ], # DH change
-                  [ $u,  @!flat_board[10 .. 19] ],
-                  [ $v,  @!flat_board[20 .. 29] ];
+                  [ $u, |@!flat_board[10 .. 19] ],
+                  [ $v, |@!flat_board[20 .. 29] ];
 
         my @order = 0..9;
 
