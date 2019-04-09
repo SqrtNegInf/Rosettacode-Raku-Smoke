@@ -1,5 +1,6 @@
-2019-04-06
-Nothing to see here, move along...
+2019-04-01
+Collecting stats on the 'Out-of-sync package' problem. It's rare. Between smoke-test and code-health
+checks, I do 2000 runs/day of P6 code, and in March it happened < 10 times.  Also seems random.
 
 2019-01-09
 Now that was a pretty bad bug (GH2593), not the first found via RC tasks, but the worst.
@@ -9,6 +10,10 @@ Move tasks to alphabetical sub-directories. Github unhappy with too many files i
 
 2018-12-09 
 That was a bear, results worse not better. No more JVM testing for now. Is it even viable long-term?
+
+2018-12-05
+Flushing out concurrency: MacOS very sensitive, on Linux best to have low free memory. Either there's
+a bug in the code or there isn't: resource starvation doesn't make them spontaneously generate.
 
 2018-11-29
 Going down the rabbit-hole with concurrency issues/testing. Mac vs Ubuntu, how to trigger, etc.
