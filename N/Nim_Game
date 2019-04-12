@@ -1,0 +1,45 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Nim_Game
+#c# 2019-04-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#=# RC pipe: 3\n6\nG\n2\n1
+
+my @res;
+
+my $tokens = 12;
+@res.push: "$tokens tokens remaining.\n";
+ 
+loop {
+    #my $player = trim prompt "How many tokens do you want to remove; 1, 2 or 3? : ";
+    my $player = trim prompt;
+    @res.push: "Nice try. $tokens tokens remaining.\n" and
+    next unless $player eq any <1 2 3>;
+    $tokens -= 4;
+    @res.push: "Computer takes {4 - $player}.\n$tokens tokens remaining.\n";
+    @res.push: "Computer wins." and last if $tokens <= 0;
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+12 tokens remaining.
+
+Computer takes 1.
+8 tokens remaining.
+
+Nice try. 8 tokens remaining.
+
+Nice try. 8 tokens remaining.
+
+Computer takes 2.
+4 tokens remaining.
+
+Computer takes 3.
+0 tokens remaining.
+
+Computer wins.
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
