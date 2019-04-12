@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sequence:_smallest_number_greater_than_previous_term_with_exactly_n_divisors
+#c# 2019-04-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+sub div-count (\x) {
+    return 2 if x.is-prime;
+    +flat (1 .. x.sqrt.floor).map: -> \d {
+        unless x % d { my \y = x div d; y == d ?? y !! (y, d) }
+    }
+}
+ 
+my $limit = 15;
+ 
+my $m = 1;
+@res.push: "First $limit terms of OEIS:A069654";
+@res.push: (1..$limit).map: -> $n { my $ = $m = first { $n == .&div-count }, $m..Inf };
+
+.say for @res;
+
+my $ref = q:to/END/;
+First 15 terms of OEIS:A069654
+1 2 4 6 16 18 64 66 100 112 1024 1035 4096 4288 4624
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
