@@ -7,7 +7,7 @@
 my @res;
 sub div-count (\x) {
     return 2 if x.is-prime;
-    +flat (1 .. x.sqrt.floor).map: -> \d {
+    flat (1 .. x.sqrt.floor).map: -> \d { # DH '+' not needed?
         unless x % d { my \y = x div d; y == d ?? y !! (y, d) }
     }
 }
