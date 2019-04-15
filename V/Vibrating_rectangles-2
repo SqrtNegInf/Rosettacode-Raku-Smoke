@@ -62,7 +62,7 @@ main: loop {
         SDL_SetRenderDrawColor($render, |@rgb[$_], 255);
         SDL_RenderDrawRect($render, SDL_Rect.new(:x($x), :y($y), :w($w), :h($h)));
     }
-    @rgb.=rotate($dir);
+    @rgb .= rotate($dir);
     SDL_RenderPresent($render);
     SDL_SetRenderDrawColor($render, 0, 0, 0, 0);
     SDL_RenderClear($render);
