@@ -16,8 +16,8 @@ sub sufficate ($val is copy, $type is copy = 'M', $round is copy = Any) {
    #if (+$type ~~ Int) { $round = $type; $type = 'M' }
    if ($type ~~ /^^ \d $$/) { $round = $type; $type = 'M' }
    my $s = '';
-   if $val.substr(0,1) eq '-' { $s = '-'; $val.=substr(1) }
-   $val.=subst(',', '', :g);
+   if $val.substr(0,1) eq '-' { $s = '-'; $val .= substr(1) }
+   $val .= subst(',', '', :g);
    if $val ~~ m:i/'e'/ {
        my ($m,$e) = $val.split(/<[eE]>/);
        $val = ($e < 0)
