@@ -1,5 +1,11 @@
+2019-04-14
+In a few instances, the use of .= to dispatch a mutating method must not be white-space separated from args, why?
+100_doors
+Loops_Foreach
+Password_generator
+
 2019-04-12
-"perl6 --target=AST" hangs for these (associated with when 'constant' assigned from computed/lazy result?):
+"perl6 --target=AST" hangs for these (tries to generate entirety of large/infinite 'constant' value)
 Bernoulli_numbers
 Catalan_numbers_Pascal%27s_triangle
 Find_palindromic_numbers_in_both_binary_and_ternary_bases
@@ -9,7 +15,7 @@ Ludic_numbers
 
 2019-04-01
 Collecting stats on the 'Out-of-sync package' problem. It's rare. Between smoke-test and code-health
-checks, I do 2000 runs/day of P6 code, and in March it happened < 10 times.  Also seems random.
+checks, I do 2000 runs/day of P6 code, and in March it happened < 10 times.  Also: appears random.
 
 2019-01-09
 Now that was a pretty bad bug (GH2593), not the first found via RC tasks, but the worst.
