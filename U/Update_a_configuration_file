@@ -19,7 +19,7 @@ my $tmpfile = tmpfile;
 my $file = 'run/config.cfg';
 my %changes := {:!needspeeling, :numberofbananas("1024"), :numberofstrawberries("62000"), :seedsremoved};
 
-    %changes.=map({; .key.uc => .value });
+    %changes .= map({; .key.uc => .value });
 
     my %seen;
  
