@@ -31,13 +31,13 @@ sub decode ($letter) {
 }
  
 sub right-permute (@right, $index) {
-    @right.=rotate: $index + 1;
-    @right[2..13].=rotate
+    @right .= rotate: $index + 1;
+    @right[2..13] .= rotate
 }
  
 sub left-permute (@left, $index) {
-    @left.=rotate: $index;
-    @left[1..13].=rotate
+    @left .= rotate: $index;
+    @left[1..13] .= rotate
 }
  
 my @res;
