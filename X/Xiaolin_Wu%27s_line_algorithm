@@ -16,8 +16,8 @@ sub draw-line(@a is copy, @b is copy) {
  
     if steep {
     $plot = -> $y, $x, $c { plot($x, $y, $c) }
-    @a.=reverse;
-    @b.=reverse;
+    @a .= reverse;
+    @b .= reverse;
     }
     if @a[0] > @b[0] { my @t = @a; @a = @b; @b = @t }
  
