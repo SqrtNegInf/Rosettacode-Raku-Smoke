@@ -58,7 +58,7 @@ sub mat-mult (@a, @b, $e) {
     my @p;
     for ^@a X ^@b[0] -> ($r, $c) {
         @p[$r][$c] += @a[$r][$_] * @b[$_][$c] for ^@b;
-        @p[$r][$c].=round($e); # avoid floating point math errors
+        @p[$r][$c] .= round($e); # avoid floating point math errors
     }
     @p
 }
