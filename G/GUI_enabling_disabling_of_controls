@@ -24,7 +24,7 @@ $app.border-width = 10;
 $box.spacing = 10;
  
 $value.changed.tap: {
-    $value.text.=subst(/\D/, '');
+    $value.text .= subst(/\D/, '');
     $inc.sensitive = $value.text < 10;
     $dec.sensitive = $value.text > 0;
 }
