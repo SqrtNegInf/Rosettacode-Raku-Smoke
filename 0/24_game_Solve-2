@@ -119,7 +119,7 @@ sub solve (@numbers, $goal = 24) {
             }
         }
     }
-    @sol.=unique;
+    @sol .= unique;
     my $pl = +@sol == 1 ?? '' !! 's';
     my $sg = $pl ?? '' !! 's';
     @sol.push: +@sol~ " equation{$pl} evaluate{$sg} to $goal using: {@numbers}";
