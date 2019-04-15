@@ -54,7 +54,7 @@ loop {
         }
         when "\c[127]" { # backspace
             if $pointer > 0 {
-                $field.=substr(0,*-1);
+                $field .= substr(0,*-1);
                 $spacer = ' ' x 8 - $field.chars;
                 $pointer -= 1;
                 update($field~$spacer)
