@@ -21,11 +21,11 @@ sub riffle ( @pile is copy ) {
 }
  
 my @cards = ^20;
-@cards.=&overhand for ^10;
+@cards .= &overhand for ^10;
 put @cards;
  
 my @cards2 = ^20;
-@cards2.=&riffle for ^10;
+@cards2 .= &riffle for ^10;
 put @cards2;
  
 put my $cards3 = (^20).pick(*);
