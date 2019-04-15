@@ -33,7 +33,7 @@ my @vibe;
 loop {
     rect($_, 31-$_) for ^15;
     display @vibe;
-    @c.=rotate($rot);
+    @c .= rotate($rot);
     if ++$ %% 30 {
         @c = |@colors.pick(3);
         @c = sort(flat @c xx 12);
