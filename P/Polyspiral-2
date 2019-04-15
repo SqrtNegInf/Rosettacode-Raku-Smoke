@@ -98,7 +98,7 @@ main: loop {
         SDL_RenderDrawLine($render, |($x1, $y1, $x2, $y2)».round(1));
         ($x1, $y1) = $x2, $y2;
     }
-    @rgb.=rotate($lines/60);
+    @rgb .= rotate($lines/60);
     SDL_RenderPresent($render);
     SDL_SetRenderDrawColor($render, 0, 0, 0, 0);
     SDL_RenderClear($render);
