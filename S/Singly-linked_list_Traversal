@@ -14,7 +14,7 @@
 my $list = 1 => 2 => 3 => 4 => 5 => 6 => Mu;
 
 my @res;
-loop (my $l = $list; $l; $l.=value) {
+loop (my $l = $list; $l; $l .= value) {
     @res.push: $l.key;
 }
 
@@ -34,7 +34,7 @@ just like the base operator.)
 use MONKEY-TYPING;
 augment class Pair {
     method traverse () {
-        gather loop (my $l = self; $l; $l.=value) {
+        gather loop (my $l = self; $l; $l .= value) {
             take $l.key;
         }
     }
