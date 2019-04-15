@@ -12,7 +12,7 @@ my $calculator = sub ($n is rw) {
 
 sub next (%this, &get_next) {
     return %this if %this.<value> == 1;
-    %this.<value>.=&get_next;
+    %this.<value> .= &get_next;
     %this.<count>++;
     return %this;
 };
@@ -21,7 +21,7 @@ my @hailstones = map { %(value => $_, count => 0) }, 1 .. 12;
 
 while not all( map { $_.<value> }, @hailstones ) == 1 {
     say [~] map { $_.<value>.fmt("%4s") }, @hailstones;
-    @hailstones[$_].=&next($calculator) for ^@hailstones;
+    @hailstones[$_] .= &next($calculator) for ^@hailstones;
 }
 
 say 'Counts';
