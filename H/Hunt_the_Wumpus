@@ -72,7 +72,7 @@ my @cave = ( (), # connecting tunnels to each room
     (15,17,20), ( 7,16,18), ( 9,17,19), (11,18,20), (13,16,18)
   );
  
-my %locations.=&init;
+my %locations .= &init;
 my %save = %locations;
  
 my $arrows = 5;
@@ -97,7 +97,7 @@ sub MAIN () {
     if $replay ~~ m:i/y/ {
         %locations = %save;
     } else {
-        %locations.=&init;
+        %locations .= &init;
         %save = %locations
     }
     $condition = 0;
