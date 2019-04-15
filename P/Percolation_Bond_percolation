@@ -67,7 +67,7 @@ sub percolate ( $prob  = .6 ) {
         [$x, $y]
     }
  
-    sub fill ([$x, $y]) { @bond[$y;$x].=subst(' ', $water, :g) }
+    sub fill ([$x, $y]) { @bond[$y;$x] .= subst(' ', $water, :g) }
 }
  
 sub generate ( $prob = .5 ) {
