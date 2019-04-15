@@ -39,7 +39,7 @@ my $round;
  
 while my $player = (prompt "Round {++$round}: " ~ $prompt).lc {
     last if $player ~~ /q/; # DH change
-    $player.=substr(0,2);
+    $player .= substr(0,2);
     say 'Invalid choice, try again.' and $round-- and next
       unless $player.chars == 2 and $player ~~ /<$keys>/;
     my $computer = (flat %weight.keys.sort.map( { $_ xx %weight{$_} } )).pick; # DH change
