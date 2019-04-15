@@ -44,7 +44,7 @@ class ByteStr {
 
     method replace(*@substitutions) {
         my %h = @substitutions;
-        @.bytes.=map: { %h{$_} // $_ }
+        @.bytes .= map: { %h{$_} // $_ }
     }
 }
 
