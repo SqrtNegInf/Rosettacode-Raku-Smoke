@@ -68,8 +68,8 @@ my %m = ' ', '_ _ ',
     Y	-.--
     Z	--..
 >.map: -> $c, $m is copy {
-    $m.=subst(rx/'-'/, 'dash ', :g);
-    $m.=subst(rx/'.'/, 'dot ', :g);
+    $m .= subst(rx/'-'/, 'dash ', :g);
+    $m .= subst(rx/'.'/, 'dot ', :g);
     $c => $m ~ '_';
 }
  
