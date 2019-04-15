@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 'sort' tweak broke JVM
-#n# hash order randomization requires upgrade
+#n# hash order randomization required tweak to algorithm
 
 srand 123456;
 
@@ -35,7 +35,7 @@ sub infix:«-means++»(Int $K, @data) {
  
 my @centers = 0, 5, 3 + 2i;
 my @data = flat @centers.map: { ($_ + .5 - rand + (.5 - rand) * i) xx 100 }
-@data.=pick(*);
+@data .= pick(*);
 
 my @res.push: $_ for 3-means++ @data;
 .say for @res.sort; #exit;
