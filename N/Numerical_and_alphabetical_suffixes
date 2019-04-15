@@ -39,7 +39,7 @@ sub comma ($i is copy) {
 sub units (Str $str) {
     $str.fc ~~ /^(.+?)(<alpha>*)('!'*)$/;
     my ($val, $unit, $fact) = $0, $1.Str.fc, $2.Str;
-    $val.=subst(',', '', :g);
+    $val .= subst(',', '', :g);
     if $val ~~ m:i/'e'/ {
         my ($m,$e) = $val.split(/<[eE]>/);
         $val = ($e < 0)
