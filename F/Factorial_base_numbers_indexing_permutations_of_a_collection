@@ -17,7 +17,7 @@ multi base (Int $n is copy, 'F', $length? is copy) {
     [ @fact[^$i].reverse.map: { ($n, $f) = $n.polymod($_); $f } ]
 }
  
-sub fpermute (@a is copy, *@f) { (^@f).map: { @a[$_ .. $_ + @f[$_]].=rotate(-1) }; @a }
+sub fpermute (@a is copy, *@f) { (^@f).map: { @a[$_ .. $_ + @f[$_]] .= rotate(-1) }; @a }
  
 @res.push: "Part 1: Generate table";
 @res.push: $_.&base('F', 3).join('.') ~ ' -> ' ~ [0,1,2,3].&fpermute($_.&base('F', 3)).join for ^24;
