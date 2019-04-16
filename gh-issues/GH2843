@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#u# https //github.com/rakudo/rakudo/issues/2843
+#c# 2019-04-15 open
+#n# bug source  F/Floyd%27s_triangle, Bernoulli_numbers, etc.
+#n# in all versions of 6.c and 6.d
+
+# this is ok
+constant @b = 1..*;
+
+# target= parse ast   optimize
+#         ok    bad   bad
+constant @a = gather for 1..* { take $_ }
+
+say join ' ', @b[^10];
+say join ' ', @a[^10];
