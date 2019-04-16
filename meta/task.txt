@@ -1,12 +1,12 @@
 This is Rakudo version 2019.03.1-167-g51455df9b built on MoarVM version 2019.03-61-g645a70c0d
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1052/10]
++--------------> Moar: Good/Bad [1062/10]
 |+-------------> JVM: Good/Bad [922/150]
 ||+------------> Smoke testing [961]
 |||+-----------> sKipping validation [109]
 ||||+----------> Interactive [54]
-|||||+---------> Touched (modified by me) [252]
+|||||+---------> Touched (modified by me) [253]
 ||||||+--------> Concurrent [44]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [79]
@@ -44,7 +44,7 @@ GGS.......... Ackermann_function
 ..........XVU Active_Directory_Connect
 ...........VU Active_Directory_Search_for_a_user
 GG.K......... Active_object
-!GS.......... Add_a_variable_to_a_class_instance_at_runtime
+GGS.......... Add_a_variable_to_a_class_instance_at_runtime
 .........D.VU Addition-chain_exponentiation
 GGS..T...D... Addition_chains
 GGS.......... Address_of_a_variable
@@ -82,7 +82,7 @@ GGS.......... Array_length
 GGS.......... Arrays
 .........DXV. Aspect_Oriented_Programming
 ..........XV. Assertions
-!BS......D... Assertions_in_design_by_contract
+GBS......D... Assertions_in_design_by_contract
 GGS.......... Associative_array_Creation
 GGS.......... Associative_array_Iteration
 GGS....R..... Atomic_updates
@@ -110,7 +110,7 @@ GGS......D... Base64_decode_data
 GGS..T...D... Base64_encode_data
 GGS..T....... Benford%27s_law
 GGS..T....... Bernoulli_numbers
-GGS....R..... Best_shuffle
+!GS....R..... Best_shuffle
 GBS.....FD... Bilinear_interpolation
 GGS.......... Binary_digits
 GGS.......... Binary_search
@@ -149,7 +149,7 @@ GGS.......... CUSIP
 GGS.......... Caesar_cipher
 GGS.......... Calculating_the_value_of_e
 GGS.......... Calendar
-!GS.......... Calendar_-_for_%22REAL%22_programmers
+GGS.......... Calendar_-_for_%22REAL%22_programmers
 GBS.......... Call_a_foreign-language_function
 GG.K......... Call_a_function
 BB.K......... Call_a_function_in_a_shared_library
@@ -243,7 +243,7 @@ GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
 GGS..T.R..... Create_a_two-dimensional_array_at_runtime
 GGS....R..... Create_an_HTML_table
-!GS..T...D... Create_an_object_Native_demonstration
+GGS..T...D... Create_an_object_Native_demonstration
 GBS.......... Create_an_object_at_a_given_address
 GGS...C...... Cuban_primes-1
 GGS...C...... Cuban_primes-2
@@ -268,12 +268,12 @@ GGS..T....... Deconvolution_1D
 GGS..T....... Deconvolution_2D%2B
 GGS...c...... Deconvolution_2D%2B-1
 GGS.......... Deepcopy
-!GS.......... Define_a_primitive_data_type
+GGS.......... Define_a_primitive_data_type
 GGS.......... Delegates
 GGS.......... Delete_a_file
 GGS..T...D... Deming%27s_Funnel
 GGS.......... Department_Numbers
-!GS..T....... Detect_division_by_zero
+GGS..T....... Detect_division_by_zero
 GGS.......... Determinant_and_permanent
 GGS.......... Determine_if_a_string_is_numeric
 GG.K.T....... Determine_if_only_one_instance_is_running
@@ -335,9 +335,9 @@ GGS.......... Evaluate_binomial_coefficients
 GGS.......... Even_or_odd
 GGS.......... Events
 GGS....R..... Evolutionary_algorithm
-!GS.......... Exceptions-1
-!GS.......... Exceptions-2
-!GS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
+GGS.......... Exceptions-1
+GGS.......... Exceptions-2
+GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
 GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS.....F.... Execute_HQ9%2B
@@ -395,7 +395,7 @@ GGS.......... FizzBuzz
 GGS.......... Flatten_a_list
 GGS....R..... Flipping_bits_game
 GG.K......... Flow-control_structures
-GGS.......... Floyd%27s_triangle
+GGS..T....... Floyd%27s_triangle
 GGS.......... Floyd-Warshall_algorithm
 GGS....RF.... Forest_fire
 GBS..T....... Fork
@@ -741,7 +741,7 @@ GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
 GBS...C...... Parallel_calculations
-!BS...CR..... Parallel_calculations-2
+GBS...CR..... Parallel_calculations-2
 GGS.......... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
@@ -976,7 +976,7 @@ GGS.......... Smith_numbers
 .........DXV. Snake
 GGS....RFD... Snake_And_Ladder
 GG.KIT....... Sockets
-!GS.......... Sokoban
+GGS.......... Sokoban
 GGS.......... Solve_a_Hidato_puzzle
 GGS.......... Solve_a_Holy_Knight%27s_tour
 GGS..T....... Solve_a_Hopido_puzzle
