@@ -48,7 +48,6 @@ multi infix:<**> (FatRat $base, FatRat $exp where * <  1 --> FatRat) {
 }
 
 # from: http://rosettacode.org/wiki/Arithmetic-geometric_mean/Calculate_Pi 
-# (sqrt routines also)
 sub π (--> FatRat) {
     my ($a, $n) = 1, 1;
     my $g = sqrt 1/2.FatRat;
@@ -67,12 +66,18 @@ sub π (--> FatRat) {
     $pi.FatRat;
 }
 
-multi sqrt(Int $n) {
-    .[*-1] given 1, { ($_ + $n div $_) div 2 } ... * == *
-}
-
 multi sqrt(FatRat $r --> FatRat) {
     FatRat.new: sqrt($r.nude[0] * 10**(D*2) div $r.nude[1]), 10**D;
+}
+
+#multi sqrt(Int $n) { .[*-1] given 1, { ($_ + $n div $_) div 2 } ... * == * } # DH buggy
+
+# from: http://rosettacode.org/wiki/Arithmetic-geometric_mean/Integer_roots
+multi sqrt(Int $n) {
+    my $guess = 10**($n.chars div 2);
+    my $iterator = { ( $^x   +   $n div ($^x) ) div 2 };
+    my $endpoint = { $^x == $^y|$^z };
+    return [min] (+$guess, $iterator … $endpoint)[*-1, *-2];
 }
 
 # 'cosmetic' cover to upgrade input to FatRat sqrt
