@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# bug noticed 2019-03-15, but relevant Rakudo change could be earlier (as bug doesn't manifest every run)
+#n# 2019-04-18 GH2805 has been fixed, revert to old code
 
 my @states = <
     Alabama Alaska Arizona Arkansas California Colorado Connecticut Delaware
@@ -34,8 +35,8 @@ sub anastates (*@states) {
 
     gather for $equivs.values -> @c {
 	for ^@c -> $i {
-	    for $i ^..  @c.end -> $j { # DH use last index
-       #for $i ^..^ @c -> $j { # DH buggy?
+	   #for $i ^..  @c.end -> $j { # DH alt for GH2805
+        for $i ^..^ @c -> $j {
 		my $set = set @c[$i].list, @c[$j].list;
 		take @c[$i].list.join(', ') ~ ' = ' ~ @c[$j].list.join(', ') if $set == 4; # DH change
 		#take $set.keys.join(', ') if $set == 4;
