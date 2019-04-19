@@ -8,11 +8,12 @@
 #n# 'almost integer' of Heegner series (19 43 67 163), make table of deltas, a good RC task?
 #n# https://oeis.org/A003173, https://en.wikipedia.org/wiki/Heegner_number
 
-use Rat::Precise;
+my @res;
+
+use Rat::Precise; # thundergnat++
 
 # degree of precision - does double-duty as number-of-decimals (π) and terms in Taylor series (𝑒)
 constant D = 35; 
-#constant D = 42;
 
 # exponentiation where base and exponent are both FatRat
 multi infix:<**> (FatRat $base, FatRat $exp where * >= 1 --> FatRat) {
@@ -73,14 +74,81 @@ sub prefix:<√> (Int $n) {
     sqrt($n.FatRat);
 }
 
-# Heegner #'s and corresponding values to generate integers which expression 'almost' generates
-# 19, 96, 43, 960, 67, 5280, 163, 640320
+sub delta ($fw,$d,$exact,$almost) {
+    join "\n", gather {
+        fmt($exact);
+        fmt($almost.precise($d));
+        fmt(($exact-$almost).precise($d));
+        sub fmt ($s) { take ' 'x(($fw-$d-1)-($s.split(/\./)[0]).chars) ~ $s }
+    }
+}
+
+# calculate Ramanujan's number
 my \Ramanujan = 𝑒() ** ( π() * √ 163 );
-say my $delta  = abs(Ramanujan - (640320**3 + 744)).precise(14);
-say my $result = Ramanujan.precise(14);
-#say my $result = Ramanujan.precise(22);
+say "Ramanujan's constant";
+say Ramanujan.precise(14), "\n";
+
+say "Heegner numbers yielding 'almost' intgers";
+my $d = 14;
+for 19, 96, 43, 960, 67, 5280, 163, 640320 -> $heegner, $x {
+    my $almost = 𝑒() ** ( π() * √ $heegner );
+    my $exact  = $x**3 + 744;
+    say delta(33,$d,$exact,$almost), "\n"; 
+}
+exit;
+
+# Heegner #'s and corresponding values to generate integers which expression 'almost' generates
+for 19, 96, 43, 960, 67, 5280, 163, 640320 -> $heegner, $x {
+    my $almost = 𝑒() ** ( π() * √ $heegner );
+    my $exact  = $x**3 + 744;
+    @res.push: $exact;
+    @res.push: $almost.precise($d);
+    @res.push: ' 'x($exact.chars-1) ~ ($exact-$almost).precise($d);
+    @res.push: '';
+}
+
+say my $result = join "\n", @res;
+
+my $ref = qq:to/END/;
+            885480
+            885479.7776801543195
+                 0.2223198456805
+
+         884736744
+         884736743.99977746603491
+                 0.00022253396509
+
+      147197952744
+      147197952743.99999866245422
+                 0.00000133754578
+
+262537412640768744
+262537412640768743.99999999999925
+                 0.00000000000075
+
+END
+
+my $refx = qq:to/END/;
+885480
+885479.7776801543195
+     0.2223198456805
+
+884736744
+884736743.99977746603491
+        0.00022253396509
+
+147197952744
+147197952743.99999866245422
+           0.00000133754578
+
+262537412640768744
+262537412640768743.99999999999925
+                 0.00000000000075
+END
 
 use Test;
-is $delta,  '0.00000000000075';
-is $result, '262537412640768743.99999999999925';
+is $result, $ref;
+
+#is $delta,  '0.00000000000075';
+#is $result, '262537412640768743.99999999999925';
 #is $result, '262537412640768743.9999999999992500725972';
