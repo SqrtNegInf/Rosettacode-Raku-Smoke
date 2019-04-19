@@ -21,6 +21,7 @@ my @res;
 
 use Rat::Precise; # thundergnat++
 
+# NB: don't fiddle with D=35, bug in 'sqrt(Int $n)' routine causes infinite loops
 constant D = 35; # does triple-duty: number-of-decimals (π), terms in Taylor series (𝑒), output field-width
 constant d = 14; # digits past decimal for output
 
