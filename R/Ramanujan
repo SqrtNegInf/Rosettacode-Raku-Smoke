@@ -43,7 +43,7 @@ multi infix:<**> (FatRat $base, FatRat $exp where * <  1 --> FatRat) {
       $mid = ($low + $high) / 2;
     }
 
-    $acc;
+    $acc.substr( 0, 2 * D ).FatRat;
 }
 
 # from: http://rosettacode.org/wiki/Arithmetic-geometric_mean/Calculate_Pi 
@@ -76,7 +76,7 @@ multi sqrt(Int $n) {
     my $guess = 10**($n.chars div 2);
     my $iterator = { ( $^x   +   $n div ($^x) ) div 2 };
     my $endpoint = { $^x == $^y|$^z };
-    return [min] (+$guess, $iterator … $endpoint)[*-1, *-2];
+    min (+$guess, $iterator … $endpoint)[*-1, *-2];
 }
 
 # 'cosmetic' cover to upgrade input to FatRat sqrt
