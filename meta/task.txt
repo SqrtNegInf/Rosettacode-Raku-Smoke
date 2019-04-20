@@ -1,19 +1,19 @@
-This is Rakudo version 2019.03.1-224-gd31fb2706 built on MoarVM version 2019.03-76-gc10fee65c
+This is Rakudo version 2019.03.1-225-g90e18b65f built on MoarVM version 2019.03-76-gc10fee65c
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1063/10]
++--------------> Moar: Good/Bad [1062/10]
 |+-------------> JVM: Good/Bad [922/150]
 ||+------------> Smoke testing [961]
 |||+-----------> sKipping validation [109]
 ||||+----------> Interactive [54]
-|||||+---------> Touched (modified by me) [253]
+|||||+---------> Touched (modified by me) [255]
 ||||||+--------> Concurrent [44]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [79]
-|||||||||+-----> Draft [227]
+|||||||||+-----> Draft [228]
 ||||||||||+----> Ignoring [57]
-|||||||||||+---> Void (no local copy) [131]
-||||||||||||+--> Un-implemented/reliable [96]
+|||||||||||+---> Void (no local copy) [132]
+||||||||||||+--> Un-implemented/reliable [97]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -71,7 +71,7 @@ GGS.......... Arbitrary-precision_integers_included
 GBS...C.F.... Archimedean_spiral
 ..........XV. Arena_storage_pool
 GGS.......... Arithmetic-geometric_mean
-GGS.......... Arithmetic-geometric_mean_Calculate_Pi
+GGS..T....... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
 GGS.......... Arithmetic_Integer
 GGS..TC...... Arithmetic_Rational
@@ -175,6 +175,7 @@ GGS......D... Check_input_device_is_a_terminal
 GG.KI....D... Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
 GGS.......... Checkpoint_synchronization
+.........D.VU Checksumcolor
 GGS..T...D... Chemical_Calculator
 GGS......D... Cheryl%27s_Birthday
 .........D.VU Chess_player
@@ -510,7 +511,7 @@ GGS......D... Input_Output_for_Pairs_of_Numbers
 GG.K......... Input_loop
 GGS.......... Integer_comparison
 GGS.......... Integer_overflow
-GGS......D... Integer_roots
+GGS..T...D... Integer_roots
 GG.KI........ Integer_sequence
 GG.K.....D... Interactive_Help
 ..........XV. Interactive_programming
@@ -644,7 +645,7 @@ GGS.......... McNuggets_Problem
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
-GBS......D... Mersenne_primes
+!BS......D... Mersenne_primes
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
 GGS.......... Metronome
