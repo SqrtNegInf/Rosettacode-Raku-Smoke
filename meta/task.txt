@@ -1,19 +1,19 @@
 This is Rakudo version 2019.03.1-225-g90e18b65f built on MoarVM version 2019.03-76-gc10fee65c
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1062/10]
-|+-------------> JVM: Good/Bad [922/150]
-||+------------> Smoke testing [961]
++--------------> Moar: Good/Bad [1065/10]
+|+-------------> JVM: Good/Bad [924/150]
+||+------------> Smoke testing [963]
 |||+-----------> sKipping validation [109]
 ||||+----------> Interactive [54]
 |||||+---------> Touched (modified by me) [255]
 ||||||+--------> Concurrent [44]
 |||||||+-------> Random seed [112]
-||||||||+------> File output [79]
-|||||||||+-----> Draft [228]
+||||||||+------> File output [80]
+|||||||||+-----> Draft [227]
 ||||||||||+----> Ignoring [57]
-|||||||||||+---> Void (no local copy) [132]
-||||||||||||+--> Un-implemented/reliable [97]
+|||||||||||+---> Void (no local copy) [131]
+||||||||||||+--> Un-implemented/reliable [96]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -175,7 +175,7 @@ GGS......D... Check_input_device_is_a_terminal
 GG.KI....D... Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
 GGS.......... Checkpoint_synchronization
-.........D.VU Checksumcolor
+GGS.....FD... Checksumcolor
 GGS..T...D... Chemical_Calculator
 GGS......D... Cheryl%27s_Birthday
 .........D.VU Chess_player
@@ -450,7 +450,8 @@ GBS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
-GGS..T....... Hamming_numbers
+GGS..T....... Hamming_numbers-1
+GGS.......... Hamming_numbers-2
 GG.KI........ Handle_a_signal
 GBS.......... Happy_numbers-1
 GGS.......... Happy_numbers-2
@@ -645,7 +646,7 @@ GGS.......... McNuggets_Problem
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
-!BS......D... Mersenne_primes
+GBS......D... Mersenne_primes
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
 GGS.......... Metronome
@@ -760,7 +761,7 @@ GGS..T....... Pascal_matrix_generation
 GGS....R..... Password_generator
 GGS.......... Pathological_floating_point_problems
 GGS..T.R..... Pattern_matching
-.........D.VU Peaceful_chess_queen_armies
+...........VU Peaceful_chess_queen_armies
 GGS.....F.... Peano_curve
 GGS......D... Pell%27s_equation
 GGS....R..... Penney%27s_game
