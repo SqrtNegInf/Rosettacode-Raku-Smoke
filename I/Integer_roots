@@ -6,15 +6,11 @@
 
 sub integer_root ( Int $p where * >= 2, Int $n --> Int ) {
     my Int $d = $p - 1;
- 
     my $guess =  10**($n.chars div $p); # DH
     #my $guess = '1' ~ ( '0' x ($n.chars / $p) );
- 
     my $iterator = { ( $d * $^x   +   $n div ($^x ** $d) ) div $p };
- 
     my $endpoint = { $^x == $^y|$^z };
- 
-    return [min] (+$guess, $iterator … $endpoint)[*-1, *-2];
+    min (+$guess, $iterator … $endpoint)[*-1, *-2];
 }
  
 say integer_root( 2, 8);
