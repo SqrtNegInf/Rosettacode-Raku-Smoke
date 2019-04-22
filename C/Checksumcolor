@@ -32,7 +32,8 @@ if $*OUT.t or $mode eq 'HTML' {
             }
             when 'HTML' {
                 $*OUT.print: "$_\</span>" for $css.comb.rotor(6 => -5)\
-                .map( { sprintf "<span style=\"color:#%s;\">", $_.join } ) Z~ $cs.comb;
+                #.map( { sprintf "<span style=\"color:#%s;\">", $_.join } ) Z~ $cs.comb;
+                .map( { "<span style=\"color:#{.join};\">" } ) Z~ $cs.comb;
                 say " <span style=\"color:#ffffff\">{$line.words[1..*]}</span>";
                 say '<br>';
             }
