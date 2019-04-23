@@ -4,8 +4,8 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: checksumcolor.html
-#n# by using $*OUT, 'say' can be left alone (only 'print' needs the explicit handle)
-#n# default input created with: 
+#n# by defining $*OUT to point to a file, say/print statements can be left alone
+#n# default input was created with: 
 #n#   md5 -r ref/test/*txt > ref/checksumcolor.dat
 
 my @res;
@@ -31,7 +31,7 @@ if $*OUT.t or $mode eq 'HTML' {
                 say "\e[0m {$line.words[1..*]}";
             }
             when 'HTML' {
-                $*OUT.print: "$_\</span>" for $css.comb.rotor(6 => -5)\
+                print "$_\</span>" for $css.comb.rotor(6 => -5)\
                 #.map( { sprintf "<span style=\"color:#%s;\">", $_.join } ) Z~ $cs.comb;
                 .map( { "<span style=\"color:#{.join};\">" } ) Z~ $cs.comb;
                 say " <span style=\"color:#ffffff\">{$line.words[1..*]}</span>";
