@@ -4,25 +4,26 @@
 #c# 2016-08-23 first noticed this...
 #n# bug source: P/Pentagram.1
 #n# how many ways to 'say', some buffered, some not?
-#n# 2016-11-25 - buffering not issue now, but 'glorp'.say(:$out) goes to STDOUT, but no compiler warning
+#n# 2016-11-25 - buffering not issue now, but <'b'.say(:$out)> goes to STDOUT, with no compiler warning
 #n# https://gist.github.com/SqrtNegInf/cfc1bf33d67365ef2bbc512c8a6d0772
 
 say 'stdout:';
 say(1);
 say 2;
 3.say;
+say '';
 
-say '"glorp" should not be here:';
+say '"b" should not be here:';
 my $out = open('test.txt', :w);
-$out.say(1);
-$out.say: 2;
-'glorp'.say(:$out);  # ???
-$out.say: 3; 
+$out.say: 'a';
+'b'.say(:$out);  # ???
+$out.say('c');
+close $out;
 
-#for 1..100 -> $i {
-#    $out.say: 1;
-#    2.say(:$out);
-#}
-
-say 'file:';
+say '';
+say 'lines in file:';
+run('wc', '-l', 'test.txt');
+say 'content of file:';
 run('cat', 'test.txt');
+
+print "\n";
