@@ -14,7 +14,8 @@ my @res;
 
 unit sub MAIN ($mode = 'HTML');
 
-my $in   = open('ref/checksumcolor.dat');
+#my $in   = open('ref/checksumcolor.dat');
+my $in   = 'ref/checksumcolor.dat'.IO.open(:r)  orelse .die;
 my $*OUT = 'run/checksumcolor.html'.IO.open(:w) orelse .die;
 
 if $*OUT.t or $mode eq 'HTML' {
