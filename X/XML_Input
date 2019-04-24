@@ -3,6 +3,7 @@
 #c# 2016-05-18 <RC, 2018-03-13 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 2019-04-23 updated XML, and now HTML entity is *not* converted on output
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -20,15 +21,16 @@ my $xml = from-xml '<Students>
 </Students>';
 
 my @res.push: .<Name> for $xml.nodes.grep(/Student/);
-.say for @res;
+.say for @res; 
 
 my $ref = qq:to/END/;
 April
 Bob
 Chad
 Dave
-Émily
+&#x00C9;mily
 END
+#Émily
 
 use Test;
 is @res.join("\n"), chomp $ref;
