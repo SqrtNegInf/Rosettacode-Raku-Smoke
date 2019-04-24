@@ -3,6 +3,7 @@
 #c# 2018-04-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# updated module, 1st 'stop' entry improved
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -25,13 +26,13 @@ my @res.push: q:to/EOF/.match(/ <IETF::RFC_Grammar::URI::absolute-URI> /, :g).li
 @res.push: $/[*-1].gist;
 @res.push: "We matched $/[*-1], which is a $/[*-1].^name() at position $/[*-1].from() to $/[*-1].to()";
 
-.say for @res;
+.say for @res; 
  
 #Like most of the solutions here it does not comply to IRI but only to URI:
 
 my $ref = qq:to/END/;
 stop:
-http://en.wikipedia.org/wiki/Erich_K
+http://en.wikipedia.org/wiki/Erich_Kästner_(camera_designer).
 http://mediawiki.org/).
 parser:
 http://en.wikipedia.org/wiki/-)
