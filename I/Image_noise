@@ -5,6 +5,7 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# ln -s /opt/local/lib/libSDL2-2.0.0.dylib /usr/local/lib/libSDL2.dylib
+#n# 2019-04-24 SDL_RenderDrawPoints no longer needed after update of SDL?
 
 # Variant of a script packaged with the SDL2::Raw module.
 
@@ -20,7 +21,7 @@ my SDL_Renderer $renderer;
  
 constant $sdl-lib = 'SDL2';
  
-sub SDL_RenderDrawPoints( SDL_Renderer $, CArray[int32] $points, int32 $count ) returns int32 is native($sdl-lib) {*}
+#sub SDL_RenderDrawPoints( SDL_Renderer $, CArray[int32] $points, int32 $count ) returns int32 is native($sdl-lib) {*}
  
 SDL_Init(VIDEO);
 $window = SDL_CreateWindow(
