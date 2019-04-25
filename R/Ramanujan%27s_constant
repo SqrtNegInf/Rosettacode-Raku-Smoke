@@ -1,0 +1,146 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Ramanujan%27s_constant
+#c# 2019-02-24 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# calculate Ramanujan's constant as per http://oeis.org/wiki/Ramanujan%27s_constant
+#n# cobbled together from other RC tasks (calculation of 𝑒 and π) and a custom ** operator
+#n# show 'almost integer' of Heegner-number series (19 43 67 163), make table of deltas
+#n# https://oeis.org/A003173, https://en.wikipedia.org/wiki/Heegner_number
+
+#`{ Rosettacode task statement (draft):
+
+Calculate Ramanujan's constant (as per http://oeis.org/wiki/Ramanujan%27s_constant) with at least
+32 digits of accuracy, by the method of your choice.  Optionally, if using the 𝑒**(π*√x) approach,
+show that when evaulated with the last four Heegner numbers (https://en.wikipedia.org/wiki/Heegner_number),
+the result is 'almost' an integer.
+
+}
+
+my @res;
+
+use Rat::Precise; # thundergnat++
+
+constant D = 54; # does double-duty: number-of-decimals (π), terms in Taylor series (𝑒)
+constant d = 15; # ?
+
+# two versions of exponentiation where base and exponent are both FatRat
+multi infix:<**> (FatRat $base, FatRat $exp where * >= 1 --> FatRat) {
+    2 R** $base**($exp/2);
+}
+
+multi infix:<**> (FatRat $base, FatRat $exp where * <  1 --> FatRat) {
+    constant ε = 10**-D;
+    my $low  = 0.FatRat;
+    my $high = 1.FatRat;
+    my $mid  = $high / 2;
+    my $acc  = my $sqr = sqrt($base);
+
+    while (abs($mid - $exp) > ε) {
+      $sqr = sqrt($sqr);
+      if ($mid <= $exp) { $low  = $mid; $acc *=   $sqr }
+      else              { $high = $mid; $acc *= 1/$sqr }
+      $mid = ($low + $high) / 2;
+    }
+
+    $acc.substr(0, D).FatRat;
+}
+
+# from: http://rosettacode.org/wiki/Arithmetic-geometric_mean/Calculate_Pi
+sub π (--> FatRat) {
+    my ($a, $n) = 1, 1;
+    my $g = sqrt 1/2.FatRat;
+    my $z = .25;
+    my $pi;
+
+    for ^d {
+        given [ ($a + $g)/2, sqrt $a * $g ] {
+            $z -= (.[0] - $a)**2 * $n;
+            $n += $n;
+            ($a, $g) = @$_;
+            $pi = ($a ** 2 / $z).substr: 0, 2 + D;
+        }
+    }
+
+    $pi.FatRat;
+}
+
+multi sqrt(FatRat $r --> FatRat) {
+    FatRat.new: sqrt($r.nude[0] * 10**(D*2) div $r.nude[1]), 10**D;
+}
+
+
+# from: http://rosettacode.org/wiki/Arithmetic-geometric_mean/Integer_roots
+multi sqrt(Int $n) {
+    my $guess = 10**($n.chars div 2);
+    my $iterator = { ( $^x   +   $n div ($^x) ) div 2 };
+    my $endpoint = { $^x == $^y|$^z };
+    min ($guess, $iterator … $endpoint)[*-1, *-2];
+}
+
+# 'cosmetic' cover to upgrade input to FatRat sqrt
+sub prefix:<√> (Int $n) { sqrt($n.FatRat) }
+
+# from: http://rosettacode.org/wiki/Calculating_the_value_of_e
+sub postfix:<!> (Int $n) { (constant f = 1, |[\*] 1..*)[$n] }
+
+sub 𝑒 (--> FatRat) { sum map { FatRat.new(1,.!) }, ^D }
+
+# inputs, and their difference, formatted decimal-aligned
+sub format ($a,$b) {
+    sub pad ($s) { ' ' x ((34 - d - 1) - ($s.split(/\./)[0]).chars) }
+    my $c = $b.precise(d, :z);
+    my $d = ($a-$b).precise(d, :z);
+    join "\n",
+        (sprintf "%11s {pad($a)}%s\n", 'Int', $a) ~
+        (sprintf "%11s {pad($c)}%s\n", 'Heegner', $c) ~
+        (sprintf "%11s {pad($d)}%s\n", 'Difference', $d)
+}
+
+# override built-in definitions
+constant π = &π();
+constant 𝑒 = &𝑒();
+
+# everything in place: calculate Ramanujan's constant
+my $Ramanujan = 𝑒**(π*√163);
+@res.push: "Ramanujan's constant to 32 decimal places:\nActual:     " ~
+    "262537412640768743.99999999999925007259719818568888\n" ~
+    "Calculated: " ~ $Ramanujan.precise(32, :z), "\n";
+
+
+# Heegner numbers used to generate 'almost' integers
+@res.push: "Heegner numbers yielding 'almost' integers";
+for 19, 96, 43, 960, 67, 5280, 163, 640320 -> $heegner, $x {
+    my $almost = 𝑒**(π*√$heegner);
+    my $exact  = $x**3 + 744;
+    @res.push: format($exact,$almost);
+}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+Ramanujan's constant to 32 decimal places:
+Actual:     262537412640768743.99999999999925007259719818568888
+Calculated: 262537412640768743.99999999999925007259719818568888
+
+
+Heegner numbers yielding 'almost' integers
+        Int             885480
+    Heegner             885479.777680154319498
+ Difference                  0.222319845680502
+
+        Int          884736744
+    Heegner          884736743.999777466034907
+ Difference                  0.000222533965093
+
+        Int       147197952744
+    Heegner       147197952743.999998662454225
+ Difference                  0.000001337545775
+
+        Int 262537412640768744
+    Heegner 262537412640768743.999999999999250
+ Difference                  0.000000000000750
+END
+
+use Test;
+is @res.join("\n"), $ref;
