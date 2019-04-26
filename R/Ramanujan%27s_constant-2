@@ -1,0 +1,34 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/xxx
+#c# 2019-04-xx >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+
+use Rat::Precise;
+
+#my @a_n = <262537412640768743 1 1333462407511 1 8 1 1 5 1 4 1 7 1 1 1>; # for 32 digits of precision
+my @a_n = < 262537412640768743 1 1333462407511 1 8 1 1 5 1 4 1 7 1 1 1 9 1 1 2 12 4 1 15 4 299 3 5 1 4 5 5 1 28 3 1 9 4 1 6 1 1 1 1 1 1 51 11 5 3 2 1 1 1 1 2 1 5 1 9 1 2 14 1 82 1 4 1 1 1 1 1 2 3 1 1 1 4 8 11 7 1>; # for 100 digits of precision
+
+# direct sums
+sub cf-direct(:@a, :@b, :$n)
+{
+    my $x = @a[0].FatRat;
+    $x = @a[$_ - 1] + @b[$_] / $x for reverse 1 ..^ $n;
+    $x;
+}
+
+# composition operator
+sub cf-composition(@a, @b) {
+    map { .(Inf) }, [\o] map { @a[$_] + @b[$_] / *.FatRat }, ^Inf
+}
+
+my $ram1 = cf-direct(:a(@a_n), :b(Nil, |(1 xx *)), :n(+@a_n) );
+my $ram2 = cf-composition(@a_n, (1 xx *))[78];
+say "262537412640768743.9999999999992500725971981856888793538563373369908627075374103782106479101186073129511813461860645042\n" ~
+    $ram1.precise(100, :z), "\n",
+    $ram2.precise(100, :z);
+ 
+my $ref = '262537412640768743.9999999999992500725971981856888793538563373369908627075374103782106479101186073129511813461860645042';
+use Test;
+is $ram1.precise(100, :z), $ref;
+is $ram2.precise(100, :z), $ref;
