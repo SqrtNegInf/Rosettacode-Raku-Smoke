@@ -5,8 +5,9 @@
 #n# bug source: P/Pentagram.1
 #n# how many ways to 'say', some buffered, some not?
 #n# 2016-11-25 - buffering not issue now, but <'b'.say(:$out)> goes to STDOUT, with no compiler warning
-#n# (this is not has not work at least since the release of 6.c)
-#n# https://gist.github.com/SqrtNegInf/cfc1bf33d67365ef2bbc512c8a6d0772
+#n# (this has not worked at least since the release of 6.c)
+#n# https://gist.github.com/SqrtNegInf/cfc1bf33d67365ef2bbc512c8a6d0772 # buffering example, obsolete
+#n# https://gist.github.com/SqrtNegInf/291f0d3de8f60bdb9c7a873a4d14dd56 # filehandle as suffix, current
 
 say 'stdout:';
 say(1);
@@ -28,3 +29,22 @@ say 'content of file:';
 run('cat', 'test.txt');
 
 print "\n";
+
+#`{{
+output of the above:
+
+stdout:
+1
+2
+3
+
+"b" should not be here:
+b
+
+lines in file:
+       2 test.txt
+content of file:
+a
+c
+
+}}
