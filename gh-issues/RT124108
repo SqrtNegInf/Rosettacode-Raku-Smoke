@@ -5,8 +5,11 @@
 #n# JVM handles this better than Moar now
 
 say [max] 1..(1+2**15); # ok
+
+say 1+2**16; # this is one above the limit
+say [max] ([max] $_ for (1..(1+2**16)).rotor(2**16 - 1, :partial)); # work-around of sorts
+
 say [max] 1..(1+2**16); # bad
-say [max] 1..(1+2**17); # bad
 
 # improved error message reads: Too many arguments in flattening array.
 
