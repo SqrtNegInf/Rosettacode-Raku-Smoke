@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Ramanujan-continued_fraction
-#c# 2019-04-26
+#u# http://rosettacode.org/wiki/Ramanujan%27s_constant
+#c# 2019-04-27 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# slower, but gets the job done
 
 use Rat::Precise;
 
@@ -12,10 +13,11 @@ sub continued-fraction($n, :@a, :@b) {
     $x;
 }
 
-my $r163 =   continued-fraction( 50, :a(12,|((2*12) xx *)     ), :b(19 xx *));
-my $pi   = 4*continued-fraction(140, :a( 0,|(1, 3 ... *)      ), :b(4, 1, |((1, 2, 3 ... *) X** 2)));
-my $R    = 1 + ($_ / continued-fraction(170, :a( 1,|(2+$_, 3+$_ ... *)), :b(Nil,  |(-1*$_, -2*$_ ... *)  ))) given $r163*$pi;
-say $R.precise(32, :z);
+#`{ √163 } my $r163 =           continued-fraction( 50, :a(12,|((2*12) xx *)),      :b(19 xx *));
+#`{ π    } my $pi   =         4*continued-fraction(140, :a( 0,|(1, 3 ... *)),       :b(4, 1, |((1, 2, 3 ... *) X** 2)));
+#`{ e**x } my $R    = 1 + ($_ / continued-fraction(170, :a( 1,|(2+$_, 3+$_ ... *)), :b(Nil,  |(-1*$_, -2*$_ ... *)  ))) given $r163*$pi;
+
+say "Ramanujan's constant to 32 decimal places:\n", my $result = $R.precise(32);
 
 use Test;
-is $R.precise(32), '262537412640768743.99999999999925007259719818568888';
+is $result, '262537412640768743.99999999999925007259719818568888';
