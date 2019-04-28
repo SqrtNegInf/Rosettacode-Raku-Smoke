@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# slower, but gets the job done
+#n# LHS commenting messes up on RC, but too bad, I like it
+#n# formulas from: https://en.wikipedia.org/wiki/Generalized_continued_fraction
 
 use Rat::Precise;
 
@@ -14,7 +16,7 @@ sub continued-fraction($n, :@a, :@b) {
 }
 
 #`{ √163 } my $r163 =           continued-fraction( 50, :a(12,|((2*12) xx *)),      :b(19 xx *));
-#`{ π    } my $pi   =         4*continued-fraction(140, :a( 0,|(1, 3 ... *)),       :b(4, 1, |((1, 2, 3 ... *) X** 2)));
+#`{ π/4  } my $pi   =       4 * continued-fraction(140, :a( 0,|(1, 3 ... *)),       :b(4, 1, |((1, 2, 3 ... *) X** 2)));
 #`{ e**x } my $R    = 1 + ($_ / continued-fraction(170, :a( 1,|(2+$_, 3+$_ ... *)), :b(Nil,  |(-1*$_, -2*$_ ... *)  ))) given $r163*$pi;
 
 say "Ramanujan's constant to 32 decimal places:\n", my $result = $R.precise(32);
