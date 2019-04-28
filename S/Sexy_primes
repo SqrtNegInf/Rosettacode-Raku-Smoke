@@ -14,7 +14,7 @@ my $max = 1_000_035;
 my @primes = $sieve.primes($max);
  
 my $filter = @primes.Set;
-my $primes = @primes.categorize: { .&sexy }
+my $primes = @primes.categorize: &sexy;
  
 @res.push: "Total primes less than {comma $max}: "~ comma +@primes;
  
