@@ -1,15 +1,16 @@
 #!/usr/bin/env perl6
-#t# skiptest
 #u# https://rt.perl.org/Public/Bug/Display.html?id=124108#ticket-history
-#c# 2015-11-04 open
+#c# 2015-11-04 opened, 2019-04-27 closed (thundergnat++)
 #n# JVM handles this better than Moar now
+#n# don't need reduction, problem solved!
 
 say [max] 1..(1+2**15); # ok
 
 say 1+2**16; # this is one above the limit
-say [max] ([max] $_ for (1..(1+2**16)).rotor(2**16 - 1, :partial)); # work-around of sorts
+#say [max] ([max] $_ for (1..(1+2**16)).rotor(2**16 - 1, :partial)); # work-around of sorts (obsolete)
 
-say [max] 1..(1+2**16); # bad
+#say [max] 1..(1+2**16); # bad, but an own goal
+say max 1..(1+2**16); # works just fine
 
 # improved error message reads: Too many arguments in flattening array.
 
