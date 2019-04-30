@@ -1,9 +1,9 @@
-This is Rakudo version 2019.03.1-252-gcac95fbbc built on MoarVM version 2019.03-97-g8fef19994
+This is Rakudo version 2019.03.1-254-g923af0b93 built on MoarVM version 2019.03-97-g8fef19994
 implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1069/10]
-|+-------------> JVM: Good/Bad [925/153]
-||+------------> Smoke testing [967]
+|+-------------> JVM: Good/Bad [925/154]
+||+------------> Smoke testing [968]
 |||+-----------> sKipping validation [109]
 ||||+----------> Interactive [54]
 |||||+---------> Touched (modified by me) [257]
@@ -256,7 +256,7 @@ GGS.......... Currying
 GBS......D... Curve_that_touches_three_points
 GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
-GGS.......... DNS_query
+!GS.......... DNS_query
 GGS......D... Damm_algorithm
 GGS......D... Data_Encryption_Standard
 GGS..T....... Date_format
@@ -1067,7 +1067,8 @@ GGS....R.D... Substitution_Cipher
 GGS.......... Substring
 GBS.......... Substring_Top_and_tail
 GGS.......... Subtractive_generator
-GBS.......... Successive_prime_differences
+GBS.......... Successive_prime_differences-1
+GBS.......... Successive_prime_differences-2
 GGS.......... Sudoku-1
 GG.K......... Sudoku-2
 GGS..T...D... Suffix_tree
