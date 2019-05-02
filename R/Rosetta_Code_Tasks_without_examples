@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/Tasks_without_examples
 #c# 2017-11-25 <RC
-#t# skiptest
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2019-05-01 testing is pretty weak, only one task (100 doors)
 #n# skip writing output to fail, and panic goes away, but it hangs after a short while, cause unknown...
 #n# MoarVM panic: Internal error: zeroed target thread ID in work pass
 #n# flaps: sometimes works, sometimes doesn't
@@ -11,17 +11,23 @@
 use HTTP::UserAgent;
 use Gumbo;
  
+my $result;
+
 my $ua = HTTP::UserAgent.new;
 my $taskfile = 'run/RC_tasks.html';
  
 # Get list of Tasks
+#`{{
 say "Updating Programming_Tasks list...";
 my $page   = "http://rosettacode.org/wiki/Category:Programming_Tasks";
-my $html   = $ua.get($page).content;
+my $html   = $ua.get($page).content; # too many redirects???
+}}
+
+my $html = slurp 'meta/Category:Programming_Tasks';
 my $xmldoc = parse-html($html, :TAG<div>, :id<mw-pages>);
 my @tasks  = parse-html($xmldoc[0].Str, :TAG<li>).Str.comb( /'/wiki/' <-["]>+ / )».substr(6); #"
 my $f      = open("./run/RC_Programming_Tasks.txt", :w) orelse .die;
-note "Writing Programming_Tasks file...";
+#note "Writing Programming_Tasks file...";
 $f.print( @tasks.join("\n") );
 $f.close;
  
@@ -30,12 +36,12 @@ sleep .5;
 for 'Programming_Tasks' -> $category
 { # Scrape info from each page.
  
-    note "Loading $category file...";
-    note "Retreiving tasks...";
+    #note "Loading $category file...";
+    #note "Retrieving tasks...";
     my @entries = "./run/RC_{$category}.txt".IO.slurp.lines;
  
     for @entries -> $title {
-        note $title;
+        #note $title;
  
         # Get the raw page
         my $html = $ua.get: "http://rosettacode.org/wiki/{$title}";
@@ -52,7 +58,8 @@ for 'Programming_Tasks' -> $category
         #$fh.close;
 
         # 2018-11-18
-        say "$title\n$task\n\n";
+        $result = "$title\n$task\n\n";
+        last;
  
         sleep 3; # Don't pound the server
     }
@@ -61,3 +68,31 @@ for 'Programming_Tasks' -> $category
 sub cleanup ( $string ) {
     $string.subst( /^.+ '</div>'/, '' )
 }
+
+#say $result;
+
+my $ref = q:to/END/;
+100_doors
+
+<p>There are 100 doors in a row that are all initially closed.
+</p><p>You make 100 <a href="/wiki/Rosetta_Code:Multiple_passes" title="Rosetta Code:Multiple passes">passes</a> by the doors.
+</p><p>The first time through, visit every door and &#160;<i>toggle</i>&#160; the door &#160;(if the door is closed, &#160;open it; &#160; if it is open,&#160; close it).
+</p><p>The second time, only visit every 2<sup>nd</sup> door &#160; (door #2, #4, #6, ...), &#160; and toggle it.
+</p><p>The third time, visit every 3<sup>rd</sup> door &#160; (door #3, #6, #9, ...), etc, &#160; until you only visit the 100<sup>th</sup> door.
+</p><p><br />
+</p>
+<dl><dt>Task</dt>
+<dd></dd></dl>
+<p>Answer the question: &#160; what state are the doors in after the last pass? &#160; Which are open, which are closed?
+</p><p><br />
+<b><a href="/wiki/Rosetta_Code:Extra_credit" title="Rosetta Code:Extra credit">Alternate</a>:</b>
+As noted in this page's &#160; <a href="/wiki/Talk:100_doors" title="Talk:100 doors">discussion page</a>, &#160; the only doors that remain open are those whose numbers are perfect squares.
+</p><p>Opening only those doors is an &#160; <a href="/wiki/Rosetta_Code:Optimization" title="Rosetta Code:Optimization">optimization</a> &#160; that may also be expressed;
+however, as should be obvious, this defeats the intent of comparing implementations across programming languages.
+<br /><br />
+</p>
+
+
+END
+use Test;
+is $result, $ref;
