@@ -4,6 +4,8 @@
 #t# skiptest
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# may be slightly out-of-date, but cf. ~/perl6/rc-run/RC-run.p6 which is at usually at HEAD, and run/tested all the time
+#n# (so FYI thundergnat++, it runs fine on macOS essentially with no changes [except 'xdg-open'])
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
