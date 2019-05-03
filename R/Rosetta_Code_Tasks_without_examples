@@ -23,7 +23,7 @@ my $page   = "http://rosettacode.org/wiki/Category:Programming_Tasks";
 my $html   = $ua.get($page).content; # too many redirects???
 }}
 
-my $html = slurp 'meta/Category:Programming_Tasks';
+my $html = slurp 'meta/Category:Programming_Tasks'; # obtained via 'curl' in 'bin/rc-task-status'
 my $xmldoc = parse-html($html, :TAG<div>, :id<mw-pages>);
 my @tasks  = parse-html($xmldoc[0].Str, :TAG<li>).Str.comb( /'/wiki/' <-["]>+ / )».substr(6); #"
 my $f      = open("./run/RC_Programming_Tasks.txt", :w) orelse .die;
@@ -59,7 +59,7 @@ for 'Programming_Tasks' -> $category
 
         # 2018-11-18
         $result = "$title\n$task\n\n";
-        last;
+        last; # DH stop after one
  
         sleep 3; # Don't pound the server
     }
