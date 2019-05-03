@@ -1,11 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/Fix_code_tags
-#t# skiptest
 #c# 2015-10-14 <RC, 2018-04-15 <RC, 2018-07-31 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-my @langs = <
+my @langs = <foo bar baz>;
+my @reallangs = <
     abap actionscript actionscript3 ada apache applescript apt_sources
     asm asp autoit avisynth bash basic4gl bf blitzbasic bnf boo c caddcl
     cadlisp cfdg cfm cil c_mac cobol cpp cpp-qt csharp css d delphi
@@ -21,8 +21,14 @@ my @langs = <
     visualprolog whitespace winbatch xml xorg_conf xpp z80
 >;
  
-$_ = slurp;
- 
+#$_ = slurp;
+$_ = 'Lorem ipsum <code foo>saepe audire</code> elaboraret ne quo, id equidem
+atomorum inciderint usu. <foo>In sit inermis deleniti percipit</foo>,
+ius ex tale civibus omittam. <barf>Vix ut doctus cetero invenire</barf>, his eu
+altera electram. Tota adhuc altera te sea, <code bar>soluta appetere ut mel</bar>.
+Quo quis graecis vivendo te, <baz>posse nullam lobortis ex usu</code>. Eam volumus perpetua
+constituto id, mea an omittam fierent vituperatoribus.';
+
 for @langs -> $l {
     s:g:i [ '<' 'lang '?  $l '>' ] = "<lang $l>";
     s:g [ '</' $l '>' ] = '</' ~ 'lang>';
@@ -30,10 +36,11 @@ for @langs -> $l {
  
 s:g [ '<code '(.+?) '>' (.*?) '</code>' ] = "<lang $0>{$1}</"~"lang>";
  
-.say;
+#.say;
+say my $result = $_;
 
 # Wamba
-
+#`{{
 slurp().subst(
     rx:r{
         | '<' <( $<need-add-space>=<?> )> @langs '>'
@@ -43,3 +50,16 @@ slurp().subst(
     'lang' ~ " " x *<need-add-space>.so,
     :g,
 ).print;
+}}
+
+my $ref = q:to/END/;
+Lorem ipsum <lang foo>saepe audire</lang> elaboraret ne quo, id equidem
+atomorum inciderint usu. <lang foo>In sit inermis deleniti percipit</lang>,
+ius ex tale civibus omittam. <barf>Vix ut doctus cetero invenire</barf>, his eu
+altera electram. Tota adhuc altera te sea, <lang bar>soluta appetere ut mel</lang>.
+Quo quis graecis vivendo te, <lang baz>posse nullam lobortis ex usu</lang>. Eam volumus perpetua
+constituto id, mea an omittam fierent vituperatoribus.
+END
+
+use Test;
+is $result, chomp $ref;
