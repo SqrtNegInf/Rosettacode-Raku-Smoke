@@ -37,8 +37,8 @@ sub anastates (*@states) {
 	for ^@c -> $i {
 	   #for $i ^..  @c.end -> $j { # DH alt for GH2805
         for $i ^..^ @c -> $j {
-		my $set = set @c[$i].list, @c[$j].list;
-		take @c[$i].list.join(', ') ~ ' = ' ~ @c[$j].list.join(', ') if $set == 4; # DH change
+		my $set = set @c[$i].list, @c[$j].list; # DH .list is needed here
+		take @c[$i].join(', ') ~ ' = ' ~ @c[$j].join(', ') if $set == 4; # DH change
 		#take $set.keys.join(', ') if $set == 4;
 	    }
 	}
