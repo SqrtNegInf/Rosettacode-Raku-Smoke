@@ -2,21 +2,20 @@
 #u# http://rosettacode.org/wiki/Magic_squares/Perl_6
 #t# skiptest
 #n# cf ~/perl5/Rosetta-Code/M/Magic_squares_Perl-debug
-#n# https://stackoverflow.com/questions/55994128/multiple-post-increment-and-decrement-operations-in-a-statement-perl-5-vs-perl
+#n# https://stackoverflow.com/questions/55994128/
 
 
 # correct
-my @sq1; my $i = 1; my $x = 3/2; my $y = 0;
-@sq1[($i % 3 ?? $y-- !! $y++) % 3][($i % 3 ?? $x++ !! $x) % 3] = $i++ for 0.. 3**2 - 1;
-#say join ' ', $_ for @sq1; say '';
-#dd @sq1;
+my @sq1; my $n = 3; my $i = 1; my $x = $n/2; my $y = 0;
+@sq1[($i % $n ?? $y-- !! $y++) % $n][($i % $n ?? $x++ !! $x) % $n] = $i++ for 0.. $n**2 - 1;
+say join ' ', $_ for @sq1; say '';
 
 # correct
-#my @sq2; 3 = 3; $i = 1; $x = 3/2; $y = 0;
-#for 0 .. 3**2 - 1 {
-#    @sq2[$y%3][$x%3] = $i;
-#    $i%3 ?? $y-- !! $y++;
-#    $x++ if $i % 3;
-#    $i++;
-#}
-#say join ' ', $_ for @sq2;
+my @sq2; $n = 3; $i = 1; $x = $n/2; $y = 0;
+for 0 .. $n**2 - 1 {
+    @sq2[$y%$n][$x%$n] = $i;
+    $i%$n ?? $y-- !! $y++;
+    $x++ if $i % $n;
+    $i++;
+}
+say join ' ', $_ for @sq2;
