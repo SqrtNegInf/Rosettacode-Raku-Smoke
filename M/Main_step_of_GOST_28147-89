@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Main_step_of_GOST_28147-89
-#c# 2016-01-05 <RC
+#c# 2016-01-05 <RC, 2019-05-06 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# Tim Toady had a back-whack, no longer needed?
 
 # sboxes from http://en.wikipedia.org/wiki/GOST_(block_cipher)
 constant sbox =
@@ -29,7 +30,7 @@ my @input = 0x21, 0x04, 0x3B, 0x04, 0x30, 0x04, 0x32, 0x04;
 my @key   = 0xF9, 0x04, 0xC1, 0xE2;
  
 my ($L,$R) = @input.reverse.map: { :256[$^a,$^b,$^c,$^d] }
-my ($K   ) = @key\ .reverse.map: { :256[$^a,$^b,$^c,$^d] }
+my ($K   ) = @key  .reverse.map: { :256[$^a,$^b,$^c,$^d] }
  
 ($L,$R) = feistel-step(&ГОСТ-round, $L, $R, $K);
  
