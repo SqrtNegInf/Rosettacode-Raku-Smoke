@@ -39,13 +39,15 @@ cd ..
 
 # see how slow the usual suspects are
 bin/rc-timings | sort -r -n > meta/timings.txt
+echo ' '
 head -10 meta/timings.txt
 
 # combine task headers for easy grep
 /usr/local/pbin/grep-paragraph -H '#u# http' [1-Z]* | /usr/local/pbin/grep-paragraph -v ReadMe.md - > meta/headers.txt
 
-# push changes to github
-bin/Task-git
+# leaderboard
+echo ' '
+head -14 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | tail -10
 
 # how did the spectest go?
 echo ' '
@@ -54,4 +56,7 @@ echo ' '
 # latest revisions
 echo ' '
 cd $HOME/.rakudobrew/moar-master
-git log | head -200
+git log | head -100
+
+# push changes to github
+bin/Task-git
