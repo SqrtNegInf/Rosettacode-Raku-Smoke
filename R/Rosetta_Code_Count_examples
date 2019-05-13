@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/Count_examples
 #t# skiptest
-#c# 2018-03-30 <RC, 2018-11-19 >RC, 2019-01-21 <RC
+#c# 2018-03-30 <RC, 2018-11-19 >RC, 2019-01-21 <RC, 2019-05-12 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -71,7 +71,8 @@ unless $no-fetch {
               $client.get("{ $url }/index.php?title={ uri-escape .<title> }&action=raw").content;
             "./pages/{ uri-escape .<title>.subst(/' '/, '_', :g) } ".IO.spurt($page);
             my $lc = $page.lc;
-            my $count = +$lc.comb(/ ^^'==' <-[\n=]>* '{{header|' \w+ \N+ '==' \h* $$ /);
+           #my $count = +$lc.comb(/ ^^'==' <-[\n=]>* '{{header|' \w+ \N+ '==' \h* $$ /);
+            my $count = +$lc.comb(/ ^^'==' <-[\n=]>* '{{header|' <-[}]>+? '}}==' \h* $$ /);
             %tasks{.<title>} = {'cat' => %cat{$cat}, :$count};
             %tasks{.<title>}<top10> = (^@top10).map( {
                 $lc.contains("\n==\{\{header|{@top10[$_].lc}}}==") ??
