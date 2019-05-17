@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parse_EBNF
-#c# 2018-03-21 <RC, 2018-11-17 >RC
+#c# 2018-03-21 <RC, 2018-11-17 >RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: ebnf.BEND
@@ -136,7 +136,7 @@ for @tests -> $test {
     $fh.say( qq|say q<{$test<ebnf>.subst(/^^\h*/,'',:g)}>;| );
     $fh.say(  q|say "\nValid syntax.\n\nTesting:\n";| );
     $fh.say(  q|CATCH { default { say " - $_" } };| );
-    my $len = [max] $test<teststrings>.flat>>.chars;
+    my $len = max $test<teststrings>.flat>>.chars;
     for $test<teststrings>.flat -> $s {
         $fh.say( qq|printf "%{$len}s", '{$s}';| ~
                  qq|printf " - %s\\n", {$title}.parse('{$s}')| ~
