@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arithmetic-geometric_mean/Calculate_Pi
-#c# 2016-01-29 <RC, 2019-04-19 >RC
+#c# 2016-01-29 <RC, 2019-04-19 >RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# replace 1st integer root routine
@@ -19,7 +19,7 @@ multi sqrt(Int $n) {
     my $guess = 10**($n.chars div 2);
     my $iterator = { ( $^x   +   $n div ($^x) ) div 2 };
     my $endpoint = { $^x == $^y|$^z };
-    return [min] (+$guess, $iterator … $endpoint)[*-1, *-2];
+    return min (+$guess, $iterator … $endpoint)[*-1, *-2];
 }
 
 multi sqrt(FatRat $r --> FatRat) {
