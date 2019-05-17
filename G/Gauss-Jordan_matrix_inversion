@@ -50,7 +50,7 @@ sub rat-or-int ($num) {
 
 sub say_it ($message, @array) {
     my $max;
-    @array.map: {$max max= [max] |$_».&rat-or-int.comb(/\S+/)».chars};
+    @array.map: {$max max= max $_».&rat-or-int.comb(/\S+/)».chars}; # slip not needed '|'
     @res.push: "\n$message";
     #$_».&rat-or-int.fmt(" %{$max}s").put for @array;
     @res.push: $_».&rat-or-int.fmt(" %{$max}s") for @array;
