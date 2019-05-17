@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bernoulli_numbers
-#c# 2016-04-07 <>RC
+#c# 2016-04-07 <>RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2018-04-18 thundergnat adds 'code to make runnable block', similar to my changes
@@ -20,7 +20,7 @@ sub bernoulli($n) {
 
 constant @bpairs = grep *.value.so, ($_ => bernoulli($_) for 0..60);
 
-my $width = [max] @bpairs.map: *.value.numerator.chars;
+my $width = max @bpairs.map: *.value.numerator.chars;
 my $form = "B(%2d) = \%{$width}d/%d";
 
 my @res1.push: sprintf $form, .key, .value.nude for @bpairs;
@@ -44,7 +44,7 @@ constant bernoulli2 = gather {
 
 constant @bpairs2 = bernoulli2[^52];
 
-$width = [max] @bpairs2.map: *.value.numerator.chars;
+$width = max @bpairs2.map: *.value.numerator.chars;
 $form = "B(%d)\t= \%{$width}d/%d";
 
 my @res2.push: sprintf $form, .key, .value.nude for @bpairs2;
@@ -61,7 +61,7 @@ constant bernoulli3 = grep *.value, map { (.key => .value.[*-1]) }, do
 
 constant @bpairs3 = bernoulli3[^52];
 
-$width = [max] @bpairs3.map: *.value.numerator.chars;
+$width = max @bpairs3.map: *.value.numerator.chars;
 $form = "B(%d)\t= \%{$width}d/%d";
 
 my @res3.push: sprintf $form, .key, .value.nude for @bpairs3;
