@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Vogel%27s_approximation_method
-#c# 2018-10-07 <RC
+#c# 2018-10-07 <RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2018-10-10 due to randomized hash keys, output switches between two possibilities, accept either 
@@ -31,8 +31,8 @@ while (+%g) {
     my @s = %supply.keys.map: -> $x
       {[$x, my $z = %costs{$x}{%g{$x}[0]},%g{$x}[1] ?? %costs{$x}{%g{$x}[1]} - $z !! $z]}
  
-    @d = |@d.grep({ (.[2] == [max] @d».[2]) }).&min: :by(*.[1]);
-    @s = |@s.grep({ (.[2] == [max] @s».[2]) }).&min: :by(*.[1]);
+    @d = |@d.grep({ (.[2] == max @d».[2]) }).&min: :by(*.[1]);
+    @s = |@s.grep({ (.[2] == max @s».[2]) }).&min: :by(*.[1]);
  
     my ($t, $f) = @d[2] == @s[2] ?? (@s[1],@d[1]) !! (@d[2],@s[2]);
     my ($d, $s) = $t > $f ?? (@d[0],%g{@d[0]}[0]) !! (%g{@s[0]}[0], @s[0]);
