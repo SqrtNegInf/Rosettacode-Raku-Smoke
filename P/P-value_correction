@@ -66,8 +66,8 @@ multi adjust( @p, 'Hommel' ) {
         my @L  = 0 .. z - $i; # lower indices
         my @U  = z - $i ^..^ z; # upper indices
         my $q  = @s[@U]>>[0].map( { $_ * $i / (2 + $++) } ).min;
-        @q[@L] = @s[@L]>>[0].map: { [min] $_ * $i, $q, @s[*-1][0] };
-        @pa    = ^z .map: { [max] @pa[$_], @q[$_] }
+        @q[@L] = @s[@L]>>[0].map: { min $_ * $i, $q, @s[*-1][0] };
+        @pa    = ^z .map: { max @pa[$_], @q[$_] }
     }
     @pa[@s[*;1].map( {[$_, $++]} ).sort( *.[0] ).values>>[1]]
 }
