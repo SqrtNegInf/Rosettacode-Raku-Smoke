@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Catamorphism
-#c# 2016-01-07 <RC
+#c# 2016-01-07 <RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -13,8 +13,8 @@ my @list = 1..10;
 @res.push: [+] @list;
 @res.push: [*] @list;
 @res.push: [~] @list;
-@res.push: [min] @list;
-@res.push: [max] @list;
+@res.push:  min  @list;
+@res.push:  max  @list;
 @res.push: [lcm] @list;
 
 # In addition to the reduce metaoperator, a general higher-order function, reduce, can apply any appropriate function. Reproducing the above in this form, using the function names of those operators, we have:
