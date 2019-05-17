@@ -31,7 +31,7 @@ sub find ($x, *@a) {
 }
  
 sub maxes (&f, *@a) {
-    my $x = [max] map &f, @a;
+    my $x = max map &f, @a;
     return @a.grep: { f($^e) eqv $x };
 }
  
