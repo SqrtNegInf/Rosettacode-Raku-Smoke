@@ -16,7 +16,7 @@ my @nums = (1_000_000 .. 100_000_000).pick: 10000;
 #my \factories = @nums.map: *.&prime-factors; # slowest way to run
 my \factories = @nums.race.map: *.&prime-factors.cache; # does .cache do anything here?
 
-#say my $gmf = ([max] (factories»[0] »=>« @nums)).value; # same result as below
+#say my $gmf = (max (factories»[0] »=>« @nums)).value; # same result as below
 #say my $gmf = (factories»[0] »=>« @nums).reduce(&max).value; # sometimes works? prototype handling keeps changing
 say my $gmf = (factories»[0] »=>« @nums).reduce(* max *).value;
  
