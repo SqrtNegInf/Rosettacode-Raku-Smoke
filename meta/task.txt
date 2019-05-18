@@ -1,19 +1,19 @@
-This is Rakudo version 2019.03.1-400-g9ba51a8b4 built on MoarVM version 2019.03-110-g081823ffc
+This is Rakudo version 2019.03.1-405-g7a7a23df6 built on MoarVM version 2019.03-110-g081823ffc
 implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1071/9]
-|+-------------> JVM: Good/Bad [925/154]
-||+------------> Smoke testing [970]
+|+-------------> JVM: Good/Bad [925/155]
+||+------------> Smoke testing [971]
 |||+-----------> sKipping validation [107]
 ||||+----------> Interactive [54]
-|||||+---------> Touched (modified by me) [263]
-||||||+--------> Concurrent [44]
+|||||+---------> Touched (modified by me) [266]
+||||||+--------> Concurrent [45]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [80]
 |||||||||+-----> Draft [227]
 ||||||||||+----> Ignoring [57]
-|||||||||||+---> Void (no local copy) [132]
-||||||||||||+--> Un-implemented/reliable [97]
+|||||||||||+---> Void (no local copy) [131]
+||||||||||||+--> Un-implemented/reliable [96]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -39,6 +39,7 @@ GGS.......... Abbreviations,_easy
 GGS.......... Abbreviations,_simple
 GGS.......... Abstract_type
 GGS..T....... Abundant,_deficient_and_perfect_number_classifications
+GBS...C..D... Abundant_odd_numbers
 GGS.......... Accumulator_factory
 GGS.......... Ackermann_function
 ..........XVU Active_Directory_Connect
@@ -422,7 +423,7 @@ GB.KI........ GUI_component_interaction
 GB.KI........ GUI_enabling_disabling_of_controls
 GGS....RF.... Galton_box_animation
 GGS.......... Gamma_function
-GGS......D... Gauss-Jordan_matrix_inversion
+GGS..T...D... Gauss-Jordan_matrix_inversion
 GGS.......... Gaussian_elimination
 GGS.......... General_FizzBuzz
 .........D.VU Generalised_floating_point_addition
@@ -435,7 +436,7 @@ GGS.......... Generic_swap
 GGS....R.D... Geometric_algebra
 GBS.......... Get_system_command_output
 GGS.....F.... Globally_replace_text_in_several_files
-GG.KI..R..... Go_Fish
+GG.KIT.R..... Go_Fish
 GGS.......... Gray_code
 GGS..T..F.... Grayscale_image
 GGS..T....... Greatest_common_divisor
@@ -702,7 +703,6 @@ GGS.......... Nautical_bell-2
 GGS.......... Negative_base_numbers
 GGS.......... Nested_function
 GGS.......... Nested_templated_data
-.........D.VU Nice_numbers
 GGS.......... Nim_Game
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
@@ -739,13 +739,13 @@ GGS.......... Order_disjoint_list_items
 GGS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_Partitions
 GGS.......... Ordered_words
-GGS......D... P-value_correction
+GGS..T...D... P-value_correction
 GGS.......... Palindrome_detection
 GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
 GBS...C...... Parallel_calculations
-GBS...CR..... Parallel_calculations-2
+!BS...CR..... Parallel_calculations-2
 GGS.......... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
