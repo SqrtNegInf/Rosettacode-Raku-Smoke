@@ -3,36 +3,37 @@
 #c# 2019-05-17 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# takes over 5 seconds to complete (on my really-truly-not-very-fast system)
+#n# takes well over 5 seconds to complete (on my really-truly-not-very-fast system)
 
 my @res;
 
-sub abundant (\x) {
+sub odd-abundant (\x) {
     my @l = x.is-prime ?? 1 !! flat
-    1, (2 .. x.sqrt.floor).map: -> \d {
+    1, (3 .. x.sqrt.floor).map: -> \d {
+         next unless d +& 1;
          my \y = x div d;
          next if y * d !== x;
          d !== y ?? (d, y) !! d
     };
-    (my $s = @l.sum) > x ?? (@l.sort) !! Empty;
+    @l.sum > x ?? @l.sort !! Empty;
 }
  
 sub odd-abundants (Int :$start-at is copy) {
-    $start-at = ( $start-at + 14 ) div 15;
+    $start-at = ( $start-at + 2 ) div 3;
     $start-at += $start-at %% 2;
-    $start-at *= 15;
-    ($start-at, *+30 ... *).hyper.map: {
-        next unless my $oa = .&abundant;
+    $start-at *= 3;
+    ($start-at, *+6 ... *).hyper.map: {
+        next unless my $oa = .&odd-abundant;
         sprintf "%6d: divisor sum: {$oa.join: ' + '} = {$oa.sum}", $_
     }
 }
- 
+
 @res.push: 'First 25 abundant odd numbers:';
 @res.push: $_ for odd-abundants( :start-at(1) )[^25];
 @res.push: "\nOne thousandth abundant odd number:\n" ~ odd-abundants( :start-at(1) )[999];
 @res.push: "\nFirst abundant odd number above one billion:\n" ~ odd-abundants( :start-at(1_000_000_000) ).head;
 
-#.say for @res;
+.say for @res;
 
 my $ref = q:to/END/;
 First 25 abundant odd numbers:
@@ -63,7 +64,7 @@ First 25 abundant odd numbers:
  11025: divisor sum: 1 + 3 + 5 + 7 + 9 + 15 + 21 + 25 + 35 + 45 + 49 + 63 + 75 + 105 + 147 + 175 + 225 + 245 + 315 + 441 + 525 + 735 + 1225 + 1575 + 2205 + 3675 = 11946
 
 One thousandth abundant odd number:
-498225: divisor sum: 1 + 3 + 5 + 7 + 13 + 15 + 21 + 25 + 35 + 39 + 65 + 73 + 75 + 91 + 105 + 175 + 195 + 219 + 273 + 325 + 365 + 455 + 511 + 525 + 949 + 975 + 1095 + 1365 + 1533 + 1825 + 2275 + 2555 + 2847 + 4745 + 5475 + 6643 + 6825 + 7665 + 12775 + 14235 + 19929 + 23725 + 33215 + 38325 + 71175 + 99645 + 166075 = 529487
+492975: divisor sum: 1 + 3 + 5 + 7 + 9 + 15 + 21 + 25 + 35 + 45 + 63 + 75 + 105 + 175 + 225 + 313 + 315 + 525 + 939 + 1565 + 1575 + 2191 + 2817 + 4695 + 6573 + 7825 + 10955 + 14085 + 19719 + 23475 + 32865 + 54775 + 70425 + 98595 + 164325 = 519361
 
 First abundant odd number above one billion:
 1000000575: divisor sum: 1 + 3 + 5 + 7 + 9 + 15 + 21 + 25 + 35 + 45 + 49 + 63 + 75 + 105 + 147 + 175 + 225 + 245 + 315 + 441 + 525 + 735 + 1225 + 1575 + 2205 + 3675 + 11025 + 90703 + 272109 + 453515 + 634921 + 816327 + 1360545 + 1904763 + 2267575 + 3174605 + 4081635 + 4444447 + 5714289 + 6802725 + 9523815 + 13333341 + 15873025 + 20408175 + 22222235 + 28571445 + 40000023 + 47619075 + 66666705 + 111111175 + 142857225 + 200000115 + 333333525 = 1083561009
