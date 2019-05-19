@@ -4,6 +4,7 @@
 #c# 2018-11-15 open, 2018-11-16 closed
 #n# bug source: L/Levenshtein_distance_Alignment
 #n# as of: Rakudo version 2018.10-145-gf7007ac0e built on MoarVM version 2018.10-77-g6236eb5de
+#n# Altai-man++ added test to roast
 
 #`{
 hope you don't mind that I'm the relayer of all this bad news about bugs
@@ -13,7 +14,7 @@ but I think everyone appreciates that you're going for the one P6 feature everyo
 so keep on trucking, yours is no disgrace
 }
 
-my %h; %h<d s> = 42, 47; dd %h;
+my %h; %h<a b> = 42, 47; dd %h;
 
 my @b; @b[0]<a> = 42; @b[0]<b> = 47; dd @b; # this is fine
 
