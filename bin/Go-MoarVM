@@ -10,30 +10,30 @@ source $HOME/.profile
 
 #rm -rf .perl6/precomp # obsolete, bug has been fixed...
 
-#cd $HOME/.rakudobrew
+cd $HOME/.rakudobrew
 
-##rm -rf moar-yesterday
-#cp -pr moar-master moar-yesterday
+rm -rf moar-yesterday
+cp -pr moar-master moar-yesterday
 #bin/rakudobrew self-upgrade > out.rb    2> err.rb
-#bin/rakudobrew build moar >    out.moar  2>    err.moar
+bin/rakudobrew build moar >    out.moar  2>    err.moar
 (cd moar-master; make spectest   > ../out.mtest 2> ../err.mtest )
-#bin/rakudobrew switch moar-master >> out.moar 2>> err.moar
-#bin/rakudobrew build zef    > out.zef   2> err.zef
-#bin/rakudobrew rehash
+bin/rakudobrew switch moar-master >> out.moar 2>> err.moar
+bin/rakudobrew build zef    > out.zef   2> err.zef
+bin/rakudobrew rehash
 
 cd $HOME/perl6/Rosetta-Code
 
 echo 'MOAR'
 $HOME/.rakudobrew/bin/rakudobrew switch moar-master
 perl6 -v
-#bin/rc-moar [0-Z]/*
+bin/rc-moar [0-Z]/*
 bin/rc-stats 2
 
 # keep tabs on status
 cd meta
-#cp -p task.txt task.txt~
-#/usr/local/pbin/rotate_log -d logs -b -r -f task.txt
-#../bin/rc-task-status > task.txt
+cp -p task.txt task.txt~
+/usr/local/pbin/rotate_log -d logs -b -r -f task.txt
+../bin/rc-task-status > task.txt
 diff task.txt~ task.txt
 cd ..
 
