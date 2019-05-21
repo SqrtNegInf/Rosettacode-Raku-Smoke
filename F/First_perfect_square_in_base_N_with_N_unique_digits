@@ -1,0 +1,42 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/First_perfect_square_in_base_N_with_N_unique_digits
+#c# 2019-05-20 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+sub first-square (Int $n) {
+    my $start = (($n - 1)/2).exp($n).floor || 1;
+    my $sq = ($start .. *).map( *² ).hyper.first: *.base($n).comb.Bag.elems >= $n;
+    sprintf "Base %2d: %10s² == %s", $n, $sq.sqrt.base($n), $sq.base($n);
+}
+
+say  "First perfect square with N unique digits in base N: ";
+@res.push: .&first-square for flat
+   2 .. 12, # required
+#  13 .. 16  # optional
+;
+
+.say for @res;
+
+my $ref = q:to/END/;
+Base  2:         10² == 100
+Base  3:         22² == 2101
+Base  4:         33² == 3201
+Base  5:        243² == 132304
+Base  6:        523² == 452013
+Base  7:       1431² == 2450361
+Base  8:       3344² == 13675420
+Base  9:      11642² == 136802574
+Base 10:      32043² == 1026753849
+Base 11:     111453² == 1240A536789
+Base 12:     3966B9² == 124A7B538609
+END
+#Base 13:    3828943² == 10254773CA86B9
+#Base 14:    3A9DB7C² == 10269B8C57D3A4
+#Base 15:   1012B857² == 102597BACE836D4
+#Base 16:   404A9D9B² == 1025648CFEA37BD9
+
+use Test;
+is @res.join("\n"), chomp $ref;
