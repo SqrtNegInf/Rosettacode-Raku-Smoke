@@ -1,16 +1,16 @@
 This is Rakudo version 2019.03.1-409-g31e534cf4 built on MoarVM version 2019.03-110-g081823ffc
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1071/9]
-|+-------------> JVM: Good/Bad [925/155]
-||+------------> Smoke testing [971]
++--------------> Moar: Good/Bad [1072/9]
+|+-------------> JVM: Good/Bad [925/156]
+||+------------> Smoke testing [972]
 |||+-----------> sKipping validation [107]
 ||||+----------> Interactive [54]
 |||||+---------> Touched (modified by me) [266]
-||||||+--------> Concurrent [45]
+||||||+--------> Concurrent [46]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [80]
-|||||||||+-----> Draft [227]
+|||||||||+-----> Draft [228]
 ||||||||||+----> Ignoring [57]
 |||||||||||+---> Void (no local copy) [131]
 ||||||||||||+--> Un-implemented/reliable [96]
@@ -78,7 +78,7 @@ GGS.......... Arithmetic_Integer
 GGS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS..T....... Arithmetic_evaluation
-!GS.......... Array_concatenation
+GGS.......... Array_concatenation
 GGS.......... Array_length
 GGS.......... Arrays
 .........DXV. Aspect_Oriented_Programming
@@ -175,7 +175,7 @@ GGS..T....... Check_Machin-like_formulas
 GGS......D... Check_input_device_is_a_terminal
 GG.KI....D... Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
-GGS.......... Checkpoint_synchronization
+!GS.......... Checkpoint_synchronization
 GGS.....FD... Checksumcolor
 GGS..T...D... Chemical_Calculator
 GGS......D... Cheryl%27s_Birthday
@@ -391,6 +391,7 @@ GBS......D... Finite_state_machine
 GGS.......... First-class_functions
 GGS.......... First-class_functions_Use_numbers_analogously
 GGS..T....... First_class_environments
+GBS...C..D... First_perfect_square_in_base_N_with_N_unique_digits
 GGS.......... Five_weekends
 GGS......D... Fivenum
 GGS..T..F.... Fixed_length_records
