@@ -1,30 +1,40 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/First_perfect_square_in_base_N_with_N_unique_digits
-#c# 2019-05-20 <RC, 2019-05-21 <RC
+#c# 2019-05-20 <RC, 2019-05-21 <RC, 2019-05-22 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# for 2..16:  487.887u  7.866s
-#n# previous:  1264.211u 17.279s
+#j# JVM:  BROKEN 
+#n# this program makes my computer feel old
+#n# for 2..16:
+#n#   260.292u  2.830s current
+#n#   487.887u  7.866s .1
+#n#  1264.211u 17.279s .2
 
 my @res;
- 
+
 sub first-square (Int $n) {
-    my int $start = (($n - 1)/2).exp($n).floor || 2;
-    my @digits = reverse (^$n)».base: $n;
-    my $sq = ($start .. *).map( {.²} ).hyper.first: {
-        my $s = .base: $n;
+    my $start = ([~] flat '10', (2 ..^ $n)».base($n)).parse-base($n).sqrt.floor;
+    my @digits = reverse (^$n)».base($n);
+    my $now = now;
+    my $sq;
+    for  $start .. * {
+        $sq = .²;
+        my $s = $sq.base: $n;
         my $f;
         $f = 1 and last unless $s.contains: $_ for @digits;
         next if $f;
-        $_
+        last
     }
     sprintf "Base %2d: %10s² == %s", $n, $sq.sqrt.base($n), $sq.base($n);
 }
- 
+
 say  "First perfect square with N unique digits in base N: ";
 @res.push: .&first-square for flat
    2 .. 12, # required
-  13 .. 16  # optional
+  13 .. 16, # optional
+  #17,# stretch - loooong stretch
+  #18, # stretch
+  #19, # stretch
+  #20, # stretch
 ;
 
 .say for @res;
@@ -46,6 +56,9 @@ Base 14:    3A9DB7C² == 10269B8C57D3A4
 Base 15:   1012B857² == 102597BACE836D4
 Base 16:   404A9D9B² == 1025648CFEA37BD9
 END
+#Base 18:  44B482CAD² == 10236B5F8EG4AD9CH7
+#Base 19: 1011B55E9A² == 10234DHBG7CI8F6A9E5
+#Base 20: 49DGIH5D3G² == 1024E7CDI3HB695FJA8G
 
 use Test;
 is @res.join("\n"), chomp $ref;
