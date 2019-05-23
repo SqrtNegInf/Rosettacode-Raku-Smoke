@@ -34,6 +34,7 @@ $perl6 =~ s/^Perl 6\[edit\]//;
 $perl6 =~ s/Works with/# Works with/ms;
 $perl6 =~ s/\xA0//g;
 $perl6 =~ s/PerlÂ/Perl /g;
+$perl6 =~ s/\n\s+\n/\n\n/msg;
 
 my $ymd = `date +%Y-%m-%d`; chomp $ymd;
 my $ym  = `date +%Y.%m`; chomp $ym;
