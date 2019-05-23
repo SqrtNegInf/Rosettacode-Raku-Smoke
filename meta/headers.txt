@@ -3099,13 +3099,25 @@ File: F/First_class_environments
 File: F/First_perfect_square_in_base_N_with_N_unique_digits
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/First_perfect_square_in_base_N_with_N_unique_digits
+#c# 2019-05-20 <RC, 2019-05-21 <RC, 2019-05-22 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN 
+#n# this program makes my computer feel old
+#n# for 2..16:
+#n#   260.292u  2.830s current
+#n#   487.887u  7.866s .1
+#n#  1264.211u 17.279s .2
+
+File: F/First_perfect_square_in_base_N_with_N_unique_digits.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/First_perfect_square_in_base_N_with_N_unique_digits
 #c# 2019-05-20 <RC, 2019-05-21 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for 2..16:  487.887u  7.866s
 #n# previous:  1264.211u 17.279s
 
-File: F/First_perfect_square_in_base_N_with_N_unique_digits.1
+File: F/First_perfect_square_in_base_N_with_N_unique_digits.2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/First_perfect_square_in_base_N_with_N_unique_digits
 #c# 2019-05-20 <RC
@@ -3397,7 +3409,7 @@ File: G/Gaussian_elimination
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: G/Gaussian_elimination.2
+File: G/Gaussian_elimination.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Gaussian_elimination
 #c# 2015-12-10 <RC
@@ -9374,7 +9386,7 @@ File: T/Tonelli-Shanks_algorithm.0
 #n# JVM fails on '\' of Unicode, works otherwise (see 'Tonelli-Shanks_algorithm.1')
 #n# obsolete now fixed: fails for largest test value: Cannot unbox 164 bit wide bigint into native integer
 
-File: T/Tonelli-Shanks_algorithm.2
+File: T/Tonelli-Shanks_algorithm.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Tonelli-Shanks_algorithm
 #c# 2016-10-25 <RC
@@ -10099,7 +10111,7 @@ File: Z/Zeckendorf_number_representation
 File: Z/Zero_to_the_zero_power
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Zero_to_the_zero_power
-#c# 2016-12-09 <RC
+#c# 2015-10-18 <RC, 2016-12-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
