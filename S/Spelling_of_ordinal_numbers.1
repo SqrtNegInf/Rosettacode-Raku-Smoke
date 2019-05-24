@@ -1,0 +1,76 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Spelling_of_ordinal_numbers
+#c# 2017-09-07 <RC, 2019-01-31 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+#`{
+This would be pretty simple to implement from scratch; it would be straightforward to do a minor modification of the  Number names task code. Much simpler to just use the Lingua::EN::Numbers::Cardinal module from the Perl 6 ecosystem though. It easily handles ordinal numbers even though that is not its primary focus.
+We need to be slightly careful of terminology. In Perl 6, 123, 00123.0, & 1.23e2 are not all integers. They are respectively an Int (integer), a Rat (rational number) and a Num (floating point number). (The fourth numeric is a Complex) For this task it doesn't much matter as the ordinal routine coerces its argument to an Int, but to Perl 6 they are different things. We can further abuse allomorphic types and role mixins for some somewhat non-intuitive results as well.
+Note that the different allomorphic integer forms of 123 are evaluated on use, not on assignment. They can be passed around in parameters, but until they are used numerically, they retain their stringy characteristics. The numerics are evaluated on assignment, hence the stringified output not exactly matching the input format. The mixin role returns different things depending on what context you evaluate it under. When evaluated as a string it is 17, numerically, it is 123.
+It is not really clear what is meant by "Write a driver and a function...". Well, the function part is clear enough; driver not so much. Perhaps this will suffice.
+}
+
+use Lingua::EN::Numbers::Cardinal;
+ 
+my @res.push: sprintf( "\%16s : %s", $_, ordinal($_) ) for
+ 
+# Required tests
+|<1 2 3 4 5 11 65 100 101 272 23456 8007006005004003>,
+ 
+# Optional tests
+ 
+# Numerics
+|(123, 00123.0, 1_2_3, 1.23e2, 123+0i),
+ 
+# Allomorphs
+|<123 1_2_3 00123.0 1.23e2 123+0i 0b1111011 0o173 0x7B 861/7>,
+ 
+# Unicode (a small assortment, by no means all)
+|<١٢٣ ߁߂߃ १२३ ୧୨୩ ೧೨೩ ෧෨෩ ᭑᭒᭓>,
+ 
+# type system abuse (role mixin)
+'17' but 123;
+
+.say for @res;
+
+my $ref = q:to/END/;
+               1 : first
+               2 : second
+               3 : third
+               4 : fourth
+               5 : fifth
+              11 : eleventh
+              65 : sixty-fifth
+             100 : one hundredth
+             101 : one hundred first
+             272 : two hundred seventy-second
+           23456 : twenty-three thousand, four hundred fifty-sixth
+8007006005004003 : eight quadrillion, seven trillion, six billion, five million, four thousand third
+             123 : one hundred twenty-third
+             123 : one hundred twenty-third
+             123 : one hundred twenty-third
+             123 : one hundred twenty-third
+          123+0i : one hundred twenty-third
+             123 : one hundred twenty-third
+           1_2_3 : one hundred twenty-third
+         00123.0 : one hundred twenty-third
+          1.23e2 : one hundred twenty-third
+          123+0i : one hundred twenty-third
+       0b1111011 : one hundred twenty-third
+           0o173 : one hundred twenty-third
+            0x7B : one hundred twenty-third
+           861/7 : one hundred twenty-third
+             ١٢٣ : one hundred twenty-third
+             ߁߂߃ : one hundred twenty-third
+             १२३ : one hundred twenty-third
+             ୧୨୩ : one hundred twenty-third
+             ೧೨೩ : one hundred twenty-third
+             ෧෨෩ : one hundred twenty-third
+             ᭑᭒᭓ : one hundred twenty-third
+              17 : one hundred twenty-third
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
