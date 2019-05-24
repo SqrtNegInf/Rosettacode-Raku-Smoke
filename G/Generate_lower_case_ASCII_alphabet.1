@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Generate_lower_case_ASCII_alphabet
+#c# 2015-10-16 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#say 'a'..'z'; # does not work!
+say ~('a'..'z');
+my $a = ('a'..'z').List; # reusable
+
+my $x = sprintf 'a'..'z';
+my $y = ~('a'..'z');
+my $z = ('a'..'z').Str;
+
+use Test;
+is $z, 'a b c d e f g h i j k l m n o p q r s t u v w x y z', 'a b c d e f g h i j k l m n o p q r s t u v w x y z';
+is $x, 'a b c d e f g h i j k l m n o p q r s t u v w x y z', 'Now I know my A B C\'s';
+is $y, 'a b c d e f g h i j k l m n o p q r s t u v w x y z', 'Tell me what you think of me';
