@@ -3,6 +3,10 @@
 #c# 2016-02-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# test both versions of the algorithm
+
+my @res1;
+my @res2;
 
 sub digroot ($r, :$base = 10) {
     my $root = $r.base($base);
@@ -14,6 +18,15 @@ sub digroot ($r, :$base = 10) {
     $root, $persistence;
 }
 
+# Or if you are more inclined to the functional programming persuasion, you can use the ... sequence operator 
+# to calculate the values without side effects:
+sub digroot-alt ($r, :$base = 10) {
+    my &sum = { [+](.comb.map({:36($_)})).base($base) }
+
+    return .[*-1], .elems-1
+        given $r.base($base), &sum ...  { .chars == 1 }
+}
+
 my @testnums =
     627615,
     39390,
@@ -21,13 +34,13 @@ my @testnums =
     393900588225,
     58142718981673030403681039458302204471300738980834668522257090844071443085937;
 
-my @res;
 for 10, 8, 16, 36 -> $b {
     for @testnums -> $n {
-       @res.push: sprintf ":$b\<%s>\ndigital root %s, persistence %s\n", $n.base($b), digroot $n, :base($b);
+       @res1.push: sprintf ":$b\<%s>\ndigital root %s, persistence %s\n", $n.base($b), digroot     $n, :base($b);
+       @res2.push: sprintf ":$b\<%s>\ndigital root %s, persistence %s\n", $n.base($b), digroot-alt $n, :base($b);
     }
 }
-.say for @res;
+.say for @res1;
 
 my $ref = qq:to/END/;
 :10<627615>
@@ -92,15 +105,5 @@ digital root H, persistence 3
 END
 
 use Test;
-is @res.join("\n"), $ref;
-
-#`{{
-# Or if you are more inclined to the functional programming persuasion, you can use the ... sequence operator to calculate the values without side effects:
-
-sub digroot1 ($r, :$base = 10) {
-    my &sum = { [+](.comb.map({:36($_)})).base($base) }
-
-    return .[*-1], .elems-1
-        given $r.base($base), &sum ...  { .chars == 1 }
-}
-}}
+is @res1.join("\n"), $ref;
+is @res2.join("\n"), $ref;
