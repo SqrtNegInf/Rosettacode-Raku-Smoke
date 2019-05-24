@@ -1,0 +1,117 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Percolation/Site_percolation
+#c# 2017-03-06 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# Works with: Rakudo version 2017.02
+
+my $block = '▒';
+my $water = '+';
+my $pore  = ' ';
+my $grid  = 15;
+my @site;
+ 
+enum Direction <DeadEnd Up Right Down Left>;
+ 
+sub infix:<deq> ($a, $b) { $a.defined && ($a eq $b) }
+ 
+percolate(.65);
+ 
+say 'Sample percolation at .65';
+my @drip.push: .join for @site;
+.say for @drip;
+
+my $tests = 100;
+say "Doing $tests trials at each porosity:";
+my @res;
+for .1, .2 ... 1.0 -> $p {
+    @res.push: sprintf "p = %0.1f: %0.3f" , $p, (sum percolate($p) xx $tests) / $tests;
+}
+.say for @res;
+ 
+sub percolate ( $prob  = .6 ) {
+    @site[0] = [$pore xx $grid];
+    @site[$grid+1] = [$pore xx $grid];
+ 
+    for 0..^$grid X 1..$grid -> ($x, $y) {
+        @site[$y][$x] = rand < $prob ?? $pore !! $block;
+    }
+    @site[0][0] = $water;
+ 
+    my @stack;
+    my $current = [0;0];
+ 
+    loop {
+        if my $dir = direction( $current ) {
+            @stack.push: $current;
+            $current = move( $dir, $current )
+        }
+        else {
+            return 0 unless @stack;
+            $current = @stack.pop
+        }
+        return 1 if $current[1] > $grid;
+    }
+ 
+    sub direction([$x,$y]) {
+	my @neighbors =
+	    (Down  if @site[$y + 1][$x] deq $pore),
+	    (Left  if @site[$y][$x - 1] deq $pore),
+	    (Right if @site[$y][$x + 1] deq $pore),
+            (Up    if @site[$y - 1][$x] deq $pore);
+	@neighbors.shift or DeadEnd
+    }
+ 
+    sub move ($dir, @cur) {
+	my ($x,$y) = @cur;
+	given $dir {
+	    when Up    { @site[--$y][$x] = $water }
+	    when Down  { @site[++$y][$x] = $water }
+	    when Left  { @site[$y][--$x] = $water }
+	    when Right { @site[$y][++$x] = $water }
+	}
+	[$x,$y];
+    }
+}
+
+my $graph = qq:to/END/;
+++++++++++     
+▒+++++++▒+▒ ▒  
++++▒+▒▒+▒++++▒▒
++++▒▒▒▒++▒+▒+▒▒
+++++▒ ▒++▒▒ +▒ 
++++++ ▒▒▒▒ ▒+▒ 
++++++▒    ▒ +▒ 
+▒▒++▒   ▒  ▒+▒ 
++▒+▒ ▒▒▒    +▒▒
++++▒▒▒▒  ▒  +  
+▒▒+▒▒   ▒ ▒++  
+▒▒+▒  ▒ ▒ ++▒▒▒
+  ▒      ▒+▒▒ ▒
+ ▒  ▒▒ ▒▒ +   ▒
+▒     ▒▒  +    
+▒▒ ▒     ▒+    
+          +    
+END
+
+my $ref = qq:to/END/;
+p = 0.1: 0.000
+p = 0.2: 0.000
+p = 0.3: 0.000
+p = 0.4: 0.000
+p = 0.5: 0.130
+p = 0.6: 0.520
+p = 0.7: 0.970
+p = 0.8: 1.000
+p = 0.9: 1.000
+p = 1.0: 1.000
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @drip.join("\n"), chomp $graph;
+is @res.join("\n"), chomp $ref;
