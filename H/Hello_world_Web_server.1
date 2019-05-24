@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Hello_world/Web_server
+#c# 2016-02-10 <RC
+#t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo
+my $sock = IO::Socket::INET.new(:localhost('0.0.0.0'), :localport(8080), :listen);
+say "Goodbye Web Server listening on $sock.localhost():$sock.localport()";
+while $sock.accept -> $client {
+    $client.send: "HTTP/1.0 200 OK\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\nGoodbye, World!\r\n";
+    $client.close;
+}
+
