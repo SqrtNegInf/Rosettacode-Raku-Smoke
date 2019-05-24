@@ -1,0 +1,56 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Dinesman's_multiple-dwelling_problem solution 1
+#c# 2015-11-14 <RC
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
+#c# 2016-10-20 <RC
+#   ? how to create a state variable '$' that acts as a counter (0..4)?
+#   started failing on:
+#   This is Rakudo version 2016.10-24-g74d0e36 built on MoarVM version 2016.10-15-g715e39a
+
+use Test;
+
+sub parse_and_solve ($text) {
+    my %ids;
+    my $expr = (grammar {
+        rule TOP { <fact>+ { make join ' && ', $<fact>>>.made } }
+ 
+        rule fact { <name> (not)? <position>
+                    { make sprintf $<position>.made.fmt($0 ??  "!(%s)" !! "%s"),
+                                   $<name>.made }
+        }
+        rule position {
+            || on bottom             { make "\@f[%s] == 1"                            }
+            || on top                { make "\@f[%s] == +\@f"                         }
+            || lower than <name>     { make "\@f[%s] < \@f[{$<name>.made}]"           }
+            || higher than <name>    { make "\@f[%s] > \@f[{$<name>.made}]"           }
+            || directly below <name> { make "\@f[%s] == \@f[{$<name>.made}] - 1"      }
+            || directly above <name> { make "\@f[%s] == \@f[{$<name>.made}] + 1"      }
+            || adjacent to <name>    { make "\@f[%s] == \@f[{$<name>.made}] + (-1|1)" }
+            || on <ordinal>          { make "\@f[%s] == {$<ordinal>.made}"            }
+            || { note "Failed to parse line " ~ +$/.prematch.comb(/^^/); exit 1; }
+        }
+ 
+        token name    { :i <[a..z]>+              { make %ids{~$/} //= (state $)++ } }
+        token ordinal { [1st | 2nd | 3rd | \d+th] { make +$/.match(/(\d+)/)[0]     } }
+    }).parse($text).made;
+
+    EVAL 'for [1..%ids.elems].permutations -> @f {
+              take %ids.kv.map({ "$^a=@f[$^b]" }) if (' ~ $expr ~ ');
+          }'
+}
+ 
+say my @out = gather {
+parse_and_solve Q:to/END/;
+    Baker not on top
+    Cooper not on bottom
+    Fletcher not on top
+    Fletcher not on bottom
+    Miller higher than Cooper
+    Smith not adjacent to Fletcher
+    Fletcher not adjacent to Cooper
+    END
+}
+
+is @out, 'Baker=3 Cooper=2 Fletcher=4 Smith=1 Miller=5';
