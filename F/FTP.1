@@ -1,0 +1,27 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/FTP
+#c# 2016-06-01 <RC, 2018-04-25 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
+
+use experimental :pack;
+
+# Works with: rakudo version 2018.04
+
+use Net::FTP;
+ 
+#my $ftp = Net::FTP.new(:host('mirrors.sohu.com'), :passive); # gone?
+my $ftp = Net::FTP.new(:host('ftp.netbsd.org'), :passive);
+ 
+$ftp.login();
+ 
+my @res.push: $_<name> for $ftp.ls();
+.say for @res;
+
+#$ftp.get( 'index.html', :binary );
+
+use Test;
+ok set('NetBSD-archive') ⊆ @res.SetHash;
