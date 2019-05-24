@@ -1,0 +1,49 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Yin_and_yang
+#c# 2015-10-18 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: yin_and_yang.svg
+
+sub circle ($rad, $cx, $cy, $fill = 'white', $stroke = 'black' ){
+    return "<circle cx='$cx' cy='$cy' r='$rad' fill='$fill' stroke='$stroke' stroke-width='1'/>";
+}
+ 
+sub yin_yang ($rad, $cx, $cy, :$fill = 'white', :$stroke = 'black', :$angle = 90) {
+    my $code;
+    my ($c, $w) = (1, 0);
+    $code ~= "<g transform='rotate($angle, $cx, $cy)'>" if $angle;
+    $code ~= circle($rad, $cx, $cy, $fill, $stroke);
+    $code ~= "<path d='M $cx {$cy + $rad}A {$rad/2} {$rad/2} 0 0 $c $cx $cy " ~
+        "{$rad/2} {$rad/2} 0 0 $w $cx {$cy - $rad} $rad $rad 0 0 $c $cx " ~
+        "{$cy + $rad} z' fill='$stroke' stroke='none' />";
+    $code ~= circle($rad/5, $cx, $cy + $rad/2, $fill, $stroke);
+    $code ~= circle($rad/5, $cx, $cy - $rad/2, $stroke, $fill);
+    $code ~= "</g>" if $angle;
+    return $code;
+}
+ 
+say '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">';
+ 
+say yin_yang(40, 50, 50);
+say yin_yang(20, 120, 120);
+ 
+say '</svg>';
+
+use Test;
+my $ref = q :to 'END';
+<g transform='rotate(90, 50, 50)'>
+<circle cx='50' cy='50' r='40' fill='white' stroke='black' stroke-width='1'/>
+<path d='M 50 90A 20 20 0 0 1 50 50 20 20 0 0 0 50 10 40 40 0 0 1 50 90 z' fill='black' stroke='none' />
+<circle cx='50' cy='70' r='8' fill='white' stroke='black' stroke-width='1'/>
+<circle cx='50' cy='30' r='8' fill='black' stroke='white' stroke-width='1'/>
+</g>
+END
+my $yy = yin_yang(40, 50, 50);
+$yy ~~ s:g/\>/>\n/;
+#say '<!-- ';
+is $yy, $ref;
+#say '-->';
