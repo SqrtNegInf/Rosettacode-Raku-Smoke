@@ -1,0 +1,121 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Rosetta_Code/List_authors_of_task_descriptions
+#c# 2017-09-13 <RC, 2018-02-27 <RC
+#t# output varies
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for JVM, ecosystem...
+
+use HTTP::UserAgent;
+use URI::Escape;
+use JSON::Fast;
+use Sort::Naturally;
+ 
+# Friendlier descriptions for task categories
+my %cat = (
+    'Programming_Tasks' => 'Task: ',
+    'Draft_Programming_Tasks' => 'Draft:'
+);
+ 
+my $client = HTTP::UserAgent.new;
+ 
+my $url = 'http://rosettacode.org/mw';
+ 
+my $htmlfile = './rc_authors.html';
+my $hashfile = './rc_authors.json';
+ 
+my %tasks;
+ 
+# clear screen
+#run($*DISTRO.is-win ?? 'cls' !! 'clear'); # DH not for batch jobs
+ 
+#=begin update
+ 
+say 'Retreiving task information...';
+ 
+for %cat.keys -> $category {
+    mediawiki-query(
+        $url, 'pages',
+        :generator<categorymembers>,
+        :gcmtitle("Category:$category"),
+        :gcmlimit<350>,
+        :rawcontinue(),
+        :prop<title>
+    ).map({
+        mediawiki-query(
+            $url, 'pages',
+            :titles(.<title>),
+            :prop<revisions>,
+            :rvprop<user|timestamp>,
+            :rvstart<2000-01-01T01:01:01Z>,
+            :rvdir<newer>,
+            :rvlimit<1>
+        )}
+    ).map({
+        say 1 + $++, ' ', %cat{$category}, ' ', .[0]<title>;
+        %tasks{.[0]<title>}<category> = %cat{$category};
+        %tasks{.[0]<title>}<author> = .[0]<revisions>[0]<user>;
+        %tasks{.[0]<title>}<date> = .[0]<revisions>[0]<timestamp>.subst(/'T'.+$/, '')
+        }
+    )
+}
+ 
+# Save information to a local file
+say "\nTask information saved to local file: {$hashfile.IO.absolute}";
+$hashfile.IO.spurt(%tasks.&to-json);
+ 
+#=end update
+ 
+# Load information from local file
+%tasks = $hashfile.IO.e ?? $hashfile.IO.slurp.&from-json !! ( );
+ 
+# Convert saved task / author info to an HTML table
+say "\nBuilding HTML table...";
+my $count    = +%tasks;
+my $taskcnt  = +%tasks.grep: *.value.<category> eq %cat<Programming_Tasks>;
+my $draftcnt = $count - $taskcnt;
+ 
+# Dump an HTML table to a file
+my $out = open($htmlfile, :w)  or die "$!\n";
+ 
+# Add table boilerplate and header
+$out.say( '<table border="1" cellpadding="4"><tr><th colspan="2">As of ', Date.today, ' | Total: ',
+  "$count / Tasks: $taskcnt / Draft Tasks: $draftcnt / By {+%tasks{*}».<author>.unique} Authors",
+  '<tr><th>User</th><th>Authored</th></tr>' );
+ 
+# Get sorted unique list of task authors
+for %tasks{*}».<author>.unique.sort({.&naturally}) -> $author {
+ 
+    # Add author and contributions link to the first cell
+    $out.print( "<tr><td><ul>[[User:$author|$author]] [[Special:Contributions/$author|?]]</ul></td><td><ul><ol>" );
+ 
+    # Get list of tasks by this author, sorted by name
+    for %tasks.grep( { $_.value.<author> eq $author } ).sort({.key.&naturally}) -> $task {
+ 
+        # and add the date, status and task link to the list in the second cell
+        $out.print( "<li>{$task.value.<date>} - {$task.value.<category>}",
+                    " [[{uri-escape $task.key}|{$task.key}]]</li>"
+        )
+    }
+    $out.say( '</ol></ul></td></tr>' );
+}
+$out.say( '</table>' );
+$out.close;
+ 
+say "HTML table file saved as: {$htmlfile.IO.absolute}";
+ 
+sub mediawiki-query ($site, $type, *%query) {
+    my $url = "$site/api.php?" ~ uri-query-string(
+        :action<query>, :format<json>, :formatversion<2>, |%query);
+    my $continue = '';
+ 
+    gather loop {
+        my $response = $client.get("$url&$continue");
+        my $data = from-json($response.content);
+        take $_ for $data.<query>.{$type}.values;
+        $continue = uri-query-string |($data.<query-continue>{*}».hash.hash or last);
+    }
+}
+ 
+sub uri-query-string (*%fields) { %fields.map({ "{.key}={uri-escape .value}" }).join("&") }
