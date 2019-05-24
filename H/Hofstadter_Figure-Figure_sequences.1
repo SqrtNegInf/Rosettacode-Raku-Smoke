@@ -1,0 +1,54 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Hofstadter_Figure-Figure_sequences
+#c# 2015-11-22 <RC
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
+#n# mark as defunct, .plan abandoned: https://github.com/rakudo/rakudo/commit/6d1e95c96b
+
+#`{{
+my @r = ( undef, 1 );
+my @s = ( undef, 2 );
+ 
+sub ffsr {
+  my $n = shift;
+  while( $#r < $n ) {
+    push @r, $s[$#r]+$r[-1];
+    push @s, grep { $s[-1]<$_ } $s[-1]+1..$r[-1]-1, $r[-1]+1;
+  }
+  return $n;
+}
+ 
+sub ffr { $r[ffsr shift] }
+sub ffs { $s[ffsr shift] }
+}}
+
+# try basing on Perl version...
+
+my @r = [Nil, 1 ];
+my @s = [Nil, 2 ];
+ 
+sub ffsr (@a) {
+  my $n = @a;
+  while +@r < $n {
+    push @r, |@s[+@r]+@r[*-1];
+    push @s, |grep { @s[*-1] < $_ }, @s[*-1]+1..@r[*-1]-1, @r[*-1]+1;
+  }
+  $n;
+}
+ 
+sub ffr (@a is copy) { @r[ repeat { ffsr(@a.shift) } while @a ] }
+sub ffs (@a is copy) { @s[ ffsr(@a.shift)] }
+#sub ffr (@a) { my @b = @a; @r[ repeat { ffsr(@b.shift) } while @b ] }
+#sub ffs (@a) { my @b = @a; @s[ ffsr(@b.shift)] }
+
+
+say ffr(1..10);
+dd @r;
+dd @s;
+#1 3 7 12 18 26 35 45 56 69
+
+#say "Rawks!" if (1...1000) eqv sort @ffr[1..40], @ffs[1..960];
+
+use Test;
+#is 1, 1, 'dummy';
