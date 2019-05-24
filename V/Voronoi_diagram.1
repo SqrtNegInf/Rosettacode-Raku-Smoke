@@ -1,0 +1,54 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Voronoi_diagram
+#c# 2017-10-07 <RC
+#t# graphical
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: voronoi.png
+
+srand 123456;
+
+# Works with: Rakudo version 2017.09
+# Translation of: Python
+# Perhaps "Inspired by Python" would be more accurate.
+
+use Image::PNG::Portable;
+ 
+sub voronoi (:$count, :$w, :$h) {
+    my $png = Image::PNG::Portable.new: :width($w), :height($h);
+ 
+    my @domains = map { Hash.new(
+        'x' => (5..$w-5).roll,
+        'y' => (5..$h-5).roll,
+        'rgb' => [(64..255).roll xx 3]
+    ) }, ^$count;
+ 
+    for ^$w X ^$h -> ($x, $y) {
+        my ($, $i) = min @domains.map: { (%($_)<x> - $x + (%($_)<y> - $y) * i).abs, $++ };
+        $png.set: $x, $y, |@domains[$i]<rgb>
+    }
+ 
+    @domains.map: *.&dot;
+ 
+    sub dot (%h, $radius = 3) {
+        for %h<x> - $radius .. %h<x> + $radius -> $x {
+            for %h<y> - $radius .. %h<y> + $radius -> $y {
+                $png.set($x, $y, 0, 0, 0) if ( %h<x> - $x + (%h<y> - $y) * i ).abs <= $radius;     #>
+            }
+        }
+    }
+ 
+    return $png
+}
+ 
+voronoi(:30count, :400w, :400h).write: "voronoi.png";
+
+
+
+my $ref = qq:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
