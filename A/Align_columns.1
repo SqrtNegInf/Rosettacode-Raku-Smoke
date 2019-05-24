@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Align_columns
+#c# 2018-04-01 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+
+# Works with: Rakudo version 2018.03
+
+# Call with parameter left (default), center or right.
+
+my @lines = 
+q|Given$a$text$file$of$many$lines,$where$fields$within$a$line$
+are$delineated$by$a$single$'dollar'$character,$write$a$program
+that$aligns$each$column$of$fields$by$ensuring$that$words$in$each$
+column$are$separated$by$at$least$one$space.
+Further,$allow$for$each$word$in$a$column$to$be$either$left$
+justified,$right$justified,$or$center$justified$within$its$column.
+|.lines;
+ 
+my @widths;
+ 
+for @lines { for .split('$').kv { @widths[$^key] max= $^word.chars; } }
+for @lines { say |.split('$').kv.map: { (align @widths[$^key], $^word) ~ " "; } }
+ 
+sub align($column_width, $word, $aligment = @*ARGS[0]) {
+        my $lr = $column_width - $word.chars;
+        my $c  = $lr / 2;
+        given ($aligment) {
+                when "center" { " " x $c.ceiling ~ $word ~ " " x $c.floor }
+                when "right"  { " " x $lr        ~ $word                  }
+                default       {                    $word ~ " " x $lr      }
+        }
+}
+
+# Or a more functional version, called like ./align.p6 left input.txt, which however only supports left and right alignment (not center):
+
+#sub MAIN ($alignment where 'left'|'right', $file) {
+    my $file = 'align_columns.txt';
+    my $alignment = 'right';
+       my @lines2 := $file.IO.lines.map(*.split: '$').List;
+       my @copy   := @lines2;
+       @widths = roundrobin(|@lines2).map(*».chars.max);
+    my $align  = {left=>'-', right=>''}{$alignment};
+    #my $format = @widths.map({ "%{++$}\${$align}{$_}s" }).join(" "); # ~ "\n";
+    my $format = gather { for ^@widths { take '%' ~ sprintf "%d\$%s%ss", 1+$_, $align, @widths[$_]; } }
+#say $format; exit;
+    my @res.push: sprintf $format, |$_ for @copy;
+#}
+say ' -- ';
+.say for @res;
+
+
+my $ref = qq:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
+#
