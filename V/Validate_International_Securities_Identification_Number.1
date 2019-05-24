@@ -1,0 +1,42 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Validate_International_Securities_Identification_Number
+#c# 2016-08-07 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Using the luhn-test function defined at Luhn test of credit card numbers
+
+sub is-valid-ISIN (Str $ISIN --> Bool) {
+    $ISIN ~~ /^ <[A..Z]>**2 <[A..Z0..9]>**9 <[0..9]> $/ or return False;
+ 
+    my $base10 = $ISIN.comb.map({ :36($_) }).join;
+ 
+    return luhn-test $base10;
+}
+
+say "$_ is{' not' unless is-valid-ISIN $_} valid"
+    for <US0378331005 US0373831005 U50378331005 US03378331005 AU0000XVGZA3 AU0000VXGZA3 FR0000988040>;
+
+# from 'Luhn_test_of_credit_card_numbers'
+sub luhn-test ($number --> Bool) {
+    my @digits = $number.comb.reverse;
+    my $sum = @digits[0,2...*].sum
+            + @digits[1,3...*].map({ |($_ * 2).comb }).sum;
+    return $sum %% 10;
+}
+
+#`{
+US0378331005 is valid
+US0373831005 is not valid
+U50378331005 is not valid
+US03378331005 is not valid
+AU0000XVGZA3 is valid
+AU0000VXGZA3 is valid
+FR0000988040 is valid
+}
+
+my @res.push: is-valid-ISIN $_ for <US0378331005 US0373831005 U50378331005 US03378331005 AU0000XVGZA3 AU0000VXGZA3 FR0000988040>;
+
+use Test;
+is @res, 'True False False False True True True';
