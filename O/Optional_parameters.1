@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Optional_parameters
+#c# 2016-01-05 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#   but really doesn't sort the whole table, need index of sort, like APL
+
+
+# Using named parameters:
+
+my method sorttable(:$column = 0, :$reverse, :&ordering = &infix:<cmp>) {
+    #my @x = self;
+    # my @result = @x»[$column].sort: &ordering;
+    my @result = self»[$column].sort: &ordering;
+    return $reverse ?? @result.reverse !! @result;
+}
+
+my @a = [["a", "b", "c"], ["zap", "zip", "Zot"], ["", "q", "z"]];
+my @b = sorttable(@a, column => 1, reverse=>1);
+say @b;
+
+use Test;
+is @b.gist, '[zip q b]';
+
+# Perl5
+# foreach (@{sorttable $a, column => 1, reverse => 1})
+#    {foreach (@$_)
+#       {printf "%-5s", $_;}
+#     print "\n";}
