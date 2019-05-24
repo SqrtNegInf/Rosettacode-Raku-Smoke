@@ -1,0 +1,52 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Lychrel_numbers
+#c# 2015-10-17 <RC, 2018-04-18 <RC
+#t# toodamnslow
+#m# MOAR: OK
+#j#  JVM: OK
+#    20161123: 1911.232u 24.260s 32:49.18 98.2%
+#    20170123: 1984.279u  9.042s 33:23.13 99.5%
+#    20171027: 1972.841u  6.163s 33:01.60 99.8%
+#    _NEXT_
+
+my @lychrels;
+my @palindromes;
+my @seeds;
+my $max = 500;
+ 
+for 1 .. 10000 -> $int {
+    my @test;
+    my $count = 0;
+    @lychrels.push( $int => [@test] ) if lychrel($int);
+#    print "$int " and @lychrels.push( $int => [@test] ) if lychrel($int); # thundergnat
+ 
+    sub lychrel (Int $l) {
+        return True if $count++ > $max;
+        @test.push: my $m = $l + $l.flip;
+        return False if $m == $m.flip;
+        lychrel($m);
+    }
+}
+ 
+@seeds = @lychrels[0];
+for @lychrels -> $l {
+    @palindromes.push: $l.key if $l.key == $l.key.flip;
+    my $trial = 0;
+    for @seeds -> $s {
+        last if any($s.value) ~~ any($l.value);
+        $trial++;
+    }
+    @seeds.push: $l if $trial == +@seeds;
+}
+ 
+say "Results up to 10,000:";
+
+use Test;
+my $temp = join ", ", @seeds>>.keys;
+is 5,                  +@seeds,             "Number of Lychrel seed numbers:    5";
+is '196, 879, 1997, 7059, 9999', $temp,     "Lychrel seed numbers:              196, 879, 1997, 7059, 9999";
+is 244,                +@lychrels -@seeds,  "Number of Lychrel related numbers: 244";
+is 3,                  +@palindromes,       "Number of Lychrel palindromes:     3";
+is (4994, 8778, 9999), @palindromes,        "Lychrel palindromes:               4994, 8778, 9999";
+
