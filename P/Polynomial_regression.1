@@ -1,0 +1,33 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Polynomial_regression
+#c# 2016-05-03 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
+
+# We'll use a Clifford algebra library.
+
+use Clifford;
+ 
+constant @x1 = <0 1 2 3 4 5 6 7 8 9 10>;
+constant @y = <1 6 17 34 57 86 121 162 209 262 321>;
+
+constant $x0 = [+] @e[^@x1];
+constant $x1 = [+] @x1 Z* @e;
+constant $x2 = [+] @x1 »**» 2  Z* @e;
+ 
+constant $y  = [+] @y Z* @e;
+ 
+my $J = $x1 ∧ $x2;
+my $I = $x0 ∧ $J;
+ 
+my $I2 = ($I·$I.reversion).Real;
+ 
+say my $r1 = (($y ∧ $J)·$I.reversion)/$I2;
+say my $r2 = (($y ∧ ($x2 ∧ $x0))·$I.reversion)/$I2;
+say my $r3 = (($y ∧ ($x0 ∧ $x1))·$I.reversion)/$I2;
+
+use Test;
+is ($r1.gist, $r2.gist, $r3.gist), '1 2 3';
