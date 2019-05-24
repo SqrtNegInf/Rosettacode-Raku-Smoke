@@ -1,0 +1,197 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Reduced_row_echelon_form
+#c# 2016-01-07 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: reduced_row.txt
+
+my $out = open('reduced_row.txt', :w);
+
+# Translation of: Perl
+# Works with: Rakudo version 2015.12
+sub rref (@m) {
+    @m or return;
+    my ($lead, $rows, $cols) = 0, +@m, +@m[0];
+
+    for ^$rows -> $r {
+        return @m if $lead >= $cols;
+        my $i = $r;
+
+        until @m[$i][$lead] {
+            ++$i == $rows or next;
+            $i = $r;
+            ++$lead == $cols and return @m;
+        }
+
+        @m[$i, $r] = @m[$r, $i];
+
+        my $lv = @m[$r][$lead];
+        @m[$r] »/=» $lv;
+
+        for ^$rows -> $n {
+            next if $n == $r;
+            @m[$n] »-=» @m[$r] »*» @m[$n][$lead];
+        }
+        ++$lead;
+    }
+    @m
+}
+
+sub rat-or-int ($num) {
+    return $num unless $num ~~ Rat;
+    return $num.narrow if $num.narrow.WHAT ~~ Int;
+    $num.nude.join: '/';
+}
+
+sub say_it ($message, @array) {
+    $out.say: "\n$message";
+    $out.say: $_».&rat-or-int.fmt("%5s") for @array;
+}
+
+my @M = (
+    [ # base test case
+      [  1,  2,  -1,  -4 ],
+      [  2,  3,  -1, -11 ],
+      [ -2,  0,  -3,  22 ],
+    ],
+    [ # mix of number styles
+      [  3,   0,  -3,    1 ],
+      [ .5, 3/2,  -3,   -2 ],
+      [ .2, 4/5,  -1.6, .3 ],
+    ],
+    [ # degenerate case
+      [ 1,  2,  3,  4,  3,  1],
+      [ 2,  4,  6,  2,  6,  2],
+      [ 3,  6, 18,  9,  9, -6],
+      [ 4,  8, 12, 10, 12,  4],
+      [ 5, 10, 24, 11, 15, -4],
+    ],
+    [ # larger matrix
+      [1,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0, -1,  0,  0,  0,  0,  0,  0],
+      [1,  0,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0, -1,  0,  0,  0,  0,  0],
+      [1,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0, -1,  0,  0,  0,  0],
+      [0,  1,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, -1,  0,  0,  0],
+      [0,  1,  0,  0,  0,  0,  0,  0,  1,  0,  0, -1,  0,  0,  0,  0,  0,  0],
+      [0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0, -1,  0],
+      [0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  0,  0, -1,  0,  0,  0,  0,  0],
+      [0,  0,  1,  0,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0, -1,  0,  0,  0],
+      [0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, -1,  0,  0],
+      [0,  0,  0,  1,  0,  0,  0,  0,  0,  1,  0,  0, -1,  0,  0,  0,  0,  0],
+      [0,  0,  0,  0,  1,  0,  0,  1,  0,  0,  0,  0,  0, -1,  0,  0,  0,  0],
+      [0,  0,  0,  0,  1,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, -1,  0],
+      [0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0, -1,  0,  0],
+      [0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+      [0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0],
+      [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  1],
+      [0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  1,  0,  0,  0, -1,  0,  0,  0],
+
+   ]
+);
+
+for @M -> @matrix {
+    say_it( 'Original Matrix', @matrix );
+    say_it( 'Reduced Row Echelon Form Matrix', rref(@matrix) );
+    $out.say: "\n";
+}
+
+#Perl 6 handles rational numbers internally as a ratio of two integers 
+#to maintain precision. 
+#For some situations it is useful to return the ratio 
+#rather than the floating point result.
+
+
+# Re-implemented without the pseudocode, expressed as elementary matrix row operations. See 
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://unapologetic.wordpress.com/2009/08/27/elementary-row-and-column-operations/
+# and
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://unapologetic.wordpress.com/2009/09/03/reduced-row-echelon-form/
+# First, a procedural version:
+
+sub swap_rows    ( @M,         $r1, $r2 ) { @M[ $r1, $r2 ] = @M[ $r2, $r1 ] };
+sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r] »*» $scale   };
+sub shear_row    ( @M, $scale, $r1, $r2 ) { @M[$r1] = @M[$r1].list »+» ( @M[$r2] »*» $scale ) };
+sub reduce_row   ( @M,         $r,  $c  ) { scale_row( @M, 1/@M[$r][$c], $r ) };
+sub clear_column ( @M,         $r,  $c  ) {
+    for @M.keys.grep( * != $r ) -> $row_num {
+        shear_row( @M, -1*@M[$row_num][$c], $row_num, $r );
+    }
+}
+
+my @M1 = (
+    [<  1   2   -1    -4 >],
+    [<  2   3   -1   -11 >],
+    [< -2   0   -3    22 >],
+);
+
+my $column_count = +@( @M1[0] );
+
+my $current_col = 0;
+while all( @M1».[$current_col] ) == 0 {
+    $current_col++;
+    return if $current_col == $column_count; # Matrix was all-zeros.
+}
+
+for @M1.keys -> $current_row {
+    reduce_row(   @M1, $current_row, $current_col );
+    clear_column( @M1, $current_row, $current_col );
+    $current_col++;
+    return if $current_col == $column_count;
+}
+
+$out.say: @($_)».fmt('%4g') for @M1;
+
+# And the same code, recast into OO. Also, scale and shear are recast as unscale and unshear, which fit the problem better.
+
+class Matrix is Array {
+    method unscale_row ( @M1: $scale, $row ) {
+        @M1[$row] = @M1[$row] »/» $scale;
+    }
+    method unshear_row ( @M1: $scale, $r1, $r2 ) {
+        @M1[$r1] = @M1[$r1] »-» ( @M1[$r2] »*» $scale );
+    }
+    method reduce_row ( @M1: $row, $col ) {
+        @M1.unscale_row( @M1[$row][$col], $row );
+    }
+    method clear_column ( @M1: $row, $col ) {
+        for @M1.keys.grep( * != $row ) -> $scanning_row {
+            @M1.unshear_row( @M1[$scanning_row][$col], $scanning_row, $row );
+        }
+    }
+    method reduced_row_echelon_form ( @M1: ) {
+        my $column_count = +@( @M1[0] );
+
+        my $current_col = 0;
+        # Skip past all-zero columns.
+        while all( @M1».[$current_col] ) == 0 {
+            $current_col++;
+            return if $current_col == $column_count; # Matrix was all-zeros.
+        }
+
+        for @M1.keys -> $current_row {
+            @M1.reduce_row(   $current_row, $current_col );
+            @M1.clear_column( $current_row, $current_col );
+            $current_col++;
+            return if $current_col == $column_count;
+        }
+    }
+}
+
+my $M = Matrix.new(
+    [<  1   2   -1    -4 >],
+    [<  2   3   -1   -11 >],
+    [< -2   0   -3    22 >],
+);
+
+$M.reduced_row_echelon_form;
+
+$out.say: @($_)».fmt('%4g') for @($M);
+
+$out.close;
+
+#Note that both versions can be simplified using Z+=, Z-=, X*=, 
+#and X/= to scale and shear. 
+#Currently, Rakudo has a bug related to Xop= and Zop=.
+#Note that the negative zeros in the output are innocuous, 
+#and also occur in the Perl 5 version.
