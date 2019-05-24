@@ -1,0 +1,44 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Kronecker_product_based_fractals
+#c# 2017-04-18 <RC, 2018-10-16 >RC
+#t# graphical
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#f# RC file: kronecker-vicsek-perl6.png
+#n# xx file: kronecker-carpet-perl6.png
+#n# xx file: kronecker-six-perl6.png
+#n# 2018-10-31 Moar bug?  https://gist.github.com/SqrtNegInf/2b0ccf921e2c5b529432555c74ece006
+#n# 2018-11-05 still an open issue on GH: https://github.com/rakudo/rakudo/issues/2453
+#n# 2018-11-16 after Moar/NQP bump, I see the fix woo-hoo
+
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
+
+sub kronecker-product ( @a, @b ) { (@a X @b).map: { (.[0].list X* .[1].list).Array } }
+ 
+sub kronecker-fractal ( @pattern, $order = 4 ) {
+    my @kronecker = @pattern;
+    @kronecker = kronecker-product(@kronecker, @pattern) for ^$order;
+    @kronecker
+}
+ 
+use Image::PNG::Portable;
+ 
+#Task requirements
+my @vicsek = ( [0, 1, 0], [1, 1, 1], [0, 1, 0] );
+my @carpet = ( [1, 1, 1], [1, 0, 1], [1, 1, 1] );
+my @six    = ( [0,1,1,1,0], [1,0,0,0,1], [1,0,0,0,0], [1,1,1,1,0], [1,0,0,0,1], [1,0,0,0,1], [0,1,1,1,0] );
+ 
+for  'vicsek', @vicsek, 4,
+     'carpet', @carpet, 4,
+     'six',    @six,    3
+  -> $name,    @shape,  $order {
+    my @img = kronecker-fractal( @shape, $order );
+    my $png = Image::PNG::Portable.new: :width(@img[0].elems), :height(@img.elems);
+    (^@img[0] X ^@img).race.map: -> ($x, $y) {
+        $png.set: $x, $y, |( @img[$y;$x] ?? <255 255 32> !! <16 16 16> );
+    }
+    $png.write: "run/kronecker-{$name}-perl6.png";
+}
+
+# See Kronecker-Vicsek, Kronecker-Carpet and Kronecker-Six images.
