@@ -1,0 +1,25 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Web_scraping
+#c# 2016-05-12 <>RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
+
+#use HTTP::Client; # install fails on Mac OS X / El Capitan due to lack of 'whirlpool'?
+use HTTP::UserAgent;
+
+my $site = "https://tycho.usno.navy.mil/cgi-bin/timer.pl";
+
+say my $result = HTTP::UserAgent.new.get($site).content.match(/'<BR>'( .+? <ws> UTC )/)[0];
+
+#use Test;
+#Jul. 26, 12:18:34 UTC
+say 'ok 1' if $result ~~ /:s<[A..Z]><[a..z]>**2 '.' <[0..9]>**1..2 ',' <[0..9]>**2 ':' <[0..9]>**2 ':' <[0..9]>**2 UTC/;
+
+#HTTP::UserAgent.new.get($site).content.match(/'<BR>'( .+? <ws> UTC )/)[0].say;
+#HTTP::Client.new.get($site).content.match(/'<BR>'( .+? <ws> UTC )/)[0].say;
+
+#Note that the string between '<' and '>' refers to regex tokens, so to match a literal '<BR>' you need to quote it, while <ws> refers to the built-in token whitespace.
+#Also, whitespace is ignored by default in Perl 6 regexes.
