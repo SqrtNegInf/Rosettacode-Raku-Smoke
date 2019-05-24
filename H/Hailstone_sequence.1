@@ -1,0 +1,25 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Hailstone_sequence
+#c# 2015-10-27 <RC
+#t# toodamnslow
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub hailstone($n) { $n, { $_ %% 2 ?? $_ div 2 !! $_ * 3 + 1 } ... 1 }
+
+my @h = hailstone(27);
+say "Length of hailstone(27) = {+@h}";
+#say ~@h;
+
+my $m max= +hailstone($_) => $_ for 1..99_999;
+say "Max length $m.key() was found for hailstone($m.value()) for numbers < 100_000";
+#Max length 351 was found for hailstone(77031) for numbers < 100_000
+
+# Show the number less than 100,000 which has the longest hailstone sequence together with that sequence's length.
+
+use Test;
+is (+@h), 112, 'H(27) has length 112';
+is @h[^4], (27, 82, 41, 124), 'H(27) starts: 27, 82, 41, 124'; 
+is @h[*-4..*-1], (8, 4, 2, 1), 'H(27) ends: 8, 4, 2, 1'; 
+
