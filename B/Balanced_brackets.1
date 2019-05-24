@@ -1,0 +1,98 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Balanced_brackets
+#c# 2015-11-29 <RC, 2018-04-28 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+ 
+my @res;
+my $s;
+
+# There's More Than One Way To Do It.
+
+#####
+my $tag = 'depth counter';
+sub balanced($s) {
+    my $l = 0;
+    for $s.comb {
+        when "]" {
+            --$l;
+            return False if $l < 0;
+        }
+        when "[" {
+            ++$l;
+        }
+    }
+    return $l == 0;
+}
+
+$s = (<[ ]> xx 5).flat.pick(*).join;
+@res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
+$s = (<[ ]> xx 5).flat.pick(*).join;
+@res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
+
+#####
+$tag = 'FP oriented';
+sub balanced1($s) {
+    .none < 0 and .[*-1] == 0                       # >   vim kludge
+        given [\+] '\\' «leg« $s.comb.cache; # does .cache make any difference? [so .Seq not consumed]
+}
+ 
+$s = <[ ]>.roll(3*2).join;
+@res.push: "$s { balanced($s) ?? "is" !! "is not" } well-balanced ($tag)";
+$s = <[ ]>.roll(6*2).join;
+@res.push: "$s { balanced($s) ?? "is" !! "is not" } well-balanced ($tag)";
+
+#####
+$tag = 'string munging';
+sub balanced2($_ is copy) {
+    Nil while s:g/'[]'//;
+    $_ eq '';
+}
+ 
+$s = <[ ]>.roll(5*2).join;
+@res.push: "$s is {' not' x not balanced($s)} well-balanced ($tag)";
+$s = < []>.roll(3*2).join;
+@res.push: "$s is {' not' x not balanced($s)} well-balanced ($tag)";
+
+#####
+$tag = 'parsing with a grammar';
+grammar BalBrack { token TOP { '[' <TOP>* ']' } }
+ 
+$s = ('[' xx 5, ']' xx 5).flat.pick(*).join;
+@res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)";
+$s = ('[' xx 2, ']' xx 2).flat.pick(*).join;
+@res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)";
+
+.say for @res;
+
+my $moar = qq:to/END/;
+[[][][[]]] is well-balanced (depth counter)
+][[[[]][]] is not well-balanced (depth counter)
+[]][]] is not well-balanced (FP oriented)
+[][]]][][[][ is not well-balanced (FP oriented)
+][[][[[]]] is  not well-balanced (string munging)
+[][][][][][] is  well-balanced (string munging)
+]][[]][][[ is not well-balanced (parsing with a grammar)
+[[]] is well-balanced (parsing with a grammar)
+END
+
+my $jvm = qq:to/END/;
+[[[][]]][] is well-balanced (depth counter)
+[][]][[[]] is not well-balanced (depth counter)
+]]][[[ is not well-balanced (FP oriented)
+[][[[[[[[]]] is not well-balanced (FP oriented)
+][[][[]]]] is  not well-balanced (string munging)
+[][][][][][] is  well-balanced (string munging)
+[[]]]][[][ is not well-balanced (parsing with a grammar)
+]][[ is not well-balanced (parsing with a grammar)
+END
+
+use Test;
+if $*VM ~~ /jvm/ {
+is @res.join("\n"), chomp $jvm;
+} else {
+is @res.join("\n"), chomp $moar;
+}
