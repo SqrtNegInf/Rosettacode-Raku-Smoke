@@ -1,0 +1,102 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Zebra_puzzle
+#c# 2018-11-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my Hash @houses = (1 .. 5).map: { %(:num($_)) }; # 1 there are five houses
+ 
+my @facts = (
+    { :nat<english>, :color<red> },      # 2 The English man lives in the red house.
+    { :nat<swede>, :pet<dog> },          # 3 The Swede has a dog.
+    { :nat<dane>, :drink<tea> },         # 4 The Dane drinks tea.
+    { :color<green>, :left-of(:color<white>) }, # 5 the green house is immediately to the left of the white house
+    { :drink<coffee>, :color<green> },   # 6 They drink coffee in the green house.
+    { :smoke<pall-mall>, :pet<birds> },  # 7 The man who smokes Pall Mall has birds.
+    { :color<yellow>, :smoke<dunhill> }, # 8 In the yellow house they smoke Dunhill.
+    { :num(3), :drink<milk> },           # 9 In the middle house they drink milk.
+    { :num(1), :nat<norwegian> },        # 10 The Norwegian lives in the first house.
+    { :smoke<blend>, :next-to(:pet<cats>) }, # 11 The man who smokes Blend lives in the house next to the house with cats.
+    { :pet<horse>, :next-to(:smoke<dunhill>) }, # 12 In a house next to the house where they have a horse, they smoke Dunhill.
+    { :smoke<blue-master>, :drink<beer> }, # 13 The man who smokes Blue Master drinks beer.
+    { :nat<german>, :smoke<prince> },      # 14 The German smokes Prince.
+    { :nat<norwegian>, :next-to(:color<blue>) }, # 15 The Norwegian lives next to the blue house.
+    { :drink<water>, :next-to(:smoke<blend>) },  # 16 They drink water in a house next to the house where they smoke Blend.
+    { :pet<zebra> }, # who owns this?
+);
+ 
+sub MAIN {
+    my @res;
+    for gather solve(@houses, @facts) {
+        #-- output
+        @res.push: .[0].pairs.sort.map(*.key.uc.fmt("%-9s")).join(' | ');
+        @res.push: .pairs.sort.map(*.value.fmt("%-9s")).join(' | ')
+            for .list;
+    }
+
+    .say for @res;
+
+    my $ref = q:to/END/;
+    COLOR     | DRINK     | NAT       | NUM       | PET       | SMOKE    
+    yellow    | water     | norwegian | 1         | cats      | dunhill  
+    blue      | tea       | dane      | 2         | horse     | blend    
+    red       | milk      | english   | 3         | birds     | pall-mall
+    green     | coffee    | german    | 4         | zebra     | prince   
+    white     | beer      | swede     | 5         | dog       | blue-master
+    END
+
+# Note: Facts can be shuffled by changing line 3 to my @facts = pick *, (. It seems to reliably find solutions, although execution times will vary (from under 1 sec up to about 10sec).
+
+    use Test;
+    is @res.join("\n"), chomp $ref;
+}
+ 
+#| completed if there are no more facts
+multi sub solve(@houses, @facts [ ]) {
+    take @houses;
+}
+ 
+#| process the next fact
+multi sub solve(@houses, @facts is copy) {
+    my $fact = @facts.shift;
+    generate(@houses, |$fact).first: {solve(@$_, @facts) }
+}
+ 
+#| find all possible solutions for pairs of houses with
+#| %a attributes, left of a house  with %b attributes
+multi sub generate(@houses, :left-of(%b)!, *%a) {
+    my @scenarios;
+    for @houses {
+        my $idx = .<num> - 1;
+        if $idx > 0 && plausible(@houses[$idx-1], %a) && plausible(@houses[$idx], %b) {
+            my @scenario = @houses.clone;
+            @scenario[$idx-1] = %( %(@houses[$idx-1]), %a );
+            @scenario[$idx] = %( %(@houses[$idx]), %b );
+            @scenarios.push: @scenario;
+        }
+    }
+    @scenarios;
+}
+ 
+#| find all possible pairs of houses with %a attributes, either side
+#! of a house  with %b attributes
+multi sub generate(@houses, :next-to(%b)!, *%a ) {
+    generate(@houses, |%a, :left-of(%b) ).append: generate(@houses, |%b, :left-of(%a) );
+}
+ 
+#| find all possible houses that match the given attributes
+multi sub generate(@houses, *%fact) {
+    @houses.grep({plausible($_, %fact)}).map: -> $house {
+        my @scenario = @houses.clone;
+        my $idx = $house<num> - 1;
+        @scenario[$idx] = %( %$house, %fact );
+        @scenario;
+    }
+}
+ 
+#| attributes are plausible if they don't conflict with house values
+sub plausible(%house, %atts) {
+    ! %atts.keys.first: { (%house{$_}:exists) && %house{$_} ne %atts{$_} };
+}
+ 
