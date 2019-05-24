@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Permutations_with_repetitions
+#c# 2015-11-20 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-03-27
+# List operators such as X are naturally lazy in Perl 6.
+
+my $k = <a b c>;
+my $n = 2;
+
+.say for [X] |($k xx $n);
+
+# Here is an other approach, counting all kn possibilities in base k:
+
+my @k = <a b c>;
+$n = 2;
+say @k[.polymod(+@k xx ($n-1))] for ^@k**$n;
+
+# a a, a b, a c, b a, b b, b c, c a, c b, c c
+use Test;
+is 1, 1, 'dummy';
