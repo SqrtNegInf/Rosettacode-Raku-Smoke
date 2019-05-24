@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Reverse_a_string
+#c# 2015-11-22 <>RC
+#m# MOAR: OK
+#j#  JVM: OK (partial)
+#n# last test fails
+
+# Not transformative.
+#my $reverse = flip $string;
+# or
+say "hello world".flip;
+
+#Perl 6 is specced to work on graphemes by default, but current implementations are limited to processing codepoints.
+my $str = "äöüÄÖÜß";
+say $str.flip;
+
+#For extra credit, preserve Unicode combining characters. For example, "as⃝df̅" becomes "f̅ds⃝a", not "̅fd⃝sa".
+
+
+use Test;
+is "hello world".flip, 'dlrow olleh', 'What language is this?';
+is $str.flip, 'ßÜÖÄüöä', 'Flipping awesome';
+is "résumé niño".flip, "oñin émusér", 'UTF-8';
+is "一二三四五六七八九十".flip, '十九八七六五四三二一', 'Simple Chinese?';
+
+exit if $*VM ~~ /jvm/;
+
+is "as⃝df̅".flip, 'f̅ds⃝a', 'Whatever';
