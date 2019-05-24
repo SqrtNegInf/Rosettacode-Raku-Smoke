@@ -1,0 +1,82 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Monty_Hall_problem
+#c# 2015-11-23 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# Works with: rakudo version 2015-09-24
+# This implementation is parametric over the number of doors. 
+# Increasing the number of doors in play makes the superiority of the switch strategy even more obvious.
+
+enum Prize <Car Goat>;
+enum Strategy <Stay Switch>;
+
+sub play (Strategy $strategy, Int :$doors = 3) returns Prize {
+
+    # Call the door with a car behind it door 0. Number the
+    # remaining doors starting from 1.
+    my Prize @doors = flat Car, Goat xx $doors - 1;
+
+    # The player chooses a door.
+    my Prize $initial_pick = @doors.splice(@doors.keys.pick,1)[0];
+
+    # Of the n doors remaining, the host chooses n - 1 that have
+    # goats behind them and opens them, removing them from play.
+    while @doors > 1 {
+	@doors.splice($_,1)
+	    when Goat
+		given @doors.keys.pick;
+    }
+
+    # If the player stays, they get their initial pick. Otherwise,
+    # they get whatever's behind the remaining door.
+    return $strategy === Stay ?? $initial_pick !! @doors[0];
+}
+
+constant TRIALS = 10000;
+
+my @res;
+for 3, 10 -> $doors {
+    my %wins;
+    @res.push: "With $doors doors:";
+    for Stay, 'Staying', Switch, 'Switching' -> $s, $name {
+        for ^TRIALS {
+            ++%wins{$s} if play($s, doors => $doors) == Car;
+        }
+say "wins: %wins{$s}";
+        @res.push: "  $name wins " ~
+            (100*%wins{$s} / TRIALS).round(.1) ~
+            '% of the time.'
+    }
+}
+
+
+.say for @res; exit;
+
+my $moar = qq:to/END/;
+With 3 doors:
+  Staying wins 33% of the time.
+  Switching wins 67% of the time.
+With 10 doors:
+  Staying wins 10% of the time.
+  Switching wins 90% of the time.
+END
+
+my $jvm = qq:to/END/;
+With 3 doors:
+  Staying wins 33% of the time.
+  Switching wins 66% of the time.
+With 10 doors:
+  Staying wins 10% of the time.
+  Switching wins 90% of the time.
+END
+
+use Test;
+if $*VM ~~ /jvm/ {
+is @res.join("\n"), chomp $jvm;
+} else {
+is @res.join("\n"), chomp $moar;
+}
