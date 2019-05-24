@@ -1,0 +1,85 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/One-dimensional_cellular_automata
+#c# 2016-07-11 <RC
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
+
+# Works with: rakudo version 2014-02-27
+#`{
+We'll make a general algorithm capable of computing any cellular automata
+as defined by Stephen Wolfram's
+famous book A new kind of Science.
+We will take the liberty of wrapping the array of cells
+as it does not affect the result much
+and it makes the implementation a lot easier.
+}
+
+class Automata {
+    has ($.rule, @.cells);
+    method gist { <| |>.join: @!cells.map({$_ ?? '#' !! ' '}).join }
+    method code { $.rule.fmt("%08b").comb.reverse }
+    method succ {
+	self.new: :$.rule, :cells(
+	    self.code[
+                [Z+] 4 «*« @.cells.rotate(-1),
+                     2 «*« @.cells,
+                           @.cells.rotate(1)
+	    ]
+	)
+    }
+}
+
+# The rule proposed for this task is rule 0b01101000 = 104
+
+my $size = 10;
+my Automata $a .= new:
+    :rule(104),
+    :cells( 0 xx $size div 2, '111011010101'.comb, 0 xx $size div 2 );
+say $a++ for ^10;
+
+#`{
+|     ### ## # # #     |
+|     # ##### # #      |
+|      ##   ## #       |
+|      ##   ###        |
+|      ##   # #        |
+|      ##    #         |
+|      ##              |
+|      ##              |
+|      ##              |
+|      ##              |
+Rule 104 is not particularly interesting so here is Rule 90,
+which shows a Sierpinski Triangle.
+}
+
+my $size2 = 50;
+my Automata $b .= new: :rule(90), :cells( 0 xx $size2 div 2, 1, 0 xx $size2 div 2 );
+ 
+say $b++ for ^20;
+
+#`{
+|                         #                         |
+|                        # #                        |
+|                       #   #                       |
+|                      # # # #                      |
+|                     #       #                     |
+|                    # #     # #                    |
+|                   #   #   #   #                   |
+|                  # # # # # # # #                  |
+|                 #               #                 |
+|                # #             # #                |
+|               #   #           #   #               |
+|              # # # #         # # # #              |
+|             #       #       #       #             |
+|            # #     # #     # #     # #            |
+|           #   #   #   #   #   #   #   #           |
+|          # # # # # # # # # # # # # # # #          |
+|         #                               #         |
+|        # #                             # #        |
+|       #   #                           #   #       |
+|      # # # #                         # # # #      |
+}
+
+use Test;
+is 1, 1, 'dummy';
