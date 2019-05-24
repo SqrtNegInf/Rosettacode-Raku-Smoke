@@ -1,0 +1,42 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Matrix_Digital_Rain
+#t# interactive
+#c# 2018-12-18 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @codes = flat 'Α' .. 'Π', 'Σ' .. 'ѵ', 'Ѐ' .. 'ѵ', 'Ҋ' .. 'ԯ', 'Ϣ' .. 'ϯ',
+                 'Ⲁ' .. '⳩', '∀' .. '∗', '℀' .. '℺', '⨀' .. '⫿';
+ 
+my ($rows,$cols) = qx/stty size/.words;
+ 
+my @c = flat  "\e[38;2;255;255;255m", (255,240 … 30).map({"\e[38;2;0;$_;0m"}), "\e[38;2;0;25;0m" xx 200;
+my $sz = +@c;
+my (@o, @s, @a);
+print "\e[?25l";
+init($rows, $cols);
+ 
+loop {
+     my ($r,$c) = qx/stty size/.words;
+     init($r, $c) if $r != $rows or $c != $cols;
+     print "\e[1;1H";
+     for ^@s { print (@c[@a[$_]<fg>], @a[$_]<bg>, @s[$_]).join; };
+     @s[(^@s).pick] = @codes.roll for ^100;
+     for ^@s { @a[$_]<fg> = (@a[$_]<fg> + 1) % $sz; }
+}
+ 
+sub init ($r, $c) {
+    @s = @codes.roll(($r - 1) * $c);
+    ($rows,$cols) = $r, $c;
+    @a = {:fg((^@c).pick), :bg("\e[48;5;232m")} xx +@s;
+    my @o = (^@c).pick xx $cols;
+    for ^$rows -> $row {
+        for ^$cols -> $col {
+            @a[$row * $cols + $col]<fg> = @o[$col];
+        }
+        @o = (^@o).map: {(@o[$_] - 1) % $sz};
+    }
+}
+ 
+END { print "\e[?25h \e[H\e[J";} # clear and reset screen
