@@ -1,0 +1,37 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Anagrams
+#c# 2016-08-02 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2016.07
+
+my @anagrams = 'unixdict.txt'.IO.words.classify({ .comb.sort.join }).values;
+ 
+my $max = @anagrams».elems.max;
+ 
+.put for @anagrams.grep(*.elems == $max);
+
+#`{
+elan lane lean lena neal
+alger glare lager large regal
+evil levi live veil vile
+angel angle galen glean lange
+abel able bale bela elba
+caret carte cater crate trace
+}
+
+# Just for the fun of it, here's a one-liner that uses no temporaries.  Since it would be rather long, we've oriented it vertically:
+
+# Works with: Rakudo version 2016.07
+.put for                            # print each element of the array made this way:
+    'unixdict.txt'.IO.words         # load words from file
+    .classify({ .comb.sort.join })  # group by common anagram
+    .classify(*.value.elems)        # group by number of anagrams in a group
+    .list.max(*.key).value          # get the group with highest number of anagrams
+    .map(*.value)                   # get all groups of anagrams in the group just selected
+
+# TODO:
+# Replace both instances of { .comb.sort.join } with *.comb.sort.join once »this bugfix« is shipped in the next Rakudo release.
+# Also replace .list.max with .max once »this bugfix« is shipped in the next Rakudo release
