@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Return_multiple_values
+#c# 2016-02-02 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Each function officially returns one value, but by returning a Parcel you can transparently return a lazy list of arbitrary size.
+
+sub foo($a,$b) {
+    flat $a + $b, $a * $b, $b xx $a
+}
+
+say foo 3, 7;
+
+# 10 21 7 7 7
+
+
+use Test;
+is foo(3,7), '10 21 7 7 7';
