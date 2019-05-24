@@ -1,0 +1,36 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Look-and-say_sequence
+#c# 2015-12-10 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-09-17
+# In Perl 6 it is natural to avoid explicit loops; rather we use the sequence operator to define a lazy sequence. 
+# We print all values until we interrupt with Ctrl-C.
+
+#.say for '1', *.subst(/(.)$0*/, { .chars ~ .[0] }, :g) ... *;
+my @x;
+{push @x,$_; .say} for '1', *.subst(/(.)$0*/, { .chars ~ .[0] }, :g) ... 13211311123113112211;
+
+#`{
+
+1
+11
+21
+1211
+111221
+312211
+13112221
+1113213211
+31131211131221
+13211311123113112211
+^C
+
+
+}
+use Test;
+is @x[0],   1;
+is @x[1],   11;
+is @x[*-2], 31131211131221;
+is @x[*-1], 13211311123113112211;
