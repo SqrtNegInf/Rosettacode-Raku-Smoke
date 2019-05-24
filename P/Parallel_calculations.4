@@ -1,0 +1,51 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Parallel_calculations
+#c# 2015-12-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+#Assuming that factors is defined exactly as in the prime decomposition task:
+
+my @nums = 12757923, 12878611, 123456789, 15808973, 15780709, 197622519;
+
+my @factories;
+@factories[$_] := factors(@nums[$_]) for ^@nums;
+my $gmf = ([max] @factories»[0] »=>« @nums).value;
+say $gmf;
+
+# copy this in from Prime_decomposition
+constant @primes = 2, 3, 5, -> *@p {
+    my $n = @p[*-1];
+    repeat { $n += 2 } while $n %% any @p.grep: * **2 <= $n;
+    $n;
+} ... *;
+
+sub factors(Int $remainder is copy) {
+  return 1 if $remainder <= 1;
+  gather for @primes -> $factor {
+    if $factor * $factor > $remainder {
+      take $remainder if $remainder > 1;
+      last;
+    }
+
+    # How many times can we divide by this prime?
+    while $remainder %% $factor {
+        take $factor;
+        last if ($remainder div= $factor) === 1;
+    }
+  }
+}
+
+
+#`{
+The line with the for loop is just setting up a bunch of lazy lists, one for each number to be factored, but doesn't actually do any of the work of factoring.
+Most of the parallelizing work is done by the hyperoperators that demand the first value from each of the factories' lists, then builds (again in parallel) the pairs associating each first value with its original value. The [max] reduction finds the pair with the largest key, from which we can easily extract the greatest minimum factor candidate, and then refactor it completely.
+The rakudo system does not actually do hypers in parallel yet, but when it does, this can automatically parallelize. (Hypers do parallelize in pugs, but it doesn't do some of the other things we rely on here.) It will be up to each individual compiler to determine how many cores to use for any given hyperoperator; the construct merely promises the compiler that it can be parallelized, but does not require that it must be.
+There is also some pipelining that can happen within the factors routine itself, which uses a gather/take construct, which the compiler may implement using either coroutines or threads as it sees fit.
+Threading pipelines can make more sense on, say, a cell architecture.
+}
+
+
+use Test;
+is $gmf, 12878611;
