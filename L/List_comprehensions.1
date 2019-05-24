@@ -1,0 +1,14 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/List_comprehensions
+#c# 2015-10-16 <RC
+#   update just added '.say'
+
+my $n = 20;
+gather for 1..$n -> $x {
+         for $x..$n -> $y {
+           for $y..$n -> $z {
+             take $x,$y,$z if $x*$x + $y*$y == $z*$z;
+           }
+         }
+       }.say
