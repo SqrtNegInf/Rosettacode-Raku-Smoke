@@ -1,0 +1,26 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Reflection/List_methods
+#c# 2016-08-01 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Perl6 provides a Meta Object Protocol which allows introspection of both core and user defined objects.
+# See docs.perl6.org/type/Metamodel::ClassHOW for details.
+# For example, let's look at an instance of a rational (Rat) number:
+
+my $variable = 2.5;
+ 
+say "Value:      ", $variable;                     # print the object value
+say "Type:       ", $variable.WHAT;                # print the object Type
+say "Name:       ", $variable.VAR.name;            # print the object name
+say "Attributes: ", $variable.^attributes;         # print a list of object attributes
+say "Methods:    ", $variable.^methods».name.sort; # print a list of methods that can be used by that object
+
+#`{
+Value:      2.5
+Type:       (Rat)
+Name:       $variable
+Attributes: (Int $!numerator Int $!denominator)
+Methods:    (ACCEPTS Bool Bridge Complex DUMP FatRat Int Num Numeric REDUCE-ME Range Rat Real Str WHICH abs acos acosec acosech acosh acotan acotanh asec asech asin asinh atan atan2 atanh base base-repeating ceiling cis conj cos cosec cosech cosh cotan cotanh denominator exp floor gist isNaN log log10 narrow new norm nude numerator perl polymod pred rand roots round sec sech sign sin sinh sqrt succ tan tanh truncate unpolar)
+}
