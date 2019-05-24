@@ -1,0 +1,51 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Word_count
+#c# 2017-08-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+#`{
+This is slightly trickier than it appears initially. The task specifically states: "A word is a sequence of one or more contiguous letters", so contractions and hyphenated words are broken up. Initially we might reach for a regex matcher like /\w+/ , but \w includes underscore, which is not a letter but a punctuation connector; and this text is full of underscores since that is how Project Gutenberg texts denote italicized text. The underscores are not actually parts of the words though, they are markup.
+We might try /A-Za-z/ as a matcher but this text is bursting with French words containing various accented glyphs. Those are letters, so words will be incorrectly split up; (Misérables will be counted as 'mis' and 'rables', probably not what we want.)
+Actually, in this specific case /A-Za-z/ returns the correct answer since none of the French accented words or their inappropriately broken fractions are in the top 10, but that is only by accident. The correct regex matcher is some kind of Unicode aware /\w/ minus underscore.
+( Really, a better regex would allow for contractions and embedded apostrophes but that is beyond the scope of this task. There are words like cat-o'-nine-tails and will-o'-the-wisps in there too to make your day even more interesting. )
+}
+
+sub MAIN ($filename = 'word-count.txt', $top = 10) {
+    my @res = ($filename.IO.slurp.lc ~~ m:g/[<[\w]-[_]>]+/)».Str.Bag.sort(-*.value)[^$top];
+    .say for @res;
+
+my $ref = qq:to/END/;
+the	41088
+of	19949
+and	14942
+a	14596
+to	13951
+in	11214
+he	9648
+was	8621
+that	7924
+it	6661
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+}
+
+#`{{
+Or, as a one-liner at the command prompt:
+
+perl6 -e 'lines.lc.comb( /[<[\w]-[_]>]+/ ).Bag.sort(-*.value)[^10].join("\n").say' < ./word-count.txt
+
+Same output.
+
+This satisfies the task requirements as they are written, but leaves a lot to be desired. For my own amusement here is a version that recognizes contractions with embedded apostrophes, hyphenated words, and hyphenated words broken across lines. Returns the top N words and counts sorted by length with a secondary sort on frequency just to be different (and to demonstrate that it really does what is claimed.)
+
+sub MAIN ($filename = 'word-count.txt', $top = 10) {
+    .put for $filename.IO.slurp.lc.subst(/ (<[\w]-[_]>'-')\n(<[\w]-[_]>) /, {$0 ~ $1}, :g )\
+    .comb( / <[\w]-[_]>+[["'"|'-'|"'-"]<[\w]-[_]>+]* / ).Bag.sort( {-$^a.key.chars, -$a.value} )[^$top];
+}
+
+}}
