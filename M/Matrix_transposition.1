@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Matrix_transposition
+#c# 2016-02-23 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+# Works with: rakudo version 2015.10-46
+sub transpose(@m)
+{
+    my @t;
+    for ^@m X ^@m[0] -> ($x, $y) { @t[$y][$x] = @m[$x][$y] }
+    return @t;
+}
+
+# creates a random matrix
+my @a;
+for ^5 X ^5 -> ($x, $y) { @a[$x][$y] = ('a'..'z').pick; }
+#for ^5 X ^5 -> ($x, $y) { @a[$x][$y] = (^25).pick; }
+say "original: ";
+.gist.say for @a;
+
+my @b = transpose(@a);
+say "transposed: ";
+.gist.say for @b;
+say ' ';
+
+#A more concise solution:
+
+sub transpose1 (@m) {
+    ([ @m[*;$_] ] for ^@m[0]);
+}
+
+my @c = < a b c d e >,
+        < f g h i j >,
+        < k l m n o >,
+        < p q r s t >;
+
+.say for @c.&transpose;
+say ' ';
+.say for @c.&transpose1;
+
+
+# Using the [Z] meta-operator.
+
+say ' ';
+say [Z] (<A B C>,<D E F>,<G H I>);
+
+# expected: '[[r d u g b] [g s b k z] [q q g f y] [q a z d k] [n s t j w]]'
+
+use Test;
+if $*VM ~~ /jvm/ {
+is @b.gist, '[[k n l c p] [z k c e q] [g n d y w] [s x q q f] [b r i t e]]';
+} else {
+is @b.gist, '[[r d u g b] [g s b k z] [q q g f y] [q a z d k] [n s t j w]]';
+}
+is @c.&transpose, 'a f k p b g l q c h m r d i n s e j o t';
+is ([Z] (<A B C>,<D E F>,<G H I>)), 'A D G B E H C F I';
