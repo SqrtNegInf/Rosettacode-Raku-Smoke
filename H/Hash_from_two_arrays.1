@@ -1,0 +1,33 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Hash_from_two_arrays
+#c# 2015-12-04 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-09-13
+
+my @keys = <a b c d e>;
+my @vals = ^5;
+my %hash1 = flat @keys Z @vals;
+say %hash1;
+
+#or using the "zipwith" metaoperaotr on the => pair composer:
+my @v = <a b c d e>;
+my %hash2 = @v Z=> @v.keys;
+say %hash2;
+
+#Alternatively:
+my %hash3;
+%hash3{@keys} = @vals;
+say %hash3;
+
+#To create an anonymous hash value:
+say %( <a b c d e> Z=> ^5 );
+
+#All of these zip forms trim the result to the length of the shorter of their two input lists. If you wish to enforce equal lengths, you can use a strict hyperoperator instead:
+#This will fail if the lists differ in length.
+my %hash4 = @keys »=>« @vals;
+say %hash4;
+
+#my %hash5 = @keys »=>« @vals[0..3];  # this fails
