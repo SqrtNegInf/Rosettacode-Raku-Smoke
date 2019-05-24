@@ -1,0 +1,75 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Iterated_digits_squaring
+#c# 2016-05-10 <RC
+#t# toodamnslow
+#m# MOAR: OK
+#j#  JVM: OK
+#    20161123:  488.091u 3.883s 9:32.62 85.9% ('slower' method for 1 million)
+#    20170123:  346.000u 1.076s 5:48.55 99.5          "
+#    20170123: 1575.136u 9.628s 24:57.94 105.7        " [for JVM]
+#
+#    20161123: 1186.824u 4.596s 19:55.32 99.6% (combined)
+#    20170123:  854.808u 2.839s 14:23.53 99.3%      "
+
+use experimental :cached;
+
+#This fairly abstract version does caching and filtering to reduce the number of values it needs to check and moves calculations out of the hot loop, but is still interminably slow... even for just up to 1,000,000.
+
+constant @sq = ^10 X** 2;
+my $cnt = 0;
+my %cache;
+ 
+sub Euler92($n) is cached {
+    $n == any(1,89) ?? $n !!
+    Euler92( [+] @sq[$n.comb] )
+}
+ 
+for 1 .. 1_000_000 -> $n {
+   my $i = +$n.comb.sort.join;
+   ++$cnt if Euler92($i) == 89;
+}
+say $cnt;
+
+use Test;
+is $cnt, 856929, 'Slower method';
+exit;
+
+#All is not lost, however. Through the use of gradual typing, Perl 6 scales down as well as up, so this jit-friendly version is performant enough to brute force the larger calculation:
+
+my @cache;
+@cache[1] = 1;
+@cache[89] = 89;
+ 
+sub altEuler92(int $n) {
+    $n < 649  # 99,999,999 sums to 648, so no point remembering more
+        ?? (@cache.AT-POS($n) //= ids($n))
+        !! ids($n)
+}
+ 
+sub ids(int $num --> int) {
+    my int $n = $num;
+    my int $ten = 10;
+    my int $sum = 0;
+    my int $t;
+    my int $c;
+    repeat until $n == 89 or $n == 1 {
+        $sum = 0;
+        repeat {
+            $t = $n div $ten;
+            $c = $n - $t * $ten;
+            $sum = $sum + $c * $c;
+        } while $n = $t;
+        $n = @cache.AT-POS($sum) // $sum;
+    }
+    $n;
+}
+ 
+my int $c = 0;
+for 1 .. 100_000_000 -> int $n {
+   $c = $c + 1 if altEuler92($n) == 89;
+}
+say $c;
+
+use Test;
+is $c, 85744333, 'Faster method';
