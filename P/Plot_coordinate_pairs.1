@@ -1,0 +1,122 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Plot_coordinate_pairs
+#c# 2016-03-23 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#   if SVG::Plot fully patched?
+
+# Generate an SVG image file.
+
+#use SVG;
+#use SVG::Plot;
+
+class Xlot {
+has $.height            = 300;
+has $.width             = 500;
+has $.fill-width        = 0.80;
+has $.label-font-size   = 12;
+has $.legend-font-size  = $!label-font-size;
+
+has @.legends is rw;
+has @.values  is rw;
+has @.x       is rw;    # only used in 'xy' variants
+has @.labels  is rw = @!values[0].keys;
+has @.links   is rw;
+
+has $.plot-width        = $!width  * 0.80;
+has $.plot-height       = $!height * (@!legends ?? 0.5 !! 0.65);
+
+has $.title             = '';
+
+has &.x-tick-step       = -> $max {
+    10 ** $max.log10.floor  / 2
+}
+
+has &.y-tick-step       = -> $max {
+    10 ** $max.log10.floor  / 2
+}
+
+has $.max-x-labels      = $!plot-width / (1.5 * $!label-font-size);
+
+has $.label-spacing     = ($!height - $!plot-height) / 20;
+
+has @.colors = <#3333ff #ffdd66 #aa2222 #228844 #eebb00 #8822bb>;
+
+has $.min-y-axis        = Inf;
+
+
+
+
+method xlot(:$full = True, :$zz-lines!) {
+    my $label-skip = ceiling(@.values[0] / $.max-x-labels);
+
+    my $max_x      = [max] @.x;
+    my $min_x      = [min] @.x;
+
+    if $max_x == $min_x {
+        die "There's just one x value ($max_x), refusing to plot\n";
+    }
+
+    my $max_y      = [max] @.values.map: { [max] @($_) };
+    my $min_y      = [min] flat $.min-y-axis, @.values.map: { [min] @($_) };
+
+    if $max_y == $min_y {
+        die "There's just one y value ($max_x), refusing to plot\n";
+    }
+
+    my $datasets   = +@.values;
+
+    my $step_x     = $.plot-width  / ($max_x - $min_x);
+    my $step_y     = $.plot-height / ($max_y - $min_y);
+
+    my @svg_d = gather {
+        for ^$datasets -> $d {
+            my ($prev-x, $prev-y);
+            for @.values[0].keys -> $k {
+                my $v = @.values[$d][$k];
+                my $x = @.x[$k];
+say 'got here';
+                if defined $prev-x {
+say 'got there';
+                    my $p = 'line' => [
+                        :x1($prev-x),
+                        :x2(($x - $min_x) * $step_x),
+                        :y1($prev-y),
+                        :y2(-($v-$min_y) * $step_y),
+                        :style("stroke:{ @.colors[$d % @.colors.elems] }; stroke-width: 1.5"),
+                    ];
+say $p;
+                    take $p;
+                    #take |$.linkify($k, $p);
+                }
+say 'got where';
+                $prev-x = ($x - $min_x) * $step_x;
+say "prev-x: " ~ $prev-x;
+                $prev-y = -($v-$min_y) * $step_y;
+            }
+        }
+
+        #$.x-ticks($min_x, $max_x, $step_x);
+        #$.y-ticks($min_y, $max_y, $step_y);
+    }
+
+#    my $svg = $.apply-standard-transform(
+#        @svg_d,
+#        @.eyecandy(),
+#    );
+#
+#    $.wrap-in-svg-header-if-necessary($svg, :wrap($full));
+}
+}
+
+my @x = (0,   1,   2,    3,    4,    5,    6,     7,     8,     9);
+my @y = (2.7, 2.8, 31.4, 38.1, 58.0, 76.2, 100.5, 130.0, 149.3, 180.0);
+
+say Xlot.new(
+    :width(512),
+    :height(512),
+    :x(@x),
+    :values(@y),
+    :title('Coordinate Pairs')
+).xlot(:zz-lines);
