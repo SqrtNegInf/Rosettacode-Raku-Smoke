@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Harshad_or_Niven_series
+#c# 2015-12-11 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: rakudo version 2015-09-13
+
+constant @harshad = grep { $_ %% [+] .comb }, 1 .. *;
+
+say @harshad[^20];
+say @harshad.first: * > 1000;
+
+my $ref = '1 2 3 4 5 6 7 8 9 10 12 18 20 21 24 27 30 36 40 42';
+
+use Test;
+is @harshad[^20], $ref;
+is (@harshad.first: * > 1000), 1002;
