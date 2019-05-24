@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Averages/Median
+#c# 2016-02-13 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# Works with: Rakudo version 2015.12
+
+sub median {
+  my @a = sort @_;
+  return (@a[@a.end / 2] + @a[@a / 2]) / 2;
+}
+
+#In a slightly more compact way:
+sub median1 { 2 R/ [+] @_.sort[@_.end / 2, @_ / 2] }
+
+
+use Test;
+is median(28.207,74.916, 51.695, 72.486, 51.118, 3.241, 73.807), 51.695;
+is median(27.984, 89.172, 0.250, 66.316, 41.805, 60.043), 50.924;
+is median1(28.207,74.916, 51.695, 72.486, 51.118, 3.241, 73.807), 51.695;
+is median1(27.984, 89.172, 0.250, 66.316, 41.805, 60.043), 50.924;
+
