@@ -1,0 +1,46 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Dragon_curve
+#c# 2016-01-19 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: dragon_curve.svg
+
+# We'll use a L-System role, and draw the dragon in SVG.
+
+my $out = open('dragon_curve.svg', :w);
+
+role Lindenmayer {
+    has %.rules;
+    method succ {
+	self.comb.map(
+	    { %!rules{$^c} // $c }
+	).join but Lindenmayer(%!rules)
+    }
+}
+
+my $dragon = "FX" but Lindenmayer(
+    { X => 'X+YF+', Y => '-FX-Y' }
+);
+
+$dragon++ for ^7;
+
+$out.say: "<?xml version='1.0' encoding='utf-8' standalone='no'?>
+<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 
+'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+<svg width='200' height='200' version='1.1'
+xmlns='http://www.w3.org/2000/svg'>";
+
+for $dragon.comb {
+    state ($x, $y) = 100, 100;
+    state $d = 2 + 0i;
+
+    if /F/ {
+	$out.say: "<line x1='$x' y1='$y' x2='{$x += $d.re}' y2='{$y += $d.im}' style='stroke:rgb(0,0,0);stroke-width:1'/>";
+    }
+    elsif /< + - >/ { $d *= "{$_}1i" }
+}
+
+$out.say: "</svg>";
+
+$out.close;
