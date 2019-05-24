@@ -1,0 +1,25 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Echo_server
+#c# 2016-04-09 <>RC, 2018-04-01 <RC
+#t# interactive
+#m# MOAR: OK
+#j# JVM:  OK
+
+# Works with: rakudo version 2018.03
+
+my $socket = IO::Socket::INET.new:
+    :localhost<localhost>,
+    :localport<12321>,
+    :listen;
+ 
+while $socket.accept -> $conn {
+    say "Accepted connection";
+    start {
+        while $conn.recv -> $stuff {
+            say "Echoing $stuff";
+            $conn.print($stuff);
+        }
+        $conn.close;
+    }
+}
