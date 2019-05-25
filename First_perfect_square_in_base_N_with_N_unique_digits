@@ -1,0 +1,99 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/First_perfect_square_in_base_N_with_N_unique_digits
+#c# 2019-05-20 <RC, 2019-05-24 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# as long as you have a quantum computer, this will work for bases 2 through 36
+#n# for 2..16:
+#n#     7.984u  0.248s
+#n#   487.887u  7.866s .1
+#n#  1264.211u 17.279s .2
+
+
+my @res;
+
+#unit sub MAIN ($timer = False);
+my $timer = False;
+
+sub first-square (Int $n) {
+    my @start = flat '1', '0', (2 ..^ $n)».base($n);
+
+    if $n > 10 { # analytics
+        my $root  = digital-root( (1 ..^ $n)».base($n).join, :base($n) );
+        my @roots = (2..$n).map(*²).map: { digital-root($_.base($n), :base($n) ) };
+        if $root ∉ @roots {
+            my $offset = min(@roots.grep: * > $root ) - $root;
+            @start[1+$offset] = $offset ~ @start[1+$offset];
+        }
+    }
+
+    my $start = @start.join.parse-base($n).sqrt.ceiling;
+    my @digits = reverse (^$n)».base($n);
+    my $sq;
+    my $now  = now;
+    my $time = 0;
+    for $start .. * {
+        $sq = $_ * $_;
+        my $s = $sq.base($n);
+        my $f;
+        $f = 1 and last unless $s.contains: $_ for @digits;
+        if $timer && $n > 19 && $_ %% 1_000_000 {
+            $time += now - $now;
+            say "N $n:  {$_}² = $sq <$s> : {(now - $now).round(.001)}s" ~
+                " : {$time.round(.001)} elapsed";
+            $now = now;
+        }
+        next if $f;
+        last
+    }
+    sprintf( "Base %2d: %12s² == %-30s", $n, $sq.sqrt.base($n), $sq.base($n) ) ~
+        ($timer ?? ($time + now - $now).round(.001) !! '');
+}
+
+sub digital-root ($root is copy, :$base = 10) {
+    $root = $root.comb.map({:36($_)}).sum.base($base) while $root.chars > 1;
+    $root.parse-base($base);
+}
+
+say  "First perfect square with N unique digits in base N: ";
+@res.push: .&first-square for flat
+   2 .. 12, # required
+  13 .. 16, # optional
+#  17 .. 19, # stretch
+#  20, # slow
+#  21, # pretty fast
+#  22, # very slow
+#  23, # don't hold your breath
+#  24, # slow but not too terrible
+;
+
+.say for @res;
+
+my $ref = q:to/END/;
+Base  2:           10² == 100                           
+Base  3:           22² == 2101                          
+Base  4:           33² == 3201                          
+Base  5:          243² == 132304                        
+Base  6:          523² == 452013                        
+Base  7:         1431² == 2450361                       
+Base  8:         3344² == 13675420                      
+Base  9:        11642² == 136802574                     
+Base 10:        32043² == 1026753849                    
+Base 11:       111453² == 1240A536789                   
+Base 12:       3966B9² == 124A7B538609                  
+Base 13:      3828943² == 10254773CA86B9                
+Base 14:      3A9DB7C² == 10269B8C57D3A4                
+Base 15:     1012B857² == 102597BACE836D4               
+Base 16:     404A9D9B² == 1025648CFEA37BD9              
+END
+#Base 17:    423F82GA9² == 101246A89CGFB357ED
+#Base 18:    44B482CAD² == 10236B5F8EG4AD9CH7
+#Base 19:   1011B55E9A² == 10234DHBG7CI8F6A9E5
+#Base 20:   49DGIH5D3G² == 1024E7CDI3HB695FJA8G
+#Base 21:  4C9HE8175DA² == 1023467JKAIEHB5DF9A8CG
+#Base 22:  4F94788GJ0F² == 102369FBGDEJ48CHI7LKA5
+#Base 23: 1011D3EL56MC² == 10234ACEDKG9HM8FBJIL756
+#Base 24: 4LJ0HDGF0HD3² == 102345B87HFECKJNIGMDLA69
+
+use Test;
+is @res.join("\n"), chomp $ref;
