@@ -366,6 +366,9 @@ File: A/Amicable_pairs
 #c# 2015-10-30 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2019-05-25 not a big whoop, but easy way to double speed: (but safe/robust?)
+#n# this: 20.155u 1.070s 0:06.17 343.9%
+#n# prev: 12.765u 0.220s 0:12.53 103.5%
 
 File: A/Anagrams
 #!/usr/bin/env perl6
@@ -3162,12 +3165,12 @@ File: F/First_class_environments
 File: F/First_perfect_square_in_base_N_with_N_unique_digits
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/First_perfect_square_in_base_N_with_N_unique_digits
-#c# 2019-05-20 <RC, 2019-05-21 <RC, 2019-05-22 <RC
+#c# 2019-05-20 <RC, 2019-05-24 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN 
-#n# this program makes my computer feel old
+#j# JVM:  BROKEN
+#n# as long as you have a quantum computer, this will work for bases 2 through 36
 #n# for 2..16:
-#n#   260.292u  2.830s current
+#n#     7.984u  0.248s
 #n#   487.887u  7.866s .1
 #n#  1264.211u 17.279s .2
 
@@ -4129,7 +4132,7 @@ File: I/Idiomatically_determine_all_the_lowercase_and_uppercase_letters
 File: I/Image_noise
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Image_noise
-#c# 2018-04-25 <RC
+#c# 2018-04-25 <RC, 2019-05-25 <RC
 #t# gui
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -6557,7 +6560,7 @@ File: P/Perfect_shuffle
 #c# 2015-10-25 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   but slow...
+#n# passive speed-up of 2x since 2016, but full results still take 60s
 
 File: P/Perfect_totient_numbers
 #!/usr/bin/env perl6
