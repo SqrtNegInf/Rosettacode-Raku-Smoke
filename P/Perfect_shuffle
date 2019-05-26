@@ -3,36 +3,34 @@
 #c# 2015-10-25 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   but slow...
+#n# passive speed-up of 2x since 2016, but full results still take 60s
 
-#Translation of: Perl
-
-my %Results;
+my %results;
 
 sub perfect-shuffle (@deck) {
     my $mid = @deck / 2;
-    flat @deck[0 ..^ $mid] Z @deck[$mid .. *];
+    #flat @deck[0 ..^ $mid] Z @deck[$mid .. *];
+    flat @deck[0 ..^ $mid] Z @deck[$mid ..^ @deck]; # barely faster
 }
 
 for 8, 24, 52, 100, 1024 -> $size {
 #for 8, 24, 52, 100, 1020, 1024, 10000 -> $size {
     my @deck = ^$size;
-    my $n;
-    repeat until [<] @deck {
-        $n++;
-        @deck = perfect-shuffle @deck;
-    }
+    my $n = 1;
+    $n++ until [<] @deck = perfect-shuffle @deck;
+
+#    my $n;
+#    repeat until [<] @deck {
+#        $n++;
+#        @deck = perfect-shuffle @deck;
+#    }
 
     printf "%5d cards:%4d\n", $size, $n;
-    %Results{$size} = $n;
+    %results{$size} = $n;
 }
 
-# 1020 cards: 1018
-#10000 cards:  300
+my %ref = ("100" => 30, "1024" => 10, "24" => 11, "52" => 8, "8" => 3);
+#my %ref = ("100" => 30, "1024" => 10, "24" => 11, "52" => 8, "8" => 3, "1020" => 1018, "10000" => 300);
 
 use Test;
-is %Results{8}, 3, 'Deck size: 8, shuffles: 3';
-is %Results{24}, 11, 'Deck size: 24, shuffles: 11';
-is %Results{52}, 8, 'Deck size: 52, shuffles: 8';
-is %Results{100}, 30, 'Deck size: 100, shuffles: 30';
-is %Results{1024}, 10, 'Deck size: 1024, shuffles: 10';
+ok %results eqv %ref;
