@@ -14,12 +14,12 @@ sub gauss-jordan-solve (@a, @b) {
     @b.kv.map: { @a[$^k].append: $^v };
     @a.&rref[*]»[*-1];
 }
- 
+
 # reduced row echelon form (Gauss-Jordan elimination)
 sub rref (@m) {
     return unless @m;
     my ($lead, $rows, $cols) = 0, +@m, +@m[0];
- 
+
     for ^$rows -> $r {
         $lead < $cols or return @m;
         my $i = $r;
@@ -39,18 +39,18 @@ sub rref (@m) {
     }
     @m
 }
- 
+
 sub rat-or-int ($num) {
     return $num unless $num ~~ Rat;
     return $num.narrow if $num.narrow.WHAT ~~ Int;
     $num.nude.join: '/';
 }
- 
+
 sub say-it ($message, @array, $fmt = " %8s") {
     @res.push: "\n$message";
     @res.push: $_».&rat-or-int.fmt($fmt) for @array;
 }
- 
+
 my @a = (
     [ 1.00, 0.00, 0.00,  0.00,  0.00,   0.00 ],
     [ 1.00, 0.63, 0.39,  0.25,  0.16,   0.10 ],
@@ -60,14 +60,14 @@ my @a = (
     [ 1.00, 3.14, 9.87, 31.01, 97.41, 306.02 ],
 );
 my @b = ( -0.01, 0.61, 0.91, 0.99, 0.60, 0.02 );
- 
+
 say-it 'A matrix:', @a, "%6.2f";
 say-it 'or, A in exact rationals:', @a;
 say-it 'B matrix:', @b, "%6.2f";
 say-it 'or, B in exact rationals:', @b;
 say-it 'x matrix:', (my @gj = gauss-jordan-solve @a, @b), "%16.12f";
 say-it 'or, x in exact rationals:', @gj, "%28s";
- 
+
 
 my $ref = qq:to/END/;
 

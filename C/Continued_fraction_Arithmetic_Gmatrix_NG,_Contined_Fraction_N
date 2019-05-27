@@ -10,7 +10,7 @@
 class NG {
     has ( $!a1, $!a, $!b1, $!b );
     submethod BUILD ( :$!a1, :$!a, :$!b1, :$!b ) { }
- 
+
     # Public methods
     method new( $a1, $a, $b1, $b ) { self.bless( :$a1, :$a, :$b1, :$b ) }
     method apply(@cf, :$limit = Inf) {
@@ -19,7 +19,7 @@ class NG {
             take self!drain until self!done;
         })[ ^ $limit ]
     }
- 
+
     # Private methods
     method !inject ($n) {
         sub xform($n, $x, $y) { $x, $n * $x + $y }
@@ -37,7 +37,7 @@ class NG {
     method !needterm { so [||] !$!b, !$!b1, $!a/$!b != $!a1/$!b1 }
     method !done { not [||] $!b, $!b1 }
 }
- 
+
 sub r2cf(Rat $x is copy) { # Rational to continued fraction
     gather loop {
     $x -= take $x.floor;
@@ -45,22 +45,22 @@ sub r2cf(Rat $x is copy) { # Rational to continued fraction
     $x = 1 / $x;
     }
 }
- 
+
 sub cf2r(@a) { # continued fraction to Rational
     my $x = @a[* - 1]; # Use FatRats for arbitrary precision
     $x = ( @a[$_- 1] + 1 / $x ).FatRat for reverse 1 ..^ @a;
     $x
 }
- 
+
 sub ppcf(@cf) { # format continued fraction for pretty printing 
     "[{ @cf.join(',').subst(',',';') }]"
 }
- 
+
 sub pprat($a) { # format Rational for pretty printing
    # Use FatRats for arbitrary precision
    $a.FatRat.denominator == 1 ?? $a !! $a.FatRat.nude.join('/')
 }
- 
+
 sub test_NG ($rat, @ng, $op) { 
     my @cf = $rat.Rat(1e-18).&r2cf;
     my @op = NG.new( |@ng ).apply( @cf );

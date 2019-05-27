@@ -14,16 +14,16 @@ sub gauss-jordan-invert (@m where *.&is-square) {
     ^@m .map: { @m[$_].append: identity(+@m)[$_] };
     @m.&rref[*]»[+@m .. *];
 }
- 
+
 sub is-square (@m) { so @m == all @m[*] }
- 
+
 sub identity ($n) { [ 1, |(0 xx $n-1) ], *.rotate(-1) ... *.tail }
- 
+
 # reduced row echelon form (Gauss-Jordan elimination)
 sub rref (@m) {
     return unless @m;
     my ($lead, $rows, $cols) = 0, +@m, +@m[0];
- 
+
     for ^$rows -> $r {
         $lead < $cols or return @m;
         my $i = $r;
@@ -43,19 +43,19 @@ sub rref (@m) {
     }
     @m
 }
- 
+
 sub rat-or-int ($num) {
     return $num unless $num ~~ Rat;
     return $num.narrow if $num.narrow.WHAT ~~ Int;
     $num.nude.join: '/';
 }
- 
+
 sub say_it ($message, @array) {
     @res.push: "\n$message";
     #$_».&rat-or-int.fmt(" %6s").put for @array;
     @res.push: $_».&rat-or-int.fmt(" %6s") for @array;
 }
- 
+
 my @tests = (
     [
       [ 1, 2, 3 ],
@@ -74,13 +74,13 @@ my @tests = (
       [  1, -2, 1, 3 ]
     ],
 );
- 
+
 for @tests -> @matrix {
     say_it( 'Original Matrix:', @matrix );
     say_it( 'Gauss-Jordan Inverted Matrix:', gauss-jordan-invert @matrix );
     say "\n";
 }
- 
+
 .say for @res;
 
 my $ref = qq:to/END/;

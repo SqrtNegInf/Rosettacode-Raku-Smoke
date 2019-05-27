@@ -13,7 +13,7 @@ my $out = open('run/reduced_row.txt', :w);
 sub rref (@m) {
     return unless @m;
     my ($lead, $rows, $cols) = 0, +@m, +@m[0];
- 
+
     for ^$rows -> $r {
         $lead < $cols or return @m;
         my $i = $r;
@@ -33,18 +33,18 @@ sub rref (@m) {
     }
     @m
 }
- 
+
 sub rat-or-int ($num) {
     return $num unless $num ~~ Rat;
     return $num.narrow if $num.narrow.WHAT ~~ Int;
     $num.nude.join: '/';
 }
- 
+
 sub say_it ($message, @array) {
     $out.say: "\n$message";
     $out.say: $_».&rat-or-int.fmt(" %5s") for @array;
 }
- 
+
 my @M = (
     [ # base test case
       [  1,  2,  -1,  -4 ],
@@ -83,7 +83,7 @@ my @M = (
       [0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  1,  0,  0,  0, -1,  0,  0,  0],
    ]
 );
- 
+
 for @M -> @matrix {
     say_it( 'Original Matrix', @matrix );
     say_it( 'Reduced Row Echelon Form Matrix', rref(@matrix) );
@@ -113,28 +113,28 @@ sub clear_column ( @M,         $r,  $c  ) {
         shear_row( @M, -1*@M[$row_num][$c], $row_num, $r );
     }
 }
- 
+
 my @M1 = (
     [<  1   2   -1    -4 >],
     [<  2   3   -1   -11 >],
     [< -2   0   -3    22 >],
 );
- 
+
 my $column_count = +@( @M1[0] );
- 
+
 my $current_col = 0;
 while all( @M1».[$current_col] ) == 0 {
     $current_col++;
     return if $current_col == $column_count; # Matrix was all-zeros.
 }
- 
+
 for @M1.keys -> $current_row {
     reduce_row(   @M1, $current_row, $current_col );
     clear_column( @M1, $current_row, $current_col );
     $current_col++;
     return if $current_col == $column_count;
 }
- 
+
 $out.say: @($_)».fmt(' %4g') for @M1;
 
 #And the same code, recast into OO. Also, scale and shear are recast as unscale and unshear, which fit the problem better.
@@ -156,14 +156,14 @@ class Matrix is Array {
     }
     method reduced_row_echelon_form ( @M1: ) {
         my $column_count = +@( @M1[0] );
- 
+
         my $current_col = 0;
         # Skip past all-zero columns.
         while all( @M1».[$current_col] ) == 0 {
             $current_col++;
             return if $current_col == $column_count; # Matrix was all-zeros.
         }
- 
+
         for @M1.keys -> $current_row {
             @M1.reduce_row(   $current_row, $current_col );
             @M1.clear_column( $current_row, $current_col );
@@ -172,15 +172,15 @@ class Matrix is Array {
         }
     }
 }
- 
+
 my $M = Matrix.new(
     [<  1   2   -1    -4 >],
     [<  2   3   -1   -11 >],
     [< -2   0   -3    22 >],
 );
- 
+
 $M.reduced_row_echelon_form;
- 
+
 $out.say: @($_)».fmt(' %4g') for @($M);
 
 #`{
