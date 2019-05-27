@@ -9,7 +9,7 @@
 sub no_suffix ($name) {
     $name.uc.subst: /\h (<[JS]>R) | (<[IVX]>+) $/, '';
 }
- 
+
 sub nysiis ($name is copy) {
     given $name .= uc {
         s:g/<-[A..Z]>//;
@@ -41,7 +41,7 @@ sub nysiis ($name is copy) {
     }
     return $name; # DH change
 }
- 
+
 my @res;
 for «
     knight      mitchell        "o'daniel"      "brown sr"      "browne III"

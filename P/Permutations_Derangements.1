@@ -16,31 +16,31 @@ sub derange (@result, @avail) {
         grep { @avail[$_] != @result }, 0 .. +@avail-1;
     }
 }
- 
+
 constant factorial = flat 1, [\*] 1...*;
- 
+
 # choose k among n, i.e. n! / k! (n-k)!
 sub choose ($n, $k) { factorial[$n] div factorial[$k] div factorial[$n - $k] }
- 
+
 sub sub-factorial ($n) {
     (state @)[$n] //=
     factorial[$n] - [+] gather for 1 .. $n -> $k {
         take choose($n, $k) * sub-factorial($n - $k);
     }
 }
- 
+
 say "Derangements for 4 elements:";
 my @res1;
 for derange([], 0 .. 3).kv -> $i, @d {
     @res1.push: $i+1 ~ ': ' ~ @d;
 }
 .say for @res1; 
- 
+
 say "\nCompare list length and calculated table";
 my @res2.push: "$_\t{ +derange [], ^$_ }\t{ sub-factorial $_ }" for 0 .. 7;
 #say "$_\t{ +derange [], ^$_ }\t{ sub-factorial $_ }" for 0 .. 9;
 .say for @res2; 
- 
+
 say "\nNumber of derangements:";
 my @res3.push: "$_:\t{ sub-factorial $_ }" for 1 .. 20;
 .say for @res3; 

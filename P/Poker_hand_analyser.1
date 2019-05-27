@@ -10,15 +10,15 @@
 #srand 123456;
 
 #This solution handles jokers. It has been written as a Perl 6 grammar.
- 
+
 grammar PokerHand {
- 
+
     # Perl6 Grammar to parse and rank 5-card poker hands
     # 2013-12-21: handle 'joker' wildcards; maximum of two
- 
+
     rule TOP {
         <hand>
- 
+
         :my ($n, $flush, $straight);
         {
             $n        = n-of-a-kind($<hand>);
@@ -27,27 +27,27 @@ grammar PokerHand {
          }
          <rank($n[0], $n[1], $flush, $straight)>
      }
- 
+
     rule hand {
          :my %*PLAYED;
          { %*PLAYED = () }
          [ <face-card> | <joker> ]**5
     }
- 
+
     token face-card {<face><suit> <?{
             my $card = ~$/.lc;
             # disallow duplicates
             ++%*PLAYED{$card} <= 1;
        }>
     }
- 
+
     token joker {:i 'joker' <?{
         my $card = ~$/.lc;
             # allow two jokers in a hand
             ++%*PLAYED{$card} <= 2;
         }>
     }
- 
+
     token face {:i <[2..9 jqka]> | 10 }
     token suit {<[♥ ♦ ♣ ♠]>} 
 
@@ -61,29 +61,29 @@ grammar PokerHand {
     multi token rank(2,2,$,$)                   { $<two-pair>=<?> }
     multi token rank(2,$,$,$)                   { $<one-pair>=<?> }
     multi token rank($,$,$,$) is default        { $<high-card>=<?> }
- 
+
    sub n-of-a-kind($/) {
         my %faces := bag @<face-card>.map( -> $/ {~$<face>.lc} );
         my @counts = %faces.values.sort.reverse;
         @counts[0] += @<joker>;
        return @counts;
     }
- 
+
     sub flush($/) {
         my %suits := set @<face-card>.map( -> $/ {~$<suit>} );
         return +%suits == 1;
     }
- 
+
    sub straight($/) {
         # allow both ace-low and ace-high straights
         constant @Seq = < a 2 3 4 5 6 7 8 9 10 j q k a >.map: *.Str;
         my $faces = set @<face-card>.map( -> $/ {~$<face>.lc} );
         my $jokers = +@<joker>;
- 
+
         for 0..(+@Seq - 5) {
- 
+
             my $run = set @Seq[$_ .. $_+4];
- 
+
             return True
                 if +($faces ∩ $run) == 5 - $jokers;
         }

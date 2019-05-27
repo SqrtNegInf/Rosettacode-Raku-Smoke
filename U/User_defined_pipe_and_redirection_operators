@@ -20,13 +20,13 @@ sub infix:<tee> ($stream, $fname) {
     # just pass the reified values along
     @values.List
 }
- 
+
 my $aa = ((
     (head 4, redirect 'ref/list_of_computer_scientists.txt'),
     cat('ref/list_of_computer_scientists.txt') .grep( /'ALGOL'/ ) tee 'ALGOL_pioneers.txt',
     tail 4, 'ref/list_of_computer_scientists.txt'
 ).flat .sort .unique tee 'the_important_scientists.txt') .grep: /'aa'/;
- 
+
 say my $result = "Pioneer: $aa";
 
 my $ref = qq:to/END/;

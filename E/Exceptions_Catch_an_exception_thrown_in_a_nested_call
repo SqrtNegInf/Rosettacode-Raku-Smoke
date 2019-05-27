@@ -18,11 +18,11 @@ sub foo() {
         }
     }
 }
- 
+
 sub bar($i) { baz $i }
- 
+
 sub baz($i) { die "U$i" }
- 
+
 foo;
 
 }

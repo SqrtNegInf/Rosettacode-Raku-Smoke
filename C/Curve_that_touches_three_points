@@ -5,32 +5,32 @@
 #j# JVM:  BROKEN
 
 use Image::PNG::Portable;
- 
+
 # Solve for a quadratic line that passes through those points
 my (\a, \b, \c) =
   rref([[10², 10, 1, 10],[100², 100, 1, 200],[200², 200, 1, 10]])[*;*-1];
- 
+
 # General case quadratic line equation
 sub f (\x) { a*x² + b*x + c }
- 
+
 # Scale it up a bit for display
 my $scale = 2;
- 
+
 my ($w, $h) = (500, 500);
 my $png = Image::PNG::Portable.new: :width($w), :height($h);
- 
+
 my ($lastx, $lasty) = 8, f(8).round;
 (9 .. 202).map: -> $x {
     my $f = f($x).round;
     line($lastx, $lasty, $x, $f, $png, [0,255,127]);
     ($lastx, $lasty) = $x, $f;
 }
- 
+
 # Highlight the 3 defining points
 dot(|$_, $png, 2) for (10,10,[255,0,0]), (100,200,[255,0,0]), (200,10,[255,0,0]);
- 
+
 $png.write: 'run/curve-3-points-perl6.png';
- 
+
 # Assorted helper routines 
 sub rref (@m) {
     return unless @m;
@@ -54,7 +54,7 @@ sub rref (@m) {
     }
     @m
 }
- 
+
 sub line($x0 is copy, $y0 is copy, $x1 is copy, $y1 is copy, $png, @rgb) {
     my $steep = abs($y1 - $y0) > abs($x1 - $x0);
     ($x0,$y0,$x1,$y1) »*=» $scale;
@@ -87,7 +87,7 @@ sub line($x0 is copy, $y0 is copy, $x1 is copy, $y1 is copy, $png, @rgb) {
         }
     }
 }
- 
+
 sub dot ($X is copy, $Y is copy, @rgb, $png, $radius = 3) {
     ($X, $Y) »*=» $scale;
     for ($X X+ -$radius .. $radius) X ($Y X+ -$radius .. $radius) -> ($x, $y) {

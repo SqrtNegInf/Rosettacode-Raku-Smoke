@@ -8,7 +8,7 @@
 class Camera {}
 class MobilePhone {}
 class CameraPhone is Camera is MobilePhone {}
- 
+
 say my $r1 = CameraPhone.^mro;     # undefined type object
 say my $r2 = CameraPhone.new.^mro; # instantiated object
 

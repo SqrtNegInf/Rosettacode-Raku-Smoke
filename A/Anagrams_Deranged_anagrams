@@ -13,7 +13,7 @@ my @anagrams = 'ref/unixdict.txt'.IO.words
     .sort(-*[0])                   # sort by length of the first word
 ;
 use Test;
- 
+
 for @anagrams -> @group {
     for @group.combinations(2) -> [@a, @b] {
         if none @a Zeq @b {

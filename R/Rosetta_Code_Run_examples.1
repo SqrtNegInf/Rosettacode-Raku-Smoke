@@ -22,33 +22,33 @@ use HTTP::UserAgent;
 use URI::Escape;
 use JSON::Fast;
 use MONKEY-SEE-NO-EVAL;
- 
+
 my $client   = HTTP::UserAgent.new;
 my $url      = 'http://rosettacode.org/mw';
- 
+
 # Language specific variables
 my $language = 'Perl_6'; # language
 my $header   = 'Perl 6'; # header text
 my $exe      = 'perl6';  # executable to run perl6 in a shell
 my $ext      = '.p6';    # file extension for perl6 code
- 
+
 # weird break in lang tag to placate terminally confused wiki formatter and syntax highlighter
 my $tag = rx/<?after '<lang perl6>'> .*? <?before '</' 'lang>'>/; # language entry regex
- 
+
 my $view     = 'xdg-open';  # image viewer, this will open default under Linux
 my %resource = load-resources();
 my $download = True;
- 
+
 my @tasks;
- 
+
 run('clear');
 note 'Retrieving tasks';
- 
+
 if @*ARGS {
     @tasks = |@*ARGS;
     $download = False;
 }
- 
+
 if $download {
     @tasks = mediawiki-query(
     $url, 'pages',
@@ -59,7 +59,7 @@ if $download {
     :prop<title>
     )»<title>.grep( * !~~ /^'Category:'/ );
 }
- 
+
 for @tasks -> $title {
     # If you want to resume partially into automatic
     # downloads, adjust $skip to skip that many tasks
@@ -68,32 +68,32 @@ for @tasks -> $title {
     note "Skipping first $skip tasks..." if $skip;
     next unless $title ~~ /\S/; # filter blank lines
     say $skip + ++$, " $title";
- 
+
     my $page = $client.get("{ $url }/index.php?title={ uri-escape $title }&action=raw").content;
     say "Whoops, can't find page: $url/$title :check spelling." and next if $page.elems == 0;
     say "Getting code from: http://rosettacode.org/wiki/{ $title.subst(' ', '_', :g) }#$language";
- 
+
     my $entry = $page.comb(/'=={{header|' $header '}}==' .+? [<?before \n'=='<-[={]>*'{{header'> || $] /).Str // whoops;
- 
+
     if $entry ~~ /^^ 'See [[' (.+?) '/' $language / {
         $entry = $client.get("{ $url }/index.php?title={ uri-escape $/[0].Str ~ '/' ~ $language }&action=raw").content;
     }
- 
+
     my $name = $title.subst(/<-[-0..9A..Za..z]>/, '_', :g);
- 
+
     my $dir = mkdir "./rc/tasks/$name";
- 
+
     spurt( "./rc/tasks/$name/$name.txt", $entry );
- 
+
     my @blocks = $entry.comb: $tag;
- 
+
     unless @blocks {
         if %resource{"$name"}<skip> {
             whoops;
             say "Skipping $name: ", %resource{"$name"}<skip>, "\n";
         }
     }
- 
+
     for @blocks.kv -> $k, $v {
         my $n = +@blocks == 1 ?? '' !! $k;
         spurt( "./rc/tasks/$name/$name$n$ext", $v );
@@ -104,12 +104,12 @@ for @tasks -> $title {
     }
     say '=' x 79;
 }
- 
+
 sub mediawiki-query ($site, $type, *%query) {
     my $url = "$site/api.php?" ~ uri-query-string(
         :action<query>, :format<json>, :formatversion<2>, |%query);
     my $continue = '';
- 
+
     gather loop {
         my $response = $client.get("$url&$continue");
         my $data = from-json($response.content);
@@ -117,7 +117,7 @@ sub mediawiki-query ($site, $type, *%query) {
         $continue = uri-query-string |($data.<query-continue>{*}».hash.hash or last);
     }
 }
- 
+
 sub run-it ($dir, $code) {
     my $current = $*CWD;
     chdir "./rc/tasks/$dir/";
@@ -132,15 +132,15 @@ sub run-it ($dir, $code) {
     chdir $current;
     say "\nDone $code";
 }
- 
+
 sub uri-query-string (*%fields) { %fields.map({ "{.key}={uri-escape .value}" }).join('&') }
- 
+
 sub clear { "\r" ~ ' ' x 100 ~ "\r" }
- 
+
 sub whoops { note "{'#' x 79}\n\nNo code found\nMay be bad markup\n\n{'#' x 79}"; '' }
- 
+
 sub load-resources { () } # load resources for finer control
- 
+
 #`{{
 Output: with command line: perl6 RC-run.p6 "Determine if a string is numeric"
 Retrieving tasks

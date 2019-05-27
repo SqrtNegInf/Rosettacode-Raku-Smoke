@@ -27,13 +27,13 @@ sub infix:<tee> ($stream, $fname) {
     # just pass the reified values along
     @values.List;
 }
- 
+
 my $aa = ((
     (head 4, redirect 'list_of_computer_scientists.txt'),
     cat('list_of_computer_scientists.txt') .grep( /'ALGOL'/ ) tee 'algol_computer_scientists.txt',
     tail 4, 'list_of_computer_scientists.txt'
 ).flat .sort .unique tee 'tail_computer_scientists.txt') .grep: /'aa'/;
- 
+
 say "Pioneer: $aa";
 
 use Test;

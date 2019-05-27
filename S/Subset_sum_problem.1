@@ -24,7 +24,7 @@ my @weights = @pairs».value;
 my %name = @pairs.hash.invert;
 
 my @res;
- 
+
 #(1..^@weights).race.map: -> $n {
 for 1..^@weights -> $n {
     given @weights.combinations($n).first({ 0 == [+] @^comb }) {

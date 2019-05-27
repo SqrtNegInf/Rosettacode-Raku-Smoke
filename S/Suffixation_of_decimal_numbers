@@ -39,16 +39,16 @@ sub sufficate ($val is copy, $type is copy = 'M', $round is copy = Any) {
        ?? $s ~ comma(($val.abs/%s{$k}).round(10**-$round)) ~ $k
        !! $s ~ comma($val.abs/%s{$k}) ~ $k
 }
- 
+
 sub comma ($i is copy) {
     my $s = $i < 0 ?? '-' !! '';
     my ($whole, $frac) = $i.split('.');
     $frac = $frac.defined ?? ".$frac" !! '';
     $s ~ $whole.abs.flip.comb(3).join(',').flip ~ $frac
 }
- 
+
 ## TESTING
- 
+
 my @tests =
    '87,654,321',
    '-998,877,665,544,332,211,000 3',
@@ -64,7 +64,7 @@ my @tests =
    '347,344 M -2', # round to -2 past the decimal
    '1122334455 Q', # bad unit type example
 ;
- 
+
 #printf "%33s : %s", $_, sufficate(|.words) for @tests; exit;
 @res.push: sprintf "%33s : %s", $_, sufficate(|.words) for @tests; 
 .say for @res; 

@@ -5,7 +5,7 @@
 #j#  JVM: OK
 
 srand 123456;
- 
+
 my @res.push: sprintf "%s, %s, (%d)", $_, best-shuffle $_
     for <abracadabra seesaw elk grrrrrr up a>;
 .say for @res;
@@ -14,10 +14,10 @@ my @res.push: sprintf "%s, %s, (%d)", $_, best-shuffle $_
 # Works with: Rakudo Star version 2015.12
 
 sub best-shuffle(Str $orig) {
- 
+
     my @s = $orig.comb;
     my @t = @s.pick(*);
- 
+
     for ^@s -> $i {
         for ^@s -> $j {
             if $i != $j and @t[$i] ne @s[$j] and @t[$j] ne @s[$i] {
@@ -26,12 +26,12 @@ sub best-shuffle(Str $orig) {
             }
         }
     }
- 
+
     my $count = 0;
     for @t.kv -> $k,$v {
         ++$count if $v eq @s[$k]
     }
- 
+
     return (@t.join, $count);
 }
 

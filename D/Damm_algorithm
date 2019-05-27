@@ -20,7 +20,7 @@ sub damm ( *@digits ) {
     for @digits -> $col { $row = @tbl[$row][$col] }
     not $row
 }
- 
+
 my @res;
 for 5724, 5727, 112946 {
     @res.push: "$_:\tChecksum digit { damm( $_.comb ) ?? '' !! 'in' }correct."

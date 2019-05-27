@@ -12,7 +12,7 @@ sub farey ($order) {
     (2..$order).map: { push @l, |(1..$^d).map: { $_/$d } }
     unique @l
 }
- 
+
 say "Farey sequence order ";
 @res.push: $_ for (1..11).hyper(:1batch).map: { "$_: ", .&farey.sort.map: *.nude.join('/') };
 @res.push: $_ for (100, 200 ... 1000).race(:1batch).map: { "Farey sequence order $_ has " ~ [.&farey].elems ~ ' elements.' }

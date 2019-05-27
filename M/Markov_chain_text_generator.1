@@ -13,7 +13,7 @@ srand 123456;
 
 #unit sub MAIN ( :$file='ref/alice_oz.txt', :$n=2, :$words=100, );
 unit sub MAIN ( :$file='ref/alice-10K.txt', :$n=2, :$words=100, );
- 
+
 sub add-to-dict ( $text, :$n=2, ) {
 #    my @prefix-suffix = $text.words.rotor: $n, 1 => -$n ;
 #    @prefix-suffix.pop;
@@ -38,7 +38,7 @@ if (False) {
 }
 
 }
- 
+
 my $text = slurp $file;
 
 # DH 2018-05-07 
@@ -56,7 +56,7 @@ if $*VM ~~ /jvm/ {
 
 my @start-words = %dict.keys.pick.words;
 my @generated-text = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.pick } ...^ !*.defined;
- 
+
 my @res = @generated-text.head: $words;
 say @res.join(' ');
 

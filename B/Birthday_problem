@@ -28,7 +28,7 @@ sub theory($n) is cached { 1 - combinations(365, $n)/365**$n* [*] 1..$n }
 sub simulation(:number-of-people($n), :sample-size($N) = 1_000) {
     $N R/ grep ?*, ((^365).roll($n).unique !== $n) xx $N;
 }
- 
+
 
 #2 independent people in a group of 23 share a common birthday. (0.506)
 #3 independent people in a group of 88 share a common birthday. (0.510)

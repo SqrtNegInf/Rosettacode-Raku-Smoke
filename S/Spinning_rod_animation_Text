@@ -25,11 +25,11 @@ class throbber {
         }
     }
 }
- 
+
 my $rod = throbber.new( :frames(< | / - \ >), :delay(.25) );
 print "\e[?25lLong running process...  ";
 print $rod.next for ^20;
- 
+
 my $clock = throbber.new( :frames("🕐" .. "🕛") );
 print "\b \nSomething else with a delay...  ";
 until my $done {
@@ -38,9 +38,9 @@ until my $done {
     print $clock.next;
     $done = True if $++ >= 60;
 }
- 
+
 my $scroll = throbber.new( :frames('PLEASE STAND BY...      '.comb), :delay(.1), :marquee );
 print "\b \nEXPERIENCING TECHNICAL DIFFICULTIES: { $scroll.frames.join }";
 print $scroll.next for ^95;
- 
+
 END { print "\e[?25h\n" } # clean up on exit

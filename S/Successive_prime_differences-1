@@ -10,12 +10,12 @@ my @res;
 
 use Math::Primesieve;
 my $sieve = Math::Primesieve.new;
- 
+
 my $max = 1_000_000;
 my @primes = $sieve.primes($max);
 my $filter = @primes.Set;
 my $primes = @primes.categorize: &successive;
- 
+
 sub successive ($i) {
     gather {
         take '2' if $filter{$i + 2};
@@ -27,9 +27,9 @@ sub successive ($i) {
             none($filter{$i «+« (2,4,8)});
     }
 }
- 
+
 sub comma { $^i.flip.comb(3).join(',').flip }
- 
+
 for (2,), (1,), (2,2), (2,4), (4,2), (6,4,2) -> $succ {
     @res.push: "## Sets of {1+$succ} successive primes <= { comma $max } with " ~
         "successive differences of { $succ.join: ', ' }";

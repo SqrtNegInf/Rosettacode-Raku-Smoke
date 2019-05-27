@@ -24,7 +24,7 @@ sub triples ($n, @angles) {
 
 use lib 'lib';
 use Sort::Naturally;
- 
+
 my $n = 13;
 say "Integer triangular triples for sides 1..$n:";
 my %itt = triples($n, (90, 60, 120));

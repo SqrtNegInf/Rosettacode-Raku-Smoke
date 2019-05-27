@@ -11,29 +11,29 @@ use HTTP::UserAgent;
 use URI::Escape;
 use JSON::Fast;
 use Sort::Naturally;
- 
+
 # Friendlier descriptions for task categories
 my %cat = (
     'Programming_Tasks' => 'Task',
     'Draft_Programming_Tasks' => 'Draft'
 );
- 
+
 my $client = HTTP::UserAgent.new;
- 
+
 my $url = 'http://rosettacode.org/mw';
- 
+
 my $tablefile = './run/RC_Authors.txt';
 my $hashfile  = './run/RC_Authors.json';
- 
+
 my %tasks;
- 
+
 # clear screen
 run($*DISTRO.is-win ?? 'cls' !! 'clear');
- 
+
 #=begin update
- 
+
 note 'Retreiving task information...';
- 
+
 for %cat.keys -> $category {
     mediawiki-query(
         $url, 'pages',
@@ -60,27 +60,27 @@ for %cat.keys -> $category {
         }
     )
 }
- 
+
 print clear;
- 
+
 # Save information to a local file
 note "\nTask information saved to local file: {$hashfile.IO.absolute}";
 $hashfile.IO.spurt(%tasks.&to-json);
- 
+
 #=end update
- 
+
 # Load information from local file
 %tasks = $hashfile.IO.e ?? $hashfile.IO.slurp.&from-json !! ( );
- 
+
 # Convert saved task / author info to a table
 note "\nBuilding table...";
 my $count    = +%tasks;
 my $taskcnt  = +%tasks.grep: *.value.<category> eq %cat<Programming_Tasks>;
 my $draftcnt = $count - $taskcnt;
- 
+
 # Open a file handle to dump table in
 my $out = open($tablefile, :w)  orelse .die;
- 
+
 # Add table boilerplate and header
 $out.say:
     "\{|class=\"wikitable\"\n",
@@ -88,27 +88,27 @@ $out.say:
     " :: Draft Tasks: { $draftcnt }\n",
     "! Author !! Authored"
 ;
- 
+
 # Get sorted unique list of task authors
 for %tasks{*}».<author>.unique.sort(*.&naturally) -> $author {
- 
+
     # Get list of tasks by this author
     my @these = %tasks.grep( { $_.value.<author> eq $author } );
     my $s = +@these == 1 ?? '' !! 's';
- 
+
     # Add author and contributions link to the first cell
     $out.say: "|-\n| [[User:$author|$author]] : [[Special:Contributions/$author|",
       " { +@these } task{ $s }]]";
- 
+
     $out.say: "|style=\"padding: 0px;\"|\n",
       "\{|class=\"broadtable sortable\" style=\"width: 100%;\"\n",
       "! Task Name !! Date Added !! Status";
- 
+
     # Tasks by this author, sorted by name
     for @these.sort({.key.&naturally}) -> $task {
- 
+
         my $color = $task.value.<category> eq 'Draft' ?? '#ffd' !! '#fff';
- 
+
         # add the task link, date and status to the table in the second cell
         $out.say: "|-\n|style=\"background-color: $color;\"",
           ( $task.key ~~ /\d/
@@ -122,14 +122,14 @@ for %tasks{*}».<author>.unique.sort(*.&naturally) -> $author {
 }
 $out.say( "|}\n" );
 $out.close;
- 
+
 note "Table file saved as: {$tablefile.IO.absolute}";
- 
+
 sub mediawiki-query ($site, $type, *%query) {
     my $url = "$site/api.php?" ~ uri-query-string(
         :action<query>, :format<json>, :formatversion<2>, |%query);
     my $continue = '';
- 
+
     gather loop {
         my $response = $client.get("$url&$continue");
         my $data = from-json($response.content);
@@ -137,9 +137,9 @@ sub mediawiki-query ($site, $type, *%query) {
         $continue = uri-query-string |($data.<query-continue>{*}».hash.hash or last);
     }
 }
- 
+
 sub uri-query-string (*%fields) { %fields.map({ "{.key}={uri-escape .value}" }).join("&") }
- 
+
 sub sort-key ($a) { $a.lc.subst(/(\d+)/, ->$/ {0~(65+$0.chars).chr~$0},:g) }
- 
+
 sub clear { "\r" ~ ' ' x 100 ~ "\r" }

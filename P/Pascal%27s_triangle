@@ -12,13 +12,13 @@
 sub pascal1 {
     [1], { [0, |$_ Z+ |$_, 0] } ... *
 }
- 
+
 my @res1 = pascal1[^10];
 
 #One problem with the routine above is that it might recalculate the sequence each time you call it. Slightly more idiomatic would be to define the sequence as a lazy constant. Here we use the @ sigil to indicate that the sequence should cache its values for reuse, and use an explicit parameter $prev for variety:
 
 constant @pascal2 = [1], -> $prev { [0, |$prev Z+ |$prev, 0] } ... *;
- 
+
 my @res2 = @pascal2[^10];
 #Since we use ordinary subscripting, non-positive inputs throw an index-out-of-bounds error.
 
@@ -29,7 +29,7 @@ multi sub pascal3 (Int $n where 2..*) {
     my @rows = pascal3 $n - 1;
     |@rows, [0, |@rows[*-1] Z+ |@rows[*-1], 0 ];
 }
- 
+
 my @res3 = pascal3 10;
 #Non-positive inputs throw a multiple-dispatch error.
 
@@ -42,7 +42,7 @@ sub pascal4 ($n where $n >= 1) {
    }
    @out;
 }
- 
+
 my @res4 = pascal4 10;
 #Non-positive inputs throw a type check error.
 

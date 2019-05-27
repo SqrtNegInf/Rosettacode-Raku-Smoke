@@ -15,19 +15,19 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 #    20180926:  165.140u 17.155s  0:45.28 402.5%
 
 # Translation of: Perl with the pallette swapped, just because.
- 
+
 use Image::PNG::Portable;
- 
+
 my ($w, $h) = 800, 600;
 my $out = Image::PNG::Portable.new: :width($w), :height($h);
- 
+
 my $maxIter = 255;
 my $c = -0.7 + 0.27015i;
- 
+
 julia($out);
- 
+
 $out.write: 'run/julia-set-perl6.png';
- 
+
 sub julia ( $png ) {
     ^$w .race.map: -> $x {
         for ^$h -> $y {

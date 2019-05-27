@@ -8,12 +8,12 @@ my @res;
 
 my @Stern-Brocot;
 @Stern-Brocot = 0, 1, 1, { |(@Stern-Brocot[$_ - 1] + @Stern-Brocot[$_], @Stern-Brocot[$_]) given ++$+1 } ... *;
- 
+
 sub comma { $^i.flip.comb(3).join(',').flip }
- 
+
 @res.push: "First 61 terms of the Stern-Brocot sequence:\n{@Stern-Brocot[^61].gist}" ~
     "\n\nIndex and value for first term longer than any previous:";
- 
+
 for flat 'Index', 'Value', 0, 0, (1..4).map({
     my $l = 10**$_;
     @Stern-Brocot.first(* > $l, :kv).map: *.&comma

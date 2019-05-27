@@ -8,7 +8,7 @@
 # Works with: Rakudo version 2010.11
 
 my $fields = 49;
- 
+
 my ($good-records, %dates) = 0;
 #for flat 1 .. * Z $*IN.lines -> $line, $s {
 for flat 1 .. * Z slurp("ref/text-proc.txt").lines -> $line, $s {
@@ -26,7 +26,7 @@ for flat 1 .. * Z slurp("ref/text-proc.txt").lines -> $line, $s {
     }
     $all-flags-okay and ++$good-records;
 }
- 
+
 my @res1;
 @res1.push: 'Good records: '~ $good-records;
 @res1.push: 'Repeated timestamps:';
@@ -43,7 +43,7 @@ my $good-records2;
 
 
 my @res2;
- 
+
 for slurp("ref/text-proc.txt").lines {
     $line++;
     / ^
@@ -54,9 +54,9 @@ for slurp("ref/text-proc.txt").lines {
     %dates2.push: $0 => $line;
     $good-records2++ if $1.all >= 1;
 }
- 
+
 @res2.push: "$good-records2 good records out of $line total";
- 
+
 @res2.push: 'Repeated timestamps (with line numbers):';
 @res2.push: $_ for sort %dates2.pairs.grep: *.value.elems > 1;
 

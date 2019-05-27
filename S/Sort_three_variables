@@ -13,12 +13,12 @@ my @res;
 my ($a, $b, $c) = 'lions, tigers, and', 'bears,  oh my!', '(from "The Wizard of Oz")';
 @res.push: "sorting: {($a, $b, $c).join('|')}";
 @res.push: ($a, $b, $c).sort.join('|'), ' - standard lexical string sort';
- 
+
 # Sorting numeric things
 my ($x, $y, $z) = 7.7444e4, -12, 18/2;
 @res.push: "\nsorting: $x $y $z";
 @res.push: ($x, $y, $z).sort, ' - standard numeric sort, low to high';
- 
+
 # Or, with a modified comparitor:
 for  -*,       ' - numeric sort high to low',
      ~*,       ' - lexical "string" sort',
@@ -29,7 +29,7 @@ for  -*,       ' - numeric sort high to low',
     @res.push: ($x, $y, $z).sort( &$comparitor ), $type;
 }
 @res.push: '';
- 
+
 # sort ALL THE THINGS
 # sorts by lexical order with numeric values by magnitude.
 @res.push: $_ for ($a, $b, $c, $x, $y, $z).sort;

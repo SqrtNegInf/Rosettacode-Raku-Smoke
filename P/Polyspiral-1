@@ -14,13 +14,13 @@ my @res;
 use SVG;
 my $w = 600;
 my $h = 600;
- 
+
 for 3..33  -> $a {
     my $angle = $a/τ;
     my $x1 = $w/2;
     my $y1 = $h/2;
     my @lines;
- 
+
     for 1..144 {
         my $length = 3 * $_;
         my ($x2, $y2) = ($x1, $y1) «+« |cis($angle * $_).reals».round(.01) »*» $length ;
@@ -28,7 +28,7 @@ for 3..33  -> $a {
                                 :style("stroke:rgb({hsv2rgb(($_*5 % 360)/360,1,1).join: ','})")];
         ($x1, $y1) = $x2, $y2;
     }
- 
+
     my $fname = "./run/polyspiral.svg".IO.open(:w);
     $fname.say( SVG.serialize(
         svg => [
@@ -40,7 +40,7 @@ for 3..33  -> $a {
     $fname.close;
     #sleep .15;
 }
- 
+
 sub hsv2rgb ( $h, $s, $v ){ # inputs normalized 0-1
     my $c = $v * $s;
     my $x = $c * (1 - abs( (($h*6) % 2) - 1 ) );

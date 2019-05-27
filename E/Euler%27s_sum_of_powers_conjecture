@@ -9,17 +9,17 @@
 my $result;
 
 constant MAX = 250;
- 
+
 my %po5{Int};
 my %sum2{Int};
- 
+
 (1..MAX).map: -> $i {
     %po5{$i**5} = $i;
     for 1..MAX -> $j {
         %sum2{$i**5 + $j**5} = ($i, $j);
     }
 }
- 
+
 my @sk = %sum2.keys.sort;
 %po5.keys.sort.race.map: -> $p {
     for @sk -> $s {

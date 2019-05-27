@@ -19,7 +19,7 @@ Perl 6 doesn't currently provide a proper mechanism for deep copies, but dependi
 
 my %x1 = foo => 0, bar => [0, 1];
 my %y1 = %x1.deepmap(*.clone);
- 
+
 %x1<bar>[1]++;
 @res.push: %x1.gist;
 @res.push: %y1.gist;
@@ -32,10 +32,10 @@ my %y1 = %x1.deepmap(*.clone);
  Doesn't work correctly if the data structure contains elements that can't be properly serialized, such as closures or file handles.
 use MONKEY-SEE-NO-EVAL;
 }}
- 
+
 my %x2 = foo => 0, bar => [0, 1];
 my %y2 = %x2.perl.EVAL;
- 
+
 %x2<bar>[1]++;
 @res.push: %x2.gist;
 @res.push: %y2.gist;

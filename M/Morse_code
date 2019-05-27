@@ -72,7 +72,7 @@ my %m = ' ', '_ _ ',
     $m .= subst(rx/'.'/, 'dot ', :g);
     $c => $m ~ '_';
 }
- 
+
 #say prompt("Gimme a string: ").uc.comb.map: { %m{$_} // "<scratch> " }
 say my $result = 'What hath God wrought?'.uc.comb.map: { %m{$_} // "<scratch> " }
 

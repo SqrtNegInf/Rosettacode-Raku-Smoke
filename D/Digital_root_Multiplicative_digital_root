@@ -10,7 +10,7 @@ sub multiplicative-digital-root(Int $n) {
 }
 
 my @res;
- 
+
 for 123321, 7739, 893, 899998 {
     @res.push: "$_: " ~ .&multiplicative-digital-root;
 }

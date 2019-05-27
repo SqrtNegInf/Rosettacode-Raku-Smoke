@@ -12,16 +12,16 @@ my @res;
 # Recursive (cached)
 sub change-r($amount, @coins) {
     my @cache = [1 xx @coins], |([] xx $amount);
- 
+
     multi ways($n where $n >= 0, @now [$coin,*@later]) {
         @cache[$n;+@later] //= ways($n - $coin, @now) + ways($n, @later);
     }
     multi ways($,@) { 0 }
- 
+
     # more efficient to start with coins sorted in descending order
     ways($amount, @coins.sort(-*).list);
 }
- 
+
 # Iterative
 sub change-i(\n, @coins) {
     my @table = [1 xx @coins], [0 xx @coins] xx n;
@@ -35,13 +35,13 @@ sub change-i(\n, @coins) {
     }
     @table[*-1][*-1];
 }
- 
+
 # moar: 40.481u 1.194s 0:54.75 76.1%
 #say "Iterative:";
 @res.push: change-i    1_00, [1,5,10,25];
 @res.push: change-i 1000_00, [1,5,10,25];
 @res.push: change-i 1000_00, [1,5,10,25,50,100];
- 
+
 # moar: 56.895u 1.055s 1:17.43 74.8%
 #say "\nRecursive:";
 @res.push: change-r    1_00, [1,5,10,25];

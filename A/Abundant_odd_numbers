@@ -17,7 +17,7 @@ sub odd-abundant (\x) {
     };
     @l.sum > x ?? @l.sort !! Empty;
 }
- 
+
 sub odd-abundants (Int :$start-at is copy) {
     $start-at = ( $start-at + 2 ) div 3;
     $start-at += $start-at %% 2;

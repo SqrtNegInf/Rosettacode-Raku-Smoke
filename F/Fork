@@ -11,7 +11,7 @@ die 'NativeCall...' if $*VM ~~ /jvm/;
 use NativeCall;
 
 sub fork() returns int32 is native { ... }
- 
+
 if fork() -> $pid {
     use Test; ok $pid > 0;
     print "I am the proud parent of $pid.\n";

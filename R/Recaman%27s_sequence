@@ -15,11 +15,11 @@ my @recamans = 0, {
    %seen{$this} = True;
    $this
 } … *;
- 
+
 my @res.push: "First fifteen terms of Recaman's sequence: "~ @recamans[^15];
- 
+
 @res.push: "First duplicate at term: a[{ @recamans.first({@recamans[^$_].Bag.values.max == 2})-1 }]";
- 
+
 my @seen;
 my int $i = 0;
 loop {

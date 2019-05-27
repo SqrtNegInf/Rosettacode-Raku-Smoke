@@ -11,7 +11,7 @@ sub propdivsum (\x) {
     }
     sum @l
 }
- 
+
 say bag (1..20000).map: { propdivsum($_) <=> $_ }
 
 say my @out = sort bag map { propdivsum($_) <=> $_ }, 1..20000;

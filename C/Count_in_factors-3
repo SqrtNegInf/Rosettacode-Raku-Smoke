@@ -9,7 +9,7 @@ my @res;
 # using a module
 
 use Prime::Factor;
- 
+
 @res.push: "$_ = {(.&prime-factors || 1).join: ' x ' }" for flat 1 .. 10, 10**20 .. 10**20 + 10;
 
 .say for @res;

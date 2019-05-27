@@ -16,15 +16,15 @@ column$are$separated$by$at$least$one$space.
 Further,$allow$for$each$word$in$a$column$to$be$either$left$
 justified,$right$justified,$or$center$justified$within$its$column.
 |.lines;
- 
+
 my @widths;
- 
+
 my @res1;
 for @lines { for .split('$').kv { @widths[$^key] max= $^word.chars; } }
 #for @lines { say |.split('$').kv.map: { (align @widths[$^key], $^word) ~ " "; } }
 for @lines { @res1.push: .split('$').kv.map: { (align @widths[$^key], $^word) ~ " "; } }
 .put for @res1;
- 
+
 #sub align($column_width, $word, $aligment = @*ARGS[0]) {
 sub align($column_width, $word, $aligment = 'left') {
         my $lr = $column_width - $word.chars;

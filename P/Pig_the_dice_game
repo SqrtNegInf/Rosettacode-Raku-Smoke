@@ -10,7 +10,7 @@ srand 123456;
 use Test;
 
 constant DIE = 1..6;
- 
+
 #sub MAIN (Int :$players = 2, Int :$goal = 100) {
 sub MAIN (Int :$players = 1, Int :$goal = 20) {
     my @safe = 0 xx $players;

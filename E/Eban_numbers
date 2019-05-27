@@ -26,9 +26,9 @@ Considering numbers up to 1021, as the task directions suggest.
 }
 
 use Lingua::EN::Numbers::Cardinal;
- 
+
 sub nban ($seq, $n = 'e') { ($seq).map: { next if .&cardinal.contains(any($n.lc.comb)); $_ } }
- 
+
 sub enumerate ($n, $upto) {
     my @ban    = flat ((1 .. 99),).map: *.&nban($n);
     my @orders = (2 .. $upto).map({ 10**$_ X* 1..9 }).map: *.&nban($n);
@@ -41,7 +41,7 @@ sub enumerate ($n, $upto) {
     @ban.unshift(0) if 0.&nban($n);
     @ban
 }
- 
+
 sub count ($n, $upto) {
     my @orders = (2 .. $upto).map({ 10**$_ X* 1..9 }).map: *.&nban($n);
     my @count  = elems flat ((1 .. 99),).map: *.&nban($n);
@@ -51,15 +51,15 @@ sub count ($n, $upto) {
     for ^(@count - 1) { if @orders[$_].contains(1) { @count[$_]++; @count[$_ + 1]-- } }
     [\+] @count;
 }
- 
+
 sub comma { $^i.flip.comb(3).join(',').flip }
- 
+
 #for < e o t tali subur tur ur cali i u > -> $n { # All of them
 for < e t subur > -> $n { # An assortment for demonstration
     my $upto   = 21; # 1e21
     my @bans   = enumerate($n, 4);
     my @counts = count($n, $upto);
- 
+
     # DISPLAY
     my @k = @bans.grep: * < 1000;
     my @j = @bans.grep: 1000 <= * <= 4000;

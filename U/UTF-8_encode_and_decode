@@ -10,7 +10,7 @@
 # Pretty much all built in to the language.
 
 say sprintf("%-18s %-34s %7s %7s\t%s  %s\n", 'Character', 'Name', 'Ordinal', 'Unicode', 'UTF-8 encoded', 'decoded'), '-' x 94;
- 
+
 my @res;
 for < A ö Ж € 𝄞 😜 > -> $char {
     @res.push: sprintf "   %-7s %-43s %6s U+%04s\t%12s %4s", $char, $char.uniname, $char.ord,

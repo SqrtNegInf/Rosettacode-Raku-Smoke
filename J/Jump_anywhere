@@ -117,7 +117,7 @@ is @res.join("\n"), chomp $ref;
             take $i;
         }
     }
- 
+
 say @list[5];
 
 is @list[5], '13';
@@ -162,12 +162,12 @@ exit; # skip further testing
       say "Dividing by $i";
       1/$i.Num + 0; # Fighting hard to make this fail
   }
- 
+
   for ^10 -> $n {
       my $recip = foo1($n);
       say "1/{$n} = {$recip.perl}";
   }
- 
+
   CATCH {
       when ~$_ ~~ m:s/Are you sure/ { .resume; #`(yes, I'm sure) }
   }
@@ -179,7 +179,7 @@ This code raises an exception on a zero input, but then resumes execution, divid
  Attempt to divide 1 by zero using /
    in sub foo at fail.p6 line 6
    in block <unit> at fail.p6 line 10
- 
+
  Actually thrown at:
    in sub foo at fail.p6 line 6
    in block <unit> at fail.p6 line 10

@@ -18,14 +18,14 @@ All these optimizations get the run time to well under 1 second.
 my @res;
 
 my $magic-number = 9 * 8 * 7;                        # 504
- 
+
 my $div = 9876432 div $magic-number * $magic-number; # largest 7 digit multiple of 504 < 9876432
- 
+
 for $div, { $_ - $magic-number } ... * -> $test {    # only generate multiples of 504
     next if $test ~~ / <[05]> /;                     # skip numbers containing 0 or 5
     next if $test ~~ / (.).*$0 /;                    # skip numbers with non unique digits
     next unless all $test.comb.map: $test %% *;      # skip numbers that don't divide evenly by all digits
- 
+
     @res.push: "Found $test";                               # Found a solution, display it
     for $test.comb {
         @res.push: sprintf "%s / %s = %s", $test, $_, $test / $_;
@@ -43,14 +43,14 @@ To verify that a number is divisible by 1 through 15, we only need to check 5, 7
 my $hex = 'FEDCBA987654321';        # largest possible hex number
    $magic-number = [lcm] 1 .. 15;   # find least common multiple
    $div = :16($hex) div $magic-number * $magic-number;
- 
+
 for $div, { $_ - $magic-number } ... 0 -> $num {  # Only generate multiples of the lcm 
     my $test = $num.base(16);
- 
+
     next if index $test, 0;                 # skip numbers containing 0
     next if $test.comb.Bag.values.max > 1;  # skip numbers with non unique digits
     #next if $test.comb.Set.elems != $test.chars; # same speed, but more cluttered
- 
+
     @res.push: "Found $test";             # Found a solution, display it
     @res.push: ' ' x 12, 'In base 16', ' ' x 36, 'In base 10';
     for $test.comb {
@@ -73,9 +73,9 @@ Found 9867312
 9867312 / 1 = 9867312
 9867312 / 2 = 4933656
 Found FEDCB59726A1348
-            
+
 In base 16
-                                    
+
 In base 10
 FEDCB59726A1348 / F = 10FDA5B4BE4F038  |  1147797065081426760 / 15 =   76519804338761784
 FEDCB59726A1348 / E = 1234561D150B83C  |  1147797065081426760 / 14 =   81985504648673340

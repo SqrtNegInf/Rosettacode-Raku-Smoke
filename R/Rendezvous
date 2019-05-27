@@ -12,13 +12,13 @@ my $fh = open('run/rendezvous.txt', :w);
 class X::OutOfInk is Exception {
     method message() { "Printer out of ink" }
 }
- 
+
 class Printer {
     has Str      $.id;
     has Int      $.ink = 5;
     has Lock     $!lock .= new;
     has ::?CLASS $.fallback;
- 
+
     method printz ($line) {
         $!lock.protect: {
             if    $!ink      { $fh.say: "$!id: $line"; $!ink-- }
@@ -27,11 +27,11 @@ class Printer {
         }
     }
 }
- 
+
 my $printer =
     Printer.new: id => 'main', fallback =>
     Printer.new: id => 'reserve';
- 
+
 sub client ($id, @lines) {
     start {
         for @lines {
@@ -45,7 +45,7 @@ sub client ($id, @lines) {
         $fh.say: "<$id is done>";
     }
 }
- 
+
 
 await
     client('Humpty', q:to/END/.lines),

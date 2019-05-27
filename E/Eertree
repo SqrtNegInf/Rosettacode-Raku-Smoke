@@ -3,11 +3,11 @@
 #c# 2018-12-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
- 
+
 my $str = "eertree";
 my @pal = ();
 my ($strrev,$strpal);
- 
+
 for (1 .. $str.chars) -> $n {
    for (1 .. $str.chars) -> $m {
       $strrev = "";
@@ -20,7 +20,7 @@ for (1 .. $str.chars) -> $n {
       }
    }
 }
- 
+
 say my $result = @pal.unique;
 
 my $ref = 'e ee eertree ertre r rtr t';

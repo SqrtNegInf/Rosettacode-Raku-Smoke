@@ -6,56 +6,56 @@
 #n# lots of malformed UTF-8 errors, replaced characters
 
 ########################### Helper subs ###########################
- 
+
 sub adjusted (@p, $type) { "\n$type\n" ~ format adjust( check(@p), $type ) }
- 
+
 sub format ( @p, $cols = 5 ) {
     my $i = -$cols;
     my $fmt = "%1.10f";
     join "\n", @p.rotor($cols, :partial).map:
       { sprintf "[%2d]  { join ' ', $fmt xx $_ }", $i+=$cols, $_ };
 }
- 
+
 sub check ( @p ) { die 'p-values must be in range 0.0 to 1.0' if @p.min < 0 or 1 < @p.max; @p }
- 
+
 multi ratchet ( 'up', @p ) { my $m; @p[$_] min= $m, $m = @p[$_] for ^@p; @p }
- 
+
 multi ratchet ( 'dn', @p ) { my $m; @p[$_] max= $m, $m = @p[$_] for ^@p .reverse; @p }
- 
+
 sub schwartzian ( @p, &transform, :$ratchet ) {
     my @pa = @p.map( {[$_, $++]} ).sort( -*.[0] ).map( {[transform(.[0]), .[1]]} );
     @pa[*;0] = ratchet($ratchet, @pa>>[0]);
     @pa.sort( *.[1] )>>[0]
 }
- 
+
 ############# The various p-value correction routines #############
- 
+
 multi adjust( @p, 'Benjamini-Hochberg' ) {
     @p.&schwartzian: * * @p / (@p - $++) min 1, :ratchet('up')
 }
- 
+
 multi adjust( @p, 'Benjamini-Yekutieli' ) {
     my \r = ^@p .map( { 1 / ++$ } ).sum;
     @p.&schwartzian: * * r * @p / (@p - $++) min 1, :ratchet('up')
 }
- 
+
 multi adjust( @p, 'Hochberg' ) {
     my \m = @p.max;
     @p.&schwartzian: * * ++$ min m, :ratchet('up')
 }
- 
+
 multi adjust( @p, 'Holm' ) {
     @p.&schwartzian: * * ++$ min 1, :ratchet('dn')
 }
- 
+
 multi adjust( @p, 'Sidek' ) {
     @p.&schwartzian: 1 - (1 - *) ** ++$, :ratchet('dn')
 }
- 
+
 multi adjust( @p, 'Bonferroni' ) {
     @p.map: * * @p min 1
 }
- 
+
 # Hommel correction can't be easily reduced to a one pass transform
 multi adjust( @p, 'Hommel' ) {
     my @s  = @p.map( {[$_, $++]} ).sort( *.[0] ).values; # sorted
@@ -71,9 +71,9 @@ multi adjust( @p, 'Hommel' ) {
     }
     @pa[@s[*;1].map( {[$_, $++]} ).sort( *.[0] ).values>>[1]]
 }
- 
+
 ########################### The task ###########################
- 
+
 my @p-values =
     4.533744e-01, 7.296024e-01, 9.936026e-02, 9.079658e-02, 1.801962e-01,
     8.752257e-01, 2.922222e-01, 9.115421e-01, 4.355806e-01, 5.324867e-01,
@@ -86,7 +86,7 @@ my @p-values =
     1.801145e-05, 2.504456e-07, 3.310253e-02, 9.427839e-03, 8.791153e-04,
     2.177831e-04, 9.693054e-04, 6.610250e-05, 2.900813e-02, 5.735490e-03
 ;
- 
+
 my @res;
 for < Benjamini-Hochberg Benjamini-Yekutieli Bonferroni Hochberg Holm Hommel Sidek >
 {

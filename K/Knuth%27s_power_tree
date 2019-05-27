@@ -10,10 +10,10 @@ srand 123456;
 sub power-path ($n ) {
     state @unused_nodes = (2,);
     state @power-tree = (False,0,1);
- 
+
     until @power-tree[$n].defined {
         my $node = @unused_nodes.shift;
- 
+
         for  $node X+ power-path($node).reverse {
         #for  $node X+ power-path($node).pick(*) {
             next if @power-tree[$_].defined;
@@ -21,19 +21,19 @@ sub power-path ($n ) {
             @power-tree[$_]= $node;
         }        
     }
- 
+
     ( $n, { @power-tree[$_] } ...^ 0 ).reverse;
 }
- 
+
 multi power ( $, 0 ) { 1 };
 multi power ( $n, $exponent ) {
     state  %p;
     my     %r =  %p{$n}  // ( 0 => 1, 1 => $n ) ;  
- 
+
     for power-path( $exponent ).rotor( 2 => -1 ) -> ( $p, $c ) {
         %r{ $c } = %r{ $p } * %r{ $c - $p }
     }
- 
+
     %p{$n} := %r ;
     %r{ $exponent }
 }
@@ -45,7 +45,7 @@ for ^18 -> $i {
     @res.push: "$i: "~ power-path $i;
     @res.push: "2^$i = "~ power 2,$i;
 }
- 
+
 @res.push: '191: '~     power-path 191;
 @res.push: '3^191 = '~  power   3, 191;
 @res.push: '81: '~      power-path  81;

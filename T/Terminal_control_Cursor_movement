@@ -11,14 +11,14 @@ shell "tput cuu1"; sleep 1;                 # up one line
 shell "tput cud1"; sleep 1;                 # down one line
 shell "tput cr";   sleep 1;                 # beginning of line
 shell "tput home"; sleep 1;                 # top left corner
- 
+
 # breaks here
 $_ = qx[stty -a </dev/tty 2>&1];
 my $rows = + m/<(\d+)> ' rows'/;
 my $cols = + m/<(\d+)> ' columns'/;
 $rows--;
 $cols--;
- 
+
 #shell "tput hpa $cols";             # end of line        # not on Mac OS X?
 shell "tput cup $rows $cols";       # bottom right corner
 sleep 3;

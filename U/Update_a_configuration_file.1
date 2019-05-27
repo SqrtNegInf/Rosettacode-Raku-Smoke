@@ -12,13 +12,13 @@
 # conf-update --/needspeeling --seedsremoved --numberofbananas=1024 --numberofstrawberries=62000 test.cfg
 
 my $tmpfile = tmpfile;
- 
+
 sub MAIN ($file, *%changes) {
     %changes.=map({; .key.uc => .value });
     my %seen;
- 
+
     my $out = open $tmpfile, :w;
- 
+
     for $file.IO.lines {
         when /:s ^ ('#' .* | '') $/ {
             say $out: ~$0;
@@ -34,21 +34,21 @@ sub MAIN ($file, *%changes) {
             exit 1;
         }
     }
- 
+
     say $out: format-line .key, |(.value ~~ Bool ?? (Nil, .value) !! (.value, True))
         for %changes;
- 
+
 #    run 'mv', $tmpfile, $file; # work-around for NYI `move $tmpfile, $file;`
     move $tmpfile, $file;
 }
- 
+
 END { unlink $tmpfile if $tmpfile.IO.e }
- 
- 
+
+
 sub format-line ($key, $value, $enabled) {
     ("; " if !$enabled) ~ $key.uc ~ (" $value" if defined $value);
 }
- 
+
 sub tmpfile {
     $*SPEC.catfile: $*SPEC.tmpdir, ("a".."z").roll(20).join
 }

@@ -12,11 +12,11 @@ Note: These routines are usable for most cases but won't detect unicode non-digi
 sub is-number-w-ws( Str $term --> Bool ) { # treat Falsey strings as numeric
     $term.Numeric !~~ Failure;
 }
- 
+
 sub is-number-wo-ws( Str $term --> Bool ) { # treat Falsey strings as non-numeric
     ?($term ~~ / \S /) && $term.Numeric !~~ Failure;
 }
- 
+
 say "               Coerce     Don't coerce";
 say '    String   whitespace    whitespace';
 my @res.push: sprintf "%10s  %8s  %11s",

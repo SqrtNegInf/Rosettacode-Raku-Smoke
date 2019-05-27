@@ -27,13 +27,13 @@ sub strand (@x) {
 
 # maybe too terse, but it does work
 # gather @x[$i] before $prev ?? $i++ !! take $prev = splice(@x, $i, 1)[0] while $i < @x; 
- 
+
 sub strand_sort (@x is copy) {
     my @out;
     @out M= strand(@x) while @x;
     @out;
 }
- 
+
 my @n = (1, 20, 64, 72, 48, 75, 96, 55, 42, 74);
 say "Before {@n}";
 @n = strand_sort(@n);

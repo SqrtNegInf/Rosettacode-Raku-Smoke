@@ -11,7 +11,7 @@ sub auto-abbreviate ( Str $string ) {
     return $_ if @words».substr(0, $_).Set == @words for 1 .. @words».chars.max;
     return '∞';
 }
- 
+
 my @res.push: auto-abbreviate($_) ~ '  ' ~ $_ for 'ref/DoWAKA.txt'.IO.lines;
 .say for @res;
 

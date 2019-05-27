@@ -5,15 +5,15 @@
 #j#  JVM: OK
 
 my %irregulars = <1 st 2 nd 3 rd>, (11..13 X=> 'th');
- 
+
 sub nth ($n) { $n ~ ( %irregulars{$n % 100} // %irregulars{$n % 10} // 'th' ) }
- 
+
 my @res.push: .list».&nth for [^26], [250..265], [1000..1025];
 
 my %irregulars2 = <1 ˢᵗ 2 ⁿᵈ 3 ʳᵈ>, (11..13 X=> 'ᵗʰ');
- 
+
 sub uninth ($n) { $n ~ ( %irregulars2{$n % 100} // %irregulars2{$n % 10} // 'ᵗʰ' ) }
- 
+
 @res.push: .list».&uninth for [^26], [250..265], [1000..1025];
 .say for @res;
 

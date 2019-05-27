@@ -12,12 +12,12 @@ my @res;
 
 # Union
 sub infix:<∪> (Range $a, Range $b) { Range.new( min($a.min,$b.min), max($a.max,$b.max) ) }
- 
+
 # Intersection
 sub infix:<∩> (Range $a, Range $b) { so $a.max >= $b.min }
- 
+
 multi consolidate() { () }
- 
+
 multi consolidate($this is copy, **@those) {
     gather {
         for consolidate |@those -> $that {
@@ -27,7 +27,7 @@ multi consolidate($this is copy, **@those) {
         take $this;
     }
 }
- 
+
 for [[1.1, 2.2],],
     [[6.1, 7.2], [7.2, 8.3]],
     [[4, 3], [2, 1]],

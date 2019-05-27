@@ -7,22 +7,22 @@
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use Net::FTP;
- 
+
 my $host = 'speedtest.tele2.net';
 my $user = 'anonymous';
 my $password = '';
- 
+
 my $ftp = Net::FTP.new( host => $host, :passive );
- 
+
 $ftp.login( user => $user, pass => $password );
- 
+
 $ftp.cwd( 'upload' );
- 
+
 $ftp.cwd( '/' );
- 
+
 my @res.push: $_<name> for $ftp.ls();
 .say for @res;
- 
+
 $ftp.get( '512KB.zip', :binary );
 
 use Test;

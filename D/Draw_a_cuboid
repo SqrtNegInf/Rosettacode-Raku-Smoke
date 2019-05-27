@@ -16,7 +16,7 @@ sub braille-graphics (%a) {
 	    $xlo min= +$x; $xhi max= +$x;
 	}
     }
- 
+
     for $ylo, $ylo + 4 ...^ * > $yhi -> \y {
 	for $xlo, $xlo + 2 ...^ * > $xhi -> \x {
 	    my $cell = 0x2800;
@@ -33,7 +33,7 @@ sub braille-graphics (%a) {
 	$out.print: "\n";
     }
 }
- 
+
 sub cuboid ( [$x, $y, $z] ) {
     my \x = $x * 4;
     my \y = $y * 4;
@@ -42,15 +42,15 @@ sub cuboid ( [$x, $y, $z] ) {
     sub horz ($X, $Y) { %t{$Y     }{$X + $_} = True for 0 .. x }
     sub vert ($X, $Y) { %t{$Y + $_}{$X     } = True for 0 .. y }
     sub diag ($X, $Y) { %t{$Y - $_}{$X + $_} = True for 0 .. z }
- 
+
     horz(0, z); horz(z, 0); horz(  0, z+y);
     vert(0, z); vert(x, z); vert(z+x,   0);
     diag(0, z); diag(x, z); diag(  x, z+y);
- 
+
     $out.say: "[$x, $y, $z]";
     braille-graphics %t;
 }
- 
+
 cuboid $_ for [2,3,4], [3,4,2], [4,2,3], [1,1,1], [8,1,1], [1,8,1], [1,1,8];
 
 $out.close;

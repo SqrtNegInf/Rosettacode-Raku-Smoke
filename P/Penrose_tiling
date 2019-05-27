@@ -12,14 +12,14 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 use SVG;
 
 my $fh = open("run/penrose_tiling.svg", :w) || die;
- 
+
 role Lindenmayer {
     has %.rules;
     method succ {
 	    self.comb.map( { %!rules{$^c} // $c } ).join but Lindenmayer(%!rules)
     }
 }
- 
+
 my $penrose = '[N]++[N]++[N]++[N]++[N]' but Lindenmayer(
     {
         A => '',
@@ -29,12 +29,12 @@ my $penrose = '[N]++[N]++[N]++[N]++[N]' but Lindenmayer(
         P => '--OA++++MA[+PA++++NA]--NA'
     }
 );
- 
+
 $penrose++ xx 4;
- 
+
 my @lines;
 my @stack;
- 
+
 for $penrose.comb {
     state ($x, $y) = 300, 200;
     state $d = 55 + 0i;
@@ -45,7 +45,7 @@ for $penrose.comb {
     when '-' { $d *= cis ( π/5) }
     default { }
 }
- 
+
 $fh.say: SVG.serialize(
     svg => [
         :600width, :400height, :style<stroke:rgb(250,12,210)>,

@@ -10,12 +10,12 @@ my @res;
 # Not the most efficient, but concise, and good enough for this task.
 
 sub comma { $^i.flip.comb(3).join(',').flip }
- 
+
 my @cubans = lazy (1..Inf).hyper(:8degree).map({ ($_+1)³ - .³ }).grep: *.is-prime;
- 
+
 #@res.push: @cubans[^200]».&comma».fmt("%9s").rotor(10).join: "\n";
 @res.push: @cubans[^200]».&comma».fmt("%9s").rotor(10).join: "\n";
- 
+
 #@res.push: '';
 #@res.push: @cubans[99_999].&comma; # zero indexed
 

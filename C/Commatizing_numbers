@@ -22,7 +22,7 @@ for
         @res.push: "Before: "~ .[0];
         @res.push: " After: "~ (.[1] ?? .[0].&commatize( |.[1] ) !! .&commatize);
     }
- 
+
 sub commatize($s, :$at = 0, :$ins = ',', :$by = 3) {
     $s.subst: :continue($at), :1st, / <[1..9]> <[0..9]>* /,
         *.flip.comb(/<{ ".**1..$by" }>/).join($ins).flip;

@@ -15,13 +15,13 @@ sub infix:<│> (Int \n, Int \p where p.is-prime && (p != 2)) {
         default { -1 }
     }
 }
- 
+
 # a coordinate in a Field of p elements
 class Fp {
     has Int $.x;
     has Int $.y;
 }
- 
+
 sub cipolla ( Int \n, Int \p ) {
 #    note "Invalid parameters ({n}, {p})"
 #      and return Nil if (n│p) != 1;
@@ -32,16 +32,16 @@ sub cipolla ( Int \n, Int \p ) {
         last if ($w2 = ($a² - n) % p)│p < 0;
         $a++;
     }
- 
+
     # define a local multiply operator for Field coordinates
     multi sub infix:<*> ( Fp $a, Fp $b ){
         Fp.new: :x(($a.x * $b.x + $a.y * $b.y * $w2) % p),
                 :y(($a.x * $b.y + $b.x * $a.y)       % p)
     }
- 
+
     my $r = Fp.new: :x(1),  :y(0);
     my $s = Fp.new: :x($a), :y(1);
- 
+
     for (p+1) +> 1, * +> 1 ... 1 {
         $r *= $s if $_ % 2;
         $s *= $s;
@@ -49,7 +49,7 @@ sub cipolla ( Int \n, Int \p ) {
     return Nil if $r.y;
     $r.x;
 }
- 
+
 my @tests = (
     (10, 13),
     (56, 101),

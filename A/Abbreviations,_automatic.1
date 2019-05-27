@@ -17,7 +17,7 @@ sub auto-abbreviate ( Str $string ) {
         return '∞' if $_ == $max;
     }
 }
- 
+
 my @res.push: auto-abbreviate($_) ~ '  ' ~ $_ for './DoWAKA.txt'.IO.lines;
 .say for @res;
 

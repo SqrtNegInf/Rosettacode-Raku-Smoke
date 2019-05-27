@@ -18,11 +18,11 @@ sub transpose(@list is copy) {
         }
     }
 }
- 
+
 sub beadsort(@l) {
     (transpose(transpose(map {[1 xx $_]}, @l))).map(*.elems);
 }
- 
+
 my @list = 2,1,3,5;
 say beadsort(@list); #.perl;
 
@@ -34,7 +34,7 @@ sub beadsort1(*@list) {
         take [+] @rods.map: { .[$y] // last }
     }
 }
- 
+
 say beadsort1 <2 1 3 5>;
 
 use Test;

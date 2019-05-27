@@ -23,7 +23,7 @@ my $img = open "run/pinstripes.pgm", :a, :bin orelse .die;
 my $vzones = $y div 4;
 for 1..4 -> $w {
     my $stripes = ceiling $x / $w / +@colors;
-    
+
 #    my $line = Buf.new: splice((flat (@colors Xxx $w) xx $stripes).Array, 0, $x); # DH 2017-06-04 now works...
     my $line = Buf.new: (flat((@colors Xxx $w) xx $stripes).Array).splice(0,$x); # DH change 2015-12-20
 

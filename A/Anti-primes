@@ -19,9 +19,9 @@ sub propdiv (\x) {
     }
     @l
 }
- 
+
 my $last = 0;
- 
+
 #my @anti-primes = lazy 1, |(|(2..59), 60, *+60 … *).hyper.grep: -> $c {
 my @anti-primes = lazy 1, |(|(2..59), 60, *+60 … *).grep: -> $c {
     my \mx = +propdiv($c);
@@ -29,11 +29,11 @@ my @anti-primes = lazy 1, |(|(2..59), 60, *+60 … *).grep: -> $c {
     $last = mx;
     $c
 }
- 
+
 my $upto = 5e5;
- 
+
 @res.push: "First 20 anti-primes:\n{ @anti-primes[^20] }";
- 
+
 @res.push: "\nCount of anti-primes <= $upto: {+@anti-primes[^(@anti-primes.first: * > $upto, :k)]}";
 
 .say for @res;

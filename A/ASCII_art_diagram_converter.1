@@ -13,9 +13,9 @@ my $diagram = q:to/END/;
     |                    ARCOUNT                    |
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 END
- 
+
 my $datagram = RFC1025.parse($diagram);
- 
+
 my %structure;
 for $datagram.<line> -> $line {
     FIRST %structure<line-width> = $line.&bits;
@@ -23,7 +23,7 @@ for $datagram.<line> -> $line {
     %structure<fields>.push: %(:bits(.&bits), :ID(.<label>.Str), :from($from.clone), :to(($from+=.&bits)-1))
       for $line<field>;
 }
- 
+
 my @res;
 @res.push: 'Line width: '~ %structure<line-width>~ ' bits';
 @res.push: sprintf("Name: %7s, bit count: %2d, bit %2d to bit %2d", .<ID>, .<bits>, .<from>, .<to>) for @(%structure<fields>);

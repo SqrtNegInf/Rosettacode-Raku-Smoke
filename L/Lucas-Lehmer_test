@@ -8,7 +8,7 @@ multi is_mersenne_prime(2) { True }
 multi is_mersenne_prime(Int $p) {
     my $m_p = 2 ** $p - 1;
     my $s = 4;
-    
+
 # oldest, slightly slower:   
 #    $s = ($s * $s - 2)% $m_p  for 3..$p;
 

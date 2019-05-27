@@ -9,9 +9,9 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 # Works with: Rakudo version 2017.09
 
 use Lingua::EN::Numbers::Cardinal;
- 
+
 sub card ($n) { cardinal($n).subst(/','/, '', :g) }
- 
+
 sub magic (Int $int is copy) {
     my $string;
     loop {
@@ -25,7 +25,7 @@ sub magic (Int $int is copy) {
    }
    $string.tc
 }
- 
+
 my @res.push: .&magic for 0, 4, 6, 11, 13, 75, 337, -164, 9876543209, 2**256;
 
 .say for @res;

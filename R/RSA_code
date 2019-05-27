@@ -9,9 +9,9 @@
 constant $n = 9516311845790656153499716760847001433441357;
 constant $e = 65537;
 constant $d = 5617843187844953170308463622230283376298685;
- 
+
 my $secret-message = "ROSETTA CODE";
- 
+
 package Message {
     my @alphabet = |('A' .. 'Z'), ' ';
     my $rad = +@alphabet;
@@ -33,7 +33,7 @@ package Message {
         ].join.flip;
     }
 }
- 
+
 say "Secret message is $secret-message";
 say "Secret message in integer form is $_" given
     my $numeric-message = Message::encode $secret-message;
@@ -47,6 +47,6 @@ say "After exponentiation with SECRET exponent we get: $_" given
     my $numeric-message2 = expmod $numeric-cipher2, $d, $n;
 say "This turns into the string $_" given
     my $secret-message2 = Message::decode $numeric-message2;
- 
+
 use Test;
 is $secret-message, $secret-message2, "the message has been correctly decrypted";

@@ -10,12 +10,12 @@ sub Chinese-zodiac ( Int $year ) {
     my @animal  = <Rat Ox Tiger Rabbit Dragon Snake Horse Goat Monkey Rooster Dog Pig>;
     my @element = <Wood Fire Earth Metal Water>;
     my @aspect  = <yang yin>;
- 
+
     my $cycle_year = ($year - 4) % 60;
     my $i2         = $cycle_year % 2;
     my $i10        = $cycle_year % 10;
     my $i12        = $cycle_year % 12;
- 
+
     %(
         'Han'     => @heaven[$i10].key ~ @earth[$i12].key,
         'pinyin'  => @heaven[$i10].value ~ @earth[$i12].value,
@@ -27,7 +27,7 @@ sub Chinese-zodiac ( Int $year ) {
         'cycle'   => $cycle_year + 1
     )
 }
- 
+
 # TESTING
 my @res.push: sprintf "%d: %s (%s, %s %s; %s - year %d in the cycle)",
     $_, .&Chinese-zodiac<Han pinyin element animal aspect cycle>

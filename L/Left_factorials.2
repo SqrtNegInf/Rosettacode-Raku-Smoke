@@ -75,7 +75,7 @@ never have to recalculate a prior result:
 
 constant fact = 1, |[\*] 1..*;
 constant leftfact = 0, |[\+] fact;
- 
+
 my @res2;
 @res2.push: sprintf "!%d  = %s", $_, leftfact[$_] for |^11, 20, 30 ... 110;
 @res2.push: sprintf "!%d has %d digits.", $_, (leftfact[$_]).chars for 1000; #, 2000 ... 10000; # DH too slow

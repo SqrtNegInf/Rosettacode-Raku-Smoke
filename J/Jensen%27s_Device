@@ -13,7 +13,7 @@ sub sum($i is rw, $lo, $hi, &term) {
     }
     return $temp;
 }
- 
+
 my $i;
 say my $out = sum $i, 1, 100, { 1 / $i };
 

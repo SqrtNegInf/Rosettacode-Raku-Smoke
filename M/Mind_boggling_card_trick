@@ -13,30 +13,30 @@ my @res;
 # Generate a shuffled deck
 my @deck = shuffle;
 @res.push: 'Shuffled deck:          '~ @deck;
- 
+
 my (@discard, @red, @black);
 
 # Deal cards following task description
 deal(@deck, @discard, @red, @black);
- 
+
 @res.push: 'Discard pile:           '~ @discard;
 @res.push: '"Red"   pile:           '~ @red;
 @res.push: '"Black" pile:           '~ @black;
- 
+
 # swap a the same random number of random
 # cards between the red and black piles
 my $amount = ^(+@red min +@black) .roll;
 @res.push: 'Number of cards to swap: '~ $amount;
 swap(@red, @black, $amount);
- 
+
 @res.push: 'Red pile after swaps:   '~ @red;
 @res.push: 'Black pile after swaps: '~ @black;
- 
+
 @res.push: 'Number of Red   cards in the Red   pile: '~ +@red.grep('R');
 @res.push: 'Number of Black cards in the Black pile: '~ +@black.grep('B');
- 
+
 sub shuffle { (flat 'R' xx 26, 'B' xx 26).pick: * }
- 
+
 sub deal (@deck, @d, @r, @b) {
     while @deck.elems {
         my $top = @deck.shift;
@@ -49,7 +49,7 @@ sub deal (@deck, @d, @r, @b) {
         @d.push: $top;
     }
 }
- 
+
 sub swap (@r, @b, $a) {
     my @ri  = ^@r .pick($a);
     my @bi  = ^@b .pick($a);

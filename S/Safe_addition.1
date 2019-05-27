@@ -33,24 +33,24 @@ stringification, not calculation. Calculations are always done at full (exact) p
 
 @res.push: "Floating points: (Nums)";
 @res.push: "Error: " ~ (2**-53).Num;
- 
+
 sub infix:<±+> (Num $a, Num $b) {
     my \ε = (2**-53).Num;
     $a - ε + $b, $a + ε + $b,
 }
- 
+
 @res.push: sprintf "%4.16f .. %4.16f", (1.14e0 ±+ 2e3);
- 
+
 @res.push: "\nRationals:";
- 
+
 @res.push: ".1 + .2 is exactly equal to .3: " ~  (.1 + .2 === .3).Str;
- 
+
 @res.push: "\nLarge denominators require explicit coercion to FatRats:";
 @res.push: "Sum of inverses of the first 500 natural numbers:";
 my $sum = sum (1..500).map: { FatRat.new(1,$_) };
 @res.push: $sum;
 @res.push: $sum.nude;
- 
+
 #{
 ##    @res.push: "\nRat stringification may not show full precision for terminating fractions by default.";
 #    @res.push: "Use a module to get full precision.";

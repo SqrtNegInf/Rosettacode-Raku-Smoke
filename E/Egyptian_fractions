@@ -17,7 +17,7 @@ role Egyptian {
 	    while $x;
     }
 }
- 
+
 my @res.push: flat .nude.join('/'), "=", ($_ but Egyptian).gist for 43/48, 5/121, 2014/59;
 .say for @res;
 
@@ -29,12 +29,12 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref1;
- 
+
 my @sample = map { $_ => .denominators },
     grep * < 1, 
         map {$_ but Egyptian}, 
             (2 .. 99 X/ 2 .. 99);
- 
+
 say my $max1 = .key.nude.join("/")~
     " has max denominator, namely "~
     .value.max
@@ -63,7 +63,7 @@ role Egyptian1 {
 	}
     }
 }
- 
+
 say 5/4 but Egyptian1;
 is (5/4 but Egyptian1).gist, '1/2 + 1/3 + 1/4 + 1/6';
 

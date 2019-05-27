@@ -22,7 +22,7 @@ Description
 =={{header|Perl}}==
 <lang>print "Hello world!\n"</lang>
 END
- 
+
 #for lines() {
 for split "\n", $text {
   when / '<lang>' / {
@@ -33,7 +33,7 @@ for split "\n", $text {
     $lang = $0.lc;
   }
 }
- 
+
 my @res;
 @res.push: "$total bare language tag{ 's' if $total != 1 }\n";
 @res.push: .value ~ ' in ' ~ .key for %blanks.sort;

@@ -20,7 +20,7 @@ my @nums = 64921987050997300559,  70251412046988563035,  71774104902986066597,
            87762379890959854011,  89538854889623608177,  98421229882942378967,
            259826672618677756753, 262872058330672763871, 267440136898665274575,
            278352769033314050117, 281398154745309057242, 292057004737291582187;
- 
+
 my @factories = @nums.hyper(:3batch).map: *.&prime-factors;
 printf "%21d factors: %s\n", |$_ for @nums Z @factories;
 my $gmf = {}.append(@factories»[0] »=>« @nums).max: +*.key;
@@ -28,10 +28,10 @@ $res = "\nGreatest minimum factor: "~ $gmf.key ~ "\nfrom: { $gmf.value }\n";
 say $res;
 say 'Run time: ', now - INIT now;
 say '-' x 80;
- 
+
 # For amusements sake and for relative comparison, using the same 100
 # numbers as in the SequenceL example, testing with different numbers of threads.
- 
+
 @nums = <625070029 413238785 815577134 738415913 400125878 967798656 830022841
    774153795 114250661 259366941 571026384 522503284 757673286 509866901 6303092
    516535622 177377611 520078930 996973832 148686385 33604768 384564659 95268916
@@ -45,7 +45,7 @@ say '-' x 80;
    666478446 351859802 660783778 503851023 789751915 224633442 347265052 782142901
    43731988 246754498 736887493 875621732 594506110 854991694 829661614 377470268
    984990763 275192380 39848200 892766084 76503760>».Int;
- 
+
 for 1..8 -> $degree {
     my $start = now;
     my \factories = @nums.hyper(:degree($degree), :3batch).map: *.&prime-factors;
@@ -55,7 +55,7 @@ for 1..8 -> $degree {
     my $end = now;
     say 'Run time: ', $end - $start, ' seconds.';
 }
- 
+
 # Prime factoring routines from the Prime decomposition task
 sub prime-factors ( Int $n where * > 0 ) {
     return $n if $n.is-prime;
@@ -63,7 +63,7 @@ sub prime-factors ( Int $n where * > 0 ) {
     my $factor = find-factor( $n );
     sort flat prime-factors( $factor ), prime-factors( $n div $factor );
 }
- 
+
 sub find-factor ( Int $n, $constant = 1 ) {
     my $x      = 2;
     my $rho    = 1;

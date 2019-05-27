@@ -18,17 +18,17 @@ grammar BraceExpansion {
     token alts { <alt>+ % ',' }
     token alt  { ( <meta> | <-[ , } ]> )* }
 }
- 
+
 sub crosswalk($/) {
     [X~] flat '', $0.map: -> $/ { ([$<meta><alts><alt>.&alternatives]) or ~$/ }
 }
- 
+
 sub alternatives($_) {
     when :not { () }
     when 1    { '{' X~ $_».&crosswalk X~ '}' }
     default   { $_».&crosswalk }
 }
- 
+
 sub brace-expand($s) { crosswalk BraceExpansion.parse($s) }
 
 #And to test...
@@ -42,7 +42,7 @@ sub bxtest(*@s) {
         }
     }
 }
- 
+
 bxtest Q:to/END/.lines;
     ~/{Downloads,Pictures}/*.{jpg,gif,png}
     It{{em,alic}iz,erat}e{d,}, please.

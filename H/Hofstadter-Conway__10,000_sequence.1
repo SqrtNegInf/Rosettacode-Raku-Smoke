@@ -54,31 +54,31 @@ Mallows' number would appear to be 1489
 
 my int $POW = 20;
 my int $top = 2**$POW;
- 
+
 my int @aa = (0,1,1);
 @aa[$top] = 0;   # pre-extend array
- 
+
 my int $nn = 3;
 my int $p = 1;
- 
+
 loop ($nn = 3; $nn <= $top; ++$nn) {
     @aa[$nn] = $p = @aa[$p] + @aa[$nn - $p];
 }
- 
+
 #my int $last55;
 for 1 ..^ $POW -> int $power {
- 
+
     my int $beg = 2 ** $power;
     my int $end = $beg * 2 - 1;
     my $max;
     my $ratio;
- 
+
     loop (my $nn = $beg; $nn <= $end; ++$nn) {
         my $ratio = @a[$nn] / $nn;
         $last55 = $nn if $ratio * 100 >= 55;
         $max max= $ratio => $nn;
     }
- 
+
     say $power.fmt('%2d'), $beg.fmt("%10d"), '..', $end.fmt("%-10d"), $max.key, " at ", $max.value;
 }
 say "Mallows' number would appear to be ", $last55;

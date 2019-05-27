@@ -14,15 +14,15 @@
 sub derangements(@l) {
     @l.permutations.grep(-> @p { none(@p Zeqv @l) })
 }
- 
+
 sub prefix:<!>(Int $n) {
     (1, 0, 1, -> $a, $b { ($++ + 2) × ($b + $a) } ... *)[$n]
 }
- 
+
 my @res;
 @res.push: 'derangements([1, 2, 3, 4])';
 @res.push: derangements([1, 2, 3, 4]).gist;
- 
+
 @res.push: 'n == !n == derangements(^n).elems';
 for 0 .. 8 -> $n {
     @res.push: "!$n == { !$n } == { derangements(^$n).elems }"

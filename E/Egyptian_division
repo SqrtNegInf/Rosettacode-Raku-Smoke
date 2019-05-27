@@ -14,7 +14,7 @@ sub  egyptian-divmod (Real $dividend is copy where * > 0, Real $divisor where * 
     @table.map: {$dividend -= .value, $accumulator += .key if $dividend >= .value}
     $accumulator, $dividend;
 }
- 
+
 #TESTING
 my @res;
 for 580,34, 578,34, 7532795332300578,235117 -> $n, $d {

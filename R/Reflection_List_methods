@@ -13,9 +13,9 @@ class Foo {
     method bar ($x, $y)  { }
     method baz ($x, $y?) { }
 }
- 
+
 my $object = Foo.new;
- 
+
 my @res;
 for $object.^methods {
     say join ", ", .name, .arity, .count, .signature.gist;

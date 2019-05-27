@@ -12,9 +12,9 @@ class Farragut {
         @res.push: "{self.WHAT.perl}: $name.tc() the @rest[], full speed ahead!";
     }
 }
- 
+
 class Sparrow is Farragut { }
- 
+
 Farragut.damn: 'torpedoes';
 Sparrow.hoist: <Jolly Roger mateys>;
 
@@ -26,7 +26,7 @@ class L-Value {
     our $.value = 10;
     method FALLBACK($name, |c) is rw { $.value }
 }
- 
+
 my $l = L-Value.new;
 say $l.any-odd-name; # 10
 @res.push: $l.any-odd-name; # 10

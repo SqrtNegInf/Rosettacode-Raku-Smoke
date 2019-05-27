@@ -15,7 +15,7 @@ sub table ($base,$power) {
 	@res.push: sprintf "%{$digits}d  %2d  %2d", $x, $x.lsb, $x.msb;
     }
 }
- 
+
 table 42, 20;
 table 1302, 20;
 .say for @res;

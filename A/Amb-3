@@ -12,11 +12,11 @@ srand 123456;
 sub amb($var,*@a) {
     "[{ @a.pick(*).map: {"||\{ $var = '$_' }"} }]";
 }
- 
+
 sub joins ($w1, $w2) {
     $w1.substr(*-1,1) eq $w2.substr(0,1)
 }
- 
+
 my $ref = 'that thing grows slowly';
 my $result;
 while 1 {

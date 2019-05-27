@@ -36,7 +36,7 @@ multi fib4 ($n) { fib4($n - 1) + fib4($n - 2) }
 sub fib5 (Int $n --> Int) {
     constant φ1 = 1 / constant φ = (1 + sqrt 5)/2;
     constant invsqrt5 = 1 / sqrt 5;
- 
+
     floor invsqrt5 * (φ**$n + φ1**$n);
 }
 

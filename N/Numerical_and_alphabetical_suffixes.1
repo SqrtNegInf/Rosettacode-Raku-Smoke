@@ -11,27 +11,27 @@ my @res;
 
 <PAIRs 2 SCOres 20 DOZens 12 GRoss 144  GREATGRoss 1728
 GOOGOLs 1e100> ~~ m:g/ ((<.:Lu>+) <.:Ll>*) \s+ (\S+) /;
- 
+
 my %abr = |$/.map: {
     my $abbrv = .[0].Str.fc;
     my $mag   = +.[1];
     |map { $abbrv.substr( 0, $_ ) => $mag },
     .[0][0].Str.chars .. $abbrv.chars
 }
- 
+
 my %suffix = flat %abr,
 (<K M G T P E Z Y X W V U>».fc             Z=> (1000, * * 1000 … *)),
 (<Ki Mi Gi Ti Pi Ei Zi Yi Xi Wi Vi Ui>».fc Z=> (1024, * * 1024 … *));
- 
+
 my $reg = %suffix.keys.join('|');
- 
+
 sub comma ($i is copy) {
     my $s = $i < 0 ?? '-' !! '';
     my $whole = $i.abs.floor;
     my $frac  = $i.abs - $whole ?? '.' ~ $i.abs.split('.')[1] !! '';
     $s ~ $whole.flip.comb(3).join(',').flip ~ $frac
 }
- 
+
 sub units (Str $str) {
     $str.fc ~~ /^(.+?)(<alpha>*)('!'*)$/;
     my ($val, $unit, $fact) = $0, $1.Str.fc, $2.Str;
@@ -46,7 +46,7 @@ sub units (Str $str) {
     $ret = [*] ($ret, * - $fact.chars …^ * < 2) if $fact.chars;
     $ret
 }
- 
+
 @res.push: sprintf "%16s: %s", $_, comma .&units for <
   2greatGRo   24Gros  288Doz  1,728pairs  172.8SCOre
   1,567      +1.567k    0.1567e-2m

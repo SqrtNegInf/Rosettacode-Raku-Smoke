@@ -25,7 +25,7 @@ sub MAIN($dir = 'bench/2018-01-01-m') {
               histogram( $max, %fsize{$_} // 0, $bar-size )
     }
     @res.push: %fsize.values.sum~ ' total files.';
- 
+
 sub histogram ($max, $value, $width = 60) {
     my @blocks = <| ▏ ▎ ▍ ▌ ▋ ▊ ▉ █>;
     my $scaled = ($value * $width / $max).Int;

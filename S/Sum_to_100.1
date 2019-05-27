@@ -9,9 +9,9 @@ my @ops = ['-', ''], |( [' + ', ' - ', ''] xx 8 );
 my @str = [X~] map { .Slip }, ( @ops Z 1..9 );
 my %sol = @str.classify: *.subst( ' - ', ' -', :g )\
                           .subst( ' + ',  ' ', :g ).words.sum;
- 
+
 my %count.push: %sol.map({ .value.elems => .key });
- 
+
 my $max_solutions    = %count.max( + *.key );
 my $first_unsolvable = first { %sol{$_} :!exists }, 1..*;
 my @two_largest_sums = %sol.keys.sort(-*)[^2];
@@ -21,7 +21,7 @@ given %sol{100}:p {
     @res.push: "{.value.elems} solutions for sum {.key}:";
     @res.push: "    $_" for .value.list;
 }
- 
+
 @res.push: .perl for :$max_solutions, :$first_unsolvable, :@two_largest_sums;
 .say for @res;
 

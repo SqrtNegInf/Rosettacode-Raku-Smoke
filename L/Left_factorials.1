@@ -14,9 +14,9 @@ my (@res1,@res2);
 
 sub postfix:<!> ($n) { (constant f = 1, |[\*] 1..*)[$n] }
 sub  prefix:<!> ($k) { (constant l = 0, |[\+] (0..*).map: *!)[$k] }
- 
+
 $ = !10000; # Pre-initialize
- 
+
 @res1.push: $_ for ( 0 … 10, 20 … 110 ).hyper(:4batch).map: { sprintf "!%d  = %s", $_, !$_ };
 @res1.push: $_ for (1000, 2000 … 10000).hyper(:4batch).map: { sprintf "!%d has %d digits.", $_, chars !$_ };
 
@@ -60,9 +60,9 @@ END
 
 constant fact = 1, |[\*] 1..*;
 constant leftfact = 0, |[\+] fact;
- 
+
 $ = leftfact[10000]; # Pre-initialize
- 
+
 @res2.push: $_ for ( 0 … 10, 20 … 110 ).hyper(:4batch).map: { sprintf "!%d  = %s", $_, leftfact[$_] };
 @res2.push: $_ for (1000, 2000 … 10000).hyper(:4batch).map: { sprintf "!%d has %d digits.", $_, chars leftfact[$_] };
 

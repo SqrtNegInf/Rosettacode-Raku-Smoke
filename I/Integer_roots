@@ -12,7 +12,7 @@ sub integer_root ( Int $p where * >= 2, Int $n --> Int ) {
     my $endpoint = { $^x == $^y|$^z };
     min (+$guess, $iterator … $endpoint)[*-1, *-2];
 }
- 
+
 say integer_root( 2, 8);
 say integer_root( 2, 9);
 say integer_root( 4, 123124645);

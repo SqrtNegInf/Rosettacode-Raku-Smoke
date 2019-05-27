@@ -14,7 +14,7 @@
 #The script:
 
 my $tmpfile = tmpfile;
- 
+
 #sub MAIN ($file, *%changes) {
 my $file = 'run/config.cfg';
 my %changes := {:!needspeeling, :numberofbananas("1024"), :numberofstrawberries("62000"), :seedsremoved};
@@ -22,9 +22,9 @@ my %changes := {:!needspeeling, :numberofbananas("1024"), :numberofstrawberries(
     %changes .= map({; .key.uc => .value });
 
     my %seen;
- 
+
     my $out = open $tmpfile, :w;
- 
+
     for $file.IO.lines {
         when /:s ^ ('#' .* | '') $/ {
             say $out: ~$0;
@@ -40,21 +40,21 @@ my %changes := {:!needspeeling, :numberofbananas("1024"), :numberofstrawberries(
             exit 1;
         }
     }
- 
+
     say $out: format-line .key, |(.value ~~ Bool ?? (Nil, .value) !! (.value, True))
         for %changes;
     $out.close;
- 
+
     move $tmpfile, $file;
 #}
- 
+
 END { unlink $tmpfile if $tmpfile.IO.e }
- 
- 
+
+
 sub format-line ($key, $value, $enabled) {
     ("; " if !$enabled) ~ $key.uc ~ (" $value" if defined $value);
 }
- 
+
 sub tmpfile {
     $*SPEC.catfile: $*SPEC.tmpdir, ("a".."z").roll(20).join
 }

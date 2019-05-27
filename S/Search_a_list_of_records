@@ -22,7 +22,7 @@ my @cities =
   { name => 'Abidjan',              population =>  4.4  },
   { name => 'Casablanca',           population =>  3.98 },
 ;
- 
+
 say my $a1 = @cities.first(*<name> eq 'Dar Es Salaam', :k);
 say my $a2 = @cities.first(*<population> < 5).<name>;
 say my $a3 = @cities.first(*<name>.match: /^A/).<population>;

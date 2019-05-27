@@ -10,7 +10,7 @@
 # This implementation takes a starting directory (defaults to the current directory) and has a few flags to set behaviour: --minsize, minimum file size to look at, defaults to 5 bytes; and --recurse, recurse into the directory structure, default True. It finds files of the same size, calculates hashes to compare, then reports files that hash the same. Uses the very fast but cryptographically poor xxHash library to hash the files.
 
 use Digest::xxHash;
- 
+
 #sub MAIN( $dir = '.', :$minsize = 5, :$recurse = True ) {
 sub MAIN( $dir = 'bin', :$minsize = 5, :$recurse = True ) {
     my %files;
@@ -24,7 +24,7 @@ sub MAIN( $dir = 'bin', :$minsize = 5, :$recurse = True ) {
             }
         }
     }
- 
+
     my @res;
     for %files.sort( +*.key ).grep( *.value.elems > 1)».kv -> ($size, @list) {
         my %dups;
@@ -40,7 +40,7 @@ sub MAIN( $dir = 'bin', :$minsize = 5, :$recurse = True ) {
     use Test;
     ok @res[0] ~~ m['rc-jvm' .* 'rc-moar'];
 }
- 
+
 sub scale ($bytes) {
     given $bytes {
         when $_ < 2**10 {  $bytes                    ~ ' B'  }

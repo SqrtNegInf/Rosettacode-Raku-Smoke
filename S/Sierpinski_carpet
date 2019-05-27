@@ -16,7 +16,7 @@ sub carpet
        ]
     } ... *).map: { .join("\n") };
 }
- 
+
 my @res1 = carpet[3];
 .say for @res1;
 
@@ -29,9 +29,9 @@ sub weave ( @c ) {
     |@c.map({ $_ x 3 })
    ]
 }
- 
+
 my @carpet = ( ['#'], &weave ... * ).map: { .join: "\n" };
- 
+
 my @res2 = @carpet[3];
 
 # Output of both versions matches task example.

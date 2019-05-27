@@ -12,7 +12,7 @@ my $fo = 'run/take-notes.txt';
 multi MAIN() {
     print slurp($fo);
 }
- 
+
 multi MAIN(*@note) {
     my $fh = open($fo, :a);
     $fh.say: $_ for @note;

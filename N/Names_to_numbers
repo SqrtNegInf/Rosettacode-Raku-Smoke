@@ -6,18 +6,18 @@
 #n# coded for niecza, maybe not salvageble for Rakudo?
 
 my $DEBUG = False;
- 
+
 my @M = ('ones', 'thousand',
     ((<m b tr quadr quint sext sept oct non>,
         (map { ('', <un duo tre quattuor quin sex septen octo novem>).flat X~ $_ },
         <dec vigint trigint quadragint quinquagint sexagint septuagint octogint nonagint>),
             'cent').flat X~ 'illion')).flat;
- 
+
 my %M = @M Z=> (1, 1_000, 1_000_000 ... *);
- 
+
 grammar Number-Names {
     token TOP { ^ [.*? <number>]* .* $ }
- 
+
     method returns {
     say callframe(1).code.name, ' -> ' if $DEBUG;
     self;
@@ -28,11 +28,11 @@ grammar Number-Names {
 #    --$pos while $pos and self.orig.substr($pos-1,1) ~~ /\s/;
 #    self.cursor($pos); # DH not in Rakudo
 #    }
- 
+
     token gotsome($oldself) {
     <?{ self.pos != $oldself.pos }>
     }
- 
+
     token number { :i «
     :my $*SOFAR = 0;
     [
@@ -45,7 +45,7 @@ grammar Number-Names {
 #    <.trimspace>
     <.returns>
     }
- 
+
     token group { :i
     <?{ $*SOFAR %% 1000 }>
     <hundreds> \s* <tweens($*SOFAR + $<hundreds>.ast)> \s* <zillions>
@@ -59,7 +59,7 @@ grammar Number-Names {
     }
     <.returns>
     }
- 
+
     token hundreds { :i
     [
     | <date> <!!{ !$*SOFAR }>     { make $<date>.ast }
@@ -70,7 +70,7 @@ grammar Number-Names {
     ]
     <.returns>
     }
- 
+
     token tweens($c = 0) { :i
     :my $*SOFAR = $c;
     \s*
@@ -90,7 +90,7 @@ grammar Number-Names {
     \s*
     <.returns>
     }
- 
+
     token tweeny {
     [
     | <ones>[\s+|\-]                  { make $<ones>.ast }
@@ -99,7 +99,7 @@ grammar Number-Names {
     | <tens>[[\s*|\-]<ones>]?[\s+|\-] { make $<tens>.ast + ($<ones> ?? $<ones>.ast !! 0) }
     ]
     }
- 
+
     token date { :i
     <tweeny>
     [
@@ -109,7 +109,7 @@ grammar Number-Names {
     | ['ought'|oh?][\s+|\-]<ones>    { make $<tweeny>.ast * 100 + $<ones>.ast }
     ]
     }
- 
+
     token scores { :i
     [
     | ['one'|'a']?['-'|\s*] 'score' { make 20 }
@@ -119,7 +119,7 @@ grammar Number-Names {
     ]
     <.returns>
     }
- 
+
     token teens { :i
     [
     | 'eleven'    { make 11 }
@@ -135,7 +135,7 @@ grammar Number-Names {
     ]
     <.returns>
     }
- 
+
     token tens { :i
         [
         | 'twent'[y|ie]  { make 20 }
@@ -149,7 +149,7 @@ grammar Number-Names {
         ]
         <.returns>
     }
- 
+
     token ones { :i
     [
     | 'one'              { make 1 }
@@ -171,7 +171,7 @@ grammar Number-Names {
     ]
     <.returns>
     }
- 
+
     token zillions { :i
     [
     | (\w+) <?{ %M{lc ~$0} }> { make +%M{lc ~$0} }
@@ -180,7 +180,7 @@ grammar Number-Names {
     ]
     <.returns>
     }
- 
+
     token quantnoun { :i
     \s*
     [
@@ -192,13 +192,13 @@ grammar Number-Names {
     <.returns>
     }
 }
- 
+
 sub commify($_) {
     /\d\d\d\d\d/
     ?? .flip.subst(/\d\d\d<?before \d>/, -> $/ {$/~','},:g).flip
     !! $_;
 }
- 
+
 sub MAINsub ($file = 'ref/numnames.dat') {
 gather {
     $DEBUG = True if $file eq '-';

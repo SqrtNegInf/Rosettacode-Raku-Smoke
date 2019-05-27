@@ -17,9 +17,9 @@ if $*VM ~~ /jvm/ {
 } else {
     @long-primes = lazy (1..*).grep(*.is-prime).hyper(:8degree, :8batch).grep({1+(1/$_).base-repeating[1].chars == $_});
 }
- 
+
 my @res = "Long primes ≤ 500:\n"~ @long-primes[^(@long-primes.first: * > 500, :k)];
- 
+
 @res.push: "\nNumber of long primes ≤ $_: "~ +@long-primes[^(@long-primes.first: * > $_, :k)]
   for 500, 1000, 2000, 4000;
   #for 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000;

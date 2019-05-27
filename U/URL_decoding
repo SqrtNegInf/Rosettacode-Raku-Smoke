@@ -6,7 +6,7 @@
 #N# java.util.regex.PatternSyntaxException: Unknown character property name {hexdigit} near index 11
 
 my $url = "http%3A%2F%2Ffoo%20bar%2F";
- 
+
 say my $out = $url.subst: :g,
     /'%'(<:hexdigit>**2)/,
     ->  ($ord          ) { chr(:16(~$ord)) }

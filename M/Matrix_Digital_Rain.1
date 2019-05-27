@@ -9,9 +9,9 @@
 # Kind of cheap and cheesy, but what the heck... Probably will only work in POSIX compatible terminal. Runs until you hit ^C to exit.
 
 signal(SIGINT).tap: { print "\e[H\e[J\e[?25h"; exit(0) }
- 
+
 my @codes = flat 'A' .. 'Z';
- 
+
 my ($rows,$cols) = qx/stty size/.words;
 
 my @c = flat  "\e[38;2;255;255;255m", (255,250 ... 30).map({"\e[38;2;0;$_;0m"}),
@@ -20,7 +20,7 @@ my $sz = +@c;
 my (@o, @s, @a);
 print "\e[?25l";
 init($rows, $cols);
- 
+
 loop {
      my ($r,$c) = qx/stty size/.words;
      init($r, $c) if $r != $rows or $c != $cols;
@@ -31,7 +31,7 @@ loop {
      }
      @s[(^@s).pick] = @codes.roll for ^30;
 }
- 
+
 sub init ($r, $c) {
     @s = @codes.roll($r * $c);
     ($rows,$cols) = $r, $c;

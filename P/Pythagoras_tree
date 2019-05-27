@@ -9,7 +9,7 @@
 # We'll generate a SVG image.
 
 my $out = open('run/pythagoras_tree.svg', :w);
- 
+
 class Square {
     has Complex ($.position, $.edge);
     method size { $!edge.abs }
@@ -29,16 +29,16 @@ class Square {
 	edge => sqrt(2)/2*cis(-pi/4)*$!edge;
     }
 }
- 
+
 #BEGIN say '<svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">';
 $out.say: '<svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">';
 END  { $out.say: '</svg>'; $out.close }
- 
+
 sub tree(Square $s, $level = 0) {
     return if $level > 8;
     $out.say: $s.svg-polygon;
     tree($s.left-child, $level+1);
     tree($s.right-child, $level+1);
 }
- 
+
 tree Square.new: :position(250+0i), :edge(60+0i);

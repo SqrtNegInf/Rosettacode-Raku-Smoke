@@ -9,7 +9,7 @@
 #`{{
 my @r = ( undef, 1 );
 my @s = ( undef, 2 );
- 
+
 sub ffsr {
   my $n = shift;
   while( $#r < $n ) {
@@ -18,7 +18,7 @@ sub ffsr {
   }
   return $n;
 }
- 
+
 sub ffr { $r[ffsr shift] }
 sub ffs { $s[ffsr shift] }
 }}
@@ -27,7 +27,7 @@ sub ffs { $s[ffsr shift] }
 
 my @r = [Nil, 1 ];
 my @s = [Nil, 2 ];
- 
+
 sub ffsr (@a) {
   my $n = @a;
   while +@r < $n {
@@ -36,7 +36,7 @@ sub ffsr (@a) {
   }
   $n;
 }
- 
+
 sub ffr (@a is copy) { @r[ repeat { ffsr(@a.shift) } while @a ] }
 sub ffs (@a is copy) { @s[ ffsr(@a.shift)] }
 #sub ffr (@a) { my @b = @a; @r[ repeat { ffsr(@b.shift) } while @b ] }

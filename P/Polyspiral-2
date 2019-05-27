@@ -10,12 +10,12 @@
 # Uses the same basic algorithm but fully animated. Use the up / down arrow keys to speed up / slow down the update speed. Use PgUp / PgDn keys to increment / decrement animation speed by large amounts. Use left / right arrow keys to reverse the "direction" of angle change. Press Space bar to toggle animation / reset to minimum speed. Left Control key to toggle stationary / rotating center. Use + / - keys to add remove line segments.
 
 use SDL2::Raw;
- 
+
 my $width  = 900;
 my $height = 900;
- 
+
 SDL_Init(VIDEO);
- 
+
 my $window = SDL_CreateWindow(
     'Polyspiral',
     SDL_WINDOWPOS_CENTERED_MASK,
@@ -23,11 +23,11 @@ my $window = SDL_CreateWindow(
     $width, $height,
     RESIZABLE
 );
- 
+
 my $render = SDL_CreateRenderer($window, -1, ACCELERATED +| PRESENTVSYNC);
- 
+
 my $event = SDL_Event.new;
- 
+
 enum KEY_CODES (
     K_UP     => 82,
     K_DOWN   => 81,
@@ -42,7 +42,7 @@ enum KEY_CODES (
     K_SPLUS  => 46,
     K_SMINUS => 45,
 );
- 
+
 my $angle = 0;
 my $lines = 240;
 my @rgb = palette($lines);
@@ -51,7 +51,7 @@ my $dir = 1;
 my $rot = 0;
 my $incr = .0001/π;
 my $step = $incr*70;
- 
+
 main: loop {
     while SDL_PollEvent($event) {
         my $casted_event = SDL_CastEvent($event);
@@ -84,7 +84,7 @@ main: loop {
             }
         }
     }
- 
+
     $angle = ($angle + $dir * $step) % τ;
     ($x1, $y1) = $width div 2, $height div 2;
     my $dim = $width min $height;
@@ -103,11 +103,11 @@ main: loop {
     SDL_SetRenderDrawColor($render, 0, 0, 0, 0);
     SDL_RenderClear($render);
 }
- 
+
 SDL_Quit();
- 
+
 sub palette ($l) { (^$l).map: { hsv2rgb(($_ * 360/$l % 360)/360, 1, 1).list } };
- 
+
 sub hsv2rgb ( $h, $s, $v ){ # inputs normalized 0-1
     my $c = $v * $s;
     my $x = $c * (1 - abs( (($h*6) % 2) - 1 ) );

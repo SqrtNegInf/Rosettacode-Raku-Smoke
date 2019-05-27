@@ -13,7 +13,7 @@ sub reset {
     @left  = <HXUCZVAMDSLKPEFJRIGTWOBNYQ>.comb;
     @right = <PTLNBQDEOYSFAVZKGJRIHWXUMC>.comb;
 }
- 
+
 sub encode ($letter) {
     my $index = (@right.grep: $letter.uc, :k)[0];
     my $enc   = @left[$index];
@@ -21,7 +21,7 @@ sub encode ($letter) {
     right-permute(@right, $index);
     $enc
 }
- 
+
 sub decode ($letter) {
     my $index = (@left.grep: $letter.uc, :k)[0];
     my $dec   = @right[$index];
@@ -29,17 +29,17 @@ sub decode ($letter) {
     right-permute(@right, $index);
     $dec
 }
- 
+
 sub right-permute (@right, $index) {
     @right .= rotate: $index + 1;
     @right[2..13] .= rotate
 }
- 
+
 sub left-permute (@left, $index) {
     @left .= rotate: $index;
     @left[1..13] .= rotate
 }
- 
+
 my @res;
 reset; @res.push: 'WELLDONEISBETTERTHANWELLSAID'.comb».&encode.join;
 reset; @res.push: 'OAHQHCNYNXTSZJRRHJBYHQKSOUJY'.comb».&decode.join;

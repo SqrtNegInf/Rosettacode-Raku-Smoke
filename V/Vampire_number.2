@@ -16,13 +16,13 @@ sub is_vampire (Int $num) {
     }
     return @fangs;
 }
- 
+
 constant @vampires = gather for 1 .. * -> $n {
     next if $n.log(10).floor %% 2;
     my @fangs = is_vampire($n);
     take "$n: { @fangs.join(', ') }" if @fangs.elems;
 }
- 
+
 #say "\nFirst 25 Vampire Numbers:\n";
 #.say for @vampires[^25];
 
@@ -34,9 +34,9 @@ is @vampires[^7], $ref;
 is is_vampire(14593825548650), '';
 is is_vampire(16758243290880), '1982736 x 8452080 2123856 x 7890480 2751840 x 6089832 2817360 x 5948208';
 exit;
- 
+
 say "\nIndividual tests:\n";
- 
+
 for 16758243290880, 24959017348650, 14593825548650 {
     print "$_: ";
     my @fangs = is_vampire($_);
@@ -46,7 +46,7 @@ for 16758243290880, 24959017348650, 14593825548650 {
          say 'is not a vampire number.';
     }
 }
- 
+
 sub vfactors (Int $n) {
    map { $_ if $n %% $_ }, 10**$n.sqrt.log(10).floor .. $n.sqrt.ceiling;
 }

@@ -6,7 +6,7 @@
 #n# error gone after switching 'factors' algorithm (cf Count_in_factors')
 
 constant @primes = 2, |(3, 5, 7 ... *).grep: *.is-prime;
- 
+
 multi factors ( 1 ) { 1 }
 multi factors($n is copy) {
     $n == 1 ?? 1 !!
@@ -21,11 +21,11 @@ multi factors($n is copy) {
 }
 
 # Code above here is verbatim from RC 'Count_in_factors', 2nd version
- 
+
 sub is_smith_number ( Int $n ) {
   (!$n.is-prime) and ( [+] $n.comb ) == ( [+] factors($n).join.comb );
 }
- 
+
 my @s = grep &is_smith_number, 2 ..^ 10_000;
 say "{@s.elems} Smith numbers below 10_000";
 say 'First 10: ', @s[  ^10      ];

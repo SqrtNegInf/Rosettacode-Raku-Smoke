@@ -18,20 +18,20 @@ sub is_vampire (Int $num) {
     }
     @fangs
 }
- 
+
 constant @vampires = flat (3..*).map: -> $s, $e {
     (10**$s .. 10**$e).hyper.map: -> $n {
         next unless my @fangs = is_vampire($n);
         "$n: { @fangs.join(', ') }"
     }
 }
- 
+
 @res.push: "\nFirst 25 Vampire Numbers:\n";
- 
+
 @res.push: $_ for @vampires[^25];
- 
+
 @res.push: "\nIndividual tests:\n";
- 
+
 @res.push: $_ for (16758243290880, 24959017348650, 14593825548650).hyper(:1batch).map: {
     "$_: " ~ (is_vampire($_).join(', ') || 'is not a vampire number.')
 }

@@ -17,7 +17,7 @@ my @mian-chowla = 1, |(2..Inf).map: -> $test {
     ++$index;
     $test
 };
- 
+
 @res.push: "First 30 terms in the Mian–Chowla sequence:\n" ~ @mian-chowla[^30];
 @res.push: "\nTerms 91 through 100:\n" ~ @mian-chowla[90..99];
 

@@ -12,27 +12,27 @@
 use Digest::SHA;
 constant @alpha2 = <ap  mm  zy>;
 constant @alpha3 = <ple mmm zzx>;
- 
+
 my %WANTED = set <
     3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b
     74e1bb62f8dabb8125a58852b63bdf6eaef667cb56ac7f7cdba6d7305c50a22f
     1115dd800feaacefdf481f1f9070374a2a81e27880f187396db67958b207cbad
 >;
- 
+
 sub find_it ( $first_two ) {
     return gather for $first_two «~« @alpha3 -> $password {
         my $digest_hex = sha256($password).list.fmt('%02x', '');
         take "$password => $digest_hex" if %WANTED{$digest_hex};
     }
 }
- 
+
 my @res;
 
 @res.push: $_ for flat @alpha2.map: *.&find_it;  # not slower than any of below
 #@res = @alpha2.race(:batch(@alpha2 / 5)).map: *.&find_it.cache;
 #@res.push: $_ for flat @alpha2.race(:1batch).map: *.&find_it.cache;
 #@res.push: $_ for flat @alpha2.hyper.map: *.&find_it.cache;
- 
+
 .say for @res;
 
 #`{{

@@ -5,7 +5,7 @@
 #j#  JVM: OK
 
 use URI;
- 
+
 my @test-uris = <
     foo://example.com:8042/over/there?name=ferret#nose
     urn:example:animal:ferret:nose
@@ -19,11 +19,11 @@ my @test-uris = <
     telnet://192.0.2.16:80/
     urn:oasis:names:specification:docbook:dtd:xml:4.1.2
 >;
- 
+
 my $u = URI.new;
 
 my @res;
- 
+
 for @test-uris -> $uri {
     my $temp = ("URI:", $uri); $temp ~= "\n";
         $u.parse($uri);

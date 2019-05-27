@@ -7,9 +7,9 @@
 my @res;
 
 my @words = <abcd dcba lls s sssll Nod don't>; #'
- 
+
 sub is-palindrome (Str $s) { $_ eq .flip given $s.lc.comb(/\w/).join }
- 
+
 for @words.combinations(2)  { 
     @res.push: "({.join: ','})" if .join.&is-palindrome;
     @res.push: "({.reverse.join: ','})" if .reverse.join.&is-palindrome;

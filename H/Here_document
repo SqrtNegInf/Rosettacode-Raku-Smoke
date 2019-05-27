@@ -11,7 +11,7 @@
 # The indentation of the end marker is removed from every line.
 
 my $color = 'green';
- 
+
 my $text = qq :to 'END';
     some line
     color: $color
@@ -40,13 +40,13 @@ say '=====';
 # Both q and qq are specialised forms of Q which comes with many adverbs. Here a heredoc that only interpolates @-sigils.
 
 my @a = <1 2 3 4>;
- 
+
 my $s = Q :array :to 'EOH';
     123 \n '"`
         @a$bc
         @a[]
     EOH
- 
+
 say $s;
 
 use Test;

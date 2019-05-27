@@ -16,7 +16,7 @@ if $*VM ~~ /jvm/ {
 @res.push: .&ws for slurp("ref/word-count.txt").comb.Bag.sort: { -.value, .key }
 }
 .say for @res[0..15]; say '...'; .say for @res[*-15..*];
- 
+
 sub ws ($pair) { 
     $pair.key ~~ /\n/
     ?? ('NEW LINE' => $pair.value)

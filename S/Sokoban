@@ -52,12 +52,12 @@ is stdout-from(&testcode), $out;
 #is stderr-from(&testcode), $err;
 
 }
- 
+
 class State {
     has Str $.board;
     has Str $.sol;
     has Int $.pos;
- 
+
     method move(Int $delta --> Str) {
         my $new = $!board;
         if $new.substr($!pos,1) eq '@' {
@@ -73,7 +73,7 @@ class State {
         }
         return $new;
     }
- 
+
     method push(Int $delta --> Str) {
         my $pos := $!pos + $delta;
         my $box := $pos + $delta;
@@ -97,7 +97,7 @@ class State {
         return $new;
     }
 }
- 
+
 sub solve(Str $start --> Str) {
     my $board = $start;
     my $width = $board.lines[0].chars + 1;
@@ -106,9 +106,9 @@ sub solve(Str $start --> Str) {
         ["r", "R", 1],
         ["d", "D", $width],
         ["l", "L", -1];
- 
+
     my %visited = $board => True;
- 
+
     my $pos = $board.index('@');
     my @open = State.new(:$board, :sol(''), :$pos);
     while @open {

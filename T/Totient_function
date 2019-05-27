@@ -10,9 +10,9 @@ my @res;
 # This is an incredibly inefficient way of finding prime numbers.
 
 my \𝜑 = 0, |(1..*).hyper(:8degree).map: -> $t { +(^$t).grep: * gcd $t == 1 };
- 
+
 @res.push: sprintf "𝜑(%2d) = %3d %s", $_, 𝜑[$_], $_ - 𝜑[$_] - 1 ?? '' !! 'Prime' for 1 .. 25;
- 
+
 (100, 1000, 10000).map: -> $limit {
     @res.push: "\nCount of primes <= $limit: " ~ +(^$limit).grep: {$_ == 𝜑[$_] + 1}
 }

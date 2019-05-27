@@ -9,7 +9,7 @@
 constant @floyd1 = (1..*).rotor(1..*);
 
 constant @floyd2 = gather for 1..* -> $s { take [++$ xx $s] }
- 
+
 sub format-rows(@f) {
     my @table;
     my @formats = @f[@f-1].map: {"%{.chars}s"}
@@ -18,7 +18,7 @@ sub format-rows(@f) {
     }
     join "\n", @table;
 }
- 
+
 say my $result1 = format-rows(@floyd1[^14]);
 say '';
 say my $result2 = format-rows(@floyd2[^14]);

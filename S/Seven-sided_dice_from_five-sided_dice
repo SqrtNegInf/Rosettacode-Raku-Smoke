@@ -28,7 +28,7 @@ for @dist.kv -> $i, $v {
     @res.push: "$i $v " ~ (($v - $expect)/$expect*100).fmt("%+.2f%%") if $v;
 }
 .say for @res; exit;
- 
+
 my $moar = qq:to/END/;
 Expect 14285.714
 1 14266 -0.14%

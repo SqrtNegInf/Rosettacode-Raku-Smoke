@@ -19,7 +19,7 @@ sub farey ($order) {
     (1..$order).map: { push @l, |(1..$^d).map: { $^n/$d } } 
     unique gather @l.deepmap(*.take);
 }
- 
+
 my @res.push: "Farey sequence order ";
 @res.push: "$_: " ~ .&farey.sort.map: *.nude.join('/') for 1..11;
 @res.push: "Farey sequence order $_ has " ~ [.&farey].elems ~ ' elements.' for 100, 200 ... 1000;

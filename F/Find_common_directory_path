@@ -8,16 +8,16 @@ my $sep = '/';
 my @dirs = </home/user1/tmp/coverage/test
             /home/user1/tmp/covert/operator
             /home/user1/tmp/coven/members>;
- 
+
 my @comps = @dirs.map: { [ .comb(/ $sep [ <!before $sep> . ]* /) ] }; 
- 
+
 my $prefix = '';
- 
+
 while all(@comps[*]»[0]) eq @comps[0][0] {
     $prefix ~= @comps[0][0] // last;
     @comps».shift;
 }
- 
+
 say "The longest common path is $prefix";
 use Test;
 is $prefix, '/home/user1/tmp';
@@ -25,7 +25,7 @@ is $prefix, '/home/user1/tmp';
 #Or here's another factoring, that focuses on building the result with cumulative sequences and getting the solution with `first`:
 
 sub is_common_prefix { so $^prefix eq all(@dirs).substr(0, $prefix.chars) }
- 
+
 say 'The longest common path is ' ~ my $result1 = ([\~] @dirs.comb(/ $sep [ <!before $sep> . ]* /)).reverse.first: &is_common_prefix;
 is $result1, '/home/user1/tmp';
 
@@ -34,9 +34,9 @@ my $sepp := '/';
 my @dirss := </home/user1/tmp/coverage/test
              /home/user1/tmp/covert/operator
              /home/user1/tmp/coven/members>;
- 
+
 @comps = @dirss.map: { [ .comb(/ $sepp [ <!before $sepp> . ]* /) ] };
- 
+
 my @result2 = 
     gather for 0..* -> $column {
         last unless all(@comps[*]»[$column]) eq @comps[0][$column];

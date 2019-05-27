@@ -12,12 +12,12 @@ sub div-count (\x) {
         unless x % d { my \y = x div d; y == d ?? y !! (y, d) }
     }
 }
- 
+
 my $limit = 20;
- 
+
 my @primes = grep { .is-prime }, 1..*;
 @primes[$limit]; # prime the array. SCNR
- 
+
 @res.push: "First $limit terms of OEIS:A073916";
 @res.push: (1..$limit).hyper(:2batch).map: -> $n {
     ($n > 4 and $n.is-prime) ??

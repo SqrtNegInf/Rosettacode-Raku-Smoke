@@ -23,7 +23,7 @@ sub chess960 {
     first rx/ '♝' [..]* '♝' /,
     < ♛ ♜ ♜ ♜ ♝ ♝ ♞ ♞ >.pick(*).join xx *;
 }
- 
+
 say my $result = chess960;
 is $result, '♞♞♜♝♛♚♝♜' if $*VM ~~ /moar/;
 is $result, '♜♞♚♝♜♞♝♛' if $*VM ~~ /jvm/;
@@ -57,7 +57,7 @@ constant chess960-const2 = gather for 0..3 -> $q {
         }
     }
 }
- 
+
 #CHECK { note "done compiling" }
 is +chess960-const2, 960;
 #say chess960-const2.pick;

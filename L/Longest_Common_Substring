@@ -14,7 +14,7 @@ sub createSubstrings( Str $word --> Array ) {
    }
    return @substrings ;
 }
- 
+
 sub findLongestCommon( Str $first , Str $second --> Str ) {
    my @substringsFirst = createSubstrings( $first ) ;
    my @substringsSecond = createSubstrings( $second ) ;
@@ -23,7 +23,7 @@ sub findLongestCommon( Str $first , Str $second --> Str ) {
    my $common = $firstset (&) $secondset ;
    return $common.keys.sort({$^b.chars <=> $^a.chars})[0] ;
 }
- 
+
 #sub MAIN( Str $first , Str $second ) {
    my $first = 'thisisatest'; my $second = 'testing123testing';
    say "The longest common substring of $first and $second is {findLongestCommon( $first , $second ) } !" ;

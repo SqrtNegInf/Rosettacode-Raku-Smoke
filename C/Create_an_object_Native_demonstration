@@ -17,7 +17,7 @@ class FixedHash {
         }
         method DELETE-KEY($key) { $!hash.{$key} = Nil }
 }
- 
+
 use Test;
 use Test::Output;
 
@@ -61,12 +61,12 @@ class Magic {
         multi method FALLBACK($name, |c) is rw { # this will eat any extra parameters
                 %.hash{$name}
         }
- 
+
         multi method FALLBACK($name) is rw {
                 %.hash{$name}
         }
 }
- 
+
 my $magic = Magic.new;
 say $magic.foo = 10;
 is $magic.foo, '10';

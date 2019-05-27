@@ -13,11 +13,11 @@ class BFInterpreter {
     has @!input_buffer;
     has $!m;
     has $!c;
- 
+
     method new (Str $code) {
         BFInterpreter.bless(code => $code.lines.comb);
     }
- 
+
     method run {
         my $output;
         $!c = 0;
@@ -46,7 +46,7 @@ class BFInterpreter {
         }
         return $output;
     }
- 
+
     method !jump {
         my $depth = 1;
         while $depth {
@@ -57,14 +57,14 @@ class BFInterpreter {
         }
     }
 }
- 
+
 # Test: "Hello World" program:
- 
+
 my $code = "++++++++++
            [>+++++++>++++++++++>+++>+<<<<-]
            >++.>+.+++++++..+++.>++.<<+++++++++++++++.>.
            +++.------.--------.>+.>.";
- 
+
 my $bfi = BFInterpreter.new($code);
 say my $result = $bfi.run;
 

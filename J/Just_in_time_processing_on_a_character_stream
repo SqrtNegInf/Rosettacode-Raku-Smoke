@@ -12,14 +12,14 @@ implementation of Perl 6 to encode / decode.
 Gain "security" by exchanging keys by a second
 channel. Default key is 'Perl 6'
 ]
- 
+
 unit sub MAIN ($key = 'Perl 6');
- 
+
 srand $key.comb(/<.alnum>/).join.parse-base(36) % 2**63;
- 
+
 # random but reproducible infinite stream of characters
 my @stream = (flat ' ' .. '~').roll(*);
- 
+
 sub jit-encode (Str $str) {
     my $i = 0;
     my $last = 0;
@@ -37,7 +37,7 @@ sub jit-encode (Str $str) {
     }
     $enc
 }
- 
+
 sub jit-decode (Str $str) {
     $str ~~ m:g/((.*?) (<:Ll>))/;
     my $dec = '';
@@ -50,9 +50,9 @@ sub jit-decode (Str $str) {
     }
     $dec
 }
- 
+
 my $enc = jit-encode('In my opinion, this task is pretty silly.');
- 
+
 say my $result = "Encoded\n$enc\n\nDecoded\n" ~ jit-decode($enc);
 
 my $ref = q:to/END/;

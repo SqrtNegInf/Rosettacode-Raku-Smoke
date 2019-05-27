@@ -11,7 +11,7 @@ my $result;
 
 sub benford1(@a) { bag +« flat @a».comb: /<( <[ 1..9 ]> )> <[ , . \d ]>*/ }
 sub benford2(@a) { bag +« @a».substr(0,1) }
- 
+
 sub show(%distribution) {
     $result = '';
     printf "%9s %9s  %s\n", <Actual Expected Deviation>;
@@ -23,7 +23,7 @@ sub show(%distribution) {
           $digit, $actual, $expected, abs($expected - $actual);
     }
 }
- 
+
 #multi MAIN($file) { show benford $file.IO.lines }
 multi MAIN() { 
 my $ref = '30.1 17.7 12.5 9.6 8 6.7 5.6 5.3 4.5 ';

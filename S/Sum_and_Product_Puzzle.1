@@ -9,19 +9,19 @@
 
 sub sums (Int $n) { ($_, $n - $_ for 2 .. $n div 2) }
 sub grep-unique (&by, @list) { @list.classify(&by).values.grep(* == 1).map(*[0]) }
- 
+
 my @all-pairs = (|($_ X $_+1 .. 98) for 2..97);
- 
+
 # Fact 1:
 my %products-unique := set map ~*, grep-unique { [*] |$_ }, @all-pairs;
 my @s-pairs = @all-pairs.grep: { none (%products-unique{~$_} for sums [+] $_) };
- 
+
 # Fact 2:
 my @p-pairs = grep-unique { [*] |$_ }, @s-pairs;
- 
+
 # Fact 3:
 my @final-pairs = grep-unique { [+] |$_ }, @p-pairs;
- 
+
 printf "X = %d, Y = %d\n", |$_ for @final-pairs;
 
 # X = 4, Y = 13

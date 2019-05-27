@@ -17,13 +17,13 @@ my $cache := nqp::list_i();
 nqp::bindpos_i($cache, 650, 0);
 nqp::bindpos_i($cache, 1, 1);
 nqp::bindpos_i($cache, 89, 89);
- 
+
 sub Euler92(int $n) {
     $n < 650
 	?? nqp::bindpos_i($cache,$n,ids($n))
 	!! ids($n)
 }
- 
+
 sub ids(int $num --> int) {
     my int $n = $num;
     my int $ten = 10;
@@ -41,7 +41,7 @@ sub ids(int $num --> int) {
     }
     $n;
 }
- 
+
 my int $cnt = 0;
 for 1 .. 100_000_000 -> int $n {
    $cnt = $cnt + 1 if Euler92($n) == 89;

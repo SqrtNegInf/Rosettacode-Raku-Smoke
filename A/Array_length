@@ -10,16 +10,16 @@
 my @res;
 
 my @array = <apple orange banana>;
- 
+
 @res.push: @array.elems;  # 3
 @res.push: elems @array;  # 3
 @res.push: +@array;       # 3
 @res.push: @array + 1;    # 4
- 
+
 #Watch out for infinite/lazy arrays though. You can't get the length of those.
 
 my @infinite = 1 .. Inf;  # 1, 2, 3, 4, ...
- 
+
 @res.push: @infinite[5000];  # 5001
 #@res.push: @infinite.elems;  # Throws exception "Cannot .elems a lazy list"
 

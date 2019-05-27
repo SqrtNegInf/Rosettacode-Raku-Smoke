@@ -15,21 +15,21 @@ class FizzBuzz {
         return $fb || $this;
     }
 }
- 
+
 # Sub implementing the specific requirements of the task.
 sub GeneralFizzBuzz (Int $upto, @schema?) {
     my $ping = FizzBuzz.new;
     $ping.schema = @schema.hash if @schema;
     map { $ping.filter: $_ }, 1 .. $upto;
 }
- 
+
 my @res;
 
 # The task
 @res.push: 'Using: 20 ' ~ <3 Fizz 5 Buzz 7 Baxx>;
 @res.push: join ' ', GeneralFizzBuzz(20, <3 Fizz 5 Buzz 7 Baxx>);
 @res.push: '';
- 
+
 @res.push: 'Same result via alternate algorithm:';
 @res.push: genfizzbuzz1(20, <3 Fizz 5 Buzz 7 Baxx>);
 @res.push: '';

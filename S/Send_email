@@ -9,7 +9,7 @@ my @res;
 
 # Reference: https://github.com/retupmoca/p6-Email-Simple
 use Email::Simple;
- 
+
 my $raw-mail-text = q:to/EML/;
 Hi 
 Hello
@@ -17,7 +17,7 @@ Good day
 EML
 
 my $eml = Email::Simple.new($raw-mail-text);
- 
+
 my $new = Email::Simple.create(header => [['To', 'a@b.com'],
                                           ['From', 'b@c.com'],
                                           ['Subject', 'Woof'],
@@ -42,10 +42,10 @@ is $result, chomp $ref;
 # Note that the following will fail without an actual smtp server that
 # will accept anonymous emails on port 25 (Not very common anymore).
 # Most public email servers now require authentication and encryption.
- 
+
 my $smtp-server = 'smtp.example.com';
 my $smtp-port   = 25;
- 
+
 await IO::Socket::Async.connect($smtp-server, $smtp-port).then(
     -> $smtp {
         if $smtp.status {

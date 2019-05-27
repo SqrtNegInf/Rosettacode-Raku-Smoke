@@ -29,12 +29,12 @@ part is clear enough; driver not so much. Perhaps this will suffice.
 }
 
 use Lingua::EN::Numbers::Cardinal;
- 
+
 my @res.push: sprintf( "\%16s : %s", $_, ordinal($_) ) for
- 
+
 # Required tests
 |<1 2 3 4 5 11 65 100 101 272 23456 8007006005004003>,
- 
+
 # Optional tests
 |<123 00123.0 1.23e2>;
 

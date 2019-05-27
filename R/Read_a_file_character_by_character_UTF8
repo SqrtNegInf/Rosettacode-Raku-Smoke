@@ -11,9 +11,9 @@
 
 # Or, from a file:
 my $filename = 'ref/test.txt';
- 
+
 my $in = open( $filename, :r ) orelse .die;
- 
+
 my @res.push: $_ while defined $_ = $in.getc;
 
 .say for @res;

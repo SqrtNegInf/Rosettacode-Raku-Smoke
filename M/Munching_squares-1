@@ -8,13 +8,13 @@
 #    another way more colorful put into separate file: 'Munching_squares_color'
 
 my $ppm = open("run/munching.ppm", :w) orelse .die;
- 
+
 $ppm.print(q :to 'EOT');
 P3
 256 256
 255
 EOT
- 
+
 for 0 .. 255 -> $row {
     for 0 .. 255 -> $col {
         my $color = $row +^ $col;
@@ -22,5 +22,5 @@ for 0 .. 255 -> $row {
     }
     $ppm.say();
 }
- 
+
 $ppm.close();

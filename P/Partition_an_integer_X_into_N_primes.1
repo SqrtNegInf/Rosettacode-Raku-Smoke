@@ -6,9 +6,9 @@
 #j#  JVM: OK
 
 my @primes = lazy gather for 1 .. * { .take if $_.is-prime }; # lazy infinite list of primes
- 
+
 multi partition ( Int $number, 1 ) { $number.is-prime ?? $number !! [] } # short circuit for '1' partition
- 
+
 multi partition ( Int $number, Int $parts where * > 0 = 2 ) {
     my @these = @primes[ ^( @primes.first: * > $number, :k ) ];
     for @these.combinations($parts) -> @this { return @this if @this.sum == $number }

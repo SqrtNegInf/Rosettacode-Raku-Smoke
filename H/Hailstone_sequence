@@ -6,11 +6,11 @@
 
 #sub hailstone($n) { $n, { ($_ % 2 == 0) ?? $_ div 2 !! $_ * 3 + 1 } ... 1 }  # someone on RC thought this was faster? not really
 sub hailstone($n) { $n, { $_ %% 2 ?? $_ div 2 !! $_ * 3 + 1 } ... 1 }
- 
+
 my @h = hailstone(27);
 say "Length of hailstone(27) = {+@h}";
 say ~@h;
- 
+
 #XX# my $m = max (+hailstone($_) => $_ for 1..9_999);
 
 my $m = max ( (1..9_999).race.map: { +hailstone($_) => $_ } ); 

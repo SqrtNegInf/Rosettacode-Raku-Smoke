@@ -19,23 +19,23 @@ my @format = ( # arbitrary and made up record format
     'field d' => { offset => 14, length => 1, type => 'Str' },
     'field e' => { offset => 15, length => 5, type => 'Str' }
 );
- 
+
 my $record-length = @format[*]».value».<length>.sum;
- 
+
 my $in = 'ref/sfc.dat'.IO.open :r :bin;
- 
+
 say "Input data as read from $in:";
 @res1.push: get-record($in, $record-length) until $in.eof;
- 
+
 # not going to bother to actually write out to a file, if you really want to,
 # supply a file handle to a local file
 #say "\nOutput:";
 #my $outfile = $*OUT; # or some other filename, whatever.
- 
+
 for @res1 -> $r {
     @res2.push: sprintf( "%-5s%s%08x%5s", flat $r.{'field a','field d','field c'}, 'xxxxx' );
 }
- 
+
 sub get-record($fh, $bytes) {
     my $record = $fh.read($bytes);
     return ().Slip unless $record.elems == $bytes;

@@ -8,7 +8,7 @@
 # There is a variation of a Hilbert curve known as a Moore curve which is essentially 4 Hilbert curves joined together in a loop.
 
 use SVG;
- 
+
 my $fh = open("run/moore_curve.svg", :w) || die;
 
 role Lindenmayer {
@@ -17,12 +17,12 @@ role Lindenmayer {
         self.comb.map( { %!rules{$^c} // $c } ).join but Lindenmayer(%!rules)
     }
 }
- 
+
 my $moore = 'AFA+F+AFA' but Lindenmayer( { A => '-BF+AFA+FB-', B => '+AF-BFB-FA+' } );
- 
+
 $moore++ xx 6;
 my @points = (327, 647);
- 
+
 for $moore.comb {
     state ($x, $y) = @points[0,1];
     state $d = 0 - 5i;
@@ -30,7 +30,7 @@ for $moore.comb {
     when /< + - >/ { $d *= "{$_}1i" }
     default { }
 }
- 
+
 $fh.say: SVG.serialize(
     svg => [
         :660width, :660height, :style<stroke:darkviolet>,

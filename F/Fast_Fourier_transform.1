@@ -14,7 +14,7 @@ sub fft {
     map &cis, (0, -tau / @_ ... *);
     return flat @evn »+« @odd, @evn »-« @odd;
 }
- 
+
 my @res1.push: $_ for fft <1 1 1 1 0 0 0 0>;
 .say for @res1;
 

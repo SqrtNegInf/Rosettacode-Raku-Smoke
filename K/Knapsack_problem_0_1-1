@@ -5,7 +5,7 @@
 #j#  JVM: OK
 
 my class KnapsackItem { has $.name; has $.weight; has $.unit; }
- 
+
 multi sub pokem ([],           $,  $v = 0) { $v }
 multi sub pokem ([$,  *@],     0,  $v = 0) { $v }
 multi sub pokem ([$i, *@rest], $w, $v = 0) {
@@ -19,7 +19,7 @@ multi sub pokem ([$i, *@rest], $w, $v = 0) {
     return (%cache{$key} = |@skip).list;
   }
 }
- 
+
 my $MAX_WEIGHT = 400;
 my @table = flat map -> $name,  $weight,  $unit {
      KnapsackItem.new: :$name, :$weight, :$unit;
@@ -46,7 +46,7 @@ my @table = flat map -> $name,  $weight,  $unit {
     'towel',                   18,  12,
     'socks',                    4,  50,
     'book',                    30,  10;
- 
+
 my ($value, @res) = pokem @table, $MAX_WEIGHT;
 say "Value = $value\nTourist put in the bag:\n  " ~ @res;
 

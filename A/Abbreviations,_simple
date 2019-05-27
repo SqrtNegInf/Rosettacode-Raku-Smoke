@@ -21,7 +21,7 @@ my %abr = '' => '', |$/.map: {
     |map { $abbrv.substr( 0, $_ ) => $abbrv.uc },
     +(.[1].Str || .[0].Str.chars) .. .[0].Str.chars;
 };
- 
+
 sub abbr-simple ( $str ) { %abr{$str.trim.fc} // '*error*' }
 
 my @res;

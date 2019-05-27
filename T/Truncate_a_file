@@ -9,9 +9,9 @@ die 'NativeCall...' if $*VM ~~ /jvm/;
 
 # Works with: Rakudo Star version 2013-02
 use NativeCall;
- 
+
 sub truncate(Str, int32 --> int32) is native {*}
- 
+
 sub MAINly ($file, $to = 100) {
     given $file.IO { 
         .e        or die "$file doesn't exist";

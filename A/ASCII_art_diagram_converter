@@ -15,13 +15,13 @@ grammar RFC1025 {
     token field  { \s* <label> \s* }
     token label { \w+[\s+\w+]* }
 }
- 
+
 sub bits ($item) { ($item.chars + 1) div 3 }
- 
+
 sub deconstruct ($bits, %struct) {
     map { $bits.substr(.<from>, .<bits>) }, @(%struct<fields>);
 }
- 
+
 sub interpret ($header) {
     my $datagram = RFC1025.parse($header);
     my %struct;
@@ -33,11 +33,11 @@ sub interpret ($header) {
     }
     %struct
 }
- 
+
 use experimental :pack;
- 
+
 my $diagram = q:to/END/;
- 
+
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
     |                      ID                       |
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -51,11 +51,11 @@ my $diagram = q:to/END/;
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
     |                    ARCOUNT                    |
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
- 
+
 END
- 
+
 my %structure = interpret($diagram);
- 
+
 my @res;
 @res.push: 'Line width: '~ %structure<line-width>~ ' bits';
 @res.push: sprintf("Name: %7s, bit count: %2d, bit %2d to bit %2d", .<ID>, .<bits>, .<from>, .<to>) for @(%structure<fields>);

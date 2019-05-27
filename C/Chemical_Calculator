@@ -35,7 +35,7 @@ my %ATOMIC_MASS =
 ;
 grammar Chemical_formula {
     my @ATOMIC_SYMBOLS = %ATOMIC_MASS.keys.sort;
- 
+
     rule  TOP      { ^ (<lparen>|<rparen>|<element>)+ $ }
     token quantity { \d+ }
     token lparen   { '(' }

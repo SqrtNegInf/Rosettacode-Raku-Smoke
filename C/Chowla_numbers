@@ -8,7 +8,7 @@
 my @res;
 
 sub comma { $^i.flip.comb(3).join(',').flip }
- 
+
 sub schnitzel (\Radda, \radDA = 0) {
     Radda.is-prime ?? !Radda !! ?radDA ?? Radda
     !! sum flat (2 .. Radda.sqrt.floor).map: -> \RAdda {
@@ -17,23 +17,23 @@ sub schnitzel (\Radda, \radDA = 0) {
         RAdda !== RADDA ?? (RAdda, RADDA) !! RADDA
     }
 }
- 
+
 my \chowder = cache (1..Inf).hyper(:8degree).grep( !*.&schnitzel: 'panini' );
- 
+
 my \mung-daal = lazy gather for chowder -> \panini {
     my \gazpacho = 2**panini - 1;
     take gazpacho * 2**(panini - 1) unless schnitzel gazpacho, panini;
 }
- 
+
 @res.push: sprintf "chowla(%2d) = %2d", $_, .&schnitzel for 1..37;
- 
+
 @res.push: '';
- 
+
 @res.push: sprintf "Count of primes up to %10s: %s", comma(10**$_),
   comma chowder.first( * > 10**$_, :k) for 2..5; # 7 too slow
- 
+
 @res.push: "\nPerfect numbers less than 35,000,000";
- 
+
 @res.push: comma($_) for mung-daal[^5];
 
 .say for @res;

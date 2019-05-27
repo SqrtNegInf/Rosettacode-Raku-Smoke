@@ -18,7 +18,7 @@ sub prime1($i) {
     my \limit = $i.sqrt.floor;
     @isprime[$i] //= so ($i %% none @primes ...^ { $_ > limit })
 }
- 
+
 my @res.push: "$_ is{ "n't" x !prime1($_) } prime." for 1 .. 100;
 .say for @res; 
 

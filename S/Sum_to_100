@@ -11,19 +11,19 @@ my @ops = ['-', ''], |( [' + ', ' - ', ''] xx 8 );
 my @str = [X~] map { .Slip }, ( @ops Z 1..9 );
 my %sol = @str.classify: *.subst( ' - ', ' -', :g )\
                           .subst( ' + ',  ' ', :g ).words.sum;
- 
+
 my %count.push: %sol.map({ .value.elems => .key });
- 
+
 my $max-solutions    = %count.max( + *.key );
 my $first-unsolvable = first { %sol{$_} :!exists }, 1..*;
 sub n-largest-sums (Int $n) { %sol.sort(-*.key)[^$n].fmt: "%8s => %s\n" }
- 
+
 my @res;
 given %sol{$sum}:p {
     @res.push: "{.value.elems} solutions for sum {.key}:";
     @res.push: "    $_" for .value.list;
 }
- 
+
 # DH change: fiddled with output because MOAR/JVM don't always have $max-solutions.value in same order
 @res.push: .gist for "max-solutions", $max-solutions.key, (sort flat $max-solutions.value), :$first-unsolvable, "$N largest sums:", n-largest-sums($N);
 .say for @res;

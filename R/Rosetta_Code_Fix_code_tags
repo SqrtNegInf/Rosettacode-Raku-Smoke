@@ -20,7 +20,7 @@ my @reallangs = <
     text thinbasic tsql typoscript vb vbnet verilog vhdl vim visualfoxpro
     visualprolog whitespace winbatch xml xorg_conf xpp z80
 >;
- 
+
 #$_ = slurp;
 $_ = 'Lorem ipsum <code foo>saepe audire</code> elaboraret ne quo, id equidem
 atomorum inciderint usu. <foo>In sit inermis deleniti percipit</foo>,
@@ -33,9 +33,9 @@ for @langs -> $l {
     s:g:i [ '<' 'lang '?  $l '>' ] = "<lang $l>";
     s:g [ '</' $l '>' ] = '</' ~ 'lang>';
 }
- 
+
 s:g [ '<code '(.+?) '>' (.*?) '</code>' ] = "<lang $0>{$1}</"~"lang>";
- 
+
 #.say;
 say my $result = $_;
 

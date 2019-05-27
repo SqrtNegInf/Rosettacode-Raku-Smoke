@@ -10,14 +10,14 @@ my @res;
 
 use Math::Primesieve;
 my $sieve = Math::Primesieve.new;
- 
+
 my $max = 1_000_035;
 my %primes = $sieve.primes($max) X=> 1;
- 
+
 my $primes = %primes.keys.categorize: { .&sexy }
- 
+
 @res.push: "Total primes less than {comma $max}: "~ comma +%primes.keys;
- 
+
 for <pair 2 triplet 3 quadruplet 4 quintuplet 5> -> $sexy, $cnt {
     @res.push: "Number of sexy prime {$sexy}s less than {comma $max}: "~ comma +$primes{$sexy};
     @res.push: "   Last 5 sexy prime {$sexy}s less than {comma $max}: "~
@@ -25,10 +25,10 @@ for <pair 2 triplet 3 quadruplet 4 quintuplet 5> -> $sexy, $cnt {
       { "({ $_ «+« (0,6 … 24)[^$cnt] })" }
     @res.push: '';
 }
- 
+
 @res.push: "Number of unsexy primes less than {comma $max}: "~ comma +$primes<unsexy>;
 @res.push: "  Last 10 unsexy primes less than {comma $max}: "~ $primes<unsexy>.sort(+*).tail(10);
- 
+
 sub sexy ($i) {
     (
         (so all(%primes{$i «+« (6,12,18,24)})) ?? 'quintuplet' !! Nil,
@@ -39,7 +39,7 @@ sub sexy ($i) {
         (so any(%primes{$i «+« (6, -6)     })) ?? 'sexy' !! 'unsexy'
     ).grep: *.defined
 }
- 
+
 sub comma { $^i.flip.comb(3).join(',').flip }
 
 .say for @res;

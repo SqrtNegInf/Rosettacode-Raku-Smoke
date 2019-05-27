@@ -11,7 +11,7 @@ my $h = floor $cols / 2 - 16;
 
 my @t = < ⡎⢉⢵ ⠀⢺⠀ ⠊⠉⡱ ⠊⣉⡱ ⢀⠔⡇ ⣏⣉⡉ ⣎⣉⡁ ⠊⢉⠝ ⢎⣉⡱ ⡎⠉⢱ ⠀⠶⠀>;
 my @b = < ⢗⣁⡸ ⢀⣸⣀ ⣔⣉⣀ ⢄⣀⡸ ⠉⠉⡏ ⢄⣀⡸ ⢇⣀⡸ ⢰⠁⠀ ⢇⣀⡸ ⢈⣉⡹ ⠀⠶⠀>;
- 
+
 loop {
     my @x = DateTime.now.Str.substr(11,8).ords X- ord('0');
     print "\e[H\e[J";

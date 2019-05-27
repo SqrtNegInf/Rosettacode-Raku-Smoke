@@ -11,9 +11,9 @@ die 'NativeCall...' if $*VM ~~ /jvm/;
 # Note: Buf $buf would be preferable, but NativeCall does not support Buf parameters, yet.
 
 use NativeCall;
- 
+
 sub crc32(int32 $crc, Str $buf, int32 $len --> int32) is native('/usr/lib/libz.dylib') { * }
- 
+
 my $buf = 'The quick brown fox jumps over the lazy dog';
 say my $out1 = crc32(0, $buf, $buf.chars).fmt('%08x');
 
@@ -31,14 +31,14 @@ sub crc(
     :@crcorder = 0..$n-1, # default: MSB of checksum is coefficient of x⁰
 ) {
     my @bit = flat ($buf.list X+& (1 X+< @bitorder))».so».Int, 0 xx $n; # DH change
- 
+
     @bit[0   .. $n-1] «+^=» @init;
     @bit[$_  ..$_+$n] «+^=» @poly if @bit[$_] for 0..@bit.end-$n;
     @bit[*-$n..  *-1] «+^=» @fini;
- 
+
     :2[@bit[@bit.end X- @crcorder]];
 }
- 
+
 say my $out2 = crc($buf.encode('ascii')).base(16);
 
 use Test;

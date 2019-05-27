@@ -9,9 +9,9 @@
 my $levels = 8;
 my $side   = 512;
 my $height = get_height($side);
- 
+
 sub get_height ($side) { $side * 3.sqrt / 2 }
- 
+
 sub triangle ( $x1, $y1, $x2, $y2, $x3, $y3, $fill?, $animate? ) {
     my $svg;
     $svg ~= qq{<polygon points="$x1,$y1 $x2,$y2 $x3,$y3"};
@@ -21,7 +21,7 @@ sub triangle ( $x1, $y1, $x2, $y2, $x3, $y3, $fill?, $animate? ) {
         !! ' />';
     return $svg;
 }
- 
+
 sub fractal ( $x1, $y1, $x2, $y2, $x3, $y3, $r is copy ) {
     my $svg;
     $svg ~= triangle( $x1, $y1, $x2, $y2, $x3, $y3 );
@@ -32,7 +32,7 @@ sub fractal ( $x1, $y1, $x2, $y2, $x3, $y3, $r is copy ) {
     $svg ~= fractal( $x2, $y1, $x2-$side/2, $y1-$height, $x2+$side/2, $y1-$height, $r);
     $svg ~= fractal( $x3, $y1, $x3-$side/2, $y1-$height, $x3+$side/2, $y1-$height, $r);
 }
- 
+
 my $fh = open('run/sierpinski_triangle.svg', :w) orelse .die;
 $fh.print: qq:to/EOD/,
 <?xml version="1.0" standalone="no"?>
@@ -46,7 +46,7 @@ $fh.print: qq:to/EOD/,
   </radialGradient>
 </defs>
 EOD
- 
+
 triangle( $side/2, 0, 0, $height, $side, $height, 'url(#basegradient)' ),
 triangle( $side/2, 0, 0, $height, $side, $height, '#000', 'animate' ),
 '<g style="fill: #fff; stroke-width: 0;">',

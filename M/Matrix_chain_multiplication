@@ -30,7 +30,7 @@ sub matrix-mult-chaining(@dimensions) {
     # so it has cost 0
     @cp[$_][$_] = 0 for @dimensions.keys;
     my @path;
- 
+
     my $n = @dimensions.end;
     for 1 .. $n -> $chain-length {
         for 0 .. $n - $chain-length - 1 -> $start {
@@ -63,7 +63,7 @@ sub matrix-mult-chaining(@dimensions) {
 
 @res.push: matrix-mult-chaining(<1 5 25 30 100 70 2 1 100 250 1 1000 2>);
 @res.push: matrix-mult-chaining(<1000 1 500 12 1 700 2500 3 2 5 14 10>);
- 
+
 .say for @res;
 
 my $ref = q:to/END/;

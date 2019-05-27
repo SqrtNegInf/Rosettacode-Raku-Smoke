@@ -23,6 +23,6 @@ $PPM.print: qq:to/EOH/;
     256 256 
     255
     EOH
- 
+
 $PPM.write: @colors[$_] for ^256 X+^ ^256;
 $PPM.close;

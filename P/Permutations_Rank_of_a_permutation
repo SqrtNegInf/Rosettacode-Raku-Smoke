@@ -10,15 +10,15 @@ srand 123456;
 # It is easy generate random inversion vector without BigInt.
 
 my @res;
- 
+
 sub rank2inv ( $rank, $n = * ) {
     $rank.polymod( 1 ..^ $n );
 }
- 
+
 sub inv2rank ( @inv ) {
     [+] @inv Z* [\*] 1, 1, * + 1 ... * 
 }
- 
+
 sub inv2perm ( @inv, @items is copy = ^@inv.elems ) {
     my @perm;
     for @inv.reverse -> $i {
@@ -26,13 +26,13 @@ sub inv2perm ( @inv, @items is copy = ^@inv.elems ) {
     }
     @perm;
 }
- 
+
 sub perm2inv ( @perm ) {     #not in linear time 
     (
         { @perm[++$ .. *].grep( * < $^cur ).elems } for @perm;  
     ).reverse;
 }    
- 
+
 for ^6 {
     my @row.push: $^rank;
     for ( *.&rank2inv(3) , &inv2perm, &perm2inv, &inv2rank )  -> &code {
@@ -40,27 +40,27 @@ for ^6 {
     }
     @res.push: @row.gist;
 }
- 
+
 my $perms =  4;      #100;
 my $n     = 12;      #144;
- 
+
 @res.push: 'Via BigInt rank';
 for ( ( ^([*] 1 .. $n) ).pick($perms) ) {
     @res.push: ($^rank.&rank2inv($n).&inv2perm).gist; 
 };
- 
+
 @res.push: 'Via inversion vectors';
 for ( { my $i=0;  inv2perm (^++$i).roll xx $n } ... *  ).unique( with => &[eqv] ).[^$perms] {
     @res.push: $_.gist;
 };
- 
+
 @res.push: 'Via Perl 6 method pick';
 for ( { [(^$n).pick(*)] } ... * ).unique( with => &[eqv] ).head($perms) {
     @res.push: $_.gist;
 };
 
 .say for @res;
- 
+
 my $moar = qq:to/END/;
 [0 (0 0 0) [0 1 2] (0 0 0) 0]
 [1 (0 1 0) [0 2 1] (0 1 0) 1]

@@ -7,41 +7,41 @@
 #n# bug first noticed 2019-03-15, but relevant Rakudo change could be earlier (as bug doesn't trigger every run)
 #n# 2019-04-01 regression caused by:
 #n#  https://github.com/MoarVM/MoarVM/commit/bc98cb9467ab2d5d408dff841f39ae8734a936a5
-    
+
 #`{{
     an intermittent two-part/two-pass bug related to 'spesh delay'?
-   
+
     the actual bug:
       Off-by-one for upper end of range '$i ^..^ @s', goes one past end of array IFF in the context of a 'for' loop.
       This leads to '@pairs' incorrectly containing valid strings being paired with 'Any'
       First seen: Rakudo version 2019.03-39-g23fca8f6f built on MoarVM version 2019.03-31-g6c7810ce7 (approx 2019-03-15)
-   
+
     conditions required to enable the bug:
       routine 'anastates' is called a 2nd (or 3rd) time
       both 'trigger A' and 'trigger B' are active
-   
+
     conditions that disable the bug:
       if either 'trigger A' or 'trigger B' is disabled (and a corresponding 'work-around' A/B is used)
       MVM_SPESH_NODELAY=1 is set
-    
+
     blin --custom-script gave kind of random answers, but this occurred twice, and the time-frame was right, significant?:
     (brackets the NQP bump)
     7bd3b3a0a8a3c1faaef602d2d3fe1e619e4ef640 7b863b72aac89ddee02826266e28685b12b1f74f f09156240a52b34bc356ef715bd955c8f4378cb4
-   
+
     additionally:
       the list of 'states' as given enables the bug, adding or deleting a few will 
       sometimes disable the bug (or just make it trigger less frequently?)
       failure rate increases with longer time between runs (distribution over 100 runs):
-   
+
         without 'sleep'
          27 fails after 2nd call
          73 doesn't fail
-   
+
         with 'sleep 3'
          28 fails after 2nd call
           8 fails after 3rd call
          64 doesn't fail
-   
+
         with 'sleep 30'
          49 fails after 2nd call
          11 fails after 3rd call

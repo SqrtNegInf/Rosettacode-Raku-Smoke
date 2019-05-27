@@ -13,7 +13,7 @@ Potential difficulties:
 srand 123456;
 
 my $str = (0..400).roll(80)».chr.join;
- 
+
 say $str;
 #say '====';
 #say $str.subst(/<[ ^@..^_ ]>/, '', :g); # how to enter control chars? 

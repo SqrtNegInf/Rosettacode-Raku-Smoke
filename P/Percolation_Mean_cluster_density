@@ -11,15 +11,15 @@ srand 123456;
 
 my @perc;
 my $fill = 'x';
- 
+
 enum Direction <DeadEnd Up Right Down Left>;
 
 my @res;
- 
+
 my $K = perctest(15);
 @res.push: $_.fmt("%-2s") for @perc;
 @res.push: "𝘱 = 0.5, 𝘕 = 15, 𝘒 = $K";
- 
+
 my $trials = 5;
 #for 10, 30, 100, 300, 1000 -> $N {
 for 10, 30, 100 -> $N {
@@ -28,9 +28,9 @@ for 10, 30, 100 -> $N {
 }
 
 .say for @res;
- 
+
 sub infix:<deq> ( $a, $b ) { $a.defined && ($a eq $b) }
- 
+
 sub perctest ( $grid ) {
     generate $grid;
     my $block = 1;
@@ -39,17 +39,17 @@ sub perctest ( $grid ) {
     }
     ($block - 1) / $grid²;
 }
- 
+
 sub generate ( $grid ) {
     @perc = ();
     @perc.push: [ ( rand < .5 ?? '.' !! $fill ) xx $grid ] for ^$grid;
 }
- 
+
 sub fill ( @cur, $block ) {
     @perc[@cur[1]; @cur[0]] = $block;
     my @stack;
     my $current = @cur;
- 
+
     loop {
         if my $dir = direction( $current ) {
             @stack.push: $current;
@@ -60,7 +60,7 @@ sub fill ( @cur, $block ) {
             $current = @stack.pop
         }
     }
- 
+
     sub direction( [$x, $y] ) {
         ( Down  if @perc[$y + 1][$x] deq $fill ) ||
         ( Left  if @perc[$y][$x - 1] deq $fill ) ||
@@ -68,7 +68,7 @@ sub fill ( @cur, $block ) {
         ( Up    if @perc[$y - 1][$x] deq $fill ) ||
         DeadEnd
     }
- 
+
     sub move ( $dir, @cur, $block ) {
         my ( $x, $y ) = @cur;
         given $dir {
@@ -80,7 +80,7 @@ sub fill ( @cur, $block ) {
         [$x, $y]
     }
 }
- 
+
 
 my $moar = qq:to/END/;
 1  .  2  2  2  .  3  3  .  4  4  .  .  5  5 

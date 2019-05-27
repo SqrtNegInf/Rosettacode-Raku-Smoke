@@ -8,15 +8,15 @@
 # Works with: Rakudo Star version 2018.04.1
 
 sub infix:<shares-divisors-with> { ($^a gcd $^b) > 1 }
- 
+
 sub next-EKG ( *@s ) {
     return first {
         @s ∌ $_  and  @s.tail shares-divisors-with $_
     }, 2..*;
 }
- 
+
 sub EKG ( Int $start ) {  1, $start, &next-EKG … *  }
- 
+
 #@res.push: "EKG($_): "~ .&EKG.head(10) for 2, 5, 7;
 my @res.push: "EKG($_): "~ .&EKG.head(30) for 2, 5, 7, 9, 10;
 

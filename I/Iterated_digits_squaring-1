@@ -20,7 +20,7 @@ sub endsWithOne($n --> Bool) {
         $sum = 0;
     }
 }
- 
+
 my $k = 8; # 10**8
 my @sums is default(0) = 1,0; # either this or wrap with 'quietly'
 my $s;
@@ -33,9 +33,9 @@ for 1 .. $k -> $n {
         }
     }
 }
- 
+
 my $ends-with-one = sum flat @sums[(1 .. $k*81).grep: { endsWithOne($_) }], +endsWithOne(10**$k);
- 
+
 say my $c = 10**$k - $ends-with-one;
 
 use Test;

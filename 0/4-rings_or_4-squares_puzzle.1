@@ -8,9 +8,9 @@
 my @res;
 
 sub four-squares ( Int :$lo!, Int :$hi! where * > $lo, :$unique=1, :$show=1 ) {
- 
+
     my @solutions;
- 
+
     for $unique.&combos -> @c {
         @solutions.push: @c if [==]
           @c[0] + @c[1],
@@ -18,21 +18,21 @@ sub four-squares ( Int :$lo!, Int :$hi! where * > $lo, :$unique=1, :$show=1 ) {
           @c[3] + @c[4] + @c[5],
           @c[5] + @c[6];
     }
- 
+
     my $f = "%{$hi.chars}s";
- 
+
     @res.push: ('a'..'g').fmt: $f; @res.push: ~$_ for @solutions».fmt($f);
     #say join "\n", ((('a'..'g').fmt: $f) ~ @solutions».fmt($f));
- 
+
     @res.push: +@solutions~ ' '~ ($unique ?? '' !! 'non-')~
       "unique solutions found using {join(', ', $lo..$hi)}.\n";
- 
+
     #multi combos ( $ where so *.Bool ) { ($lo..$hi).combinations(7)».permutations.flat.rotor(7) }
     multi combos ( $ where so *.Bool ) { ($lo..$hi).combinations(7).map: |*.permutations }
- 
+
     multi combos ( $ where not *.Bool ) { [X] ($lo..$hi) xx 7 }
 }
- 
+
 # TASK
 four-squares( :lo(1), :hi(7) );
 four-squares( :lo(3), :hi(9) );

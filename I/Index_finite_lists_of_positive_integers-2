@@ -51,7 +51,7 @@ my @list = (^10).roll((2..20).pick);
 my $rank = rank @list;
 
 say my $result = "[$@list] -> $rank -> [{unrank $rank}]";
- 
+
 for ^10 {
     my @unrank = unrank $_;
     say "$_ -> [$@unrank] -> {rank @unrank}";

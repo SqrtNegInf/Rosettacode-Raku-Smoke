@@ -5,7 +5,7 @@
 #j#  JVM: OK
 
 # Bags are represented by Perl 6 type Bag.
- 
+
 multi expand-tree ( Bag $tree ) {
     bag(bag(bag()) (+) $tree) (+)
     [(+)] (
@@ -14,18 +14,18 @@ multi expand-tree ( Bag $tree ) {
         }
     );
 }
- 
+
 multi expand-trees ( Bag $trees ) {
     [(+)] $trees.keys.map:  { $_.&expand-tree } ;
 }      
- 
+
 my $n = 5;
 my @res; my $line;
 for ( bag(), bag(bag()), *.&expand-trees ... * )[$n] {
     #@res.push: ++$ ~ ". " ~ $_.gist;
     @res.push: $_.gist;
 };
- 
+
 .put for @res.sort;
 
 my $ref = q:to/END/;

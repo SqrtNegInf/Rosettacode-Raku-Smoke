@@ -15,7 +15,7 @@ constant palindromes = 0, 1, |gather for 1 .. * -> $p {
     next unless $b2 eq $b2.flip;
     take $n;
 }
- 
+
 my @res.push: sprintf "%d, %s, %s", $_, .base(2), .base(3) for palindromes[^6];
 .say for @res;
 

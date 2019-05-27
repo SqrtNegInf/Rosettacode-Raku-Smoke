@@ -15,7 +15,7 @@ class Bitmap {
     has UInt ($.width, $.height);
     has Pixel @.data;
 }
- 
+
 role PBM {
     has @.BM;
     method P4 returns Blob {
@@ -23,13 +23,13 @@ role PBM {
 	~ Blob.new: self.BM
     }
 }
- 
+
 sub getline ( $fh ) {
     my $line = '#'; # skip comments when reading image file
     $line = $fh.get while $line.substr(0,1) eq '#';
     $line;
 }
- 
+
 sub load-ppm ( $ppm ) {
     my $fh    = $ppm.IO.open( :enc('ISO-8859-1') );
     my $type  = $fh.&getline;
@@ -40,11 +40,11 @@ sub load-ppm ( $ppm ) {
         { Pixel.new(R => .[0], G => .[1], B => .[2]) } )
     )
 }
- 
+
 sub grayscale ( Bitmap $bmp ) {
     map { (.R*0.2126 + .G*0.7152 + .B*0.0722).round(1) min 255 }, $bmp.data;
 }
- 
+
 sub histogram ( Bitmap $bmp ) {
     my @gray = grayscale($bmp);
     my $threshold = @gray.sum / @gray;
@@ -54,13 +54,13 @@ sub histogram ( Bitmap $bmp ) {
         $bmp.BM.append: @row.rotor(8).map: { :2(($_ X< $threshold)».Numeric.join) }
     }
 }
- 
+
 my $filename = 'ref/lenna.ppm';
- 
+
 my Bitmap $b = load-ppm( $filename ) but PBM;
- 
+
 histogram($b);
- 
+
 'run/lenna-bw.pbm'.IO.open(:bin, :w).write: $b.P4;
 
 use Test;

@@ -16,7 +16,7 @@ my $i;
 my $h;
 my $q;
 my $result;
- 
+
 if ($n == 2) {
   for 3..12 -> $n {
     $i = 1;
@@ -38,17 +38,17 @@ sub gensq($n) {
     say .fmt("%{$i.chars}d", ' ') for @sq;
     say "The magic number is ", [+] @sq[0].list; say "";
 } 
- 
+
 #    multi sub gen-sq (2) { # invalid
 #        note "Sorry, can not generate a 2 x 2 magic square." and exit;
 #    }
- 
+
     multi sub gen-sq ($n where {$n % 2}) { # odd
         my $x = $n/2;
         my $y = 0;
         @sq[($i % $n ?? $y-- !! $y++) % $n][($i % $n ?? $x++ !! $x) % $n] = $i++ for ^$n²;
     }
- 
+
     multi sub gen-sq ($n where {$n %% 4}) { # doubly even
         my $x = 0;
         my $y = 0;
@@ -62,7 +62,7 @@ sub gensq($n) {
             }
         }
     }
- 
+
     multi sub gen-sq ($n where {$n %% 2 and $n % 4}) { # singly even
         gen-sq($h);
         $i *= 4;

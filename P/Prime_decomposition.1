@@ -16,7 +16,7 @@ sub prime-factors ( Int $n where * > 0 ) {
     my $factor = find-factor( $n );
     sort flat prime-factors( $factor ), prime-factors( $n div $factor );
 }
- 
+
 sub find-factor ( Int $n, $constant = 1 ) {
     my $x      = 2;
     my $rho    = 1;
@@ -33,7 +33,7 @@ sub find-factor ( Int $n, $constant = 1 ) {
     $factor = find-factor( $n, $constant + 1 ) if $n == $factor;
     $factor;
 }
- 
+
 my @res;
 
 for 2²⁹-1, 2⁴¹-1, 2⁵⁹-1, 2⁷¹-1, 2⁷⁹-1, 2⁹⁷-1, 2¹¹⁷-1,
@@ -70,12 +70,12 @@ exit if $*VM ~~ /jvm/;
 use Inline::Perl5;
 my $p5 = Inline::Perl5.new();
 $p5.use( 'ntheory' );
- 
+
 sub prime-factors5 ($i) {
     my &primes = $p5.run('sub { map { ntheory::todigitstring $_ } sort {$a <=> $b} ntheory::factor $_[0] }');
     primes("$i");
 }
- 
+
 my @res-p5;
 for 2²⁹-1, 2⁴¹-1, 2⁵⁹-1, 2⁷¹-1, 2⁷⁹-1, 2⁹⁷-1, 2¹¹⁷-1,
 5465610891074107968111136514192945634873647594456118359804135903459867604844945580205745718497

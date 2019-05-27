@@ -11,11 +11,11 @@
 # Works with: Rakudo version 2016.08
 grammar tiny_C {
     rule TOP { ^ <.whitespace>? <tokens> + % <.whitespace> <.whitespace> <eoi> }
- 
+
     rule whitespace { [ <comment> + % <ws> | <ws> ] }
- 
+
     token comment    { '/*' ~ '*/' .*? }
- 
+
     token tokens {
         [
         | <operator>   { make $/<operator>.ast   }
@@ -28,7 +28,7 @@ grammar tiny_C {
         | <error>
         ]
     }
- 
+
     proto token operator    {*}
     token operator:sym<*>   { '*'               { make 'OP_MULTIPLY'  } }
     token operator:sym</>   { '/'<!before '*'>  { make 'OP_DIVIDE'    } }
@@ -40,13 +40,13 @@ grammar tiny_C {
     token operator:sym<!=>  { '!='              { make 'OP_NOTEQUAL'  } }
     token operator:sym<=>   { '='               { make 'OP_ASSIGN'    } }
     token operator:sym<&&>  { '&&'              { make 'OP_AND'       } }
- 
+
     proto token keyword      {*}
     token keyword:sym<if>    { 'if'    { make 'KEYWORD_IF'    } }
     token keyword:sym<putc>  { 'putc'  { make 'KEYWORD_PUTC'  } }
     token keyword:sym<while> { 'while' { make 'KEYWORD_WHILE' } }
     token keyword:sym<print> { 'print' { make 'KEYWORD_PRINT' } }
- 
+
     proto token symbol  {*}
     token symbol:sym<(> { '(' { make 'LEFT_PAREN'  } }
     token symbol:sym<)> { ')' { make 'RIGHT_PAREN' } }
@@ -54,15 +54,15 @@ grammar tiny_C {
     token symbol:sym<}> { '}' { make 'RIGHT_BRACE' } }
     token symbol:sym<;> { ';' { make 'SEMICOLON'   } }
     token symbol:sym<,> { ',' { make 'COMMA'       } }
- 
+
     token identifier { <[_A..Za..z]><[_A..Za..z0..9]>*    { make 'IDENTIFER ' ~ $/ } }
     token integer    { <[0..9]>+                          { make 'INTEGER   ' ~ $/ } }
- 
+
     token char {
         '\'' [<-[']> | '\n' | '\\\\'] '\''
         { make 'CHAR_LITERAL ' ~ $/.subst("\\n", "\n").substr(1, *-1).ord }
     }
- 
+
     token string {
         '"' <-["\n]>* '"' #'
         {
@@ -70,9 +70,9 @@ grammar tiny_C {
             note 'Error: Unknown escape sequence.' and exit if (~$/ ~~ m:r/ <!after <[\\]>>[\\<-[n\\]>]<!before <[\\]>> /);
         }
     }
- 
+
     token eoi { $ { make 'END_OF_INPUT' } }
- 
+
     token error {
         | '\'''\''                   { note 'Error: Empty character constant.' and exit }
         | '\'' <-[']> ** {2..*} '\'' { note 'Error: Multi-character constant.' and exit }
@@ -81,7 +81,7 @@ grammar tiny_C {
         | '"' <-["]>*? \n            { note 'Error: End of line in string.'    and exit } #'
     }
 }
- 
+
 sub parse_it ( $c_code ) {
     my $l;
     my @pos = gather for $c_code.lines».chars.kv -> $line, $v {
@@ -89,12 +89,12 @@ sub parse_it ( $c_code ) {
         $l = $line+2;
     }
     @pos.push: [ $l, 1 ]; # capture eoi
- 
+
     for flat $c_code<tokens>.list, $c_code<eoi> -> $m {
         say join "\t", @pos[$m.from].fmt('%3d'), $m.ast; ;
     }
 }
- 
+
 #my $tokenizer = tiny_C.parse(@*ARGS[0].IO.slurp);
 #parse_it( $tokenizer );
 

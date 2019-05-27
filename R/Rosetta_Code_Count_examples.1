@@ -13,26 +13,26 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 use HTTP::UserAgent;
 use URI::Escape;
 use JSON::Fast;
- 
+
 # Friendlier descriptions for task categories
 my %cat = (
     'Programming_Tasks' => 'Task',
     'Draft_Programming_Tasks' => 'Draft'
 );
- 
+
 my $client = HTTP::UserAgent.new;
- 
+
 my $url = 'http://rosettacode.org/mw';
- 
+
 my $hashfile  = './run/RC_Task_count.json';
 my $tablefile = './run/RC_Task_count.txt';
- 
+
 my %tasks;
- 
+
 #=begin update
- 
+
 note 'Retrieving task information...';
- 
+
 for %cat.keys -> $cat {
     mediawiki-query(
         $url, 'pages',
@@ -50,27 +50,27 @@ for %cat.keys -> $cat {
         print "\b" x 40, ' ' x 40, "\b" x 40, '█' x $throbber;
     })
 }
- 
+
 print "\b" x 40, ' ' x 40, "\b" x 40;
- 
+
 note "\nTask information saved to local file: {$hashfile.IO.absolute}";
 $hashfile.IO.spurt(%tasks.&to-json);
- 
+
 #=end update
- 
+
 # Load information from local file
 %tasks = $hashfile.IO.e ?? $hashfile.IO.slurp.&from-json !! ( );
- 
+
 # Convert saved task / author info to a table
 note "\nBuilding table...";
 my $count    = +%tasks;
 my $taskcnt  = +%tasks.grep: *.value.<cat> eq %cat<Programming_Tasks>;
 my $draftcnt = $count - $taskcnt;
 my $total    = sum %tasks{*}»<count>;
- 
+
 # Dump table to a file
 my $out = open($tablefile, :w)  orelse .die;
- 
+
 # Add table boilerplate and caption
 $out.say:
     '<div style="height:80ex;overflow:scroll;">', "\n",
@@ -79,7 +79,7 @@ $out.say:
     "{ $draftcnt } :: Total Tasks: { $count } :: Total Examples: { $total }\n",
     "! Count !! Task !! Category"
 ;
- 
+
 # Sort tasks by count then add task row
 for %tasks.sort: -*.value<count> -> $task {
     $out.say:
@@ -91,17 +91,17 @@ for %tasks.sort: -*.value<count> -> $task {
       ),
       "| { $task.value<cat> }"
 }
- 
+
 $out.say( "|}\n", '</div>' );
 $out.close;
- 
+
 note "Table file saved as: {$tablefile.IO.absolute}";
- 
+
 sub mediawiki-query ($site, $type, *%query) {
     my $url = "$site/api.php?" ~ uri-query-string(
         :action<query>, :format<json>, :formatversion<2>, |%query);
     my $continue = '';
- 
+
     gather loop {
         my $response = $client.get("$url&$continue");
         my $data = from-json($response.content);
@@ -109,11 +109,11 @@ sub mediawiki-query ($site, $type, *%query) {
         $continue = uri-query-string |($data.<query-continue>{*}».hash.hash or last);
     }
 }
- 
+
 sub uri-query-string (*%fields) { %fields.map({ "{.key}={uri-escape .value}" }).join("&") }
- 
+
 sub naturally ($a) { $a.lc.subst(/(\d+)/, ->$/ {0~(65+$0.chars).chr~$0},:g) }
- 
+
 
 my $ref = qq:to/END/;
 END

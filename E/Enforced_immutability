@@ -11,7 +11,7 @@ srand 123456;
 
 constant $pi = 3.14159;
 constant $msg = "Hello World";
- 
+
 constant @arr = (1, 2, 3, 4, 5);
 
 #Immutability is abstract enough that you can define an infinite constant lazily:
@@ -24,12 +24,12 @@ my $pie := 3 + rand;
 sub sum (Num $x, Num $y) {
 	$x += $y;  # ERROR
 }
- 
+
 # Explicitly ask for pass-by-reference semantics
 sub addto (Int $x is rw, Int $y) {
     $x += $y;  # ok, propagated back to caller
 }
- 
+
 # Explicitly ask for pass-by-value semantics
 sub sum1 (Int $x is copy, Int $y) {
     $x += $y;  # ok, but NOT propagated back to caller

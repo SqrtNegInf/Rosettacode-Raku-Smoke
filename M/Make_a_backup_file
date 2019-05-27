@@ -12,7 +12,7 @@
 # Prints 'File not found' to STDERR if the file does not exist.
 # Will not do anything if limit is set to less than 1.
 # Will not follow symlinks by default.
- 
+
 sub backup (Str $filepath, Int :$limit = 3, Str :$ext = 'bk', Bool :$follow-symlinks = False) {
     my $abs = $follow-symlinks ?? $filepath.IO.resolve.absolute !! $filepath.IO.absolute;
     for (1 ..^ $limit).reverse -> $bnum {
@@ -35,13 +35,13 @@ sub backup (Str $filepath, Int :$limit = 3, Str :$ext = 'bk', Bool :$follow-syml
     }
     $abs # return filepath on success
 }
- 
+
 # back up this program
 my $fn = 'not-in-kansas.txt';
 unlink "run/$fn.bk1" if "run/$fn.bk1".IO.e;
 backup "run/$fn";
 #backup $*PROGRAM-NAME;
- 
+
 # Optionally, specify limit, back-up extension pattern and whether to follow symlinks.
 # Optional parameters can be in any order, in any combination.
 #backup 'myfile', :follow-symlinks, :limit(2), :ext('bak');

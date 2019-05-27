@@ -27,11 +27,11 @@ sub nextrow($n) {
     }
     @todo[$n];
 }
- 
+
 say "rows:";
 say .fmt('%2d'), ": ", nextrow($_)[] for 1..10;
- 
- 
+
+
 my @res;
 say "\nsums:";
 #for 23, 123, 1234, 12345 {

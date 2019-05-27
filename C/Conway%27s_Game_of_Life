@@ -10,16 +10,16 @@ class Automaton {
     }
     has Int ($.width, $.height);
     has @.a;
- 
+
     multi method new (World $s) {
         self.new:
             :width(.pick.chars), :height(.elems),
             :a( .map: { [ .comb ] } )
                 given $s.lines.cache;
     }
- 
+
     method gist { join "\n", map { .join }, @!a }
- 
+
     method C (Int $r, Int $c --> Bool) {
         @!a[$r % $!height][$c % $!width] eq '#';
     }
@@ -29,7 +29,7 @@ class Automaton {
             [ $r    , $c - 1],                 [ $r    , $c + 1],
             [ $r + 1, $c - 1], [ $r + 1, $c ], [ $r + 1, $c + 1];
     }
- 
+
     method succ {
         self.new: :$!width, :$!height,
             :a(
@@ -46,7 +46,7 @@ class Automaton {
             )
     }
 }
- 
+
 my Automaton $glider .= new: q:to/EOF/;
     ............
     ............
@@ -56,8 +56,8 @@ my Automaton $glider .= new: q:to/EOF/;
     ........#...
     ............
     EOF
- 
- 
+
+
 my @res;
 for ^10 {
     @res.push: $glider++.gist;

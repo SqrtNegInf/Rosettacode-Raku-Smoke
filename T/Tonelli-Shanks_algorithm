@@ -18,7 +18,7 @@ sub infix:<│> (Int \n, Int \p where p.is-prime && (p != 2)) {
         default { -1 }
     }
 }
- 
+
 sub tonelli-shanks ( \n, \p where (n│p) > 0 ) {
     my $Q = p - 1;
     my $S = 0;
@@ -44,7 +44,7 @@ sub tonelli-shanks ( \n, \p where (n│p) > 0 ) {
     }
     $R;
 }
- 
+
 my @tests = (
     (10, 13),
     (56, 101),
@@ -55,7 +55,7 @@ my @tests = (
     (881398088036, 1000000000039),
     (41660815127637347468140745042827704103445750172002, 100000000000000000000000000000000000000000000000577)
 );
- 
+
 my @res;
 for @tests -> ($n, $p) {
     try my $t = tonelli-shanks($n, $p);

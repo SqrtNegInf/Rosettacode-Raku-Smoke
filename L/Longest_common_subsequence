@@ -6,7 +6,7 @@
 
 sub lcs(Str $xstr, Str $ystr) {
     return "" unless $xstr && $ystr;
- 
+
     my ($x, $xs, $y, $ys) = $xstr.substr(0, 1), $xstr.substr(1), $ystr.substr(0, 1), $ystr.substr(1);
     return $x eq $y
         ?? $x ~ lcs($xs, $ys)
@@ -16,13 +16,13 @@ sub lcs(Str $xstr, Str $ystr) {
 sub lcs2(Str $xstr, Str $ystr) {
     my ($xlen, $ylen) = ($xstr, $ystr)>>.chars;
     my @lengths = map {[(0) xx ($ylen+1)]}, 0..$xlen;
- 
+
     for $xstr.comb.kv -> $i, $x {
         for $ystr.comb.kv -> $j, $y {
             @lengths[$i+1][$j+1] = $x eq $y ?? @lengths[$i][$j]+1 !! (@lengths[$i+1][$j], @lengths[$i][$j+1]).max;
         }
     }
- 
+
     my @x = $xstr.comb;
     my ($x, $y) = ($xlen, $ylen);
     my $result = "";
@@ -39,18 +39,18 @@ sub lcs2(Str $xstr, Str $ystr) {
             $y--;
         }
     }
- 
+
     return $result;
 }
- 
+
 # Bit parallel dynamic programming with nearly linear complexity O(n). It is fast.
 
 sub lcs3(Str $xstr, Str $ystr) {
     my ($a,$b) = ([$xstr.comb],[$ystr.comb]);
- 
+
     my $positions;
     for $a.kv -> $i,$x { $positions{$x} +|= 1 +< ($i % +$a) };
- 
+
     my $S = +^0;
     my $Vs = [];
     my ($y,$u);
@@ -60,7 +60,7 @@ sub lcs3(Str $xstr, Str $ystr) {
         $S = ($S + $u) +| ($S - $u);
         $Vs[$j] = $S;
     }
- 
+
     my ($i,$j) = (+$a-1, +$b-1);
     my $result = "";
     while ($i >= 0 && $j >= 0) {
@@ -75,7 +75,7 @@ sub lcs3(Str $xstr, Str $ystr) {
     }
     return $result;
 }
- 
+
 use Test;
 say my $out1 = lcs("thisisa", "pisatest");
 is $out1, 'iss';

@@ -8,11 +8,11 @@
 #Crypto-JS v2.0.0
 #http:#code.google.com/p/crypto-js/
 #Copyright (c) 2009, Jeff Mott. All rights reserved.
- 
+
 sub rotl($n, $b) { $n +< $b +| $n +> (32 - $b) }
 sub prefix:<m^> { +^$^x % 2**32 }
 sub infix:<m+> { ($^x + $^y) % 2**32 }
- 
+
 constant r1 = <
     0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
     7 4 13 1 10 6 15 3 12 0 9 5 2 14 11 8
@@ -58,11 +58,11 @@ multi rmd160(Blob $data) {
     push @b, 0 until (8*@b-448) %% 512;
     my $len = 8 * $data.elems;
     push @b, | gather for ^8 { take $len % 256; $len div= 256 } # DH change - add slip
- 
+
     my @word = gather for @b -> $a, $b, $c, $d {
         take reduce * *256 + *, $d, $c, $b, $a;
     }
- 
+
     my @h = 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0;
     loop (my $i = 0; $i < @word; $i += 16) {
         my @X = my @Y = @h;
@@ -82,7 +82,7 @@ multi rmd160(Blob $data) {
         for ^4 { take $word % 256; $word div= 256 }
     }
 }
- 
+
 say my $result = rmd160 "Rosetta Code";
 
 use Test;

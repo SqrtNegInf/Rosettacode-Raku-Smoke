@@ -14,7 +14,7 @@ enum Coin <Heads Tails>;
 enum Yay <Yay Good Super Hah Ooh Yipee Sweet Cool Yes Haha>;
 enum Boo <Drat Darn Crumb Oops Rats Bah Criminy Argh Shards>;
 enum Bozo «'Dude' 'Cha' 'Bzzt' 'Hey' 'Silly dilly' 'Say what!?' 'You numbskull'»;
- 
+
 sub flipping {
     return;
     for 1..4 {
@@ -24,7 +24,7 @@ sub flipping {
         print "/\b";  sleep .1;
     }
 }
- 
+
 sub your-choice($p is copy) {
     return ('Heads', 'Tails', 'Heads');
     loop (my @seq; @seq != 3; $p = "{Bozo.pick}! Please pick exactly 3: ") {
@@ -35,16 +35,16 @@ sub your-choice($p is copy) {
     }
     @seq;
 }
- 
+
 #repeat until prompt("Wanna play again? ").lc ~~ /^n/ {
     my $mefirst = Coin.roll;
     print tc "$mefirst I start, {Coin(+!$mefirst).lc} you start, flipping...\n\t";
     flipping;
     say my $flip = Coin.roll;
- 
+
     my @yours;
     my @mine;
- 
+
     if $flip == $mefirst {
         print "{Yay.pick}! I get to choose first, and I choose: "; sleep 0; say @mine = |Coin.roll(3);
         @yours = your-choice("Now you gotta choose: ");
@@ -59,7 +59,7 @@ sub your-choice($p is copy) {
         say "OK, you'll win if we see: ", @yours;
         print "In that case, I'll just randomly choose: "; sleep 0; say @mine = Coin(+!@yours[1]), |@yours[0,1];
     }
- 
+
     sub check($a,$b,$c) {
         given [$a,$b,$c] {
             when @mine  { say $result2 = "\n{Yay.pick}, I win, and you lose!"; Nil }
@@ -67,7 +67,7 @@ sub your-choice($p is copy) {
             default     { Coin.roll }
         }
     }
- 
+
     #sleep 1;
     say < OK! Ready? Right... So... Yo!>.pick;
     #sleep .5;

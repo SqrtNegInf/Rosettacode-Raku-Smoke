@@ -14,7 +14,7 @@ sub det(@A) {
         take $p1-$p2;
     }
 }
- 
+
 sub cramers_rule(@A, @terms) {
     gather for ^@A -> $i {
         my @Ai = @A.map: { [|$_] };
@@ -24,16 +24,16 @@ sub cramers_rule(@A, @terms) {
         take det(@Ai);
     } »/» det(@A);
 }
- 
+
 my @matrix = (
     [2, -3,  1],
     [1, -2, -2],
     [3, -4,  1],
 );
- 
+
 my @free_terms = (4, -6, 5);
 my ($x, $y, $z) = |cramers_rule(@matrix, @free_terms);
- 
+
 say "x = $x";
 say "y = $y";
 say "z = $z";

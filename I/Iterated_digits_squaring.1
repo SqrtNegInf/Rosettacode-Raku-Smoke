@@ -19,12 +19,12 @@ use experimental :cached;
 constant @sq = ^10 X** 2;
 my $cnt = 0;
 my %cache;
- 
+
 sub Euler92($n) is cached {
     $n == any(1,89) ?? $n !!
     Euler92( [+] @sq[$n.comb] )
 }
- 
+
 for 1 .. 1_000_000 -> $n {
    my $i = +$n.comb.sort.join;
    ++$cnt if Euler92($i) == 89;
@@ -40,13 +40,13 @@ exit;
 my @cache;
 @cache[1] = 1;
 @cache[89] = 89;
- 
+
 sub altEuler92(int $n) {
     $n < 649  # 99,999,999 sums to 648, so no point remembering more
         ?? (@cache.AT-POS($n) //= ids($n))
         !! ids($n)
 }
- 
+
 sub ids(int $num --> int) {
     my int $n = $num;
     my int $ten = 10;
@@ -64,7 +64,7 @@ sub ids(int $num --> int) {
     }
     $n;
 }
- 
+
 my int $c = 0;
 for 1 .. 100_000_000 -> int $n {
    $c = $c + 1 if altEuler92($n) == 89;

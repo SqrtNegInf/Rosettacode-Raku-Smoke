@@ -8,7 +8,7 @@
 
 # Works with: rakudo/jvm version 2013-12-03
 use java::awt::MouseInfo:from<java>;
- 
+
 given MouseInfo.getPointerInfo.getLocation {
     say .getX, 'x', .getY;
 }

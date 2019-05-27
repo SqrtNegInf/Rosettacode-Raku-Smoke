@@ -29,7 +29,7 @@ for 3..5 -> $base {
     }
     push @runoff, @stems;
     say "\n  Finalists: ", +@runoff;
- 
+
     for (@runoff.sort(-*)) -> $ff {
     my $finalist = shift @$ff;
 	my $b = $finalist.base($base);
@@ -44,7 +44,7 @@ for 3..5 -> $base {
 	    }
 	}
 	next unless $ok;
- 
+
 	say "  Largest ltp in base $base = $finalist";
 	last;
     }

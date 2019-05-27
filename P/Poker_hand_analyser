@@ -7,37 +7,37 @@
 my @res;
 
 # This solution handles jokers. It has been written to use a Perl 6 grammar.
- 
+
 grammar PokerHand {
- 
+
     # Perl6 Grammar to parse and rank 5-card poker hands
     # 2013-12-21: handle 'joker' wildcards; maximum of two
- 
+
     rule TOP {
          :my %*PLAYED;
          { %*PLAYED = () }
          [ <face-card> | <joker> ]**5
     }
- 
+
     token face-card {<face><suit> <?{
             my $card = ~$/.lc;
             # disallow duplicates
             ++%*PLAYED{$card} <= 1;
        }>
     }
- 
+
     token joker {:i 'joker' <?{
         my $card = ~$/.lc;
             # allow two jokers in a hand
             ++%*PLAYED{$card} <= 2;
         }>
     }
- 
+
     token face {:i <[2..9 jqka]> | 10 }
     token suit {<[♥ ♦ ♣ ♠]>}
 
 }
- 
+
 class PokerHand::Actions {
     method TOP($/) {
         my UInt @n    = n-of-a-kind($/);
@@ -55,33 +55,33 @@ class PokerHand::Actions {
     multi sub rank(2,2,$,$)                    { 'two-pair' }
     multi sub rank(2,$,$,$)                    { 'one-pair' }
     multi sub rank($,$,$,$) is default         { 'high-card' }
- 
+
    sub n-of-a-kind($/) {
        my %faces := bag @<face-card>.map: -> $/ {~$<face>.lc};
        my @counts = %faces.values.sort.reverse;
        @counts[0] += @<joker>;
        return @counts;
     }
- 
+
     sub flush($/) {
         my @suits = unique @<face-card>.map: -> $/ {~$<suit>};
         return +@suits == 1;
     }
- 
+
    sub straight($/) {
        # allow both ace-low and ace-high straights
        constant @Faces = [ "a 2 3 4 5 6 7 8 9 10 j q k a".split: ' ' ];
        constant @Possible-Straights = [ (0 .. (+@Faces - 5)).map: {  set @Faces[$_ .. $_+4] } ];
- 
+
        my $faces = set @<face-card>.map: -> $/ {~$<face>.lc};
        my $non-jokers = 5 - +@<joker>;
- 
+
        return ?( @Possible-Straights.first: { +($faces ∩ $_) == $non-jokers; } );
      }
 }
- 
+
 my PokerHand::Actions $actions .= new;
- 
+
 for ("2♥ 2♦ 2♣ k♣ q♦",   # three-of-a-kind
      "2♥ 5♠ 7♦ 8♣ 9♠",   # high-card
      "a♠ 2♦ 3♣ 4♣ 5♦",   # straight
@@ -115,7 +115,7 @@ for ("2♥ 2♦ 2♣ k♣ q♦",   # three-of-a-kind
     }
     @res.push: "$_: $rank";
 }
- 
+
 .say for @res;
 
 my $ref = q:to/END/;

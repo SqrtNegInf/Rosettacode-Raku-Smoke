@@ -11,7 +11,7 @@ use Test;
 my $TotalWorkers = 2;
 my $BatchToRun = 3;
 my @TimeTaken = (1..5); # in seconds
- 
+
 my $batch_progress = 0;
 my @batch_lock = map { Semaphore.new(1) } , ^$TotalWorkers;
 my $lock = Lock.new;
@@ -24,7 +24,7 @@ for ^$TotalWorkers -> $i {
       }
    );
 }
- 
+
 sub assembly_line ($ID) {
    my $wait;
    for ^$BatchToRun -> $j {
@@ -42,7 +42,7 @@ sub assembly_line ($ID) {
             for @batch_lock { .release }; # and ready for next batch
          };
        };
- 
+
        { say 'ok 1 -'; exit } if @res[0] and @res[1] and @res[2];
        @batch_lock[$ID].acquire; # for next batch
    }

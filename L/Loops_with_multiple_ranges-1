@@ -15,14 +15,14 @@ my @res;
 # Also displaying the j sequence since it isn't very large.
 
 sub comma { ($^i < 0 ?? '-' !! '') ~ $i.abs.flip.comb(3).join(',').flip }
- 
+
 my \x     =  5;
 my \y     = -5;
 my \z     = -2;
 my \one   =  1;
 my \three =  3;
 my \seven =  7;
- 
+
 my $j = cache flat
   ( -three, *+three … 3³         ),
   ( -seven, *+x     …^ * > seven ),
@@ -31,18 +31,18 @@ my $j = cache flat
   ( 1927  .. 1939                ),
   ( x,      *+z     …^ * < y     ),
   ( 11**x .. 11**x + one         );
- 
+
 @res.push: 'j sequence: '~ $j;
 @res.push: '       Sum: '~ comma [+] $j».abs;
 @res.push: '   Product: '~ comma ([\*] $j.grep: so +*).first: *.abs > 2²⁷;
- 
+
 # Or, an alternate method for generating the 'j' sequence, employing user-defined
 # operators to preserve the 'X to Y by Z' layout of the example code.
 # Note that these operators will only work for monotonic sequences.
- 
+
 sub infix:<to> { $^a ... $^b }
 sub infix:<by> { $^a[0, $^b.abs ... *] }
- 
+
 $j = cache flat
     -three  to          3**3  by  three ,
     -seven  to         seven  by      x ,
@@ -51,7 +51,7 @@ $j = cache flat
       1927  to          1939  by    one ,
          x  to             y  by      z ,
      11**x  to (11**x + one)            ;
- 
+
 @res.push: "\nLiteral minded variant:";
 @res.push: '       Sum: '~ comma [+] $j».abs;
 @res.push: '   Product: '~ comma ([\*] $j.grep: so +*).first: *.abs > 2²⁷;

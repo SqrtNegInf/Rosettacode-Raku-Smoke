@@ -11,19 +11,19 @@
 use SVG;
 
 my $fh = open("run/koch_curve-2.svg", :w) || die;
- 
+
 role Lindenmayer {
     has %.rules;
     method succ {
 	    self.comb.map( { %!rules{$^c} // $c } ).join but Lindenmayer(%!rules)
     }
 }
- 
+
 my $koch = 'F' but Lindenmayer( { F => 'F+F-F-F+F', } );
- 
+
 $koch++ xx 4;
 my @points = (450, 250);
- 
+
 for $koch.comb -> $v {
     state ($x, $y) = @points[0,1];
     state $d = -5 - 0i;
@@ -32,7 +32,7 @@ for $koch.comb -> $v {
         when /< + - >/ { $d *= "{$v}1i" }
     }
 }
- 
+
 $fh.say: SVG.serialize(
     svg => [
         width => 500, height => 300, style => 'stroke:rgb(0,0,255)',

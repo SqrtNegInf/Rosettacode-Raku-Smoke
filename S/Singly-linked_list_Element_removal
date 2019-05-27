@@ -19,7 +19,7 @@ class Cell {
         my $prev = Nil;
         my $cell = self;
         my $new-head = self;
- 
+
         while $cell {
             my $next = $cell.next;
             if $cell.value == $value {
@@ -32,7 +32,7 @@ class Cell {
             }
             $cell = $next;
         }
- 
+
         return $new-head;
     }
 }
@@ -41,7 +41,7 @@ sub cons ($value, $next) { Cell.new(:$value, :$next) }
 
 #Usage:
 my $list = cons 10, (cons 20, (cons 10, (cons 30, Nil)));
- 
+
 $list = $list.delete(10);
 
 .say for @res;

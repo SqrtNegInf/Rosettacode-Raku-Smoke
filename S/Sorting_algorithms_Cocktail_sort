@@ -17,7 +17,7 @@ sub cocktail_sort ( @a ) {
             } 
         }
         last if not $swapped_forward;
- 
+
         my $swapped_backward = 0;
         for $range.reverse -> $i {
             if @a[$i] > @a[$i+1] {
@@ -29,7 +29,7 @@ sub cocktail_sort ( @a ) {
     }
     return @a;
 }
- 
+
 my @weights = (^50).map: { 100 + ( 1000.rand.Int / 10 ) };
 my @copy = @weights;
 put @copy.sort;

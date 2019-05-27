@@ -13,11 +13,11 @@ sub selection_sort ( @a is copy ) {
     }
     return @a;
 }
- 
+
 my @data = 22, 7, 2, -5, 8, 4;
 say 'input   = ' ~ @data;
 say 'output1 = ' ~ my $out1 = @data.&selection_sort;
- 
+
 # input  = 22 7 2 -5 8 4
 # output = -5 2 4 7 8 22
 
@@ -35,7 +35,7 @@ sub selectionSort(@tmp) {
 }
 
 say 'output2 = ' ~ my $out2 = @data.&selectionSort;
- 
+
 # input  = 22 7 2 -5 8 4
 # output = -5 2 4 7 8 22
 use Test;

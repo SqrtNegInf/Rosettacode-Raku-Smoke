@@ -12,7 +12,7 @@ my @perfects = lazy gather for @primes {
     my $n = 2**$_ - 1;
     take $n * 2**($_ - 1) if $n.is-prime;
 }
- 
+
 .say for @res = @perfects[^12];
 
 my $ref = q:to/END/;

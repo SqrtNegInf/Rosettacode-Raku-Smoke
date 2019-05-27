@@ -19,7 +19,7 @@ my @pairs =
     smokescreen => 423, speakeasy => -745, vein => 813;
 my @weights = @pairs».value;
 my %name = @pairs.hash.invert;
- 
+
 #(1..27).hyper(:3batch).map: -> $n {  # no speed-up ?
 for (1..27) -> $n {
     given @weights.combinations($n).first({ 0 == [+] @^comb }) {

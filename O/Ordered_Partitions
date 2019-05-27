@@ -14,7 +14,7 @@ sub partition(@mask is copy) {
         for partition @mask { .take.[$k].push($last) }
     }
 }
- 
+
 #.say for partition [2,0,2];
 #.say for reverse partition [2,2];
 }}

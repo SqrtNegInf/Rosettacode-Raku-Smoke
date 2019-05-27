@@ -30,7 +30,7 @@ my @b = <BO XK DQ CP NA GT RE TG QD FS JW HU VI AN OB ER FS LY PC ZM>;
 my @res;
 for <A BaRK BOoK tREaT COmMOn SqUAD CoNfuSE> {
     @res.push: "$_     &can-spell-word($_, @b)";
-    
+
 }
 .say for @res;
 

@@ -14,16 +14,16 @@ sub text-between ( $text, $start, $end ) {
 }
 
 my @res;
- 
+
 # Testing
 my $text = 'Hello Rosetta Code world';
- 
+
 # String start and end delimiter
 @res.push:  '1> '~ $text.&text-between( 'Hello ', ' world' );
- 
+
 # Regex string start delimiter
 @res.push:  '2> '~ $text.&text-between( rx/^/, ' world' );
- 
+
 # Regex string end delimiter
 @res.push:  '3> '~ $text.&text-between( 'Hello ',  rx/$/ );
 

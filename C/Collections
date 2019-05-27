@@ -11,17 +11,17 @@
 # Array
 my @array = 1,2,3;
 @array.push: 4,5,6;
- 
+
 # Hash
 my %hash = 'a' => 1, 'b' => 2;
 %hash<c d> = 3,4;
 %hash.push: 'e' => 5, 'f' => 6;
 say %hash;
- 
+
 # SetHash
 my $s = SetHash.new: <a b c>;
 say $s ∪= <d e f>;
- 
+
 # BagHash
 my $b = BagHash.new: <b a k l a v a>;
 say $b ⊎= <a b c>;
@@ -32,12 +32,12 @@ say $b ⊎= <a b c>;
 my @list := 1,2,3;
 my @newlist := |@list, 4,5,6; # |@list will slip @list into the surrounding list instead of creating a list of lists
 say @newlist;
- 
+
 # Set
 my $set = set <a b c>;
 my $newset = $set ∪ <d e f>;
 say $newset;
- 
+
 # Bag
 my $bag = bag <b a k l a v a>;
 my $newbag = $bag ⊎ <b e e f>;

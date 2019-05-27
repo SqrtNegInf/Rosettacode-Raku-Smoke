@@ -8,7 +8,7 @@
 # Perl 6 does not offer a fixed precision decimal. It does have IEEE 754 floating point numbers so let's try implementing the arbitrary precision option as shown in Python. Need to explicitly specify scientific notation numbers to force floating point Nums.
 
 constant ε = (1e0, */2e0 … *+1e0==1e0)[*-1];
- 
+
 sub kahan (*@nums) {
     my $summ = my $c = 0e0;
     for @nums -> $num {
@@ -19,12 +19,12 @@ sub kahan (*@nums) {
     }
     $summ
 }
- 
+
 my @res;
 @res.push: 'Epsilon:    '~ ε;
- 
+
 @res.push: 'Simple sum: '~ ((1e0 + ε) - ε).fmt: "%.16f";
- 
+
 @res.push: 'Kahan sum:  '~ kahan(1e0, ε, -ε).fmt: "%.16f";
 .say for @res;
 

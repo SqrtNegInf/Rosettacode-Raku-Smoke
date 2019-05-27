@@ -7,7 +7,7 @@
 #f# RC file: mandelbrot.ppm
 
 # Works with: rakudo version 2016-05-01
-  
+
 #Variant of a Mandelbrot script from the Perl 6 ecosystem. Produces a Portable Pixel Map to STDOUT. 
 #Redirect into a file to save it. 
 #Converted to a .png file for display here.
@@ -34,17 +34,17 @@ b4fcc4 b4fcd8 b4fce8 b4fcfc b4e8fc b4d8fc b4c4fc 000070 1c0070 380070 540070
 402c3c 402c34 402c30 402c2c 40302c 40342c 403c2c 40402c 3c402c 34402c 30402c
 2c402c 2c4030 2c4034 2c403c 2c4040 2c3c40 2c3440 2c3040
 >;
- 
+
 constant MAX_ITERATIONS = 50;
 my $width = my $height = +(@*ARGS[0] // 301);
- 
+
 sub cut(Range $r, UInt $n where $n > 1) {
     $r.min, * + ($r.max - $r.min) / ($n - 1) ... $r.max
 }
- 
+
 my @re = cut(-2 .. 1/2, $height);
 my @im = cut( 0 .. 5/4, $width div 2 + 1) X* 1i;
- 
+
 sub mandelbrot(Complex $z is copy, Complex $c) {
     for 1 .. MAX_ITERATIONS {
 	$z = $z*$z + $c;
@@ -52,14 +52,14 @@ sub mandelbrot(Complex $z is copy, Complex $c) {
     }
     return 0;
 }
- 
+
 #say "P3";
 #say "$width $height";
 #say "255";
 
 my $out = open('run/mandelbrot.ppm', :w);
 $out.put("P3\n$width $height\n255");
- 
+
 for @re -> $re {
     $out.put: @color_map[|.reverse, |.[1..*]][^$width] ~ ' ' given
     my @ = map &mandelbrot.assuming(0i, *), $re «+« @im;

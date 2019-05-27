@@ -90,7 +90,7 @@ sub sendmsg( %msg , $server, $port){
 #`{{
 examples:
 echo '{"function":"set","topic":"push","message":["perl5","perl6","rakudo"]}' | nc localhost 3333
- 
+
 ./client.p6 set version perl6
 {"status": "ok"}
 ./client.p6 get version

@@ -9,21 +9,21 @@
 # The "lightning" effect is actually a bug, but I liked it so I kept it.
 
 signal(SIGINT).tap: { print "\e[H\e[J\e[?25h"; exit(0) }
- 
+
 my @codes = flat 'A' .. 'Z';
- 
+
 my ($rows,$cols) = qx/stty size/.words;
- 
+
 my @c = flat  "\e[38;2;255;255;255m", (255,245 ... 30).map({"\e[38;2;0;$_;0m"}),
               "\e[38;2;0;25;0m" xx 75;
 my $sz = +@c;
 my (@o, @s, @a);
 print "\e[?25l\e[48;5;232m";
 init($rows, $cols);
- 
+
 my $delay;
 my ($r, $c);
- 
+
 loop {
      if ++$delay %% 20 {
          ($r, $c) = qx/stty size/.words;

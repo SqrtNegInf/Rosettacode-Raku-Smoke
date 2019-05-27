@@ -15,7 +15,7 @@ my $secret = q:to/END/;
     signify anything). This example will work with anything in the
     ASCII range... even code! $r%_-^&*(){}+~ #=`/\';*1234567890"'
     END
- 
+
 my $text = q:to/END/;
     Bah. It isn't really practical to use typeface changes to encode
     information, it is too easy to tell that there is something going
@@ -36,32 +36,32 @@ my $text = q:to/END/;
 #'
 my @enc = "﻿", "​";
 my %dec = @enc.pairs.invert;
- 
+
 sub encode ($c) { @enc[($c.ord).fmt("%07b").comb].join('') }
- 
+
 sub hide ($msg is copy, $text) { 
     $msg ~= @enc[0] x (0 - ($msg.chars % 8)).abs;
     my $head = $text.substr(0,$msg.chars div 8);
     my $tail = $text.substr($msg.chars div 8, *-1);
     ($head.comb «~» $msg.comb(/. ** 8/)).join('') ~ $tail;
 }
- 
+
 sub reveal ($steg) {
     join '', map { :2(%dec{$_.comb}.join('')).chr }, 
     $steg.subst( /\w | <punct> | " " | "\n" /, '', :g).comb(/. ** 7/);
 }
- 
+
 my $hidden = join '', map  { .&encode }, $secret.comb;
- 
+
 my $steganography = hide $hidden, $text;
 
 my $fh = open('run/bacon_cipher.txt', :w);
- 
+
 $fh.say: "Steganograpic message hidden in text:";
 $fh.say: $steganography;
- 
+
 $fh.say: '*' x 70;
- 
+
 $fh.say: "Hidden message revealed:";
 $fh.say: reveal $steganography;
 

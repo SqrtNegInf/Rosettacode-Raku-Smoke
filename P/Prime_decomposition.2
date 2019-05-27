@@ -13,20 +13,20 @@ multi sub MAINly ( 'Mersenne', $n ) {
          prime-factors( $m ).join(' × ');
     }
 }
- 
+
 multi sub MAINly ( *@numbers ) {
     for @numbers -> $n {
         return "factors of $n: ", prime-factors($n).join(' × ');
     }
 }
- 
+
 sub prime-factors ( Int $n where * > 0 ) {
     return $n if $n.is-prime;
     return [] if $n == 1;
     my $factor = find-factor( $n );
     sort flat prime-factors( $factor ), prime-factors( $n div $factor );
 }
- 
+
 sub find-factor ( Int $n, $constant = 1 ) {
     my ($x, $rho, $factor) = 2, 1, 1;
     while $factor == 1 {

@@ -11,12 +11,12 @@ sub sd (@a) {
     my $mean = @a R/ [+] @a;
     sqrt @a R/ [+] map (* - $mean)**2, @a;
 }
- 
+
 sub sdaccum {
     my @a;
     return { push @a, $^x; sd @a; };
 }
- 
+
 my &f = sdaccum;
 my @r1;
 push @r1, (f $_).round(.000000000000001) for 2, 4, 4, 4, 5, 5, 7, 9;
@@ -29,7 +29,7 @@ sub stddev($x) {
         ((.[1] += $x) / .[0])**2
     given state @;
 }
- 
+
 my @r2;
 push @r2, (stddev $_).round(.000000000000001) for <2 4 4 4 5 5 7 9>;
 

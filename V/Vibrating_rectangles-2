@@ -6,12 +6,12 @@
 #j# JVM:  BROKEN
 
 use SDL2::Raw;
- 
+
 my $width  = 1200;
 my $height = 800;
- 
+
 SDL_Init(VIDEO);
- 
+
 my $window = SDL_CreateWindow(
     'Vibrating rectangles',
     SDL_WINDOWPOS_CENTERED_MASK,
@@ -19,20 +19,20 @@ my $window = SDL_CreateWindow(
     $width, $height,
     RESIZABLE
 );
- 
+
 my $render = SDL_CreateRenderer($window, -1, ACCELERATED +| PRESENTVSYNC);
- 
+
 my $event = SDL_Event.new;
- 
+
 enum KEY_CODES (
     K_SPACE  => 44,
 );
- 
+
 my $num = 80;
 my @rgb = palette($num);
 my ($cx, $cy);
 my $dir = 1;
- 
+
 main: loop {
     while SDL_PollEvent($event) {
         my $casted_event = SDL_CastEvent($event);
@@ -55,7 +55,7 @@ main: loop {
         }
     }
     ($cx, $cy) = $width div 2, $height div 2;
- 
+
     for 1..^$num {
         my ($x, $y) = ($cx - ($width/2/$num*$_), $cy - ($height/2/$num*$_))».round;
         my ($w, $h) = ($width/$num*$_, $height/$num*$_)».round;
@@ -67,11 +67,11 @@ main: loop {
     SDL_SetRenderDrawColor($render, 0, 0, 0, 0);
     SDL_RenderClear($render);
 }
- 
+
 SDL_Quit();
- 
+
 sub palette ($l) { (^$l).map: { hsv2rgb(($_ * 360/$l % 360)/360, 1, 1).list } };
- 
+
 sub hsv2rgb ( $h, $s, $v ){ # inputs normalized 0-1
     my $c = $v * $s;
     my $x = $c * (1 - abs( (($h*6) % 2) - 1 ) );

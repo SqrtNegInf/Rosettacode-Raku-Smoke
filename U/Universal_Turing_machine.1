@@ -12,7 +12,7 @@
 sub run_utm(:$state! is copy, :$blank!, :@rules!, :@tape = [$blank], :$halt, :$pos is copy = 0) {
     $pos += @tape if $pos < 0;
     die "Bad initial position" unless $pos ~~ ^@tape;
- 
+
   step:
     print "$state\t";
     for ^@tape {
@@ -20,14 +20,14 @@ sub run_utm(:$state! is copy, :$blank!, :@rules!, :@tape = [$blank], :$halt, :$p
 	print $_ == $pos ?? "[$v]" !! " $v ";
     }
     print "\n";
- 
+
     return if $state eq $halt;
     for @rules -> @rule {
 	my ($s0, $v0, $v1, $dir, $s1) = @rule;
 	next unless $s0 eq $state and @tape[$pos] eq $v0;
- 
+
 	@tape[$pos] = $v1;
- 
+
 	given $dir {
 	    when 'left' {
 		if $pos == 0 { unshift @tape, $blank }
@@ -37,14 +37,14 @@ sub run_utm(:$state! is copy, :$blank!, :@rules!, :@tape = [$blank], :$halt, :$p
 		push @tape, $blank if ++$pos >= @tape;
 	    }
 	}
- 
+
 	$state = $s1;
 	goto step;
     }
- 
+
     die "No matching rules";
 }
- 
+
 say "incr machine";
 run_utm	:halt<qf>,
 	:state<q0>,
@@ -52,7 +52,7 @@ run_utm	:halt<qf>,
 	:blank<B>,
 	:rules[ [< q0 1 1 right q0 >],
 		[< q0 B 1 stay  qf >] ];
- 
+
 say "\nbusy beaver";
 run_utm :halt<halt>,
 	:state<a>,
@@ -63,7 +63,7 @@ run_utm :halt<halt>,
 		[< b 1 1 right b >],
 		[< c 0 1 left  b >],
 		[< c 1 1 stay  halt >] ];
- 
+
 say "\nsorting test";
 run_utm :halt<STOP>,
 	:state<A>,

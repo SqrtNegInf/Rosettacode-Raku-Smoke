@@ -32,7 +32,7 @@ for 3..9 -> $base {
     push @runoff, |@stems;
     @res.push: "$stem-elem";
     @res.push: "  Finalists: "~ +@runoff;
- 
+
     for @runoff.sort(-*) -> $finalist {
     my $b = $finalist.base($base);
     @res.push: "  Checking :$base\<"~ $b~ '>';
@@ -46,7 +46,7 @@ for 3..9 -> $base {
         }
     }
     next unless $ok;
- 
+
     @res.push: "  Largest ltp in base $base = $finalist";
     last;
     }

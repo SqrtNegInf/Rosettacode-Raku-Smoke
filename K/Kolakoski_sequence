@@ -13,7 +13,7 @@ sub kolakoski (*@seed) {
 }
 
 sub rle (*@series) { @series.join.subst(/((.)$0*)/, -> { $0.chars }, :g).comb».Int }
- 
+
 # Testing
 my @res;
 for [1, 2], 20,

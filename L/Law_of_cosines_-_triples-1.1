@@ -45,10 +45,10 @@ sub triples ($n, $angle where any(60,90,120)) {
     }
     %triples
 }
- 
+
 use lib 'lib';
 use Sort::Naturally;
- 
+
 my $n = 13;
 @res.push: "Integer triangular triples for sides 1..$n:";
 for 120, 90, 60 -> $angle {
@@ -56,7 +56,7 @@ for 120, 90, 60 -> $angle {
     if $angle == 60 { push %itt<60>, "$_ $_ $_" => 1 for 1..$n }
     @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +%itt{$angle}, %itt{$angle}.keys.sort(*.&naturally).join(', ');
 }
- 
+
 my ($angle, $count) = 60, 10_000;
 @res.push: "\nExtra credit:";
 @res.push:  "Number of 60° integer triples in the range 1..$count where the sides are not all the same length: " ~

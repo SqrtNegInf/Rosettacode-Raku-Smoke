@@ -7,18 +7,18 @@
 # Translation of: Perl
 sub fourths ( Int $end ) {
     my $end_22 = $end div 2 / 2;
- 
+
     return 0, $end_22, $end/2, $end - $end_22, $end;
 }
 sub fivenum ( @nums ) {
     my @x = @nums.sort(+*)
         or die 'Input must have at least one element';
- 
+
     my @d = fourths(@x.end);
- 
+
     return ( @x[@d».floor] Z+ @x[@d».ceiling] ) »/» 2;
 }
- 
+
 my @res.push: .&fivenum for [15, 6, 42, 41, 7, 36, 49, 40, 39, 47, 43],
                   [36, 40, 7, 39, 41, 15], [
     0.14082834,  0.09748790,  1.73131507,  0.87636009, -1.95059594,
@@ -28,7 +28,7 @@ my @res.push: .&fivenum for [15, 6, 42, 41, 7, 36, 49, 40, 39, 47, 43],
 ];
 
 .say for @res;
- 
+
 my $ref = qq:to/END/;
 6 25.5 40 42.5 49
 7 15 37.5 40 41

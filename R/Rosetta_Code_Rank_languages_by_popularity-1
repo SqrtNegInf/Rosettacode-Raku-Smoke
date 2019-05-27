@@ -8,18 +8,18 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use HTTP::UserAgent;
 use JSON::Tiny;
- 
+
 my @res.push: $_ for
     mediawiki-query('http://rosettacode.org/mw', 'pages',
                     generator => 'categorymembers',
                     gcmtitle  => "Category:Programming Languages",
                     prop      => 'categoryinfo')\
- 
+
     .map({ %( name  => .<title>.subst(/^'Category:'/, ''),
               count => .<categoryinfo><pages> || 0 ) })
- 
+
     .sort({ -.<count>, .<name> })
- 
+
     .map({ last if .<count>==0; sprintf "%3d. %3d - %s", ++$, .<count name> });
 
 .say for @res[0..15]; say '...'; .say for @res[*-15..*];
@@ -29,21 +29,21 @@ sub mediawiki-query ($site, $type, *%query) {
         :action<query>, :format<json>, :gcmlimit<350>, :rawcontinue(), |%query);
     my $continue = '';
     my $client = HTTP::UserAgent.new;
- 
+
     gather loop {
         my $response = $client.get("$url&$continue");
- 
+
         my $data = from-json($response.content);
         take $_ for $data.<query>.{$type}.values;
- 
+
         $continue = uri-query-string |($data.<query-continue>{*}».hash.hash or last);
     }
 }
- 
+
 sub uri-query-string (*%fields) {
     %fields.map({ "{.key}={uri-encode .value}" }).join("&")
 }
- 
+
 sub uri-encode ($str) {
     $str.subst(/<[\x00..\xff]-[a..zA..Z0..9_.~-]>/, *.ord.fmt('%%%02X'), :g)
 }

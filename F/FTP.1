@@ -12,12 +12,12 @@ use experimental :pack;
 # Works with: rakudo version 2018.04
 
 use Net::FTP;
- 
+
 #my $ftp = Net::FTP.new(:host('mirrors.sohu.com'), :passive); # gone?
 my $ftp = Net::FTP.new(:host('ftp.netbsd.org'), :passive);
- 
+
 $ftp.login();
- 
+
 my @res.push: $_<name> for $ftp.ls();
 .say for @res;
 

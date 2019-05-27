@@ -14,7 +14,7 @@ sub mangle ($name, $initial) {
     ?? $name.substr(1)
     !! $initial~$name.substr(1)
 }
- 
+
 sub name-game (Str $name) {
     qq:to/NAME-GAME/;
     $name, $name, bo-{ mangle $name, 'b' }
@@ -23,7 +23,7 @@ sub name-game (Str $name) {
     $name!
     NAME-GAME
 }
- 
+
 my @res.push: .&name-game for <Gary Earl Billy Felix Mike Steve>;
 .say for @res;
 

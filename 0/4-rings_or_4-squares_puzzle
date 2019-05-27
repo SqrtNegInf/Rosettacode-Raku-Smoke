@@ -7,9 +7,9 @@
 my @res;
 
 sub four-squares ( @list, :$unique=1, :$show=1 ) {
- 
+
     my @solutions;
- 
+
     for $unique.&combos -> @c {
         @solutions.push: @c if [==]
           @c[0] + @c[1],
@@ -17,25 +17,25 @@ sub four-squares ( @list, :$unique=1, :$show=1 ) {
           @c[3] + @c[4] + @c[5],
           @c[5] + @c[6];
     }
- 
+
     #say +@solutions, ($unique ?? ' ' !! ' non-'), "unique solutions found using {join(', ', @list)}.\n";
     @res.push: +@solutions~ ' '~ ($unique ?? '' !! 'non-')~
       "unique solutions found using {join(', ', @list)}.";
- 
+
     my $f = "%{@list.max.chars}s";
- 
+
     if $show {
         @res.push: ('a'..'g').fmt: $f; @res.push: ~$_ for @solutions».fmt($f);
     }
     #say join "\n", (('a'..'g').fmt: $f), @solutions».fmt($f), "\n" if $show;
 
     @res.push: '';
- 
+
     multi combos ( $ where so * ) { @list.combinations(7).map: |*.permutations }
- 
+
     multi combos ( $ where not * ) { [X] @list xx 7 }
 }
- 
+
 # TASK
 four-squares( [1..7] );
 four-squares( [3..9] );

@@ -6,9 +6,9 @@
 
 #Library: DateTime::FormatFormat
 use DateTime::Format;
- 
+
 my $dt1 = DateTime.now;
- 
+
 say strftime('%Y-%m-%d', $dt1);
 say strftime('%A, %B %d, %Y', $dt1);
 
@@ -16,9 +16,9 @@ say strftime('%A, %B %d, %Y', $dt1);
 #as the DateTime class itself is built into a Perl 6 compiler:
 
 use DateTime::Format;
- 
+
 my $dt2 = DateTime.now;
- 
+
 say $dt2.yyyy-mm-dd;
 say strftime('%A, %B %d, %Y', $dt2);
 

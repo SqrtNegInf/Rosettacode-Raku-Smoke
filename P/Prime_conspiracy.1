@@ -8,11 +8,11 @@
 # 52.872u 0.440s 0:53.16 100.2
 
 my @primes := 2, |(3,5,7 ... *).grep: *.is-prime;
- 
+
 my %conspiracy;
 #my $upto = 1_000_000;
 my $upto = 10_000;
- 
+
 @primes[^($upto+1)].reduce: -> $a, $b {
     my $d = $b % 10;
     %conspiracy{"$a → $d count:"}++;

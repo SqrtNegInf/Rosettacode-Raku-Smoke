@@ -8,33 +8,33 @@
 my @res;
 
 #===== The state machine =====#
- 
+
 class StateMachine {
     class State {...}
     class Transition {...}
- 
+
     has State %!state;
     has &.choose-transition is rw;
- 
+
     method add-state(Str $id, &action)
     {
         %!state{$id} = State.new(:$id, :&action);
     }
- 
+
     multi method add-transition(Str $from, Str $to)
     {
         %!state{$from}.implicit-next = %!state{$to};
     }
- 
+
     multi method add-transition(Str $from, $id, Str $to)
     {
         %!state{$from}.explicit-next.push: Transition.new(:$id, to => %!state{$to});
     }
- 
+
     method run(Str $initial-state)
     {
         my $state = %!state{$initial-state};
- 
+
         loop {
             $state.action.();
             if $state.implicit-next -> $_ { $state = $_; }
@@ -42,7 +42,7 @@ class StateMachine {
             else { last; }
         }
     }
- 
+
     class Transition {
         has $.id;
         has State $.to;
@@ -54,14 +54,14 @@ class StateMachine {
         has Transition @.explicit-next;
     }
 }
- 
- 
+
+
 #===== Usage example: Console-based vending machine =====#
- 
+
 
 my @canned = qw<2 1 1 1>;
 my StateMachine $machine .= new;
- 
+
 $machine.choose-transition = sub (*@transitions) {
     @res.push: "[{.key + 1}] {.value.id}" for @transitions.pairs;
     loop {
@@ -71,20 +71,20 @@ $machine.choose-transition = sub (*@transitions) {
         @res.push: "Invalid input; try again.";
     }
 }
- 
+
 $machine.add-state("ready",     { @res.push: "Please deposit coins.";                     });
 $machine.add-state("waiting",   { @res.push: "Please select a product.";                  });
 $machine.add-state("dispense",  { sleep 2; @res.push: "Please remove product from tray."; });
 $machine.add-state("refunding", { sleep 1; @res.push: "Refunding money...";               });
 $machine.add-state("exit",      { @res.push: "Shutting down...";                          });
- 
+
 $machine.add-transition("ready",     "quit",    "exit");
 $machine.add-transition("ready",     "deposit", "waiting");
 $machine.add-transition("waiting",   "select",  "dispense");
 $machine.add-transition("waiting",   "refund",  "refunding");
 $machine.add-transition("dispense",  "remove",  "ready");
 $machine.add-transition("refunding",            "ready");
- 
+
 $machine.run("ready");
 
 

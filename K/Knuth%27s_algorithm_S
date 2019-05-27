@@ -19,10 +19,10 @@ sub s_of_n_creator($n) {
         @sample;
     }
 }
- 
+
 my @items = 0..9;
 my @bin;
- 
+
 for ^100000 {
     my &s_of_n = s_of_n_creator(3);
     my @sample;

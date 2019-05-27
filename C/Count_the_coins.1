@@ -15,16 +15,16 @@ my @res;
 
 sub change($amount, @coins) {
     my @cache = $[1 xx @coins];
- 
+
     multi ways($n where $n >= 0, @now [$coin,*@later]) {
         @cache[$n][+@later] //= ways($n - $coin, @now) + ways($n, @later);
     }
     multi ways($,@) { 0 }
- 
+
     # more efficient to start with coins sorted in descending order
     ways($amount, @coins.sort(-*).list);  
 }
- 
+
 @res.push: change    1_00, [1,5,10,25];
 @res.push: change  100_00, [1,5,10,25] if $*VM  ~~ /jvm/; # DH JVM OK
 @res.push: change 1000_00, [1,5,10,25] if $*VM !~~ /jvm/; # DH JVM fails
@@ -40,7 +40,7 @@ sub change-i(\n, @coins) {
     }
     @table[*-1][*-1];
 }
- 
+
 @res.push: change-i    1_00, [1,5,10,25];
 @res.push: change-i 1000_00, [1,5,10,25];
 @res.push: change-i 1000_00, [1,5,10,25,50,100];

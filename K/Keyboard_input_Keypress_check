@@ -8,7 +8,7 @@
 my @res;
 
 use Term::ReadKey;
- 
+
 react {
     whenever key-pressed(:!echo) {
         given .fc {

@@ -10,13 +10,13 @@ my @res;
 # Translation of: Go
 @res.push: now, " program start";
 my $event = Channel.new;
- 
+
 my $todo = start {
     @res.push: now, " task start";
     $event.receive;
     @res.push: now, " event reset by task";
 }
- 
+
 @res.push: now, " program sleeping";
 sleep 1;
 @res.push: now, " program signaling event";

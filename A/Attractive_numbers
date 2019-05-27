@@ -7,17 +7,17 @@
 my @res;
 
 use Prime::Factor;
- 
+
 sub display ($n,$m) { ($n..$m).hyper.grep: *.&prime-factors.elems.is-prime }
- 
+
 sub count ($n,$m) { +($n..$m).race(:16batch).grep: *.&prime-factors.elems.is-prime }
- 
+
 sub comma { $^i.flip.comb(3).join(',').flip }
- 
+
 # The Task
 @res.push: "Attractive numbers from 1 to 120:\n" ~
 display(1, 120)».fmt("%3d").rotor(20, :partial).join: "\n";
- 
+
 # Robusto!
 for 1, 1000,  1, 10000,  2**73 + 1, 2**73 + 100 -> $a, $b {
     @res.push: "\nCount of attractive numbers from {comma $a} to {comma $b}:\n" ~

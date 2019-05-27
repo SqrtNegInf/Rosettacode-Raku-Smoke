@@ -18,9 +18,9 @@ sub prime-factors ( Int $n where * > 0 ) {
     return () if $n == 1;
     my $factor = find-factor( $n );
     sort flat ( $factor, $n div $factor ).map: *.&prime-factors; # vive la différence
-    
+
 }
- 
+
 sub find-factor ( Int $n, $constant = 1 ) {
     return 2 unless $n +& 1;
     if (my $gcd = $n gcd 6541380665835015) > 1 { # magic number: [*] primes 3 .. 43
@@ -43,7 +43,7 @@ sub find-factor ( Int $n, $constant = 1 ) {
     $factor = find-factor( $n, $constant + 1 ) if $n == $factor;
     $factor;
 }
- 
+
 (2²⁹-1, 2⁴¹-1, 2⁵⁹-1, 2⁷¹-1, 2⁷⁹-1, 2⁹⁷-1, 2¹¹⁷-1, 2²⁴¹-1,
 5465610891074107968111136514192945634873647594456118359804135903459867604844945580205745718497)\
 .hyper(:1batch).map: -> $n {

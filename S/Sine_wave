@@ -17,7 +17,7 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 #  "\e[$v;0H", '_' x $cols;
 #sleep 5;
 #say "\e[H\e[J", 'No?, ok how about this:';
- 
+
 use SVG;
 my $filename = 'run/sine.svg';
 my $out = open($filename, :w) orelse .die;

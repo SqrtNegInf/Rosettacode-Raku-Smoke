@@ -19,9 +19,9 @@ sub propdiv (\x) {
     }
     @l
 }
- 
+
 @res.push: "$_ [{propdiv($_)}]" for 1..10;
- 
+
 my @candidates;
 loop (my int $c = 30; $c <= 20_000; $c += 30) {
 #(30, *+30 ...^ * > 500_000).race.map: -> $c {
@@ -29,7 +29,7 @@ loop (my int $c = 30; $c <= 20_000; $c += 30) {
     next if mx < @candidates - 1;
     @candidates[mx].push: $c
 }
- 
+
 @res.push: "max = {@candidates - 1}, candidates = {@candidates.tail}";
 
 .say for @res;

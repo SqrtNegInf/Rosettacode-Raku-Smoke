@@ -9,9 +9,9 @@
 
 sub is-valid-ISIN (Str $ISIN --> Bool) {
     $ISIN ~~ /^ <[A..Z]>**2 <[A..Z0..9]>**9 <[0..9]> $/ or return False;
- 
+
     my $base10 = $ISIN.comb.map({ :36($_) }).join;
- 
+
     return luhn-test $base10;
 }
 

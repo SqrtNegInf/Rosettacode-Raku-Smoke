@@ -19,14 +19,14 @@ my \factories = @nums.race.map: *.&prime-factors.cache; # does .cache do anythin
 #say my $gmf = (max (factories»[0] »=>« @nums)).value; # same result as below
 #say my $gmf = (factories»[0] »=>« @nums).reduce(&max).value; # sometimes works? prototype handling keeps changing
 say my $gmf = (factories»[0] »=>« @nums).reduce(* max *).value;
- 
+
 sub prime-factors ( Int $n where * > 0 ) {
     return $n if $n.is-prime;
     return [] if $n == 1;
     my $factor = find-factor( $n );
     sort flat prime-factors( $factor ), prime-factors( $n div $factor );
 }
- 
+
 sub find-factor ( Int $n, $constant = 1 ) {
     my $x      = 2;
     my $rho    = 1;

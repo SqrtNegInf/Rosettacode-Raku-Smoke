@@ -17,7 +17,7 @@ my @palindromes;
 my $count;
 my $max = 500;
 my $limit = '10_000';
- 
+
 for 1 .. $limit -> $int {
     my @test;
     my $index = 0;
@@ -28,7 +28,7 @@ for 1 .. $limit -> $int {
         $count++;
     }
     #print "\b" x 20;
- 
+
     sub is-lychrel (Int $l) {
         return True if $index++ > $max;
         @test.push: my $m = $l + $l.flip;
@@ -36,7 +36,7 @@ for 1 .. $limit -> $int {
         $m.&is-lychrel;
     }
 }
- 
+
 for %lychrels{*}»[0].unique.sort -> $ly {
     my $next = False;
     for %lychrels -> $l {
@@ -49,7 +49,7 @@ for %lychrels{*}»[0].unique.sort -> $ly {
     next if $next;
     @seeds.push: $ly;
 }
- 
+
 my @res;
 @res.push: "   Number of Lychrel seed numbers < $limit: "~ +@seeds;
 @res.push: "             Lychrel seed numbers < $limit: "~ join ", ", @seeds;

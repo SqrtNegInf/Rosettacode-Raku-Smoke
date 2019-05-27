@@ -30,11 +30,11 @@
 #     cell are 1,4,6 and 6 is only a candidate for two of the
 #     competing cells, we start with that one.
 #
- 
+
 # keep a list with all the cells, handy for traversal
 #my @cells = do for 0..8 X 0..8 -> $x, $y { [ $x, $y ] };
 my @cells =[ (Int) xx 9 ] xx 9;
- 
+
 #
 # Try to solve this puzzle and return the resolved puzzle if it is at
 # all solvable in this configuration.
@@ -79,7 +79,7 @@ sub solve($sudoku, Int $level) {
         return False;
     }
 }
- 
+
 # This function reduces the search space from values that are already
 # assigned to competing cells.
 sub cleanup-impossible-values($sudoku, Int $level = 1) {
@@ -94,7 +94,7 @@ say "topic: $_";
             # which block is this cell in
             my Int $bx = Int($x / 3);
             my Int $by = Int($y / 3);
- 
+
             # A unfilled cell is not resolved, so it shouldn't match
             my multi match-resolved-cell(Array $other, Int $this) {
                 return 0;
@@ -102,7 +102,7 @@ say "topic: $_";
             my multi match-resolved-cell(Int $other, Int $this) {
                 return $other == $this;
             }
- 
+
             # Reduce the possible values to the ones that are still
             # valid
             my @r =
@@ -124,7 +124,7 @@ say "topic: $_";
     } while $resolved; # repeat if there was any change
     return 1;
 }
- 
+
 sub solution-complexity-factor($sudoku, Int $x, Int $y) {
     my Int $bx = Int($x / 3); # this block
     my Int $by = Int($y / 3);
@@ -147,7 +147,7 @@ sub solution-complexity-factor($sudoku, Int $x, Int $y) {
     }
     return $f;
 }
- 
+
 sub matches-in-competing-cells($sudoku, Int $x, Int $y, Int $val) {
     my Int $bx = Int($x / 3); # this block
     my Int $by = Int($y / 3);
@@ -170,7 +170,7 @@ sub matches-in-competing-cells($sudoku, Int $x, Int $y, Int $val) {
     }
     return $c;
 }
- 
+
 sub find-implicit-answers($sudoku, Int $level) {
     my Bool $resolved = False;
     for grep { $sudoku[$_[0]][$_[1]] ~~ Array },
@@ -187,7 +187,7 @@ sub find-implicit-answers($sudoku, Int $level) {
     }
     return $resolved;
 }
- 
+
 my $puzzle =
     map { [ map { $_ == 0 ?? [1..9] !! $_+0  }, @($_) ] },
     [ 0,0,0,0,3,7,6,0,0 ],
@@ -199,20 +199,20 @@ my $puzzle =
     [ 7,0,0,0,0,0,8,0,0 ],
     [ 0,1,0,0,0,9,0,0,0 ],
     [ 0,0,2,5,4,0,0,0,0 ];
- 
+
 my $solved = solve($puzzle, 0);
 if $solved {
     print-sudoku($solved,0);
 } else {
     say "unsolvable.";
 }
- 
+
 # Utility functions, not really part of the solution
- 
+
 sub trace(Int $level, Str $message) {
     say '.' x $level, $message;
 }
- 
+
 sub clone-sudoku($sudoku) {
     my $clone;
     for 0..8 X 0..8 -> $x, $y {
@@ -220,7 +220,7 @@ sub clone-sudoku($sudoku) {
     }
     return $clone;
 }
- 
+
 sub print-sudoku($sudoku, Int $level = 1) {
     trace $level, '-' x 5*9;
     for @($sudoku) -> $row {

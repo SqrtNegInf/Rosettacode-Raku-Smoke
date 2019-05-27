@@ -24,11 +24,11 @@ sub endsWithOne($n --> Bool) {
       $sum = 0;
    }
 }
- 
+
 #quietly { # DH don't need because 'default' is used
- 
+
 my @ks = (7, 8, 11, 14, 17);
- 
+
 for @ks -> $k {
    my @sums is default(0) = 1,0;
    my $s;
@@ -47,7 +47,7 @@ for @ks -> $k {
    @res.push: "For k = $k in the range 1 to $limit";
    @res.push: "$count1 numbers produce 1 and {$limit-$count1} numbers produce 89";
 }
- 
+
 #} # to be continued
 
 .say for @res;

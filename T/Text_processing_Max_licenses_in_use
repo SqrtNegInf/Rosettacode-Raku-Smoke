@@ -7,9 +7,9 @@
 #Redirecting the mlijobs.txt file to STDIN:
 
 my %licenses;
- 
+
 %licenses<count max> = 0,0;
- 
+
 #for $*IN.lines -> $line { 
 for slurp("ref/mlijobs.txt").lines -> $line {
     my ( $license, $date_time );
@@ -31,9 +31,9 @@ for slurp("ref/mlijobs.txt").lines -> $line {
         %licenses<count>--;
     }
 };
- 
+
 my $plural = %licenses<times>.elems == 1 ?? '' !! 's';
- 
+
 my @res.push: "Maximum concurrent licenses in use: {%licenses<max>}, in the time period{$plural}:";
    @res.push: join ",\n", %licenses<times>.list;
 .say for @res;

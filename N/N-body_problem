@@ -14,7 +14,7 @@ multi infix:<->(@a, @b) { @a Z- @b }
 multi infix:<*>($r, @a) { $r X* @a }
 multi infix:</>(@a, $r) { @a X/ $r }
 sub norm { sqrt [+] @_ X** 2 }
- 
+
 # Runge-Kutta stuff
 sub runge-kutta(&yp) {
     return -> \t, \y, \δt {
@@ -25,31 +25,31 @@ sub runge-kutta(&yp) {
         ($a + 2*($b + $c) + $d) / 6;
     }
 }
- 
+
 # gravitational constant
 constant G = 6.674e-11;
 # astronomical unit
 constant au = 150e9;
- 
+
 # time constants in seconds
 constant year = 365.25*24*60*60;
 constant month = 21*24*60*60;
- 
+
 # masses in kg
 constant $ma = 2e30;     # Sun
 constant $mb = 6e24;     # Earth
 constant $mc = 7.34e22;  # Moon
- 
+
 my &dABC = runge-kutta my &f = sub ( $t, @ABC ) {
 
     my @a = @ABC[0..2];
     my @b = @ABC[3..5];
     my @c = @ABC[6..8];
- 
+
     my $ab = norm(@a - @b); 
     my $ac = norm(@a - @c);
     my $bc = norm(@b - @c);
- 
+
     return [
         flat
         @ABC[@(9..17)],

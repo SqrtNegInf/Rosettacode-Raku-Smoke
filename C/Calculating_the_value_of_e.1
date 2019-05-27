@@ -11,16 +11,16 @@
 # Adjust the precision parameter to suit. Theoretically the
 # precision should be ∞. Practically, calculating an
 # infinite series takes an awfully long time, so limit to 500.
- 
+
 my $precision = 500;
 sub postfix:<!> (Int $n) { [*] 2..$n }
 #my \𝑒 = sum map { 1 / FatRat.new(.!) }, ^$precision;
 #say my $result = 𝑒 .comb(80).join: "\n";
 my $e = sum map { 1 / FatRat.new(.!) }, ^$precision;
 say my $result = $e .comb(80).join: "\n";
- 
+
 say '';
- 
+
 # Or, if you don't need high precision, it's a built-in.
 say e;
 

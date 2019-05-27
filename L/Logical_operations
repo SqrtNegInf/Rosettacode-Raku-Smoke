@@ -14,30 +14,30 @@ return
     take "$a || $b is", $a || $b;     # short-circuiting
     take "$a ^^ $b is", ($a ^^ $b).perl;    # emits Nil
     take "!$a is",     !$a;
- 
+
     take "$a ?& $b is", $a ?& $b;     # non-short-circuiting
     take "$a ?| $b is", $a ?| $b;     # non-short-circuiting
     take "$a ?^ $b is", $a ?^ $b;     # non-short-circuiting
- 
+
     take "$a +& $b is", $a +& $b;     # numeric bitwise
     take "$a +| $b is", $a +| $b;     # numeric bitwise
     take "$a +^ $b is", $a +^ $b;     # numeric bitwise
- 
+
     take "$a ~& $b is", $a ~& $b;     # buffer bitwise
     take "$a ~| $b is", $a ~| $b;     # buffer bitwise
     take "$a ~^ $b is", $a ~| $b;     # buffer bitwise
- 
+
     take "$a & $b is", ($a & $b).perl;       # junctional/autothreading
     take "$a | $b is", ($a | $b).perl;       # junctional/autothreading
     take "$a ^ $b is", ($a ^ $b).perl;       # junctional/autothreading
- 
+
     take "$a and $b is", ($a and $b); # loose short-circuiting
     take "$a or $b is",  ($a or $b);  # loose short-circuiting
     take "$a xor $b is", ($a xor $b).perl; # emits Nil 
     take "not $a is",    not $a;
  }
 }
- 
+
 my @res = logic(3,10);
 .put for @res;
 

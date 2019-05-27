@@ -13,7 +13,7 @@ sub decide (@q, @s) {
     { say 'ok 1 -'; exit } if $result eq '  Check for paper jam';
     { say 'not ok 1 -'; exit } if $result eq 'No clue!';
 }
- 
+
 loop {
     decide
     (

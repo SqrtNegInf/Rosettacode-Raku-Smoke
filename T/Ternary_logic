@@ -5,12 +5,12 @@
 #j#  JVM: OK
 
 enum Trit <Foo Moo Too>;
- 
+
 sub prefix:<¬> (Trit $a) { Trit(1-($a-1)) }
- 
+
 sub infix:<∧> (Trit $a, Trit $b) is equiv(&infix:<*>) { $a min $b }
 sub infix:<∨> (Trit $a, Trit $b) is equiv(&infix:<+>) { $a max $b }
- 
+
 sub infix:<⇒> (Trit $a, Trit $b) is equiv(&infix:<..>) { ¬$a max $b }
 sub infix:<≡> (Trit $a, Trit $b) is equiv(&infix:<eq>) { Trit(1 + ($a-1) * ($b-1)) }
 
@@ -23,7 +23,7 @@ my @res;
 @res.push: "Too {¬Too}";
 @res.push: "Moo {¬Moo}";
 @res.push: "Foo {¬Foo}";
- 
+
 sub tbl (&op,$name) {
     @res.push: '';
     @res.push: "$name   Too Moo Foo";
@@ -32,12 +32,12 @@ sub tbl (&op,$name) {
     @res.push: "Moo║{op Moo,Too} {op Moo,Moo} {op Moo,Foo}";
     @res.push: "Foo║{op Foo,Too} {op Foo,Moo} {op Foo,Foo}";
 }
- 
+
 tbl(&infix:<∧>, '∧');
 tbl(&infix:<∨>, '∨');
 tbl(&infix:<⇒>, '⇒');
 tbl(&infix:<≡>, '≡');
- 
+
 @res.push: '';
 @res.push: 'Precedence tests should all print "Too":';
 @res.push: ~(
@@ -45,12 +45,12 @@ tbl(&infix:<≡>, '≡');
     Foo ∧ (Too ∨ Too) ≡ Foo,
     Too ∨ Too ∧ Foo ≡ Too,
     (Too ∨ Too) ∧ Foo ≡ Foo,
- 
+
     ¬Too ∧ Too ∨ Too ≡ Too,
     ¬Too ∧ (Too ∨ Too) ≡ ¬Too,
     Too ∨ Too ∧ ¬Too ≡ Too,
     (Too ∨ Too) ∧ ¬Too ≡ ¬Too,
- 
+
     Foo ∧ Too ∨ Foo ⇒ Foo ≡ Too,
     Foo ∧ Too ∨ Too ⇒ Foo ≡ Foo,
 );

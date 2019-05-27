@@ -8,7 +8,7 @@ my @list;
 my $longest = 0;
 my %seen;
 my @res;
- 
+
 #for 1 .. 1000000 -> $m { # 196.742u 2.298s 4:29.33 73.8% slower, same result
 for 1 .. 10000 -> $m {      # 7.637u 0.324s 0:13.40 59.3%
     next unless $m ~~ /0/;         # seed must have a zero
@@ -42,9 +42,9 @@ my $m = @list[0];
     @res.push: $_ for @seq[^$count];
    .say for @res;
 #}
- 
+
 sub converging ($seed) { return $seed, -> $l { join '', map { $_.value.elems~$_.key }, $l.comb.classify({$^b}).sort: {-$^c.key} } ... * }
- 
+
 sub permutations ($string, $sofar? = '' ) {
     return $sofar unless $string.chars;
     my @perms;

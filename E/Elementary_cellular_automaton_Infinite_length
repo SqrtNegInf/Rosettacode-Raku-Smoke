@@ -11,9 +11,9 @@ class Automaton {
     has $.rule;
     has @.cells;
     has @.code = $!rule.fmt('%08b').flip.comb».Int;
- 
+
     method gist { @!cells.map({+$_ ?? '▲' !! '░'}).join }
- 
+
     method succ {
         self.new: :$!rule, :@!code, :cells(
             ' ',
@@ -26,14 +26,14 @@ class Automaton {
         )
     }
 }
- 
+
 my Automaton $a .= new: :rule(90), :cells(flat '010'.comb);
- 
+
 # display the first 20 rows
 my @res.push: $a++.gist for ^20;
 
 .say for @res; 
- 
+
 # then calculate the other infinite number of rows, (may take a while)
 #$a++ for ^Inf;
 

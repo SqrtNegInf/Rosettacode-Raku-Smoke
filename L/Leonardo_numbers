@@ -6,11 +6,11 @@
 #n# for JVM: downgraded Unicode names to ASCII
 
 sub L ( $L0 = 1, $L1 = 1, $Ladd = 1 ) { $L0, $L1, { $^n2 + $^n1 + $Ladd } ... * }
- 
+
 # Part 1
 say "The first 25 Leonardo numbers:";
 put my $res1 = L()[^25];
- 
+
 # Part 2
 say "\nThe first 25 numbers using 𝑳0 of 0, 𝑳1 of 1, and adder of 0:";
 put my $res2 = L( 0, 1, 0 )[^25];

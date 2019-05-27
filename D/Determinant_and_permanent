@@ -9,13 +9,13 @@
 
 sub insert ($x, @xs) { ([flat @xs[0 ..^ $_], $x, @xs[$_ .. *]] for 0 .. @xs) }
 sub order ($sg, @xs) { $sg > 0 ?? @xs !! @xs.reverse }
- 
+
 multi σ_permutations ([]) { [] => 1 }
- 
+
 multi σ_permutations ([$x, *@xs]) {
     σ_permutations(@xs).map({ |order($_.value, insert($x, $_.key)) }) Z=> |(1,-1) xx *
 }
- 
+
 sub m_arith ( @a, $op ) {
     note "Not a square matrix" and return
       if [||] map { @a.elems cmp @a[$_].elems }, ^@a;
@@ -26,9 +26,9 @@ sub m_arith ( @a, $op ) {
         $term
     }, σ_permutations [^@a];
 }
- 
+
 ########### Testing ###########
- 
+
 my @tests = (
     [
         [ 1, 2 ],
@@ -50,12 +50,12 @@ my @tests = (
 );
 
 my @res;
- 
+
 sub dump (@matrix) {
     @res.push: $_».fmt: "%3s" for @matrix;
     @res.push: '';
 }
- 
+
 for @tests -> @matrix {
     @res.push: 'Matrix:';
     @matrix.&dump;

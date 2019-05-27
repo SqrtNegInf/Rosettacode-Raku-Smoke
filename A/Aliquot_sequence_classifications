@@ -15,13 +15,13 @@ sub propdivsum (\x) {
     }
     sum @l;
 }
- 
+
 multi quality (0,1)  { 'perfect ' }
 multi quality (0,2)  { 'amicable' }
 multi quality (0,$n) { "sociable-$n" }
 multi quality ($,1)  { 'aspiring' }
 multi quality ($,$n) { "cyclic-$n" }
- 
+
 sub aliquotidian ($x) {
     my %seen;
     #state @seq; @seq = $x, &propdivsum ... *;
@@ -37,7 +37,7 @@ sub aliquotidian ($x) {
     }
     "$x non-terminating\t[{@seq}]";
 }
- 
+
 @res.push: aliquotidian($_) for flat
     1..10,
     11, 12, 28, 496, 220, 1184, 12496, 1264460,

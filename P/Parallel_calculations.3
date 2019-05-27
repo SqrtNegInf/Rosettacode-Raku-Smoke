@@ -17,14 +17,14 @@ my \factories = @nums.race(:batch(@nums / 32)).map: *.&prime-factors.cache;
 
 my $gmf = (factories»[0] »=>« @nums).reduce(&max).value;
 say $gmf;
- 
+
 sub prime-factors ( Int $n where * > 0 ) {
     return $n if $n.is-prime;
     return [] if $n == 1;
     my $factor = find-factor( $n );
     sort flat prime-factors( $factor ), prime-factors( $n div $factor );
 }
- 
+
 sub find-factor ( Int $n, $constant = 1 ) {
     my $x      = 2;
     my $rho    = 1;
@@ -41,7 +41,7 @@ sub find-factor ( Int $n, $constant = 1 ) {
     $factor = find-factor( $n, $constant + 1 ) if $n == $factor;
     $factor;
 }
- 
+
 #`{
 The second line takes the list of numbers and converts then to a RaceSeq that is stored in a raw variable. Any RaceSeq overloads map and grep to convert and pick values in worker threads. The runtime will pick the number of OS-level threads and assign worker threads to them while avoiding stalling in any part of the program. A RaceSeq is lazy, so the computation of values will happen in chunks as they are requested in the third line.
 Beside RaceSeq and its in order equivalent HyperSeq, Rakudo supports primitive threads, locks and highlevel promises. Using channels and supplies values can be move threadsafe from one thread to another. A react-block can be used as a central hub for message passing.

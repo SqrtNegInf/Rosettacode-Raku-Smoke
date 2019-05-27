@@ -6,7 +6,7 @@
 
 sub sieve( Int $limit ) {
     my @is-prime = False, False, slip True xx $limit - 1;
- 
+
     gather for @is-prime.kv -> $number, $is-prime {
         if $is-prime {
             take $number;
@@ -16,7 +16,7 @@ sub sieve( Int $limit ) {
         }
     }
 }
- 
+
 (sieve 100).join(",").say;
 
 # A set-based approach
@@ -32,7 +32,7 @@ sub eratsieve($n) {
         }
     }
 }
- 
+
 put flat eratsieve(100);
 
 #`{{ removed: modulus not sieve...

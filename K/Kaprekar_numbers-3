@@ -28,20 +28,20 @@ sub kaprekar-generator( :$base = 10 ) {
         }
     }
 }
- 
+
 my $result1 ~= " $_[0]" for kaprekar-generator() ...^ *.[0] >= 10_000;
 say $result1;
 is $result1, ' 1 9 45 55 99 297 703 999 2223 2728 4879 4950 5050 5292 7272 7777 9999';
- 
+
 my $result2 = +(kaprekar-generator() ...^ *.[0] >= 100_000);
 say "Base 10 Kaprekar numbers < :10<1_000_000> = $result2";
 is $result2, 24;
 say '';
- 
+
 say "Base 17 Kaprekar numbers < :17<100_000>";
- 
+
 my &k17-gen = &kaprekar-generator.assuming(:base(17));
- 
+
 my @res;
 for k17-gen() ...^ *.[0] >= :17<100000> -> @r {
     my ($n,$h,$l) = @r;

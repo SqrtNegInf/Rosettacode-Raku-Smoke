@@ -25,7 +25,7 @@ grammar EBNF {
   token    comment { <literal> }
   token       name { <identifier>  <?before \h* '='> }
 }
- 
+
 class EBNF::Actions {
     method        TOP($/) { 
                             say "Syntax Tree:\n", $/; # Dump the syntax tree to STDOUT
@@ -51,7 +51,7 @@ class EBNF::Actions {
     method   optional($/) { make $<expression>.ast }
     method      group($/) { make $<expression>.ast }
 }
- 
+
 # An array of test cases
 my @tests = (
     {
@@ -77,10 +77,10 @@ my @tests = (
                 expr = term { plus term } .
                 term = factor { times factor } .
                 factor = number | '(' expr ')' .
- 
+
                 plus = "+" | "-" .
                 times = "*" | "/" .
- 
+
                 number = digit { digit } .
                 digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" .
             }>
@@ -111,7 +111,7 @@ my @tests = (
         teststrings => ['foobar']
     }
 );
- 
+
 # Test the parser.
 my $bend = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
 unlink "run/ebnf.$bend";

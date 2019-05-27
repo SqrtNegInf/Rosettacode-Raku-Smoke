@@ -11,7 +11,7 @@ srand 123456;
 sub radsort (@ints) {
     my $maxlen = max @ints».chars;
     my @list = @ints».fmt("\%0{$maxlen}d");
- 
+
     for reverse ^$maxlen -> $r {
         my @buckets = @list.classify( *.substr($r,1) ).sort: *.key;
         @buckets[0].value = @buckets[0].value.reverse.List # DH change
@@ -21,7 +21,7 @@ sub radsort (@ints) {
     }
     @list».Int;
 }
- 
+
 "$_ ".print for radsort my @data = (-2_000 .. 2_000).roll(20);
 say();
 

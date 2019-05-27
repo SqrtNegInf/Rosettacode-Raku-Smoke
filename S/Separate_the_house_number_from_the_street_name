@@ -18,7 +18,7 @@ my @res;
 {
 m[
     ( .*? )
- 
+
     [
         \s+
         (
@@ -26,7 +26,7 @@ m[
         | <!before 1940 | 1945> \d+ <[ a..z I . / \x20 ]>* \d*
         )
     ]?
- 
+
     $
 ]; @res.push: [$0, $1] } for slurp("ref/house-numbers.txt").lines;
 

@@ -11,19 +11,19 @@
 use SVG;
 
 my $fh = open("run/hilbert_curve.svg", :w) || die;
- 
+
 role Lindenmayer {
     has %.rules;
     method succ {
 	    self.comb.map( { %!rules{$^c} // $c } ).join but Lindenmayer(%!rules)
     }
 }
- 
+
 my $hilbert = 'A' but Lindenmayer( { A => '-BF+AFA+FB-', B => '+AF-BFB-FA+' } );
- 
+
 $hilbert++ xx 7;
 my @points = (647, 13);
- 
+
 for $hilbert.comb -> $v {
     state ($x, $y) = @points[0,1];
     state $d = -5 - 0i;
@@ -33,7 +33,7 @@ for $hilbert.comb -> $v {
         default { }
     }
 }
- 
+
 $fh.say: SVG.serialize(
     svg => [
         width => 660, height => 660, style => 'stroke:rgb(0,0,198)',

@@ -61,7 +61,7 @@ my @promises = map -> $re {
     start { [ mandelbrot($re + $_) for @$im ] }
 }, @re;
 
- 
+
 my $out = open('mandelbrot.ppm', :w);
 
 $out.say("P3\n$width $height\n255");

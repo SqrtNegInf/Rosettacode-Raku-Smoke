@@ -8,9 +8,9 @@
 # Works with: Rakudo version 2016.07
 
 my %anagrams = 'unixdict.txt'.IO.words.classify({ .comb.sort.join });
- 
+
 my $max = %anagrams.values».elems.max;
- 
+
 .say for %anagrams.values.grep(*.elems == $max)».join(' ');
 
 #`{

@@ -7,7 +7,7 @@
 # Works with: Rakudo version 2018.06
 
 sub lex (Int $n) { (1…$n).sort: ~* }
- 
+
 # TESTING
 my @res.push: sprintf("%4d: [%s]", $_, .&lex.join: ',') for 13, 21, -22;
 
