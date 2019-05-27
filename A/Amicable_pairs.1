@@ -3,9 +3,6 @@
 #c# 2015-10-30 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2019-05-25 not a big whoop, but easy way to double speed: (but safe/robust?)
-#n# this: 20.155u 1.070s 0:06.17 343.9%
-#n# prev: 12.765u 0.220s 0:12.53 103.5%
 
 sub propdivsum (\x) {
     my @l = x > 1, gather for 2 .. x.sqrt.floor -> \d {
@@ -16,7 +13,7 @@ sub propdivsum (\x) {
 }
 
 my %H;
-(1..20000).race.map: -> $i {
+for 1..20000 -> $i {
     my $j = propdivsum($i);
     if $j > $i and $i == propdivsum($j) {
         say "$i $j";
