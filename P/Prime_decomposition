@@ -17,7 +17,8 @@ sub prime-factors ( Int $n where * > 0 ) {
     return $n if $n.is-prime;
     return () if $n == 1;
     my $factor = find-factor( $n );
-    sort flat ( $factor, $n div $factor ).map: *.&prime-factors;
+    sort flat ( $factor, $n div $factor ).map: *.&prime-factors; # vive la différence
+    
 }
  
 sub find-factor ( Int $n, $constant = 1 ) {
