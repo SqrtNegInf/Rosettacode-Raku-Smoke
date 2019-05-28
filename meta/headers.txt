@@ -297,12 +297,6 @@ File: A/Align_columns.2
 #m# MOAR: OK
 #j#  JVM: OK
 #n# older version with updated syntax
- 
-###to be called with perl6 columnaligner.pl <orientation>(left, center , right )
-###with left as default
-my $fh = open  "align_columns.txt" , :r  or die "Can't read text file!\n" ;
-my @filelines = $fh.lines ;
-close $fh ;
 
 File: A/Aliquot_sequence_classifications
 #!/usr/bin/env perl6
@@ -366,7 +360,7 @@ File: A/Amicable_pairs
 #c# 2015-10-30 <RC, 2019-05-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# both the concurrency and improved sum calculation seem to boost the speed
+#n# both the concurrency and improved sum calculation contribute to boost the speed
 
 File: A/Amicable_pairs.1
 #!/usr/bin/env perl6
@@ -794,9 +788,6 @@ File: B/Base64_encode_data
 #c# 2018-03-20 <RC, 2018-03-22 >RC
 #m# MOAR: OK
 #j# JVM:  OK
- 
-my $buf = slurp("ref/rc.ico", :bin);
-say my $result = buf-to-Base64($buf);
 
 File: B/Benford%27s_law
 #!/usr/bin/env perl6
@@ -1826,11 +1817,6 @@ File: C/Create_a_file
 #m# MOAR: OK
 #j#  JVM: OK
 #    cf 'Delete_a_file'
- 
-#for '.', '' -> $prefix {
-#    mkdir "$prefix/docs" || die;
-#    open "$prefix/output.txt", :w;
-#}
 
 File: C/Create_a_two-dimensional_array_at_runtime
 #!/usr/bin/env perl6
@@ -2445,25 +2431,6 @@ File: E/Eertree
 #c# 2018-12-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
- 
-my $str = "eertree";
-my @pal = ();
-my ($strrev,$strpal);
- 
-for (1 .. $str.chars) -> $n {
-   for (1 .. $str.chars) -> $m {
-      $strrev = "";
-      $strpal = $str.substr($n-1, $m);
-      if ($strpal ne "") {
-         for ($strpal.chars ... 1) -> $p {
-            $strrev ~= $strpal.substr($p-1,1);
-         }
-         ($strpal eq $strrev) and @pal.push($strpal);
-      }
-   }
-}
- 
-say my $result = @pal.unique;
 
 File: E/Egyptian_division
 #!/usr/bin/env perl6
@@ -3689,35 +3656,6 @@ File: H/HTTPS_Client-authenticated
 #c# 2018-11-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
- 
-# cert creation commands
-# openssl req -newkey rsa:4096 -keyout my_key.pem -out my_csr.pem -nodes -subj "/CN=ME"
-# openssl x509 -req -in my_csr.pem -signkey my_key.pem -out my_cert.pem
- 
-use OpenSSL;
- 
-my $host = "google.com";
-#my $host = "github.com";
- 
-my $ssl = OpenSSL.new(:client);
- 
-$ssl.use-certificate-file("meta/p6-cert.pem");
-$ssl.use-privatekey-file("meta/p6-key.pem");
-$ssl.check-private-key;
- 
-my $s = IO::Socket::INET.new(:$host, :port(443)) orelse .die;
- 
-$ssl.set-socket($s) orelse .die;
-$ssl.set-connect-state;
-$ssl.connect orelse .die;
-$ssl.write("GET / HTTP/1.1\r\n\r\n") orelse .die;
-say my $result = $ssl.read(1024) orelse .die;
-$s.close;
-$ssl.close;
- 
-use Test;
-ok $result ~~ /^^ 'HTTP/1.1 200 OK' /;
-#is @res.join("\n"), chomp $ref;
 
 File: H/Hailstone_sequence
 #!/usr/bin/env perl6
@@ -6456,46 +6394,7 @@ File: P/Percentage_difference_between_images
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# difference in output from RC examples due to library code, probably
- 
-use GD::Raw;
- 
-# Reference:
-# https://github.com/dagurval/perl6-gd-raw
- 
-my $fh1 = fopen('ref/Lenna50.jpg', "rb") or die;
-my $img1 = gdImageCreateFromJpeg($fh1);
-my $fh2 = fopen('ref/Lenna100.jpg', "rb") or die;
-my $img2 = gdImageCreateFromJpeg($fh2);
- 
-my $img1X = gdImageSX($img1);
-my $img1Y = gdImageSY($img1);
-my $img2X = gdImageSX($img2);
-my $img2Y = gdImageSY($img2);
- 
-($img1X == $img2X and $img1Y == $img2Y) or die "Image dimensions must match.";
- 
-my $diff = 0;
-my ($px1, $px2);
-loop (my $i = 0; $i < $img1X; $i++) {
-   loop (my $j = 0; $j < $img1Y; $j++) {
- 
-      $px1 = gdImageGetPixel($img1, $i, $j);
-      $px2 = gdImageGetPixel($img2, $i, $j);
- 
-      $diff += abs(gdImageRed($img1, $px1) - gdImageRed($img2, $px2));
-      $diff += abs(gdImageGreen($img1, $px1) - gdImageGreen($img2, $px2));
-      $diff += abs(gdImageBlue($img1, $px1) - gdImageBlue($img2, $px2));
-   }
-}
- 
-say "%difference = ", my $result = $diff/($img1X*$img1Y*3*255)*100;
- 
-gdImageDestroy($img1);
-gdImageDestroy($img2);
- 
-use Test;
-is $result, '1.78189346';
-# 1.62559309816 (from different under-lying libraries?)
+
 File: P/Percolation_Bond_percolation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Percolation/Bond_percolation
@@ -8737,46 +8636,6 @@ File: S/State_name_puzzle-debug
 #n# bug first noticed 2019-03-15, but relevant Rakudo change could be earlier (as bug doesn't trigger every run)
 #n# 2019-04-01 regression caused by:
 #n#  https://github.com/MoarVM/MoarVM/commit/bc98cb9467ab2d5d408dff841f39ae8734a936a5
-    
-#`{{
-    an intermittent two-part/two-pass bug related to 'spesh delay'?
-   
-    the actual bug:
-      Off-by-one for upper end of range '$i ^..^ @s', goes one past end of array IFF in the context of a 'for' loop.
-      This leads to '@pairs' incorrectly containing valid strings being paired with 'Any'
-      First seen: Rakudo version 2019.03-39-g23fca8f6f built on MoarVM version 2019.03-31-g6c7810ce7 (approx 2019-03-15)
-   
-    conditions required to enable the bug:
-      routine 'anastates' is called a 2nd (or 3rd) time
-      both 'trigger A' and 'trigger B' are active
-   
-    conditions that disable the bug:
-      if either 'trigger A' or 'trigger B' is disabled (and a corresponding 'work-around' A/B is used)
-      MVM_SPESH_NODELAY=1 is set
-    
-    blin --custom-script gave kind of random answers, but this occurred twice, and the time-frame was right, significant?:
-    (brackets the NQP bump)
-    7bd3b3a0a8a3c1faaef602d2d3fe1e619e4ef640 7b863b72aac89ddee02826266e28685b12b1f74f f09156240a52b34bc356ef715bd955c8f4378cb4
-   
-    additionally:
-      the list of 'states' as given enables the bug, adding or deleting a few will 
-      sometimes disable the bug (or just make it trigger less frequently?)
-      failure rate increases with longer time between runs (distribution over 100 runs):
-   
-        without 'sleep'
-         27 fails after 2nd call
-         73 doesn't fail
-   
-        with 'sleep 3'
-         28 fails after 2nd call
-          8 fails after 3rd call
-         64 doesn't fail
-   
-        with 'sleep 30'
-         49 fails after 2nd call
-         11 fails after 3rd call
-         40 doesn't fail
-}}
 
 File: S/Statistics_Basic
 #!/usr/bin/env perl6
