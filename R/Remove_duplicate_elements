@@ -4,19 +4,13 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-my @unique = [1, 2, 3, 5, 2, 4, 3, -3, 7, 5, 6].unique;
-say @unique;
+my @u1 = [1, 2, 3, 5, 2, 4, 3, -3, 7, 5, 6].unique;
+say @u1;
 
 #Or just make a set of it.
-say set(1,2,3,5,2,4,3,-3,7,5,6).list;
+say my $u2 = set(1,2,3,5,2,4,3,-3,7,5,6).list;
 
 use Test;
-my @ref = <1 2 3 5 4 -3 7 6>;
-is @unique, @ref, 'array works';
-
-# cannot get this sorted to match?
-# expected: '5 7 4 3 1 6 -3 2'
-#      got: '5 7 4 3 1 6 2 -3'
-#my $rlist = set(-3,1,2,3,4,5,6,7);
-#my $ulist = set(1,2,3,5,2,4,3,-3,7,5,6);
-#is $ulist, $rlist, 'set works?';
+my @ref = [1, 2, 3, 5, 4, -3, 7, 6];
+ok @u1 eqv @ref;
+ok $u2.sort.gist eq '(-3 => True 1 => True 2 => True 3 => True 4 => True 5 => True 6 => True 7 => True)';
