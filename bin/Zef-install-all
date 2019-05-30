@@ -2,6 +2,9 @@
 ## sometimes need to reinstall all modules…
 # to find modules in use:
 # gr '^use.*;$' | pf 's/^.*?://' | pg -v '^use (v6|nqp|lib)' | pg -v '(MONKEY|experimental|Binary)' | sortcnt
+#
+# faking it seems to work fine:
+# ln -s libxxhash.0.6.5.dylib libxxhash.0.7.0.dylib
 
 zef install p6doc;
 
@@ -11,6 +14,7 @@ zef --/test install HTTP::UserAgent
 zef --/test install Inline::Perl5
 zef --/test install LWP::Simple
 zef --/test install Lingua::EN::Numbers::Cardinal
+zef --/test install Math::Primesieve
 zef --/test install Modular
 zef --/test install Net::DNS
 zef --/test install Net::FTP
@@ -27,6 +31,7 @@ zef install Cairo
 zef install Clifford
 zef install DBIish
 zef install DateTime::Format
+zef install Digest::HMAC
 zef install Digest::MD5
 zef install Digest::SHA
 zef install Digest::xxHash
@@ -47,6 +52,7 @@ zef install Math::Matrix
 zef install NCurses
 zef install NativeCall
 zef install PerlStore::FileStore
+zef install Prime::Factor
 zef install Rat::Precise
 zef install SDL2::Raw
 zef install SVG
