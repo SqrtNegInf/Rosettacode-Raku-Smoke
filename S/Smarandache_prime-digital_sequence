@@ -1,0 +1,47 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Smarandache_prime-digital_sequence
+#c# 2019-05-31 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my $spds = flat 2,3,5,7, (1..*).map: { grep { .is-prime }, [X~] |((2,3,5,7) xx $_), (3,7) };
+ 
+say 'Smarandache prime-digitals:';
+
+@res.push: sprintf "%4d: %s\n", 1+$_, $spds[$_] for flat ^25, 99;
+
+.print for @res;
+
+my $ref = q:to/END/;
+   1: 2
+   2: 3
+   3: 5
+   4: 7
+   5: 23
+   6: 37
+   7: 53
+   8: 73
+   9: 223
+  10: 227
+  11: 233
+  12: 257
+  13: 277
+  14: 337
+  15: 353
+  16: 373
+  17: 523
+  18: 557
+  19: 577
+  20: 727
+  21: 733
+  22: 757
+  23: 773
+  24: 2237
+  25: 2273
+ 100: 33223
+END
+
+use Test;
+is @res.join(''), $ref;
