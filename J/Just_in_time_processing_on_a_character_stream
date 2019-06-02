@@ -1,24 +1,24 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Just_in_time_processing_on_a_character_stream
-#c# 2019-04-12 <RC
+#c# 2019-04-12 <RC, 2019-06-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
+my @res;
+
 #`[
-Set srand to set the encode / decode "key", and
-generate a lazy, reproducible stream of "random"
-characters. Need to use the same key and same
-implementation of Perl 6 to encode / decode.
-Gain "security" by exchanging keys by a second
-channel. Default key is 'Perl 6'
+Set srand to set the encode / decode "key".
+Need to use the same "key" and same implementation
+of Perl 6 to encode / decode. Gain "security" by
+exchanging "keys" by a second channel. Default
+"key" is "Perl 6"
 ]
 
 unit sub MAIN ($key = 'Perl 6');
 
 srand $key.comb(/<.alnum>/).join.parse-base(36) % 2**63;
 
-# random but reproducible infinite stream of characters
-my @stream = (flat ' ' .. '~').roll(*);
+my @stream = (flat "\n", ' ' .. '~').roll(*);
 
 sub jit-encode (Str $str) {
     my $i = 0;
@@ -27,18 +27,20 @@ sub jit-encode (Str $str) {
     for $str.comb -> $c {
         my $h;
         my $l = '';
-        ++$i until $c eq @stream[$i];
+        ++$i until $i > 1 && $c eq @stream[$i];
         my $o = $i - $last;
         $l    = $o % 26;
-        $h    = $o - $l if $o > 26;
+        $h    = $o - $l if $o >= 26;
         $l   += 10;
         $enc ~= ($h ?? $h.base(36).uc !! '') ~ ($l.base(36).lc);
         $last = $i;
     }
-    $enc
+    my $block = 60;
+    $enc.comb($block).join: "\n"
 }
 
-sub jit-decode (Str $str) {
+sub jit-decode (Str $str is copy) {
+    $str.=subst("\n", '', :g);
     $str ~~ m:g/((.*?) (<:Ll>))/;
     my $dec = '';
     my $i = 0;
@@ -51,17 +53,50 @@ sub jit-decode (Str $str) {
     $dec
 }
 
-my $enc = jit-encode('In my opinion, this task is pretty silly.');
+my $secret = q:to/END/;
+In my opinion, this task is pretty silly.
 
-say my $result = "Encoded\n$enc\n\nDecoded\n" ~ jit-decode($enc);
+'Twas brillig, and the slithy toves
+    Did gyre and gimble in the wabe.
+
+!@#$%^&*()_+}{[].,><\|/?'";:1234567890
+END
+
+@res.push: "== Secret: ==\n$secret";
+
+@res.push: "== Encoded: ==";
+@res.push: my $enc = jit-encode($secret);
+
+@res.push: "\n== Decoded: ==";
+@res.push: jit-decode($enc);
+
+say jit-decode($enc);
 
 my $ref = q:to/END/;
-Encoded
-26j52dhl2Wp1Gw2WceQj1Go3MyQc1Gd52a1Gb1Ga2Wcq26o4Cwf3MiQsQn2Wglk3MhkQyeQjas3MkQn2Wd26aaQcQj
-
-Decoded
+== Secret: ==
 In my opinion, this task is pretty silly.
+
+'Twas brillig, and the slithy toves
+    Did gyre and gimble in the wabe.
+
+!@#$%^&*()_+}{[].,><\|/?'";:1234567890
+
+== Encoded: ==
+26j52d6Ie1Ge4Cd26po1GdsQa3Ms52piQd4Cn3Md2Wcf1GtciQz1GwQb5Si2
+WnQlQmQjQv1GmQra2Wt4Cpc1Gysatu26va1Gq52x4Cp1Gv4CeQv1Gb1Gp4Co
+6IbaQyAUmd26a7Yw3Mh2Wu26v1GfQsQwbQpn26z1Gi1Gl1GmQb1Gfs26v4Ce
+Qy2Wm78xaaa4Cj26x6If3Msqu2Wx2Wku1Gh52ydQh3Mb78rll1GvcQap5Sgy
+Qm26s1Gh26clj1Gm1GzA4y26bat1Gdk1Gs1Gpm1GlQs7Ys52dQw1Giv5Se5S
+u3Mb1Gucn4Cq26h26pQq2Wh5Sh7Yi8OrpQl26p26i3MqtQiQhQi4Ckb3Mi
+
+== Decoded: ==
+In my opinion, this task is pretty silly.
+
+'Twas brillig, and the slithy toves
+    Did gyre and gimble in the wabe.
+
+!@#$%^&*()_+}{[].,><\|/?'";:1234567890
 END
 
 use Test;
-is $result, chomp $ref;
+is @res.join("\n"), $ref;
