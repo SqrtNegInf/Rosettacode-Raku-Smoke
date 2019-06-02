@@ -1,0 +1,52 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Chernick%27s_Carmichael_numbers
+#c# 2019-06-01 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN OK
+
+my @res;
+
+use Inline::Perl5;
+use ntheory:from<Perl5> <:all>;
+
+sub chernick-carmichael-factors ($n, $m) {
+    6*$m + 1, 12*$m + 1, |((1 .. $n-2).map: { (1 +< $_) * 9*$m + 1 } )
+}
+
+sub chernick-carmichael-number ($n) {
+
+    my $multiplier = 1;
+    my $iterator   = 1 .. *;
+
+    if $n > 4 {
+        $multiplier = 1 +< ($n-4);
+        $iterator   = (1..*).map: * * 5;
+    }
+
+    my $i = $iterator.first: -> $m {
+        [&&] chernick-carmichael-factors($n, $m * $multiplier).map: { is_prime($_) #`[ .is-prime ] }
+    }
+
+    chernick-carmichael-factors($n, $i * $multiplier)
+
+}
+
+for 3 .. 9 -> $n {
+    my @f = chernick-carmichael-number($n);
+    @res.push: "a($n): {[*] @f} = {@f.join(' ⨉ ')}";
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+a(3): 1729 = 7 ⨉ 13 ⨉ 19
+a(4): 63973 = 7 ⨉ 13 ⨉ 19 ⨉ 37
+a(5): 26641259752490421121 = 2281 ⨉ 4561 ⨉ 6841 ⨉ 13681 ⨉ 27361
+a(6): 1457836374916028334162241 = 2281 ⨉ 4561 ⨉ 6841 ⨉ 13681 ⨉ 27361 ⨉ 54721
+a(7): 24541683183872873851606952966798288052977151461406721 = 4681921 ⨉ 9363841 ⨉ 14045761 ⨉ 28091521 ⨉ 56183041 ⨉ 112366081 ⨉ 224732161
+a(8): 53487697914261966820654105730041031613370337776541835775672321 = 5703361 ⨉ 11406721 ⨉ 17110081 ⨉ 34220161 ⨉ 68440321 ⨉ 136880641 ⨉ 273761281 ⨉ 547522561
+a(9): 58571442634534443082821160508299574798027946748324125518533225605795841 = 5703361 ⨉ 11406721 ⨉ 17110081 ⨉ 34220161 ⨉ 68440321 ⨉ 136880641 ⨉ 273761281 ⨉ 547522561 ⨉ 1095045121
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
