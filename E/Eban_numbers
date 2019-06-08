@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Eban_numbers
-#c# 2019-02-18 <RC, 2019-02-22 <RC, 2019-03-20 <RC, 2019-03-26 <RC
+#c# 2019-02-18 <RC, 2019-02-22 <RC, 2019-03-20 <RC, 2019-03-26 <RC, 2019-06-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -25,7 +25,7 @@ Directly find :
 Considering numbers up to 1021, as the task directions suggest.
 }
 
-use Lingua::EN::Numbers::Cardinal;
+use Lingua::EN::Numbers;
 
 sub nban ($seq, $n = 'e') { ($seq).map: { next if .&cardinal.contains(any($n.lc.comb)); $_ } }
 
@@ -51,8 +51,6 @@ sub count ($n, $upto) {
     for ^(@count - 1) { if @orders[$_].contains(1) { @count[$_]++; @count[$_ + 1]-- } }
     [\+] @count;
 }
-
-sub comma { $^i.flip.comb(3).join(',').flip }
 
 #for < e o t tali subur tur ur cali i u > -> $n { # All of them
 for < e t subur > -> $n { # An assortment for demonstration
