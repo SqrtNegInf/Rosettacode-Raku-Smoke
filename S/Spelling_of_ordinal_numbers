@@ -1,20 +1,20 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Spelling_of_ordinal_numbers
-#c# 2019-02-10 <RC
+#c# 2019-02-10 <RC, 2019-06-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: spelling_ordinals.txt
 #n# results cause 'malformed UTF' problems, output to file instead
 
 #`{{
-This would be pretty simple to implement from scratch; it would be straightforward to do a minor modification of the  Number names task code. Much simpler to just use the Lingua::EN::Numbers::Cardinal module from the Perl 6 ecosystem though. It easily handles ordinal numbers even though that is not its primary focus.
+This would be pretty simple to implement from scratch; it would be straightforward to do a minor modification of the  Number names task code. Much simpler to just use the Lingua::EN::Numbers module from the Perl 6 ecosystem though. It easily handles ordinal numbers even though that is not its primary focus.
 We need to be slightly careful of terminology. In Perl 6, 123, 00123.0, & 1.23e2 are not all integers. They are respectively an Int (integer), a Rat (rational number) and a Num (floating point number). (The fourth numeric is a Complex) For this task it doesn't much matter as the ordinal routine coerces its argument to an Int, but to Perl 6 they are different things. We can further abuse allomorphic types and role mixins for some somewhat non-intuitive results as well.
 Note that the different allomorphic integer forms of 123 are evaluated on use, not on assignment. They can be passed around in parameters, but until they are used numerically, they retain their stringy characteristics. The numerics are evaluated on assignment, hence the stringified output not exactly matching the input format. The mixin role returns different things depending on what context you evaluate it under. When evaluated as a string it is 17, numerically, it is 123.
 Perl 6 uses Unicode natively. If it has a Unicode 'Numeric Digit' property, it is treated as a numeric digit.
 It is not really clear what is meant by "Write a driver and a function...". Well, the function part is clear enough; driver not so much. Perhaps this will suffice.
 }}
 
-use Lingua::EN::Numbers::Cardinal;
+use Lingua::EN::Numbers;
 
 my $fh = open('run/spelling_ordinals.txt', :w);
 
