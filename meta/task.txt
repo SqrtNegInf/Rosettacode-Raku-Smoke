@@ -1,19 +1,19 @@
-This is Rakudo version 2019.03.1-576-g163f0a036 built on MoarVM version 2019.05-36-ge865f43df
+This is Rakudo version 2019.03.1-582-gc0c99e77c built on MoarVM version 2019.05-36-ge865f43df
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1074/9]
-|+-------------> JVM: Good/Bad [926/156]
-||+------------> Smoke testing [973]
++--------------> Moar: Good/Bad [1076/9]
+|+-------------> JVM: Good/Bad [926/158]
+||+------------> Smoke testing [975]
 |||+-----------> sKipping validation [107]
 ||||+----------> Interactive [54]
 |||||+---------> Touched (modified by me) [267]
 ||||||+--------> Concurrent [46]
 |||||||+-------> Random seed [112]
 ||||||||+------> File output [80]
-|||||||||+-----> Draft [230]
+|||||||||+-----> Draft [231]
 ||||||||||+----> Ignoring [57]
 |||||||||||+---> Void (no local copy) [132]
-||||||||||||+--> Un-implemented/reliable [96]
+||||||||||||+--> Un-implemented/reliable [97]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -178,7 +178,7 @@ GGS..T....... Check_that_file_exists
 GGS.......... Checkpoint_synchronization
 GGS.....FD... Checksumcolor
 GGS..T...D... Chemical_Calculator
-.........D.V. Chernick%27s_Carmichael_numbers
+GBS......D... Chernick%27s_Carmichael_numbers
 GGS......D... Cheryl%27s_Birthday
 .........D.VU Chess_player
 .........D.VU Chess_player_Move_generation
@@ -714,7 +714,8 @@ GGS..T....... Nonoblock
 ...........VU Nonogram_solver
 GGS.......... Nth_root
 ..........XV. Null_object
-GGS.......... Number_names
+GGS.......... Number_names-1
+GBS.......... Number_names-2
 GGS.......... Number_reversal_game
 GGS..T....... Numeric_error_propagation
 GBS.......... Numerical_and_alphabetical_suffixes
@@ -856,6 +857,7 @@ GGS..T....... Range_consolidation
 GGS.......... Range_expansion
 GGS.......... Range_extraction
 GGS..T....... Ranking_methods
+.........D.VU Raster_bars
 GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
