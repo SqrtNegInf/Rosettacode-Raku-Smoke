@@ -1,0 +1,134 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Raster_bars
+#t# gui
+#c# 2019-06-09 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+# Works with: Rakudo version 2019.03
+# As there is no reference implementation, and rather sketchy task instructions, this may or may not fulfil the original authors intent.
+# Not really sure what is meant by "swaying".
+
+# Use Up / Down or Pg Up / Pg Dn to change the scroll speed.
+# Use Left / Right to adjust the gap between the raster bars.
+# Use Space bar to pause / resume scrolling.
+# Use Left Ctrl to reverse scroll direction.
+
+use SDL2::Raw;
+use Cairo;
+
+my $width = 800;
+my $height = 800;
+
+SDL_Init(VIDEO);
+
+my $window = SDL_CreateWindow(
+    'Raster Bars - Perl 6',
+    SDL_WINDOWPOS_CENTERED_MASK,
+    SDL_WINDOWPOS_CENTERED_MASK,
+    $width, $height, RESIZABLE
+);
+
+my $render = SDL_CreateRenderer($window, -1, ACCELERATED +| PRESENTVSYNC);
+
+my @bars = (^64).map: { gen-bar( rand xx 3 ) };
+
+SDL_SetRenderDrawBlendMode($render, 1);
+
+my $event = SDL_Event.new;
+
+enum KEY_CODES (
+    K_UP     => 82,
+    K_DOWN   => 81,
+    K_LEFT   => 80,
+    K_RIGHT  => 79,
+    K_SPACE  => 44,
+    K_PGUP   => 75,
+    K_PGDN   => 78,
+    K_LCTRL  => 224,
+);
+
+my $dir  = -1;
+my $step = 5;
+my $incr = 1;
+my $y    = 0;
+my $gap  = 70;
+$height += 32;
+
+main: loop {
+    while SDL_PollEvent($event) {
+        my $casted_event = SDL_CastEvent($event);
+        given $casted_event {
+            when *.type == QUIT    { last main }
+            when *.type == KEYDOWN {
+                if KEY_CODES(.scancode) -> $comm {
+                    given $comm {
+                        when 'K_UP'     { $step += $incr }
+                        when 'K_DOWN'   { $step -= $incr if $step > $incr }
+                        when 'K_LEFT'   { $gap = $gap < 32 ?? $gap !! $gap - 1 }
+                        when 'K_RIGHT'  { $gap++ }
+                        when 'K_PGUP'   { $step += $incr*5 }
+                        when 'K_PGDN'   { $step -= $incr*5; $step = $step < $incr ?? $incr !! $step }
+                        when 'K_SPACE'  { $step = $step ?? 0 !! $incr }
+                        when 'K_LCTRL'  { $dir  *= -1 }
+                    }
+                }
+                #say .scancode; # unknown key pressed
+            }
+            when *.type == WINDOWEVENT {
+                if .event == 5 {
+                    $width  = .data1;
+                    $height = .data2 + 32;
+                }
+            }
+        }
+    }
+
+    $y = ($height + $step * $dir + $y) % $height;
+
+    for ^@bars {
+        my $this-y = ($y + $gap * $_ - $height);
+        $this-y -= $gap * @bars if $this-y > $height;
+        SDL_RenderCopy( $render, @bars[$_], Nil, SDL_Rect.new(0, $this-y, $width, 32) );
+    }
+
+    SDL_RenderPresent($render);
+
+    SDL_SetRenderDrawColor($render, 0, 0, 0, 0);
+
+    SDL_RenderClear($render);
+}
+
+SDL_Quit();
+
+sub gen-bar (@color) {
+    my $bar = Cairo::Image.create( Cairo::FORMAT_ARGB32, 32, 32 );
+    given Cairo::Context.new($bar) {
+        my Cairo::Pattern::Gradient::Linear $lpat .= create(0.0, 0.0,  0.0, 32.0);
+        $lpat.add_color_stop_rgba(  1, |(@color »*» .3), 1);
+        $lpat.add_color_stop_rgba( .2, |(@color),        1);
+        $lpat.add_color_stop_rgba(.25, |(@color),        1);
+        $lpat.add_color_stop_rgba(.75, |(@color),        1);
+        $lpat.add_color_stop_rgba( .8, |(@color),        1);
+        $lpat.add_color_stop_rgba(  0, |(@color »+» .8), 1);
+        .rectangle(0, 0, 32, 32);
+        .pattern($lpat);
+        .fill;
+        $lpat.destroy;
+    }
+
+    my $bar_texture = SDL_CreateTexture(
+        $render, %PIXELFORMAT<ARGB8888>,
+        STATIC, 32, 32
+    );
+
+    SDL_UpdateTexture(
+        $bar_texture,
+        SDL_Rect.new(:x(0), :y(0), :w(32), :h(32)),
+        $bar.data, $bar.stride // 32
+    );
+
+    $bar_texture
+}
