@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Abundant_odd_numbers
-#c# 2019-05-17 <RC
+#c# 2019-05-17 <RC, 2019-06-12 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# takes well over 5 seconds to complete (on my really-truly-not-very-fast system)
@@ -24,7 +24,7 @@ sub odd-abundants (Int :$start-at is copy) {
     $start-at *= 3;
     ($start-at, *+6 ... *).hyper.map: {
         next unless my $oa = .&odd-abundant;
-        sprintf "%6d: divisor sum: {$oa.join: ' + '} = {$oa.sum}", $_
+        sprintf "%6d: divisor sum: {$oa.cache.join: ' + '} = {$oa.sum}", $_
     }
 }
 
