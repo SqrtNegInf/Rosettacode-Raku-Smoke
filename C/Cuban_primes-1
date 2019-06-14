@@ -9,15 +9,16 @@ my @res;
 
 # Not the most efficient, but concise, and good enough for this task.
 
-sub comma { $^i.flip.comb(3).join(',').flip }
+use Lingua::EN::Numbers;
+use ntheory:from<Perl5> <:all>;
 
-my @cubans = lazy (1..Inf).hyper(:8degree).map({ ($_+1)³ - .³ }).grep: *.is-prime;
-
-#@res.push: @cubans[^200]».&comma».fmt("%9s").rotor(10).join: "\n";
+my @cubans = lazy (1..Inf).map({ ($_+1)³ - .³ }).grep: *.&is_prime;
+ 
 @res.push: @cubans[^200]».&comma».fmt("%9s").rotor(10).join: "\n";
+@res.push: ''; 
+@res.push: @cubans[99_999].&comma;
 
-#@res.push: '';
-#@res.push: @cubans[99_999].&comma; # zero indexed
+.say for @res;
 
 my $ref = q:to/END/;
         7        19        37        61       127       271       331       397       547       631
@@ -40,8 +41,9 @@ my $ref = q:to/END/;
   986,707   990,151   997,057 1,021,417 1,024,921 1,035,469 1,074,607 1,085,407 1,110,817 1,114,471
 1,125,469 1,155,061 1,177,507 1,181,269 1,215,397 1,253,887 1,281,187 1,285,111 1,324,681 1,328,671
 1,372,957 1,409,731 1,422,097 1,426,231 1,442,827 1,451,161 1,480,519 1,484,737 1,527,247 1,570,357
+
+1,792,617,147,127
 END
-#1,792,617,147,127
 
 use Test;
 is @res.join("\n"), chomp $ref;
