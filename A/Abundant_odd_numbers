@@ -24,7 +24,8 @@ sub odd-abundants (Int :$start-at is copy) {
     $start-at *= 3;
     ($start-at, *+6 ... *).hyper.map: {
         next unless my $oa = .&odd-abundant;
-        sprintf "%6d: divisor sum: {$oa.cache.join: ' + '} = {$oa.sum}", $_
+        sprintf "%6d: divisor sum: {$oa.join: ' + '} = {$oa.sum}", $_
+        #sprintf "%6d: divisor sum: {$oa.cache.join: ' + '} = {$oa.sum}", $_
     }
 }
 
