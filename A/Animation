@@ -1,44 +1,26 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Animation
 #t# gui
-#c# 2018-11-RC >RC
-#m# MOAR: BROKEN
+#c# 2019-06-21 <RC
+#m# MOAR: OK
 #j# JVM:  BROKEN
+
+use v6;
 
 use GTK::Simple;
 use GTK::Simple::App;
 
-my GTK::Simple::App $app .= new;
-$app.border-width = 20;
-$app.set-content( GTK::Simple::Label.new(text => "Goodbye, World!") );
+my $app    = GTK::Simple::App.new(:title<Animation>);
+my $button = GTK::Simple::Button.new(label => 'Hello World! ');
+my $vbox   = GTK::Simple::VBox.new($button);
+
+my $repeat = $app.g-timeout(100); # milliseconds
+
+my $dir = 1;
+$button.clicked.tap({ $dir *= -1 });
+
+$repeat.tap( &{$button.label = $button.label.comb.List.rotate($dir).join} );
+
+$app.set-content($vbox);
+
 $app.run;
-
-#`{{
-my $msg    = 'Hello World! ';
-my $first  = '.+';
-my $second = '.';
-
-my $mw = Tk::MainWindow->new(-title => 'Animated side-scroller',-bg=>"white");
-$mw->geometry ("400x150+0+0");
-
-$mw->optionAdd('*Label.font', 'Courier 24 bold' );
-
-my $scroller = $mw->Label(-text => "$msg")->grid(-row=>0,-column=>0);
-$mw->bind('all'=> '<Key-Escape>' => sub {exit;});
-$mw->bind("<Button>" => sub { ($second,$first) = ($first,$second) });
-
-$scroller->after(1, \&display );
-MainLoop;
-
-sub display {
-    while () {
-        sleep 0.25;
-        $msg =~ s/($first)($second)/$2$1/;
-        $scroller->configure(-text=>"$msg");
-        $mw->update();
-    }
-}
-
-}}
-
-
