@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mian-Chowla_sequence
-#c# 2019-03-12 <RC, 2019-03-22 <RC
+#c# 2019-03-12 <RC, 2019-03-22 <RC, 2019-06-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# changes make this twice as fast
 
 my @res;
 
@@ -11,8 +12,9 @@ my @mian-chowla = 1, |(2..Inf).map: -> $test {
     state %sums  = 2 => 1;
     my $next;
     my %these;
-    ((|@mian-chowla[^$index], $test) »+» $test).map: { ++$next and last if %sums{$_}:exists; ++%these{$_} };
+    @mian-chowla[^$index].map: { ++$next and last if %sums{$_ + $test}:exists; ++%these{$_ + $test} };
     next if $next;
+    ++%sums{$test + $test}; 
     %sums.push: %these;
     ++$index;
     $test
