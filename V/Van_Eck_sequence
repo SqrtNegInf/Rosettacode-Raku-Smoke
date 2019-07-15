@@ -1,27 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Van_Eck_sequence
-#c# 2019-06-21 <RC
+#c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 my @res;
-
-#`{
-There is not a Van Eck sequence, rather a series of related sequences that differ in their starting value. This task is nominally for the sequence starting with the value 0. This Perl 6 implementation will handle any integer starting value.
-Specifically handles:
-
-  OEIS:A181391 - Van Eck sequence starting with 0
-  OEIS:A171911 - Van Eck sequence starting with 1
-  OEIS:A171912 - Van Eck sequence starting with 2
-  OEIS:A171913 - Van Eck sequence starting with 3
-  OEIS:A171914 - Van Eck sequence starting with 4
-  OEIS:A171915 - Van Eck sequence starting with 5
-  OEIS:A171916 - Van Eck sequence starting with 6
-  OEIS:A171917 - Van Eck sequence starting with 7
-  OEIS:A171918 - Van Eck sequence starting with 8
-among others.
-Implemented as lazy, extendable lists.
-}
 
 sub n-van-ecks ($init) {
     $init, -> $i, {
