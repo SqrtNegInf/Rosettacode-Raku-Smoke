@@ -1,19 +1,19 @@
-This is Rakudo version 2019.03.1-687-gfd9b826f1 built on MoarVM version 2019.05-95-g065b2b427
+This is Rakudo version 2019.03.1-712-g56af07bf1 built on MoarVM version 2019.05-95-g065b2b427
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1079/9]
-|+-------------> JVM: Good/Bad [927/161]
-||+------------> Smoke testing [977]
++--------------> Moar: Good/Bad [1083/9]
+|+-------------> JVM: Good/Bad [931/161]
+||+------------> Smoke testing [981]
 |||+-----------> sKipping validation [108]
 ||||+----------> Interactive [54]
 |||||+---------> Touched (modified by me) [267]
 ||||||+--------> Concurrent [45]
 |||||||+-------> Random seed [113]
 ||||||||+------> File output [80]
-|||||||||+-----> Draft [237]
+|||||||||+-----> Draft [214]
 ||||||||||+----> Ignoring [57]
-|||||||||||+---> Void (no local copy) [137]
-||||||||||||+--> Un-implemented/reliable [98]
+|||||||||||+---> Void (no local copy) [133]
+||||||||||||+--> Un-implemented/reliable [96]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -28,7 +28,7 @@ GGS..T....... 24_game_Solve-2
 GGS.......... 4-rings_or_4-squares_puzzle
 GGS.......... 99_Bottles_of_Beer
 GGS.......... 9_billion_names_of_God_the_integer
-!GS.......... A%2BB
+GGS.......... A%2BB
 .........D.VU A*_search_algorithm
 GGS.......... ABC_Problem
 GGS.......... AKS_test_for_primes
@@ -39,7 +39,7 @@ GGS.......... Abbreviations,_easy
 GGS.......... Abbreviations,_simple
 GGS.......... Abstract_type
 GGS..T....... Abundant,_deficient_and_perfect_number_classifications
-GBS..TC..D... Abundant_odd_numbers
+GBS..TC...... Abundant_odd_numbers
 GGS.......... Accumulator_factory
 GGS.......... Ackermann_function
 GB.K......X.. Active_Directory_Connect
@@ -61,7 +61,7 @@ GGS..TC...... Amicable_pairs
 GGS.......... Anagrams
 GGS.......... Anagrams_Deranged_anagrams
 GGS..T....... Angle_difference_between_two_bearings
-.........D.V. Angles_geometric,_normalization_and_conversion
+GGS......D... Angles_geometric,_normalization_and_conversion
 GB.KI........ Animate_a_pendulum
 GB.KI........ Animation
 GGS.......... Anonymous_recursion
@@ -108,9 +108,12 @@ GGS..T....... Balanced_ternary
 .........D.VU Banker%27s_algorithm
 GBS....RF.... Barnsley_fern
 GGS......D... Base58Check_encoding
-GGS......D... Base64_decode_data
+GGS.......... Base64_decode_data
 GGS..T...D... Base64_encode_data
-.........D.V. Bell_numbers
+.........D... Bell_numbers
+GGS.......... Bell_numbers-1
+GGS.......... Bell_numbers-2
+GGS.......... Bell_numbers-3
 GGS..T....... Benford%27s_law
 GGS..T....... Bernoulli_numbers
 GGS....R..... Best_shuffle
@@ -158,7 +161,7 @@ GG.K......... Call_a_function
 BB.K......... Call_a_function_in_a_shared_library
 ..........XV. Call_an_object_method
 ...........VU Canny_edge_detector
-GGS......D... Cantor_set
+GGS.......... Cantor_set
 GGS....R.D... Card_shuffles
 GGS.......... Carmichael_3_strong_pseudoprimes
 GGS.......... Cartesian_product_of_two_or_more_lists
@@ -180,7 +183,7 @@ GGS..T....... Check_that_file_exists
 GGS.......... Checkpoint_synchronization
 GGS.....FD... Checksumcolor
 GGS..T...D... Chemical_Calculator
-GBS......D... Chernick%27s_Carmichael_numbers
+!BS......D... Chernick%27s_Carmichael_numbers
 GGS......D... Cheryl%27s_Birthday
 .........D.VU Chess_player
 .........D.VU Chess_player_Move_generation
@@ -234,7 +237,7 @@ GGS..T...D... Continued_fraction_Arithmetic_Gmatrix_NG,_Contined_Fraction_N
 GGS......D... Continued_fraction_Arithmetic_Gmatrix_NG,_Contined_Fraction_N1,_Contined_Fraction_N2
 GGS..T....... Convert_decimal_number_to_rational
 GGS.......... Convert_seconds_to_compound_duration
-GGS......D... Convex_hull
+GGS.......... Convex_hull
 GGS.......... Conway%27s_Game_of_Life
 GGS..T....... Copy_a_string
 GG.K.....D... Copy_stdin_to_stdout
@@ -277,7 +280,7 @@ GGS.......... Deepcopy
 GGS.......... Define_a_primitive_data_type
 GGS.......... Delegates
 GGS.......... Delete_a_file
-GGS..T...D... Deming%27s_Funnel
+GGS..T....... Deming%27s_Funnel
 GGS.......... Department_Numbers
 GGS..T....... Detect_division_by_zero
 GGS.......... Determinant_and_permanent
@@ -394,7 +397,7 @@ GBS......D... Finite_state_machine
 GGS.......... First-class_functions
 GGS.......... First-class_functions_Use_numbers_analogously
 GGS..T....... First_class_environments
-GBS......D... First_perfect_square_in_base_N_with_N_unique_digits
+GBS.......... First_perfect_square_in_base_N_with_N_unique_digits
 GGS.......... Five_weekends
 GGS......D... Fivenum
 GGS..T..F.... Fixed_length_records
@@ -559,11 +562,10 @@ GGS....R..... Knight%27s_tour
 GGS....R..... Knuth%27s_algorithm_S
 GGS....R..... Knuth%27s_power_tree
 GGS....R..... Knuth_shuffle
-.........D... Koch_curve
 GGS.....F.... Koch_curve-1
 GGS.....F.... Koch_curve-2
 GGS.......... Kolakoski_sequence
-GGS......D... Kosaraju
+GGS.......... Kosaraju
 GGS.......... Kronecker_product
 GBS..TC.F.... Kronecker_product_based_fractals
 GGS.....F.... LU_decomposition
@@ -593,7 +595,7 @@ GG.K......... Literals_String
 GGS..T....... Logical_operations
 GGS..T....... Long_multiplication
 GBS...C...... Long_primes
-GGS......D... Longest_Common_Substring
+GGS.......... Longest_Common_Substring
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
 GGS.......... Longest_increasing_subsequence
@@ -821,7 +823,7 @@ GGS.......... Power_set
 GG.K......... Pragmatic_directives
 GGS.......... Price_fraction
 GGS.......... Primality_by_trial_division
-GGS..T...D... Prime_conspiracy
+GGS..T....... Prime_conspiracy
 GBS...C...... Prime_decomposition
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
 GG.K.TC...... Primes_-_allocate_descendants_to_their_ancestors-1
@@ -896,7 +898,6 @@ GGS......D... Resistance_Calculator
 GGS......D... Resistance_Network_Calculator
 GGS..T....... Resistor_mesh
 GGS.......... Respond_to_an_unknown_method_call
-.........D.VU Restart
 GG.KI........ Retrieve_and_search_chat_history
 GGS.......... Return_multiple_values
 GGS..T....... Reverse_a_string
@@ -953,9 +954,9 @@ GGS..T....... Semordnilap
 GGS.......... Send_an_unknown_method_call
 GBS.......... Send_email
 GGS......D... Separate_the_house_number_from_the_street_name
-GGS...C..D... Sequence:_nth_number_with_exactly_n_divisors
-GGS......D... Sequence:_smallest_number_greater_than_previous_term_with_exactly_n_divisors
-GGS......D... Sequence:_smallest_number_with_exactly_n_divisors
+GGS...C...... Sequence:_nth_number_with_exactly_n_divisors
+GGS.......... Sequence:_smallest_number_greater_than_previous_term_with_exactly_n_divisors
+GGS.......... Sequence:_smallest_number_with_exactly_n_divisors
 GGS.......... Sequence_of_non-squares
 GGS.......... Sequence_of_primes_by_trial_division
 GGS..T....... Sequence_of_primorial_primes
@@ -964,7 +965,7 @@ GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
 GGS..T.R..... Set_puzzle
 GGS....R..... Seven-sided_dice_from_five-sided_dice
-GBS......D... Sexy_primes
+GBS.......... Sexy_primes
 ..........XV. Shell_one-liner
 GGS.......... Shoelace_formula_for_polygonal_area
 GGS..T....... Short-circuit_evaluation
@@ -972,7 +973,6 @@ GGS..T....... Shortest_common_supersequence
 GGS.....F.... Show_Ascii_table-1
 GGS.....F.... Show_Ascii_table-2
 GGS.......... Show_the_epoch
-.........D.VU Shutdown
 GGS..T....... Sierpinski_carpet
 GGS..T..F.... Sierpinski_pentagon
 GGS.......... Sierpinski_triangle
@@ -990,7 +990,7 @@ GG.K......X.. Singly-linked_list_Element_insertion
 GG.K.....D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
-GBS......D... Smarandache_prime-digital_sequence
+GBS.......... Smarandache_prime-digital_sequence
 GGS.......... Smith_numbers
 .........DXV. Snake
 GGS....RFD... Snake_And_Ladder
@@ -1007,7 +1007,7 @@ GGS.......... Sort_a_list_of_object_identifiers
 GGS..T....... Sort_an_array_of_composite_structures
 GGS..T....... Sort_an_integer_array
 GGS.......... Sort_disjoint_sublist
-GGS......D... Sort_numbers_lexicographically
+GGS.......... Sort_numbers_lexicographically
 GGS.......... Sort_stability
 GGS.......... Sort_three_variables
 GGS.......... Sort_using_a_custom_comparator
@@ -1094,7 +1094,7 @@ GGS.......... Sum_multiples_of_3_and_5
 GGS..T....... Sum_of_a_series
 GGS.......... Sum_of_squares
 GGS.......... Sum_to_100
-GGS.....FD... Sunflower_fractal
+GGS.....F.... Sunflower_fractal
 GGS..T..F.... Superellipse
 GGS..T....... Superpermutation_minimisation
 ...........VU Sutherland-Hodgman_polygon_clipping
@@ -1105,7 +1105,7 @@ GG.K.....D... Table_creation
 ..........XV. Table_creation_Postal_addresses
 GGS.....F.... Take_notes_on_the_command_line
 .........D.VU Tamagotchi_emulator
-GGS......D... Tarjan
+GGS.......... Tarjan
 GGS.....F.... Taxicab_numbers
 GGS.......... Temperature_conversion
 GG.KIT....... Terminal_control_Clear_the_screen
@@ -1142,7 +1142,7 @@ GBS......D... Time-based_One-time_Password_Algorithm
 GGS.......... Time_a_function
 GGS.......... Tokenize_a_string
 GGS.......... Tokenize_a_string_with_escaping
-GGS......D... Tonelli-Shanks_algorithm
+GGS.......... Tonelli-Shanks_algorithm
 GGS.......... Top_rank_per_group
 GGS.......... Topic_variable
 GGS..T....... Topological_sort
@@ -1215,7 +1215,7 @@ GGS.......... Water_collected_between_towers
 .........D.VU Waveform_analysis_Top_and_tail
 .........DXVU Weather_Routing
 GBS..T....... Web_scraping
-GGS......D... Weird_numbers
+GGS.......... Weird_numbers
 .........D... Welch%27s_t-test
 GGS.......... Welch%27s_t-test-1
 GBS.......... Welch%27s_t-test-2
@@ -1224,7 +1224,7 @@ BB.KI.....X.. Window_creation_X11
 GB.KI.....X.. Window_management
 GBS.......... Wireworld
 GGS......D... Word_break_problem
-.........D.V. Word_frequency
+...........V. Word_frequency
 ...........VU Word_search
 GGS.......... Word_wrap
 GGS..T....... World_Cup_group_stage
