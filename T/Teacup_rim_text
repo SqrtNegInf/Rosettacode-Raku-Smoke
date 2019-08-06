@@ -1,13 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Teacup_rim_text
-#c# 2019-08-04 <RC
+#c# 2019-08-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 my @res;
 
 my %words;
-'./ref/wordlist.10000'.IO.slurp.words.map: { %words{.uc.comb.sort.join}.push: $_.uc };
+'./ref/wordlist.10000'.IO.slurp.words.map: { .chars < 3 ?? (next) !! %words{.uc.comb.sort.join}.push: .uc };
 
 for %words.keys { %words{$_}:delete if %words{$_}.elems < 2 or $_.chars < 3 };
 
@@ -25,7 +25,7 @@ for %words.values -> @these {
                 $maybe = $maybe.comb.list.rotate.join;
             } else {
                 @print = ();
-                last
+                last MAYBE
             }
         }
         if @print.elems {
