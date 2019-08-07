@@ -15,6 +15,7 @@ my @teacups;
 my %seen;
 
 for %words.values -> @these {
+    next if @these < 2;
     MAYBE: for @these {
         my $maybe = $_;
         next if %seen{$_};
@@ -25,7 +26,7 @@ for %words.values -> @these {
                 $maybe = $maybe.comb.list.rotate.join;
             } else {
                 @print = ();
-                last MAYBE
+                next MAYBE
             }
         }
         if @print.elems {
