@@ -8,7 +8,15 @@
 
 my @res;
 
-# Works with: Rakudo version 2019.07.1
+# This is a very simple simulation. It assumes a constant ~2G+ acceleration
+# in a gravitational field; so net +10 meters per second². It completely
+# neglects the effects of air friction, impulse, snap, crackle & pop and has
+# an unrealistically clean fuel burn (no contrail). It does however (unlike
+# most of the entries at this time) start at the base of the terminal (on the
+# ground) and go up, rather than starting at the top and dropping a contrail.
+# It calculates and displays an accurate displacement and velocity over time
+# and uses those to scale its vertical screen displacement.
+
 # Uses ANSI graphics. Works best in a 24 bit ANSI terminal at least 80x24, though bigger is better.
 # The motion is a little "jerky" as the vertical resolution in a terminal is rather low. See example gif. Exits after the rocket leaves the visible area of the terminal.
 
