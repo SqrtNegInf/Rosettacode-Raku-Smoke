@@ -1,18 +1,18 @@
 This is Rakudo version 2019.07.1-132-g15e060107 built on MoarVM version 2019.07.1-72-g352ae27e4
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1089/9]
-|+-------------> JVM: Good/Bad [935/163]
-||+------------> Smoke testing [985]
++--------------> Moar: Good/Bad [1091/9]
+|+-------------> JVM: Good/Bad [937/163]
+||+------------> Smoke testing [987]
 |||+-----------> sKipping validation [110]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [267]
-||||||+--------> Concurrent [45]
+||||||+--------> Concurrent [47]
 |||||||+-------> Random seed [113]
 ||||||||+------> File output [80]
-|||||||||+-----> Draft [219]
+|||||||||+-----> Draft [220]
 ||||||||||+----> Ignoring [57]
-|||||||||||+---> Void (no local copy) [135]
+|||||||||||+---> Void (no local copy) [134]
 ||||||||||||+--> Un-implemented/reliable [96]
 |||||||||||||
 GGS.......... 100_doors
@@ -146,7 +146,7 @@ GGS..T....... Bitwise_operations
 GGS.......... Boolean_values
 GGS.......... Box_the_compass
 BB........... Brace_expansion
-.........D.V. Brazilian_numbers
+GGS...C..D... Brazilian_numbers
 GGS.......... Break_OO_privacy
 GGS..T.RF.... Brownian_tree
 GGS....R..... Bulls_and_cows
@@ -368,6 +368,7 @@ GGS.......... FASTA_format
 !BS.......... FTP
 GGS.......... Factorial
 GGS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
+GGS...C..D... Factorions
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
 GBS...C...... Farey_sequence
