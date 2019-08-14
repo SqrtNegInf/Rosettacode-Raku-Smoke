@@ -1,23 +1,32 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brazilian_numbers
-#c# 2019-08-12 <RC
+#c# 2019-08-12 <RC, 2019-08-13 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 
 my @res;
 
-sub is-Brazilian (Int $n) {
-    for 2 ..^ $n - 1 { return True if ($n %% 2 && $n > 6) or +(my @b = $n.polymod( $_ xx * )) > 1 and [==] @b }
+multi is-Brazilian (Int $n where $n %% 2 && $n > 6) { True }
+
+multi is-Brazilian (Int $n) {
+    LOOP: loop (my int $p = 2; $p < $n - 1; ++$p) {
+        my $b;
+        for $n.polymod( $p xx * ) {
+            $b = $_ if not $b.defined;
+            next LOOP if $b != $_;
+        }
+        return True
+    }
     False
 }
 
-my @Brazilians = lazy (^Inf).hyper.grep: { .&is-Brazilian }
+my $upto = 20;
 
-@res.push: "First 20 Brazilian numbers:\n"~ @Brazilians[^20];
+@res.push: "First $upto Brazilian numbers:\n"~ (^Inf).hyper.grep( *.&is-Brazilian )[^$upto];
 
-@res.push: "\nFirst 20 odd Brazilian numbers:\n"~ @Brazilians.grep( * % 2 )[^20];
+@res.push: "\nFirst $upto odd Brazilian numbers:\n"~ (^Inf).hyper.map( * * 2 + 1 ).grep( *.&is-Brazilian )[^$upto];
 
-@res.push: "\nFirst 20 prime Brazilian numbers:\n"~ @Brazilians.grep( *.is-prime )[^20];
+@res.push: "\nFirst $upto prime Brazilian numbers:\n"~ (^Inf).hyper(:8degree).grep( *.&is-prime ).grep( *.&is-Brazilian )[^$upto];
 
 .say for @res;
 
