@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brazilian_numbers
-#c# 2019-08-12 <RC, 2019-08-13 <RC
+#c# 2019-08-12 <RC, 2019-08-14 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -9,11 +9,11 @@ my @res;
 multi is-Brazilian (Int $n where $n %% 2 && $n > 6) { True }
 
 multi is-Brazilian (Int $n) {
-    LOOP: loop (my int $p = 2; $p < $n - 1; ++$p) {
-        my $b;
-        for $n.polymod( $p xx * ) {
-            $b = $_ if not $b.defined;
-            next LOOP if $b != $_;
+    LOOP: loop (my int $base = 2; $base < $n - 1; ++$base) {
+        my $digit;
+        for $n.polymod( $base xx * ) {
+            $digit //= $_;
+            next LOOP if $digit != $_;
         }
         return True
     }
@@ -26,7 +26,8 @@ my $upto = 20;
 
 @res.push: "\nFirst $upto odd Brazilian numbers:\n"~ (^Inf).hyper.map( * * 2 + 1 ).grep( *.&is-Brazilian )[^$upto];
 
-@res.push: "\nFirst $upto prime Brazilian numbers:\n"~ (^Inf).hyper(:8degree).grep( *.&is-prime ).grep( *.&is-Brazilian )[^$upto];
+#@res.push: "\nFirst $upto prime Brazilian numbers:\n"~ (^Inf).hyper(:8degree).grep( *.&is-prime ).grep( *.&is-Brazilian )[^$upto];
+@res.push: "\nFirst $upto prime Brazilian numbers:\n", (^Inf).hyper(:8degree).grep( { .is-prime && .&is-Brazilian } )[^$upto];
 
 .say for @res;
 
