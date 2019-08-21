@@ -1,18 +1,18 @@
-This is Rakudo version 2019.07.1-185-g6a8859089 built on MoarVM version 2019.07.1-72-g352ae27e4
+This is Rakudo version 2019.07.1-187-gcd8463a85 built on MoarVM version 2019.07.1-117-g7f8283424
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1092/9]
-|+-------------> JVM: Good/Bad [937/164]
-||+------------> Smoke testing [988]
++--------------> Moar: Good/Bad [1097/9]
+|+-------------> JVM: Good/Bad [939/167]
+||+------------> Smoke testing [993]
 |||+-----------> sKipping validation [110]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [267]
 ||||||+--------> Concurrent [47]
 |||||||+-------> Random seed [113]
 ||||||||+------> File output [80]
-|||||||||+-----> Draft [226]
+|||||||||+-----> Draft [224]
 ||||||||||+----> Ignoring [57]
-|||||||||||+---> Void (no local copy) [139]
+|||||||||||+---> Void (no local copy) [134]
 ||||||||||||+--> Un-implemented/reliable [96]
 |||||||||||||
 GGS.......... 100_doors
@@ -376,7 +376,7 @@ GGS.......... Fast_Fourier_transform
 GGS..T...D... Faulhaber%27s_formula
 GGS......D... Faulhaber%27s_triangle
 GGS......D... Feigenbaum_constant_calculation
-.........D.V. Fermat_numbers
+GBS......D... Fermat_numbers
 .........D.VU Fibonacci_heap
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
@@ -583,7 +583,7 @@ GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
-.........D.VU Latin_Squares_in_reduced_form
+...........VU Latin_Squares_in_reduced_form
 .........D.VU Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Technique
 GB.KI....D... Launch_rocket_with_countdown_and_acceleration_in_stdout
 GBS..TC...... Law_of_cosines_-_triples-1
@@ -811,7 +811,7 @@ GGS.......... Pernicious_numbers
 GGS.......... Phrase_reversals
 GGS..T....... Pi
 GGS..T.R..... Pick_random_element
-.........D.V. Pierpont_primes
+GBS......D... Pierpont_primes
 GGS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
@@ -1036,7 +1036,7 @@ GGS..T.R..... Sorting_algorithms_Heapsort
 GGS....R..... Sorting_algorithms_Insertion_sort
 GGS....R..... Sorting_algorithms_Merge_sort
 GGS....R..... Sorting_algorithms_Pancake_sort
-GGS....R.D... Sorting_algorithms_Patience_sort
+GGS....R..... Sorting_algorithms_Patience_sort
 GGS.......... Sorting_algorithms_Permutation_sort
 GGS....R..... Sorting_algorithms_Quicksort
 GGS..T.R..... Sorting_algorithms_Radix_sort
@@ -1070,8 +1070,8 @@ GGS..T.R..... Statistics_Basic
 GGS....R..... Statistics_Normal_distribution
 GGS.......... Stem-and-leaf_plot
 GGS..T....... Stern-Brocot_sequence
-.........D.V. Stirling_numbers_of_the_first_kind
-.........D.V. Stirling_numbers_of_the_second_kind
+GGS......D... Stirling_numbers_of_the_first_kind
+GGS......D... Stirling_numbers_of_the_second_kind
 GGS..T....... Straddling_checkerboard
 GGS..T....... Stream_Merge
 GGS.......... String_append
@@ -1263,4 +1263,4 @@ GGS.......... Zero_to_the_zero_power
 GGS..T....... Zhang-Suen_thinning_algorithm
 GGS..T....... Zig-zag_matrix-1
 GGS.......... Zig-zag_matrix-2
-.........D.V. Zumkeller_numbers
+GBS......D... Zumkeller_numbers
