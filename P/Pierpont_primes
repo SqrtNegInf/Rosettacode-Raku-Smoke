@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pierpont_primes
-#c# 2019-08-20 <RC
+#c# 2019-08-22 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -16,26 +16,24 @@ use ntheory:from<Perl5> <is_prime>;
 
 sub pierpont ($kind is copy = 1) {
     fail "Unknown type: $kind. Must be one of 1 (default) or 2" if $kind !== 1|2;
-    my $po3 = 0;
+    $kind = -1 if $kind == 2;
+    my $po3 = 3;
     my $add-one = 3;
-    my @iterators = [2,4,8 … *].iterator, [3,9,27 … *].iterator;
-
+    my @iterators = [1,2,4,8 … *].iterator, [3,9,27 … *].iterator;
+    my @head = @iterators».pull-one;
+ 
     gather {
-        take 2 if $kind == 1;
-        $kind = -1 if $kind == 2;
-        my @head = @iterators».pull-one;
-
         loop {
             my $key = @head.pairs.min( *.value ).key;
             my $min = @head[$key];
             @head[$key] = @iterators[$key].pull-one;
-
+ 
             take $min + $kind if "{$min + $kind}".&is_prime;
-
+ 
             if $min >= $add-one {
-                ++$po3;
-                @iterators.push: ([|((2,4,8).map: * * 3 ** $po3) … *]).iterator;
+                @iterators.push: ([|((2,4,8).map: * * $po3) … *]).iterator;
                 $add-one = @head[+@iterators - 1] = @iterators[+@iterators - 1].pull-one;
+                $po3 *= 3;
             }
         }
     }
