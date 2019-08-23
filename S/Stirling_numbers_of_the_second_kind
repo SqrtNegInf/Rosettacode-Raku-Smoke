@@ -14,23 +14,22 @@ my $upto = 12;
 
 my $mx = (1..^$upto).map( { Stirling2($upto, $_) } ).max.chars;
 
-#put 'Stirling numbers of the second kind: S2(n, k):';
-#put 'n\k', (0..$upto)».fmt: "%{$mx}d";
+@res.push: 'Stirling numbers of the second kind: S2(n, k):';
+@res.push: 'n\k' ~ (0..$upto)».fmt: "%{$mx}d";
 
 for 0..$upto -> $row {
-    @res.push: $row.fmt('%-3d'); #.print;
+    @res.push: $row.fmt('%-3d');
     @res[*-1] ~= (0..$row).map( { Stirling2($row, $_) } )».fmt: "%{$mx}d";
 }
 
 @res.push: "\nMaximum value from the S2(100, *) row:";
 @res.push: (^100).map( { Stirling2 100, $_ } ).max;
 
-#Stirling numbers of the second kind: S2(n, k):
-#n\k      0       1       2       3       4       5       6       7       8       9      10      11      12
-
 .say for @res; 
 
 my $ref = q:to/END/;
+Stirling numbers of the second kind: S2(n, k):
+n\k      0       1       2       3       4       5       6       7       8       9      10      11      12
 0        1
 1        0       1
 2        0       1       1
