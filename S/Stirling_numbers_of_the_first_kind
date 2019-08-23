@@ -18,8 +18,8 @@ my $upto = 12;
 
 my $mx = (1..^$upto).map( { Stirling1($upto, $_) } ).max.chars;
 
-#put 'Unsigned Stirling numbers of the first kind: S1(n, k):';
-#put 'n\k', (0..$upto)».fmt: "%{$mx}d";
+@res.push: 'Unsigned Stirling numbers of the first kind: S1(n, k):';
+@res.push: 'n\k' ~ (0..$upto)».fmt: "%{$mx}d";
 
 for 0..$upto -> $row {
     @res.push: $row.fmt('%-3d'); #.print;
@@ -29,12 +29,11 @@ for 0..$upto -> $row {
 @res.push: "\nMaximum value from the S1(100, *) row:";
 @res.push: (^100).map( { Stirling1 100, $_ } ).max;
 
-#Unsigned Stirling numbers of the first kind: S1(n, k):
-#n\k        0         1         2         3         4         5         6         7         8         9        10        11        12
-
 .say for @res;
 
 my $ref = q:to/END/;
+Unsigned Stirling numbers of the first kind: S1(n, k):
+n\k        0         1         2         3         4         5         6         7         8         9        10        11        12
 0          1
 1          0         1
 2          0         1         1
