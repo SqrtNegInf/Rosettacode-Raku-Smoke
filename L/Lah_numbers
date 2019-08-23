@@ -20,11 +20,11 @@ my $upto = 12;
 
 my $mx = (1..$upto).map( { Lah($upto, $_) } ).max.chars;
 
-#@res.push: 'Unsigned Lah numbers:  L(n, k):';
-#@res.push: 'n\k', (0..$upto)».fmt: "%{$mx}d";
+@res.push: 'Unsigned Lah numbers:  L(n, k):';
+@res.push: 'n\k' ~ (0..$upto)».fmt: "%{$mx}d";
 
 for 0..$upto -> $row {
-    @res.push: $row.fmt('%-3d'); #.print;
+    @res.push: $row.fmt('%-3d');
     @res[*-1] ~= (0..$row).map( { Lah($row, $_) } )».fmt: "%{$mx}d";
 }
 
@@ -33,9 +33,9 @@ for 0..$upto -> $row {
 
 .say for @res; 
 
-#Unsigned Lah numbers:  L(n, k):
-#n\k         0          1          2          3          4          5          6          7          8          9         10         11         12
 my $ref = q:to/END/;
+Unsigned Lah numbers:  L(n, k):
+n\k         0          1          2          3          4          5          6          7          8          9         10         11         12
 0           1
 1           0          1
 2           0          2          1
