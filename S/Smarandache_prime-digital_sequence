@@ -3,6 +3,7 @@
 #c# 2019-06-18 <RC, 2019-07-03 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# added back calculation of 100K-th
 
 my @res;
 
@@ -14,7 +15,7 @@ my $spds = grep { .&is_prime }, flat [2,3,5,7], [23,27,33,37,53,57,73,77], -> $p
   { state $o++; my $oom = 10**(1+$o); [ flat (2,3,5,7).map: -> $l { (|$p).map: $l*$oom+* } ] } … *;
 
 say 'Smarandache prime-digitals:';
-@res.push: sprintf "%22s: %s", ordinal(1+$_).tclc, comma $spds[$_] for flat ^25, 99, 999, 9999; #, 99999;
+@res.push: sprintf "%22s: %s", ordinal(1+$_).tclc, comma $spds[$_] for flat ^25, 99, 999, 9999, 99999;
 
 .say for @res;
 
@@ -47,8 +48,8 @@ my $ref = q:to/END/;
          One hundredth: 33,223
         One thousandth: 3,273,527
         Ten thousandth: 273,322,727
+One hundred thousandth: 23,325,232,253
 END
-#One hundred thousandth: 23,325,232,253
 
 use Test;
 is @res.join("\n"), chomp $ref;
