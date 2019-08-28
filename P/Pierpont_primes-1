@@ -3,6 +3,7 @@
 #c# 2019-08-22 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# dropped calc of 1000th
 
 my @res;
 
@@ -48,10 +49,8 @@ sub pierpont ($kind is copy = 1) {
 @res.push: "\n250th Pierpont prime of the second kind: " ~ pierpont(2)[249];
 
 # And the question absolutely nobody was asking:
-
-@res.push: "\n1000th Pierpont prime of the first kind:\n" ~ pierpont[999];
-
-@res.push: "\n1000th Pierpont prime of the second kind:\n" ~ pierpont(2)[999];
+#@res.push: "\n1000th Pierpont prime of the first kind:\n" ~ pierpont[999];
+#@res.push: "\n1000th Pierpont prime of the second kind:\n" ~ pierpont(2)[999];
 
 .say for @res;
 
@@ -73,13 +72,13 @@ First 50 Pierpont primes of the second kind:
 250th Pierpont prime of the first kind: 62518864539857068333550694039553
 
 250th Pierpont prime of the second kind: 4111131172000956525894875083702271
-
-1000th Pierpont prime of the first kind:
-69269314716439690250482558089997110961545818230232043107188537422260188701607997086273960899938499201024414931399264696270849
-
-1000th Pierpont prime of the second kind:
-1308088756227965581249669045506775407896673213729433892383353027814827286537163695213418982500477392209371001259166465228280492460735463423
 END
+
+#1000th Pierpont prime of the first kind:
+#69269314716439690250482558089997110961545818230232043107188537422260188701607997086273960899938499201024414931399264696270849
+
+#1000th Pierpont prime of the second kind:
+#1308088756227965581249669045506775407896673213729433892383353027814827286537163695213418982500477392209371001259166465228280492460735463423
 
 use Test;
 is @res.join("\n"), chomp $ref;
