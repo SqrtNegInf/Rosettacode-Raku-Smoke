@@ -16,5 +16,5 @@ use Test;
 #is &is.file, 'perl#sources/2D4A7CA10695CD2B374573413D261A660E282E2A (Test)';
 is &is.file, 'core#sources/2D4A7CA10695CD2B374573413D261A660E282E2A (Test)';
 
-is &sum.file, 'SETTING::src/core/Any.pm6';
-is Date.^find_method("day-of-week").file, 'SETTING::src/core/Dateish.pm6';
+is &sum.file, 'SETTING::src/core.c/Any.pm6';
+is Date.^find_method("day-of-week").file, 'SETTING::src/core.c/Dateish.pm6';
