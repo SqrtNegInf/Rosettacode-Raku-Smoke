@@ -2,17 +2,17 @@ This is Rakudo version 2019.07.1-237-g0455f42e3 built on MoarVM version 2019.07.
 implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1099/10]
-|+-------------> JVM: Good/Bad [940/168]
-||+------------> Smoke testing [994]
+|+-------------> JVM: Good/Bad [942/168]
+||+------------> Smoke testing [996]
 |||+-----------> sKipping validation [111]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [267]
 ||||||+--------> Concurrent [47]
 |||||||+-------> Random seed [113]
 ||||||||+------> File output [80]
-|||||||||+-----> Draft [226]
+|||||||||+-----> Draft [225]
 ||||||||||+----> Ignoring [57]
-|||||||||||+---> Void (no local copy) [137]
+|||||||||||+---> Void (no local copy) [135]
 ||||||||||||+--> Un-implemented/reliable [97]
 |||||||||||||
 GGS.......... 100_doors
@@ -91,7 +91,7 @@ GBS......D... Assertions_in_design_by_contract
 GGS.......... Associative_array_Creation
 GGS.......... Associative_array_Iteration
 GGS....R..... Atomic_updates
-GBS...C..D... Attractive_numbers
+GBS...C...... Attractive_numbers
 .........D.VU AudioAlarm
 .........D.VU Audio_Overlap_Loop
 .........D.VU Audio_frequency_generator
@@ -709,7 +709,7 @@ GGS.......... Mutual_recursion
 GGS.......... N%27th
 GGS......D... N-body_problem
 GGS..T....... N-queens_problem
-.........D.V. N-smooth_numbers
+GGS......D... N-smooth_numbers
 GGS......D... NYSIIS
 GGS.......... Named_parameters
 BB.......D..U Names_to_numbers
@@ -766,7 +766,7 @@ GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
 GBS...C...... Parallel_calculations
-GBS...CR..... Parallel_calculations-2
+!BS...CR..... Parallel_calculations-2
 GGS.......... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
@@ -845,7 +845,7 @@ GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
 GG.K.TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS..T....... Primorial_numbers
 GGS.......... Primorial_numbers-2
-.........D.V. Print_debugging_statement
+!GS......D... Print_debugging_statement
 GGS.......... Priority_queue
 GGS....R..... Probabilistic_choice
 GBS..T....... Problem_of_Apollonius
