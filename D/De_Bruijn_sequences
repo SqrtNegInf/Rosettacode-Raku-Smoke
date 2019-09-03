@@ -1,0 +1,75 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/De_Bruijn_sequences
+#c# 2019-09-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+# Deviates very slightly from the task spec. (Replaces the 4444th character with a 5 rather than a '.'), mostly so it can demonstrate detection of extra PINs as well as missing ones.
+
+my $seq;
+
+for ^100 {
+    my $a = .fmt: '%02d';
+    next if $a.substr(1,1) < $a.substr(0,1);
+    $seq ~= ($a.substr(0,1) == $a.substr(1,1)) ?? $a.substr(0,1) !! $a;
+    for +$a ^..^ 100 {
+        next if .fmt('%02d').substr(1,1) <= $a.substr(0,1);
+        $seq ~= sprintf "%s%02d", $a, $_ ;
+    }
+}
+$seq ~= '000';
+
+sub check ($seq) {
+    my %chk;
+    for ^($seq.chars) { %chk{$seq.substr( $_, 4 )}++ }
+    @res.push: 'Missing: '~ (^9999).grep( { not %chk{ .fmt: '%04d' } } );
+    @res.push: 'Extra:   '~ %chk.grep( *.value > 1 )».key.sort;
+}
+
+## The Task
+@res.push: "de Bruijn sequence length: " ~ $seq.chars;
+
+@res.push: "\nFirst 130 characters:\n" ~ $seq.substr( 0, 130 );
+
+@res.push: "\nLast 130 characters:\n" ~ $seq.substr( * - 130 );
+
+@res.push: "\nIncorrect 4 digit PINs in this sequence:";
+check $seq;
+
+@res.push: "\nIncorrect 4 digit PINs in the reversed sequence:";
+check $seq.flip;
+
+@res.push: "\nReplacing the 4444th digit, ({$seq.substr(4443,1)}) with 5";
+@res.push: "Incorrect 4 digit PINs in the revised sequence:";
+$seq.substr-rw(4443,1) = 5;
+check $seq;
+
+.say for @res;
+
+my $ref = q:to/END/;
+de Bruijn sequence length: 10003
+
+First 130 characters:
+0000100020003000400050006000700080009001100120013001400150016001700180019002100220023002400250026002700280029003100320033003400350
+
+Last 130 characters:
+6898689969697769786979698769886989699769986999777787779778877897798779978787978887889789878997979887989799879998888988998989999000
+
+Incorrect 4 digit PINs in this sequence:
+Missing: 
+Extra:   
+
+Incorrect 4 digit PINs in the reversed sequence:
+Missing: 
+Extra:   
+
+Replacing the 4444th digit, (4) with 5
+Incorrect 4 digit PINs in the revised sequence:
+Missing: 1459 4591 5814 8145
+Extra:   1559 5591 5815 8155
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
