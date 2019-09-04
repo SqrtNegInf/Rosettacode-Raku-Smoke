@@ -63,42 +63,42 @@ alpha($a);                   #line 34
 delta("D");                  #line 35
 .&beta for ^3;               #line 36
 
-.say for @res;
+.say for @res; 
 
 my $moar = q:to/END/;
 $a 10
-from file: Print_debugging_statement, line: 61
+from file: P/Print_debugging_statement, line: 61
 
 a => 13
-from file: Print_debugging_statement, sub: alpha, line: 52
- from file: Print_debugging_statement, line: 62
+from file: P/Print_debugging_statement, sub: alpha, line: 52
+ from file: P/Print_debugging_statement, line: 62
 
 string
-from file: Print_debugging_statement, sub: alpha, line: 53
- from file: Print_debugging_statement, line: 62
+from file: P/Print_debugging_statement, sub: alpha, line: 53
+ from file: P/Print_debugging_statement, line: 62
 
 7
-from file: Print_debugging_statement, sub: beta, line: 56
- from file: Print_debugging_statement, sub: alpha, line: 54
-  from file: Print_debugging_statement, line: 62
+from file: P/Print_debugging_statement, sub: beta, line: 56
+ from file: P/Print_debugging_statement, sub: alpha, line: 54
+  from file: P/Print_debugging_statement, line: 62
 
 D
-from file: Print_debugging_statement, sub: beta, line: 56
- from file: Print_debugging_statement, sub: gamma, line: 57
-  from file: Print_debugging_statement, sub: delta, line: 58
-   from file: Print_debugging_statement, line: 63
+from file: P/Print_debugging_statement, sub: beta, line: 56
+ from file: P/Print_debugging_statement, sub: gamma, line: 57
+  from file: P/Print_debugging_statement, sub: delta, line: 58
+   from file: P/Print_debugging_statement, line: 63
 
 0
-from file: Print_debugging_statement, sub: beta, line: 56
- from file: Print_debugging_statement, line: 64
+from file: P/Print_debugging_statement, sub: beta, line: 56
+ from file: P/Print_debugging_statement, line: 64
 
 1
-from file: Print_debugging_statement, sub: beta, line: 56
- from file: Print_debugging_statement, line: 64
+from file: P/Print_debugging_statement, sub: beta, line: 56
+ from file: P/Print_debugging_statement, line: 64
 
 2
-from file: Print_debugging_statement, sub: beta, line: 56
- from file: Print_debugging_statement, line: 64
+from file: P/Print_debugging_statement, sub: beta, line: 56
+ from file: P/Print_debugging_statement, line: 64
 
 END
 
@@ -107,55 +107,55 @@ $a 10
 from file: gen/jvm/CORE.setting, sub: throw, line: 37756
  from file: gen/jvm/CORE.setting, sub: die, line: 915
   from file: gen/jvm/CORE.setting, sub: infix:<andthen>, line: 52577
-   from file: Print_debugging_statement, line: 60
+   from file: P/Print_debugging_statement, line: 61
 
 a => 13
 from file: gen/jvm/CORE.setting, sub: throw, line: 37756
  from file: gen/jvm/CORE.setting, sub: die, line: 915
-  from file: Print_debugging_statement, sub: alpha, line: 51
-   from file: Print_debugging_statement, line: 61
+  from file: P/Print_debugging_statement, sub: alpha, line: 52
+   from file: P/Print_debugging_statement, line: 62
 
 string
 from file: gen/jvm/CORE.setting, sub: throw, line: 37756
  from file: gen/jvm/CORE.setting, sub: die, line: 915
-  from file: Print_debugging_statement, sub: alpha, line: 52
-   from file: Print_debugging_statement, line: 61
+  from file: P/Print_debugging_statement, sub: alpha, line: 53
+   from file: P/Print_debugging_statement, line: 62
 
 7
 from file: gen/jvm/CORE.setting, sub: throw, line: 37756
  from file: gen/jvm/CORE.setting, sub: die, line: 915
-  from file: Print_debugging_statement, sub: beta, line: 55
-   from file: Print_debugging_statement, sub: alpha, line: 53
-    from file: Print_debugging_statement, line: 61
+  from file: P/Print_debugging_statement, sub: beta, line: 56
+   from file: P/Print_debugging_statement, sub: alpha, line: 54
+    from file: P/Print_debugging_statement, line: 62
 
 D
 from file: gen/jvm/CORE.setting, sub: throw, line: 37756
  from file: gen/jvm/CORE.setting, sub: die, line: 915
-  from file: Print_debugging_statement, sub: beta, line: 55
-   from file: Print_debugging_statement, sub: gamma, line: 56
-    from file: Print_debugging_statement, sub: delta, line: 57
-     from file: Print_debugging_statement, line: 62
+  from file: P/Print_debugging_statement, sub: beta, line: 56
+   from file: P/Print_debugging_statement, sub: gamma, line: 57
+    from file: P/Print_debugging_statement, sub: delta, line: 58
+     from file: P/Print_debugging_statement, line: 63
 
 0
 from file: gen/jvm/CORE.setting, sub: throw, line: 37756
  from file: gen/jvm/CORE.setting, sub: die, line: 915
-  from file: Print_debugging_statement, sub: beta, line: 55
+  from file: P/Print_debugging_statement, sub: beta, line: 56
    from file: gen/jvm/CORE.setting, sub: dispatch:<var>, line: 1746
-    from file: Print_debugging_statement, line: 63
+    from file: P/Print_debugging_statement, line: 64
 
 1
 from file: gen/jvm/CORE.setting, sub: throw, line: 37756
  from file: gen/jvm/CORE.setting, sub: die, line: 915
-  from file: Print_debugging_statement, sub: beta, line: 55
+  from file: P/Print_debugging_statement, sub: beta, line: 56
    from file: gen/jvm/CORE.setting, sub: dispatch:<var>, line: 1746
-    from file: Print_debugging_statement, line: 63
+    from file: P/Print_debugging_statement, line: 64
 
 2
 from file: gen/jvm/CORE.setting, sub: throw, line: 37756
  from file: gen/jvm/CORE.setting, sub: die, line: 915
-  from file: Print_debugging_statement, sub: beta, line: 55
+  from file: P/Print_debugging_statement, sub: beta, line: 56
    from file: gen/jvm/CORE.setting, sub: dispatch:<var>, line: 1746
-    from file: Print_debugging_statement, line: 63
+    from file: P/Print_debugging_statement, line: 64
 
 END
 
