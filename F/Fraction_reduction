@@ -1,0 +1,94 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Fraction_reduction
+#c# 2019-09-03 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my %reduced;
+my $digits = 2..3; #4; slow, limit output 
+
+for $digits.map: * - 1 -> $exp {
+    my $start = sum (0..$exp).map( { 10 ** $_ * ($exp - $_ + 1) });
+    my $end   = 10**($exp+1) - sum (^$exp).map( { 10 ** $_ * ($exp - $_) } ) - 1;
+
+    #($start ..^ $end).race(:8degree, :3batch).map: -> $den { # not for JVM
+    for $start ..^ $end -> $den {
+        next if $den.contains: '0';
+        next if $den.comb.unique <= $exp;
+
+        for $start ..^ $den -> $num {
+            next if $num.contains: '0';
+            next if $num.comb.unique <= $exp;
+
+            my $set = ($den.comb.head(* - 1).Set ∩ $num.comb.skip(1).Set);
+            next if $set.elems < 1;
+
+            for $set.keys {
+                my $ne = $num.trans: $_ => '', :delete;
+                my $de = $den.trans: $_ => '', :delete;
+                if $ne / $de == $num / $den {
+                    #print "\b" x 40, "$num/$den:$_ => $ne/$de";
+                    %reduced{"$num/$den:$_"} = "$ne/$de";
+                }
+            }
+        }
+    }
+
+    #print "\b" x 40, ' ' x 40, "\b" x 40;
+
+    my $digit = $exp +1;
+    my %d = %reduced.pairs.grep: { .key.chars == ($digit * 2 + 3) };
+    @res.push: "\n({+%d}) $digit digit reduceable fractions:";
+    for 1..9 {
+        my $cnt = +%d.pairs.grep( *.key.contains: ":$_" );
+        next unless $cnt;
+        @res.push: "  $cnt with removed $_";
+    }
+    @res.push: "\n  12 Random (or all, if less) $digit digit reduceable fractions:";
+    @res.push: "    {.key.substr(0, $digit * 2 + 1)} => {.value} removed {.key.substr(* - 1)}"
+      for %d.pairs.sort.head(12);
+      #for %d.pairs.pick(12).sort;
+}
+
+.say for @res; 
+
+my $ref = q:to/END/;
+
+(4) 2 digit reduceable fractions:
+  2 with removed 6
+  2 with removed 9
+
+  12 Random (or all, if less) 2 digit reduceable fractions:
+    16/64 => 1/4 removed 6
+    19/95 => 1/5 removed 9
+    26/65 => 2/5 removed 6
+    49/98 => 4/8 removed 9
+
+(122) 3 digit reduceable fractions:
+  9 with removed 3
+  1 with removed 4
+  6 with removed 5
+  15 with removed 6
+  16 with removed 7
+  15 with removed 8
+  60 with removed 9
+
+  12 Random (or all, if less) 3 digit reduceable fractions:
+    132/231 => 12/21 removed 3
+    134/536 => 14/56 removed 3
+    134/938 => 14/98 removed 3
+    136/238 => 16/28 removed 3
+    138/345 => 18/45 removed 3
+    139/695 => 13/65 removed 9
+    143/341 => 13/31 removed 4
+    146/365 => 14/35 removed 6
+    149/298 => 14/28 removed 9
+    149/596 => 14/56 removed 9
+    149/894 => 14/84 removed 9
+    154/253 => 14/23 removed 5
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
