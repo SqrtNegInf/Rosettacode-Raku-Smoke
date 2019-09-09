@@ -8,20 +8,20 @@
 #n# Do .race and Perl5 call conflict? [seem to: same result in 'Cuban_primes' mash-up of .1 and 1.1 versions]
 #n# key to decent runtime is adding more filtering tricks...
 
-use ntheory:from<Perl5> <:all>;
+#use ntheory:from<Perl5> <:all>;
 
 my @res;
 
 my atomicint @Rare[3];
 my atomicint $cnt;
 
-#(flat
-for (flat
+(flat
+#for (flat
                1 .. 1000,
          600_000 .. 700_000,
      281_000_000 .. 281_100_000,
-) -> $n {
-#).race(:8degree).map: -> $n {
+#) -> $n {
+).race(:8degree).map: -> $n {
 
 #   2_022_600_000 .. 2_023_000_000,
 # 868_591_000_000 .. 868_592_000_000,
@@ -29,10 +29,15 @@ for (flat
     next unless $n ~~ /^^ <[2468]> /;
 
     if $n > 1000 {
-        my ($a,$b,$p,$q) = ($n ~~ /^^ (.)(.).*(.)(.) $$/)>>.Int;
+#        my ($a,$b,$p,$q) = ($n ~~ /^^ (.)(.).*(.)(.) $$/)>>.Int;
+        my $q = substr $n,*-1, 1;
         next unless    $q == none(1,4,6,9);
+
+        my $a = substr $n,  0, 1;
         next unless $a-$q ==  any(0,1,4,5,6);
 
+        my $b = substr $n,  1, 1;
+        my $p = substr $n,*-2, 1;
         given $a {
           when 2 { next if $q != 2 or $b != $p }
           when 4 { next unless  $q == 0             and 0 == $b-$p }
@@ -57,10 +62,9 @@ say "n: $n";
     @Rare[$cnt⚛++] = $n;
 }
 
-sub is-power ($x) {
-    my $root = sqrt($x);
-    $root == floor $root;
-}
+sub is-power ($x) { $_ == .floor given sqrt($x) }
+    #my $root = sqrt($x);
+    #$root == floor $root;
 
 .say for @Rare;
 
