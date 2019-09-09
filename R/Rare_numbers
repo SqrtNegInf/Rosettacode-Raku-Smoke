@@ -11,13 +11,19 @@ use ntheory:from<Perl5> <:all>;
 my @res;
 
 #for 1..1E6 -> $n {
+
+my atomicint @Rare[10];
+my atomicint $cnt;
+
+#my @factories = @nums.hyper(:3batch).map: *.&prime-factors;
 for flat (
                1 .. 1000,
          600_000 .. 700_000,
      281_000_000 .. 281_100_000,
 #   2_022_600_000 .. 2_023_000_000,
 # 868_591_000_000 .. 868_592_000_000,
-) -> $n {
+#) -> $n {
+).race(:8degree, :8batch) -> $n {
 
     next unless $n ~~ /^^ <[2468]> /;
 
@@ -46,10 +52,10 @@ for flat (
     #next unless $dr == any(2,5,8,9);
 
 #say "n: $n";
-    @res.push: $n;
+    @Rare[$cnt++] = $n;
 }
 
-.say for @res;
+.say for @Rare;
 
 my $ref = q:to/END/;
 65
