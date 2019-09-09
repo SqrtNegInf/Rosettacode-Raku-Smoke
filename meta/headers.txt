@@ -7368,6 +7368,15 @@ File: R/Ranking_methods
 #j#  JVM: OK
 #n# output style differs from what's on RC
 
+File: R/Rare_numbers
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/$w
+#c# 2019-09-xx <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# 67.710u 0.482s 1:07.35
+#n# 94.142u 0.528s 1:34.07 # getting $a, etc. via substr was probably more efficient...
+
 File: R/Raster_bars
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Raster_bars
