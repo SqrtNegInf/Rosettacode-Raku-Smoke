@@ -1,66 +1,61 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Factorions
-#c# 2019-08-12 <RC
+#c# 2019-08-12 <RC, 2019-09-09 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
+#n# little slower than previous version (when doing 1.5 million iterations)
 
-my @res;
+#n# tune .race to match # of bases
 
-constant @f = 1, |[\*] 1..*;
-
-constant $limit = 1500000;
-
-for 9 .. 12 -> $b {
-
-    @res.push: "\n\nFactorions in base $b:";
-
-    @res.push: "$_ " if $_ == @f[$_] for ^$b;
-
-    (1 .. $limit div $b).hyper(:8degree).map: -> $i {
-        my $sum;
-        my $prod = $i * $b;
-
-        for $i.polymod($b xx *) {
-            $sum += @f[$_];
-            $sum = 0 and last if $sum > $prod
+constant @factorial = 1, |[\*] 1..*;
+ 
+constant $limit = 42_000; # 1_500_000;
+ 
+constant $bases = 9 .. 12;
+ 
+my @result;
+ 
+#$bases.race(:1batch).map: -> $base {
+$bases.race(:degree($bases.elems), :1batch).map: -> $base {
+ 
+    @result[$base] = "\nFactorions in base $base:\n1 2";
+ 
+    sink (1 .. $limit div $base).map: -> $i {
+        my $product = $i * $base;
+        my $partial;
+ 
+        for $i.polymod($base xx *) {
+            $partial += @factorial[$_];
+            last if $partial > $product
         }
-
-        next if $sum == 0;
-
-        @res.push: "{$prod + $_} " and last if $sum + @f[$_] == $prod + $_ for ^$b;
+ 
+        next if $partial > $product;
+ 
+        my $sum;
+ 
+        for ^$base {
+            last if ($sum = $partial + @factorial[$_]) > $product + $_;
+            @result[$base] ~= " $sum" and last if $sum == $product + $_
+        }
     }
 }
-
-.say for @res;
+ 
+.say for @result[$bases];
 
 my $ref = q:to/END/;
 
-
 Factorions in base 9:
-1 
-2 
-41282 
-
+1 2 41282
 
 Factorions in base 10:
-1 
-2 
-145 
-40585 
-
+1 2 145 40585
 
 Factorions in base 11:
-1 
-2 
-26 
-48 
-40472 
-
+1 2 26 48 40472
 
 Factorions in base 12:
-1 
-2 
+1 2
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is @result[$bases].join("\n"), chomp $ref;
