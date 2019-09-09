@@ -84,6 +84,13 @@ $DB::single = 1;
 for my $prog (@ARGV) {
     next if $prog =~ /\.(pl|[0-9])$/;
     next if $prog =~ /^Temp-/;
+
+    if (! -e $prog) {
+        my($l) = $prog =~ m#^([0A-Z])#;
+        $prog = "$l/$prog" if $l;
+        die "No such program $prog" if ! -e $prog;
+    }
+
     @status = `head -12 $prog`;
     next unless $status[0] =~ /env perl6/;
     next if grep { /^#t#.*($skip)/ } @status;
