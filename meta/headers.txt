@@ -2895,9 +2895,10 @@ File: F/Factorial_base_numbers_indexing_permutations_of_a_collection
 File: F/Factorions
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Factorions
-#c# 2019-08-12 <RC
+#c# 2019-08-12 <RC, 2019-09-09 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
+#n# little slower than previous version (when doing 1.5 million iterations)
 
 File: F/Factorions.0
 #!/usr/bin/env perl6
@@ -2906,6 +2907,15 @@ File: F/Factorions.0
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# now slower?
+
+File: F/Factorions.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Factorions
+#c# 2019-08-12 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# placement of .hyper here make it a little faster than newer version (measurable when doing 1.5 million iterations)
+#n# try more bases (note results for 18)
 
 File: F/Factors_of_a_Mersenne_number
 #!/usr/bin/env perl6
@@ -7376,6 +7386,8 @@ File: R/Rare_numbers
 #j# JVM:  BROKEN
 #n# 67.710u 0.482s 1:07.35
 #n# 94.142u 0.528s 1:34.07 # getting $a, etc. via substr was probably more efficient...
+#n# Do .race and Perl5 call conflict? [seem to: same result in 'Cuban_primes' mash-up of .1 and 1.1 versions]
+#n# key to decent runtime is adding more filtering tricks...
 
 File: R/Raster_bars
 #!/usr/bin/env perl6
