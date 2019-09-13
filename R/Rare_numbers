@@ -3,33 +3,39 @@
 #c# 2019-09-xx <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# 67.710u 0.482s 1:07.35
-#n# 94.142u 0.528s 1:34.07 # getting $a, etc. via substr was probably more efficient...
 #n# Do .race and Perl5 call conflict? [seem to: same result in 'Cuban_primes' mash-up of .1 and 1.1 versions]
 #n# key to decent runtime is adding more filtering tricks...
 
-#use ntheory:from<Perl5> <:all>;
+use ntheory:from<Perl5> <:all>;
+
+# with .race
+# 234.068u 239.169s 6:03.23 130.2%
+# moved .flip test to top
+# 122.653u 143.414s 2:37.09 169.3%
+# ntheory
+# 39.054u 0.393s 0:38.27 103.0%
 
 my @res;
 
 my atomicint @Rare[3];
 my atomicint $cnt;
 
-(flat
-#for (flat
+#(flat
+for (flat
                1 .. 1000,
          600_000 .. 700_000,
      281_000_000 .. 281_100_000,
-#) -> $n {
-).race(:8degree).map: -> $n {
+) -> $n {
+#).race(:8degree).map: -> $n {
 
 #   2_022_600_000 .. 2_023_000_000,
 # 868_591_000_000 .. 868_592_000_000,
 
     next unless $n ~~ /^^ <[2468]> /;
+    next unless $n > my $r = $n.flip; # opposite P5, 2x speed-up with early test (in P5, doubles run-time)
 
     if $n > 1000 {
-#        my ($a,$b,$p,$q) = ($n ~~ /^^ (.)(.).*(.)(.) $$/)>>.Int;
+#        my ($a,$b,$p,$q) = ($n ~~ /^^ (.)(.).*(.)(.) $$/)>>.Int; # slow!
         my $q = substr $n,*-1, 1;
         next unless    $q == none(1,4,6,9);
 
@@ -49,24 +55,27 @@ my atomicint $cnt;
         }
     }
 
-    next unless $n > my $r = $n.flip;
-    next unless is-power($n+$r) and is-power($n-$r);
-    #next unless is_power($n+$r, 2) and is_power($n-$r, 2);
+    #next unless 0x202021202030213 +& (1 +< (($n+$r) +& 63)) > 0; # minimal diff, if any
+    #next unless 0x202021202030213 +& (1 +< (($n-$r) +& 63)) > 0;
 
+    #next unless is-power($n+$r) and is-power($n-$r);
+    next unless is_power($n+$r, 2) and is_power($n-$r, 2);
+
+#say "GOT IT: $n";
     # possibly redundant?
     #my $dr = $n;
     #while $dr.chars > 1 { $dr = [+] $dr.comb }
     #next unless $dr == any(2,5,8,9);
 
-say "n: $n";
     @Rare[$cnt⚛++] = $n;
 }
 
+#use experimental :cached; # no diff
+#sub is-power ($x) is cached { $_ == .floor given sqrt($x) }
 sub is-power ($x) { $_ == .floor given sqrt($x) }
-    #my $root = sqrt($x);
-    #$root == floor $root;
 
 .say for @Rare;
+exit;
 
 my $ref = q:to/END/;
 65
