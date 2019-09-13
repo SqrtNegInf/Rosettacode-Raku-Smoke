@@ -23,7 +23,6 @@ my @freq = sort -*.[0], gather for @lines {
         '</a>' .*? '(' (<[, 0..9]>+) ' member' /;
 }
 
-say +@freq; exit;
 my @res;
 for @freq.kv -> $i, @l {
     @res.push: sprintf "%d:\t%4d - %s", $i+1, |@l;
