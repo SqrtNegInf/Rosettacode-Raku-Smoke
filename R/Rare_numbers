@@ -1,5 +1,5 @@
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/$w
+#u# http://rosettacode.org/wiki/xx
 #c# 2019-09-xx <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -32,7 +32,7 @@ for (flat
 # 868_591_000_000 .. 868_592_000_000,
 
     next unless $n ~~ /^^ <[2468]> /;
-    next unless $n > my $r = $n.flip; # opposite P5, 2x speed-up with early test (in P5, doubles run-time)
+    next unless $n > my $r = $n.flip; # opposite of P5, 2x speed-up with early test (in P5, it doubles run-time)
 
     if $n > 1000 {
 #        my ($a,$b,$p,$q) = ($n ~~ /^^ (.)(.).*(.)(.) $$/)>>.Int; # slow!
