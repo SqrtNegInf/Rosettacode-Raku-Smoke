@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+## display tasks implemented, for selected languages (for now, the members of the '1000' club)
+#  David H.  Fri Sep 13 16:05:56 PDT 2019
+## not a race, not a race, not a race...
+
+use HTTP::UserAgent;
+use URI::Escape;
+use JSON::Fast;
+
+my $client = HTTP::UserAgent.new;
+my $url = 'http://rosettacode.org/mw';
+
+my (%impl,%h);
+my @langs = <Perl Perl_6 Go Julia Python Kotlin Racket Phix>;
+my %short = ( 
+'Perl_6' => 'P6',
+'Perl'   => 'P5',
+'Julia'  => 'Ju',
+'Python' => 'Py',
+'Kotlin' => 'Ko',
+'Racket' => 'Ra',
+'Phix'   => 'Ph',
+'Go'     => 'Go',
+);
+
+for @langs -> $lang { %impl{$lang} = get-cat $lang; }
+for %impl.keys -> $lang { %h{$_}.push: %short{$lang} for %impl{$lang}.List }
+
+for %h.keys.sort: { %h{$^b}.elems > %h{$^a}.elems }  {
+    next if %h{$_}.elems == @langs;
+    next if $_ ~~ /Category:/;
+    my $whodunit = (%h{$_}.sort)>>.fmt("%3s");
+    printf "%27s  %s\n", $whodunit, $_;
+}
+
+sub get-cat ($category) {
+    flat mediawiki-query(
+        $url, 'pages',
+        :generator<categorymembers>,
+        :gcmtitle("Category:$category"),
+        :gcmlimit<350>,
+        :rawcontinue(),
+        :prop<title>
+    ).map({ .<title> });
+}
+
+sub mediawiki-query ($site, $type, *%query) {
+    my $url = "$site/api.php?" ~ uri-query-string(
+        :action<query>, :format<json>, :formatversion<2>, |%query);
+    my $continue = '';
+
+    gather loop {
+        my $response = $client.get("$url&$continue");
+        my $data = from-json($response.content);
+        take $_ for $data.<query>.{$type}.values;
+        $continue = uri-query-string |($data.<query-continue>{*}».hash.hash or last);
+    }
+}
+
+sub uri-query-string (*%fields) { %fields.map({ "{.key}={uri-escape .value}" }).join("&") }
