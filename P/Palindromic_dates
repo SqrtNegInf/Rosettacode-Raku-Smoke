@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# WIP
+#n# Julian/Gregorian missing days (October 4, 1582, September 2, 1752) not potential palindromes
 
 my @res;
 
@@ -19,7 +20,7 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $last-year is copy = 9999)
     $format .= uc;
     my $separator = $format.match(/<-[YMD]>/) || '-';
     $format .= subst(/<-[YMD]>/, '', :g);
-    $last-year = 99 unless $format ~~ /YYYY/; # make executive decision to avoid duplicative results
+    $last-year = 99 if 2 == .chars given $format ~~ /(Y+)/; # make executive decision to avoid duplicative results
 
     for $format.comb: /(.) $0*/ -> $time-unit {
         $i++;
@@ -36,7 +37,7 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $last-year is copy = 9999)
             when /Y/ { 
                 %time-span{'y'} = $i-1;
                 my $fmt = '%' ~ ('0' if $len>1) ~ $len ~ 'd';
-                @range[$i].push: sprintf $fmt, $_ for 1..$last-year }
+                @range[$i].push: sprintf $fmt, $_ for 0..$last-year }
                 #@range[$i].push: sprintf "\%0{$len}d", $_ for 1..$last-year }
             default { die "Inconceivable!" }
         }
