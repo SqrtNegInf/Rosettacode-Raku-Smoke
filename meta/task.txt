@@ -1,10 +1,10 @@
-This is Rakudo version 2019.07.1-311-gef2ee7912 built on MoarVM version 2019.07.1-180-gcf3b545e5
+This is Rakudo version 2019.07.1-321-gb55b85aef built on MoarVM version 2019.07.1-219-gb2dc3f3ba
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1105/10]
-|+-------------> JVM: Good/Bad [944/170]
++--------------> Moar: Good/Bad [1095/10]
+|+-------------> JVM: Good/Bad [945/170]
 ||+------------> Smoke testing [1000]
-|||+-----------> sKipping validation [111]
+|||+-----------> sKipping validation [112]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [267]
 ||||||+--------> Concurrent [47]
@@ -12,7 +12,7 @@ updating from RC…
 ||||||||+------> File output [80]
 |||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [57]
-|||||||||||+---> Void (no local copy) [135]
+|||||||||||+---> Void (no local copy) [134]
 ||||||||||||+--> Un-implemented/reliable [98]
 |||||||||||||
 GGS.......... 100_doors
@@ -152,7 +152,7 @@ GGS.......... Break_OO_privacy
 GGS..T.RF.... Brownian_tree
 GGS....R..... Bulls_and_cows
 GGS..T.R..... Bulls_and_cows_Player
-GBS......D... Burrows-Wheeler_transform
+!BS......D... Burrows-Wheeler_transform
 GBS..T....... CRC-32
 GGS..T..F.... CSV_data_manipulation
 GGS.......... CSV_to_HTML_translation
@@ -168,7 +168,7 @@ BB.K......... Call_a_function_in_a_shared_library
 ...........VU Canny_edge_detector
 GGS.......... Cantor_set
 GGS....R.D... Card_shuffles
-GGS.......... Carmichael_3_strong_pseudoprimes
+!GS.......... Carmichael_3_strong_pseudoprimes
 GGS.......... Cartesian_product_of_two_or_more_lists
 GGS.......... Case-sensitivity_of_identifiers
 GGS.......... Casting_out_nines
@@ -243,7 +243,7 @@ GGS......D... Continued_fraction_Arithmetic_Gmatrix_NG,_Contined_Fraction_N1,_Co
 GGS..T....... Convert_decimal_number_to_rational
 GGS.......... Convert_seconds_to_compound_duration
 GGS.......... Convex_hull
-GGS.......... Conway%27s_Game_of_Life
+!GS.......... Conway%27s_Game_of_Life
 GGS..T....... Copy_a_string
 GG.K.....D... Copy_stdin_to_stdout
 GBS.......... Count_in_factors-1
@@ -325,7 +325,7 @@ GBS.......... Eban_numbers
 GG.KIT....... Echo_server
 GGS.......... Eertree
 GGS.......... Egyptian_division
-GGS..T....... Egyptian_fractions
+!GS..T....... Egyptian_fractions
 GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS......D... Elementary_cellular_automaton_Infinite_length
@@ -486,7 +486,7 @@ GGS.......... Hello_world_Standard_error
 GGS.......... Hello_world_Text
 GG.KI........ Hello_world_Web_server
 GGS..T....... Here_document
-GGS..TC...... Heronian_triangles
+!GS..TC...... Heronian_triangles
 .........D.VU Hexapawn
 GGS.......... Hickerson_series_of_almost_integers
 GGS.......... Higher-order_functions
@@ -595,7 +595,7 @@ GGS.......... Leap_year
 GGS.......... Least_common_multiple
 GGS..TC...... Left_factorials
 GGS.......... Leonardo_numbers
-GGS.......... Letter_frequency
+!GS.......... Letter_frequency
 GGS.......... Levenshtein_distance
 GGS..T...D... Levenshtein_distance_Alignment
 GGS.......... Linear_congruential_generator
@@ -651,7 +651,7 @@ GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
 GGS.......... Map_range
-GGS..T.R.D... Markov_chain_text_generator
+!GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
 GGS.......... Matrix-exponentiation_operator
 GG.K.....D... Matrix_Digital_Rain
@@ -936,8 +936,8 @@ GGS.......... Rosetta_Code_Find_bare_lang_tags
 GBS.......... Rosetta_Code_Find_unimplemented_tasks
 GGS.......... Rosetta_Code_Fix_code_tags
 GB.K.T...D... Rosetta_Code_List_authors_of_task_descriptions
-GBS......D... Rosetta_Code_Rank_languages_by_number_of_users
-GBS.......... Rosetta_Code_Rank_languages_by_popularity-1
+!BS......D... Rosetta_Code_Rank_languages_by_number_of_users
+!BS.......... Rosetta_Code_Rank_languages_by_popularity-1
 GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
 .........D.VU Rosetta_Code_Tasks_sorted_by_average_lines_of_code
@@ -1059,7 +1059,7 @@ GGS.......... Soundex
 GGS.......... Sparkline_in_unicode
 GG.K......... Special_characters
 GG.K......... Special_variables
-..........XV. Speech_synthesis
+GG.K......X.. Speech_synthesis
 GBS.....F.... Spelling_of_ordinal_numbers
 GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
@@ -1104,7 +1104,7 @@ GGS.......... Substring
 GBS.......... Substring_Top_and_tail
 GGS.......... Subtractive_generator
 GBS.......... Successive_prime_differences-1
-GBS.......... Successive_prime_differences-2
+!BS.......... Successive_prime_differences-2
 GGS.......... Sudoku-1
 GG.K......... Sudoku-2
 GGS..T...D... Suffix_tree
@@ -1156,7 +1156,7 @@ GGS.......... Text_processing_2
 GGS.......... Text_processing_Max_licenses_in_use
 .........D.VU Text_to_HTML
 GGS.......... Textonyms
-GGS...C...... The_ISAAC_Cipher
+!GS...C...... The_ISAAC_Cipher
 GGS.......... The_Name_Game
 GGS.....F.... The_Twelve_Days_of_Christmas
 GGS..T....... Thiele%27s_interpolation_formula
