@@ -48,10 +48,10 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $last-year is copy = 9999)
         my ($d) = @$date-triple[%time-span{'D'}]; 
         my ($m) = @$date-triple[%time-span{'M'}]; 
         my ($y) = @$date-triple[%time-span{'Y'}];
-        next if $m == 2 and ($d > 29 || $d == 29 && !is-leap-year($y)); # for 'yy' format, treated as 1st century
+        next if $m == 2 and ($d > 29 || $d == 29 && !is-leap-year($y)); # fortunately 2-29-22 is not a leap year ('yy' ambiguous)
         next if $d == 31 and $m == any(Apr,Jun,Sep,Nov);
 
-        %palindromes{ join $separator, @$date-triple } = $y ~ $m ~ $d;
+        %palindromes{ join $separator, @$date-triple } = sprintf "%04d%02d%02d", $y, $m, $d;
     }
 
     %palindromes.sort(*.value)>>.key;
