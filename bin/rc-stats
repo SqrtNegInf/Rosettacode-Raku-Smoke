@@ -4,6 +4,8 @@
 #n# find slow programs:
 #n# pg 'user.*\d\d\d\.' bench/moar/*err | pf 's#^.*/(.*?)\.err:user\s+(.*?)\..*$#$2 $1#' | sort -n -r
 
+use feature 'say';
+
 chdir "$ENV{HOME}/perl6/Rosetta-Code" || die;
 
 my $pcre = '/usr/local/bin/pcregrep';
@@ -36,6 +38,11 @@ print `grep 'MOAR: BROKEN' [0-Z]/* | $pcre -v '\\.\\d' | perl -npe 's/:.*//'`;
 sub tally {
 my($dir) = @_;
 my($m,$s,$t,$rc,$cnt,$sum,@top);
+
+my($date) = $dir =~ m#bench/(.*)-m#;
+my $rkbuild = `grep $date bench/rakudo-builds.txt`;
+$rkbuild =~ s/^.*This is //; $rkbuild =~ s/\s+$//;
+say "=========> $rkbuild <========="; #next;
 
 open TIMINGS, "grep user $dir/*err |";
 while ($_ = <TIMINGS>) {
