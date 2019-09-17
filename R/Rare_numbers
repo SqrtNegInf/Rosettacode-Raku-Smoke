@@ -1,12 +1,12 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/xx
-#c# 2019-09-xx <RC
+#c# 2019-09-xx 
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# Do .race and Perl5 call conflict? [seem to: same result in 'Cuban_primes' mash-up of .1 and 1.1 versions]
 #n# key to decent runtime is adding more filtering tricks...
 
-use ntheory:from<Perl5> <:all>;
+#use ntheory:from<Perl5> <:all>;
 
 # with .race
 # 234.068u 239.169s 6:03.23 130.2%
@@ -27,6 +27,7 @@ for (flat
      281_000_000 .. 281_100_000,
 ) -> $n {
 #).race(:8degree).map: -> $n {
+#(1000, 1002, 1004 ... 281_089_090).race(:8degree).map: -> $n {
 
 #   2_022_600_000 .. 2_023_000_000,
 # 868_591_000_000 .. 868_592_000_000,
@@ -58,8 +59,8 @@ for (flat
     #next unless 0x202021202030213 +& (1 +< (($n+$r) +& 63)) > 0; # minimal diff, if any
     #next unless 0x202021202030213 +& (1 +< (($n-$r) +& 63)) > 0;
 
-    #next unless is-power($n+$r) and is-power($n-$r);
-    next unless is_power($n+$r, 2) and is_power($n-$r, 2);
+    next unless is-power($n+$r) and is-power($n-$r);
+    #next unless is_power($n+$r, 2) and is_power($n-$r, 2);
 
 #say "GOT IT: $n";
     # possibly redundant?
