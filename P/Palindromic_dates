@@ -1,10 +1,9 @@
 #!/usr/bin/env perl6
-#t# skiptest
 #c#  2019-09-13 NOT ON RC
 #m# MOAR: OK
-#j# JVM:  OK
-#n# WIP
-#n# Julian/Gregorian missing days (October 4, 1582, September 2, 1752) not potential palindromes
+#j# JVM:  BROKEN
+#n# WIP, this is not the final word
+#n# Julian/Gregorian missing days (Oct 4, 1582, Sep 2, 1752) not potential palindromes
 
 my @res;
 
@@ -25,21 +24,20 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $last-year is copy = 9999)
     for $format.comb: /(.) $0*/ -> $time-unit {
         $i++;
         my $len = $time-unit.chars;
+        my $fmt = '%' ~ ('0' if $len>1) ~ $len ~ 'd';
         given $time-unit {
             when /D/ { 
-                %time-span{'d'} = $i-1;
-                my $fmt = '%' ~ ('0' if $len>1) ~ $len ~ 'd';
+                %time-span{'D'} = $i-1;
                 @range[$i].push: sprintf $fmt, $_ for 1..31 }
             when /M/ { 
-                %time-span{'m'} = $i-1;
-                my $fmt = '%' ~ ('0' if $len>1) ~ $len ~ 'd';
+                %time-span{'M'} = $i-1;
                 @range[$i].push: sprintf $fmt, $_ for 1..12 }
             when /Y/ { 
-                %time-span{'y'} = $i-1;
-                my $fmt = '%' ~ ('0' if $len>1) ~ $len ~ 'd';
+                %time-span{'Y'} = $i-1;
                 @range[$i].push: sprintf $fmt, $_ for 0..$last-year }
-                #@range[$i].push: sprintf "\%0{$len}d", $_ for 1..$last-year }
-            default { die "Inconceivable!" }
+            default { 
+                die "Does anybody really understand time?" 
+            }
         }
     }
 
@@ -47,10 +45,10 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $last-year is copy = 9999)
 #    (@(@range[1]) X @(@range[2]) X @(@range[3])).race.map: -> $date-triple {
         next unless $_ eq .flip given join '', @$date-triple;
 
-        my ($d) = @$date-triple[%time-span{'d'}]; 
-        my ($m) = @$date-triple[%time-span{'m'}]; 
-        my ($y) = @$date-triple[%time-span{'y'}];
-        next if $m == 2 and ($d > 29 || $d == 29 && !is-leap-year($y));
+        my ($d) = @$date-triple[%time-span{'D'}]; 
+        my ($m) = @$date-triple[%time-span{'M'}]; 
+        my ($y) = @$date-triple[%time-span{'Y'}];
+        next if $m == 2 and ($d > 29 || $d == 29 && !is-leap-year($y)); # for 'yy' format, treated as 1st century
         next if $d == 31 and $m == any(Apr,Jun,Sep,Nov);
 
         %palindromes{ join $separator, @$date-triple } = $y ~ $m ~ $d;
@@ -71,19 +69,18 @@ my @m-d-yy = grep { $_.subst(/<-[0..9]>/, '', :g) ~~ /^ (<[0..9]>) $0* $/ }, fin
 
 my %centuries;
 %centuries{+$_}++ for map { substr $_, 6, 2 }, find-palindromes('mm/dd/yyyy',2099); 
-@res.push: "Using 'MM/DD/YYYY' format, the distribution of palindromic dates through the 21st century:";
+@res.push: "Using 'MM/DD/YYYY' format, the distribution of palindromic dates up through the 21st century:";
 @res.push: sprintf "%3d in the %4s century", %centuries{$_}, ordinate($_+1)
     for %centuries.keys.sort({$^a <=> $^b});
 @res[*-1] ~= "\n";
 
-#dd %centuries; say '--';
 .say for @res;
 
 my $ref = q:to/END/;
 Using 'M-D-YY' format, there are 13 palindromic dates in a century that use only one digit:
 1-1-11, 1-11-11, 11-1-11, 11-11-11, 2-2-22, 2-22-22, 3-3-33, 4-4-44, 5-5-55, 6-6-66, 7-7-77, 8-8-88, 9-9-99
 
-Using 'MM/DD/YYYY' format, the distribution of palindromic dates through the 21st century:
+Using 'MM/DD/YYYY' format, the distribution of palindromic dates up through the 21st century:
  12 in the  2nd century
  12 in the  3rd century
  11 in the  4th century
