@@ -62,14 +62,14 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $last-year is copy = 9999)
 #.say for @y-m-d;
 #exit;
 
-my @m-d-yy = grep { $_.subst(/<-[0..9]>/, '', :g) ~~ /^ (<[0..9]>) $0* $/ }, find-palindromes('MDYY'); 
+my @m-d-yy = grep { $_.subst(/<-[0..9]>/, '', :g) ~~ /^ (<[0..9]>) $0* $/ }, find-palindromes('M-D-YY'); 
 @res.push: "Using 'M-D-YY' format, there are {+@m-d-yy} palindromic dates in a century that use only one digit:";
 @res.push: join ', ', @m-d-yy;
 @res.push: '';
 
 my %centuries;
 %centuries{+$_}++ for map { substr $_, 6, 2 }, find-palindromes('mm/dd/yyyy',2099); 
-@res.push: "Using 'MM/DD/YYYY' format, the distribution of palindromic dates up through the 21st century:";
+@res.push: "Using 'MM.DD.YYYY' format, the distribution of palindromic dates up through the 21st century:";
 @res.push: sprintf "%3d in the %4s century", %centuries{$_}, ordinate($_+1)
     for %centuries.keys.sort({$^a <=> $^b});
 @res[*-1] ~= "\n";
