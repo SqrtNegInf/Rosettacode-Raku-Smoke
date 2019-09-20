@@ -6330,6 +6330,24 @@ File: P/Palindrome_pairs
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: P/Palindromic_dates
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Palindromic_dates
+#c# 2019-09-19 >RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
+#n#   copiously annotated for the beginning programmer (Hi Oscar!)
+#n#
+#n# Further notes:
+#n#   fortunately 2-29-22 is not a leap year (yy in m-d-yy ambiguous)
+#n#   the Julian/Gregorian change-over 'missing' days were not palindrome candidates
+#n#   slow, but the results are good for 100,000 years!
+#n#   not using any date/time facility in the language (though might be good to validate dates?)
+#n#   no 'suspicious' parentheses -- code less 'busy' but you might have to think a little harder about implied scopes
+#n#   non-cryptic variable names
+#n3   working the DRY principle pretty hard (too far?)
+
 File: P/Pangram_checker
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pangram_checker
