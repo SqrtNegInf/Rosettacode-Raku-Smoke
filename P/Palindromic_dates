@@ -1,88 +1,145 @@
 #!/usr/bin/env perl6
-## xxx
-#  David H.  2019-09-12
-#n# fundamentally simple task used to show off how nice Perl 6 makes life for a programmer (Hi Oscar!)
-#n# notes:
-#n# fortunately 2-29-22 is not a leap year ('yy' ambiguous)
-#n# slow, but the results are good for 100,000 years!
-#n# not using any date/time facility in the language (though might be good to validate dates?)
+#u# http://rosettacode.org/wiki/Palindromic_dates
+#c# 2019-09-19 >RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
+#n#   copiously annotated for the beginning programmer (Hi Oscar!)
+#n#
+#n# Further notes:
+#n#   fortunately 2-29-22 is not a leap year (yy in m-d-yy ambiguous)
+#n#   the Julian/Gregorian change-over 'missing' days were not palindrome candidates
+#n#   slow, but the results are good for 100,000 years!
+#n#   not using any date/time facility in the language (though might be good to validate dates?)
+#n#   no 'suspicious' parentheses -- code less 'busy' but you might have to think a little harder about implied scopes
+#n#   non-cryptic variable names
+#n3   working the DRY principle pretty hard (too far?)
 
 my @res;
 
-srand 1;
+srand 1; # for testing, make 'rand' always come out the same
 
+##
+## utilities
+##
+
+# the native Perl 6 module that I looked at is currently busted, 
+# but takes approximately zero effort to borrow a Perl 5 version
 use Lingua::EN::Numbers::Ordinate:from<Perl5>;
 
-enum months_with_30_days (Apr => 4, Jun => 6, Sep => 9, Nov => 11);
-sub is-leap-year { !(@_[0] % 100) ?? !(@_[0] % 400) !! !(@_[0] % 4) }
+# will make date logic easier to read 
+enum months_less_than_31 (Feb => 2, Apr => 4, Jun => 6, Sep => 9, Nov => 11);
 
+# code is a little terse, but the goal is pretty clear from name (note the camel-case)
+sub leap-year { !(@_[0] % 100) ?? !(@_[0] % 400) !! !(@_[0] % 4) }
+
+##
+## generating dates
+##
+
+# three positional parameters, and one named, defaults provided for all
 sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-year is copy = 9999, :$pairs = False) {
-    my ($i,@range,%palindromes,%time-span);
+    my ($separator,@range,%palindromes,%unit); # administrivia, get this out of the way
 
+    # since declared with 'is copy', can modify in place (change to uppercase, remove punctuation)
+    # extract separator supplied for later use, or go with default if none
     $format .= uc;
-    my $separator = $format.match(/<-[YMD]>/) || '-';
+    $separator = $format.match(/<-[YMD]>/) || '-';
     $format .= subst(/<-[YMD]>/, '', :g);
+
+    # again, update in place if need be
     $last-year = 99 if 2 == .chars given $format ~~ /(Y+)/; # make executive decision to avoid duplicative results
 
+    # parse the cleaned-up format string, keeping track of order and length of time units
+    my $i;
     for $format.comb: /(.) $0*/ -> $time-unit {
-        my $len = $time-unit.chars;
-        my $fmt = '%' ~ ('0' if $len>1) ~ $len ~ 'd';
+        #my $len = $time-unit.chars;
+        #my $fmt = '%' ~ ('0' if $len>1) ~ $len ~ 'd';
+        my $fmt = '%' ~ ('0' if $_>1) ~ $_ ~ 'd' given $time-unit.chars;
         given $time-unit {
-            when /D/ { %time-span{'d'} = ++$i-1; @range[$i].push: sprintf $fmt, $_ for 1..31 }
-            when /M/ { %time-span{'m'} = ++$i-1; @range[$i].push: sprintf $fmt, $_ for 1..12 }
-            when /Y/ { %time-span{'y'} = ++$i-1; @range[$i].push: sprintf $fmt, $_ for $first-year .. $last-year }
+            when /D/ { %unit{'D'} = ++$i-1; @range[$i].push: sprintf $fmt, $_ for 1..31 }
+            when /M/ { %unit{'M'} = ++$i-1; @range[$i].push: sprintf $fmt, $_ for 1..12 }
+            when /Y/ { %unit{'Y'} = ++$i-1; @range[$i].push: sprintf $fmt, $_ for $first-year .. $last-year }
             default  { die "Does anybody really understand time?" }
         }
     }
 
-#    for @(@range[1]) X @(@range[2]) X @(@range[3]) -> $date-triple {
-    (@(@range[1]) X @(@range[2]) X @(@range[3])).race.map: -> $date-triple {
-        next unless $_ eq .flip given join '', @$date-triple;
+# love the cross-operator, which hides loops (currently pretty slow, but someday...)
+# only requires a trivial change to add concurrency:
+#for @(@range[1]) X @(@range[2]) X @(@range[3])            -> @date-triple {
+    (@(@range[1]) X @(@range[2]) X @(@range[3])).race.map: -> @date-triple {
 
-        my ($d) = @$date-triple[%time-span{'d'}]; 
-        my ($m) = @$date-triple[%time-span{'m'}]; 
-        my ($y) = @$date-triple[%time-span{'y'}];
-        next if $m == 2 and ($d > 29 || $d == 29 && !is-leap-year($y));
-        next if $d == 31 and $m == any(Apr,Jun,Sep,Nov);
+        # check if it's a palindrome
+        next unless $_ eq .flip given join '', @date-triple;
 
-        %palindromes{ sprintf '%0' ~ $last-year.chars ~ 'd%02d%02d', $y, $m, $d } = join $separator, @$date-triple;
+        # unpack date components
+        my ($day,$month,$year) = @date-triple[%unit{'D'}, %unit{'M'}, %unit{'Y'}];
+
+        # skip invalid dates ('enum' allows names, not numbers here)
+        # also for readability: using <or and not> instead of <|| && !>
+        next if $month == Feb and ( $day > 29 or ($day == 29 and not leap-year $year) );
+        next if $day == 31 and $month == any Apr, Jun, Sep, Nov;
+
+        # store with key of date in yyyymmdd format (useful for sorting) and a value that has a separator
+        %palindromes{ sprintf '%0' ~ $last-year.chars ~ 'd%02d%02d', $year, $month, $day } = join $separator, @date-triple;
     }
 
-    # return date pairs (canonical => formatted) or just formatted date
-    flat $pairs ?? %palindromes.sort».kv !! %palindromes.sort».values;
+    # return date pairs if requested (yyyymmdd => formatted), otherwise just formatted dates
+    flat $pairs ?? $_».kv !! $_».values given %palindromes.sort;
 }
 
-say '0 <==';
+##
+## analysis section
+##
+
+######## Factoid 1 - single digit dates
+
+# match operates on version of string from which non-digits have been removed
+# variables can be interpolated in strings
 my $date-format = 'M-D-YY';
 my @m-d-yy = grep { $_.subst(/<-[0..9]>/, '', :g) ~~ /^ (<[0..9]>) $0* $/ }, find-palindromes($date-format);
 @res.push: "Using '{$date-format}' format, there are {+@m-d-yy} palindromic dates in a century that use only one digit:";
 @res.push: join(', ', @m-d-yy) ~ "\n";
-say '1 <==';
 
+######## Factoid 2 - distribution by century
+
+# substr is old-school, but does the job
+# variables can be declared most anywhere (but probaby not best practice)
+# hey look at that, arbitrary code can be interpolated in strings
+# 'R' reverses order of arguments, here avoids extra set of parens just for tagging on the newline (yes, a bit contrived)
 $date-format = 'MM.DD.YYYY';
 my %century;
-%century{+$_}++ for map { substr $_, 6, 2 }, find-palindromes($date-format,1,2099); 
-@res.push: "Using '{$date-format}' format, the distribution of palindromic dates for the 1st through 21st century:";
-@res.push: join("\n", (sprintf "%3d in the %4s century", %century{$_}, ordinate($_+1) for %century.keys.sort: +*)) ~ "\n";
-#@res.push: sprintf "%3d in the %4s century", %century{$_}, ordinate($_+1) for %century.keys.sort({$^a <=> $^b});
-#@res[*-1] ~= "\n"; # wart, only in smoking test system
-say '2 <==';
+%century{+$_}++ for map { substr $_, 6, 2 }, find-palindromes($date-format, 1, my $last= 2099); 
+@res.push: "Using '{$date-format}' format, the distribution of palindromic dates for the 1st through {ordinate 1 + $last div 100} century:";
+@res.push: "\n" R~ join "\n", (sprintf "%3d in the %4s century", %century{$_}, ordinate 1 + $_ for %century.keys.sort: +*);
+#@res.push: join("\n", (sprintf "%3d in the %4s century", %century{$_}, ordinate 1 + $_ for %century.keys.sort: +*)) ~ "\n";
 
-$date-format = 'yyyy/mm/dd';
-my (@far-future-non-prime,@far-future-prime);
-for find-palindromes($date-format, my $begin = 10001, my $end = 99999, :pairs<True>) -> $k, $v {
-    $k.is-prime ?? @far-future-prime.push: $k => $v !! @far-future-non-prime.push: $k => $v
+######## Factoid 3 - prime dates 
+
+# use sigil-less style if that suits you better, little else changes
+# (but you have to provide some sort of initializer set the variable's type)
+my \date-fmt = 'yyyy/mm/dd';
+my \far-future-non-prime = Array.new;
+#my \far-future-non-prime = [];
+my \far-future-prime     = [];
+my \begin = 10001;
+my \end   = 99999;
+
+# structure the ternary to avoid duplicating ':push k => v' [DRY!]
+for find-palindromes(date-fmt, begin , end, :pairs<True>) -> \k, \v {
+    (k.is-prime ?? far-future-prime !! far-future-non-prime).push: (k => v)
 }
-@res.push: "Using '{$date-format}' format, in the years {$begin} to {$end}, there are:";
-@res.push: sprintf "%8d non-prime dates (%s ... %s)", +@far-future-non-prime, @far-future-non-prime[0,*-1]».value;
-@res.push: sprintf "%8d     prime dates (%s ... %s)",     +@far-future-prime,     @far-future-prime[0,*-1]».value;
+
+# the arrays contain pairs, so use '».value' to get formatted portion
+# method chaining looks hairy, but is in fact a superpower when combined with hypers
+@res.push: "Using '{date-fmt}' format, in the years {begin} to {end}, there are:";
+for 'non-prime', far-future-non-prime, 'prime', far-future-prime -> $type, @dates {
+    @res.push: sprintf "%8d %9s dates (%s ... %s)", +@dates, $type, @dates[0,*-1]».value;
+}
 @res.push: "\nA random selection of the prime palindromic dates:";
-@res.push: @far-future-prime.pick(20).sort».values.rotor(5)».fmt('%12s').join: "\n";
-say '3 <==';
+@res.push: far-future-prime.pick(20).sort».values.rotor(5)».fmt('%12s').join: "\n";
 
 .say for @res;
-say '4 <==';
-exit;
 
 my $ref = q:to/END/;
 Using 'M-D-YY' format, there are 13 palindromic dates in a century that use only one digit:
@@ -110,5 +167,4 @@ A random selection of the prime palindromic dates:
 END
 
 use Test;
-is @res.join("\n"), $ref;
-say '5 <==';
+is @res.join("\n"), chomp $ref;
