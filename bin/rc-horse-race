@@ -10,28 +10,39 @@ use JSON::Fast;
 my $client = HTTP::UserAgent.new;
 my $url = 'http://rosettacode.org/mw';
 
-my (%impl,%h);
-my @langs = <Perl Perl_6 Go Julia Python Kotlin Racket Phix>;
-my %short = ( 
-'Perl_6' => 'P6',
-'Perl'   => 'P5',
-'Julia'  => 'Ju',
-'Python' => 'Py',
-'Kotlin' => 'Ko',
-'Racket' => 'Ra',
-'Phix'   => 'Ph',
+my %langs = ( 
 'Go'     => 'Go',
+'Julia'  => 'Ju',
+'Kotlin' => 'Ko',
+'Perl'   => 'P5',
+'Perl_5' => 'P5',
+'Perl_6' => 'P6',
+'Phix'   => 'Ph',
+'Python' => 'Py',
+'Racket' => 'Ra',
 );
 
-for @langs -> $lang { %impl{$lang} = get-cat $lang; }
-for %impl.keys -> $lang { %h{$_}.push: %short{$lang} for %impl{$lang}.List }
+my (%impl,%h);
+for %langs.keys -> $lang { 
+    next if $lang eq 'Perl_5'; 
+    %impl{$lang} = get-cat $lang; 
+}
+
+for %impl.keys -> $lang { 
+    %h{$_}.push: ($lang ~ ('_5' if $lang eq 'Perl')) for %impl{$lang}.List 
+}
+
+#spurt "yyy.json", to-json(%h); exit;
+#my $xyz = slurp "yyy.json"; my %h = from-json($xyz);
+
+%langs{'Perl'}:delete;
 
 for %h.keys.sort: { %h{$^b}.elems > %h{$^a}.elems }  {
-    next if %h{$_}.elems == @langs;
-    next if $_ ~~ /Category:/;
-    my $whodunit = (%h{$_}.sort)>>.fmt("%3s");
-    printf "%27s  %s\n", $whodunit, $_;
+    next if %h{$_}.elems == +%langs.keys or /Category:/;
+    printf "%23s  %s\n", whodunit(%h{$_}), $_;
 }
+
+sub whodunit (@done) { join '', ((index(" {join ' ',@done}", $_) ?? %langs{$_} !! ' ').fmt("%3s") for %langs.keys.sort) }
 
 sub get-cat ($category) {
     flat mediawiki-query(
