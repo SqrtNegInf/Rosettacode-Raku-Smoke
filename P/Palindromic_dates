@@ -3,7 +3,7 @@
 #c# 2019-09-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
+#n# Fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
 #n#   copiously annotated for the beginning programmer (Hi Oscar!)
 #n#
 #n# Further notes:
@@ -30,7 +30,7 @@ use Lingua::EN::Numbers::Ordinate:from<Perl5>;
 # will make date logic easier to read 
 enum months_less_than_31 (Feb => 2, Apr => 4, Jun => 6, Sep => 9, Nov => 11);
 
-# code is a little terse, but the goal is pretty clear from name (note the camel-case)
+# code is terse, but the goal is pretty clear from the name of the routine
 sub leap-year { !(@_[0] % 100) ?? !(@_[0] % 400) !! !(@_[0] % 4) }
 
 ##
@@ -53,8 +53,6 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
     # parse the cleaned-up format string, keeping track of order and length of time units
     my $i;
     for $format.comb: /(.) $0*/ -> $time-unit {
-        #my $len = $time-unit.chars;
-        #my $fmt = '%' ~ ('0' if $len>1) ~ $len ~ 'd';
         my $fmt = '%' ~ ('0' if $_>1) ~ $_ ~ 'd' given $time-unit.chars;
         given $time-unit {
             when /D/ { %unit{'D'} = ++$i-1; @range[$i].push: sprintf $fmt, $_ for 1..31 }
@@ -64,6 +62,7 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
         }
     }
 
+# generate all combinations of day/month/year, in the required order 
 # love the cross-operator, which hides loops (currently pretty slow, but someday...)
 # only requires a trivial change to add concurrency:
 #for @(@range[1]) X @(@range[2]) X @(@range[3])            -> @date-triple {
@@ -94,23 +93,28 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
 
 ######## Factoid 1 - single digit dates
 
+my $date-format = 'M-D-YY'; # this yields date that are not zero-padded
+
 # match operates on version of string from which non-digits have been removed
-# variables can be interpolated in strings
-my $date-format = 'M-D-YY';
 my @m-d-yy = grep { $_.subst(/<-[0..9]>/, '', :g) ~~ /^ (<[0..9]>) $0* $/ }, find-palindromes($date-format);
+
+# variables can be interpolated in strings
 @res.push: "Using '{$date-format}' format, there are {+@m-d-yy} palindromic dates in a century that use only one digit:";
 @res.push: join(', ', @m-d-yy) ~ "\n";
 
 ######## Factoid 2 - distribution by century
 
-# substr is old-school, but does the job
-# variables can be declared most anywhere (but probaby not best practice)
-# hey look at that, arbitrary code can be interpolated in strings
-# 'R' reverses order of arguments, here avoids extra set of parens just for tagging on the newline (yes, a bit contrived)
 $date-format = 'MM.DD.YYYY';
 my %century;
-%century{+$_}++ for map { substr $_, 6, 2 }, find-palindromes($date-format, 1, my $last= 2099); 
+
+# variables can be declared most anywhere (but probaby not 'best practices')
+# substr is old-school, but does the job
+%century{$_}++ for map { substr $_, 6, 2 }, my @mm-dd-yyyy = find-palindromes($date-format, 1, my $last= 2099); 
+
+# string interpolation here involves 
 @res.push: "Using '{$date-format}' format, the distribution of palindromic dates for the 1st through {ordinate 1 + $last div 100} century:";
+
+# 'R' reverses order of arguments, here avoids extra set of parens just for tagging on the newline (OK, a bit contrived)
 @res.push: "\n" R~ join "\n", (sprintf "%3d in the %4s century", %century{$_}, ordinate 1 + $_ for %century.keys.sort: +*);
 #@res.push: join("\n", (sprintf "%3d in the %4s century", %century{$_}, ordinate 1 + $_ for %century.keys.sort: +*)) ~ "\n";
 
@@ -119,25 +123,26 @@ my %century;
 # use sigil-less style if that suits you better, little else changes
 # (but you have to provide some sort of initializer set the variable's type)
 my \date-fmt = 'yyyy/mm/dd';
-my \far-future-non-prime = Array.new;
-#my \far-future-non-prime = [];
-my \far-future-prime     = [];
 my \begin = 10001;
 my \end   = 99999;
+my \date-prime     = [];
+my \date-non-prime = Array.new; # alternate method
 
+# classify dates as prime/non-prime, store separately
 # structure the ternary to avoid duplicating ':push k => v' [DRY!]
 for find-palindromes(date-fmt, begin , end, :pairs<True>) -> \k, \v {
-    (k.is-prime ?? far-future-prime !! far-future-non-prime).push: (k => v)
+    (k.is-prime ?? date-prime !! date-non-prime).push: (k => v)
 }
 
+# 'for' loop lets you pass multiple items at a time (can be of different types)
 # the arrays contain pairs, so use '».value' to get formatted portion
-# method chaining looks hairy, but is in fact a superpower when combined with hypers
 @res.push: "Using '{date-fmt}' format, in the years {begin} to {end}, there are:";
-for 'non-prime', far-future-non-prime, 'prime', far-future-prime -> $type, @dates {
+for 'non-prime', date-non-prime, 'prime', date-prime -> $type, @dates {
     @res.push: sprintf "%8d %9s dates (%s ... %s)", +@dates, $type, @dates[0,*-1]».value;
 }
+# method chaining looks hairy, but is in fact a superpower when combined with hypers
 @res.push: "\nA random selection of the prime palindromic dates:";
-@res.push: far-future-prime.pick(20).sort».values.rotor(5)».fmt('%12s').join: "\n";
+@res.push: date-prime.pick(20).sort».values.rotor(5)».fmt('%12s').join: "\n";
 
 .say for @res;
 
