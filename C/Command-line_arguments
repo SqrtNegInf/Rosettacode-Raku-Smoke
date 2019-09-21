@@ -1,0 +1,22 @@
+#!/usr/bin/env perl6
+#t# nocode
+#u# http://rosettacode.org/wiki/Command-line_arguments
+#c# 2019-09-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+#`{{
+
+Perl 5's @ARGV is available as @*ARGS. Alternatively, if you define a subroutine named MAIN, Perl will automatically process @*ARGS according to Unix conventions and MAIN's signature (or signatures, if your MAIN is a multi sub) and then call MAIN with appropriate arguments; see Synopsis 6 or [1].
+
+# with arguments supplied
+$ perl6 -e 'sub MAIN($x, $y) { say $x + $y }' 3 5
+8
+
+# missing argument:
+$ perl6 -e 'sub MAIN($x, $y) { say $x + $y }' 3 
+Usage:
+-e '...' x y
+If the program is stored in a file, the file name is printed instead of -e '...'.
+
+}}
