@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# http://rosettacode.org/wiki/Sine_wave
+#c# 2019-09-21 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# ends with segfault?
+
+use Audio::NoiseGen:from<Perl5> <play sine>;
+
+Audio::NoiseGen::init() || die 'No access to sound hardware?';
+
+sink Promise.start({ play( gen => sine( freq => 440 ) ) });
+sleep 2; 
+say "You've had your fun. Now get back to work!" 
