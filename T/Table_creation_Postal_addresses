@@ -1,0 +1,27 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# http://rosettacode.org/wiki/Table_creation/Postal_addresses
+#c# 2019-09-21 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# need to config local sql to get DBIish to install
+
+# Like Perl DBI, Perl 6 DBIish supports many different databases. An example using SQLite is shown here.
+
+#`{{
+use DBIish;
+
+my $dbh = DBIish.connect('SQLite', :database<addresses.sqlite3>);
+
+my $sth = $dbh.do(q:to/STATEMENT/);
+    DROP TABLE IF EXISTS Address;
+    CREATE TABLE Address (
+        addrID      INTEGER PRIMARY KEY AUTOINCREMENT,
+        addrStreet  TEXT NOT NULL,
+        addrCity    TEXT NOT NULL,
+        addrState   TEXT NOT NULL,
+        addrZIP     TEXT NOT NULL
+    )
+    STATEMENT
+
+}}
