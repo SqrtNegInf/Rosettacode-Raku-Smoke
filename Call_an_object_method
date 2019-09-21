@@ -1,0 +1,75 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Call_an_object_method
+#c# 2019-09-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+## Basic method
+
+class Thing { 
+  method regular-example() { @res.push: 'I haz a method' }
+
+  multi method multi-example() { @res.push: 'No arguments given' }
+  multi method multi-example(Str $foo) { @res.push: 'String given' }
+  multi method multi-example(Int $foo) { @res.push: 'Integer given' }
+};
+
+# 'new' is actually a method, not a special keyword:
+my $thing = Thing.new;
+
+# No arguments: parentheses are optional
+$thing.regular-example;
+$thing.regular-example();
+$thing.multi-example;
+$thing.multi-example();
+
+# Arguments: parentheses or colon required
+$thing.multi-example("This is a string");
+$thing.multi-example: "This is a string";
+$thing.multi-example(42);
+$thing.multi-example: 42;
+
+# Indirect (reverse order) method call syntax: colon required
+my $foo = new Thing: ;
+multi-example $thing: 42;
+
+## Meta-operators
+
+# The . operator can be decorated with meta-operators.
+
+my @array = <a z c d y>;
+@array .= sort;  # short for @array = @array.sort;
+
+@res.push: @array».uc;  # uppercase all the strings: A C D Y Z
+
+## Classless methods
+
+# A method that is not in a class can be called by using the & sigil explicitly.
+
+my $object = "a string";  # Everything is an object.
+my method example-method {
+    return "This is { self }.";
+}
+
+@res.push: $object.&example-method;  # Outputs "This is a string."
+
+.say for @res;
+
+my $ref = q:to/END/;
+I haz a method
+I haz a method
+No arguments given
+No arguments given
+String given
+String given
+Integer given
+Integer given
+Integer given
+A C D Y Z
+This is a string.
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
