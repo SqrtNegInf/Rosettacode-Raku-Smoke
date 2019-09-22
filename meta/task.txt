@@ -1,18 +1,18 @@
 This is Rakudo version 2019.07.1-328-g565b2ac21 built on MoarVM version 2019.07.1-233-g270f1b0be
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1106/10]
-|+-------------> JVM: Good/Bad [945/170]
-||+------------> Smoke testing [1000]
-|||+-----------> sKipping validation [112]
++--------------> Moar: Good/Bad [1113/11]
+|+-------------> JVM: Good/Bad [952/171]
+||+------------> Smoke testing [1002]
+|||+-----------> sKipping validation [118]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [267]
 ||||||+--------> Concurrent [47]
 |||||||+-------> Random seed [113]
 ||||||||+------> File output [80]
 |||||||||+-----> Draft [224]
-||||||||||+----> Ignoring [57]
-|||||||||||+---> Void (no local copy) [134]
+||||||||||+----> Ignoring [50]
+|||||||||||+---> Void (no local copy) [126]
 ||||||||||||+--> Un-implemented/reliable [98]
 |||||||||||||
 GGS.......... 100_doors
@@ -219,7 +219,7 @@ GGS.......... Combinations_and_permutations
 GGS..T....... Combinations_with_repetitions
 GGS......D... Combinations_with_repetitions_Square_Digit_Chain
 GGS.......... Comma_quibbling
-..........XV. Command-line_arguments
+GG.K......... Command-line_arguments
 GGS.......... Commatizing_numbers
 GGS.......... Comments
 GGS.......... Compare_a_list_of_strings
@@ -547,7 +547,7 @@ GGS.......... Jensen%27s_Device
 GGS..T....... Jewels_and_Stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
-...........VU Joystick_position
+..........XVU Joystick_position
 GBS...C.F.... Julia_set
 GGS....R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
@@ -690,7 +690,7 @@ GBS......D... Montgomery_reduction
 GBS..TCR..... Monty_Hall_problem
 .........D.VU Morpion_solitaire
 GGS.......... Morse_code
-.........DXV. Most_frequent_k_chars_distance
+GGS......D... Most_frequent_k_chars_distance
 GB.KI........ Mouse_position
 GGS.......... Move-to-front_algorithm
 GGS.......... Multi-dimensional_array
@@ -733,7 +733,7 @@ GGS.......... Non-decimal_radices_Output
 GGS..T....... Nonoblock
 ...........VU Nonogram_solver
 GGS.......... Nth_root
-..........XV. Null_object
+GGS.......... Null_object
 GGS.......... Number_names-1
 GBS.......... Number_names-2
 GGS.......... Number_reversal_game
@@ -756,7 +756,7 @@ GGS....R..... One_of_n_lines_in_a_file
 .........D.VU OpenGL_Pixel_Shader
 .........D.VU OpenGL_Utah_Teapot
 GBS.......... OpenWebNet_Password
-..........XV. Operator_precedence
+GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
 GBS......D... Orbital_elements
 GGS.......... Order_disjoint_list_items
@@ -854,7 +854,7 @@ GGS....R..... Probabilistic_choice
 GBS..T....... Problem_of_Apollonius
 .........D.VU Process_SMIL_directives_in_XML_data
 GGS..T....... Program_name
-..........XV. Program_termination
+GG.K......... Program_termination
 .........D.VU Proof
 GGS..Tc...... Proper_divisors
 GGS.....F.... Pythagoras_tree
@@ -961,7 +961,7 @@ GGS.......... Sailors,_coconuts_and_a_monkey_problem
 GGS.......... Same_Fringe
 GGS......D... Sattolo_cycle
 GGS.......... Scope_Function_names_and_labels
-..........XV. Scope_modifiers
+GG.K......... Scope_modifiers
 GGS.......... Search_a_list
 GGS..T....... Search_a_list_of_records
 GGS.......... Secure_temporary_file
@@ -1125,7 +1125,7 @@ GGS.......... Symmetric_difference
 GGS.....F.... Synchronous_concurrency
 GGS.......... System_time
 GG.K.....D... Table_creation
-..........XV. Table_creation_Postal_addresses
+BB.K......... Table_creation_Postal_addresses
 GGS.....F.... Take_notes_on_the_command_line
 .........D.VU Tamagotchi_emulator
 GGS.......... Tarjan
@@ -1194,7 +1194,7 @@ GBS.......... UTF-8_encode_and_decode
 .........D.VU Ukkonens_Suffix_Tree_Construction
 GGS.....F.... Ulam_spiral_for_primes
 GGS....R..... Unbias_a_random_generator
-..........XV. Undefined_values
+GG.K......... Undefined_values
 .........D.VU Unicode_polynomial_equation
 GGS.......... Unicode_strings
 GGS.......... Unicode_variable_names
