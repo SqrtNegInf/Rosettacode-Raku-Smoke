@@ -112,8 +112,8 @@ multi MAIN () {
    my $vptx = vernam $vctx;
    my $cptx = caesarStr DECIPHER, $cctx, MOD, START;
 
-   my $vctx2hex = ( map { .ord.fmt('%02X') }, $vctx.comb ).join('');  
-   my $cctx2hex = ( map { .ord.fmt('%02X') }, $cctx.comb ).join('');
+   my $vctx2hex = ( map { .ord.fmt('%02X') }, $vctx.comb ).join;  
+   my $cctx2hex = ( map { .ord.fmt('%02X') }, $cctx.comb ).join;
 
    @res.push: "Message : "~ msg;
    @res.push: "Key     : "~ key;
