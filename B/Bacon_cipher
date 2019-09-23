@@ -37,17 +37,17 @@ my $text = q:to/END/;
 my @enc = "﻿", "​";
 my %dec = @enc.pairs.invert;
 
-sub encode ($c) { @enc[($c.ord).fmt("%07b").comb].join('') }
+sub encode ($c) { @enc[($c.ord).fmt("%07b").comb].join }
 
 sub hide ($msg is copy, $text) { 
     $msg ~= @enc[0] x (0 - ($msg.chars % 8)).abs;
     my $head = $text.substr(0,$msg.chars div 8);
     my $tail = $text.substr($msg.chars div 8, *-1);
-    ($head.comb «~» $msg.comb(/. ** 8/)).join('') ~ $tail;
+    ($head.comb «~» $msg.comb(/. ** 8/)).join ~ $tail;
 }
 
 sub reveal ($steg) {
-    join '', map { :2(%dec{$_.comb}.join('')).chr }, 
+    join '', map { :2(%dec{$_.comb}.join).chr }, 
     $steg.subst( /\w | <punct> | " " | "\n" /, '', :g).comb(/. ** 7/);
 }
 
