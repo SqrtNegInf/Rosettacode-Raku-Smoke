@@ -38,4 +38,4 @@ my $ref = q:to/END/;
 END
 
 use Test;
-is @res.join(''), $ref;
+is @res.join, $ref;
