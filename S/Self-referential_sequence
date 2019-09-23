@@ -3,21 +3,22 @@
 #c# 2016-06-12 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2016 196.742u 2.298s 4:29.33 73.8%
+#n# 2019  80.076u 0.845s 1:21.28 99.5% 
 
-my @list;
-my $longest = 0;
-my %seen;
 my @res;
 
-#for 1 .. 1000000 -> $m { # 196.742u 2.298s 4:29.33 73.8% slower, same result
-for 1 .. 10000 -> $m {      # 7.637u 0.324s 0:13.40 59.3%
+my (%seen,@list);
+my $longest = 0;
+
+#for 1 .. 1000000 -> $m { 
+for 1 .. 10000 -> $m {
     next unless $m ~~ /0/;         # seed must have a zero
-    my $j = join '', $m.comb.sort;
+    my $j = $m.comb.sort.join;
     next if %seen{$j}:exists;      # already tested a permutation   # DH
     %seen{$j} = '';
     my @seq = converging($m);
-    my %elems;
-    my $count;
+    my (%elems,$count);
     for @seq[] -> $value { last if ++%elems{$value} == 2; $count++; };
     if $longest == $count {
         @list.push($m);
@@ -51,7 +52,7 @@ sub permutations ($string, $sofar? = '' ) {
     for ^$string.chars -> $idx {
         my $this = $string.substr(0,$idx)~$string.substr($idx+1);
         my $char = substr($string, $idx,1);
-        @perms.push( |permutations( $this, join '', $sofar, $char ) ); #DH
+        @perms.push( |permutations( $this, $sofar ~ $char ) ); #DH
     }
     return @perms;
 }
