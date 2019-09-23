@@ -1,9 +1,9 @@
-This is Rakudo version 2019.07.1-328-g565b2ac21 built on MoarVM version 2019.07.1-233-g270f1b0be
+This is Rakudo version 2019.07.1-340-gca5e3f1c8 built on MoarVM version 2019.07.1-233-g270f1b0be
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1113/11]
-|+-------------> JVM: Good/Bad [952/171]
-||+------------> Smoke testing [1002]
++--------------> Moar: Good/Bad [1114/11]
+|+-------------> JVM: Good/Bad [953/171]
+||+------------> Smoke testing [1003]
 |||+-----------> sKipping validation [118]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [267]
@@ -11,8 +11,8 @@ updating from RC…
 |||||||+-------> Random seed [113]
 ||||||||+------> File output [80]
 |||||||||+-----> Draft [224]
-||||||||||+----> Ignoring [50]
-|||||||||||+---> Void (no local copy) [126]
+||||||||||+----> Ignoring [52]
+|||||||||||+---> Void (no local copy) [125]
 ||||||||||||+--> Un-implemented/reliable [98]
 |||||||||||||
 GGS.......... 100_doors
@@ -93,7 +93,7 @@ GGS.......... Associative_array_Creation
 GGS.......... Associative_array_Iteration
 GGS....R..... Atomic_updates
 GBS...C...... Attractive_numbers
-.........D.VU AudioAlarm
+.........DXVU AudioAlarm
 .........D.VU Audio_Overlap_Loop
 .........D.VU Audio_frequency_generator
 GGS..T.R..... Average_loop_length
@@ -164,7 +164,7 @@ GGS.......... Calendar_-_for_%22REAL%22_programmers
 GBS.......... Call_a_foreign-language_function
 GG.K......... Call_a_function
 BB.K......... Call_a_function_in_a_shared_library
-..........XV. Call_an_object_method
+GGS.......X.. Call_an_object_method
 ...........VU Canny_edge_detector
 GGS.......... Cantor_set
 GGS....R.D... Card_shuffles
@@ -824,7 +824,7 @@ GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
 ...........VU Pinstripe_Printer
 GBS..TC.F.... Plasma_effect
-...........VU Play_recorded_sounds
+..........XVU Play_recorded_sounds
 GGS..T...D... Playfair_cipher
 GGS..T.R..... Playing_cards
 BB........... Plot_coordinate_pairs
