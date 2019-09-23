@@ -10,8 +10,8 @@ use Test;
 # Works with: Rakudo version 2015-11-20
 #Feed it an action (encode, decode) and a file name at the command line and it will spit out the (en|de)coded file to STDOUT. Redirect into a file to save it. If no parameters are passed in, does the demo encode/decode.
 
-my $chr = (' ' .. '}').join('');
-my $key = $chr.comb.pick(*).join('');
+my $chr = (' ' .. '}').join;
+my $key = $chr.comb.pick(*).join;
 
 # Be very boring and use the same key every time to fit task reqs.
 $key = q☃3#}^",dLs*>tPMcZR!fmC rEKhlw1v4AOgj7Q]YI+|pDB82a&XFV9yzuH<WT%N;iS.0e:`G\n['6@_{bk)=-5qx(/?$JoU☃;
