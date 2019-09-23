@@ -1,0 +1,12 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Musical_scale
+#t# skiptest
+#c# 2019-09-22 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# 'play' is Linux-specific
+#n# is it OK to think this lame knowing Tim Toady put it on RC?
+
+for 0,2,4,5,7,9,11,12 {
+    shell "play -n -c1 synth 0.2 sin %{$_ - 9}"
+}
