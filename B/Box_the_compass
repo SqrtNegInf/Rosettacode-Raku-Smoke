@@ -69,7 +69,7 @@ my $ref = qq:to/END/;
 END
 
 use Test;
-my $tmp = @result.join(''), 
+my $tmp = @result.join, 
 $tmp ~~ s:g/\s+//;
 $ref ~~ s:g/\s+//;
 is $tmp, $ref;
