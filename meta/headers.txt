@@ -1252,6 +1252,13 @@ File: C/Call_a_function_in_a_shared_library
 #j# JVM:  BROKEN
 #n# not getting this running on OS X…
 
+File: C/Call_an_object_method
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Call_an_object_method
+#c# 2019-09-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: C/Cantor_set
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cantor_set
@@ -6376,7 +6383,11 @@ File: P/Palindromic_dates
 #n#   not using any date/time facility in the language (though might be good to validate dates?)
 #n#   no 'suspicious' parentheses -- code less 'busy' but you might have to think a little harder about implied scopes
 #n#   non-cryptic variable names
-#n3   working the DRY principle pretty hard (too far?)
+#n#   working the DRY principle pretty hard (too far?)
+#n#
+#n# every so often:
+#n#  perl6(80736,0x70000280d000) malloc: *** error for object 0x7fdf654fc000: incorrect checksum for freed object - object was probably modified after being freed.
+#n#  *** set a breakpoint in malloc_error_break to debug
 
 File: P/Pangram_checker
 #!/usr/bin/env perl6
@@ -8109,6 +8120,8 @@ File: S/Self-referential_sequence
 #c# 2016-06-12 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2016 196.742u 2.298s 4:29.33 73.8%
+#n# 2019  80.076u 0.845s 1:21.28 99.5% 
 
 File: S/Semiprime-1
 #!/usr/bin/env perl6
