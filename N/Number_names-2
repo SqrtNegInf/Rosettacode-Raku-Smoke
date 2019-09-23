@@ -16,7 +16,7 @@ use Lingua::EN::Numbers; # Version 2.4.0 or higher
 
 @res.push: cardinal($_), "\n" for 6.022e23, 42000, π;
 
-say my $result = join '', @res;
+say my $result = @res.join;
 
 my $ref = q:to/END/;
 negative one and three quarters
@@ -48,7 +48,7 @@ three point one four one five nine two six five three five eight nine seven nine
 END
 
 use Test;
-is @res.join(''), $ref;
+is @res.join, $ref;
 
 
 
