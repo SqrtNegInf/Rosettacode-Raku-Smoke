@@ -13,7 +13,11 @@
 #n#   not using any date/time facility in the language (though might be good to validate dates?)
 #n#   no 'suspicious' parentheses -- code less 'busy' but you might have to think a little harder about implied scopes
 #n#   non-cryptic variable names
-#n3   working the DRY principle pretty hard (too far?)
+#n#   working the DRY principle pretty hard (too far?)
+#n#
+#n# every so often:
+#n#  perl6(80736,0x70000280d000) malloc: *** error for object 0x7fdf654fc000: incorrect checksum for freed object - object was probably modified after being freed.
+#n#  *** set a breakpoint in malloc_error_break to debug
 
 my @res;
 
@@ -69,7 +73,7 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
     (@(@range[1]) X @(@range[2]) X @(@range[3])).race.map: -> @date-triple {
 
         # check if it's a palindrome
-        next unless $_ eq .flip given join '', @date-triple;
+        next unless $_ eq .flip given @date-triple.join;
 
         # unpack date components
         my ($day,$month,$year) = @date-triple[%unit{'D'}, %unit{'M'}, %unit{'Y'}];
