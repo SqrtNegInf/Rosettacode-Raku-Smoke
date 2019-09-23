@@ -9,12 +9,12 @@
 
 my @lc; my @uc; my @tc;
 given (0..0x1fffd).chrs {
-    @lc = .comb(/<:Ll>/); say "Lowercase: ", @lc[^121].join('');
-    @uc = .comb(/<:Lu>/); say "Uppercase: ", @uc[^121].join('');
-    @tc = .comb(/<:Lt>/); say "Titlecase: ", @tc[^20].join('');
+    @lc = .comb(/<:Ll>/); say "Lowercase: ", @lc[^121].join;
+    @uc = .comb(/<:Lu>/); say "Uppercase: ", @uc[^121].join;
+    @tc = .comb(/<:Lt>/); say "Titlecase: ", @tc[^20].join;
 }
 
 use Test;
-is (@lc[^121].join('')), 'abcdefghijklmnopqrstuvwxyzµßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿāăąćĉċčďđēĕėęěĝğġģĥħĩīĭįıĳĵķĸĺļľŀłńņňŉŋōŏőœŕŗřśŝşšţťŧũūŭůűųŵŷź';
-is (@uc[^121].join('')), 'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞĀĂĄĆĈĊČĎĐĒĔĖĘĚĜĞĠĢĤĦĨĪĬĮİĲĴĶĹĻĽĿŁŃŅŇŊŌŎŐŒŔŖŘŚŜŞŠŢŤŦŨŪŬŮŰŲŴŶŸŹŻŽƁƂ';
-is (@tc[^20].join('')), 'ǅǈǋǲᾈᾉᾊᾋᾌᾍᾎᾏᾘᾙᾚᾛᾜᾝᾞᾟ';
+is (@lc[^121].join), 'abcdefghijklmnopqrstuvwxyzµßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿāăąćĉċčďđēĕėęěĝğġģĥħĩīĭįıĳĵķĸĺļľŀłńņňŉŋōŏőœŕŗřśŝşšţťŧũūŭůűųŵŷź';
+is (@uc[^121].join), 'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞĀĂĄĆĈĊČĎĐĒĔĖĘĚĜĞĠĢĤĦĨĪĬĮİĲĴĶĹĻĽĿŁŃŅŇŊŌŎŐŒŔŖŘŚŜŞŠŢŤŦŨŪŬŮŰŲŴŶŸŹŻŽƁƂ';
+is (@tc[^20].join), 'ǅǈǋǲᾈᾉᾊᾋᾌᾍᾎᾏᾘᾙᾚᾛᾜᾝᾞᾟ';
