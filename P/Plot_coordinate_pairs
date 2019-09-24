@@ -1,8 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Plot_coordinate_pairs
-#c# 2016-08-25 <RC, 2018-04-12 <RC
-#m# MOAR: BROKEN
+#c# 2016-08-25 <RC, 2018-04-12 <RC, 2019-09-23 >RC
+#m# MOAR: OK
 #j#  JVM: BROKEN
+#f# RC file: plot-pairs.svg
+#n# grrr, 'lines' not 'xy-lines'
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -22,5 +24,5 @@ say SVG.serialize: SVG::Plot.new(
     min-y-axis  => 0,
     values      => [@y,],
     title  => 'Coordinate Pairs',
-).plot(:xy-lines);
+).plot(:lines);
 
