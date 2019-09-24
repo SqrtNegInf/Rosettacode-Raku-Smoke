@@ -1279,7 +1279,6 @@ File: C/Carmichael_3_strong_pseudoprimes
 #c# 2016-03-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   RC previous: BROKE (very much so: Internal error: invalid thread ID 99895888 in GC work pass)
 
 File: C/Cartesian_product_of_two_or_more_lists
 #!/usr/bin/env perl6
@@ -5906,6 +5905,16 @@ File: M/Munching_squares-2
 #f# RC file: munching_color.ppm
 #    this is 2nd example from RC URL
 
+File: M/Musical_scale
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Musical_scale
+#t# skiptest
+#c# 2019-09-22 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# 'play' is Linux-specific
+#n# is it OK to think this lame knowing Tim Toady put it on RC?
+
 File: M/Mutual_recursion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mutual_recursion
@@ -6931,9 +6940,11 @@ File: P/Playing_cards
 File: P/Plot_coordinate_pairs
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Plot_coordinate_pairs
-#c# 2016-08-25 <RC, 2018-04-12 <RC
-#m# MOAR: BROKEN
+#c# 2016-08-25 <RC, 2018-04-12 <RC, 2019-09-23 >RC
+#m# MOAR: OK
 #j#  JVM: BROKEN
+#f# RC file: plot-pairs.svg
+#n# grrr, 'lines' not 'xy-lines'
 
 File: P/Plot_coordinate_pairs.1
 #!/usr/bin/env perl6
