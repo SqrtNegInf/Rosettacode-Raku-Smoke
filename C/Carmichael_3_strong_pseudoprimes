@@ -3,19 +3,6 @@
 #c# 2016-03-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   RC previous: BROKE (very much so: Internal error: invalid thread ID 99895888 in GC work pass)
-
-#`{
-2..45 starts to fail
-
-if 2..52:
-equal requires a concrete string, but got a type object
-  in block  at Carmichael_3_strong_pseudoprimes line 10
-  in block <unit> at Carmichael_3_strong_pseudoprimes line 9
-}
-
-# Works with: Rakudo version 2015.12
-# An almost direct translation of the pseudocode. We take the liberty of going up to 67 to show we aren't limited to 32-bit integers. (Perl 6 uses arbitrary precision in any case.)
 
 my @results;
 
