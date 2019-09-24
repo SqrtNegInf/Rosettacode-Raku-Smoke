@@ -4,20 +4,10 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo Star version 2015-09-10
-# for each should get:
-#  27 Fizz
-#  14 Buzz
-#   6 FizzBuzz
-
-# for all 5 versions should get:
-# 135 Fizz
-#  70 Buzz
-#  30 FizzBuzz
-
 # Most straightforwardly:
 my @res1;
-for 1 .. 100 {    when $_ %% (3 & 5) { @res1.push: 'FizzBuzz'; }
+for 1 .. 100 {    
+    when $_ %% (3 & 5) { @res1.push: 'FizzBuzz'; }
     when $_ %% 3       { @res1.push: 'Fizz'; }
     when $_ %% 5       { @res1.push: 'Buzz'; }
     default            { @res1.push: $_; }
@@ -30,10 +20,10 @@ multi sub fizzbuzz(Int $ where * %%  3) { 'Fizz' }
 multi sub fizzbuzz(Int $number        ) { $number }
 my @res2 = (1 .. 100)».&fizzbuzz.join("\n");
 
-# Concisely (readable):
-my @res3.push: 'Fizz' x $_ %% 3 ~ 'Buzz' x $_ %% 5 || $_ for 1 .. 100;
-
 #Shortest FizzBuzz to date:
+# readable:
+my @res3.push: 'Fizz' x $_ %% 3 ~ 'Buzz' x $_ %% 5 || $_ for 1 .. 100;
+# golf:
 my @res4.push: "Fizz"x$_%%3~"Buzz"x$_%%5||$_ for 1..100;
 
 # And here's an implementation that never checks for divisibility:
@@ -45,6 +35,9 @@ my @res5.push: $_ for
     )
     Z||
     1 .. 100;
+
+# David Hand @Ptolemarch:
+my @res6.push: ([~] ($_%%3, $_%%5) »||» "" Z&& <Fizz Buzz> or $_) for 1..100;
 
 my $ref = qq:to/END/;
 1
@@ -155,3 +148,4 @@ is @res2.join("\n"), chomp $ref;
 is @res3.join("\n"), chomp $ref;
 is @res4.join("\n"), chomp $ref;
 is @res5.join("\n"), chomp $ref;
+is @res6.join("\n"), chomp $ref;
