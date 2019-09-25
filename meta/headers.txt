@@ -99,6 +99,17 @@ File: 0/4-rings_or_4-squares_puzzle.1
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: 0/6-slices-of-pie
+#!/usr/bin/env perl6
+#u# http://blogs.perl.org/users/damian_conway/2019/07/six-slices-of-pie.html
+#c# 2019-09-23 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#f# RC file: 6-slices.svg
+#n# Conway's version corrected in two regards:
+#n#   'line' not 'xy-lines' ( 'x' not needed at all)
+#n#   0 pre-pended for initial state (which matches his graph)
+
 File: 0/99_Bottles_of_Beer
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/99_Bottles_of_Beer
@@ -5910,7 +5921,7 @@ File: M/Musical_scale
 #u# http://rosettacode.org/wiki/Musical_scale
 #t# skiptest
 #c# 2019-09-22 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 'play' is Linux-specific
 #n# is it OK to think this lame knowing Tim Toady put it on RC?
