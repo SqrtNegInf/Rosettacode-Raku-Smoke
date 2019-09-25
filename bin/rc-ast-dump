@@ -5,8 +5,8 @@
 #  NB: always run by-hand, catch any new tasks that must be skipped, as per < less -p2019-04-12 docs/Notes_to_self >
 
 #my @nogo = split /\s*\n/, q:to/END/; # would then test with: $file.trim ∈ @nogo
-# 'RX=>' works too, but a little confusing to read
-my %nogo = 1 R[X=>] split /\s*\n/, q:to/END/;
+# 'R[X=>]' works too, as does 'RX=>'; which is most clear / least confusing?
+my %nogo = 1 R[X[=>]] split /\s*\n/, q:to/END/;
 Bernoulli_numbers 
 Catalan_numbers_Pascal%27s_triangle
 Find_palindromic_numbers_in_both_binary_and_ternary_bases
@@ -17,7 +17,7 @@ Ludic_numbers
 Sequence_of_primorial_primes
 END
 
-for flat 0, 'A'..'B' -> $dir {
+for flat 0, 'A'..'Z' -> $dir {
     for run('find', $dir, :out).out.lines -> $path {
         next if 1 == $path.chars;
         my $file = $path.subst(/^.*\//, '');
