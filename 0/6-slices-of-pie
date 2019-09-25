@@ -26,3 +26,5 @@ spurt 'run/6-slices.svg'.IO,
 
 #shell 'open run/6-slices.svg';
 
+use Test;
+is (shares.maxpairs).gist, '(9 => 0.06281565095552947)';
