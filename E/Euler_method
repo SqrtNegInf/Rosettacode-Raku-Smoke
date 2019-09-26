@@ -41,7 +41,7 @@ for INITIAL_TIME, * + 10 ... * >= FINAL_TIME -> $t {
     my ( $a, $b, $c ) = map { @e[$_][$t] }, 2, 5, 10;
 
     @res.push: $t.fmt('%4d ') ~ ( $exact, $a, $b, $c )».fmt('%7.3f') ~
-                           $err.([$a, $b, $c])».fmt('%7.3f%%');
+                           $err.([$a, $b, $c])».fmt('%7.3f%%'); # DH '.' can be omitted
 }
 
 .say for @res;
