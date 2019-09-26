@@ -38,6 +38,7 @@ bin/rc-stats 10 > meta/stats.txt
 bin/rc-stats 2
 
 # keep tabs on status
+echo ' '
 cd meta
 cp -p task.txt task.txt~
 /usr/local/pbin/rotate_log -d logs -b -r -f task.txt
@@ -46,8 +47,8 @@ diff task.txt~ task.txt
 cd ..
 
 # see how slow the usual suspects are
-bin/rc-timings | sort -r -n > meta/timings.txt
 echo ' '
+bin/rc-timings | sort -r -n > meta/timings.txt
 head -10 meta/timings.txt
 
 # combine task headers for easy grep
@@ -58,8 +59,10 @@ echo ' '
 head -19 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | tail -16
 
 # not a race, not a race, ...
+echo ' '
 mv meta/horse-race.txt meta/horse-race.txt~
 bin/rc-horse-race | sort -r > meta/horse-race.txt
+diff meta/horse-race.txt~ meta/horse-race.txt
 
 # how did the spectest go?
 echo ' '
