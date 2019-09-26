@@ -52,7 +52,7 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
     $format .= subst(/<-[YMD]>/, '', :g);
 
     # again, update in place if need be
-    $last-year = 99 if 2 == .chars given $format ~~ /(Y+)/; # make executive decision to avoid duplicative results
+    $last-year = 99 if 2 >= $0.Str.chars given $format ~~ /(Y+)/; # make executive decision to avoid duplicative results
 
     # parse the cleaned-up format string, keeping track of order and length of time units
     my $i;
@@ -97,14 +97,15 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
 
 ######## Factoid 1 - single digit dates
 
-my $date-format = 'M-D-YY'; # this yields date that are not zero-padded
+my $date-format = 'M-D-Y'; # this yields date that are not zero-padded
 
 # match operates on version of string from which non-digits have been removed
-my @m-d-yy = grep { $_.subst(/<-[0..9]>/, '', :g) ~~ /^ (<[0..9]>) $0* $/ }, find-palindromes($date-format);
+my @m-d-y = grep { $_.subst(/<-[0..9]>/, '', :g) ~~ /^ (<[0..9]>) $0* $/ }, find-palindromes($date-format);
 
 # variables and arbitrary code can be interpolated in strings
-@res.push: "Using '$date-format' format, there are {+@m-d-yy} palindromic dates in a century that use only one digit:";
-@res.push: join(', ', @m-d-yy) ~ "\n";
+@res.push: "Using '$date-format' format, there are {+@m-d-y} palindromic dates in a century that use only one digit:";
+#@res.push: join(', ', @m-d-y) ~ "\n";
+@res.push: @m-d-y.rotor(13)».fmt('%-8s').join("\n") ~ "\n";
 
 ######## Factoid 2 - distribution by century
 
@@ -151,8 +152,9 @@ for 'non-prime', date-non-prime, 'prime', date-prime -> $type, @dates {
 .say for @res;
 
 my $ref = q:to/END/;
-Using 'M-D-YY' format, there are 13 palindromic dates in a century that use only one digit:
-1-1-11, 1-11-11, 11-1-11, 11-11-11, 2-2-22, 2-22-22, 3-3-33, 4-4-44, 5-5-55, 6-6-66, 7-7-77, 8-8-88, 9-9-99
+Using 'M-D-Y' format, there are 26 palindromic dates in a century that use only one digit:
+1-1-1    1-11-1   11-1-1   11-11-1  2-2-2    2-22-2   3-3-3    4-4-4    5-5-5    6-6-6    7-7-7    8-8-8    9-9-9   
+1-1-11   1-11-11  11-1-11  11-11-11 2-2-22   2-22-22  3-3-33   4-4-44   5-5-55   6-6-66   7-7-77   8-8-88   9-9-99  
 
 Using 'MM.DD.YYYY' format, the distribution of palindromic dates for the 1st through 21st century:
  12 in the  2nd century
