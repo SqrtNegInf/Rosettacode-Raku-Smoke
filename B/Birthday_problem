@@ -1,42 +1,47 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Birthday_problem
-#t# skiptest
 #c# 2016-08-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# ouch, for 2..5: 5755.022u 5223.779s 4:53:17.36 62.3% (which is why just running 2..2 for now)
 #n# current approach is to repeatedly 'roll' out groups of birthdays (a memory hog, and too slow to be useful)
 #n# would it be faster to build a 'population' and sample it?  code everything into bit-fields?
 
 srand 123456;
 
 my @res;
+my $debug = False;
 
 sub simulation($c) {
 my $max-trials = 250_000;
-my $min-trials =   2_500;
+my $min-trials =   5_000;
 
 my $n = floor 47 * ($c-1.5)**1.5; # OEIS/A050256: 16 86 185 307
 my $N = min $max-trials, max $min-trials, 1000 * sqrt $n;
 
-say "starting with n = $n and N = $N"; # debug
+say "starting with n = $n and N = $N" if $debug;
 
 loop {
-    # race - no benefit
-    #my $p = $N R/ elems ((grep { $_>=$c }, values bag (^365).roll($n)) xx $N).race.grep( *.elems > 0);
-    my $p = $N R/ elems grep { .elems > 0 }, ((grep { $_>=$c }, values bag (^365).roll($n)) xx $N);
+    my $p;
+    if ($c == 2) { $p = 1 - $N R/ ((^365).roll($n) xx $N)>>.unique>>.elems.Bag{$n} } # faster, but only works for $c = 2
+    else         { $p = $N R/ elems grep { .elems > 0 }, ((grep { $_>=$c }, values bag (^365).roll($n)) xx $N) }
+    #my $p = $N R/ elems ((grep { $_>=$c }, values bag (^365).roll($n)) xx $N).race.grep( *.elems > 0); # no benefit
 
     return($n, $p) if $p > 0.5;
 
     $N = min $max-trials, max $min-trials, floor 1000/(0.5-$p)**1.25;
-    say "n: $n  p: $p  next N: $N"; # debug
+    say "n: $n  p: $p  next N: $N" if $debug;
     $n++;
 }
 
 }
 
-printf "$_ people in a group of %s share a common birthday. (%.3f)\n", simulation($_) for 5..5; exit; # debug
+if ($debug) {
+printf "$_ people in a group of %s share a common birthday. (%.3f)\n", simulation($_) for 2..3; 
+exit;
+}
 
-@res.push: "$_ people in a group of %s share a common birthday. (%.3f)", simulation($_) for 2..5;
+@res.push: sprintf "$_ people in a group of %s share a common birthday. (%.3f)", simulation($_) for 2..2;
 
 #`{{
 # early exit when $p2 completes, why?
@@ -54,10 +59,10 @@ printf "$_ people in a group of %s share a common birthday. (%.3f)\n", simulatio
 
 my $ref = qq:to/END/;
 2 people in a group of 23 share a common birthday. (0.506)
-3 people in a group of 88 share a common birthday. (0.511)
-4 people in a group of 187 share a common birthday. (0.503)
-5 people in a group of 314 share a common birthday. (0.xxx)
 END
+#3 people in a group of 88 share a common birthday. (0.511)
+#4 people in a group of 187 share a common birthday. (0.503)
+#5 people in a group of 313 share a common birthday. (0.501)
 
 use Test;
 is @res.join("\n"), chomp $ref;
