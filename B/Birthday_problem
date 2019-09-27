@@ -1,93 +1,63 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Birthday_problem
+#t# skiptest
 #c# 2016-08-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# marked incomplete on RC
-#n# got super-slow in early Dec 2017
+#n# current approach is to repeatedly 'roll' out groups of birthdays (a memory hog, and too slow to be useful)
+#n# would it be faster to build a 'population' and sample it?  code everything into bit-fields?
 
 srand 123456;
 
-# This example is incomplete. Please ensure that it meets all task requirements and remove this message.
+my @res;
 
-# For a start, we can show off how to get the exact solution. If we pick n people, the total number of possible arrangements of birthdays is 365n. Among those possibilities, there are Cn365 where all birthdays are different. For each of these, there are n! possible ways to arrange the n people. So the solution is 1 - n!Cn365/365n, which in Perl 6 can be written:
+sub simulation($c) {
+my $max-trials = 250_000;
+my $min-trials =   2_500;
 
-#say "$_ :", 1 - combinations(365, $_)/365**$_ * [*] 1..$_ for ^Inf;
-#say "$_ :", 1 - combinations(365, $_)/365**$_ * [*] 1..$_ for ^100;
+my $n = floor 47 * ($c-1.5)**1.5; # OEIS/A050256: 16 86 185 307
+my $N = min $max-trials, max $min-trials, 1000 * sqrt $n;
 
-my @res1;
-push @res1, ("$_ :", 1 - combinations(365, $_)/365**$_ * [*] 1..$_) for ^10;
-.say for @res1;
+say "starting with n = $n and N = $N"; # debug
 
-# Now comparing with a simulation:
+loop {
+    # race - no benefit
+    #my $p = $N R/ elems ((grep { $_>=$c }, values bag (^365).roll($n)) xx $N).race.grep( *.elems > 0);
+    my $p = $N R/ elems grep { .elems > 0 }, ((grep { $_>=$c }, values bag (^365).roll($n)) xx $N);
 
-use experimental :cached;
+    return($n, $p) if $p > 0.5;
 
-sub theory($n) is cached { 1 - combinations(365, $n)/365**$n* [*] 1..$n }
-#sub theory($n) { 1 - combinations(365, $n)/365**$n* [*] 1..$n }
-sub simulation(:number-of-people($n), :sample-size($N) = 1_000) {
-    $N R/ grep ?*, ((^365).roll($n).unique !== $n) xx $N;
+    $N = min $max-trials, max $min-trials, floor 1000/(0.5-$p)**1.25;
+    say "n: $n  p: $p  next N: $N"; # debug
+    $n++;
 }
 
-
-#2 independent people in a group of 23 share a common birthday. (0.506)
-#3 independent people in a group of 88 share a common birthday. (0.510)
-#4 independent people in a group of 187 share a common birthday. (0.500)
-#5 independent people in a group of 314 share a common birthday. (0.507)
-my @res2;
-#for 2 .. Inf -> $n {
-for 2 .. 5 -> $c {
-    #@res2.push: sprintf "%3d people, theory: %.4f, simulation: %.4f", 
-    for 2..Inf -> $n {
-        my $p = theory($n);
-        if ($p > .5) { 
-    say "p: $p";
-            printf "%3d people, theory: %.4f, simulation: %.4f", 
-                $n, theory($n), simulation(number-of-people => $n);
-            exit;
-        }
-    }
 }
-#.say for @res2;
 
-my $moar1 = qq:to/END/;
-0 : 0
-1 : 0
-2 : 0.002740
-3 : 0.0082042
-4 : 0.016355912
-5 : 0.027135573700
-6 : 0.04046248364911
-7 : 0.0562357030959754
-8 : 0.0743352923516690285
-9 : 0.0946238338891667
-END
+printf "$_ people in a group of %s share a common birthday. (%.3f)\n", simulation($_) for 5..5; exit; # debug
 
-my $jvm1 = qq:to/END/;
-0 : 0
-1 : 0
-2 : 0.002740
-3 : 0.0082042
-4 : 0.016355912
-5 : 0.027135573700
-6 : 0.04046248364911
-7 : 0.0562357030959754
-8 : 0.0743352923516690285
-9 : 0.09462383388916673
-END
+@res.push: "$_ people in a group of %s share a common birthday. (%.3f)", simulation($_) for 2..5;
 
-my $moar2 = qq:to/END/;
-2 independent people in a group of 23 share a common birthday. (0.506)
-3 independent people in a group of 88 share a common birthday. (0.510)
-4 independent people in a group of 187 share a common birthday. (0.500)
-5 independent people in a group of 314 share a common birthday. (0.507)
+#`{{
+# early exit when $p2 completes, why?
+# still doesn't address the fundamental non-performant code
+    my (@c2, @c3, @c4, @c5);
+    my $p2 = Promise.start( { @c2.push: simulation(2) } );
+    my $p3 = Promise.start( { @c3.push: simulation(3) } );
+    my $p4 = Promise.start( { @c4.push: simulation(4) } );
+#   my $p5 = Promise.start( { @c5 = simulation(5) } );
+    await $p2, $p3, $p4; # $p5;
+    say join ' ', @c2, @c3, @c4, @c5;
+}}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+2 people in a group of 23 share a common birthday. (0.506)
+3 people in a group of 88 share a common birthday. (0.511)
+4 people in a group of 187 share a common birthday. (0.503)
+5 people in a group of 314 share a common birthday. (0.xxx)
 END
 
 use Test;
-#my $ref1 = $*VM ~~ /jvm/ ?? $jvm1 !! $moar1;
-#is @res1.join("\n"), chomp $ref1;
-
-#my $ref2 = $*VM ~~ /jvm/ ?? $jvm2 !! $moar2;
-
-use Test;
-#is @res2.join("\n"), chomp $ref2;
+is @res.join("\n"), chomp $ref;
