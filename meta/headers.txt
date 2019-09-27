@@ -916,11 +916,12 @@ File: B/Binary_strings
 File: B/Birthday_problem
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Birthday_problem
+#t# skiptest
 #c# 2016-08-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# marked incomplete on RC
-#n# got super-slow in early Dec 2017
+#n# current approach is to repeatedly 'roll' out groups of birthdays (a memory hog, and too slow to be useful)
+#n# would it be faster to build a 'population' and sample it?  code everything into bit-fields?
 
 File: B/Bitcoin_address_validation
 #!/usr/bin/env perl6
