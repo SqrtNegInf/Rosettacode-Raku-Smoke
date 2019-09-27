@@ -38,76 +38,66 @@ my $h-sym =  'h'; # symbolic ref
 
 #Calling a function with no arguments:
 
-f;            # 1  as list operator
-f();          # 2  as function
-i.();         # 3  as function, explicit postfix form  # defined via pointy-block (also see Church_numerals)
-#f.();        #x3x as function, explicit postfix form  # would have to preface with '&', hence === #7
-$ref();       # 4  as object invocation
-$ref.();      # 5  as object invocation, explicit postfix
-&f();         # 6  as object invocation
-&f.();        # 7  as object invocation, explicit postfix
-::($f-sym)(); # 8  as symbolic ref
+f;            # f0-1  as list operator
+f();          # f0-2  as function
+i.();         # i0-1  as function, explicit postfix form  # defined via pointy-block (also see Church_numerals)
+$ref();       # f0-3  as object invocation
+$ref.();      # f0-4  as object invocation, explicit postfix
+&f();         # f0-5  as object invocation
+&f.();        # f0-6  as object invocation, explicit postfix
+::($f-sym)(); # f0-7  as symbolic ref
 say join ' ', @f0, @i0;
 
 #Calling a function with exactly one argument:
 
-f 1;          #  1  as list operator
-f(1);         #  2  as named function
-l.(1);        #  3  as named function, explicit postfix  # defined via pointy-block
-#&f.(1);      # x3x as named function, explicit postfix  # ?? had to preface with '&'
-$f(1);        #  4  as object invocation (must be hard ref)   
-$ref.(1);     #  5  as object invocation, explicit postfix
-1.$f;         #  6  as pseudo-method meaning $f(1) (hard ref only)
-1.$f();       #  7  as pseudo-method meaning $f(1) (hard ref only)
-1.&f;         #  8  as pseudo-method meaning &f(1) (is hard f)
-1.&f();       #  9  as pseudo-method meaning &f(1) (is hard f)
-1.j;          # 10  as method via dispatcher              # required custom routine, 'Int.^add_method'
-1.j();        # 11  as method via dispatcher
-1."$j-sym"(); # 12  as method via dispatcher, symbolic
-#+1;          #     as operator to prefix:<+> function
+f 1;          #  f1-1  as list operator
+f(1);         #  f1-2  as named function
+l.(1);        #  l1-1  as named function, explicit postfix  # defined via pointy-block
+$f(1);        #  f1-3  as object invocation (must be hard ref)   
+$ref.(1);     #  f1-4  as object invocation, explicit postfix
+1.$f;         #  f1-5  as pseudo-method meaning $f(1) (hard ref only)
+1.$f();       #  f1-6  as pseudo-method meaning $f(1) (hard ref only)
+1.&f;         #  f1-7  as pseudo-method meaning &f(1) (is hard f)
+1.&f();       #  f1-8  as pseudo-method meaning &f(1) (is hard f)
+1.j;          #  j1-1  as method via dispatcher             # required custom routine, 'Int.^add_method'
+1.j();        #  j1-2  as method via dispatcher
+1."$j-sym"(); #  j1-3  as method via dispatcher, symbolic
 say join ' ', @f1, @l1, @j1;
 
 # Calling a function with exactly two arguments:
 
-f 1,2;         #  1  as list operator
-f(1,2);        #  2  as named function
-m.(1,2);       #  3  as named function, explicit postfix  # defined via pointy-block
-#&f.(1,2);     # x3x as named function, explicit postfix  # ?? had to preface with '&'
-$ref(1,2);     #  4  as object invocation (must be hard ref)
-$ref.(1,2);    #  5  as object invocation, explicit postfix
-1.$f: 2;       #  6  as pseudo-method meaning $f(1,2) (hard ref only)
-1.$f(2);       #  7  as pseudo-method meaning $f(1,2) (hard ref only)
-1.&f: 2;       #  8  as pseudo-method meaning &f(1,2) (is hard f)
-1.&f(2);       #  9  as pseudo-method meaning &f(1,2) (is hard f)
-1.k: 2;        # 10  as method via dispatcher
-1.k(2);        # 11  as method via dispatcher
-1."$k-sym"(2); # 12  as method via dispatcher, symbolic
-#1 + 2         #     as operator to infix:<+> function
+f 1,2;         #  f2-1  as list operator
+f(1,2);        #  f2-2  as named function
+m.(1,2);       #  m2-1  as named function, explicit postfix  # defined via pointy-block
+$ref(1,2);     #  f2-3  as object invocation (must be hard ref)
+$ref.(1,2);    #  f2-4  as object invocation, explicit postfix
+1.$f: 2;       #  f2-5  as pseudo-method meaning $f(1,2) (hard ref only)
+1.$f(2);       #  f2-6  as pseudo-method meaning $f(1,2) (hard ref only)
+1.&f: 2;       #  f2-7  as pseudo-method meaning &f(1,2) (is hard f)
+1.&f(2);       #  f2-8  as pseudo-method meaning &f(1,2) (is hard f)
+1.k: 2;        #  k2-1  as method via dispatcher             # required custom routine, 'Int.^add_method'
+1.k(2);        #  k2-2  as method via dispatcher
+1."$k-sym"(2); #  k2-3  as method via dispatcher, symbolic
 say join ' ', @f2, @k2, @m2;
 
 # Calling a function with a variable number of arguments (varargs):
 
 my @args = 2,3,4;
 
-f @args;           #  1  as list operator
-f(@args);          #  2  as named function
-n.(@args);         #  3  as named function, explicit postfix  # defined via pointy-block
-#&f.(@args);       # x3x as named function, explicit postfix  # ?? had to preface with '&'
-$ref(@args);       #  4  as object invocation (must be hard ref)
-$ref.(@args);      #  5  as object invocation, explicit postfix
-1.$g: @args;       #  6  as pseudo-method meaning $f(1,@args) (hard ref)
-1.$g(@args);       #  7  as pseudo-method meaning $f(1,@args) (hard ref)
-1.&g: @args;       #  8  as pseudo-method meaning &f(1,@args)
-1.&g(@args);       #  9  as pseudo-method meaning &f(1,@args)
-1.h: @args;        # 10  as method via dispatcher
-1.h(@args);        # 11  as method via dispatcher
-1."$h-sym"(@args); # 12  as method via dispatcher, symbolic
-#@args X @blargs;  #     as list infix operator to infix:<X>
-
-f(|@args);  # equivalent to f(1,2,3)
+f @args;           #  f3-1  as list operator
+f(@args);          #  f3-2  as named function
+n.(@args);         #  n3-1  as named function, explicit postfix  # defined via pointy-block
+$ref(@args);       #  f3-3  as object invocation (must be hard ref)
+$ref.(@args);      #  f3-4  as object invocation, explicit postfix
+1.$g: @args;       #  g3-1  as pseudo-method meaning $f(1,@args) (hard ref)
+1.$g(@args);       #  g3-2  as pseudo-method meaning $f(1,@args) (hard ref)
+1.&g: @args;       #  g3-3  as pseudo-method meaning &f(1,@args)
+1.&g(@args);       #  g3-4  as pseudo-method meaning &f(1,@args)
+1.h: @args;        #  h3-1  as method via dispatcher         # required custom routine, 'Int.^add_method'
+1.h(@args);        #  h3-2  as method via dispatcher
+1."$h-sym"(@args); #  h3-3  as method via dispatcher, symbolic
+f(|@args);         #  F3-1  equivalent to f(1,2,3)
 say join ' ', @f3, @g3, @h3, @n3;
-
-#say '====='; say (@f0, @i0, @f1, @j1, @l1, @f2, @k2, @m2, @f3, @g3, @h3, @n3).join("\n"); exit;
 
 my $reference = qq:to/END/;
 f0-1 f0-2 f0-3 f0-4 f0-5 f0-6 f0-7
