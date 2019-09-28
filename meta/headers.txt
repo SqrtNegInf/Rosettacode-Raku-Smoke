@@ -916,10 +916,10 @@ File: B/Binary_strings
 File: B/Birthday_problem
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Birthday_problem
-#t# skiptest
 #c# 2016-08-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# ouch, for 2..5: 5755.022u 5223.779s 4:53:17.36 62.3% (which is why just running 2..2 for now)
 #n# current approach is to repeatedly 'roll' out groups of birthdays (a memory hog, and too slow to be useful)
 #n# would it be faster to build a 'population' and sample it?  code everything into bit-fields?
 
@@ -1258,11 +1258,22 @@ File: C/Call_a_function
 File: C/Call_a_function-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Call_a_function
-#c# 2019-09-25 NOT ON RC
+#c# 2019-09-25 NOT ON RC (see .1 version)
 #m# MOAR: OK
 #j# JVM:  OK
 #n# entry was by Tim Toady in 2011 (no modifications since)
 #n# validated the listed function call syntax (it all works, with some effort)
+
+File: C/Call_a_function-2.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Call_a_function
+#t# skiptest
+#c# 2019-09-27 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# entry was by Tim Toady in 2011 (no modifications since)
+#n# validated the listed function call syntax (it all works, with some effort)
+#n3 this is the version added to RC
 
 File: C/Call_a_function_in_a_shared_library
 #!/usr/bin/env perl6
