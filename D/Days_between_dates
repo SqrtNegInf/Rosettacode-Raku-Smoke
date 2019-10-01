@@ -1,0 +1,41 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Days_between_dates
+#c# 2019-09-30 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+@res.push: Date.new('2019-09-30') - Date.new('2019-01-01');
+
+@res.push: Date.new('2019-03-01') - Date.new('2019-02-01');
+
+@res.push: Date.new('2020-03-01') - Date.new('2020-02-01');
+
+@res.push: Date.new('2029-03-29') - Date.new('2019-03-29');
+
+@res.push: Date.new('2019-01-01') + 90;
+
+@res.push: Date.new('2020-01-01') + 90;
+
+try { 
+    @res.push: Date.new('2019-02-29') + 30;
+    CATCH { 
+        default { @res.push: .message } 
+    };
+}
+
+.say for @res; 
+
+my $ref = q:to/END/;
+272
+28
+29
+3653
+2019-04-01
+2020-03-31
+Day out of range. Is: 29, should be in 1..28
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
