@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Generalised_floating_point_addition
+#c# 2019-10-03 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# works with upper limit of 9999 (and almost certainly well beyond)
+#n# Rat/Num change for $e <= -20
+
+my @res;
+
+my $e = 63;
+for -7..21 -> $n {
+    my $num = '12345679' ~ '012345679' x ($n+7);
+    my $sum = $_ + ($num * $_) * 81 given $e > -20 ?? 10**$e !! Rat.new(1,10**abs $e);
+    @res.push: sprintf "$n:%s", 10**72 == $sum ?? 'Y' !! 'N';
+    $e -= 9;
+}
+
+say my $result = join ' ', @res;
+
+my $ref = '-7:Y -6:Y -5:Y -4:Y -3:Y -2:Y -1:Y 0:Y 1:Y 2:Y 3:Y 4:Y 5:Y 6:Y 7:Y 8:Y 9:Y 10:Y 11:Y 12:Y 13:Y 14:Y 15:Y 16:Y 17:Y 18:Y 19:Y 20:Y 21:Y';
+
+use Test;
+is @res.join(' '), $ref;
