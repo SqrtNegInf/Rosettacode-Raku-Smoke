@@ -3,12 +3,10 @@
 #c# 2016-06-04 <RC, 2018-05-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 'sort' tweak broke JVM
+#n# 'sort' tweak broke JVM (but now fixed)
 #n# hash order randomization required tweak to algorithm
 
 srand 123456;
-
-# Works with: rakudo version 2015-09-16
 
 # We use Complex numbers to represent points in the plane. We feed the algorithm with three artificially made clouds of points so we can easily see if the output makes sense.
 
