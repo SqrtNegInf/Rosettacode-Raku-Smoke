@@ -10,6 +10,7 @@
 #  toodamnslow - extract timings embedded in programs with:
 #  nocode - have no runnable code
 #  skiptest - hard to test
+#  inprogress - WIP
 #  interactive - requires user input
 #  gui - requires windowing system (X11,Tk,GTK,SDL)
 #  forever - hangs, never terminates
@@ -77,7 +78,7 @@ $exe .= $mode eq 'jvm' ? '-j -I lib ' : '-m';
 
 system "date";
 
-my $skip = 'interactive|gui|toodamnslow|skiptest|nocode|forever|broken';
+my $skip = 'interactive|gui|toodamnslow|skiptest|inprogress|nocode|forever|broken';
 
 # find Perl6 programs
 $DB::single = 1;
