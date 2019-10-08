@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 'mode2' not on RC
+#n# oops, wasn't testing 'mode3', so fix that, and just for fun convert to method, as per: 
+#n# https://zostay.com/archive/2019/10/03/quickly-using-a-sub-as-a-method.html
 
 sub mode1 (*@a) {
     my %counts := @a.Bag;
@@ -32,8 +34,8 @@ my @res1 = mode1 [1, 3, 6, 6, 6, 6, 7, 7, 12, 12, 17];
 my @res2 = mode2(1, 3, 6, 6, 6, 6, 7, 7, 12, 12, 17);
 @res2.push: sort mode2 [1, 1, 2, 4, 4];
 
-my @res3 = mode2 <1 3 6 6 6 6 7 7 12 12 17>;
-@res3.push: sort mode2 [1, 1, 2, 4, 4];
+my @res3 = <1 3 6 6 6 6 7 7 12 12 17>.&mode3;
+@res3.push: sort [1, 1, 2, 4, 4].&mode3;
 
 my $ref = q:to/END/;
 6
