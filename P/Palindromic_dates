@@ -16,7 +16,7 @@
 #n#   non-cryptic variable names
 #n#   working the DRY principle pretty hard (too far?)
 #n#
-#n# every so often:
+#n# At one point seeing this, but seems to have cleared up:
 #n#  perl6(80736,0x70000280d000) malloc: *** error for object 0x7fdf654fc000: incorrect checksum for freed object - object was probably modified after being freed.
 #n#  *** set a breakpoint in malloc_error_break to debug
 
@@ -83,6 +83,10 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
         # also for readability: using <or and not> instead of <|| && !>
         next if $month == Feb and ( $day > 29 or ($day == 29 and not leap-year $year) );
         next if $day == 31 and $month == any Apr, Jun, Sep, Nov;
+
+        # compare with the less readble version:
+#       next if $month == 2 && ( $day > 29 || ($day == 29 && ! leap-year $year) );
+#       next if $day == 31 && $month == any 4, 6, 9, 11;
 
         # store with key of date in yyyymmdd format (useful for sorting) and a value that has a separator
         %palindromes{ sprintf '%0' ~ $last-year.chars ~ 'd%02d%02d', $year, $month, $day } = join $separator, @date-triple;
