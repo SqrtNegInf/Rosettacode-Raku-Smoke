@@ -12,9 +12,8 @@
 
 my @res;
 
-sub super-d ($d) {
-my $max = 10;
-my $over = $max + floor $max/$d;
+sub super-d ($d,$max) {
+my $over = $max + floor 2*$max/$d;
 my @super[$over] = 0 xx $over;
 {
 my $digits = $d x $d;
@@ -32,12 +31,9 @@ my atomicint $i = 0;
 @super.sort.grep(*>0).head($max);
 }
 
-@res.push: "$_: " ~ join ' ', super-d($_) for 2..8;
+@res.push: "$_: " ~ join ' ', super-d($_,10) for 2..8;
 
-.say for @res; 
-
-my $glorp = q:to/END/;
-END
+.say for @res;
 
 my $ref = q:to/END/;
 2: 19 31 69 81 105 106 107 119 127 131
