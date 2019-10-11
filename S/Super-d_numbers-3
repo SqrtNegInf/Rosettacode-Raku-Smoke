@@ -1,0 +1,41 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Super-d_numbers
+#t# inprogress
+#c# 2019-10-xx NOT ON RC
+#n# divide and conquer, but how to exit early? (i.e. not have fixed termination value)
+# 6:  19.121u  0.806s  0:22.51 88.4% 
+# 7:  66.453u  2.225s  1:17.06 89.1%
+# 8: 511.772u 29.748s  4:18.93 209.1%
+
+# 7: 119.011u  2.402s  2:18.58 87.6% no concur.
+# 8:2246.582u 46.147s 50:03.70 76.3% no concur.
+
+sub super ($d) {
+my $digits = $d x $d;
+my @super[12];
+my $inc = 100_000;
+my atomicint $i = 0;
+outer-loop: loop {
+(0, 1*$inc, 2*$inc ... *).race(:1batch).map: -> $n {
+  inner-loop: loop {
+    for $n+1 .. $n+1+$inc {
+        next unless ($_ ** $d  *  $d).contains($digits);
+        @super[$i⚛++] = $_;
+        #last inner-loop if $i >= 10;
+        last outer-loop if $i >= 10;
+        #say join(' ', sort @super[^10]) and exit if $i >= 10;
+    }
+  }
+  #LAST { say 'Hurp'; last outer-loop if $i >= 10; } # error: Phasers not allows in .race
+}
+LAST { say 'Flirp'; return sort @super[^10] }
+} # end of OUTER
+say 'Glorp'; return sort @super[^10]
+}
+
+super(6);
+#say join ' ', super($_) for 6..7;
+
+#6: 27257 272570 302693 323576 364509 502785 513675 537771 676657 678146
+#7: 140997 490996 1184321 1259609 1409970 1783166 1886654 1977538 2457756 2714763
+#8: 6415190 185423 641519 1551728 1854230 15517280 16561735 12043464 12147605 18542300
