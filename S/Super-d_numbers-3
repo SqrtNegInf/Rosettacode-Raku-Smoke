@@ -2,38 +2,38 @@
 #u# http://rosettacode.org/wiki/Super-d_numbers
 #c# 2019-10-xx NOT ON RC
 #n# divide and conquer, but how to exit early? (i.e. not have fixed termination value)
-#n# $inc, $over are tunable parameters, scale with $d
+#n# similar issue raised in comment @ https://6guts.wordpress.com/2017/03/16/considering-hyperrace-semantics/
+#n# $chunk, $max-plus are tunable parameters, scale with $d
 
-# 7: 119.011u  2.402s  2:18.58  87.6% no concur.
-# 7:  86.718u  3.277s  0:33.13 271.5%
+# 7:  119.011u   2.402s  2:18.58  87.6% no concurrency
+# 8: 2246.582u  46.147s 50:03.70  76.3%      "
 
-# 8:2246.582u 46.147s 50:03.70  76.3% no concur.
-# 8: 856.339u 25.286s  5:04.94 289.1%
-
-# 9:6086.10u  201.76s 41:52.46 250.2%
+# 7:   89.992u   3.948s   :27.72 338.8%
+# 8:  930.205u  36.407s  4:21.07 370.2%
+# 9: 8561.503u 274.300s 41:01.21 359.0%
 
 my @res;
 
 sub super-d ($d,$max) {
-my $over = $max + floor 2*$max/$d;
-my @super[$over] = 0 xx $over;
-{
-my $digits = $d x $d;
-my $inc    = 25 * $max * $d;
-my atomicint $i = 0;
-(0, 1*$inc, 2*$inc ... *).race(:1batch).map: -> $n {
-    for $n+1 .. $n+1+$inc {
-        next unless ($_ ** $d  *  $d).contains($digits);
-        @super[$i⚛++] = $_;
-        X::AdHoc.new.throw if $i >= $over;
+    my $max-plus = $max + floor 2*$max/$d;
+    my @super[$max-plus];
+    {
+        my $digits = $d x $d;
+        my $chunk  = 25 * $max * $d;
+        my atomicint $found = 0;
+        (0, 1*$chunk, 2*$chunk ... *).race(:8degree, :1batch).map: -> $i {
+            for $i+1 .. $i+1+$chunk -> $n {
+                next unless ($n ** $d  *  $d).contains($digits);
+                @super[$found⚛++] = $n;
+                X::AdHoc.new.throw if $found == $max-plus;
+            }
+        }
+        CATCH { when X::AdHoc { } }
     }
-  }
-    CATCH { when X::AdHoc { } }
-}
-@super.sort.grep(*>0).head($max);
+    @super.sort.grep(+*).head($max);
 }
 
-@res.push: "$_: " ~ join ' ', super-d($_,10) for 2..6;
+@res.push: "$_: " ~ join ' ', super-d($_,10) for 2..7;
 
 .say for @res;
 
@@ -43,9 +43,10 @@ my $ref = q:to/END/;
 4: 1168 4972 7423 7752 8431 10267 11317 11487 11549 11680
 5: 4602 5517 7539 12955 14555 20137 20379 26629 32767 35689
 6: 27257 272570 302693 323576 364509 502785 513675 537771 676657 678146
+7: 140997 490996 1184321 1259609 1409970 1783166 1886654 1977538 2457756 2714763
 END
-#7: 140997 490996 1184321 1259609 1409970 1783166 1886654 1977538 2457756 2714763
 #8: 185423 641519 1551728 1854230 6415190 12043464 12147605 15517280 16561735 18542300
+#9: 17546133 32613656 93568867 107225764 109255734 113315082 121251742 175461330 180917907 182557181
 
 use Test;
 is @res.join("\n"), chomp $ref;
