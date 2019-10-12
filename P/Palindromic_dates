@@ -85,8 +85,8 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
         next if $day == 31 and $month == any Apr, Jun, Sep, Nov;
 
         # compare with the less readble version:
-#       next if $month == 2 && ( $day > 29 || ($day == 29 && ! leap-year $year) );
-#       next if $day == 31 && $month == any 4, 6, 9, 11;
+#        next if $month == 2 && ( $day > 29 || ($day == 29 && ! leap-year $year) );
+#        next if $day == 31 && $month == any 4, 6, 9, 11;
 
         # store with key of date in yyyymmdd format (useful for sorting) and a value that has a separator
         %palindromes{ sprintf '%0' ~ $last-year.chars ~ 'd%02d%02d', $year, $month, $day } = join $separator, @date-triple;
