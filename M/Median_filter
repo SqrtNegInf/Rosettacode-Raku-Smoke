@@ -1,0 +1,12 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Median_filter
+#c# 2019-10-12 >RC
+#p# OK
+#f# RC file: plasma_median.png
+
+use PDL:from<Perl5>;
+use PDL::Image2D:from<Perl5>;
+
+my $image = rpic 'ref/plasma-perl6.png';
+my $smoothed = med2d $image, ones(3,3), {Boundary => 'Truncate'};
+wpic $smoothed, 'run/plasma_median.png';
