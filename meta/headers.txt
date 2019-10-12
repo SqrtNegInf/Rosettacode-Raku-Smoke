@@ -6460,7 +6460,7 @@ File: P/Palindromic_dates
 #n#   non-cryptic variable names
 #n#   working the DRY principle pretty hard (too far?)
 #n#
-#n# every so often:
+#n# At one point seeing this, but seems to have cleared up:
 #n#  perl6(80736,0x70000280d000) malloc: *** error for object 0x7fdf654fc000: incorrect checksum for freed object - object was probably modified after being freed.
 #n#  *** set a breakpoint in malloc_error_break to debug
 
@@ -9504,12 +9504,24 @@ File: S/Super-d_numbers-2
 File: S/Super-d_numbers-3
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Super-d_numbers
-#t# inprogress
+#c# 2019-10-11 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# Divide and conquer is the strategy, but how to exit early (i.e. not have fixed termination value)?
+#n# Using an X::AdHoc exception to leave the .race block
+#n# Similar issue raised in comment @ https://6guts.wordpress.com/2017/03/16/considering-hyperrace-semantics/
+#n# Due to overhead, concurrency makes little sense for d < 6, but code does return correct results for all d
+#n# $chunk, $max-plus are tunable parameters, that scale with $d; depending how these are set there's the danger 
+#n# of missing a value in the 'first N' series, but maybe I can have just a little bit of peril?
+
+File: S/Super-d_numbers-3.0
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Super-d_numbers
 #c# 2019-10-xx NOT ON RC
 #n# divide and conquer, but how to exit early? (i.e. not have fixed termination value)
-# 6:  19.121u  0.806s  0:22.51 88.4% 
-# 7:  66.453u  2.225s  1:17.06 89.1%
-# 8: 511.772u 29.748s  4:18.93 209.1%
+#n# similar issue raised in comment @ https://6guts.wordpress.com/2017/03/16/considering-hyperrace-semantics/
+#n# $chunk, $max-plus are tunable parameters, scale with $d
+#n# due to overhead, concurrency makes little sense for d < 6, but does return correct results for all d
 
 File: S/Superellipse
 #!/usr/bin/env perl6
