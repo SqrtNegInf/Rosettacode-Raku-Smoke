@@ -13,7 +13,7 @@ for $digits.map: * - 1 -> $exp {
     my $start = sum (0..$exp).map( { 10 ** $_ * ($exp - $_ + 1) });
     my $end   = 10**($exp+1) - sum (^$exp).map( { 10 ** $_ * ($exp - $_) } ) - 1;
 
-    #($start ..^ $end).race(:8degree, :3batch).map: -> $den { # not for JVM
+    #($start ..^ $end).race(:8degree).map: -> $den { # only minor benefit
     for $start ..^ $end -> $den {
         next if $den.contains: '0';
         next if $den.comb.unique <= $exp;
