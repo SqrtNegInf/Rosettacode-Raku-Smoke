@@ -3,6 +3,7 @@
 #c# 2019-02-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# .hyper just slows things down?
 
 my @res;
 
@@ -14,7 +15,8 @@ sub comma { $^i.flip.comb(3).join(',').flip }
 
 for 2..10 -> \k {
     next if k %% 3;
-    my @cubans = lazy (1..Inf).hyper(:8degree).map({ (($_+k)³ - .³)/k }).grep: *.is-prime;
+    my @cubans = lazy (1..Inf).map({ (($_+k)³ - .³)/k }).grep: *.is-prime;
+    #my @cubans = lazy (1..Inf).hyper(:8degree).map({ (($_+k)³ - .³)/k }).grep: *.is-prime;
     @res.push: "First 20 cuban primes where k = {k}:";
     @res.push: @cubans[^20]».&comma».fmt("%7s").rotor(10).join: "\n";
     @res.push: '';
