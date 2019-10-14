@@ -1,9 +1,12 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Create_an_object_at_a_given_address
 #c# 2018-11-14 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
-
+#n# Broken as of:
+#n# Rakudo version 2019.07.1-396-g1fa7ceddd built on MoarVM version 2019.07.1-265-g95f69be84
+#n# Type check failed for return value; expected NativeCall::Types::Pointer[uint8] but got Whatever (*)
+#n#  in block <unit> at C/Create_an_object_at_a_given_address line 22
 
 # Perl 6 has fairly comprehensive facilities for accessing allocating and accessing memory and also declaring C-style structs, via the NativeCall interface, as this example demonstrates.
 
@@ -16,7 +19,7 @@ sub malloc(size_t) returns Pointer[uint8] is native {*};
 sub memset(Pointer, uint32, size_t) is native {*};
 sub free(Pointer[uint8]) is native {*};
 
-my Pointer[uint8] $base-p = malloc(100);
+my Pointer[uint8] $base-p = malloc(100);  # DH failing here
 memset($base-p, 0, 100);
 
 # define object as a C struct that contains a short and an int
