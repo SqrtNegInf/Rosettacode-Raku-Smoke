@@ -1588,12 +1588,13 @@ File: C/Collections
 File: C/Color_quantization
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Color_quantization
-#t# skiptest
-#c# 2018-11-10 <RC
-#m# MOAR: BROKEN OK
+#c# 2019-10-13 <RC
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#f# RC file: quantum-frog-16.png
+#f# RC file: frog-16.png
+#n# fake-run, results are from Ubuntu 18.04
 #n# need ver. 7 of ImageMagick
+#n# my OS too old to 'zef install MagickWand', '_clock_gettime' missing from /usr/lib/libSystem.B.dylib
 
 File: C/Color_wheel.1
 #!/usr/bin/env perl6
@@ -2005,6 +2006,7 @@ File: C/Cuban_primes-2
 #c# 2019-02-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# .hyper just slows things down?
 
 File: C/Cuban_primes-3
 #!/usr/bin/env perl6
