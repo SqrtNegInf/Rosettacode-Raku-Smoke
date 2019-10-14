@@ -1,9 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Image_convolution
-#c# 2019-10-13 <RC
+#c# 2019-10-13 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: frog_convolution.png
+#n# made an effort to get the MagickWand version to work, but just kept seg faulting...
+#n# just cloning from Perl until something better comes along
 
 use PDL:from<Perl5>;
 use PDL::Image2D:from<Perl5>;
