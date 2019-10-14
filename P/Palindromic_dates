@@ -148,7 +148,7 @@ for find-palindromes(date-fmt, begin , end, :pairs<True>) -> \k, \v {
 # the arrays contain pairs, so use '».value' to get formatted portion
 @res.push: "Using '{date-fmt}' format, in the years {begin} to {end}, there are:";
 for 'non-prime', date-non-prime, 'prime', date-prime -> $type, @dates {
-    @res.push: sprintf "%8d %9s dates (%s ... %s)", +@dates, $type, @dates[0,*-1]».value;
+    @res.push: sprintf "%8d %9s palindromic dates (%s ... %s)", +@dates, $type, @dates[0,*-1]».value;
 }
 # method chaining looks hairy, but is in fact a superpower when combined with hypers
 @res.push: "\nA random selection of the prime palindromic dates:";
@@ -172,8 +172,8 @@ Using 'MM.DD.YYYY' format, the distribution of palindromic dates for the 1st thr
  12 in the 21st century
 
 Using 'yyyy/mm/dd' format, in the years 10001 to 99999, there are:
-    3105 non-prime dates (10010/10/01 ... 92909/09/29)
-     197     prime dates (10011/10/01 ... 92802/08/29)
+    3105 non-prime palindromic dates (10010/10/01 ... 92909/09/29)
+     197     prime palindromic dates (10011/10/01 ... 92802/08/29)
 
 A random selection of the prime palindromic dates:
  10013/10/01  10103/01/01  11102/01/11  11107/01/11  11216/12/11
