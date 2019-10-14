@@ -1,20 +1,21 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Color_quantization
-#t# skiptest
-#c# 2018-11-10 <RC
-#m# MOAR: BROKEN OK
+#c# 2019-10-13 <RC
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#f# RC file: quantum-frog-16.png
+#f# RC file: frog-16.png
+#n# fake-run, results are from Ubuntu 18.04
 #n# need ver. 7 of ImageMagick
+#n# my OS too old to 'zef install MagickWand', '_clock_gettime' missing from /usr/lib/libSystem.B.dylib
+
+sleep 1;
 
 #`{{
 use MagickWand;
 use MagickWand::Enums;
 
 my $frog = MagickWand.new;
-$frog.read("./quantum_frog.png");
+$frog.read("ref/frog.png");
 $frog.quantize(16, RGBColorspace, 0, True, False);
-$frog.write('./quantum-frog-16.png');
-See: Quantum-frog-16-perl6.png (offsite .png image)
-
+$frog.write('./frog-16.png');
 }}
