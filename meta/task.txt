@@ -1,18 +1,18 @@
-This is Rakudo version 2019.07.1-396-g1fa7ceddd built on MoarVM version 2019.07.1-265-g95f69be84
+This is Rakudo version 2019.07.1-398-gf3dda96a8 built on MoarVM version 2019.07.1-268-g07b00bbd7
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1124/10]
-|+-------------> JVM: Good/Bad [958/176]
++--------------> Moar: Good/Bad [1125/11]
+|+-------------> JVM: Good/Bad [958/177]
 ||+------------> Smoke testing [1015]
 |||+-----------> sKipping validation [117]
 ||||+----------> Interactive [56]
-|||||+---------> Touched (modified by me) [271]
+|||||+---------> Touched (modified by me) [273]
 ||||||+--------> Concurrent [47]
 |||||||+-------> Random seed [113]
-||||||||+------> File output [82]
+||||||||+------> File output [83]
 |||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [52]
-|||||||||||+---> Void (no local copy) [122]
+|||||||||||+---> Void (no local copy) [121]
 ||||||||||||+--> Un-implemented/reliable [95]
 |||||||||||||
 GGS.......... 100_doors
@@ -259,7 +259,7 @@ GGS.......... Create_a_file
 GGS..T.R..... Create_a_two-dimensional_array_at_runtime
 GGS....R..... Create_an_HTML_table
 GGS..T...D... Create_an_object_Native_demonstration
-!BS.......... Create_an_object_at_a_given_address
+BB........... Create_an_object_at_a_given_address
 GGS.......... Cuban_primes-1
 GGS...c...... Cuban_primes-2
 GGS.......... Cuban_primes-3
@@ -519,7 +519,7 @@ GBS.......... I_before_E_except_after_C-2
 GGS.......... Identity_matrix
 GBS.......... Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols
 GGS.......... Idiomatically_determine_all_the_lowercase_and_uppercase_letters
-...........V. Image_convolution
+GBS..T..F.... Image_convolution
 GB.KI........ Image_noise
 GGS.......... Imaginary_base_numbers
 GGS......D... Implicit_type_conversion
@@ -1179,7 +1179,7 @@ GGS.......... Top_rank_per_group
 GGS.......... Topic_variable
 GGS..T....... Topological_sort
 GGS......D... Topological_sort_Extracted_top_item
-GBS...C...... Topswops
+GBS..TC...... Topswops
 GGS..T....... Total_circles_area
 GBS...C...... Totient_function
 GGS.......... Towers_of_Hanoi
