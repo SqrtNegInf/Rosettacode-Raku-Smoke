@@ -1592,7 +1592,7 @@ File: C/Color_quantization
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: frog-16.png
-#n# fake-run, results are from Ubuntu 18.04
+#n# fake-run, results are from Ubuntu 18
 #n# need ver. 7 of ImageMagick
 #n# my OS too old to 'zef install MagickWand', '_clock_gettime' missing from /usr/lib/libSystem.B.dylib
 
@@ -1980,8 +1980,12 @@ File: C/Create_an_object_at_a_given_address
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Create_an_object_at_a_given_address
 #c# 2018-11-14 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
+#n# Broken as of:
+#n# Rakudo version 2019.07.1-396-g1fa7ceddd built on MoarVM version 2019.07.1-265-g95f69be84
+#n# Type check failed for return value; expected NativeCall::Types::Pointer[uint8] but got Whatever (*)
+#n#  in block <unit> at C/Create_an_object_at_a_given_address line 22
 
 File: C/Cuban_primes-1
 #!/usr/bin/env perl6
@@ -4300,6 +4304,16 @@ File: I/Idiomatically_determine_all_the_lowercase_and_uppercase_letters
 #m# MOAR: OK
 #j#  JVM: OK
 #    pretty rough, but whatever!
+
+File: I/Image_convolution
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Image_convolution
+#c# 2019-10-13 >RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: frog_convolution.png
+#n# made an effort to get the MagickWand version to work, but just kept seg faulting...
+#n# just cloning from Perl until something better comes along
 
 File: I/Image_noise
 #!/usr/bin/env perl6
@@ -9984,11 +9998,12 @@ File: T/Topological_sort_Extracted_top_item
 File: T/Topswops
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Topswops
-#c# 2018-12-01 <RC
+#c# 2018-12-01 <RC, 2019-10-14 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for JVM, use .1 version
 #n# bumping up to 9 swaps, but 10 still too slow ( > 7 min)
+#n# even with ':25batch', 10 is slow: 1924.109u 52.896s 6:38.00 496.7%
 
 File: T/Topswops.1
 #!/usr/bin/env perl6
