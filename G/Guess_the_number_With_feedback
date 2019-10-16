@@ -30,3 +30,6 @@ repeat until my $guessed-right {
     }
 }
 say "Great you guessed right after $count attempts!";
+
+use Test;
+is $number, 3;
