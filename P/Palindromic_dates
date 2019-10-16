@@ -105,6 +105,7 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
 my $date-format = 'M-D-Y'; # this yields date that are not zero-padded
 
 # match operates on version of string from which non-digits have been removed
+dd find-palindromes($date-format); exit;
 my @m-d-y = grep { $_.subst(/<-[0..9]>/, '', :g) ~~ /^ (<[0..9]>) $0* $/ }, find-palindromes($date-format);
 
 # variables and arbitrary code can be interpolated in strings
