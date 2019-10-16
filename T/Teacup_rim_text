@@ -10,7 +10,7 @@ my @res;
 my %words;
 './ref/wordlist.10000'.IO.slurp.words.map: { .chars < 3 ?? (next) !! %words{.uc.comb.sort.join}.push: .uc };
 
-for %words.keys { %words{$_}:delete if %words{$_}.elems < 2 or $_.chars < 3 };
+#for %words.keys { %words{$_}:delete if %words{$_}.elems < 2 or $_.chars < 3 }; # DH not really necessary
 
 my @teacups;
 my %seen;
