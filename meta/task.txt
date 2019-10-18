@@ -1,12 +1,12 @@
-This is Rakudo version 2019.07.1-398-gf3dda96a8 built on MoarVM version 2019.07.1-268-g07b00bbd7
+This is Rakudo version 2019.07.1-413-g75d705f19 built on MoarVM version 2019.07.1-279-g0aa43a983
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1125/11]
++--------------> Moar: Good/Bad [1123/11]
 |+-------------> JVM: Good/Bad [958/177]
 ||+------------> Smoke testing [1015]
 |||+-----------> sKipping validation [117]
 ||||+----------> Interactive [56]
-|||||+---------> Touched (modified by me) [273]
+|||||+---------> Touched (modified by me) [274]
 ||||||+--------> Concurrent [47]
 |||||||+-------> Random seed [113]
 ||||||||+------> File output [83]
@@ -848,7 +848,7 @@ GGS.......... Price_fraction
 GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
 GBS...C...... Prime_decomposition
-GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
+!GS..T....... Primes_-_allocate_descendants_to_their_ancestors
 GG.K.TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS..T....... Primorial_numbers
 GGS.......... Primorial_numbers-2
@@ -1251,7 +1251,7 @@ GBS..T....... Web_scraping
 GGS.......... Weird_numbers
 .........D... Welch%27s_t-test
 GGS.......... Welch%27s_t-test-1
-GBS.......... Welch%27s_t-test-2
+GBS..T....... Welch%27s_t-test-2
 ..........XV. Window_creation
 BB.KI.....X.. Window_creation_X11
 GB.KI.....X.. Window_management
@@ -1268,7 +1268,7 @@ GGS..T.R..... Write_language_name_in_3D_ASCII
 GBS.......... XML_DOM_serialization
 GBS..T....... XML_Input
 GBS.......... XML_Output
-GBS......D... XML_Validation
+!BS......D... XML_Validation
 GBS.......... XML_XPath
 GGS..T....... Xiaolin_Wu%27s_line_algorithm
 GGS.......... Y_combinator
