@@ -17,7 +17,7 @@ sub swops(@a is copy) {
 }
 
 #sub topswops($n) { max (1..$n).permutations.map: *.&swops }                            # none
-sub topswops($n) { max (1..$n).permutations.race.map: *.&swops }                        # bare
+sub topswops($n) { max (1..$n).permutations.race.map: *.&swops }                        # default
 #sub topswops($n) { max (1..$n).permutations.race(:20batch).map: *.&swops }             # batch
 #sub topswops($n) { max (1..$n).permutations.race(:8degree).map: *.&swops }             # degree
 #sub topswops($n) { max (1..$n).permutations.race(:8degree, :20batch).map: *.&swops }   # degbat
@@ -41,3 +41,33 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
+
+#`{
+
+distribution of 'sys' timings for 'default' option over 100 runs:
+
+  0 =============================================================================
+ 10
+ 20
+ 30
+ 40
+ 50 =
+ 60 ==============
+ 70 =
+ 80 =======
+
+and the corresponding 'real' timings:
+
+  0
+ 10
+ 20
+ 30 ======================================
+ 40 =======================================
+ 50
+ 60
+ 70
+ 80 =
+ 90 ==============
+100 =======
+
+}
