@@ -53,7 +53,8 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
     $format .= subst(/<-[YMD]>/, '', :g);
 
     # again, update in place if need be
-    $last-year = 99 if 2 >= $0.Str.chars given $format ~~ /(Y+)/; # make executive decision to avoid duplicative results
+    $last-year = 99 if 2 >= $0.chars given $format ~~ /(Y+)/; # make executive decision to avoid duplicative results
+    #$last-year = 99 if 2 >= $0.Str.chars given $format ~~ /(Y+)/; # make executive decision to avoid duplicative results
 
     # parse the cleaned-up format string, keeping track of order and length of time units
     my $i;
@@ -105,7 +106,6 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
 my $date-format = 'M-D-Y'; # this yields date that are not zero-padded
 
 # match operates on version of string from which non-digits have been removed
-dd find-palindromes($date-format); exit;
 my @m-d-y = grep { $_.subst(/<-[0..9]>/, '', :g) ~~ /^ (<[0..9]>) $0* $/ }, find-palindromes($date-format);
 
 # variables and arbitrary code can be interpolated in strings
