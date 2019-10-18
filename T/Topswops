@@ -1,11 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Topswops
-#c# 2018-12-01 <RC, 2019-10-14 >RC
+#c# 2018-12-01 <RC, 2019-10-16 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for JVM, use .1 version
 #n# bumping up to 9 swaps, but 10 still too slow ( > 7 min)
-#n# even with ':25batch', 10 is slow: 1924.109u 52.896s 6:38.00 496.7%
+#n# concurrency is sometimes not working well?
 
 sub swops(@a is copy) {
     my int $count = 0;
@@ -16,7 +16,11 @@ sub swops(@a is copy) {
     $count
 }
 
-sub topswops($n) { max (1..$n).permutations.race(:8degree, :25batch).map: *.&swops }
+#sub topswops($n) { max (1..$n).permutations.map: *.&swops }                            # none
+sub topswops($n) { max (1..$n).permutations.race.map: *.&swops }                        # bare
+#sub topswops($n) { max (1..$n).permutations.race(:20batch).map: *.&swops }             # batch
+#sub topswops($n) { max (1..$n).permutations.race(:8degree).map: *.&swops }             # degree
+#sub topswops($n) { max (1..$n).permutations.race(:8degree, :20batch).map: *.&swops }   # degbat
 
 my @res.push: "$_ {topswops $_}" for 1 .. 9; #10;
 
