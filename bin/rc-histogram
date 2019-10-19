@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+## histograms of 'time' output
+# 2019-1-17
+# input format: ^tag-goes-here  35.11 real  127.39 user  2.56 sys$
+
+my $file = @*ARGS.shift || die 'Need a file!';
+my $type = @*ARGS.shift || '.';
+my $time = @*ARGS.shift || 'real';
+
+my @text = grep { /$type/ }, (slurp $file).split("\n");
+
+my @times;
+ (@times.push: +$0 given $_ ~~ /(\S+) \s $time/) for @text;
+#(@times.push: +$0 given       /(\S+) \s $time/) for @text; # why not?
+
+@times.push: 10 * $_ for ^ceiling (max @times)/10;
+
+printf "%3d %s\n", 10*.key, '='x(.value.elems - 1) for sort @times.classify: (*/10).round(1);
