@@ -4069,6 +4069,8 @@ File: H/Heronian_triangles
 #m# MOAR: OK
 #j#  JVM: OK
 #n# .race in 1st or 2nd loop give same speed-up (but not 3rd!); no, cannot nest them, blows up 
+#n# 2019-10-17 concurrency is sometimes not working well?
+#n# 2019-10-18 problem appears to be limited to older MacOS?
 
 File: H/Heronian_triangles.1
 #!/usr/bin/env perl6
@@ -10004,7 +10006,8 @@ File: T/Topswops
 #j# JVM:  BROKEN
 #n# for JVM, use .1 version
 #n# bumping up to 9 swaps, but 10 still too slow ( > 7 min)
-#n# concurrency is sometimes not working well?
+#n# 2019-10-17 concurrency is sometimes not working well?  
+#n# 2019-10-18 problem appears to be limited to older MacOS?
 
 File: T/Topswops.1
 #!/usr/bin/env perl6
