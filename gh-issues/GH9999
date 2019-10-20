@@ -1,0 +1,28 @@
+#!/usr/bin/env perl6
+## please direct me to the Complaints desk!
+#  David H.  2019-10-18
+
+#given 42 { .say; .Numeric; }  # from docs, why two statements in block?
+
+say '-- 0';
+(say $0 given       /(.at)/) for <rate scat abate>;     # fail ## preferred form
+
+say '-- 1';
+'reset' ~~ /(reset)/;
+(say $0 given $_ ~~ /(.at)/) for <rate scat abate>;     # OK  ## closest alternative
+
+say '-- 2';
+'reset' ~~ /(reset)/;
+(given /(.at)/ { say $0 } ) for <rate scat abate>;     # fail ## never process $_ 
+
+say '-- 3';
+'reset' ~~ /(reset)/;
+for <rate scat abate> -> $_ { say $0 given /(.at)/ }    # fail ##       "
+
+say '-- 4';
+'reset' ~~ /(reset)/;
+for <rate scat abate> -> $x { say $0 given $x ~~ /(.at)/ }    # OK
+
+say '-- 5';
+'reset' ~~ /(reset)/;
+/(.at)/ and say $0 for <rate scat abate>;               # OK   ## P5-ish style
