@@ -1,0 +1,141 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Tree_datastructures
+#c# 2019-10-20 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+#`(
+Sort of vague as to what we are trying to accomplish here. If we are just
+trying to transform from one format to another, probably easiest to just
+perform string manipulations.
+)
+
+my $level = '  ';
+
+my $tree = q:to/END/;
+    RosettaCode
+      encourages
+        code
+          diversity
+          comparison
+      discourages
+        golfing
+        trolling
+        emphasising execution speed
+    code-golf.io
+      encourages
+        golfing
+      discourages
+        comparison
+    END
+
+sub nested-to-indent { $^str.subst: /^^ ($($level))*/, -> $/ { "{+$0} " }, :g }
+sub indent-to-nested { $^str.subst: /^^ (\d+) \s* /, -> $/ { "{$level x +$0}" }, :g }
+
+#say $tree;
+my $indent = $tree.&nested-to-indent;
+my $nest = $indent.&indent-to-nested;
+
+#`(
+If, on the other hand, we want perform more complex transformations, better to
+load it into a native data structure, which will then allow us to manipulate it
+however we like.
+)
+
+my @forest = $tree.comb( /^^\S.+? <?before $ | ^^\S>/);
+my $forest;
+{
+    my $last = -1;
+
+    for @forest -> $tree {
+        for $tree.lines -> $line {
+            $line ~~ /^^ ($($level))* /;
+            given (my $this = +$0) cmp $last {
+                when More { $forest ~= "\['{$line.trim}', "; $last = $this }
+                when Same { $forest ~= "'{$line.trim}', " }
+                when Less { $forest ~= "{']' x $last - $this}, '{$line.trim}', "; $last = $this }
+            }
+        }
+    }
+
+    $forest ~= "{']' x 1 + $last}";
+    use MONKEY-SEE-NO-EVAL;
+    $forest.=EVAL;
+}
+
+@res.push: "\nNative data structure:\n" ~ $forest.perl;
+
+{
+    use JSON::Fast;
+    @res.push: "\nJSON:\n" ~ $forest.&to-json;
+}
+
+{
+    use YAML;
+    @res.push: "\nYAML:\n" ~ $forest.&dump;
+}
+
+my $ref = q:to/END/;
+
+Native data structure:
+$["RosettaCode", ["encourages", ["code", ["diversity", "comparison"]], "discourages", ["golfing", "trolling", "emphasising execution speed"]], "code-golf.io", ["encourages", ["golfing"], "discourages", ["comparison"]]]
+
+JSON:
+[
+  "RosettaCode",
+  [
+    "encourages",
+    [
+      "code",
+      [
+        "diversity",
+        "comparison"
+      ]
+    ],
+    "discourages",
+    [
+      "golfing",
+      "trolling",
+      "emphasising execution speed"
+    ]
+  ],
+  "code-golf.io",
+  [
+    "encourages",
+    [
+      "golfing"
+    ],
+    "discourages",
+    [
+      "comparison"
+    ]
+  ]
+]
+
+YAML:
+---
+- RosettaCode
+- - encourages
+  - - code
+    - - diversity
+      - comparison
+  - discourages
+  - - golfing
+    - trolling
+    - emphasising execution speed
+- code-golf.io
+- - encourages
+  - - golfing
+  - discourages
+  - - comparison
+...
+
+END
+
+#.say for @res;
+
+use Test;
+is($tree, $nest, 'Round-trip equals original');
+is @res.join("\n"), chomp $ref;
