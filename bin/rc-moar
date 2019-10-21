@@ -63,7 +63,8 @@ use Parallel::ForkManager;
 
 $mode = $0 =~ /moar/i ? 'moar' : 'jvm';
 
-system "rakudobrew switch $mode-blead-master";
+my $shim = $mode eq 'moar' ?  '-blead' : '';
+system "rakudobrew switch $mode${shim}-master";
 
 chdir "$ENV{HOME}/perl6/Rosetta-Code" || die;
 
