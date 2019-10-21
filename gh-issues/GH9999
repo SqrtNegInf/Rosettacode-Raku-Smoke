@@ -5,11 +5,11 @@
 #given 42 { .say; .Numeric; }  # from docs, why two statements in block?
 
 say '-- 0';
-(say $0 given       /(.at)/) for <rate scat abate>;     # fail ## preferred form
+{say $0 given       /(.at)/} for <rate scat abate>;     # fail ## preferred form
 
 say '-- 1';
 'reset' ~~ /(reset)/;
-(say $0 given $_ ~~ /(.at)/) for <rate scat abate>;     # OK  ## closest alternative
+{say $0 given $_ ~~ /(.at)/} for <rate scat abate>;     # OK  ## closest alternative
 
 say '-- 2';
 'reset' ~~ /(reset)/;
