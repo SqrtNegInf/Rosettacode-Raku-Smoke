@@ -52,15 +52,20 @@ my $forest;
     for @forest -> $tree {
         for $tree.lines -> $line {
             $line ~~ /^^ ($($level))* /;
-            given (my $this = +$0) cmp $last {
-                when More { $forest ~= "\['{$line.trim}', "; $last = $this }
-                when Same { $forest ~= "'{$line.trim}', " }
-                when Less { $forest ~= "{']' x $last - $this}, '{$line.trim}', "; $last = $this }
+            my $this;
+            $forest ~= do {
+                given ($this = +$0) cmp $last {
+                    when More { "\['{$line.trim}', " }
+                    when Same { "'{$line.trim}', " }
+                    when Less { "{']' x $last - $this}, '{$line.trim}', " }
+                }
             }
+            $last = $this;
+
         }
     }
 
-    $forest ~= "{']' x 1 + $last}";
+    $forest ~= ']' x 1 + $last;
     use MONKEY-SEE-NO-EVAL;
     $forest.=EVAL;
 }
