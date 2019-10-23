@@ -1,0 +1,132 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Factorions
+#c# 2019-08-12 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# placement of .hyper here make it a little faster than newer version (measurable when doing 1.5 million iterations)
+#n# try more bases (note results for 18)
+
+my @res;
+
+constant @f = 1, |[\*] 1..*;
+
+constant $limit = 1500000;
+
+for 2 .. 20 -> $b {
+
+    @res.push: "\nFactorions in base $b:";
+
+    @res.push: "$_ " if $_ == @f[$_] for ^$b;
+
+    (1 .. $limit div $b).hyper(:8degree).map: -> $i {
+        my $sum;
+        my $prod = $i * $b;
+
+        for $i.polymod($b xx *) {
+            $sum += @f[$_];
+            $sum = 0 and last if $sum > $prod
+        }
+
+        next if $sum == 0;
+
+        @res.push: "{$prod + $_} " and last if $sum + @f[$_] == $prod + $_ for ^$b;
+    }
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+Factorions in base 2:
+1 
+2 
+
+Factorions in base 3:
+1 
+2 
+
+Factorions in base 4:
+1 
+2 
+7 
+
+Factorions in base 5:
+1 
+2 
+49 
+
+Factorions in base 6:
+1 
+2 
+25 
+
+Factorions in base 7:
+1 
+2 
+
+Factorions in base 8:
+1 
+2 
+
+Factorions in base 9:
+1 
+2 
+41282 
+
+Factorions in base 10:
+1 
+2 
+145 
+40585 
+
+Factorions in base 11:
+1 
+2 
+26 
+48 
+40472 
+
+Factorions in base 12:
+1 
+2 
+
+Factorions in base 13:
+1 
+2 
+
+Factorions in base 14:
+1 
+2 
+
+Factorions in base 15:
+1 
+2 
+1441 
+
+Factorions in base 16:
+1 
+2 
+5047 
+
+Factorions in base 17:
+1 
+2 
+40465 
+
+Factorions in base 18:
+1 
+2 
+367927 
+
+Factorions in base 19:
+1 
+2 
+40440 
+
+Factorions in base 20:
+1 
+2 
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
