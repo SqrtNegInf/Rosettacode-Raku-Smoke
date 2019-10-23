@@ -1,3 +1,8 @@
+2019-10-22
+Now I remember why I stopped testing JVM... 
+After doing 'make install', edit both <jvm-master/install/bin/{perl6-j,perl}>, need to remove dozens of spurious 
+instances of <${NQP_HOME}> on the line defining NQP_JARS, do: s/..NQP_HOME//g
+
 2019-10-20
 Back to JVM testing as well.
 Using JDK 13: must remove '-noverify' option to 'java'
@@ -6,7 +11,7 @@ Using JDK 13: must remove '-noverify' option to 'java'
 Linux smoke-testing 99% finished
 
 2019-10-15
-header for RC language comparison page?
+header for Raku on RC language comparison page?
 ! {{anchor|Raku|[[Raku]]}} ({{anchor|Raku|[[formerly&nbsp;Perl&nbsp;6]]}})
 
 2019-10-14
