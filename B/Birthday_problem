@@ -57,12 +57,17 @@ exit;
 
 .say for @res;
 
-my $ref = qq:to/END/;
+my $moar = qq:to/END/;
 2 people in a group of 23 share a common birthday. (0.506)
 END
 #3 people in a group of 88 share a common birthday. (0.511)
 #4 people in a group of 187 share a common birthday. (0.503)
 #5 people in a group of 313 share a common birthday. (0.501)
 
+my $jvm = qq:to/END/;
+2 people in a group of 23 share a common birthday. (0.507)
+END
+
 use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
