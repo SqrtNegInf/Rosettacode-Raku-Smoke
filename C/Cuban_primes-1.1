@@ -11,7 +11,8 @@ my @res;
 
 sub comma { $^i.flip.comb(3).join(',').flip }
 
-my @cubans = lazy (1..Inf).hyper(:8degree).map({ ($_+1)³ - .³ }).grep: *.is-prime;
+my @cubans = lazy (1..Inf).map({ ($_+1)³ - .³ }).grep: *.is-prime;
+#my @cubans = lazy (1..Inf).hyper(:8degree).map({ ($_+1)³ - .³ }).grep: *.is-prime;
 
 #@res.push: @cubans[^200]».&comma».fmt("%9s").rotor(10).join: "\n";
 @res.push: @cubans[^200]».&comma».fmt("%9s").rotor(10).join: "\n";
