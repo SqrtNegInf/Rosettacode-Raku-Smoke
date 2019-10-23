@@ -1,0 +1,176 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Eban_numbers
+#c# 2019-02-18 <RC, 2019-02-22 <RC, 2019-03-20 <RC, 2019-03-26 <RC, 2019-06-08 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+#`{
+Modular approach, very little is hard coded. Change the $upto order-of-magnitude limit to adjust the search/display ranges. Change the letter(s) given to the nban sub to modify which letter(s) to disallow.
+Will handle multi-character 'bans'. Demonstrate for e-ban, t-ban and subur-ban.
+Directly find :
+
+ OEIS:A006933 Numbers without e: Eban
+ OEIS:A008521 Numbers without o: Oban
+ OEIS:A008523 Numbers without t: Tban
+ OEIS:A072954 Numbers without a, i, l, t: TALIban
+ OEIS:A072955 Numbers without b, r, s, u: SUBURban
+ OEIS:A072956 Numbers without r, t, u: TURban
+ OEIS:A072957 Numbers without r, u: URban
+ OEIS:A072958 Numbers without a, c, i, l: CALIban
+ OEIS:A089589 Numbers without i: Iban
+ OEIS:A089590 Numbers without u: Uban
+ and so on...
+Considering numbers up to 1021, as the task directions suggest.
+}
+
+use Lingua::EN::Numbers::Cardinal::Cardinal;
+
+sub nban ($seq, $n = 'e') { ($seq).map: { next if .&cardinal.contains(any($n.lc.comb)); $_ } }
+
+sub enumerate ($n, $upto) {
+    my @ban    = flat ((1 .. 99),).map: *.&nban($n);
+    my @orders = (2 .. $upto).map({ 10**$_ X* 1..9 }).map: *.&nban($n);
+    for @orders -> @order {
+        next unless +@order;
+        my @these;
+        @these.append: flat $_, flat @ban X+ $_ for @order;
+        @ban.append: @these
+    }
+    @ban.unshift(0) if 0.&nban($n);
+    @ban
+}
+
+sub count ($n, $upto) {
+    my @orders = (2 .. $upto).map({ 10**$_ X* 1..9 }).map: *.&nban($n);
+    my @count  = elems flat ((1 .. 99),).map: *.&nban($n);
+    @count.push: @count.sum * @orders[$_] + @orders[$_] for ^(+@orders - 1);
+    @count[0] += 1 if 0.&nban($n);
+#    for ^(@count - 1) { if (10**(2+$_)).&nban($n) { @count[$_]++; @count[$_ + 1]-- } }
+    for ^(@count - 1) { if @orders[$_].contains(1) { @count[$_]++; @count[$_ + 1]-- } }
+    [\+] @count;
+}
+
+#for < e o t tali subur tur ur cali i u > -> $n { # All of them
+for < e t subur > -> $n { # An assortment for demonstration
+    my $upto   = 21; # 1e21
+    my @bans   = enumerate($n, 4);
+    my @counts = count($n, $upto);
+
+    # DISPLAY
+    my @k = @bans.grep: * < 1000;
+    my @j = @bans.grep: 1000 <= * <= 4000;
+    @res.push: "\n============= {$n}-ban: =============\n" ~
+        "{$n}-ban numbers up to 1000: {+@k}\n[{@k».&comma}]\n\n" ~
+        "{$n}-ban numbers between 1,000 & 4,000: {+@j}\n[{@j».&comma}]\n" ~
+#        "{$n}-ban numbers up to 1000: {+@k}\n{@k».&comma.gist}\n\n" ~
+#        "{$n}-ban numbers between 1,000 & 4,000: {+@j}\n{@j».&comma.gist}\n" ~
+        "\nCounts of {$n}-ban numbers up to {cardinal 10**$upto}"
+        ;
+    my $s = max (1..$upto).map: { (10**$_).&cardinal.chars };
+    @counts.unshift: @bans.first: * > 10, :k;
+    for @counts.kv -> $k, $c {
+        @res.push: sprintf "Up to and including %{$s}s: %s", cardinal(10**($k+1)), comma($c);
+    }
+}
+
+sub comma { $^i.flip.comb(3).join(',').flip }
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+============= e-ban: =============
+e-ban numbers up to 1000: 19
+[2 4 6 30 32 34 36 40 42 44 46 50 52 54 56 60 62 64 66]
+
+e-ban numbers between 1,000 & 4,000: 21
+[2,000 2,002 2,004 2,006 2,030 2,032 2,034 2,036 2,040 2,042 2,044 2,046 2,050 2,052 2,054 2,056 2,060 2,062 2,064 2,066 4,000]
+
+Counts of e-ban numbers up to one sextillion
+Up to and including                     ten: 3
+Up to and including             one hundred: 19
+Up to and including            one thousand: 19
+Up to and including            ten thousand: 79
+Up to and including    one hundred thousand: 399
+Up to and including             one million: 399
+Up to and including             ten million: 1,599
+Up to and including     one hundred million: 7,999
+Up to and including             one billion: 7,999
+Up to and including             ten billion: 31,999
+Up to and including     one hundred billion: 159,999
+Up to and including            one trillion: 159,999
+Up to and including            ten trillion: 639,999
+Up to and including    one hundred trillion: 3,199,999
+Up to and including         one quadrillion: 3,199,999
+Up to and including         ten quadrillion: 12,799,999
+Up to and including one hundred quadrillion: 63,999,999
+Up to and including         one quintillion: 63,999,999
+Up to and including         ten quintillion: 255,999,999
+Up to and including one hundred quintillion: 1,279,999,999
+Up to and including          one sextillion: 1,279,999,999
+
+============= t-ban: =============
+t-ban numbers up to 1000: 56
+[0 1 4 5 6 7 9 11 100 101 104 105 106 107 109 111 400 401 404 405 406 407 409 411 500 501 504 505 506 507 509 511 600 601 604 605 606 607 609 611 700 701 704 705 706 707 709 711 900 901 904 905 906 907 909 911]
+
+t-ban numbers between 1,000 & 4,000: 0
+[]
+
+Counts of t-ban numbers up to one sextillion
+Up to and including                     ten: 7
+Up to and including             one hundred: 9
+Up to and including            one thousand: 56
+Up to and including            ten thousand: 56
+Up to and including    one hundred thousand: 56
+Up to and including             one million: 57
+Up to and including             ten million: 392
+Up to and including     one hundred million: 393
+Up to and including             one billion: 2,745
+Up to and including             ten billion: 19,208
+Up to and including     one hundred billion: 19,209
+Up to and including            one trillion: 134,456
+Up to and including            ten trillion: 134,456
+Up to and including    one hundred trillion: 134,456
+Up to and including         one quadrillion: 134,457
+Up to and including         ten quadrillion: 941,192
+Up to and including one hundred quadrillion: 941,193
+Up to and including         one quintillion: 6,588,344
+Up to and including         ten quintillion: 6,588,344
+Up to and including one hundred quintillion: 6,588,344
+Up to and including          one sextillion: 6,588,344
+
+============= subur-ban: =============
+subur-ban numbers up to 1000: 35
+[1 2 5 8 9 10 11 12 15 18 19 20 21 22 25 28 29 50 51 52 55 58 59 80 81 82 85 88 89 90 91 92 95 98 99]
+
+subur-ban numbers between 1,000 & 4,000: 0
+[]
+
+Counts of subur-ban numbers up to one sextillion
+Up to and including                     ten: 6
+Up to and including             one hundred: 35
+Up to and including            one thousand: 35
+Up to and including            ten thousand: 35
+Up to and including    one hundred thousand: 35
+Up to and including             one million: 36
+Up to and including             ten million: 216
+Up to and including     one hundred million: 1,295
+Up to and including             one billion: 1,295
+Up to and including             ten billion: 1,295
+Up to and including     one hundred billion: 1,295
+Up to and including            one trillion: 1,295
+Up to and including            ten trillion: 1,295
+Up to and including    one hundred trillion: 1,295
+Up to and including         one quadrillion: 1,295
+Up to and including         ten quadrillion: 1,295
+Up to and including one hundred quadrillion: 1,295
+Up to and including         one quintillion: 1,295
+Up to and including         ten quintillion: 1,295
+Up to and including one hundred quintillion: 1,295
+Up to and including          one sextillion: 1,295
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
