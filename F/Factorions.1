@@ -2,8 +2,7 @@
 #u# http://rosettacode.org/wiki/Factorions
 #c# 2019-08-12 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# placement of .hyper here make it a little faster than newer version (measurable when doing 1.5 million iterations)
+#j# JVM:  OK
 #n# try more bases (note results for 18)
 
 my @res;
@@ -18,7 +17,7 @@ for 2 .. 20 -> $b {
 
     @res.push: "$_ " if $_ == @f[$_] for ^$b;
 
-    (1 .. $limit div $b).hyper(:8degree).map: -> $i {
+    (1 .. $limit div $b).map: -> $i {
         my $sum;
         my $prod = $i * $b;
 
