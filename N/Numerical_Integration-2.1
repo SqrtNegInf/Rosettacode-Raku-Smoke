@@ -5,10 +5,15 @@
 #t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
-#   20161123: 18213.707u  129.950s 5:11:41.81 98.0%
-#   20181004: 12358.237u   77.530s 3:33:55.73 96.8%
-#   20181005: 21706.381u 1122.124s 1:55:54.67 328.2%  # with 'Promise'
-#   _NEXT_
+#n# 2 out of 3 ain't bad, but then: java.lang.OutOfMemoryError: Java heap space
+
+#`{
+::STDERR::
+java.lang.OutOfMemoryError: Java heap space
+  in sub midrect at N/Numerical_Integration-2.1 line 28
+  in sub try'em at N/Numerical_Integration-2.1 line 62
+  in block <unit> at N/Numerical_Integration-2.1 line 110
+}
 
 use MONKEY-SEE-NO-EVAL; #DH
 
