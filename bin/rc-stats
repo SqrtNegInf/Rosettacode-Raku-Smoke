@@ -39,7 +39,7 @@ sub tally {
 my($dir) = @_;
 my($m,$s,$t,$rc,$cnt,$sum,@top);
 
-my($date) = $dir =~ m#bench/(.*)-m#;
+my($date) = $dir =~ m#bench/(.*)-[jm]#;
 my $rkbuild = `grep $date bench/rakudo-builds.txt`;
 $rkbuild =~ s/^.*This is //; $rkbuild =~ s/\s+$//;
 say "=========> $rkbuild <=========\n";
