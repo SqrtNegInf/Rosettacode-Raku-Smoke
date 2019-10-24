@@ -6,7 +6,6 @@
 #n# for JVM: test with Largest_number_divisible_by_its_digits.1
 #n# better than 5-folder improvement with .race  and better tests
 
-# Works with: Rakudo version 2017.08
 #`{
 Base 10[edit]
 The number can not have a zero in it, that implies that it can not have a 5 either since if it has a 5, it must be divisible by 5, but the only numbers divisible by 5 end in 5 or 0. It can't be zero, and if it is odd, it can't be divisible by 2, 4, 6 or 8. So that leaves 98764321 as possible digits the number can contain. The sum of those 8 digits is not divisible by three so the largest possible integer must use no more than 7 of them (since 3, 6 and 9 would be eliminated). Strictly by removing possibilities that cannot possibly work we are down to at most 7 digits.
@@ -56,7 +55,8 @@ my $target = ($div, { $_ - $magic-number } ... 0).race.grep(*.&find-match).first
 my $hexnum = $target.base(16);
 
 @res.push: "Found $hexnum"; # Found a solution, display it
-@res.push: ' ' x 12 ~ 'In base 16' ~ ' ' x 36 ~ 'In base 10';
+@res.push: ' ' x 12 ~ 'In base 16' ~ ' ' x 36 ~ 'In base 10'; # newlines inserted in JVM?
+
 for $hexnum.comb {
     @res.push: sprintf "%s / %s = %s  |  %d / %2d = %19d",
         $hexnum, $_, ($target / :16($_)).base(16),
@@ -94,5 +94,4 @@ FEDCB59726A1348 / 8 = 1FDB96B2E4D4269  |  1147797065081426760 /  8 =  1434746331
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
