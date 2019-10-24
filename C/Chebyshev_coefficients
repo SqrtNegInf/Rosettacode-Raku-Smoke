@@ -44,13 +44,10 @@ my $jvm = qq:to/END/;
 -7.7222292e-06
 -5.8985565e-07
 +1.1521428e-08
-+6.5962992e-10
--1.0022039e-11
++6.5962991e-10
+-1.0022017e-11
 END
 
 use Test;
-if $*VM ~~ /jvm/ {
-is @res.join("\n"), chomp $jvm;
-} else {
-is @res.join("\n"), chomp $moar;
-}
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
