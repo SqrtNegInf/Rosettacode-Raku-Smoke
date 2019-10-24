@@ -2,12 +2,12 @@
 #u# http://rosettacode.org/wiki/Chernick%27s_Carmichael_numbers
 #c# 2019-06-08 <RC
 #m# MOAR: OK
+#j#  JVM: BROKEN
 
 my @res;
 
 #Use the ntheory library from Perl 5 for primality testing since it is much, much faster than Perl 6s built-in .is-prime method.
 
-use Inline::Perl5;
 use ntheory:from<Perl5> <:all>;
 
 sub chernick-factors ($n, $m) {
