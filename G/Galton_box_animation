@@ -4,7 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #i# RC cli: 10 4
-#f# RC file: galton_box.dat
+#f# RC file: galton_box.BEND
+#n# 'RC cli' isn't working for 'rc-jvm'?
 #n# minor idiomatification
 
 srand 123456;
@@ -149,7 +150,8 @@ sub simulate($coins is copy) {
     }
 }
 
-sub MAIN($coins =250, $peg-lines = 13) {
+#sub MAIN($coins =250, $peg-lines = 13) {
+sub MAIN($coins =10, $peg-lines = 4) {
     $row-count = $peg-lines;
     simulate($coins);
 }
