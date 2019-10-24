@@ -2,11 +2,7 @@
 #u# http://rosettacode.org/wiki/Four_is_magic
 #c# 2017-10-04 <RC, 2019-06-08 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-
-BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
-
-# Works with: Rakudo version 2017.09
+#j# JVM:  OK
 
 use Lingua::EN::Numbers;
 
@@ -54,5 +50,4 @@ One hundred fifteen quattuorvigintillion seven hundred ninety-two trevigintillio
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
