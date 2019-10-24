@@ -232,6 +232,14 @@ File: A/Abundant_odd_numbers
 #j# JVM:  BROKEN
 #n# takes well over 5 seconds to complete (on my really-truly-not-very-fast system)
 
+File: A/Abundant_odd_numbers.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Abundant_odd_numbers
+#c# 2019-05-17 <RC, 2019-06-12 >RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# takes well over 5 seconds to complete (on my really-truly-not-very-fast system)
+
 File: A/Accumulator_factory
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Accumulator_factory
@@ -673,6 +681,14 @@ File: A/Attractive_numbers
 #n# as of 2019-08-12 a speedier version via Perl/ntheory library
 
 File: A/Attractive_numbers.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Attractive_numbers
+#c# 2019-04-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# as of 2019-08-12 a speedier version via Perl/ntheory library
+
+File: A/Attractive_numbers.2
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Attractive_numbers
@@ -1120,9 +1136,9 @@ File: B/Brazilian_numbers
 File: B/Brazilian_numbers.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brazilian_numbers
-#c# 2019-08-12 <RC
+#c# 2019-08-12 <RC, 2019-08-14 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: B/Break_OO_privacy
 #!/usr/bin/env perl6
@@ -2999,6 +3015,14 @@ File: F/Factorions.1
 #u# http://rosettacode.org/wiki/Factorions
 #c# 2019-08-12 <RC
 #m# MOAR: OK
+#j# JVM:  OK
+#n# try more bases (note results for 18)
+
+File: F/Factorions.2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Factorions
+#c# 2019-08-12 <RC
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# placement of .hyper here make it a little faster than newer version (measurable when doing 1.5 million iterations)
 #n# try more bases (note results for 18)
@@ -3102,6 +3126,13 @@ File: F/Fermat_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# thundergnat: I gave up on factoring F₉ after about 20 minutes.
+
+File: F/Fermat_numbers.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Fermat_numbers
+#c# 2019-08-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: F/Fibonacci_n-step_number_sequences
 #!/usr/bin/env perl6
@@ -6290,10 +6321,7 @@ File: N/Numerical_Integration-2.1
 #t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
-#   20161123: 18213.707u  129.950s 5:11:41.81 98.0%
-#   20181004: 12358.237u   77.530s 3:33:55.73 96.8%
-#   20181005: 21706.381u 1122.124s 1:55:54.67 328.2%  # with 'Promise'
-#   _NEXT_
+#n# 2 out of 3 ain't bad, but then: java.lang.OutOfMemoryError: Java heap space
 
 File: N/Numerical_and_alphabetical_suffixes
 #!/usr/bin/env perl6
