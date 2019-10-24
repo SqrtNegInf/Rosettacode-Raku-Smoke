@@ -1,0 +1,220 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Display_an_outline_as_a_nested_table
+#c# 2019-10-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+# Use a slightly more complicated outline than the task example to test some edge conditions. Limited to about a 10 x 10 outline (table) as is. Easily adapted for larger if necessary.
+
+my $outline = q:to/END/;
+    Display an outline as a nested table.
+        Parse the outline to a tree,
+            measuring the indent of each line,
+            translating the indentation to a nested structure,
+            and padding the tree to even depth.
+        count the leaves descending from each node,
+            defining the width of a leaf as 1,
+            and the width of a parent node as a sum.
+                (The sum of the widths of its children)
+                Propagating the sums upward as necessary.
+        and write out a table with 'colspan' values
+            either as a wiki table,
+            or as HTML.
+        Optionally add color to the nodes.
+    END
+
+# Import outline paragraph into native data structure
+sub import (Str $trees, $level = '  ') {
+    my $forest;
+    my $last = -Inf;
+
+    for $trees.lines -> $branch {
+        $branch ~~ / ($($level))* /;
+        my $this = +$0;
+        $forest ~= do {
+            given $this cmp $last {
+                when More { "\['{esc $branch.trim}', " }
+                when Same { "'{esc $branch.trim}', " }
+                when Less { "{']' x $last - $this}, '{esc $branch.trim}', " }
+            }
+        }
+        $last = $this;
+    }
+
+    sub esc { $^s.subst( /(<['\\]>)/, -> $/ { "\\$0" }, :g) }
+
+    $forest ~= ']' x 1 + $last;
+    use MONKEY-SEE-NO-EVAL;
+    $forest.EVAL;
+}
+
+my @AoA = import $outline, '    ';
+my @layout;
+
+# Collect information about node depth, position and children
+{
+    my @width = 0;
+    my $depth = -1;
+    @AoA.&insert;
+
+    multi insert ($item) {
+        @width[*-1]++;
+        @layout.push: { :depth($depth.clone), :id(@width[*-1].clone), :text($item) };
+    }
+
+    multi insert (@array) {
+        @width.push: @width[*-1] * 10;
+        ++$depth;
+        @array.map: *.&insert;
+        --$depth;
+        @width.pop;
+    }
+}
+
+my $max-depth = @layout.max( *.<depth> )<depth>;
+
+# Pad ragged nodes
+for (^$max-depth) -> $d {
+    my @nodes = @layout.grep( *.<depth> == $d );
+    for @nodes.sort( +*.<id> ) -> $n {
+        unless @layout.first( *.<id> == $n<id> ~ 1 ) {
+            @layout.push: { :depth($n<depth> + 1), :id($n<id> *10 + 1), :text('') };
+        }
+    }
+}
+
+# Calculate spans (child nodes)
+for (0..$max-depth).reverse -> $d {
+    my @nodes = @layout.grep( *.<depth> == $d );
+    for @nodes.sort( +*.<id> ) -> $n {
+        my @span = @layout.grep: {.<depth> == $d + 1 && .<id>.starts-with: $n<id> };
+        $n<span> = ( sum @span.map( { .<span> // 0} )) || +@span || 1;
+    }
+}
+
+# Programatically assign colors
+for (0..$max-depth) -> $d {
+    my @nodes = @layout.grep( *.<depth> == $d );
+    my $incr = 1 / (1 + @nodes);
+    for @nodes.sort( +*.<id> ) -> $n {
+        my $color = hsv2rgb( ++$ * $incr, ($d + 1) * .1, 1);
+        $n<color> = $n<text> ?? "style=\"background: #$color\" " !! '';
+    }
+}
+
+# Generate wikitable
+my $result1 = '{| class="wikitable" style="text-align: center;"' ~ "\n" ~
+(join "\n|-\n", (0..$max-depth).map: -> $d {
+    my @nodes = @layout.grep( *.<depth> == $d );
+    (join "\n", @nodes.sort( +*.<id> ).map( -> $node {
+        '| ' ~
+        ($node<color> ?? $node<color> !! '' ) ~
+        ($node<span> > 1 ?? "colspan=$node<span>" !! '' ) ~
+        ' | ' ~ $node<text> }
+    ))
+}) ~ "\n|}";
+
+#say "\n\nReally though, it makes much more sense to display an outline as...
+#well... as an outline, rather than as a table." ~ Q|¯\_(ツ)_/¯| ~ "\n";
+
+
+my $result2;
+{ ## Outline - Ordered List #######
+    my @type = <I A 1 a i>;
+    my $depth = 0;
+
+    multi ol ($item) { "\<li>$item\n" }
+
+    multi ol (@array) {
+        my $li = $depth ?? "</li>" !! '';
+        $depth++;
+        my $list = "<ol type='{@type[$depth - 1]}'>\n" ~
+        ( @array.map( *.&ol ).join ) ~ "</ol>$li\n";
+        $depth--;
+        $list
+    }
+
+    $result2 ="<div style=\"background: #ffe;\">\n" ~ @AoA.&ol ~ "</div>";
+}
+
+sub hsv2rgb ( $h, $s, $v ){
+    my $c = $v * $s;
+    my $x = $c * (1 - abs( (($h*6) % 2) - 1 ) );
+    my $m = $v - $c;
+    my ($r, $g, $b) = do given $h {
+        when   0..^(1/6) { $c, $x, 0 }
+        when 1/6..^(1/3) { $x, $c, 0 }
+        when 1/3..^(1/2) { 0, $c, $x }
+        when 1/2..^(2/3) { 0, $x, $c }
+        when 2/3..^(5/6) { $x, 0, $c }
+        when 5/6..1      { $c, 0, $x }
+    }
+    ( $r, $g, $b ).map( ((*+$m) * 255).Int)».base(16).join
+}
+
+my $ref1 = q:to/END/;
+{| class="wikitable" style="text-align: center;"
+| style="background: #E5FFFF" colspan=9 | Display an outline as a nested table.
+|-
+| style="background: #F4FFCC" colspan=3 | Parse the outline to a tree,
+| style="background: #CCFFE0" colspan=3 | count the leaves descending from each node,
+| style="background: #CCE0FF" colspan=2 | and write out a table with 'colspan' values
+| style="background: #F4CCFF"  | Optionally add color to the nodes.
+|-
+| style="background: #FFE5B2"  | measuring the indent of each line,
+| style="background: #E5FFB2"  | translating the indentation to a nested structure,
+| style="background: #B2FFB2"  | and padding the tree to even depth.
+| style="background: #B2FFE5"  | defining the width of a leaf as 1,
+| style="background: #B2E5FF" colspan=2 | and the width of a parent node as a sum.
+| style="background: #B2B2FF"  | either as a wiki table,
+| style="background: #E5B2FF"  | or as HTML.
+|  | 
+|-
+|  | 
+|  | 
+|  | 
+|  | 
+| style="background: #99FFFF"  | (The sum of the widths of its children)
+| style="background: #99C1FF"  | Propagating the sums upward as necessary.
+|  | 
+|  | 
+|  | 
+|}
+END
+
+my $ref2 = q:to/END/;
+<div style="background: #ffe;">
+<ol type='I'>
+<li>Display an outline as a nested table.
+<ol type='A'>
+<li>Parse the outline to a tree,
+<ol type='1'>
+<li>measuring the indent of each line,
+<li>translating the indentation to a nested structure,
+<li>and padding the tree to even depth.
+</ol></li>
+<li>count the leaves descending from each node,
+<ol type='1'>
+<li>defining the width of a leaf as 1,
+<li>and the width of a parent node as a sum.
+<ol type='a'>
+<li>(The sum of the widths of its children)
+<li>Propagating the sums upward as necessary.
+</ol></li>
+</ol></li>
+<li>and write out a table with 'colspan' values
+<ol type='1'>
+<li>either as a wiki table,
+<li>or as HTML.
+</ol></li>
+<li>Optionally add color to the nodes.
+</ol></li>
+</ol>
+</div>
+END
+
+use Test;
+is $result1, chomp $ref1;
+is $result2, chomp $ref2;
