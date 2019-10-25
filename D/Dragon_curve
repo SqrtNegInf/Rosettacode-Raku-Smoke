@@ -3,10 +3,9 @@
 #c# 2016-01-19 <RC, 2018-04-19 <RC, 2018-06-22 <RC
 #t# graphical
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #f# RC file: dragon_curve.svg
 
-BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 my $out = open('run/dragon_curve.svg', :w);
 
