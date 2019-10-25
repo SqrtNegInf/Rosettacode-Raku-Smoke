@@ -1,0 +1,61 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Burrows–Wheeler_transform
+#c# 2018-08-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+# STX can be any character that doesn't appear in the text.
+# Using a visible character here for ease of viewing. 
+
+constant \STX = '!';
+
+# Burrows-Wheeler transform
+sub transform (Str $s is copy) {
+    note "String can't contain STX character." and exit if $s.contains: STX;
+    $s = STX ~ $s;
+    (^$s.chars).map({ $s.comb.list.rotate: $_ }).sort[*;*-1].join
+}
+
+# Burrows-Wheeler inverse transform
+sub ɯɹoɟsuɐɹʇ (Str $s) {
+    my @t = $s.comb.sort;
+    @t = ($s.comb Z~ @t).sort for 1..^$s.chars;
+    @t.first( *.ends-with: STX ).chop
+}
+
+# TESTING
+for |<BANANA dogwood SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES>,
+    'TO BE OR NOT TO BE OR WANT TO BE OR NOT?' #, "Oops{STX}"
+    -> $phrase {
+    @res.push: 'Original:            '~ $phrase;
+    @res.push: 'Transformed:         '~ transform $phrase;
+    @res.push: 'Inverse transformed: '~ ɯɹoɟsuɐɹʇ transform $phrase;
+    @res.push: '';
+}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+Original:            BANANA
+Transformed:         ANNB!AA
+Inverse transformed: BANANA
+
+Original:            dogwood
+Transformed:         do!oodwg
+Inverse transformed: dogwood
+
+Original:            SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES
+Transformed:         STEXYDST.E.IXXIIXXSSMPPS.B..EE.!.USFXDIIOIIIT
+Inverse transformed: SIX.MIXED.PIXIES.SIFT.SIXTY.PIXIE.DUST.BOXES
+
+Original:            TO BE OR NOT TO BE OR WANT TO BE OR NOT?
+Transformed:         OOORREEETTR?TW   BBB  ATTT   NNOOONOO!   
+Inverse transformed: TO BE OR NOT TO BE OR WANT TO BE OR NOT?
+
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
