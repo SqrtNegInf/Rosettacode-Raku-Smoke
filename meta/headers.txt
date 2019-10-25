@@ -393,9 +393,11 @@ File: A/Amicable_pairs
 File: A/Amicable_pairs.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Amicable_pairs
-#c# 2015-10-30 <RC
+#c# 2015-10-30 <RC, 2019-05-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# both the concurrency and improved sum calculation contribute to boost the speed
+#n# http://blogs.perl.org/users/damian_conway/2019/08/with-friends-like-these.html
 
 File: A/Anagrams
 #!/usr/bin/env perl6
@@ -1481,6 +1483,15 @@ File: C/Chernick%27s_Carmichael_numbers
 #u# http://rosettacode.org/wiki/Chernick%27s_Carmichael_numbers
 #c# 2019-06-08 <RC
 #m# MOAR: OK
+#j#  JVM: BROKEN
+
+File: C/Chernick%27s_Carmichael_numbers.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Chernick%27s_Carmichael_numbers
+#c# 2019-06-08 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# MOAR very slow this way: 628.268u 2.934s 10:47.22 97.5%)
 
 File: C/Cheryl%27s_Birthday
 #!/usr/bin/env perl6
@@ -2389,6 +2400,13 @@ File: D/Display_a_linear_combination
 #c# 2015-11-06 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: D/Display_an_outline_as_a_nested_table
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Display_an_outline_as_a_nested_table
+#c# 2019-10-24 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: D/Distributed_programming
 #!/usr/bin/env perl6
@@ -3562,7 +3580,7 @@ File: F/Four_is_magic
 #u# http://rosettacode.org/wiki/Four_is_magic
 #c# 2017-10-04 <RC, 2019-06-08 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: F/Four_is_the_number_of_letters_in_the_...
 #!/usr/bin/env perl6
@@ -3676,7 +3694,8 @@ File: G/Galton_box_animation
 #m# MOAR: OK
 #j#  JVM: OK
 #i# RC cli: 10 4
-#f# RC file: galton_box.dat
+#f# RC file: galton_box.BEND
+#n# 'RC cli' isn't working for 'rc-jvm'?
 #n# minor idiomatification
 
 File: G/Gamma_function
@@ -4957,6 +4976,13 @@ File: L/Largest_number_divisible_by_its_digits
 
 File: L/Largest_number_divisible_by_its_digits.1
 #!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Largest_number_divisible_by_its_digits
+#c# 2017-09-02 <RC, 2018-10-13 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: L/Largest_number_divisible_by_its_digits.2
+#!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Largest_number_divisible_by_its_digits
 #c# 2017-09-02 <RC
@@ -5044,9 +5070,19 @@ File: L/Left_factorials
 #u# http://rosettacode.org/wiki/Left_factorials
 #c# 2015-11-07 <>RC, 2019-03-05 <RC, 2019-03-14 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 
 File: L/Left_factorials.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Left_factorials
+#c# 2015-11-07 <>RC, 2019-03-05 <RC, 2019-03-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# full run has non-fatal exception in 1st part (and in 2nd part hangs forever)
+#n# Exception in thread "Thread-2" org.perl6.nqp.runtime.SaveStackException
+#n# at org.perl6.nqp.runtime.Ops.continuationcontrol(Ops.java:7506)
+
+File: L/Left_factorials.2
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Left_factorials
@@ -5054,7 +5090,7 @@ File: L/Left_factorials.1
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: L/Left_factorials.2
+File: L/Left_factorials.3
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Left_factorials
@@ -5741,7 +5777,8 @@ File: M/Median_filter
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Median_filter
 #c# 2019-10-12 >RC
-#p# OK
+#m# MOAR: OK
+#j#  JVM: BROKEN
 #f# RC file: plasma_median.png
 
 File: M/Memory_allocation
@@ -8160,16 +8197,7 @@ File: S/Safe_addition
 #c# 2019-02-03 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# for JVM, use .1 for testing
-
-File: S/Safe_addition.1
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Safe_addition
-#c# 2019-02-03 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-#n# skipping Rat::Precise 
+#n# the only 'difference' MOAR/JVM output was the case (e/E) in the 'scientific' notation of 'Error'
 
 File: S/Safe_primes_and_unsafe_primes
 #!/usr/bin/env perl6
@@ -10110,9 +10138,10 @@ File: T/Transportation_problem
 File: T/Tree_datastructures
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Tree_datastructures
-#c# 2019-10-20 <RC
+#c# 2019-10-20 <RC, 2019-10-23 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# JVM fails in JSON::Fast: VMArray representation does not implement push_native
 
 File: T/Tree_traversal
 #!/usr/bin/env perl6
