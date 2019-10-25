@@ -2,8 +2,9 @@
 #u# http://rosettacode.org/wiki/Count_the_coins
 #c# 2015-12-05 <RC, 2018-04-13 >RC, 2018-11-03 <RC
 #m# MOAR: OK
-#j# JVM:  OK (partial)
+#j# JVM:  OK
 #n# for large $ values in recursive, JVM gives: StackOverflowError
+#n# JVM won't run the test, produced 'ok 1 -'?  The results produced are fine
 
 my @res;
 
@@ -50,7 +51,7 @@ sub change-i(\n, @coins) {
 
 .say for @res; exit;
 
-my $moar = qq:to/END/;
+my $moar = q:to/END/;
 242
 133423351001
 13398445413854501
@@ -58,13 +59,14 @@ my $moar = qq:to/END/;
 133423351001
 END
 
-my $jvm = qq:to/END/;
+my $jvm = q:to/END/;
 242
 133423351001
 13398445413854501
 242
 END
 
+say "Now we are going to test...";
 use Test;
 my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
