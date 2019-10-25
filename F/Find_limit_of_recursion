@@ -7,9 +7,7 @@
 
 # Maximum recursion depth is memory dependent. 
 
-#my $max = $*VM ~~ /jvm/ ?? 590 !! 1_000_000;
-my $max = $*VM ~~ /jvm/ ?? 550 !! 1_000_000;
-#my $max = $*VM ~~ /jvm/ ?? 500 !! 1_000_000;
+my $max = $*VM ~~ /jvm/ ?? 535 !! 1_000_000;
 
 my $x = 0;
 recurse;
