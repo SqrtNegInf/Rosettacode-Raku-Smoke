@@ -1,8 +1,9 @@
-This is Rakudo version 2019.07.1-441-gb45d99d45 built on MoarVM version 2019.07.1-295-gbc93815a8
+This is Rakudo version 2019.07.1-443-gcfc0f46c0 built on MoarVM version 2019.07.1-295-gbc93815a8
 implementing Perl 6.d.
-+--------------> Moar: Good/Bad [1125/11]
-|+-------------> JVM: Good/Bad [943/178]
-||+------------> Smoke testing [1016]
+updating from RC…
++--------------> Moar: Good/Bad [1128/10]
+|+-------------> JVM: Good/Bad [960/178]
+||+------------> Smoke testing [1017]
 |||+-----------> sKipping validation [117]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [274]
@@ -11,8 +12,8 @@ implementing Perl 6.d.
 ||||||||+------> File output [83]
 |||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [52]
-|||||||||||+---> Void (no local copy) [122]
-||||||||||||+--> Un-implemented/reliable [96]
+|||||||||||+---> Void (no local copy) [121]
+||||||||||||+--> Un-implemented/reliable [95]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -57,7 +58,7 @@ GGS.......... Almost_prime-2
 GGS.......... Amb-1
 GGS....R..... Amb-2
 GGS....R..... Amb-3
-G!S..TC...... Amicable_pairs
+GGS..TC...... Amicable_pairs
 GGS.......... Anagrams
 GGS.......... Anagrams_Deranged_anagrams
 GGS..T....... Angle_difference_between_two_bearings
@@ -180,7 +181,7 @@ GGS.......... Chaocipher
 GBS...CRF.... Chaos_game
 GGS.......... Character_codes
 GG.KI........ Chat_server
-G!S......D... Chebyshev_coefficients
+GGS......D... Chebyshev_coefficients
 GGS..T....... Check_Machin-like_formulas
 GGS......D... Check_input_device_is_a_terminal
 GG.KI....D... Check_output_device_is_a_terminal
@@ -270,7 +271,7 @@ GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
 GGS.......... DNS_query
 GGS......D... Damm_algorithm
-G!S......D... Data_Encryption_Standard
+GGS......D... Data_Encryption_Standard
 GGS..T....... Date_format
 GBS..T....... Date_manipulation
 GGS.......... Day_of_the_week
@@ -303,7 +304,7 @@ GGS..T....... Dinesman%27s_multiple-dwelling_problem-2
 GB.K...R..... Dining_philosophers
 GGS..T....... Discordian_date
 GGS......D... Display_a_linear_combination
-.........D.VU Display_an_outline_as_a_nested_table
+GGS......D... Display_an_outline_as_a_nested_table
 GG.K......... Distributed_programming
 GGS..T...D... Diversity_prediction_theorem
 GGS.......... Documentation
@@ -355,7 +356,7 @@ GGS....R..... Evolutionary_algorithm
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-G!S...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 .........D.VU Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -381,7 +382,7 @@ GGS.......... Fast_Fourier_transform
 GGS..T...D... Faulhaber%27s_formula
 GGS......D... Faulhaber%27s_triangle
 GGS......D... Feigenbaum_constant_calculation
-!BS......D... Fermat_numbers
+GBS......D... Fermat_numbers
 .........D.VU Fibonacci_heap
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
@@ -397,8 +398,8 @@ GBS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T...D... Find_duplicate_files
 GBS......D... Find_first_and_last_set_bit_of_a_long_integer
-G!S...C...... Find_largest_left_truncatable_prime_in_a_given_base
-G!S..T....... Find_limit_of_recursion
+GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
+GGS..T....... Find_limit_of_recursion
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
 GGS......D... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
@@ -424,7 +425,7 @@ BB.K........U Formal_power_series
 GGS.......... Formatted_numeric_output
 GGS..T....... Forward_difference
 GGS..T....... Four_bit_adder
-GBS.......... Four_is_magic
+GGS.......... Four_is_magic
 GBS.......... Four_is_the_number_of_letters_in_the_...
 GGS.....F.... Fractal_tree
 GGS...c..D... Fraction_reduction
@@ -433,7 +434,7 @@ GBS.......... Fractran
 GGS......D... French_Republican_calendar
 GGS..T....... Function_composition
 GG.K......... Function_definition
-G!S.......... Function_frequency
+GGS.......... Function_frequency
 ..........XV. Function_prototype
 ...........VU Functional_coverage_tree
 GGS.......... Fusc_sequence
@@ -597,7 +598,7 @@ GBS..TC...... Law_of_cosines_-_triples-1
 GGS..T....... Law_of_cosines_-_triples-2
 GGS.......... Leap_year
 GGS.......... Least_common_multiple
-G!S..TC...... Left_factorials
+GBS..TC...... Left_factorials
 GGS.......... Leonardo_numbers
 GGS.......... Letter_frequency
 GGS.......... Levenshtein_distance
@@ -634,7 +635,7 @@ GGS.......... Loops_While
 GGS.......... Loops_Wrong_ranges
 GGS.......... Loops_with_multiple_ranges-1
 GGS..T....... Loops_with_multiple_ranges-2
-G!S...C...... Lucas-Lehmer_test
+GGS...C...... Lucas-Lehmer_test
 GGS..T....... Lucky_and_even_lucky_numbers
 GGS.......... Ludic_numbers
 GGS.......... Luhn_test_of_credit_card_numbers
@@ -669,7 +670,7 @@ GGS.......... Mayan_numerals
 GGS....R..... Maze_generation
 GGS....R..... Maze_solving
 GGS.......... McNuggets_Problem
-BBS..T..F.... Median_filter
+GBS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
@@ -803,7 +804,7 @@ GBS.......... Percentage_difference_between_images
 GGS.......... Percolation_Bond_percolation
 GGS....R..... Percolation_Mean_cluster_density
 GGS....R..... Percolation_Mean_run_density
-G!S....R..... Percolation_Site_percolation
+GGS....R..... Percolation_Site_percolation
 GGS...C...... Perfect_numbers-1
 GGS.......... Perfect_numbers-2
 GGS.......... Perfect_shuffle
@@ -823,7 +824,7 @@ GGS..T.R..... Pick_random_element
 .........D... Pierpont_primes
 GBS.......... Pierpont_primes-1
 GBS.......... Pierpont_primes-2
-G!S....R..... Pig_the_dice_game
+GGS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
 ...........VU Pinstripe_Printer
@@ -890,7 +891,7 @@ GGS.......... Range_extraction
 GGS..T....... Ranking_methods
 GBS...c.....U Rare_numbers
 BB.......D... Raster_bars
-G!S.......... Rate_counter
+GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS..T...D... Read_a_file_character_by_character_UTF8
@@ -929,7 +930,7 @@ GGS..T....... Reverse_a_string
 GGS......D... Reverse_the_gender_of_a_string
 GGS.......... Reverse_words_in_a_string
 GB.KI....D... Robots
-G!S..T.R..... Rock-paper-scissors
+GGS..T.R..... Rock-paper-scissors
 GGS.......... Roman_numerals_Decode
 GGS.......... Roman_numerals_Encode
 GGS.......... Roots_of_a_function
@@ -979,7 +980,7 @@ GGS..T....... Semordnilap
 GGS.......... Send_an_unknown_method_call
 GBS.......... Send_email
 GGS......D... Separate_the_house_number_from_the_street_name
-G!S...C...... Sequence:_nth_number_with_exactly_n_divisors
+GGS...C...... Sequence:_nth_number_with_exactly_n_divisors
 GGS.......... Sequence:_smallest_number_greater_than_previous_term_with_exactly_n_divisors
 GGS.......... Sequence:_smallest_number_with_exactly_n_divisors
 GGS.......... Sequence_of_non-squares
@@ -1164,14 +1165,14 @@ GGS.......... Text_processing_2
 GGS.......... Text_processing_Max_licenses_in_use
 .........D.VU Text_to_HTML
 GGS.......... Textonyms
-G!S...C...... The_ISAAC_Cipher
+GGS...C...... The_ISAAC_Cipher
 GGS.......... The_Name_Game
 GGS.....F.... The_Twelve_Days_of_Christmas
 GGS..T....... Thiele%27s_interpolation_formula
 GGS..T....... Thue-Morse
 GBS....R..... Tic-tac-toe
 GBS......D... Time-based_One-time_Password_Algorithm
-G!S.......... Time_a_function
+GGS.......... Time_a_function
 GGS.......... Tokenize_a_string
 GGS.......... Tokenize_a_string_with_escaping
 GGS.......... Tonelli-Shanks_algorithm
