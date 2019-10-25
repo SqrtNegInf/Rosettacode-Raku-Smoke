@@ -1,0 +1,77 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Successive_prime_differences
+#c# 2019-04-27 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+# Essentially the code from the Sexy primes task with minor tweaks.
+
+my $max = 1_000_000;
+my @primes = 2, |(3, 5, 7 ... $max).grep: *.is-prime;
+my $filter = @primes.Set;
+my $primes = @primes.categorize: &successive;
+
+sub successive ($i) {
+    gather {
+        take '2' if $filter{$i + 2};
+        take '1' if $filter{$i + 1};
+        take '2_2' if all($filter{$i «+« (2,4)});
+        take '2_4' if all($filter{$i «+« (2,6)});
+        take '4_2' if all($filter{$i «+« (4,6)});
+        take '6_4_2' if all($filter{$i «+« (6,10,12)}) and
+            none($filter{$i «+« (2,4,8)});
+    }
+}
+
+sub comma { $^i.flip.comb(3).join(',').flip }
+
+for (2,), (1,), (2,2), (2,4), (4,2), (6,4,2) -> $succ {
+    @res.push: "## Sets of {1+$succ} successive primes <= { comma $max } with " ~
+        "successive differences of { $succ.join: ', ' }";
+    my $i = $succ.join: '_';
+    for 'First', 0, ' Last', * - 1 -> $where, $ind {
+        @res.push: "$where group: "~ join ', ', [\+] flat $primes{$i}[$ind], |$succ
+    }
+    @res.push: '      Count: '~ +$primes{$i} ~ "\n";
+}
+
+
+.say for @res;
+
+my $ref = q:to/END/;
+## Sets of 2 successive primes <= 1,000,000 with successive differences of 2
+First group: 3, 5
+ Last group: 999959, 999961
+      Count: 8169
+
+## Sets of 2 successive primes <= 1,000,000 with successive differences of 1
+First group: 2, 3
+ Last group: 2, 3
+      Count: 1
+
+## Sets of 3 successive primes <= 1,000,000 with successive differences of 2, 2
+First group: 3, 5, 7
+ Last group: 3, 5, 7
+      Count: 1
+
+## Sets of 3 successive primes <= 1,000,000 with successive differences of 2, 4
+First group: 5, 7, 11
+ Last group: 999431, 999433, 999437
+      Count: 1393
+
+## Sets of 3 successive primes <= 1,000,000 with successive differences of 4, 2
+First group: 7, 11, 13
+ Last group: 997807, 997811, 997813
+      Count: 1444
+
+## Sets of 4 successive primes <= 1,000,000 with successive differences of 6, 4, 2
+First group: 31, 37, 41, 43
+ Last group: 997141, 997147, 997151, 997153
+      Count: 306
+
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
