@@ -43,9 +43,9 @@ display random :size($_), latin-square for 5, 3, 9;
 # Or, if you'd prefer:
 display random latin-square, :size($_) for 12, 2, 1;
 
-.say for @res; 
+.say for @res;
 
-my $ref = q:to/END/;
+my $moar = q:to/END/;
  G   U   B   W   Q 
  Q   G   W   U   B 
  U   W   Q   B   G 
@@ -91,6 +91,54 @@ my $ref = q:to/END/;
  P 
    
 END
+   
+my $jvm = q:to/END/;
+ G   L   O   D   C 
+ L   C   G   O   D 
+ D   O   C   L   G 
+ O   G   D   C   L 
+ C   D   L   G   O 
+   
+ A   V   E   B   Y 
+ E   A   B   Y   V 
+ Y   B   V   A   E 
+ V   Y   A   E   B 
+ B   E   Y   V   A 
+   
+ S   R   W 
+ W   S   R 
+ R   W   S 
+   
+ O   K   L   Q   Y   W   X   G   F 
+ L   O   W   K   F   X   G   Y   Q 
+ K   Q   O   F   G   L   W   X   Y 
+ Y   G   F   X   L   Q   K   O   W 
+ W   L   X   O   Q   G   Y   F   K 
+ G   X   Y   W   O   F   Q   K   L 
+ Q   F   K   Y   X   O   L   W   G 
+ X   W   G   L   K   Y   F   Q   O 
+ F   Y   Q   G   W   K   O   L   X 
+   
+ P   K   N   X   S   G   Q   U   O   E   C   I 
+ E   Q   P   N   O   U   C   S   I   K   G   X 
+ G   S   C   Q   P   X   O   N   E   U   I   K 
+ I   N   O   S   C   K   P   Q   G   X   E   U 
+ U   O   G   C   E   N   I   P   K   S   X   Q 
+ X   P   I   O   G   Q   E   C   U   N   K   S 
+ K   C   E   P   I   S   G   O   X   Q   U   N 
+ Q   G   K   E   X   O   U   I   N   C   S   P 
+ O   X   S   U   Q   E   N   K   C   I   P   G 
+ C   U   Q   K   N   I   S   X   P   G   O   E 
+ S   I   U   G   K   P   X   E   Q   O   N   C 
+ N   E   X   I   U   C   K   G   S   P   Q   O 
+   
+ S   T 
+ T   S 
+   
+ M 
+   
+END
 
 use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
