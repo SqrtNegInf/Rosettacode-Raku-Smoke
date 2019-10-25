@@ -1,0 +1,192 @@
+>>>>>>>>>>>>>>>> » KLUDGES « <<<<<<<<<<<<<<<<<
+
+# 'constant' fails, use plain variable instead
+Perlin_noise 
+
+# uint64 instead of uint32
+MD5_Implementation
+
+# downgraded Unicode names to ASCII
+Ackermann_function
+Box_the_compass
+Cipolla%27s_algorithm
+First-class_functions
+Leonardo_numbers
+Mutual_recursion
+Percolation_Mean_cluster_density
+Sum_of_a_series
+Tonelli-Shanks_algorithm
+Unicode_strings
+
+>>>>>>>>>>>>>>>> » ERRORS « <<<<<<<<<<<<<<<<<
+
+# New errors for 2018-12-08 
+XXX Numerical_Integration-2.1: java.lang.NullPointerException # 2019-10-23 works, for limited run
+Thiele%27s_interpolation_formula: java.lang.NullPointerException
+
+# New errors for 2018-10-11 
+XXX Rosetta_Code_Rank_languages_by_popularity-2 java.lang.IllegalStateException  # 2018-12-08 working again
+
+# New errors for 2018-08
+XXX Sorting_algorithms_Sleep_sort # 2018-10-11 working again
+XXX Unicode_variable_names # 2018-12-08 working again
+XXX Burrows-Wheeler_transform # 2019-10-25 could merge back to main?
+
+some are msb/lsb, but not all:
+XXX bench/jvm/Date_manipulation.out:Cannot assign to an immutable value # 2018-12-08 working again
+XXX bench/jvm/Find_first_and_last_set_bit_of_a_long_integer.out:Cannot assign to an immutable value # 2018-12-08 working again
+XXX bench/jvm/Fractran.out:Cannot assign to an immutable value # 2018-12-08 working again
+XXX bench/jvm/Montgomery_reduction.out:Cannot assign to an immutable value # 2018-12-08 working again
+XXX bench/jvm/OpenWebNet_Password.out:Cannot assign to an immutable value # 2018-12-08 working again
+
+# New errors for 2018-04
+2018-04-11-j Secs: 46127  Tasks: 749  OK: 1284  Err: 19 !OK:  2  Top: 965 924 792 759 698 651 627 625
+Bitmap_Read_an_image_through_a_pipe
+
+# misc errors
+Dinesman%27s_multiple-dwelling_problem-1 # grammar{...}.parse fails to return anything in $expr
+Dining_philosophers # java.lang.NullPointerException
+Host_introspection # $*VM.config NYI?
+Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols # unival NYI
+Reflection_Get_source # NYI?
+
+# pg 'PatternSyntaxException' bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
+Parse_an_IP_Address # PatternSyntaxException / hexdigit
+URL_decoding # PatternSyntaxException / hexdigit
+
+# pg 'RuntimeException' bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
+# Jump_anywhere # java.lang.RuntimeException: java.lang.ArrayIndexOutOfBoundsException: -1 # DH works 2018-05-17
+# Xiaolin_Wu # java.lang.RuntimeException: java.lang.ArrayIndexOutOfBoundsException: -1  # DH works 2018-04-28
+
+# Unicode problems (output)
+Rep-string
+Split_a_character_string_based_on_change_of_character
+Substring_Top_and_tail
+UTF-8_encode_and_decode
+
+# Unicode problems (source code, involves '\')
+Problem_of_Apollonius # arrggh, too many to change...
+
+# pg 'Type check failed' bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
+# Fractran # Type check failed in binding to nu; expected Int but got Rat (<34/91>) # works 2018-05-17
+# Gaussian_elimination # Type check failed in binding to nu; expected Int but got Rat (1.0)  # DH works 2018-04-28
+# Negative_base_numbers # Type check failed in binding to parameter 'nu'; expected Int but got Rat # works 2018-05-17
+# Trabb_Pardo%E2%80%93Knuth_algorithm # Type check failed in binding to nu; expected Int but got Rat (79.56...) # works 2018-05-17
+# Welch%27s_t-test # Type check failed in binding to parameter 'nu'; expected Int but got Rat (1732.5) # DH works 2018-05-17
+
+# pg StackOverflowError bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
+Count_the_coins # partial fix: smaller piles work
+I_before_E_except_after_C-2
+Lychrel_numbers
+Man_or_boy_test
+
+# org.perl6.nqp.runtime.UnwindException
+# pg UnwindException bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
+Combinations-2
+Count_in_factors-1
+#Factors_of_a_Mersenne_number (kludged)
+Kaprekar_numbers-3
+Knapsack_problem_Continuous
+Intersecting_Number_Wheels
+Multiplicative_order
+Parallel_calculations  (.hyper/.race)
+Parallel_calculations-2  (.hyper/.race)
+Square-free_integers (.hyper/.race)
+Wireworld
+
+# ecosystem problem (partial list)
+15_Puzzle_Game
+2048
+Archimedean_spiral
+XXX Bitcoin_public_point_to_address  # DH works 2018-04-28
+CRC-32
+Chaos_game
+Color_wheel
+File_modification_time
+Find_duplicate_files
+Fork
+XXX Four_is_magic # fixed 2019-10-23
+Four_is_the_number_of_letters_in_the_...
+FTP
+HTTP
+Kronecker_product_based_fractals
+Mersenne_primes
+Multiple_regression
+XXX One-time_pad  # DH kludge for Moar/JVM to avoid module
+Orbital_elements
+Parallel_Brute_Force
+Plasma_effect
+Polynomial_regression
+Truncate_a_file
+Voronoi_diagram
+Web_scraping
+
+# external modules
+# g '^use [^a-z]' [1-Z]* | pg -v 'use (Test|MONK)' | pg -v '\.\d:' | pg -v '\.pl' | pf 's/^.*:u/u/' | sortcnt
+   6 use Image::PNG::Portable;
+   6 use HTTP::UserAgent;
+   5 use NativeCall;
+   3 use Lingua::EN::Numbers::Cardinal;
+   2 use Term::termios;
+   2 use JSON::Tiny;
+   2 use Gumbo;
+   2 use File::Temp;
+   2 use DateTime::Format;
+   2 use Clifford;
+   1 use XML;
+   1 use XML::XPath;
+   1 use URI;
+   1 use Text::CSV;
+   1 use Terminal::Caca;
+   1 use Terminal::ANSIColor;
+   1 use Sort::Naturally;
+   1 use SVG;
+   1 use SVG::Plot;
+   1 use SSL::Digest;
+   1 use Net::FTP;
+   1 use Net::DNS;
+   1 use Modular;
+   1 use LWP::Simple;
+   1 use File::Find;
+   1 use Digest::xxHash;
+   1 use Digest::SHA;
+   1 use Digest::MD5;
+   1 use DBIish;
+
+===================================================================
+
+2019-10-22 task failures not categorized above (some can be fixed, chipping away at the list...)
+
+2019-10-22-j Secs: 96257 RC: 974 Tasks: 1022  OK: 1487  Err: 102 !OK: 15  Top: 3442 2138 1543 1312 1115 931 766
+
+Assertions_in_design_by_contract
+Bilinear_interpolation
+Count_in_factors-3
+Data_Encryption_Standard
+Draw_a_rotating_cube
+Executable_library
+Find_limit_of_recursion
+Image_convolution
+Just_in_time_processing_on_a_character_stream
+Median_filter
+Multidimensional_Newton-Raphson_method
+Number_names-2
+Pierpont_primes-1
+Pierpont_primes-2
+Pig_the_dice_game
+Ramanujan%27s_constant-1
+Random_Latin_Squares
+Raster_bars
+Rate_counter
+Rock-paper-scissors
+Rosetta_Code_Tasks_without_examples
+SOAP
+Sequence:_nth_number_with_exactly_n_divisors
+Super-d_numbers-3
+The_ISAAC_Cipher
+Time-based_One-time_Password_Algorithm
+Time_a_function
+Tree_datastructures
+Welch%27s_t-test-2
+Window_creation_X11
+XML_Validation
