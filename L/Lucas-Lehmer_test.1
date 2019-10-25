@@ -1,0 +1,52 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Lucas-Lehmer_test
+#c# 2016-02-18 <RC, 2019-02-24 <RC, 2019-02-27 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+multi is_mersenne_prime(2) { True }
+multi is_mersenne_prime(Int $p) {
+    my $m_p = 2 ** $p - 1;
+    my $s = 4;
+
+# oldest, slightly slower:   
+#    $s = ($s * $s - 2)% $m_p  for 3..$p;
+
+# penultimate, same speed
+#    for 3 .. $p {
+#      $s = $s.expmod(2, $m_p) - 2;
+#      $s += $m_p if $s < 0;
+#    }
+#    $s == 0;
+
+    $s = $s.expmod(2, $m_p) - 2 for 3 .. $p;
+    !$s
+}
+
+my @res;
+@res.push: $_ for (2,3,5,7 … 2285).grep( *.is-prime ).map: { next unless .&is_mersenne_prime; "M$_" };
+
+.say for @res;
+
+my $ref = qq:to/END/;
+M2
+M3
+M5
+M7
+M13
+M17
+M19
+M31
+M61
+M89
+M107
+M127
+M521
+M607
+M1279
+M2203
+M2281
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
