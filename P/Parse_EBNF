@@ -3,7 +3,7 @@
 #c# 2018-03-21 <RC, 2018-11-17 >RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#f# RC file: ebnf.BEND
+#f# RC file: ebnf.dat
 
 # Works with: Rakudo version 2013.09
 #This parses the EBNF rule set using a perl 6 grammar, then if it parses as valid EBNF, constructs a grammar and parses the test strings with that. EBNF rule sets that are naively syntactically correct but missing rules will parse as valid but will give a runtime failure warning about missing methods.
@@ -113,8 +113,7 @@ my @tests = (
 );
 
 # Test the parser.
-my $bend = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
-unlink "run/ebnf.$bend";
+unlink "run/ebnf.dat";
 
 my $i = 1;
 for @tests -> $test {
@@ -146,7 +145,7 @@ for @tests -> $test {
     $fh.say( qq| } |);
     #$fh.say( qq| "\\n"} |); # was giving a warning, 'useless use'
     $fh.close;
-    qqx[perl6 $fn >> run/ebnf.$bend];
+    qqx[perl6 $fn >> run/ebnf.dat];
     #say: '*' x 79, "\n";
     unlink $fn;
 }
