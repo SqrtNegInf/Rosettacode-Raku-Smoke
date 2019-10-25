@@ -1,0 +1,79 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/xx
+#c# 2019-09-xx 
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my @Rare[3];
+my $cnt;
+
+for (flat
+               1 .. 1000,
+         600_000 .. 700_000,
+     281_000_000 .. 281_100_000,
+) -> $n {
+
+    next unless $n ~~ /^^ <[2468]> /;
+    next unless $n > my $r = $n.flip; # opposite of P5, 2x speed-up with early test (in P5, it doubles run-time)
+
+    if $n > 1000 {
+#        my ($a,$b,$p,$q) = ($n ~~ /^^ (.)(.).*(.)(.) $$/)>>.Int; # slow!
+        my $q = substr $n,*-1, 1;
+        next unless    $q == none(1,4,6,9);
+
+        my $a = substr $n,  0, 1;
+        next unless $a-$q ==  any(0,1,4,5,6);
+
+        my $b = substr $n,  1, 1;
+        my $p = substr $n,*-2, 1;
+        given $a {
+          when 2 { next if $q != 2 or $b != $p }
+          when 4 { next unless  $q == 0             and 0 == $b-$p }
+          when 6 { next unless ($q == 0 or $q == 5) and 0 != $b-$p }
+          when 8 { 
+                   next unless $q == any(2,3,7,8);
+                  (next unless 9 == $b+$p) if $q == 2;
+          }
+        }
+    }
+
+    #next unless 0x202021202030213 +& (1 +< (($n+$r) +& 63)) > 0; # minimal diff, if any
+    #next unless 0x202021202030213 +& (1 +< (($n-$r) +& 63)) > 0;
+
+    next unless is-power($n+$r) and is-power($n-$r);
+    #next unless is_power($n+$r, 2) and is_power($n-$r, 2);
+
+#say "GOT IT: $n";
+    # possibly redundant?
+    #my $dr = $n;
+    #while $dr.chars > 1 { $dr = [+] $dr.comb }
+    #next unless $dr == any(2,5,8,9);
+
+    @Rare[$cnt++] = $n;
+}
+
+#use experimental :cached; # no diff
+#sub is-power ($x) is cached { $_ == .floor given sqrt($x) }
+sub is-power ($x) { $_ == .floor given sqrt($x) }
+
+.say for @Rare;
+exit;
+
+my $ref = q:to/END/;
+65
+621770
+281089082
+END
+
+my $refextra = q:to/END/;
+2022652202
+2042832002
+868591084757
+872546974178
+872568754178
+END
+
+use Test;
+is @Rare.join("\n"), chomp $ref;
