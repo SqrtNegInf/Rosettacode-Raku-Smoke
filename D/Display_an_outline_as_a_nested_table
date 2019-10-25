@@ -112,7 +112,7 @@ my $result1 = '{| class="wikitable" style="text-align: center;"' ~ "\n" ~
     my @nodes = @layout.grep( *.<depth> == $d );
     (join "\n", @nodes.sort( +*.<id> ).map( -> $node {
         '| ' ~
-        ($node<color> ?? $node<color> !! '' ) ~
+        ($node<color> // '' ) ~
         ($node<span> > 1 ?? "colspan=$node<span>" !! '' ) ~
         ' | ' ~ $node<text> }
     ))
