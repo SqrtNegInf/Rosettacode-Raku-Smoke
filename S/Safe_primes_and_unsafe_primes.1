@@ -1,31 +1,28 @@
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Safe_primes_and_unsafe_primes
-#c# 2018-09-28 <RC
+#c# 2018-09-28 <RC, 2018-10-11 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# for JVM: module
+#j# JVM:  OK
+#n# a bit slow: 6236.988u 64.714s 47:11.84 222.5%
 
 my @res;
 
-#Perl 6 has a built-in method .is-prime to test for prime numbers. It's great for testing individual numbers or to find/filter a few thousand numbers, but when you are looking for millions, it becomes a drag. No fear, the Perl 6 ecosystem has a fast prime sieve module available which can produce 10 million primes in a few seconds. Once we have the primes, it is just a small matter of filtering and formatting them appropriately.
+# Perl 6 has a built-in method .is-prime to test for prime numbers. It's great for testing individual numbers or to find/filter a few thousand numbers, but when you are looking for millions, it becomes a drag. No fear, the Perl 6 ecosystem has a fast prime sieve module available which can produce 10 million primes in a few seconds. Once we have the primes, it is just a small matter of filtering and formatting them appropriately.
 
 sub comma { $^i.flip.comb(3).join(',').flip }
 
-use Math::Primesieve;
+constant @primes = 2, |(3, 5, 7 ... 10_000_000).grep: *.is-prime;
+my %filter = @primes.Set;
 
-my $sieve = Math::Primesieve.new;
-
-my %primes = $sieve.primes(10_000_000) X=> 1;
-
-my $primes = %primes.keys.classify: { %primes{($_ - 1)/2} ?? 'safe' !! 'unsafe' };
+my $primes = @primes.classify: { %filter{($_ - 1)/2} ?? 'safe' !! 'unsafe' };
 
 for 'safe', 35, 'unsafe', 40 -> $type, $quantity {
     @res.push: "The first $quantity $type primes are:";
 
-    @res.push: $primes{$type}.sort(+*)[^$quantity]».&comma;
+    @res.push: $primes{$type}[^$quantity]».&comma;
 
-    @res.push: "The number of $type primes up to {comma $_}: "~ comma +$primes{$type}.hyper.grep: * < $_ for 1e6, 1e7;
+    @res.push: "The number of $type primes up to {comma $_}: "~
+    comma $primes{$type}.first(* > $_, :k) // +$primes{$type} for 1e6, 1e7;
 
     @res.push: '';
 }
