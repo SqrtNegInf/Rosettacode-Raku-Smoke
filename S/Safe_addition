@@ -3,7 +3,9 @@
 #c# 2019-02-03 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# for JVM, use .1 for testing
+#n# the only 'difference' MOAR/JVM output was the case (e/E) in the 'scientific' notation of 'Error'
+
+use Rat::Precise;
 
 my @res;
 
@@ -31,7 +33,7 @@ stringification, not calculation. Calculations are always done at full (exact) p
 }}
 
 @res.push: "Floating points: (Nums)";
-@res.push: "Error: " ~ (2**-53).Num;
+@res.push: "Error: " ~ (2**-53).Num.lc;
 
 sub infix:<±+> (Num $a, Num $b) {
     my \ε = (2**-53).Num;
@@ -50,15 +52,11 @@ my $sum = sum (1..500).map: { FatRat.new(1,$_) };
 @res.push: $sum;
 @res.push: $sum.nude;
 
-if $*VM ~~ /moar/
-{
-    @res.push: "\nRat stringification may not show full precision for terminating fractions by default.";
-    @res.push: "Use a module to get full precision.";
-    use Rat::Precise; # module loading is scoped to the enclosing block
-    my $rat = 1.5**63;
-    @res.push: "\nPerl 6 default stringification for 1.5**63:\n" ~ $rat; # standard stringification
-    @res.push: "\nRat::Precise stringification for 1.5**63:\n" ~$rat.precise; # full precision
-}
+@res.push: "\nRat stringification may not show full precision for terminating fractions by default.";
+@res.push: "Use a module to get full precision.";
+my $rat = 1.5**63;
+@res.push: "\nPerl 6 default stringification for 1.5**63:\n" ~ $rat; # standard stringification
+@res.push: "\nRat::Precise stringification for 1.5**63:\n" ~$rat.precise; # full precision
 
 .say for @res;
 
