@@ -14,6 +14,7 @@
 # L/Leonardo_numbers
 # M/Mutual_recursion
 # P/Percolation_Mean_cluster_density
+# P/Problem_of_Apollonius
 # S/Sum_of_a_series
 # T/Tonelli-Shanks_algorithm
 # U/Unicode_strings
@@ -62,9 +63,6 @@ S/Split_a_character_string_based_on_change_of_character
 S/Substring_Top_and_tail
 U/UTF-8_encode_and_decode
 
-# U/Unicode problems (source code, involves '\')
-P/Problem_of_Apollonius # arrggh, too many to change...
-
 # pg 'Type check failed' bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
 # F/Fractran # Type check failed in binding to nu; expected Int but got Rat (<34/91>) # works 2018-05-17
 # G/Gaussian_elimination # Type check failed in binding to nu; expected Int but got Rat (1.0)  # DH works 2018-04-28
@@ -87,32 +85,32 @@ K/Kaprekar_numbers-3
 K/Knapsack_problem_Continuous
 I/Intersecting_Number_Wheels
 M/Multiplicative_order
-P/Parallel_calculations  (.hyper/.race)
-P/Parallel_calculations-2  (.hyper/.race)
-S/Square-free_integers (.hyper/.race)
 W/Wireworld
 
 # 'use NativeCall' (direct, or in module)
+15_Puzzle_Game                          # use Term::termios
+2048                                    # use Term::termios
 C/Call_a_foreign-language_function
 C/Call_a_function_in_a_shared_library
 C/Create_an_object_at_a_given_address
-C/Curve_that_touches_three_points # also Image::PNG::Portable
+C/Curve_that_touches_three_points       # also Image::PNG::Portable
+D/Draw_a_rotating_cube                  # use Terminal::Caca
 D/Draw_a_sphere-2
 F/File_modification_time
 F/Find_duplicate_files
 F/Forest_fire-2
 F/Fork
-H/Host_introspection # also: $*VM.config NYI?
+H/Host_introspection                    # also: $*VM.config NYI?
+H/HTTPS
+H/HTTPS_Client-authenticated
 I/Image_convolution
 I/Image_noise
 M/Median_filter
-P/Pierpont_primes-1
-P/Pierpont_primes-2
 T/Truncate_a_file
 W/Welch%27s_t-test-2
 W/Window_creation_X11
 
-# 'use Image::PNG::Portable'
+# 'use Image::PNG::Portable' (which involves NativeCall too...)
 A/Archimedean_spiral
 B/Barnsley_fern
 C/Chaos_game
@@ -122,28 +120,47 @@ K/Kronecker_product_based_fractals
 P/Plasma_effect
 V/Voronoi_diagram
 
-# 'use GD'
+# 'use GD' (which involves NativeCall too...)
 B/Bilinear_interpolation
 H/Hough_transform
 P/Percentage_difference_between_images
 
+# SSL (via: 'use HTTP::UserAgent', 'use SOAP::Client')
+W/Web_scraping
+M/MAC_Vendor_Lookup
+M/Mersenne_primes       # and 'use Gumbo'
+R/Rosetta_Code_Count_examples
+R/Rosetta_Code_Find_unimplemented_tasks
+R/Rosetta_Code_List_authors_of_task_descriptions
+R/Rosetta_Code_Rank_languages_by_number_of_users
+R/Rosetta_Code_Rank_languages_by_popularity-1
+R/Rosetta_Code_Run_examples
+R/Rosetta_Code_Tasks_without_examples
+S/SOAP
+
 # other ecosystem problems
-15_Puzzle_Game          # use Term::termios
-2048                    # use Term::termios
-D/Draw_a_rotating_cube  # use Terminal::Caca
 F/FTP                   # use Net::FTP
 H/HTTP                  # use LWP::Simple
-M/Mersenne_primes       # use HTTP::UserAgent, use Gumbo
 M/Multiple_regression   # use Clifford
 O/Orbital_elements      # use Clifford
 P/Polynomial_regression # use Clifford
 P/Parallel_Brute_Force  # use Digest::SHA
 R/Raster_bars           # use SDL2::Raw, use Cairo
-W/Web_scraping          # use HTTP::UserAgent
 X/XML_DOM_serialization # use XML, use XML::Writer
 X/XML_Input             # use XML
 X/XML_Validation        # use LibXML::Schema
 X/XML_XPath             # use XML::XPath
+
+# hyper/race is the whole point
+P/Parallel_calculations
+P/Parallel_calculations-2
+S/Super-d_numbers-3
+
+# misc problems
+F/Find_URI_in_text
+N/Names_to_numbers
+G/Get_system_command_output
+T/Tic-tac-toe
 
 # fixed in this group:
 # B/Bitcoin_public_point_to_address  # DH works 2018-04-28
@@ -158,38 +175,7 @@ X/XML_XPath             # use XML::XPath
 
 2019-10-22 task failures not categorized above (some can be fixed, chipping away at the list...)
 
-2019-10-22-j Secs: 108061 RC: 974 Tasks: 1022  OK: 1496  Err: 92 !OK: 14  Top: 6236 5858 3442 2138 1543 1312 1115
+2019-10-22-j Secs: 104163 RC: 975 Tasks: 1023  OK: 1523  Err: 70 !OK: 11  Top: 5858 3442 2138 1543 1312 1203 1115
 
-E/Executable_library
-J/Just_in_time_processing_on_a_character_stream
-M/Multidimensional_Newton-Raphson_method
 P/Pig_the_dice_game
-R/Ramanujan%27s_constant-1
-R/Rate_counter
-R/Rock-paper-scissors
-R/Rosetta_Code_Tasks_without_examples
-S/SOAP
 S/Sequence:_nth_number_with_exactly_n_divisors # DH a non-trivial code issue here?
-S/Super-d_numbers-3
-T/The_ISAAC_Cipher
-T/Time-based_One-time_Password_Algorithm
-T/Time_a_function
-T/Tree_datastructures
-
-F/Find_URI_in_text
-G/Galton_box_animation
-G/Get_system_command_output
-H/HTTPS
-H/HTTPS_Client-authenticated
-H/Happy_numbers-1
-L/Long_primes
-M/MAC_Vendor_Lookup
-N/Names_to_numbers
-O/Object_serialization
-P/Permutation_test
-R/Rosetta_Code_Find_unimplemented_tasks
-R/Rosetta_Code_Rank_languages_by_number_of_users
-R/Rosetta_Code_Rank_languages_by_popularity-1
-S/Send_email
-S/Spelling_of_ordinal_numbers
-S/Strong_and_weak_primes
