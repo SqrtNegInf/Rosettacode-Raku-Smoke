@@ -2,35 +2,35 @@
 #u# http://rosettacode.org/wiki/Multidimensional_Newton-Raphson_method
 #c# 2019-01-09 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 my @res;
 
 sub solve_funcs ($funcs, @guesses, $iterations, $epsilon) {
-   my ($error_value, @values, @delta, @jacobian); my \ε = $epsilon;
+   my ($error_value, @values, @delta, @jacobian); my $eps = $epsilon;
    for 1 .. $iterations {
       for ^+$funcs { @values[$^i] = $funcs[$^i](|@guesses); }
       $error_value = 0;
       for ^+$funcs { $error_value += @values[$^i].abs }
-      return @guesses if $error_value ≤ ε;
+      return @guesses if $error_value ≤ $eps;
       for ^+$funcs { @delta[$^i] = -@values[$^i] }
-      @jacobian = jacobian $funcs, @guesses, ε;
+      @jacobian = jacobian $funcs, @guesses, $eps;
       @delta = solve_matrix @jacobian, @delta;
       loop (my $j = 0, $error_value = 0; $j < +$funcs; $j++) {
          $error_value += @delta[$j].abs ;
          @guesses[$j] += @delta[$j];
       }
-      return @guesses if $error_value ≤ ε;
+      return @guesses if $error_value ≤ $eps;
    }
    return @guesses;
 }
 
 sub jacobian ($funcs is copy, @points is copy, $epsilon is copy) {
    my ($Δ, @P, @M, @plusΔ, @minusΔ);
-   my Array @jacobian; my \ε = $epsilon;
+   my Array @jacobian; my $eps = $epsilon;
    for ^+@points -> $i {
       @plusΔ = @minusΔ = @points;
-      $Δ = (ε * @points[$i].abs) || ε;
+      $Δ = ($eps * @points[$i].abs) || $eps;
       @plusΔ[$i] = @points[$i] + $Δ;
       @minusΔ[$i] = @points[$i] - $Δ;
       for ^+$funcs { @P[$^k] = $funcs[$^k](|@plusΔ); }
