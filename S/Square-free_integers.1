@@ -1,14 +1,8 @@
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Square-free_integers
 #c# 2018-07-02 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# org.perl6.nqp.runtime.UnwindException / java.lang.NullPointerException
-#n# breakage is independent of .race issue
-
-# Works with: Rakudo version 2018.06
-# Prime factorization routines
+#j# JVM:  OK
 
 sub prime-factors ( Int $n where * > 0 ) {
     return $n if $n.is-prime;
@@ -48,14 +42,13 @@ my @res;
 
 # Part 2
 @res.push: "\nSquare─free numbers between 1000000000000 and 1000000000145:";
-@res.push: (1000000000000..1000000000145).hyper(:4batch).map({ $_ if .&is-square-free }).list.comb(98).join("\n");
+@res.push: (1000000000000..1000000000145).map({ $_ if .&is-square-free }).list.comb(98).join("\n");
 
 # Part 3
 #for 1e2, 1e3, 1e4, 1e5, 1e6 {
 for 1e2, 1e3, 1e4, 1e5 {
     @res.push: "\nThe number of square─free numbers between 1 and {$_} (inclusive) is: "~
     +(1 .. .Int).map: { 1 if .&is-square-free };
-    #+(1 .. .Int).race.map: { 1 if .&is-square-free };
 }
 
 my $ref = qq:to/END/;
