@@ -3,16 +3,16 @@
 #c# 2016-02-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#i# RC cli: 10 4
 #f# RC file: galton_box.BEND
-#n# 'RC cli' isn't working for 'rc-jvm'?
 #n# minor idiomatification
+#n# RC x-cli-x: 10 4 (this wasn't working for JVM?)
 
 srand 123456;
 
 # UPPER HALF BLOCK and LOWER HALF BLOCK alternate to give a somewhat smooth animation.
 
-my $fh = open("run/galton_box.dat", :w) || die;
+my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
+my $fh = open("run/galton_box.$ext", :w) || die;
 
 my $row-count = 6;
 
