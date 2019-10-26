@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #=# RC pipe: 5\n1\n9
+#n# not reading user input?
 
 srand 123456;
 
@@ -40,6 +41,7 @@ sub print-board() {
 
 sub human-move() {
 	my $pos = prompt "Choose one of { (free-indexes() »+» 1).join(",") }: ";
+say "you picked $pos";
 	if $pos eq any(free-indexes() »+» 1) {
 		@board[$pos - 1] = 'x';
 	} else {
@@ -61,6 +63,7 @@ if get-winner() -> ($player, $across) {
 }
 
 
+exit;
 my $ref = qq:to/END/;
 END
 
