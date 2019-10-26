@@ -3,7 +3,7 @@
 #c# 2016-06-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: 10\n5\n3
+#=# RC pipe: 10\n5\n3\n8\n
 
 srand 123456;
 
@@ -32,4 +32,5 @@ repeat until my $guessed-right {
 say "Great you guessed right after $count attempts!";
 
 use Test;
-is $number, 3;
+is $number, 3 if ! $*VM ~~ /jvm/;
+is $number, 8 if   $*VM ~~ /jvm/;
