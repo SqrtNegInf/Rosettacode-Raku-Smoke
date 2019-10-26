@@ -2,12 +2,11 @@
 #u# http://rosettacode.org/wiki/Send_email
 #c# 2018-11-30 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# incomplete: no attempt to send email (and pretty weak testing)
 
 my @res;
 
-# Reference: https://github.com/retupmoca/p6-Email-Simple
 use Email::Simple;
 
 my $raw-mail-text = q:to/EML/;
