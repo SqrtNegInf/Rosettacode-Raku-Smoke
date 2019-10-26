@@ -12,4 +12,4 @@ say my $delta = now - $start;
 
 use Test;
 ok 0.1 < $delta < 1   if ! $*VM ~~ /jvm/;;
-ok 1.2 < $delta < 7   if   $*VM ~~ /jvm/;;
+ok 1.2 < $delta < 9   if   $*VM ~~ /jvm/;;
