@@ -648,9 +648,9 @@ File: A/Assertions_in_design_by_contract
 #u# http://rosettacode.org/wiki/Assertions_in_design_by_contract
 #c# 2018-06-10 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# MOAR: not fully OK, last test won't run under 'Test::Output': No exception handler located for catch
-#n# JVM:  like MOAR, but correct output followed by StackOverflow error
+#n# JVM:  gets correct values, but doesn't do any testing ('out' or 'err')
 
 File: A/Associative_array_Creation
 #!/usr/bin/env perl6
@@ -1180,12 +1180,26 @@ File: B/Burrows-Wheeler_transform
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
+File: B/Burrows-Wheeler_transform.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Burrows–Wheeler_transform
+#c# 2018-08-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: C/CRC-32
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/CRC-32
 #c# 2016-01-10 <RC, 2017-06-05 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+
+File: C/CRC-32.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/CRC-32
+#c# 2016-01-10 <RC, 2017-06-05 >RC
+#m# MOAR: OK
+#j#  JVM: OK
 
 File: C/CSV_data_manipulation
 #!/usr/bin/env perl6
@@ -1941,7 +1955,7 @@ File: C/Count_in_factors-3
 #u# http://rosettacode.org/wiki/Count_in_factors
 #c# 2019-04-23 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: C/Count_in_octal
 #!/usr/bin/env perl6
@@ -1963,8 +1977,9 @@ File: C/Count_the_coins
 #u# http://rosettacode.org/wiki/Count_the_coins
 #c# 2015-12-05 <RC, 2018-04-13 >RC, 2018-11-03 <RC
 #m# MOAR: OK
-#j# JVM:  OK (partial)
+#j# JVM:  OK
 #n# for large $ values in recursive, JVM gives: StackOverflowError
+#n# JVM won't run the test, produced 'ok 1 -'?  The results produced are fine
 
 File: C/Count_the_coins.1
 #!/usr/bin/env perl6
@@ -2120,6 +2135,8 @@ File: D/Data_Encryption_Standard
 #c# 2019-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2019-10-25 for JVM: 4th encryption fails (but decrypt on proper string OK)
+#n# as much fun as that would be to debug, I'm just going to comment it out
 
 File: D/Date_format
 #!/usr/bin/env perl6
@@ -2470,7 +2487,7 @@ File: D/Dragon_curve
 #c# 2016-01-19 <RC, 2018-04-19 <RC, 2018-06-22 <RC
 #t# graphical
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #f# RC file: dragon_curve.svg
 
 File: D/Dragon_curve.1
@@ -3587,7 +3604,7 @@ File: F/Four_is_the_number_of_letters_in_the_...
 #u# http://rosettacode.org/wiki/Four_is_the_number_of_letters_in_the_...
 #c# 2017-10-04 <RC, 2019-06-08 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# full run: 6469.673u 124.008s 2:12:20.72 83.0%
 
 File: F/Fractal_tree
@@ -5413,6 +5430,13 @@ File: L/Lucas-Lehmer_test
 #u# http://rosettacode.org/wiki/Lucas-Lehmer_test
 #c# 2016-02-18 <RC, 2019-02-24 <RC, 2019-02-27 <RC
 #m# MOAR: OK
+#j#  JVM: BROKEN
+
+File: L/Lucas-Lehmer_test.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Lucas-Lehmer_test
+#c# 2016-02-18 <RC, 2019-02-24 <RC, 2019-02-27 <RC
+#m# MOAR: OK
 #j#  JVM: OK
 
 File: L/Lucky_and_even_lucky_numbers
@@ -6570,6 +6594,29 @@ File: P/Palindromic_dates
 #n#  perl6(80736,0x70000280d000) malloc: *** error for object 0x7fdf654fc000: incorrect checksum for freed object - object was probably modified after being freed.
 #n#  *** set a breakpoint in malloc_error_break to debug
 
+File: P/Palindromic_dates.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Palindromic_dates
+#t# inprogress
+#c# 2019-10-xx >RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# Fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
+#n#   copiously annotated for the beginning programmer (Hi Oscar!)
+#n#
+#n# Further notes:
+#n#   fortunately 2-29-22 is not a leap year (yy in m-d-yy ambiguous)
+#n#   the Julian/Gregorian change-over 'missing' days were not palindrome candidates
+#n#   slow, but the results are good for 100,000 years!
+#n#   not using any date/time facility in the language (though might be good to validate dates?)
+#n#   no 'suspicious' parentheses -- code less 'busy' but you might have to think a little harder about implied scopes
+#n#   non-cryptic variable names
+#n#   working the DRY principle pretty hard (too far?)
+#n#
+#n# At one point seeing this, but seems to have cleared up:
+#n#  perl6(80736,0x70000280d000) malloc: *** error for object 0x7fdf654fc000: incorrect checksum for freed object - object was probably modified after being freed.
+#n#  *** set a breakpoint in malloc_error_break to debug
+
 File: P/Pangram_checker
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pangram_checker
@@ -6660,7 +6707,7 @@ File: P/Parse_EBNF
 #c# 2018-03-21 <RC, 2018-11-17 >RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#f# RC file: ebnf.BEND
+#f# RC file: ebnf.dat
 
 File: P/Parse_an_IP_Address
 #!/usr/bin/env perl6
@@ -6795,7 +6842,7 @@ File: P/Penrose_tiling
 #u# http://rosettacode.org/wiki/Penrose_tiling
 #c# 2018-06-08 <RC, 2018-06-22 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #f# RC file: penrose_tiling.svg
 
 File: P/Pentagram
@@ -6803,7 +6850,7 @@ File: P/Pentagram
 #u# http://rosettacode.org/wiki/Pentagram
 #c# 2017-01-19 <>RC, 2018-09-28 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #f# RC file: pentagram.svg
 #n# for JVM: use .1 version
 
@@ -7114,7 +7161,7 @@ File: P/Plot_coordinate_pairs
 #u# http://rosettacode.org/wiki/Plot_coordinate_pairs
 #c# 2016-08-25 <RC, 2018-04-12 <RC, 2019-09-23 >RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
 #f# RC file: plot-pairs.svg
 #n# grrr, 'lines' not 'xy-lines'
 
@@ -7200,7 +7247,7 @@ File: P/Polyspiral-1
 #u# http://rosettacode.org/wiki/Polyspiral
 #c# 2018-10-18 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN OK
+#j# JVM:  OK
 #f# RC file: polyspiral.svg
 
 File: P/Polyspiral-2
@@ -7528,6 +7575,17 @@ File: R/Ramanujan%27s_constant-1
 #n# show 'almost integer' of Heegner-number series (19 43 67 163), make table of deltas
 #n# https://oeis.org/A003173, https://en.wikipedia.org/wiki/Heegner_number
 
+File: R/Ramanujan%27s_constant-1.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Ramanujan%27s_constant
+#c# 2019-02-24 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# calculate Ramanujan's constant as per http://oeis.org/wiki/Ramanujan%27s_constant
+#n# cobbled together from other RC tasks (calculation of 𝑒 and π) and a custom ** operator
+#n# show 'almost integer' of Heegner-number series (19 43 67 163), make table of deltas
+#n# https://oeis.org/A003173, https://en.wikipedia.org/wiki/Heegner_number
+
 File: R/Ramanujan%27s_constant-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Ramanujan%27s_constant
@@ -7638,6 +7696,13 @@ File: R/Rare_numbers
 #j# JVM:  BROKEN
 #n# Do .race and Perl5 call conflict? [seem to: same result in 'Cuban_primes' mash-up of .1 and 1.1 versions]
 #n# key to decent runtime is adding more filtering tricks...
+
+File: R/Rare_numbers.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/xx
+#c# 2019-09-xx 
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: R/Raster_bars
 #!/usr/bin/env perl6
@@ -8208,12 +8273,11 @@ File: S/Safe_primes_and_unsafe_primes
 
 File: S/Safe_primes_and_unsafe_primes.1
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Safe_primes_and_unsafe_primes
-#c# 2018-09-28 <RC
+#c# 2018-09-28 <RC, 2018-10-11 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# for JVM: module
+#j# JVM:  OK
+#n# a bit slow: 6236.988u 64.714s 47:11.84 222.5%
 
 File: S/Sailors,_coconuts_and_a_monkey_problem
 #!/usr/bin/env perl6
@@ -8346,7 +8410,15 @@ File: S/Sequence:_nth_number_with_exactly_n_divisors
 #u# http://rosettacode.org/wiki/Sequence:_nth_number_with_exactly_n_divisors
 #c# 2019-04-11 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
+
+File: S/Sequence:_nth_number_with_exactly_n_divisors.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sequence:_nth_number_with_exactly_n_divisors
+#c# 2019-04-11 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# problem is getting info out of iterator
 
 File: S/Sequence:_smallest_number_greater_than_previous_term_with_exactly_n_divisors
 #!/usr/bin/env perl6
@@ -8447,12 +8519,10 @@ File: S/Sexy_primes
 
 File: S/Sexy_primes.1
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Sexy_primes
-#c# 2018-09-30 <RC
+#c# 2018-09-27 <RC, 2018-10-02 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# for JVM: module
+#j# JVM:  OK
 
 File: S/Shoelace_formula_for_polygonal_area
 #!/usr/bin/env perl6
@@ -8677,9 +8747,10 @@ File: S/Smarandache_prime-digital_sequence
 File: S/Smarandache_prime-digital_sequence.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Smarandache_prime-digital_sequence
-#c# 2019-06-18 <RC
+#c# 2019-06-18 <RC, 2019-07-03 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
+#n# added back calculation of 100K-th
 
 File: S/Smith_numbers
 #!/usr/bin/env perl6
@@ -9449,12 +9520,26 @@ File: S/Successive_prime_differences-1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
+File: S/Successive_prime_differences-1.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Successive_prime_differences
+#c# 2019-04-27 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: S/Successive_prime_differences-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Successive_prime_differences
 #c# 2019-04-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+
+File: S/Successive_prime_differences-2.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Successive_prime_differences
+#c# 2019-04-29 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: S/Sudoku-1
 #!/usr/bin/env perl6
@@ -10715,8 +10800,7 @@ File: X/XML_Output
 #u# http://rosettacode.org/wiki/XML/Output
 #c# 2018-06-10 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# for JVM: ecosystem...
+#j# JVM:  OK
 
 File: X/XML_Validation
 #!/usr/bin/env perl6
@@ -10731,6 +10815,7 @@ File: X/XML_XPath
 #c# 2018-03-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# JVM runs forever, so leave BEGIN/die in
 
 File: X/Xiaolin_Wu%27s_line_algorithm
 #!/usr/bin/env perl6
@@ -10847,5 +10932,12 @@ File: Z/Zumkeller_numbers
 #c# 2019-08-20 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+
+File: Z/Zumkeller_numbers.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Zumkeller_numbers
+#c# 2019-08-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 
