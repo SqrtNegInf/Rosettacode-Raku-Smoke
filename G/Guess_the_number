@@ -3,7 +3,7 @@
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#=# RC pipe: 1\n2\n3
+#=# RC pipe: 1\n2\n3\n4\n5\n6\n7\n8\n
 
 srand 123456;
 
@@ -12,4 +12,5 @@ repeat {} until prompt("Guess a number: ") == $number;
 say "Guessed right!";
 
 use Test;
-is $number, 3;
+is $number, 3 if ! $*VM ~~ /jvm/;
+is $number, 8 if   $*VM ~~ /jvm/;
