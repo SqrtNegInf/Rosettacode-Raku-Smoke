@@ -3,10 +3,10 @@
 #c# 2017-01-15 <RC, 2018-04-07 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# VMArray representation does not implement bind_pos_native
+#n# ultimately has to do with SSL, which involves NativeCall
 
 #n# Apparently there is some rate limiting on place now, sleep a bit between requests.
-
-BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use HTTP::UserAgent;
 
