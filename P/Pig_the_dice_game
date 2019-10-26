@@ -16,7 +16,7 @@ sub MAIN (Int :$players = 1, Int :$goal = 20) {
     my @safe = 0 xx $players;
     for |^$players xx * -> $player {
 	say "\nOK, player #$player is up now.";
-	my $safe = @safe[$player];
+	my $safe = @safe[$player] // 0;
 	my $ante = 0;
 	until $safe + $ante >= $goal or
 	    prompt("#$player, you have $safe + $ante = {$safe+$ante}. Roll? [Yn] ") ~~ /:i ^n/
@@ -36,6 +36,7 @@ sub MAIN (Int :$players = 1, Int :$goal = 20) {
 	$safe += $ante;
 	if $safe >= $goal {
 	    say "\nPlayer #$player wins with a score of $safe!";
+        say "safe: $safe ante: $ante goal; $goal";
         ok ($safe+$ante) > $goal;
 	    last;
 	}
