@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Executable_library
+#c# 2018-03-20 <RC, 2018-05-17 <RC, 2018-12-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# uses module 'Hailstone.pm'
+#n# wouldn't need a separate JVM version except for the 'race'
+
+#use lib 'lib';
+use Hailstone;
+
+#my %score; %score{hailstone($_).elems}++ for 1 .. 1000;
+
+my %score;
+(1 .. 1000).map: { %score{hailstone($_).elems}++ };
+
+say my $result = "Most common length is {.key}, occurring {.value} times." given max :by(*.value), %score;
+
+use Test;
+is $result, 'Most common length is 29, occurring 30 times.';
