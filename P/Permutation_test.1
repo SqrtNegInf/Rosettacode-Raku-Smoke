@@ -1,15 +1,11 @@
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Permutation_test
-#c# 2015-11-20 <RC
+#c# 2015-11-20 <RC, 2018-10-17 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   but super slow...
-
-# Works with: rakudo version 2015-09-30
 
 sub stats ( @test, @all ) {
-    (([+] @test) / +@test ) - ([+] flat @all, (@test X* -1)) / (@all - @test)
+    ([+] @test / +@test) - ([+] flat @all, (@test X* -1)) / @all - @test
 }
 
 my int @treated = <85 88 75 66 25 29 83 39 97>;
@@ -18,19 +14,19 @@ my int @all = flat @treated, @control;
 
 my $base = stats( @treated, @all );
 
-my @trials = 0, 0, 0;
+my @trials[3] = 0, 0, 0;
 
-@trials[ 1 + ( stats( $_, @all ) <=> $base ) ]++ for @all.combinations(+@treated);
+@all.combinations(+@treated).map: { @trials[ 1 + ( stats( $_, @all ) <=> $base ) ]++ } 
 
 say my $a1 = ('Counts: <, =, > ', @trials);
-say my $a2 = ('Less than   :%', 100 * @trials[0] / [+] @trials);
-say my $a3 = ('Equal to    :%', 100 * @trials[1] / [+] @trials);
-say my $a4 = ('Greater than:%', 100 * @trials[2] / [+] @trials);
+say my $a2 = ('Less than    :%', 100 * @trials[0] / [+] @trials);
+say my $a3 = ('Equal to     :%', 100 * @trials[1] / [+] @trials);
+say my $a4 = ('Greater than :%', 100 * @trials[2] / [+] @trials);
 say my $a5 = ('Less or Equal:%', 100 * ( [+] @trials[0,1] ) / [+] @trials);
 
 use Test;
 is $a1, 'Counts: <, =, >  80238 313 11827';
-is $a2, 'Less than   :% 86.858343';
-is $a3, 'Equal to    :% 0.338825';
-is $a4, 'Greater than:% 12.802832';
+is $a2, 'Less than    :% 86.858343';
+is $a3, 'Equal to     :% 0.338825';
+is $a4, 'Greater than :% 12.802832';
 is $a5, 'Less or Equal:% 87.197168';
