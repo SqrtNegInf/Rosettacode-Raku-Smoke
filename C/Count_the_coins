@@ -4,7 +4,6 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# for large $ values in recursive, JVM gives: StackOverflowError
-#n# JVM won't run the test, produced 'ok 1 -'?  The results produced are fine
 
 my @res;
 
@@ -49,7 +48,7 @@ sub change-i(\n, @coins) {
 @res.push: change-r  100_00, [1,5,10,25] if $*VM !~~ /jvm/; # DH JVM fails 2018-12-09 worse than before
 @res.push: change-r 1000_00, [1,5,10,25] if $*VM !~~ /jvm/; # DH JVM fails
 
-.say for @res; exit;
+.say for @res;
 
 my $moar = q:to/END/;
 242
