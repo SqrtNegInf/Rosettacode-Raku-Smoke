@@ -70,9 +70,11 @@ END
 @res.push: "\n== Decoded: ==";
 @res.push: jit-decode($enc);
 
+#.say for @res; exit;
+
 say jit-decode($enc);
 
-my $ref = q:to/END/;
+my $moar = q:to/END/;
 == Secret: ==
 In my opinion, this task is pretty silly.
 
@@ -98,5 +100,32 @@ In my opinion, this task is pretty silly.
 !@#$%^&*()_+}{[].,><\|/?'";:1234567890
 END
 
+my $jvm = q:to/END/;
+== Secret: ==
+In my opinion, this task is pretty silly.
+
+'Twas brillig, and the slithy toves
+    Did gyre and gimble in the wabe.
+
+!@#$%^&*()_+}{[].,><\|/?'";:1234567890
+
+== Encoded: ==
+QsQi2We1Gjv26qy5Ss4Ct2WeQm3Mj5Sun1Gb4Cc2Wo4Ce78lfcQb1GsQa26r
+1Gi2Wnw52rk1GbA4tax8OrQmy2Wja26fh26ma7Yc1Gv1GnQl26yvQf1Gr3Ml
+Qra6Io4Cz3Mx1Gwe2Wn1Gj1Gyn2WaQg1Gu26a26qmQmibseQj78aQxu52r6I
+haaa3Mv6Ii1Gfh26xi4Cm2WuQbQdQkQx26n26xh2WcA4kQf3Mlj26b4Ce26a
+4Ce26n52rr8Oj2Wp6IaeogaQmQm3Mq1GoQk3MreQrQrQg1GpFWxQnAUa1Gh4
+Cnu78l26h1Gy6Iu1GqQy26su1GqQn78t3MdvQl1Gfdm3Mi2WqQn5Sr4Ct
+
+== Decoded: ==
+In my opinion, this task is pretty silly.
+
+'Twas brillig, and the slithy toves
+    Did gyre and gimble in the wabe.
+
+!@#$%^&*()_+}{[].,><\|/?'";:1234567890
+END
+
 use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), $ref;
