@@ -2,8 +2,8 @@
 #u# http://rosettacode.org/wiki/Tree_datastructures
 #c# 2019-10-20 <RC, 2019-10-23 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# JVM fails in JSON::Fast: VMArray representation does not implement push_native
+#j# JVM:  OK
+#n# switch to JSON::Tiny to get JVM working
 
 my @res;
 
@@ -80,7 +80,8 @@ my $forest = import $trees;
 @res.push: "\nNative data structure:\n"~ $forest.perl;
 
 {
-    use JSON::Fast;
+    #use JSON::Fast;
+    use JSON::Tiny;
     @res.push: "\nJSON:\n"~ $forest.&to-json;
 }
 
@@ -95,36 +96,7 @@ Native data structure:
 $["RosettaCode", ["encourages", ["code", ["diversity", "comparison"]], "discourages", ["golfing", "trolling", "emphasising execution speed"]], "code-golf.io", ["encourages", ["golfing"], "discourages", ["comparison"]]]
 
 JSON:
-[
-  "RosettaCode",
-  [
-    "encourages",
-    [
-      "code",
-      [
-        "diversity",
-        "comparison"
-      ]
-    ],
-    "discourages",
-    [
-      "golfing",
-      "trolling",
-      "emphasising execution speed"
-    ]
-  ],
-  "code-golf.io",
-  [
-    "encourages",
-    [
-      "golfing"
-    ],
-    "discourages",
-    [
-      "comparison"
-    ]
-  ]
-]
+[ "RosettaCode", [ "encourages", [ "code", [ "diversity", "comparison" ] ], "discourages", [ "golfing", "trolling", "emphasising execution speed" ] ], "code-golf.io", [ "encourages", [ "golfing" ], "discourages", [ "comparison" ] ] ]
 
 YAML:
 ---
