@@ -133,4 +133,4 @@ a{b,{{c}}
 END
 
 use Test;
-#is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
