@@ -1,0 +1,76 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Problem_of_Apollonius
+#c# 2015-11-02 <RC, 2018-09-20 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+class Circle {
+   has $.x;
+   has $.y;
+   has $.r;
+   method gist { sprintf "%s =%7.3f " xx 3, (:$!x,:$!y,:$!r)».kv } # are not I clever...
+}
+
+sub circle($x,$y,$r) { Circle.new: :$x, :$y, :$r }
+
+sub postfix:<**2>($x) { $x * $x }
+
+sub solve-Apollonius([$c1, $c2, $c3], [$s1, $s2, $s3]) {
+
+    my $v11 = 2 * $c2.x - 2 * $c1.x;
+    my $v12 = 2 * $c2.y - 2 * $c1.y;
+    my $v13 = $c1.x**2 - $c2.x**2 + $c1.y**2 - $c2.y**2 - $c1.r**2 + $c2.r**2;
+    my $v14 = 2 * $s2 * $c2.r - 2 * $s1 * $c1.r;
+
+    my $v21 = 2 * $c3.x - 2 * $c2.x;
+    my $v22 = 2 * $c3.y - 2 * $c2.y;
+    my $v23 = $c2.x**2 - $c3.x**2 + $c2.y**2 - $c3.y**2 - $c2.r**2 + $c3.r**2;
+    my $v24 = 2 * $s3 * $c3.r - 2 * $s2 * $c2.r;
+
+    my $w12 = $v12 / $v11;
+    my $w13 = $v13 / $v11;
+    my $w14 = $v14 / $v11;
+
+    my $w22 = $v22 / $v21 - $w12;
+    my $w23 = $v23 / $v21 - $w13;
+    my $w24 = $v24 / $v21 - $w14;
+
+    my $P = -$w23 / $w22;
+    my $Q = $w24 / $w22;
+    my $M = -$w12 * $P - $w13;
+    my $N = $w14 - $w12 * $Q;
+
+    my $a = $N**2 + $Q**2 - 1;
+    my $b = 2 * $M * $N - 2 * $N * $c1.x + 2 * $P * $Q - 2 * $Q * $c1.y + 2 * $s1 * $c1.r;
+    my $c = $c1.x**2 + $M**2 - 2 * $M * $c1.x + $P**2 + $c1.y**2 - 2 * $P * $c1.y - $c1.r**2;
+
+    my $D = $b**2 - 4 * $a * $c;
+    my $rs = (-$b - sqrt $D) / (2 * $a);
+
+    my $xs = $M + $N * $rs;
+    my $ys = $P + $Q * $rs;
+
+    circle($xs, $ys, $rs);
+}
+
+my @res;
+my @c = circle(0, 0, 1), circle(4, 0, 1), circle(2, 4, 2);
+for ([X] [-1,1] xx 3) -> @i {
+    @res.push: (solve-Apollonius @c, @i).gist;
+}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+x =  2.000  y =  0.833  r =  1.167 
+x =  2.000  y =  3.214  r =  2.786 
+x =  3.002  y =  0.123  r =  2.005 
+x =  4.127  y =  3.252  r =  4.255 
+x =  0.998  y =  0.123  r =  2.005 
+x = -0.127  y =  3.252  r =  4.255 
+x =  2.000  y = -1.500  r =  3.500 
+x =  2.000  y =  2.100  r =  3.900 
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
