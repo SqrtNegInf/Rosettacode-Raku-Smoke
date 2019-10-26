@@ -1,0 +1,82 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Pierpont_primes
+#c# 2019-08-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# dropped calc of 1000th
+
+my @res;
+
+# This finesse version never produces more Pierpont numbers than it needs to
+# fulfill the requested number of primes. It uses a series of parallel iterators
+# with additional iterators added as required. No need to speculatively generate
+# an overabundance. No need to rely on magic numbers. No need to sort them. It
+# produces exactly what is needed, in order, on demand.
+
+sub pierpont ($kind is copy = 1) {
+    fail "Unknown type: $kind. Must be one of 1 (default) or 2" if $kind !== 1|2;
+    $kind = -1 if $kind == 2;
+    my $po3 = 3;
+    my $add-one = 3;
+    my @iterators = [1,2,4,8 … *].iterator, [3,9,27 … *].iterator;
+    my @head = @iterators».pull-one;
+ 
+    gather {
+        loop {
+            my $key = @head.pairs.min( *.value ).key;
+            my $min = @head[$key];
+            @head[$key] = @iterators[$key].pull-one;
+ 
+            take $min + $kind if "{$min + $kind}".&is-prime;
+ 
+            if $min >= $add-one {
+                @iterators.push: ([|((2,4,8).map: * * $po3) … *]).iterator;
+                $add-one = @head[+@iterators - 1] = @iterators[+@iterators - 1].pull-one;
+                $po3 *= 3;
+            }
+        }
+    }
+}
+
+@res.push: "First 50 Pierpont primes of the first kind:\n" ~ pierpont[^50].rotor(10)».fmt('%8d').join: "\n";
+
+@res.push: "\nFirst 50 Pierpont primes of the second kind:\n" ~ pierpont(2)[^50].rotor(10)».fmt('%8d').join: "\n";
+
+@res.push: "\n250th Pierpont prime of the first kind: " ~ pierpont[249];
+
+@res.push: "\n250th Pierpont prime of the second kind: " ~ pierpont(2)[249];
+
+# And the question absolutely nobody was asking:
+#@res.push: "\n1000th Pierpont prime of the first kind:\n" ~ pierpont[999];
+#@res.push: "\n1000th Pierpont prime of the second kind:\n" ~ pierpont(2)[999];
+
+.say for @res;
+
+my $ref = q:to/END/;
+First 50 Pierpont primes of the first kind:
+       2        3        5        7       13       17       19       37       73       97
+     109      163      193      257      433      487      577      769     1153     1297
+    1459     2593     2917     3457     3889    10369    12289    17497    18433    39367
+   52489    65537   139969   147457   209953   331777   472393   629857   746497   786433
+  839809   995329  1179649  1492993  1769473  1990657  2654209  5038849  5308417  8503057
+
+First 50 Pierpont primes of the second kind:
+       2        3        5        7       11       17       23       31       47       53
+      71      107      127      191      383      431      647      863      971     1151
+    2591     4373     6143     6911     8191     8747    13121    15551    23327    27647
+   62207    73727   131071   139967   165887   294911   314927   442367   472391   497663
+  524287   786431   995327  1062881  2519423 10616831 17915903 18874367 25509167 30233087
+
+250th Pierpont prime of the first kind: 62518864539857068333550694039553
+
+250th Pierpont prime of the second kind: 4111131172000956525894875083702271
+END
+
+#1000th Pierpont prime of the first kind:
+#69269314716439690250482558089997110961545818230232043107188537422260188701607997086273960899938499201024414931399264696270849
+
+#1000th Pierpont prime of the second kind:
+#1308088756227965581249669045506775407896673213729433892383353027814827286537163695213418982500477392209371001259166465228280492460735463423
+
+use Test;
+is @res.join("\n"), chomp $ref;
