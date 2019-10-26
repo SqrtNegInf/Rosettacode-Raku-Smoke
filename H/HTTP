@@ -2,10 +2,8 @@
 #u# http://rosettacode.org/wiki/HTTP
 #c# 2015-10-11 <>RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
 #n# my 1st RC edit!   $socket.send --> $socket.print 
-
-BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use LWP::Simple;
 my $result = LWP::Simple.get("http://www.biobyte.com");
