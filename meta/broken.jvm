@@ -92,11 +92,11 @@ P/Parallel_calculations-2  (.hyper/.race)
 S/Square-free_integers (.hyper/.race)
 W/Wireworld
 
-# NativeCall issue (direct, or in module)
+# 'use NativeCall' (direct, or in module)
 C/Call_a_foreign-language_function
 C/Call_a_function_in_a_shared_library
 C/Create_an_object_at_a_given_address
-C/Curve_that_touches_three_points
+C/Curve_that_touches_three_points # also Image::PNG::Portable
 D/Draw_a_sphere-2
 F/File_modification_time
 F/Find_duplicate_files
@@ -112,36 +112,44 @@ T/Truncate_a_file
 W/Welch%27s_t-test-2
 W/Window_creation_X11
 
-# other ecosystem problems (partial list)
-15_P/Puzzle_Game
-2048
+# 'use Image::PNG::Portable'
 A/Archimedean_spiral
 B/Barnsley_fern
-B/Bilinear_interpolation
-# B/Bitcoin_public_point_to_address  # DH works 2018-04-28
 C/Chaos_game
 C/Color_wheel
-# F/Four_is_magic # fixed 2019-10-23
-# F/Four_is_the_number_of_letters_in_the_... # fixed 2019-10-23
-F/FTP
-H/Hough_transform
-H/HTTP
 J/Julia_set
 K/Kronecker_product_based_fractals
-M/Mersenne_primes
-M/Multiple_regression
-# O/One-time_pad  # DH kludge for Moar/JVM to avoid module
-O/Orbital_elements
-P/Parallel_Brute_Force
 P/Plasma_effect
-P/Polynomial_regression
-R/Raster_bars
 V/Voronoi_diagram
-W/Web_scraping
-X/XML_DOM_serialization
-X/XML_Input
-X/XML_Validation
-X/XML_XPath
+
+# 'use GD'
+B/Bilinear_interpolation
+H/Hough_transform
+P/Percentage_difference_between_images
+
+# other ecosystem problems
+15_Puzzle_Game          # use Term::termios
+2048                    # use Term::termios
+D/Draw_a_rotating_cube  # use Terminal::Caca
+F/FTP                   # use Net::FTP
+H/HTTP                  # use LWP::Simple
+M/Mersenne_primes       # use HTTP::UserAgent, use Gumbo
+M/Multiple_regression   # use Clifford
+O/Orbital_elements      # use Clifford
+P/Polynomial_regression # use Clifford
+P/Parallel_Brute_Force  # use Digest::SHA
+R/Raster_bars           # use SDL2::Raw, use Cairo
+W/Web_scraping          # use HTTP::UserAgent
+X/XML_DOM_serialization # use XML, use XML::Writer
+X/XML_Input             # use XML
+X/XML_Validation        # use LibXML::Schema
+X/XML_XPath             # use XML::XPath
+
+# fixed in this group:
+# B/Bitcoin_public_point_to_address  # DH works 2018-04-28
+# F/Four_is_magic # fixed 2019-10-23
+# F/Four_is_the_number_of_letters_in_the_... # fixed 2019-10-23
+# O/One-time_pad  # DH kludge for Moar/JVM to avoid module
 
 # check for external modules:
 # g '^use [^a-z]' [0A-Z]/* | pg -v 'use (Test|MONK)' | pg -v '\.\d:' | pg -v '\.pl' | pf 's/^.*:u/u/' | sortcnt
@@ -152,7 +160,6 @@ X/XML_XPath
 
 2019-10-22-j Secs: 108061 RC: 974 Tasks: 1022  OK: 1496  Err: 92 !OK: 14  Top: 6236 5858 3442 2138 1543 1312 1115
 
-D/Draw_a_rotating_cube
 E/Executable_library
 J/Just_in_time_processing_on_a_character_stream
 M/Multidimensional_Newton-Raphson_method
@@ -162,7 +169,7 @@ R/Rate_counter
 R/Rock-paper-scissors
 R/Rosetta_Code_Tasks_without_examples
 S/SOAP
-S/Sequence:_nth_number_with_exactly_n_divisors # DH a real code issue here?
+S/Sequence:_nth_number_with_exactly_n_divisors # DH a non-trivial code issue here?
 S/Super-d_numbers-3
 T/The_ISAAC_Cipher
 T/Time-based_One-time_Password_Algorithm
@@ -179,7 +186,6 @@ L/Long_primes
 M/MAC_Vendor_Lookup
 N/Names_to_numbers
 O/Object_serialization
-P/Percentage_difference_between_images
 P/Permutation_test
 R/Rosetta_Code_Find_unimplemented_tasks
 R/Rosetta_Code_Rank_languages_by_number_of_users
