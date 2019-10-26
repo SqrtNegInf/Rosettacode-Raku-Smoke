@@ -2,11 +2,9 @@
 #u# http://rosettacode.org/wiki/Pierpont_primes
 #c# 2019-08-26 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 my @res;
-
-use ntheory:from<Perl5> <is_prime>;
 
 # Generalized Pierpont iterator
 # a version that will generate generalized Pierpont numbers for any set of prime integers where at least one of the primes is 2
