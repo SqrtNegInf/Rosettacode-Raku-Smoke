@@ -1979,7 +1979,6 @@ File: C/Count_the_coins
 #m# MOAR: OK
 #j# JVM:  OK
 #n# for large $ values in recursive, JVM gives: StackOverflowError
-#n# JVM won't run the test, produced 'ok 1 -'?  The results produced are fine
 
 File: C/Count_the_coins.1
 #!/usr/bin/env perl6
@@ -2902,6 +2901,15 @@ File: E/Executable_library
 #n# uses module 'Hailstone.pm'
 #n# what happened on 2018-12-20? (answer: use lib '.' ate time like crazy)
 
+File: E/Executable_library.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Executable_library
+#c# 2018-03-20 <RC, 2018-05-17 <RC, 2018-12-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# uses module 'Hailstone.pm'
+#n# wouldn't need a separate JVM version except for the 'race'
+
 File: E/Execute_Brainfuck
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Execute_Brain****/Perl_6
@@ -3271,7 +3279,7 @@ File: F/Find_URI_in_text
 #u# http://rosettacode.org/wiki/Find_URI_in_text
 #c# 2018-04-02 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# updated module, 1st 'stop' entry improved
 
 File: F/Find_URI_in_text.1
@@ -3710,10 +3718,9 @@ File: G/Galton_box_animation
 #c# 2016-02-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#i# RC cli: 10 4
 #f# RC file: galton_box.BEND
-#n# 'RC cli' isn't working for 'rc-jvm'?
 #n# minor idiomatification
+#n# RC x-cli-x: 10 4 (this wasn't working for JVM?)
 
 File: G/Gamma_function
 #!/usr/bin/env perl6
@@ -3917,7 +3924,7 @@ File: G/Guess_the_number
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#=# RC pipe: 1\n2\n3
+#=# RC pipe: 1\n2\n3\n4\n5\n6\n7\n8\n
 
 File: G/Guess_the_number_With_feedback
 #!/usr/bin/env perl6
@@ -3925,7 +3932,7 @@ File: G/Guess_the_number_With_feedback
 #c# 2016-06-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: 10\n5\n3
+#=# RC pipe: 10\n5\n3\n8\n
 
 File: G/Guess_the_number_With_feedback_player
 #!/usr/bin/env perl6
@@ -3936,12 +3943,21 @@ File: G/Guess_the_number_With_feedback_player
 #=# RC pipe: l\nh\nh\nl\nh\nl\ne
 #n# 42 is the target number
 
+File: G/Guess_the_number_With_feedback_player.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Guess_the_number/With_feedback_(player)
+#c# 2018-03-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#=# RC pipe: l\nh\nh\nl\nh\nl\ne # for JVM
+#n# 42 is the target number
+
 File: H/HTTP
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/HTTP
 #c# 2015-10-11 <>RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
 #n# my 1st RC edit!   $socket.send --> $socket.print 
 
 File: H/HTTPS
@@ -3949,7 +3965,7 @@ File: H/HTTPS
 #u# http://rosettacode.org/wiki/HTTPS
 #c# 2018-04-25 <RC, 2018-05-17 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: H/HTTPS_Authenticated
 #!/usr/bin/env perl6
@@ -4010,6 +4026,14 @@ File: H/Happy_numbers-1
 #c# 2015-12-03 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# for JVM: 'state %seen' fails in 'loop' or 'while' construct, but OK if bogus 'for' used
+
+File: H/Happy_numbers-1.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Happy_numbers
+#c# 2015-12-03 <RC
+#m# MOAR: OK
+#j#  JVM: OK
 #n# for JVM: 'state %seen' fails in 'loop' or 'while' construct, but OK if bogus 'for' used
 
 File: H/Happy_numbers-2
@@ -5048,11 +5072,10 @@ File: L/Law_of_cosines_-_triples-1
 
 File: L/Law_of_cosines_-_triples-1.1
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
 #c# 2018-09-24 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #  for JVM: .race and module
 #n# Thundergnat's performant version (but with .race it sometimes gives 18383 for 'extra credit')
 #n# see main code, use @triples not %triples, atomic ops and no more problem
@@ -5499,6 +5522,8 @@ File: M/MAC_Vendor_Lookup
 #c# 2017-01-15 <RC, 2018-04-07 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# VMArray representation does not implement bind_pos_native
+#n# ultimately has to do with SSL, which involves NativeCall
 
 File: M/MAC_Vendor_Lookup.1
 #!/usr/bin/env perl6
@@ -5529,6 +5554,7 @@ File: M/MD5_Implementation
 #m# MOAR: OK
 #j#  JVM: OK
 #n# kludge for JVM: uint64 instead of uint32
+#n# 2019-10-26 kludge still needed
 
 File: M/Mad_Libs
 #!/usr/bin/env perl6
@@ -6014,7 +6040,7 @@ File: M/Multidimensional_Newton-Raphson_method
 #u# http://rosettacode.org/wiki/Multidimensional_Newton-Raphson_method
 #c# 2019-01-09 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: M/Multifactorial
 #!/usr/bin/env perl6
@@ -6574,7 +6600,6 @@ File: P/Palindrome_pairs
 File: P/Palindromic_dates
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Palindromic_dates
-#t# inprogress
 #c# 2019-10-xx >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -6597,10 +6622,9 @@ File: P/Palindromic_dates
 File: P/Palindromic_dates.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Palindromic_dates
-#t# inprogress
 #c# 2019-10-xx >RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# Fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
 #n#   copiously annotated for the beginning programmer (Hi Oscar!)
 #n#
@@ -6978,6 +7002,7 @@ File: P/Perlin_noise
 #m# MOAR: OK
 #j#  JVM: OK
 #n# kludge for JVM: 'my' instead of 'constant' for @p (java.lang.IllegalArgumentException: bad parameter count 259)
+#n# 2019-10-26 kludge still needed...
 
 File: P/Permutation_test
 #!/usr/bin/env perl6
@@ -6989,12 +7014,10 @@ File: P/Permutation_test
 
 File: P/Permutation_test.1
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Permutation_test
-#c# 2015-11-20 <RC
+#c# 2015-11-20 <RC, 2018-10-17 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   but super slow...
 
 File: P/Permutations
 #!/usr/bin/env perl6
@@ -7100,20 +7123,36 @@ File: P/Pierpont_primes-1
 #j# JVM:  BROKEN
 #n# dropped calc of 1000th
 
+File: P/Pierpont_primes-1.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Pierpont_primes
+#c# 2019-08-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# dropped calc of 1000th
+
 File: P/Pierpont_primes-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pierpont_primes
 #c# 2019-08-26 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: P/Pig_the_dice_game
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pig_the_dice_game
 #c# 2016-06-11 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j#  JVM: BROKEN
 #=# RC pipe: \nY\nY\nY\nY
+
+File: P/Pig_the_dice_game.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Pig_the_dice_game
+#c# 2016-06-11 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#=# RC pipe: \nY\nY\nY\nY\nY\n
 
 File: P/Pig_the_dice_game_Player
 #!/usr/bin/env perl6
@@ -7425,6 +7464,13 @@ File: P/Problem_of_Apollonius
 #j#  JVM: BROKEN
 #n# JVM fails on '\' of Unicode char, but after removing all those, it works
 
+File: P/Problem_of_Apollonius.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Problem_of_Apollonius
+#c# 2015-11-02 <RC, 2018-09-20 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+
 File: P/Program_name
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Program_name
@@ -7580,7 +7626,8 @@ File: R/Ramanujan%27s_constant-1.1
 #u# http://rosettacode.org/wiki/Ramanujan%27s_constant
 #c# 2019-02-24 >RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
+#n# down-graded Unicode variable names
 #n# calculate Ramanujan's constant as per http://oeis.org/wiki/Ramanujan%27s_constant
 #n# cobbled together from other RC tasks (calculation of 𝑒 and π) and a custom ** operator
 #n# show 'almost integer' of Heegner-number series (19 43 67 163), make table of deltas
@@ -8254,7 +8301,8 @@ File: S/SOAP
 #u# http://rosettacode.org/wiki/SOAP
 #c# 2018-12-17 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN OK
+#j# JVM:  BROKEN
+#n# 501 Protocol scheme 'https' is only supported if IO::Socket::SSL is installed <URL:https://www.w3schools.com/xml/tempconvert.asmx?WSDL>
 
 File: S/Safe_addition
 #!/usr/bin/env perl6
@@ -8395,7 +8443,7 @@ File: S/Send_email
 #u# http://rosettacode.org/wiki/Send_email
 #c# 2018-11-30 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# incomplete: no attempt to send email (and pretty weak testing)
 
 File: S/Separate_the_house_number_from_the_street_name
@@ -9116,17 +9164,8 @@ File: S/Spelling_of_ordinal_numbers.1
 #u# http://rosettacode.org/wiki/Spelling_of_ordinal_numbers
 #c# 2019-02-10 <RC, 2019-06-08 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#f# RC file: spelling_ordinals.txt
-#n# results cause 'malformed UTF' problems, output to file instead
-
-File: S/Spelling_of_ordinal_numbers.2
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Spelling_of_ordinal_numbers
-#c# 2017-09-07 <RC
-#m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
+#n# for JVM, .unival NYI
 
 File: S/Spinning_rod_animation_Text
 #!/usr/bin/env perl6
@@ -9176,13 +9215,10 @@ File: S/Square-free_integers
 
 File: S/Square-free_integers.1
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Square-free_integers
 #c# 2018-07-02 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# org.perl6.nqp.runtime.UnwindException / java.lang.NullPointerException
-#n# breakage is independent of .race issue
+#j# JVM:  OK
 
 File: S/Square_but_not_cube
 #!/usr/bin/env perl6
@@ -9434,6 +9470,13 @@ File: S/Strong_and_weak_primes
 #j# JVM:  BROKEN
 
 File: S/Strong_and_weak_primes.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Strong_and_weak_primes
+#c# 2018-12-03 <RC, 2019-01-31 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: S/Strong_and_weak_primes.2
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Strong_and_weak_primes
@@ -10014,6 +10057,13 @@ File: T/The_ISAAC_Cipher
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: T/The_ISAAC_Cipher.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/The_ISAAC_Cipher
+#c# 2019-01-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: T/The_Name_Game
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/The_Name_Game
@@ -10062,6 +10112,7 @@ File: T/Tic-tac-toe
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #=# RC pipe: 5\n1\n9
+#n# not reading user input?
 
 File: T/Tic-tac-toe.1
 #!/usr/bin/env perl6
@@ -10225,8 +10276,8 @@ File: T/Tree_datastructures
 #u# http://rosettacode.org/wiki/Tree_datastructures
 #c# 2019-10-20 <RC, 2019-10-23 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# JVM fails in JSON::Fast: VMArray representation does not implement push_native
+#j# JVM:  OK
+#n# switch to JSON::Tiny to get JVM working
 
 File: T/Tree_traversal
 #!/usr/bin/env perl6
@@ -10664,6 +10715,8 @@ File: W/Web_scraping
 #c# 2016-05-12 <>RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# for JVM: VMArray representation does not implement bind_pos_native
+#n# ultimately has to do with SSL, which involves NativeCall
 #n# old Naval time server was failing...
 
 File: W/Web_scraping.1
