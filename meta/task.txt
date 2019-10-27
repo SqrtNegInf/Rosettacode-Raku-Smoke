@@ -1,8 +1,8 @@
-This is Rakudo version 2019.07.1-445-gafbe64a43 built on MoarVM version 2019.07.1-295-gbc93815a8
+This is Rakudo version 2019.07.1-449-gefd7146c4 built on MoarVM version 2019.07.1-305-g71af77b5c
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1128/10]
-|+-------------> JVM: Good/Bad [967/171]
++--------------> Moar: Good/Bad [1127/10]
+|+-------------> JVM: Good/Bad [973/165]
 ||+------------> Smoke testing [1017]
 |||+-----------> sKipping validation [117]
 ||||+----------> Interactive [56]
@@ -252,7 +252,7 @@ GGS.......... Count_in_factors-2
 GGS.......... Count_in_factors-3
 GGS.......... Count_in_octal
 GGS.......... Count_occurrences_of_a_substring
-GGS..T....... Count_the_coins
+!GS..T....... Count_the_coins
 GGS.......... Cramer%27s_rule
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
@@ -394,7 +394,7 @@ GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T...D... File_size_distribution
 GGS.......... Filter
-GBS......D... Find_URI_in_text
+GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T...D... Find_duplicate_files
 GBS......D... Find_first_and_last_set_bit_of_a_long_integer
@@ -468,8 +468,8 @@ GGS..T..F.... Greyscale_bars_Display
 GGS....R..... Guess_the_number
 GGS....R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
-GBS..T....... HTTP
-GBS.......... HTTPS
+GGS..T....... HTTP
+GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -699,7 +699,7 @@ GGS......D... Most_frequent_k_chars_distance
 GB.KI........ Mouse_position
 GGS.......... Move-to-front_algorithm
 GGS.......... Multi-dimensional_array
-GBS......D... Multidimensional_Newton-Raphson_method
+GGS......D... Multidimensional_Newton-Raphson_method
 GGS.......... Multifactorial
 GGS......D... Multiline_shebang
 GGS.......... Multiple_distinct_objects
@@ -823,8 +823,8 @@ GGS..T....... Pi
 GGS..T.R..... Pick_random_element
 .........D... Pierpont_primes
 GBS.......... Pierpont_primes-1
-GBS.......... Pierpont_primes-2
-GGS....R..... Pig_the_dice_game
+GGS.......... Pierpont_primes-2
+GBS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
 ...........VU Pinstripe_Printer
@@ -978,7 +978,7 @@ GGS..T.R..... Semiprime-1
 GGS.......... Semiprime-2
 GGS..T....... Semordnilap
 GGS.......... Send_an_unknown_method_call
-GBS.......... Send_email
+GGS.......... Send_email
 GGS......D... Separate_the_house_number_from_the_street_name
 GBS...C...... Sequence:_nth_number_with_exactly_n_divisors
 GGS.......... Sequence:_smallest_number_greater_than_previous_term_with_exactly_n_divisors
@@ -1186,7 +1186,7 @@ GBS...C...... Totient_function
 GGS.......... Towers_of_Hanoi
 GGS.......... Trabb_Pardo-Knuth_algorithm
 GGS..T...D... Transportation_problem
-GBS......D... Tree_datastructures
+GGS......D... Tree_datastructures
 GGS..T....... Tree_traversal
 GGS..T....... Trigonometric_functions
 GGS.......... Truncatable_primes
