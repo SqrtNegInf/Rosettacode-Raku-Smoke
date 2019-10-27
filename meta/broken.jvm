@@ -6,6 +6,9 @@
 # uint64 instead of uint32
 # M/MD5_Implementation
 
+# avoid 'use Crypt::Random' for JVM (and reliable testing)
+# O/One-time_pad  
+
 # these work after downgrading U/Unicode names to ASCII
 # A/Ackermann_function
 # B/Box_the_compass
@@ -162,14 +165,8 @@ N/Names_to_numbers
 G/Get_system_command_output
 T/Tic-tac-toe
 
-# fixed in this group:
-# B/Bitcoin_public_point_to_address  # DH works 2018-04-28
-# F/Four_is_magic # fixed 2019-10-23
-# F/Four_is_the_number_of_letters_in_the_... # fixed 2019-10-23
-# O/One-time_pad  # DH kludge for Moar/JVM to avoid module
-
 # check for external modules:
-# g '^use [^a-z]' [0A-Z]/* | pg -v 'use (Test|MONK)' | pg -v '\.\d:' | pg -v '\.pl' | pf 's/^.*:u/u/' | sortcnt
+# g '^use [^a-z]' [0A-Z]/* | pg -v 'use (Test|MONKEY)' | pg -v '\.\d:' | pg -v '\.pl' | pf 's/^.*:u/u/' | sortcnt
 
 ===================================================================
 
