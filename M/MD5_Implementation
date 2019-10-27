@@ -4,8 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# kludge for JVM: uint64 instead of uint32
-
-# Works with: rakudo version 2015-09-22
+#n# 2019-10-26 kludge still needed
 
 sub infix:<⊞>(uint64 $a, uint64 $b --> uint64) { ($a + $b) +& 0xffffffff }
 sub infix:«<<<»(uint64 $a, UInt $n --> uint64) { ($a +< $n) +& 0xffffffff +| ($a +> (32-$n)) }
