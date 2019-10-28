@@ -76,8 +76,10 @@ use Parallel::ForkManager;
 'S/Successive_prime_differences-2' => 1,
 'T/Thiele%27s_interpolation_formula' => 1,
 'T/The_ISAAC_Cipher' => 1,
+'T/Tic-tac-toe' => 1,
 'T/Topswops' => 1,
 'T/Totient_function' => 1,
+'T/Truncate_a_file' => 1,
 'V/Vampire_number' => 1,
 'Z/Zumkeller_numbers' => 1,
 );
@@ -118,7 +120,7 @@ system "date";
 my $skip = 'interactive|gui|toodamnslow|skiptest|inprogress|nocode|forever|broken';
 
 # find Perl6 programs
-$DB::single = 1;
+#$DB::single = 1;
 for my $prog (@ARGV) {
     next if $prog =~ /\.(pl|[0-9])$/;
     next if $prog =~ /^Temp-/;
@@ -164,7 +166,7 @@ for my $prog (@ARGV) {
 }
 
 # run some programs solo (those with .race/.hyper, or have real-time aspect)
-$DB::single = 1;
+#$DB::single = 1;
 for my $prog (@P_one_at_a_time) {
 
     my $run = $prog;
@@ -190,6 +192,7 @@ for my $prog (@Programs) {
 
     $task = "bench/$dir/$pbase";
     if ($Pipe{$prog}) {
+$DB::single = 1;
         $exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
         ($u0,$s0) = cpu_time(); $r0 = (time());
         system qq{$exe $run 1> $task.out 2> $task.tmp};
