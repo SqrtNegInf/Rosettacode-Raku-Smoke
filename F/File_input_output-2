@@ -1,0 +1,10 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/File_input/output
+#c# 2019-10-27 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: input_output.txt
+
+my $in  = 'ref/input_output.txt'.IO.open;
+my $out = 'run/input_output.txt'.IO.open :w;
+$out.say: $_ for $in.lines;
