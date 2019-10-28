@@ -3,7 +3,8 @@
 #c# 2016-06-11 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: \nY\nY\nY\nY\nY\n
+#x# RC pipe: \nY\nY\nY\nY\nY\n
+#n# 'prompt' not working in batch, change code to default to 'Y'
 
 srand 123456;
 
@@ -18,8 +19,8 @@ sub MAIN (Int :$players = 1, Int :$goal = 14) {
 	say "\nOK, player #$player is up now.";
 	my $safe = @safe[$player];
 	my $ante = 0;
-	until $safe + $ante >= $goal or
-	    prompt("#$player, you have $safe + $ante = {$safe+$ante}. Roll? [Yn] ") ~~ /:i ^n/
+	until $safe + $ante >= $goal #or
+	    #prompt("#$player, you have $safe + $ante = {$safe+$ante}. Roll? [Yn] ") ~~ /:i ^n/
 	{
 	    given DIE.roll {
 		say "  You rolled a $_.";
