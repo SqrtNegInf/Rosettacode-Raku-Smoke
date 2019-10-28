@@ -165,14 +165,13 @@ N/Names_to_numbers
 G/Get_system_command_output
 T/Tic-tac-toe
 
+===================================================================
+
 # check for external modules:
 # g '^use [^a-z]' [0A-Z]/* | pg -v 'use (Test|MONKEY)' | pg -v '\.\d:' | pg -v '\.pl' | pf 's/^.*:u/u/' | sortcnt
 
-===================================================================
+# task failures not categorized above (some can be fixed, chipping away at the list...)
 
-2019-10-22 task failures not categorized above (some can be fixed, chipping away at the list...)
+2019-10-22-j Secs: 104256 RC: 976 Tasks: 1024  OK: 1527  Err: 69 !OK: 11  Top: 5858 3442 2138 1543 1312 1203 1115
 
-2019-10-22-j Secs: 104163 RC: 975 Tasks: 1023  OK: 1523  Err: 70 !OK: 11  Top: 5858 3442 2138 1543 1312 1203 1115
-
-P/Pig_the_dice_game
 S/Sequence:_nth_number_with_exactly_n_divisors # DH a non-trivial code issue here?
