@@ -27,7 +27,7 @@ my @res.push: "Expect " ~ $expect.fmt("%.3f");
 for @dist.kv -> $i, $v {
     @res.push: "$i $v " ~ (($v - $expect)/$expect*100).fmt("%+.2f%%") if $v;
 }
-.say for @res; exit;
+.say for @res; #exit;
 
 my $moar = qq:to/END/;
 Expect 14285.714
@@ -52,8 +52,5 @@ Expect 14285.714
 END
 
 use Test;
-if $*VM ~~ /jvm/ {
-is @res.join("\n"), chomp $jvm;
-} else {
-is @res.join("\n"), chomp $moar;
-}
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
