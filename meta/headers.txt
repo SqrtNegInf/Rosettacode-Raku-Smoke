@@ -3244,6 +3244,14 @@ File: F/File_input_output
 #j#  JVM: OK
 #f# RC file: input_output.txt
 
+File: F/File_input_output-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/File_input/output
+#c# 2019-10-27 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: input_output.txt
+
 File: F/File_modification_time
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/File_modification_time
@@ -7152,7 +7160,8 @@ File: P/Pig_the_dice_game.1
 #c# 2016-06-11 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: \nY\nY\nY\nY\nY\n
+#x# RC pipe: \nY\nY\nY\nY\nY\n
+#n# 'prompt' not working in batch, change code to default to 'Y'
 
 File: P/Pig_the_dice_game_Player
 #!/usr/bin/env perl6
@@ -10112,9 +10121,17 @@ File: T/Tic-tac-toe
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #=# RC pipe: 5\n1\n9
-#n# not reading user input?
 
 File: T/Tic-tac-toe.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Tic-tac-toe
+#c# 2018-04-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#x# RC pipe: 5\n1\n9
+#n# use pre-loaded array instead
+
+File: T/Tic-tac-toe.2
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Tic-tac-toe
@@ -10307,6 +10324,15 @@ File: T/Truncate_a_file
 #m# MOAR: OK
 #r# RC prep: cp ref/truncate.base run/truncate.txt
 #j#  JVM: BROKEN
+
+File: T/Truncate_a_file.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Truncate_a_file
+#c# 2019-10-27 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#r# RC prep: cp ref/truncate.base run/truncate.txt
+#n# alternate method for JVM, lacking access to native/system routines
 
 File: T/Truth_table
 #!/usr/bin/env perl6
