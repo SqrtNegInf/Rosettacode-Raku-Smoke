@@ -1,0 +1,13 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Truncate_a_file
+#c# 2019-10-27 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#r# RC prep: cp ref/truncate.base run/truncate.txt
+#n# alternate method for JVM, lacking access to native/system routines
+
+my $fn = 'run/truncate.txt';
+spurt $fn, slurp($fn).substr(0,100);
+
+use Test;
+is $fn.IO.s, '100';
