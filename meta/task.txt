@@ -1,15 +1,15 @@
-This is Rakudo version 2019.07.1-449-gefd7146c4 built on MoarVM version 2019.07.1-305-g71af77b5c
+This is Rakudo version 2019.07.1-450-g7e3d023b4 built on MoarVM version 2019.07.1-306-g0b531f9ce
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1127/10]
-|+-------------> JVM: Good/Bad [973/165]
-||+------------> Smoke testing [1017]
++--------------> Moar: Good/Bad [1129/10]
+|+-------------> JVM: Good/Bad [970/165]
+||+------------> Smoke testing [1018]
 |||+-----------> sKipping validation [117]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [274]
 ||||||+--------> Concurrent [47]
 |||||||+-------> Random seed [113]
-||||||||+------> File output [83]
+||||||||+------> File output [84]
 |||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [52]
 |||||||||||+---> Void (no local copy) [121]
@@ -252,7 +252,7 @@ GGS.......... Count_in_factors-2
 GGS.......... Count_in_factors-3
 GGS.......... Count_in_octal
 GGS.......... Count_occurrences_of_a_substring
-!GS..T....... Count_the_coins
+GGS..T....... Count_the_coins
 GGS.......... Cramer%27s_rule
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
@@ -390,11 +390,12 @@ GGS.......... Fibonacci_word
 GGS.......... Fibonacci_word_fractal
 GGS......D... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
+GGS.....F.... File_input_output-2
 GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T...D... File_size_distribution
 GGS.......... Filter
-GGS......D... Find_URI_in_text
+G!S......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T...D... Find_duplicate_files
 GBS......D... Find_first_and_last_set_bit_of_a_long_integer
@@ -469,7 +470,7 @@ GGS....R..... Guess_the_number
 GGS....R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
-GGS.......... HTTPS
+G!S.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -796,7 +797,7 @@ GGS..T.R..... Pattern_matching
 GGS.....F.... Peano_curve
 GGS.......... Pell%27s_equation
 GGS....R..... Penney%27s_game
-GGS.....FD... Penrose_tiling
+G!S.....FD... Penrose_tiling
 GGS..T..F.... Pentagram
 .........D.VU Pentomino_tiling
 GBS.......... Percentage_difference_between_images
@@ -823,7 +824,7 @@ GGS..T....... Pi
 GGS..T.R..... Pick_random_element
 .........D... Pierpont_primes
 GBS.......... Pierpont_primes-1
-GGS.......... Pierpont_primes-2
+G!S.......... Pierpont_primes-2
 GBS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
