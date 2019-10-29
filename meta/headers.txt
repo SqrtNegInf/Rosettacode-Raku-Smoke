@@ -3251,6 +3251,7 @@ File: F/File_input_output-2
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: input_output.txt
+#n# meets task requirements, but too terse
 
 File: F/File_modification_time
 #!/usr/bin/env perl6
@@ -6766,7 +6767,7 @@ File: P/Parsing_RPN_calculator_algorithm
 File: P/Parsing_RPN_to_infix_conversion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parsing/RPN_to_infix_conversion
-#c# 2015-11-29 <>RC
+#c# 2015-11-29 <>RC, 2019-10-28 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -10846,10 +10847,20 @@ File: W/Write_entire_file
 File: W/Write_float_arrays_to_a_text_file
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Write_float_arrays_to_a_text_file
-#c# 2015-12-12 <RC
+#c# 2015-12-12 <RC, 2019-10-28 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: sqrt.dat
+#n# 2nd part got a re-write, see '-2' variant for original
+
+File: W/Write_float_arrays_to_a_text_file-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Write_float_arrays_to_a_text_file
+#c# 2019-10-28 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# this was (more or less) the 2nd part of the original task
+#n# strays pretty far from task spec, but love using 'base' for it's output precision arg.
 
 File: W/Write_language_name_in_3D_ASCII
 #!/usr/bin/env perl6
