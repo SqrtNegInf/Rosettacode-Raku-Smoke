@@ -146,8 +146,8 @@ for find-palindromes(date-fmt, begin , end, :pairs<True>) -> \k, \v {
 # 'for' loop lets you pass multiple items at a time (can be of different types)
 # the arrays contain pairs, so use '».value' to get formatted portion
 @res.push: "Using '{date-fmt}' format, in the years {begin} to {end}, there are:";
- for 'non-prime', date-non-prime, 'prime', date-prime -> \type, \dates {
 #for 'non-prime', date-non-prime, 'prime', date-prime -> $type, @dates {
+ for 'non-prime', date-non-prime, 'prime', date-prime -> \type, \dates {
     @res.push: sprintf "%8d %9s palindromic dates (%s ... %s)", +dates, type, dates[0,*-1]».value;
 }
 # method chaining looks hairy, but is in fact a superpower when combined with hypers
