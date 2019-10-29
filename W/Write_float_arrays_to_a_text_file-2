@@ -1,0 +1,26 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Write_float_arrays_to_a_text_file
+#c# 2019-10-28 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# this was (more or less) the 2nd part of the original task
+#n# strays pretty far from task spec, but love using 'base' for it's output precision arg.
+
+sub writefloat($filename, @x, @y, :$x-precision = 3, :$y-precision = 5) {
+    constant TAB = "\t" xx *;
+    constant NL  = "\n" xx *;
+    join '', flat @x>>.base(10, $x-precision) Z TAB Z @y>>.base(10, $y-precision) Z NL;
+}
+
+my @x = 1, 2, 3, 1e11;
+say my $result = writefloat('run/dummy.dat', @x, @x>>.sqrt, :y-precision(5));
+
+my $ref = q:to/END/;
+1.000	1.00000
+2.000	1.41421
+3.000	1.73205
+100000000000.000	316227.76602
+END
+
+use Test;
+is $result, $ref;
