@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: input_output.txt
+#n# meets task requirements, but too terse
 
-my $in  = 'ref/input_output.txt'.IO.open;
 my $out = 'run/input_output.txt'.IO.open :w;
-$out.say: $_ for $in.lines;
+$out.say: $_ for ('ref/input_output.txt'.IO.open).lines;
