@@ -128,7 +128,7 @@ B/Bilinear_interpolation
 H/Hough_transform
 P/Percentage_difference_between_images
 
-# SSL (via: 'use HTTP::UserAgent', 'use SOAP::Client')
+# SSL (via: 'use HTTP::UserAgent', 'use SOAP::Client', which involves NativeCall too...)
 W/Web_scraping
 M/MAC_Vendor_Lookup
 M/Mersenne_primes       # and 'use Gumbo'
@@ -141,7 +141,7 @@ R/Rosetta_Code_Run_examples
 R/Rosetta_Code_Tasks_without_examples
 S/SOAP
 
-# other ecosystem problems
+# other ecosystem problems (and probably some involve NativeCall too...)
 F/FTP                   # use Net::FTP
 H/HTTP                  # use LWP::Simple
 M/Multiple_regression   # use Clifford
@@ -163,7 +163,6 @@ S/Super-d_numbers-3
 F/Find_URI_in_text
 N/Names_to_numbers
 G/Get_system_command_output
-T/Tic-tac-toe
 
 ===================================================================
 
@@ -172,6 +171,6 @@ T/Tic-tac-toe
 
 # task failures not categorized above (some can be fixed, chipping away at the list...)
 
-2019-10-22-j Secs: 104256 RC: 976 Tasks: 1024  OK: 1527  Err: 69 !OK: 11  Top: 5858 3442 2138 1543 1312 1203 1115
+2019-10-22-j Secs: 104289 RC: 976 Tasks: 1025  OK: 1528  Err: 69 !OK: 11  Top: 5858 3442 2138 1543 1312 1203 1115
 
 S/Sequence:_nth_number_with_exactly_n_divisors # DH a non-trivial code issue here?
