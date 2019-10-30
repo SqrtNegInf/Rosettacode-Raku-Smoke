@@ -202,6 +202,15 @@ File: A/Abbreviations,_simple
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: A/Abelian_sandpile_model
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Abelian_sandpile_model
+#c# 2019-10-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: abelian.moar
+#n# JVM: works fine, but hangs at end?
+
 File: A/Abstract_type
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Abstract_type
@@ -3672,6 +3681,7 @@ File: F/Function_Composition
 #m# MOAR: OK
 #j#  JVM: OK
 #n# must obey: edbbc44 commit by TimToady, infix:<->($n) should not negate
+#n# 2019-10-29 testing 'Texas' version 
 
 File: F/Function_definition
 #!/usr/bin/env perl6
@@ -9778,7 +9788,7 @@ File: S/Superpermutation_minimisation
 File: S/Symmetric_difference
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Symmetric_difference
-#c# 2015-12-22 <RC
+#c# 2015-12-22 <RC, 2019-10-29 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -10728,14 +10738,6 @@ File: W/Water_collected_between_towers
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: W/Water_collected_between_towers.1
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Water_collected_between_towers
-#c# 2016-12-06 <RC
-#m# MOAR: OK
-#j#  JVM: OK
-
 File: W/Web_scraping
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Web_scraping
@@ -10851,7 +10853,7 @@ File: W/Write_float_arrays_to_a_text_file
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: sqrt.dat
-#n# 2nd part got a re-write, see '-2' variant for original
+#n# 2nd part got a complete re-write, see '-2' variant for original
 
 File: W/Write_float_arrays_to_a_text_file-2
 #!/usr/bin/env perl6
@@ -10859,7 +10861,7 @@ File: W/Write_float_arrays_to_a_text_file-2
 #c# 2019-10-28 NOT ON RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# this was (more or less) the 2nd part of the original task
+#n# this was the 2nd part of the original task
 #n# strays pretty far from task spec, but love using 'base' for it's output precision arg.
 
 File: W/Write_language_name_in_3D_ASCII
