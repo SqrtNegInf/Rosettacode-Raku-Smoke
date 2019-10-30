@@ -1,18 +1,20 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Symmetric_difference
-#c# 2015-12-22 <RC
+#c# 2015-12-22 <RC, 2019-10-29 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
 my \A = set <John Serena Bob Mary Serena>;
 my \B = set <Jim Mary John Jim Bob>;
 
-say  A ∖ B; # Set subtraction
-say  B ∖ A; # Set subtraction
-say  A ⊖ B; # Symmetric difference
+say  A ∖ B;             # Set subtraction
+say  B ∖ A;             # Set subtraction
+say (A ∪ B) ∖ (A ∩ B);  # Symmetric difference, via basic set operations
+say  A ⊖ B;             # Symmetric difference, via dedicated operator
 
 use Test;
 is (A ∖ B), 'Serena';
 is (B ∖ A), 'Jim';
+is (((A ∪ B) ∖ (A ∩ B)).sort.gist), '(Jim => True Serena => True)';
 is ((A ⊖ B).sort.gist), '(Jim => True Serena => True)';
 #is ((A ⊖ B).gist), 'set(Jim, Serena)';
