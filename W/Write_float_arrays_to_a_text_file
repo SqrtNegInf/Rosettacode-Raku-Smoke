@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: sqrt.dat
-#n# 2nd part got a re-write, see '-2' variant for original
+#n# 2nd part got a complete re-write, see '-2' variant for original
 
 # Perl 5-ish
 
@@ -25,7 +25,7 @@ writefloat1( 'run/sqrt.dat', @x, @y );
 
 sub writefloat2($filename, @x, @y, :$x-precision = 3, :$y-precision = 3) {
     (open $filename, :a).print:
-        join '', flat (@x>>.fmt("%.{$x-precision}g") X "\t") Z (@y>>.fmt("%.{$y-precision}g") X "\n");
+        join '', flat (@x».fmt("%.{$x-precision}g") X "\t") Z (@y».fmt("%.{$y-precision}g") X "\n");
 }
 #my @x = 1, 2, 3, 1e11; # defined above
-writefloat2('run/sqrt.dat', @x, @x>>.sqrt, :y-precision(5));
+writefloat2('run/sqrt.dat', @x, @x».sqrt, :y-precision(5));
