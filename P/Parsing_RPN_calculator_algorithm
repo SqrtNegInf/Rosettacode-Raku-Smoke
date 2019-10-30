@@ -4,7 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: rakudo version 2015-09-25
 my $proggie = '3 4 2 * 1 5 - 2 3 ^ ^ / +';
 
 class RPN is Array {
@@ -48,4 +47,3 @@ END
 
 use Test;
 is RPN.new.run($proggie), '3.000122';
-#is @res.join("\n"), chomp $ref;
