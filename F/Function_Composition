@@ -4,15 +4,20 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# must obey: edbbc44 commit by TimToady, infix:<->($n) should not negate
+#n# 2019-10-29 testing 'Texas' version 
 
 # Works with: rakudo version 2015-09-30
-# The function composition operator is ∘, U+2218 RING OPERATOR (with a "Texas" version o for the Unicode challenged). Here we compose a routine, an operator, and a lambda:
+# The function composition operator is ∘, U+2218 RING OPERATOR (with a "Texas" version o for the Unicode challenged). 
+# Here we compose a routine, an operator, and a lambda:
 
 sub triple($n) { 3 * $n }
 
 #my &f = &triple ∘ &[-] ∘ { $^n + 2 }; # DH fails, &[-] does nothing now
-my &f = &triple ∘ &prefix:<-> ∘ { $^n + 2 }; # revert to this
-say &f(5); # prints "-21".
+my &f = &triple ∘ &prefix:<-> ∘ { $^n + 2 }; # revert to this (Unicode version)
+my &g = &triple o &prefix:<-> o { $^n + 2 }; # 'Texas' version
+say &f(5);
+say &g(5);
 
 use Test;
 is &f(5), -21;
+is &g(5), -21;
