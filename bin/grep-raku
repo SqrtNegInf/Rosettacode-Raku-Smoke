@@ -1,6 +1,8 @@
-#!/usr/local/bin/perl
+#OK!/usr/local/bin/perl
 ## grep Rosettacode Raku code, matching plain-text and Unicode forms
 #  2019-10-29
+#  being just a 'grep', finds strings, not necessarily operators 
+#  (e.g. no '⊍' in either form, but plenty of '(.)' for single-char capture
 
 use strict;
 use warnings;
@@ -21,7 +23,7 @@ $p =~ s/(≤|<=)/(<=|≤)/g;
 $p =~ s/(≅|=~=)/(=~=|≅)/g;
 $p =~ s/(∞|\bInf\b)/(∞|\\bInf\\b)/g;
 
-# set/logic (just one-way transform)
+# set (just one-way transform)
 $p =~ s/∖/(∖|\\(-\\))/g;
 $p =~ s/∈/(∈|\\(elem\\))/g;
 $p =~ s/∉/(∉|!\\(elem\\))/g;
