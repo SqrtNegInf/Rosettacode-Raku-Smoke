@@ -1,16 +1,16 @@
 This is Rakudo version 2019.07.1-451-g9f433da0d built on MoarVM version 2019.07.1-309-g48491b896
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1130/10]
-|+-------------> JVM: Good/Bad [971/166]
-||+------------> Smoke testing [1020]
++--------------> Moar: Good/Bad [1132/10]
+|+-------------> JVM: Good/Bad [971/168]
+||+------------> Smoke testing [1022]
 |||+-----------> sKipping validation [117]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [276]
 ||||||+--------> Concurrent [47]
 |||||||+-------> Random seed [113]
 ||||||||+------> File output [85]
-|||||||||+-----> Draft [227]
+|||||||||+-----> Draft [229]
 ||||||||||+----> Ignoring [52]
 |||||||||||+---> Void (no local copy) [121]
 ||||||||||||+--> Un-implemented/reliable [94]
@@ -292,7 +292,8 @@ GGS..T....... Deming%27s_Funnel
 GGS.......... Department_Numbers
 GGS..T....... Detect_division_by_zero
 GGS.......... Determinant_and_permanent
-.........D.V. Determine_if_a_string_has_all_unique_characters
+GBS......D... Determine_if_a_string_has_all_the_same_characters
+GBS......D... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_numeric
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -677,6 +678,7 @@ GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
 GBS......D... Mersenne_primes
+.........D.V. Metallic_ratios
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
 GGS.......... Metronome
