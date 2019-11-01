@@ -1,0 +1,66 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Gradient_descent
+#c# 2019-10-31 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+sub steepestDescent(@x, $alpha is copy, $tolerance) {
+    my \N = +@x; my $h = $tolerance ;
+    my $g0 = g(@x) ;    # Initial estimate of result.
+
+    my @fi = gradG(@x, $h) ;    #  Calculate initial gradient
+
+    # Calculate initial norm.
+    my $delG = 0;
+    for ^N { $delG += @fi[$_]² }
+    my $b = $alpha / $delG.sqrt;
+
+    while ( $delG > $tolerance ) {   # Iterate until value is <= tolerance.
+       #  Calculate next value.
+       for ^N { @x[$_] -= $b * @fi[$_] }
+       $h /= 2;
+
+       @fi = gradG(@x, $h);    # Calculate next gradient.
+
+       # Calculate next norm.
+       $delG = 0;
+       for ^N { $delG += @fi[$_]² }
+       $b = $alpha / $delG.sqrt;
+
+       my $g1 = g(@x);   # Calculate next value.
+
+       $g1 > $g0 ?? ( $alpha /= 2 ) !! ( $g0 = $g1 )   # Adjust parameter.
+    }
+}
+
+sub gradG(@x, $h) {   # Provides a rough calculation of gradient g(x).
+    my \N = +@x ; my ( @y , @z );
+    @y = @x;
+    my $g0 = g(@x);
+    for ^N { @y[$_] += $h ; @z[$_] = (g(@y) - $g0) / $h }
+    return @z
+}
+
+# Function for which minimum is to be found.
+sub g(\x) { (x[0]-1)² * (-x[1]²).exp + x[1]*(x[1]+2) * (-2*x[0]²).exp }
+
+my $tolerance = 0.0000006 ; my $alpha = 0.1;
+
+my @x = 0.1, -1; # Initial guess of location of minimum.
+
+steepestDescent(@x, $alpha, $tolerance);
+
+say "Testing steepest descent method:";
+say my $result = 'The minimum is at x[0] = ' ~ @x[0] ~ ', x[1] = ' ~ @x[1];
+
+my $moar = q:to/END/;
+The minimum is at x[0] = 0.10765273561778406, x[1] = -1.223326198625842
+END
+
+my $jvm = q:to/END/;
+The minimum is at x[0] = 0.10743450794656964, x[1] = -1.2233956711774543
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is $result, chomp $ref;
