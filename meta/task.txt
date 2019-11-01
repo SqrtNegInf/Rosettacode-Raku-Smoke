@@ -1,9 +1,9 @@
 This is Rakudo version 2019.07.1-451-g9f433da0d built on MoarVM version 2019.07.1-309-g48491b896
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1132/10]
-|+-------------> JVM: Good/Bad [971/168]
-||+------------> Smoke testing [1022]
++--------------> Moar: Good/Bad [1134/10]
+|+-------------> JVM: Good/Bad [977/168]
+||+------------> Smoke testing [1024]
 |||+-----------> sKipping validation [117]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [276]
@@ -12,8 +12,8 @@ updating from RC…
 ||||||||+------> File output [85]
 |||||||||+-----> Draft [229]
 ||||||||||+----> Ignoring [52]
-|||||||||||+---> Void (no local copy) [121]
-||||||||||||+--> Un-implemented/reliable [94]
+|||||||||||+---> Void (no local copy) [119]
+||||||||||||+--> Un-implemented/reliable [93]
 |||||||||||||
 GGS.......... 100_doors
 GB.KI..R..... 15_Puzzle_Game
@@ -397,7 +397,7 @@ GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T...D... File_size_distribution
 GGS.......... Filter
-G!S......D... Find_URI_in_text
+GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T...D... Find_duplicate_files
 GBS......D... Find_first_and_last_set_bit_of_a_long_integer
@@ -460,7 +460,7 @@ GGS....R.D... Geometric_algebra
 GBS.......... Get_system_command_output
 GGS.....F.... Globally_replace_text_in_several_files
 GG.KIT.R..... Go_Fish
-.........D.VU Gradient_descent
+GGS......D... Gradient_descent
 GGS.......... Gray_code
 GGS..T..F.... Grayscale_image
 GGS..T....... Greatest_common_divisor
@@ -472,7 +472,7 @@ GGS....R..... Guess_the_number
 GGS....R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
-G!S.......... HTTPS
+GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -678,7 +678,7 @@ GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
 GBS......D... Mersenne_primes
-.........D.V. Metallic_ratios
+GGS......D... Metallic_ratios
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
 GGS.......... Metronome
@@ -800,7 +800,7 @@ GGS..T.R..... Pattern_matching
 GGS.....F.... Peano_curve
 GGS.......... Pell%27s_equation
 GGS....R..... Penney%27s_game
-G!S.....FD... Penrose_tiling
+GGS.....FD... Penrose_tiling
 GGS..T..F.... Pentagram
 .........D.VU Pentomino_tiling
 GBS.......... Percentage_difference_between_images
@@ -827,7 +827,7 @@ GGS..T....... Pi
 GGS..T.R..... Pick_random_element
 .........D... Pierpont_primes
 GBS.......... Pierpont_primes-1
-G!S.......... Pierpont_primes-2
+GGS.......... Pierpont_primes-2
 GBS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
