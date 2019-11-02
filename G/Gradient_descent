@@ -1,19 +1,17 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Gradient_descent
-#c# 2019-10-31 <RC
+#c# 2019-10-29 <RC, 2019-10-31 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 sub steepestDescent(@x, $alpha is copy, $tolerance) {
-    my \N = +@x; my $h = $tolerance ;
+    my \N = @x ; my $h = $tolerance ;
     my $g0 = g(@x) ;    # Initial estimate of result.
 
     my @fi = gradG(@x, $h) ;    #  Calculate initial gradient
 
     # Calculate initial norm.
-    my $delG = 0;
-    for ^N { $delG += @fi[$_]² }
-    my $b = $alpha / $delG.sqrt;
+    my $b = $alpha / (my $delG = (map {@fi[$_]²}, ^N).sum ).sqrt;
 
     while ( $delG > $tolerance ) {   # Iterate until value is <= tolerance.
        #  Calculate next value.
@@ -23,9 +21,7 @@ sub steepestDescent(@x, $alpha is copy, $tolerance) {
        @fi = gradG(@x, $h);    # Calculate next gradient.
 
        # Calculate next norm.
-       $delG = 0;
-       for ^N { $delG += @fi[$_]² }
-       $b = $alpha / $delG.sqrt;
+       $b = $alpha / ($delG = (map {@fi[$_]²}, ^N).sum ).sqrt;
 
        my $g1 = g(@x);   # Calculate next value.
 
@@ -34,11 +30,8 @@ sub steepestDescent(@x, $alpha is copy, $tolerance) {
 }
 
 sub gradG(@x, $h) {   # Provides a rough calculation of gradient g(x).
-    my \N = +@x ; my ( @y , @z );
-    @y = @x;
-    my $g0 = g(@x);
-    for ^N { @y[$_] += $h ; @z[$_] = (g(@y) - $g0) / $h }
-    return @z
+   my \N = @x; my @y = @x ; my $g0 = g(@x) ;
+   return map { @y[$_] += $h ; (g(@y) - $g0) / $h }, ^N
 }
 
 # Function for which minimum is to be found.
