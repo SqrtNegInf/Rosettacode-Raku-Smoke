@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Translation of: Perl
+my @res;
 
 sub sierpinski ($n) {
     my @down  = '*';
@@ -13,32 +13,30 @@ sub sierpinski ($n) {
         @down = |("$space$_$space" for @down), |("$_ $_" for @down);
         $space x= 2;
     }
-    return @down;
+    @down;
 }
 
-.say for sierpinski 4;
+@res.push: $_ for sierpinski 4;
+.say for @res;
 
-my $sier;
-for sierpinski 4 { $_ ~~ s/\s+$//; $sier ~= "$_\n"; }
-
-my $ref = qq:to /STOP/;
-               *
-              * *
-             *   *
-            * * * *
-           *       *
-          * *     * *
-         *   *   *   *
-        * * * * * * * *
-       *               *
-      * *             * *
-     *   *           *   *
-    * * * *         * * * *
-   *       *       *       *
-  * *     * *     * *     * *
- *   *   *   *   *   *   *   *
+my $ref = qq:to/END/;
+               *               
+              * *              
+             *   *             
+            * * * *            
+           *       *           
+          * *     * *          
+         *   *   *   *         
+        * * * * * * * *        
+       *               *       
+      * *             * *      
+     *   *           *   *     
+    * * * *         * * * *    
+   *       *       *       *   
+  * *     * *     * *     * *  
+ *   *   *   *   *   *   *   * 
 * * * * * * * * * * * * * * * *
-STOP
+END
 
 use Test;
-is $sier, $ref;
+is @res.join("\n"), chomp $ref;
