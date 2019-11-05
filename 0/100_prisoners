@@ -3,19 +3,22 @@
 #c# 2019-11-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# don't use .race, otherwise testing is only approximate
 
 my @res;
 
 srand 123456;
 
 my @prisoners = ^100;
+my $half = floor +@prisoners / 2;
 
 sub random ($n) {
-    ^$n .race .map( {
-        my @drawers = ^100 .pick: *;
+    #^$n .race.map( {
+    ^$n .map( {
+        my @drawers = @prisoners.pick: *;
         @prisoners.map( -> $prisoner {
             my $found = 0;
-            for @drawers.pick(50) -> $card {
+            for @drawers.pick($half) -> $card {
                 $found = 1 and last if $card == $prisoner
             }
             last unless $found;
@@ -23,19 +26,20 @@ sub random ($n) {
         }
         ).sum == @prisoners
     }
-    ).grep( *.so ).elems / $n * 100
+    ).grep( *.so ).elems / $n * @prisoners
 }
 
 sub optimal ($n) {
+    #^$n .race.map( {
     ^$n .map( {
-        my @drawers = ^100 .pick: *;
+        my @drawers = @prisoners.pick: *;
         @prisoners.map( -> $prisoner {
             my $found = 0;
             my $card = @drawers[$prisoner];
             if $card == $prisoner {
                 $found = 1
             } else {
-                for ^49 {
+                for ^($half-1) {
                     $card = @drawers[$card];
                     $found = 1 and last if $card == $prisoner
                 }
@@ -44,19 +48,20 @@ sub optimal ($n) {
             $found
         }
         ).sum == @prisoners
-    } ).grep( *.so ).elems / $n * 100
+    } ).grep( *.so ).elems / $n * @prisoners
 }
 
-my $n = 10_000;
+my $n = 1_000;
 say " Simulation count: $n";
 @res.push: sprintf " Random play wins: %4.1f%% of simulations", random $n;
 @res.push: sprintf "Optimal play wins: %4.1f%% of simulations", optimal $n;
 
 .say for @res;
+exit;
 
 my $moar = q:to/END/;
  Random play wins:  0.0% of simulations
-Optimal play wins: 31.1% of simulations
+Optimal play wins: 30.8% of simulations
 END
 
 my $jvm = q:to/END/;
