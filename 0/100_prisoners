@@ -1,0 +1,69 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/100_prisoners
+#c# 2019-11-04 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+srand 123456;
+
+my @prisoners = ^100;
+
+sub random ($n) {
+    ^$n .race .map( {
+        my @drawers = ^100 .pick: *;
+        @prisoners.map( -> $prisoner {
+            my $found = 0;
+            for @drawers.pick(50) -> $card {
+                $found = 1 and last if $card == $prisoner
+            }
+            last unless $found;
+            $found
+        }
+        ).sum == @prisoners
+    }
+    ).grep( *.so ).elems / $n * 100
+}
+
+sub optimal ($n) {
+    ^$n .map( {
+        my @drawers = ^100 .pick: *;
+        @prisoners.map( -> $prisoner {
+            my $found = 0;
+            my $card = @drawers[$prisoner];
+            if $card == $prisoner {
+                $found = 1
+            } else {
+                for ^49 {
+                    $card = @drawers[$card];
+                    $found = 1 and last if $card == $prisoner
+                }
+            }
+            last unless $found;
+            $found
+        }
+        ).sum == @prisoners
+    } ).grep( *.so ).elems / $n * 100
+}
+
+my $n = 10_000;
+say " Simulation count: $n";
+@res.push: sprintf " Random play wins: %4.1f%% of simulations", random $n;
+@res.push: sprintf "Optimal play wins: %4.1f%% of simulations", optimal $n;
+
+.say for @res;
+
+my $moar = q:to/END/;
+ Random play wins:  0.0% of simulations
+Optimal play wins: 31.1% of simulations
+END
+
+my $jvm = q:to/END/;
+ Random play wins:  0.0% of simulations
+Optimal play wins: 30.7% of simulations
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
