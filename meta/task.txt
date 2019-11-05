@@ -1,13 +1,12 @@
-This is Rakudo version 2019.07.1-460-g044b33902 built on MoarVM version 2019.07.1-309-g48491b896
+This is Rakudo version 2019.07.1-426-gbf318db68 built on JVM
 implementing Perl 6.d.
-updating from RC…
-+--------------> Moar: Good/Bad [1136/10]
-|+-------------> JVM: Good/Bad [974/168]
++--------------> Moar: Good/Bad [1132/10]
+|+-------------> JVM: Good/Bad [977/169]
 ||+------------> Smoke testing [1025]
 |||+-----------> sKipping validation [117]
 ||||+----------> Interactive [56]
 |||||+---------> Touched (modified by me) [276]
-||||||+--------> Concurrent [48]
+||||||+--------> Concurrent [47]
 |||||||+-------> Random seed [114]
 ||||||||+------> File output [84]
 |||||||||+-----> Draft [230]
@@ -16,16 +15,16 @@ updating from RC…
 ||||||||||||+--> Un-implemented/reliable [93]
 |||||||||||||
 GGS.......... 100_doors
-GGS...CR.D... 100_prisoners
-GB.KI..R..... 15_Puzzle_Game
+GBS...cR.D... 100_prisoners
+!B.KI..R..... 15_Puzzle_Game
 .........D.VU 15_Puzzle_Game_in_3D
 ...........VU 15_puzzle_solver
 .........D.VU 16_Puzzle_Game
-GB.KI..R..... 2048
+!B.KI..R..... 2048
 GGS....R.D... 21_Game
 GGS....R..... 24_game
 GBS..TC...... 24_game_Solve-1
-GGS..T....... 24_game_Solve-2
+!GS..T....... 24_game_Solve-2
 GGS.......... 4-rings_or_4-squares_puzzle
 GGS.......... 99_Bottles_of_Beer
 GGS.......... 9_billion_names_of_God_the_integer
@@ -47,7 +46,7 @@ GGS.......... Ackermann_function
 GB.K......X.. Active_Directory_Connect
 ...........V. Active_Directory_Search_for_a_user
 GG.K......... Active_object
-GGS.......... Add_a_variable_to_a_class_instance_at_runtime
+!GS.......... Add_a_variable_to_a_class_instance_at_runtime
 .........D.VU Addition-chain_exponentiation
 GGS..T...D... Addition_chains
 GGS.......... Address_of_a_variable
@@ -398,7 +397,7 @@ GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T...D... File_size_distribution
 GGS.......... Filter
-G!S......D... Find_URI_in_text
+GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T...D... Find_duplicate_files
 GBS......D... Find_first_and_last_set_bit_of_a_long_integer
@@ -473,7 +472,7 @@ GGS....R..... Guess_the_number
 GGS....R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
-G!S.......... HTTPS
+GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -801,7 +800,7 @@ GGS..T.R..... Pattern_matching
 GGS.....F.... Peano_curve
 GGS.......... Pell%27s_equation
 GGS....R..... Penney%27s_game
-G!S.....FD... Penrose_tiling
+GGS.....FD... Penrose_tiling
 GGS..T..F.... Pentagram
 .........D.VU Pentomino_tiling
 GBS.......... Percentage_difference_between_images
@@ -828,7 +827,7 @@ GGS..T....... Pi
 GGS..T.R..... Pick_random_element
 .........D... Pierpont_primes
 GBS.......... Pierpont_primes-1
-G!S.......... Pierpont_primes-2
+GGS.......... Pierpont_primes-2
 GBS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
