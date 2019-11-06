@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/100_prisoners
-#c# 2019-11-04 <RC
+#c# 2019-11-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# don't use .race, otherwise testing is only approximate
@@ -9,8 +9,23 @@ my @res;
 
 srand 123456;
 
+#unit sub MAIN (:$prisoners = 100, :$simulations = 10000);
+#my @prisoners = ^$prisoners;
+#my $half = floor +@prisoners / 2;
+
 my @prisoners = ^100;
 my $half = floor +@prisoners / 2;
+my $n = 10_000;
+@res.push: " Simulation count: $n";
+@res.push: sprintf " Random play wins: %.3f%% of simulations", random $n;
+@res.push: sprintf "Optimal play wins: %.3f%% of simulations", optimal $n;
+
+@prisoners = ^10;
+$half = 5;
+$n = 100_000;
+@res.push: " Simulation count: $n";
+@res.push: sprintf " Random play wins: %.3f%% of simulations", random $n;
+@res.push: sprintf "Optimal play wins: %.3f%% of simulations", optimal $n;
 
 sub random ($n) {
     #^$n .race.map( {
@@ -51,21 +66,24 @@ sub optimal ($n) {
     } ).grep( *.so ).elems / $n * 100
 }
 
-my $n = 1_000;
-say " Simulation count: $n";
-@res.push: sprintf " Random play wins: %4.1f%% of simulations", random $n;
-@res.push: sprintf "Optimal play wins: %4.1f%% of simulations", optimal $n;
-
 .say for @res;
 
 my $moar = q:to/END/;
- Random play wins:  0.0% of simulations
-Optimal play wins: 30.8% of simulations
+ Simulation count: 10000
+ Random play wins: 0.000% of simulations
+Optimal play wins: 30.570% of simulations
+ Simulation count: 100000
+ Random play wins: 0.101% of simulations
+Optimal play wins: 35.369% of simulations
 END
 
 my $jvm = q:to/END/;
- Random play wins:  0.0% of simulations
-Optimal play wins: 30.7% of simulations
+ Simulation count: 10000
+ Random play wins: 0.000% of simulations
+Optimal play wins: 30.790% of simulations
+ Simulation count: 100000
+ Random play wins: 0.091% of simulations
+Optimal play wins: 35.598% of simulations
 END
 
 use Test;
