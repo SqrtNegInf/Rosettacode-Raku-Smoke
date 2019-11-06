@@ -3,10 +3,7 @@
 #c# 2017-06-11 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-# Works with: Rakudo version 2017.05
-# Translation of: zkl
-# Modified the angle sort method as the original could fail if there were multiple points on the same y coordinate as the starting point. Sorts on tangent rather than triangle area. Inexpensive since it still doesn't do any trigonometric math, just calculates the ratio of opposite over adjacent. The original returned the correct answer for the task example, but only by accident. If the points (14,-9), (1,-9) were added to the task example, it wouldn't give a correct answer. Now it does.
+#n# display goofed up on github?
 
 class Point {
     has Real $.x is rw;
@@ -71,11 +68,6 @@ my @hull2 = graham-scan(
   );
 
 say "Convex Hull ({+@hull2} points): ", @hull2;
-
-#`{
-Convex Hull (7 points): [(-3, -9) (19, -8) (17, 5) (12, 17) (5, 19) (-3, 15) (-9, -3)]
-Convex Hull (9 points): [(-3, -9) (1, -9) (14, -9) (19, -8) (17, 5) (12, 17) (5, 19) (-3, 15) (-9, -3)]
-}
 
 use Test;
 is @hull1.gist, '[(-3, -9) (19, -8) (17, 5) (12, 17) (5, 19) (-3, 15) (-9, -3)]';
