@@ -1425,6 +1425,13 @@ File: C/Chaos_game
 File: C/Character_codes
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Character_codes
+#c# 2019-11-07 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: C/Character_codes.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Character_codes
 #c# 2015-11-12 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -3779,8 +3786,8 @@ File: G/Gamma_function.1
 #c# 2015-11-22 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# after downgrade of Unicode name, another error, see bottom
-#n# older error?  Type check failed in binding to nu; expected Int but got Num (1.0000000000000002e0)
+#n# # Failed test 'Γ(9/3)' # at G/Gamma_function.1 line 35
+#n# expected: '2' got: '1.999999999999995'
 
 File: G/Gauss-Jordan_matrix_inversion
 #!/usr/bin/env perl6
