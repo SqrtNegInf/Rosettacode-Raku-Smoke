@@ -34,15 +34,15 @@ my $trees = q:to/END/;
         comparison
     END
 
-sub nested-to-indent { $^str.subst: / ^^ ($($level))* /, -> $/ { "{+$0} " }, :g }
-sub indent-to-nested { $^str.subst: / ^^ (\d+) \s* /, -> $/ { "{$level x +$0}" }, :g }
+#sub nested-to-indent { $^str.subst: / ^^ ($($level))* /, -> $/ { "{+$0} " }, :g }
+#sub indent-to-nested { $^str.subst: / ^^ (\d+) \s* /, -> $/ { "{$level x +$0}" }, :g }
+
+sub nested-to-indent { $^str.subst: / ^^ ($level)* /, { "{+$0} " }, :g }
+sub indent-to-nested { $^str.subst: / ^^ (\d+) \s* /, { "{$level x +$0}" }, :g }
 
 say $trees;
 say my $indent = $trees.&nested-to-indent;
 say my $nest = $indent.&indent-to-nested;
-
-#use Test;
-#is($trees, $nest, 'Round-trip equals original');
 
 #`(
 If, on the other hand, we want perform more complex transformations; better to
@@ -117,8 +117,6 @@ YAML:
 ...
 
 END
-
-#.say for @res;
 
 use Test;
 is($trees, $nest, 'Round-trip equals original');
