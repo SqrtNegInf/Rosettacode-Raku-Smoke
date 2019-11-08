@@ -34,7 +34,8 @@ my @res;
     '🇬🇧🇬🇧🇬🇧🇬🇧',
     "\c[LATIN CAPITAL LETTER A]\c[COMBINING DIAERESIS]\c[COMBINING MACRON]" ~
     "\c[LATIN CAPITAL LETTER A WITH DIAERESIS]\c[COMBINING MACRON]" ~
-    "\c[LATIN CAPITAL LETTER A WITH DIAERESIS AND MACRON]";
+    "\c[LATIN CAPITAL LETTER A WITH DIAERESIS AND MACRON]",
+    'AАΑꓮ𐌀𐊠Ꭺ';
 
 .say for @res;
 
@@ -64,6 +65,15 @@ my $ref = q:to/END/;
 "🇬🇧🇬🇧🇬🇧🇬🇧" (length: 4), has the same character in all positions.
 
 "ǞǞǞ" (length: 3), has the same character in all positions.
+
+"AАΑꓮ𐌀𐊠Ꭺ" (length: 7), has different characters:
+'A' (LATIN CAPITAL LETTER A; hex ordinal: 0x41) in positions: 1
+'А' (CYRILLIC CAPITAL LETTER A; hex ordinal: 0x410) in positions: 2
+'Α' (GREEK CAPITAL LETTER ALPHA; hex ordinal: 0x391) in positions: 3
+'ꓮ' (LISU LETTER A; hex ordinal: 0xA4EE) in positions: 4
+'𐌀' (OLD ITALIC LETTER A; hex ordinal: 0x10300) in positions: 5
+'𐊠' (CARIAN LETTER A; hex ordinal: 0x102A0) in positions: 6
+'Ꭺ' (CHEROKEE LETTER GO; hex ordinal: 0x13AA) in positions: 7
 END
 
 use Test;
