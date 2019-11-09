@@ -64,6 +64,12 @@ mv meta/horse-race.txt meta/horse-race.txt~
 bin/rc-horse-race | sort -r > meta/horse-race.txt
 diff meta/horse-race.txt~ meta/horse-race.txt
 
+# non-ascii
+echo ' '
+mv meta/non-ascii.txt meta/non-ascii.txt~
+bin/rc-non-ascii >meta/non-ascii.txt
+diff meta/non-ascii.txt~ meta/non-ascii.txt
+
 # how did the spectest go?
 echo ' '
 /usr/local/pbin/grep-paragraph Summary $HOME/.rakudobrew/out.mtest
