@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Super-d_numbers
-#c# 2019-10-10 <RC
+#c# 2019-10-10 <RC, 2019-11-09 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# thundergant's 1st try
@@ -9,18 +9,17 @@
 
 my @res;
 
-my \n = 10;
-
 sub super ($d) {
     my $run = $d x $d;
-    "First {n} super-{$d} numbers:\n{ (^Inf .map( 0 ~ $d * * ** $d ).grep: *.index($run), :k)[^n] }\n"
+    ^∞ .grep: ($d * * ** $d).Str.contains: $run
 }
-
-@res.push: $_ for (2..6).map: -> $d { super $d }
+ 
+(2..6).race(:1batch).map: { @res.push: "\nFirst 10 super-$_ numbers:\n{.&super[^10]}" }
 
 .say for @res;
 
 my $ref = q:to/END/;
+
 First 10 super-2 numbers:
 19 31 69 81 105 106 107 119 127 131
 
@@ -35,7 +34,6 @@ First 10 super-5 numbers:
 
 First 10 super-6 numbers:
 27257 272570 302693 323576 364509 502785 513675 537771 676657 678146
-
 END
 
 use Test;
