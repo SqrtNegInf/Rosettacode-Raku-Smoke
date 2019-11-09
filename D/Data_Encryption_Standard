@@ -5,6 +5,7 @@
 #j# JVM:  OK
 #n# 2019-10-25 for JVM: 4th encryption fails (but decrypt on proper string OK)
 #n# as much fun as that would be to debug, I'm just going to comment it out
+#n# found/replaced Unicode my terminal/font wasn't displaying (using utility based on 'Character_codes', thundergnat++)
 
 my @res;
 
@@ -110,15 +111,15 @@ sub map64(\s, \M) { my \b = h2bits s; map { b[$_-1] }, M; }
 ## Core subs
 
 sub get_subkeys(Str \key --> Seq) { # return a Seq with 16 bit vectors
-   my \Kₚ = map64 key, PC1; # drop parity bits
-   my @C = Kₚ[0..27] ; my @D = Kₚ[28..55]; # perform bits rotation next
+   my \Kp = map64 key, PC1; # drop parity bits
+   my @C = Kp[0..27] ; my @D = Kp[28..55]; # perform bits rotation next
    my \CD = map { [ flat @C ⥀= SHIFTS[$_], @D ⥀= SHIFTS[$_] ]}, ^16;
    return map { map { CD[$_][PC2[$^a]-1] }, ^48 }, ^16; # key compression rounds
 }
 
-sub ƒ (List \R is copy, Seq \Kₙ is copy --> Seq) {
-   my @er = map { Kₙ[$_] +^ R[E[$_]-1] }, ^48;
-   my @sr = flat map { # Sₙ(Bₙ) loop, process @er six bits at a time
+sub ƒ (List \R is copy, Seq \Kn is copy --> Seq) {
+   my @er = map { Kn[$_] +^ R[E[$_]-1] }, ^48;
+   my @sr = flat map { # Sn(Bn) loop, process @er six bits at a time
       ((S.[$_][([~] @er[$_*6,$_*6+5]).parse-base(2)*16+([~]
          @er[$_*6+1 .. $_*6+4]).parse-base(2)]).fmt('%04b').split(""))[1..4]
    }, ^8;
@@ -128,8 +129,8 @@ sub ƒ (List \R is copy, Seq \Kₙ is copy --> Seq) {
 sub process_block(Str \message, \K is copy --> Str) { # return 8 quadbits
    my \mp = map64 (b2h message) , IP; # turn message to hex then map to bits
    my @L = mp[0..31]; my @R = mp[32..63];
-   my (@Lₙ , @Rₙ); # then apply 16 iterations with function ƒ
-   { @Lₙ = @R; @Rₙ = @L Z+^ ƒ @R, K[$_]; @L = @Lₙ; @R = @Rₙ } for ^16;
+   my (@Ln, @Rn); # then apply 16 iterations with function ƒ
+   { @Ln= @R; @Rn= @L Z+^ ƒ @R, K[$_]; @L = @Ln; @R = @Rn} for ^16;
    my \res = flat @R, @L; # reverse and join the final L₁₆ and R₁₆
    return [~] map { res[$_-1] }, IP2 ; # inverse of the initial permutation
 }
@@ -186,5 +187,4 @@ END
 #C040FB6A6E72D7C36D60CA9B9A35EB38D3194468AD808103C28E33AEF0B268D0E0366C160B028DDACF340003DCA8969343EBBD289DB94774
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
