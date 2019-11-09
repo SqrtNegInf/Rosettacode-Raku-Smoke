@@ -1,109 +1,109 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Character_codes
-#c# 2019-11-07 <RC
+#c# 2019-11-07 <RC, 2019-11-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
 my @res;
 
 for 'AΑА𪚥🇺🇸👨‍👩‍👧‍👦'.comb {
-    @res.push: $_ for 
-    ['Character:', 'Character name:', 'Ordinal(s):', 'Hex ordinal(s):', 'UTF-8:', 'Round trip:']».fmt('%15s')
-    Z [$_, .uninames, .ords, .ords.fmt('0x%X'), .encode('UTF8')».base(16), .ords.chrs];
+    @res.push: $_ for
+    [ 'Character',
+      'Character name',
+      'Unicode property',
+      'Ordinal(s)',
+      'Hex ordinal(s)',
+      'UTF-8',
+      'UTF-16LE',
+      'UTF-16BE',
+      'Round trip by name',
+      'Round trip by ordinal'
+    ]».fmt('%21s:')
+    Z
+    [ $_,
+      .uninames.join(', '),
+      .uniprop,
+      .ords,
+      .ords.fmt('0x%X'),
+      .encode('utf8'   )».fmt('%02X'),
+      .encode('utf16le')».fmt('%02X').join.comb(4),
+      .encode('utf16be')».fmt('%02X').join.comb(4),
+      .uninames».uniparse.join,
+      .ords.chrs
+    ];
     @res.push: '';
 }
 
 .say for @res;
 
 my $ref = q:to/END/;
-     Character: A
-Character name: LATIN CAPITAL LETTER A
-    Ordinal(s): 65
-Hex ordinal(s): 0x41
-         UTF-8: 41
-    Round trip: A
+            Character: A
+       Character name: LATIN CAPITAL LETTER A
+     Unicode property: Lu
+           Ordinal(s): 65
+       Hex ordinal(s): 0x41
+                UTF-8: 41
+             UTF-16LE: 4100
+             UTF-16BE: 0041
+   Round trip by name: A
+Round trip by ordinal: A
 
-     Character: Α
-Character name: GREEK CAPITAL LETTER ALPHA
-    Ordinal(s): 913
-Hex ordinal(s): 0x391
-         UTF-8: CE 91
-    Round trip: Α
+            Character: Α
+       Character name: GREEK CAPITAL LETTER ALPHA
+     Unicode property: Lu
+           Ordinal(s): 913
+       Hex ordinal(s): 0x391
+                UTF-8: CE 91
+             UTF-16LE: 9103
+             UTF-16BE: 0391
+   Round trip by name: Α
+Round trip by ordinal: Α
 
-     Character: А
-Character name: CYRILLIC CAPITAL LETTER A
-    Ordinal(s): 1040
-Hex ordinal(s): 0x410
-         UTF-8: D0 90
-    Round trip: А
+            Character: А
+       Character name: CYRILLIC CAPITAL LETTER A
+     Unicode property: Lu
+           Ordinal(s): 1040
+       Hex ordinal(s): 0x410
+                UTF-8: D0 90
+             UTF-16LE: 1004
+             UTF-16BE: 0410
+   Round trip by name: А
+Round trip by ordinal: А
 
-     Character: 𪚥
-Character name: CJK UNIFIED IDEOGRAPH-2A6A5
-    Ordinal(s): 173733
-Hex ordinal(s): 0x2A6A5
-         UTF-8: F0 AA 9A A5
-    Round trip: 𪚥
+            Character: 𪚥
+       Character name: CJK UNIFIED IDEOGRAPH-2A6A5
+     Unicode property: Lo
+           Ordinal(s): 173733
+       Hex ordinal(s): 0x2A6A5
+                UTF-8: F0 AA 9A A5
+             UTF-16LE: 69D8 A5DE
+             UTF-16BE: D869 DEA5
+   Round trip by name: 𪚥
+Round trip by ordinal: 𪚥
 
-     Character: 🇺🇸
-Character name: REGIONAL INDICATOR SYMBOL LETTER U REGIONAL INDICATOR SYMBOL LETTER S
-    Ordinal(s): 127482 127480
-Hex ordinal(s): 0x1F1FA 0x1F1F8
-         UTF-8: F0 9F 87 BA F0 9F 87 B8
-    Round trip: 🇺🇸
+            Character: 🇺🇸
+       Character name: REGIONAL INDICATOR SYMBOL LETTER U, REGIONAL INDICATOR SYMBOL LETTER S
+     Unicode property: So
+           Ordinal(s): 127482 127480
+       Hex ordinal(s): 0x1F1FA 0x1F1F8
+                UTF-8: F0 9F 87 BA F0 9F 87 B8
+             UTF-16LE: 3CD8 FADD 3CD8 F8DD
+             UTF-16BE: D83C DDFA D83C DDF8
+   Round trip by name: 🇺🇸
+Round trip by ordinal: 🇺🇸
 
-     Character: 👨‍👩‍👧‍👦
-Character name: MAN ZERO WIDTH JOINER WOMAN ZERO WIDTH JOINER GIRL ZERO WIDTH JOINER BOY
-    Ordinal(s): 128104 8205 128105 8205 128103 8205 128102
-Hex ordinal(s): 0x1F468 0x200D 0x1F469 0x200D 0x1F467 0x200D 0x1F466
-         UTF-8: F0 9F 91 A8 E2 80 8D F0 9F 91 A9 E2 80 8D F0 9F 91 A7 E2 80 8D F0 9F 91 A6
-    Round trip: 👨‍👩‍👧‍👦
-
-END
-my $xef = q:to/END/;
-     Character: A
-Character name: LATIN CAPITAL LETTER A
-    Ordinal(s): 65
-Hex ordinal(s): 0x41
-         UTF-8: 41
-    Round trip: A
-
-     Character: Α
-Character name: GREEK CAPITAL LETTER ALPHA
-    Ordinal(s): 913
-Hex ordinal(s): 0x391
-         UTF-8: CE 91
-    Round trip: Α
-
-     Character: А
-Character name: CYRILLIC CAPITAL LETTER A
-    Ordinal(s): 1040
-Hex ordinal(s): 0x410
-         UTF-8: D0 90
-    Round trip: А
-
-     Character: 𪚥
-Character name: <CJK Ideograph Extension B-2A6A5>
-    Ordinal(s): 173733
-Hex ordinal(s): 0x2A6A5
-         UTF-8: F0 AA 9A A5
-    Round trip: 𪚥
-
-     Character: 🇺🇸
-Character name: REGIONAL INDICATOR SYMBOL LETTER U REGIONAL INDICATOR SYMBOL LETTER S
-    Ordinal(s): 127482 127480
-Hex ordinal(s): 0x1F1FA 0x1F1F8
-         UTF-8: F0 9F 87 BA F0 9F 87 B8
-    Round trip: 🇺🇸
-
-     Character: 👨‍👩‍👧‍👦
-Character name: MAN ZERO WIDTH JOINER WOMAN ZERO WIDTH JOINER GIRL ZERO WIDTH JOINER BOY
-    Ordinal(s): 128104 8205 128105 8205 128103 8205 128102
-Hex ordinal(s): 0x1F468 0x200D 0x1F469 0x200D 0x1F467 0x200D 0x1F466
-         UTF-8: F0 9F 91 A8 E2 80 8D F0 9F 91 A9 E2 80 8D F0 9F 91 A7 E2 80 8D F0 9F 91 A6
-    Round trip: 👨‍👩‍👧‍👦
+            Character: 👨‍👩‍👧‍👦
+       Character name: MAN, ZERO WIDTH JOINER, WOMAN, ZERO WIDTH JOINER, GIRL, ZERO WIDTH JOINER, BOY
+     Unicode property: So
+           Ordinal(s): 128104 8205 128105 8205 128103 8205 128102
+       Hex ordinal(s): 0x1F468 0x200D 0x1F469 0x200D 0x1F467 0x200D 0x1F466
+                UTF-8: F0 9F 91 A8 E2 80 8D F0 9F 91 A9 E2 80 8D F0 9F 91 A7 E2 80 8D F0 9F 91 A6
+             UTF-16LE: 3DD8 68DC 0D20 3DD8 69DC 0D20 3DD8 67DC 0D20 3DD8 66DC
+             UTF-16BE: D83D DC68 200D D83D DC69 200D D83D DC67 200D D83D DC66
+   Round trip by name: 👨‍👩‍👧‍👦
+Round trip by ordinal: 👨‍👩‍👧‍👦
 
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
