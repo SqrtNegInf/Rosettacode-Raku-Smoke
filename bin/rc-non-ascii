@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+# ID characters from file, showing anything not pure ASCII (i.e. .ords.any > 127)
+## 2019-11-09
+#  croaks on malformed UTF-8, so helpful in tracking that down
+#  also useful for ID'ing Unicode that won't display properly
+
+#  191.765u 0.711s 3:11.99 100.2% bare junction 'any', ouch
+#   22.518u 0.411s 0:22.43 102.1% .sort.tail
+#    4.214u 0.284s 0:04.05 110.8% just .ord (but then miss some combining chars)
+
+while my $f = shift @*ARGS {
+    next if $f ~~ /<[0A..Z]> '/' lib/; # P5
+
+    my %codes;
+    #%codes{$_}++ for grep { .ord > 127 }, $f.IO.slurp.comb;
+    %codes{$_}++ for grep { .ords.sort.tail > 127 }, $f.IO.slurp.comb;
+    #%codes{$_}++ for grep { .ords.any > 127 }, $f.IO.slurp.comb;
+    next unless %codes;
+
+    say "\n$f";
+    printf "%1s: %5d %s\n", $_, %codes{$_}, .uninames.join(', ') for %codes.keys.sort;
+}
+
+CATCH { default { say qq{Died in "$f" with "$_" } } }
