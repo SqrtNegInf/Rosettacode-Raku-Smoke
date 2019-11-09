@@ -1,5 +1,5 @@
 #!/usr/bin/env perl6
-# ID characters from file, showing anything not pure ASCII (i.e. .ords.any > 127)
+# ID characters & counts, from file(s), showing anything not pure ASCII (i.e. .ords.any > 127)
 ## 2019-11-09
 #  croaks on malformed UTF-8, so helpful in tracking that down
 #  also useful for ID'ing Unicode that won't display properly
@@ -11,10 +11,8 @@
 while my $f = shift @*ARGS {
     next if $f ~~ /<[0A..Z]> '/' lib/; # P5
 
-    my %codes;
-    #%codes{$_}++ for grep { .ord > 127 }, $f.IO.slurp.comb;
-    %codes{$_}++ for grep { .ords.sort.tail > 127 }, $f.IO.slurp.comb;
-    #%codes{$_}++ for grep { .ords.any > 127 }, $f.IO.slurp.comb;
+    #my %codes; %codes{$_}++ for grep { .ords.sort.tail > 127 }, $f.IO.slurp.comb;
+    my %codes = $f.IO.slurp.comb.grep(*.ords.sort.tail > 127).Bag;
     next unless %codes;
 
     say "\n$f";
