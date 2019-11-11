@@ -155,6 +155,7 @@ my($l) = @_;
     $p =~ s/%E2%80%93/-/;                       # e.g. Burrows%E2%80%93Wheeler_transform
     $p =~ s/%E2%80%99//;                        # e.g. Ukkonen%E2%80%99s
     $p =~ s/0-1/0_1/;                           # Knapsack_problem_0-1, now in two versions: *_0_1-1, *_0_1-2
+#    $p =~ s/Yahoo./Yahoo_/;                     # getting rid of the '!'
     return pfix($p);
 }
 
@@ -165,6 +166,7 @@ my($p) = @_;
 
     $p =~ s#/#_#g;
     $p =~ s#\$#_#g;
+    $p =~ s#\!#_#g;
     $p =~ s#[()]##g;
     return $p;
 }
