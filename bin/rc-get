@@ -52,10 +52,10 @@ my \@res;
 
 $perl6
 
-.say for \@res;
-
-my \$ref = q:to/END/;
 END
+
+.say for \@res;
+my \$ref = q:to/END/;
 
 use Test;
 #my \$ref = \$*VM ~~ /jvm/ ?? \$jvm !! \$moar;
