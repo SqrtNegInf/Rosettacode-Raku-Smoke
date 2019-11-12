@@ -39,7 +39,7 @@ my @res.push: $_ for
     )
 
     .map({ %( count => .<categoryinfo><pages> || 0,
-              lang  => .<title>.subst(/^'Category:' (.+) ' User'/, ->$/ {$0}) ) })
+              lang  => .<title>.subst(/^'Category:' (.+) ' User'/, -> $/ {$0}) ) })
 
     .sort( { -.<count>, .<lang> } )
 
