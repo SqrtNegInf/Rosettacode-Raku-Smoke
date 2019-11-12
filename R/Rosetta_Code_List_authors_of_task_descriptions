@@ -140,6 +140,6 @@ sub mediawiki-query ($site, $type, *%query) {
 
 sub uri-query-string (*%fields) { %fields.map({ "{.key}={uri-escape .value}" }).join("&") }
 
-sub sort-key ($a) { $a.lc.subst(/(\d+)/, ->$/ {0~(65+$0.chars).chr~$0},:g) }
+sub sort-key ($a) { $a.lc.subst(/(\d+)/, -> $/ {0~(65+$0.chars).chr~$0},:g) }
 
 sub clear { "\r" ~ ' ' x 100 ~ "\r" }
