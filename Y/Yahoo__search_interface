@@ -65,5 +65,4 @@ class YahooSearch {
 YahooSearch.new('sqrtneginf').results;
 
 use Test;
-ok $result.chars > 1000; 
-ok $result ~~ /'SqrtNegInf'/;
+ok $result.chars > 1000 and $result ~~ /'SqrtNegInf'/;
