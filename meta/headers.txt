@@ -4493,6 +4493,7 @@ File: I/Image_convolution
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: frog_convolution.png
+#n# 2019-11-11 thundergnat gives a fix for native version, but no time to fiddle with it now
 #n# made an effort to get the MagickWand version to work, but just kept seg faulting...
 #n# just cloning from Perl until something better comes along
 
@@ -6719,6 +6720,14 @@ File: P/Palindromic_dates.1
 #n# At one point seeing this, but seems to have cleared up:
 #n#  perl6(80736,0x70000280d000) malloc: *** error for object 0x7fdf654fc000: incorrect checksum for freed object - object was probably modified after being freed.
 #n#  *** set a breakpoint in malloc_error_break to debug
+
+File: P/Palindromic_gapful_numbers
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Palindromic_gapful_numbers
+#c# 2019-11-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# no stretch results, in the interest of testing run-time
 
 File: P/Pangram_checker
 #!/usr/bin/env perl6
