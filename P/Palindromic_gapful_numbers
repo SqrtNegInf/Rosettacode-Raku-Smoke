@@ -7,14 +7,12 @@
 
 my @res;
 
-my @npal = flat [ 0..9 ], [ (0..9).map: * x 2 ],
-    { sink @^b; [ sort flat @^a.map: { (flat 0..9) Z~ $_ xx 10 Z~ (flat 0..9) } ] } … *;
+my @npal = flat [^10], [ (^10).map: * x 2 ],
+    { sink @^b; my \c = +@^a; [ flat (^10).map: { $_ xx c Z~ @a Z~ $_ xx c } ] } … *;
 
-my @gappal;
-
-for 1..9 -> \d {
+my @gappal = (1..9).map: -> \d {
     my \div = d + 10 * d;
-    @gappal[d] = @npal.map: -> \t { next unless (my \test = d ~ t ~ d) %% div; test }
+    @npal.map: -> \t { next unless (my \test = d ~ t ~ d) %% div; test }
 }
 
 for "First 20 gapful palindromes:",                      ^20, 7,
@@ -25,7 +23,7 @@ for "First 20 gapful palindromes:",                      ^20, 7,
 -> $caption, $range, $fmt {
     my $now = now;
     @res.push: $caption;
-    (@res.push: "$_: " ~ @gappal[$_][|$range].fmt("%{$fmt}s")) for 1..9;
+    (@res.push: "$_: " ~ @gappal[$_-1][|$range].fmt("%{$fmt}s")) for 1..9;
     #@res.push: round( now - $now, .001 )~ " seconds";
 }
 
