@@ -8,14 +8,12 @@
 #   22.518u 0.411s 0:22.43 102.1% .sort.tail
 #    4.214u 0.284s 0:04.05 110.8% just .ord (but then miss some combining chars)
 
-while my $f = shift @*ARGS {
-    next if $f ~~ /<[0A..Z]> '/' lib/; # P5
-
-    #my %codes; %codes{$_}++ for grep { .ords.sort.tail > 127 }, $f.IO.slurp.comb; next unless %codes;
-    next unless my %codes = $f.IO.slurp.comb.grep(*.ords.sort.tail > 127).Bag;
+for @*ARGS -> $f {
+    next unless $f.IO ~~ :f and my %codes = $f.IO.slurp.comb.grep(*.ords.sort.tail > 127).Bag;
+    # 'Bag' replaces idiom '%codes{$_}++ for'
 
     say "\n$f";
     printf "%1s: %5d %s\n", $_, %codes{$_}, .uninames.join(', ') for %codes.keys.sort;
-}
 
-CATCH { default { say qq{Died in "$f" with "$_" } } }
+    CATCH { default { say qq{Died in "$f" with "$_" } } }
+}
