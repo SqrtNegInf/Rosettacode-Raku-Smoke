@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Functional_coverage_tree
 #t# inprogress
-#c# 2019-10-10 <RC
-#p# OK
+#c# 2019-11-12 >RC
+#p# BROKEN
+#n# how to 'travel' along string like in P5?
 
 my $data = q:to/END/;
 NAME_HIERARCHY                  |WEIGHT  |COVERAGE  |
@@ -14,6 +15,9 @@ cleaning                        |        |          |
             bathroom2           |        |          |
             outside_lavatory    |        |1         |
         attic                   |        |0.75      |
+END
+
+my $xdata = q:to/END/;
         kitchen                 |        |0.1       |
         living_rooms            |        |          |
             lounge              |        |          |
@@ -54,20 +58,38 @@ say .[0] for walktree($data);
 
 sub walktree ($data) {
     my @parts;
-    while ( $data ~~ m:global/ ((\s*) \S .* \n)([$1 .*\n]*)/) {
-        my ($head, $body, $w, $wsum) = ($0, $2, 0, 0);
-say $/; exit;
+#dd @parts; dd $data;
 
-say $head; say $body; exit;
+#    while ( $data ~~ m:global/ $<head>=((\s*) \N+\n  )
+#                               $<body>=([$1 \s\N+\n]*)/  ) {
+#        my ($head, $body) = ($<head>, $<body>);
+
+#   while ( $_[0] =~ /( (\s*)  \N+\n  )           # split off one level as 'head' (but also is ultimate 'leaf')
+#                     ((?:\2 \s\N+\n)*)/gx ) {  # next sub-level is 'body' (defined by extra depth of indentation)
+    while ( $data ~~ /( (\s*)  \N+\n  ) 
+                      ([ $1  \s\N+\n]*)/, :g ) {
+
+say "0:$0:";
+say "1:$1:" if $1;
+say "2:$2:" if $2;
+#say $/; 
+        my ($head, $body) = ($0, $2);
 
         $head ~~ /^.*? \| (\S*) \s*\| (\S*) \s*\|/;
 
+        my ($w, $wsum) = (0, 0);
         my $weight   = $0.fmt('%-8s')  || 1;
         my $coverage = $1.fmt('%-10s') || 0;
+say "w:$weight:"; say "c:$coverage:";
+sleep 2;
 
-        $w += .[1], $wsum += .[1] * .[2], $head ~= .[0] for walktree( $body );
+        for walktree( $body ) {
+            $w += .[1]; 
+            $wsum += .[1] * .[2];
+            $head ~= .[0];
+        }
 
-        $coverage = sprintf '%-10.8g', $wsum/$w unless $w == 0;
+        $coverage = sprintf '%-10.2g', $wsum/$w unless $w == 0;
 
         @parts.push: [ $head.subst(/\|.*/, "|{$weight}|{$coverage}|"), $weight, $coverage ];
     }
@@ -76,8 +98,8 @@ say $head; say $body; exit;
 
 my $ref = q:to/END/;
 NAME_HIERARCHY                  |WEIGHT  |COVERAGE  |
-cleaning                        |1       |0.40916667|
-    house1                      |40      |0.33125   |
+cleaning                        |1       |0.41      |
+    house1                      |40      |0.33      |
         bedrooms                |1       |0.25      |
         bathrooms               |1       |0.5       |
             bathroom1           |1       |0.5       |
@@ -93,7 +115,7 @@ cleaning                        |1       |0.40916667|
         basement                |1       |0         |
         garage                  |1       |0         |
         garden                  |1       |0.8       |
-    house2                      |60      |0.46111111|
+    house2                      |60      |0.46      |
         upstairs                |1       |0.15      |
             bedrooms            |1       |0         |
                 suite_1         |1       |0         |
@@ -103,7 +125,7 @@ cleaning                        |1       |0.40916667|
             bathroom            |1       |0         |
             toilet              |1       |0         |
             attics              |1       |0.6       |
-        groundfloor             |1       |0.31666667|
+        groundfloor             |1       |0.32      |
             kitchen             |1       |0         |
             living_rooms        |1       |0         |
                 lounge          |1       |0         |
@@ -114,7 +136,7 @@ cleaning                        |1       |0.40916667|
             garage              |1       |0         |
             garden              |1       |0.9       |
             hot_tub_suite       |1       |1         |
-        basement                |1       |0.91666667|
+        basement                |1       |0.92      |
             cellars             |1       |1         |
             wine_cellar         |1       |1         |
             cinema              |1       |0.75      |
