@@ -1,9 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Functional_coverage_tree
 #t# inprogress
-#c# 2019-11-12 >RC
-#p# BROKEN
-#n# how to 'travel' along string like in P5?
+#c# 2019-11-14 >RC
+#p# OK
+#n# two problems with the main regex:
+#n#   failing to get it to iterate through match one-at-a-time, hence the need for .pos
+#n#   failing to capture/re-use the leading-spaces match, hence the separate regex with 'my $s = $0'
 
 my $data = q:to/END/;
 NAME_HIERARCHY                  |WEIGHT  |COVERAGE  |
@@ -15,9 +17,6 @@ cleaning                        |        |          |
             bathroom2           |        |          |
             outside_lavatory    |        |1         |
         attic                   |        |0.75      |
-END
-
-my $xdata = q:to/END/;
         kitchen                 |        |0.1       |
         living_rooms            |        |          |
             lounge              |        |          |
@@ -54,46 +53,35 @@ my $xdata = q:to/END/;
             cinema              |        |0.75      |
 END
 
-say .[0] for walktree($data);
+my $result;
+$result ~= $_[0] for walktree($data);
 
 sub walktree ($data) {
     my @parts;
-#dd @parts; dd $data;
+    my $pos = 0;
 
-#    while ( $data ~~ m:global/ $<head>=((\s*) \N+\n  )
-#                               $<body>=([$1 \s\N+\n]*)/  ) {
-#        my ($head, $body) = ($<head>, $<body>);
+    while (1) {
+        last if $pos >= $data.chars;
+        $data ~~ m:p($pos)/(\s*)/; my $s = $0;
+        $data ~~ m:p($pos)/$<head>=[\s*    \N+\n  ] 
+                           $<body>=[[$s \s+\N+\n]*]/;
+        $pos = $/.pos; # start next match here
 
-#   while ( $_[0] =~ /( (\s*)  \N+\n  )           # split off one level as 'head' (but also is ultimate 'leaf')
-#                     ((?:\2 \s\N+\n)*)/gx ) {  # next sub-level is 'body' (defined by extra depth of indentation)
-    while ( $data ~~ /( (\s*)  \N+\n  ) 
-                      ([ $1  \s\N+\n]*)/, :g ) {
-
-say "0:$0:";
-say "1:$1:" if $1;
-say "2:$2:" if $2;
-#say $/; 
-        my ($head, $body) = ($0, $2);
-
+        my ($head, $body) = ($<head>, $<body>);
         $head ~~ /^.*? \| (\S*) \s*\| (\S*) \s*\|/;
+        my $weight   = sprintf '%-8s',  $0 ne '' ?? $0 !! 1;
+        my $coverage = sprintf '%-10s', $1 ne '' ?? $1 !! 0;
 
         my ($w, $wsum) = (0, 0);
-        my $weight   = $0.fmt('%-8s')  || 1;
-        my $coverage = $1.fmt('%-10s') || 0;
-say "w:$weight:"; say "c:$coverage:";
-sleep 2;
-
-        for walktree( $body ) {
-            $w += .[1]; 
-            $wsum += .[1] * .[2];
-            $head ~= .[0];
-        }
+        $head ~= $_[0],
+        $w    += $_[1], 
+        $wsum += $_[1] * $_[2]
+            for walktree( $body );
 
         $coverage = sprintf '%-10.2g', $wsum/$w unless $w == 0;
-
-        @parts.push: [ $head.subst(/\|.*/, "|{$weight}|{$coverage}|"), $weight, $coverage ];
+        @parts.push: [$head.subst(/\|\N+/, "|$weight|$coverage|"), $weight, $coverage ];
     }
-    @parts;
+    return @parts;
 }
 
 my $ref = q:to/END/;
@@ -142,5 +130,5 @@ cleaning                        |1       |0.41      |
             cinema              |1       |0.75      |
 END
 
-#use Test;
-#is $result, $ref;
+use Test;
+is $result, $ref;
