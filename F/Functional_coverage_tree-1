@@ -1,6 +1,5 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Functional_coverage_tree
-#t# inprogress
 #c# 2019-11-14 >RC
 #p# OK
 #n# two problems with the main regex:
@@ -60,11 +59,11 @@ sub walktree ($data) {
     my @parts;
     my $pos = 0;
 
-    while (1) {
+    loop {
         last if $pos >= $data.chars;
         $data ~~ m:p($pos)/(\s*)/; my $s = $0;
-        $data ~~ m:p($pos)/$<head>=[\s*    \N+\n  ] 
-                           $<body>=[[$s \s+\N+\n]*]/;
+        $data ~~ m:p($pos)/$<head>=[\s*    \N+\n  ]     # split off one level as 'head' (or terminal 'leaf')
+                           $<body>=[[$s \s+\N+\n]*]/;   # next sub-level is 'body' (defined by extra depth of indentation)
         $pos = $/.pos; # start next match here
 
         my ($head, $body) = ($<head>, $<body>);
