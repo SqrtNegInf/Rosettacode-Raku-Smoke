@@ -2,9 +2,8 @@
 #u# http://rosettacode.org/wiki/Functional_coverage_tree
 #c# 2019-11-14 >RC
 #p# OK
-#n# two problems with the main regex:
+#n# one ugly problem with the main regex:
 #n#   failing to get it to iterate through match one-at-a-time, hence the need for .pos
-#n#   failing to capture/re-use the leading-spaces match, hence the separate regex with 'my $s = $0'
 
 my $data = q:to/END/;
 NAME_HIERARCHY                  |WEIGHT  |COVERAGE  |
@@ -53,17 +52,20 @@ cleaning                        |        |          |
 END
 
 my $result;
-$result ~= $_[0] for walktree($data);
+$result ~= .[0] for walktree($data);
 
 sub walktree ($data) {
     my @parts;
     my $pos = 0;
 
+# regarding the capture, according to docs this should work?
+#   while ($data ~~ m/$<head>=[(\s*) {} \N+\n  ]
+#                     $<body>=[[$0 \s+\N+\n]*]/ ) {
+
     loop {
         last if $pos >= $data.chars;
-        $data ~~ m:p($pos)/(\s*)/; my $s = $0;
-        $data ~~ m:p($pos)/$<head>=[\s*    \N+\n  ]     # split off one level as 'head' (or terminal 'leaf')
-                           $<body>=[[$s \s+\N+\n]*]/;   # next sub-level is 'body' (defined by extra depth of indentation)
+        $data ~~ m:p($pos)/$<head>=[(\s*) {} \N+\n  ]     # split off one level as 'head' (or terminal 'leaf')
+                           $<body>=[[$0  \s+ \N+\n]*]/;   # next sub-level is 'body' (defined by extra depth of indentation)
         $pos = $/.pos; # start next match here
 
         my ($head, $body) = ($<head>, $<body>);
@@ -72,9 +74,9 @@ sub walktree ($data) {
         my $coverage = sprintf '%-10s', $1 ne '' ?? $1 !! 0;
 
         my ($w, $wsum) = (0, 0);
-        $head ~= $_[0],
-        $w    += $_[1], 
-        $wsum += $_[1] * $_[2]
+        $head ~= .[0],
+        $w    += .[1], 
+        $wsum += .[1] * .[2]
             for walktree( $body );
 
         $coverage = sprintf '%-10.2g', $wsum/$w unless $w == 0;
