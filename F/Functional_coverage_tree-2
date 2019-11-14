@@ -2,7 +2,8 @@
 #u# http://rosettacode.org/wiki/Functional_coverage_tree
 #t# inprogress
 #c# 2019-11-xx >RC
-#p# OK
+#m# MOAR: OK
+#j#  JVM: OK
 #n# a more Raku-ish version
 
 my $data = q:to/END/;
@@ -59,7 +60,7 @@ sub walktree ($data) {
 }
 
 # Import outline paragraph into native data structure
-sub import (Str $trees, $level = '  ') {
+sub import (Str $trees) # don't assume, figure it out ?? , $level = '  ') {
     my $forest;
     my $last = -Inf;
 
