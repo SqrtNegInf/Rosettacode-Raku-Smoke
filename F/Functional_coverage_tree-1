@@ -51,7 +51,7 @@ cleaning                        |        |          |
 END
 
 my $result;
-$result ~= .[0] for walktree($data);
+$result ~= .[0] for walktree $data;
 
 sub walktree ($data) {
     my (@parts, $cnt);
@@ -60,20 +60,19 @@ sub walktree ($data) {
                                   $<body>=[[$0  \s+ \N+\n]*]/ ) { # next sub-level is 'body' (defined by extra depth of indentation)
 
         my ($head, $body) = ($<head>, $<body>);
-        $head ~~ /^.*? \| $<weight>=[\S*] \s*\| $<coverage>=[\S*] \s*\|/; # save values of weight and coverage (if any) for later
-
+        $head ~~ /'|' $<weight>=[\S*] \s* '|' $<coverage>=[\S*]/; # save values of weight and coverage (if any) for later
 
         my ($w, $wsum) = (0, 0);
         $head ~= .[0],
         $w    += .[1], 
         $wsum += .[1] * .[2]
-            for walktree( $body );
+            for walktree $body;
 
         my $weight   = (~$<weight>   or 1).fmt('%-8s');
         my $coverage = $w == 0 
                     ?? (~$<coverage> or 0).fmt('%-10s')
                     !! ($wsum/$w)         .fmt('%-10.2g');
-        @parts.push: [$head.subst(/\|\N+/, "|$weight|$coverage|"), $weight, $coverage ];
+        @parts.push: [$head.subst(/'|' \N+/, "|$weight|$coverage|"), $weight, $coverage ];
     }
     return @parts;
 }
