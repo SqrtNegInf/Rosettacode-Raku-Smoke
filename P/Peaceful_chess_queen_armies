@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Peaceful_chess_queen_armies
+#t# inprogress
+#c# 2019-11-xx >RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# ◦• ♛: ♕:
+
+my $result;
+
+my ($soln,%seen);
+
+my $m = 4;
+my $n = 5;
+
+# (?^:~*)|(?^sx:.{4}(?:~.{4})*)|(?^sx:.{5}(?:~.{5})*)|(?^sx:.{6}(?:~.{6})*)
+# my $gaps = join '|', qr/-*/, map qr/.{$_}(?:-.{$_})*/sx, $n-1, $n, $n+1;
+
+#                       (~*)       | (.{4}[~.{4}]*) | (.{5}[~.{5}]*) | (.{6}[~.{6}]*)
+
+#my $dot = '.';
+my @re = rx/'~'*/, rx/ '~' ** {$n}/;
+#my @re = rx/'~'*/, map { rx/ \w ** <$_> ['~' ** <$_>]*/ }, $n-1, $n, $n+1;
+dd @re; 
+
+#place ('~'x $n ~ "\n") x $n;
+
+exit;
+#`[[
+
+# (?^:(\w)(?:(?^:~*)|(?^sx:.{4}(?:~.{4})*)|(?^sx:.{5}(?:~.{5})*)|(?^sx:.{6}(?:~.{6})*))(?!\1)\w)
+# my $attack = qr/(\w)(?:$gaps)(?!\1)\w/;
+
+my $attack = qr/(\w)(?:$gaps)(?!\1)\w/;
+
+place( scalar +('~' x $n . "\n") x $n );
+say my $result = $soln ? "Solution to $m $n\n\n$soln" : "No solution to $m $n";
+
+sub place {
+  local $_ = shift;
+  $seen{$_}++ || /$attack/ and return; # previously or attack
+  (my $have = tr/WB//) < $m * 2 or $soln = $_ and return;
+  #(my $have = tr/WB//) < $m * 2 or exit !print "Solution to $m $n\n\n$_";
+  place( s/~\G/ qw(W B)[$have % 2] /er ) while /~/g; # place next queen
+}
+
+]]
+
+my $ref = q:to/EOD/;
+Solution to 4 5
+
+~B~B~
+B~~~~
+~~W~W
+B~~~~
+~~W~W
+EOD
+
+use Test;
+is $result, chomp $ref;
