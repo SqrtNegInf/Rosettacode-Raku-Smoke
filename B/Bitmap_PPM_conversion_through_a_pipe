@@ -1,11 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bitmap/PPM_conversion_through_a_pipe
-#t# skiptest
 #c# 2018-12-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-
-my @res;
+#f# RC file: output_piped.jpg
 
 class Pixel { has uint8 ($.R, $.G, $.B) }
 class Bitmap {
@@ -36,19 +34,6 @@ for flat ^$b.height X ^$b.width -> $i, $j {
     $b.pixel($i, $j) = Pixel.new: :R($i*2), :G($j*2), :B(255-$i*2);
 }
 
-my $proc = run '/usr/bin/convert','-','output_piped.jpg', :in;
+my $proc = run '/opt/local/bin/convert','-','run/output_piped.jpg', :in;
 $proc.in.write: $b.P6;
 $proc.in.close;
-
-#file output_piped.jpg
-#output_piped.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 125x125, frames 3
-
-
-.say for @res;
-
-my $ref = q:to/END/;
-END
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
