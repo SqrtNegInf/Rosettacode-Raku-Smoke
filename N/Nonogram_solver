@@ -1,0 +1,145 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Nonogram_solver
+#t# inprogress
+#c# 2019-11-xx >RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+
+my @res;
+
+my @data = grep { /^^ <[A..Z]>/ }, split /\n/, q:to/EOD/;
+C BA CB BB F AE F A B
+AB CA AE GA E C D C
+
+F CAC ACAC CN AAA AABB EBB EAA ECCC HCCC
+D D AE CD AE A DA BBB CC AAB BAA AAB DA AAB AAA BAB AAA CD BBA DA
+
+CA BDA ACC BD CCAC CBBAC BBBBB BAABAA ABAD AABB BBH BBBD ABBAAA CCEA AACAAB BCACC ACBH DCH ADBE ADBB DBE ECE DAA DB CC
+BC CAC CBAB BDD CDBDE BEBDF ADCDFA DCCFB DBCFC ABDBA BBF AAF BADB DBF AAAAD BDG CEF CBDB BBB FC
+
+E BCB BEA BH BEK AABAF ABAC BAA BFB OD JH BADCF Q Q R AN AAN EI H G
+E CB BAB AAA AAA AC BB ACC ACCA AGB AIA AJ AJ ACE AH BAF CAG DAG FAH FJ GJ ADK ABK BL CM
+EOD
+
+for @data -> $row, $column {
+    say "r $row";
+    my @rpats = makepatterns($row);
+dd @rpats; 
+    say "c $column";
+    my @cpats = makepatterns($column);
+dd @cpats;
+    my @rows = ('.' x @cpats) xx @rpats;
+    my $prev = '';
+    while ( $prev ne "@rows" ) {
+        $prev = "@rows";
+        try(@rows, @rpats);
+    }
+}
+
+#`{{
+    my @cols = map { join '', map { s/.//; $& } @rows } 0..^ @cpats;
+    try(@cols, @cpats);
+    @rows = map { join '', map { s/.//; $& } @cols } 0..^ @rpats;
+  }
+  push @res, "\n";
+  push @res, "@rows" =~ /\./ ?? "Failed\n" !! @rows.map:{ tr/01/.#/r, "\n" } 
+}
+}}
+
+sub try (@lines, @patterns) {
+    for 0 ..^ @lines -> $i {
+        while ( @lines[$i] ~~ m:g/\./ ) {
+#         for (@lines[$i].comb) {
+            for 0, 1 -> $try {
+                #next if (~~ s:g/./$try/) ~~ @patterns[$i]; # \G?
+#                next if (@lines[$i] ~~ s:g/./$try/) ~~ @patterns[$i]; # \G?
+                #@lines[$i] ~~ s//{1 - $try}/; # \G?
+            }
+        }
+    }
+}
+
+sub makepatterns ($pat) {
+    map { "rx/$_/".EVAL
+        }, map {
+                 '[0.]*'
+               ~ join('[0.]+', map { "[1.]**$_ " }, (.comb.ord X- 64) )
+               ~ '[0.]*'
+               }, $pat.split(' ');
+}
+
+# say my $result = join '', @res;
+
+my $ref = q:to/EOD/;
+
+.###....
+##.#....
+.###..##
+..##..##
+..######
+#.#####.
+######..
+....#...
+...##...
+
+..........######....
+........###.#..###..
+...#..###...#....###
+..###.##############
+...#..#............#
+..#.#.##..........##
+#####..##........##.
+#####...#........#..
+#####..###.###.###..
+########.###.###.###
+
+....###.#...........
+....##.####.#.......
+....#.###.###.......
+..##.####...........
+.###.###.#....###...
+###..##.##...#.###..
+##..##.##....##.##..
+....##.#.#..##.#.#..
+....#.##.#...####...
+....#.#.##.....##...
+.....##.##..########
+....##.##...##..####
+....#.##.##.#...#..#
+###..###.#####.....#
+#.#.###.#....#....##
+##..###.#....###.###
+.#.###.##.########..
+.####.###.########..
+...#.####.##.#####..
+...#.####.##...##...
+....####..##...#####
+...#####.###...#####
+...####.#..........#
+..####.##...........
+..###.###...........
+
+....................#####
+..##..............###..##
+.##..............#####..#
+##.............########..
+##....#####.###########..
+#.#..##....#....######...
+#..##.....#.......###....
+##........#.............#
+.##.....######.........##
+..###############....####
+.....##########..########
+....##.#.####.###..######
+........#################
+........#################
+.......##################
+.......#...##############
+.......#.#.##############
+........#####...#########
+.................########
+..................#######
+EOD
+
+use Test;
+is @res.join("\n"), chomp $ref;
