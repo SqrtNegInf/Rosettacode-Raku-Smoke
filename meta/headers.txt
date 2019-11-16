@@ -1057,10 +1057,10 @@ File: B/Bitmap_Midpoint_circle_algorithm
 File: B/Bitmap_PPM_conversion_through_a_pipe
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bitmap/PPM_conversion_through_a_pipe
-#t# skiptest
 #c# 2018-12-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#f# RC file: output_piped.jpg
 
 File: B/Bitmap_Read_a_PPM_file
 #!/usr/bin/env perl6
@@ -6435,7 +6435,7 @@ File: N/Nonoblock
 #j#  JVM: OK
 #n# fairly literal translation of P5 version
 
-File: N/Nonogram_solver.inc
+File: N/Nonogram_solver
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Nonogram_solver
 #t# inprogress
@@ -6956,6 +6956,15 @@ File: P/Pattern_matching
 #c# 2015-10-12 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: P/Peaceful_chess_queen_armies
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Peaceful_chess_queen_armies
+#t# inprogress
+#c# 2019-11-xx >RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# ◦• ♛: ♕:
 
 File: P/Peano_curve
 #!/usr/bin/env perl6
@@ -8823,6 +8832,14 @@ File: S/Simple_database-client
 #t# skiptest
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: S/Simple_windowed_application
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Simple_windowed_application
+#c# 2019-11-15 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# not really OK...
 
 File: S/Simulate_input_Keyboard
 #!/usr/bin/env perl6
@@ -10879,13 +10896,23 @@ File: W/Welch%27s_t-test-2
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
+File: W/Window_creation
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Window_creation
+#t# gui
+#c# 2019-11-15 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# placement is funky
+
 File: W/Window_creation_X11
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Window_creation/X11
 #t# gui
 #c# 2018-04-30 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
+#n# tested on Ubuntu 18
 
 File: W/Window_management
 #!/usr/bin/env perl6
