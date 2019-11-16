@@ -2,11 +2,10 @@
 #u# http://rosettacode.org/wiki/Window_creation/X11
 #t# gui
 #c# 2018-04-30 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
+#n# tested on Ubuntu 18
 
-
-# Translation of: C
 # There is not yet a X11 library in Perl 6 but we can write the minimal C mappings for this task.
 
 use NativeCall;
@@ -73,11 +72,3 @@ loop {
     }
 }
 XCloseDisplay($display);
-
-
-my $ref = qq:to/END/;
-END
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
