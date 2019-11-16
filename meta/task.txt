@@ -1,18 +1,18 @@
 This is Rakudo version 2019.07.1-478-g75056dfa1 built on MoarVM version 2019.07.1-309-g48491b896
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1140/10]
-|+-------------> JVM: Good/Bad [981/170]
-||+------------> Smoke testing [1029]
-|||+-----------> sKipping validation [118]
-||||+----------> Interactive [56]
-|||||+---------> Touched (modified by me) [278]
++--------------> Moar: Good/Bad [1143/11]
+|+-------------> JVM: Good/Bad [981/174]
+||+------------> Smoke testing [1031]
+|||+-----------> sKipping validation [120]
+||||+----------> Interactive [57]
+|||||+---------> Touched (modified by me) [280]
 ||||||+--------> Concurrent [48]
 |||||||+-------> Random seed [114]
-||||||||+------> File output [84]
+||||||||+------> File output [85]
 |||||||||+-----> Draft [231]
-||||||||||+----> Ignoring [51]
-|||||||||||+---> Void (no local copy) [117]
+||||||||||+----> Ignoring [37]
+|||||||||||+---> Void (no local copy) [113]
 ||||||||||||+--> Un-implemented/reliable [90]
 |||||||||||||
 GGS.......... 100_doors
@@ -44,7 +44,7 @@ GGS..T....... Abundant,_deficient_and_perfect_number_classifications
 GBS..TC...... Abundant_odd_numbers
 GGS.......... Accumulator_factory
 GGS.......... Ackermann_function
-GB.K......X.. Active_Directory_Connect
+GB.K......... Active_Directory_Connect
 ...........V. Active_Directory_Search_for_a_user
 GG.K......... Active_object
 GGS.......... Add_a_variable_to_a_class_instance_at_runtime
@@ -136,7 +136,7 @@ GGS.....F.... Bitmap_Bresenham%27s_line_algorithm
 ...........VU Bitmap_Flood_fill
 GGS.....F.... Bitmap_Histogram
 GGS.....F.... Bitmap_Midpoint_circle_algorithm
-GG.K......X.. Bitmap_PPM_conversion_through_a_pipe
+GGS.....F.... Bitmap_PPM_conversion_through_a_pipe
 GGS.....F.... Bitmap_Read_a_PPM_file
 GBS.....F.... Bitmap_Read_an_image_through_a_pipe
 GGS.....F.... Bitmap_Write_a_PPM_file
@@ -166,7 +166,7 @@ GBS.......... Call_a_foreign-language_function
 GG.K......... Call_a_function
 GGS.......... Call_a_function-2
 BB.K......... Call_a_function_in_a_shared_library
-GGS.......X.. Call_an_object_method
+GGS.......... Call_an_object_method
 ...........VU Canny_edge_detector
 GGS.......... Cantor_set
 GGS....R.D... Card_shuffles
@@ -441,7 +441,7 @@ GG.K......... Function_definition
 GGS.......... Function_frequency
 ..........XV. Function_prototype
 GGS..T....... Functional_coverage_tree-1
-!G.K.T....... Functional_coverage_tree-2
+GG.K.T....... Functional_coverage_tree-2
 GGS.......... Fusc_sequence
 GB.KI........ GUI_Maximum_window_dimensions
 GB.KI........ GUI_component_interaction
@@ -610,7 +610,7 @@ GGS.......... Letter_frequency
 GGS.......... Levenshtein_distance
 GGS..T...D... Levenshtein_distance_Alignment
 GGS.......... Linear_congruential_generator
-GG.K.....DX.. Linux_CPU_utilization
+GG.K.....D... Linux_CPU_utilization
 GGS.......... List_comprehensions
 GGS......D... List_rooted_trees
 GGS.......... Literals_Floating_point
@@ -743,7 +743,7 @@ GGS.......... Non-decimal_radices_Convert
 GGS.......... Non-decimal_radices_Input
 GGS.......... Non-decimal_radices_Output
 GGS..T....... Nonoblock
-...........VU Nonogram_solver
+BB.K.T......U Nonogram_solver
 GGS.......... Nth_root
 GGS.......... Null_object
 GGS.......... Number_names-1
@@ -800,7 +800,7 @@ GGS..T....... Pascal_matrix_generation
 GGS....R..... Password_generator
 GGS.......... Pathological_floating_point_problems
 GGS..T.R..... Pattern_matching
-...........VU Peaceful_chess_queen_armies
+BB.K.T......U Peaceful_chess_queen_armies
 GGS.....F.... Peano_curve
 GGS.......... Pell%27s_equation
 GGS....R..... Penney%27s_game
@@ -1013,14 +1013,14 @@ GGS.......... Sierpinski_triangle
 GGS..T..F.... Sierpinski_triangle_Graphical
 GGS..T....... Sieve_of_Eratosthenes
 GB.K......... Simple_database
-..........XV. Simple_windowed_application
-GB.KI.....X.. Simulate_input_Keyboard
+!BS.......... Simple_windowed_application
+GB.KI........ Simulate_input_Keyboard
 GB.KI........ Simulate_input_Mouse
 .........D.VU Simulated_annealing
 GBS..T..FD... Sine_wave
 GGS.......... Singleton
-GG.K......X.. Singly-linked_list_Element_definition
-GG.K......X.. Singly-linked_list_Element_insertion
+GG.K......... Singly-linked_list_Element_definition
+GG.K......... Singly-linked_list_Element_insertion
 GG.K.....D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
@@ -1072,7 +1072,7 @@ GGS.......... Soundex
 GGS.......... Sparkline_in_unicode
 GG.K......... Special_characters
 GG.K......... Special_variables
-GG.K......X.. Speech_synthesis
+GG.K......... Speech_synthesis
 GBS.....F.... Spelling_of_ordinal_numbers
 GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
@@ -1155,7 +1155,7 @@ GG.KI........ Terminal_control_Cursor_movement
 GG.KI........ Terminal_control_Cursor_positioning
 GG.KI........ Terminal_control_Dimensions
 GG.KI........ Terminal_control_Display_an_extended_character
-BB.KI.....X.. Terminal_control_Hiding_the_cursor
+BB.KI........ Terminal_control_Hiding_the_cursor
 GG.KI........ Terminal_control_Inverse_video
 GB.KI..R..... Terminal_control_Positional_read
 GG.KI........ Terminal_control_Preserve_screen
@@ -1244,7 +1244,7 @@ GGS....R..... Verify_distribution_uniformity_Naive
 .........D... Vibrating_rectangles
 GG.KI........ Vibrating_rectangles-1
 GB.KI........ Vibrating_rectangles-2
-GG.KI.....X.. Video_display_modes
+GG.KI........ Video_display_modes
 GGS..T....... Vigen%C3%A8re_cipher
 ...........VU Vigen%C3%A8re_cipher_Cryptanalysis
 GGS.......... Visualize_a_tree
@@ -1261,9 +1261,9 @@ GGS.......... Weird_numbers
 .........D... Welch%27s_t-test
 GGS.......... Welch%27s_t-test-1
 GBS..T....... Welch%27s_t-test-2
-..........XV. Window_creation
-BB.KI.....X.. Window_creation_X11
-GB.KI.....X.. Window_management
+GB.KI........ Window_creation
+GB.KI........ Window_creation_X11
+GB.KI........ Window_management
 GBS.......... Wireworld
 GGS......D... Word_break_problem
 ...........V. Word_frequency
