@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-use MONKEY-SEE-NO-EVAL;
+#use MONKEY-SEE-NO-EVAL;
 
 # Works with: rakudo version 2015-09-14
 sub huffman ($s) {
@@ -25,29 +25,6 @@ multi walk ($node, $prefix) { take $node => $prefix }
 
 say .perl for huffman('this is an example for huffman encoding');
 
-#`{
-
-:d("000000")
-:c("000001")
-:x("00001")
-:i("0001")
-:f("0010")
-:e("0011")
-" " => "010"
-:a("0110")
-:u("01110")
-:t("01111")
-:s("1000")
-:r("10010")
-:p("10011")
-:n("101")
-:o("1100")
-:m("1101")
-:h("1110")
-:l("11110")
-:g("11111")
-}
-
 #To demonstrate that the table can do a round trip:
 
 my $str = 'this is an example for huffman encoding';
@@ -56,15 +33,11 @@ my %dec = %enc.invert;
 say $str;
 my $huf = %enc{$str.comb}.join;
 say $huf;
-my $rx = join('|', map { "'" ~ .key ~ "'" }, %dec);
-$rx = EVAL '/' ~ $rx ~ '/';
-say my $rt = $huf.subst(/<$rx>/, -> $/ {%dec{~$/}}, :g);
-
-#`<
-this is an example for huffman encoding
-0111111100001100001000011000010011010101000110000101101101100111111000110100010110010010010111001110001000101101011010101000111010000011100000000000110111111
-this is an example for huffman encoding
->
+my $rx = join '|', map { "'" ~ .key ~ "'" }, %dec;
+#$rx = EVAL '/' ~ $rx ~ '/';
+$rx = "/$rx/".EVAL;
+#say my $rt = $huf.subst(/<$rx>/, -> $/ {%dec{~$/}}, :g);
+say my $rt = $huf.subst(/<$rx>/, {%dec{~$/}}, :g);
 
 use Test;
 is $rt, $str, 'round-trip';
