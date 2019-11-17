@@ -6,55 +6,74 @@
 #j# JVM:  BROKEN
 #n# ◦• ♛: ♕:
 
-my $result;
-
 my ($soln,%seen);
 
 my $m = 4;
 my $n = 5;
 
-# (?^:~*)|(?^sx:.{4}(?:~.{4})*)|(?^sx:.{5}(?:~.{5})*)|(?^sx:.{6}(?:~.{6})*)
-# my $gaps = join '|', qr/-*/, map qr/.{$_}(?:-.{$_})*/sx, $n-1, $n, $n+1;
+my $empty_square = '◦•';
 
-#                       (~*)       | (.{4}[~.{4}]*) | (.{5}[~.{5}]*) | (.{6}[~.{6}]*)
+# ([WB])(?:[◦•]*|(?^s:.{4}(?:[◦•].{4})*)|(?^s:.{5}(?:[◦•].{5})*)|(?^s:.{6}(?:[◦•].{6})*))(?!\1)[WB]
 
-#my $dot = '.';
-my @re = rx/'~'*/, rx/ '~' ** {$n}/;
-#my @re = rx/'~'*/, map { rx/ \w ** <$_> ['~' ** <$_>]*/ }, $n-1, $n, $n+1;
-dd @re; 
 
+say my $re = '(\w)[' ~ join(' |', qq/'~'*/, map { qq/ . ** {$_}['~' ** {$_}]*/ }, $n-1, $n, $n+1) ~ ']<!after $0>\w';
+my $attack = "rx/$re/".EVAL;
+dd $attack;
+
+my $board = join "\n", map { substr $empty_square x $n, $_%2, $n }, 1..$n;
 #place ('~'x $n ~ "\n") x $n;
 
-exit;
+say my $result = $soln ?? "Solution to $m $n\n\n$soln" !! "No solution to $m $n";
+
 #`[[
 
-# (?^:(\w)(?:(?^:~*)|(?^sx:.{4}(?:~.{4})*)|(?^sx:.{5}(?:~.{5})*)|(?^sx:.{6}(?:~.{6})*))(?!\1)\w)
-# my $attack = qr/(\w)(?:$gaps)(?!\1)\w/;
-
-my $attack = qr/(\w)(?:$gaps)(?!\1)\w/;
-
-place( scalar +('~' x $n . "\n") x $n );
-say my $result = $soln ? "Solution to $m $n\n\n$soln" : "No solution to $m $n";
-
-sub place {
-  local $_ = shift;
-  $seen{$_}++ || /$attack/ and return; # previously or attack
-  (my $have = tr/WB//) < $m * 2 or $soln = $_ and return;
-  #(my $have = tr/WB//) < $m * 2 or exit !print "Solution to $m $n\n\n$_";
-  place( s/~\G/ qw(W B)[$have % 2] /er ) while /~/g; # place next queen
+sub place ($cb) {
+  %seen{$cb}++ || $cb ~~ /$attack/ and return; # previously or attack
+  (my $have = $cb.trans('WB' => '') ) < $m * 2 or $soln = $cb and return;
+#  #(my $have = tr/WB//) < $m * 2 or exit !print "Solution to $m $n\n\n$_";
+  place( $cb.subst(/~/, {<W B>[$have % 2]}, :g ) while $cb ~~ /~/, :g; # place next queen
+ #$head.subst(/'|' \N+/, "|$weight|$coverage|")
 }
 
-]]
+# recursively place the next queen
+sub place {
+    my($board, $n, $m, $empty_square) = @_;
+    state %seen;
+
+    # logic of 'attack' regex: queen ( ... paths between queens containing only empty squares ... ) queen of other color
+    my $attack =
+    '([WB])' .      # 1st queen
+    '(?:' .
+        join('|',
+            "[$empty_square]*",
+            map {
+                "(?^s:.{$_}(?:[$empty_square].{$_})*)"
+            } $n-1, $n, $n+1
+        ) .
+    ')' .
+    '(?!\1)[WB]';   # 2nd queen
+
+    # bail out if seen this configuration previously, or attack detected
+    return if $seen{$board}++ or $board =~ /$attack/;
+
+    # success if queen count is m×2
+    $solution = $board and return if $m * 2 == (my $have = $board =~ tr/WB//);
+
+    # place the next queen (alternating colors each time)
+    place(   $board =~ s/[$empty_square]\G/ qw<W B>[$have % 2] /er, $n, $m, $empty_square )
+       while $board =~  /[$empty_square]/g;
+}
+
 
 my $ref = q:to/EOD/;
-Solution to 4 5
-
-~B~B~
-B~~~~
-~~W~W
-B~~~~
-~~W~W
+•B•B•
+B•◦•◦
+•◦W◦W
+B•◦•◦
+•◦W◦W
 EOD
 
 use Test;
 is $result, chomp $ref;
+
+]]
