@@ -1,0 +1,43 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Determine_if_a_string_is_collapsible
+#c# 2019-11-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+map {
+    my $squish = .comb.squish.join;
+    @res.push: sprintf "\nLength: %2d <<<%s>>>\nLength: %2d <<<%s>>>", .chars, $_, $squish.chars, $squish
+}, lines
+
+qq:to/STRINGS/;
+
+    "If I were two-faced, would I be wearing this one?" --- Abraham Lincoln 
+    ..1111111111111111111111111111111111111111111111111111111111111117777888
+    I never give 'em hell, I just tell the truth, and they think it's hell. 
+                                                        --- Harry S Truman  
+    STRINGS
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+Length:  0 <<<>>>
+Length:  0 <<<>>>
+
+Length: 72 <<<"If I were two-faced, would I be wearing this one?" --- Abraham Lincoln >>>
+Length: 70 <<<"If I were two-faced, would I be wearing this one?" - Abraham Lincoln >>>
+
+Length: 72 <<<..1111111111111111111111111111111111111111111111111111111111111117777888>>>
+Length:  4 <<<.178>>>
+
+Length: 72 <<<I never give 'em hell, I just tell the truth, and they think it's hell. >>>
+Length: 69 <<<I never give 'em hel, I just tel the truth, and they think it's hel. >>>
+
+Length: 72 <<<                                                    --- Harry S Truman  >>>
+Length: 17 <<< - Hary S Truman >>>
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
