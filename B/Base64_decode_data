@@ -14,8 +14,8 @@ my %base64 is default(0) = @base64map.pairs.invert;
 
 sub base64-decode-slow ($enc) {
     my $buf = Buf.new;
-    for $enc.subst(/\s/, '', :g).comb(4) -> $chunck {
-        $buf.append: |(sprintf "%06d%06d%06d%06d", |$chunck.comb.map:
+    for $enc.subst(/\s/, '', :g).comb(4) -> $chunk {
+        $buf.append: |(sprintf "%06d%06d%06d%06d", |$chunk.comb.map:
             {%base64{$_}.base(2)}).comb(8).map: {:2($_)};
     }
     $buf
