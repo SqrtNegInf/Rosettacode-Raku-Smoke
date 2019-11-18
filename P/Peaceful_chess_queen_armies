@@ -14,7 +14,7 @@ sub place ($board, $n, $m, $empty-square) {
     state (%seen,$attack);
 
     # logic of 'attack' regex: queen ( ... paths between queens containing only empty squares ... ) queen of other color
-    unless (defined $attack) {
+    once {
       my %Q = 'WBBW'.comb; # return the queen of alternate color
       my $re = 
         '(<[WB]>)' ~
