@@ -9,19 +9,6 @@
 
 my ($solution); # this must remain global
 
-my $m = 2;
-my $n = 4;
-
-my $empty-square = '◦•';
-
-my $board = ($empty-square x $n**2).comb.rotor($n)>>.join[^$n].join: "\n";
-
-place( $board, $n, $m, $empty-square );
-
-say $solution 
-    ?? "Solution to $m $n\n\n{S:g/(\N)/$0 / with $solution}"
-    !! "No solution to $m $n";
-
 # recursively place the next queen
 sub place ($board, $n, $m, $empty-square) {
     state (%seen,$attack);
@@ -47,13 +34,26 @@ sub place ($board, $n, $m, $empty-square) {
     return if %seen{$board}++ or $board ~~ $attack;
 
     # success if queen count is m×2
-    $solution = $board and return if $m * 2 == (my $have = $board.comb.Bag{<W B>}.sum);
+    $solution = $board and return if $m * 2 == (my $queens = $board.comb.Bag{<W B>}.sum);
 
     # place the next queen (alternating colors each time)
     my $cnt = 0;
-    place( $board.subst( /<[◦•]>/, {<W B>[$have % 2]}, :nth($cnt) ), $n, $m, $empty-square )
+    place( $board.subst( /<[◦•]>/, {<W B>[$queens % 2]}, :nth($cnt) ), $n, $m, $empty-square )
       while $board ~~ m:nth(++$cnt)/<[◦•]>/;
 }
+
+my $m = 2;
+my $n = 4;
+
+my $empty-square = '◦•';
+
+my $board = ($empty-square x $n**2).comb.rotor($n)>>.join[^$n].join: "\n";
+
+place( $board, $n, $m, $empty-square );
+
+say $solution 
+    ?? "Solution to $m $n\n\n{S:g/(\N)/$0 / with $solution}"
+    !! "No solution to $m $n";
 
 my $ref = q:to/END/;
 ◦B◦•
