@@ -7,13 +7,24 @@
 
 my $result;
 
-#`[[
 
 my $max = 4; # records per merge file
-my(@chunk,@tempf);
+our(@chunk,@tempf);
 
 # just a simple numeric sort here, but you could get fancy...
-sub mysort ($$) { return $_[0] <=> $_[1] }
+sub mysort ($a, $b) { return $a <=> $b }
+
+my @data = qw<432 345 3.21 543 -987 45.6 678 123 765 567 876 654 .789 2/34>;
+
+# read input and create sorted temporary files
+while (@data) {
+    push @chunk, $_;
+    store(\@chunk), @chunk = () if @chunk == $max;
+}
+
+store(\@chunk) if @chunk;
+
+#`[[
 
 sub store {
     my($a) = @_;
@@ -23,15 +34,8 @@ sub store {
     push(@tempf, { fh => $f, queued => scalar <$f> } );
 }
 
-# read input and create sorted temporary files
-while (<DATA>) {
-    push @chunk, $_;
-    store(\@chunk), @chunk = () if @chunk == $max;
-}
-store(\@chunk) if @chunk;
-
 # merge everything
-while (1) {
+loop {
     my($lowest) = (sort { mysort($a->{queued}, $b->{queued}); } grep(defined $_->{queued}, @tempf) )[0];
     last unless $lowest->{queued};
     $result .= $lowest->{queued};
@@ -57,23 +61,5 @@ my $ref = <<'END';
 876
 END
 
-use Test::More;
-is($result,$ref);
-done_testing();
-
-__DATA__
-432
-345
-3.21
-543
--987
-45.6
-678
-123
-765
-567
-876
-654
-.789
-2/34
-]]
+#use Test;
+#is $result, $ref;
