@@ -7,14 +7,13 @@
 
 my $result;
 
-
-my $max = 4; # records per merge file
-our(@chunk,@tempf);
-
 # just a simple numeric sort here, but you could get fancy...
 sub mysort ($a, $b) { return $a <=> $b }
 
 my @data = qw<432 345 3.21 543 -987 45.6 678 123 765 567 876 654 .789 2/34>;
+
+my $max = 4; # records per merge file
+my(@chunk,@tempf);
 
 # read input and create sorted temporary files
 while (@data) {
