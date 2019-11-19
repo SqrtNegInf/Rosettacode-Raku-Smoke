@@ -4,8 +4,12 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# d'oh stop at first solution (was previously proceeding to the last before showing result)
-#n# wart alert: in 'place' routine using literal '◦•' in regex because I cannot figure out a
-#n# way to efficiently create a regex object which is built from $empty-square
+#n#  1017.844u   4.788s   17:15.32 98.7%  7 x 7 got answer, but still slow
+#n# 16407.682u 140.503s 5:10:29.21 88.8%  6 x 6 killed before done (board has no soln so needs to interate through all possibilities)
+#n# big win: got rid of all globals
+#n# small wart: need to 'return $solution' in two places
+#n#   big wart: in 'place' routine using literal '◦•' in regex because I cannot figure out a
+#n#             way to efficiently create a regex object which is built from $empty-square
 
 # recursively place the next queen
 sub place ($board, $n, $m, $empty-square) {
@@ -16,7 +20,7 @@ sub place ($board, $n, $m, $empty-square) {
     once {
       my %Q = 'WBBW'.comb; # return the queen of alternate color
       my $re = 
-        '(<[WB]>)' ~
+        '(<[WB]>)' ~                # 1st queen
         '[' ~
           join(' |', 
             qq/<[$empty-square]>*/, 
@@ -25,7 +29,7 @@ sub place ($board, $n, $m, $empty-square) {
             }, $n-1, $n, $n+1
           ) ~
         ']' ~
-        '<{%Q{$0}}>';
+        '<{%Q{$0}}>';               # 2nd queen
       $attack = "rx/$re/".EVAL;
     }
 
@@ -36,14 +40,14 @@ sub place ($board, $n, $m, $empty-square) {
     return if %seen{$board}++ or $board ~~ $attack;
 
     # success if queen count is m×2, set state variable and return from recursion
-    $solution = $board and return if $m * 2 == (my $queens = $board.comb.Bag{<W B>}.sum);
+    $solution = $board and return if $m * 2 == my $queens = $board.comb.Bag{<W B>}.sum;
 
     # place the next queen (alternating colors each time)
     my $cnt = 0;
     place( $board.subst( /<[◦•]>/, {<W B>[$queens % 2]}, :nth($cnt) ), $n, $m, $empty-square )
         while $board ~~ m:nth(++$cnt)/<[◦•]>/;
 
-    # 
+    # pass already-found result back up the stack
     return $solution;
 }
 
