@@ -953,7 +953,7 @@ File: B/Binary_strings
 File: B/Birthday_problem
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Birthday_problem
-#c# 2016-08-03 <RC
+#c# 2016-08-03 <RC, 2019-10-23 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# ouch, for 2..5: 5755.022u 5223.779s 4:53:17.36 62.3% (which is why just running 2..2 for now)
@@ -2345,6 +2345,13 @@ File: D/Determine_if_a_string_has_all_unique_characters
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for JVM: NFC not yet implemented. Sorry.
+
+File: D/Determine_if_a_string_is_collapsible
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Determine_if_a_string_is_collapsible
+#c# 2019-11-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: D/Determine_if_a_string_is_numeric
 #!/usr/bin/env perl6
@@ -6968,11 +6975,16 @@ File: P/Pattern_matching
 File: P/Peaceful_chess_queen_armies
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Peaceful_chess_queen_armies
-#t# inprogress
 #c# 2019-11-xx >RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
-#n# ♛: ♕:
+#m# MOAR: OK
+#j# JVM:  OK
+#n# d'oh stop at first solution (was previously proceeding to the last before showing result)
+#n#  1017.844u   4.788s   17:15.32 98.7%  7 x 7 got answer, but still slow
+#n# 16407.682u 140.503s 5:10:29.21 88.8%  6 x 6 killed before done (board has no soln so needs to interate through all possibilities)
+#n# big win: got rid of all globals
+#n# small wart: need to 'return $solution' in two places
+#n#   big wart: in 'place' routine using literal '◦•' in regex because I cannot figure out a
+#n#             way to efficiently create a regex object which is built from $empty-square
 
 File: P/Peaceful_chess_queen_armies.0
 #!/usr/bin/env perl6
