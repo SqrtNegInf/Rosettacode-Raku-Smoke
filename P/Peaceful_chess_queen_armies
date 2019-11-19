@@ -33,7 +33,7 @@ sub place ($board, $n, $m, $empty-square) {
       $attack = "rx/$re/".EVAL;
     }
 
-    # pass first result found back up the stack (omit this line to get last result found)
+    # return first result found (omit this line to get last result found)
     return $solution if $solution;
 
     # bail out if seen this configuration previously, or attack detected
@@ -46,7 +46,6 @@ sub place ($board, $n, $m, $empty-square) {
     place( $board.subst( /<[◦•]>/, {<W B>[$queens % 2]}, :nth($cnt) ), $n, $m, $empty-square )
         while $board ~~ m:nth(++$cnt)/<[◦•]>/;
 
-    # pass already-found result back up the stack
     return $solution;
 }
 
