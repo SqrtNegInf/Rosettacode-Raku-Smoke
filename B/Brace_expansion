@@ -1,10 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brace_expansion
 #c# 2018-03-22 <RC
-#t# graphical
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
-
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# presumably this code once worked, so the fix should be 'easy'
+#n# so far, just made the needed GLR fix of 'flat' in 'crosswalk' (which doesn't address the fundamental problem)
 
 #`{
 The task description allows the taking of shortcuts, but please note that we are not taking any shortcuts here. The solution is short because this particular problem happens to map quite naturally to the strengths of Perl 6.
@@ -33,19 +33,22 @@ sub brace-expand($s) { crosswalk BraceExpansion.parse($s) }
 
 #And to test...
 
-my @res;
+my @res; my $result;
 sub bxtest(*@s) {
     for @s -> $s {
-        say "\n$s";
+        $result ~= "$s\n";
         for brace-expand($s) {
-            say "    ", $_;
+            $result ~= "    " ~ $_ ~ "\n";
         }
     }
 }
 
+# 1st test OK, starts failing with 2nd (and 3rd)
 bxtest Q:to/END/.lines;
     ~/{Downloads,Pictures}/*.{jpg,gif,png}
     It{{em,alic}iz,erat}e{d,}, please.
+    END
+my $nextinp = Q:to/EOD/;
     {,{,gotta have{ ,\, again\, }}more }cowbell!
     {}} some {\\{edge,edgy} }{ cases, here\\\}
     a{b{1,2}c
@@ -58,7 +61,19 @@ bxtest Q:to/END/.lines;
     a{b,{{c}}
     {a{\}b,c}d
     {a,b{{1,2}e}f
-    END
+    EOD
+
+say $result; exit;
+
+my $fail1 = q:to/EOD/;
+It{{em,alic}iz,erat}e{d,}, please.
+    Itemized, please.
+    Itemize, please.
+    Italicized, please.
+    Italicize, please.
+    Iterated, please.
+    Iterate, please.
+EOD
 
 my $ref = q:to/END/;
 ~/{Downloads,Pictures}/*.{jpg,gif,png}
@@ -69,19 +84,13 @@ my $ref = q:to/END/;
     ~/Pictures/*.gif
     ~/Pictures/*.png
 
-It{{em,alic}iz,erat}e{d,}, please.
-    Itemized, please.
-    Itemize, please.
-    Italicized, please.
-    Italicize, please.
-    Iterated, please.
-    Iterate, please.
-
 {,{,gotta have{ ,\, again\, }}more }cowbell!
     cowbell!
     more cowbell!
     gotta have more cowbell!
     gotta have\, again\, more cowbell!
+END
+my $nextref = q:to/EOD/;
 
 {}} some {\\{edge,edgy} }{ cases, here\\\}
     {}} some {\\edge }{ cases, here\\\}
@@ -130,7 +139,7 @@ a{b,{{c}}
 {a,b{{1,2}e}f
     {a,b{1e}f
     {a,b{2e}f
-END
+EOD
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is $result, $ref;
