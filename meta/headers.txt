@@ -1141,9 +1141,12 @@ File: B/Brace_expansion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brace_expansion
 #c# 2018-03-22 <RC
-#t# graphical
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# not handling any nested alternations
+#n# presumably this code once worked, so the fix should be small/easy??
+#n# hmmm, walked back through program history on RC and perl6 versions back to 2015.12, no luck
+#n# so far, just made the needed GLR fix of 'flat' in 'crosswalk' (which doesn't address the fundamental problem)
 
 File: B/Brazilian_numbers
 #!/usr/bin/env perl6
@@ -6975,15 +6978,14 @@ File: P/Pattern_matching
 File: P/Peaceful_chess_queen_armies
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Peaceful_chess_queen_armies
-#c# 2019-11-xx >RC
+#c# 2019-11-18 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# d'oh stop at first solution (was previously proceeding to the last before showing result)
 #n#  1017.844u   4.788s   17:15.32 98.7%  7 x 7 got answer, but still slow
 #n# 16407.682u 140.503s 5:10:29.21 88.8%  6 x 6 killed before done (board has no soln so needs to interate through all possibilities)
-#n# big win: got rid of all globals
-#n# small wart: need to 'return $solution' in two places
-#n#   big wart: in 'place' routine using literal '◦•' in regex because I cannot figure out a
+#n# big  win: got rid of all globals
+#n# big wart: in 'place' routine using literal '◦•' in regex because I cannot figure out a
 #n#             way to efficiently create a regex object which is built from $empty-square
 
 File: P/Peaceful_chess_queen_armies.0
