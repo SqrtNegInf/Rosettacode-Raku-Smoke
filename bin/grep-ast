@@ -1,22 +1,30 @@
-#!/bin/sh
+#!/usr/bin/env perl6
 ## grep AST of RC tasks
 #  David H.  2019-04-14
 #   just a concept at this point...
 
-# METAOP_ASSIGN
-# METAOP_CROSS
-# METAOP_HYPER
-# METAOP_HYPER_POSTFIX_ARGS
-# METAOP_HYPER_PREFIX
-# METAOP_NEGATE
-# METAOP_REDUCE_CHAIN
-# METAOP_REDUCE_LEFT
-# METAOP_REDUCE_LIST
-# METAOP_REDUCE_LISTINFIX
-# METAOP_REDUCE_RIGHT
-# METAOP_REVERSE
-# METAOP_ZIP
+#`[[
+
+grep -h QAST::Op ast/* | perl -npe 's/\Q+{QAST::SpecialArg}//;s/^\s+.*::Op\((.*?)\).*/$1/' | sort | uniq -c | sort -r -n
+
+ 1561 call &METAOP_ASSIGN
+  497 call &METAOP_REDUCE_LEFT
+  351 call &METAOP_HYPER
+  234 call &METAOP_ZIP
+  207 call &METAOP_CROSS
+   64 call &METAOP_HYPER_POSTFIX_ARGS
+   61 call &METAOP_REVERSE
+   52 call &METAOP_NEGATE
+   48 call &METAOP_REDUCE_LISTINFIX
+   34 call &METAOP_REDUCE_CHAIN
+   17 call &METAOP_REDUCE_RIGHT
+   12 call &METAOP_REDUCE_LIST
+   10 call &METAOP_HYPER_PREFIX
+    2 p6fatalize &METAOP_ASSIGN
+    2 call &METAOP_HYPER_CALL
 
 grep -l '&METAOP_CROSS' ast/* | perl -npe 's#ast/##' > docs/METAOP_CROSS
 grep -l '&METAOP_REVERSE' ast/* | perl -npe 's#ast/##' > docs/METAOP_REVERSE
 grep -l '&METAOP_ZIP' ast/* | perl -npe 's#ast/##' > docs/METAOP_ZIP
+
+]]
