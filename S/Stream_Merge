@@ -16,7 +16,7 @@ sub merge_streams ( @streams ) {
     }
 }
 
-say merge_streams([ @*ARGS».&open ]);
+#say merge_streams([ @*ARGS».&open ]); 
 
 my @files = <ref/stream-merge.1 ref/stream-merge.2 ref/stream-merge.3>;
 my @res =  merge_streams([ @files».&open ]);
