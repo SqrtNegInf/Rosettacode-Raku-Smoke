@@ -1,7 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Secure_temporary_file
 #c# 2017-10-23 <RC
-#t# trivial
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -22,14 +21,15 @@ my ($filename1,$filehandle1) = tempfile("******");
 my ($filename2,$filehandle2) = tempfile("******", :unlink);
 
 # Specify the directory where the tempfile will be created
-my ($filename3,$filehandle3) = tempfile(:tempdir("./path/to/dir"));
+my ($filename3,$filehandle3) = tempfile(:tempdir("./tmp"));
 
 # don't unlink this one
-#my ($filename4,$filehandle4) = tempfile(:tempdir('.'), :!unlink);
+my ($filename4,$filehandle4) = tempfile(:tempdir('./tmp') :prefix(DateTime.now.yyyy-mm-dd ~ ':'), :!unlink);
 
 # specify a prefix, a suffix, or both for the filename
 my ($filename5,$filehandle5) = tempfile(:prefix('foo'), :suffix(".txt"));
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
+ok $filename1.so and $filename2.so;
+ok $filename0.IO ~~ :e and $filename3.IO ~~ :e;
+ok $filename5.IO ~~ /^^ '/tmp/foo' .* 'txt' $$/;
