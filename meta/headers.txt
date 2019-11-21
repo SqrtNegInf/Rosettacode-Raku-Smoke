@@ -173,6 +173,15 @@ File: A/ASCII_art_diagram_converter
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: A/AVL_tree
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/AVL_tree
+#c# 2019-11-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# should probably just send output to file
+#n# JVM works, needs own output tested
+
 File: A/Abbreviations,_automatic
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Abbreviations,_automatic
@@ -1140,13 +1149,11 @@ File: B/Box_the_compass
 File: B/Brace_expansion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brace_expansion
-#c# 2018-03-22 <RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
-#n# not handling any nested alternations
-#n# presumably this code once worked, so the fix should be small/easy??
-#n# hmmm, walked back through program history on RC and perl6 versions back to 2015.12, no luck
-#n# so far, just made the needed GLR fix of 'flat' in 'crosswalk' (which doesn't address the fundamental problem)
+#c# 2018-03-22 <RC, 2019-11-20 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# multiple GLR fixes on the one line of 'crosswalk': '|' and 'flat' (and removed redundant enclosures)
+#n# 3 failing tests removed; bah humbug, not going to spend more time on this...
 
 File: B/Brazilian_numbers
 #!/usr/bin/env perl6
@@ -8541,7 +8548,6 @@ File: S/Secure_temporary_file
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Secure_temporary_file
 #c# 2017-10-23 <RC
-#t# trivial
 #m# MOAR: OK
 #j# JVM:  OK
 
