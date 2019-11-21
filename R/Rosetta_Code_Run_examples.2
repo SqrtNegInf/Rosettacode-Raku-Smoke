@@ -1,0 +1,217 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Rosetta_Code/Run_examples
+#c# 2018-04-15 <RC, 2018-04-17 <RC
+#t# skiptest
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
+
+# Works with: Rakudo version 2018.03
+#`{{
+This is a fairly comprehensive task code runner. It is set up to work for Perl 6 only at this point, but could be easily tweaked to work with other languages. There is so much variation to the task requirements and calling conventions that it would be problematic to make a general purpose, language agnostic code runner. (Heck, a single language one is hard enough.)
+By default, this will download the Perl 6 section of any (every) task that has a Perl 6 example, extract the code blocks and attempt to run them. Many tasks require files or user interaction to proceed, others are not complete runnable code blocks (example code fragments), some tasks run forever. To try to deal with and compensate for this, this implementation can load a %resource hash that will: supply input files where necessary, skip unrunnable code fragments, limit long and/or infinite running blocks, supply user interaction code where possible, and skip blocks where user interaction is unavoidable.
+The complete implementation is too large and cumbersome to post in it's entirety here, only the main task retrieval and execution code is included.
+For the whole ball of wax see the rc-run github repository.
+Run with no parameters to run every implemented task on Rosetta Code. Feed it a task name to only download / run that task.
+Note: This is set up to run under Linux. It could be adapted for Windows (or OSX I suppose) fairly easily but I don't have access to those OSs, nor do I care to seek it.
+}}
+
+use HTTP::UserAgent;
+use URI::Escape;
+use JSON::Fast;
+use MONKEY-SEE-NO-EVAL;
+
+my $client   = HTTP::UserAgent.new;
+my $url      = 'http://rosettacode.org/mw';
+
+# Language specific variables
+my $language = 'Perl_6'; # language
+my $header   = 'Perl 6'; # header text
+my $exe      = 'perl6';  # executable to run perl6 in a shell
+my $ext      = '.p6';    # file extension for perl6 code
+
+# weird break in lang tag to placate terminally confused wiki formatter and syntax highlighter
+my $tag = rx/<?after '<lang perl6>'> .*? <?before '</' 'lang>'>/; # language entry regex
+
+my $view     = 'xdg-open';  # image viewer, this will open default under Linux
+my %resource = load-resources();
+my $download = True;
+
+my @tasks;
+
+run('clear');
+note 'Retrieving tasks';
+
+if @*ARGS {
+    @tasks = |@*ARGS;
+    $download = False;
+}
+
+if $download {
+    @tasks = mediawiki-query(
+    $url, 'pages',
+    :generator<categorymembers>,
+    :gcmtitle("Category:$language"),
+    :gcmlimit<350>,
+    :rawcontinue(),
+    :prop<title>
+    )»<title>.grep( * !~~ /^'Category:'/ );
+}
+
+for @tasks -> $title {
+    # If you want to resume partially into automatic
+    # downloads, adjust $skip to skip that many tasks
+    my $skip = 0;
+    next if $++ < $skip;
+    note "Skipping first $skip tasks..." if $skip;
+    next unless $title ~~ /\S/; # filter blank lines
+    say $skip + ++$, " $title";
+
+    my $page = $client.get("{ $url }/index.php?title={ uri-escape $title }&action=raw").content;
+    say "Whoops, can't find page: $url/$title :check spelling." and next if $page.elems == 0;
+    say "Getting code from: http://rosettacode.org/wiki/{ $title.subst(' ', '_', :g) }#$language";
+
+    my $entry = $page.comb(/'=={{header|' $header '}}==' .+? [<?before \n'=='<-[={]>*'{{header'> || $] /).Str // whoops;
+
+    if $entry ~~ /^^ 'See [[' (.+?) '/' $language / {
+        $entry = $client.get("{ $url }/index.php?title={ uri-escape $/[0].Str ~ '/' ~ $language }&action=raw").content;
+    }
+
+    my $name = $title.subst(/<-[-0..9A..Za..z]>/, '_', :g);
+
+    my $dir = mkdir "./rc/tasks/$name";
+
+    spurt( "./rc/tasks/$name/$name.txt", $entry );
+
+    my @blocks = $entry.comb: $tag;
+
+    unless @blocks {
+        if %resource{"$name"}<skip> {
+            whoops;
+            say "Skipping $name: ", %resource{"$name"}<skip>, "\n";
+        }
+    }
+
+    for @blocks.kv -> $k, $v {
+        my $n = +@blocks == 1 ?? '' !! $k;
+        spurt( "./rc/tasks/$name/$name$n$ext", $v );
+        say "Skipping $name$n: ", %resource{"$name$n"}<skip>, "\n"
+          and next if %resource{"$name$n"}<skip>;
+        say "\nTesting $name$n";
+        run-it($name, "$name$n");
+    }
+    say '=' x 79;
+}
+
+sub mediawiki-query ($site, $type, *%query) {
+    my $url = "$site/api.php?" ~ uri-query-string(
+        :action<query>, :format<json>, :formatversion<2>, |%query);
+    my $continue = '';
+
+    gather loop {
+        my $response = $client.get("$url&$continue");
+        my $data = from-json($response.content);
+        take $_ for $data.<query>.{$type}.values;
+        $continue = uri-query-string |($data.<query-continue>{*}».hash.hash or last);
+    }
+}
+
+sub run-it ($dir, $code) {
+    my $current = $*CWD;
+    chdir "./rc/tasks/$dir/";
+    if %resource{$code}<file> -> $fn {
+        copy "./../../resources/{$fn}", "./{$fn}"
+    }
+    my @cmd = %resource{$code}<cmd> ?? |%resource{$code}<cmd> !! "$exe $code$ext";
+    for @cmd -> $cmd {
+        say "\nCommand line: $cmd";
+        try EVAL(shell $cmd);
+    }
+    chdir $current;
+    say "\nDone $code";
+}
+
+sub uri-query-string (*%fields) { %fields.map({ "{.key}={uri-escape .value}" }).join('&') }
+
+sub clear { "\r" ~ ' ' x 100 ~ "\r" }
+
+sub whoops { note "{'#' x 79}\n\nNo code found\nMay be bad markup\n\n{'#' x 79}"; '' }
+
+sub load-resources { () } # load resources for finer control
+
+#`{{
+Output: with command line: perl6 RC-run.p6 "Determine if a string is numeric"
+Retrieving tasks
+1 Determine if a string is numeric
+Getting code from: http://rosettacode.org/wiki/Determine_if_a_string_is_numeric#Perl_6
+
+Testing Determine_if_a_string_is_numeric
+
+Command line: perl6 Determine_if_a_string_is_numeric.p6
+               Coerce     Don't coerce
+    String   whitespace    whitespace
+       <1>      True         True
+     <1.2>      True         True
+   <1.2.3>     False        False
+      <-6>      True         True
+     <1/2>      True         True
+     <12e>     False        False
+     <B17>     False        False
+ <1.3e+12>      True         True
+  <1.3e12>      True         True
+ <-2.6e-3>      True         True
+    <zero>     False        False
+      <0x>     False        False
+   <0xA10>      True         True
+  <0b1001>      True         True
+    <0o16>      True         True
+    <0o18>     False        False
+    <2+5i>      True         True
+   <1 1 1>     False        False
+        <>      True        False
+       < >      True        False
+
+Done Determine_if_a_string_is_numeric
+===============================================================================
+Or, if the full %resource hash is loaded it will automatically feed input parameters to tasks that require them:
+
+perl6 RC-run.p6 Lucky_and_even_lucky_numbers
+
+Retrieving tasks
+1 Lucky_and_even_lucky_numbers
+Getting code from: http://rosettacode.org/wiki/Lucky_and_even_lucky_numbers#Perl_6
+
+Testing Lucky_and_even_lucky_numbers
+
+Command line: perl6 Lucky_and_even_lucky_numbers.p6 20 , lucky
+
+79
+
+Command line: perl6 Lucky_and_even_lucky_numbers.p6 1 20
+
+(1 3 7 9 13 15 21 25 31 33 37 43 49 51 63 67 69 73 75 79)
+
+Command line: perl6 Lucky_and_even_lucky_numbers.p6 1 20 evenlucky
+
+(2 4 6 10 12 18 20 22 26 34 36 42 44 50 52 54 58 68 70 76)
+
+Command line: perl6 Lucky_and_even_lucky_numbers.p6 6000 -6100
+
+(6009 6019 6031 6049 6055 6061 6079 6093)
+
+Command line: perl6 Lucky_and_even_lucky_numbers.p6 6000 -6100 evenlucky
+
+(6018 6020 6022 6026 6036 6038 6050 6058 6074 6090 6092)
+
+Done Lucky_and_even_lucky_numbers
+===============================================================================
+}}
+
+my $ref = qq:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;

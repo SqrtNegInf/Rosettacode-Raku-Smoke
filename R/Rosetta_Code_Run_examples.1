@@ -1,109 +1,169 @@
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Rosetta_Code/Run_examples
-#c# 2018-04-15 <RC, 2018-04-17 <RC
+#c# 2018-04-15 <RC, 2018-04-17 <RC, 2018-06-22 <RC, 2019-03-25 <RC
 #t# skiptest
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# may be slightly out-of-date, but cf. ~/perl6/rc-run/RC-run.p6 which is at usually at HEAD, and run/tested all the time
+#n# (so FYI thundergnat++, it runs fine on macOS essentially with no changes [except 'xdg-open'])
 
-die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
-
-# Works with: Rakudo version 2018.03
-#`{{
-This is a fairly comprehensive task code runner. It is set up to work for Perl 6 only at this point, but could be easily tweaked to work with other languages. There is so much variation to the task requirements and calling conventions that it would be problematic to make a general purpose, language agnostic code runner. (Heck, a single language one is hard enough.)
-By default, this will download the Perl 6 section of any (every) task that has a Perl 6 example, extract the code blocks and attempt to run them. Many tasks require files or user interaction to proceed, others are not complete runnable code blocks (example code fragments), some tasks run forever. To try to deal with and compensate for this, this implementation can load a %resource hash that will: supply input files where necessary, skip unrunnable code fragments, limit long and/or infinite running blocks, supply user interaction code where possible, and skip blocks where user interaction is unavoidable.
-The complete implementation is too large and cumbersome to post in it's entirety here, only the main task retrieval and execution code is included.
-For the whole ball of wax see the rc-run github repository.
-Run with no parameters to run every implemented task on Rosetta Code. Feed it a task name to only download / run that task.
-Note: This is set up to run under Linux. It could be adapted for Windows (or OSX I suppose) fairly easily but I don't have access to those OSs, nor do I care to seek it.
-}}
+BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use HTTP::UserAgent;
 use URI::Escape;
 use JSON::Fast;
 use MONKEY-SEE-NO-EVAL;
 
+my %*SUB-MAIN-OPTS = :named-anywhere;
+
+unit sub MAIN(
+    Str $run = '',        #= Task or file name
+    Str :$lang = 'perl6', #= Language, default perl6 - should be same as in <lang *> markup
+    Int :$skip = 0,       #= Skip # to continue partially into a list
+    Bool :f(:$force),     #= Override any task skip parameter in %resource hash
+    Bool :l(:$local),     #= Only use code from local cache
+    Bool :r(:$remote),    #= Only use code from remote server (refresh local cache)
+    Bool :q(:$quiet),     #= Less verbose, don't display source code
+    Bool :d(:$deps),      #= Load dependencies
+    Bool :p(:$pause),     #= pause after each task
+    Bool :b(:$broken),    #= pause after each task which is broken or fails in some way
+    Int  :$sleep = 0,     #= sleep for $sleep after each task
+    Bool :t(:$timer),     #= save timing data for each task
+
+);
+
+die 'You can select local or remote, but not both...' if $local && $remote;
+
+## INITIALIZATION
+
 my $client   = HTTP::UserAgent.new;
 my $url      = 'http://rosettacode.org/mw';
 
-# Language specific variables
-my $language = 'Perl_6'; # language
-my $header   = 'Perl 6'; # header text
-my $exe      = 'perl6';  # executable to run perl6 in a shell
-my $ext      = '.p6';    # file extension for perl6 code
+my %c = ( # text colors
+    code  => "\e[0;92m", # green
+    delim => "\e[0;93m", # yellow
+    cmd   => "\e[1;96m", # cyan
+    warn  => "\e[0;91m", # red
+    dep   => "\e[38;2;248;24;148m", # pink
+    clr   => "\e[0m",    # clear formatting
+);
 
-# weird break in lang tag to placate terminally confused wiki formatter and syntax highlighter
-my $tag = rx/<?after '<lang perl6>'> .*? <?before '</' 'lang>'>/; # language entry regex
-
-my $view     = 'xdg-open';  # image viewer, this will open default under Linux
-my %resource = load-resources();
-my $download = True;
+my $view      = 'xdg-open';       # image viewer, this will open default under Linux
+my %l         = load-lang($lang); # load languge parameters
+my %resource  = load-resources($lang);
+my $get-tasks = True;
 
 my @tasks;
 
 run('clear');
-note 'Retrieving tasks';
 
-if @*ARGS {
-    @tasks = |@*ARGS;
-    $download = False;
+## FIGURE OUT WHICH TASKS TO RUN
+
+if $run {
+    if $run.IO.e and $run.IO.f {# is it a file?
+        @tasks = $run.IO.lines; # yep, treat each line as a task name
+    } else {                    # must be a single task name
+        @tasks = ($run);        # treat it so
+    }
+    $get-tasks = False;         # don't need to retrieve task names from web
 }
 
-if $download {
-    @tasks = mediawiki-query(
-    $url, 'pages',
-    :generator<categorymembers>,
-    :gcmtitle("Category:$language"),
-    :gcmlimit<350>,
-    :rawcontinue(),
-    :prop<title>
-    )»<title>.grep( * !~~ /^'Category:'/ );
+if $get-tasks { # load tasks from web if cache is not found, older than one day or forced
+    if !"%l<dir>.tasks".IO.e or (now - "%l<dir>.tasks".IO.modified) > 86400 or $remote {
+        note 'Retrieving task list from site.';
+        @tasks = mediawiki-query( # get tasks from web
+        $url, 'pages',
+        :generator<categorymembers>,
+        :gcmtitle("Category:%l<language>"),
+        :gcmlimit<350>,
+        :rawcontinue(),
+        :prop<title>
+        )»<title>.grep( * !~~ /^'Category:'/ ).sort;
+        "%l<dir>.tasks".IO.spurt: @tasks.sort.join("\n");
+    } else {
+        note 'Using cached task list.';
+        @tasks = "%l<dir>.tasks".IO.slurp.lines; # load tasks from file
+    }
 }
+
+my $tfile;
+if $timer {
+    $tfile = open :w, "{$lang}-time.txt";
+    $tfile.close;
+}
+
+note "Skipping first $skip tasks..." if $skip;
+my $redo;
+
+## MAIN LOOP
 
 for @tasks -> $title {
-    # If you want to resume partially into automatic
-    # downloads, adjust $skip to skip that many tasks
-    my $skip = 0;
+    $redo = False;
     next if $++ < $skip;
-    note "Skipping first $skip tasks..." if $skip;
-    next unless $title ~~ /\S/; # filter blank lines
-    say $skip + ++$, " $title";
-
-    my $page = $client.get("{ $url }/index.php?title={ uri-escape $title }&action=raw").content;
-    say "Whoops, can't find page: $url/$title :check spelling." and next if $page.elems == 0;
-    say "Getting code from: http://rosettacode.org/wiki/{ $title.subst(' ', '_', :g) }#$language";
-
-    my $entry = $page.comb(/'=={{header|' $header '}}==' .+? [<?before \n'=='<-[={]>*'{{header'> || $] /).Str // whoops;
-
-    if $entry ~~ /^^ 'See [[' (.+?) '/' $language / {
-        $entry = $client.get("{ $url }/index.php?title={ uri-escape $/[0].Str ~ '/' ~ $language }&action=raw").content;
-    }
+    next unless $title ~~ /\S/; # filter blank lines (from files)
+    say my $tasknum = $skip + ++$, ")  $title";
 
     my $name = $title.subst(/<-[-0..9A..Za..z]>/, '_', :g);
+    my $taskdir = "./rc/%l<dir>/$name";
 
-    my $dir = mkdir "./rc/tasks/$name";
+    my $modified = "$taskdir/$name.txt".IO.e ?? "$taskdir/$name.txt".IO.modified !! 0;
 
-    spurt( "./rc/tasks/$name/$name.txt", $entry );
+    my $entry;
+    if $remote or !"$taskdir/$name.txt".IO.e or ((now - $modified) > 86400 * 7) {
+        my $page = $client.get("{ $url }/index.php?title={ uri-escape $title }&action=raw").content;
 
-    my @blocks = $entry.comb: $tag;
+        uh-oh("Whoops, can't find page: $url/$title :check spelling.") and next if $page.elems == 0;
+        say "Getting code from: http://rosettacode.org/wiki/{ $title.subst(' ', '_', :g) }#%l<language>";
+
+        $entry = $page.comb(rx:i/'=={{header|' $(%l<header>) '}}==' .+? [<?before \n'=='<-[={]>*'{{header'> || $] /).Str //
+          uh-oh("No code found\nMay be bad markup");
+
+        if $entry ~~ /^^ 'See [[' (.+?) '/' $(%l<language>) / { # no code on main page, check sub page
+            $entry = $client.get("{ $url }/index.php?title={ uri-escape $/[0].Str ~ '/' ~ %l<language> }&action=raw").content;
+        }
+        mkdir $taskdir unless $taskdir.IO.d;
+        spurt( "$taskdir/$name.txt", $entry );
+    } else {
+        if "$taskdir/$name.txt".IO.e {
+            $entry = "$taskdir/$name.txt".IO.slurp;
+            say "Loading code from: $taskdir/$name.txt";
+        } else {
+            uh-oh("Task code $taskdir/$name.txt not found, check spelling or run remote.");
+            next;
+        }
+    }
+
+    my @blocks = $entry.comb: %l<tag>;
 
     unless @blocks {
-        if %resource{"$name"}<skip> {
-            whoops;
-            say "Skipping $name: ", %resource{"$name"}<skip>, "\n";
-        }
+        uh-oh("No code found\nMay be bad markup") unless %resource{"$name"}<skip> ~~ /'ok to skip'/;
+        say "Skipping $name: ", %resource{"$name"}<skip>, "\n" if %resource{"$name"}<skip>
     }
 
     for @blocks.kv -> $k, $v {
         my $n = +@blocks == 1 ?? '' !! $k;
-        spurt( "./rc/tasks/$name/$name$n$ext", $v );
-        say "Skipping $name$n: ", %resource{"$name$n"}<skip>, "\n"
-          and next if %resource{"$name$n"}<skip>;
+        spurt( "$taskdir/$name$n%l<ext>", $v );
+        if %resource{"$name$n"}<skip> && !$force {
+            dump-code ("$taskdir/$name$n%l<ext>");
+            if %resource{"$name$n"}<skip> ~~ /'broken'/ {
+                uh-oh(%resource{"$name$n"}<skip>);
+                pause if $broken;
+            } else {
+                say "Skipping $name$n: ", %resource{"$name$n"}<skip>, "\n";
+            }
+            next;
+        }
         say "\nTesting $name$n";
-        run-it($name, "$name$n");
+        run-it($taskdir, "$name$n", $tasknum);
     }
-    say '=' x 79;
+    say  %c<delim>, '=' x 79, %c<clr>;
+    redo if $redo;
+    sleep $sleep if $sleep;
+    pause if $pause;
+
 }
+
+## SUBROUTINES
 
 sub mediawiki-query ($site, $type, *%query) {
     my $url = "$site/api.php?" ~ uri-query-string(
@@ -118,100 +178,636 @@ sub mediawiki-query ($site, $type, *%query) {
     }
 }
 
-sub run-it ($dir, $code) {
+sub run-it ($dir, $code, $tasknum) {
     my $current = $*CWD;
-    chdir "./rc/tasks/$dir/";
+    chdir $dir;
     if %resource{$code}<file> -> $fn {
-        copy "./../../resources/{$fn}", "./{$fn}"
+        copy "$current/rc/resources/{$_}", "./{$_}" for $fn[]
     }
-    my @cmd = %resource{$code}<cmd> ?? |%resource{$code}<cmd> !! "$exe $code$ext";
+    dump-code ("$code%l<ext>") unless $quiet;
+    check-dependencies("$code%l<ext>", $lang) if $deps;
+    my @cmd = %resource{$code}<cmd> ?? |%resource{$code}<cmd> !! "%l<exe> $code%l<ext>\n";
+    if $timer {
+        $tfile = open :a, "{$current}/{$lang}-time.txt";
+    }
+    my $time = 'NA: not run or killed before completion';
     for @cmd -> $cmd {
-        say "\nCommand line: $cmd";
-        try EVAL(shell $cmd);
+        say "\nCommand line: {%c<cmd>}$cmd",%c<clr>;
+        if $timer { $tfile.say: "Command line: $cmd".chomp }
+        my $start = now;
+        try shell $cmd;
+        $time = (now - $start).round(.001);
+        CATCH {
+            when /'exit code: 137'/ { }
+            default {
+                .resume unless $broken;
+                uh-oh($_);
+                if %resource{$code}<fail-by-design> {
+                    say %c<delim>, 'Fails by design, (or at least, it\'s not unexpected).', %c<clr>;
+                } else {
+                    if pause.lc eq 'r' {
+                       unlink "$code.txt";
+                       $redo = True;
+                    }
+                }
+             }
+        }
+    if $timer { $tfile.say("#$tasknum - Wallclock seconds: $time\n") }
     }
     chdir $current;
-    say "\nDone $code";
+    say "\nDone task #$tasknum: $code - wallclock seconds: $time\e[?25h";
+    $tfile.close if $timer;
+}
+
+sub pause {
+    prompt "Press enter to procede:> ";
+    # or
+    # sleep 5;
+}
+
+sub dump-code ($fn) {
+    say "\n", %c<delim>, ('vvvvvvvv' xx 7).join(' CODE '), %c<clr>, "\n", %c<code>;
+    print $fn.IO.slurp;
+    say %c<clr>,"\n\n",%c<delim>,('^^^^^^^^' xx 7).join(' CODE '),%c<clr>;
 }
 
 sub uri-query-string (*%fields) { %fields.map({ "{.key}={uri-escape .value}" }).join('&') }
 
 sub clear { "\r" ~ ' ' x 100 ~ "\r" }
 
-sub whoops { note "{'#' x 79}\n\nNo code found\nMay be bad markup\n\n{'#' x 79}"; '' }
+sub uh-oh ($err) { put %c<warn>, "{'#' x 79}\n\n $err \n\n{'#' x 79}", %c<clr> }
 
-sub load-resources { () } # load resources for finer control
+multi check-dependencies ($fn, 'perl6') {
+    my @use = $fn.IO.slurp.comb(/<?after ^^ \h* 'use '> \N+? <?before \h* ';'>/);
+    if +@use {
+        say %c<dep>, 'Checking dependencies...', %c<clr>;
+        for @use -> $module {
+            if $module eq any('v6', 'v6.c', 'v6.d', 'nqp', 'NativeCall', 'Test') or $module.contains('MONKEY')
+              or $module.contains('experimental') or $module.starts-with('lib') {
+                  print %c<dep>;
+                  say 'ok, no installation necessary: ', $module;
+                  print %c<clr>;
+                  next;
+            }
+            my $installed = $*REPO.resolve(CompUnit::DependencySpecification.new(:short-name($module)));
+            my @mods = $module;
+            if './../../../perl6-modules.txt'.IO.e {
+                my $fh = open( './../../../perl6-modules.txt', :r ) or die $fh;
+                @mods.append: $fh.lines;
+                $fh.close;
+            }
+            my $fh = open( './../../../perl6-modules.txt', :w ) or die $fh;
+            $fh.spurt: @mods.Bag.keys.sort.join: "\n";
+            $fh.close;
+            print %c<dep>;
+            if $installed {
+                say 'ok, installed: ', $module
+            } else {
+                say 'not installed: ', $module;
+                shell("zef install $module");
+            }
+            print %c<clr>;
+        }
+    }
+}
 
-#`{{
-Output: with command line: perl6 RC-run.p6 "Determine if a string is numeric"
-Retrieving tasks
-1 Determine if a string is numeric
-Getting code from: http://rosettacode.org/wiki/Determine_if_a_string_is_numeric#Perl_6
+multi check-dependencies ($fn, 'perl') {
+    my @use = $fn.IO.slurp.comb(/<?after ^^ \h* 'use '> \N+? <?before \h* ';'>/);
+    if +@use {
+        for @use -> $module {
+            next if $module eq $module.lc;
+            next if $module.starts-with(any('constant','bignum'));
+            my $installed = shell( "%l<exe> -e 'eval \"use {$module}\"; exit 1 if \$@'" );
+            print %c<dep>;
+            if $installed {
+                say 'ok:            ', $module
+            } else {
+                say 'not installed: ', $module;
+                try shell("sudo cpan $module");
+            }
+            print %c<clr>;
+        }
+    }
+}
 
-Testing Determine_if_a_string_is_numeric
+multi check-dependencies  ($fn, $unknown) {
+    note "Sorry, don't know how to handle dependancies for $unknown language."
+};
 
-Command line: perl6 Determine_if_a_string_is_numeric.p6
-               Coerce     Don't coerce
-    String   whitespace    whitespace
-       <1>      True         True
-     <1.2>      True         True
-   <1.2.3>     False        False
-      <-6>      True         True
-     <1/2>      True         True
-     <12e>     False        False
-     <B17>     False        False
- <1.3e+12>      True         True
-  <1.3e12>      True         True
- <-2.6e-3>      True         True
-    <zero>     False        False
-      <0x>     False        False
-   <0xA10>      True         True
-  <0b1001>      True         True
-    <0o16>      True         True
-    <0o18>     False        False
-    <2+5i>      True         True
-   <1 1 1>     False        False
-        <>      True        False
-       < >      True        False
+multi load-lang ('perl6') { ( # Language specific variables. Adjust to suit.
+    language => 'Perl_6', # language category name
+    exe      => 'perl6',  # executable name to run perl6 in a shell
+    ext      => '.p6',    # file extension for perl6 code
+    dir      => 'perl6',  # directory to save tasks to
+    header   => 'Perl 6', # header text
+    # tags marking blocks of code - spaced out to placate wiki formatter
+    # and to avoid getting tripped up when trying to run _this_ task
+    tag => rx/<?after '<lang ' 'perl6' '>' > .*? <?before '</' 'lang>'>/,
+) }
 
-Done Determine_if_a_string_is_numeric
-===============================================================================
-Or, if the full %resource hash is loaded it will automatically feed input parameters to tasks that require them:
+multi load-lang ('perl') { (
+    language => 'Perl',
+    exe      => 'perl',
+    ext      => '.pl',
+    dir      => 'perl',
+    header   => 'Perl',
+    tag => rx/:i <?after '<lang ' 'perl' '>' > .*? <?before '</' 'lang>'>/,
+) }
 
-perl6 RC-run.p6 Lucky_and_even_lucky_numbers
+multi load-lang ('python') { (
+    language => 'Python',
+    exe      => 'python',
+    ext      => '.py',
+    dir      => 'python',
+    header   => 'Python',
+    tag => rx/:i <?after '<lang ' 'python' '>' > .*? <?before '</' 'lang>'>/,
+) }
 
-Retrieving tasks
-1 Lucky_and_even_lucky_numbers
-Getting code from: http://rosettacode.org/wiki/Lucky_and_even_lucky_numbers#Perl_6
+multi load-lang ($unknown) { die "Sorry, don't know how to handle $unknown language." };
 
-Testing Lucky_and_even_lucky_numbers
+multi load-resources ($unknown) { () };
 
-Command line: perl6 Lucky_and_even_lucky_numbers.p6 20 , lucky
+multi load-resources ('perl6') { (
+    'Amb1' => {'skip' => 'broken'},
+    'Amb2' => {'skip' => 'broken'},
+    'Formal_power_series' => {'skip' => 'broken'},
+    'Names_to_numbers' => {'skip' => 'broken'},
+    'Modular_arithmetic' => {'skip' => 'broken (module wont install, pull request pending)'},
 
-79
+    'Create_a_file' => { :fail-by-design('or-at-least-expected') },
+    'File_size1' => { :fail-by-design('or-at-least-expected') },
+    'Globally_replace_text_in_several_files' => { :fail-by-design('or-at-least-expected') },
+    'Sockets' => { :fail-by-design('or-at-least-expected') },
 
-Command line: perl6 Lucky_and_even_lucky_numbers.p6 1 20
+    'Array_concatenation' => { :fail-by-design },
+    'Array_length1' => { :fail-by-design },
+    'Assertions0' => { :fail-by-design },
+    'Assertions_in_design_by_contract' => { :fail-by-design },
+    'Create_an_object_Native_demonstration0' => { :fail-by-design },
+    'Create_an_object_Native_demonstration1' => { :fail-by-design },
+    'Define_a_primitive_data_type0' => { :fail-by-design },
+    'Detect_division_by_zero0' => { :fail-by-design },
+    'Exceptions_Catch_an_exception_thrown_in_a_nested_call' => { :fail-by-design },
+    'Hickerson_series_of_almost_integers' => { :fail-by-design },
+    'Jump_anywhere2' => { :fail-by-design },
+    'Jump_anywhere3' => { :fail-by-design },
+    'Null_object2' => { :fail-by-design },
 
-(1 3 7 9 13 15 21 25 31 33 37 43 49 51 63 67 69 73 75 79)
 
-Command line: perl6 Lucky_and_even_lucky_numbers.p6 1 20 evenlucky
+    'Accumulator_factory1' => {'skip' => 'fragment'},
+    'Binary_search0' => {'skip' => 'fragment'},
+    'Call_a_function0' => {'skip' => 'fragment'},
+    'Call_a_function1' => {'skip' => 'fragment'},
+    'Call_a_function2' => {'skip' => 'fragment'},
+    'Call_a_function3' => {'skip' => 'fragment'},
+    'Call_a_function4' => {'skip' => 'fragment'},
+    'Call_a_function5' => {'skip' => 'fragment'},
+    'Call_a_function6' => {'skip' => 'fragment'},
+    'Call_a_function7' => {'skip' => 'fragment'},
+    'Call_a_function8' => {'skip' => 'fragment'},
+    'Call_a_function9' => {'skip' => 'fragment'},
+    'Compare_a_list_of_strings' => {'skip' => 'fragment'},
+    'Compound_data_type0' => {'skip' => 'fragment'},
+    'Compound_data_type1' => {'skip' => 'fragment'},
+    'Conditional_structures0' => {'skip' => 'fragment'},
+    'Conditional_structures2' => {'skip' => 'fragment'},
+    'Doubly-linked_list_Traversal' => {'skip' => 'fragment'},
+    'Enforced_immutability3' => {'skip' => 'fragment'},
+    'Equilibrium_index2' => {'skip' => 'fragment'},
+    'Extract_file_extension0' => {'skip' => 'fragment'},
+    'Fibonacci_sequence1' => {'skip' => 'fragment'},
+    'Fibonacci_sequence2' => {'skip' => 'fragment'},
+    'Function_definition7' => {'skip' => 'fragment'},
+    'Function_definition8' => {'skip' => 'fragment'},
+    'Generic_swap' => {'skip' => 'fragment'},
+    'Get_system_command_output0' => {'skip' => 'fragment'},
+    'Greatest_common_divisor3' => {'skip' => 'fragment'},
+    'Greatest_common_divisor4' => {'skip' => 'fragment'},
+    'Here_document2' => {'skip' => 'fragment'},
+    'Include_a_file0' => {'skip' => 'fragment'},
+    'Include_a_file1' => {'skip' => 'fragment'},
+    'Include_a_file2' => {'skip' => 'fragment'},
+    'Include_a_file3' => {'skip' => 'fragment'},
+    'Input_loop0' => {'skip' => 'fragment'},
+    'Input_loop1' => {'skip' => 'fragment'},
+    'Input_loop2' => {'skip' => 'fragment'},
+    'Input_loop3' => {'skip' => 'fragment'},
+    'Input_loop4' => {'skip' => 'fragment'},
+    'Integer_comparison1' => {'skip' => 'fragment'},
+    'Interactive_programming' => {'skip' => 'fragment'},
+    'Inverted_syntax0' => {'skip' => 'fragment'},
+    'Inverted_syntax1' => {'skip' => 'fragment'},
+    'Inverted_syntax2' => {'skip' => 'fragment'},
+    'Inverted_syntax3' => {'skip' => 'fragment'},
+    'Inverted_syntax4' => {'skip' => 'fragment'},
+    'Inverted_syntax5' => {'skip' => 'fragment'},
+    'Inverted_syntax6' => {'skip' => 'fragment'},
+    'Inverted_syntax7' => {'skip' => 'fragment'},
+    'Knuth_shuffle1' => {'skip' => 'fragment'},
+    'Leap_year0' => {'skip' => 'fragment'},
+    'Leap_year1' => {'skip' => 'fragment'},
+    'Literals_Floating_point' => {'skip' => 'fragment'},
+    'Literals_String2' => {'skip' => 'fragment'},
+    'Loops_Foreach0' => {'skip' => 'fragment'},
+    'Loops_Foreach1' => {'skip' => 'fragment'},
+    'Loops_Foreach2' => {'skip' => 'fragment'},
+    'Metaprogramming2' => {'skip' => 'fragment'},
+    'Multiple_distinct_objects' => {'skip' => 'fragment'},
+    'Mutex' => {'skip' => 'fragment'},
+    'Optional_parameters0' => {'skip' => 'fragment'},
+    'Optional_parameters1' => {'skip' => 'fragment'},
+    'Parallel_Brute_Force1' => {'skip' => 'fragment'},
+    'Pick_random_element3' => {'skip' => 'fragment'},
+    'Pointers_and_references' => {'skip' => 'fragment'},
+    'Polymorphism1' => {'skip' => 'fragment'},
+    'Program_termination' => {'skip' => 'fragment'},
+    'Scope_modifiers0' => {'skip' => 'fragment'},
+    'Singly-linked_list_Element_definition0' => {'skip' => 'fragment'},
+    'Singly-linked_list_Element_insertion' => {'skip' => 'fragment'},
+    'Singly-linked_list_Element_removal0' => {'skip' => 'fragment'},
+    'Singly-linked_list_Element_removal1' => {'skip' => 'fragment'},
+    'Singly-linked_list_Traversal2' => {'skip' => 'fragment'},
+    'Singly-linked_list_Traversal3' => {'skip' => 'fragment'},
 
-(2 4 6 10 12 18 20 22 26 34 36 42 44 50 52 54 58 68 70 76)
+    'Sort_a_list_of_object_identifiers1' => {'skip' => 'fragment'},
+    'Sort_a_list_of_object_identifiers2' => {'skip' => 'fragment'},
+    'Sort_an_integer_array0' => {'skip' => 'fragment'},
+    'Sort_an_integer_array1' => {'skip' => 'fragment'},
+    'Special_variables0' => {'skip' => 'fragment'},
+    'Special_variables1' => {'skip' => 'fragment'},
+    'Special_variables2' => {'skip' => 'fragment'},
+    'Spiral_matrix1' => {'skip' => 'fragment'},
+    'Stack' => {'skip' => 'fragment'},
+    'Stair-climbing_puzzle' => {'skip' => 'fragment'},
+    'Start_from_a_main_routine' => {'skip' => 'fragment'},
+    'String_matching0' => {'skip' => 'fragment'},
+    'String_matching1' => {'skip' => 'fragment'},
+    'String_matching2' => {'skip' => 'fragment'},
+    'String_matching3' => {'skip' => 'fragment'},
+    'Sum_of_a_series0' => {'skip' => 'fragment'},
+    'Variadic_function2' => {'skip' => 'fragment'},
+    'Write_entire_file0' => {'skip' => 'fragment'},
+    'Write_entire_file1' => {'skip' => 'fragment'},
+    'Code_segment_unload' => {'skip' => 'no code'},
+    'Safe_mode' => {'skip' => 'no code'},
+    'Untrusted_environment' => {'skip' => 'no code'},
 
-Command line: perl6 Lucky_and_even_lucky_numbers.p6 6000 -6100
+    'Shell_one-liner' => {'skip' => 'shell code'},
+    'Copy_stdin_to_stdout0' => {'skip' => 'shell code'},
+    'Copy_stdin_to_stdout1' => {'skip' => 'user interaction'},
+    'Finite_state_machine' => {'skip' => 'user interaction'},
+    'Keyboard_input_Flush_the_keyboard_buffer' => {'skip' => 'user interaction'},
+    'Terminal_control_Positional_read' => {'skip' => 'user interaction'},
 
-(6009 6019 6031 6049 6055 6061 6079 6093)
+    'Mouse_position0' => {'skip' => 'jvm only'},
+    'HTTPS0' => {'skip' => 'large'},
+    'HTTPS1' => {'skip' => 'large'},
+    'Solve_a_Numbrix_puzzle' => {'cmd' => "for n in {1..35}; do echo \"\f\"; done\n%l<exe> Solve_a_Numbrix_puzzle%l<ext>"},
+    'Solve_a_Hidato_puzzle' => {'cmd' => "for n in {1..35}; do echo \"\f\"; done\n%l<exe> Solve_a_Hidato_puzzle%l<ext>"},
+    'Solve_a_Hopido_puzzle' => {'cmd' => "for n in {1..40}; do echo \"\f\"; done\n%l<exe> Solve_a_Hopido_puzzle%l<ext>"},
+    'Solve_a_Holy_Knight_s_tour' => {'cmd' => "for n in {1..35}; do echo \"\f\"; done\n%l<exe> Solve_a_Holy_Knight_s_tour%l<ext>"},
+    'Solve_the_no_connection_puzzle' => {'cmd' => "for n in {1..35}; do echo \"\f\"; done\n%l<exe> Solve_the_no_connection_puzzle%l<ext>"},
 
-Command line: perl6 Lucky_and_even_lucky_numbers.p6 6000 -6100 evenlucky
+    '9_billion_names_of_God_the_integer' => {'cmd' => "ulimit -t 10\n%l<exe> 9_billion_names_of_God_the_integer%l<ext>"},
+    'Addition_chains' => {'cmd' => "ulimit -t 10\n%l<exe> Addition_chains%l<ext>"},
+    'Arithmetic_Rational0' => {'cmd' => "ulimit -t 10\n%l<exe> Arithmetic_Rational0%l<ext>"},
+    'Chowla_numbers' => {'cmd' => "ulimit -t 20\n%l<exe> Chowla_numbers%l<ext>"},
+    'Cuban_primes0' => {'cmd' => "ulimit -t 2\n%l<exe> Cuban_primes0%l<ext>"},
+    'Dining_philosophers' => {'cmd' => "ulimit -t 1\n%l<exe> Dining_philosophers%l<ext>"},
+    'Find_largest_left_truncatable_prime_in_a_given_base' => {'cmd' => "ulimit -t 15\n%l<exe> Find_largest_left_truncatable_prime_in_a_given_base%l<ext>"},
+    'Four_is_the_number_of_letters_in_the____' => {'cmd' => "ulimit -t 13\n%l<exe> Four_is_the_number_of_letters_in_the____%l<ext>"},
+    '4-rings_or_4-squares_puzzle' =>{'cmd' => "ulimit -t 5\n%l<exe> 4-rings_or_4-squares_puzzle%l<ext>"},
+    'Iterated_digits_squaring0' => {'cmd' => "ulimit -t 5\n%l<exe> Iterated_digits_squaring0%l<ext>"},
+    'Iterated_digits_squaring1' => {'cmd' => "ulimit -t 5\n%l<exe> Iterated_digits_squaring1%l<ext>"},
+    'Iterated_digits_squaring2' => {'cmd' => "ulimit -t 5\n%l<exe> Iterated_digits_squaring2%l<ext>"},
+    'Kaprekar_numbers1' => {'cmd' => "ulimit -t 2\n%l<exe> Kaprekar_numbers1%l<ext>"},
+    'Kaprekar_numbers2' => {'cmd' => "ulimit -t 2\n%l<exe> Kaprekar_numbers2%l<ext>"},
+    'Knapsack_problem_0-10' => {'cmd' => "ulimit -t 10\n%l<exe> Knapsack_problem_0-10%l<ext>"},
+    'Knapsack_problem_Bounded0' => {'cmd' => "ulimit -t 10\n%l<exe> Knapsack_problem_Bounded0%l<ext>"},
+    'Last_letter-first_letter' => {'cmd' => "ulimit -t 15\n%l<exe> Last_letter-first_letter%l<ext>"},
+    'Left_factorials0' => {'cmd' => "ulimit -t 10\n%l<exe> Left_factorials0%l<ext>"},
+    'Lucas-Lehmer_test' => {'cmd' => "ulimit -t 10\n%l<exe> Lucas-Lehmer_test%l<ext>"},
+    'Matrix_Digital_Rain' => {'cmd' => "ulimit -t 15\n%l<exe> Matrix_Digital_Rain%l<ext>"},
+    'Metronome' => {'skip' => 'long'},
+    'Multiple_regression' => {'cmd' => "ulimit -t 10\n%l<exe> Multiple_regression%l<ext>"},
+    'Narcissistic_decimal_number0' => {'cmd' => "ulimit -t 10\n%l<exe> Narcissistic_decimal_number0%l<ext>"},
+    'Narcissistic_decimal_number1' => {'cmd' => "ulimit -t 10\n%l<exe> Narcissistic_decimal_number1%l<ext>"},
+    'Numerical_integration' => {'cmd' => "ulimit -t 5\n%l<exe> Numerical_integration%l<ext>"},
+    'Percolation_Mean_cluster_density' => {'cmd' => "ulimit -t 10\n%l<exe> Percolation_Mean_cluster_density%l<ext>"},
+    'Prime_conspiracy' => {'cmd' => "ulimit -t 10\n%l<exe> Prime_conspiracy%l<ext>"},
+    'Primes_-_allocate_descendants_to_their_ancestors' => {'cmd' => "ulimit -t 10\n%l<exe> Primes_-_allocate_descendants_to_their_ancestors%l<ext>"},
+    'Primorial_numbers' => {'cmd' => "ulimit -t 10\n%l<exe> Primorial_numbers%l<ext>"},
+    'Pythagorean_quadruples' => {'cmd' => "ulimit -t 10\n%l<exe> Pythagorean_quadruples%l<ext>"},
+    'Self-describing_numbers' => {'cmd' => "ulimit -t 10\n%l<exe> Self-describing_numbers%l<ext>"},
+    'Square-free_integers' => {'cmd' => "ulimit -t 10\n%l<exe> Square-free_integers%l<ext>\n"},
+    'Sudoku1' => {'cmd' => "ulimit -t 15\n%l<exe> Sudoku1%l<ext>"},
+    'Topswops' => {'cmd' => "ulimit -t 10\n%l<exe> Topswops%l<ext>"},
+    'Total_circles_area' => {'cmd' => "ulimit -t 10\n%l<exe> Total_circles_area%l<ext>"},
+    'Rosetta_Code_Count_examples' => {'skip' => 'long & tested often'},
+    'Rosetta_Code_List_authors_of_task_descriptions' => {'skip' => 'long & tested often'},
+    'Rosetta_Code_Run_examples' => {'skip' => 'it\'s this task!'},
+    'Rot-13' => {cmd => "echo 'Rosetta Code' | %l<exe> Rot-13%l<ext>"},
+    'Nautical_bell' => {'skip' => 'long (24 hours)'},
+    'Self-referential_sequence' => {'cmd' => "ulimit -t 10\n%l<exe> Self-referential_sequence%l<ext>"},
+    'Rosetta_Code_Tasks_without_examples' => {'skip' => 'long, net connection'},
+    'Assertions1' => {'skip' => 'macros NYI'},
+    'Create_a_file_on_magnetic_tape' => {'skip' => 'need a tape device attached'},
+    'Emirp_primes' => {'cmd' => ["%l<exe> Emirp_primes%l<ext> 1 20 \n","%l<exe> Emirp_primes%l<ext> 7700 8000 values\n"]},
+    'File_modification_time' => {'cmd' => "%l<exe> File_modification_time%l<ext> File_modification_time%l<ext>"},
+    'Function_frequency' => {'cmd' => "%l<exe> Function_frequency%l<ext> Function_frequency%l<ext>"},
+    'Lucky_and_even_lucky_numbers' => {
+        'cmd' => ["%l<exe> Lucky_and_even_lucky_numbers%l<ext> 20 , lucky\n",
+                  "%l<exe> Lucky_and_even_lucky_numbers%l<ext> 1 20\n",
+                  "%l<exe> Lucky_and_even_lucky_numbers%l<ext> 1 20 evenlucky\n",
+                  "%l<exe> Lucky_and_even_lucky_numbers%l<ext> 6000 -6100\n",
+                  "%l<exe> Lucky_and_even_lucky_numbers%l<ext> 6000 -6100 evenlucky\n"]
+    },
+    'Odd_word_problem' => {'cmd' => ["echo 'we,are;not,in,kansas;any,more.' | %l<exe> Odd_word_problem%l<ext>\n",
+                                     "echo 'what,is,the;meaning,of:life.' | %l<exe> Odd_word_problem%l<ext>\n"]
+    },
+    'Matrix_chain_multiplication' => {'cmd' => ["echo '1, 5, 25, 30, 100, 70, 2, 1, 100, 250, 1, 1000, 2' | %l<exe> Matrix_chain_multiplication%l<ext>"]},
+    'Remove_lines_from_a_file' => {'cmd' => ["cal > foo\n","cat foo\n","%l<exe> Remove_lines_from_a_file%l<ext> foo 1 2\n","cat foo"]},
+    'Truncate_a_file' => {'cmd' => ["cal > foo\n","cat foo\n","%l<exe> Truncate_a_file%l<ext> foo 69\n","cat foo"]},
+    'Executable_library1' => {'skip' => 'need to install library'},
+    'Parametrized_SQL_statement' => {'skip' => 'needs a database'},
+    'File_input_output0' => {'cmd' => ["cal > input.txt\n","%l<exe> File_input_output0%l<ext>"]},
+    'File_input_output1' => {'cmd' => ["cal > input.txt\n","%l<exe> File_input_output1%l<ext>"]},
+    'Read_a_file_line_by_line0' => {'cmd' => ["cal > test.txt\n","%l<exe> Read_a_file_line_by_line0%l<ext>"]},
+    'Read_a_file_line_by_line1' => {'cmd' => ["cal > test.txt\n","%l<exe> Read_a_file_line_by_line1%l<ext>"]},
+    'Take_notes_on_the_command_line' => {'file' => 'notes.txt'},
+    'Strip_comments_from_a_string' => {'file' => 'comments.txt','cmd' => ["cat comments.txt\n","%l<exe> Strip_comments_from_a_string%l<ext> < comments.txt"]},
+    'A_B0' => { cmd => "echo '13 9' | %l<exe> A_B0%l<ext>" },
+    'A_B1' => { cmd => "echo '13 9' | %l<exe> A_B1%l<ext>" },
+    'A_B2' => { cmd => "echo '13 9' | %l<exe> A_B2%l<ext>" },
+    'Abbreviations__automatic' => {'file' => 'DoWAKA.txt'},
+    'Align_columns1' => {'file' => 'Align_columns1.txt', 'cmd' => "%l<exe> Align_columns1%l<ext> left Align_columns1.txt"},
+    'Base64_encode_data' => { 'file' => 'favicon.ico' },
+    'CSV_data_manipulation0' => {'file' => 'whatever.csv'},
+    'CSV_data_manipulation1' => {'skip' => 'fragment'},
+    'Compiler_lexical_analyzer' => {'file' => 'test-case-3.txt','cmd' => "%l<exe> Compiler_lexical_analyzer%l<ext> test-case-3.txt"},
+    'Delete_a_file' => {'cmd' => ["touch input.txt\n","mkdir docs\n","ls .\n","%l<exe> Delete_a_file%l<ext>\n","ls .\n"]},
+    'I_before_E_except_after_C1' => {'file' => '1_2_all_freq.txt'},
+    'Markov_chain_text_generator' => {'file' => 'alice_oz.txt','cmd' => "%l<exe> Markov_chain_text_generator%l<ext> < alice_oz.txt --n=3 --words=200"},
+    'Read_a_configuration_file' => {'file' => 'file.cfg','cmd' => ["cat file.cfg\n", "%l<exe> Read_a_configuration_file%l<ext>"]},
+    'Read_a_file_character_by_character_UTF80' => {'file' => 'whatever','cmd' => "cat whatever | %l<exe> Read_a_file_character_by_character_UTF80%l<ext>"},
+    'Read_a_file_character_by_character_UTF81' => {'file' => 'whatever','cmd' => "%l<exe> Read_a_file_character_by_character_UTF81%l<ext>"},
+    'Retrieve_and_search_chat_history' => {'cmd' => "%l<exe> Retrieve_and_search_chat_history%l<ext> github"},
+    'File_size0' => {'cmd' => ["cal 2018 > input.txt\n", "%l<exe> File_size0%l<ext>"], :fail-by-design('or-at-least-expected') },
+    'Read_a_specific_line_from_a_file' => {'cmd' => ["cal 2018 > cal.txt\n", "%l<exe> Read_a_specific_line_from_a_file%l<ext> cal.txt"]},
+    'Rename_a_file' => {'cmd' => ["touch input.txt\n", "mkdir docs\n", "%l<exe> Rename_a_file%l<ext>\n", "ls ."], :fail-by-design('or-at-least-expected')},
+    'Selective_File_Copy' => {'file' => 'sfc.dat'},
+    'Self-hosting_compiler' => {'cmd' => "echo \"say 'hello World!'\" | %l<exe> Self-hosting_compiler%l<ext>"},
+    'Separate_the_house_number_from_the_street_name' => {'file' => 'addresses.txt',
+        'cmd' => "cat addresses.txt | %l<exe> Separate_the_house_number_from_the_street_name%l<ext>"
+    },
+    'Synchronous_concurrency' => {'cmd' => ["cal 2018 > cal.txt\n","%l<exe> Synchronous_concurrency%l<ext> cal.txt"]},
+    'Text_processing_1' => {'file' => 'readings.txt', 'cmd' => "%l<exe> Text_processing_1%l<ext> < readings.txt"},
+    'Text_processing_2' => {'file' => 'readings.txt', 'cmd' => "%l<exe> Text_processing_2%l<ext> < readings.txt"},
+    'Text_processing_Max_licenses_in_use' => {'file' => 'mlijobs.txt',
+        'cmd' => "%l<exe> Text_processing_Max_licenses_in_use%l<ext> < mlijobs.txt"
+    },
+    'Update_a_configuration_file' => {'file' => 'test.cfg',
+        'cmd' => ["%l<exe> Update_a_configuration_file%l<ext> --/needspeeling --seedsremoved --numberofbananas=1024 --numberofstrawberries=62000 test.cfg\n",
+                  "cat test.cfg\n"]
+    },
+    'Word_count' => {'file' => 'lemiz.txt', 'cmd' => "%l<exe> Word_count%l<ext> lemiz.txt 10"},
+    'Zhang-Suen_thinning_algorithm' => {'file' => 'rc-image.txt','cmd' => "%l<exe> Zhang-Suen_thinning_algorithm%l<ext> rc-image.txt"},
+    'I_before_E_except_after_C0' => {'file' => 'unixdict.txt'},
+    'Stream_Merge' => {'skip' => 'needs input files'},
+    'Ordered_words' => {'file' => 'unixdict.txt','cmd' => "%l<exe> Ordered_words%l<ext> < unixdict.txt"},
+    'User_defined_pipe_and_redirection_operators' => {'file' => 'List_of_computer_scientists.lst'},
+    'Letter_frequency' => {'file' => 'lemiz.txt', 'cmd' => "cat lemiz.txt | %l<exe> Letter_frequency%l<ext>"
+     },
+    'Hello_world_Line_printer0' => {'skip' => 'needs line printer attached'},
+    'Hello_world_Line_printer1' => {'skip' => 'needs line printer attached'},
+    'Narcissist' => {'skip' => 'needs to run from command line'},
+    'HTTPS_Client-authenticated' => {'skip' => 'needs certificate set up'},
+    'Send_email' => {'skip' => 'needs email server'},
 
-(6018 6020 6022 6026 6036 6038 6050 6058 6074 6090 6092)
+    'Anagrams0' => {'file' => 'unixdict.txt'},
+    'Anagrams1' => {'file' => 'unixdict.txt'},
+    'Anagrams_Deranged_anagrams' => {'file' => 'unixdict.txt'},
+    'Semordnilap' => {'file' => 'unixdict.txt'},
+    'Textonyms' => {'file' => 'unixdict.txt'},
+    'Handle_a_signal' => {'skip' => 'needs user intervention'},
+    'Copy_a_string2' => {'skip' => 'nyi'},
+    'Flow-control_structures' => {'skip' => 'nyi'},
+    'Arena_storage_pool' => {'skip' => 'ok to skip; no code'},
+    'Aspect_Oriented_Programming' => {'skip' => 'ok to skip; no code'},
+    'Check_output_device_is_a_terminal' => {'skip' => 'ok to skip; no code'},
+    'Command-line_arguments' => {'skip' => 'ok to skip; no code'},
+    'Hello_world_Newbie' => {'skip' => 'ok to skip; no code'},
+    'Naming_conventions' => {'skip' => 'ok to skip; no code'},
+    'Operator_precedence' => {'skip' => 'ok to skip; no code'},
+    'Random_number_generator__included_' => {'skip' => 'ok to skip; no code'},
+    'Readline_interface' => {'skip' => 'ok to skip; no code'},
+    'Shell_one_liner' => {'skip' => 'ok to skip; no code'},
+    'Special_characters' => {'skip' => 'ok to skip; no code'},
+    'Table_creation' => {'skip' => 'ok to skip; no code'},
+    'Variable_size_Set' => {'skip' => 'ok to skip; no code'},
+    'Atomic_updates' => {'cmd' => "ulimit -t 10\n%l<exe> Atomic_updates%l<ext>\n"},
+    'Birthday_problem1' => {'cmd' => "ulimit -t 5\n%l<exe> Birthday_problem1%l<ext>\n"},
+    'Count_in_factors0' => {'cmd' => "ulimit -t 1\n%l<exe> Count_in_factors0%l<ext>\n"},
+    'Count_in_octal' => {'cmd' => "ulimit -t 1\n%l<exe> Count_in_octal%l<ext>\n"},
+    'Draw_a_clock' => {'cmd' => "ulimit -t 1\n%l<exe> Draw_a_clock%l<ext>\n"},
+    'Echo_server0' => {'skip' => 'runs forever'},
+    'Echo_server1' => {'skip' => 'runs forever'},
+    'Chat_server' => {'skip' => 'runs forever'},
+    'Simple_database0' => {'skip' => 'runs forever'},
+    'Simple_database1' => {'skip' => 'needs server instance'},
+    'Distributed_programming0' => {'skip' => 'runs forever'},
+    'Distributed_programming1' => {'skip' => 'needs a server instance'},
+    'Draw_a_rotating_cube' => {'cmd' => "ulimit -t 10\n%l<exe> Draw_a_rotating_cube%l<ext>\n"},
+    'Animate_a_pendulum' => {'cmd' => "ulimit -t 2\n%l<exe> Animate_a_pendulum%l<ext>\n"},
+    'Image_noise' => {'cmd' => "ulimit -t 10\n%l<exe> Image_noise%l<ext>\n"},
+    'Elementary_cellular_automaton_Infinite_length' => {'cmd' => "ulimit -t 2\n%l<exe> Elementary_cellular_automaton_Infinite_length%l<ext>\n"},
+    'Find_limit_of_recursion' => {'cmd' => "ulimit -t 6\n%l<exe> Find_limit_of_recursion%l<ext>\n"},
+    'Forest_fire' => {'cmd' => ["ulimit -t 20\n%l<exe> Forest_fire%l<ext>\n","%l<exe> -e'print \"\e[0m\ \e[H\e[2J\"'"]},
+    'Fractran1' => {'cmd' => "ulimit -t 10\n%l<exe> Fractran1%l<ext>\n"},
+    'Integer_sequence' => {'cmd' => "ulimit -t 1\n%l<exe> Integer_sequence%l<ext>\n"},
+    'Linux_CPU_utilization' => {'skip' => 'takes forever to time out', 'cmd' => "ulimit -t 1\n%l<exe> Linux_CPU_utilization%l<ext>\n"},
+    'Long_primes' => {'cmd' => "ulimit -t 45\n%l<exe> Long_primes%l<ext>\n"},
+    'Loops_Infinite0' => {'cmd' => "ulimit -t 1\n%l<exe> Loops_Infinite0%l<ext>\n"},
+    'Loops_Infinite1' => {'cmd' => "ulimit -t 1\n%l<exe> Loops_Infinite1%l<ext>\n"},
+    'Pi' => {'cmd' => "ulimit -t 5\n%l<exe> Pi%l<ext>\n"},
+    'Pythagorean_triples1' => {'cmd' => "ulimit -t 1\n%l<exe> Pythagorean_triples1%l<ext>\n"},
+    'Pythagorean_triples2' => {'cmd' => "ulimit -t 8\n%l<exe> Pythagorean_triples2%l<ext>\n"},
+    'Pythagorean_triples3' => {'cmd' => "ulimit -t 8\n%l<exe> Pythagorean_triples3%l<ext>\n"},
+    'Vibrating_rectangles0' => {'cmd' => ["ulimit -t 2\n%l<exe> Vibrating_rectangles0%l<ext>\n","%l<exe> -e'print \"\e[0H\e[0J\e[?25h\"'"]},
+    'Vibrating_rectangles1' => {'cmd' => ["ulimit -t 5\n%l<exe> Vibrating_rectangles1%l<ext>\n"]},
+    'Wireworld' => {'cmd' => "%l<exe> Wireworld%l<ext> --stop-on-repeat"},
+    'Memory_layout_of_a_data_structure0' => {'skip' => 'speculation'},
+    'Memory_layout_of_a_data_structure1' => {'skip' => 'speculation'},
+    'Loop_over_multiple_arrays_simultaneously3' => {'skip' => 'stub'},
+    'Loop_over_multiple_arrays_simultaneously4' => {'skip' => 'stub'},
+    'Conditional_structures1' => {'skip' => 'user input'},
+    'Create_a_two-dimensional_array_at_runtime0' => {'cmd' => "echo \"5x35\n\" | %l<exe> Create_a_two-dimensional_array_at_runtime0%l<ext>"},
+    'Create_a_two-dimensional_array_at_runtime1' => {'cmd' => "echo \"3x10\n\" | %l<exe> Create_a_two-dimensional_array_at_runtime1%l<ext>"},
+    'Arithmetic_Integer' => {'cmd' => "echo \"27\n31\n\" | %l<exe> Arithmetic_Integer%l<ext>"},
+    'Balanced_brackets0' => {'cmd' => "echo \"22\n\" | %l<exe> Balanced_brackets0%l<ext>"},
+    'Balanced_brackets1' => {'cmd' => "echo \"22\n\" | %l<exe> Balanced_brackets1%l<ext>"},
+    'Balanced_brackets2' => {'cmd' => "echo \"22\n\" | %l<exe> Balanced_brackets2%l<ext>"},
+    'Balanced_brackets3' => {'cmd' => "echo \"22\n\" | %l<exe> Balanced_brackets3%l<ext>"},
+    'Decision_tables' => {'skip' => 'user interaction'},
+    'Dynamic_variable_names' => {'cmd' => "echo \"this-var\" | %l<exe> Dynamic_variable_names%l<ext>"},
+    'Longest_Common_Substring' => {'cmd' => "%l<exe> Longest_Common_Substring%l<ext> thisisatest testing123testing"},
+    'Modulinos' => {'cmd' => "%l<exe> Modulinos%l<ext> test"},
+    'Multiplicative_order' => {'cmd' => "%l<exe> Multiplicative_order%l<ext> test"},
+    'Execute_HQ9_1' => {'skip' => 'user interaction'},
+    'File_size_distribution' => {'cmd' => "%l<exe> File_size_distribution%l<ext> '..'"},
+    'Hello_world_Web_server0' => {'skip' => 'runs forever'},
+    'Hello_world_Web_server1' => {'skip' => 'runs forever'},
+    'Run_as_a_daemon_or_service' => {'skip' => 'runs forever'},
+    'Horizontal_sundial_calculations' => {'cmd' => "echo \"-4.95\n-150.5\n-150\n\" | %l<exe> Horizontal_sundial_calculations%l<ext>"},
+    'Input_Output_for_Lines_of_Text0' => {
+        'cmd' => "echo \"3\nhello\nhello world\nPack my Box with 5 dozen liquor jugs\" | %l<exe> Input_Output_for_Lines_of_Text0%l<ext>"
+    },
+    'Input_Output_for_Lines_of_Text1' => {
+        'cmd' => "echo \"3\nhello\nhello world\nPack my Box with 5 dozen liquor jugs\" | %l<exe> Input_Output_for_Lines_of_Text1%l<ext>"
+    },
+    'Input_Output_for_Pairs_of_Numbers' => {
+        'cmd' => "echo \"5\n1 2\n10 20\n-3 5\n100 2\n5 5\" | %l<exe> Input_Output_for_Pairs_of_Numbers%l<ext>"
+    },
+    'Reverse_words_in_a_string' => { 'file' => 'reverse.txt','cmd' => "%l<exe> Reverse_words_in_a_string%l<ext> reverse.txt"},
+    'Rosetta_Code_Find_bare_lang_tags' => {'file' => 'rcpage','cmd' => "%l<exe> Rosetta_Code_Find_bare_lang_tags%l<ext> rcpage"},
+    'Rosetta_Code_Fix_code_tags0' => {'file' => 'rcpage','cmd' => "%l<exe> Rosetta_Code_Fix_code_tags0%l<ext> rcpage"},
+    'Rosetta_Code_Fix_code_tags1' => {'file' => 'rcpage','cmd' => "%l<exe> Rosetta_Code_Fix_code_tags1%l<ext> rcpage"},
+    'Integer_comparison0' => {'cmd' => "echo \"9\n17\" | %l<exe> Integer_comparison0%l<ext>"},
+    'Integer_comparison2' => {'cmd' => "echo \"9\n17\" | %l<exe> Integer_comparison2%l<ext>"},
+    'Inverted_index' => {'file' => 'unixdict.txt','cmd' => "echo \"rosetta\ncode\nblargg\n\" | %l<exe> Inverted_index%l<ext> unixdict.txt\n"},
+    'Keyboard_input_Obtain_a_Y_or_N_response' => {'skip' => 'user interaction, custom shell'},
+    'Keyboard_input_Keypress_check' => {'skip' => 'user interaction'},
+    'Keyboard_macros' => {'skip' => 'user interaction, custom shell'},
+    'Longest_string_challenge' => {'cmd' => "echo \"a\nbb\nccc\nddd\nee\nf\nggg\n\" | %l<exe> Longest_string_challenge%l<ext>\n"},
+    'Magic_8-Ball' => {'cmd' => "echo \"?\n?\n?\n?\n?\n\n\" | %l<exe> Magic_8-Ball%l<ext>\n"},
+    'Magic_squares_of_doubly_even_order' => {'cmd' => "%l<exe> Magic_squares_of_doubly_even_order%l<ext> 12"},
+    'Magic_squares_of_singly_even_order' => {'cmd' => "%l<exe> Magic_squares_of_singly_even_order%l<ext> 10"},
+    'Magic_squares_of_odd_order' => {'cmd' => "%l<exe> Magic_squares_of_odd_order%l<ext> 11"},
+    'Menu' => {'cmd' => "echo \"2\n\" | %l<exe> Menu%l<ext>\n"},
+    'Morse_code' => {'cmd' => "echo \"Howdy, World!\n\" | %l<exe> Morse_code%l<ext>\n"},
+    'Number_names0' => {'skip' => 'user interaction'},
+    'One-time_pad0' => {'skip' => 'user interaction, manual intervention'},
+    'One-time_pad1' => {'skip' => 'user interaction, manual intervention'},
+    'Price_fraction0' => {'cmd' => "echo \".86\" | %l<exe> Price_fraction0%l<ext>\n"},
+    'Price_fraction1' => {'cmd' => "echo \".74\" | %l<exe> Price_fraction1%l<ext>\n"},
+    'Price_fraction2' => {'cmd' => "echo \".35\" | %l<exe> Price_fraction2%l<ext>\n"},
+    'Sleep' => {'cmd' => "echo \"3.86\" | %l<exe> Sleep%l<ext>\n"},
+    'Sparkline_in_unicode' => {
+        'cmd' => ["echo \"9 18 27 36 45 54 63 72 63 54 45 36 27 18 9\" | %l<exe> Sparkline_in_unicode%l<ext>\n",
+                  "echo \"1.5, 0.5 3.5, 2.5 5.5, 4.5 7.5, 6.5\" | %l<exe> Sparkline_in_unicode%l<ext>\n",
+                  "echo \"3 2 1 0 -1 -2 -3 -4 -3 -2 -1 0 1 2 3\" | %l<exe> Sparkline_in_unicode%l<ext>\n"]
+    },
+    'Terminal_control_Restricted_width_positional_input_No_wrapping' => {'skip' => 'user interaction'},
+    'Terminal_control_Restricted_width_positional_input_With_wrapping' => {'skip' => 'user interaction'},
+    'Temperature_conversion0' => {'cmd' => "echo \"21\" | %l<exe> Temperature_conversion0%l<ext>\n"},
+    'Temperature_conversion1' => {
+        'cmd' => ["echo \"0\" | %l<exe> Temperature_conversion1%l<ext>\n",
+                  "echo \"0c\" | %l<exe> Temperature_conversion1%l<ext>\n",
+                  "echo \"212f\" | %l<exe> Temperature_conversion1%l<ext>\n",
+                  "echo \"-40c\" | %l<exe> Temperature_conversion1%l<ext>\n"]
+    },
+    'Trabb_Pardo_Knuth_algorithm' => {'cmd' => "echo \"10 -1 1 2 3 4 4.3 4.305 4.303 4.302 4.301\" | %l<exe> Trabb_Pardo_Knuth_algorithm%l<ext>\n"},
+    'Truth_table' => {
+        'cmd' => ["%l<exe> Truth_table%l<ext> 'A ^ B'\n",
+                  "%l<exe> Truth_table%l<ext> 'foo & bar | baz'\n",
+                  "%l<exe> Truth_table%l<ext> 'Jim & (Spock ^ Bones) | Scotty'\n"]
+    },
+    'User_input_Text' => { 'cmd' => "echo \"Rosettacode\n10\" %l<exe> User_input_Text%l<ext> "},
+    'Fixed_length_records' => {'file' => 'flr-infile.dat', 'cmd' => "%l<exe> Fixed_length_records%l<ext> < flr-infile.dat\n"},
 
-Done Lucky_and_even_lucky_numbers
-===============================================================================
-}}
+# games
+    '15_Puzzle_Game' => {'skip' => 'user interaction, game'},
+    '2048' => {'skip' => 'user interaction, game'},
+    '21_Game' => {'skip' => 'user interaction, game'},
+    '24_game' => {'skip' => 'user interaction, game'},
 
-my $ref = qq:to/END/;
-END
+    'Bulls_and_cows' => {'skip' => 'user interaction, game'},
+    'Bulls_and_cows_Player' => {'skip' => 'user interaction, game'},
+    'Flipping_bits_game' => {'skip' => 'user interaction, game'},
+    'Guess_the_number' => {'skip' => 'user interaction, game'},
+    'Guess_the_number_With_feedback' => {'skip' => 'user interaction, game'},
+    'Guess_the_number_With_feedback__player_' => {'skip' => 'user interaction, game'},
+    'Go_Fish' => {'skip' => 'user interaction, game'},
+    'Hunt_The_Wumpus' => {'skip' => 'user interaction, game'},
+    'Mad_Libs' => {'skip' => 'user interaction, game'},
+    'Mastermind' => {'skip' => 'user interaction, game'},
+    'Minesweeper_game' => {'skip' => 'user interaction, game'},
+    'Number_reversal_game' => {'skip' => 'user interaction, game'},
+    'Penney_s_game' => {'skip' => 'user interaction, game'},
+    'Pig_the_dice_game' => {'skip' => 'user interaction, game'},
+    'RCRPG' => {'skip' => 'user interaction, game'},
+    'Robots' => {'skip' => 'user interaction, game'},
+    'Rock-paper-scissors0' => {'skip' => 'user interaction, game'},
+    'Snake' => {'skip' => 'user interaction, game'},
+    'Snake_And_Ladder' => {'skip' => 'user interaction, game'},
+    'Tic-tac-toe' => {'skip' => 'user interaction, game'},
+    '24_game_Solve0' => {cmd => "echo 1399 | %l<exe> 24_game_Solve0%l<ext>"},
+    '24_game_Solve1' => {cmd => "%l<exe> 24_game_Solve1%l<ext> 1399"},
 
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
+# image producing tasks
+    'Dragon_curve' => { 'cmd' => ["%l<exe> Dragon_curve%l<ext> > Dragon-curve-perl6.svg\n","$view Dragon-curve-perl6.svg"]},
+    'Koch_curve0' => { 'cmd' => ["%l<exe> Koch_curve0%l<ext> > Koch_curve0-perl6.svg\n","$view Koch_curve0-perl6.svg"]},
+    'Koch_curve1' => { 'cmd' => ["%l<exe> Koch_curve1%l<ext> > Koch_curve1-perl6.svg\n","$view Koch_curve1-perl6.svg"]},
+    'Hilbert_curve0' => { 'cmd' => ["%l<exe> Hilbert_curve0%l<ext> > Hilbert-curve-perl6.svg\n","$view Hilbert-curve-perl6.svg"]},
+    'Hilbert_curve1' => { 'cmd' => ["%l<exe> Hilbert_curve1%l<ext> > Moore-curve-perl6.svg\n","$view Moore-curve-perl6.svg"]},
+    'Peano_curve' => { 'cmd' => ["%l<exe> Peano_curve%l<ext> > Peano-curve-perl6.svg\n","$view Peano-curve-perl6.svg"]},
+    'Penrose_tiling' => { 'cmd' => ["%l<exe> Penrose_tiling%l<ext> > Penrose_tiling-perl6.svg\n","$view Penrose_tiling-perl6.svg"]},
+    'Sunflower_fractal' => { 'cmd' => ["%l<exe> Sunflower_fractal%l<ext> > Sunflower-fractal-perl6.svg\n","$view Sunflower-fractal-perl6.svg"]},
+    'Bitmap_B_zier_curves_Cubic' => { 'cmd' => ["%l<exe> Bitmap_B_zier_curves_Cubic%l<ext> > Bezier-cubic-perl6.ppm\n","$view Bezier-cubic-perl6.ppm"]},
+    'Bitmap_B_zier_curves_Quadratic' => { 'cmd' => ["%l<exe> Bitmap_B_zier_curves_Quadratic%l<ext> > Bezier-quadratic-perl6.ppm\n","$view Bezier-quadratic-perl6.ppm"]},
+    'Bitmap_Write_a_PPM_file' => { 'cmd' => ["%l<exe> Bitmap_Write_a_PPM_file%l<ext> > Bitmap-write-ppm-perl6.ppm\n","$view Bitmap-write-ppm-perl6.ppm"]},
+    'Fractal_tree'  => { 'cmd' => ["%l<exe> Fractal_tree%l<ext> > Fractal-tree-perl6.svg\n","$view Fractal-tree-perl6.svg"]},
+    'Plot_coordinate_pairs' => { 'cmd' => ["%l<exe> Plot_coordinate_pairs%l<ext> > Plot-coordinate-pairs-perl6.svg\n","$view Plot-coordinate-pairs-perl6.svg"]},
+    'Pythagoras_tree' => { 'cmd' => ["%l<exe> Pythagoras_tree%l<ext> > Pythagoras-tree-perl6.svg\n","$view Pythagoras-tree-perl6.svg"]},
+    'Pentagram' => { 'cmd' => ["%l<exe> Pentagram%l<ext> > Pentagram-perl6.svg\n","$view Pentagram-perl6.svg"]},
+    'Sierpinski_triangle_Graphical' => { 'cmd' => ["%l<exe> Sierpinski_triangle_Graphical%l<ext>","$view sierpinski_triangle.svg"]},
+    'Yin_and_yang0' => { 'cmd' => ["%l<exe> Yin_and_yang0%l<ext> > Yin_and_yang-perl6.svg\n","$view Yin_and_yang-perl6.svg"]},
+    'Sierpinski_pentagon' => { 'cmd' => ["%l<exe> Sierpinski_pentagon%l<ext>\n","$view sierpinski_pentagon.svg"]},
+    'Superellipse' => { 'cmd' => ["%l<exe> Superellipse%l<ext> > Superellipse-perl6.svg\n","$view Superellipse-perl6.svg"]},
+    'Mandelbrot_set' => { 'cmd' => ["%l<exe> Mandelbrot_set%l<ext> 255 > Mandelbrot-set-perl6.ppm\n","$view Mandelbrot-set-perl6.ppm"]},
+    'Bitmap_Histogram' => {'file' => 'Lenna.ppm', 'cmd' => ["%l<exe> Bitmap_Histogram%l<ext>\n","$view Lenna-bw.pbm"]},
+    'Bitmap_Read_a_PPM_file' => {'file' => 'camelia.ppm', 'cmd' => ["%l<exe> Bitmap_Read_a_PPM_file%l<ext>\n","$view camelia-gs.pgm"]},
+    'Bitmap_Read_an_image_through_a_pipe' => {'file' => 'camelia.png', 'cmd' => ["%l<exe> Bitmap_Read_an_image_through_a_pipe%l<ext>\n","$view camelia.ppm"]},
+    'Grayscale_image' => {'file' => 'default.ppm', 'cmd' => ["%l<exe> Grayscale_image%l<ext>\n","$view default.pgm"]},
+    'Draw_a_sphere0' => { 'cmd' => ["%l<exe> Draw_a_sphere0%l<ext>\n","$view sphere-perl6.pgm"]},
+    'Draw_a_sphere1' => { 'cmd' => ["%l<exe> Draw_a_sphere1%l<ext>\n","$view sphere2-perl6.png"]},
+    'Death_Star' => { 'cmd' => ["%l<exe> Death_Star%l<ext>\n","$view deathstar-perl6.pgm"]},
+    'Archimedean_spiral' => {'cmd' => ["%l<exe> Archimedean_spiral%l<ext>\n","$view Archimedean-spiral-perl6.png"]},
+    'Julia_set' => {'cmd' => ["%l<exe> Julia_set%l<ext>\n","$view Julia-set-perl6.png"]},
+    'Chaos_game' => {'cmd' => ["%l<exe> Chaos_game%l<ext>\n","$view Chaos-game-perl6.png"]},
+    'Greyscale_bars_Display'  => {'cmd' => ["%l<exe> Greyscale_bars_Display%l<ext>\n","$view Greyscale-bars-perl6.pgm"]},
+    'Color_wheel' => {'cmd' => ["%l<exe> Color_wheel%l<ext>\n","$view Color-wheel-perl6.png"]},
+    'Barnsley_fern' => {'cmd' => ["%l<exe> Barnsley_fern%l<ext>\n","$view Barnsley-fern-perl6.png"]},
+    'Voronoi_diagram' => {
+        'cmd' => ["%l<exe> Voronoi_diagram%l<ext>\n",
+                  "$view Voronoi-Minkowski-perl6.png",
+                  "$view Voronoi-Taxicab-perl6.png",
+                  "$view Voronoi-Euclidean-perl6.png",
+                 ]
+    },
+    'Kronecker_product_based_fractals' => {
+        'cmd' => ["%l<exe> Kronecker_product_based_fractals%l<ext>\n",
+                  "$view kronecker-vicsek-perl6.png",
+                  "$view kronecker-carpet-perl6.png",
+                  "$view kronecker-six-perl6.png",
+                 ]
+    },
+    'Munching_squares0' => {'cmd' => ["%l<exe> Munching_squares0%l<ext>\n","$view munching0.ppm"]},
+    'Munching_squares1' => {'cmd' => ["%l<exe> Munching_squares1%l<ext>\n","$view munching1.ppm"]},
+    'Pinstripe_Display' => {'cmd' => ["%l<exe> Pinstripe_Display%l<ext>\n","$view pinstripes.pgm"]},
+    'Plasma_effect' => {'cmd' => ["%l<exe> Plasma_effect%l<ext>\n","$view Plasma-perl6.png"]},
+	'Hough_transform' => {'file' => 'pentagon.ppm', 'cmd' => ["%l<exe> Hough_transform%l<ext>\n","$view hough-transform.png"]},
+    'Polyspiral0' => { 'file' => 'polyspiral-perl6.svg',
+        'cmd' => [
+                  "$view polyspiral-perl6.svg",
+                  "%l<exe> Polyspiral0%l<ext>\n",
+                 ]
+    },
+    'Polyspiral1' => {'cmd' => "ulimit -t 25\n%l<exe> Polyspiral1%l<ext>\n"},
+    'Color_quantization' => {'file' => 'Quantum_frog.png', 'cmd' => ["%l<exe> Color_quantization%l<ext>\n", "$view Quantum_frog.png", "$view Quantum-frog-16-perl6.png"]},
+    'Curve_that_touches_three_points' => {'cmd' => ["%l<exe> Curve_that_touches_three_points%l<ext>\n","$view Curve-3-points-perl6.png"]},
+
+    'Percentage_difference_between_images' => {'file' => ['Lenna100.jpg','Lenna50.jpg'], 'cmd' => ["%l<exe> Percentage_difference_between_images%l<ext>", "$view Lenna100.jpg", "$view Lenna50.jpg"]},
+    'Bilinear_interpolation' => {'file' => 'Lenna100.jpg', 'cmd' => ["%l<exe> Bilinear_interpolation%l<ext>", "$view Lenna100.jpg", "$view Lenna100-larger.jpg"]},
+    'Image_convolution' => {'file' => 'Lenna100.jpg', 'cmd' => ["%l<exe> Image_convolution%l<ext>", "$view Lenna100.jpg", "$view Lenna100-convoluted.jpg"]},
+)}
