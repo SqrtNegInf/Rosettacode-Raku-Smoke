@@ -5,7 +5,7 @@
 
 #`[[
 
-grep -h QAST::Op ast/* | perl -npe 's/\Q+{QAST::SpecialArg}//;s/^\s+.*::Op\((.*?)\).*/$1/' | sort | uniq -c | sort -r -n
+grep -h QAST::Op ast/* | perl -npe 's/\Q+{QAST::SpecialArg}//;s/^\s+.*::Op\((.*?)\).*/$1/' | sort | uniq -c | sort -rn
 
  1561 call &METAOP_ASSIGN
   497 call &METAOP_REDUCE_LEFT
