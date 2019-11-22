@@ -6,46 +6,47 @@
 #j# JVM:  OK
 
 sub CopyPastaX ($code) {
-    my @CB;
+    my @cb;
     my @code = $code.split("\n")>>.trim.grep: *.so;
     my @code-orig = @code;
+    return "Program never ends!" unless grep { $_ eq 'Pasta!' }, @code;
 
     while (my $instruction = @code.shift) {
         given $instruction {
-            when 'Copy'      { @CB.push: @code.shift }
-            when 'CopyFile'  { @CB.push: @code[0] eq 'TheF*ckingCode' ?? @code-orig !! slurp @code[0]; @code.shift }
-            when 'Duplicate' { @CB = (flat @CB) xx @code.shift }
-            when 'Pasta!'    { return @CB }
+            when 'Copy'      { @cb.push: @code.shift }
+            when 'CopyFile'  { @cb.push: @code[0] eq 'TheF*ckingCode' ?? @code-orig !! slurp @code[0]; @code.shift }
+            when 'Duplicate' { @cb = (flat @cb) xx @code.shift }
+            when 'Pasta!'    { return @cb }
             default          { return "Does not compute: $instruction" }
         }
     }
 }
 
 sub CopyPasta ($code) {
-    my @CB;
+    my @cb;
+    my $pc = 0;
     my @code = $code.split("\n")>>.trim.grep: *.so;
+    return "Program never ends!" unless grep { $_ eq 'Pasta!' }, @code;
 
-    my $ptr = 0;
-    while (1) {
-        given $ptr {
-            when @code[$ptr] eq 'Copy'      { @CB.push: @code[++$ptr] }
-            when @code[$ptr] eq 'CopyFile'  { $ptr++; @CB.push: @code[$ptr] eq 'TheF*ckingCode' ?? @code !! slurp @code[$ptr] }
-            when @code[$ptr] eq 'Duplicate' { @CB = (flat @CB) xx @code[++$ptr] }
-            when @code[$ptr] eq 'Pasta!'    { return @CB }
-            default                         { return "Does not compute: @code[$ptr]" }
+    loop {
+        given @code[$pc] {
+            when 'Copy'      {        @cb.push: @code[++$pc] }
+            when 'CopyFile'  { $pc++; @cb.push: @code[$pc] eq 'TheF*ckingCode' ?? @code !! slurp @code[$pc] }
+            when 'Duplicate' {        @cb = (flat @cb) xx @code[++$pc] }
+            when 'Pasta!'    { return @cb }
+            default          { return "Does not compute: @code[$pc]" }
         }
-        $ptr++;
+        $pc++;
     }
 }
 
-for (
+#{.say for CopyPasta(slurp $_); say '--' } for <cp1.txt cp2.txt cp3.txt cp4.txt>;  
+
+(.say for CopyPasta($_);  say '--'; 
+ .say for CopyPastaX($_); say '==' )
+for 
     qq{Copy\nRosetta Code\n Duplicate \n2\n\nPasta!},
+    qq{Copy\nRosetta Code\nDuplicate\n2\n\nPasta},
     qq{CopyFile\nref/pasta.txt\nDuplicate\n1\nPasta!},
     qq{Copy\nInvalid\n Duplicate\n1\n\nGoto\n3\nPasta!},
-    qq{CopyFile\nTheF*ckingCode\nDuplicate\n2\nPasta!}
-) {
-    .say for CopyPastaX($_); 
-    say '--';
-    .say for CopyPasta($_); 
-    say '==';
-}
+    qq{CopyFile\nTheF*ckingCode\nDuplicate\n2\nPasta!};
