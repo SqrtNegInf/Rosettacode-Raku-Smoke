@@ -1,0 +1,36 @@
+#!/usr//bin/env perl6
+#u# http://rosettacode.org/wiki/Execute_CopyPasta_Language
+#t# inprogress
+#c# 2019-11-xx >RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+sub CopyPasta ($code) {
+
+my @CB;
+my $pasta-txt = Q{I'm the pasta.txt file.};
+
+my @code = $code.split("\n")>>.trim.grep: *.so;
+my @code-orig = @code;
+
+while (my $instruction = @code.shift) {
+    given $instruction {
+        when 'Copy'      { @CB.push: @code.shift }
+        when 'CopyFile'  { @CB.push: @code[0] eq 'TheF*ckingCode' ?? @code-orig !! $pasta-txt; sink @code.shift }
+        when 'Duplicate' { @CB = (flat @CB) xx @code.shift }
+        when 'Pasta!'    { return @CB }
+        default          { return "Does not compute: $instruction" }
+    }
+}
+
+}
+
+my $c1 = qq{Copy\nRosetta Code\n Duplicate \n2\n\nPasta!};
+my $c2 = qq{CopyFile\npasta.txt\nDuplicate\n1\nPasta!};
+my $c3 = qq{Copy\nInvalid\n Duplicate\n1\n\nGoto\n3\nPasta!};
+my $c4 = qq{CopyFile\nTheF*ckingCode\nDuplicate\n2\nPasta!};
+
+.say for CopyPasta($c1); say '--';
+.say for CopyPasta($c2); say '--';
+.say for CopyPasta($c3); say '--';
+.say for CopyPasta($c4); say '--';
