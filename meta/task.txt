@@ -3,16 +3,16 @@ implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1148/10]
 |+-------------> JVM: Good/Bad [985/173]
-||+------------> Smoke testing [1034]
-|||+-----------> sKipping validation [121]
+||+------------> Smoke testing [1035]
+|||+-----------> sKipping validation [120]
 ||||+----------> Interactive [58]
 |||||+---------> Touched (modified by me) [283]
 ||||||+--------> Concurrent [48]
 |||||||+-------> Random seed [115]
 ||||||||+------> File output [85]
-|||||||||+-----> Draft [230]
+|||||||||+-----> Draft [231]
 ||||||||||+----> Ignoring [37]
-|||||||||||+---> Void (no local copy) [111]
+|||||||||||+---> Void (no local copy) [112]
 ||||||||||||+--> Un-implemented/reliable [89]
 |||||||||||||
 GGS.......... 100_doors
@@ -297,6 +297,7 @@ GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS......D... Determine_if_a_string_is_collapsible
 GGS.......... Determine_if_a_string_is_numeric
+.........D.VU Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
 GGS..T...D... Dice_game_probabilities
@@ -371,7 +372,7 @@ GGS.......... Exponentiation_operator
 GGS.......... Exponentiation_order
 GGS..T....... Extend_your_language
 GGS.......... Extensible_prime_generator
-BB.K.T...D..U External_sort
+BBS..T...D... External_sort
 GGS......D... Extract_file_extension
 GGS..T....... Extreme_floating_point_values
 GGS.......... FASTA_format
