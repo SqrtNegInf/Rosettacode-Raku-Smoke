@@ -5,32 +5,47 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-sub CopyPasta ($code) {
+sub CopyPastaX ($code) {
+    my @CB;
+    my @code = $code.split("\n")>>.trim.grep: *.so;
+    my @code-orig = @code;
 
-my @CB;
-my $pasta-txt = Q{I'm the pasta.txt file.};
-
-my @code = $code.split("\n")>>.trim.grep: *.so;
-my @code-orig = @code;
-
-while (my $instruction = @code.shift) {
-    given $instruction {
-        when 'Copy'      { @CB.push: @code.shift }
-        when 'CopyFile'  { @CB.push: @code[0] eq 'TheF*ckingCode' ?? @code-orig !! $pasta-txt; sink @code.shift }
-        when 'Duplicate' { @CB = (flat @CB) xx @code.shift }
-        when 'Pasta!'    { return @CB }
-        default          { return "Does not compute: $instruction" }
+    while (my $instruction = @code.shift) {
+        given $instruction {
+            when 'Copy'      { @CB.push: @code.shift }
+            when 'CopyFile'  { @CB.push: @code[0] eq 'TheF*ckingCode' ?? @code-orig !! slurp @code[0]; @code.shift }
+            when 'Duplicate' { @CB = (flat @CB) xx @code.shift }
+            when 'Pasta!'    { return @CB }
+            default          { return "Does not compute: $instruction" }
+        }
     }
 }
 
+sub CopyPasta ($code) {
+    my @CB;
+    my @code = $code.split("\n")>>.trim.grep: *.so;
+
+    my $ptr = 0;
+    while (1) {
+        given $ptr {
+            when @code[$ptr] eq 'Copy'      { @CB.push: @code[++$ptr] }
+            when @code[$ptr] eq 'CopyFile'  { $ptr++; @CB.push: @code[$ptr] eq 'TheF*ckingCode' ?? @code !! slurp @code[$ptr] }
+            when @code[$ptr] eq 'Duplicate' { @CB = (flat @CB) xx @code[++$ptr] }
+            when @code[$ptr] eq 'Pasta!'    { return @CB }
+            default                         { return "Does not compute: @code[$ptr]" }
+        }
+        $ptr++;
+    }
 }
 
-my $c1 = qq{Copy\nRosetta Code\n Duplicate \n2\n\nPasta!};
-my $c2 = qq{CopyFile\npasta.txt\nDuplicate\n1\nPasta!};
-my $c3 = qq{Copy\nInvalid\n Duplicate\n1\n\nGoto\n3\nPasta!};
-my $c4 = qq{CopyFile\nTheF*ckingCode\nDuplicate\n2\nPasta!};
-
-.say for CopyPasta($c1); say '--';
-.say for CopyPasta($c2); say '--';
-.say for CopyPasta($c3); say '--';
-.say for CopyPasta($c4); say '--';
+for (
+    qq{Copy\nRosetta Code\n Duplicate \n2\n\nPasta!},
+    qq{CopyFile\nref/pasta.txt\nDuplicate\n1\nPasta!},
+    qq{Copy\nInvalid\n Duplicate\n1\n\nGoto\n3\nPasta!},
+    qq{CopyFile\nTheF*ckingCode\nDuplicate\n2\nPasta!}
+) {
+    .say for CopyPastaX($_); 
+    say '--';
+    .say for CopyPasta($_); 
+    say '==';
+}
