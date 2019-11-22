@@ -1,67 +1,42 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/External_sort
-#t# inprogress
-#c# 2019-11-xx >RC
+#c# 2019-11-20 >RC
 #p# OK
-#n# ?? note dual use of 'mysort', via direct call, and passed as a sorting routine for native 'sort' function
-
-my $result;
 
 use File::Temp;
 
-my @data = qw<432 345 3.21 543 -987 45.6 678 123 765 567 876 654 .789 2/34>;
-
-my $max = 4; # records per merge file
-my (@chunk,@files);
-
-# we're going to pretend that this is input from stdin...
-for (@data) {
-    @chunk.push: $_;
-    @files.push: store(@chunk) and @chunk = () if @chunk.elems == $max;
-}
-
-@files.push: store(@chunk) if @chunk;
-
-sub store (@values) {
-    my ($filename,$filehandle) = tempfile(:tempdir('./tmp'), :prefix('external-sort.'));
-    $filehandle.say: join "\n", @values.sort: +*;
-    $filehandle.close;
-    return $filename;
-}
-
 sub merge_streams ( @streams ) {
-    my @s = @streams.map({ hash( STREAM => $_, HEAD => .get ) })\
-                    .grep({ .<HEAD>.defined });
+    my @s = @streams.map({ hash( STREAM => $_, HEAD => .get ) }).grep({ .<HEAD>.defined });
 
     return gather while @s {
-        my $h = @s.min: *.<HEAD>;
+        my $h = @s.min: +*.<HEAD>;
         take $h<HEAD>;
         $h<HEAD> := $h<STREAM>.get
             orelse @s .= grep( { $_ !=== $h } );
     }
 }
 
-my @res =  merge_streams([ @files».&open ]);
-.say for @res; 
-exit;
+my $max = 4; # records per merge file
+
+# we're going to pretend that this is a long stream of input from stdin...
+my (@chunk,@files);
+for (<43 2 45 32 15 4 3 -9 45 66 0 42 78 123 -11 76 55 87 -2 64 92 34>) {
+    @chunk.push: $_;
+    @files.push: store(@chunk) and @chunk = () if @chunk.elems == $max;
+}
+@files.push: store(@chunk) if @chunk;
+
+sub store (@values) {
+    my ($filename,$filehandle) = tempfile(:tempdir('./tmp'), :prefix('external-sort.'));
+    $filehandle.say: join "\n", @values.sort: +*;
+    $filename
+}
+
+say my $result = join ' ', merge_streams @files».&open;
 
 my $ref = qq:to/END/;
--987
-2/34
-.789
-3.21
-45.6
-123
-234
-345
-432
-543
-567
-654
-678
-765
-876
+-11 -9 -2 0 2 3 4 15 32 34 42 43 45 45 55 64 66 76 78 87 92 123
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is $result, chomp $ref;
