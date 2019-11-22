@@ -3044,10 +3044,8 @@ File: E/Extensible_prime_generator
 File: E/External_sort
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/External_sort
-#t# inprogress
-#c# 2019-11-xx >RC
+#c# 2019-11-20 >RC
 #p# OK
-#n# ?? note dual use of 'mysort', via direct call, and passed as a sorting routine for native 'sort' function
 
 File: E/Extract_file_extension
 #!/usr/bin/env perl6
@@ -8359,6 +8357,16 @@ File: R/Rosetta_Code_Rank_languages_by_popularity-2
 File: R/Rosetta_Code_Run_examples
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/Run_examples
+#t# skiptest
+#c# 2018-04-15 <RC, 2018-04-17 <RC, 2018-06-22 <RC, 2019-03-25 <RC, 2019-11-21 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# may be slightly out-of-date, but cf. ~/perl6/rc-run/RC-run.p6 which is at usually at HEAD, and run/tested all the time
+#n# (so FYI thundergnat++, it runs fine on macOS essentially with no changes [except 'xdg-open'])
+
+File: R/Rosetta_Code_Run_examples.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Rosetta_Code/Run_examples
 #c# 2018-04-15 <RC, 2018-04-17 <RC, 2018-06-22 <RC, 2019-03-25 <RC
 #t# skiptest
 #m# MOAR: OK
@@ -8366,7 +8374,7 @@ File: R/Rosetta_Code_Run_examples
 #n# may be slightly out-of-date, but cf. ~/perl6/rc-run/RC-run.p6 which is at usually at HEAD, and run/tested all the time
 #n# (so FYI thundergnat++, it runs fine on macOS essentially with no changes [except 'xdg-open'])
 
-File: R/Rosetta_Code_Run_examples.1
+File: R/Rosetta_Code_Run_examples.2
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Rosetta_Code/Run_examples
