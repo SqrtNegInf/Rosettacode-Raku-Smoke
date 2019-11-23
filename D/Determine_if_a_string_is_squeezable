@@ -1,0 +1,58 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Determine_if_a_string_is_squeezable
+#c# 2019-11-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+map {
+    my $squeeze = $^phrase;
+    sink rx/$^reg/;  # vs 'my $regex'
+    $squeeze ~~ s:g/($reg)$0+/$0/;
+    @res.push: sprintf "\nOriginal length: %d <<<%s>>>\nSqueezable on \"%s\": %s\nSqueezed length: %d <<<%s>>>",
+      $phrase.chars, $phrase, $reg.uniname, $phrase ne $squeeze, $squeeze.chars, $squeeze
+},  
+  '', ' ', 
+  '"If I were two-faced, would I be wearing this one?" --- Abraham Lincoln ', '-',
+  '..1111111111111111111111111111111111111111111111111111111111111117777888', '7',
+  "I never give 'em hell, I just tell the truth, and they think it's hell. ", '.',
+  '                                                    --- Harry S Truman  ', ' ',
+  '                                                    --- Harry S Truman  ', '-',
+  '                                                    --- Harry S Truman  ', 'r';
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+Original length: 0 <<<>>>
+Squeezable on "SPACE": False
+Squeezed length: 0 <<<>>>
+
+Original length: 72 <<<"If I were two-faced, would I be wearing this one?" --- Abraham Lincoln >>>
+Squeezable on "HYPHEN-MINUS": True
+Squeezed length: 70 <<<"If I were two-faced, would I be wearing this one?" - Abraham Lincoln >>>
+
+Original length: 72 <<<..1111111111111111111111111111111111111111111111111111111111111117777888>>>
+Squeezable on "DIGIT SEVEN": True
+Squeezed length: 69 <<<..1111111111111111111111111111111111111111111111111111111111111117888>>>
+
+Original length: 72 <<<I never give 'em hell, I just tell the truth, and they think it's hell. >>>
+Squeezable on "FULL STOP": False
+Squeezed length: 72 <<<I never give 'em hell, I just tell the truth, and they think it's hell. >>>
+
+Original length: 72 <<<                                                    --- Harry S Truman  >>>
+Squeezable on "SPACE": True
+Squeezed length: 20 <<< --- Harry S Truman >>>
+
+Original length: 72 <<<                                                    --- Harry S Truman  >>>
+Squeezable on "HYPHEN-MINUS": True
+Squeezed length: 70 <<<                                                    - Harry S Truman  >>>
+
+Original length: 72 <<<                                                    --- Harry S Truman  >>>
+Squeezable on "LATIN SMALL LETTER R": True
+Squeezed length: 71 <<<                                                    --- Hary S Truman  >>>
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
