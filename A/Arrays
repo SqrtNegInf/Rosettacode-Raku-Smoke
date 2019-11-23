@@ -1,7 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arrays
 #c# 2017-06-17 <RC
-#t# trivial
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -64,21 +63,30 @@ my @array;
 
 # There are several constructs that do the Positional Role similar to arrays. They are ordered and use integer indexing and are often used in similar circumstances, however, they are immutable. Values in slots can not be changed. They can not be pushed to or popped from.
 
-# List: A fixed collection of immutable values. Lists are constructed similarly to arrays:
+# List: A fixed collection of immutable values. Lists are constructed similarly to arrays, but
+# note that the values are bound ':=' not assigned '='.
 
-   my @b1 = (1, 2, 3, 4);
-   my @b2 = ('a', 'b', 'c', 'd');
-   my @b3 = List.new(<this is a list of words>);
-   my @b4 = ('as', 'is', 'this').List;
-   my @not-a-list = (<oops, this isn't>);
-   @implicit := (<but this is>); # note the values are bound := not assigned =
+   my @b1 := 1, 2, 3, 4;
+   my @b2 := 'a', 'b', 'c', 'd';
+   my @b3 := <this is a list of words>;
+#   @implicit := (<this is too>); 
 
 # Range: Iterable list of consecutive numbers or strings with a lower and an upper boundary. (That boundary may be infinite.) Reified on demand. 
 
-   my @c1 = 2..20;    # integers two through twenty
-   my @c2 = 1..Inf;   # natural numbers
-   my @c3 = 'a'..'z'; # lowercase latin letters
-   my @c4 = '⁰'..'⁹';  # superscript digits
+   my @c1 := 2..20;    # integers two through twenty
+   my @c2 := 1..Inf;   # natural numbers
+   my @c3 := 'a'..'z'; # lowercase latin letters
+#  my @c4 := '⁰'..'⁹';  # superscript digits      
+# DH @c4 has wrong contents?
+# should be: '⁰¹²³⁴⁵⁶⁷⁸⁹'
+# instead:   ⁰:ⁱ:⁲:⁳:⁴:⁵:⁶:⁷:⁸:⁹  # when joined by ':'
+# ⁰ : 8304 : SUPERSCRIPT ZERO
+# ⁱ : 8305 : SUPERSCRIPT LATIN SMALL LETTER I
+# ⁲ : 8306 : <reserved-2072>
+# ⁳ : 8307 : <reserved-2073>
+# ⁴ : 8308 : SUPERSCRIPT FOUR
+
+exit;
 
 # Sequence: Iterable list of objects with some method to determine the next (or previous) item in the list. Reified on demand. Will try to automatically deduce simple arithmetic or geometric sequences. Pass in a code object to calculate more complex sequences.
 
@@ -94,3 +102,6 @@ my @array;
    sub a {(^Inf).grep: *.is-prime}; a()[99];   # 541 - (100th prime) subroutine returning a sequence
    my $lol = ((1,2), (3,4), (5,6)); $lol[1];   # (3 4) - list of lists in a Scalar variable
 
+use Test;
+is a()[99], 541;
+is @a4[^10], '1 1 3 5 9 15 25 41 67 109';
