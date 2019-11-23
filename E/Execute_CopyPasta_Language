@@ -1,16 +1,18 @@
 #!/usr//bin/env perl6
 #u# http://rosettacode.org/wiki/Execute_CopyPasta_Language
-#t# inprogress
-#c# 2019-11-xx >RC
+#c# 2019-11-22 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# only one version on RC, but which to choose?
 
-sub CopyPastaX ($code) {
-    my @cb;
+my @res;
+
+sub CopyPasta-chew ($code) {
     my @code = $code.split("\n")>>.trim.grep: *.so;
-    my @code-orig = @code;
     return "Program never ends!" unless grep { $_ eq 'Pasta!' }, @code;
+    my @code-orig = @code;
 
+    my @cb;
     while (my $instruction = @code.shift) {
         given $instruction {
             when 'Copy'      { @cb.push: @code.shift }
@@ -22,31 +24,71 @@ sub CopyPastaX ($code) {
     }
 }
 
-sub CopyPasta ($code) {
-    my @cb;
-    my $pc = 0;
+sub CopyPasta-PC ($code) {
     my @code = $code.split("\n")>>.trim.grep: *.so;
     return "Program never ends!" unless grep { $_ eq 'Pasta!' }, @code;
 
+    my @cb;
+    my $PC = 0;
     loop {
-        given @code[$pc] {
-            when 'Copy'      {        @cb.push: @code[++$pc] }
-            when 'CopyFile'  { $pc++; @cb.push: @code[$pc] eq 'TheF*ckingCode' ?? @code !! slurp @code[$pc] }
-            when 'Duplicate' {        @cb = (flat @cb) xx @code[++$pc] }
+        given @code[$PC] {
+            when 'Copy'      {        @cb.push: @code[++$PC] }
+            when 'CopyFile'  { $PC++; @cb.push: @code[$PC] eq 'TheF*ckingCode' ?? @code !! slurp @code[$PC] }
+            when 'Duplicate' {        @cb = (flat @cb) xx @code[++$PC] }
             when 'Pasta!'    { return @cb }
-            default          { return "Does not compute: @code[$pc]" }
+            default          { return "Does not compute: @code[$PC]" }
         }
-        $pc++;
+        $PC++;
     }
 }
 
-#{.say for CopyPasta(slurp $_); say '--' } for <cp1.txt cp2.txt cp3.txt cp4.txt>;  
-
-(.say for CopyPasta($_);  say '--'; 
- .say for CopyPastaX($_); say '==' )
+#`{{ works fine, but why bother...
+(@res.push: $_ for CopyPasta-chew(slurp $_);  @res.push: '--'; 
+ @res.push: $_ for CopyPasta-PC(slurp $_);    @res.push: ''  )
 for 
-    qq{Copy\nRosetta Code\n Duplicate \n2\n\nPasta!},
-    qq{Copy\nRosetta Code\nDuplicate\n2\n\nPasta},
-    qq{CopyFile\nref/pasta.txt\nDuplicate\n1\nPasta!},
-    qq{Copy\nInvalid\n Duplicate\n1\n\nGoto\n3\nPasta!},
-    qq{CopyFile\nTheF*ckingCode\nDuplicate\n2\nPasta!};
+    <prog1.cp prog2.cp prog3.cp prog4.cp prog5.cp>;
+}}
+
+spurt 'pasta.txt', "I'm the pasta.txt file.";
+
+(@res.push: $_ for CopyPasta-chew($_);  @res.push: '--'; 
+ @res.push: $_ for CopyPasta-PC($_);    @res.push: ''  )
+for 
+    "Copy \nRosetta Code\n\tDuplicate\n2\n\nPasta!\nLa Vista",
+    "CopyFile\npasta.txt\nDuplicate\n1\nPasta!",
+    "Copy\nInvalid\n Duplicate\n1\n\nGoto\n3\nPasta!",
+    "CopyFile\nTheF*ckingCode\nDuplicate\n2\nPasta!",
+    "Copy\nRosetta Code\nDuplicate\n2\n\nPasta";
+
+unlink 'pasta.txt';
+
+.say for @res;
+
+my $ref = q:to/END/;
+Rosetta Code
+Rosetta Code
+--
+Rosetta Code
+Rosetta Code
+
+I'm the pasta.txt file.
+--
+I'm the pasta.txt file.
+
+Does not compute: Goto
+--
+Does not compute: Goto
+
+CopyFile TheF*ckingCode Duplicate 2 Pasta!
+CopyFile TheF*ckingCode Duplicate 2 Pasta!
+--
+CopyFile TheF*ckingCode Duplicate 2 Pasta!
+CopyFile TheF*ckingCode Duplicate 2 Pasta!
+
+Program never ends!
+--
+Program never ends!
+END
+
+use Test;
+is @res.join("\n"), $ref;
