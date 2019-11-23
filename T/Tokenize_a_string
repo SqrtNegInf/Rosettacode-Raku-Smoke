@@ -1,15 +1,15 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Tokenize_a_string
-#t# trivial
 #c# 2018-03-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-say 'Hello,How,Are,You,Today'.split(',').join('.').say;
+say my $result1 = 'Hello,How,Are,You,Today'.split(',').join('.');
 
 #Or with function calls:
 
-my $result = join '.', split ',', 'Hello,How,Are,You,Today';
+say my $result2 = join '.', split ',', 'Hello,How,Are,You,Today';
 
 use Test;
-is $result, 'Hello.How.Are.You.Today';
+is $result1, 'Hello.How.Are.You.Today';
+is $result2, 'Hello.How.Are.You.Today';
