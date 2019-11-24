@@ -13,10 +13,9 @@ sub super ($d) {
     "$d: " ~ (^∞ .grep: ($d * * ** $d).Str.contains($run) )[^10]
 }
  
-@res.push: .&super for 2 .. 9;
+@res.push: .&super for 2 .. 6;
 
 .say for @res;
-exit;
 
 my $ref = q:to/END/;
 2: 19 31 69 81 105 106 107 119 127 131
