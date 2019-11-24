@@ -9,7 +9,7 @@ use GD::Raw;
 
 my $file = 'tmp/one-pixel-screen-capture.png';
 
-qqx/screencapture -R 1,1024,1,1 $file/;
+qqx{/usr/sbin/screencapture -R 1,1024,1,1 $file};
 my $fh    = fopen($file, "rb") or die;
 my $img   = gdImageCreateFromPng($fh);
 my $pixel = gdImageGetPixel($img, 0, 0);
