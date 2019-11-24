@@ -3,7 +3,7 @@
 #c# 2019-11-22 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# only one version on RC, but which to choose?
+#n# the RC version doesn't have the unnecessary frippery
 
 my @res;
 
@@ -51,8 +51,8 @@ for
 
 spurt 'pasta.txt', "I'm the pasta.txt file.";
 
-(@res.push: $_ for CopyPasta-chew($_);  @res.push: '--'; 
- @res.push: $_ for CopyPasta-PC($_);    @res.push: ''  )
+# at run-time, randomly choose which routine to call
+( ('@res.push: $_ for .' ~ <&CopyPasta-chew &CopyPasta-PC>[(^2).roll]).EVAL; @res.push: '')
 for 
     "Copy \nRosetta Code\n\tDuplicate\n2\n\nPasta!\nLa Vista",
     "CopyFile\npasta.txt\nDuplicate\n1\nPasta!",
@@ -67,26 +67,14 @@ unlink 'pasta.txt';
 my $ref = q:to/END/;
 Rosetta Code
 Rosetta Code
---
-Rosetta Code
-Rosetta Code
 
 I'm the pasta.txt file.
---
-I'm the pasta.txt file.
 
-Does not compute: Goto
---
 Does not compute: Goto
 
 CopyFile TheF*ckingCode Duplicate 2 Pasta!
 CopyFile TheF*ckingCode Duplicate 2 Pasta!
---
-CopyFile TheF*ckingCode Duplicate 2 Pasta!
-CopyFile TheF*ckingCode Duplicate 2 Pasta!
 
-Program never ends!
---
 Program never ends!
 END
 
