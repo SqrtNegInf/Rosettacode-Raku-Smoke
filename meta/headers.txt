@@ -665,7 +665,6 @@ File: A/Arrays
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arrays
 #c# 2017-06-17 <RC
-#t# trivial
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -1668,6 +1667,14 @@ File: C/Collections
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: C/Color_of_a_screen_pixel
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Color_of_a_screen_pixel
+#c# 2019-11-23 >RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for MacOS...
+
 File: C/Color_quantization
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Color_quantization
@@ -1994,7 +2001,6 @@ File: C/Count_in_factors-3
 File: C/Count_in_octal
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Count_in_octal
-#t# trivial
 #c# 2018-03-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -2983,7 +2989,7 @@ File: E/Execute_Brainfuck
 #j# JVM:  OK
 
 File: E/Execute_CopyPasta_Language
-#!/usr//bin/env perl6
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Execute_CopyPasta_Language
 #c# 2019-11-22 >RC
 #m# MOAR: OK
@@ -3669,7 +3675,6 @@ File: F/Formatted_numeric_output
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Formatted_numeric_output
 #c# 2018-03-20 <RC
-#t# trivial
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -3945,7 +3950,6 @@ File: G/Generator_Exponential
 File: G/Generic_swap
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Generic_swap
-#t# trivial
 #c# 2018-03-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -5480,7 +5484,6 @@ File: L/Loops_Continue
 File: L/Loops_Do-while
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Loops/Do-while
-#t# trivial
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -5969,7 +5972,6 @@ File: M/Median_filter
 File: M/Memory_allocation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Memory_allocation
-#t# trivial
 #c# 2018-03-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -7014,6 +7016,19 @@ File: P/Peaceful_chess_queen_armies.0
 #t# skiptest
 #n# not a complete solution, just a comparison of ways to use regex
 
+File: P/Peaceful_chess_queen_armies.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Peaceful_chess_queen_armies
+#c# 2019-11-18 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# big wart: in 'place' routine using literal '◦•' in regex because I cannot figure out a
+#n#             way to efficiently create a regex objects built from $empty-square
+#n# interpolating variable into character class definition, 
+#n# can lead to 'normal' running time, or SUPER-SLOW running time
+#n# both the 'slow' approaches involve multi-Gb memory use
+#n# all this despite my attempts to signal to the interpreter that $empty-square will never change...
+
 File: P/Peano_curve
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Peano_curve
@@ -7977,7 +7992,6 @@ File: R/Read_a_file_line_by_line
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Read_a_file_line_by_line
 #c# 2016-01-05 <RC
-#t# trivial
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -8092,7 +8106,6 @@ File: R/Regular_expressions
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Regular_expressions
 #c# 2018-03-20 <RC
-#t# trivial
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -8938,9 +8951,10 @@ File: S/Singleton
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Singleton
 #c# 2016-01-06 <RC
-#t# trivial
+#t# nocode
 #m# MOAR: OK
 #j#  JVM: OK
+#n# not really doing anything worth testing...
 
 File: S/Singly-linked_list_Element_definition
 #!/usr/bin/env perl6
@@ -9581,7 +9595,6 @@ File: S/String_concatenation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/String_concatenation
 #c# 2018-03-20 <RC
-#t# trivial
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -9589,7 +9602,6 @@ File: S/String_interpolation_included
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/String_interpolation_\(included\)
 #c# 2018-03-20 <RC
-#t# trivial
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -10345,7 +10357,6 @@ File: T/Time_a_function
 File: T/Tokenize_a_string
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Tokenize_a_string
-#t# trivial
 #c# 2018-03-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
