@@ -1,0 +1,38 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Color_of_a_screen_pixel
+#c# 2019-11-23 >RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for MacOS...
+
+use GD::Raw;
+
+my $file = 'tmp/one-pixel-screen-capture.png';
+
+qqx/screencapture -R 1,1024,1,1 $file/;
+my $fh    = fopen($file, "rb") or die;
+my $img   = gdImageCreateFromPng($fh);
+my $pixel = gdImageGetPixel($img, 0, 0);
+my ($red,$green,$blue) = 
+    gdImageRed(  $img, $pixel),
+    gdImageGreen($img, $pixel),
+    gdImageBlue( $img, $pixel);
+fclose($fh);
+unlink $file;
+say my $result1 = "RGB: $red, $green, $blue";
+
+qqx/screencapture -R 28,1012,1,1 $file/;
+$fh    = fopen($file, "rb") or die;
+$img   = gdImageCreateFromPng($fh);
+$pixel = gdImageGetPixel($img, 0, 0);
+($red,$green,$blue) = 
+    gdImageRed(  $img, $pixel),
+    gdImageGreen($img, $pixel),
+    gdImageBlue( $img, $pixel);
+fclose($fh);
+unlink $file;
+say my $result2 = "RGB: $red, $green, $blue";
+
+use Test;
+is $result1, 'RGB: 206, 206, 206';
+is $result2, 'RGB: 255, 255, 255';
