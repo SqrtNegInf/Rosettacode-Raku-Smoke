@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Names_to_numbers
 #t# inprogress
-#c# 2019-11-xx >RC
+#c# 2019-11-25 >RC
 #p# OK
 
 my @res;
@@ -10,12 +10,12 @@ my $test-data = q:to/END/;
 # For numbers between 21 and 99 inclusive, we're supposed to use a hyphen,
 # but the bank still cashes our check without the hyphen:
 Seventy-two dollars
-	Seventy two dollars
+Seventy two dollars
 
 # For numbers bigger than 100, we're not supposed to use "and,"
 # except we still use "and" anyway, e.g.,
 One Hundred and One Dalmatians
-    A Hundred and One Dalmatians
+A Hundred and One Dalmatians
 One Hundred One Dalmatians
 Hundred and One Dalmatians
 One Thousand and One Nights
@@ -23,15 +23,10 @@ Two Thousand and One: A Space Odyssey
 
 # Date anomolies
 Twenty Thirteen
-Nineteen Eighty-Four!
+Nineteen Eighty-Four
 
-# Maximum value an "unsigned long int" can hold on a 32-bit machine = 2^32 - 1
-# define ULONG_MAX	4294967295
 four billion, two hundred ninety-four million, nine hundred sixty-seven thousand, two hundred ninety five
-
-# Max positive integer on 32-bit Perl is 9_007_199_254_740_992 = 2^53
-# Use Math::BigInt if you need more.
-# Note Perl usually stringifies to 15 digits of precision and this has 16
+Ninety-Nine Trillion Nine Hundred Ninety-Nine Billion Nine Hundred Ninety-Nine Million Nine Hundred Ninety-Nine Thousand Nine Hundred Ninety-Nine
 Nine quadrillion, seven trillion, one hundred ninety-nine billion, two hundred fifty-four million, seven hundred forty thousand, nine hundred ninety two
 
 Nine Hundred Ninety-Nine
@@ -40,7 +35,6 @@ Eleven Hundred Eleven
 Eight Thousand Eight Hundred Eighty-Eight
 Eighty-Eight Hundred Eighty-Eight
 Seven Million Seven Hundred Seventy-Seven Thousand Seven Hundred Seventy-Seven
-Ninety-Nine Trillion Nine Hundred Ninety-Nine Billion Nine Hundred Ninety-Nine Million Nine Hundred Ninety-Nine Thousand Nine Hundred Ninety-Nine
 
 ninety-nine
 three hundred
@@ -48,7 +42,6 @@ three hundred and ten
 one thousand, five hundred and one
 twelve thousand, six hundred and nine
 five hundred and twelve thousand, six hundred and nine
-forty-three million, one hundred and twelve thousand, six hundred and nine
 two billion, one hundred
 
 zero
@@ -58,149 +51,75 @@ one hundred twenty three
 one thousand one
 ninety nine thousand nine hundred ninety nine
 one hundred thousand
-nine billion one hundred twenty three million four hundred fifty six thousand seven hundred eighty nine
 one hundred eleven billion one hundred eleven
 END
 
-
-# The following code reads a file line-by-line. It echos comment lines starting with a hashmark and blank lines. Remaining lines are output followed by an arrow "=>" and any non-negative integer number names translated into numbers, e.g., a line with "ninety-nine" is output like this: "ninety-nine => 99".
-
 my %nums = (
-    zero      => 0,	one	=> 1,	two	=> 2,	three	=> 3,
-    four      => 4,	five	=> 5,	six	=> 6,	seven	=> 7,
-    eight     => 8,	nine	=> 9,	ten	=> 10,	eleven	=> 11,
-    twelve    => 12,	thirteen => 13,	fourteen => 14,	fifteen	=> 15,
-    sixteen   => 16,	seventeen => 17, eighteen => 18, nineteen => 19,
-    twenty    => 20,	thirty	=> 30,	forty	=> 40,	fifty	=> 50,
-    sixty     => 60,	seventy	=> 70,	eighty	=> 80,	ninety	=> 90,
-    hundred   => 100,	thousand => 1_000, million => 1_000_000,
-    billion   => 1_000_000_000,         trillion => 1_000_000_000_000);
-
-#    quadrillion => 1e+015,              quintillion =>  1e+018); 
-
+    zero        => 0,     one        => 1,     two         => 2,     three    => 3,
+    four        => 4,     five       => 5,     six         => 6,     seven    => 7,
+    eight       => 8,     nine       => 9,     ten         => 10,    eleven   => 11,
+    twelve      => 12,    thirteen   => 13,    fourteen    => 14,    fifteen  => 15,
+    sixteen     => 16,    seventeen  => 17,    eighteen    => 18,    nineteen => 19,
+    twenty      => 20,    thirty     => 30,    forty       => 40,    fifty    => 50,
+    sixty       => 60,    seventy    => 70,    eighty      => 80,    ninety   => 90,
+    hundred     => 100,   thousand   => 1_000, million     => 1_000_000,
+    billion     => 1_000_000_000,              trillion    => 1_000_000_000_000,
+    quadrillion => 1_000_000_000_000_000,      quintillion => 1_000_000_000_000_000_000
+);
 
 # Groupings for thousands, millions, billions, trillions #..., quintillions
-my $groups = rx/ \d**4 | \d**7 | \d**10 | \d**13/; #|1e\+015|1e\+018/;
-
-# Numeral or e-notation
-my $num = rx/ \d+ | \d+e '+' \d+ /;
+my token groups { \d**4 | \d**7 | \d**10 | \d**13 | \d**16 | \d**19 }; 
 
 for $test-data.split("\n") -> $orig {
-    # skip blank and comment lines
     next if $orig ~~ /^^ ( \s* $ || \s* '#' ) /;
 
-    # echo comment lines
-    #if( /^\s*#.*$/ ) { $result .= $_; next; }
+    my $str = $orig.lc;
+    $str ~~ s:g/'-'/ /;
+    $str ~~ s:g/\s+/ /;
+    $str .=trim;
 
-	my $str = $orig.lc;
-	$str ~~ s:g/'-'/ /;     # convert hyphens to spaces
-	$str ~~ s:g/\s+/ /;     # remove duplicate whitespace, convert just one space
-	$str .=trim;            # final leading/trailing trim
-
-	# tokenize sentence boundaries
-	$str ~~ s:g/(<[.?!]>) / $0\n/;
-	$str ~~ s:g/(<[.?!]>)$/ $0\n/;
-
-	# tokenize other punctuation and symbols
-	$str ~~ s:g/\$(.)/\$ $0/;            # prefix
-	$str ~~ s:g/(.)(<[;:%',]>)/$0 $1/;   # suffix
+    # tokenize sentence boundaries, other punctuation and symbols
+    $str ~~ s:g/(<[.?!]>) / $0\n/;
+    $str ~~ s:g/(<[.?!]>)$/ $0\n/;
+    $str ~~ s:g/\$(.)/\$ $0/;            # prefix
+    $str ~~ s:g/(.)(<[;:%',]>)/$0 $1/;   # suffix
 
     #$str ~~ s:g/ <|w> $_ <|w> / %nums{$_} / for %nums.keys; # ??
-	for (keys %nums) -> $key { $str ~~ s:g/ <|w> $key <|w> / %nums{$key} / }
+    for (keys %nums) -> $key { $str ~~ s:g/ <|w> $key <|w> / %nums{$key} / }
 
- 	$str ~~ s:g/(\d) ',' (\d)/$0 $1/;
- 	$str ~~ s:g/(\d) 'and' (\d)/$0 $1/;
+     $str ~~ s:g/(\d) \s+ ',' \s+ (\d)/$0 $1/;
+     $str ~~ s:g/(\d) \s+ 'and' \s+ (\d)/$0 $1/;
 
-    $orig.say; $str.say; say '--';
-    sleep 1;
+
+    $str ~~ s:g/ <|w> (\d) \s+ '100' \s+ (\d\d) \s+ (\d) \s+ (<groups>) <|w>/{($0 * 100 + $1 + $2) * $3}/;
+
+    $str ~~ s:g/ <|w> (\d) \s+ 100 \s+ (\d\d) \s+ (<groups>) <|w> /{($0 * 100 + $1) * $2}/;
+    $str ~~ s:g/ <|w> (\d) \s+ 100 \s+ (\d) \s+ (<groups>) <|w> /{($0 * 100 + $1) * $2}/;
+    $str ~~ s:g/ <|w> (\d) \s+ 100 \s+ (<groups>) <|w> /{$0 * $1 * 100}/;
+
+    $str ~~ s:g/ <|w> \s+ 100 \s+ (\d\d) \s+ (\d) \s+ (<groups>) <|w> /{(100 + $0 + $1) * $2}/;
+    $str ~~ s:g/ <|w> \s+ 100 \s+ (\d\d) \s+ (<groups>) <|w> /{(100 + $0) * $1}/;
+    $str ~~ s:g/ <|w> \s+ 100 \s+ (\d) \s+ (<groups>) <|w> /{(100 + $0) * $1}/;
+    $str ~~ s:g/ <|w> \s+ 100 \s+ (<groups>) <|w> /{$0 * 100}/;
+
+    $str ~~ s:g/ <|w> (\d\d) \s+ (\d) \s+ (<groups>) <|w> /{($0 + $1) * $2}/;
+#say 'sofar: ' ~ $str; sleep 10;
+    $str ~~ s:g/ <|w> (\d ** 1..2) \s+ (<groups>) <|w> /{$0 * $1}/;
+
+    $str ~~ s:g/ <|w> (\d\d) \s+ (\d) \s+ 100 \s* <|w> /{($0 + $1) * 100}/;
+    $str ~~ s:g/ <|w> (\d ** 1..2) \s+ 100 \s* <|w> /{$0 * 100} /;
+
+    # Date anomolies: nineteen eighty-four and twenty thirteen
+    $str ~~ s:g/ <|w> (\d ** 2) \s+ (\d ** 2) <|w> /{$0 * 100 + $1}/;
+
+    $str ~~ s:g/([\d+\s+]*\d+)/{[+] $0.split: ' '}/;
+
+    say "{$orig} ==> {$str}";
+    #sleep 1;
 }
-
-exit;
-
-#`[[
-
-	s/\b(\d) 100 (\d\d) (\d) (${groups})\b/($1 * 100 + $2 + $3) * $4/eg;
-
-	s/\b(\d) 100 (\d\d) (${groups})\b/($1 * 100 + $2) * $3/eg;
-	s/\b(\d) 100 (\d) (${groups})\b/($1 * 100 + $2) * $3/eg;
-	s/\b(\d) 100 (${groups})\b/$1 * $2 * 100/eg;
-
-        s/\b100 (\d\d) (\d) (${groups})\b/(100 + $1 + $2) * $3/eg;
-        s/\b100 (\d\d) (${groups})\b/(100 + $1) * $2/eg;
-        s/\b100 (\d) (${groups})\b/(100 + $1) * $2/eg;
-        s/\b100 (${groups})\b/$1 * 100/eg;
-
-	s/\b(\d\d) (\d) (${groups})\b/($1 + $2) * $3/eg;
-	s/\b(\d{1,2}) (${groups})\b/$1 * $2/eg;
-
-	s/\b(\d\d) (\d) 100\b/($1 + $2) * 100/eg;
-	s/\b(\d{1,2}) 100\b/$1 * 100/eg;
-
-        # Date anomolies: nineteen eighty-four and twenty thirteen
-	s/\b(\d{2}) (\d{2})\b/$1 * 100 + $2/eg;
-
-	s/((?:${num} )*${num})/sum(split(" ",$1))/eg;
-
-	$result .= $orig. " => ". $_. "\n";
-}
-
-]]
 
 my $ref = q:to/END/;
-# For numbers between 21 and 99 inclusive, we're supposed to use a hyphen,
-# but the bank still cashes our check without the hyphen:
-Seventy-two dollars => 72 dollars
-Seventy two dollars => 72 dollars
-
-# For numbers bigger than 100, we're not supposed to use "and,"
-# except we still use "and" anyway, e.g.,
-One Hundred and One Dalmatians => 101 dalmatians
-A Hundred and One Dalmatians => a 101 dalmatians
-One Hundred One Dalmatians => 101 dalmatians
-Hundred and One Dalmatians => 101 dalmatians
-One Thousand and One Nights => 1001 nights
-Two Thousand and One: A Space Odyssey => 2001 : a space odyssey
-
-# Date anomolies
-Twenty Thirteen => 2013
-Nineteen Eighty-Four => 1984
-
-# Maximum value an "unsigned long int" can hold on a 32-bit machine = 2^32 - 1
-# define ULONG_MAX	4294967295
-four billion, two hundred ninety-four million, nine hundred sixty-seven thousand, two hundred ninety five => 4294967295
-
-# Max positive integer on 32-bit Perl is 9_007_199_254_740_992 = 2^53
-# Use Math::BigInt if you need more.
-# Note Perl usually stringifies to 15 digits of precision and this has 16
-Nine quadrillion, seven trillion, one hundred ninety-nine billion, two hundred fifty-four million, seven hundred forty thousand, nine hundred ninety two => 9.00719925474099e+015
-
-Nine Hundred Ninety-Nine => 999
-One Thousand One Hundred Eleven => 1111
-Eleven Hundred Eleven => 1111
-Eight Thousand Eight Hundred Eighty-Eight => 8888
-Eighty-Eight Hundred Eighty-Eight => 8888
-Seven Million Seven Hundred Seventy-Seven Thousand Seven Hundred Seventy-Seven => 7777777
-Ninety-Nine Trillion Nine Hundred Ninety-Nine Billion Nine Hundred Ninety-Nine Million Nine Hundred Ninety-Nine Thousand Nine Hundred Ninety-Nine => 99999999999999
-
-ninety-nine => 99
-three hundred => 300
-three hundred and ten => 310
-one thousand, five hundred and one => 1501
-twelve thousand, six hundred and nine => 12609
-five hundred and twelve thousand, six hundred and nine => 512609
-forty-three million, one hundred and twelve thousand, six hundred and nine => 43112609
-two billion, one hundred => 2000000100
-
-zero => 0
-eight => 8
-one hundred => 100
-one hundred twenty three => 123
-one thousand one => 1001
-ninety nine thousand nine hundred ninety nine => 99999
-one hundred thousand => 100000
-nine billion one hundred twenty three million four hundred fifty six thousand seven hundred eighty nine => 9123456789
-one hundred eleven billion one hundred eleven => 111000000111
 END
 
-use Test;
-is @res.join("\n"), chomp $ref;
+#use Test;
+#is @res.join("\n"), chomp $ref;
