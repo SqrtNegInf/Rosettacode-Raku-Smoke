@@ -1,15 +1,15 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Names_to_numbers
-#c# 2019-11-24 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
-#n# not salvageble?
+#c# 2016-09-10 <RC
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
+#n# coded for niecza, maybe not salvageble for Rakudo?
 
 my @res;
 
 # This example is broken. It fails to compile or causes a runtime error. Please fix the code and remove this message.
 
-my $DEBUG = False;
+my $DEBUG = True;
 
 constant @M = ('ones', 'thousand',
     ((<m b tr quadr quint sext sept oct non>,
@@ -19,19 +19,21 @@ constant @M = ('ones', 'thousand',
 
 constant %M = @M Z=> (1, 1000, 1000000 ... *);
 
+#dd @M; dd %M; exit;
+
 grammar Number-Names {
     token TOP { ^ [.*? <number>]* .* $ }
 
     method returns {
-	say callframe(1).subname, ' -> ', self.ast if $DEBUG;
-	self;
+	    say callframe(1), ' -> ', self.ast if $DEBUG;
+	    self;
     }
 
-    method trimspace {
-	my $pos = self.pos;
-	--$pos while $pos and self.orig.substr($pos-1,1) ~~ /\s/;
-	self.cursor($pos);
-    }
+#    method trimspace {
+#	my $pos = self.pos;
+#	--$pos while $pos and self.orig.substr($pos-1,1) ~~ /\s/;
+#	self.cursor($pos);
+#    }
 
     token gotsome($oldself) {
 	<?{ self.pos != $oldself.pos }>
@@ -42,22 +44,22 @@ grammar Number-Names {
 	[
 	| 'zero' { make 0 }
 	| ('minus' \s+ | 'negative' \s+)?
-	    <group>+ % [','\s+|'and'\s+|<?after \s>] <quantnoun>
+	    <group>+ % [ ',' \s+ | 'and' \s+ | <?after \s> ] <quantnoun>
 	    { make [+]($<group>[]».ast) * ($0 ?? -1 !! 1) * $<quantnoun>.ast }
 	]
 	<.gotsome(self)>
-	<.trimspace>
+#	<.trimspace>
 	<.returns>
     }
 
     token group { :i
-	<?{ $*SOFAR %% 1000 }>
+	<?{ $*SOFAR.defined and $*SOFAR %% 1000 }>
 	<hundreds> \s* <tweens($*SOFAR + $<hundreds>.ast)> \s* <zillions>
 	<.gotsome(self)>
 	\s*[ $ || <?after \W> || <?before \W> || <?before < th st nd rd th > » > ]
 	{
 	    my $group = $<zillions>.ast * ($<hundreds>.ast + $<tweens>.ast);
-	    return () if $*SOFAR and $group > $*SOFAR;
+	    #return () if $*SOFAR and $group > $*SOFAR;    # illegal
 	    $*SOFAR += $group;
 	    make $group;
 	}
@@ -197,12 +199,49 @@ grammar Number-Names {
     }
 }
 
-sub commify($_) {
-    /\d\d\d\d\d/
-	?? .flip.subst(/\d\d\d<?before \d>/, -> $/ {$/~','},:g).flip
-	!! $_;
-}
+#sub commify($_) {
+#    /\d\d\d\d\d/
+#	?? .flip.subst(/\d\d\d<?before \d>/, -> $/ {$/~','},:g).flip
+#	!! $_;
+#}
 
+sub comma { $^i.flip.comb(3).join(',').flip }
+
+# Use of Nil in numeric context
+# in regex group at N/Names_to_numbers.1 line 56
+
+# TESTS HERE from best to worst
+#my $line = 'Twentieth-Century Fox';            # OK
+#my $line = 'The Eighth Wonder of the World!';  # OK
+ my $line = 'Seventy-two dollars';              # lack space after digit
+#my $line = 'Seven Brides for Seven Brothers';  # ( " )
+#my $line = 'five dozen roses';                 # ( " )
+#my $line = 'Fourscore and seven years ago, our four fathers...'; # ( " )
+#my $line = 'Twenty Thirteen';                  # fail (has the value 'in media parse', line 70, but not returned)
+#my $line = 'one hundred';                      # 
+#my $line = 'math one-oh-one';                  # fail ( " )
+#my $line = 'ten sixty-six';                    # fail ( " )
+#my $line = 'One Hundred and One Dalmatians';   # 100 and 1
+#my $line = 'Seven Million Seven Hundred Seventy-Seven Thousand Seven Hundred Seventy-Seven'; # 7,777,000Seven Hundred Seventy-Seven
+#my $line = 'two billion, one hundred';         # fail (1st number show, not 2nd; also fails without comma)
+#my $line = 'xxx';                              # 
+
+my $parse = Number-Names.parse($line);
+#dd $parse; exit;
+	if $parse and +$parse<number> {
+#	    print "\t==> ";
+	    my $prev = 0;
+	    for $parse<number>[*] -> $n {
+		print substr($line, $prev, $n.from - $prev);
+#        print ' >> ';
+		print comma(~$n.ast);
+#        print ' << ';
+		$prev = $n.to;
+	    }
+	    say substr($line, $prev);
+	}
+
+#`{{
 sub MAIN ($file = 'numnames') {
     $DEBUG = True if $file eq '-';
     my $fh = $file eq '-' ?? $*IN !! open($file);
@@ -221,8 +260,9 @@ sub MAIN ($file = 'numnames') {
 	}
     }
 }
+}}
 
-.say for @res;
+#.say for @res;
 
 my $ref = q:to/END/;
 Seventy-two dollars
