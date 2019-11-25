@@ -1,16 +1,16 @@
-This is Rakudo version 2019.07.1-491-g830400f5a built on MoarVM version 2019.07.1-309-g48491b896
+This is Rakudo version 2019.07.1-492-gfc3094191 built on MoarVM version 2019.07.1-321-g97615be0a
 implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1150/10]
 |+-------------> JVM: Good/Bad [987/174]
 ||+------------> Smoke testing [1037]
-|||+-----------> sKipping validation [121]
+|||+-----------> sKipping validation [122]
 ||||+----------> Interactive [58]
-|||||+---------> Touched (modified by me) [285]
-||||||+--------> Concurrent [48]
+|||||+---------> Touched (modified by me) [286]
+||||||+--------> Concurrent [49]
 |||||||+-------> Random seed [115]
 ||||||||+------> File output [85]
-|||||||||+-----> Draft [231]
+|||||||||+-----> Draft [229]
 ||||||||||+----> Ignoring [36]
 |||||||||||+---> Void (no local copy) [109]
 ||||||||||||+--> Un-implemented/reliable [86]
@@ -393,7 +393,7 @@ GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
 GGS.......... Fibonacci_word
 GGS.......... Fibonacci_word_fractal
-GGS......D... File_extension_is_in_extensions_list
+GGS.......... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
 GGS.....F.... File_input_output-2
 GBS..T....... File_modification_time
@@ -728,7 +728,7 @@ GGS..T....... N-queens_problem
 GGS.......... N-smooth_numbers
 GGS......D... NYSIIS
 GGS.......... Named_parameters
-BB.......D..U Names_to_numbers
+BB.K.T...D..U Names_to_numbers
 GG.K......... Naming_conventions
 ..........XV. Narcissist
 GGS.......... Narcissistic_decimal_number
@@ -1133,9 +1133,8 @@ GGS..T....... Sum_of_a_series
 GGS.......... Sum_of_squares
 GGS.......... Sum_to_100
 GGS.....F.... Sunflower_fractal
-.........D... Super-d_numbers
 GGS...C...... Super-d_numbers-1
-GGS.......... Super-d_numbers-2
+GGS...C...... Super-d_numbers-2
 GBS..TC...... Super-d_numbers-3
 GGS..T..F.... Superellipse
 GGS..T....... Superpermutation_minimisation
