@@ -21,7 +21,7 @@ fclose($fh);
 unlink $file;
 say my $result1 = "RGB: $red, $green, $blue";
 
-qqx/screencapture -R 28,1012,1,1 $file/;
+qqx{/usr/sbin/screencapture -R 28,1012,1,1 $file};
 $fh    = fopen($file, "rb") or die;
 $img   = gdImageCreateFromPng($fh);
 $pixel = gdImageGetPixel($img, 0, 0);
