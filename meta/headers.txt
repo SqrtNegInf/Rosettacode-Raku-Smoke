@@ -958,6 +958,21 @@ File: B/Binary_strings
 #j#  JVM: OK
 #n# infix:<cmp> obsolete?: Rakudo version 2018.03-143-g111f67a4b built on MoarVM version 2018.03-59-gfc1bb3126
 
+File: B/Bioinformatics_Sequence_mutation
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Bioinformatics/base_count
+#c# 2019-11-26 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# JVM needs separate test data...
+
+File: B/Bioinformatics_base_count
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Bioinformatics/base_count
+#c# 2019-11-26 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: B/Birthday_problem
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Birthday_problem
@@ -6345,10 +6360,10 @@ File: N/Named_parameters
 File: N/Names_to_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Names_to_numbers
-#t# inprogress
-#c# 2019-11-25 >RC
+#c# 2019-11-26 >RC
 #p# OK
-#n# could form the basis for a grammar-based approach?
+#n# Or: How I Learned To Stop Worrying, and Love Raku Regex
+#n# remaining issues: spacing around punctuation, decimal fraction support very minimal, speed
 
 File: N/Names_to_numbers.1
 #!/usr/bin/env perl6
@@ -6357,6 +6372,7 @@ File: N/Names_to_numbers.1
 #m# MOAR: BROKEN
 #j#  JVM: BROKEN
 #n# coded for niecza, maybe not salvageble for Rakudo?
+#n# better to start fresh and use techniques/components shown here
 
 File: N/Naming_conventions
 #!/usr/bin/env perl6
