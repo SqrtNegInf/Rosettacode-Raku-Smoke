@@ -10,6 +10,7 @@ use GD::Raw;
 my $file = 'tmp/one-pixel-screen-capture.png';
 
 qqx{/usr/sbin/screencapture -R 1,1024,1,1 $file};
+sleep 1;
 my $fh    = fopen($file, "rb") or die;
 my $img   = gdImageCreateFromPng($fh);
 my $pixel = gdImageGetPixel($img, 0, 0);
@@ -22,6 +23,7 @@ unlink $file;
 say my $result1 = "RGB: $red, $green, $blue";
 
 qqx{/usr/sbin/screencapture -R 28,1012,1,1 $file};
+sleep 1;
 $fh    = fopen($file, "rb") or die;
 $img   = gdImageCreateFromPng($fh);
 $pixel = gdImageGetPixel($img, 0, 0);
@@ -35,4 +37,4 @@ say my $result2 = "RGB: $red, $green, $blue";
 
 use Test;
 is $result1, 'RGB: 206, 206, 206';
-ok $red > 200 && $green > 200 && $blue > 200;
+ok $red > 200 && $green > 200 && $blue > 200;  # varies?
