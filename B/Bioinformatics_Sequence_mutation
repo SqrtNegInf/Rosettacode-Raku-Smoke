@@ -1,0 +1,100 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Bioinformatics/base_count
+#c# 2019-11-26 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# JVM needs separate test data...
+
+srand 123456;
+
+my @res;
+
+my @bases = <A C G T>;
+ 
+# The DNA strand
+my $dna = @bases.roll(200).join;
+ 
+# The Task
+@res.push: "ORIGINAL DNA STRAND:";
+@res.push: pretty $dna;
+@res.push: "\nTotal bases: "~ +my $bases = $dna.comb.Bag;
+@res.push: $bases.sort( ~*.key ).join: "\n";
+ 
+@res.push: "\nMUTATED DNA STRAND:";
+my $mutate = $dna.&mutate(10);
+@res.push: pretty diff $dna, $mutate;
+@res.push: "\nTotal bases: "~ +my $mutated = $mutate.comb.Bag;
+@res.push: $mutated.sort( ~*.key ).join: "\n";
+ 
+ 
+# Helper subs
+sub pretty ($string, $wrap = 50) {
+    $string.comb($wrap).map( { sprintf "%8d: %s", $++ * $wrap, $_ } ).join: "\n"
+}
+ 
+sub mutate ($dna is copy, $count = 1) {
+    $dna.substr-rw((^$dna.chars).roll, 1) = @bases.roll for ^$count;
+    $dna
+}
+ 
+sub diff ($orig, $repl) {
+    ($orig.comb Z $repl.comb).map( -> ($o, $r) { $o eq $r ?? $o !! $r.lc }).join
+}
+
+.say for @res;
+
+my $moar = q:to/END/;
+ORIGINAL DNA STRAND:
+       0: GAGGGAGGAGTACTGACAACATTCTTCTAGGGCGAAGAGACTACAGGTAC
+      50: ACGGTGCCGTACTTACGGTGAAGCGAGTCCTCTTACATAAATTTTGGGTC
+     100: TCCTAGACGTGGTCGCATGGTTCATCTAAGTAGCACGTTGCGATCCGAAT
+     150: TCCTATGAATCAAAGCCTCTAGAACATCACGCGCCAGCGCTGAAGGTTTT
+
+Total bases: 200
+A	52
+C	46
+G	52
+T	50
+
+MUTATED DNA STRAND:
+       0: GAGGGAGGAGTACTGACAACATTCTTCTAGGGCaAAGAGACTACAGGTAC
+      50: ACGGTGCCGTACTTACGGTGAAGCGAGTCCTCTTACATAAATTTTGGGTC
+     100: TCCTAGACGTGtTCGCATGGTTCATCTAAGTAGCAgGTTGgGATCgGAAc
+     150: TCCTATGAATCAAAGCCcCTAGAACtTCACGCGCCAGCGCTGtAGGTTTT
+
+Total bases: 200
+A	51
+C	45
+G	53
+T	51
+END
+
+my $jvm = q:to/END/;
+ORIGINAL DNA STRAND:
+       0: CTCGAGCGTGCAAGCAATGGGGTAAAATAACCACCGTGGCAGCCGTTTCA
+      50: GTTTAAATCACGCCTTAATCTGAACAGATAAATGCCGAAGAGGGCGTTCA
+     100: AGAGAGTGCACTCCGGGAGTCTCATCATGGACAGGATAGCCGTCTAGTCA
+     150: GGTCGATATTAGGGTTGACAGCCCGGTGGGGTGACACATTCGGCGCGATG
+
+Total bases: 200
+A	53
+C	45
+G	60
+T	42
+
+MUTATED DNA STRAND:
+       0: CTCGAGtGTGCAAGCAATGGGGTAAAATAACCACCGTGGCAGCCGTTTtA
+      50: GTTTAgATCACGCCTTAATCTGAACAGATAAATGCCGAAGAGGGCGTTCA
+     100: AGAGAGTGCACTCCGGGAcTgTCATCATGGACAGGATAGCgGTCTAGTCA
+     150: GGTCGATATTAGGGTTGACAGCCCGGTGGGGTGACACATTCGGCGCGATG
+
+Total bases: 200
+A	52
+C	42
+G	62
+T	44
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
