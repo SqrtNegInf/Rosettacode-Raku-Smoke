@@ -1,61 +1,45 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Names_to_numbers
-#t# inprogress
-#c# 2019-11-25 >RC
+#c# 2019-11-26 >RC
 #p# OK
-#n# could form the basis for a grammar-based approach?
+#n# Or: How I Learned To Stop Worrying, and Love Raku Regex
+#n# remaining issues: spacing around punctuation, decimal fraction support very minimal, speed
 
 my @res;
 
 my $phrases-with-numbers = q:to/END/;
-three point one four one five nine
-one hundred twenty
+One Hundred and One Dalmatians
+Two Thousand and One: A Space Odyssey
+
 Four  Score  And  Seven  Years  Ago  
 twelve dozen is one hundred forty-four, aka one gross
 two hundred pairs of socks
-always give one hundred and ten percent effort
-zero dollars and thirty-seven cents
-One hour, fifty-nine minutes, forty point two seconds
-Seventy-two dollars
-Two Thousand and One: A Space Odyssey
+Always give one hundred and ten percent effort
+Change due: zero dollars and thirty-seven cents
 
-One Hundred and One Dalmatians
-A Hundred and One Dalmatians
-One Hundred One Dalmatians
-Hundred and One Dalmatians
+One hour, fifty-nine minutes, forty point two seconds
+nine and a half
+π ≅ three point one four one five nine
 END
 
 my $pure-numbers = q:to/END/;
 Twenty Nineteen
-Nineteen Eighty-Four
+Two Thousand Nineteen
+Two Thousand Zero Hundred and Nineteen
+Two Thousand Ten Nine
 
-four billion, two hundred ninety-four million, nine hundred sixty-seven thousand, two hundred ninety five
-Ninety-Nine Trillion Nine Hundred Ninety-Nine Billion Nine Hundred Ninety-Nine Million Nine Hundred Ninety-Nine Thousand Nine Hundred Ninety-Nine
-Forty-two quintillion, nine quadrillion, seven trillion, one hundred ninety-nine billion, two hundred fifty-four million, seven hundred forty thousand, nine hundred ninety two
-
-Nine Hundred Ninety-Nine
-One Thousand One Hundred Eleven
-Eleven Hundred Eleven
-Eight Thousand Eight Hundred Eighty-Eight
-Eighty-Eight Hundred Eighty-Eight
-Seven Million Seven Hundred Seventy-Seven Thousand Seven Hundred Seventy-Seven
-
-ninety-nine
-three hundred
-three hundred and ten
-one thousand, five hundred and one
-twelve thousand, six hundred and nine
+one thousand one
+ninety nine thousand nine hundred ninety nine
 five hundred and twelve thousand, six hundred and nine
 two billion, one hundred
 
-zero
-eight
-one hundred
-one hundred twenty three
-one thousand one
-ninety nine thousand nine hundred ninety nine
-one hundred thousand
+One Thousand One Hundred Eleven
+Eleven Hundred Eleven
 one hundred eleven billion one hundred eleven
+Eight Thousand Eight Hundred Eighty-Eight
+Eighty-Eight Hundred Eighty-Eight
+
+Forty-two quintillion, one quadrillion, two trillion, three billion, four million, five thousand six
 END
 
 my %nums = (
@@ -81,86 +65,71 @@ sub squeeze ($str is copy) { $str ~~ s:g/'-' | \s+ / /; $str .=trim }
 sub comma { $^i.chars > 4 ?? $^i.flip.comb(3).join(',').flip !! $^i }
 
 sub numify ($str is copy) {
-    $str = squeeze $str.lc;          # standardize
-    $str ~~ s:g/(.)(<punct>)/$0 $1/; # tokenize punctuation
+    $str = squeeze $str.lc;
+    $str ~~ s:g/(.)(<punct>)/$0 $1/;
 
-    # what's up with 'billion' ??
-    #$str ~~ s:g/ <|w> $_ <|w> / %nums{$_} / for %nums.keys;
-#   map { say "k:$_"; sleep .5; $str ~~ s:g/ <|w> $_ <|w> / %nums{'$_'} / }, %nums.keys.sort;
+    for %nums.kv -> $word,$number { $str ~~ s:g/ <|w> $word <|w> / $number / }
 
-    for %nums.keys -> $key { $str ~~ s:g/ <|w> $key <|w> / %nums{$key} / }
-    $str ~~ s:g/(\d+)\s+ <?before \d>/$0/ if $str ~~ /(point )\s+[(\d)\s+]+$/;
+    $str ~~ s:g/(\d+) <ws> <?before \d>/$0/ if $str ~~ /(point ) <ws> [(\d) <ws>]+ $/;
+    $str ~~ s:g/(\d+) <ws> 'score' / {$0 * 20} /;
 
-    $str ~~ s:g/(\d) \s+ [','|'and'] \s+ (\d)/$0 $1/;
+    $str ~~ s:g/(\d) <ws> [','|'and'] <ws> (\d)/$0 $1/;
 
-    $str ~~ s:g/ <|w> (\d) \s+'100'\s+ (\d\d) \s+ (\d) \s+    (<groups>) <|w> / {($0 * 100 + $1 + $2) * $3} /;
-    $str ~~ s:g/ <|w> (\d) \s+ 100 \s+ (\d ** 1..2) \s+       (<groups>) <|w> / {($0 * 100 + $1) * $2}      /;
-    $str ~~ s:g/ <|w> (\d) \s+ 100 \s+                        (<groups>) <|w> / {$0 * $1 * 100}             /;
-    $str ~~ s:g/ <|w>      \s+ 100 \s+ (\d\d) \s+ (\d) \s+    (<groups>) <|w> / {(100 + $0 + $1) * $2}      /;
-    $str ~~ s:g/ <|w>      \s+ 100 \s+ (\d ** 1..2) \s+       (<groups>) <|w> / {(100 + $0) * $1}           /;
-    $str ~~ s:g/ <|w>      \s+ 100 \s+                        (<groups>) <|w> / {$0 * 100}                  /;
-    $str ~~ s:g/ <|w>              (\d\d) \s+ (\d) \s+        (<groups>) <|w> / {($0 + $1) * $2}            /;
-    $str ~~ s:g/ <|w>              (\d ** 1..2) \s+           (<groups>) <|w> / {$0 * $1}                   /;
-    $str ~~ s:g/ <|w>              (\d\d) \s+ (\d) \s+ 100 \s*           <|w> / {($0 + $1) * 100}           /;
-    $str ~~ s:g/ <|w>              (\d ** 1..2)    \s+ 100 \s*           <|w> / {$0 * 100}                  /;
-    $str ~~ s:g/ <|w>              (\d ** 2) \s+ (\d ** 2)               <|w> / {$0 * 100 + $1}             /;
+    $str ~~ s:g/ <|w> (\d) <ws> 100 <ws> (\d\d) <ws> (\d) <ws>     (<groups>) <|w> / {($0 * 100 + $1 + $2) * $3} /;
+    $str ~~ s:g/ <|w> (\d) <ws> 100 <ws> (\d ** 1..2)     <ws>     (<groups>) <|w> / {($0 * 100 + $1) * $2}      /;
+    $str ~~ s:g/ <|w> (\d) <ws> 100                       <ws>     (<groups>) <|w> / { $0 * 100 * $1}            /;
+    $str ~~ s:g/ <|w>      <ws> 100 <ws> (\d\d) <ws> (\d) <ws>     (<groups>) <|w> / {($0 + 100 + $1) * $2}      /;
+    $str ~~ s:g/ <|w>      <ws> 100 <ws> (\d ** 1..2)     <ws>     (<groups>) <|w> / {($0 + 100     ) * $1}      /;
+    $str ~~ s:g/ <|w>      <ws> 100                       <ws>     (<groups>) <|w> / { $0 * 100}                 /;
+    $str ~~ s:g/ <|w>              (\d\d) <ws> (\d)       <ws>     (<groups>) <|w> / {($0 + $1) * $2}            /;
+    $str ~~ s:g/ <|w>              (\d ** 1..2)           <ws>     (<groups>) <|w> / { $0 * $1}                  /;
+    $str ~~ s:g/ <|w>              (\d\d) <ws> (\d)       <ws> 100            <|w> / {($0 + $1) * 100}           /;
+    $str ~~ s:g/ <|w>              (\d ** 1..2)           <ws> 100            <|w> / { $0 * 100}                 /;
+    $str ~~ s:g/ <|w>              (\d ** 2)<ws>(\d ** 2)                     <|w> / { $0 * 100 + $1}            /;
 
-    $str ~~ s:g/( [\d+\s+]* \d+ ) / {[+] $0.split: ' '} /;
+    $str ~~ s:g/( [\d+ <ws>]* \d+ ) / {[+] $0.split: ' '} /;
 
-    $str ~~ s:g/(\d+) \s+ 'pairs of'           /  {$0 *  2} /;
-    $str ~~ s:g/(\d+) \s+ 'dozen'              /  {$0 * 12} /;
-    $str ~~ s:g/(\d+) \s+ 'point' \s+ (\d+)    /   $0.$1    /;
-    $str ~~ s:g/(\d+) \s+ 'percent'            /   $0%      /;
-    $str ~~ s:g/(\d+) \s+ 'dollars'            / \$$0       /;
-    $str ~~ s:g/(\d+) \s+ 'cents'              /   $0¢      /;
+    $str ~~ s:g/(\d+) <ws> 'pairs of'         /  {$0 *  2} /;
+    $str ~~ s:g/(\d+) <ws> 'dozen'            /  {$0 * 12} /;
+    $str ~~ s:g/(\d+) <ws> 'point' <ws> (\d+) /   $0.$1    /;
+    $str ~~ s:g/(\d+) <ws> 'and a half'       /   $0.5     /;
+    $str ~~ s:g/(\d+) <ws> 'percent'          /   $0%      /;
+    $str ~~ s:g/(\d+) <ws> 'dollars'          / \$$0       /;
+    $str ~~ s:g/(\d+) <ws> 'cents'            /   $0¢      /;
 
-    #say squeeze $str; exit;
     squeeze $str;
 }
 
 @res.push: $_ ~ ' --> ' ~ .&numify        for $phrases-with-numbers.split("\n").grep: *.so;
 @res.push: $_ ~ ' --> ' ~ .&numify.&comma for         $pure-numbers.split("\n").grep: *.so;
 
-.say for @res; exit;
+.say for @res;
 
 my $ref = q:to/END/;
-twelve dozen equals one hundred forty-four, aka 'one gross' --> 144 is 144 , aka ' 1 gross '
-two hundred pairs of socks --> 400 socks
-Giving one hundred ten% effort --> giving 110 % effort
-zero dollars and thirty-seven cents --> 0 dollars and 37 cents
-One hour, fifty-nine minutes, forty point two seconds --> 1 hour , 59 minutes , 40.2 seconds
-Seventy-two dollars --> 72 dollars
-Two Thousand and One: A Space Odyssey --> 2001 : a space odyssey
 One Hundred and One Dalmatians --> 101 dalmatians
-A Hundred and One Dalmatians --> a 101 dalmatians
-One Hundred One Dalmatians --> 101 dalmatians
-Hundred and One Dalmatians --> 101 dalmatians
+Two Thousand and One: A Space Odyssey --> 2001 : a space odyssey
+Four  Score  And  Seven  Years  Ago   --> 87 years ago
+twelve dozen is one hundred forty-four, aka one gross --> 144 is 144 , aka 1 gross
+two hundred pairs of socks --> 400 socks
+Always give one hundred and ten percent effort --> always give 110% effort
+Change due: zero dollars and thirty-seven cents --> change due : $0 and 37¢
+One hour, fifty-nine minutes, forty point two seconds --> 1 hour , 59 minutes , 40.2 seconds
+nine and a half --> 9.5
+π ≅ three point one four one five nine --> π ≅ 3.14159
 Twenty Nineteen --> 2019
-Nineteen Eighty-Four --> 1984
-four billion, two hundred ninety-four million, nine hundred sixty-seven thousand, two hundred ninety five --> 4,294,967,295
-Ninety-Nine Trillion Nine Hundred Ninety-Nine Billion Nine Hundred Ninety-Nine Million Nine Hundred Ninety-Nine Thousand Nine Hundred Ninety-Nine --> 99,999,999,999,999
-Forty-two quintillion, nine quadrillion, seven trillion, one hundred ninety-nine billion, two hundred fifty-four million, seven hundred forty thousand, nine hundred ninety two --> 42,009,007,199,254,740,992
-Nine Hundred Ninety-Nine --> 999
-One Thousand One Hundred Eleven --> 1111
-Eleven Hundred Eleven --> 1111
-Eight Thousand Eight Hundred Eighty-Eight --> 8888
-Eighty-Eight Hundred Eighty-Eight --> 8888
-Seven Million Seven Hundred Seventy-Seven Thousand Seven Hundred Seventy-Seven --> 7,777,777
-ninety-nine --> 99
-three hundred --> 300
-three hundred and ten --> 310
-one thousand, five hundred and one --> 1501
-twelve thousand, six hundred and nine --> 12,609
-five hundred and twelve thousand, six hundred and nine --> 512,609
-two billion, one hundred --> 2,000,000,100
-zero --> 0
-eight --> 8
-one hundred --> 100
-one hundred twenty three --> 123
+Two Thousand Nineteen --> 2019
+Two Thousand Zero Hundred and Nineteen --> 2019
+Two Thousand Ten Nine --> 2019
 one thousand one --> 1001
 ninety nine thousand nine hundred ninety nine --> 99,999
-one hundred thousand --> 100,000
+five hundred and twelve thousand, six hundred and nine --> 512,609
+two billion, one hundred --> 2,000,000,100
+One Thousand One Hundred Eleven --> 1111
+Eleven Hundred Eleven --> 1111
 one hundred eleven billion one hundred eleven --> 111,000,000,111
+Eight Thousand Eight Hundred Eighty-Eight --> 8888
+Eighty-Eight Hundred Eighty-Eight --> 8888
+Forty-two quintillion, one quadrillion, two trillion, three billion, four million, five thousand six --> 42,001,002,003,004,005,006
 END
 
 use Test;
