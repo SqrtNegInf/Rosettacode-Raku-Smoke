@@ -1,0 +1,67 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/UPC
+#c# 2019-11-27 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub decode_UPC ( Str $line ) {
+    constant @patterns1 = '   ## #', '  ##  #', '  #  ##', ' #### #', ' #   ##',
+                          ' ##   #', ' # ####', ' ### ##', ' ## ###', '   # ##';
+    constant @patterns2 = @patterns1».trans( '#' => ' ', ' ' => '#' );
+
+    constant %pattern_to_digit_1 = @patterns1.antipairs;
+    constant %pattern_to_digit_2 = @patterns2.antipairs;
+
+    constant $re = / ^  '# #'  (@patterns1) ** 6
+                       ' # # ' (@patterns2) ** 6
+                        '# #'                     $ /;
+
+    $line.trim ~~ $re
+        orelse return;
+
+    my @digits = flat %pattern_to_digit_1{ $0».Str },
+                      %pattern_to_digit_2{ $1».Str };
+
+    return unless ( @digits Z* ( |(3,1) xx * ) ).sum %% 10;
+
+    return @digits.join;
+}
+
+my @lines =
+    '         # #   # ##  #  ## #   ## ### ## ### ## #### # # # ## ##  #   #  ##  ## ###  # ##  ## ### #  # #       ',
+     '        # # #   ##   ## # #### #   # ## #   ## #   ## # # # ###  # ###  ##  ## ###  # #  ### ###  # # #      ',
+    '         # #    # # #  ###  #   #    # #  #   #    # # # # ## #   ## #   ## #   ##   # # #### ### ## # #       ',
+      '       # # ##  ## ##  ##   #  #   #  # ###  # ##  ## # # #   ## ##  #  ### ## ## #   # #### ## #   # #        ',
+    '         # # ### ## #   ## ## ###  ##  # ##   #   # ## # # ### #  ## ##  #    # ### #  ## ##  #      # #       ',
+   '          # #  #   # ##  ##  #   #   #  # ##  ##  #   # # # # #### #  ##  # #### #### # #  ##  # #### # #    ',
+    '         # #  #  ##  ##  # #   ## ##   # ### ## ##   # # # #  #   #   #  #  ### # #    ###  # #  #   # #     ',
+     '        # # #    # ##  ##   #  # ##  ##  ### #   #  # # # ### ## ## ### ## ### ### ## #  ##  ### ## # #      ',
+    '         # # ### ##   ## # # #### #   ## # #### # #### # # #   #  # ###  #    # ###  # #    # ###  # # #       ',
+     '        # # # #### ##   # #### # #   ## ## ### #### # # # #  ### # ###  ###  # # ###  #    # #  ### # #      ',
+;
+
+for @lines -> $line {
+    @res.push: decode_UPC($line)
+     // decode_UPC($line.flip)
+     // 'Invalid';
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+924773271019
+403944441050
+834999676706
+939825158811
+Invalid
+316313718717
+214575875608
+818778841813
+706466743030
+653483540435
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
