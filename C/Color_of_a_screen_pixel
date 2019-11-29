@@ -4,14 +4,15 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for MacOS...
+#n# 'screencapture' sporadically fails here (but not in P5 verion?)
 
 use GD::Raw;
 
 my $file = 'tmp/one-pixel-screen-capture.png';
 
 qqx{/usr/sbin/screencapture -R 1,1024,1,1 $file};
-sleep 1;
-my $fh    = fopen($file, "rb") or die;
+sleep 2;
+my $fh    = fopen($file, "r") or die;
 my $img   = gdImageCreateFromPng($fh);
 my $pixel = gdImageGetPixel($img, 0, 0);
 my ($red,$green,$blue) = 
@@ -23,8 +24,8 @@ unlink $file;
 say my $result1 = "RGB: $red, $green, $blue";
 
 qqx{/usr/sbin/screencapture -R 28,1012,1,1 $file};
-sleep 1;
-$fh    = fopen($file, "rb") or die;
+sleep 2;
+$fh    = fopen($file, "r") or die;
 $img   = gdImageCreateFromPng($fh);
 $pixel = gdImageGetPixel($img, 0, 0);
 ($red,$green,$blue) = 
