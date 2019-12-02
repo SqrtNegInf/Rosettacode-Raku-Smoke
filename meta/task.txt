@@ -1,18 +1,18 @@
-This is Rakudo version 2019.11-71-gc16b5a204 built on MoarVM version 2019.07.1-322-g8d0b50d3f
+This is Rakudo version 2019.11-86-ga70763375 built on MoarVM version 2019.07.1-399-g610e05fa0
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1153/10]
-|+-------------> JVM: Good/Bad [990/174]
-||+------------> Smoke testing [1041]
++--------------> Moar: Good/Bad [1156/10]
+|+-------------> JVM: Good/Bad [992/175]
+||+------------> Smoke testing [1044]
 |||+-----------> sKipping validation [121]
 ||||+----------> Interactive [58]
 |||||+---------> Touched (modified by me) [286]
-||||||+--------> Concurrent [49]
+||||||+--------> Concurrent [50]
 |||||||+-------> Random seed [116]
 ||||||||+------> File output [85]
-|||||||||+-----> Draft [231]
+|||||||||+-----> Draft [228]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [109]
+|||||||||||+---> Void (no local copy) [108]
 ||||||||||||+--> Un-implemented/reliable [84]
 |||||||||||||
 GGS.......... 100_doors
@@ -297,9 +297,9 @@ GGS..T....... Detect_division_by_zero
 GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
-GGS......D... Determine_if_a_string_is_collapsible
+GGS.......... Determine_if_a_string_is_collapsible
 GGS.......... Determine_if_a_string_is_numeric
-GGS......D... Determine_if_a_string_is_squeezable
+GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
 GGS..T...D... Dice_game_probabilities
@@ -379,6 +379,7 @@ GGS......D... Extract_file_extension
 GGS..T....... Extreme_floating_point_values
 GGS.......... FASTA_format
 BB.K......... FTP
+GGS......D... Faces_from_a_mesh
 GGS.......... Factorial
 GGS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
 GBS...C..D... Factorions
@@ -452,7 +453,7 @@ GB.KI........ GUI_component_interaction
 GB.KI........ GUI_enabling_disabling_of_controls
 GGS....RF.... Galton_box_animation
 GGS.......... Gamma_function
-GGS......D... Gapful_numbers
+GGS.......... Gapful_numbers
 GGS..T...D... Gauss-Jordan_matrix_inversion
 GGS.......... Gaussian_elimination
 GGS.......... General_FizzBuzz
@@ -595,7 +596,7 @@ GGS.......... Kronecker_product
 GBS..TC.F.... Kronecker_product_based_fractals
 GGS.....F.... LU_decomposition
 GGS.......... LZW_compression
-GGS......D... Lah_numbers
+GGS.......... Lah_numbers
 GGS....R..... Langton%27s_ant
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
@@ -1140,7 +1141,7 @@ GGS...C...... Super-d_numbers-2
 GBS..TC...... Super-d_numbers-3
 GGS..T..F.... Superellipse
 GGS..T....... Superpermutation_minimisation
-...........V. Sutherland-Hodgman_polygon_clipping
+GGS.......... Sutherland-Hodgman_polygon_clipping
 GGS..T....... Symmetric_difference
 GGS.....F.... Synchronous_concurrency
 GGS.......... System_time
@@ -1223,6 +1224,7 @@ GGS.......... Unicode_variable_names
 .........DXV. Unit_testing
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
+GBS...C..D... Unprimeable_numbers
 GG.K.....D... Untrusted_environment
 GGS.....F.... Update_a_configuration_file
 ...........VU Use_another_language_to_call_a_function
@@ -1295,4 +1297,4 @@ GGS.......... Zero_to_the_zero_power
 GGS..T....... Zhang-Suen_thinning_algorithm
 GGS..T....... Zig-zag_matrix-1
 GGS.......... Zig-zag_matrix-2
-GBS......D... Zumkeller_numbers
+GBS.......... Zumkeller_numbers
