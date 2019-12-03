@@ -1,10 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Formal_power_series
-#c# 2016-05-24 <RC
+#c# 2016-05-24 <RC, 2019-12-03 >RC
 #m# MOAR: BROKEN
 #j#  JVM: BROKEN
-#n# a GLR issue is part of it, '$x, 0 xx *', but something more fundamental is going wrong?
-#n# already broken in P6/2015.12 (oldest I have)
+#n# sin/cos working...
 
 class DerFPS { ... }
 class IntFPS { ... }
@@ -17,9 +16,11 @@ role FPS {
     method pretty($n) {
         sub super($i) { $i.trans('0123456789' => '⁰¹²³⁴⁵⁶⁷⁸⁹') }
         my $str = $.coeffs[0].perl;
-        for 1..$n Z $.coeffs[1..$n] -> $i, $_ {
-            when * > 0 { $str ~= " + {(+$_).perl}∙x{super($i)}" }
-            when * < 0 { $str ~= " - {(-$_).perl}∙x{super($i)}" }
+        for 1..$n Z $.coeffs[1..$n] -> $i {
+            my $p = $i[0];
+            my $c = $i[1];
+            when $c > 0 { $str ~= " + {(+$c).perl}∙x{super($p)}" }
+            when $c < 0 { $str ~= " - {(-$c).perl}∙x{super($p)}" }
         }
         $str;
     }
@@ -62,7 +63,7 @@ class DerFPS does FPS {
 
 class IntFPS does FPS {
     has FPS $.x;
-    method coeffs { 0, (0..*).map: { $.x.coeffs[$_] / ($_+1) } }
+    method coeffs { 0, |(0..*).map: { $.x.coeffs[$_] / ($_+1) } }
 }
 
 class DeferredFPS does FPS {
@@ -77,20 +78,19 @@ multi infix:<*>(FPS $x, FPS $y) { ProFPS.new(:$x, :$y) }
 multi infix:</>(FPS $x, FPS $y) { $x * InvFPS.new(:x($y)) }
 
 # an example of a mixed-type operator:
-multi infix:<->(Numeric $x, FPS $y) { ExplicitFPS.new(:coeffs($x, 0 xx *)) - $y }
+multi infix:<->(Numeric $x, FPS $y) { ExplicitFPS.new(:coeffs(flat $x, 0 xx 9)) - $y }
+#multi infix:<->(Numeric $x, FPS $y) { ExplicitFPS.new(:coeffs($x, 0 xx *)) - $y }
 
 # define sine and cosine in terms of each other
 my $sin       = DeferredFPS.new;
-dd $sin;
 my $cos       = 1 - $sin.integrate;
-dd $cos;
 $sin.realized = $cos.integrate;
 
 # define tangent in terms of sine and cosine
 #my $tan       = $sin / $cos;
 
-say 'sin(x) ≈ ', $sin.pretty(2);
-#say 'cos(x) ≈ ', $cos.pretty(10);
+say 'sin(x) ≈ ', $sin.pretty(10);
+say 'cos(x) ≈ ', $cos.pretty(10);
 #say 'tan(x) ≈ ', $tan.pretty(10);
 
 #`{
