@@ -16,9 +16,7 @@ role FPS {
     method pretty($n) {
         sub super($i) { $i.trans('0123456789' => '⁰¹²³⁴⁵⁶⁷⁸⁹') }
         my $str = $.coeffs[0].perl;
-        for 1..$n Z $.coeffs[1..$n] -> $i {
-            my $p = $i[0];
-            my $c = $i[1];
+        for flat 1..$n Z $.coeffs[1..$n] -> $p, $c {
             when $c > 0 { $str ~= " + {(+$c).perl}∙x{super($p)}" }
             when $c < 0 { $str ~= " - {(-$c).perl}∙x{super($p)}" }
         }
@@ -48,7 +46,7 @@ class InvFPS does FPS {
     method coeffs {
         # see http://en.wikipedia.org/wiki/Formal_power_series#Inverting_series
         gather {
-            my @a := $.x.coeffs;
+            my @a = $.x.coeffs;
             @a[0] != 0 or fail "Cannot invert power series with zero constant term.";
             take my @b = (1 / @a[0]);
             take @b[$_] = -@b[0] * [+] (@a[1..$_] Z* @b[$_-1...0]) for 1..*;
@@ -78,7 +76,7 @@ multi infix:<*>(FPS $x, FPS $y) { ProFPS.new(:$x, :$y) }
 multi infix:</>(FPS $x, FPS $y) { $x * InvFPS.new(:x($y)) }
 
 # an example of a mixed-type operator:
-multi infix:<->(Numeric $x, FPS $y) { ExplicitFPS.new(:coeffs(flat $x, 0 xx 9)) - $y }
+multi infix:<->(Numeric $x, FPS $y) { ExplicitFPS.new(:coeffs(flat $x, 0 xx 10)) - $y }
 #multi infix:<->(Numeric $x, FPS $y) { ExplicitFPS.new(:coeffs($x, 0 xx *)) - $y }
 
 # define sine and cosine in terms of each other
@@ -87,11 +85,11 @@ my $cos       = 1 - $sin.integrate;
 $sin.realized = $cos.integrate;
 
 # define tangent in terms of sine and cosine
-#my $tan       = $sin / $cos;
+my $tan       = $sin / $cos;
 
 say 'sin(x) ≈ ', $sin.pretty(10);
 say 'cos(x) ≈ ', $cos.pretty(10);
-#say 'tan(x) ≈ ', $tan.pretty(10);
+say 'tan(x) ≈ ', $tan.pretty(10);
 
 #`{
 sin(x) ≈ 0 + 1/1∙x¹ - 1/6∙x³ + 1/120∙x⁵ - 1/5040∙x⁷ + 1/362880∙x⁹
