@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Nonogram_solver
 #t# inprogress
-#c# 2019-11-xx >RC
+#c# 2019-12-xx >RC
 #m# MOAR: BROKEN
 #j# JVM:  BROKEN
 
@@ -25,6 +25,7 @@ for @data -> $row, $column {
     say "r $row";
     my @rpats = makepatterns($row);
 dd @rpats; 
+exit;
     say "c $column";
     my @cpats = makepatterns($column);
 dd @cpats;
