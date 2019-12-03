@@ -15,7 +15,6 @@ sub is-unprimeable (\n) {
      for ^chrs -> \place {
          my \pow = 10**(chrs - place - 1);
          my \this = n.substr(place, 1) * pow;
-#        ^10 .map: -> \dgt { return False if is_prime(n - this + dgt * pow) }
          ^10 .map: -> \dgt {
             next if this == dgt;
             return False if is_prime(n - this + dgt * pow)
