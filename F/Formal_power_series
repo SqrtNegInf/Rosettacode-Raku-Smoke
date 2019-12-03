@@ -1,9 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Formal_power_series
 #c# 2016-05-24 <RC
-#t# runs forever
-#m# MOAR: BROKEN (runs forever)
-#j#  JVM: BROKEN (runs forever)
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
+#n# a GLR issue is part of it, '$x, 0 xx *', but something more fundamental is going wrong?
+#n# already broken in P6/2015.12 (oldest I have)
 
 class DerFPS { ... }
 class IntFPS { ... }
@@ -76,20 +77,17 @@ multi infix:<*>(FPS $x, FPS $y) { ProFPS.new(:$x, :$y) }
 multi infix:</>(FPS $x, FPS $y) { $x * InvFPS.new(:x($y)) }
 
 # an example of a mixed-type operator:
-multi infix:<->(Numeric $x, FPS $y) { 
-    my @x = flat $x, 0 xx *;
-note "@x";
-    ExplicitFPS.new(:coeffs(@x)) - $y 
-}
-#multi infix:<->(Numeric $x, FPS $y) { ExplicitFPS.new(:coeffs($x, 0 xx *)) - $y }
+multi infix:<->(Numeric $x, FPS $y) { ExplicitFPS.new(:coeffs($x, 0 xx *)) - $y }
 
 # define sine and cosine in terms of each other
 my $sin       = DeferredFPS.new;
+dd $sin;
 my $cos       = 1 - $sin.integrate;
+dd $cos;
 $sin.realized = $cos.integrate;
 
 # define tangent in terms of sine and cosine
-my $tan       = $sin / $cos;
+#my $tan       = $sin / $cos;
 
 say 'sin(x) ≈ ', $sin.pretty(2);
 #say 'cos(x) ≈ ', $cos.pretty(10);
