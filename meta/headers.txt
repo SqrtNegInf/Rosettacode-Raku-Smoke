@@ -3689,10 +3689,9 @@ File: F/Fork
 File: F/Formal_power_series
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Formal_power_series
-#c# 2016-05-24 <RC
-#t# runs forever
-#m# MOAR: BROKEN (runs forever)
-#j#  JVM: BROKEN (runs forever)
+#c# 2016-05-24 <RC, 2019-12-03 >RC
+#m# MOAR: OK
+#j#  JVM: OK
 
 File: F/Formatted_numeric_output
 #!/usr/bin/env perl6
@@ -6123,6 +6122,13 @@ File: M/Monads_List_monad
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: M/Monads_Maybe_monad
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Monads/Maybe_monad
+#c# 2019-12-03 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: M/Monte_Carlo_methods
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Monte_Carlo_methods
@@ -6799,6 +6805,7 @@ File: P/Palindromic_dates
 #n#   non-cryptic variable names
 #n#   working the DRY principle pretty hard (too far?)
 #n#
+#n# 2019-12-02 '3104' instead of '3105 non-prime palindromic dates'
 #n# 2019-11-29 saw this error again
 #n# At one point seeing this, but seems to have cleared up:
 #n#  perl6(80736,0x70000280d000) malloc: *** error for object 0x7fdf654fc000: incorrect checksum for freed object - object was probably modified after being freed.
