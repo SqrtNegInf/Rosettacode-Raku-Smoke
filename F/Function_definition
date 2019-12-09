@@ -1,9 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Function_definition
 #c# 2016-04-09 <RC
-#t# nocode
 #m# MOAR: OK
 #j#  JVM: OK
+
+my @res;
 
 #Without a signature:
 
@@ -33,8 +34,31 @@ my &multiply6 := * * *;
 #It tends to work out much better with other operators. In particular, you may
 #curry a cascade of methods with only the original invocant missing:
 
-my @list;
-@list.grep( *.substr(0,1).lc.match(/<[0..9 a..f]>/) );
-#This is equivalent to:
+my @list = <a Z b c π 1 . 2 3>;
+say @list.grep( *.substr(0,1).lc.match(/<[0..9 a..f]>/) );
 
-@list.grep( -> $obj { $obj.substr(0,1).lc.match(/<[0..9 a..f]>/) } )
+#This is equivalent to:
+@list.grep( -> $obj { $obj.substr(0,1).lc.match(/<[0..9 a..f]>/) } );
+
+@res.push: 3 * 673;
+@res.push: multiply(3, 673);
+@res.push: multiply1(3, 673);
+@res.push: multiply2(3/1, 673.Rat);
+@res.push: multiply3(9/3, 673/1);
+@res.push: multiply4(3, 673);
+@res.push: multiply5(3, 673);
+@res.push: multiply6(3, 673);
+
+my $ref = q:to/END/;
+2019
+2019
+2019
+2019
+2019
+2019
+2019
+2019
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
