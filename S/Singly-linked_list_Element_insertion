@@ -5,8 +5,32 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-# Extending class Cell from Singly-linked_list/Element_definition#Perl_6:
+class Cell {
+    has      $.value is rw;
+    has Cell $.next  is rw;
 
-# method insert ($value) {
-#     $.next = Cell.new(:$value, :$.next)
-# }
+    method insert ($value, $next) {
+        #    my $next = Nil;
+        $.next = Cell.new(:$value, :$next)
+    }
+
+}
+
+sub cons ($value) { my $next = Nil; Cell.insert(:$value, :$next) }
+#sub cons ($value, $next) { Cell.new(:$value, :$next) }
+
+my $list = Cell.new(value => 10, next => Nil);
+#my $list = cons 10;
+   $list = cons 20;
+   $list = cons 30;
+
+say my $result = $list.perl;
+exit;
+
+my $ref = q:to/END/;
+Cell.new(value => 10, next => Cell.new(value => 20, next => Cell.new(value => 30, next => Cell)))
+END
+
+use Test;
+is $result, chomp $ref;
+
