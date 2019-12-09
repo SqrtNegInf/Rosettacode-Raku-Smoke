@@ -30,3 +30,11 @@ class Cell {
 sub cons ($value, $next) { Cell.new(:$value, :$next) }
 
 my $list = cons 10, (cons 20, (cons 30, Nil));
+say my $result = $list.perl;
+
+my $ref = q:to/END/;
+Cell.new(value => 10, next => Cell.new(value => 20, next => Cell.new(value => 30, next => Cell)))
+END
+
+use Test;
+is $result, chomp $ref;
