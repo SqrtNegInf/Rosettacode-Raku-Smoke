@@ -1,6 +1,5 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Singly-linked_list/Element_removal
-#t# nocode
 #c# 2018-11-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -39,16 +38,18 @@ class Cell {
 
 sub cons ($value, $next) { Cell.new(:$value, :$next) }
 
-#Usage:
 my $list = cons 10, (cons 20, (cons 10, (cons 30, Nil)));
+@res.push: $list.perl;
 
 $list = $list.delete(10);
+@res.push: $list.perl;
 
 .say for @res;
 
 my $ref = q:to/END/;
+Cell.new(value => 10, next => Cell.new(value => 20, next => Cell.new(value => 10, next => Cell.new(value => 30, next => Cell))))
+Cell.new(value => 20, next => Cell.new(value => 30, next => Cell))
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
