@@ -2,17 +2,17 @@ This is Rakudo version 2019.11-102-g382d18bda built on MoarVM version 2019.07.1-
 implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1161/9]
-|+-------------> JVM: Good/Bad [997/174]
+|+-------------> JVM: Good/Bad [998/174]
 ||+------------> Smoke testing [1051]
-|||+-----------> sKipping validation [118]
+|||+-----------> sKipping validation [119]
 ||||+----------> Interactive [58]
-|||||+---------> Touched (modified by me) [287]
+|||||+---------> Touched (modified by me) [288]
 ||||||+--------> Concurrent [50]
 |||||||+-------> Random seed [116]
 ||||||||+------> File output [85]
 |||||||||+-----> Draft [229]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [106]
+|||||||||||+---> Void (no local copy) [105]
 ||||||||||||+--> Un-implemented/reliable [81]
 |||||||||||||
 GGS.......... 100_doors
@@ -233,7 +233,7 @@ GGS.......... Compile-time_calculation
 ...........VU Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
 ...........VU Compiler_syntax_analyzer
-...........VU Compiler_virtual_machine_interpreter
+GG.K.T......U Compiler_virtual_machine_interpreter
 GGS.......... Compound_data_type
 GB.K.TC...... Concurrent_computing
 GG.K......... Conditional_structures
@@ -1264,7 +1264,7 @@ GGS.......... Water_collected_between_towers
 .........D.VU Waveform_analysis_Doh_ray_me
 .........D.VU Waveform_analysis_Top_and_tail
 .........DXVU Weather_Routing
-GBS..T....... Web_scraping
+!BS..T....... Web_scraping
 GGS.......... Weird_numbers
 .........D... Welch%27s_t-test
 GGS.......... Welch%27s_t-test-1
