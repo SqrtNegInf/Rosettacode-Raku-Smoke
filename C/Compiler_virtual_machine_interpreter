@@ -1,0 +1,105 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Compiler/virtual_machine_interpreter
+#t# inprogress
+#c# 2019-12-xx >RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res;
+
+my @DATA = split "\n", q:to/END/;
+Datasize: 1 Strings: 2
+"count is: "
+"\n"
+    0 push  1
+    5 store [0]
+   10 fetch [0]
+   15 push  10
+   20 lt
+   21 jz     (43) 65
+   26 push  0
+   31 prts
+   32 fetch [0]
+   37 prti
+   38 push  1
+   43 prts
+   44 fetch [0]
+   49 push  1
+   54 add
+   55 store [0]
+   60 jmp    (-51) 10
+   65 halt
+END
+
+use experimental :pack;
+
+my (@stack, @strings, @data);
+my $binary = '';
+my $pc     = 0;
+
+sub value { 
+    substr($binary, ($pc += 4) - 4, 4).unpack('L'); 
+}
+
+my %ops = (
+  'halt'  => sub { exit } , 
+  'add'   => sub { @stack[*-2] += pop @stack } ,
+  'sub'   => sub { @stack[*-2] -= pop @stack } ,
+  'mul'   => sub { @stack[*-2] *= pop @stack } ,
+  'div'   => sub { @stack[*-2] /= pop @stack } ,
+  'mod'   => sub { @stack[*-2] %= pop @stack } ,
+  'not'   => sub { @stack[*-1] = @stack[*-1] ?? 0 !! 1 } ,
+  'neg'   => sub { @stack[*-1] = - @stack[*-1] } ,
+  'and'   => sub { @stack[*-2] &&= @stack[*-1]; pop @stack } ,
+  'or'    => sub { @stack[*-2] ||= @stack[*-1]; pop @stack } ,
+  'lt'    => sub { @stack[*-1] = @stack[*-2] <  pop @stack ?? 1 !! 0 } ,
+  'gt'    => sub { @stack[*-1] = @stack[*-2] >  pop @stack ?? 1 !! 0 } ,
+  'le'    => sub { @stack[*-1] = @stack[*-2] <= pop @stack ?? 1 !! 0 } ,
+  'ge'    => sub { @stack[*-1] = @stack[*-2] >= pop @stack ?? 1 !! 0 } ,
+  'ne'    => sub { @stack[*-1] = @stack[*-2] != pop @stack ?? 1 !! 0 } ,
+  'eq'    => sub { @stack[*-1] = @stack[*-2] == pop @stack ?? 1 !! 0 } ,
+  'prts'  => sub { push @res, @strings[pop @stack] } ,
+  'prti'  => sub { push @res, pop @stack } ,
+  'prtc'  => sub { push @res, chr pop @stack } ,
+  'store' => sub { @data[&value] = pop @stack } ,
+  'fetch' => sub { @stack.push: @data[&value] // 0 } ,
+  'push'  => sub { @stack.push: &value } ,
+  'jmp'   => sub { $pc += &value - 4 } ,
+  'jz'    => sub { $pc += pop @stack ?? 4 !! &value - 4 } ,
+);
+
+(@DATA.shift) ~~ /'Strings:' \s+ (\d+)/ or die "bad header";
+@strings.push: @DATA.shift for 1..$0;
+
+my %op2n = %ops.keys.sort Z=> ^24;            # map name to op number
+my %n2op = %op2n.invert;
+
+for @DATA -> $_ {
+    next unless /\w/;
+    /^ \s* \d+ \s+ (\w+)/ or die "bad line $_";                 # format error
+    my $tmp = %op2n{$0};
+
+    #(/\((-?\d+)\)|(\d+)]?$/ and pack 'l', $+);          # 4 byte value
+    /'(' ('-'?\d+) ')' | (\d+) ']'? $/; 
+    $binary ~= $tmp.chr ~ pack("L", $0).Str.encode('ascii'); # ??
+}
+
+# $ops[vec($kinary, $pc++, 8)][1]->() while 1;            # run it
+ 
+exit;
+.say for @res;
+
+my $ref = q:to/END/;
+count is: 1
+count is: 2
+count is: 3
+count is: 4
+count is: 5
+count is: 6
+count is: 7
+count is: 8
+count is: 9
+END
+
+use Test;
+is (join "\n", @res), chomp $ref;
