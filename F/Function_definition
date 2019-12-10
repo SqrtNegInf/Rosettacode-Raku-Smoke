@@ -31,14 +31,14 @@ my &multiply5 := { $^a * $^b };
 
 my &multiply6 := * * *;
 #This is not terribly readable in this case due to the visual confusion between the whatever star and the multiplication operator, but Perl knows when it's expecting terms instead of infixes, so only the middle star is multiplication.
+
+# OK, but has nothing to with function defintion...
 #It tends to work out much better with other operators. In particular, you may
 #curry a cascade of methods with only the original invocant missing:
-
-my @list = <a Z b c π 1 . 2 3>;
-say @list.grep( *.substr(0,1).lc.match(/<[0..9 a..f]>/) );
-
+#my @list = <a Z b c π 1 . 2 3>;
+#say @list.grep( *.substr(0,1).lc.match(/<[0..9 a..f]>/) );
 #This is equivalent to:
-@list.grep( -> $obj { $obj.substr(0,1).lc.match(/<[0..9 a..f]>/) } );
+#@list.grep( -> $obj { $obj.substr(0,1).lc.match(/<[0..9 a..f]>/) } );
 
 @res.push: 3 * 673;
 @res.push: multiply(3, 673);
