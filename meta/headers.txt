@@ -1884,10 +1884,13 @@ File: C/Compiler_lexical_analyzer.1
 File: C/Compiler_virtual_machine_interpreter
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Compiler/virtual_machine_interpreter
-#t# inprogress
-#c# 2019-12-xx >RC
+#c# 2019-12-10 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# the good: It runs
+#n# the  bad: It cheats
+#n# the ugly: It can't do byte-level VM simulation because Raku's 'pack' can't do signed integers?
+#n#           (but maybe someone better with pack/unpack could figure that out...)
 
 File: C/Compound_data_type
 #!/usr/bin/env perl6
