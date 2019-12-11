@@ -1,11 +1,14 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Compiler/virtual_machine_interpreter
-#t# inprogress
-#c# 2019-12-xx >RC
+#c# 2019-12-10 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# the good: It runs
+#n# the  bad: It cheats
+#n# the ugly: It can't do byte-level VM simulation because Raku's 'pack' can't do signed integers?
+#n#           (but maybe someone better with pack/unpack could figure that out...)
 
-my @res;
+my $result;
 
 my @DATA = split "\n", q:to/END/;
 Datasize: 1 Strings: 2
@@ -16,7 +19,7 @@ Datasize: 1 Strings: 2
    10 fetch [0]
    15 push  10
    20 lt
-   21 jz     (43) 65
+   21 jz     (68) 65    # recalculated forward to 'halt'
    26 push  0
    31 prts
    32 fetch [0]
@@ -27,67 +30,68 @@ Datasize: 1 Strings: 2
    49 push  1
    54 add
    55 store [0]
-   60 jmp    (-51) 10
+   60 jmp    (-87) 10   # recalculated back to 1st 'fetch'
    65 halt
 END
 
-use experimental :pack;
+my (@stack, @strings, @data, $memory); 
+my $w  = 3; # 'width' of both op-codes and data values
+my $pc = 0;
 
-my (@stack, @strings, @data);
-my $binary = '';
-my $pc     = 0;
-
-sub value { 
-    substr($binary, ($pc += 4) - 4, 4).unpack('L'); 
-}
+sub value () { substr($memory, ($pc += $w) - $w, $w).trim }
 
 my %ops = (
-  'halt'  => sub { exit } , 
-  'add'   => sub { @stack[*-2] += pop @stack } ,
-  'sub'   => sub { @stack[*-2] -= pop @stack } ,
-  'mul'   => sub { @stack[*-2] *= pop @stack } ,
-  'div'   => sub { @stack[*-2] /= pop @stack } ,
-  'mod'   => sub { @stack[*-2] %= pop @stack } ,
-  'not'   => sub { @stack[*-1] = @stack[*-1] ?? 0 !! 1 } ,
-  'neg'   => sub { @stack[*-1] = - @stack[*-1] } ,
-  'and'   => sub { @stack[*-2] &&= @stack[*-1]; pop @stack } ,
-  'or'    => sub { @stack[*-2] ||= @stack[*-1]; pop @stack } ,
-  'lt'    => sub { @stack[*-1] = @stack[*-2] <  pop @stack ?? 1 !! 0 } ,
-  'gt'    => sub { @stack[*-1] = @stack[*-2] >  pop @stack ?? 1 !! 0 } ,
-  'le'    => sub { @stack[*-1] = @stack[*-2] <= pop @stack ?? 1 !! 0 } ,
-  'ge'    => sub { @stack[*-1] = @stack[*-2] >= pop @stack ?? 1 !! 0 } ,
-  'ne'    => sub { @stack[*-1] = @stack[*-2] != pop @stack ?? 1 !! 0 } ,
-  'eq'    => sub { @stack[*-1] = @stack[*-2] == pop @stack ?? 1 !! 0 } ,
-  'prts'  => sub { push @res, @strings[pop @stack] } ,
-  'prti'  => sub { push @res, pop @stack } ,
-  'prtc'  => sub { push @res, chr pop @stack } ,
-  'store' => sub { @data[&value] = pop @stack } ,
-  'fetch' => sub { @stack.push: @data[&value] // 0 } ,
-  'push'  => sub { @stack.push: &value } ,
-  'jmp'   => sub { $pc += &value - 4 } ,
-  'jz'    => sub { $pc += pop @stack ?? 4 !! &value - 4 } ,
+  'add'   => sub { @stack[*-2]  +=   @stack.pop },
+  'sub'   => sub { @stack[*-2]  -=   @stack.pop },
+  'mul'   => sub { @stack[*-2]  *=   @stack.pop },
+  'div'   => sub { @stack[*-2]  /=   @stack.pop },
+  'mod'   => sub { @stack[*-2]  %=   @stack.pop },
+  'neg'   => sub { @stack[*-1]   = - @stack[*-1] },
+  'and'   => sub { @stack[*-2] &&=   @stack[*-1]; @stack.pop },
+  'or'    => sub { @stack[*-2] ||=   @stack[*-1]; @stack.pop },
+  'not'   => sub { @stack[*-1]   =   @stack[*-1]               ?? 0 !! 1 },
+  'lt'    => sub { @stack[*-1]   =   @stack[*-2] <  @stack.pop ?? 1 !! 0 },
+  'gt'    => sub { @stack[*-1]   =   @stack[*-2] >  @stack.pop ?? 1 !! 0 },
+  'le'    => sub { @stack[*-1]   =   @stack[*-2] <= @stack.pop ?? 1 !! 0 },
+  'ge'    => sub { @stack[*-1]   =   @stack[*-2] >= @stack.pop ?? 1 !! 0 },
+  'ne'    => sub { @stack[*-1]   =   @stack[*-2] != @stack.pop ?? 1 !! 0 },
+  'eq'    => sub { @stack[*-1]   =   @stack[*-2] == @stack.pop ?? 1 !! 0 },
+  'store' => sub { @data[&value] =   @stack.pop },
+  'fetch' => sub { @stack.push:      @data[&value] // 0 },
+  'push'  => sub { @stack.push:      value() },
+  'jmp'   => sub { $pc += value() - $w },
+  'jz'    => sub { $pc += @stack.pop ?? $w !! value() - $w },
+  'prts'  => sub { $result ~= @strings[@stack.pop] },
+  'prti'  => sub { $result ~= @stack.pop },
+  'prtc'  => sub { $result ~= chr @stack.pop },
+  'halt'  => sub { exit }  # but run END phaser...
 );
 
 (@DATA.shift) ~~ /'Strings:' \s+ (\d+)/ or die "bad header";
-@strings.push: @DATA.shift for 1..$0;
+@strings.push: (my $s = @DATA.shift) eq '"\n"' ?? "\n" !! $s.subst(/'"'/, '', :g) for 1..$0;
 
-my %op2n = %ops.keys.sort Z=> ^24;            # map name to op number
+my %op2n = %ops.keys.sort Z=> 0..*;
 my %n2op = %op2n.invert;
+#my %n2op = (my %op2n = %ops.keys.sort Z=> 0..*).invert; # works, but...
 
 for @DATA -> $_ {
     next unless /\w/;
-    /^ \s* \d+ \s+ (\w+)/ or die "bad line $_";                 # format error
-    my $tmp = %op2n{$0};
-
-    #(/\((-?\d+)\)|(\d+)]?$/ and pack 'l', $+);          # 4 byte value
+    /^ \s* \d+ \s+ (\w+)/ or die "bad line $_";
+    $memory ~= %op2n{$0}.fmt("%{$w}d"); 
     /'(' ('-'?\d+) ')' | (\d+) ']'? $/; 
-    $binary ~= $tmp.chr ~ pack("L", $0).Str.encode('ascii'); # ??
+    $memory ~= $0 ?? $0.fmt("%{$w}d") !! ' ' x $w;
 }
 
-# $ops[vec($kinary, $pc++, 8)][1]->() while 1;            # run it
- 
-exit;
-.say for @res;
+loop {
+    my $opcode = substr($memory, $pc, $w).trim;
+    $pc += $w;
+    next unless $opcode;
+    %ops{%n2op{ $opcode }}();
+}
+
+END {
+
+$result.say;
 
 my $ref = q:to/END/;
 count is: 1
@@ -102,4 +106,6 @@ count is: 9
 END
 
 use Test;
-is (join "\n", @res), chomp $ref;
+is $result, $ref;
+
+}
