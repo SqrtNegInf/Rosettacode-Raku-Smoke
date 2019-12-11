@@ -1,17 +1,17 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Compiler/virtual_machine_interpreter
-#c# 2019-12-10 >RC
+#c# 2019-12-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# the good: It runs
-#n# the  bad: It cheats
+#n# the bad:  It cheats
 #n# the ugly: It can't do byte-level VM simulation because Raku's 'pack' can't do signed integers?
-#n#           (but maybe someone better with pack/unpack could figure that out...)
+#n#           (but maybe someone better with pack/unpack skills could figure that out...)
 
 my $result;
 
-my @DATA = split "\n", q:to/END/;
-Datasize: 1 Strings: 2
+my @CODE = split "\n", q:to/END/;
+Datasize: 3 Strings: 2
 "count is: "
 "\n"
     0 push  1
@@ -34,13 +34,19 @@ Datasize: 1 Strings: 2
    65 halt
 END
 
-my (@stack, @strings, @data, $memory); 
-my $w  = 3; # 'width' of both op-codes and data values
+# globals
+my (@stack, @strings, @data, $memory);
 my $pc = 0;
 
-sub value () { substr($memory, ($pc += $w) - $w, $w).trim }
+# non-standard 'wordsize' of op-codes and 'width' of data values (not byte-coded, just chars...)
+(@CODE.shift) ~~ /'Datasize:' \s+ (\d+) \s+ 'Strings:' \s+ (\d+)/ or die "bad header";
+my $w = $0; 
+@strings.push: (my $s = @CODE.shift) eq '"\n"' ?? "\n" !! $s.subst(/'"'/, '', :g) for 1..$1;
+
+sub value { substr($memory, ($pc += $w) - $w, $w).trim }
 
 my %ops = (
+  'no-op' => sub { },
   'add'   => sub { @stack[*-2]  +=   @stack.pop },
   'sub'   => sub { @stack[*-2]  -=   @stack.pop },
   'mul'   => sub { @stack[*-2]  *=   @stack.pop },
@@ -67,14 +73,12 @@ my %ops = (
   'halt'  => sub { exit }  # but run END phaser...
 );
 
-(@DATA.shift) ~~ /'Strings:' \s+ (\d+)/ or die "bad header";
-@strings.push: (my $s = @DATA.shift) eq '"\n"' ?? "\n" !! $s.subst(/'"'/, '', :g) for 1..$0;
-
+#my %n2op = (my %op2n = %ops.keys.sort Z=> 0..*).invert; # works, but...
 my %op2n = %ops.keys.sort Z=> 0..*;
 my %n2op = %op2n.invert;
-#my %n2op = (my %op2n = %ops.keys.sort Z=> 0..*).invert; # works, but...
+%n2op{''} = 'no-op';
 
-for @DATA -> $_ {
+for @CODE -> $_ {
     next unless /\w/;
     /^ \s* \d+ \s+ (\w+)/ or die "bad line $_";
     $memory ~= %op2n{$0}.fmt("%{$w}d"); 
@@ -85,7 +89,6 @@ for @DATA -> $_ {
 loop {
     my $opcode = substr($memory, $pc, $w).trim;
     $pc += $w;
-    next unless $opcode;
     %ops{%n2op{ $opcode }}();
 }
 
@@ -93,7 +96,7 @@ END {
 
 $result.say;
 
-my $ref = q:to/END/;
+my $ref = q:to/EOD/;
 count is: 1
 count is: 2
 count is: 3
@@ -103,7 +106,7 @@ count is: 6
 count is: 7
 count is: 8
 count is: 9
-END
+EOD
 
 use Test;
 is $result, $ref;
