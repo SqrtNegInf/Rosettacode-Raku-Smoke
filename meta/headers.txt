@@ -1066,6 +1066,14 @@ File: B/Bitmap_Bresenham%27s_line_algorithm
 #j#  JVM: OK
 #f# RC file: bresenham.ppm
 
+File: B/Bitmap_Flood_fill
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Bitmap/Flood_fill
+#c# 2019-12-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: flood-fill.ppm
+
 File: B/Bitmap_Histogram
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bitmap/Histogram
@@ -1697,7 +1705,15 @@ File: C/Color_of_a_screen_pixel
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for MacOS...
-#n# 'screencapture' sporadically fails here (but not in P5 verion?)
+#n# 'screencapture' sporadically fails here (seeing same in P5 verion)
+
+File: C/Color_of_a_screen_pixel-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Color_of_a_screen_pixel
+#c# 2019-12-11 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# for Mac OS X 11.x: tracks mouse but no color values?
 
 File: C/Color_quantization
 #!/usr/bin/env perl6
@@ -1866,6 +1882,14 @@ File: C/Compile-time_calculation
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: C/Compiler_code_generator
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Compiler/code_generator
+#t# inprogress
+#c# 2019-12-11 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+
 File: C/Compiler_lexical_analyzer
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Compiler/lexical_analyzer
@@ -1884,13 +1908,13 @@ File: C/Compiler_lexical_analyzer.1
 File: C/Compiler_virtual_machine_interpreter
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Compiler/virtual_machine_interpreter
-#c# 2019-12-10 >RC
+#c# 2019-12-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# the good: It runs
-#n# the  bad: It cheats
+#n# the bad:  It cheats
 #n# the ugly: It can't do byte-level VM simulation because Raku's 'pack' can't do signed integers?
-#n#           (but maybe someone better with pack/unpack could figure that out...)
+#n#           (but maybe someone better with pack/unpack skills could figure that out...)
 
 File: C/Compound_data_type
 #!/usr/bin/env perl6
