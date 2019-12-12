@@ -32,7 +32,7 @@ sub bxtest(*@s) {
     for @s -> $s {
         $result ~= "\n$s\n";
         for brace-expand($s) {
-            $result ~= "    {$_}\n";
+            $result ~= "    $_\n";
         }
     }
 }
