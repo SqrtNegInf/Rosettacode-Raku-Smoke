@@ -7,14 +7,13 @@
 #n# ultimately has to do with SSL, which involves NativeCall
 #n# old Naval time server was failing...
 
-BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
-
 #use HTTP::Client; # install fails on Mac OS X / El Capitan due to lack of 'whirlpool'?
+
 use HTTP::UserAgent;
 
-my $site = "https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations";
+my $site = 'http://rosettacode.org/wiki/Niecza';
 
-say my $result = HTTP::UserAgent.new.get($site).content.match(/'Christmas Island Time'/);
+say my $result = HTTP::UserAgent.new.get($site).content.match(/'This page is a stub'/);
 
 use Test;
-is $result, 'Christmas Island Time';
+is $result, 'This page is a stub';
