@@ -29,7 +29,7 @@ for @lines { @res1.push: .split('$').kv.map: { (align @widths[$^key], $^word) ~ 
 sub align($column_width, $word, $aligment = 'left') {
         my $lr = $column_width - $word.chars;
         my $c  = $lr / 2;
-        given ($aligment) {
+        given $aligment {
                 when "center" { " " x $c.ceiling ~ $word ~ " " x $c.floor }
                 when "right"  { " " x $lr        ~ $word                  }
                 default       {                    $word ~ " " x $lr      }
