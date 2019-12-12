@@ -165,7 +165,7 @@ exit; # skip further testing
 
   for ^10 -> $n {
       my $recip = foo1($n);
-      say "1/{$n} = {$recip.perl}";
+      say "1/$n = {$recip.perl}";
   }
 
   CATCH {
