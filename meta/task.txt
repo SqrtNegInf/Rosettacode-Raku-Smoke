@@ -1,19 +1,19 @@
-This is Rakudo version 2019.11-180-gab99c2dd3 built on MoarVM version 2019.07.1-403-g9442b1a7c
+This is Rakudo version 2019.11-191-g215cd4984 built on MoarVM version 2019.07.1-403-g9442b1a7c
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1152/9]
-|+-------------> JVM: Good/Bad [998/174]
-||+------------> Smoke testing [1052]
-|||+-----------> sKipping validation [118]
++--------------> Moar: Good/Bad [1164/10]
+|+-------------> JVM: Good/Bad [1000/175]
+||+------------> Smoke testing [1053]
+|||+-----------> sKipping validation [119]
 ||||+----------> Interactive [58]
-|||||+---------> Touched (modified by me) [288]
+|||||+---------> Touched (modified by me) [289]
 ||||||+--------> Concurrent [50]
 |||||||+-------> Random seed [116]
-||||||||+------> File output [85]
+||||||||+------> File output [86]
 |||||||||+-----> Draft [229]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [105]
-||||||||||||+--> Un-implemented/reliable [80]
+|||||||||||+---> Void (no local copy) [103]
+||||||||||||+--> Un-implemented/reliable [78]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -135,7 +135,7 @@ GGS.......... Bitmap
 GGS.....F.... Bitmap_B%C3%A9zier_curves_Cubic
 GGS.....F.... Bitmap_B%C3%A9zier_curves_Quadratic
 GGS.....F.... Bitmap_Bresenham%27s_line_algorithm
-...........VU Bitmap_Flood_fill
+GGS.....F.... Bitmap_Flood_fill
 GGS.....F.... Bitmap_Histogram
 GGS.....F.... Bitmap_Midpoint_circle_algorithm
 GGS.....F.... Bitmap_PPM_conversion_through_a_pipe
@@ -192,7 +192,7 @@ GGS..T....... Check_that_file_exists
 GGS.......... Checkpoint_synchronization
 GGS.....FD... Checksumcolor
 GGS..T...D... Chemical_Calculator
-!BS......D... Chernick%27s_Carmichael_numbers
+GBS......D... Chernick%27s_Carmichael_numbers
 GGS......D... Cheryl%27s_Birthday
 .........D.VU Chess_player
 .........D.VU Chess_player_Move_generation
@@ -211,7 +211,8 @@ GGS....R..... Closest-pair_problem
 GGS....R..... Closures_Value_capture
 GG.K.....D... Code_segment_unload
 GGS.......... Collections
-!BS..T....... Color_of_a_screen_pixel
+GBS..T....... Color_of_a_screen_pixel
+BB........... Color_of_a_screen_pixel-2
 GBS.......... Color_quantization
 GBS...C.FD... Color_wheel
 GGS..T..F.... Colour_bars_Display
@@ -230,10 +231,10 @@ GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
-...........VU Compiler_code_generator
+GG.K.T......U Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
 ...........VU Compiler_syntax_analyzer
-GGS..T......U Compiler_virtual_machine_interpreter
+GGS..T....... Compiler_virtual_machine_interpreter
 GGS.......... Compound_data_type
 GB.K.TC...... Concurrent_computing
 GG.K......... Conditional_structures
@@ -263,7 +264,7 @@ GGS..T.R..... Create_a_two-dimensional_array_at_runtime
 GGS....R..... Create_an_HTML_table
 GGS..T...D... Create_an_object_Native_demonstration
 BB........... Create_an_object_at_a_given_address
-!GS.......... Cuban_primes-1
+GGS.......... Cuban_primes-1
 GGS...c...... Cuban_primes-2
 GGS.......... Cuban_primes-3
 GGS.......... Cumulative_standard_deviation
@@ -390,7 +391,7 @@ GGS.......... Fast_Fourier_transform
 GGS..T...D... Faulhaber%27s_formula
 GGS......D... Faulhaber%27s_triangle
 GGS......D... Feigenbaum_constant_calculation
-!BS......D... Fermat_numbers
+GBS......D... Fermat_numbers
 .........D.VU Fibonacci_heap
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
@@ -533,7 +534,7 @@ GBS.......... I_before_E_except_after_C-2
 GGS.......... Identity_matrix
 GBS.......... Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols
 GGS.......... Idiomatically_determine_all_the_lowercase_and_uppercase_letters
-!BS..T..F.... Image_convolution
+GBS..T..F.... Image_convolution
 GB.KI........ Image_noise
 GGS.......... Imaginary_base_numbers
 GGS......D... Implicit_type_conversion
@@ -683,7 +684,7 @@ GGS.......... Mayan_numerals
 GGS....R..... Maze_generation
 GGS....R..... Maze_solving
 GGS.......... McNuggets_Problem
-!BS..T..F.... Median_filter
+GBS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
@@ -837,7 +838,7 @@ GGS.......... Phrase_reversals
 GGS..T....... Pi
 GGS..T.R..... Pick_random_element
 .........D... Pierpont_primes
-!BS.......... Pierpont_primes-1
+GBS.......... Pierpont_primes-1
 GGS.......... Pierpont_primes-2
 GBS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
@@ -1031,7 +1032,7 @@ GG.K......... Singly-linked_list_Element_insertion
 GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
-!BS.......... Smarandache_prime-digital_sequence
+GBS.......... Smarandache_prime-digital_sequence
 GGS.......... Smith_numbers
 .........DXV. Snake
 GGS....RFD... Snake_And_Ladder
@@ -1226,7 +1227,7 @@ GGS.......... Unicode_variable_names
 .........DXV. Unit_testing
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
-!BS...C..D... Unprimeable_numbers
+GBS...C..D... Unprimeable_numbers
 GG.K.....D... Untrusted_environment
 GGS.....F.... Update_a_configuration_file
 ...........VU Use_another_language_to_call_a_function
@@ -1299,4 +1300,4 @@ GGS.......... Zero_to_the_zero_power
 GGS..T....... Zhang-Suen_thinning_algorithm
 GGS..T....... Zig-zag_matrix-1
 GGS.......... Zig-zag_matrix-2
-!BS.......... Zumkeller_numbers
+GBS.......... Zumkeller_numbers
