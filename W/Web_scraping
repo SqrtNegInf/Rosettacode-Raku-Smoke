@@ -14,7 +14,7 @@ use HTTP::UserAgent;
 
 my $site = "https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations";
 
-say my $result = HTTP::UserAgent.new.get($site).content.match(/'Chuuk Time'/);
+say my $result = HTTP::UserAgent.new.get($site).content.match(/'Christmas Island Time'/);
 
 use Test;
-is $result, 'Chuuk Time';
+is $result, 'Christmas Island Time';
