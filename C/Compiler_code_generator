@@ -1,13 +1,12 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Compiler/code_generator
-#t# inprogress
-#c# 2019-12-11 >RC
+#c# 2019-12-12 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
 my $result;
 
-my @CODE = split /\n/, q:to/EOD/;
+my @AST = q:to/EOD/.lines;
 Sequence
 Sequence
 ;
@@ -41,60 +40,45 @@ Identifier    count
 Integer       1
 EOD
 
-my (%strings, %names);
-my $stringcount = my $namecount = my $pairsym = my $pc = 0;
 my %opnames = <
-    Less            lt
-    LessEqual       le
-    Multiply        mul
-    Subtract        sub
-    Divide          div
-    GreaterEqual    ge
-    Equal           eq
-    Greater         gt
-    NotEqual        ne
-    Negate          neg
+    Less   lt     LessEqual    le     Multiply mul    Subtract sub    NotEqual ne    
+    Divide div    GreaterEqual ge     Equal    eq     Greater  gt     Negate   neg
 >;
 
+my (%strings, %names);
+my $string-count = my $name-count = my $pairsym = my $pc = 0;
+
 sub tree {
-    my ($A, $B) = ( '_' ~ ++$pairsym, '_' ~ ++$pairsym ); # labels for jumps
-    my $line = @CODE.shift // return '';
-    $line ~~ /^ (\w+|';') [\s+ (.*)]? /; # or die "bad input $line";
-    my ($glorp, $arg) = ($0, $1);
-    given $glorp {
-        when 'Identifier' {  "fetch [{%names{$arg} //= $namecount++ }]\n" }
-        when 'Sequence'   {  tree() ~ tree() }
-        when 'Integer'    {  "push  $arg\n" }
-        when 'String'     {  "push  { %strings{$arg} //= $stringcount++ }\n" }
-        when 'Assign'     {  join '', reverse ((tree()).subst( /fetch/, 'store')), tree() }
-        when 'While'      {  "$A:\n{ tree() }jz    $B\n{ tree() }jmp   $A\n$B:\n" }
-        when 'If'         {  tree() ~ "jz    $A\n{ !@CODE.shift ~ tree()}jmp   $B\n$A:\n{ tree() }$B:\n" }
-        when ';'          {  '' }
-        default           {  tree() ~ tree() ~ (%opnames{$glorp} // $glorp.lc) ~ "\n" }  # .lc?
+    my ($A, $B) = ( '_' ~ ++$pairsym, '_' ~ ++$pairsym );
+    my $line = @AST.shift // return '';
+    $line ~~ /^ $<instr> = (\w+|';') [\s+ $<arg> =(.*)]? / or die "bad input $line";
+    given $<instr> {
+        when 'Identifier' { "fetch [{%names{$<arg>} //= $name-count++ }]\n" }
+        when 'Sequence'   { tree() ~ tree() }
+        when 'Integer'    { "push  $<arg>\n" }
+        when 'String'     { "push  { %strings{$<arg>} //= $string-count++ }\n" }
+        when 'Assign'     { join '', reverse (tree().subst( /fetch/, 'store')), tree() }
+        when 'While'      { "$A:\n{ tree() }jz    $B\n{ tree() }jmp   $A\n$B:\n" }
+        when 'If'         { tree() ~ "jz    $A\n{ !@AST.shift ~ tree() }jmp   $B\n$A:\n{ tree() }$B:\n" }
+        when ';'          { '' }
+        default           { tree() ~ tree() ~ (%opnames{$<instr>} // $<instr>.lc) ~ "\n" }
     }
 }
 
-say my $floop = tree() ~ "halt\n";
-exit;
+my $code = tree() ~ "halt\n";
  
-#`{{
+$code ~~ s:g/^^ jmp \s+ (\S+) \n ('_'\d+:\n) $0:\n/$1/;                                          # remove jmp next (no-op in this case)
+$code ~~ s:g/^^ (<[a..z]>\w* (\N+)? ) $$/{my $l=$pc.fmt("%4d "); $pc += $0[0] ?? 5 !! 1; $l}$0/; # add locations
+my %labels = ($code ~~ m:g/^^ ('_' \d+) ':' \n \s* (\d+)/)».Slip».Str;                           # pc addr of labels
+$code ~~ s:g/^^ \s* (\d+) \s j[z|mp] \s* <(('_'\d+)/ ({%labels{$1} - $0 - 1}) %labels{$1}/;      # fix jumps
+$code ~~ s:g/^^ '_'\d+.*?\n//;                                                                   # remove labels
+#                                         ^^ Unsupported use of \K; in Perl 6 please use <( for discarding text before the capture marker 
  
-$floop ~~ s:g/^jmp\s+(\S+)\n(_\d+:\n)\1:\n/$2/;                                         # remove jmp next
-$floop ~~ s:g/^(?=[a-z]\w*(.*))/ {(sprintf("%4d ", $pc), $pc += $1 ? 5 : 1)[0]} /;        # add locations
-my %labels = /^(_\d+):(?=(?:\n_\d+:)*\n *(\d+) )/gm;                                    # pc addr of labels
-$floop ~~ s:g/^ *(\d+) j(?:z|mp) *\K(_\d+)$/ (@{[$labels{$2} - $1 - 1]}) $labels{$2}/;  # fix jumps
-$floop ~~ s:g/^_\d+.*\n//;                                     # remove labels
+say $result = "Datasize: $name-count Strings: $string-count\n"
+             ~ join('', %strings.keys.sort.reverse «~» "\n")  # bit dicey with string order
+             ~ $code;
 
-}}
- 
-$result ~= "Datasize: {$namecount} Strings: {$stringcount}\n";
-$result ~= $_ ~ "\n" for %strings.keys.sort;
-$result ~= $_;
-
-say $result; 
-
-
-my $ref = q:to/EOD/;
+my $ref = q:to/END/;
 Datasize: 1 Strings: 2
 "count is: "
 "\n"
@@ -116,8 +100,7 @@ Datasize: 1 Strings: 2
   55 store [0]
   60 jmp    (-51) 10
   65 halt
-EOD
+END
 
 use Test;
-#is ($result, $ref);
-
+is $result, $ref;
