@@ -25,7 +25,7 @@ sub metallic ($seq, $places = 32) {
 }
 
 sub display ($value, $n) {
-    "Approximated value: " ~ $value ~ " Reached after {$n} iterations: " ~
+    "Approximated value: " ~ $value ~ " Reached after $n iterations: " ~
     "{ordinal-digit $n}/{ordinal-digit $n - 1} element."
 }
 
