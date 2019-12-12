@@ -50,7 +50,7 @@ for 1, 145, 1e12.Int, 145+1e12.Int -> $start, $end {
 # Part 3
 #for 1e2, 1e3, 1e4, 1e5, 1e6 {
 for 1e2, 1e3, 1e4, 1e5 {
-    @res.push: "\nThe number of square─free numbers between 1 and {$_} (inclusive) is: "~
+    @res.push: "\nThe number of square─free numbers between 1 and $_ (inclusive) is: "~
     +(1 .. .Int).race.grep: *.&is-square-free;
 }
 
