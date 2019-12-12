@@ -41,10 +41,20 @@ Identifier    count
 Integer       1
 EOD
  
-my $stringcount = my $namecount = my $pairsym = my $pc = 0;
 my (%strings, %names);
-my %opnames = <Less lt LessEqual le Multiply mul Subtract sub Divide div
-  GreaterEqual ge Equal eq Greater gt NotEqual ne Negate neg>;
+my $stringcount = my $namecount = my $pairsym = my $pc = 0;
+my %opnames = <
+    Less            lt
+    LessEqual       le
+    Multiply        mul
+    Subtract        sub
+    Divide          div
+    GreaterEqual    ge
+    Equal           eq
+    Greater         gt
+    NotEqual        ne
+    Negate          neg
+>;
 
 dd %opnames;
 exit;
@@ -76,14 +86,15 @@ my %labels = /^(_\d+):(?=(?:\n_\d+:)*\n *(\d+) )/gm; # pc addr of labels
 s/^ *(\d+) j(?:z|mp) *\K(_\d+)$/ (@{[                # fix jumps
   $labels{$2} - $1 - 1]}) $labels{$2}/gm;
 s/^_\d+.*\n//gm;                                     # remove labels
+
+}}
  
-$result .= "Datasize: $namecount Strings: $stringcount\n";
-$result .= "$_\n" for sort { $strings{$a} <=> $strings{$b} } keys %strings;
-$result .= $_; # print
+$result ~= "Datasize: {$namecount} Strings: {$stringcount}\n";
+$result ~= $_ ~ "\n" for %strings.keys.sort;
+$result ~= $_;
 
 say $result; 
 
-}}
 
 my $ref = q:to/EOD/;
 Datasize: 1 Strings: 2
