@@ -10,7 +10,7 @@
 
 my $result;
 
-my @CODE = split "\n", q:to/END/;
+my @CODE = q:to/END/.lines;
 Datasize: 3 Strings: 2
 "count is: "
 "\n"
