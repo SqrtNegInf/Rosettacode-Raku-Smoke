@@ -3,6 +3,7 @@
 #c# 2019-12-12 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# the .0 version is closer to what's on RC, reads from file
 
 my $result;
 
@@ -49,9 +50,9 @@ my (%strings, %names);
 my $string-count = my $name-count = my $pairsym = my $pc = 0;
 
 sub tree {
-    my ($A, $B) = ( '_' ~ ++$pairsym, '_' ~ ++$pairsym );
     my $line = @AST.shift // return '';
     $line ~~ /^ $<instr> = (\w+|';') [\s+ $<arg> =(.*)]? / or die "bad input $line";
+    my ($A, $B) = ( '_' ~ ++$pairsym, '_' ~ ++$pairsym );
     given $<instr> {
         when 'Identifier' { "fetch [{%names{$<arg>} //= $name-count++ }]\n" }
         when 'Sequence'   { tree() ~ tree() }
