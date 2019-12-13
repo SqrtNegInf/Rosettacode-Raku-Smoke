@@ -1885,10 +1885,18 @@ File: C/Compile-time_calculation
 File: C/Compiler_code_generator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Compiler/code_generator
-#t# inprogress
-#c# 2019-12-11 >RC
+#c# 2019-12-12 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# the .0 version is closer to what's on RC, reads from file
+
+File: C/Compiler_code_generator.0
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Compiler/code_generator
+#c# 2019-12-12 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# reads from file, as shown on RC
 
 File: C/Compiler_lexical_analyzer
 #!/usr/bin/env perl6
@@ -5848,6 +5856,7 @@ File: M/Make_a_backup_file
 #j# JVM:  OK
 #r# RC prep: cp -p ref/not-in-kansas.txt run
 #f# RC file: not-in-kansas.txt.bk1
+#n# '{$abs}' needed in some places, so just use it everywhere...
 
 File: M/Make_directory_path
 #!/usr/bin/env perl6
