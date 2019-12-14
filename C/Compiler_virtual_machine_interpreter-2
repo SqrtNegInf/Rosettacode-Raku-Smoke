@@ -1,0 +1,120 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Compiler/virtual_machine_interpreter
+#n# inprogress
+#c# 2019-12-11 
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
+#n# using 'P5pack' module to do required byte-level processing
+
+my $result;
+
+use P5pack;
+
+my @CODE = q:to/END/.lines;
+Datasize: 1 Strings: 2
+"count is: "
+"\n"
+    0 push  1
+    5 store [0]
+   10 fetch [0]
+   15 push  10
+   20 lt
+   21 jz     (43) 65    # recalculated forward to 'halt'
+   26 push  0
+   31 prts
+   32 fetch [0]
+   37 prti
+   38 push  1
+   43 prts
+   44 fetch [0]
+   49 push  1
+   54 add
+   55 store [0]
+   60 jmp    (-51) 10   # recalculated back to 1st 'fetch'
+   65 halt
+END
+
+# globals
+my (@stack, @strings, @data);
+my $memory;
+my $pc = 0;
+
+# non-standard 'wordsize' of op-codes and 'width' of data values (not byte-coded, just chars...)
+(@CODE.shift) ~~ /'Datasize:' \s+ (\d+) \s+ 'Strings:' \s+ (\d+)/ or die "bad header";
+my $w = $0; 
+@strings.push: (my $s = @CODE.shift) eq '"\n"' ?? "\n" !! $s.subst(/'"'/, '', :g) for 1..$1;
+
+my %ops = (
+  'no-op' => sub { },
+  'add'   => sub { @stack[*-2]  +=   @stack.pop },
+  'sub'   => sub { @stack[*-2]  -=   @stack.pop },
+  'mul'   => sub { @stack[*-2]  *=   @stack.pop },
+  'div'   => sub { @stack[*-2]  /=   @stack.pop },
+  'mod'   => sub { @stack[*-2]  %=   @stack.pop },
+  'neg'   => sub { @stack[*-1]   = - @stack[*-1] },
+  'and'   => sub { @stack[*-2] &&=   @stack[*-1]; @stack.pop },
+  'or'    => sub { @stack[*-2] ||=   @stack[*-1]; @stack.pop },
+  'not'   => sub { @stack[*-1]   =   @stack[*-1]               ?? 0 !! 1 },
+  'lt'    => sub { @stack[*-1]   =   @stack[*-2] <  @stack.pop ?? 1 !! 0 },
+  'gt'    => sub { @stack[*-1]   =   @stack[*-2] >  @stack.pop ?? 1 !! 0 },
+  'le'    => sub { @stack[*-1]   =   @stack[*-2] <= @stack.pop ?? 1 !! 0 },
+  'ge'    => sub { @stack[*-1]   =   @stack[*-2] >= @stack.pop ?? 1 !! 0 },
+  'ne'    => sub { @stack[*-1]   =   @stack[*-2] != @stack.pop ?? 1 !! 0 },
+  'eq'    => sub { @stack[*-1]   =   @stack[*-2] == @stack.pop ?? 1 !! 0 },
+  'store' => sub { @data[&value] =   @stack.pop },
+  'fetch' => sub { @stack.push:      @data[&value] // 0 },
+  'push'  => sub { @stack.push:      value() },
+  'jmp'   => sub { $pc += value() - 4 },
+  'jz'    => sub { $pc += @stack.pop ?? 4 !! value() - 4 },
+  'prts'  => sub { $result ~= @strings[@stack.pop] },
+  'prti'  => sub { $result ~= @stack.pop },
+  'prtc'  => sub { $result ~= chr @stack.pop },
+  'halt'  => sub { exit }  # but run END phaser...
+);
+
+#my %n2op = (my %op2n = %ops.keys.sort Z=> 0..*).invert; # works, but...
+my %op2n = %ops.keys.sort Z=> 0..*;
+my %n2op = %op2n.invert;
+%n2op{''} = 'no-op';
+
+for @CODE -> $_ {
+    next unless /\w/;
+    /^ \s* \d+ \s+ (\w+)/ or die "bad line $_";
+    #$memory ~= %op2n{$0}.fmt("%{$w}d"); 
+    $memory .= chr(%op2n{$0});
+    /'(' ('-'?\d+) ')' | (\d+) ']'? $/; 
+    #$memory ~= $0 ?? $0.fmt("%{$w}d") !! ' ' x $w;
+    $memory .= pack('l', $0 // ' ');
+}
+
+loop {
+    # vec($binary, $pc++, 8)
+    my $opcode = ord substr($memory, $pc, 8); #.trim;  ??
+    #$pc += $w;
+    $pc++;
+    %ops{%n2op{ $opcode }}();
+}
+
+#sub value { substr($memory, ($pc += $w) - $w, $w).trim }
+sub value { unpack('l', substr($memory, ($pc += 4) - 4, 4)) } # .trim }
+
+END {
+
+$result.say;
+
+my $ref = q:to/EOD/;
+count is: 1
+count is: 2
+count is: 3
+count is: 4
+count is: 5
+count is: 6
+count is: 7
+count is: 8
+count is: 9
+EOD
+
+use Test;
+is $result, $ref;
+
+}
