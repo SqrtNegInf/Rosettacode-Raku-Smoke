@@ -1783,7 +1783,7 @@ File: C/Combinations-2.0
 #c# 2015-10-12 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# kludge around gather/take problem
+#n# for JVM: kludge around gather/take problem
 
 File: C/Combinations_and_permutations
 #!/usr/bin/env perl6
@@ -5161,6 +5161,7 @@ File: K/Kosaraju
 #c# 2018-10-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# can substitute 'classify' for 'categorize'
 
 File: K/Kronecker_product
 #!/usr/bin/env perl6
@@ -5286,6 +5287,15 @@ File: L/Last_letter-first_letter
 #    20171027: 1661.927u  13.988s 27:12.90 102.6%
 #    20181004: 1151.774u  27.752s 19:28.70 100.9
 #    _NEXT_
+
+File: L/Latin_Squares_in_reduced_form
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Latin_Squares_in_reduced_form
+#c# 2019-12-xx >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# not quite up to task spec. yet
+#n# performance issues: fine for 4/5, but very slow for 6 (hyper and/or prune?)
 
 File: L/Launch_rocket_with_countdown_and_acceleration_in_stdout
 #!/usr/bin/env perl6
@@ -6167,6 +6177,13 @@ File: M/Minesweeper_game
 #u# http://rosettacode.org/wiki/Minesweeper_game
 #c# 2016-06-04 <RC
 #t# interactive
+#m# MOAR: OK
+#j#  JVM: OK
+
+File: M/Minimal_steps_down_to_1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Minimal_steps_down_to_1
+#c# 2019-12-14 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -8880,6 +8897,10 @@ File: S/Sexy_primes
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for JVM: module, and the EVAL trick not working...
+#n# CANNOT substitute 'classify' for 'categorize', error is:
+#n#    mapper on classify-list computed to an item with different number of elements in it than previous items, 
+#n#    which cannot be used because all values need to have the same number of elements. 
+#n#    Mixed-level classification is not supported.
 
 File: S/Sexy_primes.1
 #!/usr/bin/env perl6
@@ -9885,6 +9906,10 @@ File: S/Successive_prime_differences-1
 #c# 2019-04-27 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# CANNOT substitute 'classify' for 'categorize', error is:
+#n#    mapper on classify-list computed to an item with different number of elements in it than previous items,
+#n#    which cannot be used because all values need to have the same number of elements.
+#n#    Mixed-level classification is not supported.
 
 File: S/Successive_prime_differences-1.1
 #!/usr/bin/env perl6
