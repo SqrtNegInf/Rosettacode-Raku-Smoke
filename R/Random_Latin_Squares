@@ -19,9 +19,9 @@ sub random ( @ls, :$size = 5 ) {
     }
 
     # Shuffle
-#    @ls = @ls[^$size .pick(*)];
-#    my @cols = ^$size .pick(*);
-#    @ls[$_] = @ls[$_][@cols] for ^@ls;
+    @ls = @ls[^$size .pick(*)];
+    my @cols = ^$size .pick(*);
+    @ls[$_] = @ls[$_][@cols] for ^@ls;
 
     # Some random Latin glyphs
     my @symbols = ('A' .. 'Z').pick($size);
@@ -44,3 +44,53 @@ display random :size($_), latin-square for 5, 3, 9;
 display random latin-square, :size($_) for 12, 2, 1;
 
 .say for @res;
+
+my $ref = q:to/END/;
+ G   U   B   W   Q 
+ Q   G   W   U   B 
+ U   W   Q   B   G 
+ B   Q   U   G   W 
+ W   B   G   Q   U 
+   
+ X   W   E   J   O 
+ E   X   J   O   W 
+ O   J   W   X   E 
+ J   E   O   W   X 
+ W   O   X   E   J 
+   
+ O   P   C 
+ P   C   O 
+ C   O   P 
+   
+ P   G   S   D   B   T   R   H   Z 
+ B   T   G   H   Z   S   D   R   P 
+ T   D   R   B   S   H   P   Z   G 
+ G   R   H   P   T   D   Z   B   S 
+ H   B   P   S   R   Z   T   G   D 
+ Z   S   T   R   P   G   H   D   B 
+ D   P   Z   T   H   B   G   S   R 
+ R   Z   B   G   D   P   S   T   H 
+ S   H   D   Z   G   R   B   P   T 
+   
+ X   L   G   H   T   C   N   U   W   O   S   Y 
+ T   W   S   U   O   H   X   Y   G   N   L   C 
+ N   S   W   C   X   Y   O   H   L   T   G   U 
+ W   Y   H   N   G   O   L   X   C   S   U   T 
+ S   H   Y   T   L   X   G   O   U   W   C   N 
+ Y   X   O   S   C   G   U   L   T   H   N   W 
+ C   T   N   L   H   S   Y   W   O   U   X   G 
+ H   O   X   W   U   L   C   G   N   Y   T   S 
+ O   G   L   Y   N   U   T   C   S   X   W   H 
+ L   U   C   O   W   T   S   N   Y   G   H   X 
+ U   N   T   G   Y   W   H   S   X   C   O   L 
+ G   C   U   X   S   N   W   T   H   L   Y   O 
+   
+ K   F 
+ F   K 
+   
+ P 
+   
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
