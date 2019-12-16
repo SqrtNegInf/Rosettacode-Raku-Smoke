@@ -12,20 +12,30 @@ sub prefix:<!>(Int $n) { (1, 0, 1, -> $a, $b { ($++ + 2) × ($b + $a) } ... *)[$
 
 sub derangements(@l) { @l.permutations.grep(-> @p { none(@p Zeqv @l) }) }
 
-my $n = 4;
+my $n = 5;
 my @l = 1 X+ ^$n;
 
-my %deran = derangements(@l).classify: { .[0] };
+my %deran = derangements(@l).classify: *.[0], :as(*.Array);
+# my %deran = derangements(@l).classify(*.[0]); # list
+# my %deran = derangements(@l).classify: { .[0] }; # list
+#dd %deran; exit;
 
 # ([X] (^(!$n/($n-1))) xx $n-1).race.map: -> $tuple {
 for [X] (^(!$n/($n-1))) xx $n-1 -> $tuple {
-    my @candidate.push: @l;
-    @candidate.push: %deran{$_}[$tuple[$_-2]] for 2..$n;
-    next unless [==] [Z+] @candidate;
-    @res.push: join("\n", @candidate) ~ "\n";
+    my @candidate = @l, | map { %deran{$_}[$tuple[$_-2]] }, 2 .. $n;
+    next unless [==] [Z+] @candidate; # 1st check
+
+    my $bad = 0;
+    #($bad++ if [or] (@candidate[$_]       Z== @candidate[$_+1]      )) for 0 .. $n-2; # 2nd check
+    ($bad++ if [or] (@candidate[$_].Array Z== @candidate[$_+1].Array)) for 0 .. $n-2; # 2nd check
+    next if $bad > 0;
+
+    @res.push: join(' : ', @candidate);          # display as one line 
+    #@res.push: join("\n", @candidate) ~ "\n";   # or as square
 }
 
-.say for @res;
+say +@res; exit;
+.say for @res; exit;
 
 my $ref = q:to/END/;
 1 2 3 4
