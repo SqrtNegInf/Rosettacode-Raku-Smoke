@@ -30,7 +30,7 @@ for [X] (^(!$n/($n-1))) xx $n-1 -> $tuple {
 }
 
 #say +@res; exit;
-#.say for @res; exit;
+.say for @res;
 
 my @x = <0 1 1 1 4 56 9408>;
 @res.push: sprintf "Order $_: Size %-4d x $_! x {$_-1}! => Total %d", @x[$_], @x[$_] * factorial[$_] * factorial[$_-1] for 1..6;
