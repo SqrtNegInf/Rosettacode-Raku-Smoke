@@ -1,13 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Minimal_steps_down_to_1
-#c# 2019-12-14 <RC
+#c# 2019-12-14 <RC, 2019-12-16 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
 
 my @res;
 
 use Lingua::EN::Numbers;
- 
+
 for [2,3], 1, 2000,
     [2,3], 1, 50000,
     [2,3], 2, 2000,
@@ -21,31 +21,36 @@ for [2,3], 1, 2000,
        my $op = @ops.min( {%min{.[0]}<s>} );
        %min{$n} = {:op($op[1]), :v($op[0]), :s(1 + %min{$op[0]}<s>)};
     });
- 
+
     my $max = %min.max( {.value<s>} ).value<s>;
     my @max = %min.grep( {.value.<s> == $max} )».key.sort(+*);
- 
-    @res.push: "\nDivisors: {@div.perl}, subtract: $sub, threshold: {comma $limit}\n" ~
-        "Below {comma $limit} found {+@max} number{+@max == 1 ?? '' !! 's'} " ~
+
+    if $limit == 2000 {
+        @res.push: "\nDivisors: {@div.perl}, subtract: $sub";
+        steps(1..10);
+    }
+    @res.push: "\nUp to {comma $limit} found {+@max} number{+@max == 1 ?? '' !! 's'} " ~
         "that require{+@max == 1 ?? 's' !! ''} at least $max steps.";
- 
-    for flat 1..10, @max -> $m {
-        my @op;
-        my $n = $m;
-        while %min{$n}<s> {
-            @op.push: "{%min{$n}<op>}=>{%min{$n}<v>}";
-            $n = %min{$n}<v>;
+    steps(@max);
+
+    sub steps (*@list) {
+        for @list -> $m {
+            my @op;
+            my $n = $m;
+            while %min{$n}<s> {
+                @op.push: "{%min{$n}<op>}=>{%min{$n}<v>}";
+                $n = %min{$n}<v>;
+            }
+            @res.push: "($m) {%min{$m}<s>} steps: "~ @op.join(', ');
         }
-        @res.push: "($m) {%min{$m}<s>} steps: " ~ @op.join(', ');
     }
 }
 
-my $result = join "\n", @res;
+.say for @res;
 
 my $ref = q:to/END/;
 
-Divisors: [2, 3], subtract: 1, threshold: 2,000
-Below 2,000 found 16 numbers that require at least 14 steps.
+Divisors: [2, 3], subtract: 1
 (1) 0 steps: 
 (2) 1 steps: /2=>1
 (3) 1 steps: /3=>1
@@ -56,6 +61,8 @@ Below 2,000 found 16 numbers that require at least 14 steps.
 (8) 3 steps: /2=>4, /2=>2, /2=>1
 (9) 2 steps: /3=>3, /3=>1
 (10) 3 steps: -1=>9, /3=>3, /3=>1
+
+Up to 2,000 found 16 numbers that require at least 14 steps.
 (863) 14 steps: -1=>862, -1=>861, /3=>287, -1=>286, -1=>285, /3=>95, -1=>94, -1=>93, /3=>31, -1=>30, /3=>10, -1=>9, /3=>3, /3=>1
 (1079) 14 steps: -1=>1078, /2=>539, -1=>538, /2=>269, -1=>268, /2=>134, /2=>67, -1=>66, /2=>33, /3=>11, -1=>10, -1=>9, /3=>3, /3=>1
 (1295) 14 steps: -1=>1294, /2=>647, -1=>646, /2=>323, -1=>322, /2=>161, -1=>160, /2=>80, /2=>40, /2=>20, /2=>10, -1=>9, /3=>3, /3=>1
@@ -73,24 +80,12 @@ Below 2,000 found 16 numbers that require at least 14 steps.
 (1919) 14 steps: -1=>1918, -1=>1917, /3=>639, /3=>213, /3=>71, -1=>70, /2=>35, -1=>34, /2=>17, -1=>16, /2=>8, /2=>4, /2=>2, /2=>1
 (1943) 14 steps: -1=>1942, /2=>971, -1=>970, /2=>485, -1=>484, /2=>242, /2=>121, -1=>120, /2=>60, /2=>30, /3=>10, -1=>9, /3=>3, /3=>1
 
-Divisors: [2, 3], subtract: 1, threshold: 50,000
-Below 50,000 found 3 numbers that require at least 22 steps.
-(1) 0 steps: 
-(2) 1 steps: /2=>1
-(3) 1 steps: /3=>1
-(4) 2 steps: /2=>2, /2=>1
-(5) 3 steps: -1=>4, /2=>2, /2=>1
-(6) 2 steps: /2=>3, /3=>1
-(7) 3 steps: -1=>6, /2=>3, /3=>1
-(8) 3 steps: /2=>4, /2=>2, /2=>1
-(9) 2 steps: /3=>3, /3=>1
-(10) 3 steps: -1=>9, /3=>3, /3=>1
+Up to 50,000 found 3 numbers that require at least 22 steps.
 (25919) 22 steps: -1=>25918, /2=>12959, -1=>12958, /2=>6479, -1=>6478, /2=>3239, -1=>3238, /2=>1619, -1=>1618, /2=>809, -1=>808, /2=>404, /2=>202, /2=>101, -1=>100, /2=>50, /2=>25, -1=>24, /2=>12, /2=>6, /2=>3, /3=>1
 (31103) 22 steps: -1=>31102, /2=>15551, -1=>15550, /2=>7775, -1=>7774, /2=>3887, -1=>3886, /2=>1943, -1=>1942, /2=>971, -1=>970, /2=>485, -1=>484, /2=>242, /2=>121, -1=>120, /2=>60, /2=>30, /3=>10, -1=>9, /3=>3, /3=>1
 (38879) 22 steps: -1=>38878, /2=>19439, -1=>19438, /2=>9719, -1=>9718, /2=>4859, -1=>4858, /2=>2429, -1=>2428, /2=>1214, /2=>607, -1=>606, /2=>303, /3=>101, -1=>100, /2=>50, /2=>25, -1=>24, /2=>12, /2=>6, /2=>3, /3=>1
 
-Divisors: [2, 3], subtract: 2, threshold: 2,000
-Below 2,000 found 1 number that requires at least 17 steps.
+Divisors: [2, 3], subtract: 2
 (1) 0 steps: 
 (2) 1 steps: /2=>1
 (3) 1 steps: /3=>1
@@ -101,22 +96,13 @@ Below 2,000 found 1 number that requires at least 17 steps.
 (8) 3 steps: /2=>4, /2=>2, /2=>1
 (9) 2 steps: /3=>3, /3=>1
 (10) 3 steps: /2=>5, -2=>3, /3=>1
+
+Up to 2,000 found 1 number that requires at least 17 steps.
 (1699) 17 steps: -2=>1697, -2=>1695, /3=>565, -2=>563, -2=>561, /3=>187, -2=>185, -2=>183, /3=>61, -2=>59, -2=>57, /3=>19, -2=>17, -2=>15, /3=>5, -2=>3, /3=>1
 
-Divisors: [2, 3], subtract: 2, threshold: 50,000
-Below 50,000 found 1 number that requires at least 26 steps.
-(1) 0 steps: 
-(2) 1 steps: /2=>1
-(3) 1 steps: /3=>1
-(4) 2 steps: /2=>2, /2=>1
-(5) 2 steps: -2=>3, /3=>1
-(6) 2 steps: /2=>3, /3=>1
-(7) 3 steps: -2=>5, -2=>3, /3=>1
-(8) 3 steps: /2=>4, /2=>2, /2=>1
-(9) 2 steps: /3=>3, /3=>1
-(10) 3 steps: /2=>5, -2=>3, /3=>1
+Up to 50,000 found 1 number that requires at least 26 steps.
 (45925) 26 steps: -2=>45923, -2=>45921, /3=>15307, -2=>15305, -2=>15303, /3=>5101, -2=>5099, -2=>5097, /3=>1699, -2=>1697, -2=>1695, /3=>565, -2=>563, -2=>561, /3=>187, -2=>185, -2=>183, /3=>61, -2=>59, -2=>57, /3=>19, -2=>17, -2=>15, /3=>5, -2=>3, /3=>1
 END
 
 use Test;
-is $result, chomp $ref;
+is @res.join("\n"), chomp $ref;
