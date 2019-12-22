@@ -3,18 +3,19 @@
 #c# 2019-12-22 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# anything defined in terms of a constant can also be a constant:
+#n#   %English-letter-freq => @alphabet => %values-numbers => %values-letters
 
 my @res;
 
 # from Wikipedia
-my %English-letter-freq = (
-    'E'=>12.70, 'L'=>4.03, 'Y'=>1.97, 'P'=>1.93, 'T'=>9.06, 'A'=>8.17, 'O'=>7.51, 'I'=>6.97, 'N'=>6.75, 
-    'S'=>6.33,  'H'=>6.09, 'R'=>5.99, 'D'=>4.25, 'C'=>2.78, 'U'=>2.76, 'M'=>2.41, 'W'=>2.36, 'F'=>2.23, 
-    'G'=>2.02,  'B'=>1.29, 'V'=>0.98, 'K'=>0.77, 'J'=>0.15, 'X'=>0.15, 'Q'=>0.10, 'Z'=>0.07
+constant %English-letter-freq = (
+     E => 12.70,  L => 4.03,  Y => 1.97,  P => 1.93,  T => 9.06,  A => 8.17,  O => 7.51,  I => 6.97,  N => 6.75, 
+     S =>  6.33,  H => 6.09,  R => 5.99,  D => 4.25,  C => 2.78,  U => 2.76,  M => 2.41,  W => 2.36,  F => 2.23, 
+     G =>  2.02,  B => 1.29,  V => 0.98,  K => 0.77,  J => 0.15,  X => 0.15,  Q => 0.10,  Z => 0.07
 );
-my @alphabet = %English-letter-freq.keys.sort; 
-
-my $max_key_lengths = 5; # number of keylengths to try
+constant @alphabet = %English-letter-freq.keys.sort; 
+constant max_key_lengths = 5; # number of keylengths to try
 
 sub myguess ($text) {
     my ($seqtext, @spacing, @factors, $pos, %freq, %Keys);
@@ -22,8 +23,7 @@ sub myguess ($text) {
     # Kasiski examination
     $seqtext = $text;
     while ($seqtext ~~ /$<sequence>=[...].*$<sequence>/) {
-        my $i = 1 + index($seqtext, $<sequence>);
-        $seqtext = substr($seqtext, $i);
+        $seqtext = substr($seqtext, 1+index($seqtext, $<sequence>));
         push @spacing, 1 + index($seqtext, $<sequence>);
     }
     for @spacing -> $j {
@@ -31,7 +31,7 @@ sub myguess ($text) {
     }
 
     # discard very short keys, and test only the most likely remaining key lengths
-    (%freq.keys.grep(* > 3).sort({%freq{$_}}).tail($max_key_lengths)).race(:1batch).map: -> $keylen {
+    (%freq.keys.grep(* > 3).sort({%freq{$_}}).tail(max_key_lengths)).race(:1batch).map: -> $keylen {
         my $key-guess = '';
         loop (my $i = 0; $i < $keylen; $i++) {
             my ($mykey, %chi-square, $best-guess);
@@ -63,8 +63,8 @@ sub myguess ($text) {
 }
 
 sub mycrypt ($text, $key) {
-    my %values-numbers = @alphabet Z=> ^@alphabet;
-    my %values-letters = %values-numbers.invert;
+    constant %values-numbers = @alphabet Z=> ^@alphabet;
+    constant %values-letters = %values-numbers.invert;
 
     my ($new-text);
     my $keylen = $key.chars;
@@ -76,7 +76,7 @@ sub mycrypt ($text, $key) {
     return $new-text;
 }
 
-my $ciphertext = q:to/EOD/;
+my $cipher-text = .uc.subst("rx/<-[{join '',@alphabet}]>/".EVAL, '', :g) given q:to/EOD/;
     MOMUD EKAPV TQEFM OEVHP AJMII CDCTI FGYAG JSPXY ALUYM NSMYH
     VUXJE LEPXJ FXGCM JHKDZ RYICU HYPUS PGIGM OIYHF WHTCQ KMLRD
     ITLXZ LJFVQ GHOLW CUHLO MDSOE KTALU VYLNZ RFGBX PHVGA LWQIS
@@ -96,14 +96,10 @@ my $ciphertext = q:to/EOD/;
     FWAML ZZRXJ EKAHV FASMU LVVUT TGK
 EOD
 
-#my $alpha = join '',@alphabet;
-#my $text = $ciphertext.uc.subst(/<-[$alpha]>/, '', :g); # replace with @alphabet?
-my $text = $ciphertext.uc.subst(/<-[A..Z]>/, '', :g);
-
-for myguess($text) -> $key {
+for myguess($cipher-text) -> $key {
     @res.push: "Key        $key\n" ~ 
                "Key length {$key.chars}\n" ~ 
-               "Plaintext  {substr(mycrypt($text, $key), 0, 80)}...\n";
+               "Plaintext  {substr(mycrypt($cipher-text, $key), 0, 80)}...\n";
 }
 
 .say for @res;
