@@ -3,6 +3,7 @@
 #c# 2018-11-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# alternate way of writing 'race'
 
 # Translation of: Python
 
@@ -21,7 +22,7 @@ my %sum2{Int};
 }
 
 my @sk = %sum2.keys.sort;
-%po5.keys.sort.race.map: -> $p {
+race for %po5.keys.sort -> $p {
     for @sk -> $s {
         next if $p <= $s;
         if %sum2{$p - $s} {
