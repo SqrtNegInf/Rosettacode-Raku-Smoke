@@ -5,7 +5,6 @@
 #j#  JVM: OK
 #n# anything defined in terms of a constant can also be a constant:
 #n#   %English-letter-freq => @alphabet => %values-numbers => %values-letters
-#n# the .EVAL used in setting up $cipher-text is definitely a wart, any way around that?
 
 my @res;
 
@@ -77,7 +76,8 @@ sub mycrypt ($text, $key) {
     return $new-text;
 }
 
-my $cipher-text = .uc.subst("rx/<-[{join '',@alphabet}]>/".EVAL, '', :g) given q:to/EOD/;
+#my $cipher-text = .uc.subst("rx/<-[{join '',@alphabet}]>/".EVAL, '', :g) given q:to/EOD/;
+my $cipher-text = .uc.trans(@alphabet => '', :c) given q:to/EOD/; # thundergnat++
     MOMUD EKAPV TQEFM OEVHP AJMII CDCTI FGYAG JSPXY ALUYM NSMYH
     VUXJE LEPXJ FXGCM JHKDZ RYICU HYPUS PGIGM OIYHF WHTCQ KMLRD
     ITLXZ LJFVQ GHOLW CUHLO MDSOE KTALU VYLNZ RFGBX PHVGA LWQIS
