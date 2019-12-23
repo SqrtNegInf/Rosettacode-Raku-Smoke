@@ -1,18 +1,18 @@
-This is Rakudo version 2019.11-289-g632c00834 built on MoarVM version 2019.11-93-g7a93b2897
+This is Rakudo version 2019.11-291-g9a571b685 built on MoarVM version 2019.11-93-g7a93b2897
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1166/11]
++--------------> Moar: Good/Bad [1167/11]
 |+-------------> JVM: Good/Bad [1003/176]
 ||+------------> Smoke testing [1057]
 |||+-----------> sKipping validation [118]
 ||||+----------> Interactive [58]
 |||||+---------> Touched (modified by me) [291]
-||||||+--------> Concurrent [51]
+||||||+--------> Concurrent [50]
 |||||||+-------> Random seed [116]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [229]
+|||||||||+-----> Draft [230]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [101]
+|||||||||||+---> Void (no local copy) [102]
 ||||||||||||+--> Un-implemented/reliable [77]
 |||||||||||||
 GGS.......... 100_doors
@@ -231,6 +231,7 @@ GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
+.........D.VU Compiler__Verifying_Syntax
 GGS..T....... Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
 ...........VU Compiler_syntax_analyzer
@@ -356,7 +357,7 @@ GGS.......... Environment_variables
 GGS..T....... Equilibrium_index
 GGS.......... Ethiopian_multiplication
 GGS.......... Euler%27s_identity
-GGS...C...... Euler%27s_sum_of_powers_conjecture
+GGS.......... Euler%27s_sum_of_powers_conjecture
 GGS.......... Euler_method
 GGS.......... Evaluate_binomial_coefficients
 GGS.......... Even_or_odd
@@ -1229,7 +1230,7 @@ GGS.......... Unicode_variable_names
 .........DXV. Unit_testing
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
-!BS...C..D... Unprimeable_numbers
+GBS...C..D... Unprimeable_numbers
 GG.K.....D... Untrusted_environment
 GGS.....F.... Update_a_configuration_file
 ...........VU Use_another_language_to_call_a_function
@@ -1257,7 +1258,7 @@ GG.KI........ Vibrating_rectangles-1
 GB.KI........ Vibrating_rectangles-2
 GG.KI........ Video_display_modes
 GGS..T....... Vigen%C3%A8re_cipher
-GGS..TC.....U Vigen%C3%A8re_cipher_Cryptanalysis
+GGS..TC...... Vigen%C3%A8re_cipher_Cryptanalysis
 GGS.......... Visualize_a_tree
 GGS..T....... Vogel%27s_approximation_method
 GBS..TCRF.... Voronoi_diagram
