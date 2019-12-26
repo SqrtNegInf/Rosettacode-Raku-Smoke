@@ -5295,8 +5295,8 @@ File: L/Latin_Squares_in_reduced_form
 #c# 2019-12-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# performance issues: fine for 4/5, but impossibly slow for 6 (hyper tweak not enough, need good prune)
-#n# open question: is check #2 100% effective? (having not yet gotten results for n=6) [updated: No!]
+#n# performance issues: fine for 4/5, but impossibly slow for 6 (multi-day run-time)
+#n# incomplete: need sub calc of n-sized square, and proper extraction of results
 
 File: L/Launch_rocket_with_countdown_and_acceleration_in_stdout
 #!/usr/bin/env perl6
@@ -11051,7 +11051,6 @@ File: V/Vigen%C3%A8re_cipher_Cryptanalysis
 #j#  JVM: OK
 #n# anything defined in terms of a constant can also be a constant:
 #n#   %English-letter-freq => @alphabet => %values-numbers => %values-letters
-#n# the .EVAL used in setting up $cipher-text is definitely a wart, any way around that?
 
 File: V/Visualize_a_tree
 #!/usr/bin/env perl6
