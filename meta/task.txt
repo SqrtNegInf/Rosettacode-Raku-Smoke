@@ -1,16 +1,16 @@
 This is Rakudo version 2019.11-291-g9a571b685 built on MoarVM version 2019.11-93-g7a93b2897
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1167/11]
++--------------> Moar: Good/Bad [1165/11]
 |+-------------> JVM: Good/Bad [1003/176]
 ||+------------> Smoke testing [1057]
 |||+-----------> sKipping validation [118]
 ||||+----------> Interactive [58]
 |||||+---------> Touched (modified by me) [291]
-||||||+--------> Concurrent [50]
+||||||+--------> Concurrent [52]
 |||||||+-------> Random seed [116]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [230]
+|||||||||+-----> Draft [229]
 ||||||||||+----> Ignoring [36]
 |||||||||||+---> Void (no local copy) [102]
 ||||||||||||+--> Un-implemented/reliable [77]
@@ -126,7 +126,7 @@ GBS.....FD... Bilinear_interpolation
 GGS.......... Binary_digits
 GGS.......... Binary_search
 GGS..T....... Binary_strings
-GGS....R.D... Bioinformatics_Sequence_mutation
+GGS....R..... Bioinformatics_Sequence_mutation
 GGS......D... Bioinformatics_base_count
 GGS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
@@ -357,7 +357,7 @@ GGS.......... Environment_variables
 GGS..T....... Equilibrium_index
 GGS.......... Ethiopian_multiplication
 GGS.......... Euler%27s_identity
-GGS.......... Euler%27s_sum_of_powers_conjecture
+GGS...C...... Euler%27s_sum_of_powers_conjecture
 GGS.......... Euler_method
 GGS.......... Evaluate_binomial_coefficients
 GGS.......... Even_or_odd
@@ -607,7 +607,7 @@ GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
-GGS..Tc.....U Latin_Squares_in_reduced_form
+GGS..TC.....U Latin_Squares_in_reduced_form
 .........D.VU Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Technique
 GB.KI....D... Launch_rocket_with_countdown_and_acceleration_in_stdout
 GBS..TC...... Law_of_cosines_-_triples-1
@@ -656,7 +656,7 @@ GGS..T....... Lucky_and_even_lucky_numbers
 GGS.......... Ludic_numbers
 GGS.......... Luhn_test_of_credit_card_numbers
 GBS...c...... Lychrel_numbers
-GBS.......... MAC_Vendor_Lookup
+!BS.......... MAC_Vendor_Lookup
 GGS..T....... MD4
 GGS.......... MD5
 GGS.......... MD5_Implementation
@@ -1230,7 +1230,7 @@ GGS.......... Unicode_variable_names
 .........DXV. Unit_testing
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
-GBS...C..D... Unprimeable_numbers
+!BS...C..D... Unprimeable_numbers
 GG.K.....D... Untrusted_environment
 GGS.....F.... Update_a_configuration_file
 ...........VU Use_another_language_to_call_a_function
