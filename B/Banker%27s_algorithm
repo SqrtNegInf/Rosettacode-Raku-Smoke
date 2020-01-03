@@ -14,15 +14,15 @@ my @processes = <0 1 2>;
 my @avail = <3 1 1 2>;  # Available instances of resource
 
 # Maximum R that can be allocated to processes
-my @maxm  = (<3 3 2 2>, <1 2 3 4>, <1 3 5 0>);
+my @maxm  = <3 3 2 2>, <1 2 3 4>, <1 3 5 0>;
 
 # Resources allocated to processes
-my @allot = (<1 2 2 1>, <1 0 3 3>, <1 2 1 0>);
+my @allot = <1 2 2 1>, <1 0 3 3>, <1 2 1 0>;
 
 # Function to find the system is in safe state or not
 sub isSafe(\processes, \avail, \maxm, \allot) {
    my $satisfied;
-   my @need = (); # the need matrix
+   my @need; # the need matrix
    for ^P -> \i { # Calculating Need of each P
       for ^R -> \j {  # Need of instance = maxm instance - allocated instance
          @need[i;j] = @maxm[i;j] - @allot[i;j]
@@ -35,18 +35,18 @@ sub isSafe(\processes, \avail, \maxm, \allot) {
 
    # While all processes are not finished  or system is not in safe state
    my $count = 0;
-   while ($count < P) { # Find a process which is not finish and whose needs
+   while $count < P { # Find a process which is not finish and whose needs
                         # can be satisfied with current @work resources.
       my $found = False;
       for ^P -> \p {
          # First check if a process is finished, if no, go for next condition
-         if (@finish[p] == 0) {
+         if @finish[p] == 0 {
             # Check if for all resources of current P need is less than work
             LOOP: for ^R -> \j {
                $satisfied = j;
-               last LOOP if (@need[p;j] > @work[j])
+               last LOOP if @need[p;j] > @work[j]
             }
-            if ($satisfied == (R - 1)) { # If all needs of p were satisfied.
+            if $satisfied == R - 1 { # If all needs of p were satisfied.
                # Add the allocated resources of current P to the
                # available/work resources i.e.free the resources
                for ^R -> \k { @work[k] += allot[p;k] }
