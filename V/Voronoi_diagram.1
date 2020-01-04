@@ -14,23 +14,23 @@ srand 123456;
 # Perhaps "Inspired by Python" would be more accurate.
 
 use Image::PNG::Portable;
- 
+
 sub voronoi (:$count, :$w, :$h) {
     my $png = Image::PNG::Portable.new: :width($w), :height($h);
- 
+
     my @domains = map { Hash.new(
         'x' => (5..$w-5).roll,
         'y' => (5..$h-5).roll,
         'rgb' => [(64..255).roll xx 3]
     ) }, ^$count;
- 
+
     for ^$w X ^$h -> ($x, $y) {
         my ($, $i) = min @domains.map: { (%($_)<x> - $x + (%($_)<y> - $y) * i).abs, $++ };
         $png.set: $x, $y, |@domains[$i]<rgb>
     }
- 
+
     @domains.map: *.&dot;
- 
+
     sub dot (%h, $radius = 3) {
         for %h<x> - $radius .. %h<x> + $radius -> $x {
             for %h<y> - $radius .. %h<y> + $radius -> $y {
@@ -38,10 +38,10 @@ sub voronoi (:$count, :$w, :$h) {
             }
         }
     }
- 
+
     return $png
 }
- 
+
 voronoi(:30count, :400w, :400h).write: "voronoi.png";
 
 
