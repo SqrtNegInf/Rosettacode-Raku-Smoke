@@ -16,7 +16,7 @@ sub zig_zag ($n is copy) {
     }
     @m;
 }
- 
+
 say .fmt("%3d") for zig_zag(5);
 my @res.push: .fmt("%3d") for zig_zag(5);
 
