@@ -13,7 +13,7 @@ sub super ($d) {
     my $run = $d x $d;
     ^∞ .grep: ($d * * ** $d).Str.contains: $run
 }
- 
+
 (2..6).race(:1batch).map: { @res.push: "\nFirst 10 super-$_ numbers:\n{.&super[^10]}" }
 
 .say for @res;
