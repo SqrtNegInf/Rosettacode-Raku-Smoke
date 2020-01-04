@@ -67,14 +67,14 @@ sub tree {
 }
 
 my $code = tree() ~ "halt\n";
- 
+
 $code ~~ s:g/^^ jmp \s+ (\S+) \n ('_'\d+:\n) $0:\n/$1/;                                          # remove jmp next (no-op in this case)
 $code ~~ s:g/^^ (<[a..z]>\w* (\N+)? ) $$/{my $l=$pc.fmt("%4d "); $pc += $0[0] ?? 5 !! 1; $l}$0/; # add locations
 my %labels = ($code ~~ m:g/^^ ('_' \d+) ':' \n \s* (\d+)/)».Slip».Str;                           # pc addr of labels
 $code ~~ s:g/^^ \s* (\d+) \s j[z|mp] \s* <(('_'\d+)/ ({%labels{$1} - $0 - 1}) %labels{$1}/;      # fix jumps
 $code ~~ s:g/^^ '_'\d+.*?\n//;                                                                   # remove labels
 #                                         ^^ Unsupported use of \K; in Perl 6 please use <( for discarding text before the capture marker 
- 
+
 say $result = "Datasize: $name-count Strings: $string-count\n"
              ~ join('', %strings.keys.sort.reverse «~» "\n")  # bit dicey with string order
              ~ $code;
