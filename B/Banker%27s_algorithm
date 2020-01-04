@@ -60,18 +60,18 @@ sub isSafe(\processes, \avail, \maxm, \allot) {
          }
       }
       # If we could not find a next process in safe sequence.
-      return (False, "System is not in safe state.") unless $found;
+      return False, "System is not in safe state." unless $found;
    }
    # If system is in safe state then safe sequence will be as below
-   (True, "Safe sequence is: " ~ @safeSeq)
+   True, "Safe sequence is: " ~ @safeSeq
 }
 
 # Check system is in safe state or not
-#my ($state,$message) = isSafe(@processes, @avail, @maxm, @allot);
-#say 'Safe state? ' ~ $state; 
-#say 'Message:    ' ~ $message;
+my ($safe-state,$status-message) = isSafe @processes, @avail, @maxm, @allot;
+say "Safe state? $safe-state"; 
+say "Message:    $status-message";
 
-my @res = isSafe(@processes, @avail, @maxm, @allot);
+my @res = isSafe @processes, @avail, @maxm, @allot;
 
 .say for @res;
 
