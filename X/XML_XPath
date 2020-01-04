@@ -8,7 +8,7 @@
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use XML::XPath;
- 
+
 my $XML = XML::XPath.new(xml => q:to/END/);
 <inventory title="OmniCorp Store #45x10^3">
   <section name="health">
@@ -37,13 +37,13 @@ my $XML = XML::XPath.new(xml => q:to/END/);
   </section>
 </inventory>
 END
- 
+
 my @res;
 say my $first = "First item:"~ $XML.find('//item[1]')[0];
- 
+
 @res.push: "\nPrice elements:";
 @res.push: .contents.Str for $XML.find('//price').List;
- 
+
 @res.push: "\nName elements:", $XML.find('//name')».contents.join: ', ';
 
 .say for @res; 
