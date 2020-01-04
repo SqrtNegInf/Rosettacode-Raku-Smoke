@@ -5,7 +5,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: yin_and_yang.svg
- 
+
 my $out = open('run/yin_and_yang.svg', :w);
 
 # Translation / Modification of C and Perl examples.
@@ -13,7 +13,7 @@ my $out = open('run/yin_and_yang.svg', :w);
 sub circle ($rad, $cx, $cy, $fill = 'white', $stroke = 'black' ){
     $out.say: "<circle cx='$cx' cy='$cy' r='$rad' fill='$fill' stroke='$stroke' stroke-width='1'/>";
 }
- 
+
 sub yin_yang ($rad, $cx, $cy, :$fill = 'white', :$stroke = 'black', :$angle = 90) {
     my ($c, $w) = (1, 0);
     $out.say: "<g transform='rotate($angle, $cx, $cy)'>" if $angle;
@@ -25,15 +25,15 @@ sub yin_yang ($rad, $cx, $cy, :$fill = 'white', :$stroke = 'black', :$angle = 90
     circle($rad/5, $cx, $cy - $rad/2, $stroke, $fill);
     $out.say: "</g>" if $angle;
 }
- 
+
 $out.say: '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg height="400" width="400" xmlns="http://www.w3.org/2000/svg" version="1.1"
  xmlns:xlink="http://www.w3.org/1999/xlink">';
- 
+
 yin_yang(100, 130, 130);
 yin_yang(50, 300, 300);
- 
+
 $out.say: '</svg>';
 
 #`{{
@@ -42,7 +42,7 @@ $out.say: '</svg>';
 # If that's the case, we may as well cheat harder. ;-)
 
 sub cheat_harder ($scale) { "<span style=\"font-size:$scale%;\">&#x262f;</span>"; }
- 
+
 say '<div>', cheat_harder(700), cheat_harder(350), '</div>';
 &#x262f;&#x262f;
 }}
