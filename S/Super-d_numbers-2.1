@@ -12,7 +12,7 @@ sub super ($d) {
     my $run = $d x $d;
     "$d: " ~ (^∞ .grep: ($d * * ** $d).Str.contains($run) )[^10]
 }
- 
+
 @res.push: .&super for 2 .. 6;
 
 .say for @res;
