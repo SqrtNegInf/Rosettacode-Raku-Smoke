@@ -8,12 +8,12 @@ class Wireworld {
     has @.line;
     method height () { @!line.elems }
     has int $.width;
- 
+
     multi method new(@line) { samewith :@line, :width(max @line».chars) }
     multi method new($str ) { samewith $str.lines }
- 
+
     method gist { join "\n", @.line }
- 
+
     method !neighbors($i where ^$.height, $j where ^$.width)
     {
         my @i = grep ^$.height, $i «+« (-1, 0, 1);
@@ -39,10 +39,10 @@ class Wireworld {
         return self.new: @succ;
     }
 }
- 
+
 my %*SUB-MAIN-OPTS;
 %*SUB-MAIN-OPTS<named-anywhere> = True;
- 
+
 multi sub MAIN (
     IO()      $filename,
     Numeric:D :$interval = 1/4,
@@ -50,7 +50,7 @@ multi sub MAIN (
 ) {
     run-loop :$interval, :$stop-on-repeat, Wireworld.new: $filename.slurp;
 }
- 
+
 #| run a built-in example
 multi sub MAIN (
     Numeric:D :$interval = 0/4, # DH change - tweak for speed
@@ -65,7 +65,7 @@ multi sub MAIN (
     END
 
 }
- 
+
 
 sub run-loop (
     Wireworld:D     $initial, 
@@ -73,22 +73,22 @@ sub run-loop (
     Bool            :$stop-on-repeat
 ){
     my %seen is SetHash;
- 
+
 my @res = gather {
     take '#' x $initial.width;
     for $initial ...^ * eqv * { # generate a sequence (uses .succ)
         take .gist;
         take '#' x .width;
- 
+
         if $stop-on-repeat {
             last if %seen{ .gist }++;
         }
- 
+
         sleep $interval;
     }
 }
 .say for @res;
- 
+
 #When run with --stop-on-repeat
 
 my $ref = qq:to/END/;
