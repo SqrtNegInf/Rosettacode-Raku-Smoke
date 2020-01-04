@@ -9,10 +9,10 @@
 
 my @words = <a bc abc cd b>;
 my $regex = @words.join('|');
- 
+
 my @res.push: "$_: " ~ word-break($_) for <abcd abbc abcbcd acdbc abcdd>;
 .say for @res;
- 
+
 sub word-break (Str $word) { ($word ~~ / ^ (<$regex>)+ $ /)[0] // "Not possible" }
 
 my $ref = qq:to/END/;
