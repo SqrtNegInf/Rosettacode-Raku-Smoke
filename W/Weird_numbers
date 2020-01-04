@@ -13,7 +13,7 @@ sub abundant (\x) {
     };
     (my $s = @l.sum) > x ?? ($s, |@l.sort(-*)) !! ();
 }
- 
+
 my @weird = (2, 4, {|($_ + 4, $_ + 6)} ... *).map: -> $n {
     my ($sum, @div) = $n.&abundant;
     next unless $sum;        # Weird number must be abundant, skip it if it isn't.
@@ -28,7 +28,7 @@ my @weird = (2, 4, {|($_ + 4, $_ + 6)} ... *).map: -> $n {
     }
     $n
 }
- 
+
 say my $result = "The first 25 weird numbers:\n" ~ @weird[^25];
 
 my $ref = q:to/END/;
