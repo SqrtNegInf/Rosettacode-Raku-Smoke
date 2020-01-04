@@ -5,7 +5,7 @@
 #j# JVM:  OK
 
 my Hash @houses = (1 .. 5).map: { %(:num($_)) }; # 1 there are five houses
- 
+
 my @facts = (
     { :nat<English>, :color<red> },      # 2 The English man lives in the red house.
     { :nat<Swede>, :pet<dog> },          # 3 The Swede has a dog.
@@ -24,7 +24,7 @@ my @facts = (
     { :drink<water>, :Next-To(:smoke<Blend>) },  # 16 They drink water in a house next to the house where they smoke Blend.
     { :pet<zebra> }, # who owns this?
 );
- 
+
 sub MAIN {
     my @res;
     for gather solve(@houses, @facts) {
@@ -49,12 +49,12 @@ sub MAIN {
     use Test;
     is @res.join("\n"), chomp $ref;
 }
- 
+
 #| found a solution that fits all the facts
 multi sub solve(@houses, @facts [ ]) {
     take @houses;
 }
- 
+
 #| process the next fact
 multi sub solve(@houses, @facts is copy) {
     my $fact = @facts.shift;
@@ -62,7 +62,7 @@ multi sub solve(@houses, @facts is copy) {
         solve(@$_, @facts)
     }
 }
- 
+
 #| find all possible solutions for pairs of houses with
 #| %a attributes, left of a house  with %b attributes
 multi sub consider(@houses, :Left-Of(%b)!, *%a) {
@@ -77,14 +77,14 @@ multi sub consider(@houses, :Left-Of(%b)!, *%a) {
         }
     }
 }
- 
+
 #| find all possible pairs of houses with %a attributes, either side
 #! of a house  with %b attributes
 multi sub consider(@houses, :Next-To(%b)!, *%a ) {
     consider(@houses, |%a, :Left-Of(%b) );
     consider(@houses, |%b, :Left-Of(%a) );
 }
- 
+
 #| find all possible houses that match the given attributes
 multi sub consider(@houses, *%fact) {
     for @houses.grep({plausible($_, %fact)}) -> $house {
@@ -94,7 +94,7 @@ multi sub consider(@houses, *%fact) {
         take @scenario;
     }
 }
- 
+
 #| plausible if doesn't conflict with anything
 sub plausible(%house, %atts) {
     all %atts.keys.map: { (%house{$_}:!exists) || %house{$_} eq %atts{$_} };
