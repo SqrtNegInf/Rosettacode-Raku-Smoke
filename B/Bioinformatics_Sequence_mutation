@@ -10,33 +10,33 @@ srand 123456;
 my @res;
 
 my @bases = <A C G T>;
- 
+
 # The DNA strand
 my $dna = @bases.roll(200).join;
- 
+
 # The Task
 @res.push: "ORIGINAL DNA STRAND:";
 @res.push: pretty $dna;
 @res.push: "\nTotal bases: "~ +my $bases = $dna.comb.Bag;
 @res.push: $bases.sort( ~*.key ).join: "\n";
- 
+
 @res.push: "\nMUTATED DNA STRAND:";
 my $mutate = $dna.&mutate(10);
 @res.push: pretty diff $dna, $mutate;
 @res.push: "\nTotal bases: "~ +my $mutated = $mutate.comb.Bag;
 @res.push: $mutated.sort( ~*.key ).join: "\n";
- 
- 
+
+
 # Helper subs
 sub pretty ($string, $wrap = 50) {
     $string.comb($wrap).map( { sprintf "%8d: %s", $++ * $wrap, $_ } ).join: "\n"
 }
- 
+
 sub mutate ($dna is copy, $count = 1) {
     $dna.substr-rw((^$dna.chars).roll, 1) = @bases.roll for ^$count;
     $dna
 }
- 
+
 sub diff ($orig, $repl) {
     ($orig.comb Z $repl.comb).map( -> ($o, $r) { $o eq $r ?? $o !! $r.lc }).join
 }
