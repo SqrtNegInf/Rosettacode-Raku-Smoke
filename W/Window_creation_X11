@@ -11,7 +11,7 @@
 use NativeCall;
 
 constant libX11 = '/opt/local/lib/libX11.dylib';
- 
+
 class Display is repr('CStruct') {
     has int32 $!screen;
     has int32 $!window;
@@ -23,7 +23,7 @@ class XEvent  is repr('CStruct') {
     has int32 $.type;
     method init { $!type = 0 }
 }
- 
+
 sub XOpenDisplay(Str $name = ':0') returns Display is native('X11') { * }
 sub XDefaultScreen(Display $) returns int32 is native('X11') { * }
 sub XRootWindow(Display $, int32 $screen_number) returns int32 is native('X11') { * }
@@ -45,10 +45,10 @@ sub XDrawString(
 sub XDefaultGC(Display $, int32 $screen) returns GC is native('X11') { * }
 sub XNextEvent(Display $, XEvent $e)              is native('X11') { * }
 sub XCloseDisplay(Display $)                      is native('X11') { * }
- 
+
 my Display $display = XOpenDisplay()
     or die "Can not open display";
- 
+
 my int $screen = XDefaultScreen($display);
 my int $window = XCreateSimpleWindow(
     $display,
@@ -58,7 +58,7 @@ my int $window = XCreateSimpleWindow(
 );
 XSelectInput($display, $window, 1 +< 15 +| 1);
 XMapWindow($display, $window);
- 
+
 my Str $msg = 'Hello, World!';
 my XEvent $e .= new; $e.init;
 loop {
