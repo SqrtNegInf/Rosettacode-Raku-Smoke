@@ -14,28 +14,28 @@ sub top_topos ( %deps, *@top ) {
     }
 
     if @top {
-	my @want = @top;
-	my %care;
-	%care{@want} = 1 xx *;
-	repeat while @want {
-	    my @newwant;
-	    for @want -> $before {
-		if %ba{$before} {
-		    for %ba{$before}.keys -> $after {
-			if not %ba{$before}{$after} {
-			    %ba{$before}{$after}++;
-			    push @newwant, $after;
-			}
-		    }
-		}
-	    }
-	    @want = @newwant;
-	    %care{@want} = 1 xx *;
-	}
+    my @want = @top;
+    my %care;
+    %care{@want} = 1 xx *;
+    repeat while @want {
+        my @newwant;
+        for @want -> $before {
+        if %ba{$before} {
+            for %ba{$before}.keys -> $after {
+            if not %ba{$before}{$after} {
+                %ba{$before}{$after}++;
+                push @newwant, $after;
+            }
+            }
+        }
+        }
+        @want = @newwant;
+        %care{@want} = 1 xx *;
+    }
 
-	for %ba.keys -> $before {
-	    %ba{$before}:delete unless %care{$before};
-	}
+    for %ba.keys -> $before {
+        %ba{$before}:delete unless %care{$before};
+    }
     }
 
     my @levels;
@@ -66,7 +66,7 @@ my %deps =
     des1  =>  <des1a des1b des1c>,
     des1a =>  <des1a1 des1a2>,
     des1c =>  <des1c1 extra1>;
- 
+
 my @res;
 @res.push: top_topos(%deps);
 @res.push: top_topos(%deps, 'top1');
