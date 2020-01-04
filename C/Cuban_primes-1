@@ -14,7 +14,7 @@ use Lingua::EN::Numbers;
 use ntheory:from<Perl5> <:all>;
 
 my @cubans = lazy (1..Inf).map({ ($_+1)³ - .³ }).grep: *.&is_prime;
- 
+
 @res.push: @cubans[^200]».&comma».fmt("%9s").rotor(10).join: "\n";
 @res.push: ''; 
 @res.push: @cubans[99_999].&comma;
