@@ -20,15 +20,15 @@ sub pierpont ($kind is copy = 1) {
     my $add-one = 3;
     my @iterators = [1,2,4,8 … *].iterator, [3,9,27 … *].iterator;
     my @head = @iterators».pull-one;
- 
+
     gather {
         loop {
             my $key = @head.pairs.min( *.value ).key;
             my $min = @head[$key];
             @head[$key] = @iterators[$key].pull-one;
- 
+
             take $min + $kind if "{$min + $kind}".&is-prime;
- 
+
             if $min >= $add-one {
                 @iterators.push: ([|((2,4,8).map: * * $po3) … *]).iterator;
                 $add-one = @head[+@iterators - 1] = @iterators[+@iterators - 1].pull-one;
