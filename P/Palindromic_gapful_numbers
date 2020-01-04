@@ -14,13 +14,13 @@ my @npal = flat [ ^10 ], [ ^10 .map: * x 2 ],
       my \count = +@^penultimate;
       [ flat ^10 .map: -> \digit { digit xx count Z~ @penultimate Z~ digit xx count } ]
   } … *;
- 
+
 # Individual lazy palindromic gapful number iterators for each start/end digit
 my @gappal = (1..9).map: -> \digit {
     my \divisor = digit + 10 * digit;
     @npal.map: -> \this { next unless (my \test = digit ~ this ~ digit) %% divisor; test }
 }
- 
+
 # Display
 for "First 20 gapful palindromes:",                      ^20, 7,
     "\n85th through 100th:",                          85..99, 8,
