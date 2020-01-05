@@ -23,7 +23,7 @@ multi walk (@node, $prefix) {
 }
 multi walk ($node, $prefix) { take $node => $prefix }
 
-say .perl for huffman('this is an example for huffman encoding');
+say .raku for huffman('this is an example for huffman encoding');
 
 #To demonstrate that the table can do a round trip:
 
