@@ -50,7 +50,7 @@ my $actions = S-Exp::ACTIONS.new();
 my $perl_array = (S-Exp.parse($s-exp, :$actions)).ast;
 
 say my $r1 = "the expression:\n$s-exp\n";
-say my $r2 = "the perl6-expression:\n{$perl_array.perl}\n";
+say my $r2 = "the perl6-expression:\n{$perl_array.raku}\n";
 say my $r3 = "and back:\n{s-exp_writer($perl_array)}\n";
 
 my $ref1 = qq:to/END/;
