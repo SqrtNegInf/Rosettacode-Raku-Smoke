@@ -12,7 +12,7 @@ my @indices = 6, 1, 7;
 
 @values[ @indices.sort ] .= sort;
 
-@values.perl.say;
+@values.raku.say;
 
 #Iterative
 
@@ -27,7 +27,7 @@ sub disjointSort( @values, @indices --> List ) {
 my @v = ( 7 , 6 , 5 , 4 , 3 , 2 , 1 , 0 ) ;
 my @i = ( 6 , 1 , 7 ) ;
 my @sortedValues = disjointSort( @v, @i ) ;
-@sortedValues.perl.say ;
+@sortedValues.raku.say ;
 
 use Test;
 is @values, '7 0 5 4 3 2 1 6';
