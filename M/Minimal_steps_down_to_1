@@ -26,7 +26,7 @@ for [2,3], 1, 2000,
     my @max = %min.grep( {.value.<s> == $max} )».key.sort(+*);
 
     if $limit == 2000 {
-        @res.push: "\nDivisors: {@div.perl}, subtract: $sub";
+        @res.push: "\nDivisors: {@div.raku}, subtract: $sub";
         steps(1..10);
     }
     @res.push: "\nUp to {comma $limit} found {+@max} number{+@max == 1 ?? '' !! 's'} " ~
