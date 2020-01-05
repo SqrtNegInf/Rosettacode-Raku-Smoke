@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/xxxx
+#c# 2020-xx-xx open, 2020-xx-xx closed
+#n# bug source: R/Ramanujan%27s_constant-1 (specifically; $pi.FatRat at end of 'π' routine)
+#n# as of: Rakudo version 2019.11-315-g5162e6f5a built on MoarVM version 2019.11-103-g2ac1fa27f
+#n# but commit 'val()' commit reverted: https://github.com/rakudo/rakudo/commit/a3afde603779c8eb810a15a4e635021023be36b4
+
+say '0.12345678912345678912'.Rat;  # OK
+say '0.123456789123456789123'.Rat; # NOT
+
+#my $s = '0.12345678912345678912';  # OK
+ my $s = '0.123456789123456789123'; # NOT
+say my $sfr = $s.Rat;
+say "nu: " ~ $sfr.nude[0];
+say "de: " ~ $sfr.nude[1];
