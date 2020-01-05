@@ -10,7 +10,7 @@
 my @results;
 
 sub type ($t) { 
-say $t.perl, "\tis type: ", $t.WHAT;
+say $t.raku, "\tis type: ", $t.WHAT;
 push @results, $t.WHAT.gist;
 }
 
