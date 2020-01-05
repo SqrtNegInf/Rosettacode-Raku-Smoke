@@ -23,8 +23,8 @@ my IntTree $it .= new(value => 1,
                       right => IntTree.new(value => 3));
 
 $it.replace-all(42);
-say $it.perl;
+say $it.raku;
 
 use Test;
 
-is $it.perl, 'IntTree.new(value => 42, left => IntTree.new(value => 42, left => BinaryTree[T], right => BinaryTree[T]), right => IntTree.new(value => 42, left => BinaryTree[T], right => BinaryTree[T]))';
+is $it.raku, 'IntTree.new(value => 42, left => IntTree.new(value => 42, left => BinaryTree[T], right => BinaryTree[T]), right => IntTree.new(value => 42, left => BinaryTree[T], right => BinaryTree[T]))';
