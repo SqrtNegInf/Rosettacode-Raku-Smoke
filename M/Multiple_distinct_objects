@@ -32,6 +32,6 @@ my @b = ABC.new() xx $n;
 @b[2].set-b('Q');
 
 use Test;
-is @a.perl, '[0, -1, -2, -3, -4]';
-is @b.perl, '[ABC.new(a => 47, b => "Z"), ABC.new(a => 0, b => "A"), ABC.new(a => 42, b => "Q")]';
+is @a.raku, '[0, -1, -2, -3, -4]';
+is @b.raku, '[ABC.new(a => 47, b => "Z"), ABC.new(a => 0, b => "A"), ABC.new(a => 42, b => "Q")]';
 
