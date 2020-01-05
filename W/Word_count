@@ -3,7 +3,7 @@
 #c# 2017-09-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# .race provide no benefit here
+#n# .race provides no benefit here
 
 # Works with: Rakudo version 2017.07
 #`{
@@ -27,9 +27,9 @@ sub MAIN ($filename = 'ref/word-count.txt', $top = 10) {
 
 my @res;
     for @matcher -> $reg {
-        @res.push: "\nTop $top using regex: ", $reg.perl;
+        @res.push: "\nTop $top using regex: ", $reg.raku;
         @res.push: $_ for $file.comb( $reg ).Bag.sort(-*.value)[^$top];
-        #say "\nTop $top using regex: ", $reg.perl;
+        #say "\nTop $top using regex: ", $reg.raku;
         #.put for $file.comb( $reg ).Bag.sort(-*.value)[^$top];
     }
 
