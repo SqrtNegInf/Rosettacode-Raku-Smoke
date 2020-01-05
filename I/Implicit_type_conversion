@@ -84,7 +84,7 @@ $x /= 10**10;             say-it($x); # 0.0000000000000000000629 (FatRat)
 sub say-it ($v) {
 my $line = $v; 
 $line ~= ' ';
-$line ~= $v.WHAT.perl;
+$line ~= $v.WHAT.raku;
 @res.push: $line;
 }
 
