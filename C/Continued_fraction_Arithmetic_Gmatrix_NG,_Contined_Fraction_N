@@ -64,7 +64,7 @@ sub pprat($a) { # format Rational for pretty printing
 sub test_NG ($rat, @ng, $op) { 
     my @cf = $rat.Rat(1e-18).&r2cf;
     my @op = NG.new( |@ng ).apply( @cf );
-    return $rat.perl, ' as a cf: ', @cf.&ppcf, " $op = "~
+    return $rat.raku, ' as a cf: ', @cf.&ppcf, " $op = "~
         @op.&ppcf, "\tor ", @op.&cf2r.&pprat;
 }
 
