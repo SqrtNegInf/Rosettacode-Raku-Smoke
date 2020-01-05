@@ -9,7 +9,7 @@ sub multisplit($str, @seps) { $str.split(/ (||@seps) /, :v) }
 my @chunks = multisplit( 'a!===b=!=c==d', < == != = > );
 
 # Print the strings.
-my @res.push: @chunks».Str.perl;
+my @res.push: @chunks».Str.raku;
 
 # Print the positions of the separators.
 for grep Match, @chunks -> $s {
