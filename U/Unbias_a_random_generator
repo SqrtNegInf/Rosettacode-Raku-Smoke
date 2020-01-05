@@ -26,7 +26,7 @@ for 3 .. 6 -> $n {
         @fixed[ unbiased($n) ]++;
     }
     @res.push: sprintf "N=%d   randN:%s,%4.1f%%   unbiased:%s,%4.1f%%",
-        $n, map { .perl, .[1] * 100 / $iterations }, @raw, @fixed;
+        $n, map { .raku, .[1] * 100 / $iterations }, @raw, @fixed;
 }
 .say for @res;
 
