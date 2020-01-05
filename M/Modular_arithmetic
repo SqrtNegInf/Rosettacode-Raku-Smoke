@@ -12,6 +12,6 @@ my $m-new = f( 10 Mod 13 );
 say f( 10 Mod 13 );
 
 use Test;
-is $m-new.perl, 'Modulo.new(residue => 1, modulus => 13)';
+is $m-new.raku, 'Modulo.new(residue => 1, modulus => 13)';
 is $m-new.gist, '1 「mod 13」';
 is f( 10 Mod 13), 1;
