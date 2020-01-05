@@ -36,12 +36,12 @@ sub vdc($num, $base = 2) {
 
 for 2..5 -> $b {
     say "Base $b";
-    say (vdc($_,$b) for ^10).perl;
+    say (vdc($_,$b) for ^10).raku;
     say '';
 }
 
-is (vdc($_,2) for ^10).perl, '(0, 0.5, 0.25, 0.75, 0.125, 0.625, 0.375, 0.875, 0.0625, 0.5625)';
-is (vdc($_,5) for ^10).perl, '(0, 0.2, 0.4, 0.6, 0.8, 0.04, 0.24, 0.44, 0.64, 0.84)';
+is (vdc($_,2) for ^10).raku, '(0, 0.5, 0.25, 0.75, 0.125, 0.625, 0.375, 0.875, 0.0625, 0.5625)';
+is (vdc($_,5) for ^10).raku, '(0, 0.2, 0.4, 0.6, 0.8, 0.04, 0.24, 0.44, 0.64, 0.84)';
 #Base 2 '(0, 1/2, 1/4, 3/4, 1/8, 5/8, 3/8, 7/8, 1/16, 9/16)';
 #Base 3 (0, 1/3, 2/3, 1/9, 4/9, 7/9, 2/9, 5/9, 8/9, 1/27)
 #Base 4 (0, 1/4, 1/2, 3/4, 1/16, 5/16, 9/16, 13/16, 1/8, 3/8)
@@ -58,8 +58,8 @@ sub vdcX($value, $base = 2) {
     }
 }
 
-is (vdcX($_,2) for ^10).perl, '(0.0, 0.5, 0.25, 0.75, 0.125, 0.625, 0.375, 0.875, 0.0625, 0.5625)';
-is (vdcX($_,5) for ^10).perl, '(0.0, 0.2, 0.4, 0.6, 0.8, 0.04, 0.24, 0.44, 0.64, 0.84)';
+is (vdcX($_,2) for ^10).raku, '(0.0, 0.5, 0.25, 0.75, 0.125, 0.625, 0.375, 0.875, 0.0625, 0.5625)';
+is (vdcX($_,5) for ^10).raku, '(0.0, 0.2, 0.4, 0.6, 0.8, 0.04, 0.24, 0.44, 0.64, 0.84)';
 
 # We first define two sequences, one finite, one infinite.
 # When we zip those sequences together, the finite sequence terminates the loop (which, since a Perl6 loop returns all its values, is merely another way of writing a map).
