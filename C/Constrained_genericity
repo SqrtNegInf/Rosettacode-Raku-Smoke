@@ -18,7 +18,7 @@ class Yummy does FoodBox[Cake] { }      # composes correctly
 # class Yucky does FoodBox[Int] { }     # fails to compose
 
 my Yummy $foodbox .= new;
-say $foodbox.perl;
+say $foodbox.raku;
 
 use Test;
-is $foodbox.perl, 'Yummy.new(foodbox => {})';
+is $foodbox.raku, 'Yummy.new(foodbox => {})';
