@@ -57,8 +57,8 @@ multi sub MAIN(Bool :$verbose?) {
                           // prompt("please give a start value: ");
 
         my $ruleset = slurp($rulefile);
-        say $start_value.perl();
-        say my $result = run(:$ruleset, :$start_value, :$verbose).perl;
+        say $start_value.raku();
+        say my $result = run(:$ruleset, :$start_value, :$verbose).raku;
         say '';
         is $result, '"I bought a bag of apples from my brother."';
     }
@@ -67,15 +67,15 @@ multi sub MAIN(Bool :$verbose?) {
 multi sub MAIN(Str $rulefile where *.IO.f, Str $input where *.IO.f, Bool :$verbose?) {
     my $ruleset = slurp($rulefile);
     my $start_value = slurp($input).trim-trailing;
-    say "starting with $start_value.perl()";
-    say run(:$ruleset, :$start_value, :$verbose).perl;
+    say "starting with $start_value.raku()";
+    say run(:$ruleset, :$start_value, :$verbose).raku;
 }
 
 multi sub MAIN(Str $rulefile where *.IO.f, *@pieces, Bool :$verbose?) {
     my $ruleset = slurp($rulefile);
     my $start_value = @pieces.join(" ");
-    say "starting with $start_value.perl()";
-    say run(:$ruleset, :$start_value, :$verbose).perl;
+    say "starting with $start_value.raku()";
+    say run(:$ruleset, :$start_value, :$verbose).raku;
 }
 
 my $ruleset = q:to/END/;
@@ -111,8 +111,8 @@ END
 
 my $start_value = '_1111*11111_';
 
-say "starting with $start_value.perl()";
-say my $result = run(:$ruleset, :$start_value).perl;
+say "starting with $start_value.raku()";
+say my $result = run(:$ruleset, :$start_value).raku;
 
 is $result, '"11111111111111111111"';
 say '';
