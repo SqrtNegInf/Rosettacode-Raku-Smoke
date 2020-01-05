@@ -34,7 +34,7 @@ for [[1.1, 2.2],],
     [[1, 3], [-6, -1], [-4, -5], [8, 2], [-6, -6]],
     [[], [2], [4,6], [5,9,8]]
 -> @intervals {
-    @res.push: sprintf "%46s => ", @intervals.perl;
+    @res.push: sprintf "%46s => ", @intervals.raku;
     @res[*-1] ~= (reverse consolidate |@intervals.grep(*.elems)».sort.sort({ [.[0], .[*-1]] }).map: { Range.new(.[0], .[*-1]) }).gist
 }
 
