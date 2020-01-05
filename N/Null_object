@@ -40,27 +40,27 @@ object of type Any so you don't accidentally send quantum superpositions
 }}
 
 my $var;
-@res.push: $var.WHAT.perl;      # Any()
+@res.push: $var.WHAT.raku;      # Any()
 $var = 42;
-@res.push: $var.WHAT.perl;      # Int()
+@res.push: $var.WHAT.raku;      # Int()
 @res.push: $var.defined;        # True
 $var = Nil;
-@res.push: $var.WHAT.perl;      # Any()
+@res.push: $var.WHAT.raku;      # Any()
 @res.push: $var.defined;        # False
 
 # You can declare a variable of type Mu if you wish to propagate superpositional types:
 
 my Mu $junction;
-@res.push: $junction.WHAT.perl; # Mu()
+@res.push: $junction.WHAT.raku; # Mu()
 $junction = 1 | 2 | 3;
-@res.push: $junction.WHAT.perl; # Junction()
+@res.push: $junction.WHAT.raku; # Junction()
 
 # Or you can declare a more restricted type than Any
 
 my Str $str;
-@res.push: $str.WHAT.perl;      # Str()
+@res.push: $str.WHAT.raku;      # Str()
 $str = "I am a string.";
-@res.push: $str.WHAT.perl;      # Str()
+@res.push: $str.WHAT.raku;      # Str()
 #$str = 42;                     # (fails) ## commented out for testing
 
 #`{{
