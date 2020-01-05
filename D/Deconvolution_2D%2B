@@ -30,13 +30,13 @@ sub row ( @g, @f, @gcoord, $hsize ) {
         for ^@hc -> $i {
             my $window = @gcoord[$i] - @hc[$i];
             @fcoord.push($window) and next if 0 <= $window < @f.shape[$i];                   # > > vim kludge
-#say 'f'; say @row.perl;
+#say 'f'; say @row.raku;
             last; 
         }
         @row.push: @fcoord == @hc ?? @f.AT-POS(|@fcoord) !! 0;
     }
     @row.push: @g.AT-POS(|@gcoord);
-#say 'g';  say @row.perl;
+#say 'g';  say @row.raku;
     return @row;
 }
 
