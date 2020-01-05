@@ -20,7 +20,7 @@ my @res;
 @res.push: @queue.shift; # a
 @res.push: @queue.pop; # c
 
-@res.push: @queue.perl; # [ b ]
+@res.push: @queue.raku; # [ b ]
 @res.push: @queue.elems; # 1
 
 @queue.unshift('A'); # [ A, b ]
