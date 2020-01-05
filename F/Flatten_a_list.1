@@ -8,8 +8,8 @@
 # Works with: Rakudo Star version 2015.10
 my @l = [[1], 2, [[3,4], 5], [[[]]], [[[6]]], 7, 8, []];
 
-.perl.say given gather @l.deepmap(*.take); # lazy recursive version
-say .perl given gather @l.deepmap(*.take); # alt version
+.raku.say given gather @l.deepmap(*.take); # lazy recursive version
+say .raku given gather @l.deepmap(*.take); # alt version
 
 use Test;
 is (1, 2, 3, 4, 5, 6, 7, 8), (gather @l.deepmap(*.take)), 'Numbers 1 to 8';
