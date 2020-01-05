@@ -22,7 +22,7 @@ sub hash-join(@a, &a, @b, &b) {
     ([%hash{.&b} // next, $_] for @b);
 }
 
-.perl.say for hash-join @A, *.[1], @B, *.[0];
+.raku.say for hash-join @A, *.[1], @B, *.[0];
 
 #`{
 
