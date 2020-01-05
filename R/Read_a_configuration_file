@@ -59,14 +59,14 @@ grammar MyConfFile is ConfFile {
 
 MyConfFile.parsefile('ref/file.cfg');
 
-#.perl.say for :$fullname, :$favouritefruit, :$needspeeling, :$seedsremoved, :@otherfamily;
+#.raku.say for :$fullname, :$favouritefruit, :$needspeeling, :$seedsremoved, :@otherfamily;
 
 my @res;
 @res.push: "fullname: $fullname";
 @res.push: "favouritefruit: $favouritefruit";
 @res.push: "needspeeling: $needspeeling";
 @res.push: "seedsremoved: $seedsremoved";
-@res.push: "otherfamily: "; @res[*-1] ~= @otherfamily.perl;
+@res.push: "otherfamily: "; @res[*-1] ~= @otherfamily.raku;
 .say for @res;
 
 my $ref = qq:to/END/;
