@@ -22,7 +22,7 @@ given %sol{100}:p {
     @res.push: "    $_" for .value.list;
 }
 
-@res.push: .perl for :$max_solutions, :$first_unsolvable, :@two_largest_sums;
+@res.push: .raku for :$max_solutions, :$first_unsolvable, :@two_largest_sums;
 .say for @res;
 
 my $ref = q:to/END/;
