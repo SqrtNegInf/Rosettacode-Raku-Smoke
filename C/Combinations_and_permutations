@@ -97,4 +97,4 @@ use Test;
 is @res.join("\n"), chomp $ref;
 is P(12, 4), 11880, 'Exact result';
 is C(60, 20), 4191844505805495, 'Float result';
-is C(100,33).perl, '294692427022540894366527900.0', 'Float approx.';
+is C(100,33).raku, '294692427022540894366527900.0', 'Float approx.';
