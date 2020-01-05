@@ -12,13 +12,13 @@
 class Point {
     has Real $.x is rw = 0;
     has Real $.y is rw = 0;
-    method Str { $.perl }
+    method Str { $.raku }
 }
 
 class Circle {
     has Point $.p is rw = Point.new;
     has Real $.r is rw = 0;
-    method Str { $.perl }
+    method Str { $.raku }
 }
 
 my $c = Circle.new(p => Point.new(x => 1, y => 2), r => 3);
