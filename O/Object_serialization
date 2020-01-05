@@ -37,7 +37,7 @@ $r1.to_file('./run/objects.dat');
 @res.push: "";
 @res.push: "Deserialize to Rectangle2";
 my $r2 = from_file('run/objects.dat');
-@res.push: "Rectangle2 is of type " ~ $r2.WHAT.perl;
+@res.push: "Rectangle2 is of type " ~ $r2.WHAT.raku;
 @res.push: "Rectangle2 area is " ~ $r2.area();
 
 .say for @res;
