@@ -8,8 +8,8 @@ my @res;
 
 class Farragut {
     method FALLBACK ($name, *@rest) {
-        say "{self.WHAT.perl}: $name.tc() the @rest[], full speed ahead!";
-        @res.push: "{self.WHAT.perl}: $name.tc() the @rest[], full speed ahead!";
+        say "{self.WHAT.raku}: $name.tc() the @rest[], full speed ahead!";
+        @res.push: "{self.WHAT.raku}: $name.tc() the @rest[], full speed ahead!";
     }
 }
 
