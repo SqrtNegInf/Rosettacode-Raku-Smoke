@@ -78,7 +78,7 @@ sub import (Str $trees, $level = '  ') {
 
 my $forest = import $trees;
 
-@res.push: "\nNative data structure:\n"~ $forest.perl;
+@res.push: "\nNative data structure:\n"~ $forest.raku;
 
 {
     #use JSON::Fast;
