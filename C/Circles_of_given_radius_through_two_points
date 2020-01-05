@@ -26,7 +26,7 @@ my @input =
 
 my @res1;
 for @input {
-    @res1.push: (.list.perl, ': ', circles(|$_).join(' and '));
+    @res1.push: (.list.raku, ': ', circles(|$_).join(' and '));
 }
 .say for @res1; 
 
