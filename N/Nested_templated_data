@@ -22,8 +22,8 @@ for [
        (10, 4, 1),
        5),)
     ] {
-  @res.push: '      Template: '~ $_.perl;
-  @res.push: "Data structure: { template($_).perl }\n";
+  @res.push: '      Template: '~ $_.raku;
+  @res.push: "Data structure: { template($_).raku }\n";
 }
 .say for @res; 
 
