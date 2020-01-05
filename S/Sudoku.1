@@ -58,7 +58,7 @@ sub solve($sudoku, Int $level) {
             # Now let's try the possible values in the order of
             # uniqueness.
             for sort { matches-in-competing-cells($sudoku, $x, $y, $_) }, @($sudoku[$x][$y]) -> $val {
-                trace $level, "Trying $val on "~($x+1)~","~($y+1)~" "~$sudoku[$x][$y].perl;
+                trace $level, "Trying $val on "~($x+1)~","~($y+1)~" "~$sudoku[$x][$y].raku;
                 my $solution = clone-sudoku($sudoku);
                 $solution[$x][$y] = $val;
                 my $solved = solve($solution, $level+1);
