@@ -79,11 +79,11 @@ my $hw = q:to/END/;
     END
 
 my $snusp = SNUSP.new;
-$snusp.run($hw).perl;
+$snusp.run($hw).raku;
 
 my &testcode = sub {
 my $snusp = SNUSP.new;
-$snusp.run($hw).perl;
+$snusp.run($hw).raku;
 }
 
 use Test;
