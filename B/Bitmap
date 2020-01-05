@@ -33,8 +33,8 @@ $b.fill( Pixel.new( R => 0, G => 0, B => 200) );
 $b.set-pixel( 7, 5, Pixel.new( R => 100, G => 200, B => 0) );
 
 use Test;
-is $b.perl, 'Bitmap.new(width => 10, height => 10)', 'Bitmap.new(width => 10, height => 10)';
-is $b.get-pixel( 1, 0).perl, 'Pixel.new(R => 0, G => 0, B => 200)', 'Pixel.new(R => 0, G => 0, B => 200)';
-is $b.get-pixel( 7, 5).perl, 'Pixel.new(R => 100, G => 200, B => 0)', 'Pixel.new(R => 100, G => 200, B => 0)';
+is $b.raku, 'Bitmap.new(width => 10, height => 10)', 'Bitmap.new(width => 10, height => 10)';
+is $b.get-pixel( 1, 0).raku, 'Pixel.new(R => 0, G => 0, B => 200)', 'Pixel.new(R => 0, G => 0, B => 200)';
+is $b.get-pixel( 7, 5).raku, 'Pixel.new(R => 100, G => 200, B => 0)', 'Pixel.new(R => 100, G => 200, B => 0)';
 
 #Thanks to the rw trait on the pixel method, we don't actually need to define two separate methods, set-pixel and get-pixel, but that is an explicit requirement of the task.  (Beware your presuppositions!  In Perl 6, accessors only determine identity, not use.  In particular, identity is considered orthogonal to lvalue/rvalue context.)
