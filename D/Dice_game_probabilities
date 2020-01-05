@@ -24,8 +24,8 @@ sub beating-probability ([$roll1, $roll2]) {
 
 # We're using standard DnD notation for dice rolls here.
 my @res;
-@res.push: .gist~ "\t"~ .perl given beating-probability < 9d4 6d6 >;
-@res.push: .gist~ "\t"~ .perl given beating-probability < 5d10 6d7 >;
+@res.push: .gist~ "\t"~ .raku given beating-probability < 9d4 6d6 >;
+@res.push: .gist~ "\t"~ .raku given beating-probability < 5d10 6d7 >;
 .say for @res;
 
 my $ref = qq:to/END/;
