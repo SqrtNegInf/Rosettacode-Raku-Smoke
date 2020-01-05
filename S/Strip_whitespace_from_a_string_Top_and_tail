@@ -7,9 +7,9 @@
 
 my $s = "\r\n \t\x2029 Good Stuff \x202F\n";
 say my $out1 = $s.trim;
-say my $out2 = $s.trim.perl;
-say my $out3 = $s.trim-leading.perl;
-say my $out4 = $s.trim-trailing.perl;
+say my $out2 = $s.trim.raku;
+say my $out3 = $s.trim-leading.raku;
+say my $out4 = $s.trim-trailing.raku;
 
 use Test;
 is $out1, 'Good Stuff';
