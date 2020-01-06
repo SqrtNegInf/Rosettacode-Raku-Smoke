@@ -5491,7 +5491,7 @@ File: L/Logical_operations
 #c# 2016-04-24 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n#  where 'say' just works, gather/take construct sometimes requires .perl
+#n#  where 'say' just works, gather/take construct sometimes requires .raku
 
 File: L/Long_multiplication
 #!/usr/bin/env perl6
@@ -10787,6 +10787,14 @@ File: U/URL_parser
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: U/URL_shortener
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/URL_shortener
+#t# skiptest
+#c# 2020-01-05 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
 File: U/UTF-8_encode_and_decode
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/UTF-8_encode_and_decode
@@ -11230,7 +11238,7 @@ File: W/Word_count
 #c# 2017-09-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# .race provide no benefit here
+#n# .race provides no benefit here
 
 File: W/Word_count.1
 #!/usr/bin/env perl6
@@ -11313,9 +11321,11 @@ File: X/XML_Output
 File: X/XML_Validation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/XML_Validation
+#t# skiptest
 #c# 2019-10-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2020-01-03 why broken?  
 
 File: X/XML_XPath
 #!/usr/bin/env perl6
