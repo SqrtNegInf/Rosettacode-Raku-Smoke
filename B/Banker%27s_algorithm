@@ -29,15 +29,13 @@ sub isSafe(\avail, \maxm, \allot) {
         my $found = False;
         for ^P -> \p {
             # Check if a process is finished, if not
-            if @unfinished[p] {
-                #unless [or] |@need[p] »>« @work { # how original test was phrased, but with LOOP/last
-                if all @need[p] »≤« @work {
-                    @work »+=« allot[p;^R]; # Free the resources
-                    @safeSeq[$count] = p;   # Add this process to safe sequence.
-                    @unfinished[p] = False; # Mark this p as finished
-                    $count += 1;
-                    $found = True
-                }
+                #unless [or] |@need[p] »>« @work { # OBSOLETE -- how original test was phrased, but with LOOP/last
+            if @unfinished[p] and all @need[p] »≤« @work {
+                @work »+=« allot[p;^R]; # Free the resources
+                @safeSeq[$count] = p;   # Add this process to safe sequence.
+                @unfinished[p] = False; # Mark this p as finished
+                $count += 1;
+                $found = True
             }
         }
         # If we could not find a next process in safe sequence.
