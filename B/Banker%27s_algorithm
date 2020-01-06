@@ -7,71 +7,60 @@
 # https://www.geeksforgeeks.org/program-bankers-algorithm-set-1-safety-algorithm/
 # based on the Python3 solution by Shubham Singh(SHUBHAMSINGH10)
 
-my \P = 3 ; # Number of processes
-my \R = 4 ; # Number of resources
-my @processes = <0 1 2>;
+my \P = 3; # Number of processes
+my \R = 4; # Number of resources
 
-my @avail = <3 1 1 2>;  # Available instances of resource
-
-# Maximum R that can be allocated to processes
-my @maxm  = <3 3 2 2>, <1 2 3 4>, <1 3 5 0>;
-
-# Resources allocated to processes
-my @allot = <1 2 2 1>, <1 0 3 3>, <1 2 1 0>;
+my @avail = <3 1 1 2>;                          # Available instances of resource
+my @maxm  = <3 3 2 2>, <1 2 3 4>, <1 3 5 0>;    # Maximum R that can be allocated to processes
+my @allot = <1 2 2 1>, <1 0 3 3>, <1 2 1 0>;    # Resources allocated to processes
 
 # Function to find the system is in safe state or not
-sub isSafe(\processes, \avail, \maxm, \allot) {
-   my $satisfied;
-   my @need; # the need matrix
-   for ^P -> \i { # Calculating Need of each P
-      for ^R -> \j {  # Need of instance = maxm instance - allocated instance
-         @need[i;j] = @maxm[i;j] - @allot[i;j]
-      }
-   }
-   my @finish  = 0 xx P; # Mark all processes as infinish
-   my @safeSeq = 0 xx P; # To store safe sequence
-   my @work    = 0 xx R; # Make a copy of available resources
-   for ^R -> \i { @work[i] = avail[i] }
+sub isSafe(\avail, \maxm, \allot) {
+    my @need    = @maxm »-« @allot; # the need matrix
+    my @finish  = 0 xx P;           # Mark all processes as unfinished
+    my @safeSeq = 0 xx P;           # To store safe sequence
+    my @work    = avail;            # Make a copy of available resources
 
-   # While all processes are not finished  or system is not in safe state
-   my $count = 0;
-   while $count < P { # Find a process which is not finish and whose needs
-                        # can be satisfied with current @work resources.
-      my $found = False;
-      for ^P -> \p {
-         # First check if a process is finished, if no, go for next condition
-         if @finish[p] == 0 {
-            # Check if for all resources of current P need is less than work
-            LOOP: for ^R -> \j {
-               $satisfied = j;
-               last LOOP if @need[p;j] > @work[j]
+    # While all processes are not finished  or system is not in safe state
+    my $count = 0;
+    while $count < P { # Find a process which is not finish and whose needs
+                       # can be satisfied with current @work resources.
+        my $found = False;
+        for ^P -> \p {
+            # First check if a process is finished, if no, go for next condition
+            if @finish[p] == 0 {
+                my $satisfied;
+                # Check if for all resources of current P need is less than work
+                LOOP: for ^R -> \j {
+                    $satisfied = j;
+                    last LOOP if @need[p;j] > @work[j]
+                }
+                if $satisfied == R - 1 { # If all needs of p were satisfied.
+                    # Add the allocated resources of current P to the
+                    # available/work resources i.e.free the resources
+                    for ^R -> \k { @work[k] += allot[p;k] }
+                    # Add this process to safe sequence.
+                    @safeSeq[$count] = p;
+                    $count += 1;
+                    # Mark this p as finished
+                    @finish[p] = 1;
+                    $found = True
+                }
             }
-            if $satisfied == R - 1 { # If all needs of p were satisfied.
-               # Add the allocated resources of current P to the
-               # available/work resources i.e.free the resources
-               for ^R -> \k { @work[k] += allot[p;k] }
-               # Add this process to safe sequence.
-               @safeSeq[$count] = p;
-               $count += 1;
-               # Mark this p as finished
-               @finish[p] = 1;
-               $found = True
-            }
-         }
-      }
-      # If we could not find a next process in safe sequence.
-      return False, "System is not in safe state." unless $found;
-   }
-   # If system is in safe state then safe sequence will be as below
-   True, "Safe sequence is: " ~ @safeSeq
+        }
+        # If we could not find a next process in safe sequence.
+        return False, "System is not in safe state." unless $found;
+    }
+    # If system is in safe state then safe sequence will be as below
+    return True, "Safe sequence is: " ~ @safeSeq
 }
 
 # Check system is in safe state or not
-my ($safe-state,$status-message) = isSafe @processes, @avail, @maxm, @allot;
+my ($safe-state,$status-message) = isSafe @avail, @maxm, @allot;
 say "Safe state? $safe-state"; 
 say "Message:    $status-message";
 
-my @res = isSafe @processes, @avail, @maxm, @allot;
+my @res = isSafe @avail, @maxm, @allot;
 
 .say for @res;
 
