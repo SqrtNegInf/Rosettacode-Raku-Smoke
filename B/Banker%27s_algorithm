@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Banker%27s_algorithm
-#c# 2019-12-30 <RC
+#c# 2019-12-30 <RC, 2020-01-05 >RC, 2020-01-06 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# see .0 for Hkdtam's original upload
 
 # https://www.geeksforgeeks.org/program-bankers-algorithm-set-1-safety-algorithm/
 # based on the Python3 solution by Shubham Singh(SHUBHAMSINGH10)
@@ -10,40 +11,31 @@
 my \P = 3; # Number of processes
 my \R = 4; # Number of resources
 
-my @avail = <3 1 1 2>;                          # Available instances of resource
+my @avail = <3 1 1 2>;                          # Available instances of resources
 my @maxm  = <3 3 2 2>, <1 2 3 4>, <1 3 5 0>;    # Maximum R that can be allocated to processes
 my @allot = <1 2 2 1>, <1 0 3 3>, <1 2 1 0>;    # Resources allocated to processes
 
 # Function to find the system is in safe state or not
 sub isSafe(\avail, \maxm, \allot) {
-    my @need    = @maxm »-« @allot; # the need matrix
-    my @finish  = 0 xx P;           # Mark all processes as unfinished
-    my @safeSeq = 0 xx P;           # To store safe sequence
-    my @work    = avail;            # Make a copy of available resources
+    my @need       = @maxm »-« @allot; # the need matrix
+    my @unfinished = True xx P;        # Mark all processes as unfinished
+    my @safeSeq    = 0 xx P;           # To store safe sequence
+    my @work       = avail;            # Make a copy of available resources
 
     # While all processes are not finished  or system is not in safe state
     my $count = 0;
-    while $count < P { # Find a process which is not finish and whose needs
+    while $count < P { # Find a process which is not finished and whose needs
                        # can be satisfied with current @work resources.
         my $found = False;
         for ^P -> \p {
-            # First check if a process is finished, if no, go for next condition
-            if @finish[p] == 0 {
-                my $satisfied;
-                # Check if for all resources of current P need is less than work
-                LOOP: for ^R -> \j {
-                    $satisfied = j;
-                    last LOOP if @need[p;j] > @work[j]
-                }
-                if $satisfied == R - 1 { # If all needs of p were satisfied.
-                    # Add the allocated resources of current P to the
-                    # available/work resources i.e.free the resources
-                    for ^R -> \k { @work[k] += allot[p;k] }
-                    # Add this process to safe sequence.
-                    @safeSeq[$count] = p;
+            # Check if a process is finished, if not
+            if @unfinished[p] {
+                #unless [or] |@need[p] »>« @work { # how original test was phrased, but with LOOP/last
+                if all @need[p] »≤« @work {
+                    @work »+=« allot[p;^R]; # Free the resources
+                    @safeSeq[$count] = p;   # Add this process to safe sequence.
+                    @unfinished[p] = False; # Mark this p as finished
                     $count += 1;
-                    # Mark this p as finished
-                    @finish[p] = 1;
                     $found = True
                 }
             }
@@ -56,9 +48,9 @@ sub isSafe(\avail, \maxm, \allot) {
 }
 
 # Check system is in safe state or not
-my ($safe-state,$status-message) = isSafe @avail, @maxm, @allot;
-say "Safe state? $safe-state"; 
-say "Message:    $status-message";
+#my ($safe-state,$status-message) = isSafe @avail, @maxm, @allot;
+#say "Safe state? $safe-state"; 
+#say "Message:    $status-message";
 
 my @res = isSafe @avail, @maxm, @allot;
 
