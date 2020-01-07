@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# see .0 for Hkdtam's original upload
+#n# tried to follow sigil-less style, but @unfinished and @safe-sequence would not work that way
 
 # https://www.geeksforgeeks.org/program-bankers-algorithm-set-1-safety-algorithm/
 # based on the Python3 solution by Shubham Singh(SHUBHAMSINGH10)
@@ -16,9 +17,9 @@ my @allot = <1 2 2 1>, <1 0 3 3>, <1 2 1 0>;    # Resources allocated to process
 sub isSafe(\avail, \maxm, \allot) {
     my \P          = allot.elems;      # Number of processes
     my \R          = avail.elems;      # Number of resources
-    my @need       = @maxm »-« @allot; # the need matrix
+    my \need       = maxm »-« allot;   # the need matrix
+    my \work       = avail;            # Make a copy of available resources
     my @unfinished = True xx P;        # Mark all processes as unfinished
-    my @work       = avail;            # Make a copy of available resources
     my @safe-sequence;
 
     # While all processes are not finished or system is not in safe state
@@ -27,9 +28,9 @@ sub isSafe(\avail, \maxm, \allot) {
         my $found = False;
         for ^P -> \p {
             # Check if process now can be finished
-            if @unfinished[p] and all @need[p] »≤« @work {
-                #unless [or] |@need[p] »>« @work { # OBSOLETE -- how original test was phrased, but with LOOP/last
-                @work »+=« allot[p;^R];  # Free the resources
+            if @unfinished[p] and all need[p] »≤« work {
+                #unless [or] |need[p] »>« work { # OBSOLETE -- how original test was phrased, but with LOOP/last
+                work »+=« allot[p;^R];   # Free the resources
                 @safe-sequence.push: p;  # Add this process to safe sequence
                 @unfinished[p] = False;  # Mark this process as finished
                 $count += 1;
