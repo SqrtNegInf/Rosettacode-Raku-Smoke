@@ -864,9 +864,19 @@ File: B/Balanced_ternary
 File: B/Banker%27s_algorithm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Banker%27s_algorithm
+#c# 2019-12-30 <RC, 2020-01-05 >RC, 2020-01-06 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# see .0 for Hkdtam's original upload
+#n# tried to follow sigil-less style, but @unfinished and @safe-sequence would not work that way
+
+File: B/Banker%27s_algorithm.0
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Banker%27s_algorithm
 #c# 2019-12-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# Hkdtam's original upload
 
 File: B/Barnsley_fern
 #!/usr/bin/env perl6
@@ -10794,6 +10804,9 @@ File: U/URL_shortener
 #c# 2020-01-05 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# ($urlfile.IO.e and $urlfile.IO.f and $urlfile.IO.s) 
+#n# can be written 
+#n# ( $urlfile.IO ~~ :e & :f & :s ) or ( $urlfile.IO ~~ (:e :f :s) .all )
 
 File: U/UTF-8_encode_and_decode
 #!/usr/bin/env perl6
