@@ -1,0 +1,116 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Compiler__Verifying_Syntax
+#c# 2020-01-xx >RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+# A perl 6 grammar to parse EBNF
+grammar EBNF {
+  rule         TOP { ^ <title>? '{' [ <production> ]+ '}' <comment>? $ }
+  rule  production { <name> '=' <expression> <[.;]> }
+  rule  expression { <term> +% "|" }
+  rule        term { <factor>+ }
+  rule      factor { <group> | <repeat> | <optional> | <identifier> | <literal> }
+  rule       group { '(' <expression> ')' }
+  rule      repeat { '{' <expression> '}' }
+  rule    optional { '[' <expression> ']' }
+  token identifier { <-[\|\(\)\{\}\[\]\.\;\"\'\s]>+ } #"
+  token    literal { ["'" <-[']>+ "'" | '"' <-["]>+ '"'] } #"
+  token      title { <literal> }
+  token    comment { <literal> }
+  token       name { <identifier>  <?before \h* '='> }
+}
+
+class EBNF::Actions {
+    method        TOP($/) { 
+                            #say "Syntax Tree:\n", $/; # Dump the syntax tree to STDOUT
+                            make 'grammar ' ~
+                              ($<title> ?? $<title>.subst(/\W/, '', :g) !! 'unnamed') ~
+                              " \{\n rule TOP \{^[<" ~ $/<production>[0]<name> ~
+                              ">]+\$\}\n " ~ $<production>>>.ast ~ "\}"
+                          }
+    method production($/) { 
+                            make 'token ' ~ $<name> ~ ' {' ~
+                              $<expression>.ast ~ "}\n"
+                          }
+    method expression($/) { make join '|', $<term>>>.ast }
+    method       term($/) { make join '\h*', $<factor>>>.ast }
+    method     factor($/) { 
+                            make $<literal>  ?? $<literal> !!
+                              $<group>    ?? '[' ~ $<group>.ast    ~ ']'  !!
+                              $<repeat>   ?? '[' ~ $<repeat>.ast   ~ '\\s*]*' !!
+                              $<optional> ?? '[' ~ $<optional>.ast ~ ']?' !!
+                              '<' ~ $<identifier> ~ '>'
+                          }
+    method     repeat($/) { make $<expression>.ast }
+    method   optional($/) { make $<expression>.ast }
+    method      group($/) { make $<expression>.ast }
+}
+
+my $ebnf = q:to/END/;
+{
+stmt = expr ; 
+expr         =         expr_level_2 ; 
+expr_level_2 =         expr_level_3 {"or" expr_level_3} ; 
+expr_level_3 =         expr_level_4 {"and" expr_level_4} ; 
+expr_level_4 = ["not"] expr_level_5 [('=' | '<') expr_level_5] ; 
+expr_level_5 =         expr_level_6 {('+' | '-') expr_level_6} ; 
+expr_level_6 =         primary      {('*' | '/') primary} ; 
+
+primary      =         Identifier
+                     | Integer
+                     | '(' expr ')'
+                     | "true"
+                     | "false"
+                     ;
+
+Integer      =         Digit {Digit};
+
+Identifier   =         Letter {Letter | Digit | '_'};
+
+Digit        =         "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+
+Letter       =         "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" 
+                     | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" 
+                     | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" 
+                     | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" 
+                     | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" 
+                     | "Y" | "Z" ;
+}
+END
+
+my $i = 1;
+    unless EBNF.parse($ebnf) {
+         say "Parsing EBNF grammar:\n";
+         say "{$ebnf.subst(/^^\h*/,'',:g)}\n";
+         say "Invalid syntax. Can not be parsed.\n";
+         exit;
+    }
+
+    my $p = EBNF.parse($ebnf, :actions(EBNF::Actions));
+say $p; 
+exit;
+    my $grammar = $p.ast;
+    $grammar ~~ m/^'grammar '(\w+)/;
+    my $title = $0;
+#    my $fn = 'EBNFtest'~$i++;
+#    my $fh = open($fn, :w) orelse .die;
+    say( "\{\n", $grammar );
+    say( qq|say "Parsing EBNF grammar '$title':\\n";| );
+    say( qq|say q<{$ebnf.subst(/^^\h*/,'',:g)}>;| );
+    say(  q|say "\nValid syntax.\n\nTesting:\n";| );
+    say(  q|CATCH { default { say " - $_" } };| );
+#    my $len = max $test<teststrings>.flat>>.chars;
+#    for $test<teststrings>.flat -> $s {
+#        $fh.say( qq|printf "%{$len}s", '{$s}';| ~
+#                 qq|printf " - %s\\n", {$title}.parse('{$s}')| ~
+#                 qq| ?? 'valid.' !! 'NOT valid.';|
+#               );
+#    }
+#    $fh.say( qq| } |);
+    #$fh.say( qq| "\\n"} |); # was giving a warning, 'useless use'
+#    $fh.close;
+#    qqx[perl6 $fn >> run/ebnf.dat];
+    #say: '*' x 79, "\n";
+#    unlink $fn;
+#}
