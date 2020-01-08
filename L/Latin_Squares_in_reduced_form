@@ -1,29 +1,25 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Latin_Squares_in_reduced_form
-#t# toodamnslow
-#c# 2019-12-xx >RC
+#t# inprogress
+#c# 2020-01-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# performance issues: fine for 4/5, but impossibly slow for 6 (multi-day run-time)
-#n# incomplete: need sub calc of n-sized square, and proper extraction of results
 
-my @res[9408]; # for concurrency
+my @res;
 
 # utilities: factorial, sub-factorial, derangements
 constant factorial = 1, |[\*] 1..*;
 sub prefix:<!>(Int $n) { (1, 0, 1, -> $a, $b { ($++ + 2) × ($b + $a) } ... *)[$n] }
 sub derangements(@l) { @l.permutations.grep(-> @p { none(@p Zeqv @l) }) }
 
-my $n = 6;
+my $n = 5;
 my @l = 1 X+ ^$n;
 
-#my %D = derangements(@l).classify: *.[0], :as(*.Array);
 my %D = derangements(@l).classify(*.[0]); # list
 
-my atomicint $i;
+#my atomicint $i;
 
-#for [X] (^(!$n/($n-1))) xx $n-1 -> $tuple {
-([X] (^(!$n/($n-1))) xx $n-1).race.map: -> $tuple {
+for [X] (^(!$n/($n-1))) xx $n-1 -> $tuple {
     my @c.push: @l; 
     @c.push: %D{2}[$tuple[0]].Array;
 INNER:
@@ -37,16 +33,15 @@ INNER:
 #note 'testing ' ~ join(' : ', @c);
     next unless [==] [Z+] @c;                                                       # check 1: equal column sums
 
-note 'adding: ' ~ join(' : ', @c);          # display as one line 
-    @res[$i⚛++] = join("\n", @c) ~ "\n";   # or as square
+#note 'adding: ' ~ join(' : ', @c);          # display as one line 
+    @res.push: join("\n", @c) ~ "\n";   # or as square
 }
 
 #exit;
 #say +@res; exit;
 .say for @res; exit;
 
-my @x = <0 1 1 1 4 56 9408>;
-printf "Order $_: Size %-4d x $_! x {$_-1}! => Total %d", @x[$_], @x[$_] * factorial[$_] * factorial[$_-1] for 1..6;
+#printf "Order $_: Size %-4d x $_! x {$_-1}! => Total %d", @x[$_], @x[$_] * factorial[$_] * factorial[$_-1] for 1..5;
 
 my $ref = q:to/END/;
 1 2 3 4
