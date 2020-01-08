@@ -1,18 +1,18 @@
-This is Rakudo version 2019.11-403-g5d5701171 built on MoarVM version 2020.01
+This is Rakudo version 2019.11-411-g5d8ef435d built on MoarVM version 2020.01-15-g1fa9764bf
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1170/11]
-|+-------------> JVM: Good/Bad [1004/178]
-||+------------> Smoke testing [1056]
-|||+-----------> sKipping validation [122]
++--------------> Moar: Good/Bad [1172/11]
+|+-------------> JVM: Good/Bad [1006/178]
+||+------------> Smoke testing [1057]
+|||+-----------> sKipping validation [123]
 ||||+----------> Interactive [59]
-|||||+---------> Touched (modified by me) [292]
+|||||+---------> Touched (modified by me) [293]
 ||||||+--------> Concurrent [53]
 |||||||+-------> Random seed [116]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [231]
+|||||||||+-----> Draft [232]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [101]
+|||||||||||+---> Void (no local copy) [100]
 ||||||||||||+--> Un-implemented/reliable [76]
 |||||||||||||
 GGS.......... 100_doors
@@ -231,7 +231,7 @@ GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
-.........D.VU Compiler__Verifying_Syntax
+GG.K.T...D..U Compiler__Verifying_Syntax
 GGS..T....... Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
 ...........VU Compiler_syntax_analyzer
@@ -563,6 +563,7 @@ GG.K......... Inverted_syntax
 GG.K..c...... Iterated_digits_squaring
 GGS.......... Iterated_digits_squaring-1
 GGS.......... JSON
+GGS......D... Jacobi_symbol
 GGS.......... Jaro_distance
 GGS.......... Jensen%27s_Device
 GGS..T....... Jewels_and_Stones
