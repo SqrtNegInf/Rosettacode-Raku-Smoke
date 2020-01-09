@@ -3,13 +3,12 @@
 #c# 2020-01-08 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# why '.Array' needed?
 
 my @res;
 
 # utilities: factorial, sub-factorial, derangements
-sub postfix:<!> (Int $n) { (constant f = 1, |[\*] 1..*)[$n] }
-sub  prefix:<!> (Int $n) { (1, 0, 1, -> $a, $b { ($++ + 2) × ($b + $a) } ... *)[$n] }
+sub  postfix:<!>($n) { (constant f = 1, |[\×] 1..*)[$n] }
+sub   prefix:<!>($n) { (1, 0, 1, -> $a, $b { ($++ + 2) × ($b + $a) } ... *)[$n] }
 sub derangements(@l) { @l.permutations.grep(-> @p { none(@p Zeqv @l) }) }
 
 sub LS-reduced (Int $n) {
@@ -20,12 +19,12 @@ sub LS-reduced (Int $n) {
     my %D = derangements(@l).classify(*.[0]);
 
     for [X] (^(!$n/($n-1))) xx $n-1 -> $tuple {
-        my @d.push: @l; 
-        @d.push: %D{2}[$tuple[0]].Array;
+        my @d.push: @l;
+        @d.push: %D{2}[$tuple[0]];
         LOOP:
         for 3 .. $n -> $x {
-            my @try = %D{$x}[$tuple[$x-2]].Array;
-            last LOOP if [or] @try Z== @d[$_].Array for 1..@d-1;
+            my @try = |%D{$x}[$tuple[$x-2]];
+            last LOOP if any @try »==« @d[$_] for 1..@d-1;
             @d.push: @try;
         }
         next unless @d == $n and [==] [Z+] @d;
@@ -34,14 +33,9 @@ sub LS-reduced (Int $n) {
     @LS
 }
 
-#say .join("\n") ~ "\n" for LS-reduced(4); 
-#for 1..5 -> $n {
-#    printf "Order $n: Size %-4d x $n! x {$n-1}! => Total %d\n", $_, $_ * $n! * ($n-1)! given LS-reduced($n).elems
-#}
-
 @res.push: .join("\n") ~ "\n" for LS-reduced(4); 
 for 1..5 -> $n {
-    @res.push: sprintf "Order $n: Size %-4d x $n! x {$n-1}! => Total %d", $_, $_ * $n! * ($n-1)! given LS-reduced($n).elems
+    @res.push: sprintf "Order $n: Size %-4d × $n! × {$n-1}! => Total %d", $_, $_ × $n! * ($n-1)! given LS-reduced($n).elems
 }
 
 .say for @res; 
@@ -67,11 +61,11 @@ my $ref = q:to/END/;
 3 1 4 2
 4 3 2 1
 
-Order 1: Size 1    x 1! x 0! => Total 1
-Order 2: Size 1    x 2! x 1! => Total 2
-Order 3: Size 1    x 3! x 2! => Total 12
-Order 4: Size 4    x 4! x 3! => Total 576
-Order 5: Size 56   x 5! x 4! => Total 161280
+Order 1: Size 1    × 1! × 0! => Total 1
+Order 2: Size 1    × 2! × 1! => Total 2
+Order 3: Size 1    × 3! × 2! => Total 12
+Order 4: Size 4    × 4! × 3! => Total 576
+Order 5: Size 56   × 5! × 4! => Total 161280
 END
 #Order 6: Size 9408 x 6! x 5! => Total 812851200
 
