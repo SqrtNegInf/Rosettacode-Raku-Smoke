@@ -16,8 +16,8 @@ grammar EBNF {
   rule       group { '(' <expression> ')' }
   rule      repeat { '{' <expression> '}' }
   rule    optional { '[' <expression> ']' }
-  token identifier { <-[\|\(\)\{\}\[\]\.\;\"\'\s]>+ } #"
-  token    literal { ["'" <-[']>+ "'" | '"' <-["]>+ '"'] } #"
+  token identifier { <-[\|\(\)\{\}\[\]\.\;\"\'\s]>+ } 
+  token    literal { ["'" <-[']>+ "'" | '"' <-["]>+ '"'] } 
   token      title { <literal> }
   token    comment { <literal> }
   token       name { <identifier>  <?before \h* '='> }
@@ -51,8 +51,9 @@ class EBNF::Actions {
 # the grammar being tested
 my $ebnf = q:to/END/;
 "g" {
-stmt = expr ; 
-expr         =         expr_level_2 ; 
+stmt         =         expr ; 
+
+expr         =         expr_level_2; 
 expr_level_2 =         expr_level_3 {"or" expr_level_3} ; 
 expr_level_3 =         expr_level_4 {"and" expr_level_4} ; 
 expr_level_4 = ["not"] expr_level_5 [('=' | '<') expr_level_5] ; 
@@ -70,7 +71,7 @@ Integer      =         Digit {Digit};
 
 Identifier   =         Letter {Letter | Digit | '_'};
 
-Digit                  "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+Digit        =         "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
 
 Letter       =         "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" 
                      | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" 
@@ -81,32 +82,23 @@ Letter       =         "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j"
 }
 END
 
-    my $p = EBNF.parse($ebnf, :actions(EBNF::Actions));
+my $p = EBNF.parse($ebnf, :actions(EBNF::Actions));
 die "Well that didn't go well" unless $p;
-say $p.chars; exit;
-    my $grammar = $p.ast;
-    $grammar ~~ m/^'grammar '(\w+)/;
-    my $title = $0;
-    my $fn = 'VStest';
-    my $fh = open($fn, :w) orelse .die;
-    $fh.say( "\{\n", $grammar );
-#    $fh.say( qq|say "Parsing EBNF grammar '$title':\\n";| );
-#    $fh.say( qq|say q<{$ebnf.subst(/^^\h*/,'',:g)}>;| );
-#    $fh.say(  q|say "\nValid syntax.\n\nTesting:\n";| );
-    $fh.say(  q|CATCH { default { say " - $_" } };| );
-#    my $len = max $test<teststrings>.flat>>.chars;
-#    for $test<teststrings>.flat -> $s {
-    my $s = '3 + not 5';
-    my $len = $s.chars;
-        $fh.say( qq|printf "%{$len}s", '{$s}';| ~
-                 qq|printf " - %s\\n", {$title}.parse('{$s}')| ~
-                 qq| ?? 'valid.' !! 'NOT valid.';|
-               );
-#    }
-    $fh.say( qq| } |);
-    #$fh.say( qq| "\\n"} |); # was giving a warning, 'useless use'
-    $fh.close;
-#    qqx[perl6 $fn >> run/ebnf.dat];
-    #say: '*' x 79, "\n";
-#    unlink $fn;
-#}
+
+my $grammar = $p.ast;
+$grammar ~~ m/^'grammar '(\w+)/;
+my $title = $0;
+my $fn = 'VStest';
+my $fh = open($fn, :w) orelse .die;
+$fh.say( "\{\n", $grammar );
+$fh.say(  q|CATCH { default { say " - $_" } };| );
+my $s = 'i++'; #'3 + not 5';
+my $len = $s.chars;
+$fh.say( qq|printf "%{$len}s", '{$s}';| ~
+         qq|printf " - %s\\n", {$title}.parse('{$s}')| ~
+         qq| ?? 'valid.' !! 'NOT valid.';|
+       );
+$fh.say( qq| } |);
+$fh.close;
+say qqx[perl6 $fn];
+unlink $fn;
