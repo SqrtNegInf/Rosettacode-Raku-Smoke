@@ -2,9 +2,10 @@
 #u# http://rosettacode.org/wiki/Compiler__Verifying_Syntax
 #t# inprogress
 #c# 2020-01-xx >RC
-#m# MOAR: OK
-#j# JVM:  OK
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
 #n# note the stupid space in the URL...
+#n# not even close... is the P6 'EBNF' parsing getting it wrong?
 
 # a grammar to parse EBNF
 grammar EBNF {
@@ -50,7 +51,7 @@ class EBNF::Actions {
 
 # the grammar being tested
 my $ebnf = q:to/END/;
-"g" {
+"task" {
 stmt         =         expr ; 
 
 expr         =         expr_level_2; 
@@ -82,23 +83,59 @@ Letter       =         "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j"
 }
 END
 
-my $p = EBNF.parse($ebnf, :actions(EBNF::Actions));
-die "Well that didn't go well" unless $p;
+my @tests = q:to/END/.lines;
+3 + not 5
+3 + (not 5)
+(42 + 3
+(42 + 3 syntax_error
+not 3 < 4 or (true or 3/4+8*5-5*2 < 56) and 4*3 < 12 or not true
+and 3 < 2
+not 7 < 2
+2 < 3 < 4
+2 < foobar - 3 < 4
+2 < foobar and 3 < 4
+4 * (32 - 16) + 9 = 73
+235 76 + 1
+a + b = not c and false
+a + b = (not c) and false
+a + b = (not c and false)
+ab_c / bd2 or < e_f7
+g not = h
+i++
+j & k
+l or _m
+END
 
-my $grammar = $p.ast;
-$grammar ~~ m/^'grammar '(\w+)/;
-my $title = $0;
-my $fn = 'VStest';
-my $fh = open($fn, :w) orelse .die;
-$fh.say( "\{\n", $grammar );
-$fh.say(  q|CATCH { default { say " - $_" } };| );
-my $s = 'i++'; #'3 + not 5';
-my $len = $s.chars;
-$fh.say( qq|printf "%{$len}s", '{$s}';| ~
-         qq|printf " - %s\\n", {$title}.parse('{$s}')| ~
-         qq| ?? 'valid.' !! 'NOT valid.';|
-       );
-$fh.say( qq| } |);
-$fh.close;
-say qqx[perl6 $fn];
-unlink $fn;
+my $p = EBNF.parse($ebnf, :actions(EBNF::Actions));
+die "Hmmm, that didn't go well" unless $p;
+
+my $cnt;
+for @tests -> $stmt {
+    my $g = 'task' ~ ++$cnt;
+    my $grammar = ($p.ast).subst('task', $g);
+    say qq|\{\nmy \$s = '{$stmt}';\n$grammar\nprintf "%-3s\$s\\n", {$g}.parse(\$s) ?? 'T' !! 'F';\n}|; exit;
+    qq|\{\nmy \$s = '{$stmt}';\n$grammar\nprintf "%-3s\$s\\n", {$g}.parse(\$s) ?? 'T' !! 'F';\n}|.EVAL;
+}
+
+#`{
+Tx 3 + not 5
+T  3 + (not 5)
+F  (42 + 3
+F  (42 + 3 syntax_error
+T  not 3 < 4 or (true or 3/4+8*5-5*2 < 56) and 4*3 < 12 or not true
+Tx and 3 < 2
+T  not 7 < 2
+F  2 < 3 < 4
+F  2 < foobar - 3 < 4
+T  2 < foobar and 3 < 4
+T  4 * (32 - 16) + 9 = 73
+Tx 235 76 + 1
+Tx a + b = not c and false
+T  a + b = (not c) and false
+Fx a + b = (not c and false)
+Tx ab_c / bd2 or < e_f7
+Tx g not = h
+F  i++
+F  j & k
+F  l or _m
+}
