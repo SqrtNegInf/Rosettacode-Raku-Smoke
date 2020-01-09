@@ -19,12 +19,12 @@ multi sub A1(Int $m, Int $n) { A1($m - 1, A1($m, $n - 1)) }
 #Note that in either case, Int is defined to be arbitrary precision in Perl6.
 #Here's a caching version of that, written in the sigilless style, with liberal use of Unicode, and the extra optimizing terms to make A(4,2) possible:
 
-proto A(Int \m, Int \n) { (state @)[m][n] //= {*} }
+proto A(Int \m, Int \n) { (state @)[m;n] //= {*} }
 
 multi A(0,      Int \n) { n + 1 }
 multi A(1,      Int \n) { n + 2 }
-multi A(2,      Int \n) { 3 + 2 * n }
-multi A(3,      Int \n) { 5 + 8 * (2 ** n - 1) }
+multi A(2,      Int \n) { 3 + 2 × n }
+multi A(3,      Int \n) { 5 + 8 × (2 ** n - 1) }
 
 multi A(Int \m, 0     ) { A(m - 1, 1) }
 multi A(Int \m, Int \n) { A(m - 1, A(m, n - 1)) }
