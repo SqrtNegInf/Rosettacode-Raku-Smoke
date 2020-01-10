@@ -10,13 +10,10 @@ my @res.push: sprintf "%s, %s, (%d)", $_, best-shuffle $_
     for <abracadabra seesaw elk grrrrrr up a>;
 .say for @res;
 
-# Translation of: Sidef
-# Works with: Rakudo Star version 2015.12
-
 sub best-shuffle(Str $orig) {
 
     my @s = $orig.comb;
-    my @t = @s.pick(*);
+    my @t = @s.pick: *;
 
     for ^@s -> $i {
         for ^@s -> $j {
