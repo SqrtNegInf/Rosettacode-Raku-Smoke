@@ -5,7 +5,7 @@
 #j#  JVM: OK
 
 sub agm( $a is copy, $g is copy ) {
-    ($a, $g) = ($a + $g)/2, sqrt $a * $g until $a ≅ $g;
+    ($a, $g) = ($a + $g)/2, sqrt $a × $g until $a ≅ $g;
     return $a;
 }
 
@@ -16,7 +16,7 @@ say agm 1, 1/sqrt 2;
 
 sub agm1( $a, $g ) {
     $a ≅ $g ?? $a !! agm1(|@$_)
-        given ($a + $g)/2, sqrt $a * $g;
+        given ($a + $g)/2, sqrt $a × $g;
 }
 
 say agm1 1, 1/sqrt 2;
