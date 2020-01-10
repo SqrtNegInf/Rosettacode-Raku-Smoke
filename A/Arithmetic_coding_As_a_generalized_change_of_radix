@@ -36,8 +36,8 @@ sub arithmethic_coding($str, $radix) {
     # Each term is multiplied by the product of the
     # frequencies of all previously occurring symbols
     for @chars -> $c {
-        $L = $L*$base + %cf{$c}*$pf;
-        $pf *= %freq{$c};
+        $L = $L × $base + %cf{$c} × $pf;
+        $pf ×= %freq{$c};
     }
 
     # Upper bound
@@ -57,7 +57,7 @@ sub arithmethic_coding($str, $radix) {
 sub arithmethic_decoding($encoding, $radix, $pow, %freq) {
 
     # Multiply encoding by radix^pow
-    my $enc = $encoding * $radix**$pow;
+    my $enc = $encoding × $radix**$pow;
 
     # Base
     my $base = [+] %freq.values;
@@ -93,7 +93,7 @@ sub arithmethic_decoding($encoding, $radix, $pow, %freq) {
         my $fv = %freq{$c};
         my $cv = %cf{$c};
 
-        my $rem = ($enc - $pow*$cv) div $fv;
+        my $rem = ($enc - $pow × $cv) div $fv;
 
         $enc = $rem;
         $decoded ~= $c;
@@ -110,7 +110,7 @@ for <DABDDB DABDDBBDDBA ABRACADABRA TOBEORNOTTOBEORTOBEORNOT> -> $str {
     my ($enc, $pow, %freq) = arithmethic_coding($str, $radix);
     my $dec = arithmethic_decoding($enc, $radix, $pow, %freq);
 
-    @res.push: sprintf("%-25s=> %19s * %d^%s", $str, $enc, $radix, $pow);
+    @res.push: sprintf("%-25s=> %19s × %d^%s", $str, $enc, $radix, $pow);
 
     if ($str ne $dec) {
         die "\tHowever that is incorrect!";
@@ -118,10 +118,10 @@ for <DABDDB DABDDBBDDBA ABRACADABRA TOBEORNOTTOBEORTOBEORNOT> -> $str {
 }
 
 my $ref = qq:to/END/;
-DABDDB                   =>                 251 * 10^2
-DABDDBBDDBA              =>              167351 * 10^6
-ABRACADABRA              =>             7954170 * 10^4
-TOBEORNOTTOBEORTOBEORNOT => 1150764267498783364 * 10^15
+DABDDB                   =>                 251 × 10^2
+DABDDBBDDBA              =>              167351 × 10^6
+ABRACADABRA              =>             7954170 × 10^4
+TOBEORNOTTOBEORTOBEORNOT => 1150764267498783364 × 10^15
 END
 
 use Test;
