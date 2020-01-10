@@ -17,7 +17,7 @@ my Code %cvt = (@units X @units).map: -> ($a, $b) {
     "{$a.<code>}2{$b.<code>}" => sub ($angle) {
         my $norm = $angle % $a.<number>
                  - ( $a.<number> if $angle < 0 );
-        $norm * $b.<number> / $a.<number>
+        $norm × $b.<number> / $a.<number>
     }
 }
 
