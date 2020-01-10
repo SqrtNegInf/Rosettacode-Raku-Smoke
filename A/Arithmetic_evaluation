@@ -9,7 +9,7 @@ sub ev (Str $s --> Numeric) {
     grammar expr {
         token TOP { ^ <sum> $ }
         token sum { <product> (('+' || '-') <product>)* }
-        token product { <factor> (('*' || '/') <factor>)* }
+        token product { <factor> (('×' || '/') <factor>)* }
         token factor { <unary_minus>? [ <parens> || <literal> ] }
         token unary_minus { '-' }
         token parens { '(' <sum> ')' }
@@ -20,18 +20,18 @@ sub ev (Str $s --> Numeric) {
 
     my sub sum ($x) {
         [+] flat product($x<product>), map
-            { minus($^y[0] eq '-') * product $^y<product> },
+            { minus($^y[0] eq '-') × product $^y<product> },
             |($x[0] or [])
     }
 
     my sub product ($x) {
-        [*] flat factor($x<factor>), map
+        [×] flat factor($x<factor>), map
             { factor($^y<factor>) ** minus($^y[0] eq '/') },
             |($x[0] or [])
     }
 
     my sub factor ($x) {
-        minus($x<unary_minus>) * ($x<parens>
+        minus($x<unary_minus>) × ($x<parens>
           ?? sum $x<parens><sum>
           !! $x<literal>)
     }
@@ -45,6 +45,6 @@ sub ev (Str $s --> Numeric) {
 
 use Test;
 is (ev '5'),                                    5;
-is (ev '1 + 2 - 3 * 4 / 5'),                    0.6;
-is (ev '((11+15)*15)* 2 + (3) * -4 *1'),        768;
-is (ev '1 + 5*3.4 - .5  -4 / -2 * (3+4) -6'),   25.5;
+is (ev '1 + 2 - 3 × 4 / 5'),                    0.6;
+is (ev '((11+15)×15)× 2 + (3) × -4 ×1'),        768;
+is (ev '1 + 5×3.4 - .5  -4 / -2 × (3+4) -6'),   25.5;
