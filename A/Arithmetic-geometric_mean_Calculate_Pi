@@ -24,7 +24,7 @@ multi sqrt(Int $n) {
 
 multi sqrt(FatRat $r --> FatRat) {
     return FatRat.new:
-    sqrt($r.nude[0] * 10**(number-of-decimals*2) div $r.nude[1]),
+    sqrt($r.nude[0] × 10**(number-of-decimals×2) div $r.nude[1]),
     10**number-of-decimals;
 }
 
@@ -34,8 +34,8 @@ my $z = .25;
 
 my @res;
 for ^10 {
-    given [ ($a + $g)/2, sqrt($a * $g) ] {
-	$z -= (.[0] - $a)**2 * $n;
+    given [ ($a + $g)/2, sqrt($a × $g) ] {
+	$z -= (.[0] - $a)**2 × $n;
 	$n += $n;
 	($a, $g) = @$_;
 	say my $temp = ($a ** 2 / $z).substr: 0, 2 + number-of-decimals;
