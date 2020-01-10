@@ -68,7 +68,7 @@ sub find-Brauer($num, $minLen, $nbLimit) {
 
 sub is-Addition-Chain(@a --> Bool) {
    for 2 .. @a.end -> $i {
-      return False if @a[$i] > @a[$i-1]*2;
+      return False if @a[$i] > @a[$i-1] × 2;
       my $ok = False;
       for $i-1 … 0 -> $j {
          for $j … 0 -> $k {
