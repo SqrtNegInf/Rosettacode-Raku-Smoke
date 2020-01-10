@@ -17,7 +17,7 @@ multi sub factors(1) { 1 }
 multi sub factors(Int $remainder is copy) {
     gather for @primes -> $factor {
         # if remainder < factor², we're done
-        if $factor * $factor > $remainder {
+        if $factor × $factor > $remainder {
             take $remainder if $remainder > 1;
             last;
         }
@@ -36,7 +36,7 @@ sub factors($n is copy) {
     gather {
         $n /= take 2 while $n %% 2;
         $n /= take 3 while $n %% 3;
-        loop (my $p = 5; $p*$p <= $n; $p+=2) {
+        loop (my $p = 5; $p×$p <= $n; $p+=2) {
             $n /= take $p while $n %% $p;
         }
         take $n unless $n == 1;
