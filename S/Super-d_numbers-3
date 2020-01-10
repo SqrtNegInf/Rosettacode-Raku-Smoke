@@ -21,14 +21,14 @@
 my @res;
 
 sub super-d ($d,$max) {
-    my $max-plus = $max + floor 2*$max/$d;
-    my @super[2*$max-plus];
+    my $max-plus = $max + floor 2 × $max/$d;
+    my @super[2 × $max-plus];
     {
         my $digits = $d x $d;
-        my $chunk  = 250 * $d;
+        my $chunk  = 250 × $d;
         my atomicint $found = 0;
-        (0, 1*$chunk, 2*$chunk ... *).race(:8degree, :1batch).map: -> $i {
-             @super[$found⚛++] = $_ if ($_ ** $d  *  $d).contains($digits) for 1+$i .. 1+$i+$chunk;
+        (0, 1×$chunk, 2×$chunk ... *).race(:8degree, :1batch).map: -> $i {
+             @super[$found⚛++] = $_ if ($_ ** $d × $d).contains($digits) for 1+$i .. 1+$i+$chunk;
              X::AdHoc.new.throw if $found ≥ $max-plus;
         }
         CATCH { when X::AdHoc { return @super.grep(so *).sort.head($max) } }
