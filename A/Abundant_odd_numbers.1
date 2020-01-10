@@ -12,7 +12,7 @@ sub odd-abundant (\x) {
     1, (3 .. x.sqrt.floor).map: -> \d {
          next unless d +& 1;
          my \y = x div d;
-         next if y * d !== x;
+         next if y × d !== x;
          d !== y ?? (d, y) !! d
     };
     @l.sum > x ?? @l.sort !! Empty;
@@ -21,7 +21,7 @@ sub odd-abundant (\x) {
 sub odd-abundants (Int :$start-at is copy) {
     $start-at = ( $start-at + 2 ) div 3;
     $start-at += $start-at %% 2;
-    $start-at *= 3;
+    $start-at ×= 3;
     ($start-at, *+6 ... *).map: {
         next unless my $oa = .&odd-abundant;
         sprintf "%6d: divisor sum: {$oa.join: ' + '} = {$oa.sum}", $_
