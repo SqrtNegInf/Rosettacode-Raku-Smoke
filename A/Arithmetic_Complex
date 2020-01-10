@@ -7,7 +7,7 @@
 my $a = 1 + i;
 my $b = pi + 1.25i;
 
-.say for $a + $b, $a * $b, -$a, 1 / $a, $a.conj;
+.say for $a + $b, $a × $b, -$a, 1 / $a, $a.conj;
 .say for $a.abs, $a.sqrt, $a.re, $a.im;
 
 use Test;
@@ -15,7 +15,7 @@ use Test;
 say '$a = 1 + i';
 say '$b = pi + 1.25i';
 is-approx ($a+$b), 4.14159265358979+2.25i, '$a + $b';
-is-approx ($a*$b), 1.89159265358979+4.39159265358979i, '$a * $b';
+is-approx ($a×$b), 1.89159265358979+4.39159265358979i, '$a × $b';
 is        (-$a), -1-1i, '-$a';
 is        (1/$a), 0.5-0.5i, '1 / $a';
 is        ($a.conj), 1-1i, '$a.conj';
