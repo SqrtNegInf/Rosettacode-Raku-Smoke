@@ -6,12 +6,13 @@
 #n# thundergant's 1st try
 #n# 2..6 : 17.679u   0.469s  0:25.69 70.5%
 #n# 2..8 : 648.901u 12.444s 17:32.68 62.8%
+#n# */×: replacing '* * **' with '* × **' is clarifying (for humans)
 
 my @res;
 
 sub super ($d) {
     my $run = $d x $d;
-    ^∞ .grep: ($d * * ** $d).Str.contains: $run
+    ^∞ .grep: ($d × * ** $d).Str.contains: $run
 }
 
 (2..6).race(:1batch).map: { @res.push: "\nFirst 10 super-$_ numbers:\n{.&super[^10]}" }
