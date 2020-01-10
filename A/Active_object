@@ -21,7 +21,7 @@ class Integrator {
             :code({
                 loop {
                     my $t1 = now;
-                    self.value += (&(self.f)(self.now) + &(self.f)($t1)) * ($t1 - self.now) / 2;
+                    self.value += (&(self.f)(self.now) + &(self.f)($t1)) × ($t1 - self.now) / 2;
                     self.now = $t1;
                     sleep .001;
                 }
@@ -41,7 +41,7 @@ class Integrator {
 
 my $a = Integrator.new;
 
-$a.Input( sub ($t) { sin(2 * π * .5 * $t) } );
+$a.Input( sub ($t) { sin(2 × π × .5 × $t) } );
 
 say "Initial value: ", $a.Output;
 
