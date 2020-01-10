@@ -41,7 +41,7 @@ sub random ($n) {
         }
         ).sum == @prisoners
     }
-    ).grep( *.so ).elems / $n * 100
+    ).grep( *.so ).elems / $n × 100
 }
 
 sub optimal ($n) {
@@ -63,7 +63,7 @@ sub optimal ($n) {
             $found
         }
         ).sum == @prisoners
-    } ).grep( *.so ).elems / $n * 100
+    } ).grep( *.so ).elems / $n × 100
 }
 
 .say for @res;
