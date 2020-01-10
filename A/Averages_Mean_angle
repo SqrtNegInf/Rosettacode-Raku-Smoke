@@ -6,8 +6,8 @@
 
 #This solution refuses to return an answer when the angles cancel out to a tiny magnitude.
 
-sub deg2rad { $^d * pi / 180 }
-sub rad2deg { $^r * 180 / pi }
+sub deg2rad { $^d × pi / 180 }
+sub rad2deg { $^r × 180 / pi }
 sub phase ($c)  {
     my ($mag,$ang) = $c.polar;
     return NaN if $mag < 1e-16;
