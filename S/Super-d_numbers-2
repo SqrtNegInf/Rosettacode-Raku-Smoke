@@ -9,7 +9,7 @@ my @res;
 
 sub super (\d) {
     my \run = d x d;
-    ^∞ .hyper.grep: -> \n { (d * n ** d).Str.contains: run }
+    ^∞ .hyper.grep: -> \n { (d × n ** d).Str.contains: run }
 }
 
 @res = sort (2..7).race(:1batch).map: {
