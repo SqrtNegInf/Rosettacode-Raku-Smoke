@@ -51,17 +51,6 @@ my $bottom = $d.cheat;
 
 .say for @res;
 
-# .pick acting on enum 'Suit' changed (but face values unchanged, go figure)
-# This is Rakudo version 2016.12-351-g0cd921e35 built on MoarVM version 2016.12-113-gd1da1ba
-my $moarx = qq:to/END/;
-Deck: J♥ 6♠ A♣ 5♥ 10♥ 4♦ 8♣ 8♦ 3♣ 6♥ 10♣ 3♥ 10♦ 2♦ A♦ 10♠ 7♠ 2♥ 4♥ 4♠ 3♦ A♠ Q♥ 6♣ 7♥ 9♥ 5♠ Q♠ 3♠ K♠ K♥ A♥ J♠ 9♣ Q♣ 4♣ 7♦ 2♠ K♣ K♦ 5♦ 9♠ J♦ 9♦ 8♠ 8♥ 6♦ 2♣ 5♣ J♣ Q♦ 7♣
-Deal top card: J♥
-Deck, re-shuffled: Q♣ 7♠ 4♠ 10♣ J♣ 6♥ 7♥ Q♠ 6♣ 3♥ 9♥ K♦ 5♦ 9♣ 8♥ 7♦ 2♠ Q♦ 2♦ 9♦ 2♥ 4♣ 2♣ A♦ 6♦ 4♦ 7♣ A♣ J♠ Q♥ 8♦ 10♠ 10♦ 4♥ 5♣ K♣ 8♣ J♦ 3♠ 3♣ A♠ A♥ 5♥ 3♦ 6♠ K♠ 8♠ 10♥ 5♠ K♥ 9♠
-Peek at top card: Q♣
-Bottom of deck card: 9♠
-Deck state now: Q♣ 7♠ 4♠ 10♣ J♣ 6♥ 7♥ Q♠ 6♣ 3♥ 9♥ K♦ 5♦ 9♣ 8♥ 7♦ 2♠ Q♦ 2♦ 9♦ 2♥ 4♣ 2♣ A♦ 6♦ 4♦ 7♣ A♣ J♠ Q♥ 8♦ 10♠ 10♦ 4♥ 5♣ K♣ 8♣ J♦ 3♠ 3♣ A♠ A♥ 5♥ 3♦ 6♠ K♠ 8♠ 10♥ 5♠ K♥
-END
-
 my $moar = qq:to/END/;
 Deck: J♠ 6♥ K♦ 5♠ A♠ 4♣ 8♦ 8♣ 3♦ 6♠ A♦ 3♠ A♣ 2♣ K♣ A♥ 7♥ 2♠ 4♠ 4♥ 3♣ K♥ Q♠ 6♦ 7♠ 9♠ 5♥ Q♥ 3♥ 10♥ 10♠ K♠ J♥ 9♦ Q♦ 4♦ 7♣ 2♥ 10♦ 10♣ 5♣ 9♥ J♣ 9♣ 8♥ 8♠ 6♣ 2♦ 5♦ J♦ Q♣ 7♦
 Deal top card: J♠
