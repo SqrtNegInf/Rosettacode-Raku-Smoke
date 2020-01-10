@@ -14,14 +14,14 @@ use SVG::Plot;
 sub postfix:<%> (Numeric $x) { $x / 100 }
 
 # Work out the shares, as before...
-constant shares = (1%, 2% ... 100%) »*« [\*] (100%, 99% ... 1%);
+constant shares = (1%, 2% ... 100%) »×« [\×] (100%, 99% ... 1%);
 
 # Plot the data and write it to an SVG file...
 spurt 'run/6-slices.svg'.IO,
     SVG.serialize:
         SVG::Plot.new(
             title  => 'Percentage shares of the pie',
-            values => [(flat 0, shares) »*» 100,]
+            values => [(flat 0, shares) »×» 100,]
         ).plot(:lines);
 
 #shell 'open run/6-slices.svg';
