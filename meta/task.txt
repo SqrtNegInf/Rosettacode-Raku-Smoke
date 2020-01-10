@@ -1,16 +1,16 @@
-This is Rakudo version 2019.11-414-g66cf6f811 built on MoarVM version 2020.01-15-g1fa9764bf
+This is Rakudo version 2019.11-416-g97e7cdbd5 built on MoarVM version 2020.01-15-g1fa9764bf
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1171/11]
-|+-------------> JVM: Good/Bad [1006/178]
-||+------------> Smoke testing [1058]
++--------------> Moar: Good/Bad [1172/12]
+|+-------------> JVM: Good/Bad [1006/179]
+||+------------> Smoke testing [1059]
 |||+-----------> sKipping validation [122]
 ||||+----------> Interactive [59]
 |||||+---------> Touched (modified by me) [293]
 ||||||+--------> Concurrent [52]
 |||||||+-------> Random seed [116]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [232]
+|||||||||+-----> Draft [233]
 ||||||||||+----> Ignoring [36]
 |||||||||||+---> Void (no local copy) [100]
 ||||||||||||+--> Un-implemented/reliable [75]
@@ -43,7 +43,7 @@ GGS.......... Abstract_type
 GGS..T....... Abundant,_deficient_and_perfect_number_classifications
 GBS..TC...... Abundant_odd_numbers
 GGS.......... Accumulator_factory
-!GS.......... Ackermann_function
+GGS.......... Ackermann_function
 GB.K......... Active_Directory_Connect
 ...........V. Active_Directory_Search_for_a_user
 GG.K......... Active_object
@@ -231,7 +231,7 @@ GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
-GG.K.T...D..U Compiler__Verifying_Syntax
+BB.K.T...D..U Compiler__Verifying_Syntax
 GGS..T....... Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
 ...........VU Compiler_syntax_analyzer
@@ -630,6 +630,7 @@ GG.K......... Literals_String
 GGS..T....... Logical_operations
 GGS..T....... Long_multiplication
 GBS...C...... Long_primes
+GGS......D... Long_year%3F
 GGS.......... Longest_Common_Substring
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
