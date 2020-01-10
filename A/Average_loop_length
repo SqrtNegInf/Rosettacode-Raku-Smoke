@@ -17,14 +17,14 @@ constant TRIALS = 100;
 my @res;
 for 1 .. MAX_N -> $N {
     my $empiric = TRIALS R/ [+] find-loop(random-mapping($N)).elems xx TRIALS;
-    my $theoric = [+] map -> $k { $N ** ($k + 1) R/ [*] flat $k**2, $N - $k + 1 .. $N }, 1 .. $N;
+    my $theoric = [+] map -> $k { $N ** ($k + 1) R/ [×] flat $k**2, $N - $k + 1 .. $N }, 1 .. $N;
 
     FIRST say " N    empiric      theoric      (error)";
     FIRST say "===  =========  ============  =========";
 
     @res.push: sprintf "%3d  %9.4f  %12.4f    (%4.2f%%)",
             $N,  $empiric,
-                        $theoric, 100 * abs($theoric - $empiric) / $theoric;
+                        $theoric, 100 × abs($theoric - $empiric) / $theoric;
 }
 .say for @res; 
 
