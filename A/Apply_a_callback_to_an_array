@@ -7,9 +7,9 @@
 # Works with: Rakudo version 2015.10-11
 
 # we neither need a variable for the array nor for the function
-my @a0 = [1,2,3,4,5]>>.&({ 2 * $^x + 3});
+my @a0 = [1,2,3,4,5]>>.&({ 2 × $^x + 3});
 
-sub function { 2 * $^x + 3 };
+sub function { 2 × $^x + 3 };
 my @array = 1 .. 5;
 
 # via map function
