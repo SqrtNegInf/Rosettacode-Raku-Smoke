@@ -8,8 +8,8 @@ sub TDF-II-filter ( @signal, @a, @b ) {
     my @out = 0 xx @signal;
     for ^@signal -> $i {
         my $this;
-        $this += @b[$_] * @signal[$i-$_] if $i-$_ >= 0 for ^@b;
-        $this -= @a[$_] *    @out[$i-$_] if $i-$_ >= 0 for ^@a;
+        $this += @b[$_] × @signal[$i-$_] if $i-$_ >= 0 for ^@b;
+        $this -= @a[$_] ×    @out[$i-$_] if $i-$_ >= 0 for ^@a;
         @out[$i] = $this / @a[0];
     }
     @out
