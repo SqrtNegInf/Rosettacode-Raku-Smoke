@@ -1905,9 +1905,10 @@ File: C/Compiler__Verifying_Syntax
 #u# http://rosettacode.org/wiki/Compiler__Verifying_Syntax
 #t# inprogress
 #c# 2020-01-xx >RC
-#m# MOAR: OK
-#j# JVM:  OK
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
 #n# note the stupid space in the URL...
+#n# not even close... is the P6 'EBNF' parsing getting it wrong?
 
 File: C/Compiler_code_generator
 #!/usr/bin/env perl6
@@ -5550,6 +5551,13 @@ File: L/Long_primes.1
 #m# MOAR: OK
 #j# JVM:  OK
 #n# drastically cut down on results calculated
+
+File: L/Long_year%3F
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Long_year%3F
+#c# 2020-01-09 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: L/Longest_Common_Substring
 #!/usr/bin/env perl6
@@ -10131,6 +10139,7 @@ File: S/Super-d_numbers-1
 #n# thundergant's 1st try
 #n# 2..6 : 17.679u   0.469s  0:25.69 70.5%
 #n# 2..8 : 648.901u 12.444s 17:32.68 62.8%
+#n# */×: replacing '* * **' with '* × **' is clarifying (for humans)
 
 File: S/Super-d_numbers-2
 #!/usr/bin/env perl6
@@ -11508,6 +11517,7 @@ File: Z/Zumkeller_numbers
 #c# 2019-08-20 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# */×: replacing '* * 2' with '* × 2' is clarifying (for humans)
 
 File: Z/Zumkeller_numbers.1
 #!/usr/bin/env perl6
