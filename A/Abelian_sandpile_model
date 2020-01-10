@@ -23,18 +23,18 @@ my @color = "\e[38;2;0;0;0m█",
             ;
 
 my ($h, $w) = (40, 140); # qx/stty size/.words».Int;
-my $buf = $w * $h;
+my $buf = $w × $h;
 my @buffer = 0 xx $buf;
 my $done;
 
-@buffer[$w * ($h div 2) + ($w div 2) - 1] = $stack;
+@buffer[$w × ($h div 2) + ($w div 2) - 1] = $stack;
 
 #print "\e[?25l\e[48;5;232m";
 
 repeat {
     $done = True;
     loop (my int $row; $row < $h; $row = $row + 1) {
-        my int $rs = $row * $w; # row start
+        my int $rs = $row × $w; # row start
         my int $re = $rs  + $w; # row end
         loop (my int $idx = $rs; $idx < $re; $idx = $idx + 1) {
             if @buffer[$idx] >= 4 {
