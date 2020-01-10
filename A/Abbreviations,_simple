@@ -22,7 +22,7 @@ my %abr = '' => '', |$/.map: {
     +(.[1].Str || .[0].Str.chars) .. .[0].Str.chars;
 };
 
-sub abbr-simple ( $str ) { %abr{$str.trim.fc} // '*error*' }
+sub abbr-simple ( $str ) { %abr{$str.trim.fc} // '»error«' }
 
 my @res;
 for 'riG   rePEAT copies  put mo   rest    types   fup.    6       poweRin', '' -> $str {
@@ -32,7 +32,7 @@ for 'riG   rePEAT copies  put mo   rest    types   fup.    6       poweRin', '' 
 }
 
 my $ref = qq:to/END/;
-Output: RIGHT REPEAT *error* PUT MOVE RESTORE *error* *error* *error* POWERINPUT
+Output: RIGHT REPEAT »error« PUT MOVE RESTORE »error« »error« »error« POWERINPUT
 Output: 
 END
 
