@@ -11,7 +11,7 @@ class Point {
 }
 
 sub ccw (Point $a, Point $b, Point $c) {
-    ($b.x - $a.x)*($c.y - $a.y) - ($b.y - $a.y)*($c.x - $a.x);
+    ($b.x - $a.x)×($c.y - $a.y) - ($b.y - $a.y)×($c.x - $a.x);
 }
 
 sub tangent (Point $a, Point $b) {
