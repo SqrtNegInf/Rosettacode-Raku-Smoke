@@ -6,7 +6,7 @@
 #=# RC pipe: y\nn\nn\n
 
 sub decide (@q, @s) {
-    my $bit = 2 ** [+] (1,2,4...*) Z* reverse @q.map: {
+    my $bit = 2 ** [+] (1,2,4...*) Z× reverse @q.map: {
 	so prompt(.value ~ "? ") ~~ /:i ^y/;
     }
     say my $result = "  $_" for @s.grep(*.key +& $bit)».value || "No clue!";
