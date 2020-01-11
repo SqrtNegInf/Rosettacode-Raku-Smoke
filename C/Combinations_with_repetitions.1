@@ -20,7 +20,7 @@ multi combs_with_rep ($n, [$head, *@tail]) {
 .say for combs_with_rep( 2, [< iced jam plain >] );
 
 # Extra credit:
-sub postfix:<!> { [*] 1..$^n }
+sub postfix:<!> { [×] 1..$^n }
 sub combs_with_rep_count ($k, $n) { ($n + $k - 1)! / $k! / ($n - 1)! }
 
 say combs_with_rep_count( 3, 10 );
