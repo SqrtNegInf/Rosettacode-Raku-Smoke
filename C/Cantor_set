@@ -19,7 +19,7 @@ sub cantor ( Int $height ) {
             @lines[$i].substr-rw( $start + $seg + $j, 1 ) = ' ';
         }
 
-        _trim_middle_third( $seg, $start + $_, $index + 1 ) for 0, $seg * 2;
+        _trim_middle_third( $seg, $start + $_, $index + 1 ) for 0, $seg × 2;
     }
 
     _trim_middle_third( $width, 0, 1 );
