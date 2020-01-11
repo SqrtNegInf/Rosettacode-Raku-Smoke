@@ -8,18 +8,18 @@
 
 #Notice that Perl6 can process arbitrary long integers, though. So it's not clear whether using floating points is useful in this case.
 
-multi P($n, $k) { [*] $n - $k + 1 .. $n }
-multi C($n, $k) { P($n, $k) / [*] 1 .. $k }
+multi P($n, $k) { [×] $n - $k + 1 .. $n }
+multi C($n, $k) { P($n, $k) / [×] 1 .. $k }
 
 sub lstirling(\n) {
     n < 10 ?? lstirling(n+1) - log(n+1) !!
-    .5*log(2*pi*n)+ n*log(n/e+1/(12*e*n))
+    .5×log(2×pi×n)+ n×log(n/e+1/(12×e×n))
 }
 
 role Logarithm {
     method gist {
 	my $e = (self/10.log).Int;
-	sprintf "%.8fE%+d", exp(self - $e*10.log), $e;
+	sprintf "%.8fE%+d", exp(self - $e×10.log), $e;
     }
 }
 multi P($n, $k, :$float!) {
