@@ -14,29 +14,29 @@ given my $canvas = Terminal::Caca.new {
     .title('Rosetta Code - Rotating cube - Press any key to exit');
 
     sub scale-and-translate($x, $y, $z) {
-        $x * 5 / ( 5 + $z ) * 15 + 40,
-        $y * 5 / ( 5 + $z ) *  7 + 15,
+        $x × 5 / ( 5 + $z ) × 15 + 40,
+        $y × 5 / ( 5 + $z ) ×  7 + 15,
         $z;
     }
 
     sub rotate3d-x( $x, $y, $z, $angle ) {
-        my ($cosθ, $sinθ) = cis( $angle * π / 180.0 ).reals;
+        my ($cosθ, $sinθ) = cis( $angle × π / 180.0 ).reals;
         $x,
-        $y * $cosθ - $z * $sinθ,
-        $y * $sinθ + $z * $cosθ;
+        $y × $cosθ - $z × $sinθ,
+        $y × $sinθ + $z × $cosθ;
     }
 
     sub rotate3d-y( $x, $y, $z, $angle ) {
-        my ($cosθ, $sinθ) = cis( $angle * π / 180.0 ).reals;
-        $x * $cosθ - $z * $sinθ,
+        my ($cosθ, $sinθ) = cis( $angle × π / 180.0 ).reals;
+        $x × $cosθ - $z × $sinθ,
         $y,
-        $x * $sinθ + $z * $cosθ;
+        $x × $sinθ + $z × $cosθ;
     }
 
     sub rotate3d-z( $x, $y, $z, $angle ) {
-        my ($cosθ, $sinθ) = cis( $angle * π / 180.0 ).reals;
-        $x * $cosθ - $y * $sinθ,
-        $x * $cosθ + $y * $sinθ,
+        my ($cosθ, $sinθ) = cis( $angle × π / 180.0 ).reals;
+        $x × $cosθ - $y × $sinθ,
+        $x × $cosθ + $y × $sinθ,
         $z;
     }
 
