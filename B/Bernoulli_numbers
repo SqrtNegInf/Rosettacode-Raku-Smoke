@@ -12,7 +12,7 @@ sub bernoulli($n) {
     for 0..$n -> $m {
         @a[$m] = FatRat.new(1, $m + 1);
         for reverse 1..$m -> $j {
-          @a[$j - 1] = $j * (@a[$j - 1] - @a[$j]);
+          @a[$j - 1] = $j × (@a[$j - 1] - @a[$j]);
         }
     }
     return @a[0];
@@ -36,7 +36,7 @@ constant bernoulli2 = gather {
         @a = FatRat.new(1, $m + 1),
                 -> $prev {
                     my $j = @a.elems;
-                    $j * (@a.shift - $prev);
+                    $j × (@a.shift - $prev);
                 } ... { not @a.elems }
         take $m => @a[*-1] if @a[*-1];
     }
@@ -51,7 +51,7 @@ my @res2.push: sprintf $form, .key, .value.nude for @bpairs2;
 
 # And if you're a pure enough FP programmer to dislike destroying and reconstructing the array each time, here's the same algorithm without side effects. We use zip with the pair constructor => to keep values associated with their indices. This provides sufficient local information that we can define our own binary operator "bop" to reduce between each two terms, using the "triangle" form (called "scan" in Haskell) to return the intermediate results that will be important to compute the next Bernoulli number. Output is identical to the previous solution, but runs about 3.5 times slower in rakudo, as of this writing (2014-03).
 
-my sub infix:<bop>(\prev,\this) { this.key => this.key * (this.value - prev.value) }
+my sub infix:<bop>(\prev,\this) { this.key => this.key × (this.value - prev.value) }
 
 constant bernoulli3 = grep *.value, map { (.key => .value.[*-1]) }, do
         0 => [FatRat.new(1,1)], 
