@@ -33,7 +33,7 @@ set(mid, mid);
 my @blocks = " ","\c[UPPER HALF BLOCK]", "\c[LOWER HALF BLOCK]","\c[FULL BLOCK]";
 
 sub infix:<█>($a, $b) {
-    @blocks[$a + 2 * $b]
+    @blocks[$a + 2 × $b]
 }
 
 sub display {
