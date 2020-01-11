@@ -113,8 +113,7 @@ my $cnt;
 for @tests -> $stmt {
     my $g = 'task' ~ ++$cnt;
     my $grammar = ($p.ast).subst('task', $g);
-say $grammar; sleep 200;
-    say qq|\{\nmy \$s = '{$stmt}';\n$grammar\nprintf "%-3s\$s\\n", {$g}.parse(\$s) ?? 'T' !! 'F';\n}|; exit;
+#    say qq|\{\nmy \$s = '{$stmt}';\n$grammar\nprintf "%-3s\$s\\n", {$g}.parse(\$s) ?? 'T' !! 'F';\n}|; exit;
     qq|\{\nmy \$s = '{$stmt}';\n$grammar\nprintf "%-3s\$s\\n", {$g}.parse(\$s) ?? 'T' !! 'F';\n}|.EVAL;
 }
 
