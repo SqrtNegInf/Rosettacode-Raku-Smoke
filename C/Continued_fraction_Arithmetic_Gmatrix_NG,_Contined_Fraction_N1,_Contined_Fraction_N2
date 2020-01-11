@@ -26,8 +26,8 @@ class NG2 {
 
     # Private methods
     method !inject ($n, $t) {
-        multi sub xform(0, $t, $x12, $x1, $x2, $x) { $x2 + $x12 * $t, $x + $x1 * $t, $x12, $x1 }
-        multi sub xform(1, $t, $x12, $x1, $x2, $x) { $x1 + $x12 * $t, $x12, $x + $x2 * $t, $x2 }
+        multi sub xform(0, $t, $x12, $x1, $x2, $x) { $x2 + $x12 × $t, $x + $x1 × $t, $x12, $x1 }
+        multi sub xform(1, $t, $x12, $x1, $x2, $x) { $x1 + $x12 × $t, $x12, $x + $x2 × $t, $x2 }
         ( $!a12, $!a1, $!a2, $!a ) = xform($n, $t, $!a12, $!a1, $!a2, $!a );
         ( $!b12, $!b1, $!b2, $!b ) = xform($n, $t, $!b12, $!b1, $!b2, $!b );
     }
@@ -35,16 +35,16 @@ class NG2 {
         my $t = $!a div $!b;
         ( $!a12, $!a1, $!a2, $!a, $!b12, $!b1, $!b2, $!b ) =
           $!b12, $!b1, $!b2, $!b,
-                                  $!a12 - $!b12 * $t,
-                                         $!a1 - $!b1 * $t,
-                                               $!a2 - $!b2 * $t,
-                                                     $!a - $!b * $t;
+                                  $!a12 - $!b12 × $t,
+                                         $!a1 - $!b1 × $t,
+                                               $!a2 - $!b2 × $t,
+                                                     $!a - $!b × $t;
         $t;
     }
     method !from {
         return $!b == $!b2 == 0 ?? 0 !!
            $!b == 0 || $!b2 == 0 ?? 1 !!
-           abs($!a1*$!b*$!b2 - $!a*$!b1*$!b2) > abs($!a2*$!b*$!b1 - $!a*$!b1*$!b2) ?? 0 !! 1;
+           abs($!a1×$!b×$!b2 - $!a×$!b1×$!b2) > abs($!a2×$!b×$!b1 - $!a×$!b1×$!b2) ?? 0 !! 1;
     }
     method !needterm {
         so !([&&] $!b12, $!b1, $!b2, $!b) or $!a/$!b != $!a1/$!b1 != $!a2/$!b2 != $!a12/$!b1;
@@ -82,7 +82,7 @@ sub pprat($a) { $a.FatRat.denominator == 1 ?? $a !! $a.FatRat.nude.join('/') }
 my %ops = ( # convenience hash of NG matrix operators
     '+' => (0,1,1,0,0,0,0,1),
     '-' => (0,1,-1,0,0,0,0,1),
-    '*' => (1,0,0,0,0,0,0,1),
+    '×' => (1,0,0,0,0,0,0,1),
     '/' => (0,1,0,0,0,0,1,0)
 );
 
@@ -98,14 +98,14 @@ sub test_NG2 ($rat1, $op, $rat2) {
 my @res;
 @res.push: test_NG2(|$_) for
    [   22/7, '+',  1/2 ],
-   [  23/11, '*', 22/7 ],
+   [  23/11, '×', 22/7 ],
    [  13/11, '-', 22/7 ],
    [ 484/49, '/', 22/7 ];
 .say for @res;
 
 my $ref = q:to/END/;
 22/7 + 1/2 => [3;7] + [0;2] = [3;1,1,1,4] => 51/14
-23/11 * 22/7 => [2;11] * [3;7] = [6;1,1,3] => 46/7
+23/11 × 22/7 => [2;11] × [3;7] = [6;1,1,3] => 46/7
 13/11 - 22/7 => [1;5,2] - [3;7] = [-2;25,1,2] => -151/77
 484/49 / 22/7 => [9;1,7,6] / [3;7] = [3;7] => 22/7
 END
@@ -118,7 +118,7 @@ The NG2 object can work with infinitely long continued fractions, it does lazy e
 
 say "√2 expressed as a continued fraction: ";
 my @root2 = lazy flat 1, 2 xx *;
-my @result = NG2.new.operator(|%ops{'*'}).apply( @root2, @root2, limit => 6 );
+my @result = NG2.new.operator(|%ops{'×'}).apply( @root2, @root2, limit => 6 );
 say @root2.&ppcf, "² = \n";
 say @result.&ppcf;
 say "\nConverted back to an arbitrary (ludicrous) precision Rational: ";
