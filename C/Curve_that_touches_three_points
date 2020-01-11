@@ -11,7 +11,7 @@ my (\a, \b, \c) =
   rref([[10², 10, 1, 10],[100², 100, 1, 200],[200², 200, 1, 10]])[*;*-1];
 
 # General case quadratic line equation
-sub f (\x) { a*x² + b*x + c }
+sub f (\x) { a×x² + b×x + c }
 
 # Scale it up a bit for display
 my $scale = 2;
@@ -48,7 +48,7 @@ sub rref (@m) {
         @m[$r] »/=» $lv;
         for ^$rows -> $n {
             next if $n == $r;
-            @m[$n] »-=» @m[$r] »*» (@m[$n;$lead] // 0);
+            @m[$n] »-=» @m[$r] »×» (@m[$n;$lead] // 0);
         }
         ++$lead;
     }
@@ -57,7 +57,7 @@ sub rref (@m) {
 
 sub line($x0 is copy, $y0 is copy, $x1 is copy, $y1 is copy, $png, @rgb) {
     my $steep = abs($y1 - $y0) > abs($x1 - $x0);
-    ($x0,$y0,$x1,$y1) »*=» $scale;
+    ($x0,$y0,$x1,$y1) »×=» $scale;
     if $steep {
         ($x0, $y0) = ($y0, $x0);
         ($x1, $y1) = ($y1, $x1);
@@ -89,8 +89,8 @@ sub line($x0 is copy, $y0 is copy, $x1 is copy, $y1 is copy, $png, @rgb) {
 }
 
 sub dot ($X is copy, $Y is copy, @rgb, $png, $radius = 3) {
-    ($X, $Y) »*=» $scale;
+    ($X, $Y) »×=» $scale;
     for ($X X+ -$radius .. $radius) X ($Y X+ -$radius .. $radius) -> ($x, $y) {
-        $png.set($x, $y, |@rgb) if ( $X - $x + ($Y - $y) * i ).abs <= $radius;
+        $png.set($x, $y, |@rgb) if ( $X - $x + ($Y - $y) × i ).abs <= $radius;
     }
 }
