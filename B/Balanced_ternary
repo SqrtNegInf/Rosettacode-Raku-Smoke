@@ -3,6 +3,7 @@
 #c# 2015-11-17 <>RC, 2017-02-01 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# note that final line of output has Unicode 'minus sign' (purely cosmetic, not used in code)
 
 class BT {
     has @.coeff;
@@ -21,10 +22,10 @@ class BT {
     }
 
     method Str () { %co2bt{@!coeff}.join.flip }
-    method Int () { [+] @!coeff Z* (1,3,9...*) }
+    method Int () { [+] @!coeff Z× (1,3,9...*) }
 
     multi method neg () {
-    	self.new: coeff => carry self.coeff X* -1;
+    	self.new: coeff => carry self.coeff X× -1;
     }
 }
 
@@ -46,13 +47,13 @@ multi infix:<+> (BT $x, BT $y) {
 
 multi infix:<-> (BT $x, BT $y) { $x + $y.neg }
 
-multi infix:<*> (BT $x, BT $y) {
+multi infix:<×> (BT $x, BT $y) {
     my @x = $x.coeff;
     my @y = $y.coeff;
     my @z = 0 xx @x+@y-1;
     my @safe;
     for @x -> $xd {
-        @z = @z Z+ |(@y X* $xd), |(0 xx @z-@y); # DH GLR change
+        @z = @z Z+ |(@y X× $xd), |(0 xx @z-@y); # DH GLR change
 	    @safe.push: @z.shift;
     }
     BT.new: coeff => carry @safe, @z;
@@ -61,7 +62,7 @@ multi infix:<*> (BT $x, BT $y) {
 my $a = BT.new: "+-0++0+";
 my $b = BT.new: -436;
 my $c = BT.new: "+-++-";
-my $x = $a * ( $b - $c );
+my $x = $a × ( $b - $c );
 
 my @res;
 @res.push: 'a == ' ~ $a.Int;
