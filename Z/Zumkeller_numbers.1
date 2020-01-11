@@ -12,7 +12,7 @@ sub zumkeller ($range)  {
     $range.grep: -> $maybe {
         next if $maybe < 3;
         next if $maybe.&is-prime;
-        my @divisors = $maybe.&prime-factors.combinations».reduce( &[*] ).unique.reverse;
+        my @divisors = $maybe.&prime-factors.combinations».reduce( &[×] ).unique.reverse;
         next unless [&&] +@divisors > 2, +@divisors %% 2, (my $sum = sum @divisors) %% 2, ($sum /= 2) >= $maybe;
         my $zumkeller = False;
         if $maybe % 2 {
@@ -33,11 +33,11 @@ sub zumkeller ($range)  {
     zumkeller(^Inf)[^220].rotor(20)».fmt('%3d').join: "\n";
 
 @res.push: "\nFirst 40 odd Zumkeller numbers:\n" ~
-    zumkeller((^Inf).map: * * 2 + 1)[^40].rotor(10)».fmt('%7d').join: "\n";
+    zumkeller((^Inf).map: * × 2 + 1)[^40].rotor(10)».fmt('%7d').join: "\n";
 
 # Stretch. Slow to calculate. (minutes) 
 #@res.push: "\nFirst 40 odd Zumkeller numbers not divisible by 5:\n" ~
-#    zumkeller(flat (^Inf).map: {my \p = 10 * $_; p+1, p+3, p+7, p+9} )[^40].rotor(10)».fmt('%7d').join: "\n";
+#    zumkeller(flat (^Inf).map: {my \p = 10 × $_; p+1, p+3, p+7, p+9} )[^40].rotor(10)».fmt('%7d').join: "\n";
 
 .say for @res; 
 
