@@ -9,10 +9,10 @@ multi sub circles (@A, @B where ([and] @A Z== @B), $)   { 'Infinitely many share
 multi sub circles (@A, @B, $radius) {
     my @middle = (@A Z+ @B) X/ 2;
     my @diff = @A Z- @B;
-    my $q = sqrt [+] @diff X** 2;
-    return 'Too far apart' if $q > $radius * 2;
+    my $q = sqrt [+] @diff X**2;
+    return 'Too far apart' if $q > $radius × 2;
 
-    my @orth = -@diff[0], @diff[1] X* sqrt($radius ** 2 - ($q / 2) ** 2) / $q;
+    my @orth = -@diff[0], @diff[1] X× sqrt($radius**2 - ($q / 2)**2) / $q;
     return (@middle Z+ @orth), (@middle Z- @orth);
 }
 
@@ -50,7 +50,7 @@ multi sub circles ($a, $b, $r) {
     my $h = ($b - $a) / 2;
     my $l = sqrt($r**2 - $h.abs**2);
     return 'Too far apart' if $l.isNaN;
-    return map { $a + $h + $l * $_ * $h / $h.abs }, i, -i;
+    return map { $a + $h + $l × $_ × $h / $h.abs }, i, -i;
 }
 
 @input =
