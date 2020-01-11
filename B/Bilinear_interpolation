@@ -18,8 +18,8 @@ my $fh2 = fopen('run/Lenna100-larger.jpg',"wb") or die;
 my $img1X = gdImageSX($img1);
 my $img1Y = gdImageSY($img1);
 
-my $NewX = $img1X * 1.6;
-my $NewY = $img1Y * 1.6;
+my $NewX = $img1X × 1.6;
+my $NewY = $img1Y × 1.6;
 
 gdImageSetInterpolationMethod($img1, +GD_BILINEAR_FIXED);
 
