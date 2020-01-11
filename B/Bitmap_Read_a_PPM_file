@@ -35,7 +35,7 @@ sub load-ppm ( $ppm ) {
 }
 
 sub grayscale ( Bitmap $bmp ) {
-    $bmp.GS = map { (.R*0.2126 + .G*0.7152 + .B*0.0722).round(1) min 255 }, $bmp.data;
+    $bmp.GS = map { (.R×0.2126 + .G×0.7152 + .B×0.0722).round(1) min 255 }, $bmp.data;
 }
 
 my $filename = 'ref/bitmap.ppm';
@@ -45,7 +45,3 @@ my Bitmap $b = load-ppm( $filename ) but PGM;
 grayscale($b);
 
 'run/bitmap-gs.pgm'.IO.open(:bin, :w).write: $b.P5;
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
