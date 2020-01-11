@@ -44,7 +44,3 @@ $b.data = $proc.out.slurp.ords.rotor(3).map:
   { Pixel.new(R => .[0], G => .[1], B => .[2]) };
 
 'run/camelia.ppm'.IO.open(:bin, :w).write: $b.P6;
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
