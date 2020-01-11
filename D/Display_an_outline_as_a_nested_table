@@ -65,7 +65,7 @@ my @layout;
     }
 
     multi insert (@array) {
-        @width.push: @width[*-1] * 10;
+        @width.push: @width[*-1] × 10;
         ++$depth;
         @array.map: *.&insert;
         --$depth;
@@ -80,7 +80,7 @@ for (^$max-depth) -> $d {
     my @nodes = @layout.grep( *.<depth> == $d );
     for @nodes.sort( +*.<id> ) -> $n {
         unless @layout.first( *.<id> == $n<id> ~ 1 ) {
-            @layout.push: { :depth($n<depth> + 1), :id($n<id> *10 + 1), :text('') };
+            @layout.push: { :depth($n<depth> + 1), :id($n<id> ×10 + 1), :text('') };
         }
     }
 }
@@ -101,7 +101,7 @@ for (0..$max-depth) -> $d {
     for @nodes.sort( +*.<id> ) -> $n {
         my $color = $d > 1 ??
         @layout.first( *.<id> eq $n<id>.chop )<color> !!
-        "style=\"background: #" ~ hsv2rgb( ++$ * $incr, .1, 1) ~ '" ';
+        "style=\"background: #" ~ hsv2rgb( ++$ × $incr, .1, 1) ~ '" ';
         $n<color> = $n<text> ?? $color !! '';
     }
 }
@@ -141,8 +141,8 @@ my $result2;
 }
 
 sub hsv2rgb ( $h, $s, $v ){
-    my $c = $v * $s;
-    my $x = $c * (1 - abs( (($h*6) % 2) - 1 ) );
+    my $c = $v × $s;
+    my $x = $c × (1 - abs( (($h×6) % 2) - 1 ) );
     my $m = $v - $c;
     my ($r, $g, $b) = do given $h {
         when   0..^(1/6) { $c, $x, 0 }
