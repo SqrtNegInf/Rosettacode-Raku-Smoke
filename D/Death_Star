@@ -31,10 +31,10 @@ my $pos = sphere.new(
 
 # negative sphere offset to upper left
 my $neg = sphere.new(
-    cx => (-$s*.90).Int,
-    cy => (-$s*.90).Int,
-    cz => (-$s*.3).Int,
-    r  => ($s*.7).Int
+    cx => (-$s×.90).Int,
+    cy => (-$s×.90).Int,
+    cz => (-$s×.3).Int,
+    r  => ($s×.7).Int
 );
 
 sub MAIN ($outfile = 'run/deathstar-perl6.pgm') {
@@ -70,7 +70,7 @@ sub draw_ds ( $k, $ambient ) {
                 @vec = normalize([$x - $pos.cx, $y - $pos.cy,  $posz.max - $pos.cz]);
             }
             my $intensity = dot(@light, @vec) ** $k + $ambient;
-            @row[$x + $s] = ($intensity * $depth).Int min $depth;
+            @row[$x + $s] = ($intensity × $depth).Int min $depth;
         }
          @pixels[$y + $s] = @row;
     }
@@ -78,16 +78,16 @@ sub draw_ds ( $k, $ambient ) {
 }
 
 # normalize a vector
-sub normalize (@vec) { @vec »/» ([+] @vec »*« @vec).sqrt }
+sub normalize (@vec) { @vec »/» ([+] @vec »×« @vec).sqrt }
 
 # dot product of two vectors
-sub dot (@x, @y) { -([+] @x »*« @y) max 0 }
+sub dot (@x, @y) { -([+] @x »×« @y) max 0 }
 
 # are the coordinates within the radius of the sphere?
 sub hit ($sphere, $x is copy, $y is copy, $z is rw) {
     $x -= $sphere.cx;
     $y -= $sphere.cy;
-    my $z2 = $sphere.r * $sphere.r - $x * $x - $y * $y;
+    my $z2 = $sphere.r × $sphere.r - $x × $x - $y × $y;
     return 0 if $z2 < 0;
     $z2 = $z2.sqrt;
     $z = $sphere.cz - $z2 .. $sphere.cz + $z2;
