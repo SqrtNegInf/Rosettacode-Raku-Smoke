@@ -29,7 +29,7 @@ class Lollipop {
     method yours { $!channel.receive }
 }
 
-sub dally($sec) { sleep 0.01 + rand * $sec }
+sub dally($sec) { sleep 0.01 + rand × $sec }
 
 sub MAIN(*@names) {
     @names ||= <Aristotle Kant Spinoza Marx Russell>;
@@ -43,7 +43,7 @@ sub MAIN(*@names) {
     my $cnt = 0;
     my @philosophers = do for flat @names Z @lfork Z @rfork -> $n, $l, $r {
 	start { 
-	    sleep 1 + rand*4;
+	    sleep 1 + rand×4;
 	    loop {
 		$l.grab($n,'left');
 		dally 1;  # give opportunity for deadlock
