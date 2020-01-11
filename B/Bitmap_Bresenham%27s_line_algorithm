@@ -12,13 +12,13 @@ class Bitmap {
     has Pixel @!data;
 
     method fill(Pixel $p) {
-        @!data = $p.clone xx ($!width*$!height)
+        @!data = $p.clone xx ($!width × $!height)
     }
     method pixel(
 	$i where ^$!width,
 	$j where ^$!height
 	--> Pixel
-    ) is rw { @!data[$i*$!width + $j] }
+    ) is rw { @!data[$i × $!width + $j] }
 
     method data { @!data }
 
