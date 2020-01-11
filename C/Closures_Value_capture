@@ -9,7 +9,7 @@ srand 123456;
 #All blocks are anonymous closures in Perl 6, and parameters are lexicals, so it's easy to generate a list of them. We'll use a gather/take generator loop, and call the closures in random order, just to keep things interesting.
 
 my @c = gather for ^10 -> $i {
-    take { $i * $i }
+    take { $i × $i }
 }
 
 my @res1.push: .() for @c.pick(*);  # call them in random order
@@ -19,7 +19,7 @@ my @res1.push: .() for @c.pick(*);  # call them in random order
 
 srand 123456;
 
-my @res2.push: .() for pick *, map -> $i { -> {$i * $i} }, ^10;
+my @res2.push: .() for pick *, map -> $i { -> {$i × $i} }, ^10;
 #.say for @res2;
 
 my $moar = qq:to/END/;
