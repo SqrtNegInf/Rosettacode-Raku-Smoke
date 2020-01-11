@@ -12,13 +12,13 @@ class Bitmap {
     has Pixel @!data;
 
     method fill(Pixel $p) {
-        @!data = $p.clone xx ($!width*$!height)
+        @!data = $p.clone xx ($!width × $!height)
     }
     method pixel(
 	$i where ^$!width,
 	$j where ^$!height
 	--> Pixel
-    ) is rw { @!data[$i*$!width + $j] }
+    ) is rw { @!data[$i × $!width + $j] }
 
     method set-pixel ($i, $j, Pixel $p) {
 	self.pixel($i, $j) = $p.clone;
@@ -36,12 +36,12 @@ augment class Pixel { method Str { "$.R $.G $.B" } }
 augment class Bitmap {
     method P3 {
         join "\n", <<P3 "$.width $.height" 255>>,
-        do for ^($.width*$.height) { join ' ', @!data[$_] }
+        do for ^($.width × $.height) { join ' ', @!data[$_] }
     }
     method raster-circle ( $x0, $y0, $r, Pixel $value ) {
         my $f = 1 - $r;
         my $ddF_x = 0;
-        my $ddF_y = -2 * $r;
+        my $ddF_y = -2 × $r;
         my ($x, $y) = 0, $r;
         self.set-pixel($x0, $y0 + $r, $value);
         self.set-pixel($x0, $y0 - $r, $value);
