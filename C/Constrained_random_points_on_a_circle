@@ -13,7 +13,7 @@ my $out = open("run/constrained_random_points.$ext", :w);
 my @range = -15..16;
 
 my @points = gather for @range X @range -> ($x, $y) {
-    take [$x,$y] if 10 <= sqrt($x*$x+$y*$y) <= 15
+    take [$x,$y] if 10 <= sqrt($x×$x+$y×$y) <= 15
 }
 my @samples = @points.roll(100); # or .pick(100) to get distinct points
 
@@ -28,7 +28,7 @@ $out.say: %matrix{$_}{@range}.join(' ') for @range;
 ($out.say: ~.map: { $_ // ' ' } for my @matrix) given do
     -> [$x, $y] { @matrix[$x][$y] = '*' } for pick 100, do
         for ^32 X ^32 -> ($x, $y) {
-            [$x,$y] when 100..225 given [+] ($x,$y X- 15) X** 2;
+            [$x,$y] when 100..225 given [+] ($x,$y X- 15) X**2;
         }
 
 $out.close;
