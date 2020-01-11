@@ -3,13 +3,14 @@
 #c# 2015-11-24 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# note use of 'MULTIPLICATION SIGN' for simple product, 'VECTOR OR CROSS PRODUCT' for vector product (via infix sub)
 
-sub infix:<⋅> { [+] @^a »*« @^b }
+sub infix:<⋅> { [+] @^a »×« @^b }
 
 sub infix:<⨯>([$a1, $a2, $a3], [$b1, $b2, $b3]) {
-    [ $a2*$b3 - $a3*$b2,
-      $a3*$b1 - $a1*$b3,
-      $a1*$b2 - $a2*$b1 ];
+    [ $a2×$b3 - $a3×$b2,
+      $a3×$b1 - $a1×$b3,
+      $a1×$b2 - $a2×$b1 ];
 }
 
 sub scalar-triple-product { @^a ⋅ (@^b ⨯ @^c) }
