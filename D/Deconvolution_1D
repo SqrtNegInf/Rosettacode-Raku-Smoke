@@ -18,7 +18,7 @@ sub deconvolve (@g, @f) {
 
 sub convolve (@f, @h) {
     my @g = 0 xx + @f + @h - 1;
-    @g[^@f X+ ^@h] »+=« (@f X* @h);
+    @g[^@f X+ ^@h] »+=« (@f X× @h);
     return @g;
 }
 
@@ -48,7 +48,7 @@ sub rref ($m is copy) {
         $m[$r] »/=» $lv;
         for ^$rows -> $n {
             next if $n == $r;
-            $m[$n] »-=» $m[$r] »*» ($m[$n;$lead]//0);
+            $m[$n] »-=» $m[$r] »×» ($m[$n;$lead]//0);
         }
         ++$lead;
     }
