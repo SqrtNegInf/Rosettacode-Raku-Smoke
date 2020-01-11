@@ -33,7 +33,7 @@ grammar US-DateTime {
 	    my $h = $0 % 12;
 	    my $m = $1;
 	    $h += 12 if $2 and $2.substr(0,1).lc eq 'p';
-	    make $h * 60 + $m;
+	    make $h × 60 + $m;
 	}
     }
 
@@ -57,15 +57,15 @@ my $month    = $<month>.ast;
 my $day      = $<day>.ast;
 my $hour     = $<time>.ast div 60;
 my $minute   = $<time>.ast mod 60;
-my $timezone = $<tz>.ast * 3600;
+my $timezone = $<tz>.ast × 3600;
 
 my $dt = DateTime.new(:$year, :$month, :$day, :$hour, :$minute, :$timezone).in-timezone(0);
 
 $dt = $dt.later(hours => 12);
 
 say "12 hours later, GMT: $dt";
-say "12 hours later, PST: $dt.in-timezone(-8 * 3600)";
+say "12 hours later, PST: $dt.in-timezone(-8 × 3600)";
 
 use Test;
 is $dt, '2009-02-08T12:30:00Z';
-is $dt.in-timezone(-8 * 3600), '2009-02-08T04:30:00-08:00';
+is $dt.in-timezone(-8 × 3600), '2009-02-08T04:30:00-08:00';
