@@ -10,9 +10,9 @@
 
 sub Γ(\z) {
     constant g = 9;
-    z < .5 ?? π / sin(π * z) / Γ(1 - z) !!
-    τ.sqrt * (z + g - 1/2)**(z - 1/2) *
-    exp(-(z + g - 1/2)) *
+    z < .5 ?? π / sin(π × z) / Γ(1 - z) !!
+    τ.sqrt × (z + g - 1/2)**(z - 1/2) ×
+    exp(-(z + g - 1/2)) ×
     [+] <
         1.000000000000000174663
      5716.400188274341379136
@@ -25,36 +25,36 @@ sub Γ(\z) {
        -0.7423452510201416151527e-2
         0.5384136432509564062961e-7
        -0.4023533141268236372067e-8
-    > Z* 1, |map 1/(z + *), 0..*
+    > Z× 1, |map 1/(z + *), 0..*
 }
 
 sub p-value (@A, @B) {
-    return 1 if @A <= 1 or @B <= 1;
+    return 1 if @A ≤ 1 or @B ≤ 1;
 
     my $a-mean = @A.sum / @A;
     my $b-mean = @B.sum / @B;
     my $a-variance = @A.map( { ($a-mean - $_)² } ).sum / (@A - 1);
     my $b-variance = @B.map( { ($b-mean - $_)² } ).sum / (@B - 1);
-    return 1 unless $a-variance && $b-variance;
+    return 1 unless $a-variance and $b-variance;
 
-    my \Welsh-t-statistic = ($a-mean - $b-mean)/($a-variance/@A + $b-variance/@B).sqrt;
+    my \Welch's-t-statistic = ($a-mean - $b-mean)/($a-variance/@A + $b-variance/@B).sqrt;
 
     my $DoF = ($a-variance / @A + $b-variance / @B)² /
               (($a-variance² / (@A³ - @A²)) + ($b-variance² / (@B³ - @B²)));
 
     my $sa = $DoF / 2 - 1;
-    my $x = $DoF / (Welsh-t-statistic² + $DoF);
+    my $x = $DoF / (Welch's-t-statistic² + $DoF);
     my $N = 65355;
     my $h = $x / $N;
     my ( $sum1, $sum2 );
 
-    for ^$N »*» $h -> $i {
+    for ^$N »×» $h -> $i {
         $sum1 += (($i + $h / 2) ** $sa) / (1 - ($i + $h / 2)).sqrt;
         $sum2 +=   $i           ** $sa  / (1 -  $i).sqrt;
     }
 
-    (($h / 6) * ( $x ** $sa / (1 - $x).sqrt + 4 * $sum1 + 2 * $sum2)) /
-     ( Γ($sa + 1) * π.sqrt / Γ($sa + 1.5) );
+    (($h / 6) × ( $x ** $sa / (1 - $x).sqrt + 4 × $sum1 + 2 × $sum2)) /
+     ( Γ($sa + 1) × π.sqrt / Γ($sa + 1.5) );
 }
 
 # Testing
