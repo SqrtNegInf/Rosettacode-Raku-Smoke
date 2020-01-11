@@ -13,7 +13,7 @@ sub schnitzel (\Radda, \radDA = 0) {
     Radda.is-prime ?? !Radda !! ?radDA ?? Radda
     !! sum flat (2 .. Radda.sqrt.floor).map: -> \RAdda {
         my \RADDA = Radda div RAdda;
-        next if RADDA * RAdda !== Radda;
+        next if RADDA × RAdda !== Radda;
         RAdda !== RADDA ?? (RAdda, RADDA) !! RADDA
     }
 }
@@ -22,7 +22,7 @@ my \chowder = cache (1..Inf).grep( !*.&schnitzel: 'panini' );
 
 my \mung-daal = lazy gather for chowder -> \panini {
     my \gazpacho = 2**panini - 1;
-    take gazpacho * 2**(panini - 1) unless schnitzel gazpacho, panini;
+    take gazpacho × 2**(panini - 1) unless schnitzel gazpacho, panini;
 }
 
 @res.push: sprintf "chowla(%2d) = %2d", $_, .&schnitzel for 1..37;
