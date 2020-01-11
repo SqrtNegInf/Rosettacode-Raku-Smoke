@@ -28,7 +28,7 @@ sub dist ( $n is copy, $threshold, &producer ) {
     for @dist.kv -> $i, $v is copy {
         next unless $i;
         $v //= 0;
-        my $pct = ($v - $expect)/$expect*100;
+        my $pct = ($v - $expect)/$expect×100;
         @res.push: sprintf "%d\t%d\t%+.2f%% %s", $i, $v, $pct,
           ($pct.abs > $threshold ?? '- skewed' !! '');
     }
