@@ -13,7 +13,7 @@ sub cast-out(\BASE = 10, \MIN = 1, \MAX = BASE**2 - 1) {
   my $x = MIN div B9;
   gather loop {
     for @ran -> \n {
-      my \k = B9 * $x + n;
+      my \k = B9 × $x + n;
       take k if k >= MIN;
     }
     $x++;
