@@ -22,7 +22,7 @@ my @res;
 @res.push: sprintf $fmt, <Item Price Quantity Extension>;
 
 my $subtotal = [+] @check.map: -> [$item,$price,$quant] {
-    my $extension = $price * $quant;
+    my $extension = $price × $quant;
     @res.push: sprintf $fmt, $item, $price, $quant, fix2($extension);
     $extension;
 }
@@ -30,7 +30,7 @@ my $subtotal = [+] @check.map: -> [$item,$price,$quant] {
 @res.push: sprintf $fmt, '', '', '', '-----------------';
 @res.push: sprintf $fmt, '', '', 'Subtotal ', $subtotal;
 
-my $tax = ($subtotal * $tax-rate).round(0.01);
+my $tax = ($subtotal × $tax-rate).round(0.01);
 @res.push: sprintf $fmt, '', '', 'Tax ', $tax;
 
 my $total = $subtotal + $tax;
