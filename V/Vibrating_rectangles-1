@@ -37,7 +37,7 @@ loop {
     if ++$ %% 30 {
         @c = |@colors.pick(3);
         @c = sort(flat @c xx 12);
-        $rot *= -1;
+        $rot ×= -1;
     }
     sleep .1;
 }
