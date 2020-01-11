@@ -14,7 +14,7 @@ class Bitmap {
 	    $i where ^$!width,
 	    $j where ^$!height
 	    --> Pixel
-      ) is rw { @!data[$i + $j * $!width] }
+      ) is rw { @!data[$i + $j × $!width] }
 }
 
 role PPM {
@@ -37,7 +37,7 @@ sub load-ppm ( $ppm ) {
 }
 
 sub color-distance (Pixel $c1, Pixel $c2) {
-    sqrt( ( ($c1.R - $c2.R)² + ($c1.G - $c2.G)² + ($c1.B - $c2.B)² ) / ( 255 * sqrt(3) ) );
+    sqrt( ( ($c1.R - $c2.R)² + ($c1.G - $c2.G)² + ($c1.B - $c2.B)² ) / ( 255 × sqrt(3) ) );
 }
 
 sub flood ($img, $x, $y, $c1) {
