@@ -24,7 +24,7 @@ sub public_point_to_address( UInt $x, UInt $y ) {
     );
     my $hash = rmd160 sha256 Blob.new: 4, @bytes.reverse;
     my $checksum = sha256(sha256 Blob.new: 0, $hash.list).subbuf: 0, 4;
-    encode reduce * * 256 + * , flat 0, ($hash, $checksum)».list 
+    encode reduce * × 256 + * , flat 0, ($hash, $checksum)».list 
 }
 
 say my $value = public_point_to_address
