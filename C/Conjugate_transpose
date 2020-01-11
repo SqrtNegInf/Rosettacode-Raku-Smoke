@@ -57,7 +57,7 @@ sub mat-ident ($n) { [ map { [ flat 0 xx $_, 1, 0 xx $n - 1 - $_ ] }, ^$n ] }
 sub mat-mult (@a, @b, $e) {
     my @p;
     for ^@a X ^@b[0] -> ($r, $c) {
-        @p[$r][$c] += @a[$r][$_] * @b[$_][$c] for ^@b;
+        @p[$r][$c] += @a[$r][$_] × @b[$_][$c] for ^@b;
         @p[$r][$c] .= round($e); # avoid floating point math errors
     }
     @p
