@@ -29,7 +29,7 @@ $xdo.set-window-size( $id, 350, 350, 0 );
 sleep .25;
 
 for flat 1 .. $dw - 350, $dw - 350, {$_ - 1} … 1 -> $mx { #
-    my $my = (($mx / $dw * τ).sin * 500).abs.Int;
+    my $my = (($mx / $dw × τ).sin × 500).abs.Int;
     $xdo.move-window( $id, $mx, $my );
     $xdo.activate-window($id);
 }
@@ -48,12 +48,12 @@ sleep .25;
 my $s = -1;
 
 loop {
-    $dx += $s * ($dw / 200).ceiling;
-    $dy += $s * ($dh / 200).ceiling;
+    $dx += $s × ($dw / 200).ceiling;
+    $dy += $s × ($dh / 200).ceiling;
     $xdo.set-window-size( $id, $dx, $dy, 0 );
     $xdo.activate-window($id);
     sleep .005;
-    $s *= -1 if $dy < 200;
+    $s ×= -1 if $dy < 200;
     last if $dx >= $dw;
 }
 
