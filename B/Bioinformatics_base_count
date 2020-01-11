@@ -24,7 +24,7 @@ my $dna = join '', lines q:to/END/;
 @res.push: $bases.sort(~*.key).join: "\n";
 
 sub pretty ($string, $wrap = 50) {
-    $string.comb($wrap).map( { sprintf "%8d: %s", $++ * $wrap, $_ } ).join: "\n"
+    $string.comb($wrap).map( { sprintf "%8d: %s", $++ × $wrap, $_ } ).join: "\n"
 }
 
 .say for @res;
