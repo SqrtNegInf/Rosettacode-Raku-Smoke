@@ -17,8 +17,8 @@ sub if-overlap ($triangle-pair) {
    my Bool $result = False;
 
    sub sign (\T) {
-      return (T.[0][0] - T[2][0]) * (T[1][1] - T[2][1]) -
-         (T[1][0] - T[2][0]) * (T[0][1] - T[2][1]);
+      return (T.[0][0] - T[2][0]) × (T[1][1] - T[2][1]) -
+         (T[1][0] - T[2][0]) × (T[0][1] - T[2][1]);
    }
 
    sub point-in-triangle (\pt, \Y --> Bool) {
@@ -36,8 +36,8 @@ sub if-overlap ($triangle-pair) {
    }
 
    sub orientation(\P, \Q, \R --> Int) {
-      my \val = (Q.[1] - P.[1]) * (R.[0] - Q.[0]) -
-         (Q.[0] - P.[0]) * (R.[1] - Q.[1]);
+      my \val = (Q.[1] - P.[1]) × (R.[0] - Q.[0]) -
+         (Q.[0] - P.[0]) × (R.[1] - Q.[1]);
 
       return 0 if val == 0;  # colinear
 
