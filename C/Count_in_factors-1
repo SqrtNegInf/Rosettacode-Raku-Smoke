@@ -12,7 +12,7 @@ multi factors(Int $remainder is copy) {
   gather for @primes -> $factor {
 
     # if remainder < factor², we're done
-    if $factor * $factor > $remainder {
+    if $factor × $factor > $remainder {
       take $remainder if $remainder > 1;
       last;
     }
