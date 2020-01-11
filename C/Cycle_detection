@@ -7,7 +7,7 @@
 # Works with: Rakudo version 2016-01
 #Pretty much a line for line translation of the Python code on the Wikipedia page.
 
-sub cyclical-function (\x) { (x * x + 1) % 255 };
+sub cyclical-function (\x) { (x × x + 1) % 255 };
 
 my ( $l, $s ) = brent( &cyclical-function, 3 );
 
@@ -24,7 +24,7 @@ sub brent (&f, $x0) {
     while ($tortoise != $hare) {
         if $power == $λ {
             $tortoise = $hare;
-            $power *= 2;
+            $power ×= 2;
             $λ = 0;
         }
         $hare = f($hare);
