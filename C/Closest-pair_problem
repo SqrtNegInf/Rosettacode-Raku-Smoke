@@ -11,7 +11,7 @@ srand 123456;
 #(This doesn't always work in the fast method because of distance assumptions in the algorithm.)
 
 sub MAIN ($N = 1000) {
-    my @points = (^$N).map: { [rand * 20 - 10, rand * 20 - 10] }
+    my @points = (^$N).map: { [rand × 20 - 10, rand × 20 - 10] }
 
     my ($af, $bf, $df) = closest_pair(@points);
     say "fast $df at [$af], [$bf]";
