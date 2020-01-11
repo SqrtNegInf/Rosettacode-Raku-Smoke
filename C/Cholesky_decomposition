@@ -7,11 +7,11 @@
 # Works with: Rakudo version 2015.12
 
 sub cholesky(@A) {
-    my @L = @A »*» 0;
+    my @L = @A »×» 0;
     for ^@A -> $i {
 	for 0..$i -> $j {
-	    @L[$i][$j] = ($i == $j ?? &sqrt !! 1/@L[$j][$j] * * )(
-		@A[$i][$j] - [+] (@L[$i;*] Z* @L[$j;*])[^$j]
+	    @L[$i][$j] = ($i == $j ?? &sqrt !! 1/@L[$j][$j] × * )(
+		@A[$i][$j] - [+] (@L[$i;*] Z× @L[$j;*])[^$j]
 	    );
 	}
     }
