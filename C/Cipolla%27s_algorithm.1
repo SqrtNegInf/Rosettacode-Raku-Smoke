@@ -35,10 +35,10 @@ sub cipolla ( Int \𝑛, Int \𝑝 ) {
     }
 
     # define a local multiply operator for Field coordinates
-    multi sub infix:<*> ( Fp $a, Fp $b ){
+    multi sub infix:<×> ( Fp $a, Fp $b ){
         Fp.new(
-            :x(($a.x * $b.x + $a.y * $b.y * $ω2) % 𝑝),
-            :y(($a.x * $b.y + $b.x * $a.y)       % 𝑝)
+            :x(($a.x × $b.x + $a.y × $b.y × $ω2) % 𝑝),
+            :y(($a.x × $b.y + $b.x × $a.y)       % 𝑝)
         )
     }
 
@@ -46,8 +46,8 @@ sub cipolla ( Int \𝑛, Int \𝑝 ) {
     my $s = Fp.new( :x($a), :y(1) );
 
     for (𝑝+1) +> 1, * +> 1 ...^ 0 {
-        $r *= $s if $_ % 2;
-        $s *= $s;
+        $r ×= $s if $_ % 2;
+        $s ×= $s;
     }
     return Nil if $r.y;
     $r.x;
