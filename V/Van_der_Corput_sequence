@@ -14,7 +14,7 @@ is (join ' ', VdC[^16]), '0 0.5 0.25 0.75 0.125 0.625 0.375 0.875 0.0625 0.5625 
 #Here is a more elaborate version using the polymod built-in integer method:
 sub VdC($base = 2) {
     map {
-        [+] $_ && .polymod($base xx *) Z/ [\*] $base xx *
+        [+] $_ && .polymod($base xx *) Z/ [\×] $base xx *
     }, ^Inf
 }
 
@@ -28,7 +28,7 @@ sub vdc($num, $base = 2) {
     my $vdc = 0;
     my $denom = 1;
     while $n {
-        $vdc += $n mod $base / ($denom *= $base);
+        $vdc += $n mod $base / ($denom ×= $base);
         $n div= $base;
     }
     $vdc;
@@ -51,7 +51,7 @@ is (vdc($_,5) for ^10).raku, '(0, 0.2, 0.4, 0.6, 0.8, 0.04, 0.24, 0.44, 0.64, 0.
 
 sub vdcX($value, $base = 2) {
     my @values = $value, { $_ div $base } ... 0;
-    my @denoms = $base,  { $_  *  $base } ... *;
+    my @denoms = $base,  { $_  ×  $base } ... *;
     [+] do for (flat @values Z @denoms) -> $v, $d {
 #    [+] do for @(gather (@values Z @denoms).deepmap(*.take)) -> $v, $d {
         $v mod $base / $d;
