@@ -16,8 +16,8 @@ sub simulation($c) {
 my $max-trials = 250_000;
 my $min-trials =   5_000;
 
-my $n = floor 47 * ($c-1.5)**1.5; # OEIS/A050256: 16 86 185 307
-my $N = min $max-trials, max $min-trials, 1000 * sqrt $n;
+my $n = floor 47 × ($c-1.5)**1.5; # OEIS/A050256: 16 86 185 307
+my $N = min $max-trials, max $min-trials, 1000 × sqrt $n;
 
 say "starting with n = $n and N = $N" if $debug;
 
