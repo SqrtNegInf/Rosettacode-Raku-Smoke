@@ -12,8 +12,8 @@ class Vector {
         *
     }
     multi submethod BUILD (:$length!, :$angle!) {
-        $!x = $length * cos $angle;
-        $!y = $length * sin $angle;
+        $!x = $length × cos $angle;
+        $!y = $length × sin $angle;
     }
     multi submethod BUILD (:from([$x1, $y1])!, :to([$x2, $y2])!) {
         $!x = $x2 - $x1;
@@ -25,7 +25,7 @@ class Vector {
 
     method add      ($v) { Vector.new(x => $.x + $v.x,  y => $.y + $v.y) }
     method subtract ($v) { Vector.new(x => $.x - $v.x,  y => $.y - $v.y) }
-    method multiply ($n) { Vector.new(x => $.x * $n,    y => $.y * $n  ) }
+    method multiply ($n) { Vector.new(x => $.x × $n,    y => $.y × $n  ) }
     method divide   ($n) { Vector.new(x => $.x / $n,    y => $.y / $n  ) }
 
     method gist { "vec[$.x, $.y]" }
@@ -34,7 +34,7 @@ class Vector {
 multi infix:<+>  (Vector $v, Vector $w) is export { $v.add: $w }
 multi infix:<->  (Vector $v, Vector $w) is export { $v.subtract: $w }
 multi prefix:<-> (Vector $v)            is export { $v.multiply: -1 }
-multi infix:<*>  (Vector $v, $n)        is export { $v.multiply: $n }
+multi infix:<×>  (Vector $v, $n)        is export { $v.multiply: $n }
 multi infix:</>  (Vector $v, $n)        is export { $v.divide: $n }
 
 
@@ -51,7 +51,7 @@ my $w = Vector.new(length => 1, angle => pi/4);    #: vec[0.707106781186548, 0.7
 @res.push: ($u + $v).gist;                                           #: vec[4, 7]
 @res.push: ($u - $v).gist;                                           #: vec[2, 1]
 @res.push: (-$u).gist;                                               #: vec[-3, -4]
-@res.push: ($u * 10).gist;                                           #: vec[30, 40]
+@res.push: ($u × 10).gist;                                           #: vec[30, 40]
 @res.push: ($u / 2).gist;                                            #: vec[1.5, 2]
 .say for @res;
 
@@ -68,4 +68,4 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-is-approx ($u.angle * 180/pi).round(.000000000001), 53.130102354156;
+is-approx ($u.angle × 180/pi).round(.000000000001), 53.130102354156;
