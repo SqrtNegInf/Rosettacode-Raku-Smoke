@@ -55,12 +55,12 @@ our proto rmd160($) returns Blob {*}
 multi rmd160(Str $s) { rmd160 $s.encode: 'ascii' }
 multi rmd160(Blob $data) {
     my @b = | $data, 0x80; # DH change - add slip, remove .list
-    push @b, 0 until (8*@b-448) %% 512;
-    my $len = 8 * $data.elems;
+    push @b, 0 until (8 × @b-448) %% 512;
+    my $len = 8 × $data.elems;
     push @b, | gather for ^8 { take $len % 256; $len div= 256 } # DH change - add slip
 
     my @word = gather for @b -> $a, $b, $c, $d {
-        take reduce * *256 + *, $d, $c, $b, $a;
+        take reduce * × 256 + *, $d, $c, $b, $a;
     }
 
     my @h = 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0;
