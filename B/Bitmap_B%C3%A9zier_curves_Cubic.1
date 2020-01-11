@@ -15,13 +15,13 @@ class Bitmap {
     has Pixel @!data;
 
     method fill(Pixel $p) {
-        @!data = $p.clone xx ($!width*$!height)
+        @!data = $p.clone xx ($!width × $!height)
     }
     method pixel(
 	  $i where ^$!width,
 	  $j where ^$!height
 	  --> Pixel
-    ) is rw { @!data[$i + $j * $!width] }
+    ) is rw { @!data[$i + $j × $!width] }
 
     method set-pixel ($i, $j, Pixel $p) {
         self.pixel($i, $j) = $p.clone;
@@ -63,7 +63,7 @@ class Bitmap {
     method dot ($px, $py, $pix, $radius = 2) {
         for $px - $radius .. $px + $radius -> $x {
             for $py - $radius .. $py + $radius -> $y {
-                self.set-pixel($x, $y, $pix) if ( $px - $x + ($py - $y) * i ).abs <= $radius;
+                self.set-pixel($x, $y, $pix) if ( $px - $x + ($py - $y) × i ).abs <= $radius;
             }
         }
     }
@@ -71,10 +71,10 @@ class Bitmap {
 method cubic ( $x1, $y1, $x2, $y2, $x3, $y3, $x4, $y4, $pix, $segments = 30 ) {
         my @line-segments = map -> $t {
             my \a = (1-$t)³;
-            my \b = $t  * (1-$t)² * 3;
-            my \c = $t² * (1-$t)  * 3;
+            my \b = $t  × (1-$t)² × 3;
+            my \c = $t² × (1-$t)  × 3;
             my \d = $t³;
-            (a*$x1 + b*$x2 + c*$x3 + d*$x4).round(1),(a*$y1 + b*$y2 + c*$y3 + d*$y4).round(1)
+            (a×$x1 + b×$x2 + c×$x3 + d×$x4).round(1),(a×$y1 + b×$y2 + c×$y3 + d×$y4).round(1)
         }, (0, 1/$segments, 2/$segments ... 1);
         for @line-segments.rotor(2=>-1) -> (($x1,$y1),($x2,$y2)){ self.line($x1,$y1,$x2,$y2, $pix) };
     }
@@ -101,13 +101,5 @@ $b.cubic( |@points, color(255,0,255) );
 
 @points.map: { $b.dot( $^x, $^y, color(255,0,0) )}
 
-#$*OUT.write: $b.P6;
 my $out = open('run/bezier-cubic.ppm', :w);
 $out.write: $b.P6;
-
-my $ref = qq:to/END/;
-END
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
