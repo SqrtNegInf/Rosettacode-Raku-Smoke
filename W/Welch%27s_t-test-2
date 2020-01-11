@@ -1,99 +1,86 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Welch%27s_t-test
-#c# 2019-01-02 <RC, 2019-10-16 >RC
+#c# 2019-01-02 <RC, 2019-10-16 >RC, 2020-01-11 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# '×' seems like a natural upgrade, '÷' less so; maybe just have to encounter it more often...
 
 # Using Burkardt's betain
 
 my @res;
 
-sub lgamma ( Num(Real) \n --> Num ){
+sub lgamma ( Num(Real) \n --> Num ) {
   use NativeCall;
   sub lgamma (num64 --> num64) is native {}
   lgamma( n )
 }
 
 sub p-value (@a, @b) {
-  if @a.elems <= 1 {
-    return 1.0;
-  }
-  if @b.elems <= 1 {
-    return 1.0;
-  }
-  my Rat $mean1 = @a.sum / @a.elems;
-  my Rat $mean2 = @b.sum / @b.elems;
-  if $mean1 == $mean2 {
-    return 1.0;
-  }
-  my Rat $variance1 = 0.0;
-  my Rat $variance2 = 0.0;
+    return 1 if @a.elems | @b.elems ≤ 1; # DH reasonable upgrade? YES
+    #return 1 if @a.elems ≤ 1 or @b.elems ≤ 1;
+    my $mean1 = @a.sum ÷ @a.elems;
+    my $mean2 = @b.sum ÷ @b.elems;
+    return 1 if $mean1 == $mean2;
 
-  for @a -> $i {
-    $variance1 += ($mean1 - $i)**2#";" unnecessary for last statement in block
-  }
-  for @b -> $i {
-    $variance2 += ($mean2 - $i)**2
-  }
-  if ($variance1 == 0 && $variance2 == 0) {
-    return 1.0;
-  }
-  $variance1 /= (@a.elems - 1);
-  $variance2 /= (@b.elems - 1);
+    my $variance1 = sum (@a «-» $mean1) X**2; # DH cf. variance calc in -1 version of task 
+    my $variance2 = [+] (@b «-» $mean2) X**2; # DH yet another variation
+    return 1 if $variance1 | $variance2 == 0; # DH reasonable upgrade? YES
+    #return 1 if $variance1 == 0 or $variance2 == 0;
+    $variance1 /= @a.elems - 1;
+    $variance2 /= @b.elems - 1;
+    #($variance1,$variance2) Z[/=] (@a.elems,@b.elems) «-» 1; # DH definitely worse!
 
-  my $WELCH_T_STATISTIC = ($mean1-$mean2)/sqrt($variance1/@a.elems+$variance2/@b.elems);
-	my $DEGREES_OF_FREEDOM = (($variance1/@a.elems+$variance2/@b.elems)**2)
-	/
-	(
-	($variance1*$variance1)/(@a.elems*@a.elems*(@a.elems-1))+
-	($variance2*$variance2)/(@b.elems*@b.elems*(@b.elems-1))
-	);
-	my $A = $DEGREES_OF_FREEDOM/2;
-	my $value = $DEGREES_OF_FREEDOM/($WELCH_T_STATISTIC*$WELCH_T_STATISTIC+$DEGREES_OF_FREEDOM);
-  my $beta = lgamma($A)+0.57236494292470009-lgamma($A+0.5);
-	my Rat $acu = 10**(-15);
-	my ($ai,$cx,$indx,$ns,$pp,$psq,$qq,$rx,$temp,$term,$xx);
-# Check the input arguments.
-	return $value if $A <= 0.0;# || $q <= 0.0;
-	return $value if $value < 0.0 || 1.0 < $value;
-# Special cases
-	return $value if $value == 0.0 || $value == 1.0;
-	$psq = $A + 0.5;
-	$cx = 1.0 - $value;
-	if $A < $psq * $value {
-		($xx, $cx, $pp, $qq, $indx) = ($cx, $value, 0.5, $A, 1);
-	} else {
-		($xx, $pp, $qq, $indx) = ($value, $A, 0.5, 0);
-	}
-	$term = 1.0;
-	$ai = 1.0;
-	$value = 1.0;
-	$ns = $qq + $cx * $psq;
-        $ns = $ns.Int;
-#Soper reduction formula.
-	$rx = $xx / $cx;
-	$temp = $qq - $ai;
-	$rx = $xx if $ns == 0;
-	while (True) {
-		$term = $term * $temp * $rx / ( $pp + $ai );
-		$value = $value + $term;
-		$temp = $term.abs;
-		if $temp <= $acu && $temp <= $acu * $value {
-	   	$value = $value * ($pp * $xx.log + ($qq - 1.0) * $cx.log - $beta).exp / $pp;
-	   	$value = 1.0 - $value if $indx;
-	   	last;
+    my $Welch-t = ($mean1-$mean2)/sqrt($variance1/@a.elems+$variance2/@b.elems);
+    my $DoF     = ($variance1/@a.elems + $variance2/@b.elems)² /
+	               (($variance1 × $variance1)/(@a.elems × @a.elems × (@a.elems-1)) +
+	                ($variance2 × $variance2)/(@b.elems × @b.elems × (@b.elems-1))
+                   );
+
+#   my $an = @a.elems; my $bn = @b.elems;
+#   my $Welch-t  = ($mean1-$mean2)/sqrt($variance1/$an+$variance2/$bn);
+#   my $DoF      = ($variance1/$an+$variance2/$bn)²
+#      / (($variance1 × $variance1)/($an × $an × ($an-1)) + ($variance2 × $variance2)/($bn × $bn × ($bn-1)));
+
+	my $A     = $DoF / 2;
+	my $value = $DoF / ($Welch-t² + $DoF);
+    my $beta  = lgamma($A) + 0.57236494292470009 - lgamma($A+0.5); # constant is logΓ(.5), more precise than 'lgamma' returns
+	my $eps   = 10⁻¹⁵; # DH reasonable upgrade? NO
+	#my $eps   = 10**-15;
+
+	return $value if $A | $value ≤ 0 or $value ≥ 1;
+
+	my $psq = $A + 0.5;
+	my $cx = 1 - $value;
+    my ($xx,$pp,$qq,$indx);
+	if $A < $psq × $value { ($xx, $cx, $pp, $qq, $indx) = $cx, $value, 0.5,  $A, 1 }
+	else                  { ($xx,      $pp, $qq, $indx) =      $value,  $A, 0.5, 0 }
+	my $term = my $ai = $value = 1;
+	my $ns = floor $qq + $cx × $psq;
+
+    # Soper reduction formula
+	my $qq-ai = $qq - $ai;
+	my $rx = $ns == 0 ?? $xx !! $xx / $cx;
+	loop {
+		$term  ×= $qq-ai × $rx / ($pp + $ai);
+		$value += $term;
+		$qq-ai  = $term.abs;
+		if $qq-ai ≤ $eps & $eps×$value { # DH reasonable upgrade? YES
+		#if $qq-ai ≤ $eps and $qq-ai ≤ $eps × $value 
+	   	    $value = $value × ($pp × $xx.log + ($qq - 1) × $cx.log - $beta).exp / $pp;
+	   	    $value = 1 - $value if $indx;
+	   	    last
 		}
-	 	$ai = $ai + 1.0;
+	 	$ai++;
 		$ns--;
-		if 0 <= $ns {
-			$temp = $qq - $ai;
-			$rx = $xx if $ns == 0;
+		if $ns ≥ 0 {
+			$qq-ai = $qq - $ai;
+			$rx    = $xx if $ns == 0;
 		} else {
-			$temp = $psq;
-			$psq = $psq + 1.0;
+			$qq-ai = $psq;
+			$psq  += 1;
 		}
 	}
-	return $value;
+	$value
 }
 
 my @answers = (
@@ -134,9 +121,9 @@ for (
     [< 9/23.0 21/45.0 0/38.0>], 
     [< 0/44.0 42/94.0 0/22.0>], 
 ) -> @left, @right { 
-    my $pvalue = p-value @left, @right;
-    @res.push: sprintf("p-value = %.14g",$pvalue);
-    $error += abs($pvalue - shift @answers);
+    my $p-value = p-value @left, @right;
+    @res.push: sprintf("p-value = %.14g",$p-value);
+    $error += ($p-value - shift @answers).abs;
 }
 @res.push: sprintf("cumulative error is %g\n", $error);
 
