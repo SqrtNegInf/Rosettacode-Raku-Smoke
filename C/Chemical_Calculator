@@ -47,8 +47,8 @@ class Chemical_formula_actions {
     method TOP     ($/) { $/.make: @stack }
     method lparen  ($/) { push @stack, 0  }
     method rparen  ($/) { my $m = @stack.pop;
-                          @stack[*-1] += ($<quantity> // 1) * $m }
-    method element ($/) { @stack[*-1] += ($<quantity> // 1) * %ATOMIC_MASS{~$<e>} }
+                          @stack[*-1] += ($<quantity> // 1) × $m }
+    method element ($/) { @stack[*-1] += ($<quantity> // 1) × %ATOMIC_MASS{~$<e>} }
 }
 sub molar_mass ( Str $formula --> Real ) {
     Chemical_formula.parse( $formula, :actions(Chemical_formula_actions.new) )
