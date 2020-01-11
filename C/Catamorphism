@@ -11,7 +11,7 @@ my @res;
 
 my @list = 1..10;
 @res.push: [+] @list;
-@res.push: [*] @list;
+@res.push: [×] @list;
 @res.push: [~] @list;
 @res.push:  min  @list;
 @res.push:  max  @list;
@@ -20,7 +20,7 @@ my @list = 1..10;
 # In addition to the reduce metaoperator, a general higher-order function, reduce, can apply any appropriate function. Reproducing the above in this form, using the function names of those operators, we have:
 
 @res.push: reduce &infix:<+>, @list;
-@res.push: reduce &infix:<*>, @list;
+@res.push: reduce &infix:<×>, @list;
 @res.push: reduce &infix:<~>, @list;
 @res.push: reduce &infix:<min>, @list;
 @res.push: reduce &infix:<max>, @list;
