@@ -26,7 +26,7 @@ multi combs_with_rep ($n, [$head, *@tail]) {
 my @res2.push: $_ for combs_with_rep( 2, [< iced jam plain >] );
 
 # Extra credit:
-sub postfix:<!> { [*] 1..$^n }
+sub postfix:<!> { [×] 1..$^n }
 sub combs_with_rep_count ($k, $n) { ($n + $k - 1)! / $k! / ($n - 1)! }
 
 say my $cnt = combs_with_rep_count( 3, 10 );
