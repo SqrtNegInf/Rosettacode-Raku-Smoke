@@ -5,21 +5,19 @@
 #m# MOAR: BROKEN
 #j#  JVM: BROKEN
 
-# We'll assume the Bitmap and Pixel classes have been imported already.
-
 class Pixel { has UInt ($.R, $.G, $.B) }
 class Bitmap {
     has UInt ($.width, $.height);
     has Pixel @!data;
 
     method fill(Pixel $p) {
-        @!data = $p.clone xx ($!width*$!height)
+        @!data = $p.clone xx ($!width × $!height)
     }
     method pixel(
         $i where ^$!width,
         $j where ^$!height
         --> Pixel
-    ) is rw { @!data[$i*$!height + $j] }
+    ) is rw { @!data[$i × $!height + $j] }
 
     method set-pixel ($i, $j, Pixel $p) {
         self.pixel($i, $j) = $p.clone;
@@ -39,7 +37,7 @@ role PPM {
 }
 my Bitmap $b = Bitmap.new( width => 125, height => 125) but PPM;
 for flat ^$b.height X ^$b.width -> $i, $j {
-    $b.pixel($i, $j) = Pixel.new: :R($i*2), :G($j*2), :B(255-$i*2);
+    $b.pixel($i, $j) = Pixel.new: :R($i×2), :G($j×2), :B(255-$i×2);
 }
 
 $*OUT.write: $b.P6;
