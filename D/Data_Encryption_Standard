@@ -120,8 +120,8 @@ sub get_subkeys(Str \key --> Seq) { # return a Seq with 16 bit vectors
 sub ƒ (List \R is copy, Seq \Kn is copy --> Seq) {
    my @er = map { Kn[$_] +^ R[E[$_]-1] }, ^48;
    my @sr = flat map { # Sn(Bn) loop, process @er six bits at a time
-      ((S.[$_][([~] @er[$_*6,$_*6+5]).parse-base(2)*16+([~]
-         @er[$_*6+1 .. $_*6+4]).parse-base(2)]).fmt('%04b').split(""))[1..4]
+      ((S.[$_][([~] @er[$_×6,$_×6+5]).parse-base(2)×16+([~]
+         @er[$_×6+1 .. $_×6+4]).parse-base(2)]).fmt('%04b').split(""))[1..4]
    }, ^8;
    return map { @sr[$_-1] }, P;
 }
