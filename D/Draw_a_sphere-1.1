@@ -20,21 +20,21 @@ sub MAIN ($outfile = 'run/draw_a_sphere.pgm') {
     $out.close;
 }
 
-sub normalize (@vec) { @vec »/» ([+] @vec »*« @vec).sqrt }
+sub normalize (@vec) { @vec »/» ([+] @vec »×« @vec).sqrt }
 
-sub dot (@x, @y) { -([+] @x »*« @y) max 0 }
+sub dot (@x, @y) { -([+] @x »×« @y) max 0 }
 
 sub draw_sphere ( $rad, $k, $ambient ) {
     my @pixels[$height];
-    my $r2 = $rad * $rad;
+    my $r2 = $rad × $rad;
     my @range = -$rad .. $rad;
     @range.map: -> $x {
         my @row[$width];
         @range.map: -> $y {
-            if (my $x2 = $x * $x) + (my $y2 = $y * $y) < $r2 {
+            if (my $x2 = $x × $x) + (my $y2 = $y × $y) < $r2 {
                 my @vector = normalize([$x, $y, ($r2 - $x2 - $y2).sqrt]);
                 my $intensity = dot(@light, @vector) ** $k + $ambient;
-                my $pixel = (0 max ($intensity * $depth).Int) min $depth;
+                my $pixel = (0 max ($intensity × $depth).Int) min $depth;
                 @row[$y+$rad] = $pixel;
             }
             else {
