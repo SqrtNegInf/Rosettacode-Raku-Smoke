@@ -22,12 +22,12 @@ class NG {
 
     # Private methods
     method !inject ($n) {
-        sub xform($n, $x, $y) { $x, $n * $x + $y }
+        sub xform($n, $x, $y) { $x, $n × $x + $y }
         ( $!a, $!a1 ) = xform( $n, $!a1, $!a );
         ( $!b, $!b1 ) = xform( $n, $!b1, $!b );
     }
     method !extract {
-        sub xform($n, $x, $y) { $y, $x - $y * $n }
+        sub xform($n, $x, $y) { $y, $x - $y × $n }
         my $n = $!a div $!b;
         ($!a,  $!b ) = xform( $n, $!a,  $!b  );
         ($!a1, $!b1) = xform( $n, $!a1, $!b1 );
