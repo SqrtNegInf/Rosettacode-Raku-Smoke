@@ -17,8 +17,8 @@ sub braille-graphics (%a) {
 	}
     }
 
-    for $ylo, $ylo + 4 ...^ * > $yhi -> \y {
-	for $xlo, $xlo + 2 ...^ * > $xhi -> \x {
+    for $ylo, $ylo + 4 ...^ × > $yhi -> \y {
+	for $xlo, $xlo + 2 ...^ × > $xhi -> \x {
 	    my $cell = 0x2800;
 	    $cell += 1   if %a{y + 0}{x + 0};
 	    $cell += 2   if %a{y + 1}{x + 0};
@@ -35,9 +35,9 @@ sub braille-graphics (%a) {
 }
 
 sub cuboid ( [$x, $y, $z] ) {
-    my \x = $x * 4;
-    my \y = $y * 4;
-    my \z = $z * 2;
+    my \x = $x × 4;
+    my \y = $y × 4;
+    my \z = $z × 2;
     my %t;
     sub horz ($X, $Y) { %t{$Y     }{$X + $_} = True for 0 .. x }
     sub vert ($X, $Y) { %t{$Y + $_}{$X     } = True for 0 .. y }
