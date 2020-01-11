@@ -47,7 +47,7 @@ main: loop {
             when *.type == KEYDOWN {
                 if KEY_CODES(.scancode) -> $comm {
                     given $comm {
-                        when 'K_SPACE'  { $dir *= -1; }
+                        when 'K_SPACE'  { $dir ×= -1; }
                     }
                 }
                 #say .scancode; # unknown key pressed
@@ -57,8 +57,8 @@ main: loop {
     ($cx, $cy) = $width div 2, $height div 2;
 
     for 1..^$num {
-        my ($x, $y) = ($cx - ($width/2/$num*$_), $cy - ($height/2/$num*$_))».round;
-        my ($w, $h) = ($width/$num*$_, $height/$num*$_)».round;
+        my ($x, $y) = ($cx - ($width/2/$num×$_), $cy - ($height/2/$num×$_))».round;
+        my ($w, $h) = ($width/$num×$_, $height/$num×$_)».round;
         SDL_SetRenderDrawColor($render, |@rgb[$_], 255);
         SDL_RenderDrawRect($render, SDL_Rect.new(:x($x), :y($y), :w($w), :h($h)));
     }
@@ -70,11 +70,11 @@ main: loop {
 
 SDL_Quit();
 
-sub palette ($l) { (^$l).map: { hsv2rgb(($_ * 360/$l % 360)/360, 1, 1).list } };
+sub palette ($l) { (^$l).map: { hsv2rgb(($_ × 360/$l % 360)/360, 1, 1).list } };
 
 sub hsv2rgb ( $h, $s, $v ){ # inputs normalized 0-1
-    my $c = $v * $s;
-    my $x = $c * (1 - abs( (($h*6) % 2) - 1 ) );
+    my $c = $v × $s;
+    my $x = $c × (1 - abs( (($h×6) % 2) - 1 ) );
     my $m = $v - $c;
     my ($r, $g, $b) = do given $h {
         when   0..^(1/6) { $c, $x, 0 }
@@ -84,5 +84,5 @@ sub hsv2rgb ( $h, $s, $v ){ # inputs normalized 0-1
         when 2/3..^(5/6) { $x, 0, $c }
         when 5/6..1      { $c, 0, $x }
     }
-    ( $r, $g, $b ).map: ((*+$m) * 255).Int
+    ( $r, $g, $b ).map: ((*+$m) × 255).Int
 }
