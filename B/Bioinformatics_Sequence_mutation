@@ -29,7 +29,7 @@ my $mutate = $dna.&mutate(10);
 
 # Helper subs
 sub pretty ($string, $wrap = 50) {
-    $string.comb($wrap).map( { sprintf "%8d: %s", $++ * $wrap, $_ } ).join: "\n"
+    $string.comb($wrap).map( { sprintf "%8d: %s", $++ × $wrap, $_ } ).join: "\n"
 }
 
 sub mutate ($dna is copy, $count = 1) {
