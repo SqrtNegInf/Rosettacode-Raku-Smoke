@@ -24,7 +24,7 @@ my $upto = 20;
 
 @res.push: "First $upto Brazilian numbers:\n"~ (^Inf).grep( *.&is-Brazilian )[^$upto];
 
-@res.push: "\nFirst $upto odd Brazilian numbers:\n"~ (^Inf).map( * * 2 + 1 ).grep( *.&is-Brazilian )[^$upto];
+@res.push: "\nFirst $upto odd Brazilian numbers:\n"~ (^Inf).map( * × 2 + 1 ).grep( *.&is-Brazilian )[^$upto];
 
 #@res.push: "\nFirst $upto prime Brazilian numbers:\n"~ (^Inf).grep( *.&is-prime ).grep( *.&is-Brazilian )[^$upto];
 @res.push: "\nFirst $upto prime Brazilian numbers:\n"~ (^Inf).grep( { .is-prime && .&is-Brazilian } )[^$upto];
