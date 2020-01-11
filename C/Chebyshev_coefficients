@@ -9,14 +9,14 @@
 
 sub chebft ( Code $func, Real $a, Real $b, Int $n ) {
 
-    my $bma = 0.5 * ( $b - $a );
-    my $bpa = 0.5 * ( $b + $a );
+    my $bma = 0.5 × ( $b - $a );
+    my $bpa = 0.5 × ( $b + $a );
 
-    my @pi_n = ( (^$n).list »+» 0.5 ) »*» ( pi / $n );
-    my @f    = ( @pi_n».cos »*» $bma »+» $bpa )».$func;
-    my @sums = map { [+] @f »*« ( @pi_n »*» $_ )».cos }, ^$n;
+    my @pi_n = ( (^$n).list »+» 0.5 ) »×» ( pi / $n );
+    my @f    = ( @pi_n».cos »×» $bma »+» $bpa )».$func;
+    my @sums = map { [+] @f »×« ( @pi_n »×» $_ )».cos }, ^$n;
 
-    return @sums »*» ( 2 / $n );
+    return @sums »×» ( 2 / $n );
 }
 
 my @res.push: .fmt('%+13.7e') for chebft &cos, 0, 1, 10;
