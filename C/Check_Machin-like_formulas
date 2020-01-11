@@ -10,14 +10,14 @@ sub taneval ($coef,$f) {
   return -taneval(-$coef, $f) if $coef < 0;
   my $a = taneval($coef+>1, $f);
   my $b = taneval($coef - $coef+>1, $f);
-  ($a+$b)/(1-$a*$b);
+  ($a+$b)/(1-$a×$b);
 }
 
 sub tans (@xs) {
   return taneval(@xs[0;0], @xs[0;1].FatRat) if @xs == 1;
   my $a = tans(@xs[0 .. (-1+@xs+>1)]);
   my $b = tans(@xs[(-1+@xs+>1)+1 .. -1+@xs]);
-  ($a+$b)/(1-$a*$b);
+  ($a+$b)/(1-$a×$b);
 }
 
 sub verify (@eqn) {
