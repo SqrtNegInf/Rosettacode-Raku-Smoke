@@ -22,7 +22,7 @@ sub m_arith ( @a, $op ) {
     [+] map {
         my $permutation = .key;
         my $term = $op eq 'perm' ?? 1 !! .value;
-        for $permutation.kv -> $i, $j { $term *= @a[$i][$j] };
+        for $permutation.kv -> $i, $j { $term ×= @a[$i][$j] };
         $term
     }, σ_permutations [^@a];
 }
