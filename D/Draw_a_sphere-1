@@ -5,6 +5,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: draw_a_sphere.pgm
+#n# removing intermediate variables has no impact on running time
 
 my $width = my $height = 255; # must be odd
 
@@ -19,19 +20,21 @@ sub MAIN ($outfile = 'run/draw_a_sphere.pgm') {
     $out.close;
 }
 
-sub normalize (@vec) { @vec »/» ([+] @vec »*« @vec).sqrt }
+sub normalize (@vec) { @vec »/» ([+] @vec »×« @vec).sqrt }
 
-sub dot (@x, @y) { -([+] @x »*« @y) max 0 }
+sub dot (@x, @y) { -([+] @x »×« @y) max 0 }
 
 sub draw_sphere ( $rad, $k, $ambient ) {
     my @pixels[$height];
-    my $r2 = $rad * $rad;
+    #my $r2 = $rad²;
     my @range = -$rad .. $rad;
     @range.hyper.map: -> $x {
         my @row[$width];
         @range.map: -> $y {
-            if (my $x2 = $x * $x) + (my $y2 = $y * $y) < $r2 {
-                my @vector = normalize([$x, $y, ($r2 - $x2 - $y2).sqrt]);
+            #if (my $x2 = $x × $x) + (my $y2 = $y * $y) < $r2 {
+            #    my @vector = normalize([$x, $y, ($r2 - $x2 - $y2).sqrt]);
+            if $x² + $y² < $rad² {
+                my @vector = normalize([$x, $y, ($rad² - $x² - $y²).sqrt]);
                 my $intensity = dot(@light, @vector) ** $k + $ambient;
                 my $pixel = (0 max ($intensity * $depth).Int) min $depth;
                 @row[$y+$rad] = $pixel;
