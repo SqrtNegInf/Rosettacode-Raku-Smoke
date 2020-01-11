@@ -40,9 +40,9 @@ sub balanced1($s) {
         given [\+] '\\' «leg« $s.comb.cache; # does .cache make any difference? [so .Seq not consumed]
 }
 
-$s = <[ ]>.roll(3*2).join;
+$s = <[ ]>.roll(3×2).join;
 @res.push: "$s { balanced($s) ?? "is" !! "is not" } well-balanced ($tag)";
-$s = <[ ]>.roll(6*2).join;
+$s = <[ ]>.roll(6×2).join;
 @res.push: "$s { balanced($s) ?? "is" !! "is not" } well-balanced ($tag)";
 
 #####
@@ -52,9 +52,9 @@ sub balanced2($_ is copy) {
     $_ eq '';
 }
 
-$s = <[ ]>.roll(5*2).join;
+$s = <[ ]>.roll(5×2).join;
 @res.push: "$s is {' not' x not balanced($s)} well-balanced ($tag)";
-$s = < []>.roll(3*2).join;
+$s = < []>.roll(3×2).join;
 @res.push: "$s is {' not' x not balanced($s)} well-balanced ($tag)";
 
 #####
