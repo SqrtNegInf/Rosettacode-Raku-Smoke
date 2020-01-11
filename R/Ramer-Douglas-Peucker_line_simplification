@@ -15,7 +15,7 @@ sub perpendicular-distance (@start, @end where @end !eqv @start, @point) {
     my ( $Δx,  $Δy)  =   @end «-» @start;
     my ($Δpx, $Δpy)  = @point «-» @start;
     ($Δx, $Δy) «/=» norm $Δx, $Δy;
-    norm ($Δpx, $Δpy) «-» ($Δx, $Δy) «*» ($Δx*$Δpx + $Δy*$Δpy);
+    norm ($Δpx, $Δpy) «-» ($Δx, $Δy) «×» ($Δx×$Δpx + $Δy×$Δpy);
 }
 
 # if dual-assign of sigil-less vars were allowed (and otherwise maximally utilize sigil-less style)
