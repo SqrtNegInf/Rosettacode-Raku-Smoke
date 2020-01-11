@@ -8,9 +8,9 @@ my @res;
 
 # via Recurrence relation
 
-sub binomial { [*] ($^n … 0) Z/ 1 .. $^p }
+sub binomial { [×] ($^n … 0) Z/ 1 .. $^p }
 
-my @bell = 1, -> *@s { [+] @s »*« @s.keys.map: { binomial(@s-1, $_) }  } … *;
+my @bell = 1, -> *@s { [+] @s »×« @s.keys.map: { binomial(@s-1, $_) }  } … *;
 
 @res.push: $_ for @bell[^15], @bell[50 - 1];
 
