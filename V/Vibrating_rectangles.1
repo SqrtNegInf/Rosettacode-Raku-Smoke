@@ -39,7 +39,7 @@ loop {
     if ++$ %% 30 {
         @c = |%colors.values.roll(3);
         @c = sort(flat @c xx 12);
-        $rot *= -1;
+        $rot ×= -1;
     }
     rect($_, 31-$_) for 0..15;
     sleep .1;
