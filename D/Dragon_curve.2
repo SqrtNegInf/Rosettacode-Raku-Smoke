@@ -38,7 +38,7 @@ for $dragon.comb {
     if /F/ {
 	$out.say: "<line x1='$x' y1='$y' x2='{$x += $d.re}' y2='{$y += $d.im}' style='stroke:rgb(0,0,0);stroke-width:1'/>";
     }
-    elsif /< + - >/ { $d *= "{$_}1i" }
+    elsif /< + - >/ { $d ×= "{$_}1i" }
 }
 
 $out.say: "</svg>";
