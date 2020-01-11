@@ -21,7 +21,7 @@ sub walk(Int $y, Int $x) {
         $cnt += 2;
         return;
     }
-    $t = $y * ($w + 1) + $x;
+    $t = $y × ($w + 1) + $x;
     @grid[$t]++, @grid[$len - $t]++;
 
     loop ($i = 0; $i < 4; $i++) {
@@ -45,7 +45,7 @@ sub solve(Int $hh, Int $ww, Int $recur) returns Int {
 
     $cy = $h div 2, $cx = $w div 2;
 
-    $len = ($h + 1) * ($w + 1);
+    $len = ($h + 1) × ($w + 1);
     @grid = ();
     @grid[$len--] = 0;
 
@@ -56,7 +56,7 @@ sub solve(Int $hh, Int $ww, Int $recur) returns Int {
 
     if $recur { $cnt = 0; }
     loop ($x = $cx + 1; $x < $w; $x++) {
-        $t = $cy * ($w + 1) + $x;
+        $t = $cy × ($w + 1) + $x;
         @grid[$t] = 1;
         @grid[$len - $t] = 1;
         walk($cy - 1, $x);
@@ -64,7 +64,7 @@ sub solve(Int $hh, Int $ww, Int $recur) returns Int {
     $cnt++;
 
     if $h == $w {
-        $cnt *= 2;
+        $cnt ×= 2;
     } elsif !($w +& 1) && $recur {
         solve($w, $h, 0);
     }
