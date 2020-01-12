@@ -72,7 +72,7 @@ sub run-loop (
     Real:D(Numeric) :$interval = 1/4, 
     Bool            :$stop-on-repeat
 ){
-    my %seen is SetHash;
+    my %seen is SetHash; # DH works fine with normal hash
 
 my @res = gather {
     take '#' x $initial.width;
