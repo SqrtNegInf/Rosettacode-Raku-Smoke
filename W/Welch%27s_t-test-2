@@ -5,11 +5,11 @@
 #j# JVM:  BROKEN
 #n# '×' seems like a natural upgrade, '÷' less so; maybe just have to encounter it more often...
 
-# Using Burkardt's betain
+# Using Burkhardt's 'incomplete beta'
 
 my @res;
 
-sub lgamma ( Num(Real) \n --> Num ) {
+sub logΓ ( Num(Real) \n --> Num ) {
   use NativeCall;
   sub lgamma (num64 --> num64) is native {}
   lgamma( n )
@@ -21,57 +21,55 @@ sub p-value (@a, @b) {
     my $mean2 = @b.sum ÷ @b.elems;
     return 1 if $mean1 == $mean2;
 
-    my $variance1 = sum (@a «-» $mean1) X**2; # DH cf. variance calc in -1 version of task 
-    my $variance2 = [+] (@b «-» $mean2) X**2;
+    my $variance1 = sum (@a «-» $mean1) X**2;  # DH cf. variance calc in -1 version of task 
+    my $variance2 = [+] (@b «-» $mean2) X** 2; # yet more variations on variance
     return 1 if $variance1 | $variance2 == 0;
     $variance1 /= @a.elems - 1;
     $variance2 /= @b.elems - 1;
     #($variance1,$variance2) Z[/=] (@a.elems,@b.elems) «-» 1; # overkill
 
-    my $Welch-t = ($mean1-$mean2)/sqrt($variance1/@a.elems+$variance2/@b.elems);
-    my $DoF     = ($variance1/@a.elems + $variance2/@b.elems)² /
-	               (($variance1 × $variance1)/(@a.elems × @a.elems × (@a.elems-1)) +
-	                ($variance2 × $variance2)/(@b.elems × @b.elems × (@b.elems-1))
-                   );
+    my $Welch's-t-statistic = ($mean1-$mean2)/sqrt($variance1/@a.elems+$variance2/@b.elems);
+    my $DoF = ($variance1/@a.elems + $variance2/@b.elems)² /
+               (  ($variance1 × $variance1)/(@a.elems × @a.elems × (@a.elems-1))
+                + ($variance2 × $variance2)/(@b.elems × @b.elems × (@b.elems-1)));
+    my $A     = $DoF / 2;
+    my $value = $DoF / ($Welch's-t-statistic² + $DoF);
+    return $value if $A | $value ≤ 0 or $value ≥ 1;
 
-	my $A     = $DoF / 2;
-	my $value = $DoF / ($Welch-t² + $DoF);
-    my $beta  = lgamma($A) + 0.57236494292470009 - lgamma($A+0.5); # constant is logΓ(.5), more precise than 'lgamma' returns
-	my $eps   = 10**-15;
-
-	return $value if $A | $value ≤ 0 or $value ≥ 1;
-
-	my $psq = $A + 0.5;
-	my $cx = 1 - $value;
+    # from here, translation of John Burkhardt's C code
+    my $beta  = logΓ($A) + 0.57236494292470009 - logΓ($A+0.5); # constant is logΓ(.5), more precise than 'lgamma' returns
+    my $eps   = 10**-15;
+    my $psq = $A + 0.5;
+    my $cx = 1 - $value;
     my ($xx,$pp,$qq,$indx);
-	if $A < $psq × $value { ($xx, $cx, $pp, $qq, $indx) = $cx, $value, 0.5,  $A, 1 }
-	else                  { ($xx,      $pp, $qq, $indx) =      $value,  $A, 0.5, 0 }
-	my $term = my $ai = $value = 1;
-	my $ns = floor $qq + $cx × $psq;
+    if $A < $psq × $value { ($xx, $cx, $pp, $qq, $indx) = $cx, $value, 0.5,  $A, 1 }
+    else                  { ($xx,      $pp, $qq, $indx) =      $value,  $A, 0.5, 0 }
+    my $term = my $ai = $value = 1;
+    my $ns = floor $qq + $cx × $psq;
 
     # Soper reduction formula
-	my $qq-ai = $qq - $ai;
-	my $rx = $ns == 0 ?? $xx !! $xx / $cx;
-	loop {
-		$term  ×= $qq-ai × $rx / ($pp + $ai);
-		$value += $term;
-		$qq-ai  = $term.abs;
-		if $qq-ai ≤ $eps & $eps×$value {
-	   	    $value = $value × ($pp × $xx.log + ($qq - 1) × $cx.log - $beta).exp / $pp;
-	   	    $value = 1 - $value if $indx;
-	   	    last
-		}
-	 	$ai++;
-		$ns--;
-		if $ns ≥ 0 {
-			$qq-ai = $qq - $ai;
-			$rx    = $xx if $ns == 0;
-		} else {
-			$qq-ai = $psq;
-			$psq  += 1;
-		}
-	}
-	$value
+    my $qq-ai = $qq - $ai;
+    my $rx = $ns == 0 ?? $xx !! $xx / $cx;
+    loop {
+        $term  ×= $qq-ai × $rx / ($pp + $ai);
+        $value += $term;
+        $qq-ai  = $term.abs;
+        if $qq-ai ≤ $eps & $eps×$value {
+               $value = $value × ($pp × $xx.log + ($qq - 1) × $cx.log - $beta).exp / $pp;
+               $value = 1 - $value if $indx;
+               last
+        }
+         $ai++;
+        $ns--;
+        if $ns ≥ 0 {
+            $qq-ai = $qq - $ai;
+            $rx    = $xx if $ns == 0;
+        } else {
+            $qq-ai = $psq;
+            $psq  += 1;
+        }
+    }
+    $value
 }
 
 my @answers = (
