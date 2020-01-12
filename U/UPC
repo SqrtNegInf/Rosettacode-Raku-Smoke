@@ -24,7 +24,7 @@ sub decode_UPC ( Str $line ) {
     my @digits = flat %pattern_to_digit_1{ $0».Str },
                       %pattern_to_digit_2{ $1».Str };
 
-    return unless ( @digits Z* ( |(3,1) xx * ) ).sum %% 10;
+    return unless ( @digits Z× ( |(3,1) xx * ) ).sum %% 10;
 
     return @digits.join;
 }
