@@ -1,19 +1,19 @@
-This is Rakudo version 2019.11-423-g06292bc82 built on MoarVM version 2020.01-15-g1fa9764bf
+This is Rakudo version 2019.11-427-gff7e17f1e built on MoarVM version 2020.01-15-g1fa9764bf
 implementing Perl 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1172/12]
-|+-------------> JVM: Good/Bad [1006/179]
-||+------------> Smoke testing [1059]
+|+-------------> JVM: Good/Bad [1007/179]
+||+------------> Smoke testing [1060]
 |||+-----------> sKipping validation [122]
 ||||+----------> Interactive [59]
-|||||+---------> Touched (modified by me) [293]
-||||||+--------> Concurrent [52]
+|||||+---------> Touched (modified by me) [294]
+||||||+--------> Concurrent/Async [56]
 |||||||+-------> Random seed [116]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [233]
+|||||||||+-----> Draft [234]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [100]
-||||||||||||+--> Un-implemented/reliable [75]
+|||||||||||+---> Void (no local copy) [101]
+||||||||||||+--> Un-implemented/reliable [76]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -92,7 +92,7 @@ GGS.......... Arrays
 GGS......D... Assertions_in_design_by_contract
 GGS.......... Associative_array_Creation
 GGS.......... Associative_array_Iteration
-GGS....R..... Atomic_updates
+GGS...CR..... Atomic_updates
 GBS...C...... Attractive_numbers
 .........DXVU AudioAlarm
 .........D.VU Audio_Overlap_Loop
@@ -189,7 +189,7 @@ GGS..T....... Check_Machin-like_formulas
 GGS......D... Check_input_device_is_a_terminal
 GG.KI....D... Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
-GGS.......... Checkpoint_synchronization
+GGS...C...... Checkpoint_synchronization
 GGS.....FD... Checksumcolor
 GGS..T...D... Chemical_Calculator
 GBS......D... Chernick%27s_Carmichael_numbers
@@ -311,7 +311,7 @@ GGS.......... Digital_root_Multiplicative_digital_root
 GGS..T....... Dijkstra%27s_algorithm
 GBS..T....... Dinesman%27s_multiple-dwelling_problem-1
 GGS..T....... Dinesman%27s_multiple-dwelling_problem-2
-GB.K...R..... Dining_philosophers
+GB.K..CR..... Dining_philosophers
 GGS..T....... Discordian_date
 GGS......D... Display_a_linear_combination
 GGS......D... Display_an_outline_as_a_nested_table
@@ -325,7 +325,7 @@ GGS.......... Doubly-linked_list_Element_insertion
 ..........XV. Doubly-linked_list_Traversal
 GGS.....F.... Dragon_curve
 GG.KI........ Draw_a_clock
-GGS.....F.... Draw_a_cuboid
+!GS.....F.... Draw_a_cuboid
 GB.KI........ Draw_a_pixel
 GB.KIT....... Draw_a_rotating_cube
 GGS..TC.F.... Draw_a_sphere-1
@@ -423,6 +423,7 @@ GGS.......... First-class_functions_Use_numbers_analogously
 GGS..T....... First_class_environments
 GBS.......... First_perfect_square_in_base_N_with_N_unique_digits
 GGS.......... Five_weekends
+GGS......D... Fivenum
 GGS..T..F.... Fixed_length_records
 GGS.......... FizzBuzz
 GGS.......... Flatten_a_list
@@ -541,6 +542,7 @@ GB.KI........ Image_noise
 GGS.......... Imaginary_base_numbers
 GGS......D... Implicit_type_conversion
 GG.K......... Include_a_file
+.........D.VU Increasing_gaps_between_consecutive_Niven_numbers
 GGS.......... Increment_a_numerical_string
 GGS..T.R..... Index_finite_lists_of_positive_integers-1
 GGS....R..... Index_finite_lists_of_positive_integers-2
@@ -731,7 +733,7 @@ GGS.......... Munchausen_numbers
 GGS..T..F.... Munching_squares-1
 GGS..T..F.... Munching_squares-2
 GB.K.....D... Musical_scale
-..........X.. Mutex
+..........XV. Mutex
 GGS.......... Mutual_recursion
 GGS.......... N%27th
 GGS......D... N-body_problem
@@ -929,7 +931,7 @@ GGS.....F.... Reduced_row_echelon_form
 GGS.......... Reduced_row_echelon_form-1
 GGS.......... Reduced_row_echelon_form-2
 GBS..T....... Reflection_Get_source
-GGS......D.V. Reflection_List_methods
+GGS.......... Reflection_List_methods
 GGS.......... Reflection_List_properties
 GGS.......... Regular_expressions
 .........D.VU Remote_agent_Agent_interface
@@ -938,7 +940,7 @@ GGS.......... Regular_expressions
 GGS.......... Remove_duplicate_elements
 GGS.....F.... Remove_lines_from_a_file
 GGS.......... Rename_a_file
-GGS....RF.... Rendezvous
+GGS...CRF.... Rendezvous
 GBS.......... Rep-string
 GGS....R.D... Repeat
 GGS.......... Repeat_a_string
@@ -1275,7 +1277,7 @@ GGS.......... Water_collected_between_towers
 GBS..T....... Web_scraping
 GGS.......... Weird_numbers
 .........D... Welch%27s_t-test
-GGS.......... Welch%27s_t-test-1
+GGS..T....... Welch%27s_t-test-1
 GBS..T....... Welch%27s_t-test-2
 GB.KI........ Window_creation
 GB.KI........ Window_creation_X11
