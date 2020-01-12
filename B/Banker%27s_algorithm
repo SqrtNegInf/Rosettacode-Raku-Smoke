@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Banker%27s_algorithm
-#c# 2019-12-30 <RC, 2020-01-05 >RC, 2020-01-06 >RC
+#c# 2019-12-30 <RC, 2020-01-05 >RC, 2020-01-06 >RC, 2020-01-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# see .0 for Hkdtam's original upload
@@ -18,22 +18,21 @@ my @allot = <1 2 2 1>, <1 0 3 3>, <1 2 1 0>;    # Resources allocated to process
 # Function to find the system is in safe state or not
 sub isSafe(\work is copy, \maxm, \allot) {
     my \P          = allot.elems;     # Number of processes
-    my \R          = work.elems;      # Number of resources
+    my \Pool       = (^P).SetHash;    # Process pool
+    my \R          = work.elems;      # Number of resources 
     my \need       = maxm »-« allot;  # the need matrix
-    my @unfinished = True xx P;       # Mark all processes as unfinished
     my @safe-sequence;
-
+ 
     # While all processes are not finished or system is not in safe state
     my $count = 0;
     while $count < P {
         my $found = False;
-        for ^P -> \p {
-            # Check if process now can be finished
-            if @unfinished[p] and all need[p] »≤« work {
+        for Pool.keys -> \p {           
+            if all need[p] »≤« work {    # now process can be finished
                 work »+=« allot[p;^R];   # Free the resources
                 @res.push: 'available resources: ' ~ work;
                 @safe-sequence.push: p;  # Add this process to safe sequence
-                @unfinished[p] = False;  # Mark this process as finished
+                Pool{p}--;               # Remove this process from Pool
                 $count += 1;
                 $found = True
             }
