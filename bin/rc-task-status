@@ -49,7 +49,7 @@ my @cols = (
 "sKipping validation [${\tally('K')}]",                         # K
 "Interactive [${\tally('I')}]",                                 # I
 "Touched (modified by me) [${\tally('T')}]",                    # T
-"Concurrent [${\tally('C')}]",                                  # C
+"Concurrent/Async [${\tally('C')}]",                            # C
 "Random seed [${\tally('R')}]",                                 # R
 "File output [${\tally('F')}]",                                 # F
 "Draft [${\tally('D')}]",                                       # D
@@ -128,7 +128,7 @@ my($task,$header,@concur,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
     $P{$p}{'F'} = $header =~ /#f#.*RC file/i     ? 'F' : '.';
     $P{$p}{'I'} = $header =~ /#t#.*(inter|gui)/i ? 'I' : '.';
 
-    my $rh = '(race|hyper|Promise)';
+    my $rh = '(race|hyper|Promise)|Lock.*new';
     @concur = `/usr/local/bin/pcregrep '\\.$rh' $task`;
     if (@concur) {
         my $active = grep { /^[^#\n]+$rh/ } @concur;
