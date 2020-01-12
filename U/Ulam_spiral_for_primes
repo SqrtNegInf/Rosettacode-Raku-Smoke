@@ -29,8 +29,8 @@ sub MAIN($max = 160, $start = 1) {
     %world{$loc.im}{$loc.re} = $n if (++$n).is-prime;
     }
 
-    sub turn-left  { $dir *= -i; }
-    sub turn-right { $dir *= i; }
+    sub turn-left  { $dir ×= -i; }
+    sub turn-right { $dir ×= i; }
 
     $out.close;
 
