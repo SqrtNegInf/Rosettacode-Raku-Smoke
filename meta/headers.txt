@@ -2897,6 +2897,7 @@ File: E/Elliptic_curve_arithmetic
 #c# 2016-04-03 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# note: '⨯' [VECTOR OR CROSS PRODUCT] used for custom product, '×' [MULTIPLICATION SIGN] for regular product
 
 File: E/Emirp_primes
 #!/usr/bin/env perl6
@@ -3964,7 +3965,7 @@ File: G/Gamma_function.1
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Gamma_function
 #c# 2015-11-22 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: BROKEN
 #n# # Failed test 'Γ(9/3)' # at G/Gamma_function.1 line 35
 #n# expected: '2' got: '1.999999999999995'
@@ -4073,6 +4074,7 @@ File: G/Geometric_algebra
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2018-05-21 all previous errors (in tests 26, 27) are gone, wa-hoo…
+#n# glory be, */× swap worked even here
 
 File: G/Get_system_command_output
 #!/usr/bin/env perl6
@@ -4722,6 +4724,13 @@ File: I/Include_a_file
 #t# nocode
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: I/Increasing_gaps_between_consecutive_Niven_numbers
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Increasing_gaps_between_consecutive_Niven_numbers
+#c# 2020-01-12 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: I/Increment_a_numerical_string
 #!/usr/bin/env perl6
@@ -6466,6 +6475,14 @@ File: M/Musical_scale
 #n# 'play' is Linux-specific
 #n# is it OK to think this lame knowing Tim Toady put it on RC?
 
+File: M/Mutex
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Mutex
+#t# nocode
+#c# 2020-01-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: M/Mutual_recursion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mutual_recursion
@@ -7945,6 +7962,8 @@ File: Q/QR_decomposition
 #c# 2018-12-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# don't re-use $sum, 3 local vars instead
+#n# explicit typing required only for Array variables (Real/Int dropped)
 
 File: Q/Quaternion_type
 #!/usr/bin/env perl6
