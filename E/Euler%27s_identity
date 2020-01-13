@@ -10,7 +10,7 @@
 #Implementing an "invisible times" operator (Unicode character (U+2062)) to more closely emulate the layout. Alas, Perl 6 does not do symbolic calculations at this time and is limited to IEEE 754 floating point for transcendental and irrational number calculations.
 # e, i and π are all available as built-in constants in Perl 6.
 
-#sub infix:<?> is tighter(&infix:<**>) { $^a * $^b };
+#sub infix:<?> is tighter(&infix:<**>) { $^a × $^b };
 
 my @res = 'e**iπ + 1 ≅ 0 : ' ~ (e**(i×π) + 1 ≅ 0);
 @res.push: 'Error: '~ e**(i×π) + 1;
