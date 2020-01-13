@@ -37,7 +37,7 @@ class SNUSP {
                 when '-'  { @!memory[$!mem-pointer]-- }
                 when '.'  { print @!memory[$!mem-pointer].chr }
                 when ','  { @!memory[$!mem-pointer] = $*IN.getc.ord }
-                when '/'  { @!direction = @!direction.reverse «*» -1 }
+                when '/'  { @!direction = @!direction.reverse «×» -1 }
                 when '\\' { @!direction = @!direction.reverse }
                 when '!'  { nexti() }
                 when '?'  { nexti() unless @!memory[$!mem-pointer] }
