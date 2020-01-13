@@ -26,8 +26,8 @@ demo '[\**] 5,3,2';  # triangle reduction, show growing results
 # Note that the reduction forms automatically go right-to-left because the base operator is right-associative. Most other operators are left-associative and would automatically reduce left-to-right instead.
 # While it is possible to define your own postfix operators to do exponentiation, Unicode does not have multilevel subscripts, and postfixes are always evaluated from inside out, so you can't stack them and expect right associativity:
 
-sub postfix:<²>($n) { $n * $n  }
-sub postfix:<³>($n) { $n * $n * $n }
+sub postfix:<²>($n) { $n × $n  }
+sub postfix:<³>($n) { $n × $n × $n }
 
 demo '(5³)²';
 demo '5³²';
