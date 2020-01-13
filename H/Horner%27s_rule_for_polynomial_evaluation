@@ -5,7 +5,7 @@
 #j#  JVM: OK
 
 sub horner1 ( @coeffs, $x ) {
-    @coeffs.reverse.reduce: { $^a * $x + $^b };
+    @coeffs.reverse.reduce: { $^a × $x + $^b };
 }
 
 say horner1( [ -19, 7, -4, 6 ], 3 );
@@ -14,7 +14,7 @@ say horner1( [ -19, 7, -4, 6 ], 3 );
 
 multi horner2(Numeric $c, $) { $c }
 multi horner2(Pair $c, $x) {
-    $c.key + $x * horner2( $c.value, $x ) 
+    $c.key + $x × horner2( $c.value, $x ) 
 }
 
 say horner2( [=>](-19, 7, -4, 6 ), 3 );
@@ -22,7 +22,7 @@ say horner2( [=>](-19, 7, -4, 6 ), 3 );
 #We can also use the composition operator:
 
 sub horner3 ( @coeffs, $x ) {
-    ([o] map { $_ + $x * * }, @coeffs)(0);
+    ([o] map { $_ + $x × * }, @coeffs)(0);
 }
 
 say horner3( [ -19, 7, -4, 6 ], 3 );
@@ -30,13 +30,13 @@ say horner3( [ -19, 7, -4, 6 ], 3 );
 #One advantage of using the composition operator is that it allows for the use of an infinite list of coefficients.
 
 sub horner4 ( @coeffs, $x ) {
-    map { .(0) }, [\o] map { $_ + $x * * }, @coeffs;
+    map { .(0) }, [\o] map { $_ + $x × * }, @coeffs;
 }
 
-say horner4( [ 1 X/ (1, |[\*] 1 .. *) ], i*pi )[20];
+say horner4( [ 1 X/ (1, |[\×] 1 .. *) ], i×pi )[20];
 
 use Test;
 is horner1( [ -19, 7, -4, 6 ], 3 ), 128;
 is horner2( [=>](-19, 7, -4, 6 ), 3 ), 128;
 is horner3( [ -19, 7, -4, 6 ], 3 ), 128;
-is-approx horner4( [ 1 X/ (1, |[\*] 1 .. *) ], i*pi )[20], -0.9999999999243492-5.289185159542186E-10i
+is-approx horner4( [ 1 X/ (1, |[\×] 1 .. *) ], i×pi )[20], -0.9999999999243492-5.289185159542186E-10i
