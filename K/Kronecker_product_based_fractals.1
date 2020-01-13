@@ -14,7 +14,7 @@
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-sub kronecker-product ( @a, @b ) { (@a X @b).map: { (.[0].list X* .[1].list).Array } }
+sub kronecker-product ( @a, @b ) { (@a X @b).map: { (.[0].list X× .[1].list).Array } }
 
 sub kronecker-fractal ( @pattern, $order = 4 ) {
     my @kronecker = @pattern;
