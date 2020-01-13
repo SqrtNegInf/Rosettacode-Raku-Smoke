@@ -8,7 +8,7 @@ constant @fib-wrd = 1, 0, { $^b ~ $^a } ... *;
 
 sub entropy-slow {
     -log(2) R/
-        [+] map -> \p { p * log p },
+        [+] map -> \p { p × log p },
             $^string.comb.Bag.values »/» $string.chars
 }
 
@@ -30,7 +30,7 @@ multi entropy($n) {
     my $ones  = @fib-ones[$n];
     my $zeros = $chars - $ones;
     -log(2) R/
-        [+] map -> \p { p * log p },
+        [+] map -> \p { p × log p },
             $ones / $chars, $zeros / $chars
 }
 
