@@ -11,7 +11,7 @@
 
 multi infix:<rad> ()       { 0 }
 multi infix:<rad> ($a)     { $a }
-multi infix:<rad> ($a, $b) { $a * $*RADIX + $b }
+multi infix:<rad> ($a, $b) { $a × $*RADIX + $b }
 
 multi expand(Int $n is copy, 1) { $n }
 multi expand(Int $n is copy, Int $*RADIX) {
