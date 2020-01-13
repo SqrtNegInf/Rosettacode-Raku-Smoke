@@ -21,7 +21,7 @@ class KnapsackItem {
   method cut-maybe ($max-weight) {
     return False if $max-weight > $.weight;
     $.price = $max-weight / $.ppw;
-    $.weight = $.ppw * $.price;
+    $.weight = $.ppw × $.price;
     return True;
   }
 
