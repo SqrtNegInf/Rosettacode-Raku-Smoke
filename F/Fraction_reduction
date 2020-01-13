@@ -10,8 +10,8 @@ my %reduced;
 my $digits = 2..3; #4; slow, limit output 
 
 for $digits.map: * - 1 -> $exp {
-    my $start = sum (0..$exp).map( { 10 ** $_ * ($exp - $_ + 1) });
-    my $end   = 10**($exp+1) - sum (^$exp).map( { 10 ** $_ * ($exp - $_) } ) - 1;
+    my $start = sum (0..$exp).map( { 10 ** $_ × ($exp - $_ + 1) });
+    my $end   = 10**($exp+1) - sum (^$exp).map( { 10 ** $_ × ($exp - $_) } ) - 1;
 
     #($start ..^ $end).race(:8degree).map: -> $den { # only minor benefit
     for $start ..^ $end -> $den {
@@ -39,7 +39,7 @@ for $digits.map: * - 1 -> $exp {
     #print "\b" x 40, ' ' x 40, "\b" x 40;
 
     my $digit = $exp +1;
-    my %d = %reduced.pairs.grep: { .key.chars == ($digit * 2 + 3) };
+    my %d = %reduced.pairs.grep: { .key.chars == ($digit × 2 + 3) };
     @res.push: "\n({+%d}) $digit digit reduceable fractions:";
     for 1..9 {
         my $cnt = +%d.pairs.grep( *.key.contains: ":$_" );
@@ -47,7 +47,7 @@ for $digits.map: * - 1 -> $exp {
         @res.push: "  $cnt with removed $_";
     }
     @res.push: "\n  12 Random (or all, if less) $digit digit reduceable fractions:";
-    @res.push: "    {.key.substr(0, $digit * 2 + 1)} => {.value} removed {.key.substr(* - 1)}"
+    @res.push: "    {.key.substr(0, $digit × 2 + 1)} => {.value} removed {.key.substr(* - 1)}"
       for %d.pairs.sort.head(12);
       #for %d.pairs.pick(12).sort;
 }
