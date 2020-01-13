@@ -15,7 +15,7 @@ sub prime-hash (Int $max) {
 
 sub MAIN-as-sub ($start, $stop = Nil, $display = <slice>) {
     my $end = $stop // $start; 
-    my %primes = prime-hash(100*$end);
+    my %primes = prime-hash(100×$end);
     my @emirps = lazy gather for 1 .. * -> $n {
         take $n if %primes{$n} and %primes{$n.flip} and $n != $n.flip
     }
