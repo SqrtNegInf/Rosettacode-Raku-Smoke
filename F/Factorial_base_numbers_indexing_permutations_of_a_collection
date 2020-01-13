@@ -8,10 +8,10 @@ srand 123456;
 
 my @res;
 
-sub postfix:<!> (Int $n) { (flat 1, [\*] 1..*)[$n] }
+sub postfix:<!> (Int $n) { (flat 1, [\×] 1..*)[$n] }
 
 multi base (Int $n is copy, 'F', $length? is copy) {
-    constant @fact = [\*] 1 .. *;
+    constant @fact = [\×] 1 .. *;
     my $i = $length // @fact.first: * > $n, :k;
     my $f;
     [ @fact[^$i].reverse.map: { ($n, $f) = $n.polymod($_); $f } ]
