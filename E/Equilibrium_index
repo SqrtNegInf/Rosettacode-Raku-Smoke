@@ -36,7 +36,7 @@ sub eq_index ( *@list ) {
 
     my %h = @list.keys.classify: {
         $sum += @list[$_];
-        $sum * 2 - @list[$_];
+        $sum × 2 - @list[$_];
     };
 
     return %h{$sum} // [];
