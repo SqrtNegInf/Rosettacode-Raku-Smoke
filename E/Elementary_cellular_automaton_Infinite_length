@@ -18,8 +18,8 @@ class Automaton {
         self.new: :$!rule, :@!code, :cells(
             ' ',
             |@!code[
-                    4 «*« @!cells.rotate(-1)
-                »+« 2 «*« @!cells
+                    4 «×« @!cells.rotate(-1)
+                »+« 2 «×« @!cells
                 »+«       @!cells.rotate(1)
             ],
             ' '
