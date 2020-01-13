@@ -4,16 +4,16 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-sub infix:<choose1> { [*] ($^n ... 0) Z/ 1 .. $^p }
+sub infix:<choose1> { [×] ($^n ... 0) Z/ 1 .. $^p }
 say 5 choose1 3;
 
 #A useful optimization would use a symmetry property of the binomial coefficient:
 
-sub infix:<choose2> { [*] ($^n ... 0) Z/ 1 .. min($n - $^p, $p) }
+sub infix:<choose2> { [×] ($^n ... 0) Z/ 1 .. min($n - $^p, $p) }
 
 #One drawback of this method is that it returns a Rat, not an Int. If we really worry about it, we can enforce the conversion:
 
-sub infix:<choose3> { ([*] ($^n ... 0) Z/ 1 .. min($n - $^p, $p)).Int }
+sub infix:<choose3> { ([×] ($^n ... 0) Z/ 1 .. min($n - $^p, $p)).Int }
 
 use Test;
 is 5 choose1 3, 10;
