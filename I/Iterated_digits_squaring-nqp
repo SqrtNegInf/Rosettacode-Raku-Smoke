@@ -34,8 +34,8 @@ sub ids(int $num --> int) {
 	$sum = 0;
 	repeat {
 	    $t = nqp::div_i($n, $ten);
-	    $c = $n - $t * $ten;
-	    $sum = $sum + $c * $c;
+	    $c = $n - $t × $ten;
+	    $sum = $sum + $c × $c;
 	} while $n = $t;
 	$n = nqp::atpos_i($cache,$sum) || $sum;
     }
