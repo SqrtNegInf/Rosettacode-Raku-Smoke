@@ -35,7 +35,7 @@ sub rref (@m) {
         @m[$r] »/=» $lv;
         for ^$rows -> $n {
             next if $n == $r;
-            @m[$n] »-=» @m[$r] »*» (@m[$n;$lead] // 0);
+            @m[$n] »-=» @m[$r] »×» (@m[$n;$lead] // 0);
         }
         ++$lead;
     }
