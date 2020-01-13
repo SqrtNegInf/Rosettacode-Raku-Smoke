@@ -16,7 +16,7 @@ my @primes = 2, 3, -> $n is copy {
 multi factors(1) { 1 }
 multi factors(Int $remainder is copy) {
   gather for @primes -> $factor {
-    if $factor * $factor > $remainder {
+    if $factor × $factor > $remainder {
       take $remainder if $remainder > 1;
       last;
     }
@@ -32,7 +32,7 @@ sub is_prime($x) { (state %){$x} //= factors($x) == 1 } # DH - crashes JVM
 sub mtest($bits, $p) {
     my @bits = $bits.base(2).comb;
     loop (my $sq = 1; @bits; $sq %= $p) {
-	$sq *= $sq;
+	$sq ×= $sq;
 	$sq += $sq if 1 == @bits.shift;
     }
     $sq == 1;
@@ -47,10 +47,10 @@ for flat 2 .. 60, 929 -> $m {
     my $x = 2**$m - 1;
     my $q;
     for 1..* -> $k {
-	$q = 2 * $k * $m + 1;
+	$q = 2 × $k × $m + 1;
 	next unless $q % 8 == 1|7 or $q.is-prime;
 	#next unless $q % 8 == 1|7 or is_prime($q);
-	last if $q * $q > $x or $f = mtest($m, $q);
+	last if $q × $q > $x or $f = mtest($m, $q);
     }
 
     say $f ?? "M$m = $x\n\t= $q × { $x div $q }"
