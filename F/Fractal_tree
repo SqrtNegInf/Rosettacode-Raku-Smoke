@@ -20,7 +20,7 @@ $out.say: "<?xml version='1.0' encoding='utf-8' standalone='no'?>
 <svg width='1000' height='1000' version='1.1'
 xmlns='http://www.w3.org/2000/svg'>";
 
-tree($width/2, $height, $length, 3*pi/2);
+tree($width/2, $height, $length, 3×pi/2);
 
 $out.say: "</svg>";
 
@@ -29,10 +29,10 @@ $out.close;
 multi tree($, $, $length where { $length < 1}, $) {}
 multi tree($x, $y, $length, $angle)
 {
-	my ($x2, $y2) = ( $x + $length * $angle.cos, $y + $length * $angle.sin);
+	my ($x2, $y2) = ( $x + $length × $angle.cos, $y + $length × $angle.sin);
 	$out.say: sprintf "<line x1='%.3f' y1='%.3f' x2='%.3f' y2='%.3f' style='stroke:rgb(0,0,0);stroke-width:1'/>", $x, $y, $x2, $y2;
 	#$out.say: "<line x1='$x' y1='$y' x2='$x2' y2='$y2' style='stroke:rgb(0,0,0);stroke-width:1'/>";
-	tree($x2, $y2, $length*$scale, $angle + pi/5);
-	tree($x2, $y2, $length*$scale, $angle - pi/5);
+	tree($x2, $y2, $length×$scale, $angle + pi/5);
+	tree($x2, $y2, $length×$scale, $angle - pi/5);
 }
 
