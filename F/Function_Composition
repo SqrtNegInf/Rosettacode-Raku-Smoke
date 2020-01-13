@@ -10,7 +10,7 @@
 # The function composition operator is ∘, U+2218 RING OPERATOR (with a "Texas" version o for the Unicode challenged). 
 # Here we compose a routine, an operator, and a lambda:
 
-sub triple($n) { 3 * $n }
+sub triple($n) { 3 × $n }
 
 #my &f = &triple ∘ &[-] ∘ { $^n + 2 }; # DH fails, &[-] does nothing now
 my &f = &triple ∘ &prefix:<-> ∘ { $^n + 2 }; # revert to this (Unicode version)
