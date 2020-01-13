@@ -43,7 +43,7 @@ sub myguess ($text) {
                 my $decrypted = mycrypt($mykey, $subkey);
                 my $length    = $decrypted.chars;
                 for @alphabet -> $char {
-                    my $expected = %English-letter-freq{$char} * $length / 100;
+                    my $expected = %English-letter-freq{$char} × $length / 100;
                     my $observed = $decrypted.comb.grep(* eq $char).elems;
                     %chi-square{$subkey} += ($observed - $expected)² / $expected if $observed;
                 }
@@ -69,7 +69,7 @@ sub mycrypt ($text, $key) {
     my ($new-text);
     my $keylen = $key.chars;
     loop (my $i = 0; $i < $text.chars; $i++) {
-        my $val =  -1 * %values-numbers{substr( $key, $i%$keylen, 1)} # negative shift for decode
+        my $val =  -1 × %values-numbers{substr( $key, $i%$keylen, 1)} # negative shift for decode
                  +      %values-numbers{substr($text, $i,         1)};
         $new-text ~= %values-letters{ $val % @alphabet };
     }
