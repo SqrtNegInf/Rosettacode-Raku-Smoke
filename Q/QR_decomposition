@@ -3,13 +3,15 @@
 #c# 2018-12-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# don't re-use $sum, 3 local vars instead
+#n# explicit typing required only for Array variables (Real/Int dropped)
 
 my @res;
 
 # sub householder translated from https://codereview.stackexchange.com/questions/120978/householder-transformation
 
 sub identity(Int:D $m --> Array of Array) {
-   my Array @M; 
+   my Array @M;
 
    for 0 ..^ $m -> $i {
       @M.push: [0 xx $m];
@@ -23,7 +25,7 @@ multi multiply(Array:D @A, @b where Array:D --> Array) {
    my @c;
 
    for ^@A X ^@b -> ($i, $j) {
-      @c[$i] += @A[$i; $j] * @b[$j];
+      @c[$i] += @A[$i; $j] × @b[$j];
    }
 
    @c;
@@ -33,7 +35,7 @@ multi multiply(Array:D @A, Array:D @B --> Array of Array) {
    my Array @C;
 
    for ^@A X ^@B[0] -> ($i, $j) {
-      @C[$i; $j] += @A[$i; $_] * @B[$_; $j] for ^@B;
+      @C[$i; $j] += @A[$i; $_] × @B[$_; $j] for ^@B;
    }
 
    @C;
@@ -51,53 +53,51 @@ sub transpose(Array:D @M --> Array of Array) {
    @T;
 }
 
-####################################################
 # NOTE: @A gets overwritten and becomes @R, only need
 # to return @Q.
-####################################################
 sub householder(Array:D @A --> Array) {
-   my Int ($m, $n) = (@A.elems, @A[0].elems);
+   my ($m, $n) = (@A.elems, @A[0].elems);
    my @v = 0 xx $m;
-   my Array @Q = identity($m);
+   my Array @Q = identity($m); # DH this explicit type required
 
    for 0 ..^ $n -> $k {
-      my Real $sum = 0;
-      my Real $A0 = @A[$k; $k];
-      my Int $sign = $A0 < 0 ?? -1 !! 1;
+      my $sum = 0;
+      my $A0 = @A[$k; $k];
+      my $sign = $A0 < 0 ?? -1 !! 1;
 
       for $k ..^ $m -> $i {
-         $sum += @A[$i; $k] * @A[$i; $k];
+         $sum += @A[$i; $k] × @A[$i; $k];
       }
 
-      my Real $sqr_sum = $sign * sqrt($sum);
-      my Real $tmp = sqrt(2 * ($sum + $A0 * $sqr_sum));     
+      my $sqr_sum = $sign × $sum.sqrt;
+      my $tmp = (2 × ($sum + $A0 × $sqr_sum)).sqrt;
       @v[$k] = ($sqr_sum  + $A0) / $tmp;
 
       for ($k + 1) ..^ $m -> $i {
          @v[$i] = @A[$i; $k] / $tmp;
-      }              
+      }
 
       for 0 ..^ $n -> $j {
-         $sum = 0;
+         my $sum;
 
          for $k ..^ $m -> $i {
-            $sum += @v[$i] * @A[$i; $j];
+            $sum += @v[$i] × @A[$i; $j];
          }
 
          for $k ..^ $m -> $i {
-            @A[$i; $j] -= 2 * @v[$i] * $sum;
+            @A[$i; $j] -= 2 × @v[$i] × $sum;
          }
-      }       
+      }
 
       for 0 ..^ $m -> $j {
-         $sum = 0;
+         my $sum;
 
          for $k ..^ $m -> $i {
-            $sum += @v[$i] * @Q[$i; $j];
+            $sum += @v[$i] × @Q[$i; $j];
          }
 
          for $k ..^ $m -> $i {
-            @Q[$i; $j] -= 2 * @v[$i] * $sum;
+            @Q[$i; $j] -= 2 × @v[$i] × $sum;
          }
       }
    }
@@ -105,9 +105,7 @@ sub householder(Array:D @A --> Array) {
    @Q
 }
 
-sub dotp(@a where Array:D, @b where Array:D --> Real) {
-   [+] @a >>*<< @b;
-}
+sub dotp(@a where Array:D, @b where Array:D --> Real) { [+] @a »×« @b; }
 
 sub upper-solve(Array:D @U, @b where Array:D, Int:D $n --> Array) {
    my @y = 0 xx $n;
@@ -122,7 +120,7 @@ sub upper-solve(Array:D @U, @b where Array:D, Int:D $n --> Array) {
 }
 
 sub polyfit(@x where Array:D, @y where Array:D, Int:D $n) {
-   my Int $m = @x.elems;
+   my $m = @x.elems;
    my Array @V;
 
    # Vandermonde matrix
@@ -138,7 +136,7 @@ sub polyfit(@x where Array:D, @y where Array:D, Int:D $n) {
 }
 
 sub print-mat(Array:D @M, Str:D $name) {
-   my Int ($m, $n) = (@M.elems, @M[0].elems);
+   my ($m, $n) = (@M.elems, @M[0].elems);
    print "\n$name:\n";
 
    for 0 ..^ $m -> $i {
@@ -150,10 +148,7 @@ sub print-mat(Array:D @M, Str:D $name) {
    }
 }
 
-sub MAIN() {
-   ############
    # 1st part #
-   ############
    my Array @A = (
       [12, -51,   4],
       [ 6, 167, -68],
@@ -170,19 +165,13 @@ sub MAIN() {
    print-mat(@A, 'R');
    print-mat(multiply($Q, @A), 'check Q x R = A');
 
-   ############
    # 2nd part #
-   ############
    my @x = [^11];
    my @y = [1, 6, 17, 34, 57, 86, 121, 162, 209, 262, 321];
 
    my @coef = polyfit(@x, @y, 2);
 
-   say my $result = 
-      "\npolyfit:\n"~ 
-      <constant X X^2>.fmt("%12s")~
-      "\n"~
-      @coef.fmt("%12.6f");
+   say my $result = "\npolyfit:\n" ~ <constant X X^2>.fmt("%12s") ~ "\n" ~ @coef.fmt("%12.6f");
 
 my $ref = q:to/END/;
 
@@ -193,4 +182,3 @@ END
 
 use Test;
 is $result, chomp $ref;
-}
