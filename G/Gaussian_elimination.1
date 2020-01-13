@@ -9,7 +9,7 @@
 #Multi-dimensional arrays are not fully implemented in rakudo yet, and that makes Linear Algebra and matrix manipulation quite painful currently. However, it's always possible to proceed as in C with one-dimensional arrays and some index reordering tricks.
 
 # Translation of: C
-sub mat_elem(@a, $y, $x, $n) is rw { @a[ $y * $n + $x ] }
+sub mat_elem(@a, $y, $x, $n) is rw { @a[ $y × $n + $x ] }
 sub swap_row(@a, @b, $r1, $r2, $n) {
     return if $r1 == $r2;
     for ^$n -> $i {
@@ -32,17 +32,17 @@ sub gauss_eliminate(@a, @b, $n) {
 	    $n;
 	    $tmp = A($row, $dia) / A($dia, $dia);
 	    for $dia ^..^ $n -> $col {
-		A($row, $col) -= $tmp * A($dia, $col);
+		A($row, $col) -= $tmp × A($dia, $col);
 	    }
 	    A($row, $dia) = 0;
-	    @b[$row] -= $tmp * @b[$dia];
+	    @b[$row] -= $tmp × @b[$dia];
 	}
     }
     my @x;
     for $n - 1, $n - 2 ... 0 -> $row {
 	$tmp = @b[$row];
 	for $n - 1, $n - 2 ...^ $row -> $j {
-	    $tmp -= @x[$j] * A($row, $j);
+	    $tmp -= @x[$j] × A($row, $j);
 	}
 	@x[$row] = $tmp / A($row, $row);
     }
