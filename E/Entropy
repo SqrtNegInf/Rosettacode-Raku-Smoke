@@ -7,7 +7,7 @@
 # Works with: rakudo version 2015-09-09
 
 sub entropy(@a) {
-    [+] map -> \p { p * -log p }, bag(@a).values »/» +@a;
+    [+] map -> \p { p × -log p }, bag(@a).values »/» +@a;
 }
 
 say log(2) R/ entropy '1223334444'.comb;
@@ -18,7 +18,7 @@ say log(2) R/ entropy '1223334444'.comb;
 use MONKEY-TYPING;
 augment class Bag {
     method entropy {
-	[+] map -> \p { - p * log p },
+	[+] map -> \p { - p × log p },
 	self.values »/» +self;
     }
 }
