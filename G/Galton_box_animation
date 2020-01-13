@@ -29,14 +29,14 @@ sub display-board(@positions, @stats is copy, $halfstep) {
             @tmpl.push: $[@stuff.join>>.ords.flat];
         }
         # three lines of space above
-        out "  ", " " x (2 * $row-count) for 1..3; # DH
+        out "  ", " " x (2 × $row-count) for 1..3; # DH
 
         # $row-count lines of pegs
         for flat ($row-count...1) Z (1...$row-count) -> $spaces, $pegs {
             out "  ", " " x $spaces, ($peg xx $pegs).join(" "), " " x $spaces;
         }
         # four lines of space below
-        out "  ", " " x (2 * $row-count) for 1..4; # DH
+        out "  ", " " x (2 × $row-count) for 1..4; # DH
 
         @tmpl
     }();
@@ -102,7 +102,7 @@ sub simulate($coins is copy) {
     }
 
     my @coins = Int xx (3 + $row-count + 4);
-    my @stats = 0 xx ($row-count * 2);
+    my @stats = 0 xx ($row-count × 2);
     # this line will dispense coins until turned off.
     @coins[0] = 0;
     while $alive {
