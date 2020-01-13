@@ -33,7 +33,7 @@ sub first-square (Int $n) {
     my $now  = now;
     my $time = 0;
     for $start .. * {
-        $sq = $_ * $_;
+        $sq = $_ × $_;
         my $s = $sq.base($n);
         my $f;
         $f = 1 and last unless $s.contains: $_ for @digits;
