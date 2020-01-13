@@ -31,7 +31,7 @@ multi power ( $n, $exponent ) {
     my     %r =  %p{$n}  // ( 0 => 1, 1 => $n ) ;  
 
     for power-path( $exponent ).rotor( 2 => -1 ) -> ( $p, $c ) {
-        %r{ $c } = %r{ $p } * %r{ $c - $p }
+        %r{ $c } = %r{ $p } × %r{ $c - $p }
     }
 
     %p{$n} := %r ;
