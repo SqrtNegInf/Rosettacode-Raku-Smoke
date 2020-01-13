@@ -1,19 +1,19 @@
-This is Rakudo version 2019.11-427-gff7e17f1e built on MoarVM version 2020.01-15-g1fa9764bf
+This is Rakudo version 2019.11-438-g0e9f96ea9 built on MoarVM version 2020.01-15-g1fa9764bf
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1172/12]
-|+-------------> JVM: Good/Bad [1007/179]
-||+------------> Smoke testing [1060]
-|||+-----------> sKipping validation [122]
++--------------> Moar: Good/Bad [1173/12]
+|+-------------> JVM: Good/Bad [1009/179]
+||+------------> Smoke testing [1061]
+|||+-----------> sKipping validation [123]
 ||||+----------> Interactive [59]
 |||||+---------> Touched (modified by me) [294]
-||||||+--------> Concurrent/Async [56]
+||||||+--------> Concurrent/Async [57]
 |||||||+-------> Random seed [116]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [234]
-||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [101]
-||||||||||||+--> Un-implemented/reliable [76]
+|||||||||+-----> Draft [225]
+||||||||||+----> Ignoring [35]
+|||||||||||+---> Void (no local copy) [99]
+||||||||||||+--> Un-implemented/reliable [75]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -115,7 +115,6 @@ GBS....RF.... Barnsley_fern
 GGS......D... Base58Check_encoding
 GGS.......... Base64_decode_data
 GGS..T...D... Base64_encode_data
-.........D... Bell_numbers
 GGS.......... Bell_numbers-1
 GGS.......... Bell_numbers-2
 GGS.......... Bell_numbers-3
@@ -150,7 +149,7 @@ GGS..T....... Bitwise_operations
 GGS.......... Boolean_values
 GGS.......... Box_the_compass
 GGS..T....... Brace_expansion
-GBS...C..D... Brazilian_numbers
+GBS...C...... Brazilian_numbers
 GGS.......... Break_OO_privacy
 GGS..T.RF.... Brownian_tree
 GGS....R..... Bulls_and_cows
@@ -325,7 +324,7 @@ GGS.......... Doubly-linked_list_Element_insertion
 ..........XV. Doubly-linked_list_Traversal
 GGS.....F.... Dragon_curve
 GG.KI........ Draw_a_clock
-!GS.....F.... Draw_a_cuboid
+GGS.....F.... Draw_a_cuboid
 GB.KI........ Draw_a_pixel
 GB.KIT....... Draw_a_rotating_cube
 GGS..TC.F.... Draw_a_sphere-1
@@ -393,7 +392,7 @@ GGS.......... Fast_Fourier_transform
 GGS..T...D... Faulhaber%27s_formula
 GGS......D... Faulhaber%27s_triangle
 GGS......D... Feigenbaum_constant_calculation
-GBS......D... Fermat_numbers
+GBS.......... Fermat_numbers
 .........D.VU Fibonacci_heap
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
@@ -542,7 +541,7 @@ GB.KI........ Image_noise
 GGS.......... Imaginary_base_numbers
 GGS......D... Implicit_type_conversion
 GG.K......... Include_a_file
-.........D.VU Increasing_gaps_between_consecutive_Niven_numbers
+!GS......D... Increasing_gaps_between_consecutive_Niven_numbers
 GGS.......... Increment_a_numerical_string
 GGS..T.R..... Index_finite_lists_of_positive_integers-1
 GGS....R..... Index_finite_lists_of_positive_integers-2
@@ -695,7 +694,7 @@ GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
 GBS......D... Mersenne_primes
-GGS......D... Metallic_ratios
+GGS.......... Metallic_ratios
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
 GGS.......... Metronome
@@ -733,7 +732,7 @@ GGS.......... Munchausen_numbers
 GGS..T..F.... Munching_squares-1
 GGS..T..F.... Munching_squares-2
 GB.K.....D... Musical_scale
-..........XV. Mutex
+!G.K..C...... Mutex
 GGS.......... Mutual_recursion
 GGS.......... N%27th
 GGS......D... N-body_problem
@@ -792,7 +791,7 @@ GGS..T....... Ordered_Partitions
 GGS.......... Ordered_words
 GGS..T....... P-value_correction
 GGS.......... Palindrome_detection
-GGS......D... Palindromic_gapful_numbers
+GGS.......... Palindromic_gapful_numbers
 GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
@@ -844,7 +843,6 @@ GGS.......... Pernicious_numbers
 GGS.......... Phrase_reversals
 GGS..T....... Pi
 GGS..T.R..... Pick_random_element
-.........D... Pierpont_primes
 GBS.......... Pierpont_primes-1
 GGS.......... Pierpont_primes-2
 GBS....R..... Pig_the_dice_game
@@ -1108,8 +1106,8 @@ GGS..T.R..... Statistics_Basic
 GGS....R..... Statistics_Normal_distribution
 GGS.......... Stem-and-leaf_plot
 GGS..T....... Stern-Brocot_sequence
-GGS......D... Stirling_numbers_of_the_first_kind
-GGS......D... Stirling_numbers_of_the_second_kind
+GGS.......... Stirling_numbers_of_the_first_kind
+GGS.......... Stirling_numbers_of_the_second_kind
 GGS..T....... Straddling_checkerboard
 GGS..T....... Stream_Merge
 GGS.......... String_append
@@ -1236,7 +1234,7 @@ GGS.......... Unicode_variable_names
 .........DXV. Unit_testing
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
-GBS...C..D... Unprimeable_numbers
+GBS...C...... Unprimeable_numbers
 GG.K.....D... Untrusted_environment
 GGS.....F.... Update_a_configuration_file
 ...........VU Use_another_language_to_call_a_function
