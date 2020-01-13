@@ -49,13 +49,13 @@ sub pick ($weight, $pos) {
 		my ($bv, $bi, $bw, @bp) = (0, 0, 0);
 
 		for 0 .. %item{'quant'} -> $i {
-			last if $i * %item{'weight'} > $weight;
-			my ($v, $w, @p) = pick($weight - $i * %item{'weight'}, $pos - 1);
-			next if ($v += $i * %item{'value'}) <= $bv;
+			last if $i × %item{'weight'} > $weight;
+			my ($v, $w, @p) = pick($weight - $i × %item{'weight'}, $pos - 1);
+			next if ($v += $i × %item{'value'}) <= $bv;
 
 			($bv, $bi, $bw, @bp) = ($v, $i, $w, |@p);
 		}
-        %cache{$key} = $bv, $bw + $bi * %item{'weight'}, |@bp, $bi;
+        %cache{$key} = $bv, $bw + $bi × %item{'weight'}, |@bp, $bi;
 	}
 }
 
