@@ -34,7 +34,7 @@ my int $bare    = 0;    # Black
 my int $tree    = 8;    # Green
 my int $heating = -120; # Orange ( 132 but it's being passed into an int8 )
 my int $burning = 128;  # Red
-my int $buf = $w * $h;
+my int $buf = $w × $h;
 my $humidity    = .7;  # Chance that a tree next to a burning tree will resist catching fire
 my $tree-spawn  = .75; # Initial probability that a space will contain a tree. Probability
                        # will be adjusted (way down) once rendering starts.
@@ -48,7 +48,7 @@ sub render {
     $pixdata = nativecast(CArray[int8], Pointer.new($pixdatabuf[0]));
 
     loop (my int $row; $row < $h; $row = $row + 1) {
-        my int $rs = $row * $w; # row start
+        my int $rs = $row × $w; # row start
         my int $re = $rs  + $w; # row end
         loop (my int $idx = $rs; $idx < $re; $idx = $idx + 1) {
             # Skip it if it is a tree
