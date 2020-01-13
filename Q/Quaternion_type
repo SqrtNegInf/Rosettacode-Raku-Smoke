@@ -27,20 +27,20 @@ class Quaternion {
     multi infix:<+> (    Complex $a, Quaternion $b ) is export { qu $a.re + $b.r, $a.im + $b.i, $b.j, $b.k }
     multi infix:<+> ( Quaternion $a, Quaternion $b ) is export { qu $a.reals Z+ $b.reals }
 
-    multi prefix:<-> ( Quaternion $a ) is export { qu $a.reals X* -1 }
+    multi prefix:<-> ( Quaternion $a ) is export { qu $a.reals X× -1 }
 
-    multi infix:<*> ( Quaternion $a,       Real $b ) is export { qu $a.reals X* $b }
-    multi infix:<*> (       Real $a, Quaternion $b ) is export { qu $b.reals X* $a }
-    multi infix:<*> ( Quaternion $a,    Complex $b ) is export { $a * qu $b.reals, 0, 0 }
-    multi infix:<*> ( Complex $a,    Quaternion $b ) is export { $b R* qu $a.reals, 0, 0 }
+    multi infix:<×> ( Quaternion $a,       Real $b ) is export { qu $a.reals X× $b }
+    multi infix:<×> (       Real $a, Quaternion $b ) is export { qu $b.reals X× $a }
+    multi infix:<×> ( Quaternion $a,    Complex $b ) is export { $a × qu $b.reals, 0, 0 }
+    multi infix:<×> ( Complex $a,    Quaternion $b ) is export { $b R× qu $a.reals, 0, 0 }
 
-    multi infix:<*> ( Quaternion $a, Quaternion $b ) is export {
+    multi infix:<×> ( Quaternion $a, Quaternion $b ) is export {
 	my @a_rijk            = $a.reals;
 	my ( $r, $i, $j, $k ) = $b.reals;
-	return qu [+]( @a_rijk Z* $r, -$i, -$j, -$k ), # real
-		  [+]( @a_rijk Z* $i,  $r,  $k, -$j ), # i
-		  [+]( @a_rijk Z* $j, -$k,  $r,  $i ), # j
-		  [+]( @a_rijk Z* $k,  $j, -$i,  $r ); # k
+	return qu [+]( @a_rijk Z× $r, -$i, -$j, -$k ), # real
+		  [+]( @a_rijk Z× $i,  $r,  $k, -$j ), # i
+		  [+]( @a_rijk Z× $j, -$k,  $r,  $i ), # j
+		  [+]( @a_rijk Z× $k,  $j, -$i,  $r ); # k
     }
 }
 import Quaternion;
@@ -56,9 +56,9 @@ my @res;
 @res.push: "3) q conj  = {$q.conj}";
 @res.push: "4) q  + r  = {$q + $r}";
 @res.push: "5) q1 + q2 = {$q1 + $q2}";
-@res.push: "6) q  * r  = {$q  * $r}";
-@res.push: "7) q1 * q2 = {$q1 * $q2}";
-@res.push: "8) q1q2 { $q1 * $q2 eqv $q2 * $q1?? '=='!! '!=' } q2q1";
+@res.push: "6) q  × r  = {$q  × $r}";
+@res.push: "7) q1 × q2 = {$q1 × $q2}";
+@res.push: "8) q1q2 { $q1 × $q2 eqv $q2 × $q1?? '=='!! '!=' } q2q1";
 #say @res.join("\n");
 
 my $ref = qq:to/END/;
@@ -67,8 +67,8 @@ my $ref = qq:to/END/;
 3) q conj  = 1 + -2i + -3j + -4k
 4) q  + r  = 8 + 2i + 3j + 4k
 5) q1 + q2 = 5 + 7i + 9j + 11k
-6) q  * r  = 7 + 14i + 21j + 28k
-7) q1 * q2 = -56 + 16i + 24j + 26k
+6) q  × r  = 7 + 14i + 21j + 28k
+7) q1 × q2 = -56 + 16i + 24j + 26k
 8) q1q2 != q2q1
 END
 
