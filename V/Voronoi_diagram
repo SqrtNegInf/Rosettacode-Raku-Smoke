@@ -67,7 +67,7 @@ sub voronoi-bar (@domains, :$w, :$h, :$type) {
 
 sub dot (%h, $png, $radius = 3) {
     for (%h<x> X+ -$radius .. $radius) X (%h<y> X+ -$radius .. $radius) -> ($x, $y) {
-            $png.set($x, $y, 0, 0, 0) if ( %h<x> - $x + (%h<y> - $y) * i ).abs <= $radius;
+            $png.set($x, $y, 0, 0, 0) if ( %h<x> - $x + (%h<y> - $y) × i ).abs <= $radius;
     }
 }
 
