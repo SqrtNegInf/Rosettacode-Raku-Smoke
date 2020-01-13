@@ -7,7 +7,7 @@
 
 my @res;
 
-constant @f = 1, |[\*] 1..*;
+constant @f = 1, |[\×] 1..*;
 
 constant $limit = 42_000; # 1_500_000;
 
@@ -19,7 +19,7 @@ for 9 .. 12 -> $b {
 
     (1 .. $limit div $b).map: -> $i {
         my $sum;
-        my $prod = $i * $b;
+        my $prod = $i × $b;
 
         for $i.polymod($b xx *) {
             $sum += @f[$_];
