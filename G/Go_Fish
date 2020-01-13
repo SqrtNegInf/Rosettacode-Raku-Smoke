@@ -170,7 +170,7 @@ sub play () {
     # small, this'll probably take only one shuffle.)
     repeat { @deck = (flat ^@pips xx BOOKSIZE).pick(*) }
     until none(map { count $^x, @deck[^HANDSIZE] }, ^@pips) >= BOOKSIZE and
-          none(map { count $^x, @deck[HANDSIZE ..^ 2*HANDSIZE] }, ^@pips) >= BOOKSIZE;
+          none(map { count $^x, @deck[HANDSIZE ..^ 2×HANDSIZE] }, ^@pips) >= BOOKSIZE;
 
     my Player $user .= new(False, @deck);
     my Player $foe .= new(True, @deck);
