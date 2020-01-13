@@ -39,7 +39,7 @@ sub Republican_to_Gregorian ( Str:D $rep_date --> Date ) {
     my $month1 := $/<month> ?? %month_nums{~$/<month>} !! $i_cal_month;
 
     my @ymd0 := ($/<year>, $month1, $day1) »-» 1;
-    my $days_since_epoch := [+] @ymd0 Z* (365, 30, 1);
+    my $days_since_epoch := [+] @ymd0 Z× (365, 30, 1);
 
     my $leap_days := +grep &is_republican_leap_year, 1 ..^ $/<year>;
     return $epoch + $days_since_epoch + $leap_days;
