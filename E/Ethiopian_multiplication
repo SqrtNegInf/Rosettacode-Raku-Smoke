@@ -5,7 +5,7 @@
 #j#  JVM: OK
 
 sub halve  (Int $n is rw)    { $n div= 2 }
-sub double (Int $n is rw)    { $n *= 2 }
+sub double (Int $n is rw)    { $n ×= 2 }
 sub even   (Int $n --> Bool) { $n %% 2 }
 
 sub ethiopic-mult (Int $a is copy, Int $b is copy --> Int) {
@@ -38,12 +38,12 @@ sub ethiopic-mult0 {
 # More succinctly still, using a pure functional approach (reductions, mappings, lazy infinite sequences):
 
 sub halve1  { $^n div 2 }
-sub double1 { $^n * 2   }
+sub double1 { $^n × 2   }
 sub even1   { $^n %% 2  }
 
 sub ethiopic-mult1 ($a, $b) {
     [+] ($b, &double1 ... *)
-        Z*
+        Z×
         ($a, &halve1 ... 0).map: { not even1 $^n }
 }
 
