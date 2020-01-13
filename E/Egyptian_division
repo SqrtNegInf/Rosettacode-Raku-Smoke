@@ -8,7 +8,7 @@
 # Only works with positive real numbers, not negative or complex.
 
 sub  egyptian-divmod (Real $dividend is copy where * > 0, Real $divisor where * > 0) {
-    my @multiples = map { 2 ** $_ => 2 ** $_ * $divisor }, ^Inf;
+    my @multiples = map { 2 ** $_ => 2 ** $_ × $divisor }, ^Inf;
     my @table = @multiples[ ^@multiples.first: *.value > $dividend, :k ].reverse;
     my $accumulator = 0;
     @table.map: {$dividend -= .value, $accumulator += .key if $dividend >= .value}
