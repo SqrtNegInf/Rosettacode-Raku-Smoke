@@ -31,20 +31,20 @@ $out.write: 'run/julia-set-perl6.png';
 sub julia ( $png ) {
     for ^$w -> $x {
         for ^$h -> $y {
-            my $zx = ($x - $w / 2) / $w * 3;
-            my $zy = ($y - $h / 2) / $h * 2;
+            my $zx = ($x - $w / 2) / $w × 3;
+            my $zy = ($y - $h / 2) / $h × 2;
             my $i = $maxIter;
             while $zx² + $zy² < 4 and --$i {
-                ($zy, $zx) = (2.0 * $zx * $zy + $cY, $zx² - $zy² + $cX);
+                ($zy, $zx) = (2.0 × $zx × $zy + $cY, $zx² - $zy² + $cX);
             }
-            $png.set( $x, $y, |hsv2rgb($i / $maxIter * 360, 1, $i > 1 ?? 1 !! 0) );
+            $png.set( $x, $y, |hsv2rgb($i / $maxIter × 360, 1, $i > 1 ?? 1 !! 0) );
         }
     }
 }
 
 sub hsv2rgb ( $h, $s, $v ){
-    my $c = $v * $s;
-    my $x = $c * (1 - abs( (($h/60) % 2) - 1 ) );
+    my $c = $v × $s;
+    my $x = $c × (1 - abs( (($h/60) % 2) - 1 ) );
     my $m = $v - $c;
     my ($r, $g, $b);
     given $h {
@@ -55,6 +55,6 @@ sub hsv2rgb ( $h, $s, $v ){
         when 240..^300 { ($r, $g, $b) = ($x, 0, $c) }
         when 300..^360 { ($r, $g, $b) = ($c, 0, $x) }
     }
-    ( $r, $g, $b ) = map { (($_+$m) * 255).Int }, $r, $g, $b;
+    ( $r, $g, $b ) = map { (($_+$m) × 255).Int }, $r, $g, $b;
     return $b, $g, $r;
 }
