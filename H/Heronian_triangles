@@ -11,8 +11,8 @@ my @res;
 
 sub hero($a, $b, $c) {
     my $s = ($a + $b + $c) / 2;
-    ($s * ($s - $a) * ($s - $b) * ($s - $c)).sqrt;
-    #([*] $s, |($s X- $a,$b,$c)).sqrt # slow
+    ($s × ($s - $a) × ($s - $b) × ($s - $c)).sqrt;
+    #([×] $s, |($s X- $a,$b,$c)).sqrt # slow
 }
 
 sub heronian-area($a, $b, $c) {
