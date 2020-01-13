@@ -11,7 +11,7 @@
 my int64 ($a, $b, $c) = 9223372036854775807, 5000000000000000000, 3037000500;
 
 my @res;
-for -(-$a - 1), $b + $b, -$a - $a, $c * $c, (-$a - 1)/-1 -> $i { @res.push: $i; }
+for -(-$a - 1), $b + $b, -$a - $a, $c × $c, (-$a - 1)/-1 -> $i { @res.push: $i; }
 .say for @res;
 
 my $ref = qq:to/END/;
