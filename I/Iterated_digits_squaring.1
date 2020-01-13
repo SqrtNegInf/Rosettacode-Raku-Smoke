@@ -57,8 +57,8 @@ sub ids(int $num --> int) {
         $sum = 0;
         repeat {
             $t = $n div $ten;
-            $c = $n - $t * $ten;
-            $sum = $sum + $c * $c;
+            $c = $n - $t × $ten;
+            $sum = $sum + $c × $c;
         } while $n = $t;
         $n = @cache.AT-POS($sum) // $sum;
     }
