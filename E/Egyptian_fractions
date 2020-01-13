@@ -13,7 +13,7 @@ role Egyptian {
     method denominators {
 	my ($x, $y) = self.nude;
 	$x %= $y;
-	my @denom = gather ($x, $y) = -$y % $x, $y * take ($y / $x).ceiling # change
+	my @denom = gather ($x, $y) = -$y % $x, $y × take ($y / $x).ceiling # change
 	    while $x;
     }
 }
