@@ -8,28 +8,28 @@ my @res;
 
 #Without a signature:
 
-sub multiply { return @_[0] * @_[1]; }
+sub multiply { return @_[0] × @_[1]; }
 #The return is optional on the final statement, since the last expression would return its value anyway. The final semicolon in a block is also optional.
 #(Beware that a subroutine without an explicit signature, like this one, magically becomes variadic (rather than nullary) only if @_ or %_ appear in the body.) In fact, we can define the variadic version explicitly, which still works for two arguments:
 
-sub multiply1 { [*] @_ }
+sub multiply1 { [×] @_ }
 #With formal parameters and a return type:
 
-sub multiply2 (Rat $a, Rat $b --> Rat) { $a * $b }
+sub multiply2 (Rat $a, Rat $b --> Rat) { $a × $b }
 #Same thing:
 
-sub multiply3 (Rat $a, Rat $b) returns Rat { $a * $b }
-my Rat sub multiply3a (Rat $a, Rat $b) { $a * $b }
+sub multiply3 (Rat $a, Rat $b) returns Rat { $a × $b }
+my Rat sub multiply3a (Rat $a, Rat $b) { $a × $b }
 #It is possible to define a function in "lambda" notation and then bind that into a scope, in which case it works like any function:
 
-my &multiply4 := -> $a, $b { $a * $b };
+my &multiply4 := -> $a, $b { $a × $b };
 #Another way to write a lambda is with internal placeholder parameters:
 
-my &multiply5 := { $^a * $^b };
+my &multiply5 := { $^a × $^b };
 #(And, in fact, our original @_ above is just a variadic self-declaring placeholder argument. And the famous Perl "topic", $_, is just a self-declared parameter to a unary block.)
 #You may also curry both built-in and user-defined operators by supplying a * (known as "whatever") in place of the argument that is not to be curried:
 
-my &multiply6 := * * *;
+my &multiply6 := * × *;  # DH less confusing now :-)
 #This is not terribly readable in this case due to the visual confusion between the whatever star and the multiplication operator, but Perl knows when it's expecting terms instead of infixes, so only the middle star is multiplication.
 
 # OK, but has nothing to with function defintion...
@@ -40,7 +40,7 @@ my &multiply6 := * * *;
 #This is equivalent to:
 #@list.grep( -> $obj { $obj.substr(0,1).lc.match(/<[0..9 a..f]>/) } );
 
-@res.push: 3 * 673;
+@res.push: 3 × 673;
 @res.push: multiply(3, 673);
 @res.push: multiply1(3, 673);
 @res.push: multiply2(3/1, 673.Rat);
