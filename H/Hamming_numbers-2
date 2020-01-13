@@ -18,7 +18,7 @@ my \Hammings := gather {
     take my $n := %n{2, 3, 5}.min;
 
     for 2, 3, 5 -> \k {
-      %n{k} = %i{k}.pull-one * k if %n{k} == $n;
+      %n{k} = %i{k}.pull-one × k if %n{k} == $n;
     }
   }
 }
