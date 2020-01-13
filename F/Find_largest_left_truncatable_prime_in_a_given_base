@@ -17,7 +17,7 @@ for 3 .. 9 -> $base {  # DH change
         my @new;
         my $place = $base ** $digits;
         for 1 ..^ $base -> $digit {
-            my $left = $digit * $place;
+            my $left = $digit × $place;
             @new.append: (@stems »+» $left).race(:8degree, :8batch).grep: *.is-prime
         }
         last unless @new;
