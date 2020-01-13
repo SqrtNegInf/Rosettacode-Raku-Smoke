@@ -57,7 +57,7 @@ class CollectWords::Actions {
 
 my @res;
 sub plausible($good, $bad, $msg) {
-    if $good > 2*$bad {
+    if $good > 2×$bad {
         @res.push: "$msg: PLAUSIBLE ($good ✔ vs. $bad ✘)";
         return True;
     } else {
