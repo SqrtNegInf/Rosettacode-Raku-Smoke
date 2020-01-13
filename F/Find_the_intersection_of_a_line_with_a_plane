@@ -5,9 +5,6 @@
 #j#  JVM: OK
 #   Unicode issues, replaced U. characters with plain ASCII
 
-# Works with: Rakudo version 2016.11
-# Translation of: Python
-
 class Line {
     has $.P0; # point
     has $.u;  # ray
@@ -17,15 +14,15 @@ class Plane {
     has $.n;  # normal
 }
 
-sub infix:<dot> ( @a, @b where +@a == +@b ) { [+] @a <<*>> @b }
+sub infix:<dot> ( @a, @b where +@a == +@b ) { [+] @a «×» @b }
 
 sub line-plane-intersection ($L, $P) {
     my $cos = $P.n dot $L.u; # cosine between normal & ray
     return 'Vectors are orthoganol; no intersection or line within plane'
       if $cos == 0;
-    my $W = $L.P0 <<->> $P.V0;      # difference between P0 and V0
+    my $W = $L.P0 «-» $P.V0;      # difference between P0 and V0
     my $SI = -($P.n dot $W) / $cos;  # line segment where it intersets the plane
-    $W <<+>> $SI <<*>> $L.u <<+>> $P.V0; # point where line intersects the plane
+    $W «+» $SI «×» $L.u «+» $P.V0; # point where line intersects the plane
  }
 
 say 'Intersection at point: ', my $ref = line-plane-intersection(
