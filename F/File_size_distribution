@@ -28,10 +28,10 @@ sub MAIN($dir = 'bench/2018-01-01-m') {
 
 sub histogram ($max, $value, $width = 60) {
     my @blocks = <| ▏ ▎ ▍ ▌ ▋ ▊ ▉ █>;
-    my $scaled = ($value * $width / $max).Int;
+    my $scaled = ($value × $width / $max).Int;
     my ($end, $bar) = $scaled.polymod(8);
 say "v: $value max: $max sc: $scaled end: $end bar: $bar";
-    (@blocks[8] x $bar * 8) ~ (@blocks[$end] if $end); # ~ "\n"
+    (@blocks[8] x $bar × 8) ~ (@blocks[$end] if $end); # ~ "\n"
 }
 
 .say for @res;
