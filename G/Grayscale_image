@@ -23,7 +23,7 @@ sub MAIN ($filename = 'ref/bitmap.ppm') {
 
     for $in.lines.ords -> $r, $g, $b {
     #for $in.IO.slurp.ords -> $r, $g, $b {
-        my $gs = $r * 0.2126 + $g * 0.7152 + $b * 0.0722;
+        my $gs = $r × 0.2126 + $g × 0.7152 + $b × 0.0722;
         $out.print: chr($gs min 255);
     }
 
