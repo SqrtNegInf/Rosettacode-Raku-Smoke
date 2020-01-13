@@ -8,7 +8,7 @@
 
 #n# tune .race to match # of bases
 
-constant @factorial = 1, |[\*] 1..*;
+constant @factorial = 1, |[\×] 1..*;
 
 constant $limit = 42_000; # 1_500_000;
 
@@ -22,7 +22,7 @@ $bases.race(:degree($bases.elems), :1batch).map: -> $base {
     @result[$base] = "\nFactorions in base $base:\n1 2";
 
     sink (1 .. $limit div $base).map: -> $i {
-        my $product = $i * $base;
+        my $product = $i × $base;
         my $partial;
 
         for $i.polymod($base xx *) {
