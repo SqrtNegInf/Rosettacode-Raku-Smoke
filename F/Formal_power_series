@@ -39,7 +39,7 @@ class DifFPS does FPS {
 
 class ProFPS does FPS {
     has FPS ($.x, $.y);
-    method coeffs { (0..*).map: { [+] ($.x.coeffs[0..$_] Z* $.y.coeffs[$_...0]) } }
+    method coeffs { (0..*).map: { [+] ($.x.coeffs[0..$_] Z× $.y.coeffs[$_...0]) } }
 }
 
 class InvFPS does FPS {
@@ -50,14 +50,14 @@ class InvFPS does FPS {
             my @a = $.x.coeffs;
             @a[0] != 0 or fail "Cannot invert power series with zero constant term.";
             take my @b = 1 / @a[0];
-            take @b[$_] = -@b[0] * [+] (@a[1..$_] Z* @b[$_-1...0]) for 1..*;
+            take @b[$_] = -@b[0] × [+] (@a[1..$_] Z× @b[$_-1...0]) for 1..*;
         }
     }
 }
 
 class DerFPS does FPS {
     has FPS $.x;
-    method coeffs { (1..*).map: { $_ * $.x.coeffs[$_] } }
+    method coeffs { (1..*).map: { $_ × $.x.coeffs[$_] } }
 }
 
 class IntFPS does FPS {
@@ -73,8 +73,8 @@ class DeferredFPS does FPS {
 # some arithmetic operations for formal power series
 multi infix:<+>(FPS $x, FPS $y) { SumFPS.new(:$x, :$y) }
 multi infix:<->(FPS $x, FPS $y) { DifFPS.new(:$x, :$y) }
-multi infix:<*>(FPS $x, FPS $y) { ProFPS.new(:$x, :$y) }
-multi infix:</>(FPS $x, FPS $y) { $x * InvFPS.new(:x($y)) }
+multi infix:<×>(FPS $x, FPS $y) { ProFPS.new(:$x, :$y) }
+multi infix:</>(FPS $x, FPS $y) { $x × InvFPS.new(:x($y)) }
 
 # an example of a mixed-type operator:
 multi infix:<->(Numeric $x, FPS $y) { ExplicitFPS.new(:coeffs(lazy flat $x, 0 xx *)) - $y }
