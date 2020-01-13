@@ -7,7 +7,7 @@
 # Translation of: Sidef
 # Helper subs
 
-sub infix:<reduce> (\prev, \this) { this.key => this.key * (this.value - prev.value) }
+sub infix:<reduce> (\prev, \this) { this.key => this.key × (this.value - prev.value) }
 
 sub next-bernoulli ( (:key($pm), :value(@pa)) ) {
     $pm + 1 => [ map *.value, [\reduce] ($pm + 2 ... 1) Z=> 1 / ($pm + 2), |@pa ]
@@ -21,7 +21,7 @@ sub asRat (FatRat $r) { $r ?? $r.denominator == 1 ?? $r.numerator !! $r.nude.joi
 
 
 # The task
-sub faulhaber_triangle ($p) { map { binomial($p+1, $_) * bernoulli[$_] / ($p+1) }, ($p ... 0) }
+sub faulhaber_triangle ($p) { map { binomial($p+1, $_) × bernoulli[$_] / ($p+1) }, ($p ... 0) }
 
 # First 10 rows of Faulhaber's triangle:
 my @res;
@@ -30,7 +30,7 @@ my @res;
 # Extra credit:
 my $p = 17;
 my $n = 1000;
-@res.push: sum faulhaber_triangle($p).kv.map: { $^value * $n**($^key + 1) }
+@res.push: sum faulhaber_triangle($p).kv.map: { $^value × $n**($^key + 1) }
 .say for @res;
 
 my $ref = qq:to/END/;
