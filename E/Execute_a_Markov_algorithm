@@ -90,7 +90,7 @@ _+1 -> _1+
 ,! -> !+
 _! -> _
 # Unary multiplication by duplicating left side, right side times
-1*1 -> x,@y
+1×1 -> x,@y
 1x -> xX
 X, -> 1,1
 X1 -> 1X
@@ -109,7 +109,7 @@ _1 -> 1
 _+_ -> 
 END
 
-my $start_value = '_1111*11111_';
+my $start_value = '_1111×11111_';
 
 say "starting with $start_value.raku()";
 say my $result = run(:$ruleset, :$start_value).raku;
