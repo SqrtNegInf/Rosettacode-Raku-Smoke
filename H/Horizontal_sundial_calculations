@@ -4,8 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-sub postfix:<°> ($a) { $a * pi / 180 } # degrees to radians
-sub postfix:<®> ($a) { $a * 180 / pi } # radians to degrees
+sub postfix:<°> ($a) { $a × pi / 180 } # degrees to radians
+sub postfix:<®> ($a) { $a × 180 / pi } # radians to degrees
 
 #my $latitude  = prompt 'Enter latitude       => ';
 #my $longitude = prompt 'Enter longitude      => ';
@@ -23,8 +23,8 @@ say ' Hour : Sun hour angle°: Dial hour line angle°';
 
 my @res;
 for -6 .. 6 -> $hour {
-    my $sun_deg  = $hour * 15 + $offset;
-    my $line_deg = atan2( ( sin($sun_deg°) * $lat_sin ), cos($sun_deg°) )®;
+    my $sun_deg  = $hour × 15 + $offset;
+    my $line_deg = atan2( ( sin($sun_deg°) × $lat_sin ), cos($sun_deg°) )®;
     @res.push: sprintf "%2d %s     %8.3f            %8.3f\n",
     ($hour + 12) % 12 || 12, ($hour < 0 ?? 'AM' !! 'PM'), $sun_deg, $line_deg;
 }
