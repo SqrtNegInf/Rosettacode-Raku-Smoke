@@ -21,11 +21,11 @@ for 1..* -> \count {
     next unless count %% sum count.comb;
     if (my \diff = count - $last) > $gap {
         $gap = diff;
-        @res.push: sprintf "%3d %15s %15s", $gap, comma($index - 1 || 1), comma($last || 1);
+        @res.push: sprintf "%3d %15s %15s", $gap, comma($index || 1), comma($last || 1); # 'or' does not work
     }
-    ++$index;
+#    ++$index;
     $last = count;
-    last if $index >= $threshold;
+    last if ++$index >= $threshold;
 }
 
 .say for @res;
