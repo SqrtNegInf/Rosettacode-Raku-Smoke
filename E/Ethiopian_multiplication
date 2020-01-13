@@ -23,7 +23,7 @@ sub ethiopic-mult (Int $a is copy, Int $b is copy --> Int) {
 
 sub ethiopic-mult0 {
     my &halve  = * div= 2;
-    my &double = * *= 2;
+    my &double = * ×= 2;
     my &even   = * %% 2;
 
     my ($a,$b) = @_;
