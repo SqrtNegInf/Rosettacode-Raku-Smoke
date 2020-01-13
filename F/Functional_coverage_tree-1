@@ -65,7 +65,7 @@ sub walktree ($data) {
         my ($w, $wsum) = (0, 0);
         $head ~= .[0],
         $w    += .[1], 
-        $wsum += .[1] * .[2]
+        $wsum += .[1] × .[2]
             for walktree $body;
 
         my $weight   = (~$<weight>   or 1).fmt('%-8s');
