@@ -11,7 +11,7 @@ my @board;
 
 my $I = 8;
 my $J = 8;
-my $F = $I*$J > 99 ?? "%3d" !! "%2d";
+my $F = $I×$J > 99 ?? "%3d" !! "%2d";
 
 # Choose starting position - may be passed in on command line; if
 # not, choose random square.
@@ -27,7 +27,7 @@ else {
 # Move sequence
 my @moves = ();
 
-for 1 .. $I * $J -> $move {
+for 1 .. $I × $J -> $move {
   # Record current move
   push @moves, to_algebraic($i,$j);
   # @board[$i] //= [];   # (uncomment if autoviv is broken)
