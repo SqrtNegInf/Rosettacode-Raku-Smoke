@@ -1,0 +1,13 @@
+#!/usr/bin/env perl6
+## dump parse of RC tasks
+#  2020-01-13
+
+for flat 0, 'A'..'Z' -> $dir {
+    for run('find', $dir, :out).out.lines -> $path {
+        next if 1 == $path.chars;
+        my $file = $path.subst(/^.*\//, '');
+        next if $file ~~ /\.\d+$/;
+        #say "======> perl6 --target=parse $path > parse/$file";
+        shell "perl6 --target=parse $path > parse/$file";
+    }
+}
