@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-say my $out = log(2) R/ [+] map -> \p { p * -log p }, $_.comb.Bag.values »/» +$_
+say my $out = log(2) R/ [+] map -> \p { p × -log p }, $_.comb.Bag.values »/» +$_
     given slurp($*PROGRAM-NAME).comb;
 
 # NB: output depends on exact text of program!
