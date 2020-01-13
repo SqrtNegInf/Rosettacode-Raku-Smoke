@@ -24,11 +24,10 @@ EOD
 for @data -> $row, $column {
     say "r $row";
     my @rpats = makepatterns($row);
-dd @rpats; 
-exit;
+#dd @rpats; #exit;
     say "c $column";
     my @cpats = makepatterns($column);
-dd @cpats;
+dd @cpats; exit;
     my @rows = ('.' x @cpats) xx @rpats;
     my $prev = '';
     while ( $prev ne "@rows" ) {
