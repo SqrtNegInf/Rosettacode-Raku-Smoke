@@ -13,10 +13,10 @@ sub infix:<J> (Int $k is copy, Int $n is copy where * % 2) {
     while $k {
         while $k %% 2 {
             $k div= 2;
-            $jacobi *= -1 if $n % 8 == 3 | 5;
+            $jacobi ×= -1 if $n % 8 == 3 | 5;
         }
         ($k, $n) = $n, $k;
-        $jacobi *= -1 if 3 == $n%4 & $k%4;
+        $jacobi ×= -1 if 3 == $n%4 & $k%4;
         $k %= $n;
     }
     $n == 1 ?? $jacobi !! 0
@@ -26,7 +26,7 @@ my $maxa = 30;
 my $maxn = 29;
 
 @res.push: 'n\k ' ~ (1..$maxa).fmt: '%3d';
-@res.push: '   '~ '-' x 4 * $maxa;
+@res.push: '   '~ '-' x 4 × $maxa;
 for 1,*+2 … $maxn -> $n {
     my $l;
     $l ~= $n.fmt: '%3d';
