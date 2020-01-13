@@ -21,7 +21,7 @@ for 2 .. 13 -> $exp {
         my $x = 0;
         my $y = 0;
         for ^2 ** $exp {
-            $y = 1 - 2 * $y * $x;
+            $y = 1 - 2 × $y × $x;
             $x = $a - $x × $x;
             #$x = $a - $x²; # glibc on OS X has a bug in recent versions...
         }
