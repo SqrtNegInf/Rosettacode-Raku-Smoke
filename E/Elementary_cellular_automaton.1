@@ -13,8 +13,8 @@ class Automaton {
     method succ {
         self.new: :$!rule, :cells(
             self.code[
-                   (4 X* @!cells.rotate(-1))
-                Z+ (2 X* @!cells)
+                   (4 X× @!cells.rotate(-1))
+                Z+ (2 X× @!cells)
                 Z+       @!cells.rotate(1)
             ]
         )
@@ -55,8 +55,8 @@ class Automaton {
         self.new: :$!rule, :@!code, :cells(
             @!code[
                 for ^size -> \i {
-                    4 * @!cells[(i - 1) % size] +
-                    2 * @!cells[i] +
+                    4 × @!cells[(i - 1) % size] +
+                    2 × @!cells[i] +
                         @!cells[(i+1) % size];
                 }
             ]
