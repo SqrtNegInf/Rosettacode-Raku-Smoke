@@ -31,7 +31,7 @@ sub nban ($seq, $n = 'e') { ($seq).map: { next if .&cardinal.contains(any($n.lc.
 
 sub enumerate ($n, $upto) {
     my @ban    = flat ((1 .. 99),).map: *.&nban($n);
-    my @orders = (2 .. $upto).map({ 10**$_ X* 1..9 }).map: *.&nban($n);
+    my @orders = (2 .. $upto).map({ 10**$_ X× 1..9 }).map: *.&nban($n);
     for @orders -> @order {
         next unless +@order;
         my @these;
@@ -43,9 +43,9 @@ sub enumerate ($n, $upto) {
 }
 
 sub count ($n, $upto) {
-    my @orders = (2 .. $upto).map({ 10**$_ X* 1..9 }).map: *.&nban($n);
+    my @orders = (2 .. $upto).map({ 10**$_ X× 1..9 }).map: *.&nban($n);
     my @count  = elems flat ((1 .. 99),).map: *.&nban($n);
-    @count.push: @count.sum * @orders[$_] + @orders[$_] for ^(+@orders - 1);
+    @count.push: @count.sum × @orders[$_] + @orders[$_] for ^(+@orders - 1);
     @count[0] += 1 if 0.&nban($n);
 #    for ^(@count - 1) { if (10**(2+$_)).&nban($n) { @count[$_]++; @count[$_ + 1]-- } }
     for ^(@count - 1) { if @orders[$_].contains(1) { @count[$_]++; @count[$_ + 1]-- } }
