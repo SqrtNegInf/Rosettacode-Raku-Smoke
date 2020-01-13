@@ -69,13 +69,13 @@ loop ($nn = 3; $nn <= $top; ++$nn) {
 for 1 ..^ $POW -> int $power {
 
     my int $beg = 2 ** $power;
-    my int $end = $beg * 2 - 1;
+    my int $end = $beg × 2 - 1;
     my $max;
     my $ratio;
 
     loop (my $nn = $beg; $nn <= $end; ++$nn) {
         my $ratio = @a[$nn] / $nn;
-        $last55 = $nn if $ratio * 100 >= 55;
+        $last55 = $nn if $ratio × 100 >= 55;
         $max max= $ratio => $nn;
     }
 
