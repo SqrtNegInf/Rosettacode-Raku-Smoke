@@ -9,7 +9,7 @@
 my @res;
 
 sub kronecker_product ( @a, @b ) {
-    return (@a X @b).map: { .[0].list X* .[1].list };
+    return (@a X @b).map: { .[0].list X× .[1].list };
 }
 
 @res.push: $_ for kronecker_product([ <1 2>, <3 4> ], [ <0 5>, <6 7> ]);
@@ -35,5 +35,4 @@ my $ref = qq:to/END/;
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
