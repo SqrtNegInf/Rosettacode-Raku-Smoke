@@ -27,7 +27,7 @@ for $moore.comb {
     state ($x, $y) = @points[0,1];
     state $d = 0 - 5i;
     when 'F' { @points.append: ($x += $d.re).round(1), ($y += $d.im).round(1) }
-    when /< + - >/ { $d *= "{$_}1i" }
+    when /< + - >/ { $d ×= "{$_}1i" }
     default { }
 }
 
