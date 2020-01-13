@@ -25,7 +25,7 @@ my $k = 8; # 10**8
 my @sums is default(0) = 1,0; # either this or wrap with 'quietly'
 my $s;
 for 1 .. $k -> $n {
-    for $n*81 … 1 -> $i {
+    for $n×81 … 1 -> $i {
         for 1 .. 9 -> $j {
             $s = $j²;
             last if $s > $i;
@@ -34,7 +34,7 @@ for 1 .. $k -> $n {
     }
 }
 
-my $ends-with-one = sum flat @sums[(1 .. $k*81).grep: { endsWithOne($_) }], +endsWithOne(10**$k);
+my $ends-with-one = sum flat @sums[(1 .. $k×81).grep: { endsWithOne($_) }], +endsWithOne(10**$k);
 
 say my $c = 10**$k - $ends-with-one;
 
