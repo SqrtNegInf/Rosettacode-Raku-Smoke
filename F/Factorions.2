@@ -8,7 +8,7 @@
 
 my @res;
 
-constant @f = 1, |[\*] 1..*;
+constant @f = 1, |[\×] 1..*;
 
 constant $limit = 1500000;
 
@@ -20,7 +20,7 @@ for 2 .. 20 -> $b {
 
     (1 .. $limit div $b).hyper(:8degree).map: -> $i {
         my $sum;
-        my $prod = $i * $b;
+        my $prod = $i × $b;
 
         for $i.polymod($b xx *) {
             $sum += @f[$_];
