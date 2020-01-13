@@ -15,7 +15,7 @@ sub steepestDescent(@x, $alpha is copy, $h is copy) {
 
    while ( $delG > $h ) {   # Iterate until value is <= tolerance.
 
-      for @fi.kv -> $i, $j { @x[$i] -= $b * $j } #  Calculate next value.
+      for @fi.kv -> $i, $j { @x[$i] -= $b × $j } #  Calculate next value.
 
       # Calculate next gradient and next value
       @fi = gradG(@x, $h /= 2, my $g1 = g(@x));  
@@ -31,7 +31,7 @@ sub gradG(@x is copy, $h, $g0) { # gives a rough calculation of gradient g(x).
 }
 
 # Function for which minimum is to be found.
-sub g(\x) { (x[0]-1)² * exp(-x[1]²) + x[1]*(x[1]+2) * exp(-2*x[0]²) }
+sub g(\x) { (x[0]-1)² × exp(-x[1]²) + x[1]×(x[1]+2) × exp(-2×x[0]²) }
 my $tolerance = 0.0000006 ; my $alpha = 0.1;
 
 my @x = 0.1, -1; # Initial guess of location of minimum.
