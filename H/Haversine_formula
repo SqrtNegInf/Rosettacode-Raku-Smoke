@@ -12,8 +12,8 @@ class EarthPoint {
         has $radian_ratio = pi / 180;
 
         # accessors for radians
-        method latR { $.lat * $radian_ratio }
-        method lonR { $.lon * $radian_ratio }
+        method latR { $.lat × $radian_ratio }
+        method lonR { $.lon × $radian_ratio }
 
         method haversine-dist(EarthPoint $p) {
 
@@ -22,10 +22,10 @@ class EarthPoint {
                         lon => $!lon - $p.lon );
 
                 my $a = sin($arc.latR/2) ** 2 + sin($arc.lonR/2) ** 2
-                        * cos($.latR) * cos($p.latR);
-                my $c = 2 * asin( sqrt($a) );
+                        × cos($.latR) × cos($p.latR);
+                my $c = 2 × asin( sqrt($a) );
 
-                return $earth_radius * $c;
+                return $earth_radius × $c;
         }
 }
 
