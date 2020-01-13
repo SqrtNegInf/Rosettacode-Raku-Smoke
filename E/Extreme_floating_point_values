@@ -9,11 +9,11 @@
 say my @res.push: qq:to 'END';
 positive infinity: {1.8e308}
 negative infinity: {-1.8e308}
-negative zero: {0e0 * -1}
-not a number: {0 * 1e309}
+negative zero: {0e0 × -1}
+not a number: {0 × 1e309}
 +Inf + 2.0 = {Inf + 2}
 +Inf - 10.1 = {Inf - 10.1}
-0 * +Inf = {0 * Inf}
+0 × +Inf = {0 × Inf}
 +Inf + -Inf = {Inf + -Inf}
 +Inf == -Inf = {+Inf == -Inf}
 (-Inf+0i)**.5 = {(-Inf+0i)**.5}
@@ -35,7 +35,7 @@ negative zero: -0
 not a number: NaN
 +Inf + 2.0 = Inf
 +Inf - 10.1 = Inf
-0 * +Inf = NaN
+0 × +Inf = NaN
 +Inf + -Inf = NaN
 +Inf == -Inf = False
 (-Inf+0i)**.5 = Inf+Inf\\i
