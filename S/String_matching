@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/String_matching
-#c# 2016-08-28 <RC
+#c# 2016-08-28 <RC, 2020-01-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -32,8 +32,14 @@ my @res;
 
 # Bonus task:
 @res.push: $haystack.match($needle, :g)».from;  # List of all positions where $needle appears in $haystack
+@res.push: $haystack.indices($needle);          # Also find any overlapping instances of $needle in $haystack
 
 .say for @res;
+
+# my $h = 'ana ate a banana';
+# my $n = 'ana';
+# say $h.match($n, :g)».from;    # 0 11
+# say $h.indices($n, :overlap);  # 0 11 13
 
 my $ref = qq:to/END/;
 True
@@ -44,6 +50,7 @@ True
 True
 True
 True
+0 22 33 51
 0 22 33 51
 END
 
