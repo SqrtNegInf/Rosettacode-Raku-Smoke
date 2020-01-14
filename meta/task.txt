@@ -1,19 +1,19 @@
 This is Rakudo version 2019.11-438-g0e9f96ea9 built on MoarVM version 2020.01-15-g1fa9764bf
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1173/12]
-|+-------------> JVM: Good/Bad [1009/179]
-||+------------> Smoke testing [1061]
-|||+-----------> sKipping validation [123]
++--------------> Moar: Good/Bad [1177/12]
+|+-------------> JVM: Good/Bad [1012/179]
+||+------------> Smoke testing [1063]
+|||+-----------> sKipping validation [124]
 ||||+----------> Interactive [59]
-|||||+---------> Touched (modified by me) [294]
+|||||+---------> Touched (modified by me) [296]
 ||||||+--------> Concurrent/Async [57]
-|||||||+-------> Random seed [116]
+|||||||+-------> Random seed [117]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [225]
+|||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [99]
-||||||||||||+--> Un-implemented/reliable [75]
+|||||||||||+---> Void (no local copy) [97]
+||||||||||||+--> Un-implemented/reliable [74]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -92,6 +92,7 @@ GGS.......... Arrays
 GGS......D... Assertions_in_design_by_contract
 GGS.......... Associative_array_Creation
 GGS.......... Associative_array_Iteration
+GGS......D... Associative_array_Merging
 GGS...CR..... Atomic_updates
 GBS...C...... Attractive_numbers
 .........DXVU AudioAlarm
@@ -541,7 +542,7 @@ GB.KI........ Image_noise
 GGS.......... Imaginary_base_numbers
 GGS......D... Implicit_type_conversion
 GG.K......... Include_a_file
-!GS......D... Increasing_gaps_between_consecutive_Niven_numbers
+GGS......D... Increasing_gaps_between_consecutive_Niven_numbers
 GGS.......... Increment_a_numerical_string
 GGS..T.R..... Index_finite_lists_of_positive_integers-1
 GGS....R..... Index_finite_lists_of_positive_integers-2
@@ -806,7 +807,7 @@ GGS.......... Parsing_RPN_calculator_algorithm
 GGS..T....... Parsing_RPN_to_infix_conversion
 GGS.......... Parsing_Shunting-yard_algorithm
 GGS.......... Partial_function_application
-.........D.VU Particle_Swarm_Optimization
+GG.K.T.R.D..U Particle_Swarm_Optimization
 GBS..TC...... Partition_an_integer_X_into_N_primes
 GGS.......... Pascal%27s_triangle
 GGS.......... Pascal%27s_triangle_Puzzle
@@ -1116,7 +1117,7 @@ GGS.......... String_comparison
 GGS.......... String_concatenation
 GGS.......... String_interpolation_included
 GGS.......... String_length
-GGS.......... String_matching
+GGS..T....... String_matching
 GGS..T....... String_prepend
 GGS.......... Strip_a_set_of_characters_from_a_string
 GGS.......... Strip_block_comments
@@ -1243,7 +1244,7 @@ GGS......D... User_defined_pipe_and_redirection_operators
 GGS.......... User_input_Text
 .........D.VU Using_a_Speech_engine_to_highlight_words
 .........D.VU Using_the_Meetup.com_API
-.........D.VU VList
+GGS......D... VList
 GGS..T....... Validate_International_Securities_Identification_Number
 GGS...C...... Vampire_number
 GGS.......... Van_Eck_sequence
