@@ -3,14 +3,15 @@
 #c# 2020-01-xx >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 🌐 didn't work well in variable names :-(
 
 srand 123456;
 
 sub report (%state) {
   say '';
   say 'Iteration: ' ~ %state{'iter'};
-  say 'Global best position: ' ~ %state{'gbpos'};
-  say 'Global best value: ' ~ %state{'gbval'};
+  say '🌐 best position: ' ~ %state{'gbpos'};
+  say '🌐 best value: ' ~ %state{'gbval'};
 }
 
 sub pso-init (%y) {
@@ -36,6 +37,7 @@ sub pso (&fn, %y) {
     my @gbpos = 0 xx $d;
     my @bval  = 0 xx $n;
     my @bpos  = %y{'min'} xx $n;
+dd @bpos; say '---';
     my $gbval = Inf; 
     for 0 ..^ $n -> \j {
         # evaluate
@@ -50,9 +52,11 @@ sub pso (&fn, %y) {
         }
         if @bval[j] < $gbval {
             $gbval = @bval[j];
-            @gbpos = @bpos[j];
+            @gbpos = |@bpos[j];
         }
     }
+dd @bpos; say '==='; sleep 0;
+#dd @bpos; exit;
     my $rg = rand;
     my @pos = [(0) xx $d] xx $n;
     my @vel = [(0) xx $d] xx $n;
@@ -64,40 +68,51 @@ sub pso (&fn, %y) {
         my $ok = True;
         @vel[j] = ((0) xx @vel[j].elems).Array;
         @pos[j] = ((0) xx @pos[j].elems).Array;
+#        dd ((0) xx @pos[j].elems).Array;
         for 0 ..^ $d -> \k {
-say 'j: ' ~ j; say 'k: ' ~ k;
+                      say %p{'φ-p'}*$rp ; say (@bpos[j][k] - %y{'pos'}[j][k]); 
+                      say %p{'φ-g'}*$rg;  say (@gbpos[k]   - %y{'pos'}[j][k]);
             @vel[j][k] = %p{'ω'} * %y{'vel'}[j][k] 
                       + %p{'φ-p'} * $rp * (@bpos[j][k] - %y{'pos'}[j][k]) 
                       + %p{'φ-g'} * $rg * (@gbpos[k]   - %y{'pos'}[j][k]);
             @pos[j][k] = %y{'pos'}[j][k] + @vel[j][k];
-dd %y{'min'}[k]; %y{'max'}[k]; #sleep 5;
-            $ok = $ok and %y{'min'}[k] < @pos[j][k] and %y{'max'}[k] > @pos[j][k];
+say 'vel';
+dd @vel; sleep 1;
+            $ok = %y{'min'}[k] < @pos[j][k] < %y{'max'}[k] if $ok;
         }
         if not $ok {
             for 0 ..^ $d -> \k {
                 @pos[j][k] = %y{'min'}[k] + (%y{'max'}[k] - %y{'min'}[k]) * rand;
             }
+#say 'not ok'; dd @pos;
         }
     }
     $iter = 1 + %y{'iter'};
+#dd @pos ; sleep 10;
     #return State(iter, gbpos, gbval, y.min, y.max, y.parameters, pos, vel, bpos, bval, y.n, y.d);
-    dd {iter => $iter, gbpos => @gbpos, gbval => $gbval, min => %y{min}, max => %y{max}, parameters => %y{'parameters'}, 
+    {iter => $iter, gbpos => @gbpos, gbval => $gbval, min => %y{min}, max => %y{max}, parameters => %y{'parameters'}, 
         pos => @pos, vel => @vel, bpos => @bpos, bval => @bval, n => $n, d => $d};
-exit;
+#exit;
 }
 
-sub iterate (&fn, $n, %y) {
-  my %r   = %y; 
+sub iterate (&fn, $n, %y is copy) {
   my %old = %y;
   if $n == Inf {
-    while (%r = pso(&fn,%r)) !eqv %old { %old = %r }
+    #while (%y = pso(&fn,%y)) !eqv %old { %old = %y }
   } else {
-    %r = pso(&fn, %r) for 0 ..^ $n;
+    #%y = pso(&fn, %y) for 1 .. $n;
+    for 1 .. $n {
+        %y = pso(&fn, %y) ;
+        dd %y; sleep 30;
+    }
   }
-  %r
+  say 'done iter';
+  dd %y; sleep 30;
+  %y
 }
 
 sub mccormick ($a, $b) {
+#say 'a ' ~ $a; say 'b ' ~ $b;
   return sin($a+$b) + ($a-$b)**2 + (1 + 2.5*$b - 1.5*$a)
 }
 
@@ -117,12 +132,15 @@ sub michalewicz (@x) {
 my %state = pso-init( {
     min => [-1.5, -3], 
     max => [4, 4], 
-    n=> 3,
+    n=> 10,
     parameters => {ω=> 0, φ-p=> 0.6, φ-g=> 0.3},
 } );
-pso(&mccormick, %state);
-#%state = iterate { return pso(mccormick,y) }, 40, %state);
+
+#%state = pso(&mccormick, %state);
 report(%state);
+%state = iterate( &mccormick, 40, %state);
+report(%state);
+exit;
 
 # michalewicz 
 #%state = pso-init( {
