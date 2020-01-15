@@ -9,7 +9,7 @@
 
 my $n = 5;
 my @a = Num.new xx $n;
-@a[$_] = -1 * $_ for ^@a.elems;
+@a[$_] = -1 × $_ for ^@a.elems;
 
 class ABC {
     has Int $.a is rw = 0;
