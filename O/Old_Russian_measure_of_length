@@ -30,7 +30,7 @@ sub convert (Real $magnitude, $unit) {
     ;
 
     unless %factor{$unit.lc}:exists { warn "No such unit '$unit'"; return } 
-    my $meters = $magnitude * %factor{$unit.lc};
+    my $meters = $magnitude × %factor{$unit.lc};
     my $result.push: "$magnitude $unit to:\n";
     $result ~= sprintf "%10s: %s\n", $_,  $meters / %factor{$_} unless $_ eq $unit.lc
       for %factor.keys.sort:{ +%factor{$_} }
