@@ -47,7 +47,7 @@ for 3, 10 -> $doors {
             @wins[$s]⚛++ if play($s, doors => $doors) == Car;
         }
         @res.push: "  $name wins " ~
-            round(100*@wins[$s] / TRIALS) ~
+            round(100×@wins[$s] / TRIALS) ~
             '% of the time.'
     }
 }
