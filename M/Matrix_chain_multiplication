@@ -39,7 +39,7 @@ sub matrix-mult-chaining(@dimensions) {
             for $start .. $end - 1 -> $step {
                 my $new-cost = @cp[$step][$start]
                                 + @cp[$end][$step + 1]
-                                + [*] @dimensions[$start, $step+1, $end+1];
+                                + [×] @dimensions[$start, $step+1, $end+1];
                 if $new-cost < @cp[$end][$start] {
                     @cp[$end][$start] = $new-cost; # cost
                     @cp[$start][$end] = $step;     # path
