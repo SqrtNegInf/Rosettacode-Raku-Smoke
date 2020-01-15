@@ -22,7 +22,7 @@ else             { EVAL 'use Math::Primesieve; $sieve = Math::Primesieve.new; @p
 }
 
 my @res;
-push @res, "$_\tfrequency: {($_.value/$upto*100).round(.01)} %" for %conspiracy.sort;
+push @res, "$_\tfrequency: {($_.value/$upto×100).round(.01)} %" for %conspiracy.sort;
 
 .say for @res;
 
