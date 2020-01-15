@@ -21,7 +21,7 @@ sub Mcnugget-number (*@counts) {
     for ^Inf -> $a {
         for 0..$a -> $b {
             for 0..$b -> $c {
-                ($a, $b, $c).permutations.map: { @meals[ sum $_ Z* @counts ] = True }
+                ($a, $b, $c).permutations.map: { @meals[ sum $_ Z× @counts ] = True }
             }
         }
         for @meals.grep: so *, :k {
