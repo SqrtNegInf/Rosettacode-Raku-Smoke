@@ -36,7 +36,7 @@ loop (my $i = 0; $i < $img1X; $i++) {
    }
 }
 
-say "%difference = ", my $result = $diff/($img1X*$img1Y*3*255)*100;
+say "%difference = ", my $result = $diff/($img1X×$img1Y×3×255)×100;
 
 gdImageDestroy($img1);
 gdImageDestroy($img2);
