@@ -13,7 +13,7 @@ sub allocate ($n, $i = 0, $sum = 0, $prod = 1) {
     for @primes.kv -> $k, $p {
         next if $k < $i;
         if ($sum + $p) <= $max {
-            allocate($n, $k, $sum + $p, $prod * $p);
+            allocate($n, $k, $sum + $p, $prod × $p);
         } else {
             last if $sum == $prod;
             %tree{$sum}<descendants>{$prod} = 1;
