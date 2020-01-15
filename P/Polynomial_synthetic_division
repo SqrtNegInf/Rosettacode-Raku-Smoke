@@ -13,7 +13,7 @@ sub synthetic-division ( @numerator, @denominator ) {
     for ^(@numerator-$end) -> $i { # DH fix precedence bug
         #next unless @result[$i]; # DH negative indexing doesn't cause error?
         @result[$i] /= @denominator[0];
-        @result[$i+$_] -= @denominator[$_] * @result[$i] for 1..$end;
+        @result[$i+$_] -= @denominator[$_] × @result[$i] for 1..$end;
     }
 
     'quotient'  => @result[0 ..^ *-$end],
