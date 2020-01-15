@@ -1,16 +1,13 @@
-This is Rakudo version 2019.11-438-g0e9f96ea9 built on MoarVM version 2020.01-15-g1fa9764bf
-implementing Perl 6.d.
-updating from RC…
-+--------------> Moar: Good/Bad [1177/12]
++--------------> Moar: Good/Bad [1178/12]
 |+-------------> JVM: Good/Bad [1012/179]
-||+------------> Smoke testing [1063]
-|||+-----------> sKipping validation [124]
+||+------------> Smoke testing [1064]
+|||+-----------> sKipping validation [123]
 ||||+----------> Interactive [59]
 |||||+---------> Touched (modified by me) [296]
 ||||||+--------> Concurrent/Async [57]
 |||||||+-------> Random seed [117]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [226]
+|||||||||+-----> Draft [225]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [97]
 ||||||||||||+--> Un-implemented/reliable [74]
@@ -92,7 +89,7 @@ GGS.......... Arrays
 GGS......D... Assertions_in_design_by_contract
 GGS.......... Associative_array_Creation
 GGS.......... Associative_array_Iteration
-GGS......D... Associative_array_Merging
+GGS.......... Associative_array_Merging
 GGS...CR..... Atomic_updates
 GBS...C...... Attractive_numbers
 .........DXVU AudioAlarm
@@ -721,7 +718,7 @@ GGS......D... Most_frequent_k_chars_distance
 GB.KI........ Mouse_position
 GGS.......... Move-to-front_algorithm
 GGS.......... Multi-dimensional_array
-GGS......D... Multidimensional_Newton-Raphson_method
+!GS......D... Multidimensional_Newton-Raphson_method
 GGS.......... Multifactorial
 GGS......D... Multiline_shebang
 GGS.......... Multiple_distinct_objects
@@ -733,7 +730,7 @@ GGS.......... Munchausen_numbers
 GGS..T..F.... Munching_squares-1
 GGS..T..F.... Munching_squares-2
 GB.K.....D... Musical_scale
-!G.K..C...... Mutex
+GG.K..C...... Mutex
 GGS.......... Mutual_recursion
 GGS.......... N%27th
 GGS......D... N-body_problem
@@ -807,7 +804,7 @@ GGS.......... Parsing_RPN_calculator_algorithm
 GGS..T....... Parsing_RPN_to_infix_conversion
 GGS.......... Parsing_Shunting-yard_algorithm
 GGS.......... Partial_function_application
-GG.K.T.R.D..U Particle_Swarm_Optimization
+GGS..T.R.D..U Particle_Swarm_Optimization
 GBS..TC...... Partition_an_integer_X_into_N_primes
 GGS.......... Pascal%27s_triangle
 GGS.......... Pascal%27s_triangle_Puzzle
@@ -1295,7 +1292,7 @@ GGS..T.R..... Write_language_name_in_3D_ASCII
 GBS.......... XML_DOM_serialization
 GBS..T....... XML_Input
 GGS.......... XML_Output
-!B.K.....D... XML_Validation
+GB.K.....D... XML_Validation
 GBS.......... XML_XPath
 GGS..T....... Xiaolin_Wu%27s_line_algorithm
 GGS.......... Y_combinator
