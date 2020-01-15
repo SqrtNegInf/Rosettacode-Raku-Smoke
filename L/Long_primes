@@ -15,10 +15,10 @@ my $sieve = Math::Primesieve.new;
 
 sub is-long (Int $p) {
     my $r = 1;
-    my $rr = $r = (10 * $r) % $p for ^$p;
+    my $rr = $r = (10 × $r) % $p for ^$p;
     my $period;
     loop {
-        $r = (10 * $r) % $p;
+        $r = (10 × $r) % $p;
         ++$period;
         last if $period >= $p or $r == $rr;
     }
