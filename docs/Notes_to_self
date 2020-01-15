@@ -1,8 +1,26 @@
+2020-01-14
+Math::Matrix borked, but moving soon: https://github.com/lichtkind/Raku-Math-Matrix, so wait and see...
+
+X/XML_Validation works again, installation of module was *very* slow, and reported:
+[LibXML] # Running libxml2 version: 2.09.02 (module 0.2.7)
+[LibXML] # ***NOTE was configured against libxml2 version 2.9.10 ***
+
+Fails to install, but no consequences: 
+    IO::Socket::Async::SSL:ver<0.7.5>  (used only by 'Cro:HTTP'/URL_shortener, which isn't being smoke-tested)
+    DBIish (maybe drop from Zef-install-all, as it causes a long hang?)
+
+2020-01-13
+Can't use perl6-debug-m, 'Circular module loading detected trying to precompile', trying new rakudobrew/raku
+
+2020-01-12
+Looking at output from 'rc-parse-dump', but not as much detailed info. as AST gives
+
 2020-01-11
 AlexDaniel swears by: https://github.com/sindresorhus/refined-github
 
 2020-01-10
-'×' to-do: L M N O P R S T 
+fgrep 'call &infix:<*>' ast/* | word | uniq | less
+'×' to-do: P R S T 
 
 2020-01-09
 'A' was very math-heavy, but no show-stoppers came up.
