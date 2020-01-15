@@ -12,7 +12,7 @@ my (@res1,@res2);
 # Note that this redefines the core prefix ! (not) function.
 # The last two lines are display code for the various sub task requirements.
 
-sub postfix:<!> ($n) { (constant f = 1, |[\*] 1..*)[$n] }
+sub postfix:<!> ($n) { (constant f = 1, |[\×] 1..*)[$n] }
 sub  prefix:<!> ($k) { (constant l = 0, |[\+] (0..*).map: *!)[$k] }
 
 $ = !10000; # Pre-initialize
@@ -58,7 +58,7 @@ END
 
 # If you would rather not override prefix ! operator and you can live with just defining lazy lists and indexing into them, this should suffice; (and is in fact very slightly faster than the first example since it avoids routine dispatch overhead):
 
-constant fact = 1, |[\*] 1..*;
+constant fact = 1, |[\×] 1..*;
 constant leftfact = 0, |[\+] fact;
 
 $ = leftfact[10000]; # Pre-initialize
