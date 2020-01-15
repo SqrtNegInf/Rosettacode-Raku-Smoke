@@ -79,7 +79,7 @@ my atomicint $i = 0;
 my @triples[$limit/2];
 (3 .. $limit/2).race.map: -> $c {
    for 1 .. $c -> $a {
-       my $b = ($c * $c - $a * $a).sqrt;
+       my $b = ($c × $c - $a × $a).sqrt;
        last if $c + $a + $b > $limit;
        last if $a > $b;
        @triples[$i⚛++] = ([gcd] $c, $a, $b.Int) > 1 ?? 0 !! 1 if $b == $b.Int;
@@ -107,9 +107,9 @@ sub triples($limit) {
         my $perim = $a + $b + $c;
         return if $perim > $limit;
     ++$primitive; $civilized += $limit div $perim;
-        oyako( $a - 2*$b + 2*$c,  2*$a - $b + 2*$c,  2*$a - 2*$b + 3*$c);
-        oyako( $a + 2*$b + 2*$c,  2*$a + $b + 2*$c,  2*$a + 2*$b + 3*$c);
-        oyako(-$a + 2*$b + 2*$c, -2*$a + $b + 2*$c, -2*$a + 2*$b + 3*$c);
+        oyako( $a - 2×$b + 2×$c,  2×$a - $b + 2×$c,  2×$a - 2×$b + 3×$c);
+        oyako( $a + 2×$b + 2×$c,  2×$a + $b + 2×$c,  2×$a + 2×$b + 3×$c);
+        oyako(-$a + 2×$b + 2×$c, -2×$a + $b + 2×$c, -2×$a + 2×$b + 3×$c);
     }
 
     oyako(3,4,5);
@@ -155,7 +155,7 @@ sub triples1($limit) {
         return if $perim > $limit;
         take (1 + ($limit div $perim)i);
         for @coeff -> @nine {
-            oyako (map -> @three { [+] @three »*« @trippy }, @nine);
+            oyako (map -> @three { [+] @three »×« @trippy }, @nine);
         }
         return;
     }
