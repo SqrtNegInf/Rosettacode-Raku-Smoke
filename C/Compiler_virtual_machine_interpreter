@@ -49,7 +49,7 @@ my %ops = (
   'no-op' => sub { },
   'add'   => sub { @stack[*-2]  +=   @stack.pop },
   'sub'   => sub { @stack[*-2]  -=   @stack.pop },
-  'mul'   => sub { @stack[*-2]  *=   @stack.pop },
+  'mul'   => sub { @stack[*-2]  ×=   @stack.pop },
   'div'   => sub { @stack[*-2]  /=   @stack.pop },
   'mod'   => sub { @stack[*-2]  %=   @stack.pop },
   'neg'   => sub { @stack[*-1]   = - @stack[*-1] },
