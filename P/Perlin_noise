@@ -21,8 +21,8 @@ map {:36($_)}, flat <
 5F 26 1U 5Z 1P 4C 50
 > xx 2;
 
-sub fade($_) { $_ * $_ * $_ * ($_ * ($_ * 6 - 15) + 10) }
-sub lerp($t, $a, $b) { $a + $t * ($b - $a) }
+sub fade($_) { $_ × $_ × $_ × ($_ × ($_ × 6 - 15) + 10) }
+sub lerp($t, $a, $b) { $a + $t × ($b - $a) }
 sub grad($h is copy, $x, $y, $z) {
     $h +&= 15;
     my $u = $h < 8 ?? $x !! $y;
