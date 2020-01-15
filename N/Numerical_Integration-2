@@ -16,25 +16,25 @@ use MONKEY-SEE-NO-EVAL; #DH
 # Works with: Rakudo version 2015-09-24
 sub leftrect(&f, $a, $b, $n) {
     my $h = ($b - $a) / $n;
-    $h * [+] do f($_) for $a, $a+$h ... $b-$h;
+    $h × [+] do f($_) for $a, $a+$h ... $b-$h;
 }
 
 sub rightrect(&f, $a, $b, $n) {
     my $h = ($b - $a) / $n;
-    $h * [+] do f($_) for $a+$h, $a+$h+$h ... $b;
+    $h × [+] do f($_) for $a+$h, $a+$h+$h ... $b;
 }
 
 sub midrect(&f, $a, $b, $n) {
     my $h = ($b - $a) / $n;
-    $h * [+] do f($_) for $a+$h/2, $a+$h+$h/2 ... $b-$h/2;
+    $h × [+] do f($_) for $a+$h/2, $a+$h+$h/2 ... $b-$h/2;
 }
 
 sub trapez(&f, $a, $b, $n) {
     my $h = ($b - $a) / $n;
     # Too many arguments in flattening array.
-#    $h / 2 * [+] f($a), f($b), |do f($_) * 2 for $a+$h, $a+$h+$h ... $b-$h;
-     my $partial-sum += f($_) * 2 for $a+$h, $a+$h+$h ... $b-$h; #DH
-     $h / 2 * [+] f($a), f($b), $partial-sum;
+#    $h / 2 × [+] f($a), f($b), |do f($_) × 2 for $a+$h, $a+$h+$h ... $b-$h;
+     my $partial-sum += f($_) × 2 for $a+$h, $a+$h+$h ... $b-$h; #DH
+     $h / 2 × [+] f($a), f($b), $partial-sum;
 }
 
 sub simpsons(&f, $a, $b, $n) {
@@ -47,7 +47,7 @@ sub simpsons(&f, $a, $b, $n) {
         $sum1 += f($_ + $h2);
         $sum2 += f($_);
     }
-    ($h / 6) * (f($a) + f($b) + 4*$sum1 + 2*$sum2);
+    ($h / 6) × (f($a) + f($b) + 4×$sum1 + 2×$sum2);
 }
 
 sub integrate($f, $a, $b, $n, $exact) {
