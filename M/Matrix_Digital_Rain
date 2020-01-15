@@ -38,11 +38,11 @@ loop {
      @s[(^@s).pick] = @codes.roll for ^30;
 }
 sub init ($r, $c) {
-    @s = @codes.roll($r * $c);
+    @s = @codes.roll($r × $c);
     ($rows, $cols) = $r, $c;
     my @o = (^@c).pick xx $cols;
     for ^$rows -> $row {
-        @a[$row * $cols ..^ $row * $cols + $cols] = @o;
+        @a[$row × $cols ..^ $row × $cols + $cols] = @o;
         @o = (^@o).map: {(@o[$_] - ($_ % 3)) % $sz};
     }
 }
