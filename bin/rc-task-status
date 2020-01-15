@@ -7,7 +7,7 @@ use strict 'vars';
 
 my(%P);
 
-print `$ENV{HOME}/.rakudobrew/bin/perl6 -v`; 
+print `$ENV{HOME}/.rakudobrew/shims/perl6 -v`; 
 
 # update only once a day
 if (.95 < -M "Category:Programming_Tasks") {
