@@ -43,23 +43,23 @@ multi infix:<->(Approx $a, $b) { $a - approx($b) }
 multi infix:<->(Approx $a, Approx $b) { approx $a.x - $b.x, [$a.c Z- $b.c] }
 
 multi covariance(Real   $a, Real   $b) { 0 }
-multi covariance(Approx $a, Approx $b) { [+] $a.c Z* $b.c }
+multi covariance(Approx $a, Approx $b) { [+] $a.c Z× $b.c }
 
 multi infix:«<=>»(Approx $a, Approx $b) { $a.x <=> $b.x }
 multi infix:<cmp>(Approx $a, Approx $b) { $a.x <=> $b.x }
 
-multi infix:<*>($a, Approx $b) { approx($a) * $b }
-multi infix:<*>(Approx $a, $b) { $a * approx($b) }
-multi infix:<*>(Approx $a, Approx $b) {
-    approx $a.x * $b.x,
-           [$a.c.map({$b.x * $_}) Z+ $b.c.map({$a.x * $_})];
+multi infix:<×>($a, Approx $b) { approx($a) × $b }
+multi infix:<×>(Approx $a, $b) { $a × approx($b) }
+multi infix:<×>(Approx $a, Approx $b) {
+    approx $a.x × $b.x,
+           [$a.c.map({$b.x × $_}) Z+ $b.c.map({$a.x × $_})];
 }
 
 multi infix:</>($a, Approx $b) { approx($a) / $b }
 multi infix:</>(Approx $a, $b) { $a / approx($b) }
 multi infix:</>(Approx $a, Approx $b) {
     approx $a.x / $b.x,
-           [ $a.c.map({ $_ / $b.x }) Z+ $b.c.map({ $a.x * $_ / $b.x / $b.x }) ];
+           [ $a.c.map({ $_ / $b.x }) Z+ $b.c.map({ $a.x × $_ / $b.x / $b.x }) ];
 }
 
 multi sqrt(Approx $a) {
@@ -78,12 +78,12 @@ multi infix:<**>(Approx $a is copy, Approx $b) {
 	    }
 	    $a = -$a;
 	}
-	exp($b * log $a);
+	exp($b × log $a);
 }
 
 multi exp(Approx $a) {
 	my $x = exp($a.x);
-	approx $x, [ $a.c.map: { $x * $_ } ];
+	approx $x, [ $a.c.map: { $x × $_ } ];
 }
 
 multi log(Approx $a) {
@@ -103,7 +103,7 @@ say "distance: $z1\n";
 
 # Just showing off.
 my $a = $x1 + $x2;
-my $b = $y1 - 2 * $x2;
+my $b = $y1 - 2 × $x2;
 say my $cov-ab = "covariance between $a and $b: "~ covariance($a,$b);
 
 use Test;
