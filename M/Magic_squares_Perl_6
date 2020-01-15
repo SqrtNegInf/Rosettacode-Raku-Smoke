@@ -65,11 +65,11 @@ sub gensq($n) {
 
     multi sub gen-sq ($n where {$n %% 2 and $n % 4}) { # singly even
         gen-sq($h);
-        $i *= 4;
+        $i ×= 4;
         for ^$h -> $r {
             for ^$h -> $c {
-                @sq[$r + $h; $c]      = @sq[$r;$c] + $h² * 3;
-                @sq[$r; $c + $h]      = @sq[$r;$c] + $h² * 2;
+                @sq[$r + $h; $c]      = @sq[$r;$c] + $h² × 3;
+                @sq[$r; $c + $h]      = @sq[$r;$c] + $h² × 2;
                 @sq[$r + $h; $c + $h] = @sq[$r;$c] + $h²;
             }
             for ^$q -> $c {
