@@ -21,7 +21,7 @@ sub primorial($n) {
     @primorial[0,1] = (1,2);
 
     return @primorial[$n] if @primorial >  $n;
-    @primorial.push: @primorial[*-1] * @primes[$_] for @primorial-1 .. $n;
+    @primorial.push: @primorial[*-1] × @primes[$_] for @primorial-1 .. $n;
     return @primorial[$n];
 }
 
