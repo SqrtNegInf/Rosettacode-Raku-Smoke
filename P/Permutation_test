@@ -6,7 +6,7 @@
 #n# .race requires atomic ++ op
 
 sub stats ( @test, @all ) {
-    ([+] @test / +@test) - ([+] flat @all, (@test X* -1)) / @all - @test
+    ([+] @test / +@test) - ([+] flat @all, (@test X× -1)) / @all - @test
 }
 
 my int @treated = <85 88 75 66 25 29 83 39 97>;
@@ -20,10 +20,10 @@ my atomicint @trials[3] = 0, 0, 0;
 @all.combinations(+@treated).race.map: { @trials[ 1 + ( stats( $_, @all ) <=> $base ) ]⚛++ } 
 
 say my $a1 = ('Counts: <, =, > ', @trials);
-say my $a2 = ('Less than    :%', 100 * @trials[0] / [+] @trials);
-say my $a3 = ('Equal to     :%', 100 * @trials[1] / [+] @trials);
-say my $a4 = ('Greater than :%', 100 * @trials[2] / [+] @trials);
-say my $a5 = ('Less or Equal:%', 100 * ( [+] @trials[0,1] ) / [+] @trials);
+say my $a2 = ('Less than    :%', 100 × @trials[0] / [+] @trials);
+say my $a3 = ('Equal to     :%', 100 × @trials[1] / [+] @trials);
+say my $a4 = ('Greater than :%', 100 × @trials[2] / [+] @trials);
+say my $a5 = ('Less or Equal:%', 100 × ( [+] @trials[0,1] ) / [+] @trials);
 
 use Test;
 is $a1, 'Counts: <, =, >  80238 313 11827';
