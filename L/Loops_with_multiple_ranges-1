@@ -34,7 +34,7 @@ my $j = cache flat
 
 @res.push: 'j sequence: '~ $j;
 @res.push: '       Sum: '~ comma [+] $j».abs;
-@res.push: '   Product: '~ comma ([\*] $j.grep: so +*).first: *.abs > 2²⁷;
+@res.push: '   Product: '~ comma ([\×] $j.grep: so +*).first: *.abs > 2²⁷;
 
 # Or, an alternate method for generating the 'j' sequence, employing user-defined
 # operators to preserve the 'X to Y by Z' layout of the example code.
@@ -54,7 +54,7 @@ $j = cache flat
 
 @res.push: "\nLiteral minded variant:";
 @res.push: '       Sum: '~ comma [+] $j».abs;
-@res.push: '   Product: '~ comma ([\*] $j.grep: so +*).first: *.abs > 2²⁷;
+@res.push: '   Product: '~ comma ([\×] $j.grep: so +*).first: *.abs > 2²⁷;
 
 .say for @res;
 
