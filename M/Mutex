@@ -7,7 +7,7 @@
 
 my $lock = Lock.new;
 
-$lock.protect: { your-ad-here() }
+$lock.protect: { say 'Hi' }
 
 # Locks are reentrant. You may explicitly lock and unlock them, but the
 # syntax above guarantees the lock will be unlocked on scope exit, even if by
