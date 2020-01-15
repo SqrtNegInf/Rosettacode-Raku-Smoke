@@ -36,9 +36,9 @@ sub lu (@a) {
     for ^$n -> $i {
         for ^$n -> $j {
             if $j >= $i {
-                @U[$i][$j] =  @AP[$i][$j] - [+] map { @U[$_][$j] * @L[$i][$_] }, ^$i
+                @U[$i][$j] =  @AP[$i][$j] - [+] map { @U[$_][$j] × @L[$i][$_] }, ^$i
             } else {
-                @L[$i][$j] = (@AP[$i][$j] - [+] map { @U[$_][$j] * @L[$i][$_] }, ^$j) / @U[$j][$j];
+                @L[$i][$j] = (@AP[$i][$j] - [+] map { @U[$_][$j] × @L[$i][$_] }, ^$j) / @U[$j][$j];
             }
         }
 
@@ -74,7 +74,7 @@ sub matrix-ident ($n) { map { [ flat 0 xx $_, 1, 0 xx $n - 1 - $_ ] }, ^$n }
 sub mmult(@a,@b) {
     my @p;
     for ^@a X ^@b[0] -> ($r, $c) {
-        @p[$r][$c] += @a[$r][$_] * @b[$_][$c] for ^@b;
+        @p[$r][$c] += @a[$r][$_] × @b[$_][$c] for ^@b;
     }
     @p;
 }
