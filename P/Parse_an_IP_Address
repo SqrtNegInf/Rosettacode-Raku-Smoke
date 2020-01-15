@@ -40,7 +40,7 @@ grammar IP_Addr {
     }
 }
 
-sub by8to16 (@m) { gather for @m -> $a,$b { take ($a * 256 + $b).fmt("%04x") } } 
+sub by8to16 (@m) { gather for @m -> $a,$b { take ($a × 256 + $b).fmt("%04x") } } 
 
 my @cases = <
     127.0.0.1
