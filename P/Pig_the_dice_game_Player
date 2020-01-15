@@ -69,7 +69,7 @@ my @players;
 @players[3] = player.new( strategy => sub { 1.rand < .1 } );
 
 # random but more conservative as approaches goal
-@players[4] = player.new( strategy => sub { 1.rand < ( GOAL - @players[4].score ) * .6 / GOAL } );
+@players[4] = player.new( strategy => sub { 1.rand < ( GOAL - @players[4].score ) × .6 / GOAL } );
 
 my @wins = 0 xx @players;
 
