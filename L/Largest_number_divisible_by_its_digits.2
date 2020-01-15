@@ -17,9 +17,9 @@ All these optimizations get the run time to well under 1 second.
 
 my @res;
 
-my $magic-number = 9 * 8 * 7;                        # 504
+my $magic-number = 9 × 8 × 7;                        # 504
 
-my $div = 9876432 div $magic-number * $magic-number; # largest 7 digit multiple of 504 < 9876432
+my $div = 9876432 div $magic-number × $magic-number; # largest 7 digit multiple of 504 < 9876432
 
 for $div, { $_ - $magic-number } ... * -> $test {    # only generate multiples of 504
     next if $test ~~ / <[05]> /;                     # skip numbers containing 0 or 5
@@ -42,7 +42,7 @@ To verify that a number is divisible by 1 through 15, we only need to check 5, 7
 
 my $hex = 'FEDCBA987654321';        # largest possible hex number
    $magic-number = [lcm] 1 .. 15;   # find least common multiple
-   $div = :16($hex) div $magic-number * $magic-number;
+   $div = :16($hex) div $magic-number × $magic-number;
 
 for $div, { $_ - $magic-number } ... 0 -> $num {  # Only generate multiples of the lcm 
     my $test = $num.base(16);
@@ -95,5 +95,4 @@ FEDCB59726A1348 / 8 = 1FDB96B2E4D4269  |  1147797065081426760 /  8 =  1434746331
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
