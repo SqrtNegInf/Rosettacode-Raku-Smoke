@@ -71,26 +71,26 @@ sub numify ($str is copy) {
     for %nums.kv -> $word,$number { $str ~~ s:g/ <|w> $word <|w> / $number / }
 
     $str ~~ s:g/(\d+) <ws> <?before \d>/$0/ if $str ~~ /(point ) <ws> [(\d) <ws>]+ $/;
-    $str ~~ s:g/(\d+) <ws> 'score' / {$0 * 20} /;
+    $str ~~ s:g/(\d+) <ws> 'score' / {$0 × 20} /;
 
     $str ~~ s:g/(\d) <ws> [','|'and'] <ws> (\d)/$0 $1/;
 
-    $str ~~ s:g/ <|w> (\d) <ws> 100 <ws> (\d\d) <ws> (\d) <ws>     (<groups>) <|w> / {($0 * 100 + $1 + $2) * $3} /;
-    $str ~~ s:g/ <|w> (\d) <ws> 100 <ws> (\d ** 1..2)     <ws>     (<groups>) <|w> / {($0 * 100 + $1) * $2}      /;
-    $str ~~ s:g/ <|w> (\d) <ws> 100                       <ws>     (<groups>) <|w> / { $0 * 100 * $1}            /;
-    $str ~~ s:g/ <|w>      <ws> 100 <ws> (\d\d) <ws> (\d) <ws>     (<groups>) <|w> / {($0 + 100 + $1) * $2}      /;
-    $str ~~ s:g/ <|w>      <ws> 100 <ws> (\d ** 1..2)     <ws>     (<groups>) <|w> / {($0 + 100     ) * $1}      /;
-    $str ~~ s:g/ <|w>      <ws> 100                       <ws>     (<groups>) <|w> / { $0 * 100}                 /;
-    $str ~~ s:g/ <|w>              (\d\d) <ws> (\d)       <ws>     (<groups>) <|w> / {($0 + $1) * $2}            /;
-    $str ~~ s:g/ <|w>              (\d ** 1..2)           <ws>     (<groups>) <|w> / { $0 * $1}                  /;
-    $str ~~ s:g/ <|w>              (\d\d) <ws> (\d)       <ws> 100            <|w> / {($0 + $1) * 100}           /;
-    $str ~~ s:g/ <|w>              (\d ** 1..2)           <ws> 100            <|w> / { $0 * 100}                 /;
-    $str ~~ s:g/ <|w>              (\d ** 2)<ws>(\d ** 2)                     <|w> / { $0 * 100 + $1}            /;
+    $str ~~ s:g/ <|w> (\d) <ws> 100 <ws> (\d\d) <ws> (\d) <ws>     (<groups>) <|w> / {($0 × 100 + $1 + $2) × $3} /;
+    $str ~~ s:g/ <|w> (\d) <ws> 100 <ws> (\d ** 1..2)     <ws>     (<groups>) <|w> / {($0 × 100 + $1) × $2}      /;
+    $str ~~ s:g/ <|w> (\d) <ws> 100                       <ws>     (<groups>) <|w> / { $0 × 100 × $1}            /;
+    $str ~~ s:g/ <|w>      <ws> 100 <ws> (\d\d) <ws> (\d) <ws>     (<groups>) <|w> / {($0 + 100 + $1) × $2}      /;
+    $str ~~ s:g/ <|w>      <ws> 100 <ws> (\d ** 1..2)     <ws>     (<groups>) <|w> / {($0 + 100     ) × $1}      /;
+    $str ~~ s:g/ <|w>      <ws> 100                       <ws>     (<groups>) <|w> / { $0 × 100}                 /;
+    $str ~~ s:g/ <|w>              (\d\d) <ws> (\d)       <ws>     (<groups>) <|w> / {($0 + $1) × $2}            /;
+    $str ~~ s:g/ <|w>              (\d ** 1..2)           <ws>     (<groups>) <|w> / { $0 × $1}                  /;
+    $str ~~ s:g/ <|w>              (\d\d) <ws> (\d)       <ws> 100            <|w> / {($0 + $1) × 100}           /;
+    $str ~~ s:g/ <|w>              (\d ** 1..2)           <ws> 100            <|w> / { $0 × 100}                 /;
+    $str ~~ s:g/ <|w>              (\d ** 2)<ws>(\d ** 2)                     <|w> / { $0 × 100 + $1}            /;
 
     $str ~~ s:g/( [\d+ <ws>]* \d+ ) / {[+] $0.split: ' '} /;
 
-    $str ~~ s:g/(\d+) <ws> 'pairs of'         /  {$0 *  2} /;
-    $str ~~ s:g/(\d+) <ws> 'dozen'            /  {$0 * 12} /;
+    $str ~~ s:g/(\d+) <ws> 'pairs of'         /  {$0 ×  2} /;
+    $str ~~ s:g/(\d+) <ws> 'dozen'            /  {$0 × 12} /;
     $str ~~ s:g/(\d+) <ws> 'point' <ws> (\d+) /   $0.$1    /;
     $str ~~ s:g/(\d+) <ws> 'and a half'       /   $0.5     /;
     $str ~~ s:g/(\d+) <ws> 'percent'          /   $0%      /;
