@@ -70,9 +70,9 @@ my @price = map *.value, flat
 ;
 
 #while prompt("value: ") -> $value {
-#    say @price[ $value * 100 ] // note "Out of range";
+#    say @price[ $value × 100 ] // note "Out of range";
 #}
-say @price[ $value * 100 ] // note "Out of range";
+say @price[ $value × 100 ] // note "Out of range";
 
 # Yet another approach is to use the conditional operator to encode the table.
 # This allows each endpoint to be written once, avoiding duplication. The Rat()
@@ -110,5 +110,5 @@ sub price_fraction ( Rat() $n where { $^n >= 0 and $^n <= 1 } ) {
 
 use Test;
 is ~price($value),          '0.58';
-is @price[ $value * 100 ] , '0.58';
+is @price[ $value × 100 ] , '0.58';
 is price_fraction(+$value), '0.58';
