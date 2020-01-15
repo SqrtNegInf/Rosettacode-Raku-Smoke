@@ -17,14 +17,14 @@ sub adaptive-Simpson-quadrature(&f, $left, $right, \ε = 1e-9) {
     sub Simpson-quadrature-mid(&g, $l, $lf, $r, $rf){
         my $mid = ($l + $r) / 2;
         my $midf = g($mid);
-        ($mid, $midf, ($r - $l).abs / 6 * ($lf + 4 * $midf + $rf))
+        ($mid, $midf, ($r - $l).abs / 6 × ($lf + 4 × $midf + $rf))
     }
 
     sub recursive-Simpsons-asr(&h, $a, $fa, $b, $fb, $eps, $whole, $m, $fm){
         my ($lm, $flm, $left)  = Simpson-quadrature-mid(&h, $a, $fa, $m, $fm);
         my ($rm, $frm, $right) = Simpson-quadrature-mid(&h, $m, $fm, $b, $fb);
         my $delta = $left + $right - $whole;
-        $delta.abs <= 15 * $eps
+        $delta.abs <= 15 × $eps
             ?? $left + $right + $delta / 15
             !! recursive-Simpsons-asr(&h, $a, $fa, $m, $fm, $eps/2, $left,  $lm, $flm) +
                recursive-Simpsons-asr(&h, $m, $fm, $b, $fb, $eps/2, $right, $rm, $frm)
