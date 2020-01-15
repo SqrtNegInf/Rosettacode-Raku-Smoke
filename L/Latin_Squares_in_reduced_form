@@ -35,7 +35,7 @@ sub LS-reduced (Int $n) {
 
 @res.push: .join("\n") ~ "\n" for LS-reduced(4); 
 for 1..5 -> $n {
-    @res.push: sprintf "Order $n: Size %-4d × $n! × {$n-1}! => Total %d", $_, $_ × $n! * ($n-1)! given LS-reduced($n).elems
+    @res.push: sprintf "Order $n: Size %-4d × $n! × {$n-1}! => Total %d", $_, $_ × $n! × ($n-1)! given LS-reduced($n).elems
 }
 
 .say for @res; 
