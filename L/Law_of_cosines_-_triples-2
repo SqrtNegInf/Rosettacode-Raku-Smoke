@@ -15,7 +15,7 @@ sub triples ($n, @angles) {
     my %triples; my %c2;
     for flat (@squares X @squares).grep: {.[0] <= .[1]} -> $a2, $b2 {
         (my $a, my $b) = ($a2,$b2)».sqrt».floor; 
-        my $ab = $a * $b;
+        my $ab = $a × $b;
         %c2{@angles} = $a2 + $b2 X+ 0, -$ab, $ab; 
         %triples{$_}{~sort $a, $b, %c2{$_}.sqrt}++ if %c2{$_} ∈ $sq-as-set for @angles;
     }
