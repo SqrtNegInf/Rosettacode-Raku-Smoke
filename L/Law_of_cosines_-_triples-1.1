@@ -30,9 +30,9 @@ sub triples ($n, $angle where any(60,90,120)) {
     for 1..^$n -> $a {
 #    (1..^$n).race(:8degree).map: -> $a {
         for $a^..$n -> $b {
-            my $ab = $a * $a + $b * $b;
-            my $cos = $angle == 60  ?? $ab - $a * $b !!
-                      $angle == 120 ?? $ab + $a * $b !!
+            my $ab = $a × $a + $b × $b;
+            my $cos = $angle == 60  ?? $ab - $a × $b !!
+                      $angle == 120 ?? $ab + $a × $b !!
                       $ab;
             if $angle == 60 {
                 %triples{$angle}{~($a, %sq{$cos}, $b)}++ and last if %sq{$cos}:exists;
