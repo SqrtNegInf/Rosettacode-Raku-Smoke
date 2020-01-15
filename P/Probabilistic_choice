@@ -20,7 +20,7 @@ my @results;
 my @res;
 say  'Event    Occurred Expected  Difference';
 for ^@results {
-    my ($occurred, $expected) = @results[$_], @P[$_] * TRIALS;
+    my ($occurred, $expected) = @results[$_], @P[$_] × TRIALS;
     @res.push: sprintf "%-9s%8.0f%9.1f%12.1f",
             @event[$_],
                 $occurred,
