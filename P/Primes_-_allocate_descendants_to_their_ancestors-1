@@ -1,14 +1,13 @@
 #!/usr/bin/env perl6
-#t# skiptest
 #u# http://rosettacode.org/wiki/Primes_-_allocate_descendants_to_their_ancestors
 #c# 2016-07-02 <RC, 2017-01-19 >RC, 2017-01-22 >RC, 2018-12-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# too slow to run every day, but much faster with .race (just over 6 minutes)
+#n# running with lowered $max
 
 my @res;
 
-my $max = 99;
+my $max = 50;
 my @primes = (2 .. $max).race(:16batch).grep: *.is-prime;
 my %tree;
 (1..$max).race(:16batch).map: {
@@ -22,7 +21,7 @@ sub allocate ($n, $i = 0, $sum = 0, $prod = 1) {
     for @primes.kv -> $k, $p {
         next if $k < $i;
         if ($sum + $p) <= $n {
-            allocate($n, $k, $sum + $p, $prod * $p);
+            allocate($n, $k, $sum + $p, $prod × $p);
         } else {
             last if $sum == $prod;
             %tree{$sum}<descendants>{$prod} = True;
@@ -36,7 +35,7 @@ sub allocate ($n, $i = 0, $sum = 0, $prod = 1) {
 # abbreviate long lists to first and last 5 elements
 sub abbrev (@d) { @d < 11 ?? @d !! ( @d.head(5), '...', @d.tail(5) ) }
 
-my @print = flat 1 .. 15, 46, 74, $max;
+my @print = flat 1 .. 15, 30, $max; # 46, 74, $max;
 
 (1 .. $max).map: -> $term {
     allocate($term);
@@ -45,16 +44,16 @@ my @print = flat 1 .. 15, 46, 74, $max;
     {
         my $dn = +%tree{$term}<descendants> // 0;
         my $dl = abbrev(%tree{$term}<descendants>.keys.sort( +*) // ());
-        printf "%2d, %2d Ancestors: %-14s %5d Descendants: %s\n",
+        @res.push: sprintf "%2d, %2d Ancestors: %-14s %5d Descendants: %s",
           $term, %tree{$term}<ancestor>,
           "[{ %tree{$term}<ancestor>.keys.sort: +* }],", $dn, "[$dl]";
     }
 }
 
-say "\nTotal descendants: ",
+@res.push: "\nTotal descendants: "~
   sum (1..$max).race(:16batch).map({ +%tree{$_}<descendants> });
 
-.say for @res; exit;
+.say for @res;
 
 my $ref = q:to/END/;
  1,  0 Ancestors: [],                0 Descendants: []
@@ -72,14 +71,16 @@ my $ref = q:to/END/;
 13,  0 Ancestors: [],                8 Descendants: [22 56 63 75 80 90 96 108]
 14,  3 Ancestors: [5 6 9],          10 Descendants: [33 49 70 84 100 120 128 135 144 162]
 15,  3 Ancestors: [5 6 8],          12 Descendants: [26 44 105 112 125 ... 160 180 192 216 243]
-46,  3 Ancestors: [7 10 25],       557 Descendants: [129 205 246 493 518 ... 14171760 15116544 15943230 17006112 19131876]
-74,  5 Ancestors: [5 6 8 16 39],  6336 Descendants: [213 469 670 793 804 ... 418414128120 446308403328 470715894135 502096953744 564859072962]
-99,  1 Ancestors: [17],          38257 Descendants: [194 1869 2225 2670 2848 ... 3904305912313344 4117822641892980 4392344151352512 4941387170271576 5559060566555523]
+30,  2 Ancestors: [7 10],           98 Descendants: [161 209 221 230 276 ... 41472 43740 46656 52488 59049]
+50,  2 Ancestors: [7 12],          819 Descendants: [141 301 430 481 516 ... 63772920 68024448 71744535 76527504 86093442]
 
-Total descendants: 546986
+Total descendants: 8174
 END
+#46,  3 Ancestors: [7 10 25],       557 Descendants: [129 205 246 493 518 ... 14171760 15116544 15943230 17006112 19131876]
+#74,  5 Ancestors: [5 6 8 16 39],  6336 Descendants: [213 469 670 793 804 ... 418414128120 446308403328 470715894135 502096953744 564859072962]
+#99,  1 Ancestors: [17],          38257 Descendants: [194 1869 2225 2670 2848 ... 3904305912313344 4117822641892980 4392344151352512 4941387170271576 5559060566555523]
 
+#Total descendants: 546986
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
