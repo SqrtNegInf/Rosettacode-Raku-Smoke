@@ -43,11 +43,11 @@ sub cut(Range $r, UInt $n where $n > 1) {
 }
 
 my @re = cut(-2 .. 1/2, $height);
-my @im = cut( 0 .. 5/4, $width div 2 + 1) X* 1i;
+my @im = cut( 0 .. 5/4, $width div 2 + 1) X× 1i;
 
 sub mandelbrot(Complex $z is copy, Complex $c) {
     for 1 .. MAX_ITERATIONS {
-	$z = $z*$z + $c;
+	$z = $z×$z + $c;
 	return $_ if $z.abs > 2;
     }
     return 0;
