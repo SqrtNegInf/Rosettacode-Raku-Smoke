@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/VList
-#c# 2020-01-13 <RC
+#c# 2020-01-13 <RC, 2020-01-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -15,24 +15,20 @@ class vList {
       has vEle @.ele  is rw ;
    }
 
-   has vSeg $.base   is rw ;
+   has vSeg $.base   is rw is default(vSeg.new(ele=>()));
    has Int  $.offset is rw is default(0) ;
-
-   submethod BUILD () { self.base = vSeg.new(ele=>()) } # default() this as well?
 
    method Index(Int $i is copy --> vEle) { # method to locate the kth element
       if $i ≥ 0 {
-         $i += self.offset;
-         loop ( $_ = self.base; $_.defined; $_ := $_.next) {
-            return .ele[$i] if $i < .ele.elems;
-            $i -= .ele.elems
+         loop ( $i += self.offset, $_ = self.base; $_.defined; $_ := $_.next) {
+            ($i < my $len = .ele.elems) ?? return .ele[$i] !! $i -= $len
          }
       }
       die "index out of range"
    }
 
    method cons(vEle \a --> vList) { # method to add an element to the front
-      if self.base.ele.elems == 0 {
+      unless self.base.ele.Bool {   # probably faster than .elems ?
          self.base.ele.push: a ;
          return self;
       }
@@ -40,13 +36,10 @@ class vList {
          my \l2 = self.base.ele.elems × 2 ;
          my vEle @ele = Nil xx l2 ;
          @ele[l2-1] = a ;
-         my \v = vList.new;
          my \s = vSeg.new;
          s.next = self.base;
          s.ele = @ele;
-         v.base = s;
-         v.offset = l2 - 1 ;
-         return v
+         return vList.new( base => s, offset => l2-1 )
       }
       self.offset--;
       self.base.ele[self.offset] = a;
@@ -56,56 +49,46 @@ class vList {
    # obtain a new array beginning at the second element of an old array
    method cdr(--> vList) {
       die "cdr on empty vList" unless self.base.defined;
-      self.offset++;
-      return self if self.offset < self.base.ele.elems;
-      my \v = vList.new();
-      v.base = self.base.next;
-      return v
+      return self if ++self.offset < self.base.ele.elems;
+      return vList.new(base => self.base.next)
    }
 
    method Length(--> Int) { # method to  compute the length of the list
       return 0 unless self.base.defined;
-      return self.base.ele.elems×2 - self.offset - 1
+      return self.base.ele.elems × 2 - self.offset - 1
    }
 
    method gist { # (mis)used to create output similar to Go/Kotlin
-      return '[]' unless self.base.defined;
-      #my $r = "[" ~ self.base.ele[self.offset]; # warning
-      my $r = "[";
-      $r ~= self.base.ele[self.offset].defined if self.base.ele[self.offset].defined; # work-around for warning
-      my $sg := self.base;
-      my @sl := self.base.ele[self.offset+1 .. *];
-      loop {
-         { $r ~= " $_".Str } for @sl;
-         $sg := $sg.next;
-         last unless $sg.defined;
-         @sl := $sg.ele
-      }
-      return $r ~ "]"
+      return '[]' unless self.base.ele.Bool;
+      my @sl = self.base.ele[self.offset .. *];
+      loop ($_=self.base.next; $_.defined; $_:=$_.next) { @sl.append: .ele }
+      return  "[" ~ @sl.Str ~ "]"
    }
 
    method printStructure {  # One more method for demonstration purposes
       @res.push: "offset: "~ self.offset;
+      #loop ( $_ = self.base; $_.defined ; $_ := $_.next ) { .ele.say }
       loop ( $_ = self.base; $_.defined ; $_ := $_.next ) { @res.push: .ele.gist if .ele.defined }  # .ele.say
+
    }
 }
 
 my $v := vList.new;
-@res.push: "zero value for type.  empty vList: ", $v.gist;
+@res.push: "zero value for type.  empty vList: "~ $v.gist;
 $v.printStructure;
-@res.push: " ";
+@res.push: '';
 $v := $v.cons($_.Str) for 6 … 1;
 @res.push: "demonstrate cons. 6 elements added: "~ $v.gist;
 $v.printStructure;
-@res.push: " ";
+@res.push: '';
 $v := $v.cdr;
 @res.push: "demonstrate cdr. 1 element removed: "~ $v.gist;
 $v.printStructure;
-@res.push: " ";
+@res.push: '';
 @res.push: "demonstrate length. length = "~ $v.Length;
-@res.push: " ";
+@res.push: '';
 @res.push: "demonstrate element access. v[4] = "~ $v.Index(4) ;
-@res.push: " ";
+@res.push: '';
 $v := $v.cdr.cdr;
 @res.push: "show cdr releasing segment. 2 elements removed: "~ $v.gist;
 $v.printStructure;
@@ -113,34 +96,6 @@ $v.printStructure;
 .say for @res;
 
 my $ref = q:to/END/;
-zero value for type.  empty vList: 
-[]
-offset: 0
-[]
- 
-demonstrate cons. 6 elements added: [True 2 3 4 5 6]
-offset: 1
-[(vEle) 1 2 3]
-[4 5]
-[6]
- 
-demonstrate cdr. 1 element removed: [True 3 4 5 6]
-offset: 2
-[(vEle) 1 2 3]
-[4 5]
-[6]
- 
-demonstrate length. length = 5
- 
-demonstrate element access. v[4] = 6
- 
-show cdr releasing segment. 2 elements removed: [True 5 6]
-offset: 0
-[4 5]
-[6]
-END
-
-my $xef = q:to/END/;
 zero value for type.  empty vList: []
 offset: 0
 []
@@ -159,7 +114,7 @@ offset: 2
 
 demonstrate length. length = 5
 
-demonstrate element access. v[3] = 5
+demonstrate element access. v[4] = 6
 
 show cdr releasing segment. 2 elements removed: [4 5 6]
 offset: 0
