@@ -12,10 +12,10 @@ my @res;
 multi triples (60, $n) {
     my %sq = (1..$n).map: { .² => $_ };
     my atomicint $i = 0;
-    my @triples[2*$n];
+    my @triples[2×$n];
     (1..^$n).race.map: -> $a {
         for $a^..$n -> $b {
-            my $cos = $a * $a + $b * $b - $a * $b;
+            my $cos = $a × $a + $b × $b - $a × $b;
             (@triples[$i⚛++] = $a, %sq{$cos}, $b) if %sq{$cos}:exists;
             #(@triples[$i⚛++] = ~ ($a, %sq{$cos}, $b)) and last if %sq{$cos}:exists;  # why not short-circuit?
         }
@@ -26,10 +26,10 @@ multi triples (60, $n) {
 multi triples (90, $n) {
     my %sq = (1..$n).map: { .² => $_ };
     my atomicint $i = 0;
-    my @triples[2*$n];
+    my @triples[2×$n];
     (1..^$n).race.map: -> $a {
         for $a^..$n -> $b {
-            my $cos = $a * $a + $b * $b;
+            my $cos = $a × $a + $b × $b;
             @triples[$i⚛++] = $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
         }
     }
@@ -39,10 +39,10 @@ multi triples (90, $n) {
 multi triples (120, $n) {
     my %sq = (1..$n).map: { .² => $_ };
     my atomicint $i = 0;
-    my @triples[2*$n];
+    my @triples[2×$n];
     (1..^$n).race.map: -> $a {
         for $a^..$n -> $b {
-            my $cos = $a * $a + $b * $b + $a * $b;
+            my $cos = $a × $a + $b × $b + $a × $b;
             @triples[$i⚛++] = $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
         }
     }
