@@ -31,21 +31,21 @@ sub schwartzian ( @p, &transform, :$ratchet ) {
 ############# The various p-value correction routines #############
 
 multi adjust( @p, 'Benjamini-Hochberg' ) {
-    @p.&schwartzian: * * @p / (@p - $++) min 1, :ratchet('up')
+    @p.&schwartzian: * × @p / (@p - $++) min 1, :ratchet('up')
 }
 
 multi adjust( @p, 'Benjamini-Yekutieli' ) {
     my \r = ^@p .map( { 1 / ++$ } ).sum;
-    @p.&schwartzian: * * r * @p / (@p - $++) min 1, :ratchet('up')
+    @p.&schwartzian: * × r × @p / (@p - $++) min 1, :ratchet('up')
 }
 
 multi adjust( @p, 'Hochberg' ) {
     my \m = @p.max;
-    @p.&schwartzian: * * ++$ min m, :ratchet('up')
+    @p.&schwartzian: * × ++$ min m, :ratchet('up')
 }
 
 multi adjust( @p, 'Holm' ) {
-    @p.&schwartzian: * * ++$ min 1, :ratchet('dn')
+    @p.&schwartzian: * × ++$ min 1, :ratchet('dn')
 }
 
 multi adjust( @p, 'Sidek' ) {
@@ -53,20 +53,20 @@ multi adjust( @p, 'Sidek' ) {
 }
 
 multi adjust( @p, 'Bonferroni' ) {
-    @p.map: * * @p min 1
+    @p.map: * × @p min 1
 }
 
 # Hommel correction can't be easily reduced to a one pass transform
 multi adjust( @p, 'Hommel' ) {
     my @s  = @p.map( {[$_, $++]} ).sort( *.[0] ).values; # sorted
     my \z  = +@p; # array si(z)e
-    my @pa = @s>>[0].map( * * z / ++$ ).min xx z; # p adjusted
+    my @pa = @s>>[0].map( * × z / ++$ ).min xx z; # p adjusted
     my @q;        # scratch array
     for (1 ..^ z).reverse -> $i {
         my @L  = 0 .. z - $i; # lower indices
         my @U  = z - $i ^..^ z; # upper indices
-        my $q  = @s[@U]>>[0].map( { $_ * $i / (2 + $++) } ).min;
-        @q[@L] = @s[@L]>>[0].map: { min $_ * $i, $q, @s[*-1][0] };
+        my $q  = @s[@U]>>[0].map( { $_ × $i / (2 + $++) } ).min;
+        @q[@L] = @s[@L]>>[0].map: { min $_ × $i, $q, @s[*-1][0] };
         @pa    = ^z .map: { max @pa[$_], @q[$_] }
     }
     @pa[@s[*;1].map( {[$_, $++]} ).sort( *.[0] ).values>>[1]]
