@@ -8,11 +8,11 @@
 
 constant modulus = 2**31;
 sub bsd  {
-    $^seed, ( 1103515245 * * + 12345 ) % modulus ... *
+    $^seed, ( 1103515245 × * + 12345 ) % modulus ... *
 }
 sub ms   {
     map * +> 16, (
-	$^seed, ( 214013 * * + 2531011 ) % modulus ... *
+	$^seed, ( 214013 × * + 2531011 ) % modulus ... *
     )
 }
 
