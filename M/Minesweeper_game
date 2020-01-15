@@ -26,8 +26,8 @@ class Field {
 
     method new (Int $height, Int $width, Rat $mines-ratio=0.1) {
 
-        my $mine-spots = round $width*$height*$mines-ratio;
-        my $empty-spots = $width*$height - $mine-spots;
+        my $mine-spots = round $width×$height×$mines-ratio;
+        my $empty-spots = $width×$height - $mine-spots;
 
         my @grid;
         for ^$height X ^$width -> ($y, $x) {
