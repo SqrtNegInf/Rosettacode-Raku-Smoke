@@ -6,7 +6,7 @@
 
 my @res;
 for 1 .. 5 -> $degree {
-    sub mfact($n) { [*] $n, *-$degree ...^ * <= 0 };
+    sub mfact($n) { [×] $n, *-$degree ...^ * <= 0 };
     @res.push: "$degree: " ~ map &mfact, 1..10
 }
 .say for @res;
