@@ -26,7 +26,7 @@ loop {
 
 sub bell ($hour, $minute) {
 
-    my $bells = (($hour % 4) * 2 + $minute div 30) || 8;
+    my $bells = (($hour % 4) × 2 + $minute div 30) || 8;
 
     printf "%s%02d:%02d%9s watch,%6s Bell%s Gone: \t", "\b" x 9, $hour, $minute,
       @watch[($hour div 4 - !?($minute + $hour % 4) + 6) % 6],
