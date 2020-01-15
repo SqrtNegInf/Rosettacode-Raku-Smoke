@@ -33,8 +33,8 @@ enum Direction <DeadEnd Up Right Down Left>;
 
 sub gen_maze ( $X,
                $Y,
-               $start_x = (^$X).pick * 2 + 1,
-               $start_y = (^$Y).pick * 2 + 1 )
+               $start_x = (^$X).pick × 2 + 1,
+               $start_y = (^$Y).pick × 2 + 1 )
 {
     my @maze;
     push @maze, $[ flat ES, -N, (ESW, EW) xx $X - 1, SW ];
