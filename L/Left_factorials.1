@@ -11,7 +11,7 @@ my (@res1,@res2);
 
 # Implement left factorial as a prefix !. Note that this redefines the core prefix ! (not) function.
 
-sub prefix:<!> ($k) { (constant l = 0, |[\+] 1, (|[\*] 1..*))[$k] }
+sub prefix:<!> ($k) { (constant l = 0, |[\+] 1, (|[\×] 1..*))[$k] }
 
 $ = !10000; # Pre-initialize
 
@@ -46,7 +46,7 @@ END
 
 # If you would rather not override prefix ! operator and you can live with just defining lazy lists and indexing into them, this should suffice; (and is in fact very slightly faster than the first example since it avoids routine dispatch overhead):
 
-constant leftfact = 0, |[\+] 1, (|[\*] 1..*);
+constant leftfact = 0, |[\+] 1, (|[\×] 1..*);
 
 $ = leftfact[10000]; # Pre-initialize
 
