@@ -152,7 +152,7 @@ sub hsv2rgb ( $h, $s, $v ){
         when 2/3..^(5/6) { $x, 0, $c }
         when 5/6..1      { $c, 0, $x }
     }
-    ( $r, $g, $b ).map( ((*+$m) * 255).Int)».base(16).join
+    ( $r, $g, $b ).map( ((*+$m) × 255).Int)».base(16).join
 }
 
 my $ref1 = q:to/END/;
