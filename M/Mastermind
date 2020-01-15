@@ -25,7 +25,7 @@ sub MAIN (
     loop {
         #clearscr();
         say header();
-        printf " %{$length * 2}s :: %s\n", @guesses[$_][0], @guesses[$_][1] for ^@guesses;
+        printf " %{$length × 2}s :: %s\n", @guesses[$_][0], @guesses[$_][1] for ^@guesses;
         lose() if @guesses == $guesses;
         my $guess = get-guess();
         next unless $guess.&is-valid;
