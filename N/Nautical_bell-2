@@ -37,7 +37,7 @@ loop {
 
 sub bell ($hour, $minute) {
 
-    my $bells = (($hour % 4) * 2 + $minute div 30) || 8;
+    my $bells = (($hour % 4) × 2 + $minute div 30) || 8;
 
     $result ~= sprintf "%s%02d:%02d%12s watch,%8s Bell%s Gone: \t", '', $hour, $minute,
       @watch[($hour div 4 - !?($minute + $hour % 4) + 6) % 6],
