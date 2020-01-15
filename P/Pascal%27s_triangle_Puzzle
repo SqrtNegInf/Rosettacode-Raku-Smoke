@@ -41,9 +41,9 @@ for @eqn -> [$x,$z,$y] { @res.push: "$x x + $z z = $y" }
 
 # solve
 my $f = @eqn[0][1] / @eqn[1][1];
-@eqn[0][$_] -=  $f * @eqn[1][$_] for 0..2;
+@eqn[0][$_] -=  $f × @eqn[1][$_] for 0..2;
 $f = @eqn[1][0] / @eqn[0][0];
-@eqn[1][$_] -=  $f * @eqn[0][$_] for 0..2;
+@eqn[1][$_] -=  $f × @eqn[0][$_] for 0..2;
 
 # print solution
 @res.push: "Solution:";
