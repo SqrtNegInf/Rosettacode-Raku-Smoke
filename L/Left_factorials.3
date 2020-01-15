@@ -12,7 +12,7 @@
 # lines are display code for the various sub task requirements.
 
 multi sub postfix:<!> (0) { 1 };
-multi sub postfix:<!> ($n) { [*] 1 .. $n };
+multi sub postfix:<!> ($n) { [×] 1 .. $n };
 multi sub prefix:<!> (0) { 0 };
 multi sub prefix:<!> ($k) { [+] (^$k).map: { $_! } }
 
@@ -73,7 +73,7 @@ reduction" sequences; this works in O(N)-ish time because the sequences
 never have to recalculate a prior result:
 >
 
-constant fact = 1, |[\*] 1..*;
+constant fact = 1, |[\×] 1..*;
 constant leftfact = 0, |[\+] fact;
 
 my @res2;
@@ -90,5 +90,5 @@ is @res2.join("\n"), chomp $ref;
 # have just combined the two definitions into one:
 
 # (stalls compilation?  was removed from RC example)
-#constant leftfact2 = 0, [\+] 1, |[\*] 1..*;
+#constant leftfact2 = 0, [\+] 1, |[\×] 1..*;
 #printf "!%d  =%s\n", $_, leftfact2[$_] for 0 ... 10, 20 ... 110;
