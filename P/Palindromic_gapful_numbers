@@ -17,7 +17,7 @@ my @npal = flat [ ^10 ], [ ^10 .map: * x 2 ],
 
 # Individual lazy palindromic gapful number iterators for each start/end digit
 my @gappal = (1..9).map: -> \digit {
-    my \divisor = digit + 10 * digit;
+    my \divisor = digit + 10 × digit;
     @npal.map: -> \this { next unless (my \test = digit ~ this ~ digit) %% divisor; test }
 }
 
