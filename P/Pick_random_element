@@ -33,7 +33,7 @@ my @deck = (<2 3 4 5 6 7 8 9 J Q K A>) X~ <S C H D>;
 # to generate a subscript (which automatically truncates any fractional part):
 
 my @array = <1 2 3 3 4 5 6>;
-@res.push: @array[@array * rand];
+@res.push: @array[@array × rand];
 
 # However, the pick and roll methods (not to be confused
 # with the pick-and-roll method in basketball) are more general
