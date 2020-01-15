@@ -13,12 +13,12 @@ source $HOME/.profile
 cd $HOME/.rakudobrew
 
 # update Rakudo/MoarVM
-rm -rf moar-yesterday
-cp -pr moar-blead-master moar-yesterday
+#rm -rf versions/moar-yesterday
+#cp -pr versions/moar-blead versions/moar-yesterday
 #bin/rakudobrew self-upgrade > out.rb    2> err.rb
 bin/rakudobrew build moar-blead >    out.moar  2>    err.moar
-(cd moar-blead-master; make spectest   > ../out.mtest 2> ../err.mtest )
-bin/rakudobrew switch moar-blead-master >> out.moar 2>> err.moar
+#(cd moar-blead-master; make spectest   > ../out.mtest 2> ../err.mtest )
+bin/rakudobrew switch moar-blead >> out.moar 2>> err.moar
 bin/rakudobrew build zef    > out.zef   2> err.zef
 bin/rakudobrew rehash
 
@@ -26,7 +26,7 @@ cd $HOME/perl6/Rosetta-Code
 
 # smoking
 echo 'MOAR'
-$HOME/.rakudobrew/bin/rakudobrew switch moar-blead-master
+$HOME/.rakudobrew/bin/rakudobrew switch moar-blead
 perl6 -v
 bin/rc-moar [0-Z]/*
 
@@ -76,7 +76,7 @@ echo ' '
 
 # latest revisions
 echo ' '
-cd $HOME/.rakudobrew/moar-blead-master
+cd $HOME/.rakudobrew/versions/moar-blead
 git log | head -100
 
 # push changes to github
