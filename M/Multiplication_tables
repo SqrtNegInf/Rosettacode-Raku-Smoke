@@ -12,11 +12,11 @@ my $width = chars $max**2;
 my $f = "%{$width}s";
 
 my @res.push: 'x'.fmt($f) ~ '┃ ' ~ (1..$max).fmt($f);
-@res.push: '━' x $width ~ '╋' ~ '━' x $max*$width + $max;
+@res.push: '━' x $width ~ '╋' ~ '━' x $max×$width + $max;
 for 1..$max -> $i {
     @res.push: $i.fmt($f)~ '┃ '~ (
         for 1..$max -> $j {
-            $i <= $j ?? $i*$j !! '';
+            $i <= $j ?? $i×$j !! '';
         }
     ).fmt($f);
 }
