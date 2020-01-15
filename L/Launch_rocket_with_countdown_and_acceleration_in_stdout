@@ -6,8 +6,6 @@
 #j# JVM:  BROKEN
 #n# JVM works so-so, but doesn't terminate
 
-my @res;
-
 # This is a very simple simulation. It assumes a constant ~2G+ acceleration
 # in a gravitational field; so net +10 meters per second². It completely
 # neglects the effects of air friction, impulse, snap, crackle & pop and has
@@ -47,8 +45,8 @@ print "\e[?25l\e[48;5;232m";
 
 loop {
     if $t >= 0 {
-        $velocity = 5 * $t²;
-        $altitude = $velocity * $t / 2;
+        $velocity = 5 × $t²;
+        $altitude = $velocity × $t / 2;
         $a = ($altitude / $v).round;
     }
     cleanup() if $a > $rows + 5;
@@ -88,13 +86,3 @@ sub exhaust ($clr, $a) {
 
 # clean up on exit, reset ANSI codes, scroll, re-show the cursor & clear screen
 sub cleanup () {  print "\e[0m", "\n" xx 50, "\e[H\e[J\e[?25h"; exit(0) }
-
-
-.say for @res;
-
-my $ref = q:to/END/;
-END
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
