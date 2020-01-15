@@ -32,9 +32,9 @@ sub pierpont ($kind is copy = 1) {
             take $min + $kind if "{$min + $kind}".&is_prime;
 
             if $min >= $add-one {
-                @iterators.push: ([|((2,4,8).map: * * $po3) … *]).iterator;
+                @iterators.push: ([|((2,4,8).map: * × $po3) … *]).iterator;
                 $add-one = @head[+@iterators - 1] = @iterators[+@iterators - 1].pull-one;
-                $po3 *= 3;
+                $po3 ×= 3;
             }
         }
     }
