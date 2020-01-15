@@ -18,14 +18,14 @@ sub count-unrooted-trees(Int $max-branches, Int $max-weight) {
             Int $weight  is copy, # accumulated weight of tree
             Int $choices is copy, # number of choices so far
         ) {
-            $choices *= @rooted[$w];
+            $choices ×= @rooted[$w];
             for 1 .. $branches -> $b {
                 ($weight += $w) <= $max-weight or last;
-                @unrooted[$weight] += $choices if $weight > 2*$radius;
+                @unrooted[$weight] += $choices if $weight > 2×$radius;
                 if $b < $branches {
                     @rooted[$weight] += $choices;
                     add-branches($branches - $b, $_, $weight, $choices) for 1 ..^ $w;
-                    $choices = $choices * (@rooted[$w] + $b) div ($b + 1);
+                    $choices = $choices × (@rooted[$w] + $b) div ($b + 1);
                 }
             }
         }
@@ -35,7 +35,7 @@ sub count-unrooted-trees(Int $max-branches, Int $max-weight) {
     sub count-trees-with-bicentroid(Int $weight) {
         if $weight %% 2 {
             my \halfs = @rooted[$weight div 2];
-            @unrooted[$weight] += (halfs * (halfs + 1)) div 2;
+            @unrooted[$weight] += (halfs × (halfs + 1)) div 2;
         }
     }
 
