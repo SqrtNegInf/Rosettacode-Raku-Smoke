@@ -10,7 +10,7 @@ multi is_mersenne_prime(Int $p) {
     my $s = 4;
 
 # oldest, slightly slower:   
-#    $s = ($s * $s - 2)% $m_p  for 3..$p;
+#    $s = ($s × $s - 2)% $m_p  for 3..$p;
 
 # penultimate, same speed
 #    for 3 .. $p {
