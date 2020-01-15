@@ -9,7 +9,7 @@
 
 # Another way more colorful put into Munching_squares_color:
 my @colors = map -> $r, $g, $b { Buf.new: $r, $g, $b },
-		map -> $x { floor ($x/256) ** 3 * 256 },
+		map -> $x { floor ($x/256) ** 3 × 256 },
 		    (flat (0...255) Z
 		     (255...0) Z
 		     flat (0,2...254),(254,252...0)
