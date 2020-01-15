@@ -28,7 +28,7 @@ my @j = flat
          11**x  to (11**x+one);
 
 say 'sum ' ~ my $sum = [+] @j».abs;
-say 'product ' ~ my $prod = ([\*] @j.grep: so *).first: *.abs > 2**27;
+say 'product ' ~ my $prod = ([\×] @j.grep: so *).first: *.abs > 2**27;
 
 use Test;
 is $sum, 348173;
