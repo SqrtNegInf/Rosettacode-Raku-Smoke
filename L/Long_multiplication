@@ -15,7 +15,7 @@ sub groups_to_num ( @g   ) { [~] flat @g.pop, @g.reverse».fmt('%04d') };
 sub long_multiply ( Str $x, Str $y ) {
     my @group_sums;
     for flat num_to_groups($x).pairs X num_to_groups($y).pairs -> $xp, $yp {
-        @group_sums[ $xp.key + $yp.key ] += $xp.value * $yp.value;
+        @group_sums[ $xp.key + $yp.key ] += $xp.value × $yp.value;
     }
 
     for @group_sums.keys -> $k {
@@ -31,10 +31,10 @@ my $str = '18446744073709551616';
 long_multiply( $str, $str ).say;
 
 # cross-check with native implementation
-say +$str * +$str;
+say +$str × +$str;
 
 my $ref = 340282366920938463463374607431768211456;
 
 use Test;
 is long_multiply( $str, $str ), $ref, 'the hard way';
-is (+$str * +$str), $ref, 'native implementation';
+is (+$str × +$str), $ref, 'native implementation';
