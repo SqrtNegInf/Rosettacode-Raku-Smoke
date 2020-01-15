@@ -15,7 +15,7 @@ sub factor($a is copy) {
                 $j++;
             }
             take $p => $j if $j > 0;
-            last if $a < $p * $p;
+            last if $a < $p × $p;
         }
 
         take $a => 1 if $a > 1;
@@ -24,10 +24,10 @@ sub factor($a is copy) {
 
 sub mo-prime($a, $p, $e) {
     my $m = $p ** $e;
-    my $t = ($p - 1) * ($p ** ($e - 1)); #  = Phi($p**$e) where $p prime
+    my $t = ($p - 1) × ($p ** ($e - 1)); #  = Phi($p**$e) where $p prime
     my @qs = 1;
     for factor($t) -> $f {
-        @qs = flat @qs.map(-> $q { (0..$f.value).map(-> $j { $q * $f.key ** $j }) }); # DH change
+        @qs = flat @qs.map(-> $q { (0..$f.value).map(-> $j { $q × $f.key ** $j }) }); # DH change
     }
     for @qs -> $q { return $q if expmod( $a, $q, $m ) == 1 };
     @qs.sort.first(-> $q { expmod( $a, $q, $m ) == 1}); # 'Llfourn' added 'sort'
@@ -42,8 +42,8 @@ sub mo($a, $m) {
     my @testvals = <10 21 25 150 1231 123141 34131>;
     my @res1;
     for @testvals -> $n {
-        @res1.push: [*] factor($n).map(-> $pair { $pair.key ** $pair.value });
-        #is ([*] factor($n).map(-> $pair { $pair.key ** $pair.value })), $n, "$n factors correctly";
+        @res1.push: [×] factor($n).map(-> $pair { $pair.key ** $pair.value });
+        #is ([×] factor($n).map(-> $pair { $pair.key ** $pair.value })), $n, "$n factors correctly";
     }
     .say for @res1;
 
