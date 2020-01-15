@@ -26,13 +26,16 @@ zef --/test install SVG::Plot
 zef --/test install Text::CSV
 zef --/test install UNIX::Daemonize
 zef --/test install X11::libxdo
+zef --/test install Math::Matrix  # wedged: 'Cannot modify an immutable Rat (3.142857)', 'cannot find Math::Matrix::Type'
 
 #zef install Crypt::Random
 
 zef install Cairo
 zef install Clifford
-zef install DBIish
+zef install Cro::HTTP
+#zef install DBIish
 zef install DateTime::Format
+zef install Debugger::UI::CommandLine
 zef install Digest::HMAC
 zef install Digest::MD5
 zef install Digest::SHA
@@ -49,10 +52,11 @@ zef install Image::PNG::Portable
 #zef install Imlib2
 zef install JSON::Fast
 zef install JSON::Tiny
-zef install Lingua::EN::Numbers::Cardinal
-zef install Math::Matrix
+zef install LibXML
+zef install Linenoise
+zef install Lingua::EN::Numbers
 zef install NCurses
-zef install NativeCall
+#zef install NativeCall  # obsolete here?
 zef install PerlStore::FileStore
 zef install Prime::Factor
 zef install Rat::Precise
@@ -70,3 +74,4 @@ zef install URI
 zef install WWW
 zef install XML
 zef install XML::XPath;
+zef install YAML
