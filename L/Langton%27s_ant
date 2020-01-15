@@ -29,10 +29,10 @@ loop {
 @res.push: "Out of bounds after $moves moves at ($x, $y)";
 for 0,2,4 ... $size - 2 -> $y {
     @res.push: join '', gather for 0,2,4 ... $size - 2 -> $x {
-        take @blocky[ 1 * @plane[$x][$y]
-                    + 2 * @plane[$x][$y+1]
-                    + 4 * @plane[$x+1][$y]
-                    + 8 * @plane[$x+1][$y+1] ];
+        take @blocky[ 1 × @plane[$x][$y]
+                    + 2 × @plane[$x][$y+1]
+                    + 4 × @plane[$x+1][$y]
+                    + 8 × @plane[$x+1][$y+1] ];
     }
 }
 
