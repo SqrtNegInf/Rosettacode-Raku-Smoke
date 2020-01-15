@@ -1,5 +1,5 @@
 #!/usr/bin/env perl6
-#c# 2020-01-14 >RC
+#c# 2020-01-15 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 🌐 didn't work well in variable names :-(
@@ -9,33 +9,31 @@ my @res;
 srand 123456;
 
 sub pso-init (%y) {
-    my $d = %y{'min'}.elems;
+    my $d = @(%y{'min'});
     my $n = %y{'n'};
 
-    %y{'iter'}  = 0; 
     %y{'gbval'} = Inf; 
     %y{'gbpos'} = [Inf xx $d];
     %y{'bval'}  = [Inf xx $n];
     %y{'bpos'}  = [%y{'min'} xx $n];
     %y{'pos'}   = [%y{'min'} xx $n];
-    %y{'vel'}   = [[(0) xx $d] xx $n];
-    %y{'d'}     = $d;
+    %y{'vel'}   = [[0 xx $d] xx $n];
 
-    return %y;
+    %y
 }
 
 sub pso (&fn, %y) {
-    my %p     = %y{'p'};
-    my $n     = %y{'n'};
-    my $d     = %y{'min'}.elems;
-    my @v     = 0 xx $n;
-    my @gbpos = 0 xx $d;
-    my @bval  = 0 xx $n;
-    my @bpos  = %y{'min'} xx $n;
-    my $gbval = Inf; 
+    my %p      = %y{'p'};
+    my $n      = %y{'n'};
+    my $d      = @(%y{'min'});
+    my @bpos   = %y{'min'} xx $n;
+    my $gbval  = Inf; 
+    my $rand-g = rand;
+    my (@pos, @vel, @v, @gbpos, @bval);
+
     for 0 ..^ $n -> \j {
-        # evaluate
-        @v[j] = &fn(%y{'pos'}[j]);
+        @v[j] = &fn(%y{'pos'}[j]); # evaluate
+
         # update
         if @v[j] < %y{'bval'}[j] {
             @bpos[j] = %y{'pos'}[j];
@@ -45,62 +43,42 @@ sub pso (&fn, %y) {
             @bval[j] = %y{'bval'}[j];
         }
         if @bval[j] < $gbval {
-            $gbval = @bval[j];
             @gbpos = |@bpos[j];
+            $gbval = @bval[j];
         }
     }
-    my $rg  = rand;
-    my @pos = [(0) xx $d] xx $n;
-    my @vel = [(0) xx $d] xx $n;
-    my $iter;
 
+    # migrate
     for 0 ..^ $n -> \j {
-        # migrate
-        my $rp = rand;
+        my $rand-p = rand;
         my $ok = True;
-        @vel[j] = [(0) xx @vel[j].elems];
-        @pos[j] = [(0) xx @pos[j].elems];
         for 0 ..^ $d -> \k {
-            @vel[j][k] = %p{'ω'} * %y{'vel'}[j][k] 
-                      + %p{'φ-p'} * $rp * (@bpos[j][k] - %y{'pos'}[j][k]) 
-                      + %p{'φ-g'} * $rg * (@gbpos[k]   - %y{'pos'}[j][k]);
-            @pos[j][k] = %y{'pos'}[j][k] + @vel[j][k];
-            $ok = %y{'min'}[k] < @pos[j][k] < %y{'max'}[k] if $ok;
+            @vel[j;k] = %p{'ω'}              × %y{'vel'}[j;k] 
+                       + %p{'φ-p'} × $rand-p × (@bpos[j;k] - %y{'pos'}[j;k]) 
+                       + %p{'φ-g'} × $rand-g × (@gbpos[k]  - %y{'pos'}[j;k]);
+            @pos[j;k] = %y{'pos'}[j;k] + @vel[j;k];
+            $ok = %y{'min'}[k] < @pos[j;k] < %y{'max'}[k] if $ok;
         }
-        if not $ok {
-            for 0 ..^ $d -> \k {
-                @pos[j][k] = %y{'min'}[k] + (%y{'max'}[k] - %y{'min'}[k]) * rand;
-            }
-        }
+        next if $ok;
+        @pos[j;$_] = %y{'min'}[$_] + (%y{'max'}[$_] - %y{'min'}[$_]) × rand for 0 ..^ $d;
     }
-    $iter = 1 + %y{'iter'};
-    {iter => $iter, gbpos => @gbpos, gbval => $gbval, min => %y{'min'}, max => %y{'max'}, p=> %y{'p'}, 
-        pos => @pos, vel => @vel, bpos => @bpos, bval => @bval, n => $n, d => $d};
+    return {gbpos => @gbpos, gbval => $gbval, bpos => @bpos, bval => @bval, pos => @pos, vel => @vel, 
+            min => %y{'min'}, max => %y{'max'}, p=> %y{'p'}, n => $n, d => $d}
 }
 
-sub report (%state) {
-  @res.push: '🌐  best position: ' ~ sprintf "%.5f, %.5f", |%state{'gbpos'};
-  @res.push: '🌐  best value:    ' ~ sprintf "%.5f",        %state{'gbval'};
+sub report ($function-name, %state) {
+  @res.push: $function-name;
+  @res.push: '🌐  best position: ' ~ %state{'gbpos'}.fmt('%.5f'); 
+  @res.push: '🌐  best value:    ' ~ %state{'gbval'}.fmt('%.5f');
   @res.push: '';
 }
 
-sub mccormick (@x) {
-  my ($a,$b) = @x;
-  return sin($a+$b) + ($a-$b)**2 + (1 + 2.5*$b - 1.5*$a)
-}
-
-sub michalewicz (@x) {
-    my $m = 10;
-    my $sum;
-    for 1..@x -> $i {
-        my $j = @x[$i - 1];
-        my $k = sin($i * $j**2 / π);
-        $sum += sin($j) * $k ** (2 * $m)
-    }
-    return -1 * $sum
-}
-
 # McCormick
+sub mccormick (@x) {
+    my ($a,$b) = @x;
+    sin($a+$b) + ($a-$b)**2 + (1 + 2.5×$b - 1.5×$a)
+}
+
 my %state = pso-init( {
     min => [-1.5, -3], 
     max => [4, 4], 
@@ -108,9 +86,20 @@ my %state = pso-init( {
     p   => {ω=> 0, φ-p=> 0.6, φ-g=> 0.3},
 } );
 %state = pso(&mccormick, %state) for 1 .. 40;
-report %state;
+report 'McCormick', %state;
 
 # Michalewicz 
+sub michalewicz (@x) {
+    my $sum;
+    my $m = 10;
+    for 1..@x -> $i {
+        my $j = @x[$i - 1];
+        my $k = sin($i × $j**2/π);
+        $sum += sin($j) × $k**(2×$m)
+    }
+    -$sum
+}
+
 %state = pso-init( {
     min => [0, 0], 
     max => [π, π], 
@@ -118,18 +107,32 @@ report %state;
     p   => {ω=> 0.3, φ-p=> 0.3, φ-g=> 0.3},
 } );
 %state = pso(&michalewicz, %state) for 1 .. 30;
-report %state;
+report 'Michalewicz', %state;
 
 .say for @res;
 
-my $ref = q:to/END/;
-🌐  best position: -0.54714, -1.54710
+my $moar = q:to/END/;
+McCormick
+🌐  best position: -0.54714 -1.54710
 🌐  best value:    -1.91322
 
-🌐  best position: 2.20291, 1.57080
+Michalewicz
+🌐  best position: 2.20291 1.57080
+🌐  best value:    -1.80130
+
+END
+
+my $jvm = q:to/END/;
+McCormick
+🌐  best position: -0.54733 -1.54756
+🌐  best value:    -1.91322
+
+Michalewicz
+🌐  best position: 2.20287 1.57084
 🌐  best value:    -1.80130
 
 END
 
 use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
