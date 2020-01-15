@@ -24,8 +24,8 @@ my %abr = |$/.map: {
 }
 
 my %suffix = flat %abr,
-(<K  M  G  T  P  E  Z  Y  X  W  V  U>».fc  Z=> (1000, * * 1000 … *)),
-(<Ki Mi Gi Ti Pi Ei Zi Yi Xi Wi Vi Ui>».fc Z=> (1024, * * 1024 … *));
+(<K  M  G  T  P  E  Z  Y  X  W  V  U>».fc  Z=> (1000, * × 1000 … *)),
+(<Ki Mi Gi Ti Pi Ei Zi Yi Xi Wi Vi Ui>».fc Z=> (1024, * × 1024 … *));
 
 my $reg = %suffix.keys.join('|');
 
@@ -43,8 +43,8 @@ sub units (Str $str) {
     if $val ~~ m:i/'e'/ {
         my ($m,$e) = $val.split(/<[eE]>/);
         $val = ($e < 0)
-            ?? $m * FatRat.new(1,10**-$e)
-            !! $m * 10**$e;
+            ?? $m × FatRat.new(1,10**-$e)
+            !! $m × 10**$e;
     }
     my @suf = $unit;
     unless %suffix{$unit}:exists {
@@ -52,8 +52,8 @@ sub units (Str $str) {
         @suf = $0;
     }
     my $ret = $val<>;
-    $ret = [*] $ret, |@suf.map: { %suffix{$_} } if @suf[0];
-    $ret = [*] ($ret, * - $fact.chars …^ * < 2) if $fact.chars;
+    $ret = [×] $ret, |@suf.map: { %suffix{$_} } if @suf[0];
+    $ret = [×] ($ret, * - $fact.chars …^ * < 2) if $fact.chars;
     $ret.?precise // $ret
 }
 
