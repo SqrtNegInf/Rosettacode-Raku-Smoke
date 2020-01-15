@@ -6,14 +6,14 @@
 
 my @res;
 
-constant @factorial = 1, |[\*] 1..*;
+constant @factorial = 1, |[\×] 1..*;
 
 sub Lah (Int \n, Int \k) {
     return @factorial[n] if k == 1;
     return 1 if k == n;
     return 0 if k > n;
     return 0 if k < 1 or n < 1;
-    (@factorial[n] * @factorial[n - 1]) / (@factorial[k] * @factorial[k - 1]) / @factorial[n - k]
+    (@factorial[n] × @factorial[n - 1]) / (@factorial[k] × @factorial[k - 1]) / @factorial[n - k]
 }
 
 my $upto = 12;
