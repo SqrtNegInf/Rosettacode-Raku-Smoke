@@ -15,7 +15,7 @@ sub smooth-numbers (*@list) {
             take my $n := %n{*}.min;
 
             for @list -> \k {
-                %n{k} = %i{k}.pull-one * k if %n{k} == $n;
+                %n{k} = %i{k}.pull-one × k if %n{k} == $n;
             }
         }
     }
