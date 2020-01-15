@@ -12,7 +12,7 @@ say 't= ', constant t = 100;
 
 my @res;
 for .1, .3 ... .9 -> $p {
-    @res.push: "p= $p, K(p)= {$p*(1-$p)}";
+    @res.push: "p= $p, K(p)= {$p×(1-$p)}";
     for 10, 100, 1000 -> $n {
 	@res.push: sprintf "  R(%6d, p)= %f", $n, t R/ [+] R($n, $p)/$n xx t
     }
