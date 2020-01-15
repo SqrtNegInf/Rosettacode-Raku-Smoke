@@ -36,8 +36,8 @@ my $prod = montgomery-reduce($m, $t1/$x1);
 my $base = montgomery-reduce($m, $t1);
 
 for $x2, {$_ +> 1} ... 0 -> $exponent {
-    $prod = montgomery-reduce($m, $prod * $base) if $exponent +& 1;
-    $base = montgomery-reduce($m, $base * $base);
+    $prod = montgomery-reduce($m, $prod × $base) if $exponent +& 1;
+    $base = montgomery-reduce($m, $base × $base);
 }
 
 @res.push: montgomery-reduce($m, $prod);
