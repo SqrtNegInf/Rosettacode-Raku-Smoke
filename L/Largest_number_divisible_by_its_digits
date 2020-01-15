@@ -16,9 +16,9 @@ All these optimizations get the run time to well under 1 second.
 
 my @res;
 
-my $magic-number = 9 * 8 * 7;                        # 504
+my $magic-number = 9 × 8 × 7;                        # 504
 
-my $div = 9876432 div $magic-number * $magic-number; # largest 7 digit multiple of 504 < 9876432
+my $div = 9876432 div $magic-number × $magic-number; # largest 7 digit multiple of 504 < 9876432
 
 for $div, { $_ - $magic-number } ... * -> $test {    # only generate multiples of 504
     next if $test ~~ / <[05]> /;                     # skip numbers containing 0 or 5
@@ -48,7 +48,7 @@ sub find-match ($num) {
 
 my $hex = 'FEDCBA987654321';        # largest possible hex number
    $magic-number = [lcm] 1 .. 15;   # find least common multiple
-   $div = :16($hex) div $magic-number * $magic-number;
+   $div = :16($hex) div $magic-number × $magic-number;
 
 # hunt for target stepping backwards in multiples of the lcm
 my $target = ($div, { $_ - $magic-number } ... 0).race.grep(*.&find-match).first;
