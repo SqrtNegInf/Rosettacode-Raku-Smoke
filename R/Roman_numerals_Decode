@@ -33,10 +33,10 @@ say "$_ => &rton1($_)" for <MCMXC MDCLXVI MMVIII>;
 sub rton2($r) {
     [+] gather $r.uc ~~ /
         ^
-        ( (C*)M { take 1000 - 100 * $0.chars } )*
-        ( (C*)D { take  500 - 100 * $0.chars } )?
-        ( (X*)C { take  100 -  10 * $0.chars } )*
-        ( (X*)L { take   50 -  10 * $0.chars } )?
+        ( (C*)M { take 1000 - 100 × $0.chars } )*
+        ( (C*)D { take  500 - 100 × $0.chars } )?
+        ( (X*)C { take  100 -  10 × $0.chars } )*
+        ( (X*)L { take   50 -  10 × $0.chars } )?
         ( (I*)X { take   10 -       $0.chars } )*
         ( (I*)V { take    5 -       $0.chars } )?
         (     I { take    1                  } )*
