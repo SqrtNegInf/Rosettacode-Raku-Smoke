@@ -21,10 +21,10 @@ for @sets -> @coefficients {
 }
 
 multi sub quadroots ($a, $b, $c) {
-    ( -$b + $_ ) / (2 * $a),
-    ( -$b - $_ ) / (2 * $a) 
+    ( -$b + $_ ) / (2 × $a),
+    ( -$b - $_ ) / (2 × $a) 
     given
-    ($b ** 2 - 4 * $a * $c).Complex.sqrt.narrow
+    ($b ** 2 - 4 × $a × $c).Complex.sqrt.narrow
 }
 
 multi sub quadroots (@a) {
