@@ -8,7 +8,7 @@ srand 123456;
 
 # Works with: Rakudo version #22 "Thousand Oaks"
 sub randnorm ($mean, $stddev) {
-    $mean + $stddev * sqrt(-2 * log rand) * cos(2 * pi * rand)
+    $mean + $stddev × sqrt(-2 × log rand) × cos(2 × pi × rand)
 }
 
 my @nums = randnorm(1, 0.5) xx 10000;
