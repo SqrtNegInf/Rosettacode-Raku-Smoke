@@ -43,8 +43,8 @@ for   -2,    2,    1, # Normal
 @res.push: "\nDemonstration of some other specialized sequence operator functionality:";
 # Start with a list, iterate by multiplying the previous 3 terms together
 # and end with a term defined by a function.
-#@res.push: 1, -.5, 2.sqrt, * * * * * … *.abs < 1e-2;
-@res.push: 1, -.5, 2.sqrt, * × * × * … *.abs < 1e-2; # DH just a little bit clearer, don't you think?
+#@res.push: 1, -.5, 2.sqrt, * * * * * … *.abs < 1e-2;   # DH this is cute, but...
+@res.push: 1, -.5, 2.sqrt, * × * × * … *.abs < 1e-2;    # DH this is just a little bit clearer, don't you think?
 
 # Start with an array, iterate by rotating, end when 0 is in the last place.
 @res.push: [0,1,2,3,4,5], *.rotate(-1) … !*.tail;
