@@ -11,7 +11,7 @@ my $UR = open("/dev/urandom", :bin) orelse .die;
 
 # fixed list size
 my $n = 20;
-my @res1.push: $_ for $UR.read(4*$n).unpack("L*")[^$n];
+my @res1.push: $_ for $UR.read(4×$n).unpack("L*")[^$n];
 .say for @res1;
 
 say '--';
