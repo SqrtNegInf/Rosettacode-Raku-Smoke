@@ -108,7 +108,7 @@ for @tasks -> $title {
     my $modified = "$taskdir/$name.txt".IO.e ?? "$taskdir/$name.txt".IO.modified !! 0;
 
     my $entry;
-    if $remote or !"$taskdir/$name.txt".IO.e or ((now - $modified) > 86400 * 7) {
+    if $remote or !"$taskdir/$name.txt".IO.e or ((now - $modified) > 86400 × 7) {
         my $page = $client.get("{ $url }/index.php?title={ uri-escape $title }&action=raw").content;
 
         uh-oh("Whoops, can't find page: $url/$title :check spelling.") and next if $page.elems == 0;
