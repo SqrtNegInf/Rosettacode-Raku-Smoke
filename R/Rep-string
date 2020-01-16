@@ -9,7 +9,7 @@ my @res1;
 for <1001110011 1110111011 0010010010 1010101010 1111111111 0100101101 0100100 101 11 00 1> {
     if /^ (.+) $0+: (.*$) <?{ $0.substr(0,$1.chars) eq $1 }> / {
 	my $rep = $0.chars;
-	@res1.push: (.substr(0,$rep), .substr($rep,$rep).trans('01' => '𝟘𝟙'), .substr($rep*2));
+	@res1.push: (.substr(0,$rep), .substr($rep,$rep).trans('01' => '𝟘𝟙'), .substr($rep×2));
     }
     else {
 	@res1.push: "$_ (no repeat)";
@@ -34,7 +34,7 @@ sub repstr(Str $s) {
 my @res2;
 for '1001110011 1110111011 0010010010 1010101010 1111111111 0100101101 0100100 101 11 00 1'.words {
     if repstr $_ -> $rep {
-	@res2.push: (.substr(0,$rep), .substr($rep,$rep).trans('01' => '𝟘𝟙'), .substr($rep*2));
+	@res2.push: (.substr(0,$rep), .substr($rep,$rep).trans('01' => '𝟘𝟙'), .substr($rep×2));
     }
     else {
 	@res2.push: "$_ (no repeat)";
