@@ -27,7 +27,7 @@ sub rref (@m) {
         @m[$r] »/=» $lv;
         for ^$rows -> $n {
             next if $n == $r;
-            @m[$n] »-=» @m[$r] »*» (@m[$n;$lead] // 0);
+            @m[$n] »-=» @m[$r] »×» (@m[$n;$lead] // 0);
         }
         ++$lead;
     }
@@ -105,12 +105,12 @@ First, a procedural version:
 }
 
 sub swap_rows    ( @M,         $r1, $r2 ) { @M[ $r1, $r2 ] = @M[ $r2, $r1 ] };
-sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r]  »*» $scale   };
-sub shear_row    ( @M, $scale, $r1, $r2 ) { @M[$r1] = @M[$r1].list »+» ( @M[$r2] »*» $scale ) };
+sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r]  »×» $scale   };
+sub shear_row    ( @M, $scale, $r1, $r2 ) { @M[$r1] = @M[$r1].list »+» ( @M[$r2] »×» $scale ) };
 sub reduce_row   ( @M,         $r,  $c  ) { scale_row( @M, 1/@M[$r][$c], $r ) };
 sub clear_column ( @M,         $r,  $c  ) {
     for @M.keys.grep( * != $r ) -> $row_num {
-        shear_row( @M, -1*@M[$row_num][$c], $row_num, $r );
+        shear_row( @M, -1×@M[$row_num][$c], $row_num, $r );
     }
 }
 
@@ -144,7 +144,7 @@ class Matrix is Array {
         @M1[$row] = @M1[$row] »/» $scale;
     }
     method unshear_row ( @M1: $scale, $r1, $r2 ) {
-        @M1[$r1] = @M1[$r1] »-» ( @M1[$r2] »*» $scale );
+        @M1[$r1] = @M1[$r1] »-» ( @M1[$r2] »×» $scale );
     }
     method reduce_row ( @M1: $row, $col ) {
         @M1.unscale_row( @M1[$row][$col], $row );
@@ -184,7 +184,7 @@ $M.reduced_row_echelon_form;
 $out.say: @($_)».fmt(' %4g') for @($M);
 
 #`{
-Note that both versions can be simplified using Z+=, Z-=, X*=,
+Note that both versions can be simplified using Z+=, Z-=, X×=,
 and X/= to scale and shear.
 Currently, Rakudo has a bug related to Xop= and Zop=.
 Note that the negative zeros in the output are innocuous,
