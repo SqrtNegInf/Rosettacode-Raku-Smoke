@@ -20,7 +20,7 @@ package Message {
     subset Text of Str where /^^ @alphabet+ $$/;
 
     our sub encode(Text $t) {
-        [+] %code{$t.flip.comb} Z* (1, $rad, $rad*$rad ... *);
+        [+] %code{$t.flip.comb} Z× (1, $rad, $rad×$rad ... *);
     }
 
     our sub decode(Int $n is copy) {
