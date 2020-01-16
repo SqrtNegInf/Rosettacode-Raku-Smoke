@@ -14,7 +14,7 @@ class Resistor {
     method res ( ) {
         given $.symbol {
             when '+' { return $.a.res + $.b.res }
-            when '*' { return 1 / (1 / $.a.res  +  1 / $.b.res) }
+            when '×' { return 1 / (1 / $.a.res  +  1 / $.b.res) }
             default  { return $.resistance }
         }
     }
@@ -24,10 +24,10 @@ class Resistor {
             when '+' {
                 my $ra = $.a.res;
                 my $rb = $.b.res;
-                $.a.set-voltage( $ra / ($ra+$rb) * $voltage );
-                $.b.set-voltage( $rb / ($ra+$rb) * $voltage );
+                $.a.set-voltage( $ra / ($ra+$rb) × $voltage );
+                $.b.set-voltage( $rb / ($ra+$rb) × $voltage );
             }
-            when '*' {
+            when '×' {
                 $.a.set-voltage( $voltage );
                 $.b.set-voltage( $voltage );
             }
@@ -35,7 +35,7 @@ class Resistor {
         $!voltage = $voltage;
     }
     method current ( ) { return $.voltage / self.res     }
-    method effect  ( ) { return $.voltage * self.current }
+    method effect  ( ) { return $.voltage × self.current }
 
     method report ( Int $level = 1 ) {
         my $pad = '| ' x $level;
@@ -46,14 +46,14 @@ class Resistor {
     }
 }
 multi sub infix:<+> (Resistor $a, Resistor $b) { $a.new( symbol => '+', :$a, :$b ) }
-multi sub infix:<*> (Resistor $a, Resistor $b) { $a.new( symbol => '*', :$a, :$b ) }
+multi sub infix:<×> (Resistor $a, Resistor $b) { $a.new( symbol => '×', :$a, :$b ) }
 
 my Resistor ($R1, $R2, $R3, $R4, $R5, $R6, $R7, $R8, $R9, $R10) =
     map { Resistor.new: symbol => 'r', resistance => $_ },
     6, 8, 4, 8, 4, 6, 8, 10, 6, 2;
 
-my $node = (((($R8 + $R10) * $R9 + $R7) * $R6 + $R5)
-                           * $R4 + $R3) * $R2 + $R1;
+my $node = (((($R8 + $R10) × $R9 + $R7) × $R6 + $R5)
+                           × $R4 + $R3) × $R2 + $R1;
 $node.set-voltage(18);
 
 @res.push: '     Ohm     Volt   Ampere     Watt  Network tree';
@@ -64,13 +64,13 @@ $node.report;
 my $ref = q:to/END/;
      Ohm     Volt   Ampere     Watt  Network tree
   10.000   18.000    1.800   32.400 | +
-   4.000    7.200    1.800   12.960 | | *
+   4.000    7.200    1.800   12.960 | | ×
    8.000    7.200    0.900    6.480 | | | +
-   4.000    3.600    0.900    3.240 | | | | *
+   4.000    3.600    0.900    3.240 | | | | ×
    8.000    3.600    0.450    1.620 | | | | | +
-   4.000    1.800    0.450    0.810 | | | | | | *
+   4.000    1.800    0.450    0.810 | | | | | | ×
   12.000    1.800    0.150    0.270 | | | | | | | +
-   4.000    0.600    0.150    0.090 | | | | | | | | *
+   4.000    0.600    0.150    0.090 | | | | | | | | ×
   12.000    0.600    0.050    0.030 | | | | | | | | | +
   10.000    0.500    0.050    0.025 | | | | | | | | | | r
    2.000    0.100    0.050    0.005 | | | | | | | | | | r
