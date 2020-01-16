@@ -83,7 +83,7 @@ my %state = pso-init( {
     min => [-1.5, -3], 
     max => [4, 4], 
     n   => 100,
-    p   => {ω=> 0, φ-p=> 0.6, φ-g=> 0.3},
+    p   => {ω => 0, φ-p => 0.6, φ-g => 0.3},
 } );
 %state = pso(&mccormick, %state) for 1 .. 40;
 report 'McCormick', %state;
@@ -104,7 +104,7 @@ sub michalewicz (@x) {
     min => [0, 0], 
     max => [π, π], 
     n   => 1000,
-    p   => {ω=> 0.3, φ-p=> 0.3, φ-g=> 0.3},
+    p   => {ω => 0.3, φ-p => 0.3, φ-g => 0.3},
 } );
 %state = pso(&michalewicz, %state) for 1 .. 30;
 report 'Michalewicz', %state;
