@@ -32,7 +32,7 @@ sub calc_diff(@v, @d, Int $w, Int $h) {
         my @neighbors = grep *.defined, @v[$i-1][$j], @v[$i][$j-1], @v[$i+1][$j], @v[$i][$j+1];
         my $v = [+] @neighbors;
         @d[$i][$j] = $v = @v[$i][$j] - $v / +@neighbors;
-        $total += $v * $v unless @fixed[$i][$j];
+        $total += $v × $v unless @fixed[$i][$j];
     }
     return $total;
 }
@@ -52,7 +52,7 @@ sub iter(@v, Int $w, Int $h) {
 
     for (flat ^$h X ^$w) -> $i, $j {
         @cur[ @fixed[$i][$j] + 1 ]
-            += @d[$i][$j] * (?$i + ?$j + ($i < $h - 1) + ($j < $w - 1));
+            += @d[$i][$j] × (?$i + ?$j + ($i < $h - 1) + ($j < $w - 1));
     }
 
     return (@cur[2] - @cur[0]) / 2;
