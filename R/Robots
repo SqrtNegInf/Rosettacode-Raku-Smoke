@@ -50,14 +50,14 @@ my @scr = flat $wall xx $x, ($wall, $blank xx $x - 2, $wall) xx $y - 2, $wall xx
 # put player on board
 my $me;
 loop {
-    $me = ($x+2 .. ($x - 1 ) * $y).roll;
+    $me = ($x+2 .. ($x - 1 ) × $y).roll;
     last if @scr[$me] eq $blank;
 }
 @scr[$me] = $human;
 
 # Put an assortment of hazards on board
 for ^20 {
-    my $s = (^$x*$y).pick;
+    my $s = (^$x×$y).pick;
     if @scr[$s] eq $blank { @scr[$s] = $block } else { redo }
 }
 
@@ -125,7 +125,7 @@ multi move ('right') {
 
 sub newbots {
     for ^$numbots {
-        my $s = (^$x*$y).pick;
+        my $s = (^$x×$y).pick;
         if @scr[$s] eq $blank {
             @scr[$s] = $robot;
         } else {
@@ -146,7 +146,7 @@ sub movebots {
         } else {
             $bx += ($mx - $bx) < 0 ?? -1 !! 1;
         }
-        my $n = $by * $x + $bx;
+        my $n = $by × $x + $bx;
         if @scr[$n] eq $robot {
             @scr[$b] = @scr[$n] = $block;
         } elsif @scr[$n] eq $block {
