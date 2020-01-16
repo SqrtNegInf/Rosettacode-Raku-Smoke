@@ -10,16 +10,16 @@
 #http://unapologetic.wordpress.com/2009/09/03/reduced-row-echelon-form/
 #First, a procedural version:
 
-# using Z+=, Z-=, X*=, and X/= to scale and shear.
+# using Z+=, Z-=, X×=, and X/= to scale and shear.
 
 sub swap_rows    ( @M,         $r1, $r2 ) { @M[ $r1, $r2 ] = @M[ $r2, $r1 ] };
-sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r] »*» $scale   };
-#sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r] »*» $scale   };
-sub shear_row    ( @M, $scale, $r1, $r2 ) { @M[$r1] = @M[$r1].list »+» ( @M[$r2] »*» $scale ) };
+sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r] »×» $scale   };
+#sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r] »×» $scale   };
+sub shear_row    ( @M, $scale, $r1, $r2 ) { @M[$r1] = @M[$r1].list »+» ( @M[$r2] »×» $scale ) };
 sub reduce_row   ( @M,         $r,  $c  ) { scale_row( @M, 1/@M[$r][$c], $r ) };
 sub clear_column ( @M,         $r,  $c  ) {
     for @M.keys.grep( * != $r ) -> $row_num {
-        shear_row( @M, -1*@M[$row_num][$c], $row_num, $r );
+        shear_row( @M, -1×@M[$row_num][$c], $row_num, $r );
     }
 }
 
