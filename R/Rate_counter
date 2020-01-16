@@ -23,7 +23,7 @@ sub runrate($N where $N > 0, &todo) {
     return $N / $elapsed;
 }
 
-sub factorial($n) { (state @)[$n] //= $n < 2 ?? 1 !! $n * factorial($n-1) }
+sub factorial($n) { (state @)[$n] //= $n < 2 ?? 1 !! $n × factorial($n-1) }
 
 my $rate1 = runrate 10000, { state $n = 1; factorial($n++) }
 my $rate2 = runrate 10000, { state $n = 1; factorial($n++) }
