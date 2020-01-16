@@ -1,5 +1,6 @@
 #!/usr/local/bin/perl
 ## capture the command-line, stdout and stderr
+#  2020-01-15 maybe that JIT thing is fixed? Let's see...
 #  2018-10-02 filter out out 'JIT ERROR' 
 
 # default temp file names
@@ -17,14 +18,15 @@ if ($#ARGV == 0 && $ARGV[0] =~ /[\s>]/) {
         $args = join ' ', @ARGV;
 }
 
-#system "$cmd $args > $out 2> $err";
-system "$cmd $args > $out 2> $err_raw; grep -v 'JIT ERROR' $err_raw > $err";
+system "$cmd $args > $out 2> $err";
+#system "$cmd $args > $out 2> $err_raw; grep -v 'JIT ERROR' $err_raw > $err";
 
 print "::CMD::\n$cmd $args\n\n";
 print "::STDOUT::\n" . `cat $out` . "\n" unless -z $out;
 print "::STDERR::\n" . `cat $err` . "\n" unless -z $err;
 
-unlink $out, $err, $err_raw;
+unlink $out, $err;
+#unlink $out, $err, $err_raw;
 
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
