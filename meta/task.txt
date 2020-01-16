@@ -1,15 +1,18 @@
+This is Rakudo version 2019.11-472-gada7c3654 built on MoarVM version 2020.01-15-g1fa9764bf
+implementing Perl 6.d.
+updating from RC…
 +--------------> Moar: Good/Bad [1178/12]
-|+-------------> JVM: Good/Bad [1012/179]
-||+------------> Smoke testing [1064]
-|||+-----------> sKipping validation [123]
+|+-------------> JVM: Good/Bad [1006/179]
+||+------------> Smoke testing [1065]
+|||+-----------> sKipping validation [122]
 ||||+----------> Interactive [59]
 |||||+---------> Touched (modified by me) [296]
 ||||||+--------> Concurrent/Async [57]
 |||||||+-------> Random seed [117]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [225]
+|||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [97]
+|||||||||||+---> Void (no local copy) [98]
 ||||||||||||+--> Un-implemented/reliable [74]
 |||||||||||||
 GGS.......... 100_doors
@@ -132,7 +135,7 @@ GGS.......... Bitmap
 GGS.....F.... Bitmap_B%C3%A9zier_curves_Cubic
 GGS.....F.... Bitmap_B%C3%A9zier_curves_Quadratic
 GGS.....F.... Bitmap_Bresenham%27s_line_algorithm
-GGS.....F.... Bitmap_Flood_fill
+G!S.....F.... Bitmap_Flood_fill
 GGS.....F.... Bitmap_Histogram
 GGS.....F.... Bitmap_Midpoint_circle_algorithm
 GGS.....F.... Bitmap_PPM_conversion_through_a_pipe
@@ -403,12 +406,12 @@ GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T...D... File_size_distribution
 GGS.......... Filter
-GGS......D... Find_URI_in_text
+G!S......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T...D... Find_duplicate_files
 GBS......D... Find_first_and_last_set_bit_of_a_long_integer
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
-GGS..T....... Find_limit_of_recursion
+G!S..T....... Find_limit_of_recursion
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
 GGS......D... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
@@ -419,6 +422,7 @@ GGS.......... First-class_functions
 GGS.......... First-class_functions_Use_numbers_analogously
 GGS..T....... First_class_environments
 GBS.......... First_perfect_square_in_base_N_with_N_unique_digits
+.........D.VU First_power_of_2_that_has_leading_decimal_digits_of_12
 GGS.......... Five_weekends
 GGS......D... Fivenum
 GGS..T..F.... Fixed_length_records
@@ -481,7 +485,7 @@ GGS....R..... Guess_the_number
 GGS....R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
-GGS.......... HTTPS
+G!S.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -707,7 +711,7 @@ GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
 .........DXV. Modulinos
 GGS......D... Monads_List_monad
-GGS......D... Monads_Maybe_monad
+G!S......D... Monads_Maybe_monad
 .........D.VU Monads_Writer_monad
 GGS....R..... Monte_Carlo_methods
 GBS......D... Montgomery_reduction
@@ -748,7 +752,7 @@ GG.KI........ Nautical_bell
 GGS.......... Nautical_bell-2
 GGS.......... Negative_base_numbers
 GGS.......... Nested_function
-GGS.......... Nested_templated_data
+G!S.......... Nested_templated_data
 GGS.......... Nim_Game
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
@@ -804,7 +808,7 @@ GGS.......... Parsing_RPN_calculator_algorithm
 GGS..T....... Parsing_RPN_to_infix_conversion
 GGS.......... Parsing_Shunting-yard_algorithm
 GGS.......... Partial_function_application
-GGS..T.R.D..U Particle_Swarm_Optimization
+GGS..T.R.D... Particle_Swarm_Optimization
 GBS..TC...... Partition_an_integer_X_into_N_primes
 GGS.......... Pascal%27s_triangle
 GGS.......... Pascal%27s_triangle_Puzzle
@@ -870,7 +874,7 @@ GBS...C..D... Primalty_by_Wilson%27s_theorem
 GGS..T....... Prime_conspiracy
 GBS...C...... Prime_decomposition
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
-GG.K.TC...... Primes_-_allocate_descendants_to_their_ancestors-1
+GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS..T....... Primorial_numbers
 GGS.......... Primorial_numbers-2
 GGS......D... Print_debugging_statement
