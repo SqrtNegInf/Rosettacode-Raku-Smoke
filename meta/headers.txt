@@ -226,8 +226,8 @@ File: A/Abelian_sandpile_model
 #c# 2019-10-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#f# RC file: abelian.moar
-#n# JVM: works fine, but hangs at end?
+#f# RC file: abelian.BEND
+#n# JVM: works fine, just very very slow
 
 File: A/Abstract_type
 #!/usr/bin/env perl6
@@ -7835,12 +7835,11 @@ File: P/Primes_-_allocate_descendants_to_their_ancestors
 
 File: P/Primes_-_allocate_descendants_to_their_ancestors-1
 #!/usr/bin/env perl6
-#t# skiptest
 #u# http://rosettacode.org/wiki/Primes_-_allocate_descendants_to_their_ancestors
 #c# 2016-07-02 <RC, 2017-01-19 >RC, 2017-01-22 >RC, 2018-12-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# too slow to run every day, but much faster with .race (just over 6 minutes)
+#n# running with lowered $max
 
 File: P/Primorial_numbers
 #!/usr/bin/env perl6
