@@ -11,7 +11,7 @@
 #`{ Rosettacode task statement (draft):
 
 Calculate Ramanujan's constant (as per http://oeis.org/wiki/Ramanujan%27s_constant) with at least
-32 digits of accuracy, by the method of your choice.  Optionally, if using the 𝑒**(π*√x) approach,
+32 digits of accuracy, by the method of your choice.  Optionally, if using the 𝑒**(π×√x) approach,
 show that when evaulated with the last four Heegner numbers (https://en.wikipedia.org/wiki/Heegner_number),
 the result is 'almost' an integer.
 
@@ -66,7 +66,7 @@ sub π (--> FatRat) {
 }
 
 multi sqrt(FatRat $r --> FatRat) {
-    FatRat.new: sqrt($r.nude[0] × 10**(D*2) div $r.nude[1]), 10**D;
+    FatRat.new: sqrt($r.nude[0] × 10**(D×2) div $r.nude[1]), 10**D;
 }
 
 # from: http://rosettacode.org/wiki/Integer_roots
