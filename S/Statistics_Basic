@@ -13,8 +13,8 @@ for 100, 1_000, 10_000 -> $N {
     @res.push: sprintf "mean:%f", my $mean = $N R/ [+] @data;
     @res.push: sprintf "stddev:%f", sqrt
     $mean**2 R- $N R/ [+] @data »**» 2;
-    @res.push: sprintf "%.1f %s", .key, '=' x (500 * .value.elems / $N)
-        for sort @data.classify: (10 * *).Int / 10; # DH b7c6e73, sort works on hash keys by default
+    @res.push: sprintf "%.1f %s", .key, '=' x (500 × .value.elems / $N)
+        for sort @data.classify: (10 × *).Int / 10; # DH b7c6e73, sort works on hash keys by default
     @res.push: '';
 #    &say # DH change (bare 'say' no longer allowed)
 }
