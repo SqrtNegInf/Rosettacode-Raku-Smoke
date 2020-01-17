@@ -3,28 +3,9 @@
 #c# 2019-08-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# JVM fails test, but is working 
+#n# can only test Moar or JVM, not both, because the answers for one affect the results for the other
 
 my @res;
-
-#`{ 
-There isn't anything built-in to do this in Rakudo Perl 6, though it's
-pretty easy to cobble something together piggybacking off of the exception
-system. It would probably be better to instantiate a specific "DEBUG"
-exception to avoid interfering with other user instantiated ad-hoc
-exceptions, but for a quick-and-dirty demo, this should suffice.  This
-example will report any payload contents passed to the exception. If you
-want specific information, it will need to be passed in, though some of it
-may be determinable through introspection. Reports the file name and line
-number where the "debug" call originated and unwinds the call stack to
-trace through the subroutine calls leading up to it. Will follow the call
-chain into included files and modules, though calls to the CORE setting and
-dispatcher are filtered out here to reduce noise.  Comments with the files
-line numbers are added here to make it easier to match up the debug output
-with the file. Typically you would be editing the file in an editor that
-provides line numbering so that wouldn't be necessary/helpful.
-
-}
 
 my &pdb = &die;
 
@@ -63,102 +44,44 @@ alpha($a);                   #line 34
 delta("D");                  #line 35
 .&beta for ^3;               #line 36
 
-.say for @res; 
+.say for @res;
 
-my $moar = q:to/END/;
+my $ref = q:to/END/;
 $a 10
-from file: P/Print_debugging_statement, line: 61
+from file: P/Print_debugging_statement, line: 42
 
 a => 13
-from file: P/Print_debugging_statement, sub: alpha, line: 52
- from file: P/Print_debugging_statement, line: 62
+from file: P/Print_debugging_statement, sub: alpha, line: 33
+ from file: P/Print_debugging_statement, line: 43
 
 string
-from file: P/Print_debugging_statement, sub: alpha, line: 53
- from file: P/Print_debugging_statement, line: 62
+from file: P/Print_debugging_statement, sub: alpha, line: 34
+ from file: P/Print_debugging_statement, line: 43
 
 7
-from file: P/Print_debugging_statement, sub: beta, line: 56
- from file: P/Print_debugging_statement, sub: alpha, line: 54
-  from file: P/Print_debugging_statement, line: 62
+from file: P/Print_debugging_statement, sub: beta, line: 37
+ from file: P/Print_debugging_statement, sub: alpha, line: 35
+  from file: P/Print_debugging_statement, line: 43
 
 D
-from file: P/Print_debugging_statement, sub: beta, line: 56
- from file: P/Print_debugging_statement, sub: gamma, line: 57
-  from file: P/Print_debugging_statement, sub: delta, line: 58
-   from file: P/Print_debugging_statement, line: 63
+from file: P/Print_debugging_statement, sub: beta, line: 37
+ from file: P/Print_debugging_statement, sub: gamma, line: 38
+  from file: P/Print_debugging_statement, sub: delta, line: 39
+   from file: P/Print_debugging_statement, line: 44
 
 0
-from file: P/Print_debugging_statement, sub: beta, line: 56
- from file: P/Print_debugging_statement, line: 64
+from file: P/Print_debugging_statement, sub: beta, line: 37
+ from file: P/Print_debugging_statement, line: 45
 
 1
-from file: P/Print_debugging_statement, sub: beta, line: 56
- from file: P/Print_debugging_statement, line: 64
+from file: P/Print_debugging_statement, sub: beta, line: 37
+ from file: P/Print_debugging_statement, line: 45
 
 2
-from file: P/Print_debugging_statement, sub: beta, line: 56
- from file: P/Print_debugging_statement, line: 64
-
-END
-
-my $jvm = q:to/END/;
-$a 10
-from file: gen/jvm/CORE.c.setting, sub: throw, line: 39427
- from file: gen/jvm/CORE.c.setting, sub: die, line: 928
-  from file: gen/jvm/CORE.c.setting, sub: infix:<andthen>, line: 54647
-   from file: P/Print_debugging_statement, line: 61
-
-a => 13
-from file: gen/jvm/CORE.c.setting, sub: throw, line: 39427
- from file: gen/jvm/CORE.c.setting, sub: die, line: 928
-  from file: P/Print_debugging_statement, sub: alpha, line: 52
-   from file: P/Print_debugging_statement, line: 62
-
-string
-from file: gen/jvm/CORE.c.setting, sub: throw, line: 39427
- from file: gen/jvm/CORE.c.setting, sub: die, line: 928
-  from file: P/Print_debugging_statement, sub: alpha, line: 53
-   from file: P/Print_debugging_statement, line: 62
-
-7
-from file: gen/jvm/CORE.c.setting, sub: throw, line: 39427
- from file: gen/jvm/CORE.c.setting, sub: die, line: 928
-  from file: P/Print_debugging_statement, sub: beta, line: 56
-   from file: P/Print_debugging_statement, sub: alpha, line: 54
-    from file: P/Print_debugging_statement, line: 62
-
-D
-from file: gen/jvm/CORE.c.setting, sub: throw, line: 39427
- from file: gen/jvm/CORE.c.setting, sub: die, line: 928
-  from file: P/Print_debugging_statement, sub: beta, line: 56
-   from file: P/Print_debugging_statement, sub: gamma, line: 57
-    from file: P/Print_debugging_statement, sub: delta, line: 58
-     from file: P/Print_debugging_statement, line: 63
-
-0
-from file: gen/jvm/CORE.c.setting, sub: throw, line: 39427
- from file: gen/jvm/CORE.c.setting, sub: die, line: 928
-  from file: P/Print_debugging_statement, sub: beta, line: 56
-   from file: gen/jvm/CORE.c.setting, sub: dispatch:<var>, line: 1762
-    from file: P/Print_debugging_statement, line: 64
-
-1
-from file: gen/jvm/CORE.c.setting, sub: throw, line: 39427
- from file: gen/jvm/CORE.c.setting, sub: die, line: 928
-  from file: P/Print_debugging_statement, sub: beta, line: 56
-   from file: gen/jvm/CORE.c.setting, sub: dispatch:<var>, line: 1762
-    from file: P/Print_debugging_statement, line: 64
-
-2
-from file: gen/jvm/CORE.c.setting, sub: throw, line: 39427
- from file: gen/jvm/CORE.c.setting, sub: die, line: 928
-  from file: P/Print_debugging_statement, sub: beta, line: 56
-   from file: gen/jvm/CORE.c.setting, sub: dispatch:<var>, line: 1762
-    from file: P/Print_debugging_statement, line: 64
+from file: P/Print_debugging_statement, sub: beta, line: 37
+ from file: P/Print_debugging_statement, line: 45
 
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
