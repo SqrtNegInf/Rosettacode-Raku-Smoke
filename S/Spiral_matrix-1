@@ -26,12 +26,12 @@ class Turtle {
     }
 
     method look($ahead = 1) {
-    my $there = @!loc »+« @dv[$!dir] »*» $ahead;
+    my $there = @!loc »+« @dv[$!dir] »×» $ahead;
     %!world{~$there};
     }
 
     method forward($ahead = 1) {
-    my $there = @!loc »+« @dv[$!dir] »*» $ahead;
+    my $there = @!loc »+« @dv[$!dir] »×» $ahead;
     @!loc = @($there);
     }
 
@@ -66,7 +66,7 @@ put ' ' ~ $t1.showmap;
 
     # or build the spiral from inside-out like this:
 my $t2 = Turtle.new(dir => ($size %% 2 ?? 4 !! 0)); # not 't2' on RC
-$counter = $size * $size; # DH 'my' needed on RC
+$counter = $size × $size; # DH 'my' needed on RC
 while $counter {
     $t2.lay-egg(--$counter);
     $t2.turn-left;
