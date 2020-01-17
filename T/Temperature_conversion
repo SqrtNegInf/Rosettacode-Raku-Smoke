@@ -17,7 +17,7 @@ my $kelvin = 21;
 die "No such temperature!" if $kelvin < 0;
 
 for %scale.sort {
-    printf "%12s: %7.2f\n", .key, $kelvin * .value<factor> + .value<offset>;
+    printf "%12s: %7.2f\n", .key, $kelvin × .value<factor> + .value<offset>;
 }
 
 #`{
@@ -41,8 +41,8 @@ my $answer = 0;
     }
     say "  { $k }K";
     say "  { $k - 273.15 }℃";
-    say "  { $k * 1.8 - 459.67 }℉";
-    say "  { $k * 1.8 }R";
+    say "  { $k × 1.8 - 459.67 }℉";
+    say "  { $k × 1.8 }R";
 #}
 
 #`{
