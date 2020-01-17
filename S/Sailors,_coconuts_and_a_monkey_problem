@@ -48,7 +48,7 @@ sub check ($sailors, $coconuts) {
     False;
 }
 
-multi sub coconuts ( $sailors where { $sailors % 2 == 0 } ) { ($sailors - 1) * ($sailors ** $sailors - 1) }
+multi sub coconuts ( $sailors where { $sailors % 2 == 0 } ) { ($sailors - 1) × ($sailors ** $sailors - 1) }
 multi sub coconuts ( $sailors where { $sailors % 2 == 1 } ) { $sailors ** $sailors - $sailors + 1 }
 
 my $ref = qq:to/END/;
