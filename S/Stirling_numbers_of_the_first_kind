@@ -11,7 +11,7 @@ sub Stirling1 (Int \n, Int \k) {
     return 0 unless n && k;
     state %seen;
     (%seen{"{n - 1}|{k - 1}"} //= Stirling1(n - 1, k - 1)) +
-    (n - 1) * (%seen{"{n - 1}|{k}"} //= Stirling1(n - 1, k))
+    (n - 1) × (%seen{"{n - 1}|{k}"} //= Stirling1(n - 1, k))
 }
 
 my $upto = 12;
