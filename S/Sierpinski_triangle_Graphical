@@ -10,7 +10,7 @@ my $levels = 8;
 my $side   = 512;
 my $height = get_height($side);
 
-sub get_height ($side) { $side * 3.sqrt / 2 }
+sub get_height ($side) { $side × 3.sqrt / 2 }
 
 sub triangle ( $x1, $y1, $x2, $y2, $x3, $y3, $fill?, $animate? ) {
     my $svg;
@@ -28,7 +28,7 @@ sub fractal ( $x1, $y1, $x2, $y2, $x3, $y3, $r is copy ) {
     return $svg unless --$r;
     my $side = abs($x3 - $x2) / 2;
     my $height = get_height($side);
-    $svg ~= fractal( $x1, $y1-$height*2, $x1-$side/2, $y1-3*$height, $x1+$side/2, $y1-3*$height, $r);
+    $svg ~= fractal( $x1, $y1-$height×2, $x1-$side/2, $y1-3×$height, $x1+$side/2, $y1-3×$height, $r);
     $svg ~= fractal( $x2, $y1, $x2-$side/2, $y1-$height, $x2+$side/2, $y1-$height, $r);
     $svg ~= fractal( $x3, $y1, $x3-$side/2, $y1-$height, $x3+$side/2, $y1-$height, $r);
 }
@@ -50,5 +50,5 @@ EOD
 triangle( $side/2, 0, 0, $height, $side, $height, 'url(#basegradient)' ),
 triangle( $side/2, 0, 0, $height, $side, $height, '#000', 'animate' ),
 '<g style="fill: #fff; stroke-width: 0;">',
-fractal( $side/2, $height, $side*3/4, $height/2, $side/4, $height/2, $levels ),
+fractal( $side/2, $height, $side×3/4, $height/2, $side/4, $height/2, $levels ),
 '</g></svg>';
