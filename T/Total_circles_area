@@ -45,7 +45,7 @@ class Rect {
     has Point $.se;
 
     method diag { $!ne to $!se }
-    method area { ($!ne.x - $!nw.x) * ($!nw.y - $!sw.y) }
+    method area { ($!ne.x - $!nw.x) × ($!nw.y - $!sw.y) }
     method contains(Point $p) {
 	$!nw.x < $p.x < $!ne.x and
 	$!sw.y < $p.y < $!nw.y;
@@ -121,7 +121,7 @@ my $div = 1;
 # divide current rects each into four rects, analyze each
 sub divide(@old) {
 
-    $div *= 2;
+    $div ×= 2;
 
     # rects too small to hold circle?
     my $smallish = @old[0].diag < $min-radius;
@@ -183,7 +183,7 @@ repeat until my $diff < $delta {
 	' wet: '~ $known-wet.fmt('%9.6f')~
 	' dry: '~ ($outer-area - $known-dry).fmt('%9.6f')~
 	' diff: '~ $diff.fmt('%9.6f')~
-	' error: '~ ($diff - @unknowns * @unknowns[0].area).fmt('%e');
+	' error: '~ ($diff - @unknowns × @unknowns[0].area).fmt('%e');
 }
 .say for @res;
 
