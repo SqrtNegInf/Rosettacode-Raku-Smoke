@@ -66,7 +66,7 @@ File: 0/24_game_Solve-1
 #j#  JVM: BROKEN
 #n# for JVM, use .1 for testing
 
-File: 0/24_game_Solve-1.1
+File: 0/24_game_Solve-1.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/24_game/Solve
@@ -84,7 +84,7 @@ File: 0/24_game_Solve-2
 #n# new version, no EVAL
 #n# wasn't concurrency-safe (but doesn't really see a boost from it anyhow?)
 
-File: 0/24_game_Solve-2.1
+File: 0/24_game_Solve-2.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/24_game/Solve
@@ -118,6 +118,7 @@ File: 0/6-slices-of-pie
 #n# Conway's version corrected in two regards:
 #n#   'line' not 'xy-lines' ( 'x' not needed at all)
 #n#   0 pre-pended for initial state (which matches his graph)
+#n# JVM: differs only trivially
 
 File: 0/99_Bottles_of_Beer
 #!/usr/bin/env perl6
@@ -259,7 +260,7 @@ File: A/Abundant_odd_numbers
 #j# JVM:  BROKEN
 #n# takes well over 5 seconds to complete (on my really-truly-not-very-fast system)
 
-File: A/Abundant_odd_numbers.1
+File: A/Abundant_odd_numbers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Abundant_odd_numbers
 #c# 2019-05-17 <RC, 2019-06-12 >RC
@@ -425,7 +426,7 @@ File: A/Amicable_pairs
 #n# both the concurrency and improved sum calculation contribute to boost the speed
 #n# http://blogs.perl.org/users/damian_conway/2019/08/with-friends-like-these.html
 
-File: A/Amicable_pairs.1
+File: A/Amicable_pairs.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Amicable_pairs
 #c# 2015-10-30 <RC, 2019-05-26 >RC
@@ -725,19 +726,19 @@ File: A/Attractive_numbers
 
 File: A/Attractive_numbers.1
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Attractive_numbers
-#c# 2019-04-11 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-#n# as of 2019-08-12 a speedier version via Perl/ntheory library
-
-File: A/Attractive_numbers.2
-#!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Attractive_numbers
 #c# 2019-04-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+
+File: A/Attractive_numbers.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Attractive_numbers
+#c# 2019-04-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# as of 2019-08-12 a speedier version via Perl/ntheory library
 
 File: A/Average_loop_length
 #!/usr/bin/env perl6
@@ -1099,6 +1100,7 @@ File: B/Bitmap_Flood_fill
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: flood-fill.ppm
+#n# JVM gripes (java.lang.StackOverflowError) but works
 
 File: B/Bitmap_Histogram
 #!/usr/bin/env perl6
@@ -1218,7 +1220,7 @@ File: B/Brazilian_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-File: B/Brazilian_numbers.1
+File: B/Brazilian_numbers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brazilian_numbers
 #c# 2019-08-12 <RC, 2019-08-14 <RC
@@ -1263,7 +1265,7 @@ File: B/Burrows-Wheeler_transform
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-File: B/Burrows-Wheeler_transform.1
+File: B/Burrows-Wheeler_transform.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Burrows–Wheeler_transform
 #c# 2018-08-08 <RC
@@ -1277,7 +1279,7 @@ File: C/CRC-32
 #m# MOAR: OK
 #j#  JVM: BROKEN
 
-File: C/CRC-32.1
+File: C/CRC-32.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/CRC-32
 #c# 2016-01-10 <RC, 2017-06-05 >RC
@@ -1589,7 +1591,7 @@ File: C/Chernick%27s_Carmichael_numbers
 #m# MOAR: OK
 #j#  JVM: BROKEN
 
-File: C/Chernick%27s_Carmichael_numbers.1
+File: C/Chernick%27s_Carmichael_numbers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Chernick%27s_Carmichael_numbers
 #c# 2019-06-08 <RC
@@ -1641,7 +1643,7 @@ File: C/Chowla_numbers
 #j# JVM:  BROKEN
 #n# Well, I thought the variables names were pretty funny...
 
-File: C/Chowla_numbers.1
+File: C/Chowla_numbers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Chowla_numbers
 #c# 2019-03-12 <RC
@@ -2199,7 +2201,7 @@ File: C/Cuban_primes-1
 #n  now down to about a minute...
 #n# full run very slow: 2853.709u 31.184s 8:08.71 590.3%
 
-File: C/Cuban_primes-1.1
+File: C/Cuban_primes-1.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cuban_primes
 #c# 2019-02-02 <RC
@@ -2351,7 +2353,7 @@ File: D/Death_Star
 #j#  JVM: OK
 #f# RC file: deathstar-perl6.pgm
 
-File: D/Death_Star.1
+File: D/Death_Star.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Death_Star
@@ -2735,7 +2737,7 @@ File: D/Draw_a_sphere-1
 #f# RC file: draw_a_sphere.pgm
 #n# removing intermediate variables has no impact on running time
 
-File: D/Draw_a_sphere-1.1
+File: D/Draw_a_sphere-1.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Draw_a_sphere
@@ -2915,7 +2917,7 @@ File: E/Emirp_primes
 #j#  JVM: BROKEN
 #n# for JVM, use .1 for testing
 
-File: E/Emirp_primes.1
+File: E/Emirp_primes.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Emirp_primes
@@ -3012,7 +3014,7 @@ File: E/Euler%27s_sum_of_powers_conjecture
 #j# JVM:  OK
 #n# alternate way of writing 'race'
 
-File: E/Euler%27s_sum_of_powers_conjecture.1
+File: E/Euler%27s_sum_of_powers_conjecture.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Euler's_sum_of_powers_conjecture#Perl_6
@@ -3088,7 +3090,7 @@ File: E/Executable_library
 #n# uses module 'Hailstone.pm'
 #n# what happened on 2018-12-20? (answer: use lib '.' ate time like crazy)
 
-File: E/Executable_library.1
+File: E/Executable_library.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Executable_library
 #c# 2018-03-20 <RC, 2018-05-17 <RC, 2018-12-23 <RC
@@ -3182,7 +3184,8 @@ File: E/External_sort
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/External_sort
 #c# 2019-11-20 >RC
-#p# OK
+#m# MOAR: OK
+#j#  JVM: BROKEN
 
 File: E/Extract_file_extension
 #!/usr/bin/env perl6
@@ -3266,16 +3269,16 @@ File: F/Factorions.1
 #u# http://rosettacode.org/wiki/Factorions
 #c# 2019-08-12 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
+#n# placement of .hyper here make it a little faster than newer version (measurable when doing 1.5 million iterations)
 #n# try more bases (note results for 18)
 
-File: F/Factorions.2
+File: F/Factorions.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Factorions
 #c# 2019-08-12 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# placement of .hyper here make it a little faster than newer version (measurable when doing 1.5 million iterations)
+#j# JVM:  OK
 #n# try more bases (note results for 18)
 
 File: F/Factors_of_a_Mersenne_number
@@ -3301,7 +3304,7 @@ File: F/Farey_sequence
 #j# JVM:  BROKEN
 #n# for JVM, use .1 version
 
-File: F/Farey_sequence.1
+File: F/Farey_sequence.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Farey_sequence
@@ -3378,12 +3381,13 @@ File: F/Fermat_numbers
 #j# JVM:  BROKEN
 #n# thundergnat: I gave up on factoring F₉ after about 20 minutes.
 
-File: F/Fermat_numbers.1
+File: F/Fermat_numbers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fermat_numbers
 #c# 2019-08-20 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
+#n# for JVM: 'F₅' is not being factored, but ID'd as prime?
 
 File: F/Fibonacci_n-step_number_sequences
 #!/usr/bin/env perl6
@@ -3540,16 +3544,16 @@ File: F/Find_largest_left_truncatable_prime_in_a_given_base.1
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Find_largest_left_truncatable_prime_in_a_given_base
-#c# 2016-09-22 <>RC
-#m# MOAR: OK
-#j#  JVM: OK
+#c# 2016-05-31 <RC
+#   ? BROKEN
 
-File: F/Find_largest_left_truncatable_prime_in_a_given_base.2
+File: F/Find_largest_left_truncatable_prime_in_a_given_base.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Find_largest_left_truncatable_prime_in_a_given_base
-#c# 2016-05-31 <RC
-#   ? BROKEN
+#c# 2016-09-22 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
 
 File: F/Find_limit_of_recursion
 #!/usr/bin/env perl6
@@ -4203,7 +4207,7 @@ File: G/Guess_the_number_With_feedback_player
 #=# RC pipe: l\nh\nh\nl\nh\nl\ne
 #n# 42 is the target number
 
-File: G/Guess_the_number_With_feedback_player.1
+File: G/Guess_the_number_With_feedback_player.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number/With_feedback_(player)
 #c# 2018-03-21 <RC
@@ -4211,6 +4215,7 @@ File: G/Guess_the_number_With_feedback_player.1
 #j# JVM:  OK
 #=# RC pipe: l\nh\nh\nl\nh\nl\ne # for JVM
 #n# 42 is the target number
+#n# JVM is glacially slow?
 
 File: H/HTTP
 #!/usr/bin/env perl6
@@ -4249,7 +4254,7 @@ File: H/Hailstone_sequence
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: H/Hailstone_sequence.1
+File: H/Hailstone_sequence.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Hailstone_sequence
@@ -4288,7 +4293,7 @@ File: H/Happy_numbers-1
 #j#  JVM: BROKEN
 #n# for JVM: 'state %seen' fails in 'loop' or 'while' construct, but OK if bogus 'for' used
 
-File: H/Happy_numbers-1.1
+File: H/Happy_numbers-1.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Happy_numbers
 #c# 2015-12-03 <RC
@@ -4438,7 +4443,7 @@ File: H/Heronian_triangles
 #n# 2019-10-17 concurrency is sometimes not working well?
 #n# 2019-10-18 problem appears to be limited to older MacOS?
 
-File: H/Heronian_triangles.1
+File: H/Heronian_triangles.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Heronian_triangles
@@ -5309,19 +5314,19 @@ File: L/Largest_number_divisible_by_its_digits
 
 File: L/Largest_number_divisible_by_its_digits.1
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Largest_number_divisible_by_its_digits
-#c# 2017-09-02 <RC, 2018-10-13 >RC
-#m# MOAR: OK
-#j# JVM:  OK
-
-File: L/Largest_number_divisible_by_its_digits.2
-#!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Largest_number_divisible_by_its_digits
 #c# 2017-09-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 153.826u 1.602s 2:35.24 100.1%
+
+File: L/Largest_number_divisible_by_its_digits.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Largest_number_divisible_by_its_digits
+#c# 2017-09-02 <RC, 2018-10-13 >RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: L/Last_Friday_of_each_month
 #!/usr/bin/env perl6
@@ -5379,7 +5384,7 @@ File: L/Law_of_cosines_-_triples-1
 #n# jnthn: SqrtNegInf: @a is not threadsafe; it's an auto-resizing array
 #n# jnthn: SqrtNegInf: Declare it fixed-size instead: `my @a[60];`
 
-File: L/Law_of_cosines_-_triples-1.1
+File: L/Law_of_cosines_-_triples-1.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
 #c# 2018-09-24 <RC
@@ -5423,6 +5428,22 @@ File: L/Left_factorials
 
 File: L/Left_factorials.1
 #!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Left_factorials
+#c# 2015-11-07 <>RC, 2019-03-05 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: L/Left_factorials.2
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Left_factorials
+#c# 2015-11-07 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+File: L/Left_factorials.jvm
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Left_factorials
 #c# 2015-11-07 <>RC, 2019-03-05 <RC, 2019-03-14 <RC
 #m# MOAR: OK
@@ -5430,22 +5451,6 @@ File: L/Left_factorials.1
 #n# full run has non-fatal exception in 1st part (and in 2nd part hangs forever)
 #n# Exception in thread "Thread-2" org.perl6.nqp.runtime.SaveStackException
 #n# at org.perl6.nqp.runtime.Ops.continuationcontrol(Ops.java:7506)
-
-File: L/Left_factorials.2
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Left_factorials
-#c# 2015-11-07 <>RC, 2019-03-05 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-
-File: L/Left_factorials.3
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Left_factorials
-#c# 2015-11-07 <>RC
-#m# MOAR: OK
-#j#  JVM: OK
 
 File: L/Leonardo_numbers
 #!/usr/bin/env perl6
@@ -5562,7 +5567,7 @@ File: L/Long_primes
 #n# for JVM: run Long_primes.1 
 #n# full calculation: 1100.497u 83.821s 3:25.17 577.2%
 
-File: L/Long_primes.1
+File: L/Long_primes.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Long_primes
@@ -5770,7 +5775,7 @@ File: L/Lucas-Lehmer_test
 #m# MOAR: OK
 #j#  JVM: BROKEN
 
-File: L/Lucas-Lehmer_test.1
+File: L/Lucas-Lehmer_test.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Lucas-Lehmer_test
 #c# 2016-02-18 <RC, 2019-02-24 <RC, 2019-02-27 <RC
@@ -6257,7 +6262,7 @@ File: M/Minimal_steps_down_to_1
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: M/Minimal_steps_down_to_1.1
+File: M/Minimal_steps_down_to_1.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Minimal_steps_down_to_1
 #c# 2019-12-14 <RC, 2019-12-16 <RC
@@ -6323,7 +6328,7 @@ File: M/Monty_Hall_problem
 #n# for JVM: test with .1 version
 #n# with .race, output not deterministic, despite 'srand' and atomic op
 
-File: M/Monty_Hall_problem.1
+File: M/Monty_Hall_problem.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Monty_Hall_problem
@@ -6769,7 +6774,7 @@ File: N/Numerical_Integration-2
 #j#  JVM: OK
 #n# only running the two fastest examples
 
-File: N/Numerical_Integration-2.1
+File: N/Numerical_Integration-2.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Numerical_Integration
@@ -6991,7 +6996,7 @@ File: P/Palindromic_dates
 #n#  perl6(80736,0x70000280d000) malloc: *** error for object 0x7fdf654fc000: incorrect checksum for freed object - object was probably modified after being freed.
 #n#  *** set a breakpoint in malloc_error_break to debug
 
-File: P/Palindromic_dates.1
+File: P/Palindromic_dates.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Palindromic_dates
 #c# 2019-10-xx >RC
@@ -7112,6 +7117,7 @@ File: P/Parse_EBNF
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: ebnf.dat
+#n# for JVM: just a trivial difference in output
 
 File: P/Parse_an_IP_Address
 #!/usr/bin/env perl6
@@ -7163,7 +7169,7 @@ File: P/Partition_an_integer_X_into_N_primes
 #m# MOAR: OK
 #j#  JVM: BROKEN
 
-File: P/Partition_an_integer_X_into_N_primes.1
+File: P/Partition_an_integer_X_into_N_primes.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Partition_an_integer_X_into_N_primes
@@ -7366,7 +7372,7 @@ File: P/Perfect_numbers-1
 #n#  before: 27.897u 0.231s 0:27.96 100.5%
 #n#  after:  26.412u 0.935s 0:07.13 383.4%
 
-File: P/Perfect_numbers-1.1
+File: P/Perfect_numbers-1.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Perfect_numbers
@@ -7398,7 +7404,7 @@ File: P/Perfect_totient_numbers
 #j# JVM:  BROKEN
 #n# for JVM, use .1 version (really slow...)
 
-File: P/Perfect_totient_numbers.1
+File: P/Perfect_totient_numbers.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Perfect_totient_numbers
@@ -7424,7 +7430,7 @@ File: P/Permutation_test
 #j#  JVM: BROKEN
 #n# .race requires atomic ++ op
 
-File: P/Permutation_test.1
+File: P/Permutation_test.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Permutation_test
 #c# 2015-11-20 <RC, 2018-10-17 >RC
@@ -7535,7 +7541,7 @@ File: P/Pierpont_primes-1
 #j# JVM:  BROKEN
 #n# dropped calc of 1000th
 
-File: P/Pierpont_primes-1.1
+File: P/Pierpont_primes-1.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pierpont_primes
 #c# 2019-08-22 <RC
@@ -7558,7 +7564,7 @@ File: P/Pig_the_dice_game
 #j#  JVM: BROKEN
 #=# RC pipe: \nY\nY\nY\nY
 
-File: P/Pig_the_dice_game.1
+File: P/Pig_the_dice_game.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pig_the_dice_game
 #c# 2016-06-11 <RC
@@ -7764,7 +7770,7 @@ File: P/Primalty_by_Wilson%27s_theorem
 #j# JVM:  BROKEN
 #n# for JVM: use .1 version
 
-File: P/Primalty_by_Wilson%27s_theorem.1
+File: P/Primalty_by_Wilson%27s_theorem.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Primalty_by_Wilson%27s_theorem
 #c# 2020-01-01 <RC
@@ -7804,21 +7810,11 @@ File: P/Prime_decomposition.1
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Prime_decomposition
-#c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-#n# 2018-11-03 no benefit with 'race' here
-#n# 2018-08-22 Inline::Perl5 version works fine (and fast) but clobbers JVM
-
-File: P/Prime_decomposition.2
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Prime_decomposition
 #c# 2016-06-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: P/Prime_decomposition.3
+File: P/Prime_decomposition.2
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Prime_decomposition
@@ -7826,12 +7822,23 @@ File: P/Prime_decomposition.3
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: P/Prime_decomposition.jvm
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Prime_decomposition
+#c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# 2018-11-03 no benefit with 'race' here
+#n# 2018-08-22 Inline::Perl5 version works fine (and fast) but clobbers JVM
+
 File: P/Primes_-_allocate_descendants_to_their_ancestors
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Primes_-_allocate_descendants_to_their_ancestors
 #c# 2016-07-02 <RC, 2017-01-19 >RC, 2017-01-22 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# JVM emits errors, but works
 
 File: P/Primes_-_allocate_descendants_to_their_ancestors-1
 #!/usr/bin/env perl6
@@ -7840,6 +7847,7 @@ File: P/Primes_-_allocate_descendants_to_their_ancestors-1
 #m# MOAR: OK
 #j# JVM:  OK
 #n# running with lowered $max
+#n# JVM emits errors, but works
 
 File: P/Primorial_numbers
 #!/usr/bin/env perl6
@@ -7866,7 +7874,15 @@ File: P/Print_debugging_statement
 #c# 2019-08-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# JVM fails test, but is working 
+#n# can only test Moar or JVM, not both, because the answers for one affect the results for the other
+
+File: P/Print_debugging_statement.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Print_debugging_statement
+#c# 2019-08-29 <RC
+#m# MOAR: BROKEN
+#j# JVM:  OK
+#n# can only test Moar or JVM, not both, because the answers for one affect the results for the other
 
 File: P/Priority_queue
 #!/usr/bin/env perl6
@@ -7891,7 +7907,7 @@ File: P/Problem_of_Apollonius
 #j#  JVM: BROKEN
 #n# JVM fails on '\' of Unicode char, but after removing all those, it works
 
-File: P/Problem_of_Apollonius.1
+File: P/Problem_of_Apollonius.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Problem_of_Apollonius
 #c# 2015-11-02 <RC, 2018-09-20 >RC
@@ -7955,7 +7971,7 @@ File: P/Pythagorean_triples
 #j#  JVM: OK 
 #n# both backends are slow, limiting extent of runs
 
-File: P/Pythagorean_triples.1
+File: P/Pythagorean_triples.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Pythagorean_triples
@@ -8050,7 +8066,7 @@ File: R/Ramanujan%27s_constant-1
 #n# show 'almost integer' of Heegner-number series (19 43 67 163), make table of deltas
 #n# https://oeis.org/A003173, https://en.wikipedia.org/wiki/Heegner_number
 
-File: R/Ramanujan%27s_constant-1.1
+File: R/Ramanujan%27s_constant-1.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Ramanujan%27s_constant
 #c# 2019-02-24 >RC
@@ -8173,7 +8189,7 @@ File: R/Rare_numbers
 #n# Do .race and Perl5 call conflict? [seem to: same result in 'Cuban_primes' mash-up of .1 and 1.1 versions]
 #n# key to decent runtime is adding more filtering tricks...
 
-File: R/Rare_numbers.1
+File: R/Rare_numbers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/xx
 #c# 2019-09-xx 
@@ -8756,7 +8772,7 @@ File: S/Safe_primes_and_unsafe_primes
 #m# MOAR: OK
 #j# JVM:  BROKEN, and the EVAL trick not working...
 
-File: S/Safe_primes_and_unsafe_primes.1
+File: S/Safe_primes_and_unsafe_primes.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Safe_primes_and_unsafe_primes
 #c# 2018-09-28 <RC, 2018-10-11 <RC
@@ -8896,7 +8912,7 @@ File: S/Sequence:_nth_number_with_exactly_n_divisors
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-File: S/Sequence:_nth_number_with_exactly_n_divisors.1
+File: S/Sequence:_nth_number_with_exactly_n_divisors.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sequence:_nth_number_with_exactly_n_divisors
 #c# 2019-04-11 <RC
@@ -9005,7 +9021,7 @@ File: S/Sexy_primes
 #n#    which cannot be used because all values need to have the same number of elements. 
 #n#    Mixed-level classification is not supported.
 
-File: S/Sexy_primes.1
+File: S/Sexy_primes.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sexy_primes
 #c# 2018-09-27 <RC, 2018-10-02 <RC
@@ -9241,7 +9257,7 @@ File: S/Smarandache_prime-digital_sequence
 #j# JVM:  BROKEN
 #n# added back calculation of 100K-th
 
-File: S/Smarandache_prime-digital_sequence.1
+File: S/Smarandache_prime-digital_sequence.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Smarandache_prime-digital_sequence
 #c# 2019-06-18 <RC, 2019-07-03 <RC
@@ -9608,7 +9624,7 @@ File: S/Spelling_of_ordinal_numbers
 #f# RC file: spelling_ordinals.txt
 #n# results cause 'malformed UTF' problems, output to file instead
 
-File: S/Spelling_of_ordinal_numbers.1
+File: S/Spelling_of_ordinal_numbers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Spelling_of_ordinal_numbers
 #c# 2019-02-10 <RC, 2019-06-08 <RC
@@ -9662,7 +9678,7 @@ File: S/Square-free_integers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-File: S/Square-free_integers.1
+File: S/Square-free_integers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Square-free_integers
 #c# 2018-07-02 <RC
@@ -9918,16 +9934,16 @@ File: S/Strong_and_weak_primes
 
 File: S/Strong_and_weak_primes.1
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Strong_and_weak_primes
-#c# 2018-12-03 <RC, 2019-01-31 <RC
-#m# MOAR: OK
-#j# JVM:  BROKEN
-
-File: S/Strong_and_weak_primes.2
-#!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Strong_and_weak_primes
 #c# 2018-12-03 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: S/Strong_and_weak_primes.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Strong_and_weak_primes
+#c# 2018-12-03 <RC, 2019-01-31 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -10028,7 +10044,7 @@ File: S/Successive_prime_differences-2
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-File: S/Successive_prime_differences-2.1
+File: S/Successive_prime_differences-2.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Successive_prime_differences
 #c# 2019-04-29 <RC
@@ -10164,7 +10180,7 @@ File: S/Super-d_numbers-1
 #u# http://rosettacode.org/wiki/Super-d_numbers
 #c# 2019-10-10 <RC, 2019-11-09 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 #n# thundergant's 1st try
 #n# 2..6 : 17.679u   0.469s  0:25.69 70.5%
 #n# 2..8 : 648.901u 12.444s 17:32.68 62.8%
@@ -10175,10 +10191,11 @@ File: S/Super-d_numbers-2
 #u# http://rosettacode.org/wiki/Super-d_numbers
 #c# 2019-10-10 <RC, 2019-11-24 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 #n# now with concurrency, as fast as my version (Super-d_numbers-3)
+#n# for JVM: use .1 for testing
 
-File: S/Super-d_numbers-2.1
+File: S/Super-d_numbers-2.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Super-d_numbers
 #c# 2019-10-10 <RC
@@ -10517,6 +10534,8 @@ File: T/Text_to_HTML
 #c# 2019-12-07 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# for JVM: put needed ecosystem modules in 'lib', but fails anyhow:
+#n# Method 'slurp' not found for invocant of class 'Slip', Pod::To::HTML) line 200
 
 File: T/Textonyms
 #!/usr/bin/env perl6
@@ -10532,7 +10551,7 @@ File: T/The_ISAAC_Cipher
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: T/The_ISAAC_Cipher.1
+File: T/The_ISAAC_Cipher.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/The_ISAAC_Cipher
 #c# 2019-01-18 <RC
@@ -10563,7 +10582,7 @@ File: T/Thiele%27s_interpolation_formula
 #n# made default table size 12, 'invcos' converges slowly
 #n# fixed hash key order dependency (as of 2018-05-17, JVM doesn't have this 'upgrade')
 
-File: T/Thiele%27s_interpolation_formula.1
+File: T/Thiele%27s_interpolation_formula.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Thiele\'s_interpolation_formula
@@ -10590,21 +10609,21 @@ File: T/Tic-tac-toe
 
 File: T/Tic-tac-toe.1
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Tic-tac-toe
-#c# 2018-04-08 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-#x# RC pipe: 5\n1\n9
-#n# use pre-loaded array instead
-
-File: T/Tic-tac-toe.2
-#!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Tic-tac-toe
 #c# 2016-01-29 <>RC
 #t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: T/Tic-tac-toe.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Tic-tac-toe
+#c# 2018-04-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#x# RC pipe: 5\n1\n9
+#n# use pre-loaded array instead
 
 File: T/Time-based_One-time_Password_Algorithm
 #!/usr/bin/env perl6
@@ -10699,7 +10718,7 @@ File: T/Topswops
 #n# 2019-10-17 concurrency is sometimes not working well?  
 #n# 2019-10-18 problem appears to be limited to older MacOS?
 
-File: T/Topswops.1
+File: T/Topswops.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Topswops
@@ -10724,7 +10743,7 @@ File: T/Totient_function
 #j# JVM:  BROKEN
 #n# for JVM: use .1 version (super slow of course)
 
-File: T/Totient_function.1
+File: T/Totient_function.jvm
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Totient_function
@@ -10790,7 +10809,7 @@ File: T/Truncate_a_file
 #r# RC prep: cp ref/truncate.base run/truncate.txt
 #j#  JVM: BROKEN
 
-File: T/Truncate_a_file.1
+File: T/Truncate_a_file.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Truncate_a_file
 #c# 2019-10-27 >RC
@@ -10953,7 +10972,7 @@ File: U/Unprimeable_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-File: U/Unprimeable_numbers.1
+File: U/Unprimeable_numbers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Unprimeable_numbers
 #c# 2019-12-01 <RC
@@ -11046,18 +11065,18 @@ File: V/Vampire_number.1
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Vampire_number
+#c# 2016-09-07 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+File: V/Vampire_number.jvm
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Vampire_number
 #c# 2016-09-07 <RC, 2018-11-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# thundergnat's additions do more (25 vs 8) in same time
-
-File: V/Vampire_number.2
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Vampire_number
-#c# 2016-09-07 <RC
-#m# MOAR: OK
-#j#  JVM: OK
 
 File: V/Van_Eck_sequence
 #!/usr/bin/env perl6
@@ -11174,7 +11193,7 @@ File: V/Vigen%C3%A8re_cipher_Cryptanalysis
 #n# anything defined in terms of a constant can also be a constant:
 #n#   %English-letter-freq => @alphabet => %values-numbers => %values-letters
 
-File: V/Vigen%C3%A8re_cipher_Cryptanalysis.1
+File: V/Vigen%C3%A8re_cipher_Cryptanalysis.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Vigenère_cipher/Cryptanalysis
 #c# 2019-12-22 >RC
@@ -11557,7 +11576,7 @@ File: Z/Zumkeller_numbers
 #j# JVM:  BROKEN
 #n# */×: replacing '* * 2' with '* × 2' is clarifying (for humans)
 
-File: Z/Zumkeller_numbers.1
+File: Z/Zumkeller_numbers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Zumkeller_numbers
 #c# 2019-08-20 <RC
