@@ -13,18 +13,18 @@ my \b = 200;
 my \n = 2.5;
 
 # y in terms of x
-sub y ($x) { sprintf "%d", b * (1 - ($x / a).abs ** n ) ** (1/n) }
+sub y ($x) { sprintf "%d", b × (1 - ($x / a).abs ** n ) ** (1/n) }
 
 # find point pairs for one quadrant
 my @q = flat map { $_,.&y }, (0, 1 ... 200);
 
 # Generate an SVG image
 my $out = open('run/superellipse.svg', :w);
-$out.print: [~] qq|<svg height="{b*2}" width="{a*2}" xmlns="http://www.w3.org/2000/svg">\n|, # DH change
+$out.print: [~] qq|<svg height="{b×2}" width="{a×2}" xmlns="http://www.w3.org/2000/svg">\n|, # DH change
   pline( flat @q ),
-  pline( flat @q «*» ( 1,-1) ), # flip and mirror
-  pline( flat @q «*» (-1,-1) ), # for the other 
-  pline( flat @q «*» (-1, 1) ), # three quadrants
+  pline( flat @q «×» ( 1,-1) ), # flip and mirror
+  pline( flat @q «×» (-1,-1) ), # for the other 
+  pline( flat @q «×» (-1, 1) ), # three quadrants
   '</svg>'
 ;
 
