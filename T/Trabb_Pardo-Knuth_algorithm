@@ -10,7 +10,7 @@ my @nums = <10 -1 1 2 3 4 4.3 4.305 4.303 4.302 4.301>;
 
 my @res;
 for @nums.reverse -> $n {
-    my $r = $n.abs.sqrt + 5 * $n ** 3;
+    my $r = $n.abs.sqrt + 5 × $n ** 3;
     @res.push: "$n { $r > 400?? 'Urk!'!! $r }";
 }
 .say for @res;
