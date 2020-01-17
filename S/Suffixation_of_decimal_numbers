@@ -21,12 +21,12 @@ sub sufficate ($val is copy, $type is copy = 'M', $round is copy = Any) {
    if $val ~~ m:i/'e'/ {
        my ($m,$e) = $val.split(/<[eE]>/);
        $val = ($e < 0)
-           ?? $m * FatRat.new(1,10**-$e)
-           !! $m * 10**$e;
+           ?? $m × FatRat.new(1,10**-$e)
+           !! $m × 10**$e;
    }
    my %s = do given $type {
-       when 'M' { <K M G T P E Z Y X W V U> Z=> (1000, * * 1000 … *) }
-       when 'B' { <Ki Mi Gi Ti Pi Ei Zi Yi Xi Wi Vi Ui> Z=> (1024, * * 1024 … *) }
+       when 'M' { <K M G T P E Z Y X W V U> Z=> (1000, * × 1000 … *) }
+       when 'B' { <Ki Mi Gi Ti Pi Ei Zi Yi Xi Wi Vi Ui> Z=> (1024, * × 1024 … *) }
        when 'G' { googol => 10**100 }
        default { return 'What we have here is a failure to communicate...' }
    }
@@ -60,7 +60,7 @@ my @tests =
    '456,789,100,000.000e+00 M 0',
    '+16777216 B',
    '1.2e101 G',
-   #"{run('df', '/', :out).out.slurp.words[10] * 1024} B 2", # Linux df returns Kilobytes by default
+   #"{run('df', '/', :out).out.slurp.words[10] × 1024} B 2", # Linux df returns Kilobytes by default
    '347,344 M -2', # round to -2 past the decimal
    '1122334455 Q', # bad unit type example
 ;
