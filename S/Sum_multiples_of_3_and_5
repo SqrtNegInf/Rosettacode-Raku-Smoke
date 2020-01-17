@@ -10,7 +10,7 @@ sub sum35($n) { [+] grep * %% (3|5), ^$n; }
 #Here's an analytical approach that scales much better for large values.
 sub sum-mults($first, $limit) {
     (my $last = $limit - 1) -= $last % $first;
-    ($last div $first) * ($first + $last) div 2;
+    ($last div $first) × ($first + $last) div 2;
 }
 
 sub sum35a(\n) {
