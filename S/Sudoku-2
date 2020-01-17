@@ -107,7 +107,7 @@ sub cleanup-impossible-values($sudoku, Int $level = 1) {
             # Reduce the possible values to the ones that are still
             # valid
             my @r =
-                grep { !match-resolved-cell($sudoku[any(0..2)+3*$bx][any(0..2)+3*$by], $_) }, # same block
+                grep { !match-resolved-cell($sudoku[any(0..2)+3×$bx][any(0..2)+3×$by], $_) }, # same block
                 grep { !match-resolved-cell($sudoku[any(0..8)][$y], $_) }, # same line
                 grep { !match-resolved-cell($sudoku[$x][any(0..8)], $_) }, # same column
                 @($sudoku[$x][$y]);
@@ -136,14 +136,14 @@ sub solution-complexity-factor($sudoku, Int $x, Int $y) {
         return 1;
     }
     # the number of possible values should take precedence
-    my Int $f = 1000 * count-values($sudoku[$x][$y]);
+    my Int $f = 1000 × count-values($sudoku[$x][$y]);
     for (flat 0..2 X 0..2) -> $lx, $ly {
-        $f += count-values($sudoku[$lx+$bx*3][$ly+$by*3])
+        $f += count-values($sudoku[$lx+$bx×3][$ly+$by×3])
     }
-    for 0..^($by*3), (($by+1)*3)..8 -> $ly {
+    for 0..^($by×3), (($by+1)×3)..8 -> $ly {
         $f += count-values($sudoku[$x][$ly])
     }
-    for 0..^($bx*3), (($bx+1)*3)..8 -> $lx {
+    for 0..^($bx×3), (($bx+1)×3)..8 -> $lx {
         $f += count-values($sudoku[$lx][$y])
     }
     return $f;
@@ -161,12 +161,12 @@ sub matches-in-competing-cells($sudoku, Int $x, Int $y, Int $val) {
     }
     my Int $c = 0;
     for (flat 0..2 X 0..2) -> $lx, $ly {
-        $c += cell-matching($sudoku[$lx+$bx*3][$ly+$by*3])
+        $c += cell-matching($sudoku[$lx+$bx×3][$ly+$by×3])
     }
-    for 0..^($by*3), (($by+1)*3)..8 -> $ly {
+    for 0..^($by×3), (($by+1)×3)..8 -> $ly {
         $c += cell-matching($sudoku[$x][$ly])
     }
-    for 0..^($bx*3), (($bx+1)*3)..8 -> $lx {
+    for 0..^($bx×3), (($bx+1)×3)..8 -> $lx {
         $c += cell-matching($sudoku[$lx][$y])
     }
     return $c;
@@ -225,7 +225,7 @@ sub clone-sudoku($sudoku) {
 }
 
 sub print-sudoku($sudoku, Int $level = 1) {
-    #trace $level, '-' x 5*9;
+    #trace $level, '-' x 5×9;
     gather {
     for @($sudoku) -> $row {
         take join " ", do for @($row) -> $cell {
