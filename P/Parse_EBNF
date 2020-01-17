@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: ebnf.dat
+#n# for JVM: just a trivial difference in output
 
 # Works with: Rakudo version 2013.09
 #This parses the EBNF rule set using a perl 6 grammar, then if it parses as valid EBNF, constructs a grammar and parses the test strings with that. EBNF rule sets that are naively syntactically correct but missing rules will parse as valid but will give a runtime failure warning about missing methods.
