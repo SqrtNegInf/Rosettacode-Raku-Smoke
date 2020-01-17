@@ -27,7 +27,7 @@ for [
 }
 .say for @res; 
 
-my $ref = q:to/END/;
+my $moar = q:to/END/;
       Template: $(((1, 2), (3, 4, 1), 5),)
 Data structure: ((("Payload#1", "Payload#2"), ("Payload#3", "Payload#4", "Payload#1"), "Payload#5"),)
 
@@ -36,5 +36,15 @@ Data structure: ((("Payload#1", "Payload#2"), (Any, "Payload#4", "Payload#1"), "
 
 END
 
+my $jvm = q:to/END/;
+      Template: (((1, 2), (3, 4, 1), 5),)
+Data structure: ((("Payload#1", "Payload#2"), ("Payload#3", "Payload#4", "Payload#1"), "Payload#5"),)
+
+      Template: (((1, 2), (10, 4, 1), 5),)
+Data structure: ((("Payload#1", "Payload#2"), (Any, "Payload#4", "Payload#1"), "Payload#5"),)
+
+END
+
 use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
