@@ -20,7 +20,7 @@ sub heap_sort ( @list ) {
 
 sub _sift_down ( $start, $end, @list ) {
     my $root = $start;
-    while ( my $child = $root * 2 + 1 ) <= $end {
+    while ( my $child = $root × 2 + 1 ) <= $end {
         $child++ if $child + 1 <= $end and [<] @list[ $child, $child+1 ];
         return if @list[$root] >= @list[$child];
         @list[ $root, $child ] .= reverse;
