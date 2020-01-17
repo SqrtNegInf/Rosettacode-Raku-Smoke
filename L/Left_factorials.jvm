@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Left_factorials
+#c# 2015-11-07 <>RC, 2019-03-05 <RC, 2019-03-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# full run has non-fatal exception in 1st part (and in 2nd part hangs forever)
+#n# Exception in thread "Thread-2" org.perl6.nqp.runtime.SaveStackException
+#n# at org.perl6.nqp.runtime.Ops.continuationcontrol(Ops.java:7506)
+
+my (@res1,@res2);
+
+# Implement left factorial as a prefix !. Note that this redefines the core prefix ! (not) function.
+
+sub prefix:<!> ($k) { (constant l = 0, |[\+] 1, (|[\×] 1..*))[$k] }
+
+$ = !10000; # Pre-initialize
+
+@res1.push: $_ for ( 0 … 10, 20 … 60 ).map: { sprintf "!%d  = %s", $_, !$_ };
+@res1.push: $_ for (1000, 2000 … 5000).map: { sprintf "!%d has %d digits.", $_, chars !$_ };
+
+.say for @res1;
+
+my $ref = q:to/END/;
+!0  = 0
+!1  = 1
+!2  = 2
+!3  = 4
+!4  = 10
+!5  = 34
+!6  = 154
+!7  = 874
+!8  = 5914
+!9  = 46234
+!10  = 409114
+!20  = 128425485935180314
+!30  = 9157958657951075573395300940314
+!40  = 20935051082417771847631371547939998232420940314
+!50  = 620960027832821612639424806694551108812720525606160920420940314
+!60  = 141074930726669571000530822087000522211656242116439949000980378746128920420940314
+!1000 has 2565 digits.
+!2000 has 5733 digits.
+!3000 has 9128 digits.
+!4000 has 12670 digits.
+!5000 has 16322 digits.
+END
+
+# If you would rather not override prefix ! operator and you can live with just defining lazy lists and indexing into them, this should suffice; (and is in fact very slightly faster than the first example since it avoids routine dispatch overhead):
+
+constant leftfact = 0, |[\+] 1, (|[\×] 1..*);
+
+$ = leftfact[10000]; # Pre-initialize
+
+@res2.push: $_ for ( 0 … 10, 20 … 60 ).map: { sprintf "!%d  = %s", $_, leftfact[$_] };
+@res2.push: $_ for (1000, 2000 … 5000).map: { sprintf "!%d has %d digits.", $_, chars leftfact[$_] };
+
+#Same output.
+
+use Test;
+is @res1.join("\n"), chomp $ref;
+is @res2.join("\n"), chomp $ref;

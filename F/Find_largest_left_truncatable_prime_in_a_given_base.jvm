@@ -1,0 +1,179 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Find_largest_left_truncatable_prime_in_a_given_base
+#c# 2016-09-22 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+srand 123456;
+
+my @res;
+
+for 3..9 -> $base {
+    @res.push: "Starting base $base...";
+    my @stems = grep { is_prime($_, 100)}, ^$base;
+    my @runoff;
+    my $stem-elem = '';
+    for 1 .. * -> $digits {
+      $stem-elem ~= ' ' ~ +@stems;
+      my @new;
+      my $place = $base ** $digits;
+      my $tries = 1;
+      for @stems -> $stem {
+    for 1 ..^ $base -> $digit {
+      my $new = $digit × $place + $stem;
+      @new.push($new) if is_prime($new, $tries);
+        }
+      }
+      last unless @new;
+      push @runoff, |@stems if @new < @stems and @new < 100;
+      @stems = @new;
+    }
+    push @runoff, |@stems;
+    @res.push: "$stem-elem";
+    @res.push: "  Finalists: "~ +@runoff;
+
+    for @runoff.sort(-*) -> $finalist {
+    my $b = $finalist.base($base);
+    @res.push: "  Checking :$base\<"~ $b~ '>';
+    my $ok = True;
+    for $base ** 2, $base ** 3, $base ** 4 ... $base ** $b.chars -> $place {
+        my $f = $finalist % $place;
+        if not is_prime($f, 100) {
+#        @res.push: "    Oops, :$base\<"~ $f.base($base)~ '> is not a prime!!!';
+        $ok = False;
+        last;
+        }
+    }
+    next unless $ok;
+
+    @res.push: "  Largest ltp in base $base = $finalist";
+    last;
+    }
+}
+.say for @res;
+
+sub expmod(Int $a is copy, Int $b is copy, $n) {
+	my $c = 1;
+	repeat while $b div= 2 {
+		($c ×= $a) %= $n if $b % 2;
+		($a ×= $a) %= $n;
+	}
+	$c;
+}
+
+subset PrimeCandidate of Int where { $_ > 2 and $_ % 2 };
+
+my Bool multi sub is_prime(Int $n, Int $k)            { return False; }
+my Bool multi sub is_prime(2, Int $k)                 { return True; }
+my Bool multi sub is_prime(PrimeCandidate $n, Int $k) {
+	my Int $d = $n - 1;
+	my Int $s = 0;
+
+	while $d %% 2 {
+		$d div= 2;
+		$s++;
+	}
+
+	for (2 ..^ $n).pick($k) -> $a {
+		my $x = expmod($a, $d, $n);
+
+		#next if $x == 1 | $n - 1; # slower?
+		next if $x == 1 or $x == $n - 1;
+
+		for 1 ..^ $s {
+			$x = $x ** 2 mod $n;
+			return False if $x == 1;
+			last if $x == $n - 1;
+		}
+		return False if $x !== $n - 1;
+	}
+
+	return True;
+}
+
+my $moar = qq:to/END/;
+Starting base 3...
+ 1 1 1
+  Finalists: 1
+  Checking :3<212>
+  Largest ltp in base 3 = 23
+Starting base 4...
+ 2 2 3 3 3 3
+  Finalists: 3
+  Checking :4<333323>
+  Largest ltp in base 4 = 4091
+Starting base 5...
+ 2 4 4 3 1 1
+  Finalists: 8
+  Checking :5<222232>
+  Largest ltp in base 5 = 7817
+Starting base 6...
+ 3 4 12 26 46 56 61 65 62 56 37 23 15 8 4 2 1
+  Finalists: 273
+  Checking :6<14141511414451435>
+  Largest ltp in base 6 = 4836525320399
+Starting base 7...
+ 3 6 6 4 1 1 1
+  Finalists: 11
+  Checking :7<6642623>
+  Largest ltp in base 7 = 817337
+Starting base 8...
+ 4 12 29 51 67 78 61 51 38 27 17 8 3 2 1
+  Finalists: 286
+  Checking :8<313636165537775>
+  Largest ltp in base 8 = 14005650767869
+Starting base 9...
+ 4 10 18 20 29 19 11 7 6 5 1
+  Finalists: 78
+  Checking :9<84884622472>
+  Checking :9<8884622472>
+  Checking :9<4884622472>
+  Checking :9<4284484465>
+  Largest ltp in base 9 = 1676456897
+END
+
+my $jvm = qq:to/END/;
+Starting base 3...
+ 1 1 1
+  Finalists: 1
+  Checking :3<212>
+  Largest ltp in base 3 = 23
+Starting base 4...
+ 2 2 3 3 3 3
+  Finalists: 3
+  Checking :4<333323>
+  Largest ltp in base 4 = 4091
+Starting base 5...
+ 2 4 4 3 1 1
+  Finalists: 8
+  Checking :5<222232>
+  Largest ltp in base 5 = 7817
+Starting base 6...
+ 3 4 12 26 46 56 61 65 62 56 37 23 15 8 4 2 1
+  Finalists: 273
+  Checking :6<14141511414451435>
+  Largest ltp in base 6 = 4836525320399
+Starting base 7...
+ 3 6 6 4 1 1 1
+  Finalists: 11
+  Checking :7<6642623>
+  Largest ltp in base 7 = 817337
+Starting base 8...
+ 4 12 29 52 71 84 67 57 41 28 18 9 5 2 1
+  Finalists: 312
+  Checking :8<313636165537775>
+  Largest ltp in base 8 = 14005650767869
+Starting base 9...
+ 4 9 16 18 25 17 11 6 5 3
+  Finalists: 67
+  Checking :9<4284484465>
+  Largest ltp in base 9 = 1676456897
+END
+
+use Test;
+if $*VM ~~ /jvm/ {
+is @res.join("\n"), chomp $jvm;
+} else {
+is @res.join("\n"), chomp $moar;
+}

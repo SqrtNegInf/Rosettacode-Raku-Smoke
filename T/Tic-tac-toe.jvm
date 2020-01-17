@@ -1,0 +1,69 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Tic-tac-toe
+#c# 2018-04-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#x# RC pipe: 5\n1\n9
+#n# use pre-loaded array instead
+
+my @pre-loaded = <5 3 7>;
+
+#=# RC pipe: 5\n9\n3
+srand 123456;
+
+my $result;
+
+# Works with: Rakudo version 2018.03
+# The computer plays a random game.
+
+my @board = 1..9;
+my @winning-positions = [0..2], [3..5], [6..8], [0,3,6], [1,4,7], [2,5,8],
+	[0,4,8], [6,4,2];
+
+sub get-winner() {
+	for @winning-positions {
+        return (@board[|$_][0], $_) if [eq] @board[|$_];
+	}
+}
+
+sub free-indexes() {
+	@board.keys.grep: { @board[$_] eq any(1..9) }
+}
+
+sub ai-move() {
+	given free-indexes.pick {
+		@board[$_] = 'o';
+		say "I go at: { $_ + 1 }\n";
+	}
+}
+
+sub print-board() {
+    print "\e[2J";
+    say @board.map({ "$^a | $^b | $^c" }).join("\n--+---+--\n"), "\n";
+}
+
+sub human-move() {
+	my $pos = shift @pre-loaded || die;
+	#my $pos = prompt "Choose one of { (free-indexes() »+» 1).join(",") }: ";  # this fails interactively, why?
+	if $pos eq any(free-indexes() »+» 1) {
+		@board[$pos - 1] = 'x';
+	} else {
+		say "Sorry, you want to put your 'x' where?";
+		human-move();
+	}
+}
+
+for flat (&ai-move, &human-move) xx * {
+	print-board;
+    last if get-winner() or not free-indexes;
+    .();
+}
+
+if get-winner() -> ($player, $across) {
+	say $result = "$player wins across [" ~ ($across »+» 1).join(", ") ~ "].";
+} else {
+	say $result = "How boring, a draw!";
+}
+
+use Test;
+is $result, 'x wins across [7, 5, 3].';

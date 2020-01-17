@@ -1,0 +1,107 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Print_debugging_statement
+#c# 2019-08-29 <RC
+#m# MOAR: BROKEN
+#j# JVM:  OK
+#n# can only test Moar or JVM, not both, because the answers for one affect the results for the other
+
+my @res;
+
+my &pdb = &die;
+
+CATCH {
+    when X::AdHoc {
+        my @frames = .backtrace[*];
+        @res.push: .payload;
+        for @frames {
+            # Filter out exception handing and dispatcher frames
+            next if .file.contains: 'SETTING' or .subname.chars < 1;
+            @res.push: sprintf "%sfrom file: %s,%s line: %s",
+              (' ' x $++), .file,
+              (my $s = .subname) eq '<unit>' ?? '' !! " sub: $s,", .line;
+        }
+        @res.push: '';
+        .resume;
+    }
+    default {}
+}
+
+## Testing / demonstration
+
+# helper subs                #line 22
+sub alpha ($a) {             #line 23
+    pdb ('a =>', $a + 3);    #line 24
+    pdb 'string';            #line 25
+    beta(7);                 #line 26
+}                            #line 27
+sub beta  ($b) { pdb $b    } #line 28
+sub gamma ($c) { beta $c   } #line 29
+sub delta ($d) { gamma $d  } #line 30
+                             #line 31
+my $a = 10;                  #line 32
+pdb (.VAR.name, $_) with $a; #line 33
+alpha($a);                   #line 34
+delta("D");                  #line 35
+.&beta for ^3;               #line 36
+
+.say for @res;
+
+my $ref = q:to/END/;
+$a 10
+from file: gen/jvm/CORE.c.setting, sub: throw, line: 39429
+ from file: gen/jvm/CORE.c.setting, sub: die, line: 928
+  from file: gen/jvm/CORE.c.setting, sub: infix:<andthen>, line: 54650
+   from file: P/Print_debugging_statement.jvm, line: 42
+
+a => 13
+from file: gen/jvm/CORE.c.setting, sub: throw, line: 39429
+ from file: gen/jvm/CORE.c.setting, sub: die, line: 928
+  from file: P/Print_debugging_statement.jvm, sub: alpha, line: 33
+   from file: P/Print_debugging_statement.jvm, line: 43
+
+string
+from file: gen/jvm/CORE.c.setting, sub: throw, line: 39429
+ from file: gen/jvm/CORE.c.setting, sub: die, line: 928
+  from file: P/Print_debugging_statement.jvm, sub: alpha, line: 34
+   from file: P/Print_debugging_statement.jvm, line: 43
+
+7
+from file: gen/jvm/CORE.c.setting, sub: throw, line: 39429
+ from file: gen/jvm/CORE.c.setting, sub: die, line: 928
+  from file: P/Print_debugging_statement.jvm, sub: beta, line: 37
+   from file: P/Print_debugging_statement.jvm, sub: alpha, line: 35
+    from file: P/Print_debugging_statement.jvm, line: 43
+
+D
+from file: gen/jvm/CORE.c.setting, sub: throw, line: 39429
+ from file: gen/jvm/CORE.c.setting, sub: die, line: 928
+  from file: P/Print_debugging_statement.jvm, sub: beta, line: 37
+   from file: P/Print_debugging_statement.jvm, sub: gamma, line: 38
+    from file: P/Print_debugging_statement.jvm, sub: delta, line: 39
+     from file: P/Print_debugging_statement.jvm, line: 44
+
+0
+from file: gen/jvm/CORE.c.setting, sub: throw, line: 39429
+ from file: gen/jvm/CORE.c.setting, sub: die, line: 928
+  from file: P/Print_debugging_statement.jvm, sub: beta, line: 37
+   from file: gen/jvm/CORE.c.setting, sub: dispatch:<var>, line: 1764
+    from file: P/Print_debugging_statement.jvm, line: 45
+
+1
+from file: gen/jvm/CORE.c.setting, sub: throw, line: 39429
+ from file: gen/jvm/CORE.c.setting, sub: die, line: 928
+  from file: P/Print_debugging_statement.jvm, sub: beta, line: 37
+   from file: gen/jvm/CORE.c.setting, sub: dispatch:<var>, line: 1764
+    from file: P/Print_debugging_statement.jvm, line: 45
+
+2
+from file: gen/jvm/CORE.c.setting, sub: throw, line: 39429
+ from file: gen/jvm/CORE.c.setting, sub: die, line: 928
+  from file: P/Print_debugging_statement.jvm, sub: beta, line: 37
+   from file: gen/jvm/CORE.c.setting, sub: dispatch:<var>, line: 1764
+    from file: P/Print_debugging_statement.jvm, line: 45
+
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;

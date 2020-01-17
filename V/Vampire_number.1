@@ -1,46 +1,57 @@
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Vampire_number
-#c# 2016-09-07 <RC, 2018-11-10 <RC
+#c# 2016-09-07 <RC
 #m# MOAR: OK
-#j# JVM:  OK
-#n# thundergnat's additions do more (25 vs 8) in same time
-
-my @res;
+#j#  JVM: OK
 
 sub is_vampire (Int $num) {
     my $digits = $num.comb.sort;
     my @fangs;
-    (10**$num.sqrt.log(10).floor .. $num.sqrt.ceiling).map: -> $this {
-        next if $num % $this;
+    for vfactors($num) -> $this {
         my $that = $num div $this;
-        next if $this %% 10 && $that %% 10;
-        @fangs.push("$this x $that") if ($this ~ $that).comb.sort eq $digits;
+        @fangs.push("$this x $that") if 
+            !($this %% 10 && $that %% 10) and 
+            ($this ~ $that).comb.sort eq $digits; 
     }
-    @fangs
+    return @fangs;
 }
 
-constant @vampires = flat (3..*).map: -> $s, $e {
-    (10**$s .. 10**$e).map: -> $n {
-        next unless my @fangs = is_vampire($n);
-        "$n: { @fangs.join(', ') }"
+constant @vampires = gather for 1 .. * -> $n {
+    next if $n.log(10).floor %% 2;
+    my @fangs = is_vampire($n);
+    take "$n: { @fangs.join(', ') }" if @fangs.elems;
+}
+
+#say "\nFirst 25 Vampire Numbers:\n";
+#.say for @vampires[^25];
+
+say "\nFirst 8 Vampire Numbers:\n";
+my $ref = '1260: 21 x 60 1395: 15 x 93 1435: 35 x 41 1530: 30 x 51 1827: 21 x 87 2187: 27 x 81 6880: 80 x 86';
+
+use Test;
+is @vampires[^7], $ref;
+is is_vampire(14593825548650), '';
+is is_vampire(16758243290880), '1982736 x 8452080 2123856 x 7890480 2751840 x 6089832 2817360 x 5948208';
+exit;
+
+say "\nIndividual tests:\n";
+
+for 16758243290880, 24959017348650, 14593825548650 {
+    print "$_: ";
+    my @fangs = is_vampire($_);
+    if @fangs.elems {
+         say @fangs.join(', ');
+    } else {
+         say 'is not a vampire number.';
     }
 }
 
-@res.push: "\nFirst 25 Vampire Numbers:\n";
-
-@res.push: $_ for @vampires[^25];
-
-@res.push: "\nIndividual tests:\n";
-
-@res.push: $_ for (16758243290880, 24959017348650, 14593825548650).map: {
-    "$_: " ~ (is_vampire($_).join(', ') || 'is not a vampire number.')
+sub vfactors (Int $n) {
+   map { $_ if $n %% $_ }, 10**$n.sqrt.log(10).floor .. $n.sqrt.ceiling;
 }
 
-.say for @res;
-
-my $ref = q:to/END/;
-
+#`{
 First 25 Vampire Numbers:
 
 1260: 21 x 60
@@ -74,7 +85,4 @@ Individual tests:
 16758243290880: 1982736 x 8452080, 2123856 x 7890480, 2751840 x 6089832, 2817360 x 5948208
 24959017348650: 2947050 x 8469153, 2949705 x 8461530, 4125870 x 6049395, 4129587 x 6043950, 4230765 x 5899410
 14593825548650: is not a vampire number.
-END
-
-use Test;
-is @res.join("\n"), chomp $ref;
+}

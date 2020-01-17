@@ -1,12 +1,9 @@
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Largest_number_divisible_by_its_digits
-#c# 2017-09-02 <RC
+#c# 2017-09-02 <RC, 2018-10-13 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 153.826u 1.602s 2:35.24 100.1%
 
-# Works with: Rakudo version 2017.08
 #`{
 Base 10[edit]
 The number can not have a zero in it, that implies that it can not have a 5 either since if it has a 5, it must be divisible by 5, but the only numbers divisible by 5 end in 5 or 0. It can't be zero, and if it is odd, it can't be divisible by 2, 4, 6 or 8. So that leaves 98764321 as possible digits the number can contain. The sum of those 8 digits is not divisible by three so the largest possible integer must use no more than 7 of them (since 3, 6 and 9 would be eliminated). Strictly by removing possibilities that cannot possibly work we are down to at most 7 digits.
@@ -39,26 +36,30 @@ There are fewer analytical optimizations available for base 16. Other than 0, no
 To verify that a number is divisible by 1 through 15, we only need to check 5, 7, 8, 9, 11, & 13.
 }
 
+sub find-match ($num) {
+    my $test = $num.base(16);
+    return if index $test, 0;
+    return if $test.comb.Bag.values.max > 1;
+    #return if $test.comb.Set.elems != $test.chars; # same speed, but more cluttered
+    return $test;
+}
 
 my $hex = 'FEDCBA987654321';        # largest possible hex number
    $magic-number = [lcm] 1 .. 15;   # find least common multiple
    $div = :16($hex) div $magic-number × $magic-number;
 
-for $div, { $_ - $magic-number } ... 0 -> $num {  # Only generate multiples of the lcm 
-    my $test = $num.base(16);
+# hunt for target stepping backwards in multiples of the lcm
+my $target = ($div, { $_ - $magic-number } ... 0).grep(*.&find-match).first;
+my $hexnum = $target.base(16);
 
-    next if index $test, 0;                 # skip numbers containing 0
-    next if $test.comb.Bag.values.max > 1;  # skip numbers with non unique digits
-    #next if $test.comb.Set.elems != $test.chars; # same speed, but more cluttered
+@res.push: "Found $hexnum"; # Found a solution, display it
+#@res.push: ' ' x 12 ~ 'In base 16' ~ ' ' x 36 ~ 'In base 10'; # odd, newlines inserted in JVM somewhere in processing?
+@res.push: "{' ' x 12}In base 16{' ' x 36}In base 10";
 
-    @res.push: "Found $test";             # Found a solution, display it
-    @res.push: ' ' x 12, 'In base 16', ' ' x 36, 'In base 10';
-    for $test.comb {
-        @res.push: sprintf "%s / %s = %s  |  %d / %2d = %19d",
-          $test, $_, ($num / :16($_)).base(16),
-          $num, :16($_), $num / :16($_);
-    }
-    last
+for $hexnum.comb {
+    @res.push: sprintf "%s / %s = %s  |  %d / %2d = %19d",
+        $hexnum, $_, ($target / :16($_)).base(16),
+        $target, :16($_), $target / :16($_);
 }
 
 .say for @res;
@@ -73,10 +74,7 @@ Found 9867312
 9867312 / 1 = 9867312
 9867312 / 2 = 4933656
 Found FEDCB59726A1348
-
-In base 16
-
-In base 10
+            In base 16                                    In base 10
 FEDCB59726A1348 / F = 10FDA5B4BE4F038  |  1147797065081426760 / 15 =   76519804338761784
 FEDCB59726A1348 / E = 1234561D150B83C  |  1147797065081426760 / 14 =   81985504648673340
 FEDCB59726A1348 / D = 139AD2E43E0C668  |  1147797065081426760 / 13 =   88292081929340520

@@ -1,22 +1,24 @@
 #!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Left_factorials
-#c# 2015-11-07 <>RC, 2019-03-05 <RC, 2019-03-14 <RC
+#c# 2015-11-07 <>RC, 2019-03-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# full run has non-fatal exception in 1st part (and in 2nd part hangs forever)
-#n# Exception in thread "Thread-2" org.perl6.nqp.runtime.SaveStackException
-#n# at org.perl6.nqp.runtime.Ops.continuationcontrol(Ops.java:7506)
 
 my (@res1,@res2);
 
-# Implement left factorial as a prefix !. Note that this redefines the core prefix ! (not) function.
+# Perl 6 doesn't have a built in factorial function, so the first line implements postfix ! factorial.
+# The newly implemented factorial function is used to implement left factorial using a prefix ! in the next line.
+# Note that this redefines the core prefix ! (not) function.
+# The last two lines are display code for the various sub task requirements.
 
-sub prefix:<!> ($k) { (constant l = 0, |[\+] 1, (|[\×] 1..*))[$k] }
+sub postfix:<!> ($n) { (constant f = 1, |[\×] 1..*)[$n] }
+sub  prefix:<!> ($k) { (constant l = 0, |[\+] (0..*).map: *!)[$k] }
 
 $ = !10000; # Pre-initialize
 
-@res1.push: $_ for ( 0 … 10, 20 … 60 ).map: { sprintf "!%d  = %s", $_, !$_ };
-@res1.push: $_ for (1000, 2000 … 5000).map: { sprintf "!%d has %d digits.", $_, chars !$_ };
+@res1.push: $_ for ( 0 … 10, 20 … 110 ).hyper(:4batch).map: { sprintf "!%d  = %s", $_, !$_ };
+@res1.push: $_ for (1000, 2000 … 10000).hyper(:4batch).map: { sprintf "!%d has %d digits.", $_, chars !$_ };
 
 .say for @res1;
 
@@ -37,23 +39,32 @@ my $ref = q:to/END/;
 !40  = 20935051082417771847631371547939998232420940314
 !50  = 620960027832821612639424806694551108812720525606160920420940314
 !60  = 141074930726669571000530822087000522211656242116439949000980378746128920420940314
+!70  = 173639511802987526699717162409282876065556519849603157850853034644815111221599509216528920420940314
+!80  = 906089587987695346534516804650290637694024830011956365184327674619752094289696314882008531991840922336528920420940314
+!90  = 16695570072624210767034167688394623360733515163575864136345910335924039962404869510225723072235842668787507993136908442336528920420940314
+!100  = 942786239765826579160595268206839381354754349601050974345395410407078230249590414458830117442618180732911203520208889371641659121356556442336528920420940314
+!110  = 145722981061585297004706728001906071948635199234860720988658042536179281328615541936083296163475394237524337422204397431927131629058103519228197429698252556442336528920420940314
 !1000 has 2565 digits.
 !2000 has 5733 digits.
 !3000 has 9128 digits.
 !4000 has 12670 digits.
 !5000 has 16322 digits.
+!6000 has 20062 digits.
+!7000 has 23875 digits.
+!8000 has 27749 digits.
+!9000 has 31678 digits.
+!10000 has 35656 digits.
 END
 
 # If you would rather not override prefix ! operator and you can live with just defining lazy lists and indexing into them, this should suffice; (and is in fact very slightly faster than the first example since it avoids routine dispatch overhead):
 
-constant leftfact = 0, |[\+] 1, (|[\×] 1..*);
+constant fact = 1, |[\×] 1..*;
+constant leftfact = 0, |[\+] fact;
 
 $ = leftfact[10000]; # Pre-initialize
 
-@res2.push: $_ for ( 0 … 10, 20 … 60 ).map: { sprintf "!%d  = %s", $_, leftfact[$_] };
-@res2.push: $_ for (1000, 2000 … 5000).map: { sprintf "!%d has %d digits.", $_, chars leftfact[$_] };
-
-#Same output.
+@res2.push: $_ for ( 0 … 10, 20 … 110 ).hyper(:4batch).map: { sprintf "!%d  = %s", $_, leftfact[$_] };
+@res2.push: $_ for (1000, 2000 … 10000).hyper(:4batch).map: { sprintf "!%d has %d digits.", $_, chars leftfact[$_] };
 
 use Test;
 is @res1.join("\n"), chomp $ref;
