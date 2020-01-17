@@ -1,8 +1,8 @@
-This is Rakudo version 2019.11-472-gada7c3654 built on MoarVM version 2020.01-15-g1fa9764bf
+This is Rakudo version 2019.11-484-g339930231 built on MoarVM version 2020.01-15-g1fa9764bf
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1178/12]
-|+-------------> JVM: Good/Bad [1006/179]
++--------------> Moar: Good/Bad [1179/11]
+|+-------------> JVM: Good/Bad [1010/181]
 ||+------------> Smoke testing [1065]
 |||+-----------> sKipping validation [122]
 ||||+----------> Interactive [59]
@@ -10,10 +10,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [57]
 |||||||+-------> Random seed [117]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [226]
+|||||||||+-----> Draft [227]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [98]
-||||||||||||+--> Un-implemented/reliable [74]
+|||||||||||+---> Void (no local copy) [99]
+||||||||||||+--> Un-implemented/reliable [75]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -135,7 +135,7 @@ GGS.......... Bitmap
 GGS.....F.... Bitmap_B%C3%A9zier_curves_Cubic
 GGS.....F.... Bitmap_B%C3%A9zier_curves_Quadratic
 GGS.....F.... Bitmap_Bresenham%27s_line_algorithm
-G!S.....F.... Bitmap_Flood_fill
+GGS.....F.... Bitmap_Flood_fill
 GGS.....F.... Bitmap_Histogram
 GGS.....F.... Bitmap_Midpoint_circle_algorithm
 GGS.....F.... Bitmap_PPM_conversion_through_a_pipe
@@ -377,7 +377,7 @@ GGS.......... Exponentiation_operator
 GGS.......... Exponentiation_order
 GGS..T....... Extend_your_language
 GGS.......... Extensible_prime_generator
-BBS..T...D... External_sort
+GBS..T...D... External_sort
 GGS......D... Extract_file_extension
 GGS..T....... Extreme_floating_point_values
 GGS.......... FASTA_format
@@ -406,12 +406,12 @@ GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T...D... File_size_distribution
 GGS.......... Filter
-G!S......D... Find_URI_in_text
+GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T...D... Find_duplicate_files
 GBS......D... Find_first_and_last_set_bit_of_a_long_integer
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
-G!S..T....... Find_limit_of_recursion
+GGS..T....... Find_limit_of_recursion
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
 GGS......D... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
@@ -485,7 +485,7 @@ GGS....R..... Guess_the_number
 GGS....R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
-G!S.......... HTTPS
+GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -640,6 +640,7 @@ GGS.......... Longest_common_subsequence
 GGS.......... Longest_increasing_subsequence
 GGS.......... Longest_string_challenge
 GGS.......... Look-and-say_sequence
+.........D.VU Look_and_Say
 GGS.......... Loop_over_multiple_arrays_simultaneously
 GGS....R..... Loops_Break
 GGS.......... Loops_Continue
@@ -711,7 +712,7 @@ GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
 .........DXV. Modulinos
 GGS......D... Monads_List_monad
-G!S......D... Monads_Maybe_monad
+GGS......D... Monads_Maybe_monad
 .........D.VU Monads_Writer_monad
 GGS....R..... Monte_Carlo_methods
 GBS......D... Montgomery_reduction
@@ -752,7 +753,7 @@ GG.KI........ Nautical_bell
 GGS.......... Nautical_bell-2
 GGS.......... Negative_base_numbers
 GGS.......... Nested_function
-G!S.......... Nested_templated_data
+GGS.......... Nested_templated_data
 GGS.......... Nim_Game
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
@@ -1147,8 +1148,8 @@ GGS..T....... Sum_of_a_series
 GGS.......... Sum_of_squares
 GGS.......... Sum_to_100
 GGS.....F.... Sunflower_fractal
-GGS...C...... Super-d_numbers-1
-GGS...C...... Super-d_numbers-2
+GBS...C...... Super-d_numbers-1
+GBS...C...... Super-d_numbers-2
 GBS..TC...... Super-d_numbers-3
 GGS..T..F.... Superellipse
 GGS..T....... Superpermutation_minimisation
