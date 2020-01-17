@@ -9,7 +9,7 @@
 sub grep-unique (&by, @list) { @list.classify(&by).values.grep(* == 1).map(*[0]) }
 sub sums        ($n)         { ($_, $n - $_ for 2 .. $n div 2) }
 sub sum         ([$x, $y])   { $x + $y }
-sub product     ([$x, $y])   { $x * $y }
+sub product     ([$x, $y])   { $x × $y }
 
 my @all-pairs = (|($_ X $_+1 .. 98) for 2..97);
 
