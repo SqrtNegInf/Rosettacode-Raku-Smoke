@@ -60,7 +60,7 @@ for %costs.keys.sort -> $g {
     $line = "$g\t";
     for @cols -> $col {
         $line ~= %res{$g}{$col} // '-'; $line ~= "\t";
-        $total += (%res{$g}{$col} // 0) * %costs{$g}{$col};
+        $total += (%res{$g}{$col} // 0) × %costs{$g}{$col};
     }
     @res.push: $line;
 }
