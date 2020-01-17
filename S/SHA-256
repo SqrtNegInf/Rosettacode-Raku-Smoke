@@ -9,7 +9,7 @@
 my $out = sha256 "Rosetta code";
 
 sub init(&f) {
-    map { my $f = $^p.&f; (($f - $f.Int)*2**32).Int },
+    map { my $f = $^p.&f; (($f - $f.Int)×2**32).Int },
     state @ = grep *.is-prime, 2 .. *;
 }
 
@@ -23,8 +23,8 @@ multi sha256(Str $str where all($str.ords) < 128) {
 multi sha256(Blob $data) {
     constant K = init(* **(1/3))[^64];
     my @b = flat $data.list, 0x80;
-    push @b, 0 until (8 * @b - 448) %% 512;
-    push @b, slip reverse (8 * $data).polymod(256 xx 7);
+    push @b, 0 until (8 × @b - 448) %% 512;
+    push @b, slip reverse (8 × $data).polymod(256 xx 7);
     my @word = :256[@b.shift xx 4] xx @b/4;
 
     my @H = init(&sqrt)[^8];
