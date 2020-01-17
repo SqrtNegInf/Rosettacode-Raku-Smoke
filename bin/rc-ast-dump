@@ -24,7 +24,7 @@ for flat 0, 'A'..'Z' -> $dir {
        #my $file = ($path ~~ /'/' (.*) $$/)».Str;
        #my $file = $0 given $path ~~ /'/' (.*) $$/;
         next if %nogo{$file};
-        next if $file ~~ /\.\d+$/;
+        next if $file ~~ /\. ( \d+ | jvm ) $/;
         say "======> perl6 --target=AST $path > ast/$file";
         shell "perl6 --target=AST $path > ast/$file";
     }
