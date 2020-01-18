@@ -7,7 +7,7 @@
 
 my @res;
 
-my @data = grep { /^^ <[A..Z]>/ }, split /\n/, q:to/EOD/;
+my @data = grep { /^^ <[A..Z]>/ }, q:to/EOD/.lines;
 C BA CB BB F AE F A B
 AB CA AE GA E C D C
 
