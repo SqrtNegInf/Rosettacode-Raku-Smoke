@@ -29,11 +29,11 @@ my $sub = '₀';
 
 $sub = '₀';
 @res.push: "\nFactors of first few Fermat numbers:";
-for @Fermats[^6].map( {"$_".&factor} ) -> $f {
+for @Fermats[^9].map( {"$_".&factor} ) -> $f {
    @res.push: sprintf "Factors of F%s: %s %s", $sub++, $f.join(' '), $f.elems == 1 ?? '- prime' !! ''
 }
 
-.say for @res;
+.say for @res; exit;
 
 my $ref = q:to/END/;
 First 10 Fermat numbers:
