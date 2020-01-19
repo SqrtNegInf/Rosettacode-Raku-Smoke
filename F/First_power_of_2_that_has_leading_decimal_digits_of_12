@@ -12,7 +12,7 @@ use Lingua::EN::Numbers;
 
 constant $ln2ln10 = log(2) / log(10);
 
-my @startswith12  = ^∞ .grep: { ( 10 ** ($_ * $ln2ln10 % 1) ).substr(0,3) eq '1.2' };
+my @startswith12  = ^∞ .grep: { ( 10 ** ($_ × $ln2ln10 % 1) ).substr(0,3) eq '1.2' };
 
 my @startswith123 = lazy gather loop {
     state $pre   = '1.23';
@@ -22,12 +22,12 @@ my @startswith123 = lazy gather loop {
         when 196 {
             $this = 289;
             my \n = $count + $this;
-            $this = 485 unless ( 10 ** (n * $ln2ln10 % 1) ).substr(0,4) eq $pre;
+            $this = 485 unless ( 10 ** (n × $ln2ln10 % 1) ).substr(0,4) eq $pre;
         }
         when 485 {
             $this = 196;
             my \n = $count + $this;
-            $this = 485 unless ( 10 ** (n * $ln2ln10 % 1) ).substr(0,4) eq $pre;
+            $this = 485 unless ( 10 ** (n × $ln2ln10 % 1) ).substr(0,4) eq $pre;
         }
         when 289 { $this = 196 }
         when 90  { $this = 289 }
