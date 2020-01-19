@@ -3,7 +3,6 @@
 #c# 2016-05-10 <RC, 2018-11-03 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# for JVM, use .1 for testing
 
 #A loose translation of the Perl entry. Does not return every possible permutation of the possible solutions. Filters out duplicates (from repeated digits) and only reports the solution for a particular order of digits and operators with the fewest parenthesis (avoids reporting duplicate solutions only differing by unnecessary parenthesis). Does not guarantee the order in which results are returned.
 #Since Perl 6 uses Rational numbers for division (whenever possible) there is no loss of precision as is common with floating point division. So a comparison like  (1 + 7) / (1 / 3) == 24 "Just Works"&#8482;
