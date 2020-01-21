@@ -1,5 +1,5 @@
 #!/usr/bin/env perl6
-#c# 2020-01-15 >RC
+#c# 2020-01-15 >RC, 2020-01-20 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 🌐 didn't work well in variable names :-(
@@ -63,7 +63,7 @@ sub pso (&fn, %y) {
         @pos[j;$_] = %y{'min'}[$_] + (%y{'max'}[$_] - %y{'min'}[$_]) × rand for 0 ..^ $d;
     }
     return {gbpos => @gbpos, gbval => $gbval, bpos => @bpos, bval => @bval, pos => @pos, vel => @vel, 
-            min => %y{'min'}, max => %y{'max'}, p=> %y{'p'}, n => $n, d => $d}
+            min => %y{'min'}, max => %y{'max'}, p=> %y{'p'}, n => $n};
 }
 
 sub report ($function-name, %state) {
