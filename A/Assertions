@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Assertions
+#c# 2020-01-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+use lib 'libtest'; # DH work-around for problems with JVM and Test::Output
+
+sub testcode {
+
+my $a = 47;
+$a == 42 or note "$a ain't 42";
+say "No problemo!";
+
+}
+
+# Note: This example uses an experimental feature, and does not work in the primary Perl 6 compiler, Rakudo.
+# with a (non-hygienic) macro
+#macro assert ($x) { "$x or die 'assertion failed: $x'" }
+#assert('$a == 42');
+
+use Test;
+use Test::Output;
+is stderr-from(&testcode), "47 ain't 42\n";
