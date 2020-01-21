@@ -1,9 +1,9 @@
-This is Rakudo version 2019.11-505-gbd4b2c148 built on MoarVM version 2020.01-15-g1fa9764bf
+This is Rakudo version 2019.11-508-gfc8bfc2e8 built on MoarVM version 2020.01-15-g1fa9764bf
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1180/11]
-|+-------------> JVM: Good/Bad [1010/182]
-||+------------> Smoke testing [1069]
++--------------> Moar: Good/Bad [1182/10]
+|+-------------> JVM: Good/Bad [1017/176]
+||+------------> Smoke testing [1070]
 |||+-----------> sKipping validation [119]
 ||||+----------> Interactive [59]
 |||||+---------> Touched (modified by me) [296]
@@ -11,8 +11,8 @@ updating from RC…
 |||||||+-------> Random seed [117]
 ||||||||+------> File output [86]
 |||||||||+-----> Draft [224]
-||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [97]
+||||||||||+----> Ignoring [34]
+|||||||||||+---> Void (no local copy) [96]
 ||||||||||||+--> Un-implemented/reliable [73]
 |||||||||||||
 GGS.......... 100_doors
@@ -88,7 +88,7 @@ GGS.......... Array_concatenation
 GGS.......... Array_length
 GGS.......... Arrays
 .........DXV. Aspect_Oriented_Programming
-..........XV. Assertions
+GGS.......... Assertions
 GGS......D... Assertions_in_design_by_contract
 GGS.......... Associative_array_Creation
 GGS.......... Associative_array_Iteration
@@ -279,7 +279,7 @@ GGS.......... DNS_query
 GGS......D... Damm_algorithm
 GGS......D... Data_Encryption_Standard
 GGS..T....... Date_format
-GBS..T....... Date_manipulation
+GGS..T....... Date_manipulation
 GGS.......... Day_of_the_week
 GGS......D... Days_between_dates
 GGS.......... De_Bruijn_sequences
@@ -409,7 +409,7 @@ GGS.......... Filter
 GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T...D... Find_duplicate_files
-GBS......D... Find_first_and_last_set_bit_of_a_long_integer
+GGS......D... Find_first_and_last_set_bit_of_a_long_integer
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
@@ -443,7 +443,7 @@ GGS.......... Four_is_magic
 GGS.......... Four_is_the_number_of_letters_in_the_...
 GGS.....F.... Fractal_tree
 GGS...c...... Fraction_reduction
-GBS.......... Fractran
+GGS.......... Fractran
 .........D.VU Free_polyominoes_enumeration
 GGS......D... French_Republican_calendar
 GGS..T....... Function_composition
@@ -714,7 +714,7 @@ GGS......D... Monads_List_monad
 GGS......D... Monads_Maybe_monad
 .........D.VU Monads_Writer_monad
 GGS....R..... Monte_Carlo_methods
-GBS......D... Montgomery_reduction
+GGS......D... Montgomery_reduction
 GBS..TCR..... Monty_Hall_problem
 .........D.VU Morpion_solitaire
 GGS.......... Morse_code
@@ -742,7 +742,7 @@ GGS..T....... N-queens_problem
 GGS.......... N-smooth_numbers
 GGS......D... NYSIIS
 GGS.......... Named_parameters
-BBS..T...D... Names_to_numbers
+GGS..T...D... Names_to_numbers
 GG.K......... Naming_conventions
 ..........XV. Narcissist
 GGS.......... Narcissistic_decimal_number
@@ -783,7 +783,7 @@ GGS....R..... One_of_n_lines_in_a_file
 ..........XV. OpenGL
 .........D.VU OpenGL_Pixel_Shader
 .........D.VU OpenGL_Utah_Teapot
-GBS.......... OpenWebNet_Password
+GGS.......... OpenWebNet_Password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
 GBS......D... Orbital_elements
