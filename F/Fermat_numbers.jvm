@@ -2,8 +2,8 @@
 #u# http://rosettacode.org/wiki/Fermat_numbers
 #c# 2019-08-20 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# for JVM: 'F₅' is not being factored, but ID'd as prime?
+#j# JVM:  OK
+#n# must wrap the 'gather' in brackets to get array return (or suffix with .Array)
 
 my @res;
 
@@ -11,32 +11,32 @@ my @res;
 
 sub factor($n is copy) {
     $n == 1 ?? 1 !!
-    | gather {
+    [gather {
         $n /= take 2 while $n %% 2;
         $n /= take 3 while $n %% 3;
         loop (my $p = 5; $p×$p <= $n; $p+=2) {
             $n /= take $p while $n %% $p;
         }
         take $n unless $n == 1;
-    }
+    }]
 }
 
 my @Fermats = (^Inf).map: 2 ** 2 ** * + 1;
 
 my $sub = '₀';
-@res.push: "First 10 Fermat numbers:";
+@res.push: "First 9 Fermat numbers:";
 @res.push: sprintf "F%s = %s", $sub++, $_ for @Fermats[^10];
 
 $sub = '₀';
 @res.push: "\nFactors of first few Fermat numbers:";
-for @Fermats[^9].map( {"$_".&factor} ) -> $f {
-   @res.push: sprintf "Factors of F%s: %s %s", $sub++, $f.join(' '), $f.elems == 1 ?? '- prime' !! ''
+for @Fermats[^6].map( {"$_".&factor} ) -> $f {
+   @res.push: sprintf "Factors of F%s: %s %s", $sub++, $f.join(" \x00d7 "), ($f.elems == 1 ?? '- prime' !! '')
 }
 
-.say for @res; exit;
+.say for @res;
 
 my $ref = q:to/END/;
-First 10 Fermat numbers:
+First 9 Fermat numbers:
 F₀ = 3
 F₁ = 5
 F₂ = 17
@@ -54,7 +54,7 @@ Factors of F₁: 5 - prime
 Factors of F₂: 17 - prime
 Factors of F₃: 257 - prime
 Factors of F₄: 65537 - prime
-Factors of F₅: 641 6700417 
+Factors of F₅: 641 × 6700417 
 END
 #Factors of F₆: 274177 67280421310721 
 #Factors of F₇: 59649589127497217 5704689200685129054721 
