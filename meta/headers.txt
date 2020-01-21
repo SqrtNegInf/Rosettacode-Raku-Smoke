@@ -675,6 +675,13 @@ File: A/Arrays
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: A/Assertions
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Assertions
+#c# 2020-01-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: A/Assertions_in_design_by_contract
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Assertions_in_design_by_contract
@@ -2311,7 +2318,7 @@ File: D/Date_manipulation
 #u# http://rosettacode.org/wiki/Date_manipulation
 #c# 2016-04-24 <>RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
 
 File: D/Day_of_the_week
 #!/usr/bin/env perl6
@@ -3376,8 +3383,8 @@ File: F/Fermat_numbers.jvm
 #u# http://rosettacode.org/wiki/Fermat_numbers
 #c# 2019-08-20 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# for JVM: 'F₅' is not being factored, but ID'd as prime?
+#j# JVM:  OK
+#n# must wrap the 'gather' in brackets to get array return (or suffix with .Array)
 
 File: F/Fibonacci_n-step_number_sequences
 #!/usr/bin/env perl6
@@ -3521,7 +3528,7 @@ File: F/Find_first_and_last_set_bit_of_a_long_integer
 #u# http://rosettacode.org/wiki/Find_first_and_last_set_bit_of_a_long_integer
 #c# 2016-05-23 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
 
 File: F/Find_largest_left_truncatable_prime_in_a_given_base
 #!/usr/bin/env perl6
@@ -3860,8 +3867,7 @@ File: F/Fractran
 #u# http://rosettacode.org/wiki/Fractran
 #c# 2016-08-07 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
-#   Type check failed in binding to nu; expected Int but got Rat (<34/91>)
+#j#  JVM: OK
 
 File: F/Fractran.1
 #!/usr/bin/env perl6
@@ -3869,7 +3875,7 @@ File: F/Fractran.1
 #u# http://rosettacode.org/wiki/Fractran
 #c# 2016-08-07 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
 #n# for JVM: Type check failed in binding to nu; expected Int but got Rat (<34/91>)
 #n# 2019-01-08 extra credit test started failing
 
@@ -6314,7 +6320,7 @@ File: M/Montgomery_reduction
 #u# http://rosettacode.org/wiki/Montgomery_reduction
 #c# 2018-04-11 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: M/Monty_Hall_problem
 #!/usr/bin/env perl6
@@ -6554,7 +6560,8 @@ File: N/Names_to_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Names_to_numbers
 #c# 2019-11-26 >RC
-#p# OK
+#m# MOAR: OK
+#j#  JVM: OK
 #n# Or: How I Learned To Stop Worrying, and Love Raku Regex
 #n# remaining issues: spacing around punctuation, decimal fraction support very minimal, speed
 
@@ -6872,7 +6879,7 @@ File: O/OpenWebNet_Password
 #u# http://rosettacode.org/wiki/OpenWebNet_Password
 #c# 2018-06-07 <RC, 2018-06-09 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: O/Operator_precedence
 #!/usr/bin/env perl6
@@ -9647,6 +9654,14 @@ File: S/Split_a_character_string_based_on_change_of_character.1
 #t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: S/Split_a_character_string_based_on_change_of_character.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Split_a_character_string_based_on_change_of_character
+#c# 2017-06-02 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# ASCII-only
 
 File: S/Square-free_integers
 #!/usr/bin/env perl6
