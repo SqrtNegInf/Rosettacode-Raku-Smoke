@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Split_a_character_string_based_on_change_of_character
+#c# 2017-06-02 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# ASCII-only
+
+sub group-chars ($str) { $str.comb: / (.) $0* / }
+
+for Q[gHHH5YY++///\] -> $string {
+    put 'Original: ', $string;
+    put '   Split: ', group-chars($string).join(', ');
+}
+
+use Test;
+my $string = Q[gHHH5YY++///\];
+my $ref    = Q[g, HHH, 5, YY, ++, ///, \], 
+is (group-chars($string).join(', ')), $ref;
