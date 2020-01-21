@@ -2,11 +2,8 @@
 #u# http://rosettacode.org/wiki/Montgomery_reduction
 #c# 2018-04-11 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
-# Works with: Rakudo version 2018.03
-# Translation of: Sidef
-#
 sub montgomery-reduce($m, $a is copy) {
     for 0..$m.msb {
         $a += $m if $a +& 1;
