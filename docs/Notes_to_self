@@ -1,3 +1,13 @@
+2020-01-21
+With regard to white/black squares in 'P/Peaceful_chess_queen_armies':
+rypervenche: you can use <?{ … }> to check whether the match is an element of the set. 
+chloeke:     See https://docs.raku.org/language/regexes#Regex_boolean_condition_check
+chloeke:     my %symbol := set('!' .. '~'); say '!a~å' ~~ m:g/.<?{~$/ (elem) %symbol}>/
+
+2020-01-20
+Finally done with administrivia for JVM smoke-test, and some further task-status munging (e.g. M/Magic_square* for P6, P5)
+Found 1 more task, previously failing, that became functional.
+
 2020-01-16
 Situation with JVM is fairly static: nothing broke that was working, but only 1 task that previously failed became functional.
 Why?? Abelian_sandpile_model and Guess_the_number_With_feedback_player consume little CPU, are only crawling towards completion...
