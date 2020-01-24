@@ -1,0 +1,163 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Simulated_annealing
+#c# 2020-01-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# two variables 'sa' could not be sigil-less: @s and $E-min
+
+srand 123456;
+
+my @res;
+
+my \cities = 100;       # need to test that value is a perfect square
+my \gw = sqrt cities;   # grid width
+
+# locations of (up to) 8 neighbors
+my \dirs  = [1, -1, gw, -gw, gw-1, gw+1, -(gw+1), -(gw-1)]; 
+
+# table of distances between cities
+my \dists = [;];
+for 0 ..^ cities² -> \j {
+    my (\ab,\cd)     = (j/cities, j%cities)».Int;
+    my (\a,\b,\c,\d) = (ab/gw, ab%gw, cd/gw, cd%gw)».Int;
+    dists[ab;cd] = sqrt (a - c)² + (b - d)²
+}
+
+# energy at s, to be minimized
+sub Es(\path) { 
+    sum (dists[ path[$_]; path[$_+1] ] for 0 ..^ +path-1)
+}
+
+# temperature function, decreases to 0
+sub T(\k, \kmax, \kT)  { 
+    (1 - k/kmax) × kT
+}
+
+# probability to move from s to s_next
+sub P(\ΔE, \k, \kmax, \kT) { 
+    exp( -ΔE / T(k, kmax, kT))
+}
+
+# variation of E, from state s to state s_next
+sub delta-E(\s, \u, \v) {
+    my (\a,   \b,  \c,  \d) = dists[s[u-1]; s[u]], dists[s[u+1]; s[u]], dists[s[v-1]; s[v]], dists[s[v+1]; s[v]];
+    my (\na, \nb, \nc, \nd) = dists[s[u-1]; s[v]], dists[s[u+1]; s[v]], dists[s[v-1]; s[u]], dists[s[v+1]; s[u]];
+    if    v == u+1 { return (na + nd) - (a + d) }
+    elsif u == v+1 { return (nc + nb) - (c + b) }
+    else           { return (na + nb + nc + nd) - (a + b + c + d) }
+}
+
+sub print-path(\p) {
+    @res.push: 'Path: ';
+    my $line;
+    for 0 ..^ +p -> \i {
+        $line ~= "\n" if i > 0 and i%20 == 0;
+        $line ~= ' ' ~ p[i]
+    }
+    @res.push: $line;
+    @res.push: ' ';
+}
+
+sub sa(\kmax, \kT) {
+    my \PathRecord   = my @s     = flat 0, (1..cities-1).pick(cities-1), 0;
+    my \E-min-global = my $E-min = Es(@s);         # E0, initial state
+    @res.push: 'kT =' ~ kT;
+    @res.push: 'E(s0) : ' ~ $E-min;
+
+    for 0 ..^ kmax -> \k {
+        @res.push: sprintf "k:%8u  T:%4.1f  Es: %8.13f" , k, T(k, kmax, kT), Es(@s)
+            if k % (kmax/10) == 0;
+        my \u  = 1 + (^(cities-1)).roll;           # city index 1 to 99
+        my \cv = @s[u] + dirs[(^8).roll];          # city number
+
+        next if cv ≤ 0 or cv ≥ cities              # non-existent city
+             or dists[@s[u]; cv] > sqrt(2);        # or not adjacent
+
+        my \v  = @s[cv];
+        my \ΔE = delta-E(@s, u, v);
+        if ΔE < 0 or P(ΔE,k,kmax,kT) ≥ rand {      # always move if negative
+            (@s[u], @s[v]) = (@s[v], @s[u]);
+            $E-min += ΔE;
+            (E-min-global = $E-min; PathRecord = @s) if $E-min <  E-min-global;
+        }
+    }
+
+    @res.push:   "\nE(s_final) : " ~ $E-min;        print-path @s;
+    @res.push: 'Global optimum : ' ~ E-min-global;  print-path PathRecord;
+}
+
+sa(1e6, 1);
+
+say my $result = join "\n" , @res;
+
+my $moar = q:to/END/;
+kT =1
+E(s0) : 525.3096199730167
+k:       0  T: 1.0  Es: 525.3096199730167
+k:  100000  T: 0.9  Es: 186.1607202031493
+k:  200000  T: 0.8  Es: 189.8450448921010
+k:  300000  T: 0.7  Es: 144.2928676979902
+k:  400000  T: 0.6  Es: 154.3195824440471
+k:  500000  T: 0.5  Es: 153.9051711684555
+k:  600000  T: 0.4  Es: 131.6422285169938
+k:  700000  T: 0.3  Es: 123.7558789996211
+k:  800000  T: 0.2  Es: 119.6743882739826
+k:  900000  T: 0.1  Es: 114.1443299263566
+
+E(s_final) : 114.1443299263576
+Path: 
+ 0 10 30 20 21 22 12 11 1 2 3 4 5 6 7 17 18 19 9 8
+ 29 39 38 28 37 36 35 44 43 34 24 25 26 27 16 15 14 13 23 33
+ 32 31 41 51 40 50 60 61 70 80 90 91 92 93 83 71 81 82 84 85
+ 94 95 96 97 87 88 98 99 89 79 69 59 49 48 58 77 78 68 67 57
+ 56 47 46 45 53 54 55 65 66 76 86 75 74 64 63 73 72 62 52 42
+ 0
+ 
+Global optimum : 114.1443299263576
+Path: 
+ 0 10 30 20 21 22 12 11 1 2 3 4 5 6 7 17 18 19 9 8
+ 29 39 38 28 37 36 35 44 43 34 24 25 26 27 16 15 14 13 23 33
+ 32 31 41 51 40 50 60 61 70 80 90 91 92 93 83 71 81 82 84 85
+ 94 95 96 97 87 88 98 99 89 79 69 59 49 48 58 77 78 68 67 57
+ 56 47 46 45 53 54 55 65 66 76 86 75 74 64 63 73 72 62 52 42
+ 0
+ 
+END
+
+my $jvm = q:to/END/;
+kT =1
+E(s0) : 479.72136020508464
+k:       0  T: 1.0  Es: 479.7213602050846
+k:  100000  T: 0.9  Es: 198.9145033724974
+k:  200000  T: 0.8  Es: 192.2754347000931
+k:  300000  T: 0.7  Es: 166.6060032037650
+k:  400000  T: 0.6  Es: 157.2310573158965
+k:  500000  T: 0.5  Es: 135.8246482135996
+k:  600000  T: 0.4  Es: 129.0838449561691
+k:  700000  T: 0.3  Es: 124.9367470899604
+k:  800000  T: 0.2  Es: 122.4067354513129
+k:  900000  T: 0.1  Es: 119.8410443411449
+
+E(s_final) : 119.66289875627179
+Path: 
+ 0 10 20 21 31 32 43 33 23 22 12 11 1 2 3 13 24 34 35 25
+ 14 4 5 15 17 18 28 38 37 27 36 26 16 6 7 8 9 19 29 39
+ 49 68 69 79 89 88 77 78 59 58 48 67 85 84 94 95 98 99 97 87
+ 96 86 76 75 74 83 73 62 63 72 82 81 80 70 60 50 51 61 71 90
+ 91 92 93 64 44 45 46 47 57 56 66 65 55 54 53 52 42 41 40 30
+ 0
+ 
+Global optimum : 117.49789859063733
+Path: 
+ 0 1 11 10 20 22 23 24 14 13 4 3 2 12 21 31 32 33 34 35
+ 25 15 5 16 6 7 17 48 38 37 36 26 27 28 18 8 9 19 29 39
+ 49 68 69 79 89 99 98 78 59 58 57 67 77 86 95 96 97 88 87 76
+ 75 85 94 93 83 73 63 52 62 72 82 81 80 71 60 50 51 61 70 90
+ 91 92 84 74 65 66 56 47 46 45 44 54 55 64 53 43 42 41 40 30
+ 0
+ 
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
