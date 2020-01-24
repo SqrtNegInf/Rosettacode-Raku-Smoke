@@ -66,10 +66,10 @@ my @players;
 @players[2] = player.new( strategy => sub { @players[2].ante > 20 } );
 
 # random but 90% chance of rolling again
-@players[3] = player.new( strategy => sub { 1.rand < .1 } );
+@players[3] = player.new( strategy => sub { rand < .1 } );
 
 # random but more conservative as approaches goal
-@players[4] = player.new( strategy => sub { 1.rand < ( GOAL - @players[4].score ) × .6 / GOAL } );
+@players[4] = player.new( strategy => sub { rand < ( GOAL - @players[4].score ) × .6 / GOAL } );
 
 my @wins = 0 xx @players;
 
