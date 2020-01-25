@@ -9179,10 +9179,13 @@ File: S/Simulate_input_Mouse
 File: S/Simulated_annealing
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Simulated_annealing
-#c# 2020-01-23 <RC
+#c# 2020-01-23 <RC, 2020-01-xx >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# two variables 'sa' could not be sigil-less: @s and $E-min
+#n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid removed
+#n# make distance array available globally (no lookup function)
+#n# limit output to reasonable precision
+#n# two variables in 'sa' could not be made sigil-less: @s and $E-min, why?
 
 File: S/Sine_wave
 #!/usr/bin/env perl6
