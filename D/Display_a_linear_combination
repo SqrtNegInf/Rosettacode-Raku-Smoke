@@ -11,7 +11,7 @@ sub linear-combination(@coeff) {
     .join(' + ')
     .subst('+ -', '- ', :g)
     .subst(/<|w>1\×/, '', :g)
-        || '0'
+        or '0'
 }
 
 my @res.push: linear-combination($_) for 
