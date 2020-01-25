@@ -1,161 +1,151 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Simulated_annealing
-#c# 2020-01-23 <RC
+#c# 2020-01-23 <RC, 2020-01-xx >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# two variables 'sa' could not be sigil-less: @s and $E-min
+#n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid removed
+#n# make distance array available globally (no lookup function)
+#n# limit output to reasonable precision
+#n# two variables in 'sa' could not be made sigil-less: @s and $E-min, why?
 
-srand 123456;
+#srand 123456;
+srand 1234; # better stats!
 
 my @res;
 
-my \cities = 100;       # need to test that value is a perfect square
-my \gw = sqrt cities;   # grid width
+# number of cities, and consequent grid size
+die 'City count must be a perfect square.' if .sqrt != .sqrt.Int given my \cities = 100;
+my \gs = cities.sqrt;
 
 # locations of (up to) 8 neighbors
-my \dirs  = [1, -1, gw, -gw, gw-1, gw+1, -(gw+1), -(gw-1)]; 
+my \direction = [1, -1, gs, -gs, gs-1, gs+1, -(gs+1), -(gs-1)];
 
-# table of distances between cities
-my \dists = [;];
+# matrix of distances between cities
+my \D = [;];
 for 0 ..^ cities² -> \j {
     my (\ab,\cd)     = (j/cities, j%cities)».Int;
-    my (\a,\b,\c,\d) = (ab/gw, ab%gw, cd/gw, cd%gw)».Int;
-    dists[ab;cd] = sqrt (a - c)² + (b - d)²
+    my (\a,\b,\c,\d) = (ab/gs, ab%gs, cd/gs, cd%gs)».Int;
+    D[ab;cd] = sqrt (a - c)² + (b - d)²
 }
 
-# energy at s, to be minimized
-sub Es(\path) { 
-    sum (dists[ path[$_]; path[$_+1] ] for 0 ..^ +path-1)
-}
-
-# temperature function, decreases to 0
-sub T(\k, \kmax, \kT)  { 
-    (1 - k/kmax) × kT
-}
-
-# probability to move from s to s_next
-sub P(\ΔE, \k, \kmax, \kT) { 
-    exp( -ΔE / T(k, kmax, kT))
-}
+sub T(\k, \kmax, \kT)      { (1 - k/kmax) × kT }                                 # temperature function, decreases to 0
+sub P(\ΔE, \k, \kmax, \kT) { exp( -ΔE / T(k, kmax, kT)) }                        # probability to move from s to s_next
+sub Es(\path)              { sum (D[ path[$_]; path[$_+1] ] for 0 ..^ +path-1) } # energy at s, to be minimized
 
 # variation of E, from state s to state s_next
 sub delta-E(\s, \u, \v) {
-    my (\a,   \b,  \c,  \d) = dists[s[u-1]; s[u]], dists[s[u+1]; s[u]], dists[s[v-1]; s[v]], dists[s[v+1]; s[v]];
-    my (\na, \nb, \nc, \nd) = dists[s[u-1]; s[v]], dists[s[u+1]; s[v]], dists[s[v-1]; s[u]], dists[s[v+1]; s[u]];
+    my (\a,   \b,  \c,  \d) = D[s[u-1];s[u]], D[s[u+1];s[u]], D[s[v-1];s[v]], D[s[v+1];s[v]];
+    my (\na, \nb, \nc, \nd) = D[s[u-1];s[v]], D[s[u+1];s[v]], D[s[v-1];s[u]], D[s[v+1];s[u]];
     if    v == u+1 { return (na + nd) - (a + d) }
     elsif u == v+1 { return (nc + nb) - (c + b) }
     else           { return (na + nb + nc + nd) - (a + b + c + d) }
 }
 
-sub print-path(\p) {
-    @res.push: 'Path: ';
-    my $line;
-    for 0 ..^ +p -> \i {
-        $line ~= "\n" if i > 0 and i%20 == 0;
-        $line ~= ' ' ~ p[i]
-    }
-    @res.push: $line;
-    @res.push: ' ';
-}
-
-sub sa(\kmax, \kT) {
-    my \PathRecord   = my @s     = flat 0, (1..cities-1).pick(cities-1), 0;
-    my \E-min-global = my $E-min = Es(@s);         # E0, initial state
-    @res.push: 'kT =' ~ kT;
-    @res.push: 'E(s0) : ' ~ $E-min;
+sub simulated-annealing(\kmax, \kT) {
+    my @s = flat 0, (1..cities-1).pick(cities-1), 0;
+    my \E-min-global = my $E-min = Es(@s); # E0, initial state
+    @res.push: 'kT = ' ~ kT;
+    @res.push: 'E(s0): ' ~ $E-min.fmt("%.1f");
 
     for 0 ..^ kmax -> \k {
-        @res.push: sprintf "k:%8u  T:%4.1f  Es: %8.13f" , k, T(k, kmax, kT), Es(@s)
+        @res.push: sprintf "k:%8u  T:%4.1f  Es: %3.1f" , k, T(k, kmax, kT), Es(@s)
             if k % (kmax/10) == 0;
-        my \u  = 1 + (^(cities-1)).roll;           # city index 1 to 99
-        my \cv = @s[u] + dirs[(^8).roll];          # city number
 
-        next if cv ≤ 0 or cv ≥ cities              # non-existent city
-             or dists[@s[u]; cv] > sqrt(2);        # or not adjacent
+        # valid candidate cities (exist, adjacent)
+        my \cv = direction[(^8).roll] + @s[ my \u = 1 + (^(cities-1)).roll ];
+        next if cv ≤ 0 or cv ≥ cities or D[@s[u];cv] > sqrt(2);
 
         my \v  = @s[cv];
         my \ΔE = delta-E(@s, u, v);
-        if ΔE < 0 or P(ΔE,k,kmax,kT) ≥ rand {      # always move if negative
+        if ΔE < 0 or P(ΔE,k,kmax,kT) ≥ rand { # always move if negative
             (@s[u], @s[v]) = (@s[v], @s[u]);
             $E-min += ΔE;
-            (E-min-global = $E-min; PathRecord = @s) if $E-min <  E-min-global;
+            E-min-global = $E-min if $E-min < E-min-global;
         }
     }
 
-    @res.push:   "\nE(s_final) : " ~ $E-min;        print-path @s;
-    @res.push: 'Global optimum : ' ~ E-min-global;  print-path PathRecord;
+    @res.push: "\nE(s_final): " ~ E-min-global.fmt("%.1f");
+    @res.push: "Path:\n" ~ @s».fmt("%2d").rotor(20,:partial).join: "\n";
 }
 
-sa(1e6, 1);
+simulated-annealing(1e6, 1);
+
+# CATCH { default { warn "City count must be a perfect square! Cannot continue..."; } }
 
 say my $result = join "\n" , @res;
+exit;
 
 my $moar = q:to/END/;
-kT =1
-E(s0) : 525.3096199730167
-k:       0  T: 1.0  Es: 525.3096199730167
-k:  100000  T: 0.9  Es: 186.1607202031493
-k:  200000  T: 0.8  Es: 189.8450448921010
-k:  300000  T: 0.7  Es: 144.2928676979902
-k:  400000  T: 0.6  Es: 154.3195824440471
-k:  500000  T: 0.5  Es: 153.9051711684555
-k:  600000  T: 0.4  Es: 131.6422285169938
-k:  700000  T: 0.3  Es: 123.7558789996211
-k:  800000  T: 0.2  Es: 119.6743882739826
-k:  900000  T: 0.1  Es: 114.1443299263566
+kT = 1
+E(s0): 522.0
+k:       0  T: 1.0  Es: 522.0
+k:  100000  T: 0.9  Es: 185.3
+k:  200000  T: 0.8  Es: 166.1
+k:  300000  T: 0.7  Es: 174.7
+k:  400000  T: 0.6  Es: 146.9
+k:  500000  T: 0.5  Es: 140.2
+k:  600000  T: 0.4  Es: 127.5
+k:  700000  T: 0.3  Es: 115.9
+k:  800000  T: 0.2  Es: 111.9
+k:  900000  T: 0.1  Es: 109.4
 
-E(s_final) : 114.1443299263576
-Path: 
- 0 10 30 20 21 22 12 11 1 2 3 4 5 6 7 17 18 19 9 8
- 29 39 38 28 37 36 35 44 43 34 24 25 26 27 16 15 14 13 23 33
- 32 31 41 51 40 50 60 61 70 80 90 91 92 93 83 71 81 82 84 85
- 94 95 96 97 87 88 98 99 89 79 69 59 49 48 58 77 78 68 67 57
- 56 47 46 45 53 54 55 65 66 76 86 75 74 64 63 73 72 62 52 42
+E(s_final): 109.4
+Path:
+ 0 10 20 30 40 50 60 84 85 86 96 97 87 88 98 99 89 79 78 77
+67 68 69 59 58 57 56 66 76 95 94 93 92 91 90 80 70 81 82 83
+73 72 71 62 63 64 74 75 65 55 54 53 52 61 51 41 31 21 22 32
+42 43 44 45 46 35 34 24 23 33 25 15 16 26 36 47 37 27 17 18
+28 38 48 49 39 29 19  9  8  7  6  5  4 14 13 12 11  2  3  1
  0
- 
-Global optimum : 114.1443299263576
-Path: 
- 0 10 30 20 21 22 12 11 1 2 3 4 5 6 7 17 18 19 9 8
- 29 39 38 28 37 36 35 44 43 34 24 25 26 27 16 15 14 13 23 33
- 32 31 41 51 40 50 60 61 70 80 90 91 92 93 83 71 81 82 84 85
- 94 95 96 97 87 88 98 99 89 79 69 59 49 48 58 77 78 68 67 57
- 56 47 46 45 53 54 55 65 66 76 86 75 74 64 63 73 72 62 52 42
+END
+
+my $xoar = q:to/END/;
+kT = 1
+E(s0): 521.9596973254531
+k:       0  T: 1.0  Es: 521.9596973254531
+k:  100000  T: 0.9  Es: 185.3319621469163
+k:  200000  T: 0.8  Es: 166.1037188723269
+k:  300000  T: 0.7  Es: 174.6510615857100
+k:  400000  T: 0.6  Es: 146.8887661172453
+k:  500000  T: 0.5  Es: 140.1881547893248
+k:  600000  T: 0.4  Es: 127.4661627412274
+k:  700000  T: 0.3  Es: 115.8923940241519
+k:  800000  T: 0.2  Es: 111.8503395562303
+k:  900000  T: 0.1  Es: 109.4295532842377
+
+E(s_final): 109.42955328423743
+Path:
+ 0 10 20 30 40 50 60 84 85 86 96 97 87 88 98 99 89 79 78 77
+67 68 69 59 58 57 56 66 76 95 94 93 92 91 90 80 70 81 82 83
+73 72 71 62 63 64 74 75 65 55 54 53 52 61 51 41 31 21 22 32
+42 43 44 45 46 35 34 24 23 33 25 15 16 26 36 47 37 27 17 18
+28 38 48 49 39 29 19  9  8  7  6  5  4 14 13 12 11  2  3  1
  0
- 
 END
 
 my $jvm = q:to/END/;
+Switching to jvm-2019.11
 kT =1
-E(s0) : 479.72136020508464
-k:       0  T: 1.0  Es: 479.7213602050846
-k:  100000  T: 0.9  Es: 198.9145033724974
-k:  200000  T: 0.8  Es: 192.2754347000931
-k:  300000  T: 0.7  Es: 166.6060032037650
-k:  400000  T: 0.6  Es: 157.2310573158965
-k:  500000  T: 0.5  Es: 135.8246482135996
-k:  600000  T: 0.4  Es: 129.0838449561691
-k:  700000  T: 0.3  Es: 124.9367470899604
-k:  800000  T: 0.2  Es: 122.4067354513129
-k:  900000  T: 0.1  Es: 119.8410443411449
+E(s0): 521.4
+k:       0  T: 1.0  Es: 521.4
+k:  100000  T: 0.9  Es: 194.9
+k:  200000  T: 0.8  Es: 182.8
+k:  300000  T: 0.7  Es: 161.2
+k:  400000  T: 0.6  Es: 151.7
+k:  500000  T: 0.5  Es: 136.3
+k:  600000  T: 0.4  Es: 132.8
+k:  700000  T: 0.3  Es: 112.7
+k:  800000  T: 0.2  Es: 113.5
+k:  900000  T: 0.1  Es: 110.3
 
-E(s_final) : 119.66289875627179
-Path: 
- 0 10 20 21 31 32 43 33 23 22 12 11 1 2 3 13 24 34 35 25
- 14 4 5 15 17 18 28 38 37 27 36 26 16 6 7 8 9 19 29 39
- 49 68 69 79 89 88 77 78 59 58 48 67 85 84 94 95 98 99 97 87
- 96 86 76 75 74 83 73 62 63 72 82 81 80 70 60 50 51 61 71 90
- 91 92 93 64 44 45 46 47 57 56 66 65 55 54 53 52 42 41 40 30
+E(s_final): 110.3
+Path:
+ 0  1 11 21 20 31 41 32 22 12  2  3 14 24 34 44 43 53 54 55
+64 63 62 52 61 51 42 33 23 13  4  5 16 17 27 36 37 47 57 48
+49 39 38 28 29 19  9 18  8  7  6 15 25 26 35 45 46 56 65 74
+84 95 96 97 87 86 76 77 78 88 98 99 89 79 69 59 58 68 67 66
+75 85 94 93 92 91 90 70 80 81 82 83 73 72 71 60 50 40 30 10
  0
- 
-Global optimum : 117.49789859063733
-Path: 
- 0 1 11 10 20 22 23 24 14 13 4 3 2 12 21 31 32 33 34 35
- 25 15 5 16 6 7 17 48 38 37 36 26 27 28 18 8 9 19 29 39
- 49 68 69 79 89 99 98 78 59 58 57 67 77 86 95 96 97 88 87 76
- 75 85 94 93 83 73 63 52 62 72 82 81 80 71 60 50 51 61 70 90
- 91 92 84 74 65 66 56 47 46 45 44 54 55 64 53 43 42 41 40 30
- 0
- 
 END
 
 use Test;
