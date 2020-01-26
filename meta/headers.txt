@@ -6186,6 +6186,13 @@ File: M/Mersenne_primes
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
+File: M/Mertens_function
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Mertens_function
+#c# 2020-01-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: M/Metallic_ratios
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Metallic_ratios
@@ -6377,6 +6384,13 @@ File: M/Move-to-front_algorithm
 #c# 2015-10-16 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: M/Möbius_function
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Möbius_function
+#c# 2020-01-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: M/Multi-dimensional_array
 #!/usr/bin/env perl6
@@ -9184,8 +9198,10 @@ File: S/Simulated_annealing
 #j# JVM:  OK
 #n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid removed
 #n# make distance array available globally (no lookup function)
-#n# limit output to reasonable precision
-#n# two variables in 'sa' could not be made sigil-less: @s and $E-min, why?
+#n# limit output to non-redonkulous precision
+#n# more idiomatic syntax (e.g. no C-style loops)
+#n# no print routine (.rotor suffices to make grid output)
+#n# extended sigil-less style, two variables (@s and $E-min) could not be made, why?
 
 File: S/Sine_wave
 #!/usr/bin/env perl6
