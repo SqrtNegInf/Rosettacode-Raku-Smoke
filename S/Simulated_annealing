@@ -5,8 +5,10 @@
 #j# JVM:  OK
 #n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid removed
 #n# make distance array available globally (no lookup function)
-#n# limit output to reasonable precision
-#n# two variables in 'sa' could not be made sigil-less: @s and $E-min, why?
+#n# limit output to non-redonkulous precision
+#n# more idiomatic syntax (e.g. no C-style loops)
+#n# no print routine (.rotor suffices to make grid output)
+#n# extended sigil-less style, two variables (@s and $E-min) could not be made, why?
 
 #srand 123456;
 srand 1234; # better stats!
@@ -73,7 +75,6 @@ simulated-annealing(1e6, 1);
 # CATCH { default { warn "City count must be a perfect square! Cannot continue..."; } }
 
 say my $result = join "\n" , @res;
-exit;
 
 my $moar = q:to/END/;
 kT = 1
