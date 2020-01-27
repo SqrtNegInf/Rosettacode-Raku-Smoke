@@ -6,9 +6,6 @@
 #n# 2018-11-03 no benefit with 'race' here
 #n# 2018-08-22 Inline::Perl5 version works fine (and fast) but clobbers JVM
 
-# Pure Perl 6[edit]
-# This is a pure perl 6 version that uses no outside libraries. It uses a variant of Pollard's rho factoring algorithm and is fairly performent when factoring numbers < 2⁸⁰; typically taking well under a second on an i7. It starts to slow down with larger numbers, but really bogs down factoring numbers that have more than 1 factor larger than about 2⁴⁰.
-
 sub prime-factors ( Int $n where * > 0 ) {
     return $n if $n.is-prime;
     return [] if $n == 1;
@@ -58,33 +55,3 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-
-#`{{
-# There is a Perl 6 module available: Prime::Factor, that uses essentially this algorithm with some minor performance tweaks.
-# External library[edit]
-# If you really need a speed boost, load the highly optimized Perl 5 ntheory module. It needs a little extra plumbing to deal with the lack of built-in big integer support, but for large number factoring the interface overhead is worth it.
-
-exit if $*VM ~~ /jvm/;
-
-use Inline::Perl5;
-my $p5 = Inline::Perl5.new();
-$p5.use( 'ntheory' );
-
-sub prime-factors5 ($i) {
-    my &primes = $p5.run('sub { map { ntheory::todigitstring $_ } sort {$a <=> $b} ntheory::factor $_[0] }');
-    primes("$i");
-}
-
-my @res-p5;
-for 2²⁹-1, 2⁴¹-1, 2⁵⁹-1, 2⁷¹-1, 2⁷⁹-1, 2⁹⁷-1, 2¹¹⁷-1,
-5465610891074107968111136514192945634873647594456118359804135903459867604844945580205745718497
- ->  $n {
-    my $start = now;
-    @res-p5.push: "factors of $n: "~ prime-factors5($n).join(' × ');
-    say @res-p5[*-1] ~ " \t in ", (now - $start).fmt("%0.3f"), " sec."
-    #say "factors of $n: ",
-    #prime-factors($n).join(' × '), " \t in ", (now - $start).fmt("%0.3f"), " sec."
-}
-
-is @res-p5.join("\n"), chomp $ref;
-}}
