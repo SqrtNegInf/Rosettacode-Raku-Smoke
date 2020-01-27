@@ -48,7 +48,7 @@ repeat {
         }
     }
     unless $hide-progress {
-        print join '', @buffer.map( { @color[$_ min 4] })
+        print "\e[1;1H", @buffer.map( { @color[$_ min 4] } ).join
     }
 } until $done;
 
@@ -56,5 +56,6 @@ my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
 my $fh = open("run/abelian.$ext", :w) || die;
 
 $fh.print: join '', @buffer.map( { @color[$_ min 4] });
+#$fh.print: print "\e[1;1H", @buffer.map( { @color[$_ min 4] } ).join;
 
 cleanup;
