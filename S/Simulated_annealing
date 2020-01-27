@@ -3,12 +3,12 @@
 #c# 2020-01-23 <RC, 2020-01-xx >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid removed
+#n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid go away
 #n# make distance array available globally (no lookup function)
-#n# limit output to non-redonkulous precision
 #n# more idiomatic syntax (e.g. no C-style loops)
-#n# no print routine (.rotor suffices to make grid output)
-#n# extended sigil-less style, two variables (@s and $E-min) could not be made, why?
+#n# .rotor suffices to make grid output (no separate print routine)
+#n# limit output to non-redonkulous precision
+#n# extended sigil-less style, two variables (@s and $E-min) could not be made so, why?
 
 #srand 123456;
 srand 1234; # better stats!
@@ -25,8 +25,8 @@ my \direction = [1, -1, gs, -gs, gs-1, gs+1, -(gs+1), -(gs-1)];
 # matrix of distances between cities
 my \D = [;];
 for 0 ..^ cities² -> \j {
-    my (\ab,\cd)     = (j/cities, j%cities)».Int;
-    my (\a,\b,\c,\d) = (ab/gs, ab%gs, cd/gs, cd%gs)».Int;
+    my (\ab, \cd)       = (j/cities, j%cities)».Int;
+    my (\a, \b, \c, \d) = (ab/gs, ab%gs, cd/gs, cd%gs)».Int;
     D[ab;cd] = sqrt (a - c)² + (b - d)²
 }
 
