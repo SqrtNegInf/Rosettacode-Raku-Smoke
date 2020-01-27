@@ -7815,6 +7815,13 @@ File: P/Prime_decomposition
 #n# 2018-11-03 no benefit with 'race' here
 #n# 2018-08-22 Inline::Perl5 version works fine (and fast) but clobbers JVM
 
+File: P/Prime_decomposition-1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Prime_decomposition
+#c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC, 2018-11-15 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
 File: P/Prime_decomposition.1
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
@@ -9196,12 +9203,12 @@ File: S/Simulated_annealing
 #c# 2020-01-23 <RC, 2020-01-xx >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid removed
+#n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid go away
 #n# make distance array available globally (no lookup function)
-#n# limit output to non-redonkulous precision
 #n# more idiomatic syntax (e.g. no C-style loops)
-#n# no print routine (.rotor suffices to make grid output)
-#n# extended sigil-less style, two variables (@s and $E-min) could not be made, why?
+#n# .rotor suffices to make grid output (no separate print routine)
+#n# limit output to non-redonkulous precision
+#n# extended sigil-less style, two variables (@s and $E-min) could not be made so, why?
 
 File: S/Sine_wave
 #!/usr/bin/env perl6
