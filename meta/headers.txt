@@ -6301,6 +6301,13 @@ File: M/Modular_inverse
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: M/Moebius_function
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Möbius_function
+#c# 2020-01-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: M/Monads_List_monad
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Monads/List_monad
@@ -6384,13 +6391,6 @@ File: M/Move-to-front_algorithm
 #c# 2015-10-16 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-File: M/Möbius_function
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Möbius_function
-#c# 2020-01-25 <RC
-#m# MOAR: OK
-#j# JVM:  OK
 
 File: M/Multi-dimensional_array
 #!/usr/bin/env perl6
@@ -9200,15 +9200,32 @@ File: S/Simulate_input_Mouse
 File: S/Simulated_annealing
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Simulated_annealing
-#c# 2020-01-23 <RC, 2020-01-xx >RC
+#c# 2020-01-23 <RC, 2020-01-27 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n#
+#n# Notes on re-visions (see .1 for original version as uploaded by Hdktam++)
+#n#
 #n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid go away
 #n# make distance array available globally (no lookup function)
 #n# more idiomatic syntax (e.g. no C-style loops)
+#n# remove intermediate variables when feasible
+#n# rename some variables to better reflect their roles
+#n# reformat code to emphasize parallelism
 #n# .rotor suffices to make grid output (no separate print routine)
-#n# limit output to non-redonkulous precision
-#n# extended sigil-less style, two variables (@s and $E-min) could not be made so, why?
+#n# output follows task spec (less is more)
+#n# limit displayed values to non-redonkulous precision (this is not the LIGO experiment)
+#n# extended sigil-less style (but kludges required for $E-min -> E-min, @s -> s, why exactly?)
+#n# eliminated 'sa' as routine (to eliminate need for globals could have packed *everything* into it, but 6-of-one, 1/2-dozen...)
+
+File: S/Simulated_annealing.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Simulated_annealing
+#t# skiptest
+#c# 2020-01-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# Hdktam's original version 
 
 File: S/Sine_wave
 #!/usr/bin/env perl6
