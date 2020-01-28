@@ -48,11 +48,11 @@ class Turtle {
 }
 
 # Now we can build the spiral in the normal way from outside-in like this
-my $size = 7;
 my $t1 = Turtle.new(dir => 2);
-my $counter = 0;
+my $size = 7;
+my $counter; # = 0;
 $t1.forward(-1);
-for 0..^ $size -> $ {
+for 0..^ $size -> $ {       # DH "don't care" about iterator value, could omit entirely
     $t1.forward;
     $t1.lay-egg($counter++);
 }
@@ -64,7 +64,7 @@ for $size-1 ... 1 -> $run {
 }
 put ' ' ~ $t1.showmap;
 
-    # or build the spiral from inside-out like this:
+# or build the spiral from inside-out like this:
 my $t2 = Turtle.new(dir => ($size %% 2 ?? 4 !! 0)); # not 't2' on RC
 $counter = $size × $size; # DH 'my' needed on RC
 while $counter {
