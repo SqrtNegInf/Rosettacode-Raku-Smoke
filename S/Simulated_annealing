@@ -43,7 +43,7 @@ for 0 ..^ cities² -> \j {
 }
 
 sub T(\k, \kmax, \kT)      { (1 - k/kmax) × kT }                                 # temperature function, decreases to 0
-sub P(\ΔE, \k, \kmax, \kT) { exp( -ΔE / T(k, kmax, kT)) }                        # probability to move from s to s_next
+sub P(\ΔE, \k, \kmax, \kT) { exp -ΔE / T(k, kmax, kT) }                          # probability to move from s to s_next
 sub Es(\path)              { sum (D[ path[$_]; path[$_+1] ] for 0 ..^ +path-1) } # energy at s, to be minimized
 
 # variation of E, from state s to state s_next
