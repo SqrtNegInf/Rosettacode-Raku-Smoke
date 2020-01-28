@@ -1,26 +1,38 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Simulated_annealing
-#c# 2020-01-23 <RC, 2020-01-xx >RC
+#c# 2020-01-23 <RC, 2020-01-27 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n#
+#n# Notes on re-visions (see .1 for original version as uploaded by Hdktam++)
+#n#
 #n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid go away
 #n# make distance array available globally (no lookup function)
 #n# more idiomatic syntax (e.g. no C-style loops)
+#n# remove intermediate variables when feasible
+#n# rename some variables to better reflect their roles
+#n# reformat code to emphasize parallelism
 #n# .rotor suffices to make grid output (no separate print routine)
-#n# limit output to non-redonkulous precision
-#n# extended sigil-less style, two variables (@s and $E-min) could not be made so, why?
+#n# output follows task spec (less is more)
+#n# limit displayed values to non-redonkulous precision (this is not the LIGO experiment)
+#n# extended sigil-less style (but kludges required for $E-min -> E-min, @s -> s, why exactly?)
+#n# eliminated 'sa' as routine (to eliminate need for globals could have packed *everything* into it, but 6-of-one, 1/2-dozen...)
 
 #srand 123456;
-srand 1234; # better stats!
+srand 1234; # more dramatic stats
 
 my @res;
 
-# number of cities, and consequent grid size
-die 'City count must be a perfect square.' if .sqrt != .sqrt.Int given my \cities = 100;
-my \gs = cities.sqrt;
+# simulation setup
+my \cities = 100;  # number of cities
+my \kmax   = 1e6;  # iterations to run
+my \kT     = 1;    # initial 'temperature'
 
-# locations of (up to) 8 neighbors
-my \direction = [1, -1, gs, -gs, gs-1, gs+1, -(gs+1), -(gs-1)];
+die 'City count must be a perfect square.' if cities.sqrt != cities.sqrt.Int;
+
+# locations of (up to) 8 neighbors, with grid size derived from number of cities
+my \gs = cities.sqrt;
+my \neighbors = [1, -1, gs, -gs, gs-1, gs+1, -(gs+1), -(gs-1)];
 
 # matrix of distances between cities
 my \D = [;];
@@ -43,42 +55,38 @@ sub delta-E(\s, \u, \v) {
     else           { return (na + nb + nc + nd) - (a + b + c + d) }
 }
 
-sub simulated-annealing(\kmax, \kT) {
-    my @s = flat 0, (1..cities-1).pick(cities-1), 0;
-    my \E-min-global = my $E-min = Es(@s); # E0, initial state
-    @res.push: 'kT = ' ~ kT;
-    @res.push: 'E(s0): ' ~ $E-min.fmt("%.1f");
+my \s = my @s = flat 0, (1 ..^ cities).pick(*), 0; # defining @s is a kludge to get sigil-less 's'
 
-    for 0 ..^ kmax -> \k {
-        @res.push: sprintf "k:%8u  T:%4.1f  Es: %3.1f" , k, T(k, kmax, kT), Es(@s)
+# E(s0), initial state
+my \E-min-global = my \E-min = my $s0 = Es(s);  # defining $s0 is a kludge to get sigil-less 'E-min'
+
+# redundant -- 1st row of progress table shows the same information
+#@res.push: 'kT = ' ~ \kT;  
+#@res.push: 'E(s0): ' ~ E-min.fmt('%.1f');
+
+for 0 ..^ kmax -> \k {
+    @res.push: sprintf 'k:%8u  T:%4.1f  Es: %3.1f' , k, T(k, kmax, kT), Es(s)
             if k % (kmax/10) == 0;
 
-        # valid candidate cities (exist, adjacent)
-        my \cv = direction[(^8).roll] + @s[ my \u = 1 + (^(cities-1)).roll ];
-        next if cv ≤ 0 or cv ≥ cities or D[@s[u];cv] > sqrt(2);
+    # valid candidate cities (exist, adjacent)
+    my \cv = neighbors[(^8).roll] + s[ my \u = 1 + (^(cities-1)).roll ];
+    next if cv ≤ 0 or cv ≥ cities or D[s[u];cv] > sqrt(2);
 
-        my \v  = @s[cv];
-        my \ΔE = delta-E(@s, u, v);
-        if ΔE < 0 or P(ΔE,k,kmax,kT) ≥ rand { # always move if negative
-            (@s[u], @s[v]) = (@s[v], @s[u]);
-            $E-min += ΔE;
-            E-min-global = $E-min if $E-min < E-min-global;
-        }
+    my \v  = s[cv];
+    my \ΔE = delta-E(s, u, v);
+    if ΔE < 0 or P(ΔE, k, kmax, kT) ≥ rand { # always move if negative
+        (s[u], s[v]) = (s[v], s[u]);
+        E-min += ΔE;
+        E-min-global = E-min if E-min < E-min-global;
     }
-
-    @res.push: "\nE(s_final): " ~ E-min-global.fmt("%.1f");
-    @res.push: "Path:\n" ~ @s».fmt("%2d").rotor(20,:partial).join: "\n";
 }
 
-simulated-annealing(1e6, 1);
-
-# CATCH { default { warn "City count must be a perfect square! Cannot continue..."; } }
+@res.push: "\nE(s_final): " ~ E-min-global.fmt('%.1f');
+@res.push: "Path:\n" ~ s».fmt('%2d').rotor(20,:partial).join: "\n";
 
 say my $result = join "\n" , @res;
 
 my $moar = q:to/END/;
-kT = 1
-E(s0): 522.0
 k:       0  T: 1.0  Es: 522.0
 k:  100000  T: 0.9  Es: 185.3
 k:  200000  T: 0.8  Es: 166.1
@@ -100,34 +108,7 @@ Path:
  0
 END
 
-my $xoar = q:to/END/;
-kT = 1
-E(s0): 521.9596973254531
-k:       0  T: 1.0  Es: 521.9596973254531
-k:  100000  T: 0.9  Es: 185.3319621469163
-k:  200000  T: 0.8  Es: 166.1037188723269
-k:  300000  T: 0.7  Es: 174.6510615857100
-k:  400000  T: 0.6  Es: 146.8887661172453
-k:  500000  T: 0.5  Es: 140.1881547893248
-k:  600000  T: 0.4  Es: 127.4661627412274
-k:  700000  T: 0.3  Es: 115.8923940241519
-k:  800000  T: 0.2  Es: 111.8503395562303
-k:  900000  T: 0.1  Es: 109.4295532842377
-
-E(s_final): 109.42955328423743
-Path:
- 0 10 20 30 40 50 60 84 85 86 96 97 87 88 98 99 89 79 78 77
-67 68 69 59 58 57 56 66 76 95 94 93 92 91 90 80 70 81 82 83
-73 72 71 62 63 64 74 75 65 55 54 53 52 61 51 41 31 21 22 32
-42 43 44 45 46 35 34 24 23 33 25 15 16 26 36 47 37 27 17 18
-28 38 48 49 39 29 19  9  8  7  6  5  4 14 13 12 11  2  3  1
- 0
-END
-
 my $jvm = q:to/END/;
-Switching to jvm-2019.11
-kT =1
-E(s0): 521.4
 k:       0  T: 1.0  Es: 521.4
 k:  100000  T: 0.9  Es: 194.9
 k:  200000  T: 0.8  Es: 182.8
