@@ -47,21 +47,23 @@ class Turtle {
     }
 }
 
-#Assuming the same Turtle class that is used in Spiral_matrix:
+# Assuming the same Turtle class that is used in Spiral_matrix:
 
-my $size = 5;
 my $t = Turtle.new(dir => 1);
-my $counter = 0;
+my $size = 5;
+my $counter; # = 0;
+
 for 1 ..^ $size -> $run {
-	for ^$run {
+	for ^$run {                 # DH no iterator used at all
 	    $t.lay-egg($counter++);
 	    $t.forward;
 	}
 	my $yaw = $run %% 2 ?? -1 !! 1;
 	$t.turn-right($yaw × 135); $t.forward; $t.turn-right($yaw × 45);
     }
+
 for $size ... 1 -> $run {
-	for ^$run -> $ {
+	for ^$run -> $ {            # DH anonymous variable used, "don't care" about value
 	    $t.lay-egg($counter++);
 	    $t.forward;
 	}
@@ -69,6 +71,7 @@ for $size ... 1 -> $run {
 	my $yaw = $run %% 2 ?? 1 !! -1;
 	$t.turn-right($yaw × 45); $t.forward; $t.turn-left($yaw × 45);
     }
+
 put ' ' ~ $t.showmap;
 
 my $ref = qq:to/END/;
