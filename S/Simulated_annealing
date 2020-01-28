@@ -55,10 +55,9 @@ sub delta-E(\s, \u, \v) {
     else           { return (na + nb + nc + nd) - (a + b + c + d) }
 }
 
-my \s = my @s = flat 0, (1 ..^ cities).pick(*), 0; # defining @s is a kludge to get sigil-less 's'
-
 # E(s0), initial state
-my \E-min-global = my \E-min = my $s0 = Es(s);  # defining $s0 is a kludge to get sigil-less 'E-min'
+my \s = my @s = flat 0, (1 ..^ cities).pick(*), 0;  # defining @s is a kludge to get sigil-less 's'
+my \E-min-global = my \E-min = my $s0 = Es(s);      # defining $s0 is a kludge to get sigil-less 'E-min'
 
 # redundant -- 1st row of progress table shows the same information
 #@res.push: 'kT = ' ~ \kT;  
