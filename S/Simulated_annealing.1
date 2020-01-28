@@ -1,0 +1,126 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Simulated_annealing
+#t# skiptest
+#c# 2020-01-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# Hdktam's original version 
+
+my $dists = calcDists;
+my \dirs  = <1 -1 10 -10 9 11 -11 -9>; # all 8 neighbors
+
+sub calcDists { # distances
+   loop (my @dists, my $j = 0; $j < 10000; $j++) {
+      my ($ab, $cd) = ($j/100).floor, ($j%100).floor;
+      my ($a,  $b)  = ($ab/10).floor, ($ab.Int % 10).floor;
+      my ($c,  $d)  = ($cd/10).floor, ($cd.Int % 10);
+      @dists[$j] = sqrt(($a-$c)² + ($b-$d)²)
+   }
+   return @dists
+}
+
+sub dist(\ci, \cj) { return @$dists[cj×100+ci] } # index into lookup table
+
+sub Es(@path) { #  energy at s, to be minimized
+   loop (my $d = 0,my $i = 0; $i < +@path-1; $i++ ) {
+      $d += dist @path[$i], @path[$i+1]
+   }
+   return $d
+}
+
+sub T(\k, \kmax, \kT)  { #  temperature function, decreases to 0
+   return (1 - k/kmax) * kT
+}
+
+sub dE(\s, \u, \v) { # variation of E, from state s to state s_next
+   my ($su, $sv) = s[u], s[v];
+   # old
+   my ($a, $b, $c, $d) = dist(s[u-1], $su), dist(s[u+1], $su), dist(s[v-1], $sv), dist(s[v+1], $sv);
+   # new
+   my ($na, $nb, $nc, $nd) = dist(s[u-1], $sv), dist(s[u+1], $sv), dist(s[v-1], $su), dist(s[v+1], $su);
+   if v == u+1 {
+      return ($na + $nd) - ($a + $d)
+   } elsif u == v+1 {
+      return ($nc + $nb) - ($c + $b)
+   } else {
+      return ($na + $nb + $nc + $nd) - ($a + $b + $c + $d)
+   }
+}
+
+sub P(\ΔE, \k, \kmax, \kT) { # probability to move from s to s_next
+   return exp( -ΔE / T(k, kmax, kT))
+}
+
+sub PrintPath(\p) {
+   say "Path: ";
+   loop (my $i = 0; $i < +p; $i++) {
+      if $i > 0 and $i%20 == 0 { say " "; }
+      print " ", p[$i]
+   }
+   say " ";
+}
+
+sub sa(\kmax, \kT) {
+   srand(12345);
+   my @PathRecord = my @s = flat 0, (1..99).pick(99), 0;
+   say "kT =", kT;
+   say "E(s0) : ", Es(@s);                 # random starter
+   my $EminRecord = my $Emin = Es(@s);     # E0
+   loop (my $k = 0; $k < kmax; $k++ ) {
+      if ($k%(kmax/10)) == 0 {
+         sprintf("k:%8u  T:%4.1f  Es: %8.13f",$k,T($k,kmax,kT),Es(@s)).put
+      }
+      my $u = 1 + (^99).roll;            # city index 1 to 99
+      my $cv = @s[$u] + dirs[(^8).roll]; # city number
+      next if $cv ≤ 0 or $cv ≥ 100 ;     # bogus city
+      next if dist(@s[$u], $cv) > 5 ;    # check true neighbor (eg 0 9)
+      my $v = @s[$cv]; # city index
+      my $ΔE = dE(@s, $u, $v);
+      if $ΔE < 0 or P($ΔE,$k,kmax,kT) ≥ 1.rand {  #always move if negative
+         (@s[$u], @s[$v]) = (@s[$v], @s[$u]);
+         $Emin += $ΔE;
+         if $Emin < $EminRecord {
+            $EminRecord = $Emin;
+            @PathRecord = @s
+         }
+      }
+   }
+   say "\nE(s_final) : ", $Emin;
+   PrintPath @s;
+   say "Global optium : ",$EminRecord;
+   PrintPath @PathRecord;
+}
+
+sa(1e6, 1)
+
+#`{ Output:
+kT =1
+E(s0) : 492.6876644465769
+k:       0  T: 1.0  Es: 492.6876644465769
+k:  100000  T: 0.9  Es: 182.6232539415397
+k:  200000  T: 0.8  Es: 178.1973980739033
+k:  300000  T: 0.7  Es: 166.7332678035799
+k:  400000  T: 0.6  Es: 142.9907760779216
+k:  500000  T: 0.5  Es: 141.8232565352380
+k:  600000  T: 0.4  Es: 131.9340245844944
+k:  700000  T: 0.3  Es: 118.1083199652142
+k:  800000  T: 0.2  Es: 113.0995529529691
+k:  900000  T: 0.1  Es: 115.0995529529691
+
+E(s_final) : 115.0995529529687
+Path:
+ 0 1 10 20 21 11 12 2 3 4 15 14 13 23 22 31 41 32 33 44
+ 34 24 25 35 36 37 27 17 8 7 6 5 16 26 45 46 56 58 48 47
+ 38 28 18 19 9 29 39 49 59 69 79 89 99 98 97 88 78 68 67 77
+ 87 96 86 76 65 54 55 57 66 74 75 84 85 95 94 93 92 91 90 80
+ 70 71 81 82 83 73 72 61 51 52 42 43 53 64 63 62 60 50 40 30
+ 0
+Global optium : 113.0995529529687
+Path:
+ 0 1 10 20 21 11 12 2 3 4 5 14 13 23 22 31 41 32 33 44
+ 34 24 25 35 36 37 27 17 8 7 6 16 15 26 45 46 57 58 48 47
+ 38 28 18 19 9 29 39 49 59 69 79 89 99 98 97 88 78 68 67 77
+ 87 96 86 76 65 54 55 56 66 74 75 85 95 94 84 93 92 91 90 80
+ 70 71 81 82 83 73 72 62 51 52 42 43 53 64 63 61 60 50 40 30
+ 0
+}
