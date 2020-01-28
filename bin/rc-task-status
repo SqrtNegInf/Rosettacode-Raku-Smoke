@@ -2,6 +2,7 @@
 ## RC task status
 #c# 2018-03-12 2018-03-19 2018-04-02 2018-04-29 2018-05-18 2018-06-02 2018-06-03 2019-01-24
 
+use utf8;
 use warnings;
 use strict 'vars';
 
@@ -154,7 +155,7 @@ my($l) = @_;
     $p =~ s/Brain\*\*\*\*/Brainfuck/;           # 'fix' Brainfuck name
     $p =~ s/%E2%80%93/-/;                       # e.g. Burrows%E2%80%93Wheeler_transform
     $p =~ s/%E2%80%99//;                        # e.g. Ukkonen%E2%80%99s
-    $p =~ s/ö/oe/;                              # e.g. Möbius_function
+    $p =~ s/%C3%B6/oe/;                         # e.g. Möbius_function
     $p =~ s/A\*/A_star/;                        # e.g. A*_search_algorithm
     $p =~ s/0-1/0_1/;                           # Knapsack_problem_0-1, now in two versions: *_0_1-1, *_0_1-2
 #    $p =~ s/Yahoo./Yahoo_/;                     # getting rid of the '!'
