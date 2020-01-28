@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n#
-#n# Notes on re-visions (see .1 for original version as uploaded by Hdktam++)
+#n# Notes on revisions (see .1 for original version as uploaded by Hdktam++)
 #n#
 #n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid go away
 #n# make distance array available globally (no lookup function)
@@ -15,7 +15,8 @@
 #n# .rotor suffices to make grid output (no separate print routine)
 #n# output follows task spec (less is more)
 #n# limit displayed values to non-redonkulous precision (this is not the LIGO experiment)
-#n# extended sigil-less style (but kludges required for $E-min -> E-min, @s -> s, why exactly?)
+#n# extended sigil-less style (temp. variable kludges clobbered with 'anonymous containers', thundergnat++)
+#n# single/double quote style: former for static strings, latter for ones needing interpolation
 #n# eliminated 'sa' as routine (to eliminate need for globals could have packed *everything* into it, but 6-of-one, 1/2-dozen...)
 
 #srand 123456;
@@ -56,8 +57,8 @@ sub delta-E(\s, \u, \v) {
 }
 
 # E(s0), initial state
-my \s = my @s = flat 0, (1 ..^ cities).pick(*), 0;  # defining @s is a kludge to get sigil-less 's'
-my \E-min-global = my \E-min = my $s0 = Es(s);      # defining $s0 is a kludge to get sigil-less 'E-min'
+my \s = @ = flat 0, (1 ..^ cities).pick(*), 0;  # use anonymous array container to create sigil-less variable
+my \E-min-global = my \E-min = $ = Es(s);       # likewise, with scalar
 
 # redundant -- 1st row of progress table shows the same information
 #@res.push: 'kT = ' ~ \kT;  
@@ -65,7 +66,7 @@ my \E-min-global = my \E-min = my $s0 = Es(s);      # defining $s0 is a kludge t
 
 for 0 ..^ kmax -> \k {
     @res.push: sprintf 'k:%8u  T:%4.1f  Es: %3.1f' , k, T(k, kmax, kT), Es(s)
-            if k % (kmax/10) == 0;
+        if k % (kmax/10) == 0;
 
     # valid candidate cities (exist, adjacent)
     my \cv = neighbors[(^8).roll] + s[ my \u = 1 + (^(cities-1)).roll ];
