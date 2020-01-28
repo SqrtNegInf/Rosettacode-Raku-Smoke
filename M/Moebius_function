@@ -1,0 +1,36 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Möbius_function
+#c# 2020-01-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+use Prime::Factor;
+ 
+sub μ (Int \n) {
+    my @p = prime-factors(n);
+    #+@p == squish(@p) ?? +@p %% 2 ?? 1 !! -1 !! 0
+    +@p == +Bag(@p).keys ?? +@p %% 2 ?? 1 !! -1 !! 0
+}
+ 
+my @möbius = lazy flat ' ', 1, (2..*).map: -> \n {μ(n) };
+ 
+# The Task
+say my $result = "Möbius sequence - First 199 terms:\n" ~
+    @möbius[^200]».fmt('%3s').rotor(20).join("\n");
+
+my $ref = q:to/END/;
+Möbius sequence - First 199 terms:
+      1  -1  -1   0  -1   1  -1   0   0   1  -1   0  -1   1   1   0  -1   0  -1
+  0   1   1  -1   0   0   1   0   0  -1  -1  -1   0   1   1   1   0  -1   1   1
+  0  -1  -1  -1   0   0   1  -1   0   0   0   1   0  -1   0   1   0   1   1  -1
+  0  -1   1   0   0   1  -1  -1   0   1  -1  -1   0  -1   1   0   0   1  -1  -1
+  0   0   1  -1   0   1   1   1   0  -1   0   1   0   1   1   1   0  -1   0   0
+  0  -1  -1  -1   0  -1   1  -1   0  -1  -1   1   0  -1  -1   1   0   0   1   1
+  0   0   1   1   0   0   0  -1   0   1  -1  -1   0   1   1   0   0  -1  -1  -1
+  0   1   1   1   0   1   1   0   0  -1   0  -1   0   0  -1   1   0  -1   1   1
+  0   1   0  -1   0  -1   1  -1   0   0  -1   0   0  -1  -1   0   0   1   1  -1
+  0  -1  -1   1   0   1  -1   1   0   0  -1  -1   0  -1   1  -1   0  -1   0  -1
+END
+
+use Test;
+is $result, chomp $ref;
