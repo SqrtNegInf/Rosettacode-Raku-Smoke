@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Create_an_object_at_a_given_address
 #c# 2018-11-14 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 2019-10-14 seems to have been fixed?
 #n# Broken as of 2019-11-13:
@@ -68,9 +68,3 @@ is $struct.bar, 1, 'byte updated at origin';
 # tidy up
 free($base-p);
 done-testing;
-
-# Output:
-# creating object at address 94299589110352
-# ok 1 - object first field
-# ok 2 - object second field
-# 1..2
