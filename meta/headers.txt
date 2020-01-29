@@ -317,7 +317,7 @@ File: A/Addition_chains
 #c# 2019-02-04 <RC, 2019-02-11 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# updates made it Hdktam's code:
+#n# updates made it Hkdtam's code:
 #n#   got rid of 'is copy' in parameter lists
 #n#   kebab-case routine names
 #n#   removed 'LOOP' blocks, were irrelevant
@@ -2188,7 +2188,7 @@ File: C/Create_an_object_at_a_given_address
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Create_an_object_at_a_given_address
 #c# 2018-11-14 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 2019-10-14 seems to have been fixed?
 #n# Broken as of 2019-11-13:
@@ -5456,9 +5456,6 @@ File: L/Left_factorials.jvm
 #c# 2015-11-07 <>RC, 2019-03-05 <RC, 2019-03-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# full run has non-fatal exception in 1st part (and in 2nd part hangs forever)
-#n# Exception in thread "Thread-2" org.perl6.nqp.runtime.SaveStackException
-#n# at org.perl6.nqp.runtime.Ops.continuationcontrol(Ops.java:7506)
 
 File: L/Leonardo_numbers
 #!/usr/bin/env perl6
@@ -6887,6 +6884,15 @@ File: O/One_of_n_lines_in_a_file
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: O/OpenGL
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/OpenGL
+#t# gui
+#c# 2019-12-10 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# creates window, but no good content
 
 File: O/OpenWebNet_Password
 #!/usr/bin/env perl6
@@ -9204,7 +9210,7 @@ File: S/Simulated_annealing
 #m# MOAR: OK
 #j# JVM:  OK
 #n#
-#n# Notes on re-visions (see .1 for original version as uploaded by Hdktam++)
+#n# Notes on revisions (see .1 for original version as uploaded by Hkdtam++)
 #n#
 #n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid go away
 #n# make distance array available globally (no lookup function)
@@ -9215,7 +9221,8 @@ File: S/Simulated_annealing
 #n# .rotor suffices to make grid output (no separate print routine)
 #n# output follows task spec (less is more)
 #n# limit displayed values to non-redonkulous precision (this is not the LIGO experiment)
-#n# extended sigil-less style (but kludges required for $E-min -> E-min, @s -> s, why exactly?)
+#n# extended sigil-less style (temp. variable kludges clobbered with 'anonymous containers', thundergnat++)
+#n# single/double quote style: former for static strings, latter for ones needing interpolation
 #n# eliminated 'sa' as routine (to eliminate need for globals could have packed *everything* into it, but 6-of-one, 1/2-dozen...)
 
 File: S/Simulated_annealing.1
