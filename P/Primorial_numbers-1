@@ -1,0 +1,34 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Primorial_numbers
+#c# 2020-01-29 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+
+my @res;
+
+use Lingua::EN::Numbers;
+use ntheory:from<Perl5> <pn_primorial>;
+ 
+@res.push: "First ten primorials: " ~ ^10 .map( { pn_primorial($_) } ).join: ', ';
+ 
+for 1..6 {
+    my $now = now;
+    @res.push: sprintf "primorial(10^%d) has %-10s digits", $_,
+        comma(pn_primorial(10**$_).Str.chars); #,
+        #"Elapsed seconds: {(now - $now).round: .001}";
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+First ten primorials: 1, 2, 6, 30, 210, 2310, 30030, 510510, 9699690, 223092870
+primorial(10^1) has 10         digits
+primorial(10^2) has 220        digits
+primorial(10^3) has 3,393      digits
+primorial(10^4) has 45,337     digits
+primorial(10^5) has 563,921    digits
+primorial(10^6) has 6,722,809  digits
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
