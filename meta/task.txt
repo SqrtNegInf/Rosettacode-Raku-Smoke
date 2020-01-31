@@ -1,16 +1,16 @@
-This is Rakudo version 2020.01-46-gb6fa5f5dd built on MoarVM version 2020.01.1-2-gcbb04d462
+This is Rakudo version 2020.01-51-g21b809745 built on MoarVM version 2020.01.1-2-gcbb04d462
 implementing Perl 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1189/10]
-|+-------------> JVM: Good/Bad [1020/180]
-||+------------> Smoke testing [1076]
++--------------> Moar: Good/Bad [1190/10]
+|+-------------> JVM: Good/Bad [1020/181]
+||+------------> Smoke testing [1077]
 |||+-----------> sKipping validation [121]
 ||||+----------> Interactive [61]
 |||||+---------> Touched (modified by me) [298]
 ||||||+--------> Concurrent/Async [57]
 |||||||+-------> Random seed [118]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [225]
+|||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [33]
 |||||||||||+---> Void (no local copy) [94]
 ||||||||||||+--> Un-implemented/reliable [72]
@@ -275,7 +275,7 @@ GGS.......... Currying
 GBS......D... Curve_that_touches_three_points
 GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
-.........D.VU Cyclotomic_Polynomial
+GBS......D... Cyclotomic_Polynomial
 GGS.......... DNS_query
 GGS......D... Damm_algorithm
 GGS......D... Data_Encryption_Standard
@@ -396,6 +396,7 @@ GGS......D... Faulhaber%27s_triangle
 GGS......D... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
 .........D.VU Fibonacci_heap
+.........D.VU Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
 GGS.......... Fibonacci_word
@@ -403,7 +404,7 @@ GGS.......... Fibonacci_word_fractal
 GGS.......... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
 GGS.....F.... File_input_output-2
-GBS..T....... File_modification_time
+!BS..T....... File_modification_time
 GGS.......... File_size
 GGS..T...D... File_size_distribution
 GGS.......... Filter
@@ -725,7 +726,7 @@ GGS......D... Most_frequent_k_chars_distance
 GB.KI........ Mouse_position
 GGS.......... Move-to-front_algorithm
 GGS.......... Multi-dimensional_array
-!GS......D... Multidimensional_Newton-Raphson_method
+GGS......D... Multidimensional_Newton-Raphson_method
 GGS.......... Multifactorial
 GGS......D... Multiline_shebang
 GGS.......... Multiple_distinct_objects
