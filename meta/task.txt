@@ -1,13 +1,13 @@
-This is Rakudo version 2020.01-51-g21b809745 built on MoarVM version 2020.01.1-2-gcbb04d462
-implementing Perl 6.d.
+This is Rakudo version 2020.01-57-g15621b8e8 built on MoarVM version 2020.01.1-2-gcbb04d462
+implementing Raku 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1190/10]
++--------------> Moar: Good/Bad [1191/10]
 |+-------------> JVM: Good/Bad [1020/181]
 ||+------------> Smoke testing [1077]
 |||+-----------> sKipping validation [121]
 ||||+----------> Interactive [61]
 |||||+---------> Touched (modified by me) [298]
-||||||+--------> Concurrent/Async [57]
+||||||+--------> Concurrent/Async [59]
 |||||||+-------> Random seed [118]
 ||||||||+------> File output [86]
 |||||||||+-----> Draft [226]
@@ -404,7 +404,7 @@ GGS.......... Fibonacci_word_fractal
 GGS.......... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
 GGS.....F.... File_input_output-2
-!BS..T....... File_modification_time
+GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T...D... File_size_distribution
 GGS.......... Filter
@@ -698,7 +698,7 @@ GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
 GBS......D... Mersenne_primes
-GGS......D... Mertens_function
+GGS...C..D... Mertens_function
 GGS.......... Metallic_ratios
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
@@ -713,7 +713,7 @@ GGS......D... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
 .........DXV. Modulinos
-GGS......D... Moebius_function
+GGS...C..D... Moebius_function
 GGS......D... Monads_List_monad
 GGS......D... Monads_Maybe_monad
 .........D.VU Monads_Writer_monad
