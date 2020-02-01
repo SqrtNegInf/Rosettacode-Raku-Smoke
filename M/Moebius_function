@@ -1,22 +1,24 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Möbius_function
-#c# 2020-01-25 <RC
+#c# 2020-01-26 <RC, 2020-01-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# junctions slower?
 
 use Prime::Factor;
  
 sub μ (Int \n) {
+    return 0 if n %% (4|9|25|49|121);
+    #return 0 if n %% 4 or n %% 9 or n %% 25 or n %% 49 or n %% 121;
     my @p = prime-factors(n);
-    #+@p == squish(@p) ?? +@p %% 2 ?? 1 !! -1 !! 0
-    +@p == +Bag(@p).keys ?? +@p %% 2 ?? 1 !! -1 !! 0
+    +@p == squish(@p) ?? +@p %% 2 ?? 1 !! -1 !! 0
+    #+@p == +@p.unique ?? +@p %% 2 ?? 1 !! -1 !! 0
 }
  
-my @möbius = lazy flat ' ', 1, (2..*).map: -> \n {μ(n) };
+my @möbius = lazy flat '', 1, (2..*).hyper.map: -> \n { μ(n) };
  
-# The Task
 say my $result = "Möbius sequence - First 199 terms:\n" ~
-    @möbius[^200]».fmt('%3s').rotor(20).join("\n");
+    @möbius[^200]».fmt('%3s').batch(20).join: "\n";         # WAT?!
 
 my $ref = q:to/END/;
 Möbius sequence - First 199 terms:
