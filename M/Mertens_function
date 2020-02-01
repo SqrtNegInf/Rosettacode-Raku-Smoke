@@ -1,24 +1,35 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mertens_function
-#c# 2020-01-25 <RC
+#c# 2020-01-25 <RC, 2020-01-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# methinks someone has been nipping at the cooking brandy...
+
+my @res;
 
 use Prime::Factor;
 
 sub μ (Int \n) {
+    return 0 if n %% 4 or n %% 9 or n %% 25 or n %% 49 or n %% 121;
     my @p = prime-factors(n);
-    +@p == +Bag(@p).keys ?? +@p %% 2 ?? 1 !! -1 !! 0
+    +@p == +@p.unique ?? +@p %% 2 ?? 1 !! -1 !! 0
 }
 
-my @mertens = lazy [\+] flat ' ', 1, (2..*).map: -> \n { μ(n) };
+my @mertens = lazy [\+] flat '', 1, (2..*).hyper.map: -> \n { μ(n) };
 
-say my $result = "Mertens sequence - First 199 terms:\n" ~
-    @mertens[^200]».fmt('%3s').rotor(20).join("\n")~
-    "\n\nEquals zero "~ +@mertens[1..1000].grep( !* )~
+@res.push: "Mertens sequence - First 199 terms:\n" ~
+    @mertens[^200]».fmt('%3s').batch(20).join("\n")~        # WAT?!
+    "\n\nEquals zero "~ +@mertens[1..1000].grep( !* )~ 
     ' times between 1 and 1000'~ "\n\nCrosses zero "~
     +@mertens[1..1000].kv.grep( {!$^v and @mertens[$^k]} )~
-    ' times between 1 and 1000';
+    " times between 1 and 1000\n\nFirst Mertens equal to:";
+
+for 10, 20, 30 … 100 -> $threshold {
+    @res.push: sprintf "%4d: M(%d)", -$threshold, @mertens.first: * == -$threshold, :k;
+    @res.push: sprintf "%4d: M(%d)",  $threshold, @mertens.first: * ==  $threshold, :k;
+}
+
+.say for @res;
 
 my $ref = q:to/END/;
 Mertens sequence - First 199 terms:
@@ -36,7 +47,29 @@ Mertens sequence - First 199 terms:
 Equals zero 92 times between 1 and 1000
 
 Crosses zero 59 times between 1 and 1000
+
+First Mertens equal to:
+ -10: M(659)
+  10: M(1393)
+ -20: M(2791)
+  20: M(3277)
+ -30: M(9717)
+  30: M(8503)
+ -40: M(9831)
+  40: M(11770)
+ -50: M(24018)
+  50: M(19119)
+ -60: M(24105)
+  60: M(31841)
+ -70: M(24170)
+  70: M(31962)
+ -80: M(42789)
+  80: M(48202)
+ -90: M(59026)
+  90: M(48405)
+-100: M(59426)
+ 100: M(114717)
 END
 
 use Test;
-is $result, chomp $ref;
+is @res.join("\n"), chomp $ref;
