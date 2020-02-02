@@ -1,0 +1,59 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Fibonacci_matrix-exponentiation
+#c# 2020-02-xx >RC
+#p# OK
+#n# experimenting...
+#n# XX very close translation of Sidef (needs ':overload', or starts failing at 2**53)
+
+my @res;
+
+use lib 'lib';
+
+#use Math::AnyNum qw(:overload fibmod floor);
+#use Math::AnyNum:from<Perl5> <fibmod floor>;
+use Math::Matrix;
+
+sub fibonacci ($n) {
+    my $M = Math::Matrix.new( [[1,1],[1,0]] );
+    ($M ** $n)[0][1];
+}
+
+for (16) -> $n { #, 32) {
+    my $f = fibonacci(2**$n);
+    say "F(2^$n) = " ~ substr($f,0,20) ~ ' ... ' ~ $f % 10**20;
+}
+
+sub binet_approx ($n) {
+    constant PHI =   sqrt(1.25) + 0.5 ;
+    constant IHP = -(sqrt(1.25) - 0.5);
+    (log(PHI)*$n - log(PHI - IHP))
+}
+ 
+sub nth_fib_first_k_digits ($n,$k) {
+    my $f = binet_approx($n);
+    floor(exp($f - log(10)*(floor($f / log(10) + 1))) * 10**$k)
+}
+
+sub nth_fib_last_k_digits ($n,$k) {
+    #fibmod($n, 10**$k);
+    '123456789'
+}
+
+for 16, 32, 64 -> $n {
+    my $first20 = nth_fib_first_k_digits(2**$n, 20);
+    my $last20  = nth_fib_last_k_digits(2**$n, 20);
+    printf "F(2^$n) = %s ... %s\n", $first20, $last20;
+}
+
+exit;
+say my $result = join "\n", @res;
+
+my $ref = q:to/END/;
+F(2^16) = 73199214460290552832 ... 97270190955307463227
+F(2^16) = 73199214460290552832 ... 97270190955307463227
+F(2^32) = 61999319689381859818 ... 39623735538208076347
+F(2^64) = 11175807536929528424 ... 17529800348089840187
+END
+
+use Test;
+is($result, $ref);
