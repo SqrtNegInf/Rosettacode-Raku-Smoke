@@ -12,7 +12,7 @@ print `$ENV{HOME}/.rakudobrew/shims/perl6 -v`;
 
 # update only once a day
 if (.95 < -M "Category:Programming_Tasks") {
-print "updating from RC…\n";
+print "updating from RC...\n";
 system <<"END";
 mv Category:Programming_Tasks Category:Programming_Tasks~
 mv Category:Draft_Programming_Tasks Category:Draft_Programming_Tasks~
