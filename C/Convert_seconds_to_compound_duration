@@ -3,6 +3,7 @@
 #c# 2015-11-22 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# tweaks not on RC
 
 # The built-in polymod method (which is a generalization of the divmod function known from other languages),
 # is a perfect match for a task like this:
@@ -12,7 +13,9 @@ sub compound-duration ($seconds) {
     .grep(*[0]).reverse.join(", ")
 }
 
-for 7259, 86400, 6000000 {
+my $x = [+] ([\*] <1 60 60 24 7>) Z* <1 2 3 4 5>;
+
+for 7259, 86400, 6000000, $x {
     say "{.fmt: '%7d'} sec  =  {compound-duration $_}";
 }
 
@@ -20,3 +23,4 @@ use Test;
 is compound-duration(7259), '2 hr, 59 sec', '1 sec < 3hr';
 is compound-duration(86400), '1 d', 'exactly 1 day';
 is compound-duration(6000000), '9 wk, 6 d, 10 hr, 40 min', 'spillover to weeks';
+is compound-duration($x), '5 wk, 4 d, 3 hr, 2 min, 1 sec', 'purty';
