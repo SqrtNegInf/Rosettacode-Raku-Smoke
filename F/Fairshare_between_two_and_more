@@ -1,0 +1,34 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Fairshare_between_two_and_more
+#c# 2020-02-01 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub fairshare (\b) { ^∞ .hyper.map: { .polymod( b xx * ).sum % b } }
+
+@res.push: $_ for <2 3 5 11>.map: { .fmt('%2d:') ~ .&fairshare[^25]».fmt('%2d').join: ', ' }
+
+my $iterations = 50_000;
+@res.push: "\nHow many times does each person get a turn in $iterations iterations?";
+
+for 191, 1377 -> $people {
+    @res.push: "With $people people: "~ fairshare($people)[^$iterations].Bag.values.sort.unique.join: ' or ';
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+ 2: 0,  1,  1,  0,  1,  0,  0,  1,  1,  0,  0,  1,  0,  1,  1,  0,  1,  0,  0,  1,  0,  1,  1,  0,  0
+ 3: 0,  1,  2,  1,  2,  0,  2,  0,  1,  1,  2,  0,  2,  0,  1,  0,  1,  2,  2,  0,  1,  0,  1,  2,  1
+ 5: 0,  1,  2,  3,  4,  1,  2,  3,  4,  0,  2,  3,  4,  0,  1,  3,  4,  0,  1,  2,  4,  0,  1,  2,  3
+11: 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10,  0,  2,  3,  4
+
+How many times does each person get a turn in 50000 iterations?
+With 191 people: 261 or 262
+With 1377 people: 36 or 37
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
