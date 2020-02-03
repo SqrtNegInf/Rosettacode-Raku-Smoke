@@ -1,19 +1,19 @@
-This is Rakudo version 2020.01-59-gaaf9a93e4 built on MoarVM version 2020.01.1-2-gcbb04d462
+This is Rakudo version 2020.01-60-g9e8adb659 built on MoarVM version 2020.01.1-2-gcbb04d462
 implementing Raku 6.d.
 updating from RC...
-+--------------> Moar: Good/Bad [1191/10]
-|+-------------> JVM: Good/Bad [1021/181]
-||+------------> Smoke testing [1078]
-|||+-----------> sKipping validation [121]
++--------------> Moar: Good/Bad [1193/12]
+|+-------------> JVM: Good/Bad [1022/183]
+||+------------> Smoke testing [1079]
+|||+-----------> sKipping validation [123]
 ||||+----------> Interactive [61]
-|||||+---------> Touched (modified by me) [298]
+|||||+---------> Touched (modified by me) [299]
 ||||||+--------> Concurrent/Async [60]
 |||||||+-------> Random seed [118]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [227]
+|||||||||+-----> Draft [228]
 ||||||||||+----> Ignoring [33]
-|||||||||||+---> Void (no local copy) [94]
-||||||||||||+--> Un-implemented/reliable [72]
+|||||||||||+---> Void (no local copy) [92]
+||||||||||||+--> Un-implemented/reliable [71]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -397,7 +397,7 @@ GGS......D... Faulhaber%27s_triangle
 GGS......D... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
 .........D.VU Fibonacci_heap
-.........D.VU Fibonacci_matrix-exponentiation
+BB.K.T...D..U Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
 GGS.......... Fibonacci_word
@@ -575,7 +575,7 @@ GGS.......... Jensen%27s_Device
 GGS..T....... Jewels_and_Stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
-..........XVU Joystick_position
+BB.K......X.. Joystick_position
 GBS...C.F.... Julia_set
 GGS....R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
@@ -702,7 +702,7 @@ GBS......D... Mersenne_primes
 GGS...C..D... Mertens_function
 GGS.......... Metallic_ratios
 GGS.......... Metaprogramming
-!GS.......... Metered_concurrency
+GGS.......... Metered_concurrency
 GGS.......... Metronome
 GGS.......... Mian-Chowla_sequence
 GGS.......... Middle_three_digits
@@ -797,6 +797,7 @@ GGS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_Partitions
 GGS.......... Ordered_words
 GGS..T....... P-value_correction
+GGS......D... Palindrome_dates
 GGS.......... Palindrome_detection
 GGS.......... Palindromic_gapful_numbers
 GGS.......... Pangram_checker
