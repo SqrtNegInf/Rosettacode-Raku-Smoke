@@ -1,30 +1,185 @@
 #!/usr/bin/env perl6
-## grep AST of RC tasks
+## grep AST of RC tasks (and/or source code)
+#  David H.  2020-02-02
+#   another run at fleshing out the design document, only pre-alpha code yet... (not in this file)
+#   make emphasis on the less common constructs, if too commmon just ignore
+#   make a particular effort to highlight the obscure, the one-offs
 #  David H.  2019-04-14
-#   just a concept at this point...
+#   blue-sky goal: tie examples back to documentation
+#   just a (very vague) concept at this point...
 
 #`[[
 
-grep -h QAST::Op ast/* | perl -npe 's/\Q+{QAST::SpecialArg}//;s/^\s+.*::Op\((.*?)\).*/$1/' | sort | uniq -c | sort -rn
+== MOTIVATION
 
- 1561 call &METAOP_ASSIGN
-  497 call &METAOP_REDUCE_LEFT
-  351 call &METAOP_HYPER
-  234 call &METAOP_ZIP
-  207 call &METAOP_CROSS
-   64 call &METAOP_HYPER_POSTFIX_ARGS
-   61 call &METAOP_REVERSE
-   52 call &METAOP_NEGATE
-   48 call &METAOP_REDUCE_LISTINFIX
-   34 call &METAOP_REDUCE_CHAIN
-   17 call &METAOP_REDUCE_RIGHT
-   12 call &METAOP_REDUCE_LIST
-   10 call &METAOP_HYPER_PREFIX
-    2 p6fatalize &METAOP_ASSIGN
-    2 call &METAOP_HYPER_CALL
+For some, the best way to learn a language is to see it 'in action', being used to solve problems
+You can't just grep the code and reliably find the interesting bits
+How to distinguish 'R' for reverse meta-op from a generic capital letter?
+Then there are purely orthographic issues: » vs >>, … vs ... (and when is the latter pair just a row of dots in a comment?)
 
-grep -l '&METAOP_CROSS' ast/* | perl -npe 's#ast/##' > docs/METAOP_CROSS
-grep -l '&METAOP_REVERSE' ast/* | perl -npe 's#ast/##' > docs/METAOP_REVERSE
-grep -l '&METAOP_ZIP' ast/* | perl -npe 's#ast/##' > docs/METAOP_ZIP
+== META
+
+curated vs generic sections? (e.g. generic: Unicode/subroutine sections, curated: subroutines with Unicode names)
+link matches to RC or github/smoke-test?
+ignore: .0, .1, etc (and .jvm)
+pull from RC, so 'testing' changes not involved?
+cf. 'grep-raku' for issues related to Unicode
+
+== IMPLEMENTATION
+
+line-tagged version to tie AST statements/calls together?
+#`{01} my @a = ^4;
+#`{02} my @b = @a X** 2;
+#`{03} say join ' ', @a;
+# asdfka sdfals dfasd fasf asdf dsa
+#`{04} say 'Cowabunga!';
+#`{05} my @c = @a Z @b;
+#`{06} say @c>>.sum;
+
+always check for both:
+Op(callmethod XYZ)
+Op(call &XYZ)
+
+================ CODE TARGETS ================
+
+== misc misc
+Unicode - variable names, function names (and built-in vs custom for both)
+program type: game/gui/interactive/image/math
+    based on my own '#t#' notation 
+    + mooch off 'RC-run.p6'?
+ecosystem: 'normal' P6, NativeCall, Perl5
+PHASERS
+EVAL
+
+== misc syntax
+\x = $ = 
+\y = @ = 
+ANON_VAR : $ @ %
+$_ //= 
+base conversion :2, :8, :36  (e.g. D/Digital_root)
+
+== comments
+#  - line-by-line
+#` - block
+#`{ blah } <code here>   # short block , aka left-hand side-bar, as in R/Ramanujan%27s_constant
+POD
+
+== variables
+topic variable
+Array (shaped , multi-D)
+binding
+constants
+lazy
+sigil-less
+containers
+placeholder
+special: $*IN, $*EXECUTABLE-NAME, $*PROGRAM-NAME, etc
+
+== explicit/custom use of Types
+Rat, FatRat
+Int, 
+UInt (UIntHash!)
+(u)int16/32/64
+Complex
+Buf
+Set
+Bag
+Mix
+SetHash
+BagHash
+MixHash
+subset - user defined
+
+== sub-languages
+regexp
+grammars
+quoted
+slangs
+
+== subroutines
+'sub MAIN', 'unit sub MAIN'
+multi
+anonymous
+closures
+infix
+prefix
+postfix
+*circumfix ever??
+parameter styles: rw, copy, defaults, optional, slurpy, named, positional, 'where'
+usage/help
+
+== conditionals
+if / elsif / else
+unless
+orelse
+given / when
+
+== loop constructs
+map
+grep
+for
+while
+repeat
+gather/take
+loop (C-style)
+
+== input/output
+files
+say/put/print/printf
+get/getc/slurp
+.gist, .raku
+
+== generic operations
+(call &infix:<->
+(call &postcircumfix:<{ }>
+(call &circumfix:<[ ]>
+(call &prefix:<->
+(call &postfix:<++>
+
+== 'whatever' in various forms
+[*-1]
+@board[*;$_]
+@prisoners.pick: *;
+@lines.map(*».chars.max)
+$x.polymod( 58 xx *)
+… *
+1..*
+take reduce * × 256 + *, $d, $c, $b, $a
+Int $n where * > 0
+
+== random
+srand (which would imply the others, otherwise WTF)
+.pick
+.roll
+.rand
+
+== concurrency and async
+call &await
+.race
+.hyper
+atomic 
+react
+supply
+tap ?
+
+== META ops
+
+grep -h QAST::Op ast/* | perl -npe 's/\Q+{QAST::SpecialArg}//;s/^\s+.*::Op\((.*?)\).*/$1/' | sort | uniq -c | sort -rn | g META
+
+1664 call &METAOP_ASSIGN
+ 501 call &METAOP_REDUCE_LEFT
+ 369 call &METAOP_HYPER
+ 238 call &METAOP_ZIP
+ 210 call &METAOP_CROSS
+  64 call &METAOP_HYPER_POSTFIX_ARGS
+  62 call &METAOP_REVERSE
+  54 call &METAOP_NEGATE
+  48 call &METAOP_REDUCE_LISTINFIX
+  34 call &METAOP_REDUCE_CHAIN
+  17 call &METAOP_REDUCE_RIGHT
+  12 call &METAOP_REDUCE_LIST
+  10 call &METAOP_HYPER_PREFIX
+   2 p6fatalize &METAOP_ASSIGN
+   2 call &METAOP_HYPER_CALL
 
 ]]
