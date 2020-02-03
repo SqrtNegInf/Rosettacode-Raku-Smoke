@@ -1,17 +1,27 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fibonacci_matrix-exponentiation
+#t# inprogress
 #c# 2020-02-xx >RC
 #p# OK
-#n# experimenting...
-#n# XX very close translation of Sidef (needs ':overload', or starts failing at 2**53)
+#n# experimenting... failing...  can't use Math::AnyNum:
+#n#   Type check failed in binding to parameter '$library'; expected IO::Path but got Slip (Empty) in sub guess_library_name 
+#n# quickest way forward: need mod.exp. with float values, as per:
+#n# https://stackoverflow.com/questions/36681259/calculating-nth-fibonacci-number-modulo-m-using-golden-ratio-in-c
+#n# XX very close translation of Sidef 
 
 my @res;
 
 use lib 'lib';
+use Math::Matrix;  # does matrix exp.
 
-#use Math::AnyNum qw(:overload fibmod floor);
+# croaks
+##use Math::AnyNum qw(:overload fibmod floor);
 #use Math::AnyNum:from<Perl5> <fibmod floor>;
-use Math::Matrix;
+
+# also croaks
+#use Inline::Perl5;
+#my $p5 = Inline::Perl5.new();
+#$p5.use( 'Math::AnyNum' );
 
 sub fibonacci ($n) {
     my $M = Math::Matrix.new( [[1,1],[1,0]] );
