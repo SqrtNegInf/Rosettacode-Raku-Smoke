@@ -53,7 +53,7 @@ END
 
 
 use Test;
-#is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
 
 # DH 2f69be9: changes below not needed in 'Visualize_a_tree' as input data structure different?
 sub visualize-tree($tree, &label, &children,
