@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fairshare_between_two_and_more
-#c# 2020-02-01 <RC
+#c# 2020-02-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -10,11 +10,15 @@ sub fairshare (\b) { ^∞ .hyper.map: { .polymod( b xx * ).sum % b } }
 
 @res.push: $_ for <2 3 5 11>.map: { .fmt('%2d:') ~ .&fairshare[^25]».fmt('%2d').join: ', ' }
 
-my $iterations = 50_000;
-@res.push: "\nHow many times does each person get a turn in $iterations iterations?";
+@res.push: "\nRelative fairness of this method. Scaled fairness correlation. The closer to 1.0 each person
+is, the more fair the selection algorithm is. Gets better with more iterations.";
 
-for 191, 1377 -> $people {
-    @res.push: "With $people people: "~ fairshare($people)[^$iterations].Bag.values.sort.unique.join: ' or ';
+for <2 3 5 11 39> -> $people {
+    my $iterations = $people * 1000;
+    my @fairness;
+    fairshare($people)[^$iterations].kv.map: { @fairness[$^v % $people] += $^k }
+    my $scale = @fairness.sum / @fairness;
+    @res.push: "$people people: " ~ @fairness.map( { $_ / $scale } ).join: ', ';
 }
 
 .say for @res;
@@ -25,9 +29,13 @@ my $ref = q:to/END/;
  5: 0,  1,  2,  3,  4,  1,  2,  3,  4,  0,  2,  3,  4,  0,  1,  3,  4,  0,  1,  2,  4,  0,  1,  2,  3
 11: 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10,  0,  2,  3,  4
 
-How many times does each person get a turn in 50000 iterations?
-With 191 people: 261 or 262
-With 1377 people: 36 or 37
+Relative fairness of this method. Scaled fairness correlation. The closer to 1.0 each person
+is, the more fair the selection algorithm is. Gets better with more iterations.
+2 people: 1, 1
+3 people: 0.99999933, 1, 1.00000067
+5 people: 1, 1, 1, 1, 1
+11 people: 1.00000055, 1.00000036, 1.00000018, 1, 0.99999982, 0.99999964, 0.99999945, 0.99999927, 0.99999909, 1.00000091, 1.00000073
+39 people: 0.99999821, 0.999997487, 0.999996769, 0.999996051, 0.999995333, 0.99999462, 0.999993897, 0.999993179, 0.999992461, 0.999991743, 0.999991, 0.9999923, 0.9999936, 0.9999949, 0.9999962, 0.9999974, 0.9999987, 1, 1.0000013, 1.0000026, 1.0000038, 1.0000051, 1.0000064, 1.0000077, 1.000009, 1.000008257, 1.000007539, 1.000006821, 1.000006103, 1.00000538, 1.000004667, 1.000003949, 1.000003231, 1.000002513, 1.00000179, 1.000001077, 1.000000359, 0.999999641, 0.999998923
 END
 
 use Test;
