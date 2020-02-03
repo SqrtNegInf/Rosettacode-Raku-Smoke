@@ -1,3 +1,7 @@
+2020-02-02
+zef install Math::Libgsl::* needs GSL header files which 'ports' doesn't supply 
+(and maybe other problems too, 2.3 vs 2.5; maybe mostly for Linux at this point?)
+
 2020-01-29
 This did not do the trick, so just copied 'Type.pm' to 'lib'.
 zef --force-test --force-install install https://github.com/pierre-vigier/Perl6-Math-Matrix.git
