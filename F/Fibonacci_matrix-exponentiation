@@ -3,50 +3,62 @@
 #t# inprogress
 #c# 2020-02-xx >RC
 #p# OK
-#n# experimenting... failing...  can't use Math::AnyNum:
-#n#   Type check failed in binding to parameter '$library'; expected IO::Path but got Slip (Empty) in sub guess_library_name 
-#n# quickest way forward: need mod.exp. with float values, as per:
+#n# experimenting... Math::AnyNum progress, we'll see how it goes
+#n# or could translate 'fibmod' from Julia
+#n# another way forward: mod.exp. with float values, as per:
 #n# https://stackoverflow.com/questions/36681259/calculating-nth-fibonacci-number-modulo-m-using-golden-ratio-in-c
 #n# XX very close translation of Sidef 
 
 my @res;
 
 use lib 'lib';
-use Math::Matrix;  # does matrix exp.
+use Math::Matrix;  # matrix exponentiation
 
-# croaks
-##use Math::AnyNum qw(:overload fibmod floor);
-#use Math::AnyNum:from<Perl5> <fibmod floor>;
+# cannot just mix 'floor' in
+#use Math::AnyNum:from<Perl5> <floor>;
 
-# also croaks
-#use Inline::Perl5;
-#my $p5 = Inline::Perl5.new();
-#$p5.use( 'Math::AnyNum' );
+# works except for $n = 2**64
+use Inline::Perl5;
+my $p5 = Inline::Perl5.new();
+$p5.use( 'Math::AnyNum' );
+my &nth_fib_last_k_digits = $p5.run('sub { my($n,$k) = @_; Math::AnyNum::fibmod($n, 10**$k) }');
 
 sub fibonacci ($n) {
     my $M = Math::Matrix.new( [[1,1],[1,0]] );
     ($M ** $n)[0][1];
 }
 
-for (16) -> $n { #, 32) {
-    my $f = fibonacci(2**$n);
-    say "F(2^$n) = " ~ substr($f,0,20) ~ ' ... ' ~ $f % 10**20;
+#for (16) -> $n { #, 32) {
+#    my $f = fibonacci(2**$n);
+#    say "F(2^$n) = " ~ substr($f,0,20) ~ ' ... ' ~ $f % 10**20;
+#}
+
+constant D = 30;
+
+# from: R/Ramanujan%27s_constant
+multi sqrt(FatRat $r --> FatRat) {
+    FatRat.new: sqrt($r.nude[0] × 10**(D×2) div $r.nude[1]), 10**D;
+}
+
+# from: I/Integer_roots
+multi sqrt(Int $n) {
+    my $guess = 10**($n.chars div 2);
+    my $iterator = { ( $^x   +   $n div ($^x) ) div 2 };
+    my $endpoint = { $^x == $^y|$^z };
+    min ($guess, $iterator … $endpoint)[*-1, *-2];
 }
 
 sub binet_approx ($n) {
-    constant PHI =   sqrt(1.25) + 0.5 ;
-    constant IHP = -(sqrt(1.25) - 0.5);
-    (log(PHI)*$n - log(PHI - IHP))
+    constant PHI =   sqrt(1.25.FatRat) + 0.5 ;
+    constant IHP = -(sqrt(1.25.FatRat) - 0.5);
+    (log(PHI)*$n.FatRat - log(PHI - IHP))  # result not FatRat 
 }
  
 sub nth_fib_first_k_digits ($n,$k) {
     my $f = binet_approx($n);
+say $f.WHAT;
+    say 'binet ' ~ $f; exit;
     floor(exp($f - log(10)*(floor($f / log(10) + 1))) * 10**$k)
-}
-
-sub nth_fib_last_k_digits ($n,$k) {
-    #fibmod($n, 10**$k);
-    '123456789'
 }
 
 for 16, 32, 64 -> $n {
@@ -56,6 +68,12 @@ for 16, 32, 64 -> $n {
 }
 
 exit;
+
+# F(2^16) = 73199214460290552832 ... 97270190955307463227 OK
+# F(2^16) = 73199214460153708544 ... 97270190955307463227 bad high
+# F(2^32) = 61999312229724602368 ... 39623735538208076347 bad high
+# Cannot unbox 65 bit wide bigint into native integer     urk
+
 say my $result = join "\n", @res;
 
 my $ref = q:to/END/;
