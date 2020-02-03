@@ -2355,6 +2355,7 @@ File: D/Deal_cards_for_FreeCell
 #c# 2016-05-15 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# don't need srand, 'ms-lcg-method' handles it already
 
 File: D/Death_Star
 #!/usr/bin/env perl6
@@ -3120,6 +3121,7 @@ File: E/Execute_CopyPasta_Language
 #m# MOAR: OK
 #j# JVM:  OK
 #n# the RC version doesn't have the unnecessary frippery
+#n# then 'randomess' of .roll should be invisible: both routines should return the same result
 
 File: E/Execute_HQ9%2B
 #!/usr/bin/env perl6
@@ -3306,7 +3308,7 @@ File: F/Factors_of_an_integer
 File: F/Fairshare_between_two_and_more
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fairshare_between_two_and_more
-#c# 2020-02-01 <RC
+#c# 2020-02-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -3400,6 +3402,18 @@ File: F/Fermat_numbers.jvm
 #m# MOAR: OK
 #j# JVM:  OK
 #n# must wrap the 'gather' in brackets to get array return (or suffix with .Array)
+
+File: F/Fibonacci_matrix-exponentiation
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Fibonacci_matrix-exponentiation
+#t# inprogress
+#c# 2020-02-xx >RC
+#p# OK
+#n# experimenting... failing...  can't use Math::AnyNum:
+#n#   Type check failed in binding to parameter '$library'; expected IO::Path but got Slip (Empty) in sub guess_library_name 
+#n# quickest way forward: need mod.exp. with float values, as per:
+#n# https://stackoverflow.com/questions/36681259/calculating-nth-fibonacci-number-modulo-m-using-golden-ratio-in-c
+#n# XX very close translation of Sidef 
 
 File: F/Fibonacci_n-step_number_sequences
 #!/usr/bin/env perl6
@@ -5002,6 +5016,15 @@ File: J/Josephus_problem
 #c# 2015-11-12 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: J/Joystick_position
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Joystick_position
+#t# skiptest
+#c# 2020-02-02 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# ENOHARDWARE
 
 File: J/Julia_set
 #!/usr/bin/env perl6
@@ -7010,6 +7033,14 @@ File: P/P-value_correction.1
 #j# JVM:  OK
 #n# lots of malformed UTF-8 errors, replaced characters
 
+File: P/Palindrome_dates
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Palindrome_dates
+#c# 2020-02-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# testing will need adjustment on 2021-12-02, 2030-03-02, ...
+
 File: P/Palindrome_detection
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Palindrome_detection
@@ -7027,9 +7058,11 @@ File: P/Palindrome_pairs
 File: P/Palindromic_dates
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Palindromic_dates
-#c# 2019-10-xx >RC
+#c# 2019-10-xx NOT ON RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# you snooze, you lose... this is overkill for Steenslag's task, so giving it a miss
+#n#
 #n# Fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
 #n#   copiously annotated for the beginning programmer (Hi Oscar!)
 #n#
@@ -7042,6 +7075,7 @@ File: P/Palindromic_dates
 #n#   non-cryptic variable names
 #n#   working the DRY principle pretty hard (too far?)
 #n#
+#n# 2020-01-25 '3104' again, so there must be a race condition I'm missing?
 #n# 2019-12-02 '3104' instead of '3105 non-prime palindromic dates'
 #n# 2019-11-29 saw this error again
 #n# At one point seeing this, but seems to have cleared up:
@@ -8447,6 +8481,7 @@ File: R/Rendezvous
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: rendezvous.txt
+#n# is there actually anything that 'srand' can control?
 
 File: R/Rep-string
 #!/usr/bin/env perl6
