@@ -3,10 +3,12 @@
 #c# 2016-05-15 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# don't need srand, 'ms-lcg-method' handles it already
 
 # Works with: rakudo version 2015-09-06
 
-srand 123456;
+#srand 123456;
+
 my @res;
 
 sub dealgame ($game-number = 1) {
