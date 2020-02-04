@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/VList
-#c# 2020-01-13 <RC, 2020-01-14 <RC
+#c# 2020-01-14 <RC, 2020-02-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -28,21 +28,15 @@ class vList {
    }
 
    method cons(vEle \a --> vList) { # method to add an element to the front
-      unless self.base.ele.Bool {   # probably faster than .elems ?
+      if not self.base.ele.Bool {   # probably faster than .elems ?
          self.base.ele.push: a ;
          return self;
+      } elsif self.offset == 0 {
+         my \L2offset = (self.base.ele.elems * 2) - 1 ;
+         my \s = vSeg.new(next => self.base, ele => flat Nil xx L2offset, a);
+         return vList.new(base => s, offset => L2offset )
       }
-      if self.offset == 0 {
-         my \l2 = self.base.ele.elems × 2 ;
-         my vEle @ele = Nil xx l2 ;
-         @ele[l2-1] = a ;
-         my \s = vSeg.new;
-         s.next = self.base;
-         s.ele = @ele;
-         return vList.new( base => s, offset => l2-1 )
-      }
-      self.offset--;
-      self.base.ele[self.offset] = a;
+      self.base.ele[--self.offset] = a;
       return self
    }
 
