@@ -15,7 +15,7 @@
 For some, the best way to learn a language is to see it 'in action', being used to solve problems
 You can't just grep the code and reliably find the interesting bits
 How to distinguish 'R' for reverse meta-op from a generic capital letter?
-Then there are purely orthographic issues: » vs >>, … vs ... (and when is the latter pair just a row of dots in a comment?)
+Then there are orthographic issues: » vs >>, … vs ... (plus: when is the latter pair just a ellipsis in a comment?)
 
 == META
 
@@ -57,6 +57,7 @@ EVAL
 ANON_VAR : $ @ %
 $_ //= 
 base conversion :2, :8, :36  (e.g. D/Digital_root)
+junctions
 
 == comments
 #  - line-by-line
@@ -89,6 +90,7 @@ SetHash
 BagHash
 MixHash
 subset - user defined
+atomic*
 
 == sub-languages
 regexp
@@ -144,7 +146,7 @@ get/getc/slurp
 $x.polymod( 58 xx *)
 … *
 1..*
-take reduce * × 256 + *, $d, $c, $b, $a
+reduce * × 256 + *, $d, $c, $b, $a
 Int $n where * > 0
 
 == random
@@ -154,10 +156,10 @@ srand (which would imply the others, otherwise WTF)
 .rand
 
 == concurrency and async
-call &await
 .race
 .hyper
-atomic 
+atomic*
+call &await
 react
 supply
 tap ?
