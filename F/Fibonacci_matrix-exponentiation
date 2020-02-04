@@ -2,7 +2,7 @@
 #u# http://rosettacode.org/wiki/Fibonacci_matrix-exponentiation
 #t# inprogress
 #c# 2020-02-xx >RC
-#p# OK
+#p# BROKEN
 #n# experimenting... Math::AnyNum progress, we'll see how it goes
 #n# or could translate 'fibmod' from Julia
 #n# another way forward: mod.exp. with float values, as per:
@@ -28,6 +28,7 @@ sub fibonacci ($n) {
     ($M ** $n)[0][1];
 }
 
+# 32 gobbles CPU and memory, do not use!
 #for (16) -> $n { #, 32) {
 #    my $f = fibonacci(2**$n);
 #    say "F(2^$n) = " ~ substr($f,0,20) ~ ' ... ' ~ $f % 10**20;
