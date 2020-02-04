@@ -3408,10 +3408,10 @@ File: F/Fibonacci_matrix-exponentiation
 #u# http://rosettacode.org/wiki/Fibonacci_matrix-exponentiation
 #t# inprogress
 #c# 2020-02-xx >RC
-#p# OK
-#n# experimenting... failing...  can't use Math::AnyNum:
-#n#   Type check failed in binding to parameter '$library'; expected IO::Path but got Slip (Empty) in sub guess_library_name 
-#n# quickest way forward: need mod.exp. with float values, as per:
+#p# BROKEN
+#n# experimenting... Math::AnyNum progress, we'll see how it goes
+#n# or could translate 'fibmod' from Julia
+#n# another way forward: mod.exp. with float values, as per:
 #n# https://stackoverflow.com/questions/36681259/calculating-nth-fibonacci-number-modulo-m-using-golden-ratio-in-c
 #n# XX very close translation of Sidef 
 
@@ -11131,6 +11131,15 @@ File: U/Update_a_configuration_file.1
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: U/Use_another_language_to_call_a_function
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Use_another_language_to_call_a_function
+#t# skiptest
+#c# 2020-02-03 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# what is 'main.c'?
+
 File: U/User_defined_pipe_and_redirection_operators
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/User_defined_pipe_and_redirection_operators
@@ -11157,7 +11166,7 @@ File: U/User_input_Text
 File: V/VList
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/VList
-#c# 2020-01-13 <RC, 2020-01-14 <RC
+#c# 2020-01-14 <RC, 2020-02-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -11534,6 +11543,14 @@ File: W/Write_language_name_in_3D_ASCII
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Write_language_name_in_3D_ASCII
 #c# 2018-03-21 <RC, 2018-03-22 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: W/Write_to_Windows_event_log
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Write_to_Windows_event_log
+#t# skiptest
+#c# 2020-02-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
