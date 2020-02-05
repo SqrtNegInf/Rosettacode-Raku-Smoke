@@ -34,6 +34,13 @@ sub fibonacci ($n) {
 #    say "F(2^$n) = " ~ substr($f,0,20) ~ ' ... ' ~ $f % 10**20;
 #}
 
+# # # log via A-G mean, as per https://en.wikipedia.org/wiki/Logarithm#Calculation
+
+sub agm( $a is copy, $g is copy ) {
+    ($a, $g) = ($a + $g)/2, sqrt $a × $g until $a ≅ $g;
+    return $a;
+}
+
 sub binet_approx ($n) {
 #    constant PHI =   sqrt(1.25.FatRat) + 0.5 ;
 #    constant IHP = -(sqrt(1.25.FatRat) - 0.5);
