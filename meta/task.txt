@@ -1,7 +1,7 @@
-This is Rakudo version 2020.01-66-g32bd4ed83 built on MoarVM version 2020.01.1-2-gcbb04d462
+This is Rakudo version 2020.01-70-gc1b8ff60f built on MoarVM version 2020.01.1-2-gcbb04d462
 implementing Raku 6.d.
 updating from RC...
-+--------------> Moar: Good/Bad [1194/13]
++--------------> Moar: Good/Bad [1193/13]
 |+-------------> JVM: Good/Bad [1023/184]
 ||+------------> Smoke testing [1079]
 |||+-----------> sKipping validation [125]
@@ -10,7 +10,7 @@ updating from RC...
 ||||||+--------> Concurrent/Async [60]
 |||||||+-------> Random seed [118]
 ||||||||+------> File output [86]
-|||||||||+-----> Draft [228]
+|||||||||+-----> Draft [227]
 ||||||||||+----> Ignoring [32]
 |||||||||||+---> Void (no local copy) [90]
 ||||||||||||+--> Un-implemented/reliable [69]
@@ -302,7 +302,7 @@ GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -389,7 +389,7 @@ GGS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
 GBS...C..D... Factorions
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
-GGS...C..D... Fairshare_between_two_and_more
+GGS...C...... Fairshare_between_two_and_more
 GBS...C...... Farey_sequence
 GGS.......... Fast_Fourier_transform
 GGS..T...D... Faulhaber%27s_formula
