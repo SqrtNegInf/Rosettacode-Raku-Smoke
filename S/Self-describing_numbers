@@ -3,16 +3,16 @@
 #c# 2015-10-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# now mirrors what's on RC, but reduced limit to keep run-time down
 
-use Test;
-plan 14;
-is sdn($_), True, "Sure is! $_" for <1210 2020 21200 3211000 42101000 521001000 6210001000>;
-is sdn($_), False, "No way! $_" for <1 2 3 10 27 101 115508>;
+my @res;
 
-#for @values -> $test {
-#    say "$test is {sdn($test)?? ''!! 'NOT ' }a self describing number.";
-#}
-
+my @values = <1210 2020 21200 3211000 42101000 521001000 6210001000 27 115508>;
+ 
+for @values -> $test {
+    @res.push: "$test is {sdn($test) ?? '' !! 'NOT ' }a self describing number.";
+}
+ 
 sub sdn($n) {
     my $s = $n.Str;
     my $chars = $s.chars;
@@ -25,5 +25,25 @@ sub sdn($n) {
     @b[$_] //= 0 for ^$chars;
     @a eqv @b;
 }
+ 
+@res.push: $_ if .&sdn for ^99999; #99;
 
-#.say if .&sdn for ^9999999;
+.say for @res;
+
+my $ref = q:to/END/;
+1210 is a self describing number.
+2020 is a self describing number.
+21200 is a self describing number.
+3211000 is a self describing number.
+42101000 is a self describing number.
+521001000 is a self describing number.
+6210001000 is a self describing number.
+27 is NOT a self describing number.
+115508 is NOT a self describing number.
+1210
+2020
+21200
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
