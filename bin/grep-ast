@@ -40,14 +40,19 @@ always check for both:
 Op(callmethod XYZ)
 Op(call &XYZ)
 
+74 lines of AST == no code
+
 ================ CODE TARGETS ================
 
 == misc misc
 Unicode - variable names, function names (and built-in vs custom for both)
-program type: game/gui/interactive/image/math
+program type: game/gui/interactive/image/number theory/OEIS-related
     based on my own '#t#' notation 
     + mooch off 'RC-run.p6'?
-ecosystem: 'normal' P6, NativeCall, Perl5
+ecosystem: 
+    'normal' P6  (zef install *)
+    Inline::Perl5 in particular
+    NativeCall (only 'core' mod. of significance?) 
 PHASERS
 EVAL
 
@@ -77,10 +82,10 @@ placeholder
 special: $*IN, $*EXECUTABLE-NAME, $*PROGRAM-NAME, etc
 
 == explicit/custom use of Types
-Rat, FatRat
-Int, 
+very common: Str, Int, Array, Hash, Num, Rat
 UInt (UIntHash!)
 (u)int16/32/64
+FatRat
 Complex
 Buf
 Set
@@ -94,8 +99,10 @@ atomic*
 
 == sub-languages
 regexp
+    benford: /<( <[ 1..9 ]> )> <[ , . \d ]>*/ }
+              ^^            ^^
 grammars
-quoted
+Q / quoted
 slangs
 
 == subroutines
