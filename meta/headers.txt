@@ -2915,6 +2915,14 @@ File: E/Elementary_cellular_automaton_Random_Number_Generator
 File: E/Elliptic_curve_arithmetic
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Elliptic_curve_arithmetic
+#c# 2016-04-03 <>RC, 2020-02-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# note: '⨯' [VECTOR OR CROSS PRODUCT] used for custom product, '×' [MULTIPLICATION SIGN] for regular product
+
+File: E/Elliptic_curve_arithmetic.0
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Elliptic_curve_arithmetic
 #c# 2016-04-03 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -3406,14 +3414,11 @@ File: F/Fermat_numbers.jvm
 File: F/Fibonacci_matrix-exponentiation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fibonacci_matrix-exponentiation
-#t# inprogress
-#c# 2020-02-xx >RC
-#p# BROKEN
-#n# experimenting... Math::AnyNum progress, we'll see how it goes
-#n# or could translate 'fibmod' from Julia
-#n# another way forward: mod.exp. with float values, as per:
-#n# https://stackoverflow.com/questions/36681259/calculating-nth-fibonacci-number-modulo-m-using-golden-ratio-in-c
-#n# XX very close translation of Sidef 
+#c# 2020-02-05 >RC
+#p# OK
+#n# works for 16/32, not 64:
+#n#   first20: no error, but bogus value 11175807536929531904
+#n#   last20:  Math::AnyNum / 'fibmod': Cannot unbox 65 bit wide bigint into native integer
 
 File: F/Fibonacci_n-step_number_sequences
 #!/usr/bin/env perl6
