@@ -1,47 +1,38 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fibonacci_matrix-exponentiation
-#t# inprogress
-#c# 2020-02-xx >RC
-#p# BROKEN
-#n# experimenting... Math::AnyNum 'fibmod' for 16/32 is good, getting close on FatRat calcs for 'first20'
+#c# 2020-02-05 >RC
+#p# OK
+#n# works for 16/32, not 64:
+#n#   first20: no error, but bogus value 11175807536929531904
+#n#   last20:  Math::AnyNum / 'fibmod': Cannot unbox 65 bit wide bigint into native integer
 
 my @res;
 
 use lib 'lib';
-use Math::Matrix;  # matrix exponentiation
+use Math::Matrix;  
 
-# cannot just mix 'floor' in
-#use Math::AnyNum:from<Perl5> <floor>;
-
-# works except for $n = 2**64
 use Inline::Perl5;
 my $p5 = Inline::Perl5.new();
 $p5.use( 'Math::AnyNum' );
-my &nth_fib_last_k_digits = $p5.run('sub { my($n,$k) = @_; Math::AnyNum::fibmod($n, 10**$k) }');
 
+constant D = 70;    # sets the size of FatRat calcluations
+
+# matrix exponentiation
 sub fibonacci ($n) {
     my $M = Math::Matrix.new( [[1,1],[1,0]] );
     ($M ** $n)[0][1];
 }
 
-# 32 gobbles CPU and memory, do not use!
-#for (16) -> $n { #, 32) {
-#    my $f = fibonacci(2**$n);
-#    say "F(2^$n) = " ~ substr($f,0,20) ~ ' ... ' ~ $f % 10**20;
-#}
+# calculation of 𝑒
+sub postfix:<!> (Int $n) { (constant f = 1, |[\×] 1..*)[$n] }
+sub 𝑒 (--> FatRat) { sum map { FatRat.new(1,.!) }, ^D }
 
-constant D = 70; # 
-constant d = 15; # 
+# calculation of π
+sub π (--> FatRat) {
+    my ($a, $n, $g, $z, $pi) = 1, 1, sqrt(1/2.FatRat), 0.25;
 
-# from: http://rosettacode.org/wiki/Arithmetic-geometric_mean/Calculate_Pi
-sub mypi (--> FatRat) {
-    my ($a, $n) = 1, 1;
-    my $g = sqrt 1/2.FatRat;
-    my $z = .25;
-    my $pi;
-
-    for ^d {
-        given [ ($a + $g)/2, sqrt $a × $g ] {
+    for ^5 {  # converges quickly...
+        given [ ($a + $g)/2, sqrt $a × $g ] {  
             $z -= (.[0] - $a)**2 × $n;
             $n += $n;
             ($a, $g) = @$_;
@@ -52,11 +43,12 @@ sub mypi (--> FatRat) {
     $pi.FatRat;
 }
 
+# square-root: accepts/return FatRat
 multi sqrt(FatRat $r --> FatRat) {
     FatRat.new: sqrt($r.nude[0] × 10**(D×2) div $r.nude[1]), 10**D;
 }
 
-# from: http://rosettacode.org/wiki/Integer_roots
+# square-root: accepts/return Int
 multi sqrt(Int $n) {
     my $guess = 10**($n.chars div 2);
     my $iterator = { ( $^x   +   $n div ($^x) ) div 2 };
@@ -64,44 +56,30 @@ multi sqrt(Int $n) {
     min ($guess, $iterator … $endpoint)[*-1, *-2];
 }
 
-sub agm( FatRat $a is copy, FatRat $g is copy --> FatRat) {
-#    ($a, $g) = ($a + $g)/2, sqrt $a × $g until $a ≅ $g;
-    loop { 
-        return $a if $a - $g < 10e-39;
-        ($a, $g) = ($a + $g)/2, sqrt $a × $g; 
-    }
+# arithmetic-geometrix mean: accepts/returns FatRat
+sub AG-mean( FatRat $a is copy, FatRat $g is copy --> FatRat) {
+    ($a, $g) = ($a + $g)/2, sqrt $a × $g until $a - $g < 1e-40;
+    $a;
 }
 
-# # # log via A-G mean, as per https://en.wikipedia.org/wiki/Logarithm#Calculation
-# ln(x) = π / (2× agm(1, x**(2-m)/x ) - m × ln(2);
-# choose 'm' such that x × 2**m > 2**(p/2) where p = digits of precision
+# override built-in definitions with 'FatRat' versions
+constant 𝑒 = &𝑒();
+constant π = &π();
 
-sub log-approx (FatRat $x --> FatRat) {
-    my $m = 85;
-    my $exponent = 2**abs(2-$m); # ????
-    my $efr = 1/$exponent.FatRat;
-    my $ln2 = 0.69314718055994530941723212145817656807550013436.FatRat;
-    (mypi() / (2 × agm(1.FatRat, $efr/$x))) - $m × $ln2;
+# approximation of natural log, returns FatRat
+# calculated via arithmetic-geometrix mean (as per https://en.wikipedia.org/wiki/Logarithm#Calculation)
+sub log-approx ($x --> FatRat) {
+    constant ln2 = 0.69314718055994530941723212145817656807550013436.FatRat; # necessary boot-strapping 
+    π / (2 × AG-mean(1.FatRat, 2.FatRat**(2-D)/$x)) - D × ln2;
 }
 
-sub binet_approx ($n) {
-    constant PHI =   sqrt(1.25.FatRat) + 0.5 ;
-    constant IHP = -(sqrt(1.25.FatRat) - 0.5);
-    log-approx(PHI)*$n.FatRat - log-approx(PHI - IHP);
-}
-
-multi infix:<**> (FatRat $base, FatRat $exp where * >= 1 --> FatRat) {
-say 'Hey!';
-    2 R** $base**($exp/2);
-}
- 
-multi infix:<**> (FatRat $base, FatRat $exp where * <  1 --> FatRat) {
-say 'Ho!';
-    constant ε = 10**-30; # not global 'D'
-    my $low  = 0.FatRat;
-    my $high = 1.FatRat;
+# power function, with exponent less than zero: accepts/returns FatRat
+multi infix:<**> (FatRat $base, FatRat $exp is copy where * <  1 --> FatRat) {
+    constant ε = 10**-D;
+    my ($low, $high)  = 0.FatRat, 1.FatRat;
     my $mid  = $high / 2;
     my $acc  = my $sqr = sqrt($base);
+    $exp *= -1;
 
     while (abs($mid - $exp) > ε) {
       $sqr = sqrt($sqr);
@@ -110,37 +88,38 @@ say 'Ho!';
       $mid = ($low + $high) / 2;
     }
 
-    $acc.substr(0, 54).FatRat; # not global 'D'
+    (1/$acc).substr(0, D).FatRat;
+}
+
+sub binet_approx ($n) {
+    constant PHI =   sqrt(1.25.FatRat) + 0.5 ;
+    constant IHP = -(sqrt(1.25.FatRat) - 0.5);
+    log-approx(PHI)*$n - log-approx(PHI - IHP);
 }
 
 sub nth_fib_first_k_digits ($n,$k) {
-    my $f = binet_approx($n);
-#say $f.WHAT;
-#say 'best: 31535.8934481499544850258277705127958847676777376';
-#say 'binet ' ~ substr $f, 0, 50; #exit;
+    my $f     = binet_approx($n);
+    my $log10 = log-approx(10);
+    floor( 𝑒**($f - $log10*(floor($f/$log10 + 1))) * 10**$k);
+}
 
-    # last calc to get to full width...
-    say 2.7182818284590452353602874713526624977572470937.FatRat**($f - log-approx(10.FatRat)*(floor($f / log-approx(10.FatRat) + 1)));
-    say '0.731992144602905528326399158125984545389524258362'; exit;
-    #floor(exp($f - log-approx(10.FatRat)*(floor($f / log-approx(10.FatRat) + 1))) * 10**$k)
+my &nth_fib_last_k_digits = 
+    $p5.run('sub { my($n,$k) = @_; Math::AnyNum::fibmod($n, 10**$k) }');
+
+#say nth_fib_last_k_digits(2**64, 20);
+
+# really slowing down by 20, and by 32 gobbles all CPU/memory
+for (16) -> $n { #, 32) {
+    my $f = fibonacci(2**$n);
+    @res.push: "F(2^$n) = " ~ substr($f,0,20) ~ ' ... ' ~ $f % 10**20;
 }
     
-#say log-approx(10.FatRat);
-#say '2.30258509299404568401799145468436420760110148863';
-#exit;
-
 for 16, 32 -> $n { # 64
     my $first20 = nth_fib_first_k_digits(2**$n, 20);
     my $last20  = nth_fib_last_k_digits(2**$n, 20);
-    printf "F(2^$n) = %s ... %s\n", $first20, $last20;
+    #printf "F(2^$n) = %s ... %s\n", $first20, $last20;
+    @res.push: sprintf "F(2^$n) = %s ... %s", $first20, $last20;
 }
-
-exit;
-
-# F(2^16) = 73199214460290552832 ... 97270190955307463227 OK
-# F(2^16) = 73199214460290547712 ... 97270190955307463227 better, but still bad high
-# F(2^32) = 61999312229724602368 ... 39623735538208076347 better, but still bad high
-# Cannot unbox 65 bit wide bigint into native integer     urk
 
 say my $result = join "\n", @res;
 
@@ -148,8 +127,8 @@ my $ref = q:to/END/;
 F(2^16) = 73199214460290552832 ... 97270190955307463227
 F(2^16) = 73199214460290552832 ... 97270190955307463227
 F(2^32) = 61999319689381859818 ... 39623735538208076347
-F(2^64) = 11175807536929528424 ... 17529800348089840187
 END
+#F(2^64) = 11175807536929528424 ... 17529800348089840187
 
 use Test;
-is($result, $ref);
+is($result, chomp $ref);
