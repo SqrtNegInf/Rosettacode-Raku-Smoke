@@ -56,7 +56,7 @@ multi sqrt(Int $n --> Int) {
     min ($guess, $iterator … $endpoint)[*-1, *-2]
 }
 
-# arithmetic-geometrix mean: accepts/returns FatRat
+# arithmetic-geometric mean: accepts/returns FatRat
 sub AG-mean( FatRat $a is copy, FatRat $g is copy --> FatRat) {
     ($a, $g) = ($a + $g)/2, sqrt $a × $g until $a - $g < 10**-D;
     $a
