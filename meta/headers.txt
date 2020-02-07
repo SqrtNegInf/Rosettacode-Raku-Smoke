@@ -4238,10 +4238,12 @@ File: G/Guess_the_number
 File: G/Guess_the_number_With_feedback
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number/With_feedback
+#t# skiptest
 #c# 2016-06-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: 10\n5\n3\n8\n
+#n# libtommath issues, runs forever currently
 
 File: G/Guess_the_number_With_feedback_player
 #!/usr/bin/env perl6
@@ -8380,6 +8382,14 @@ File: R/Record_sound
 #m# MOAR: OK
 #j#  JVM: BROKEN
 
+File: R/Recursive_descent_parser_generator
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Recursive_descent_parser_generator
+#t# nocode
+#c# 2020-02-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: R/Reduced_row_echelon_form
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Reduced_row_echelon_form
@@ -11148,10 +11158,9 @@ File: U/Use_another_language_to_call_a_function
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Use_another_language_to_call_a_function
 #t# skiptest
-#c# 2020-02-03 <RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
-#n# what is 'main.c'?
+#c# 2020-02-03 <RC, 2020-02-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: U/User_defined_pipe_and_redirection_operators
 #!/usr/bin/env perl6
