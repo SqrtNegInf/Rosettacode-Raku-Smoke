@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Spoof_game
+#c# 2020-02-xx >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# rendered non-interactive for testing
+
+srand 123456;
+
+my @res;
+
+sub query_for_integer ($prompt) { loop { ($_ = prompt "$prompt ") ~~ /^ \d+ $/ ?? return $_ !! say '(need an integer)'; } }
+ 
+sub spoof_for_2 {
+    my ($mypot, $myguess, $yourpot, $yourguess) = 0, 0, 0, 0;
+    my $ngames = 1; # query_for_integer('How many games do you want?');
+
+    for 1 .. $ngames {
+
+        repeat {
+            $mypot   = 1 + 3.rand.Int;
+            $myguess = 1 + 6.rand.Int;
+        } until $mypot+3 < $myguess;
+        say 'I have set my pot and guess.';
+
+        repeat {
+            $yourpot   = 2; # query_for_integer('Your pot?'  );
+            $yourguess = 3; # query_for_integer('Your guess?');
+        } until 0 <= $yourpot <= 6 and 0 <= $yourguess <= 6 and $yourpot+4 > $yourguess;
+
+        push @res, "My pot is: $mypot\nMy guess is: $myguess";
+
+        @res.push: gather given $mypot + $yourpot {
+            when $myguess & $yourguess { take 'Draw!'      }
+            when $myguess              { take 'I won!'     }
+            when            $yourguess { take 'You won!'   }
+            default                    { take 'No winner!' }
+        }
+    }
+}
+ 
+spoof_for_2();
+
+say my $result = join "\n", @res;
+
+my $moar = qq:to/END/;
+My pot is: 1
+My guess is: 5
+You won!
+END
+
+my $jvm = qq:to/END/;
+My pot is: 2
+My guess is: 6
+No winner!
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
