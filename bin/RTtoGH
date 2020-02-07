@@ -1,0 +1,14 @@
+#!/usr/bin/env perl6
+## two old RT tickets
+#  David H.  2020-02-06
+
+use Migration::RTtoGithub;
+
+# close, maybe flag '[max]', suggest removing reduce-op as it is redundant?
+say URL(124108);
+# https://github.com/Raku/old-issue-tracker/issues/3743
+
+# fine, closed already
+say URL(126563);
+# https://github.com/Raku/old-issue-tracker/issues/4729
+
