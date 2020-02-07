@@ -26,7 +26,7 @@ sub spoof_for_2 {
         repeat {
             $yourpot   = 2; # query_for_integer('Your pot?'  );
             $yourguess = 3; # query_for_integer('Your guess?');
-        } until 0 <= $yourpot <= 6 and 0 <= $yourguess <= 6 and $yourpot+4 > $yourguess;
+        } until 0 <= $yourpot & $yourguess <= 6 and $yourpot+4 > $yourguess;
 
         push @res, "My pot is: $mypot\nMy guess is: $myguess";
 
