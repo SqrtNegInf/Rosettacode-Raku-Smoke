@@ -1,10 +1,10 @@
-This is Rakudo version 2020.01-76-ge1faa704e built on MoarVM version 2020.01.1-25-g9709537d9
+This is Rakudo version 2020.01-83-g495ddcc1f built on MoarVM version 2020.01.1-25-g9709537d9
 implementing Raku 6.d.
 updating from RC...
-+--------------> Moar: Good/Bad [1167/13]
-|+-------------> JVM: Good/Bad [1023/184]
++--------------> Moar: Good/Bad [1168/12]
+|+-------------> JVM: Good/Bad [1025/183]
 ||+------------> Smoke testing [1080]
-|||+-----------> sKipping validation [124]
+|||+-----------> sKipping validation [125]
 ||||+----------> Interactive [61]
 |||||+---------> Touched (modified by me) [299]
 ||||||+--------> Concurrent/Async [60]
@@ -12,8 +12,8 @@ updating from RC...
 ||||||||+------> File output [86]
 |||||||||+-----> Draft [225]
 ||||||||||+----> Ignoring [32]
-|||||||||||+---> Void (no local copy) [90]
-||||||||||||+--> Un-implemented/reliable [69]
+|||||||||||+---> Void (no local copy) [89]
+||||||||||||+--> Un-implemented/reliable [67]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -128,7 +128,7 @@ GGS.......... Binary_search
 GGS..T....... Binary_strings
 !GS....R..... Bioinformatics_Sequence_mutation
 GGS.......... Bioinformatics_base_count
-!GS..TcR.D... Birthday_problem
+GGS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
 GGS.......... Bitmap
@@ -302,7 +302,7 @@ GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -397,7 +397,7 @@ GGS......D... Faulhaber%27s_triangle
 GGS......D... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
 .........D.VU Fibonacci_heap
-BBS..T...D..U Fibonacci_matrix-exponentiation
+BBS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
 GGS.......... Fibonacci_word
@@ -853,7 +853,7 @@ GGS..T....... Pi
 !GS..T.R..... Pick_random_element
 GBS.......... Pierpont_primes-1
 GGS.......... Pierpont_primes-2
-GBS....R..... Pig_the_dice_game
+!BS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
 ...........VU Pinstripe_Printer
@@ -934,7 +934,7 @@ GGS.......... Read_entire_file
 GGS.......... Real_constants_and_functions
 GGS.......... Recaman%27s_sequence
 GB.KIT....... Record_sound
-.........D.VU Recursive_descent_parser_generator
+GG.K.....D... Recursive_descent_parser_generator
 GGS.....F.... Reduced_row_echelon_form
 GGS.......... Reduced_row_echelon_form-1
 GGS.......... Reduced_row_echelon_form-2
@@ -1247,7 +1247,7 @@ GGS.......... Unix_ls
 GBS...C...... Unprimeable_numbers
 GG.K.....D... Untrusted_environment
 GGS.....F.... Update_a_configuration_file
-BB.K......... Use_another_language_to_call_a_function
+GG.K......... Use_another_language_to_call_a_function
 GGS......D... User_defined_pipe_and_redirection_operators
 ..........XV. User_input_Graphical
 GGS.......... User_input_Text
