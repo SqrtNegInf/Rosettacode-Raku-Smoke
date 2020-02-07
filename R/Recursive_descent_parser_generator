@@ -23,7 +23,7 @@ perl6 --target=optimize -e 'no strict; say ($one + $two) * $three - $four * $fiv
                         - QAST::Var(local __lowered_lex_1) <wanted> $five
             - QAST::WVal(Nil)
 
-As you can see by examining the nested tree, the calculations are done as follows (expressed using a postfixÂnotation)
+As you can see by examining the nested tree, the calculations are done as follows (expressed using a postfix anotation)
 
 one two + three * four five * -
 
