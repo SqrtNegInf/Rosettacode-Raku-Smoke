@@ -1,19 +1,19 @@
-This is Rakudo version 2020.01-83-g495ddcc1f built on MoarVM version 2020.01.1-25-g9709537d9
+This is Rakudo version 2020.01-87-g37b1be7e7 built on MoarVM version 2020.01.1-29-g0dd136440
 implementing Raku 6.d.
 updating from RC...
-+--------------> Moar: Good/Bad [1168/12]
-|+-------------> JVM: Good/Bad [1025/183]
++--------------> Moar: Good/Bad [1170/12]
+|+-------------> JVM: Good/Bad [1027/183]
 ||+------------> Smoke testing [1080]
-|||+-----------> sKipping validation [125]
+|||+-----------> sKipping validation [127]
 ||||+----------> Interactive [61]
-|||||+---------> Touched (modified by me) [299]
+|||||+---------> Touched (modified by me) [300]
 ||||||+--------> Concurrent/Async [60]
-|||||||+-------> Random seed [118]
+|||||||+-------> Random seed [120]
 ||||||||+------> File output [86]
 |||||||||+-----> Draft [225]
 ||||||||||+----> Ignoring [32]
-|||||||||||+---> Void (no local copy) [89]
-||||||||||||+--> Un-implemented/reliable [67]
+|||||||||||+---> Void (no local copy) [87]
+||||||||||||+--> Un-implemented/reliable [65]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -128,7 +128,7 @@ GGS.......... Binary_search
 GGS..T....... Binary_strings
 !GS....R..... Bioinformatics_Sequence_mutation
 GGS.......... Bioinformatics_base_count
-GGS..TcR.D... Birthday_problem
+!GS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
 GGS.......... Bitmap
@@ -485,7 +485,7 @@ GGS.......... Greatest_subsequential_sum
 .........D.VU Greed
 GGS..T..F.... Greyscale_bars_Display
 GGS....R..... Guess_the_number
-!GS....R..... Guess_the_number_With_feedback
+GG.K...R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
 GGS.......... HTTPS
@@ -1102,7 +1102,7 @@ GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
 GGS.......... Spiral_matrix-2
 GBS.......... Split_a_character_string_based_on_change_of_character
-.........D.VU Spoof_game
+GGS..T.R.D... Spoof_game
 GBS...C...... Square-free_integers
 GGS.......... Square_but_not_cube
 GGS..T....... Stable_marriage_problem
@@ -1293,7 +1293,7 @@ GB.KI........ Window_management
 GBS.......... Wireworld
 GGS......D... Word_break_problem
 ...........V. Word_frequency
-...........VU Word_search
+GG.K...R..... Word_search
 GGS.......... Word_wrap
 GGS..T....... World_Cup_group_stage
 GGS.....F.... Write_entire_file
