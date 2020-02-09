@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# mutating .= must not be white-space separated from args
+#n# 2020-02-08 added a few suggested on IRC: 
+#n#   https://colabti.org/irclogger/irclogger_log/raku?date=2020-02-08
 
 # unoptimized
 my @doors = False xx 101;
@@ -25,11 +27,25 @@ my $o2 = gather { take $_ for 1..10 X** 2 };
 #This one prints both opened and closed doors:
 #say "Door $_ is ", <closed open>[.sqrt == .sqrt.floor] for 1..100;
 
+# 2020-02-08
+my $o3 = (1..100.sqrt.Int).map(* ** 2);
+my $o4 = (1..100.sqrt.Int)>>²;
+#'Door $_ is open' for (1..10)»²;  # DocHolliwood on RC
+my $o5 =  (1..10)»²;
+#my $o6 =  (^10 X+ 1)»²;            # me, just here
+my $o6 =  (^10)».succ»²;           # me, just here
+
+# cf PWC 
+#sub is-open ($door) { $door.sqrt.narrow ~~ Int }; say .&is-open for 4, 7, 16, 23, 25;
+
 my $ref = (1,4,9,16,25,36,49,64,81,100);
 
 use Test;
-plan 3;
+#plan 3;
 is $o0, $ref, 'Yes';
 is $o1, $ref, 'Again';
 is $o2, $ref, 'Still';
-
+is $o3, $ref, 'Extra 1';
+is $o4, $ref, 'Extra 2';
+is $o5, $ref, 'Extra 3';
+is $o6, $ref, 'Extra 4';
