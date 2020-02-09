@@ -79,7 +79,7 @@ while @ws.first( * eq '.') {
 
 display();
 
-Sub display {
+sub display {
     @res.push: flat "    ", 'ABCDEFGHIJ'.comb;
     @res.push: $_ for (^10).map: { ($_).fmt("  %2d"), @ws[$_ * $cols .. ($_ + 1) * $cols - 1] }
     @res.push: "\n  Words used:";
