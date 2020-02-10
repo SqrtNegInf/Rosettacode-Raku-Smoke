@@ -8,4 +8,5 @@ my $host = qx[/bin/hostname];
 say $host;
 
 use Test;
-is (chomp $host), 'Mac-Pro.local';
+my $ref = $*KERNEL eq 'darwin' ??  'Mac-Pro.local' !! 'osboxes';
+is (chomp $host), $ref;
