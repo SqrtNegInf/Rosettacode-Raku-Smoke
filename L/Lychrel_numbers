@@ -8,8 +8,7 @@
 #    20161123: 1911.232u 24.260s 32:49.18 98.2%
 #    20171027: 1972.841u  6.163s 33:01.60 99.8%
 #    20180422:   70.895u  0.424s  1:11.00  100%
-
-# Works with: Rakudo version 2018.03
+#    20200209:     4.300u 0.202s  0:03.82  117.8%
 
 my %lychrels;
 my @seeds;
@@ -17,6 +16,7 @@ my @palindromes;
 my $count;
 my $max = 500;
 my $limit = '10_000';
+my %seen;
 
 for 1 .. $limit -> $int {
     my @test;
@@ -30,7 +30,11 @@ for 1 .. $limit -> $int {
     #print "\b" x 20;
 
     sub is-lychrel (Int $l) {
-        return True if $index++ > $max;
+        if  %seen{$l} or $index++ > $max {
+            %seen{$_} = True for @test;
+            return True;
+        }
+#        return True if $index++ > $max;
         @test.push: my $m = $l + $l.flip;
         return False if $m == $m.flip;
         $m.&is-lychrel;
