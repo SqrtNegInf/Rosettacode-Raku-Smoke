@@ -12,5 +12,6 @@ my $cmd = 'uname';
 my @ls2 = qqx/$cmd/;  # same thing with interpolation
 
 use Test;
-is @ls1, "Darwin\n", 'Yup, we are running Darwin';
-is @ls2, "Darwin\n", 'Yup, we are running Darwin';
+my $ref = $*KERNEL eq 'darwin' ??  'Darwin' !! 'Linux';
+is @ls1, "$ref\n";
+is @ls2, "$ref\n"
