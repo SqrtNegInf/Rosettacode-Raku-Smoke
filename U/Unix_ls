@@ -6,7 +6,7 @@
 
 # There is a dir builtin command which returns a list of IO::Path objects. We stringify them all with a hyperoperator before sorting the strings.
 
-.say for my @res = ~«'ref/test'.IO.dir;
+.say for my @res = ~«'ref/test'.IO.dir.sort;
 
 my $ref = qq:to/END/;
 ref/test/dir1
