@@ -36,5 +36,7 @@ my $host = 'HOST';
 say %*ENV{$host};
 
 use Test;
-is %*ENV<HOME>, '/Users/dhoekman';
-is %*ENV<LOGNAME>, 'dhoekman';
+my $home-path = $*KERNEL eq 'darwin' ?? '/Users/dhoekman' !! '/home/osboxes';
+my $log-name  = $*KERNEL eq 'darwin' ?? 'dhoekman'        !! 'osboxes';
+is %*ENV<HOME>, $home-path;
+is %*ENV<LOGNAME>, $log-name;
