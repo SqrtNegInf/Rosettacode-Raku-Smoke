@@ -1,15 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Colour_pinstripe/Printer
-#t# skiptest
 #c# 2020-02-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#f# RC file: Color-pinstripe-printer-perl6.png
+#n# effectively another image generation task
 
 # Note that Perl 6 does not attempt to be a printer driver. This example allows users to specify the dpi and paper size, then generates an image and passes it to the default printer. Defaults to 300 dpi and US letter paper.
 
 unit sub MAIN ($dpi = 300, $size = 'letter');
 
-my $filename = 'run/Color-pinstripe-printer-perl6.png';
+my $filename = './run/Color-pinstripe-printer-perl6.png';
 
 my %paper = (
     'letter' => { :width(8.5),    :height(11.0) }
