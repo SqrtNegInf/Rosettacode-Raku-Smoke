@@ -1,0 +1,15 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/3469
+#c# 2020-02-10 open, 2020-02-xx closed
+#n# bug source: many srand-containing tasks, e.g. Card_shuffles
+#n# as of: Rakudo version 2018.12-171-g541a4f162 built on MoarVM version 2018.12-13-g473324ee3
+#n# tied to 'libtommath' update of 2020-02-05
+
+# bisect: good=2019.11 bad=HEAD sub t ($s) { srand($s); say (^100).roll}; t(1) for 1..3
+
+sub t1 ($s) { srand($s); say 100.rand}; t1(1) for 1..3;         # OK
+say '--';
+sub t2 ($s) { srand($s); say (^100).roll}; t2(1) for 1..3;      # bad
+say '--';
+sub t3 ($s) { srand($s); say (^100).pick(1)}; t3(1) for 1..3;   # bad
