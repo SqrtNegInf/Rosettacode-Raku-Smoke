@@ -1,0 +1,120 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# http://localhost/0/0-high-precision-routines
+#c# 2020-02-11 NOT ON RC
+#p# OK
+#n# NB: this is not a 'task' for any particular purpose, just a collect of useful routines high-precision FatRat math
+#n# collected from:
+#n#  A/Arithmetic-geometric_mean/Calculate_Pi
+#n#  C/Calculating_the_value_of_e
+#n#  F/Fibonacci_matrix-exponentiation
+#n#  I/Integer_roots
+#n#  R/Ramanujan%27s_constant-1
+
+use Rat::Precise;
+
+constant D = 53;    # sets the size of FatRat calcluations
+
+# calculation of 𝑒
+sub postfix:<!> (Int $n) { (constant f = 1, |[\×] 1..*)[$n] }
+sub 𝑒 (--> FatRat) { sum map { FatRat.new(1,.!) }, ^D }
+
+# calculation of π
+sub π (--> FatRat) {
+    my ($a, $n, $g, $z, $pi) = 1, 1, sqrt(1/2.FatRat), 0.25;
+
+    for ^5 {  # converges quickly...
+        given [ ($a + $g)/2, sqrt $a × $g ] {  
+            $z -= (.[0] - $a)**2 × $n;
+            $n += $n;
+            ($a, $g) = @$_;
+            $pi = ($a ** 2 / $z).substr: 0, 2 + D;
+        }
+    }
+
+    $pi.FatRat
+}
+
+# square-root: accepts/return FatRat
+multi sqrt(FatRat $r --> FatRat) {
+    FatRat.new: sqrt($r.nude[0] × 10**(D×2) div $r.nude[1]), 10**D;
+}
+
+# square-root: accepts/return Int (called by above, so always use as a pair)
+multi sqrt(Int $n --> Int) {
+    my $guess = 10**($n.chars div 2);
+    my $iterator = { ( $^x   +   $n div ($^x) ) div 2 };
+    my $endpoint = { $^x == $^y|$^z };
+    min ($guess, $iterator … $endpoint)[*-1, *-2]
+}
+
+# power function, with exponent greater or equal to one: accepts/returns FatRat
+multi infix:<**> (FatRat $base, FatRat $exp where * >= 1 --> FatRat) {
+    2 R** $base**($exp/2);
+}
+
+# power function, with exponent greater than zero, less than 1: accepts/returns FatRat
+multi infix:<**> (FatRat $base, FatRat $exp where 0 < * <  1 --> FatRat) {
+    constant ε = 10**-D;
+    my $low  = 0.FatRat;
+    my $high = 1.FatRat;
+    my $mid  = $high / 2;
+    my $acc  = my $sqr = sqrt($base);
+
+    while (abs($mid - $exp) > ε) {
+      $sqr = sqrt($sqr);
+      if ($mid <= $exp) { $low  = $mid; $acc ×=   $sqr }
+      else              { $high = $mid; $acc ×= 1/$sqr }
+      $mid = ($low + $high) / 2;
+    }
+
+    $acc.substr(0, D).FatRat;
+}
+
+# power function, with exponent less than zero: accepts/returns FatRat
+multi infix:<**> (FatRat $base, FatRat $exp is copy where * <  0 --> FatRat) {
+    constant ε = 10**-D;
+    my ($low, $high)  = 0.FatRat, 1.FatRat;
+    my $mid  = $high / 2;
+    my $acc  = my $sqr = sqrt($base);
+    $exp = -$exp;
+
+    while (abs($mid - $exp) > ε) {
+        $sqr = sqrt($sqr);
+        if ($mid <= $exp) { $low  = $mid; $acc ×=   $sqr }
+        else              { $high = $mid; $acc ×= 1/$sqr }
+        $mid = ($low + $high) / 2
+    }
+
+    (1/$acc).substr(0, D).FatRat
+}
+
+# arithmetic-geometric mean: accepts/returns FatRat
+sub AG-mean( FatRat $a is copy, FatRat $g is copy --> FatRat) {
+    ($a, $g) = ($a + $g)/2, sqrt $a × $g until $a - $g < 10**-D;
+    $a
+}
+
+# override built-in definitions with 'FatRat' versions
+constant 𝑒 = &𝑒();
+constant π = &π();
+
+# approximation of natural log, accepts any numeric, returns FatRat
+# calculated via arithmetic-geometrix mean (as per https://en.wikipedia.org/wiki/Logarithm)
+sub log-approx ($x --> FatRat) {
+    constant ln2 = 2 * [+] (((1/3).FatRat**(2*$_+1))/(2*$_+1) for 0..D); # 1/3 = (2-1)/(2+1)
+    π / (2 × AG-mean(1.FatRat, 2.FatRat**(2-D)/$x)) - D × ln2;
+}
+
+## experiments ##
+
+sub log-direct ($x --> FatRat) {
+    my $d = 175; # lower for values near 1, much higher values needed as $x gets big
+    2 * [+] (((($x-1)/($x+1)).FatRat**(2*$_+1))/(2*$_+1) for 0..$d);
+}
+
+# some tests
+my $t = 𝑒;
+say log($t);
+say (log-approx($t)).precise(34);
+say (log-direct($t)).precise(34);
