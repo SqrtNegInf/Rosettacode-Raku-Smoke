@@ -1,3 +1,17 @@
+File: 0/0-high-precision-routines
+#!/usr/bin/env perl6
+#t# skiptest
+#u# http://localhost/0/0-high-precision-routines
+#c# 2020-02-11 NOT ON RC
+#p# OK
+#n# NB: this is not a 'task' for any particular purpose, just a collect of useful routines high-precision FatRat math
+#n# collected from:
+#n#  A/Arithmetic-geometric_mean/Calculate_Pi
+#n#  C/Calculating_the_value_of_e
+#n#  F/Fibonacci_matrix-exponentiation
+#n#  I/Integer_roots
+#n#  R/Ramanujan%27s_constant-1
+
 File: 0/100_doors
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/100_doors
@@ -3425,7 +3439,7 @@ File: F/Fermat_numbers.jvm
 File: F/Fibonacci_matrix-exponentiation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fibonacci_matrix-exponentiation
-#c# 2020-02-05 >RC
+#c# 2020-02-05 >RC, 2020-02-11 >RC
 #p# OK
 #n# works for 16/32, not 64:
 #n#   first20: no error, but bogus value 11175807536929531904
@@ -4240,6 +4254,7 @@ File: G/Greyscale_bars_Display
 
 File: G/Guess_the_number
 #!/usr/bin/env perl6
+#t# skiptest
 #u# http://rosettacode.org/wiki/Guess_the_number
 #c# 2018-03-21 <RC
 #m# MOAR: OK
@@ -7505,6 +7520,7 @@ File: P/Perfect_totient_numbers
 #c# 2018-12-05 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# see .jvm for previous method of calculation
 
 File: P/Perfect_totient_numbers.jvm
 #!/usr/bin/env perl6
@@ -7512,7 +7528,7 @@ File: P/Perfect_totient_numbers.jvm
 #c# 2018-12-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# JVM really slow...
+#n# calculating fewer results here
 
 File: P/Perlin_noise
 #!/usr/bin/env perl6
@@ -10920,6 +10936,7 @@ File: T/Totient_function
 #c# 2018-12-05 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# see JVM for previous method of calculation
 
 File: T/Totient_function.jvm
 #!/usr/bin/env perl6
@@ -10927,6 +10944,7 @@ File: T/Totient_function.jvm
 #c# 2018-12-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# calculating fewer results here
 
 File: T/Towers_of_Hanoi
 #!/usr/bin/env perl6
