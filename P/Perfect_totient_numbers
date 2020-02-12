@@ -3,12 +3,15 @@
 #c# 2018-12-05 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# see .jvm for previous method of calculation
 
 my @res;
 
-my \𝜑  = Nil, |(1..*).hyper.map: -> $t { +(^$t).grep: * gcd $t == 1 };
-my \𝜑𝜑 = Nil, |(2..*).grep: -> $p { $p == sum 𝜑[$p], { 𝜑[$_] } … 1 };
-
+use Prime::Factor;
+ 
+my \𝜑 = lazy 0, |(1..*).hyper.map: -> \t { t * [*] t.&prime-factors.squish.map: 1 - 1/* }
+my \𝜑𝜑 = Nil, |(3, *+2 … *).grep: -> \p { p == sum 𝜑[p], { 𝜑[$_] } … 1 };
+ 
 put "The first twenty Perfect totient numbers:\n",  my $result = 𝜑𝜑[1..20];
 
 my $ref = '3 9 15 27 39 81 111 183 243 255 327 363 471 729 2187 2199 3063 4359 4375 5571';
