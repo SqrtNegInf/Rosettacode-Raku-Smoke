@@ -1,5 +1,4 @@
 #!/usr/bin/env perl6
-#t# skiptest
 #u# http://localhost/0/0-high-precision-routines
 #c# 2020-02-11 NOT ON RC
 #p# OK
@@ -109,12 +108,13 @@ sub log-approx ($x --> FatRat) {
 ## experiments ##
 
 sub log-direct ($x --> FatRat) {
-    my $d = 175; # lower for values near 1, much higher values needed as $x gets big
+    my $d = 47; # lower for values near 1, much higher values needed as $x gets big
     2 * [+] (((($x-1)/($x+1)).FatRat**(2*$_+1))/(2*$_+1) for 0..$d);
 }
 
 # some tests
+use Test;
 my $t = 𝑒;
-say log($t);
-say (log-approx($t)).precise(34);
-say (log-direct($t)).precise(34);
+is log($t), '1';
+is (log-approx($t)).precise(34), '1.0000000000000000000000000000002451';
+is (log-direct($t)).precise(34), '0.9999999999999999999999999999999999';
