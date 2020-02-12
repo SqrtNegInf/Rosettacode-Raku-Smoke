@@ -3,20 +3,21 @@
 #c# 2018-12-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# calculating fewer results here
 
 my @res;
 
 # This is an incredibly inefficient way of finding prime numbers.
 
-my \phi = 0, |(1..*).map: -> $t { +(^$t).grep: * gcd $t == 1 };
+my @phi = 0, |(1..*).map: -> $t { +(^$t).grep: * gcd $t == 1 };
 
-@res.push: sprintf "𝜑(%2d) = %3d %s", $_, phi[$_], $_ - phi[$_] - 1 ?? '' !! 'Prime' for 1 .. 25;
+@res.push: sprintf "𝜑(%2d) = %3d %s", $_, @phi[$_], $_ - @phi[$_] - 1 ?? '' !! 'Prime' for 1 .. 25;
 
-(100, 1000, 10000).map: -> $limit {
-    @res.push: "\nCount of primes <= $limit: " ~ +(^$limit).grep: {$_ == phi[$_] + 1}
+(100, 1000).map: -> $limit {
+    @res.push: "\nCount of primes <= $limit: " ~ +(^$limit).grep: {$_ == @phi[$_] + 1}
 }
 
-say my $result = join "\n", @res;
+.say for @res;
 
 my $ref = q:to/END/;
 𝜑( 1) =   1 
@@ -48,8 +49,6 @@ my $ref = q:to/END/;
 Count of primes <= 100: 25
 
 Count of primes <= 1000: 168
-
-Count of primes <= 10000: 1229
 END
 
 use Test;
