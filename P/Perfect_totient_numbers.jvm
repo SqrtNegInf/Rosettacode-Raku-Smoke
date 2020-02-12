@@ -3,16 +3,16 @@
 #c# 2018-12-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# JVM really slow...
+#n# calculating fewer results here
 
 my @res;
 
-my \phi  = Nil, |(1..*).map: -> $t { +(^$t).grep: * gcd $t == 1 };
-my \phiphi= Nil, |(2..*).grep: -> $p { $p == sum phi[$p], { phi[$_] } … 1 };
+my @phi     = Nil, |(1..*).map: -> $t { +(^$t).grep: * gcd $t == 1 };
+my @phi-phi = Nil, |(2..*).grep: -> $p { $p == sum @phi[$p], { @phi[$_] } … 1 };
 
-put "The first twenty Perfect totient numbers:\n",  my $result = phiphi[1..20];
+put "The first twenty Perfect totient numbers:\n",  my $result = @phi-phi[1..10];
 
-my $ref = '3 9 15 27 39 81 111 183 243 255 327 363 471 729 2187 2199 3063 4359 4375 5571';
+my $ref = '3 9 15 27 39 81 111 183 243 255';
 END
 
 use Test;
