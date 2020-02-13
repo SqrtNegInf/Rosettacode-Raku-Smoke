@@ -67,7 +67,7 @@ my $buf = Buf.new((^0xFF .roll) xx 12);
 @res.push: sprintf("%7s, %02d bits: %s", %structure<fields>[$_]<ID>,  %structure<fields>[$_]<bits>,
   deconstruct($bitstr, %structure)[$_]) for ^@(%structure<fields>);
 
-.say for @res; 
+.say for @res;
 
 my $moar = qq:to/END/;
 Line width: 16 bits
@@ -86,22 +86,22 @@ Name: NSCOUNT, bit count: 16, bit 64 to bit 79
 Name: ARCOUNT, bit count: 16, bit 80 to bit 95
 
 Show it converted to a bit string
-110000000000011000110111111000110010110001010000111110100110111001111010001001100100011010000111
+111100110110010111101101100011100110001100010110101000001001000100100010100011100111000111001001
 
 And unpack it
-     ID, 16 bits: 1100000000000110
-     QR, 01 bits: 0
- Opcode, 04 bits: 0110
+     ID, 16 bits: 1111001101100101
+     QR, 01 bits: 1
+ Opcode, 04 bits: 1101
      AA, 01 bits: 1
-     TC, 01 bits: 1
+     TC, 01 bits: 0
      RD, 01 bits: 1
      RA, 01 bits: 1
-      Z, 03 bits: 110
-  RCODE, 04 bits: 0011
-QDCOUNT, 16 bits: 0010110001010000
-ANCOUNT, 16 bits: 1111101001101110
-NSCOUNT, 16 bits: 0111101000100110
-ARCOUNT, 16 bits: 0100011010000111
+      Z, 03 bits: 000
+  RCODE, 04 bits: 1110
+QDCOUNT, 16 bits: 0110001100010110
+ANCOUNT, 16 bits: 1010000010010001
+NSCOUNT, 16 bits: 0010001010001110
+ARCOUNT, 16 bits: 0111000111001001
 END
 
 my $jvm = qq:to/END/;
