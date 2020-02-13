@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #t# skiptest
 #u# https://github.com/rakudo/rakudo/issues/3470
-#c# 2020-02-10 open, 2020-02-xx closed
+#c# 2020-02-10 open, 2020-02-13 closed with MoarVM/MoarVM#1238
 #n# bug source: S32-list/pick.t
 #n# Rakudo version 2020.01-76-ge1faa704e built on MoarVM version 2020.01.1-25-g9709537d9
 
@@ -17,18 +17,18 @@ for 1..31 -> $n {
 exit;
 }}
 
-my $vv = 2;
-for (1..31) {
-    #my $x = (^$vv).pick for 1..161;   # good
-    my $x = (^$vv).pick for 1..162;   # bad
-    $vv +<= 1
-}
+#my $vv = 2;
+#for (1..31) {
+#    #my $x = (^$vv).pick for 1..161;   # good
+#    my $x = (^$vv).pick for 1..162;   # bad
+#    $vv +<= 1
+#}
 
 #my $v = 2**31;
 #my $y = (^$v).pick for 1..10**4; # this is OK
 
-#use Test;
-#my $v = 2; for (1..259) { is ([+|] ((^$v).pick for ^200)), $v - 1 ; $v +<= 1 } # original
+use Test;
+my $v = 2; for (1..259) { is ([+|] ((^$v).pick for ^200)), $v - 1 ; $v +<= 1 } # original
 #my $v = 2; for (1..259) { is ([+|] ((^$v).pick for ^161)), $v - 1 ; $v +<= 1 }  # OK
 #my $v = 2; for (1..31) { is ([+|] ((^$v).pick for ^162)), $v - 1 ; $v +<= 1 }  # no good
 #my $v = 2; for (1..63) { my $x = (^$v).pick for ^161; $v +<= 1 }  # OK
