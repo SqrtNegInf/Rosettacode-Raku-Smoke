@@ -1,6 +1,5 @@
 File: 0/0-high-precision-routines
 #!/usr/bin/env perl6
-#t# skiptest
 #u# http://localhost/0/0-high-precision-routines
 #c# 2020-02-11 NOT ON RC
 #p# OK
@@ -4254,12 +4253,12 @@ File: G/Greyscale_bars_Display
 
 File: G/Guess_the_number
 #!/usr/bin/env perl6
-#t# skiptest
 #u# http://rosettacode.org/wiki/Guess_the_number
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#=# RC pipe: 1\n2\n3\n4\n5\n6\n7\n8\n
+#=# RC pipe: 1\n2\n3\n4\n5\n6\n7\n8\n\9\n10
+#n# always win if you guess every number... (further fun with 'srand' issues)
 
 File: G/Guess_the_number_With_feedback
 #!/usr/bin/env perl6
@@ -7146,6 +7145,7 @@ File: P/Palindromic_gapful_numbers
 #m# MOAR: OK
 #j# JVM:  OK
 #n# no stretch results, in the interest of testing run-time
+#n# 2020-02-12 there's a new version on RC with .hyper: faster of course, but harder to smoke-test 
 
 File: P/Pangram_checker
 #!/usr/bin/env perl6
