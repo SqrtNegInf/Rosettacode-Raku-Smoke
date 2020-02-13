@@ -1,7 +1,8 @@
 #!/usr/bin/env perl6
 #t# skiptest
 #u# https://github.com/rakudo/rakudo/issues/3469
-#c# 2020-02-10 open, 2020-02-xx closed
+#c# 2020-02-10 open, 2020-02-13 closed with MoarVM/MoarVM#1238
+#n# NB: for a given seed, results differ from before, task output needs to be updated for testing
 #n# bug source: many srand-containing tasks, e.g. Card_shuffles
 #n# as of: Rakudo version 2018.12-171-g541a4f162 built on MoarVM version 2018.12-13-g473324ee3
 #n# tied to 'libtommath' update of 2020-02-05
