@@ -118,7 +118,7 @@ for (
 
 say my $result = join "\n", @res;
 
-my $ref = q:to/END/;
+my $darwin = q:to/END/;
 p-value = 0.021378001462867
 p-value = 0.14884169660533
 p-value = 0.035972271029797
@@ -130,5 +130,18 @@ p-value = 0.54526686697779
 cumulative error is 5.30131e-15
 END
 
+my $linux = q:to/END/;
+p-value = 0.021378001462867
+p-value = 0.14884169660533
+p-value = 0.035972271029797
+p-value = 0.090773324285667
+p-value = 0.010751561149784
+p-value = 0.0033990716271375
+p-value = 0.52726574965384
+p-value = 0.54526686697779
+cumulative error is 5.50254e-15
+END
+
 use Test;
+my $ref = $*KERNEL eq 'linux' ?? $linux !! $darwin;
 is $result, $ref;
