@@ -1,0 +1,46 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/CRC-32
+#c# 2016-01-10 <RC, 2017-06-05 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+
+#die 'NativeCall...' if $*VM ~~ /jvm/;
+
+# Call to native function crc32 in zlib
+# Library name and types are platform-dependent. As written the solution has been tested on Mac OS X 10.5.8.
+# Note: Buf $buf would be preferable, but NativeCall does not support Buf parameters, yet.
+
+#use NativeCall;
+
+#sub crc32(int32 $crc, Str $buf, int32 $len --> int32) is native('/usr/lib/libz.dylib') { * }
+
+my $buf = 'The quick brown fox jumps over the lazy dog';
+#say my $out1 = crc32(0, $buf, $buf.chars).fmt('%08x');
+
+# Pure Perl 6
+# A fairly generic implementation with no regard to execution speed:
+
+sub crc(
+    Blob $buf,
+             # polynomial including leading term, default: ISO 3309/PNG/gzip
+    :@poly = (1,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,1,0,0,0,1,1,1,0,1,1,0,1,1,0,1,1,1),
+    :$n = @poly.end,      # degree of polynomial
+    :@init = 1 xx $n,     # initial XOR bits
+    :@fini = 1 xx $n,     # final XOR bits
+    :@bitorder = 0..7,    # default: eat bytes LSB-first
+    :@crcorder = 0..$n-1, # default: MSB of checksum is coefficient of x⁰
+) {
+    my @bit = flat ($buf.list X+& (1 X+< @bitorder))».so».Int, 0 xx $n; # DH change
+
+    @bit[0   .. $n-1] «+^=» @init;
+    @bit[$_  ..$_+$n] «+^=» @poly if @bit[$_] for 0..@bit.end-$n;
+    @bit[*-$n..  *-1] «+^=» @fini;
+
+    :2[@bit[@bit.end X- @crcorder]];
+}
+
+say my $out2 = crc($buf.encode('ascii')).base(16);
+
+use Test;
+#is $out1, '414fa339';
+is $out2, '414FA339';
