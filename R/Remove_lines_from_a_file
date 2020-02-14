@@ -10,8 +10,8 @@
     my $beg = 3;
     my $len = 8;
 
-    qqx[/usr/bin/cal 2016 > $filename];
-    my @lines = split /^^/, slurp $filename;
+    #qqx[/usr/bin/cal 2016 > $filename];
+    my @lines = split /^^/, slurp 'ref/calendar-2016.raw';
     unlink $filename;
     splice(@lines,$beg,$len) == $len or warn "Too few lines";
     spurt $filename, @lines;
