@@ -6,8 +6,6 @@
 
 my @res;
 
-use lib 'lib';
-
 sub solve_funcs ($funcs, @guesses, $iterations, $epsilon) {
    my ($error_value, @values, @delta, @jacobian); my $eps = $epsilon;
    for 1 .. $iterations {
