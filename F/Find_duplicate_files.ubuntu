@@ -1,0 +1,53 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Find_duplicate_files
+#c# 2017-06-03 <RC, 2017-07-23 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# specific to Ubuntu testing (could never get Digest::xxHash to work)
+
+#BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
+
+# Works with: Rakudo version 2017.05
+# This implementation takes a starting directory (defaults to the current directory) and has a few flags to set behaviour: --minsize, minimum file size to look at, defaults to 5 bytes; and --recurse, recurse into the directory structure, default True. It finds files of the same size, calculates hashes to compare, then reports files that hash the same. Uses the very fast but cryptographically poor xxHash library to hash the files.
+
+use Digest;
+
+#sub MAIN( $dir = '.', :$minsize = 5, :$recurse = True ) {
+sub MAIN( $dir = 'bin', :$minsize = 5, :$recurse = True ) {
+    my %files;
+    my @dirs = $dir.IO.absolute.IO;
+    while @dirs {
+        my @files = @dirs.pop;
+        while @files {
+            for @files.pop.dir -> $path {
+                %files{ $path.s }.push: $path if $path.f and $path.s >= $minsize;
+                @dirs.push: $path if $path.d and $path.r and $recurse
+            }
+        }
+    }
+
+    my @res;
+    for %files.sort( +*.key ).grep( *.value.elems > 1)».kv -> ($size, @list) {
+        my %dups;
+        @list.map: { %dups{ md5( $_.slurp :bin ).gist }.push: $_.Str }; # DH custom for Ubuntu
+
+        for %dups.grep( *.value.elems > 1)».value -> @dups {
+            @res.push: sprintf("%9s : ", scale $size ) ~ @dups.join(', ');
+        }
+    }
+    .say for @res;
+
+    use Test;
+    ok @res[0] ~~ m['rc-moar' .* 'rc-jvm'];
+}
+
+sub scale ($bytes) {
+    given $bytes {
+        when $_ < 2**10 {  $bytes                    ~ ' B'  }
+        when $_ < 2**20 { ($bytes / 2**10).round(.1) ~ ' KB' }
+        when $_ < 2**30 { ($bytes / 2**20).round(.1) ~ ' MB' }
+        default         { ($bytes / 2**30).round(.1) ~ ' GB' }
+    }
+}
+
+# Example in command line switches: --minsize=0 --recurse=False /home/me/p6
