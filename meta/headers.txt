@@ -1147,6 +1147,7 @@ File: B/Bitmap_PPM_conversion_through_a_pipe
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: output_piped.jpg
+#n# output trivially different on Ubuntu
 
 File: B/Bitmap_Read_a_PPM_file
 #!/usr/bin/env perl6
@@ -1305,6 +1306,13 @@ File: C/CRC-32.jvm
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: C/CRC-32.ubuntu
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/CRC-32
+#c# 2016-01-10 <RC, 2017-06-05 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+
 File: C/CSV_data_manipulation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/CSV_data_manipulation
@@ -1383,7 +1391,7 @@ File: C/Call_a_foreign-language_function
 #c# 2016-04-06 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# getting funny numbers on Mac OS X?
+#n# Getting funny numbers on Mac OS X?  This is all rather bogus at this point, or at least I don't understand what's going on...
 
 File: C/Call_a_function
 #!/usr/bin/env perl6
@@ -3580,6 +3588,14 @@ File: F/Find_duplicate_files
 #c# 2017-06-03 <RC, 2017-07-23 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+
+File: F/Find_duplicate_files.ubuntu
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Find_duplicate_files
+#c# 2017-06-03 <RC, 2017-07-23 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# specific to Ubuntu testing (could never get Digest::xxHash to work)
 
 File: F/Find_first_and_last_set_bit_of_a_long_integer
 #!/usr/bin/env perl6
