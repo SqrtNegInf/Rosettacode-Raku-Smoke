@@ -57,7 +57,7 @@ my $skip = 'interactive|gui|toodamnslow|skiptest|inprogress|nocode|forever|broke
 # find Perl6 programs
 #$DB::single = 1;
 for my $prog (@ARGV) {
-    next if $prog =~ /\.(jvm|pl|[0-9])$/;
+    next if $prog =~ /\.(jvm|ubuntu|pl|[0-9])$/;
     next if $prog =~ /^Temp-/;
 
     if (! -e $prog) {
