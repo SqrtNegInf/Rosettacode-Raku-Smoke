@@ -42,5 +42,6 @@ gdImageDestroy($img1);
 gdImageDestroy($img2);
 
 use Test;
-is $result, '1.78189346';
-# 1.62559309816 (from different under-lying libraries?)
+is $result, '1.78189346'  if $*KERNEL eq 'darwin';
+is $result, '1.625593098' if $*KERNEL eq 'linux';
+# results vary due to different under-lying libraries?
