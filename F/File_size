@@ -12,7 +12,7 @@ say my $r2 = "./$fn".IO.s;
 
 # Cross-platform version of the second one:
 
-say my $r3 = $*SPEC.rootdir.IO.child("/Users/dhoekman/perl6/Rosetta-Code/$fn").s;
+say my $r3 = $*SPEC.rootdir.IO.child("%*ENV<HOME>/perl6/Rosetta-Code/$fn").s;
 
 use Test;
 is ($r1, $r2, $r3), '35 35 35';
