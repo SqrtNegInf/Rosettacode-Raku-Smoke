@@ -74,4 +74,5 @@ my $ref2 = $*VM ~~ /jvm/ ?? $jvm2 !! $moar2;
 
 use Test;
 is @res1.join("\n"), chomp $ref;
+exit if $*KERNEL eq 'linux';
 is @res2.join("\n"), chomp $ref2;
