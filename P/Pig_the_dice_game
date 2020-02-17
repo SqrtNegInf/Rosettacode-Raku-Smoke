@@ -3,7 +3,9 @@
 #c# 2016-06-11 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#=# RC pipe: \nY\nY\nY\nY
+### RC pipe: \nY\nY\nY\nY
+#n# 'prompt' started generating errors in non-interactive mode, so just dispense with it
+#n# (since repeated 'Y' leads to desired outcome)
 
 srand 123456;
 
@@ -18,8 +20,8 @@ sub MAIN (Int :$players = 1, Int :$goal = 20) {
 	say "\nOK, player #$player is up now.";
 	my $safe = @safe[$player];
 	my $ante = 0;
-	until $safe + $ante >= $goal or
-	    prompt("#$player, you have $safe + $ante = {$safe+$ante}. Roll? [Yn] ") ~~ /:i ^n/
+	until $safe + $ante >= $goal 
+	    # prompt("#$player, you have $safe + $ante = {$safe+$ante}. Roll? [Yn] ") ~~ /:i ^n/
 	{
 	    given DIE.roll {
 		say "  You rolled a $_.";
