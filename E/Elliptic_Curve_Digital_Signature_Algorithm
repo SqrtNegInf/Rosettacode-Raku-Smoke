@@ -1,0 +1,103 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm
+#c# 2020-02-21 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+srand 123456;
+
+my @res;
+
+#unit module ECDSA;
+
+use experimental :pack;
+use OpenSSL::Digest;
+
+# Following data taken from the C entry
+our (\A,\B,\P,\O,\Gx,\Gy) = (355, 671, 1073741789, 1073807281, 13693, 10088);
+
+role Horizon { method gist { 'EC Point at horizon' } }
+
+class Point {             # modified from the Elliptic_curve_arithmetic entry
+   has ($.x, $.y);        # handle modular arithmetic only
+   multi method new( \x, \y ) { self.bless(:x, :y) }
+   multi method new(Horizon $) { self.bless but Horizon }
+   method gist { "EC Point at x=$.x, y=$.y" }
+}
+
+multi infix:<⊞>(Point \p, Point \q) {
+   my \s = $;
+   if p.x ~~ q.x and p.y ~~ q.y {
+      return Horizon if p.y == 0 ;
+      s = (3*p.x²+ A) * mult_inv(2*p.y, :modulo(P))
+   } else {
+      s = (p.y - q.y) * mult_inv(p.x - q.x, :modulo(P))
+   }
+   my \xr = (s²- p.x - q.x);
+   my \yr = (s*(p.x - xr) - p.y);
+   return Point.new(x =>  xr % P, y => yr % P)
+}
+
+multi infix:<⊠>(Int \n, Point \p) {
+   return 0                if n == 0 ;
+   return p                if n == 1 ;
+   return p ⊞ ((n-1) ⊠ p ) if n % 2 == 1 ;
+   return ( n div 2 ) ⊠ ( p ⊞ p )
+}
+
+sub mult_inv($n, :$modulo) { # rosettacode.org/wiki/Modular_inverse#Perl_6
+   my ($c, $d, $uc, $vd, $vc, $ud, $q) = $n % $modulo, $modulo, 1, 1, 0, 0, 0;
+   while $c != 0 {
+      ($q, $c, $d) = ($d div $c, $d % $c, $c);
+      ($uc, $vc, $ud, $vd) = ($ud - $q*$uc, $vd - $q*$vc, $uc, $vc);
+   }
+   return $ud % $modulo;
+}
+
+class Signature {
+
+   has ($.n, Point $.G); # Order and Generator point
+
+   method generate_signature(Int \private_key, Str \message) {
+      my \z = (sha256 message.encode).unpack("H*").parse-base(16) % $.n;
+      my $k = my $s = my $r = 0;
+      while $s == 0 {
+         $r = $s = 0 ;
+         while $r == 0 {
+            $k = (1..^$.n).roll;
+            my Point $point = $k ⊠ $.G;
+            $r = $point.x % $.n;
+         }
+         $s = ((z + $r*private_key) * mult_inv $k, :modulo($.n)) % $.n;
+      }
+      return $r,  $s,  private_key ⊠ $.G ;
+   }
+
+   method verify_signature(\message, \r, \s, \public_key) {
+      my \z = (sha256 message.encode).unpack("H*").parse-base(16) % $.n;
+      my \w = mult_inv s, :modulo($.n);
+      my \u1 = (z*w) % $.n;
+      my \u2 = (r*w) % $.n;
+      my \p = (u1 ⊠ $.G ) ⊞ (u2 ⊠ public_key);
+      return (p.x % $.n) == (r % $.n)
+   }
+}
+
+@res.push: "Message               : "~ my \message = "Show me the monKey";
+@res.push: "The private key dA is : "~ my \dA = (1..^P).roll;
+my $ec = Signature.new: n => O, G => Point.new: x => Gx, y => Gy ;
+my ($r, $s, \Qa) = $ec.generate_signature(dA, message);
+@res.push: "The public  key Qa is : "~ Qa.gist;
+@res.push: "Message validation    : "~ ($ec.verify_signature(message, $r, $s, Qa) ?? "Pass" !! "Fail");
+
+.say for @res;
+
+my $ref = q:to/END/;
+Message               : Show me the monKey
+The private key dA is : 530847267
+The public  key Qa is : EC Point at x=359566163, y=437848764
+Message validation    : Pass
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
