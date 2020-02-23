@@ -1,0 +1,31 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Amb
+#c# 2020-02-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# 
+
+my @res;
+
+# Using the Regex Engine
+
+my @firstSet  = «the that a»;
+my @secondSet = «frog elephant thing»;
+my @thirdSet  = «walked treaded grows»;
+my @fourthSet = «slowly quickly»;
+
+@res.push: $_ for doAmb [@firstSet, @secondSet, @thirdSet, @fourthSet];
+
+sub doAmb( @lol ) {	# Takes out the correct sentences.
+	my @sentences = map *.join(" "), [X] @lol;
+	grep *.&isAmb, @sentences;
+}
+
+sub isAmb( $sentence ) {	# Checks `$sentence` for correctness.
+	$sentence !~~ / (.) " " (.)	<!{$0 eq $1}> /	# <https://docs.raku.org/language/regexes#Regex_boolean_condition_check>
+}
+
+say my $result = join "", @res;;
+
+use Test;
+is $result, 'that thing grows slowly';
