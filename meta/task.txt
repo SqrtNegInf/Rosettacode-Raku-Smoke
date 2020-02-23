@@ -1,19 +1,19 @@
-This is Rakudo version 2020.01-253-g21aa02ba0 built on MoarVM version 2020.01.1-43-ga71eee4c2
+This is Rakudo version 2020.01-262-g8dcf652d5 built on MoarVM version 2020.01.1-48-g41eacf6ad
 implementing Raku 6.d.
 updating from RC...
-+--------------> Moar: Good/Bad [1201/12]
-|+-------------> JVM: Good/Bad [1028/186]
-||+------------> Smoke testing [1084]
++--------------> Moar: Good/Bad [1204/12]
+|+-------------> JVM: Good/Bad [1030/186]
+||+------------> Smoke testing [1086]
 |||+-----------> sKipping validation [127]
 ||||+----------> Interactive [61]
 |||||+---------> Touched (modified by me) [300]
-||||||+--------> Concurrent/Async [60]
+||||||+--------> Concurrent/Async [61]
 |||||||+-------> Random seed [121]
 ||||||||+------> File output [89]
 |||||||||+-----> Draft [224]
 ||||||||||+----> Ignoring [32]
-|||||||||||+---> Void (no local copy) [86]
-||||||||||||+--> Un-implemented/reliable [64]
+|||||||||||+---> Void (no local copy) [84]
+||||||||||||+--> Un-implemented/reliable [61]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -55,7 +55,6 @@ GGS.......... Align_columns
 GGS..Tc...... Aliquot_sequence_classifications
 GGS.......... Almost_prime-1
 GGS.......... Almost_prime-2
-............U Amb
 GGS.......... Amb-1
 GGS....R..... Amb-2
 GGS....R..... Amb-3
@@ -302,7 +301,7 @@ GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -758,7 +757,7 @@ GGS.......... Nautical_bell-2
 GGS.......... Negative_base_numbers
 GGS.......... Nested_function
 GGS.......... Nested_templated_data
-.........D.VU Next_highest_int_from_digits
+GGS......D... Next_highest_int_from_digits
 GGS.......... Nim_Game
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
@@ -874,7 +873,7 @@ GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
 GGS.......... Population_count
 GGS.......... Power_set
-.........D.VU Powerful_numbers
+GGS...C..D... Powerful_numbers
 GG.K......... Pragmatic_directives
 GGS.......... Price_fraction
 GGS.......... Primality_by_trial_division
