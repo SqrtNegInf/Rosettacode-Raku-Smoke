@@ -1,5 +1,5 @@
 #!/usr/bin/env perl6
-## display tasks implemented, for selected languages (for now, the members of the '1000' club)
+## display tasks implemented, for selected languages (for now, the members of the '1000' club [as of late 2019])
 #  David H.  Fri Sep 13 16:05:56 PDT 2019
 ## not a race, not a race, not a race...
 
@@ -20,7 +20,10 @@ my %langs = (
 'Phix'   => 'Ph',
 'Python' => 'Py',
 'Racket' => 'Ra',
-#'Sidef'  => 'Si',
+#'Java'   => 'Ja',  # will add someday
+#'Zkl'    => 'Zk',  # will add someday
+#'C'      => 'C ',  # least useful, from porting perspective
+#'Sidef'  => 'Si',  # most useful, from porting perspective
 );
 
 my (%impl,%h);
