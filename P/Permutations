@@ -47,7 +47,7 @@ is @res2.join("\n"), chomp $ref1;
 
 sub permute(@items) {
    my @seq := 1..+@items;
-   gather for (^[*] @seq) -> $n is copy {
+   gather for (^[×] @seq) -> $n is copy {
       my @order;
       for @seq {
          unshift @order, $n mod $_;
