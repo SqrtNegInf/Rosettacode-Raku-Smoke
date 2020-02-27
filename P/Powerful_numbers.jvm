@@ -18,7 +18,7 @@ my $fudge-factor = .0001;
 
 sub powerfuls ($n, $k) {
     my @powerful;
-    p(1, 2*$k - 1);
+    p(1, 2×$k - 1);
     sub p ($m, $r) {
         @powerful.push($m), return if $r < $k;
         for 1 .. (($n / $m) ** (1/$r) + $fudge-factor).floor -> $v {
@@ -26,7 +26,7 @@ sub powerfuls ($n, $k) {
                 next unless is-square-free($v);
                 next unless $m gcd $v == 1;
             }
-            p($m * $v ** $r, $r - 1)
+            p($m × $v ** $r, $r - 1)
         }
     }
     @powerful;
