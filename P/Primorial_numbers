@@ -15,7 +15,7 @@ my $sieve;
 if $*VM ~~ /jvm/ { @primes = lazy gather for 1 .. * { .take if $_.is-prime } }
 else             { EVAL 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes = $sieve.primes(105_000);' }
 
-sub primorial($n) { [*] @primes[^$n] }
+sub primorial($n) { [×] @primes[^$n] }
 
 @res.push: "First ten primorials: {(primorial $_ for ^10)}";
 @res.push: "primorial(10^$_) has {primorial(10**$_).chars} digits" for 1..4;
