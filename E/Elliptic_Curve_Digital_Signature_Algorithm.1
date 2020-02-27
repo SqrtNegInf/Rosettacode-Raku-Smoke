@@ -29,12 +29,12 @@ multi infix:<⊞>(Point \p, Point \q) {
    my \s = $;
    if p.x ~~ q.x and p.y ~~ q.y {
       return Horizon if p.y == 0 ;
-      s = (3*p.x²+ A) * mult_inv(2*p.y, :modulo(P))
+      s = (3×p.x²+ A) × mult_inv(2×p.y, :modulo(P))
    } else {
-      s = (p.y - q.y) * mult_inv(p.x - q.x, :modulo(P))
+      s = (p.y - q.y) × mult_inv(p.x - q.x, :modulo(P))
    }
    my \xr = (s²- p.x - q.x);
-   my \yr = (s*(p.x - xr) - p.y);
+   my \yr = (s×(p.x - xr) - p.y);
    return Point.new(x =>  xr % P, y => yr % P)
 }
 
@@ -49,7 +49,7 @@ sub mult_inv($n, :$modulo) { # rosettacode.org/wiki/Modular_inverse#Perl_6
    my ($c, $d, $uc, $vd, $vc, $ud, $q) = $n % $modulo, $modulo, 1, 1, 0, 0, 0;
    while $c != 0 {
       ($q, $c, $d) = ($d div $c, $d % $c, $c);
-      ($uc, $vc, $ud, $vd) = ($ud - $q*$uc, $vd - $q*$vc, $uc, $vc);
+      ($uc, $vc, $ud, $vd) = ($ud - $q×$uc, $vd - $q×$vc, $uc, $vc);
    }
    return $ud % $modulo;
 }
@@ -68,7 +68,7 @@ class Signature {
             my Point $point = $k ⊠ $.G;
             $r = $point.x % $.n;
          }
-         $s = ((z + $r*private_key) * mult_inv $k, :modulo($.n)) % $.n;
+         $s = ((z + $r×private_key) × mult_inv $k, :modulo($.n)) % $.n;
       }
       return $r,  $s,  private_key ⊠ $.G ;
    }
@@ -76,8 +76,8 @@ class Signature {
    method verify_signature(\message, \r, \s, \public_key) {
       my \z = (sha256 message.encode).unpack("H*").parse-base(16) % $.n;
       my \w = mult_inv s, :modulo($.n);
-      my \u1 = (z*w) % $.n;
-      my \u2 = (r*w) % $.n;
+      my \u1 = (z×w) % $.n;
+      my \u2 = (r×w) % $.n;
       my \p = (u1 ⊠ $.G ) ⊞ (u2 ⊠ public_key);
       return (p.x % $.n) == (r % $.n)
    }
