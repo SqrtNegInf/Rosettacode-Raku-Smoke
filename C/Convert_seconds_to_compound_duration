@@ -13,7 +13,7 @@ sub compound-duration ($seconds) {
     .grep(*[0]).reverse.join(", ")
 }
 
-my $x = [+] ([\*] <1 60 60 24 7>) Z* <1 2 3 4 5>;
+my $x = [+] ([\×] <1 60 60 24 7>) Z× <1 2 3 4 5>;
 
 for 7259, 86400, 6000000, $x {
     say "{.fmt: '%7d'} sec  =  {compound-duration $_}";
