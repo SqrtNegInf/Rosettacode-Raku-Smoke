@@ -106,7 +106,7 @@ sub place ($x is copy, $y is copy, $w) {
  }
 
 sub find ($x, $y) {
-    my @trials = %dir.keys.sort.map: -> $dir {
+    my @trials = %dir.keys.sort.map: -> $dir { # DH this sort is used just to get stable results for testing
             my $space = '.';
             my ($c, $r) = $x, $y;
             loop {
