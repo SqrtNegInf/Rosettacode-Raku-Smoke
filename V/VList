@@ -32,7 +32,7 @@ class vList {
          self.base.ele.push: a ;
          return self;
       } elsif self.offset == 0 {
-         my \L2offset = (self.base.ele.elems * 2) - 1 ;
+         my \L2offset = (self.base.ele.elems × 2) - 1 ;
          my \s = vSeg.new(next => self.base, ele => flat Nil xx L2offset, a);
          return vList.new(base => s, offset => L2offset )
       }
