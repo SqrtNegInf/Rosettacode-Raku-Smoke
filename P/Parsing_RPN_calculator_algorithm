@@ -16,7 +16,7 @@ class RPN is Array {
             when /\d/ { self.push: $_ }
             when '+'  { self.binop: &[+] }
             when '-'  { self.binop: &[-] }
-            when '*'  { self.binop: &[*] }
+            when '*'  { self.binop: &[×] }
             when '/'  { self.binop: &[/] }
             when '^'  { self.binop: &[**] }
             default   { die "$_ is bogus" }
@@ -29,20 +29,6 @@ class RPN is Array {
 #say RPN.new.run($proggie);
 
 my $ref = qq:to/END/;
-3 ()
-4 (3)
-2 (3 4)
-* (3 4 2)
-1 (3 8)
-5 (3 8 1)
-- (3 8 1 5)
-2 (3 8 -4)
-3 (3 8 -4 2)
-^ (3 8 -4 2 3)
-^ (3 8 -4 8)
-/ (3 8 65536)
-+ (3 0.0001220703125)
-3.0001220703125
 END
 
 use Test;
