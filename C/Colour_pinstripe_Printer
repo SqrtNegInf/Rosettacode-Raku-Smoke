@@ -17,14 +17,14 @@ my %paper = (
     'A4'     => { :width(8.2677), :height(11.6929)}
 );
 
-my ($w, $h) = %paper{$size}<width height> »*» $dpi;
+my ($w, $h) = %paper{$size}<width height> »×» $dpi;
 
 # ROYGBIVK
 my @color = (1,0,0),(1,.598,0),(1,1,0),(0,1,0),(0,0,1),(.294,0,.51),(.58,0,.827),(0,0,0);
 
-my $gap = floor $w % ($dpi * +@color) / 2;
+my $gap = floor $w % ($dpi × +@color) / 2;
 
-my $rows = (1, * * 2 … * > $dpi).elems;
+my $rows = (1, * × 2 … * > $dpi).elems;
 
 my $height = $dpi;
 
