@@ -7,7 +7,7 @@
 my @res;
 
 sub Stirling2 (Int \n, Int \k) {
-    ((1,), { (0, |@^last) »+« (|(@^last »*« @^last.keys), 0) } … *)[n;k]
+    ((1,), { (0, |@^last) »+« (|(@^last »×« @^last.keys), 0) } … *)[n;k]
 }
 
 my $upto = 12;
