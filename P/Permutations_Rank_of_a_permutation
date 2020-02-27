@@ -16,7 +16,7 @@ sub rank2inv ( $rank, $n = * ) {
 }
 
 sub inv2rank ( @inv ) {
-    [+] @inv Z* [\*] 1, 1, * + 1 ... * 
+    [+] @inv Z× [\×] 1, 1, * + 1 ... * 
 }
 
 sub inv2perm ( @inv, @items is copy = ^@inv.elems ) {
@@ -45,7 +45,7 @@ my $perms =  4;      #100;
 my $n     = 12;      #144;
 
 @res.push: 'Via BigInt rank';
-for ( ( ^([*] 1 .. $n) ).pick($perms) ) {
+for ( ( ^([×] 1 .. $n) ).pick($perms) ) {
     @res.push: ($^rank.&rank2inv($n).&inv2perm).gist; 
 };
 
