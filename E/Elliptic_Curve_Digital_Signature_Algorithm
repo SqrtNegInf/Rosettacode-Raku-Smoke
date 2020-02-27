@@ -26,7 +26,7 @@ class Point {             # modified from the Elliptic_curve_arithmetic entry
    has ($.x, $.y);        # handle modular arithmetic only
    multi method new( \x, \y ) { self.bless(:x, :y) }
    method gist { "EC Point at x=$.x, y=$.y" }
-   method isOn { modP(B + $.x * modP(A+$.x²)) == modP($.y²) }
+   method isOn { modP(B + $.x × modP(A+$.x²)) == modP($.y²) }
    sub modP ($a is copy) { ( $a %= P ) < 0 ?? ($a += P) !! $a }
 }
  
@@ -34,12 +34,12 @@ multi infix:<⊞>(Point \p, Point \q) {
    my \λ = $; # slope
    if p.x ~~ q.x and p.y ~~ q.y {
       return Horizon if p.y == 0 ;
-      λ = (3*p.x²+ A) * mult_inv(2*p.y, :modulo(P))
+      λ = (3×p.x²+ A) × mult_inv(2×p.y, :modulo(P))
    } else {
-      λ = (p.y - q.y) * mult_inv(p.x - q.x, :modulo(P))
+      λ = (p.y - q.y) × mult_inv(p.x - q.x, :modulo(P))
    }
    my \xr = (λ²- p.x - q.x);
-   my \yr = (λ*(p.x - xr) - p.y);
+   my \yr = (λ×(p.x - xr) - p.y);
    return Point.bless: x =>  xr % P, y => yr % P
 }
  
@@ -54,7 +54,7 @@ sub mult_inv($n, :$modulo) { # rosettacode.org/wiki/Modular_inverse#Perl_6
    my ($c, $d, $uc, $vd, $vc, $ud, $q) = $n % $modulo, $modulo, 1, 1, 0, 0, 0;
    while $c != 0 {
       ($q, $c, $d) = ($d div $c, $d % $c, $c);
-      ($uc, $vc, $ud, $vd) = ($ud - $q*$uc, $vd - $q*$vc, $uc, $vc);
+      ($uc, $vc, $ud, $vd) = ($ud - $q×$uc, $vd - $q×$vc, $uc, $vc);
    }
    return $ud % $modulo;
 }
@@ -69,7 +69,7 @@ class Signature {
          loop ($r = $s = 0 ; $r == 0 ; ) {
             $r = (( $k = (1..^$.n).roll ) ⊠ $.G).x % $.n;
          }
-         $s = ((z + $r*private_key) * mult_inv $k, :modulo($.n)) % $.n;
+         $s = ((z + $r×private_key) × mult_inv $k, :modulo($.n)) % $.n;
       }
       return $r, $s, private_key ⊠ $.G ;
    }
@@ -77,7 +77,7 @@ class Signature {
    method verify_signature(\msg, \r, \s, \public_key) {
       my \z = :16((sha256 msg).list>>.&{"%02s".sprintf(.base(16))}.join) % $.n;
       my \w = mult_inv s, :modulo($.n);
-      my (\u1,\u2) = (z*w, r*w)>>.&{ $_ % $.n }
+      my (\u1,\u2) = (z×w, r×w)>>.&{ $_ % $.n }
       my \p = (u1 ⊠ $.G ) ⊞ (u2 ⊠ public_key);
       return (p.x % $.n) == (r % $.n)
    }
