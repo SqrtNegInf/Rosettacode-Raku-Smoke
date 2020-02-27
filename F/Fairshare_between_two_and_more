@@ -14,7 +14,7 @@ sub fairshare (\b) { ^∞ .hyper.map: { .polymod( b xx * ).sum % b } }
 is, the more fair the selection algorithm is. Gets better with more iterations.";
 
 for <2 3 5 11 39> -> $people {
-    my $iterations = $people * 1000;
+    my $iterations = $people × 1000;
     my @fairness;
     fairshare($people)[^$iterations].kv.map: { @fairness[$^v % $people] += $^k }
     my $scale = @fairness.sum / @fairness;
