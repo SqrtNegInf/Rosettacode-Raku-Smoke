@@ -6,9 +6,9 @@
 
 my @ary = 1, 5, 10, 100;
 say 'Sum: ',     [+] @ary;
-say 'Product: ', [*] @ary;
+say 'Product: ', [×] @ary;
 
 use Test;
 
 is ([+] @ary), '116';
-is ([*] @ary), '5000';
+is ([×] @ary), '5000';
