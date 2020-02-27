@@ -18,8 +18,8 @@ sub is-semiprime (Int $n --> Bool) {
 my @primes = flat grep &is-prime, 2 .. 100;
 
 for ^5 {
-    nok is-semiprime([*] my @f1 = @primes.roll(1)), ~@f1;
-    ok  is-semiprime([*] my @f2 = @primes.roll(2)), ~@f2;
-    nok is-semiprime([*] my @f3 = @primes.roll(3)), ~@f3;
-    nok is-semiprime([*] my @f4 = @primes.roll(4)), ~@f4;
+    nok is-semiprime([×] my @f1 = @primes.roll(1)), ~@f1;
+    ok  is-semiprime([×] my @f2 = @primes.roll(2)), ~@f2;
+    nok is-semiprime([×] my @f3 = @primes.roll(3)), ~@f3;
+    nok is-semiprime([×] my @f4 = @primes.roll(4)), ~@f4;
 }
