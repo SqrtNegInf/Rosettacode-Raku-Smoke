@@ -10,7 +10,7 @@
 
 my @res;
 
-sub postfix:<!> { [*] 1..$^n }
+sub postfix:<!> { [×] 1..$^n }
 @res.push: 5!;  # prints 120
 
 # You may augment a base class with a new method, as long as you declare that you are going to cheat.
