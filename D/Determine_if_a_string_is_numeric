@@ -3,6 +3,8 @@
 #c# 2020-02-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# flapping errors?  happen about half the time:
+#n# WARNING: unhandled Failure detected in DESTROY. 
 
 my @res;
 
@@ -25,7 +27,6 @@ say '    String   whitespace    whitespace';
 # Inf NaN ௫௯   # all associated with unhandled Failure detected in DESTROY.
 
 .say for @res;
-exit;
 
 my $ref = qq:to/END/;
        <1>      True         True
