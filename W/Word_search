@@ -1,10 +1,8 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Word_search
-#t# skiptest
 #c# 2020-02-07 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# no stable results (prob related to libtommath)
 
 srand 123456;
 
@@ -81,7 +79,7 @@ display();
 
 sub display {
     @res.push: flat "    ", 'ABCDEFGHIJ'.comb;
-    @res.push: $_ for (^10).map: { ($_).fmt("  %2d"), @ws[$_ * $cols .. ($_ + 1) * $cols - 1] }
+    @res.push: $_ for (^10).map: { ($_).fmt("  %2d"), @ws[$_ × $cols .. ($_ + 1) × $cols - 1] }
     @res.push: "\n  Words used:";
     my $max = 1 + %index.keys.max( *.chars ).chars;
     for %index.sort {
@@ -100,22 +98,22 @@ sub restart {
 sub place ($x is copy, $y is copy, $w) {
     my @word = $w.key.comb;
     my $dir  = %dir{$w.value.value};
-    @ws[$y * $rows + $x] = @word.shift;
+    @ws[$y × $rows + $x] = @word.shift;
     while @word {
         ($x, $y) »+=« $dir;
-        @ws[$y * $rows + $x] = @word.shift;
+        @ws[$y × $rows + $x] = @word.shift;
     }
  }
 
 sub find ($x, $y) {
-    my @trials = %dir.keys.map: -> $dir {
+    my @trials = %dir.keys.sort.map: -> $dir {
             my $space = '.';
             my ($c, $r) = $x, $y;
             loop {
                 ($c, $r) »+=« %dir{$dir};
                 last if 9 < $r|$c;
                 last if 0 > $r|$c;
-                my $l = @ws[$r * $rows + $c];
+                my $l = @ws[$r × $rows + $c];
                 last if $l ~~ /<:Lu>/;
                 $space ~= $l;
             }
@@ -141,12 +139,102 @@ sub compare (@s, @w) {
 }
 
 .say for @res;
-exit;
 
 my $moar = q:to/END/;
+     A B C D E F G H I J
+   0 g p u r r R t e g u
+   1 o x e b i c O d o g
+   2 f a t u o u s S w h
+   3 f t f i z z l e E t
+   4 T e n o l a b a u T
+   5 h A n i k s p d d f
+   6 o e C m a o o t d l
+   7 g a w O s r d a u o
+   8 g s a w D h e x b w
+   9 n e z o c E e i v t
+
+  Words used:
+ abalone  H 4 ←  
+    budd  I 8 ↑  
+    coin  F 1 ↙  
+   cozen  E 9 ←  
+     dee  G 7 ↓  
+     dog  H 1 →  
+    ease  B 6 ↓  
+ fatuous  A 2 →  
+  fizzle  C 3 →  
+    flow  J 5 ↓  
+     get  I 0 ←  
+    goff  A 0 ↓  
+     gsa  A 8 →  
+     hex  F 8 →  
+     hog  A 5 ↓  
+    ibex  E 1 ←  
+     mao  D 6 →  
+     off  A 1 ↓  
+     pod  G 5 ↓  
+    purr  B 0 →  
+    skin  F 5 ←  
+     sop  E 7 ↗  
+     tax  B 3 ↑  
+    taxi  H 6 ↓  
+   tudor  J 3 ↙  
+     two  J 9 ↑  
+     ugh  J 0 ↓  
+     vie  I 9 ←  
+     wag  C 7 ←  
+     was  D 8 ←  
+     web  I 2 ↙  
+
+
 END
 
 my $jvm = q:to/END/;
+     A B C D E F G H I J
+   0 y s h e a R a n o v
+   1 a e h r b s O p i y
+   2 d n r s e u e S c l
+   3 g e k b i m t k E e
+   4 T y c l u n a r y T
+   5 i A p i e a i r c l
+   6 a h C d r a m m k n
+   7 a g p O b e e v i z
+   8 a e s u D y l a o d
+   9 m l e h c E v c p f
+
+  Words used:
+      aaa  A 6 ↓  
+    ankle  A 1 ↘  
+   aubrey  F 5 ↖  
+      bee  E 7 →  
+   cleric  H 9 ↖  
+      cpa  I 2 ↖  
+      crt  I 5 ↖  
+      cup  E 9 ↖  
+      day  A 2 ↑  
+ diminish  J 8 ↖  
+     dram  D 6 →  
+      ely  J 3 ↑  
+      fpc  J 9 ←  
+      gel  B 7 ↓  
+      gyp  A 3 ↘  
+     helm  D 9 ←  
+   lunary  D 4 →  
+    lykes  J 5 ↖  
+      nov  H 0 →  
+      phi  C 7 ↖  
+      poi  I 9 ↑  
+   remark  D 1 ↘  
+      sea  C 8 ←  
+     shea  B 0 →  
+     tube  G 3 ↖  
+     vain  G 9 ↗  
+      viz  H 7 →  
+      yea  F 8 ↑  
+      yen  B 4 ↑  
+      yip  J 1 ←  
+
+
 END
 
 use Test;
