@@ -27,7 +27,7 @@ sub next_perm ( @a ) {
 
 sub permutation_sort ( @a ) {
     my @n = @a.keys;
-    my $perm_count = [*] 1 .. +@n; # Factorial
+    my $perm_count = [×] 1 .. +@n; # Factorial
     for ^$perm_count {
         my @permuted_a = @a[ @n ];
         return @permuted_a if [le] @permuted_a;
