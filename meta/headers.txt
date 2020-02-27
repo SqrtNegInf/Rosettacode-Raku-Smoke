@@ -154,7 +154,7 @@ File: 0/9_billion_names_of_God_the_integer.1
 #c# 2016-01-08 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   nothing special about '10000' on Mac OS X
+#n# uses about 25x as much memory as the 'main' version, in getting the 10,000 value
 
 File: A/A%2BB
 #!/usr/bin/env perl6
@@ -2542,6 +2542,8 @@ File: D/Determine_if_a_string_is_numeric
 #c# 2020-02-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# flapping errors?  happen about half the time:
+#n# WARNING: unhandled Failure detected in DESTROY. 
 
 File: D/Determine_if_a_string_is_numeric.1
 #!/usr/bin/env perl6
@@ -4510,7 +4512,6 @@ File: H/Hello_world_Standard_error
 File: H/Hello_world_Text
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Hello_world/Text
-#t# trivial
 #c# 2018-03-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -8395,6 +8396,7 @@ File: R/Rare_numbers.jvm
 File: R/Raster_bars
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Raster_bars
+#t# gui
 #c# 2019-06-18 <RC
 #m# MOAR: BROKEN
 #j# JVM:  BROKEN
