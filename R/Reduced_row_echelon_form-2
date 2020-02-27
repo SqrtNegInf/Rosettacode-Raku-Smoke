@@ -12,7 +12,7 @@ class Matrix is Array {
         @M[$row] = @M[$row] »/» $scale;
     }
     method unshear_row ( @M: $scale, $r1, $r2 ) {
-        @M[$r1] = @M[$r1] »-» ( @M[$r2] »*» $scale );
+        @M[$r1] = @M[$r1] »-» ( @M[$r2] »×» $scale );
     }
     method reduce_row ( @M: $row, $col ) {
         @M.unscale_row( @M[$row][$col], $row );
