@@ -9,7 +9,7 @@ my @res;
 
 use Prime::Factor;
  
-my \𝜑 = 0, |(1..*).hyper.map: -> \t { t * [*] t.&prime-factors.squish.map: { 1 - 1/$_ } }
+my \𝜑 = 0, |(1..*).hyper.map: -> \t { t × [×] t.&prime-factors.squish.map: { 1 - 1/$_ } }
  
 @res.push: sprintf "𝜑(%2d) = %3d %s", $_, 𝜑[$_], $_ - 𝜑[$_] - 1 ?? '' !! 'Prime' for 1 .. 25;
  
