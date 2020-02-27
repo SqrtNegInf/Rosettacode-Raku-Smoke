@@ -4,10 +4,9 @@
 #c# 2016-01-08 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   nothing special about '10000' on Mac OS X
+#n# uses about 25x as much memory as the 'main' version, in getting the 10,000 value
 
 # To save a bunch of memory, this algorithm throws away all the numbers that it knows it's not going to use again, on the assumption that the function will only be called with increasing values of $n. (It could easily be made to recalculate if it notices a regression.)
-# Note: We only run to 10000 currently because mono gets major GC indigestion at 10200 or so...
 
 my @todo = $[1];
 my @sums = 0;
