@@ -68,7 +68,7 @@ constant π = &π();
 # approximation of natural log, accepts any numeric, returns FatRat
 # calculated via arithmetic-geometrix mean (as per https://en.wikipedia.org/wiki/Logarithm)
 sub log-approx ($x --> FatRat) {
-    constant ln2 = 2 * [+] (((1/3).FatRat**(2*$_+1))/(2*$_+1) for 0..D); # 1/3 = (2-1)/(2+1)
+    constant ln2 = 2 × [+] (((1/3).FatRat**(2×$_+1))/(2×$_+1) for 0..D); # 1/3 = (2-1)/(2+1)
     π / (2 × AG-mean(1.FatRat, 2.FatRat**(2-D)/$x)) - D × ln2;
 }
 
