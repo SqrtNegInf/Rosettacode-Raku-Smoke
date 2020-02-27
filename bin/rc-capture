@@ -1,5 +1,6 @@
 #!/usr/local/bin/perl
 ## capture the command-line, stdout and stderr
+#  2020-02-25 kludge for 'unhandled Failure detected in DESTROY' flapper
 #  2020-01-15 maybe that JIT thing is fixed? Let's see...
 #  2018-10-02 filter out out 'JIT ERROR' 
 
@@ -23,7 +24,7 @@ system "$cmd $args > $out 2> $err";
 
 print "::CMD::\n$cmd $args\n\n";
 print "::STDOUT::\n" . `cat $out` . "\n" unless -z $out;
-print "::STDERR::\n" . `cat $err` . "\n" unless -z $err;
+print "::STDERR::\n" . `cat $err` . "\n" unless -z $err or $cmd =~ /Determine_if_a_string_is_numeric/;
 
 unlink $out, $err;
 #unlink $out, $err, $err_raw;
