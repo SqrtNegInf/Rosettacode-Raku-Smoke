@@ -2542,8 +2542,10 @@ File: D/Determine_if_a_string_is_numeric
 #c# 2020-02-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# flapping errors?  happen about half the time:
-#n# WARNING: unhandled Failure detected in DESTROY. 
+#n# 20200225 flapping errors?  happen about half the time:
+#n#    WARNING: unhandled Failure detected in DESTROY
+#n# very old GC issue, cf. https://github.com/rakudo/rakudo/issues/1515
+#n# so looks to be a low-priority bug, put a work-around in 'rc-capture' and ignore for now
 
 File: D/Determine_if_a_string_is_numeric.1
 #!/usr/bin/env perl6
@@ -4196,6 +4198,7 @@ File: G/Geometric_algebra
 #j#  JVM: OK
 #n# 2018-05-21 all previous errors (in tests 26, 27) are gone, wa-hoo…
 #n# glory be, */× swap worked even here
+#n# 2020-02-27 why does AST still show '*' in use as multiplication?
 
 File: G/Get_system_command_output
 #!/usr/bin/env perl6
@@ -11642,11 +11645,9 @@ File: W/Word_count.1
 File: W/Word_search
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Word_search
-#t# skiptest
 #c# 2020-02-07 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# no stable results (prob related to libtommath)
 
 File: W/Word_wrap
 #!/usr/bin/env perl6
