@@ -2338,9 +2338,10 @@ File: D/Damm_algorithm
 File: D/Data_Encryption_Standard
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Data_Encryption_Standard
-#c# 2019-03-22 <RC
+#c# 2019-03-22 <RC, 2020-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2020-02-28 still not getting the '\r\n' to round-trip
 #n# 2019-10-25 for JVM: 4th encryption fails (but decrypt on proper string OK)
 #n# as much fun as that would be to debug, I'm just going to comment it out
 #n# found/replaced Unicode my terminal/font wasn't displaying (using utility based on 'Character_codes', thundergnat++)
@@ -2959,9 +2960,9 @@ File: E/Elementary_cellular_automaton_Random_Number_Generator
 File: E/Elliptic_Curve_Digital_Signature_Algorithm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm
-#c# 2020-02-24 <RC
+#c# 2020-02-24 <RC, 2020-02-28 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN OK
+#j# JVM:  OK
 
 File: E/Elliptic_Curve_Digital_Signature_Algorithm.1
 #!/usr/bin/env perl6
@@ -7068,7 +7069,7 @@ File: O/Orbital_elements
 #c# 2016-07-07 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# */× doesn't work here, unless the module is also updated
+#n# the */× switch doesn't work here due to 'Clifford' module
 
 File: O/Order_disjoint_list_items
 #!/usr/bin/env perl6
@@ -7861,6 +7862,7 @@ File: P/Polynomial_regression
 #c# 2016-05-03 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# the */× switch doesn't work here due to 'Clifford' module
 
 File: P/Polynomial_regression.1
 #!/usr/bin/env perl6
