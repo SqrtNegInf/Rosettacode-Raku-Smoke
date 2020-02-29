@@ -3,7 +3,7 @@
 #c# 2016-07-07 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# */× doesn't work here, unless the module is also updated
+#n# the */× switch doesn't work here due to 'Clifford' module
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
