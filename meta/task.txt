@@ -1,8 +1,8 @@
-This is Rakudo version 2020.02-76-geb19a3d2e built on MoarVM version 2020.02-25-g69951892a
+This is Rakudo version 2020.02-90-g88f04b630 built on MoarVM version 2020.02-25-g69951892a
 implementing Raku 6.d.
 updating from RC...
 +--------------> Moar: Good/Bad [1203/12]
-|+-------------> JVM: Good/Bad [1030/186]
+|+-------------> JVM: Good/Bad [1031/185]
 ||+------------> Smoke testing [1086]
 |||+-----------> sKipping validation [128]
 ||||+----------> Interactive [62]
@@ -12,7 +12,7 @@ updating from RC...
 ||||||||+------> File output [89]
 |||||||||+-----> Draft [220]
 ||||||||||+----> Ignoring [32]
-|||||||||||+---> Void (no local copy) [81]
+|||||||||||+---> Void (no local copy) [82]
 ||||||||||||+--> Un-implemented/reliable [58]
 |||||||||||||
 GGS.......... 100_doors
@@ -271,10 +271,10 @@ GGS.......... Currying
 GBS......D... Curve_that_touches_three_points
 GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
-GBS......D... Cyclotomic_Polynomial
+GBS.......... Cyclotomic_Polynomial
 GGS.......... DNS_query
 GGS......D... Damm_algorithm
-GGS......D... Data_Encryption_Standard
+!GS......D... Data_Encryption_Standard
 GGS..T....... Date_format
 GGS..T....... Date_manipulation
 GGS.......... Day_of_the_week
@@ -340,7 +340,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS......D... Elementary_cellular_automaton_Infinite_length
 GGS..T...D... Elementary_cellular_automaton_Random_Number_Generator
-GBS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
+GGS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T...D... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -706,6 +706,7 @@ GGS....R..... Miller-Rabin_primality_test
 GGS....R..... Mind_boggling_card_trick
 GG.KI..R..... Minesweeper_game
 GGS.......... Minimal_steps_down_to_1
+.........D.V. Minimum_positive_multiple_in_base_10_using_only_0_and_1
 GGS......D... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
@@ -864,7 +865,7 @@ GGS..T....... Poker_hand_analyser
 GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GGS..T....... Polynomial_long_division
-!BS.......... Polynomial_regression
+GBS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
