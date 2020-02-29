@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Data_Encryption_Standard
-#c# 2019-03-22 <RC
+#c# 2019-03-22 <RC, 2020-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2020-02-28 still not getting the '\r\n' to round-trip
 #n# 2019-10-25 for JVM: 4th encryption fails (but decrypt on proper string OK)
 #n# as much fun as that would be to debug, I'm just going to comment it out
 #n# found/replaced Unicode my terminal/font wasn't displaying (using utility based on 'Character_codes', thundergnat++)
@@ -15,7 +16,7 @@ my @res;
 #Translation of: Phix
 
 #use v6.d;
-use experimental :pack;
+#use experimental :pack;
 
 my \PC1 = <
    57 49 41 33 25 17  9        1 58 50 42 34 26 18
@@ -83,13 +84,15 @@ my \SHIFTS = < 1 1 2 2 2 2 2 2 1 2 2 2 2 2 2 1 >; # schedule of left shifts
 ## Helper subs
 
 # convert iso-8859-1 to hexadecimals
-sub b2h (\b) { [~] map { .encode('iso-8859-1').unpack('H*') }, b.comb };
+#sub b2h (\b) { [~] map { .encode('iso-8859-1').unpack('H*') }, b.comb };
+sub b2h (\b) { b.ords.fmt('%02X', '') };
 
 # convert UTF8s to bytes
 sub u2b (\u) { [~] map { .chr }, @( [~] map { .encode('utf8') }, u.comb) };
 
 # convert hexadecimals to UTF-8
-sub h2u (\h) { pack("H" x h.chars/2, h ~~ m:g/../).decode('utf8') };
+#sub h2u (\h) { pack("H" x h.chars/2, h ~~ m:g/../).decode('utf8') };
+sub h2u (\h) { Blob.new( h.comb(2).map: { :16( $_ ) } ).decode('utf8') };
 
 # convert quadbits to hex
 sub q2h (\q) { [~] map { :2($_.Str).fmt('%X') }, q ~~ m:g/..../ };
@@ -162,7 +165,7 @@ sub des(Str \key, Str $msg is copy, Bool \DECODE --> Str) { # return hexdecimal
 @res.push: des "0E329232EA6D0D73", h2bytes("8787878787878787"), False;
 @res.push: des "0E329232EA6D0D73", "Your lips are smoother than vaseline", False;
 #@res.push: des "0E329232EA6D0D73", "Your lips are smoother than vaseline\r\n", False;
-#@res.push: des "0E329232EA6D0D73", u2b("BMP: こんにちは ; Astral plane: 𝒳𝒴𝒵"), False;
+@res.push: des "0E329232EA6D0D73", u2b("BMP: こんにちは ; Astral plane: 𝒳𝒴𝒵"), False;
 
 @res.push: "Decryption examples:";
 @res.push: des "133457799BBCDFF1", h2bytes("85E813540F0AB405FDF2E174492922F8"), True;
@@ -172,19 +175,6 @@ sub des(Str \key, Str $msg is copy, Bool \DECODE --> Str) { # return hexdecimal
 @res.push: h2u des "0E329232EA6D0D73", h2bytes("C040FB6A6E72D7C36D60CA9B9A35EB38D3194468AD808103C28E33AEF0B268D0E0366C160B028DDACF340003DCA8969343EBBD289DB94774"), True;
 
 .say for @res;
-
-my $ref = q:to/END/;
-Encryption examples:
-85E813540F0AB405FDF2E174492922F8
-0000000000000000A913F4CB0BD30F97
-C0999FDDE378D7ED727DA00BCA5A84EE47F269A4D6438190D9D52F78F535849980A2E7453703513E
-Decryption examples:
-0123456789abcdef
-8787878787878787
-Your lips are smoother than vaseline
-BMP: こんにちは ; Astral plane: 𝒳𝒴𝒵
-END
-#C040FB6A6E72D7C36D60CA9B9A35EB38D3194468AD808103C28E33AEF0B268D0E0366C160B028DDACF340003DCA8969343EBBD289DB94774
 
 use Test;
 is @res.join("\n"), chomp $ref;
