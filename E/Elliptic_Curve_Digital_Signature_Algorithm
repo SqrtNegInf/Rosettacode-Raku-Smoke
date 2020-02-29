@@ -1,14 +1,14 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm
-#c# 2020-02-24 <RC
+#c# 2020-02-24 <RC, 2020-02-28 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN OK
+#j# JVM:  OK
 
 srand 123456;
 
 my @res;
 
-use Digest::SHA;
+use Digest::SHA256::Native;
  
 # Following data taken from the C entry
 our (\A,\B,\P,\O,\Gx,\Gy) = (355, 671, 1073741789, 1073807281, 13693, 10088);
@@ -64,7 +64,8 @@ class Signature {
    has ($.n, Point $.G); # Order and Generator point
  
    method generate_signature(Int \private_key, Str \msg) {
-      my \z = :16((sha256 msg).list>>.&{"%02s".sprintf(.base(16))}.join) % $.n;
+      #my \z = :16((sha256 msg).list>>.&{"%02s".sprintf(.base(16))}.join) % $.n;
+      my \z = :16(sha256-hex msg) % $.n; # self ref: Blob.list.fmt("%02X",'')
       loop (my $k = my $s = my $r = 0 ; $s == 0 ; ) {
          loop ($r = $s = 0 ; $r == 0 ; ) {
             $r = (( $k = (1..^$.n).roll ) ⊠ $.G).x % $.n;
@@ -75,9 +76,11 @@ class Signature {
    }
  
    method verify_signature(\msg, \r, \s, \public_key) {
-      my \z = :16((sha256 msg).list>>.&{"%02s".sprintf(.base(16))}.join) % $.n;
+      #my \z = :16((sha256 msg).list>>.&{"%02s".sprintf(.base(16))}.join) % $.n;
+      my \z = :16(sha256-hex msg) % $.n;
       my \w = mult_inv s, :modulo($.n);
-      my (\u1,\u2) = (z×w, r×w)>>.&{ $_ % $.n }
+      #my (\u1,\u2) = (z×w, r×w)>>.&{ $_ % $.n }
+       my (\u1,\u2) = (z*w, r*w).map: { $_ % $.n }
       my \p = (u1 ⊠ $.G ) ⊞ (u2 ⊠ public_key);
       return (p.x % $.n) == (r % $.n)
    }
@@ -94,6 +97,8 @@ my ($r, $s, \Qa) = $ec.generate_signature(dA, message);
 @res.push: "The public  key Qa is : "~ Qa.gist;
 @res.push: "Is Qa ∈ E ?           : "~ Qa.isOn;
 @res.push: "Is signature valid?   : "~ $ec.verify_signature(message, $r, $s, Qa);
+@res.push: "Message (Tampered)    : "~ my \altered = "Show me the money";
+@res.push: "Is signature valid?   : "~ $ec.verify_signature(altered, $r, $s, Qa);
 
 .say for @res;
 
@@ -107,6 +112,8 @@ The private key dA is : 884671339
 The public  key Qa is : EC Point at x=1069753782, y=149159068
 Is Qa ∈ E ?           : True
 Is signature valid?   : True
+Message (Tampered)    : Show me the money
+Is signature valid?   : False
 END
 
 my $jvm = q:to/END/;
@@ -119,6 +126,8 @@ The private key dA is : 666683498
 The public  key Qa is : EC Point at x=1016062020, y=1061016630
 Is Qa ∈ E ?           : True
 Is signature valid?   : True
+Message (Tampered)    : Show me the money
+Is signature valid?   : False
 END
 
 use Test;
