@@ -1,0 +1,114 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Minimum_positive_multiple_in_base_10_using_only_0_and_1
+#c# 2020-02-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# brute force version:
+#n# say $_ , ': ', (1..*).map( *.base(2) ).first: * %% $_ for flat 1..10, 95..105; # etc.
+
+my @res;
+
+use Prime::Factor;
+
+my $iter = cache (1..*).map: *.base(2);
+
+my @b10; # or cache
+
+sub b10 (Int \n where * > -1) {
+    return n if n == 0|1;
+    my @factors = prime-factors(n);
+    my $two  = +@factors.grep: * == 2;
+    my $five = +@factors.grep: * == 5;
+    my $this;
+    if $two { # Special handling for n with prime factor 2 (and 5)
+        my $rest = [*] @factors.grep: * != 2|5;
+        $this = (@b10[$rest] //= b10($rest)) ~ '0' x ($two max $five);
+    }
+    elsif $five { # Special handling for n with prime factor 5
+        my $rest = [*] @factors.grep: * != 5;
+        $this = (@b10[$rest] //= b10($rest)) ~ '0' x $five;
+    }
+    elsif n !~~ /<-[9]>/ { # Special handling for n that contains only digits 9
+        $this = @b10[n] //= 1 x n.chars * 9
+    }
+    elsif n > 1500 and n %% 9 { # Special handling for multiples of 9, not worth it for less than ~1500
+        $this = @b10[n] //= stringy(n);
+    }
+    else { # no special handling just brute force
+        $this = @b10[n] //= $iter.first: * %% n;
+    }
+    $this
+}
+
+printf "%5s: %28s  %s\n", 'Number', 'B10', 'Multiplier';
+
+for flat 1..10, 95..105, 297, 576, 594, 891, 909, 999, 1998, 2079, 2251, 2277 { #2439, 2997, 4878
+    @res.push: sprintf "%6d: %28s  %s", $_, my $a = b10($_), $a / $_;
+}
+
+# String manipulation to generate permutations
+sub stringy (Int \k, $i9 = '1' x 9) {
+    return $i9 if $i9 %% k;
+    my $chars = 1;
+    my @try = (1..^$i9.chars).map: { sst($i9, $_, '0'); };
+    my $answer;
+
+    # Cheats slightly to cut down on some unnecessary calculations.
+    # Adjusts the orders of magnitude searched.
+    my $cheat = $i9.chars == 9 ?? 6 !! k < 2300 ?? 5 !! 8;
+
+    loop {
+        @try.map: -> \b { if b %% k { $answer = b; last }  }
+        last if $answer;
+        if ++$chars > $cheat { return stringy( k, $i9 ~ '1' x 9 ) }
+        @try = flat @try.map: -> \b {
+            (1..^b.chars).map: -> \o {
+                next if b.substr(o,1) eq '0';
+                sst(b, o, '0')
+            }
+        }
+    }
+    $answer;
+}
+
+# substring insert
+sub sst (\str, \idx, \add) { substr(str,0,idx) ~ add ~ substr(str,idx) }
+
+.say for @res;
+
+my $ref = q:to/END/;
+     1:                            1  1
+     2:                           10  5
+     3:                          111  37
+     4:                          100  25
+     5:                           10  2
+     6:                         1110  185
+     7:                         1001  143
+     8:                         1000  125
+     9:                    111111111  12345679
+    10:                           10  1
+    95:                       110010  1158
+    96:                     11100000  115625
+    97:                     11100001  114433
+    98:                     11000010  112245
+    99:           111111111111111111  1122334455667789
+   100:                          100  1
+   101:                          101  1
+   102:                      1000110  9805
+   103:                     11100001  107767
+   104:                      1001000  9625
+   105:                       101010  962
+   297:          1111011111111111111  3740778151889263
+   576:              111111111000000  192901234375
+   594:         11110111111111111110  18703890759446315
+   891:          1111111111111111011  1247038284075321
+   909:          1011111111111111111  1112333455567779
+   999:  111111111111111111111111111  111222333444555666777889
+  1998: 1111111111111111111111111110  556111667222778333889445
+  2079:       1001101101111111111111  481530111164555609
+  2251:                 101101101111  44913861
+  2277:         11110111111111111011  4879275850290343
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
