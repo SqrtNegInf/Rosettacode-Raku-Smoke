@@ -1,0 +1,25 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/SHA-256
+#c# 2020-02-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Digest::SHA256::Native;
+
+# If you want a string
+@res.push: sha256-hex 'Rosetta code';
+
+# If you want a binary Blob
+@res.push: sha256('Rosetta code').gist;
+
+.say for @res;
+
+my $ref = q:to/END/;
+764faf5c61ac315f1497f9dfa542713965b785e5cc2f707d6468d7d1124cdfcf
+Blob:0x<76 4F AF 5C 61 AC 31 5F 14 97 F9 DF A5 42 71 39 65 B7 85 E5 CC 2F 70 7D 64 68 D7 D1 12 4C DF CF>
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
