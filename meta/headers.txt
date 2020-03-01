@@ -6400,6 +6400,15 @@ File: M/Minimal_steps_down_to_1.jvm
 #j# JVM:  OK
 #n# for JVM: .perl not .raku (temporary)
 
+File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Minimum_positive_multiple_in_base_10_using_only_0_and_1
+#c# 2020-02-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# brute force version:
+#n# say $_ , ': ', (1..*).map( *.base(2) ).first: * %% $_ for flat 1..10, 95..105; # etc.
+
 File: M/Modular_arithmetic
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Modular_arithmetic
@@ -7214,9 +7223,27 @@ File: P/Paraffins
 File: P/Parallel_Brute_Force
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parallel_Brute_Force
+#c# 2017-02-10 <RC, 2018-04-24 <RC, 2019-01-09 <RC, 2020-02-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# using 'medium' option for @alpha* values (cf. .1 version)
+
+File: P/Parallel_Brute_Force.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Parallel_Brute_Force
 #c# 2017-02-10 <RC, 2018-04-24 <RC, 2019-01-09 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# for JVM: module
+#n# .race/.hyper are not doing anything?
+#n# works again 2018-10-01, but no difference on .race; using 'cheat' starting point
+
+File: P/Parallel_Brute_Force.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Parallel_Brute_Force
+#c# 2017-02-10 <RC, 2018-04-24 <RC, 2019-01-09 <RC
+#m# MOAR: OK
+#j#  JVM: OK
 #n# for JVM: module
 #n# .race/.hyper are not doing anything?
 #n# works again 2018-10-01, but no difference on .race; using 'cheat' starting point
@@ -8962,12 +8989,26 @@ File: S/SHA-1
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: S/SHA-1-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/SHA-1
+#c# 2020-02-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
 File: S/SHA-256
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/SHA-256
 #c# 2015-12-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: S/SHA-256-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/SHA-256
+#c# 2020-02-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
 
 File: S/SOAP
 #!/usr/bin/env perl6
