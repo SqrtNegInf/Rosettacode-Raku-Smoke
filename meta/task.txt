@@ -1,18 +1,18 @@
-This is Rakudo version 2020.02-90-g88f04b630 built on MoarVM version 2020.02-25-g69951892a
+This is Rakudo version 2020.02-92-ge11142084 built on MoarVM version 2020.02-25-g69951892a
 implementing Raku 6.d.
 updating from RC...
-+--------------> Moar: Good/Bad [1203/12]
-|+-------------> JVM: Good/Bad [1031/185]
-||+------------> Smoke testing [1086]
++--------------> Moar: Good/Bad [1206/12]
+|+-------------> JVM: Good/Bad [1032/187]
+||+------------> Smoke testing [1089]
 |||+-----------> sKipping validation [128]
 ||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [300]
 ||||||+--------> Concurrent/Async [60]
 |||||||+-------> Random seed [121]
 ||||||||+------> File output [89]
-|||||||||+-----> Draft [220]
+|||||||||+-----> Draft [219]
 ||||||||||+----> Ignoring [32]
-|||||||||||+---> Void (no local copy) [82]
+|||||||||||+---> Void (no local copy) [81]
 ||||||||||||+--> Un-implemented/reliable [58]
 |||||||||||||
 GGS.......... 100_doors
@@ -274,7 +274,7 @@ GGS......D... Cycle_detection
 GBS.......... Cyclotomic_Polynomial
 GGS.......... DNS_query
 GGS......D... Damm_algorithm
-!GS......D... Data_Encryption_Standard
+GGS......D... Data_Encryption_Standard
 GGS..T....... Date_format
 GGS..T....... Date_manipulation
 GGS.......... Day_of_the_week
@@ -694,7 +694,7 @@ GBS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
-GBS......D... Mersenne_primes
+!BS......D... Mersenne_primes
 GGS...C...... Mertens_function
 GGS.......... Metallic_ratios
 GGS.......... Metaprogramming
@@ -706,7 +706,7 @@ GGS....R..... Miller-Rabin_primality_test
 GGS....R..... Mind_boggling_card_trick
 GG.KI..R..... Minesweeper_game
 GGS.......... Minimal_steps_down_to_1
-.........D.V. Minimum_positive_multiple_in_base_10_using_only_0_and_1
+GGS......D... Minimum_positive_multiple_in_base_10_using_only_0_and_1
 GGS......D... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
@@ -795,7 +795,7 @@ GGS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_Partitions
 GGS.......... Ordered_words
 GGS..T....... P-value_correction
-GGS......D... Palindrome_dates
+GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
 GGS...c...... Palindromic_gapful_numbers
 GGS.......... Pangram_checker
@@ -986,7 +986,9 @@ GGS..T....... Runtime_evaluation_In_an_environment
 GGS.......... S-Expressions
 GGS..T....... SEDOLs
 GGS..T....... SHA-1
+GBS.......... SHA-1-2
 GGS.......... SHA-256
+GBS.......... SHA-256-2
 GBS.......... SOAP
 ..........XV. SQL-based_authentication
 GBS.......... Safe_addition
