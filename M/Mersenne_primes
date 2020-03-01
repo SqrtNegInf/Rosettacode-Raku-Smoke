@@ -6,20 +6,12 @@
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-# Works with: Rakudo version 2018.01
-#`{
-We already have a multitude of tasks that demonstrate how to find Mersenne primes; Prime decomposition, Primality by trial division, Trial factoring of a Mersenne number, Lucas-Lehmer test, Miller–Rabin primality_test, etc. that all have Perl 6 entries. I'm not sure what I could add here that would be useful.
-Hmmm.
-
-Create code that will list all of the Mersenne primes until some limitation is reached.
-}
-
 use HTTP::UserAgent;
 use Gumbo;
 
 my $table = parse-html(HTTP::UserAgent.new.get('https://www.mersenne.org/primes/').content, :TAG<table>);
 
-say 'All known Mersenne primes as of ', Date(now);
+say 'All known Mersenne primes as of ' ~ now.Date; # Date(now);
 
 my @res.push: 'M'~ ++$~ ": 2$_ - 1"
   for $table[1]».[*][0][*].comb(/'exp_lo='\d+/)».subst(/\D/, '',:g)
@@ -27,7 +19,7 @@ my @res.push: 'M'~ ++$~ ": 2$_ - 1"
 
 .say for @res;
 
-# All known Mersenne primes as of 2018-12-21
+# All known Mersenne primes as of 2020-02-29
 my $ref = qq:to/END/;
 M1: 2² - 1
 M2: 2³ - 1
