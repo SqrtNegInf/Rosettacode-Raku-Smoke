@@ -1,16 +1,16 @@
-This is Rakudo version 2020.02-92-ge11142084 built on MoarVM version 2020.02-25-g69951892a
+This is Rakudo version 2020.02.1-97-g830e0820b built on MoarVM version 2020.02.1-32-g217317dd3
 implementing Raku 6.d.
 updating from RC...
-+--------------> Moar: Good/Bad [1206/12]
-|+-------------> JVM: Good/Bad [1032/187]
-||+------------> Smoke testing [1089]
++--------------> Moar: Good/Bad [1209/12]
+|+-------------> JVM: Good/Bad [1034/187]
+||+------------> Smoke testing [1091]
 |||+-----------> sKipping validation [128]
 ||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [300]
 ||||||+--------> Concurrent/Async [60]
 |||||||+-------> Random seed [121]
-||||||||+------> File output [89]
-|||||||||+-----> Draft [219]
+||||||||+------> File output [91]
+|||||||||+-----> Draft [220]
 ||||||||||+----> Ignoring [32]
 |||||||||||+---> Void (no local copy) [81]
 ||||||||||||+--> Un-implemented/reliable [58]
@@ -632,7 +632,7 @@ GG.K......... Literals_String
 GGS..T....... Logical_operations
 GGS..T....... Long_multiplication
 GBS...C...... Long_primes
-GGS......D... Long_year%3F
+GGS.......... Long_year%3F
 GGS.......... Longest_Common_Substring
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
@@ -694,7 +694,7 @@ GBS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
-!BS......D... Mersenne_primes
+GBS......D... Mersenne_primes
 GGS...C...... Mertens_function
 GGS.......... Metallic_ratios
 GGS.......... Metaprogramming
@@ -1031,8 +1031,10 @@ GGS..T....... Shortest_common_supersequence
 GGS.....F.... Show_Ascii_table-1
 GGS.....F.... Show_Ascii_table-2
 GGS.......... Show_the_epoch
+GGS.....FD... Sierpinski_arrowhead_curve
 GGS..T....... Sierpinski_carpet
 GGS..T..F.... Sierpinski_pentagon
+GGS.....FD... Sierpinski_square_curve
 GGS.......... Sierpinski_triangle
 GGS..T..F.... Sierpinski_triangle_Graphical
 GGS..T....... Sieve_of_Eratosthenes
