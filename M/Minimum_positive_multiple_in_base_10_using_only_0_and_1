@@ -3,7 +3,7 @@
 #c# 2020-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# brute force version:
+#n# brute force version: (not testing separately because it's embedded in use of $iter, below)
 #n# say $_ , ': ', (1..*).map( *.base(2) ).first: * %% $_ for flat 1..10, 95..105; # etc.
 
 my @res;
