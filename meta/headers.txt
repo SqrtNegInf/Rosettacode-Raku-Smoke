@@ -6406,7 +6406,7 @@ File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1
 #c# 2020-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# brute force version:
+#n# brute force version: (not testing separately because it's embedded in use of $iter, below)
 #n# say $_ , ': ', (1..*).map( *.base(2) ).first: * %% $_ for flat 1..10, 95..105; # etc.
 
 File: M/Modular_arithmetic
@@ -7929,7 +7929,6 @@ File: P/Population_count
 #c# 2015-11-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# want hyperwhatever to have an entry in AST collection
 
 File: P/Power_set
 #!/usr/bin/env perl6
