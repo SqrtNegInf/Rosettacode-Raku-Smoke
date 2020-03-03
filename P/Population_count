@@ -3,28 +3,30 @@
 #c# 2015-11-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# want hyperwhatever to have an entry in AST collection
 
-sub population-count(Int $n where * >= 0) { [+] $n.base(2).comb }
+sub population-count1(Int $n where * >= 0) { 
+    [+] $n.base(2).comb 
+}
 
-say my $pop =  map &population-count, (3 ** **)(^30);
-#say my $pop =  map &population-count, (3****)(^30); # works, but kinda obsfuscated
-#say my $pop =  map &population-count, 3 «**«^30;
-say "Evil: ", my $evil = (grep { population-count($_) %% 2 }, 0 .. *)[^30];
-say "Odious: ", my $odious =(grep { population-count($_)  % 2 }, 0 .. *)[^30];
-
-#That's the convenient way to write it, but the following avoids string processing and is therefore about twice as fast:
-sub population-count1(Int $n is copy where * >= 0) { 
+# avoids string processing, about twice as fast
+sub population-count2(Int $n is copy where * >= 0) { 
     loop (my $c = 0; $n; $n +>= 1) { 
         $c += $n +& 1; 
     } 
-    $c;
+    $c
 }
-my $pop1 = map &population-count, 3 «**«^30;
+
+# basic way
+say my $pop  = map &population-count1, 3 «**« ^30;
+
+# 'fast' way
+say my $pop1 = map &population-count2, (3 ** **)(^30); # double '*' notation is hyper-whatever, see AST
+
+say 'Evil: ',   my $evil   = (grep { population-count1($_) %% 2 }, 0 .. *)[^30];
+say 'Odious: ', my $odious = (grep { population-count1($_)  % 2 }, 0 .. *)[^30];
 
 use Test;
-plan 4;
-is $pop, <1 2 2 4 3 6 6 5 6 8 9 13 10 11 14 15 11 14 14 17 17 20 19 22 16 18 24 30 25 25>, 'Population count';
-is $pop1, <1 2 2 4 3 6 6 5 6 8 9 13 10 11 14 15 11 14 14 17 17 20 19 22 16 18 24 30 25 25>, 'Population count (faster)';
-is $evil, <0 3 5 6 9 10 12 15 17 18 20 23 24 27 29 30 33 34 36 39 40 43 45 46 48 51 53 54 57 58>, 'Evil numbers';
+is $pop,    <1 2 2 4 3 6 6 5 6 8 9 13 10 11 14 15 11 14 14 17 17 20 19 22 16 18 24 30 25 25>, 'basic';
+is $pop1,   <1 2 2 4 3 6 6 5 6 8 9 13 10 11 14 15 11 14 14 17 17 20 19 22 16 18 24 30 25 25>, 'faster';
+is $evil,   <0 3 5 6 9 10 12 15 17 18 20 23 24 27 29 30 33 34 36 39 40 43 45 46 48 51 53 54 57 58>, 'Evil numbers';
 is $odious, <1 2 4 7 8 11 13 14 16 19 21 22 25 26 28 31 32 35 37 38 41 42 44 47 49 50 52 55 56 59>, 'Odious numbers';
