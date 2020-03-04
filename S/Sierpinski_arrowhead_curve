@@ -28,7 +28,7 @@ my $dir = pi/3;
 for $arrow.comb {
     state ($x, $y) = @points[0,1];
     state $d = $dir;
-    when 'F' { @points.append: ($x += $scale * $d.cis.re).round(1), ($y += $scale * $d.cis.im).round(1) }
+    when 'F' { @points.append: ($x += $scale * $d.cis).round(1), ($y += $scale * $d.cis).round(1) }
     when '+' { $d += $dir }
     when '-' { $d -= $dir }
     default { }
