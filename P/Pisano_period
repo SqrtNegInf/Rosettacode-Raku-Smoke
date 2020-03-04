@@ -1,0 +1,58 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Pisano_period
+#c# 2020-03-03 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+use Prime::Factor;
+
+constant @fib := 1,1,*+*…*;
+
+multi pisano-period (Int $p where *.is-prime, Int $k where * > 0 = 1 ) {
+    my $fibmod = @fib.map: * % $p**$k;
+    (1..*).first: { !$fibmod[$_-1] and ($fibmod[$_] == 1) }
+}
+
+multi pisano-period (Int $p where * > 1, Int $k where * > 0 = 1 ) {
+    [lcm] prime-factors($p).squish.map: { samewith $_, $k }
+}
+
+@res.push: "Pisano period (p, 2) for primes less than 50";
+@res.push: (map { pisano-period($_, 2) }, ^50 .grep: *.is-prime )».fmt('%4d');
+
+@res.push: "\nPisano period (p, 1) for primes less than 180";
+@res.push: $_ for (map { pisano-period($_, 1) }, ^180 .grep: *.is-prime )».fmt('%4d').batch(15);
+
+@res.push: "\nPisano period (p, 1) for integers 2 to 180";
+@res.push: $_ for (2..180).map( { pisano-period($_) } )».fmt('%4d').batch(15);
+
+.say for @res;
+
+my $ref = q:to/END/;
+Pisano period (p, 2) for primes less than 50
+   6   24  100  112  110  364  612  342 1104  406  930 2812 1640 3784 1504
+
+Pisano period (p, 1) for primes less than 180
+   3    8   20   16   10   28   36   18   48   14   30   76   40   88   32
+ 108   58   60  136   70  148   78  168   44  196   50  208   72  108   76
+ 256  130  276   46  148   50  316  328  336  348  178
+
+Pisano period (p, 1) for integers 2 to 180
+   3    8    3   20   24   16    3    8   60   10   24   28   48   40    3
+  36   24   18   60   16   30   48   24   20   84    8   48   14  120   30
+   3   40   36   80   24   76   18   56   60   40   48   88   30   40   48
+  32   24   16   60   72   84  108   24   20   48   72   42   58  120   60
+  30   16    3  140  120  136   36   48  240   70   24  148  228   40   18
+  80  168   78   60    8  120  168   48  180  264   56   30   44  120  112
+  48  120   96  180   24  196   48   40   60   50   72  208   84   80  108
+  72   24  108   60  152   48   76   72  240   42   56  174  144  120   10
+  60   40   30   20   48  256    3   88  420  130  120  144  408   40   36
+ 276   48   46  240   32  210  140   24  140  444   16  228  148  120   50
+  18   72  240   60  168  316   78  216   60   48   24  328  120   40  168
+ 336   48   28  180   72  264  348  168   80   30  232  132  178  120
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
