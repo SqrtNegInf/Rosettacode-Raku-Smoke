@@ -6400,7 +6400,7 @@ File: M/Minimal_steps_down_to_1.jvm
 #j# JVM:  OK
 #n# for JVM: .perl not .raku (temporary)
 
-File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1
+File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Minimum_positive_multiple_in_base_10_using_only_0_and_1
 #c# 2020-02-28 <RC
@@ -6408,6 +6408,13 @@ File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1
 #j# JVM:  OK
 #n# brute force version: (not testing separately because it's embedded in use of $iter, below)
 #n# say $_ , ': ', (1..*).map( *.base(2) ).first: * %% $_ for flat 1..10, 95..105; # etc.
+
+File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Minimum_positive_multiple_in_base_10_using_only_0_and_1
+#c# 2020-03-03 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: M/Modular_arithmetic
 #!/usr/bin/env perl6
@@ -7794,6 +7801,13 @@ File: P/Pinstripe_Printer
 #j# JVM:  BROKEN
 #f# RC file: Pinstripe-printer-perl6.png
 #n# effectively another image generation task
+
+File: P/Pisano_period
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Pisano_period
+#c# 2020-03-03 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: P/Plasma_effect
 #!/usr/bin/env perl6
