@@ -56,13 +56,23 @@ say $obj;
 my $newobj = $obj but role { has $.baz = 3 } # anonymous mixin
 say $newobj;
 
-say '--';
-
 use Test;
 is %hash.raku, '{:a(1), :b(2), :c(3), :d(4), :e(5), :f(6)}';
 is @newlist, '1 2 3 4 5 6';
 is (sort $s ∪= <d e f>).gist, '(SetHash(a b c d e f))';
-is (sort $b ⊎= <a b c>).gist, '(BagHash(a(5), b(3), c(2), k, l, v))';
-is (sort $newset).gist, '(set(a b c d e f))';
-is (sort $newbag).gist, '(Bag(a(3), b(2), e(2), f, k, l, v))';
+is (sort $b ⊎= <a b c>).gist, '(BagHash(a(5) b(3) c(2) k l v))';
+is (sort $newset).gist, '(Set(a b c d e f))';
+is (sort $newbag).gist, '(Bag(a(3) b(2) e(2) f k l v))';
 is $newobj.raku, 'Something+{<anon|1>}.new(baz => 3, foo => 1, bar => 2)';
+
+#`{{
+{a => 1, b => 2, c => 3, d => 4, e => 5, f => 6}
+SetHash(a b c d e f)
+BagHash(a(4) b(2) c k l v)
+(1 2 3 4 5 6)
+Set(a b c d e f)
+Bag(a(3) b(2) e(2) f k l v)
+a => b => c => d => e => f => Nil
+Something.new(foo => 1, bar => 2)
+Something+{<anon|1>}.new(baz => 3, foo => 1, bar => 2)
+}}
