@@ -17,4 +17,4 @@ say bag (1..20000).map: { propdivsum($_) <=> $_ }
 say my @out = sort bag map { propdivsum($_) <=> $_ }, 1..20000;
 
 use Test;
-is @out.gist, '[Bag(Less(15043), More(4953), Same(4))]';
+is @out.gist, '[Bag(Less(15043) More(4953) Same(4))]';
