@@ -22,7 +22,7 @@ say $_, "\n    ==> ", consolidate |$_
         [set(A,B), set(C,D), set(D,B)],
         [set(H,I,K), set(A,B), set(C,D), set(D,B), set(F,G,H)];
 
+my $result = (consolidate |[set(H,I,K), set(A,B), set(C,D), set(D,B), set(F,G,H)]).gist;
 
 use Test;
-my $result = (consolidate |[set(H,I,K), set(A,B), set(C,D), set(D,B), set(F,G,H)]).gist;
-is $result, '(set(A B C D) set(F G H I K))';
+is $result, '(Set(A B C D) Set(F G H I K))';
