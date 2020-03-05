@@ -29,13 +29,13 @@ for ( bag(), bag(bag()), *.&expand-trees ... * )[$n] {
 .put for @res.sort;
 
 my $ref = q:to/END/;
-Bag(Bag()(2), Bag(Bag())) => 2
+Bag(Bag() Bag(Bag()(2))) => 2
+Bag(Bag() Bag(Bag(Bag()))) => 2
+Bag(Bag()(2) Bag(Bag())) => 2
 Bag(Bag()(4)) => 1
-Bag(Bag(), Bag(Bag()(2))) => 2
-Bag(Bag(), Bag(Bag(Bag()))) => 2
+Bag(Bag(Bag() Bag(Bag()))) => 2
 Bag(Bag(Bag()(3))) => 1
 Bag(Bag(Bag())(2)) => 1
-Bag(Bag(Bag(), Bag(Bag()))) => 2
 Bag(Bag(Bag(Bag()(2)))) => 1
 Bag(Bag(Bag(Bag(Bag())))) => 1
 END
