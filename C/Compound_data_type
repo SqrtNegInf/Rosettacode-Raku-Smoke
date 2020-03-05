@@ -27,5 +27,5 @@ say $s1 ∩ $s2; # we also do Unicode
 
 use Test;
 is $point.raku, 'Point.new(x => 3, y => 8)';
-is ($s1 (&) $s2).gist, 'set(c d)'; # OUTPUT«set(c, e)»
-is ($s1 ∩ $s2).gist, 'set(c d)';
+is ($s1 (&) $s2).gist, 'Set(c d)'; # OUTPUT«set(c, e)»
+is ($s1 ∩ $s2).gist, 'Set(c d)';
