@@ -1,18 +1,19 @@
 This is Rakudo version 2020.02.1-98-gcf01f7a25 built on MoarVM version 2020.02.1-32-g217317dd3
 implementing Raku 6.d.
-+--------------> Moar: Good/Bad [1204/12]
-|+-------------> JVM: Good/Bad [1036/187]
-||+------------> Smoke testing [1093]
+updating from RC...
++--------------> Moar: Good/Bad [1211/12]
+|+-------------> JVM: Good/Bad [1036/188]
+||+------------> Smoke testing [1094]
 |||+-----------> sKipping validation [128]
 ||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [300]
 ||||||+--------> Concurrent/Async [60]
 |||||||+-------> Random seed [121]
-||||||||+------> File output [91]
-|||||||||+-----> Draft [221]
+||||||||+------> File output [92]
+|||||||||+-----> Draft [222]
 ||||||||||+----> Ignoring [32]
 |||||||||||+---> Void (no local copy) [81]
-||||||||||||+--> Un-implemented/reliable [59]
+||||||||||||+--> Un-implemented/reliable [58]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -39,7 +40,7 @@ GGS.......... Abbreviations,_easy
 GGS.......... Abbreviations,_simple
 GBS.....F.... Abelian_sandpile_model
 GGS.......... Abstract_type
-!GS..T....... Abundant,_deficient_and_perfect_number_classifications
+GGS..T....... Abundant,_deficient_and_perfect_number_classifications
 GBS..TC...... Abundant_odd_numbers
 GGS.......... Accumulator_factory
 GGS.......... Ackermann_function
@@ -205,7 +206,7 @@ GGS.......... Classes
 GGS....R..... Closest-pair_problem
 GGS....R..... Closures_Value_capture
 GG.K.....D... Code_segment_unload
-!GS.......... Collections
+GGS.......... Collections
 GB.KIT....... Color_of_a_screen_pixel
 BB........... Color_of_a_screen_pixel-2
 GBS.......... Color_quantization
@@ -232,7 +233,7 @@ GGS.......... Compiler_lexical_analyzer
 ...........VU Compiler_syntax_analyzer
 GGS..T....... Compiler_virtual_machine_interpreter
 BB........... Compiler_virtual_machine_interpreter-2
-!GS.......... Compound_data_type
+GGS.......... Compound_data_type
 GB.K.TC...... Concurrent_computing
 GG.K......... Conditional_structures
 GGS.....F.... Conjugate_transpose
@@ -297,7 +298,7 @@ GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -621,10 +622,11 @@ GGS.......... Leonardo_numbers
 GGS.......... Letter_frequency
 GGS.......... Levenshtein_distance
 GGS..T...D... Levenshtein_distance_Alignment
+.........D.VU Line_circle_intersection
 GGS.......... Linear_congruential_generator
 GG.K.....D... Linux_CPU_utilization
 GGS.......... List_comprehensions
-!GS......D... List_rooted_trees
+GGS......D... List_rooted_trees
 GGS.......... Literals_Floating_point
 GGS.......... Literals_Integer
 GG.K......... Literals_String
@@ -633,7 +635,7 @@ GGS..T....... Long_multiplication
 GBS...C...... Long_primes
 GGS.......... Long_year%3F
 GGS.......... Longest_Common_Substring
-GGS..T...D... Longest_common_prefix
+!GS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
 GGS.......... Longest_increasing_subsequence
 GGS.......... Longest_string_challenge
@@ -856,7 +858,7 @@ GBS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
 GBS.....F.... Pinstripe_Printer
-GGS......D..U Pisano_period
+GGS......D... Pisano_period
 GBS..TC.F.... Plasma_effect
 ..........XVU Play_recorded_sounds
 GGS..T...D... Playfair_cipher
@@ -872,7 +874,7 @@ GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
 GGS.......... Population_count
-!GS.......... Power_set
+GGS.......... Power_set
 GGS......D... Powerful_numbers
 GG.K......... Pragmatic_directives
 GGS.......... Price_fraction
@@ -890,7 +892,7 @@ GGS......D... Print_debugging_statement
 GGS.......... Priority_queue
 GGS....R..... Probabilistic_choice
 GBS..T....... Problem_of_Apollonius
-.........D.VU Process_SMIL_directives_in_XML_data
+GBS.....FD... Process_SMIL_directives_in_XML_data
 GGS..T....... Program_name
 GG.K......... Program_termination
 .........D.VU Proof
@@ -1021,7 +1023,7 @@ GGS.......... Sequence_of_non-squares
 GGS.......... Sequence_of_primes_by_trial_division
 GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
-!GS.......... Set_consolidation
+GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
 GGS..T.R..... Set_puzzle
 GGS....R..... Seven-sided_dice_from_five-sided_dice
