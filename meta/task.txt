@@ -1,16 +1,16 @@
-This is Rakudo version 2020.02.1-98-gcf01f7a25 built on MoarVM version 2020.02.1-32-g217317dd3
+This is Rakudo version 2020.02.1-110-g1de9b2942 built on MoarVM version 2020.02.1-35-ga7fa6daad
 implementing Raku 6.d.
 updating from RC...
-+--------------> Moar: Good/Bad [1211/12]
-|+-------------> JVM: Good/Bad [1036/188]
-||+------------> Smoke testing [1094]
++--------------> Moar: Good/Bad [1212/12]
+|+-------------> JVM: Good/Bad [1037/188]
+||+------------> Smoke testing [1095]
 |||+-----------> sKipping validation [128]
 ||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [300]
 ||||||+--------> Concurrent/Async [60]
 |||||||+-------> Random seed [121]
-||||||||+------> File output [92]
-|||||||||+-----> Draft [222]
+||||||||+------> File output [93]
+|||||||||+-----> Draft [223]
 ||||||||||+----> Ignoring [32]
 |||||||||||+---> Void (no local copy) [81]
 ||||||||||||+--> Un-implemented/reliable [58]
@@ -298,7 +298,7 @@ GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -635,7 +635,7 @@ GGS..T....... Long_multiplication
 GBS...C...... Long_primes
 GGS.......... Long_year%3F
 GGS.......... Longest_Common_Substring
-!GS..T...D... Longest_common_prefix
+GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
 GGS.......... Longest_increasing_subsequence
 GGS.......... Longest_string_challenge
@@ -1037,6 +1037,7 @@ GGS.....F.... Show_Ascii_table-2
 GGS.......... Show_the_epoch
 GGS.....FD... Sierpinski_arrowhead_curve
 GGS..T....... Sierpinski_carpet
+GGS.....FD... Sierpinski_curve
 GGS..T..F.... Sierpinski_pentagon
 GGS.....FD... Sierpinski_square_curve
 GGS.......... Sierpinski_triangle
