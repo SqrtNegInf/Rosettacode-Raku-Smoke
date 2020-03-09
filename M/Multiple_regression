@@ -4,12 +4,13 @@
 #t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# cannot use '×' at all here
 
 #    20161123: 1898.237u 7.165s 31:49.94 99.7%
 #    20170123: 1431.734u 5.339s 24:04.80 99.4%
 #    20171027: 1009.666u 2.269s 16:51.93 99.9%
 #    20181004:  822.622u 3.394s 13:46.06 99.9% best of 5 runs
-#    _NEXT_
+#    20200308:  769.430u 2.710s 12:51.43 100% 
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -20,27 +21,24 @@ use Clifford;
 my @height = <1.47 1.50 1.52 1.55 1.57 1.60 1.63 1.65 1.68 1.70 1.73 1.75 1.78 1.80 1.83>;
 my @weight = <52.21 53.12 54.48 55.84 57.20 58.57 59.93 61.29 63.11 64.47 66.28 68.10 69.92 72.19 74.46>;
 
-my $w = [+] @weight Z× @e;
+my $w = [+] @weight Z* @e;
 
 my $h0 = [+] @e[^@weight];
-my $h1 = [+] @height Z× @e;
-my $h2 = [+] (@height X** 2) Z× @e;
+my $h1 = [+] @height Z* @e;
+my $h2 = [+] (@height X** 2) Z* @e;
 
 my $I = $h0∧$h1∧$h2;
 my $I2 = ($I·$I.reversion).Real;
 
 my @res;
-@res.push: "α = ", (($w∧$h1∧$h2)·$I.reversion/$I2).gist;
-@res.push: "β = ", (($w∧$h2∧$h0)·$I.reversion/$I2).gist;
-@res.push: "γ = ", (($w∧$h0∧$h1)·$I.reversion/$I2).gist;
+@res.push: "α = "~ (($w∧$h1∧$h2)·$I.reversion/$I2).gist;
+@res.push: "β = "~ (($w∧$h2∧$h0)·$I.reversion/$I2).gist;
+@res.push: "γ = "~ (($w∧$h0∧$h1)·$I.reversion/$I2).gist;
 
 my $ref = qq:to/END/;
-α = 
-128.81280357844
-β = 
--143.1620228648
-γ = 
-61.960325442
+α = 128.81280357844
+β = -143.1620228648
+γ = 61.960325442
 END
 
 use Test;
