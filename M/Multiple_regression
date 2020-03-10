@@ -31,9 +31,9 @@ my $I = $h0∧$h1∧$h2;
 my $I2 = ($I·$I.reversion).Real;
 
 my @res;
-@res.push: "α = "~ (($w∧$h1∧$h2)·$I.reversion/$I2).gist;
-@res.push: "β = "~ (($w∧$h2∧$h0)·$I.reversion/$I2).gist;
-@res.push: "γ = "~ (($w∧$h0∧$h1)·$I.reversion/$I2).gist;
+@res.push: "α = " ~ (($w∧$h1∧$h2)·$I.reversion/$I2).gist;
+@res.push: "β = " ~ (($w∧$h2∧$h0)·$I.reversion/$I2).gist;
+@res.push: "γ = " ~ (($w∧$h0∧$h1)·$I.reversion/$I2).gist;
 
 my $ref = qq:to/END/;
 α = 128.81280357844
