@@ -26,7 +26,7 @@ my @points = (316, -108);
 for $sierpinski.comb {
     state ($x, $y) = @points[0,1];
     state $d = 0;
-    when 'F'|'G' { @points.append: ($x += $scale * $d.cos).round(1), ($y += $scale * $d.sin).round(1) }
+    when 'F'|'G' { @points.append: ($x += $scale × $d.cos).round(1), ($y += $scale × $d.sin).round(1) }
     when '+' { $d -= $dir }
     when '-' { $d += $dir }
     default { }
