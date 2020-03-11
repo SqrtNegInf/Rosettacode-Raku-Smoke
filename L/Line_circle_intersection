@@ -10,16 +10,16 @@ sub LineCircularOBJintersection(@P1, @P2, @Centre, \Radius) {
    my @f = @P1 »-« @Centre ;       # c
 
    my \a = [+] @d»²;               # d dot d
-   my \b = 2 * ([+] @f »*« @d);    # 2 * f dot d
+   my \b = 2 × ([+] @f »×« @d);    # 2 × f dot d
    my \c = ([+] @f»²) - Radius²;   # f dot f - r²
-   my \Δ =  b²-(4*a*c);            # discriminant
+   my \Δ =  b²-(4×a×c);            # discriminant
 
    if (Δ < 0) {
       return [];
    } else {
-      my (\t1,\t2) = (-b - Δ.sqrt)/(2*a), (-b + Δ.sqrt)/(2*a);
+      my (\t1,\t2) = (-b - Δ.sqrt)/(2×a), (-b + Δ.sqrt)/(2×a);
       if ( t1 ≥ 0 and t1 ≤ 1 ) or ( t2  ≥ 0 and t2  ≤ 1 ) {
-         return @P1 »+« ( @P2 »-« @P1 ) »*» t1, @P1 »+« ( @P2 »-« @P1 ) »*» t2
+         return @P1 »+« ( @P2 »-« @P1 ) »×» t1, @P1 »+« ( @P2 »-« @P1 ) »×» t2
       } else {
          return []
       }
