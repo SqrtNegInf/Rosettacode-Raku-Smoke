@@ -1,14 +1,14 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sort_numbers_lexicographically
-#c# 2020-03-10 <RC
+#c# 2018-07-25 <RC, 2020-03-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 my @res;
 
-sub lex (Real $n, $step is copy = 1) {
-    $n < 1 ?? ($n, * + $step … * + $step > 1).sort: ~*
-    !!        ($n, * - $step … * - $step < 1).sort: ~*
+sub lex (Real $n, $step = 1) {
+    ($n < 1 ?? ($n, * + $step …^ * > 1)
+            !! ($n, * - $step …^ * < 1)).sort: ~*
 }
 
 for 13, 21, -22, (6, .333), (-4, .25), (-5*π, e) {
