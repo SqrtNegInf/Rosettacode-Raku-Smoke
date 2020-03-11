@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Line_circle_intersection
-#c# 2020-03-09 <RC
+#c# 2020-03-09 <RC, 2020-03-11 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -14,12 +14,14 @@ sub LineCircularOBJintersection(@P1, @P2, @Centre, \Radius) {
    my \c = ([+] @f»²) - Radius²;   # f dot f - r²
    my \Δ =  b²-(4×a×c);            # discriminant
 
-   if (Δ < 0) {
-      return [];
+   if Δ < 0 {
+      return; # [];
    } else {
       my (\t1,\t2) = (-b - Δ.sqrt)/(2×a), (-b + Δ.sqrt)/(2×a);
-      if ( t1 ≥ 0 and t1 ≤ 1 ) or ( t2  ≥ 0 and t2  ≤ 1 ) {
-         return @P1 »+« ( @P2 »-« @P1 ) »×» t1, @P1 »+« ( @P2 »-« @P1 ) »×» t2
+      #if ( t1 ≥ 0 and t1 ≤ 1 ) or ( t2  ≥ 0 and t2  ≤ 1 ) {
+         #return @P1 »+« ( @P2 »-« @P1 ) »×» t1, @P1 »+« ( @P2 »-« @P1 ) »×» t2
+      if 0 ≤ t1|t2 ≤ 1 {
+         return (@P1 xx 2) »+« (( @P2 »-« @P1 ) xx 2) »×» (t1, t2);
       } else {
          return []
       }
@@ -27,14 +29,14 @@ sub LineCircularOBJintersection(@P1, @P2, @Centre, \Radius) {
 }
 
 my \DATA = [
-   [  <-10 11 > ,  < 10 -9 > , < 3 -5 > , 3 ],
-   [  <-10 11 > ,  <-11 12>  , < 3 -5 > , 3],
-   [  <3 -2 >  ,  <7 -2>  , < 3 -5 > , 3],
-   [  <3 -2 >  ,  <7 -2>  , < 0 0> , 4],
-   [  <0 -3 >  ,  <0 6>  , < 0 0> , 4],
-   [  <6 3 >  ,  <10 7>  , < 4 2> , 5],
-   [  <7 4 >  ,  <11 18>  , < 4 2> , 5],
-   [ <5 2 −2.26 > , <0.77 2 4 > , <1 4 0 > , 4]
+   [ <-10 11>, < 10 -9>, <3 -5>, 3 ],
+   [ <-10 11>, <-11 12>, <3 -5>, 3 ],
+   [ <  3 -2>, <  7 -2>, <3 -5>, 3 ],
+   [ <  3 -2>, <  7 -2>, <0  0>, 4 ],
+   [ <  0 -3>, <  0  6>, <0  0>, 4 ],
+   [ <  6  3>, < 10  7>, <4  2>, 5 ],
+   [ <  7  4>, < 11 18>, <4  2>, 5 ],
+   [ <5  2 −2.26 >, <0.77 2 4>, <1 4 0>, 4 ]
 ];
 
 for DATA {
