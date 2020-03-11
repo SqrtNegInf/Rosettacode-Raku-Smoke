@@ -19,9 +19,11 @@ sub LineCircularOBJintersection(@P1, @P2, @Centre, \Radius) {
    } else {
       my (\t1,\t2) = (-b - Δ.sqrt)/(2×a), (-b + Δ.sqrt)/(2×a);
       #if ( t1 ≥ 0 and t1 ≤ 1 ) or ( t2  ≥ 0 and t2  ≤ 1 ) {
-         #return @P1 »+« ( @P2 »-« @P1 ) »×» t1, @P1 »+« ( @P2 »-« @P1 ) »×» t2
       if 0 ≤ t1|t2 ≤ 1 {
-         return (@P1 xx 2) »+« (( @P2 »-« @P1 ) xx 2) »×» (t1, t2);
+        #return @P1 »+« ( @P2 »-« @P1 ) »×» t1, @P1 »+« ( @P2 »-« @P1 ) »×» t2 # original
+        #return (@P1 xx 2) »+« (( @P2 »-« @P1 ) xx 2) »×» (t1, t2);            # duplicate elements
+        #return map { @P1 »+« (@P2 »-« @P1) »×» $_ }, t1, t2;                  # use 'map'
+         return (t1,t2).map: @P1 »+« (@P2 »-« @P1) »×» *;                      # use 'map', items that vary up front
       } else {
          return []
       }
