@@ -1,0 +1,79 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Graph_colouring
+#t# inprogress
+#c# 2020-03-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+srand 123456;
+
+sub GraphNodeColor(@RAW) {
+   my %OneMany = my %NodeColor = ();
+   for @RAW { %OneMany{$_[0]}.push: $_[1] ; %OneMany{$_[1]}.push: $_[0] }
+   my @ColorPool = "0", "1" ... %OneMany.elems-2; # as string
+   my %NodePool  = %OneMany.keys.SetHash;
+   if %OneMany<Nil>:exists { # skip islanders for now
+      %NodePool{$_}:delete for @(%OneMany<Nil>);
+      %NodePool<Nil>:delete;
+   }
+   while %NodePool.keys.Bool {
+      my $color = @ColorPool.grab;
+      my %TempPool = %NodePool;
+      while (my \n = %TempPool.keys.sort.pick)  {
+         %NodeColor{n} = $color;
+         %TempPool{n}:delete;
+         %TempPool{$_}:delete for @(%OneMany{n}) ; # skip neighbors as well
+         %NodePool{n}:delete;
+      }
+   }
+   if %OneMany<Nil>:exists {  # islanders use an existing color
+      %NodeColor{$_} = %NodeColor.values.pick for @(%OneMany<Nil>);
+   }
+   return %NodeColor
+}
+
+my \DATA = [
+   [<0 1>,<1 2>,<2 0>,<3 Nil>,<Nil 4>,<5 Nil>],
+   [<1 6>,<1 7>,<1 8>,<2 5>,<2 7>,<2 8>,<3 5>,<3 6>,<3 8>,<4 5>,<4 6>,<4 7>],
+   [<1 4>,<1 6>,<1 8>,<3 2>,<3 6>,<3 8>,<5 2>,<5 4>,<5 8>,<7 2>,<7 4>,<7 6>],
+   [<1 6>,<7 1>,<8 1>,<5 2>,<2 7>,<2 8>,<3 5>,<6 3>,<3 8>,<4 5>,<4 6>,<4 7>],
+];
+
+for DATA {
+   @res.push: "DATA   : "~ $_;
+   @res.push: "Result : "~ (my %output = GraphNodeColor $_).sort.gist;
+   @res.push: "Nodes  : "~ %output.keys.elems;
+   @res.push: "Edges  : "~ $_.elems;
+   @res.push: "Colors : "~ %output.values.Set.elems;
+}
+
+.say for @res;
+exit;
+
+my $ref = q:to/END/;
+DATA   : 0 1 1 2 2 0 3 Nil Nil 4 5 Nil
+Result : (0 => 0 1 => 4 2 => 2 3 => 4 4 => 2 5 => 4)
+Nodes  : 6
+Edges  : 6
+Colors : 3
+DATA   : 1 6 1 7 1 8 2 5 2 7 2 8 3 5 3 6 3 8 4 5 4 6 4 7
+Result : (1 => 6 2 => 6 3 => 6 4 => 6 5 => 4 6 => 4 7 => 4 8 => 4)
+Nodes  : 8
+Edges  : 12
+Colors : 2
+DATA   : 1 4 1 6 1 8 3 2 3 6 3 8 5 2 5 4 5 8 7 2 7 4 7 6
+Result : (1 => 2 2 => 0 3 => 2 4 => 0 5 => 2 6 => 0 7 => 2 8 => 0)
+Nodes  : 8
+Edges  : 12
+Colors : 2
+DATA   : 1 6 7 1 8 1 5 2 2 7 2 8 3 5 6 3 3 8 4 5 4 6 4 7
+Result : (1 => 4 2 => 4 3 => 4 4 => 4 5 => 6 6 => 6 7 => 6 8 => 6)
+Nodes  : 8
+Edges  : 12
+Colors : 2
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
