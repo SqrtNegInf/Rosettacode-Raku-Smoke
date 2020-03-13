@@ -1,7 +1,7 @@
 #!/bin/sh
 ## sometimes need to reinstall all modules…
 # to find modules in use:
-# gr '^use.*;$' | pf 's/^.*?://' | pg -v '^use (v6|nqp|lib)' | pg -v '(MONKEY|experimental|Binary)' | sortcnt
+# gr '^\s*use .*;$' | pf 's/^.*?:\d+://;s/^\s+//' | pg -v '^use (v6|nqp|lib)' | pg -v '(MONKEY|experimental|Binary|:from)' | sortcnt
 #
 # faking it seems to work fine:
 # ln -s libxxhash.0.6.5.dylib libxxhash.0.7.0.dylib
@@ -14,6 +14,7 @@ zef --/test install Gumbo
 zef --/test install GTK::Simple
 zef --/test install HTTP::UserAgent
 zef --/test install Inline::Perl5
+zef --/test install IO::Socket::Async::SSL
 zef --/test install LWP::Simple
 zef --/test install Lingua::EN::Numbers::Cardinal
 zef --/test install Math::Primesieve
@@ -26,7 +27,8 @@ zef --/test install SVG::Plot
 zef --/test install Text::CSV
 zef --/test install UNIX::Daemonize
 zef --/test install X11::libxdo
-zef --/test install Math::Matrix  # wedged: 'Cannot modify an immutable Rat (3.142857)', 'cannot find Math::Matrix::Type'
+#zef --/test install Math::Matrix  # wedged: 'Cannot modify an immutable Rat (3.142857)', 'cannot find Math::Matrix::Type'
+zef --force-test --force-install install https://github.com/pierre-vigier/Perl6-Math-Matrix.git
 
 #zef install Crypt::Random
 
@@ -34,6 +36,7 @@ zef install Bench
 zef install Cairo
 zef install Clifford
 zef install Cro::HTTP
+zef install Cro::HTTP::Router
 #zef install DBIish
 zef install DateTime::Format
 zef install Debugger::UI::CommandLine
@@ -58,11 +61,14 @@ zef install JSON::Tiny
 zef install LibXML
 zef install Linenoise
 zef install Lingua::EN::Numbers
+zef install Log::Syslog::Native
+zef install Migration::RTtoGithub
 zef install NCurses
 #zef install NativeCall  # obsolete here?
 zef install P5pack
 zef install PerlStore::FileStore
 zef install Pod::To::HTML
+zef install Audio::PortAudio
 zef install Prime::Factor
 zef install Rat::Precise
 zef install SDL2::Raw
@@ -75,6 +81,7 @@ zef install Terminal::ANSIColor
 zef install Terminal::Caca;
 zef install Test::Output
 zef install Text::CSV
+zef install TrigPi
 zef install URI
 zef install WWW
 zef install XML
