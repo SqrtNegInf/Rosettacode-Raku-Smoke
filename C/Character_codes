@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Character_codes
-#c# 2019-11-07 <RC, 2019-11-09 <RC
+#c# 2019-11-07 <RC, 2019-11-09 <RC, 2020-03-12 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -11,6 +11,8 @@ for 'AΑА𪚥🇺🇸👨‍👩‍👧‍👦'.comb {
     [ 'Character',
       'Character name',
       'Unicode property',
+      'Unicode script',
+      'Unicode block',
       'Ordinal(s)',
       'Hex ordinal(s)',
       'UTF-8',
@@ -22,7 +24,9 @@ for 'AΑА𪚥🇺🇸👨‍👩‍👧‍👦'.comb {
     Z
     [ $_,
       .uninames.join(', '),
-      .uniprops,
+      .uniprops.join(', '),
+      .uniprops('Script').join(', '),
+      .uniprops('Block').join(', '),
       .ords,
       .ords.fmt('0x%X'),
       .encode('utf8'   )».fmt('%02X'),
@@ -40,6 +44,8 @@ my $ref = q:to/END/;
             Character: A
        Character name: LATIN CAPITAL LETTER A
      Unicode property: Lu
+       Unicode script: Latin
+        Unicode block: Basic Latin
            Ordinal(s): 65
        Hex ordinal(s): 0x41
                 UTF-8: 41
@@ -51,6 +57,8 @@ Round trip by ordinal: A
             Character: Α
        Character name: GREEK CAPITAL LETTER ALPHA
      Unicode property: Lu
+       Unicode script: Greek
+        Unicode block: Greek and Coptic
            Ordinal(s): 913
        Hex ordinal(s): 0x391
                 UTF-8: CE 91
@@ -62,6 +70,8 @@ Round trip by ordinal: Α
             Character: А
        Character name: CYRILLIC CAPITAL LETTER A
      Unicode property: Lu
+       Unicode script: Cyrillic
+        Unicode block: Cyrillic
            Ordinal(s): 1040
        Hex ordinal(s): 0x410
                 UTF-8: D0 90
@@ -73,6 +83,8 @@ Round trip by ordinal: А
             Character: 𪚥
        Character name: CJK UNIFIED IDEOGRAPH-2A6A5
      Unicode property: Lo
+       Unicode script: Han
+        Unicode block: CJK Unified Ideographs Extension B
            Ordinal(s): 173733
        Hex ordinal(s): 0x2A6A5
                 UTF-8: F0 AA 9A A5
@@ -83,7 +95,9 @@ Round trip by ordinal: 𪚥
 
             Character: 🇺🇸
        Character name: REGIONAL INDICATOR SYMBOL LETTER U, REGIONAL INDICATOR SYMBOL LETTER S
-     Unicode property: So So
+     Unicode property: So, So
+       Unicode script: Common, Common
+        Unicode block: Enclosed Alphanumeric Supplement, Enclosed Alphanumeric Supplement
            Ordinal(s): 127482 127480
        Hex ordinal(s): 0x1F1FA 0x1F1F8
                 UTF-8: F0 9F 87 BA F0 9F 87 B8
@@ -94,7 +108,9 @@ Round trip by ordinal: 🇺🇸
 
             Character: 👨‍👩‍👧‍👦
        Character name: MAN, ZERO WIDTH JOINER, WOMAN, ZERO WIDTH JOINER, GIRL, ZERO WIDTH JOINER, BOY
-     Unicode property: So Cf So Cf So Cf So
+     Unicode property: So, Cf, So, Cf, So, Cf, So
+       Unicode script: Common, Inherited, Common, Inherited, Common, Inherited, Common
+        Unicode block: Miscellaneous Symbols and Pictographs, General Punctuation, Miscellaneous Symbols and Pictographs, General Punctuation, Miscellaneous Symbols and Pictographs, General Punctuation, Miscellaneous Symbols and Pictographs
            Ordinal(s): 128104 8205 128105 8205 128103 8205 128102
        Hex ordinal(s): 0x1F468 0x200D 0x1F469 0x200D 0x1F467 0x200D 0x1F466
                 UTF-8: F0 9F 91 A8 E2 80 8D F0 9F 91 A9 E2 80 8D F0 9F 91 A7 E2 80 8D F0 9F 91 A6
