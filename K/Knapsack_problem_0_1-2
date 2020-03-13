@@ -1,69 +1,71 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Knapsack_problem/0-1
-#c# 2019-01-24 >RC
+#c# 2017-02-12 <RC, 2020-03-12 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
 
-# The dynamic programming solution from Wikipedia.
+my @res;
 
-my $raw = qq:to/TABLE/;
-map			9	150
-compass			13	35
-water			153	200
-sandwich		50	160
-glucose			15	60
-tin			68	45
-banana			27	60
-apple			39	40
-cheese			23	30
-beer			52	10
-suntancream		11	70
-camera			32	30
-T-shirt			24	15
-trousers		48	10
-umbrella		73	40
-waterproof trousers	42	70
-waterproof overclothes	43	75
-note-case		22	80
-sunglasses		7	20
-towel			18	12
-socks			4	50
-book			30	10
+my $raw = q:to/TABLE/;
+    map                      9  150
+    compass                 13   35
+    water                  153  200
+    sandwich                50  160
+    glucose                 15   60
+    tin                     68   45
+    banana                  27   60
+    apple                   39   40
+    cheese                  23   30
+    beer                    52   10
+    suntancream             11   70
+    camera                  32   30
+    T-shirt                 24   15
+    trousers                48   10
+    umbrella                73   40
+    waterproof trousers     42   70
+    waterproof overclothes  43   75
+    note-case               22   80
+    sunglasses               7   20
+    towel                   18   12
+    socks                    4   50
+    book                    30   10
 TABLE
 
 my (@name, @weight, @value);
 
-for split(["\n", /\t+/], $raw, :skip-empty) -> $n,$w,$v {
-    @name.push:  $n;
+for $raw.lines.sort({-($_ ~~ m/\d+/)}).comb(/\S+[\s\S+]*/) -> $n, $w, $v {
+    @name.push:   $n;
     @weight.push: $w;
     @value.push:  $v;
 }
 
-my $max_weight = 400;
+my $sum = 400;
 
-my @p = [Nil xx $max_weight+2 ] xx @name;
+my @subset;
 
-sub optimal ($i, $w) {
-    return [0, []] if $i < 0;
-    return |@p[$i][$w] if @p[$i][$w];
+sub optimal ($item, $sub-sum) {
+    return 0, [] if $item < 0;
+    return |@subset[$item][$sub-sum] if @subset[$item][$sub-sum];
 
-    if @weight[$i] > $w {
-        @p[$i][$w] = optimal($i-1, $w);
+    my @next = optimal($item-1, $sub-sum);
+
+    if @weight[$item] > $sub-sum {
+        @subset[$item][$sub-sum] = @next
     } else {
-        my @x = optimal($i-1, $w);
-        my @y = optimal($i-1, $w - @weight[$i]);
+        my @skip = optimal($item-1, $sub-sum - @weight[$item]);
 
-        if (@x[0] > @y[0] + @value[$i] ) {
-            @p[$i][$w] = @x;
+        if (@next[0] > @skip[0] + @value[$item] ) {
+            @subset[$item][$sub-sum] = @next;
         } else {
-            @p[$i][$w] = @y[0] + @value[$i], [|@y[1], @name[$i]];
+            @subset[$item][$sub-sum] = @skip[0] + @value[$item], [|@skip[1], @name[$item]];
         }
     }
-    return |@p[$i][$w]
+
+    |@subset[$item][$sub-sum]
 }
 
-my @solution = optimal(-1+@name, $max_weight);
-say my $result = "@solution[0]: " ~ join ' ', @solution[1];
+my @solution = optimal(@name.end, $sum);
+say my $result = "@solution[0]: " ~ @solution[1].sort.join(', ');
 
 use Test;
-is $result, '1030: map compass water sandwich glucose banana suntancream waterproof trousers waterproof overclothes note-case sunglasses socks'; 
+is $result, '1030: banana, compass, glucose, map, note-case, sandwich, socks, sunglasses, suntancream, water, waterproof overclothes, waterproof trousers';
