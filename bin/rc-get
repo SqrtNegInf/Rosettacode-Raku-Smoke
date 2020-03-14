@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl
-## download a RC page, extract Perl 6 entry
-#c# 2015-10-22 2015-11-03 2016-08-01 2018-03-30 2018-03-31 2018-04-05
+## download a RC page, extract Raku entry
+#c# 2015-10-22 2015-11-03 2016-08-01 2018-03-30 2018-03-31 2018-04-05 2020-03-13
 
 use utf8;
 binmode STDOUT, ":utf8";
@@ -28,31 +28,30 @@ system "mv $f $f.1"
 
 $w =~ s/'/\\'/g;
 
-#my $perl6 = `cat _download.html | perl -0 -npe 's/^.*id="Perl_6".(.*?)<h2>.*/\$1/s; s/&#160;/ /sg;s#<br */>#<br/>\\n#sg' | strip-html - `;
-my $perl6 = `curl -s -o - 'http://rosettacode.org/wiki/$w' | tee _download.html | perl -0 -npe 's/^.*id="Perl_6".(.*?)<h2>.*/\$1/s; s/&#160;/ /sg;s#<br */>#<br/>\\n#sg' | strip-html - `;
-die "No text!" if $perl6 =~ /currently no text/i;
+my $raku = `curl -s -o - 'http://rosettacode.org/wiki/$w' | tee _download.html | perl -0 -npe 's/^.*id="Raku".(.*?)<h2>.*/\$1/s; s/&#160;/ /sg;s#<br */>#<br/>\\n#sg' | strip-html - `;
+die "No text!" if $raku =~ /currently no text/i;
 
-$perl6 =~ s/^Perl 6\[edit\]//;
-$perl6 =~ s/Works with/# Works with/ms;
-$perl6 =~ s/\xA0//g;
-$perl6 =~ s/PerlÂ/Perl /g;
-$perl6 =~ s/\n\s+\n/\n\n/msg;
+$raku =~ s/^Raku\[edit\]//;
+$raku =~ s/Works with/# Works with/ms;
+$raku =~ s/\xA0//g;
+$raku =~ s/PerlÂ/Perl /g;
+$raku =~ s/\n\s+\n/\n\n/msg;
 
 my $ymd = `date +%Y-%m-%d`; chomp $ymd;
 my $ym  = `date +%Y.%m`; chomp $ym;
 
 open F, ">$f";
 print F <<EOP;
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/$w
 #c# $ymd <RC
 #m# MOAR: BROKEN OK
 #j# JVM:  BROKEN OK
-#  {{Works with|rakudo|$ym}} or {{broken|Perl 6}}  
+#  {{Works with|rakudo|$ym}} or {{broken|Raku}}  
 
 my \@res;
 
-$perl6
+$raku
 
 END
 
