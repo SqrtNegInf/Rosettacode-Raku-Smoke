@@ -16,7 +16,8 @@ my %langs = (
 'Kotlin' => 'Ko',
 'Perl'   => 'P5',
 'Perl_5' => 'P5',
-'Perl_6' => 'P6',
+#'Perl_6' => 'P6',
+'Raku'   => 'P6',
 'Phix'   => 'Ph',
 'Python' => 'Py',
 'Racket' => 'Ra',
@@ -33,7 +34,8 @@ for %langs.keys -> $lang {
 }
 
 for %impl.keys -> $lang { 
-    %h{$_}.push: ($lang ~ ('_5' if $lang eq 'Perl')) for %impl{$lang}.List 
+    %h{$_}.push: $lang for %impl{$lang}.List 
+    #%h{$_}.push: ($lang ~ ('_5' if $lang eq 'Perl')) for %impl{$lang}.List 
 }
 
 #spurt "yyy.json", to-json(%h); exit;
