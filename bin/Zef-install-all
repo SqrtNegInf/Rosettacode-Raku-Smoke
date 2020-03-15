@@ -9,6 +9,8 @@
 zef install p6doc;
 
 zef --/test install ArrayHash
+zef --/test install Audio::PortAudio
+zef --/test install Audio::Sndfile
 zef --/test install Digest::xxHash
 zef --/test install Gumbo
 zef --/test install GTK::Simple
@@ -17,6 +19,8 @@ zef --/test install Inline::Perl5
 zef --/test install IO::Socket::Async::SSL
 zef --/test install LWP::Simple
 zef --/test install Lingua::EN::Numbers::Cardinal
+#zef --/test install Math::Matrix  # wedged: 'Cannot modify an immutable Rat (3.142857)', 'cannot find Math::Matrix::Type'
+zef --force-test --force-install install https://github.com/pierre-vigier/Perl6-Math-Matrix.git
 zef --/test install Math::Primesieve
 zef --/test install Modular
 zef --/test install Net::DNS
@@ -27,8 +31,6 @@ zef --/test install SVG::Plot
 zef --/test install Text::CSV
 zef --/test install UNIX::Daemonize
 zef --/test install X11::libxdo
-#zef --/test install Math::Matrix  # wedged: 'Cannot modify an immutable Rat (3.142857)', 'cannot find Math::Matrix::Type'
-zef --force-test --force-install install https://github.com/pierre-vigier/Perl6-Math-Matrix.git
 
 #zef install Crypt::Random
 
@@ -68,7 +70,6 @@ zef install NCurses
 zef install P5pack
 zef install PerlStore::FileStore
 zef install Pod::To::HTML
-zef install Audio::PortAudio
 zef install Prime::Factor
 zef install Rat::Precise
 zef install SDL2::Raw
