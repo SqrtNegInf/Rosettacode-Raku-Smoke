@@ -30,7 +30,9 @@ for @freq.kv -> $i, @l {
 }
 .say for @res;
 
+say "freq: " ~ +@freq;
+
 use Test;
-ok 700 < +@freq;
-@res.join("\n") ~~ m/(\d+) ' - Perl 6'/;
-ok 1050 ≤ +$0;
+ok 740 < +@freq;
+@res.join("\n") ~~ m/(\d+) ' - Raku'/;
+ok 1180 ≤ +$0;
