@@ -12,7 +12,7 @@ use URI::Escape;
 use JSON::Fast;
 use Sort::Naturally;
 
-unit sub MAIN( Str :$lang = 'Perl_6' );
+unit sub MAIN( Str :$lang = 'Raku' );
 
 my $client = HTTP::UserAgent.new;
 my $url = 'http://rosettacode.org/mw';
