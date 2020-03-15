@@ -3,6 +3,7 @@
 #c# 2017-01-16 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 2020-03-14 I for one welcome our new Raku overlords
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -49,8 +50,8 @@ sub uri-encode ($str) {
 }
 
 use Test;
-@res.join("\n") ~~ m/ (\d+) ' - Perl 6'/;
-ok 1050 ≤ +$0;  # since Perl 6 usage will only go up...
+@res.join("\n") ~~ m/ (\d+) ' - Raku'/;
+ok 1180 ≤ +$0;  # since Raku usage will only go up...
 
 #`<
   1. 1006 - Kotlin
