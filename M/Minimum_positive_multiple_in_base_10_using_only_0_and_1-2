@@ -18,7 +18,7 @@ sub Ed-Pegg-jr (\n) {
             @dig-mod[k] = i if @dig-mod[j] and @dig-mod[j] != i and !@dig-mod[k];
         }
         @dig-mod[$power-mod-n + 1] ||= i;
-        ($power-mod-n *= 10) %= n;
+        ($power-mod-n ×= 10) %= n;
         last if @dig-mod[1];
     }
     my ($b10, $remainder) = '', n;
