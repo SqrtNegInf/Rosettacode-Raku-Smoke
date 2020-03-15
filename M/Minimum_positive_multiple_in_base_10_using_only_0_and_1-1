@@ -21,15 +21,15 @@ sub b10 (Int \n where * > -1) {
     my $five = +@factors.grep: * == 5;
     my $this;
     if $two { # Special handling for n with prime factor 2 (and 5)
-        my $rest = [*] @factors.grep: * != 2|5;
+        my $rest = [×] @factors.grep: * != 2|5;
         $this = (@b10[$rest] //= b10($rest)) ~ '0' x ($two max $five);
     }
     elsif $five { # Special handling for n with prime factor 5
-        my $rest = [*] @factors.grep: * != 5;
+        my $rest = [×] @factors.grep: * != 5;
         $this = (@b10[$rest] //= b10($rest)) ~ '0' x $five;
     }
     elsif n !~~ /<-[9]>/ { # Special handling for n that contains only digits 9
-        $this = @b10[n] //= 1 x n.chars * 9
+        $this = @b10[n] //= 1 x n.chars × 9
     }
     elsif n > 1500 and n %% 9 { # Special handling for multiples of 9, not worth it for less than ~1500
         $this = @b10[n] //= stringy(n);
