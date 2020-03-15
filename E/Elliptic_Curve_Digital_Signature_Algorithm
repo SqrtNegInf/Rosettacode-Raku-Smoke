@@ -79,8 +79,7 @@ class Signature {
       #my \z = :16((sha256 msg).list>>.&{"%02s".sprintf(.base(16))}.join) % $.n;
       my \z = :16(sha256-hex msg) % $.n;
       my \w = mult_inv s, :modulo($.n);
-      #my (\u1,\u2) = (z×w, r×w)>>.&{ $_ % $.n }
-       my (\u1,\u2) = (z*w, r*w).map: { $_ % $.n }
+      my (\u1,\u2) = (z×w, r×w)>>.&{ $_ % $.n }
       my \p = (u1 ⊠ $.G ) ⊞ (u2 ⊠ public_key);
       return (p.x % $.n) == (r % $.n)
    }
