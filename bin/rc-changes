@@ -33,7 +33,7 @@ while (<RC>) {
     $new = ' ' if $line eq $checkpt;    # stop marking as 'new'
     $ooo = out_of_order();
     print "$new $ooo $line";
-    last if 300 < $cnt++;                # just show recent updates
+    last if 30 < $cnt++;                # just show recent updates
     $prev = $line;
 }
 
