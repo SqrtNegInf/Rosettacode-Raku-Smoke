@@ -2,6 +2,7 @@
 ## display tasks implemented, for selected languages (for now, the members of the '1000' club [as of late 2019])
 #  David H.  Fri Sep 13 16:05:56 PDT 2019
 ## not a race, not a race, not a race...
+## 2020-03-14 P6 -> Raku
 
 use HTTP::UserAgent;
 use URI::Escape;
@@ -15,9 +16,9 @@ my %langs = (
 'Julia'  => 'Ju',
 'Kotlin' => 'Ko',
 'Perl'   => 'P5',
-'Perl_5' => 'P5',
+#'Perl_5' => 'P5',
+'Raku'   => 'Rk',
 #'Perl_6' => 'P6',
-'Raku'   => 'P6',
 'Phix'   => 'Ph',
 'Python' => 'Py',
 'Racket' => 'Ra',
@@ -29,7 +30,7 @@ my %langs = (
 
 my (%impl,%h);
 for %langs.keys -> $lang { 
-    next if $lang eq 'Perl_5'; 
+#    next if $lang eq 'Perl_5'; 
     %impl{$lang} = get-cat $lang; 
 }
 
@@ -41,7 +42,7 @@ for %impl.keys -> $lang {
 #spurt "yyy.json", to-json(%h); exit;
 #my $xyz = slurp "yyy.json"; my %h = from-json($xyz);
 
-%langs{'Perl'}:delete;
+#%langs{'Perl'}:delete;
 
 for %h.keys.sort: { %h{$^b}.elems > %h{$^a}.elems }  {
     next if %h{$_}.elems == +%langs.keys or /Category:/;
