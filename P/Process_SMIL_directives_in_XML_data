@@ -41,7 +41,7 @@ for 0, 2, 4 -> $t { # task requires 0 & 2 only
    for %Parents.kv -> $k,$v {
       my @incre = ($v.to »-« $v.from) »/» $v.dur; # increment list
       with $clone.find("//$k") { # moving attribute = @from + @increment*$t
-         .attribs{%Parents{$_.name}.todo} = $v.from »+« @incre »*» $t;
+         .attribs{%Parents{$_.name}.todo} = $v.from »+« @incre »×» $t;
          .removeChild($_); #  ditch <animate> and friends
       }
    }
