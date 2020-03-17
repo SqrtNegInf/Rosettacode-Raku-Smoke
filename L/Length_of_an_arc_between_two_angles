@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Length_of_an_arc_between_two_angles
+#c# 2020-03-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub arc ( \r, \a1, \a2 ) { r × (τ - abs(a2 - a1)) }
+sub postfix:<°> (\d) { d × τ / 360 }
+
+say my $result = arc(10, 10°, 120°) ~ ' engineering units';
+
+my $ref = q:to/END/;
+43.63323129985824 engineering units
+END
+
+use Test;
+is $result, chomp $ref;
