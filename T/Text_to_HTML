@@ -1,10 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Text_to_HTML
-#c# 2019-12-07 <RC
+#c# 2019-12-07 <RC, 2020-03-16 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for JVM: put needed ecosystem modules in 'lib', but fails anyhow:
 #n# Method 'slurp' not found for invocant of class 'Slip', Pod::To::HTML) line 200
+#n# <link rel="stylesheet" href="//design.raku.org/perl.css"> # but NOT 'raku.css'
 
 use Pod::To::HTML;
 #use HTML::Escape;
@@ -127,7 +128,7 @@ my $ref = q:to/END/;
         aside, u { opacity: 0.7 }
         a[id^="fn-"]:target { background: #ff0 }
         </style>
-        <link rel="stylesheet" href="//design.perl6.org/perl.css">
+        <link rel="stylesheet" href="//design.raku.org/perl.css">
         
         
     </head>
