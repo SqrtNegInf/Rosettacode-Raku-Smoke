@@ -10,19 +10,6 @@ my(%P);
 
 print `$ENV{HOME}/.rakudobrew/shims/perl6 -v`; 
 
-# update only once a day
-if (.95 < -M "Category:Programming_Tasks") {
-print "updating from RC...\n";
-system <<"END";
-mv Category:Programming_Tasks Category:Programming_Tasks~
-mv Category:Draft_Programming_Tasks Category:Draft_Programming_Tasks~
-mv Reports:Tasks_not_implemented_in_Perl_6 Reports:Tasks_not_implemented_in_Perl_6~
-/opt/local/bin/curl -s -O http://rosettacode.org/wiki/Category:Programming_Tasks
-/opt/local/bin/curl -s -O http://rosettacode.org/wiki/Category:Draft_Programming_Tasks
-/opt/local/bin/curl -s -O http://rosettacode.org/wiki/Reports:Tasks_not_implemented_in_Perl_6
-END
-}
-
 sub path { return $_[0] =~ /^([A-Z])/ ? "$1/" : '0/' }
 
 ## characterize RC tasks
@@ -36,7 +23,7 @@ open D, "<Category:Draft_Programming_Tasks";
 while ($_ = <D>) { examine($_); mark($_,'D') }
 
 # un-implemented (no code) or un-reliable (marked broken at RC)
-open U, "<Reports:Tasks_not_implemented_in_Perl_6";
+open U, "<Reports:Tasks_not_implemented_in_Raku";
 while ($_ = <U>) { mark($_,'U') }
 
 # ignored tasks from hard-coded list
