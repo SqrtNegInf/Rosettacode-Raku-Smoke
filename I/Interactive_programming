@@ -1,0 +1,16 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Interactive_programming
+#t# nocode
+#c# 2020-03-17 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# this task needs a top-to-bottom re-write
+
+#`{{
+$ rakudo/perl6
+> sub f($str1,$str2,$sep) { $str1~$sep x 2~$str2 };
+f
+> f("Rosetta","Code",":");
+Rosetta::Code
+>
+}}
