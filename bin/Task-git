@@ -16,7 +16,7 @@ for $new (`$git status | grep -v modified: | grep '^\t'`) {
     chomp $new;
     $new =~ s/^\t//;
     next unless 
-        (-X $new && `file $new` =~ /perl6 script text executable/)
+        (-X $new && `file $new` =~ /(perl6|raku) script text executable/)
         or 
         $new =~ /^(bin|docs|gh-issues)/;
     system qq[$git add $new; $git commit -m "$msg_new $new"];
