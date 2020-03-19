@@ -107,7 +107,8 @@ A simple example:
 =end pod
 POD6
 
-say my $result = render($pod6);
+my $result = render($pod6);
+#exit;
 
 # for display on Rosettacode
 #say escape-html render($pod6);
@@ -128,7 +129,7 @@ my $ref = q:to/END/;
         aside, u { opacity: 0.7 }
         a[id^="fn-"]:target { background: #ff0 }
         </style>
-        <link rel="stylesheet" href="//design.raku.org/perl.css">
+        <link rel="stylesheet" href="//design.perl6.org/perl.css">
         
         
     </head>
