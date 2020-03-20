@@ -1,11 +1,11 @@
-This is Rakudo version 2020.02.1-205-g78371bb0c built on MoarVM version 2020.02.1-47-g3c3ad0678
+This is Rakudo version 2020.02.1-207-g9429728cb built on MoarVM version 2020.02.1-47-g3c3ad0678
 implementing Raku 6.d.
-+--------------> Moar: Good/Bad [1214/13]
++--------------> Moar: Good/Bad [1216/13]
 |+-------------> JVM: Good/Bad [1039/190]
-||+------------> Smoke testing [1094]
+||+------------> Smoke testing [1097]
 |||+-----------> sKipping validation [130]
 ||||+----------> Interactive [62]
-|||||+---------> Touched (modified by me) [303]
+|||||+---------> Touched (modified by me) [304]
 ||||||+--------> Concurrent/Async [60]
 |||||||+-------> Random seed [122]
 ||||||||+------> File output [94]
@@ -297,7 +297,7 @@ GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -446,7 +446,7 @@ GGS.......... Fractran
 GGS......D... French_Republican_calendar
 GGS..T....... Function_composition
 GGS.......... Function_definition
-GG...T....... Function_frequency
+GGS..T....... Function_frequency
 ..........XV. Function_prototype
 GGS..T....... Functional_coverage_tree-1
 GG.K.T....... Functional_coverage_tree-2
@@ -472,7 +472,7 @@ GBS.......... Get_system_command_output
 GGS.....F.... Globally_replace_text_in_several_files
 GG.KIT.R..... Go_Fish
 GGS......D... Gradient_descent
-GG.....R..... Graph_colouring
+GGS....R..... Graph_colouring
 GGS.......... Gray_code
 GGS..T..F.... Grayscale_image
 GGS..T....... Greatest_common_divisor
@@ -587,7 +587,7 @@ GB.KI........ Keyboard_input_Keypress_check
 GG.KI........ Keyboard_input_Obtain_a_Y_or_N_response
 GG.KI........ Keyboard_macros
 GGS.......... Knapsack_problem_0_1-1
-GG........... Knapsack_problem_0_1-2
+GGS.......... Knapsack_problem_0_1-2
 GGS.......... Knapsack_problem_Bounded-1
 GGS..T....... Knapsack_problem_Bounded-2
 GBS.......... Knapsack_problem_Continuous
@@ -661,7 +661,7 @@ GGS..T....... Lucky_and_even_lucky_numbers
 GGS.......... Ludic_numbers
 GGS.......... Luhn_test_of_credit_card_numbers
 GBS...c...... Lychrel_numbers
-!BS.......... MAC_Vendor_Lookup
+GBS.......... MAC_Vendor_Lookup
 GGS..T....... MD4
 GGS.......... MD5
 GGS.......... MD5_Implementation
@@ -677,7 +677,7 @@ GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
 GBS.....F.... Mandelbrot_set-2
-GGS.......... Map_range
+GGS..T....... Map_range
 GGS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
 GGS.......... Matrix-exponentiation_operator
