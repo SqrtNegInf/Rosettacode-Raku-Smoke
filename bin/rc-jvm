@@ -39,7 +39,7 @@ $mode = $0 =~ /moar/i ? 'moar' : 'jvm';
 my $shim = $mode eq 'moar' ?  '-blead' : '-2019.11';
 system "rakudobrew switch $mode${shim}";
 
-chdir "$ENV{HOME}/perl6/Rosetta-Code" || die;
+chdir "$ENV{HOME}/raku/Rosetta-Code" || die;
 
 $dir = `date '+%Y-%m-%d'`; chomp $dir;
 $dir .= $mode eq 'jvm' ? '-j' : '-m';
@@ -47,7 +47,7 @@ mkdir "bench/$dir"   if ! -e "bench/$dir";
 unlink "bench/$mode" if   -e "bench/$mode";
 system qq{cd bench; symlink $dir $mode};
 
-$exe  = 'perl6';
+$exe  = 'perl6'; # don't have a 'raku-j' yet
 $exe .= $mode eq 'jvm' ? '-j -I lib ' : '-m';
 
 system "date";
@@ -67,7 +67,7 @@ for my $prog (@ARGV) {
     }
 
     @status = `head -12 $prog`;
-    next unless $status[0] =~ /env perl6/;
+    next unless $status[0] =~ /env (perl6|raku)/;
     next if grep { /^#t#.*($skip)/ } @status;
     next if $mode eq 'moar' && grep { /^#m#.*BROKEN/i } @status;
     #next if $mode eq 'jvm'  && grep { /^#j#.*BROKEN/i } @status; # always run to see if now un-breaks
