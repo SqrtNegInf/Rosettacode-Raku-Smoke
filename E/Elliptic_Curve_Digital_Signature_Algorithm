@@ -50,7 +50,7 @@ multi infix:<⊠>(Int \n, Point \p) {
    return ( n div 2 ) ⊠ ( p ⊞ p )
 }
  
-sub mult_inv($n, :$modulo) { # rosettacode.org/wiki/Modular_inverse#Perl_6
+sub mult_inv($n, :$modulo) { # rosettacode.org/wiki/Modular_inverse
    my ($c, $d, $uc, $vd, $vc, $ud, $q) = $n % $modulo, $modulo, 1, 1, 0, 0, 0;
    while $c != 0 {
       ($q, $c, $d) = ($d div $c, $d % $c, $c);
