@@ -704,6 +704,7 @@ File: A/Assertions
 #c# 2020-01-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# pugs/macro obsolete, remove from RC?
 
 File: A/Assertions_in_design_by_contract
 #!/usr/bin/env perl6
@@ -4984,7 +4985,7 @@ File: I/Integer_sequence
 #j#  JVM: OK
 
 File: I/Interactive_Help
-#!/usr/bin/env perl6
+#!/usr/bin/env perl6 do-not-check
 #u# http://rosettacode.org/wiki/Interactive_Help
 #t# nocode
 #c# 2019-02-09 <RC
@@ -4993,7 +4994,7 @@ File: I/Interactive_Help
 #n# this entry needs a top-to-bottom re-write
 
 File: I/Interactive_programming
-#!/usr/bin/env raku
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Interactive_programming
 #t# nocode
 #c# 2020-03-17 <RC
@@ -6101,7 +6102,8 @@ File: M/Magnanimous_numbers
 #u# http://rosettacode.org/wiki/Magnanimous_numbers
 #c# 2020-03-19 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
+#n# JVM runs forever
 
 File: M/Main_step_of_GOST_28147-89
 #!/usr/bin/env perl6
