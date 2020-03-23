@@ -3,6 +3,7 @@
 #c# 2015-11-20 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 'role Logarithm' never used?
 
 #Perl 6 can't compute arbitrary large floating point values, thus we will use logarithms, as is often needed when dealing with combinations. We'll also use a Stirling method to approximate ln(n!):
 
@@ -16,19 +17,22 @@ sub lstirling(\n) {
     .5×log(2×pi×n)+ n×log(n/e+1/(12×e×n))
 }
 
+#`{{
 role Logarithm {
     method gist {
 	my $e = (self/10.log).Int;
 	sprintf "%.8fE%+d", exp(self - $e×10.log), $e;
     }
 }
+}}
+
 multi P($n, $k, :$float!) {
     (lstirling($n) - lstirling($n -$k))
-    but Logarithm
+#    but Logarithm
 }
 multi C($n, $k, :$float!) {
     (lstirling($n) - lstirling($n -$k) - lstirling($k))
-    but Logarithm
+#    but Logarithm
 }
 
 my @res;
