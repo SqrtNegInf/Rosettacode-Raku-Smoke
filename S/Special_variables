@@ -1,10 +1,110 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Special_variables
-#c# 2018-03-20 <RC
-#t# nocode
+#c# 2018-03-20 <RC, 2020-03-xx >RC
+#t# skiptest
 #m# MOAR: OK
 #j# JVM:  OK
 #n# needs clean-up, obsolete variables referenced
+
+#say  $?ARCH           ; # Host architecture
+#say  $?XARCH          ; # Target architecture
+#say  %?CONFIG         ; # configuration hash 
+#say  %?DEEPMAGIC      ; # Controls the mappings of magical names to sub definitions
+#say  $?GRAMMAR        ; # current grammar
+#say  $?KERNEL         ; # operating system compiled for
+#say  %?LANG           ; # What is the current set of interwoven languages?
+
+#say  $?SCOPE          ; # Current "my" scope
+#say  $?VM             ; # Which virtual machine am I compiling under
+#say  $?XVM            ; # Which virtual machine am I cross-compiling for
+#say  $?PERL           ; # Which Perl am I compiled for?
+
+# = twigil works, but not these hard-coded ones
+#say @=COMMENT        ; # All the comment blocks in the file
+#say $=DATA           ; # data block handle (=begin DATA ... =end)
+#say @=DATA           ; # Same as above, but array
+#say %=POD            ; # POD
+
+#say $*EGID           ; # effective group id
+#say $*EUID           ; # effective user id
+#say $*GID            ; # group id
+#say $*UID            ; # system user id
+
+#say @*INC            ; # where to search for user modules (but not std lib!)
+#say $*LANG           ; # LANG variable from %*ENV that defines what human language is used
+#say %*META-ARGS      ; # Meta-arguments
+#say %*OPTS           ; # Options from command line
+#say %*OPT            ; # Options from command line to be passed down
+#say %*PROTOCOLS      ; # Stores the methods needed for the uri() function
+
+###  below are verified good ###
+
+#say  ::?ROLE          ; # current role (as package or type name)
+
+### Dynamic ###
+
+# compile-time introspection
+say  $?PACKAGE        ; # current package
+#say  $?CLASS          ; # current class
+#say  $?MODULE         ; # current module
+#say  $?ROLE           ; # current role
+
+
+say  $?DISTRIBUTION   ; # Which OS distribution am I compiling under
+
+sub foo1 {
+say  &?ROUTINE        ; # current sub or method (itself)
+say  &?BLOCK          ; # current block (itself)
+}
+
+sub foo2 {
+say  &?ROUTINE        ; # current sub or method (itself)
+say  &?BLOCK          ; # current block (itself)
+}
+
+foo1();
+foo2();
+
+say  $?FILE           ; # current filename of source file
+say  $?LINE           ; # current line number in source file
+#say  ::?CLASS         ; # current class (as package or type name)
+
+### Run-time variables ###
+
+say $*COLLATION;  # This is a Collation object that can be used to configure Unicode collation levels.
+say $*TOLERANCE;  # Variable used by the =~= operator, and any operations that depend on it, to decide if two values are approximately equal. Defaults to 1e-15.
+say $*DEFAULT-READ-ELEMS; # Affects the number of bytes read by default by IO::Handle.read. Its default value is 65536.
+
+### Run-time environment ###
+
+say $*REPO;
+
+#say $*USAGE; #  value of the auto-generated USAGE message
+
+# not PROGRAM_NAME!!
+say $*PROGRAM-NAME   ; # path to the current executable
+say $*PROGRAM        ; # location (in the form of an IO::Path object) of the Raku program being executed.
+
+
+say @*ARGS           ; # command-line arguments
+say $*ARGFILES       ; # The magic command-line input handle
+say $*CWD            ; # current working directory
+
+say $*DISTRO         ; # Which OS distribution am I running under
+say %*ENV            ; # system environment variables
+say $*ERR            ; # Standard error handle
+# !!not   $*EXECUTABLE_NAME; # executable name
+say $*EXECUTABLE-NAME; # name of the Raku executable that is currently running
+say $*EXECUTABLE     ; # IO::Path absolute path of the Raku executable that is currently running.
+say $*IN             ; # Standard input handle; is an IO object
+say $*KERNEL         ; # operating system running under
+
+say $*OUT            ; # Standard output handle
+# !! not PERL
+say $*RAKU           ; # Raku version running under
+say $*PID            ; # system process id
+say $*TZ             ; # Local time zone
+say $*USER           ; # system user id
 
 #`{{
 # It is probably useful to briefly explain normal variables in Perl 6 before tackling special variables.
@@ -17,85 +117,4 @@
  ::foo  package/module/class/role/subset/enum/type/grammar
 
 # Sigils indicate overall interface, not the exact type of the bound object. Different sigils imply different minimal abilities. Ordinary sigils indicate normally scoped variables, either lexical or package scoped. Oddly scoped variables include a secondary sigil (a twigil) that indicates what kind of strange scoping the variable is subject to:
-
- $foo               # ordinary scoping
- $.foo              # object attribute public accessor
- $^foo              # self-declared formal positional parameter
- $:foo              # self-declared formal named parameter
- $*foo              # dynamically overridable global variable
- $?foo              # compiler hint variable
- $=foo              # Pod variable
- $<foo>             # match variable, short for $/{'foo'}
- $!foo              # object attribute private storage
- $~foo              # the foo sublanguage seen by the parser at this lexical spot
-
-# Special Variables:
-# Perl 6 has deprecated most of the "line-noise" variables from Perl 5 in favor of named variables.
-
-
- $_                # The implicit variable lexically scoped to the current block
- @_                # Implicit array of parameters to the current block. Still available but rarely used or needed with the improved sub signatures
- $!                # Current Exception object
- $/                # Last match
- $0, $1, $2...     # Captured values from match: $/[0], $/[1], $/[2] ...
- $?ARCH            # Host architecture
- $?XARCH           # Target architecture
- @*ARGS            # command-line arguments
- $*ARGFILES        # The magic command-line input handle
- &?BLOCK           # current block (itself)
- ::?CLASS          # current class (as package or type name)
- $?CLASS           # current class
- @=COMMENT         # All the comment blocks in the file
- %?CONFIG          # configuration hash 
- $*CWD             # current working directory
- $=DATA            # data block handle (=begin DATA ... =end)
- @=DATA            # Same as above, but array
- %?DEEPMAGIC       # Controls the mappings of magical names to sub definitions
- $?DISTRO          # Which OS distribution am I compiling under
- $*DISTRO          # Which OS distribution am I running under
- $*EGID            # effective group id
- %*ENV             # system environment variables
- $*ERR             # Standard error handle
- $*EUID            # effective user id
- $*EXECUTABLE_NAME # executable name
- $?FILE            # current filename of source file
- $?GRAMMAR         # current grammar
- $*GID             # group id
- $*IN              # Standard input handle; is an IO object
- @*INC             # where to search for user modules (but not std lib!)
- $?KERNEL          # operating system compiled for
- $*KERNEL          # operating system running under
- %?LANG            # What is the current set of interwoven languages?
- $*LANG            # LANG variable from %*ENV that defines what human language is used
- $?LINE            # current line number in source file
- %*META-ARGS       # Meta-arguments
- $?MODULE          # current module
- %*OPTS            # Options from command line
- %*OPT...          # Options from command line to be passed down
- $*OUT             # Standard output handle
- $?PACKAGE         # current package
- $?PERL            # Which Perl am I compiled for?
- $*PERL            # perl version running under
- $*PID             # system process id
- %=POD             # POD
- $*PROGRAM_NAME    # name of the Perl program being executed
- %*PROTOCOLS       # Stores the methods needed for the uri() function
- ::?ROLE           # current role (as package or type name)
- $?ROLE            # current role
- &?ROUTINE         # current sub or method (itself)
- $?SCOPE           # Current "my" scope
- $*TZ              # Local time zone
- $*UID             # system user id
- $?USAGE           # Default usage message generated at compile time
- $?VM              # Which virtual machine am I compiling under
- $?XVM             # Which virtual machine am I cross-compiling for
-
-# Also, not really a variable but...
-
-# *  # A standalone term that has no fixed value, instead it captures the notion of "Whatever",
-    # the meaning of which is decided lazily by whatever it is an argument to.
-    # See the "*" section of http://perlcabal.org/syn/S02.html#Built-In_Data_Types
-
 }}
-
-use Test;
