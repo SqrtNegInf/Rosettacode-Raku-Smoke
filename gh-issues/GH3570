@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/3570
+#c# 2020-03-25 open, 2020-02-xx closed 
+#n# bug source: K/Kolakoski_sequence
+#n# Rakudo version Rakudo version 2020.02.1-233-g439b86095 built on MoarVM version 2020.02.1-47-g3c3ad0678
+
+sub s () { my @A = 1, { @A[1] } ... * }; 
+s()[1];
+
+# error popped up at same time, but with a variety of error presentations:
+# Esthetic_numbers
+# Four_is_the_number_of_letters_in_the_...
+# Gauss-Jordan_matrix_inversion
+# Palindromic_gapful_numbers
+# Smarandache_prime-digital_sequence
