@@ -1,9 +1,9 @@
-This is Rakudo version 2020.02.1-239-g170add262 built on MoarVM version 2020.02.1-47-g3c3ad0678
+This is Rakudo version 2020.02.1-245-g0f97a7f5f built on MoarVM version 2020.02.1-48-gf2a52cf5d
 implementing Raku 6.d.
-+--------------> Moar: Good/Bad [1210/13]
++--------------> Moar: Good/Bad [1212/13]
 |+-------------> JVM: Good/Bad [1039/190]
-||+------------> Smoke testing [1098]
-|||+-----------> sKipping validation [129]
+||+------------> Smoke testing [1094]
+|||+-----------> sKipping validation [133]
 ||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [306]
 ||||||+--------> Concurrent/Async [60]
@@ -297,7 +297,7 @@ GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -438,7 +438,7 @@ GGS.......... Formatted_numeric_output
 GGS..T....... Forward_difference
 GGS..T....... Four_bit_adder
 GGS.......... Four_is_magic
-!GS.......... Four_is_the_number_of_letters_in_the_...
+GG.K......... Four_is_the_number_of_letters_in_the_...
 GGS.....F.... Fractal_tree
 GGS...c...... Fraction_reduction
 GGS.......... Fractran
@@ -457,7 +457,7 @@ GB.KI........ GUI_enabling_disabling_of_controls
 GGS....RF.... Galton_box_animation
 GGS.......... Gamma_function
 GGS.......... Gapful_numbers
-!GS..T...D... Gauss-Jordan_matrix_inversion
+GG.K.T...D... Gauss-Jordan_matrix_inversion
 GGS.......... Gaussian_elimination
 GGS.......... General_FizzBuzz
 GGS..T...D... Generalised_floating_point_addition
@@ -486,7 +486,7 @@ GGS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
 GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
-GBS.......... HTTPS_Client-authenticated
+!BS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
 GGS..T....... Hamming_numbers-1
 GGS.......... Hamming_numbers-2
@@ -801,7 +801,7 @@ GGS.......... Ordered_words
 GGS..T....... P-value_correction
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
-!GS...c...... Palindromic_gapful_numbers
+GG.K..c...... Palindromic_gapful_numbers
 GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
@@ -1056,7 +1056,7 @@ GG.K......... Singly-linked_list_Element_insertion
 GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
-!BS.......... Smarandache_prime-digital_sequence
+GB.K......... Smarandache_prime-digital_sequence
 GGS.......... Smith_numbers
 .........DXV. Snake
 GGS....RFD... Snake_And_Ladder
