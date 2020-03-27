@@ -1,0 +1,58 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Quoting_constructs
+#t# nocode
+#c# 2020-03-26 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+#`{{
+
+The Perl philosophy, which Raku thoroughly embraces, is that "There Is More Than One Way To Do It" (often abbreviated to TIMTOWDI). Quoting constructs is an area where this is enthusiastically espoused.
+Raku has a whole quoting specific sub-language built in called Q. Q changes the parsing rules inside the quoting structure and allows extremely fine control over how the enclosed data is parsed. Every quoting construct in Raku is some form of a Q syntactic structure, using adverbs to fine tune the desired behavior, though many of the most commonly used have some form of "shortcut" syntax for quick and easy use. Usually, when using an adverbial form, you may omit the Q: and just use the adverb.
+In general, any and all quoting structures have theoretically unlimited length, in practice, are limited by memory size, practically, it is probably better to limit them to less than a gigabyte or so, though they can be read as a supply, not needing to hold the whole thing in memory at once. They can hold multiple lines of data. How the new-line characters are treated depends entirely on any white-space adverb applied. The Q forms use some bracketing character to delimit the quoted data. Usually some Unicode bracket ( [], {}, <>, ⟪⟫, whatever,) that has an "open" and "close" bracketing character, but they may use any non-indentifier character as both opener and closer. ||, //, ??, the list goes on. The universal escape character for constructs that allow escaping is backslash "\".
+The following exposition barely scratches the surface. For much more detail see the Raku documentation for quoting constructs for a comprehensive list of adverbs and examples.
+
+The most commonly used
+
+ Q[ ], common shortcut: ｢ ｣
+ The most basic form of quoting. No interpolation, no escape sequences. What is inside is what you get. No exceptions.
+ ｢Ze backslash characters!\ \Zay do NUSSING!! \｣ -> Ze backslash characters!\ \Zay do NUSSING!! \
+
+ "Single quote" quoting. - Q:q[ ], adverbial: q[ ], common shortcut: ' '
+ No interpolation, but allow escape sequences.
+ E.G. 'Don\'t panic!' -> Don't panic!
+
+ "Double quote" quoting. - Q:qq[ ], adverbial: qq[ ], common shortcut: " "
+ Interpolates: embedded variables, logical characters, character codes, continuations.
+ E.G. "Hello $name, today is {Date.today} \c[grinning face] \n🦋" -> Hello Dave, today is 2020-03-25 😀 
+ 🦋
+ Where $name is a variable containing a name (one would imagine), {Date.today} is a continuation - a code block to be executed and the result inserted, \c[grinning face] is the literal emoji character 😀 as a character code, \n is a new-line character and 🦋 is an emoji butterfly. Allows escape sequences, and indeed, requires them when embedding data that looks like it may be an interpolation target but isn't.
+
+Every adverbial form has both a q and a qq variant to give the 'single quote' or "double quote" semantics. Only the most commonly used are listed here.
+
+ "Quote words" - Q:qw[ ], adverbial: qw[ ], common shortcut: < >
+ No interpolation, but allow escape sequences. (Inherited from the q[] escape semantics
+ E.G. < a β 3 Б 🇩🇪 >
+ Parses whatever is inside as a white-space separated list of words. Returns a list with all white space removed. Any numeric values are returned as allomorphs.
+ That list may be operated on directly with any listy operator or it may be assigned to a variable.
+ say < a β 3 Б 🇩🇪 >[*-1] # What is the last item in the list? (🇩🇪)
+ say +< a β 3 Б 🇩🇪 > # How many items are in the list? (5)
+
+ "Quote words with white space protection" - Q:qww[ ], adverbial: qww[ ]
+ May preserve white space by enclosing it in single or double quote characters, otherwise identical to qw[ ].
+ say qww< a β '3 Б' 🇩🇪 >[2] # Item 2 in the list? (3 Б)
+
+ "Double quote words" quoting. - Q:qqw[ ], adverbial: qqw[ ], common shortcut: << >> or « »
+ Interpolates similar to standard double quote, but then interprets the interpolated string as a white space separated list.
+
+ "Double quoted words with white space protection" - Q:qqww[ ], adverbial: qqww[ ]
+ Same as qqw[ ] but retains quoted white space.
+
+ "System command" - Q:qx[ ], adverbial: qx[ ]
+ Execute the string inside the construct as a system command and return the result.
+
+ "Here doc format" - Q:q:to/END/ END, adverbial: q:to/END/; END
+ Return structured text between two textual delimiters. Depending on the adverb, may or may not interpolate (same rules as other adverbial forms.) Will return the text with the same indent as the indent of the final delimiter. The text delimiter is user chosen (and is typically, though not necessarily uppercase) as is the delimiter bracket character.
+There are other adverbs to give precise control what interpolates or doesn't, that may be applied to any of the above constructs. See the doc page for details. There is another whole sub-genre dedicated to quoting regexes.
+
+}}
