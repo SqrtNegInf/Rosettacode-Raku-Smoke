@@ -1,10 +1,11 @@
 #!/usr/bin/env perl6
 #t# skiptest
 #u# https://github.com/rakudo/rakudo/issues/3570
-#c# 2020-03-25 open, 2020-02-xx closed 
+#c# 2020-03-25 open, 2020-02-26 closed 
 #n# bug source: K/Kolakoski_sequence
 #n# Rakudo version Rakudo version 2020.02.1-233-g439b86095 built on MoarVM version 2020.02.1-47-g3c3ad0678
 
+# still fails with 'This continuation has already been invoked'
 sub s () { my @A = 1, { @A[1] } ... * }; 
 s()[1];
 
@@ -14,3 +15,8 @@ s()[1];
 # Gauss-Jordan_matrix_inversion
 # Palindromic_gapful_numbers
 # Smarandache_prime-digital_sequence
+
+# thundergnat++ give correct analysis:
+my @wat;
+@wat = lazy flat [2,3,4], 10,11 .. *;  say @wat[^5]; # (2 3 4 10 11)         Good
+@wat = lazy flat [2,3,4], 10,11 ... *; say @wat[^5]; # ([2 3 4] 10 11 12 13) Bad [prior to fix]
