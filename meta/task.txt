@@ -1,9 +1,9 @@
-This is Rakudo version 2020.02.1-250-gaaa3fdcc3 built on MoarVM version 2020.02.1-50-g15e94eecb
+This is Rakudo version 2020.02.1-254-g87d2ff953 built on MoarVM version 2020.02.1-50-g15e94eecb
 implementing Raku 6.d.
 +--------------> Moar: Good/Bad [1215/13]
 |+-------------> JVM: Good/Bad [1039/190]
-||+------------> Smoke testing [1094]
-|||+-----------> sKipping validation [133]
+||+------------> Smoke testing [1098]
+|||+-----------> sKipping validation [129]
 ||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [306]
 ||||||+--------> Concurrent/Async [60]
@@ -297,7 +297,7 @@ GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -438,7 +438,7 @@ GGS.......... Formatted_numeric_output
 GGS..T....... Forward_difference
 GGS..T....... Four_bit_adder
 GGS.......... Four_is_magic
-GG.K......... Four_is_the_number_of_letters_in_the_...
+GGS.......... Four_is_the_number_of_letters_in_the_...
 GGS.....F.... Fractal_tree
 GGS...c...... Fraction_reduction
 GGS.......... Fractran
@@ -457,7 +457,7 @@ GB.KI........ GUI_enabling_disabling_of_controls
 GGS....RF.... Galton_box_animation
 GGS.......... Gamma_function
 GGS.......... Gapful_numbers
-GG.K.T...D... Gauss-Jordan_matrix_inversion
+GGS..T...D... Gauss-Jordan_matrix_inversion
 GGS.......... Gaussian_elimination
 GGS.......... General_FizzBuzz
 GGS..T...D... Generalised_floating_point_addition
@@ -776,7 +776,7 @@ GGS..T....... Numeric_error_propagation
 GGS......D... Numeric_separator_syntax
 GGS.......... Numerical_and_alphabetical_suffixes
 GG.K......... Numerical_integration-1
-GGS.......... Numerical_integration-2
+!GS.......... Numerical_integration-2
 GGS......D... Numerical_integration_Adaptive_Simpson%27s_method
 GGS.......... Numerical_integration_Gauss-Legendre_Quadrature
 ..........XVU OLE_Automation
@@ -801,7 +801,7 @@ GGS.......... Ordered_words
 GGS..T....... P-value_correction
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
-GG.K..c...... Palindromic_gapful_numbers
+GGS...c...... Palindromic_gapful_numbers
 GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
@@ -1056,7 +1056,7 @@ GG.K......... Singly-linked_list_Element_insertion
 GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
-GB.K......... Smarandache_prime-digital_sequence
+GBS.......... Smarandache_prime-digital_sequence
 GGS.......... Smith_numbers
 .........DXV. Snake
 GGS....RFD... Snake_And_Ladder
