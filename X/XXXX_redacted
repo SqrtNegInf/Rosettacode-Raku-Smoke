@@ -1,0 +1,197 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/XXXX_redacted
+#c# 2020-03-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+#`{{
+#You've been given a contract from a three letter abbreviation government agency. They want a program to automatically redact sensitive information from documents to be released to the public. They want fine control over what gets redacted though.
+Given a piece of free-form, possibly Unicode text, (assume text only, no markup or formatting codes) they want to be able to redact: whole words, (case sensitive or insensitive) or partial words, (case sensitive or insensitive). Further, they want the option to "overkill" redact a partial word. Overkill redact means if the word contains the redact target, even if is only part of the word, redact the entire word.
+For our purposes, a "word" here, means: a character group, separated by white-space and possibly punctuation; not necessarily strictly alphabetic characters. To "redact" a word or partial word, replace each character in the redaction target with a capital letter 'X'. There should be the same number of graphemes in the final redacted word as there were in the non-redacted word.
+
+Task
+Write a procedure to "redact" a given piece of text. Your procedure should take the text (or a link to it), the redaction target (or a link to it) and the redaction options. It need not be a single routine, as long as there is some way to programmatically select which operation will be performed. It may be invoked from a command line or as an internal routine, but it should be separately invokable, not just a hard coded block.
+The given strings are enclosed in square brackets to denote them. The brackets should not be counted as part of the strings.
+Using the test string: [Tom? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so tom.']
+Show the redacted sentence for each of the redaction target strings [Tom] & [tom] using the following options:
+
+ Whole word
+ Whole word, Case insensitive
+ Partial word
+ Partial word, Case insensitive
+ Partial word, Overkill
+ Partial word, Case insensitive, Overkill
+Note that some combinations don't, or at least, shouldn't really differ from less specific combination. E.G. "Whole word, Overkill" should be theoretically be exactly the same as "Whole word".
+Extra kudos for not including adjoining punctuation during "Overkill" redaction.
+Extra kudos if the redaction target can contain non-letter characters.
+The demo strings use the abbreviations w/p for whole/partial word, i/s for case insensitive/sensitive, n/o for normal/overkill. You are not required to use those, or any abbreviation. They are just for display, though may be useful to show what operation you are intending to perform.
+Ideal expected output (adjoining punctuation untouched):
+
+   Redact 'Tom':
+   [w|s|n] XXX? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so tom.
+   [w|i|n] XXX? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so XXX.
+   [p|s|n] XXX? XXXs bottom tomato is in his stomach while playing the "XXX-tom" brand tom-toms. That's so tom.
+   [p|i|n] XXX? XXXs botXXX XXXato is in his sXXXach while playing the "XXX-XXX" brand XXX-XXXs. That's so XXX.
+   [p|s|o] XXX? XXXX bottom tomato is in his stomach while playing the "XXXXXXX" brand tom-toms. That's so tom.
+   [p|i|o] XXX? XXXX XXXXXX XXXXXX is in his XXXXXXX while playing the "XXXXXXX" brand XXXXXXXX. That's so XXX.
+
+   Redact 'tom':
+   [w|s|n] Tom? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so XXX.
+   [w|i|n] XXX? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so XXX.
+   [p|s|n] Tom? Toms botXXX XXXato is in his sXXXach while playing the "Tom-XXX" brand XXX-XXXs. That's so XXX.
+   [p|i|n] XXX? XXXs botXXX XXXato is in his sXXXach while playing the "XXX-XXX" brand XXX-XXXs. That's so XXX.
+   [p|s|o] Tom? Toms XXXXXX XXXXXX is in his XXXXXXX while playing the "XXXXXXX" brand XXXXXXXX. That's so XXX.
+   [p|i|o] XXX? XXXX XXXXXX XXXXXX is in his XXXXXXX while playing the "XXXXXXX" brand XXXXXXXX. That's so XXX.
+
+Stretch
+Complex Unicode: Using the test string: [🧑 👨 🧔 👨‍👩‍👦] and the redaction strings: [👨] and [👨‍👩‍👦]
+Show the redacted strings when using the option "Whole word" (Case sensitivity shouldn't matter.) A single grapheme should be replaced by a single 'X'.
+
+                  🧑 👨 🧔 👨‍👩‍👦
+   Redact '👨' [w] 🧑 X 🧔 👨‍👩‍👦
+   Redact '👨‍👩‍👦' [w] 🧑 👨 🧔 X
+
+}}
+
+# Works with: Rakudo version 2020.02
+sub redact ( Str $str, Str $redact, :i(:$insensitive) = False, :p(:$partial) = False, :o(:$overkill) = False ) {
+    my $rx =
+        $insensitive ??
+            $partial ??
+           $overkill ?? rx/:i <after ^ | <:Po> | \s > (<[\w<:!Po>-]>*? [\w*\']? $redact [\'\w+]? \S*?) <before $ | <:Po> | \s > / #'
+                     !! rx/:i ($redact) /
+                     !! rx/:i <after ^ | [\s<:Po>] | \s > ($redact) <before $ | <:Po> | \s > /
+                     !!
+            $partial ??
+           $overkill ?? rx/ <after ^ | <:Po> | \s > (<[\w<:!Po>-]>*? [\w*\']? $redact [\'\w+]? \S*?) <before $ | <:Po> | \s > / #'
+                     !! rx/ ($redact) /
+                     !! rx/ <after ^ | [\s<:Po>] | \s > ($redact) <before $ | <:Po> | \s > /
+    ;
+    $str.subst( $rx, {'X' x $0.chars}, :g )
+}
+
+my %*SUB-MAIN-OPTS = :named-anywhere;
+
+# Operate on a given file with the given parameters
+#multi MAIN (
+#    Str $file,    #= File name with path
+#    Str $target,  #= Redact target text string
+#    :$i = False,  #= Case insensitive flag
+#    :$p = False,  #= Partial words flag
+#    :$o = False   #= Overkill flag
+#  ) { put $file.IO.slurp.&redact( $target, :i($i), :p($p), :o($o) ) }
+
+# Operate on the internal strings / parameters
+#multi MAIN () {
+
+# TESTING
+
+    my $test = q:to/END/;
+        Tom? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so tom.
+        'Tis very tomish, don't you think?
+        END
+
+    for 'Tom', 'tom', 't' -> $redact {
+        @res.push: "\nRedact '$redact':";
+        for '[w|s|n]', $redact, {},
+            '[w|i|n]', $redact, {:i},
+            '[p|s|n]', $redact, {:p},
+            '[p|i|n]', $redact, {:p, :i},
+            '[p|s|o]', $redact, {:p, :o},
+            '[p|i|o]', $redact, {:p, :i, :o}
+        -> $option, $str, %opts { @res.push: sprintf "%s %s", $option, $test.&redact($str, |%opts) }
+    }
+
+    my $emoji = '🧑 👨 🧔 👨‍👩‍👦';
+    @res.push: sprintf "%20s %s", '', $emoji;
+    @res.push: sprintf "%20s %s", "Redact '👨' [w]", $emoji.&redact('👨');
+    @res.push: sprintf "%20s %s", "Redact '👨‍👩‍👦' [w]", $emoji.&redact('👨‍👩‍👦');
+
+    # Even more complicated Unicode
+
+    $emoji = 'Argentina🧑🇦🇹  France👨🇫🇷  Germany🧔🇩🇪  Netherlands👨‍👩‍👦🇳🇱';
+    @res.push: sprintf "\n%20s %s", '', $emoji;
+    @res.push: sprintf "%20s %s", "Redact '👨' [p]", $emoji.&redact('👨', :p);
+    @res.push: sprintf "%20s %s", "Redact '👨‍👩‍👦' [p]", $emoji.&redact('👨‍👩‍👦', :p);
+    @res.push: sprintf "%20s %s", "Redact '👨' [p|o]", $emoji.&redact('👨', :p, :o);
+    @res.push: sprintf "%20s %s", "Redact '👨‍👩‍👦' [p|o]", $emoji.&redact('👨‍👩‍👦', :p, :o);
+#}
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+Redact 'Tom':
+[w|s|n] XXX? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so tom.
+'Tis very tomish, don't you think?
+
+[w|i|n] XXX? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so XXX.
+'Tis very tomish, don't you think?
+
+[p|s|n] XXX? XXXs bottom tomato is in his stomach while playing the "XXX-tom" brand tom-toms. That's so tom.
+'Tis very tomish, don't you think?
+
+[p|i|n] XXX? XXXs botXXX XXXato is in his sXXXach while playing the "XXX-XXX" brand XXX-XXXs. That's so XXX.
+'Tis very XXXish, don't you think?
+
+[p|s|o] XXX? XXXX bottom tomato is in his stomach while playing the "XXXXXXX" brand tom-toms. That's so tom.
+'Tis very tomish, don't you think?
+
+[p|i|o] XXX? XXXX XXXXXX XXXXXX is in his XXXXXXX while playing the "XXXXXXX" brand XXXXXXXX. That's so XXX.
+'Tis very XXXXXX, don't you think?
+
+
+Redact 'tom':
+[w|s|n] Tom? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so XXX.
+'Tis very tomish, don't you think?
+
+[w|i|n] XXX? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so XXX.
+'Tis very tomish, don't you think?
+
+[p|s|n] Tom? Toms botXXX XXXato is in his sXXXach while playing the "Tom-XXX" brand XXX-XXXs. That's so XXX.
+'Tis very XXXish, don't you think?
+
+[p|i|n] XXX? XXXs botXXX XXXato is in his sXXXach while playing the "XXX-XXX" brand XXX-XXXs. That's so XXX.
+'Tis very XXXish, don't you think?
+
+[p|s|o] Tom? Toms XXXXXX XXXXXX is in his XXXXXXX while playing the "XXXXXXX" brand XXXXXXXX. That's so XXX.
+'Tis very XXXXXX, don't you think?
+
+[p|i|o] XXX? XXXX XXXXXX XXXXXX is in his XXXXXXX while playing the "XXXXXXX" brand XXXXXXXX. That's so XXX.
+'Tis very XXXXXX, don't you think?
+
+
+Redact 't':
+[w|s|n] Tom? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so tom.
+'Tis very tomish, don't you think?
+
+[w|i|n] Tom? Toms bottom tomato is in his stomach while playing the "Tom-tom" brand tom-toms. That's so tom.
+'Tis very tomish, don't you think?
+
+[p|s|n] Tom? Toms boXXom XomaXo is in his sXomach while playing Xhe "Tom-Xom" brand Xom-Xoms. ThaX's so Xom.
+'Tis very Xomish, don'X you Xhink?
+
+[p|i|n] Xom? Xoms boXXom XomaXo is in his sXomach while playing Xhe "Xom-Xom" brand Xom-Xoms. XhaX's so Xom.
+'Xis very Xomish, don'X you Xhink?
+
+[p|s|o] Tom? Toms XXXXXX XXXXXX is in his XXXXXXX while playing XXX "XXXXXXX" brand XXXXXXXX. XXXXXX so XXX.
+'Tis very XXXXXX, XXXXX you XXXXX?
+
+[p|i|o] XXX? XXXX XXXXXX XXXXXX is in his XXXXXXX while playing XXX "XXXXXXX" brand XXXXXXXX. XXXX's so XXX.
+XXXX very XXXXXX, XXXXX you XXXXX?
+
+                     🧑 👨 🧔 👨‍👩‍👦
+      Redact '👨' [w] 🧑 X 🧔 👨‍👩‍👦
+      Redact '👨‍👩‍👦' [w] 🧑 👨 🧔 X
+
+                     Argentina🧑🇦🇹  France👨🇫🇷  Germany🧔🇩🇪  Netherlands👨‍👩‍👦🇳🇱
+      Redact '👨' [p] Argentina🧑🇦🇹  FranceX🇫🇷  Germany🧔🇩🇪  Netherlands👨‍👩‍👦🇳🇱
+      Redact '👨‍👩‍👦' [p] Argentina🧑🇦🇹  France👨🇫🇷  Germany🧔🇩🇪  NetherlandsX🇳🇱
+    Redact '👨' [p|o] Argentina🧑🇦🇹  XXXXXXXX  Germany🧔🇩🇪  Netherlands👨‍👩‍👦🇳🇱
+    Redact '👨‍👩‍👦' [p|o] Argentina🧑🇦🇹  France👨🇫🇷  Germany🧔🇩🇪  XXXXXXXXXXXXX
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
