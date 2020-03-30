@@ -60,12 +60,12 @@ sub redact ( Str $str, Str $redact, :i(:$insensitive) = False, :p(:$partial) = F
     my $rx =
         $insensitive ??
             $partial ??
-           $overkill ?? rx/:i <after ^ | <:Po> | \s > (<[\w<:!Po>-]>*? [\w*\']? $redact [\'\w+]? \S*?) <before $ | <:Po> | \s > / #'
+           $overkill ?? rx/:i <after ^ | <:Po> | \s > (<[\w<:!Po>-]>*? [\w*\']? $redact [\'\w+]? \S*?) <before $ | <:Po> | \s > /
                      !! rx/:i ($redact) /
                      !! rx/:i <after ^ | [\s<:Po>] | \s > ($redact) <before $ | <:Po> | \s > /
                      !!
             $partial ??
-           $overkill ?? rx/ <after ^ | <:Po> | \s > (<[\w<:!Po>-]>*? [\w*\']? $redact [\'\w+]? \S*?) <before $ | <:Po> | \s > / #'
+           $overkill ?? rx/ <after ^ | <:Po> | \s > (<[\w<:!Po>-]>*? [\w*\']? $redact [\'\w+]? \S*?) <before $ | <:Po> | \s > /
                      !! rx/ ($redact) /
                      !! rx/ <after ^ | [\s<:Po>] | \s > ($redact) <before $ | <:Po> | \s > /
     ;
