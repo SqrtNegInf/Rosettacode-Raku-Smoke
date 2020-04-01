@@ -3,6 +3,10 @@
 #c# 2017-03-08 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-03-31 changes required by 2020.02.1-270-g61b5e488e 
+#n# these no longer yield same results:
+#n# my @a; @a.append: [0 xx 3], [1 xx 3]; say @a
+#n# my @b; append @b, [0 xx 3], [1 xx 3]; say @b'
 
 srand $*VM ~~ /jvm/ ?? 1234567 !! 123456;
 
@@ -73,11 +77,11 @@ sub percolate ( $prob  = .6 ) {
 sub generate ( $prob = .5 ) {
     @bond = ();
     my $sp = '   ';
-    append @bond, [flat '│', ($sp, ' ') xx $geom, $sp, '│'],
+    @bond.append: [flat '│', ($sp, ' ') xx $geom, $sp, '│'],
                   [flat '├', (h(), '┬') xx $geom, h(), '┤'];
-    append @bond, [flat '│', ($sp, v()) xx $geom, $sp, '│'],
+    @bond.append: [flat '│', ($sp, v()) xx $geom, $sp, '│'],
                   [flat '├', (h(), '┼') xx $geom, h(), '┤'] for ^$geom;
-    append @bond, [flat '│', ($sp, v()) xx $geom, $sp, '│'],
+    @bond.append: [flat '│', ($sp, v()) xx $geom, $sp, '│'],
                   [flat '├', (h(), '┴') xx $geom, h(), '┤'],
                   [flat '│', ($sp, ' ') xx $geom, $sp, '│'];
 
