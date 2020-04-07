@@ -2,7 +2,8 @@
 #u# http://rosettacode.org/wiki/Railway_circuit
 #c# 2020-04-05 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
+#n# for JVM: fails on Unicode character: 𝒫
 
 my @res;
 
@@ -39,7 +40,7 @@ sub isclosedpath(@turns, \straight, \start= 𝒫.bless: x => 0, y => 0) {
  
 sub allvalidcircuits(\N, \doPrint=False, \straight=False) {
    my ( @found, %infound );
-   @res.push: "\nFor N of "~N~" and "~ straight ?? "straight" !! "curved"~ " track: ";
+   @res.push: "\nFor N of "~ N ~ " and " ~ (straight ?? "straight" !! "curved") ~ " track:";
    for (straight ?? (0..^3**N) !! (0..^2**N)) -> \i {
       my @turns = straight ??
          digits(i,3,N).map: { $_ == 0 ??  0 !! ($_ == 1 ?? -1 !! 1) } !!
@@ -54,45 +55,49 @@ sub allvalidcircuits(\N, \doPrint=False, \straight=False) {
    return @found
 }
  
-allvalidcircuits($_, $_ < 28) for 12, 16, 20;    # 12, 16 … 36
+#allvalidcircuits($_, $_ < 28) for 12, 16, 20;    # 12, 16 … 36
 allvalidcircuits($_, $_ < 12, True) for 4, 6, 8; # 4, 6 … 16;
 
 .say for @res;
 
-my $ref = q:to/END/;
+my $xef = q:to/END/;
+
 For N of 12 and curved track:
-[1 1 1 1 1 1 1 1 1 1 1 1]
+1 1 1 1 1 1 1 1 1 1 1 1
 There are 1 unique valid circuits.
 
 For N of 16 and curved track:
-[1 1 1 1 1 1 1 -1 1 1 1 1 1 1 1 -1]
+1 1 1 1 1 1 1 -1 1 1 1 1 1 1 1 -1
 There are 1 unique valid circuits.
 
 For N of 20 and curved track:
-[1 1 1 1 1 1 1 1 -1 -1 1 1 1 1 1 1 1 1 -1 -1]
-[1 1 1 1 1 1 1 -1 1 1 -1 1 1 1 1 1 1 1 -1 -1]
-[1 1 1 1 1 1 1 -1 1 -1 1 1 1 1 1 1 1 -1 1 -1]
-[1 1 1 1 1 1 -1 1 1 -1 1 1 1 1 1 1 -1 1 1 -1]
-[1 1 1 1 1 -1 1 1 1 -1 1 1 1 1 1 -1 1 1 1 -1]
-[1 1 1 1 -1 1 1 1 1 -1 1 1 1 1 -1 1 1 1 1 -1]
+1 1 1 1 1 1 1 1 -1 -1 1 1 1 1 1 1 1 1 -1 -1
+1 1 1 1 1 1 1 -1 1 1 -1 1 1 1 1 1 1 1 -1 -1
+1 1 1 1 1 1 1 -1 1 -1 1 1 1 1 1 1 1 -1 1 -1
+1 1 1 1 1 1 -1 1 1 -1 1 1 1 1 1 1 -1 1 1 -1
+1 1 1 1 1 -1 1 1 1 -1 1 1 1 1 1 -1 1 1 1 -1
+1 1 1 1 -1 1 1 1 1 -1 1 1 1 1 -1 1 1 1 1 -1
 There are 6 unique valid circuits.
+END
+
+my $ref = q:to/END/;
 
 For N of 4 and straight track:
-[1 1 1 1]
+1 1 1 1
 There are 1 unique valid circuits.
 
 For N of 6 and straight track:
-[1 1 0 1 1 0]
+1 1 0 1 1 0
 There are 1 unique valid circuits.
 
 For N of 8 and straight track:
-[1 1 0 0 1 1 0 0]
-[1 0 1 0 1 0 1 0]
-[1 1 0 1 0 1 1 -1]
-[1 1 1 0 -1 -1 -1 0]
-[1 1 1 1 1 1 1 1]
-[1 1 1 1 -1 -1 -1 -1]
-[1 1 1 -1 1 1 1 -1]
+1 1 0 0 1 1 0 0
+1 0 1 0 1 0 1 0
+1 1 0 1 0 1 1 -1
+1 1 1 0 -1 -1 -1 0
+1 1 1 1 1 1 1 1
+1 1 1 1 -1 -1 -1 -1
+1 1 1 -1 1 1 1 -1
 There are 7 unique valid circuits.
 END
 
