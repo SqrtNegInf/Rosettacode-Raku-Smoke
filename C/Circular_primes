@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Circular_primes
-#c# 2020-04-06 <RC
+#c# 2020-04-06 <RC, 2020-04-07 <>RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -14,23 +14,18 @@ sub isCircular(\n) {
    return False unless n.is-prime;
    my @circular = n.comb;
    return False if @circular.min < @circular[0];
-   for (1..^@circular.elems) {
-      return False if n > my $rotated = @circular.rotate($_).join;
-      return False unless $rotated.is-prime;
+   for 1 ..^ @circular -> $i {
+      return False unless .is-prime and $_ >= n given @circular.rotate($i).join;
    }
    True
 }
 
 @res.push: "The first 19 circular primes are:";
-@res.push: ((1..∞).hyper.grep: { isCircular($_) })[^19];
+@res.push: ((2..*).hyper.grep: { isCircular $_ })[^19];
 
 @res.push: "\nThe next 4 circular primes, in repunit format, are:";
 loop ( my $i = 7, my $count = 0; $count < 4; $i++ ) {
-   my $target = 1 x $i;
-   if $target.is-prime  {
-      @res.push: "R(" ~ $i ~ ")";
-      $count++
-   }
+    ++$count, @res.push: "R($i)" if (1 x $i).is-prime
 }
 
 @res.push: "\nRepunit testing:";
