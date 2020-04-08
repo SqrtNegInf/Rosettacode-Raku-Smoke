@@ -23,7 +23,8 @@ sub digits($n!, $base!, $pad=0) {
  
 sub addsymmetries(%infound, \turns) {
    sub circularsymmetries(@c) { (0..^+@c).map: {rotate @c, $_} }
-   my @allsym = |(circularsymmetries turns), |(circularsymmetries turns »*» -1); 
+   my @allsym.push: | .&circularsymmetries for turns, -«turns; # DRY
+   #my @allsym = |(circularsymmetries turns), |circularsymmetries -«turns;
    %infound{$_.Str} = 1 for @allsym;
    return @allsym.max
 }
