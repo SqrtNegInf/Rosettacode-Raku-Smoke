@@ -12,8 +12,8 @@ class 𝒫 { has ($.x, $.y) } # Point
 multi infix:<⊞>(𝒫 \p, 𝒫 \q) { 𝒫.bless: x => p.x + q.x , y => p.y + q.y }
 multi infix:<≈>(𝒫 \p, 𝒫 \q) { my $*TOLERANCE = .0001; p.x ≅ q.x and p.y ≅ q.y }
  
-constant twelvesteps = (1..12).map: { 𝒫.new: x =>sin(π*$_/6), y=>cos(π*$_/6) };
-constant foursteps   = (1..4).map:  { 𝒫.new: x =>sin(π*$_/2), y=>cos(π*$_/2) };
+constant twelvesteps = (1..12).map: { 𝒫.new: x => sin(π×$_/6), y => cos(π×$_/6) };
+constant foursteps   = (1.. 4).map: { 𝒫.new: x => sin(π×$_/2), y => cos(π×$_/2) };
  
 sub digits($n!, $base!, $pad=0) {
    my @output =  $n.base($base).comb.reverse;
