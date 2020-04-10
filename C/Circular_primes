@@ -8,8 +8,6 @@ my @res;
 
 use ntheory:from<Perl5> qw[is_prime];
 
-# Most of the repunit testing is relatively speedy using the ntheory library. The really slow ones are R(25031), at ~42 seconds and R(49081) at 922(!!) seconds.
-
 sub isCircular(\n) {
    return False unless n.is-prime;
    my @circular = n.comb;
@@ -32,7 +30,6 @@ loop ( my $i = 7, my $count = 0; $count < 4; $i++ ) {
 
 #(5003, 9887, 15073, 25031, 35317, 49081).map: {
 (5003, 9887).map: {
-    my $now = now;
     @res.push: "R($_): Prime? "~ ? is_prime("{1 x $_}")
 }
 .say for @res;
