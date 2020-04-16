@@ -19,8 +19,9 @@ bin/rakudobrew build moar-blead >    out.moar  2>    err.moar
 (cd versions/moar-blead; make spectest   > ../out.mtest 2> ../err.mtest )
 bin/rakudobrew switch moar-blead >> out.moar 2>> err.moar
 bin/rakudobrew build zef
-./shims/zef upgrade > out.zef 2> err.zef
 bin/rakudobrew rehash
+shims/zef upgrade 
+#shims/zef upgrade > out.zef 2> err.zef
 
 cd $HOME/perl6/Rosetta-Code
 
