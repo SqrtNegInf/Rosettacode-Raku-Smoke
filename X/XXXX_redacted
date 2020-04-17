@@ -3,6 +3,7 @@
 #c# 2020-03-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# porting to P5 revealed I was one edge-case behind...
 
 my @res;
 
@@ -60,14 +61,14 @@ sub redact ( Str $str, Str $redact, :i(:$insensitive) = False, :p(:$partial) = F
     my $rx =
         $insensitive ??
             $partial ??
-           $overkill ?? rx/:i <after ^ | <:Po> | \s > (<[\w<:!Po>-]>*? [\w*\']? $redact [\'\w+]? \S*?) <before $ | <:Po> | \s > /
+           $overkill ?? rx/:i <?after ^ | <:Po> | \s > (<[\w<:!Po>-]>*? [\w*\']? $redact [\w*\'\w+]? \S*?) <?before $ | <:Po> | \s > /
                      !! rx/:i ($redact) /
-                     !! rx/:i <after ^ | [\s<:Po>] | \s > ($redact) <before $ | <:Po> | \s > /
+                     !! rx/:i <?after ^ | [\s<:Po>] | \s > ($redact) <?before $ | <:Po> | \s > /
                      !!
             $partial ??
-           $overkill ?? rx/ <after ^ | <:Po> | \s > (<[\w<:!Po>-]>*? [\w*\']? $redact [\'\w+]? \S*?) <before $ | <:Po> | \s > /
+           $overkill ?? rx/ <?after ^ | <:Po> | \s > (<[\w<:!Po>-]>*? [\w*\']? $redact [\w*\'\w+]? \S*?) <?before $ | <:Po> | \s > /
                      !! rx/ ($redact) /
-                     !! rx/ <after ^ | [\s<:Po>] | \s > ($redact) <before $ | <:Po> | \s > /
+                     !! rx/ <?after ^ | [\s<:Po>] | \s > ($redact) <?before $ | <:Po> | \s > /
     ;
     $str.subst( $rx, {'X' x $0.chars}, :g )
 }
@@ -179,7 +180,7 @@ Redact 't':
 [p|s|o] Tom? Toms XXXXXX XXXXXX is in his XXXXXXX while playing XXX "XXXXXXX" brand XXXXXXXX. XXXXXX so XXX.
 'Tis very XXXXXX, XXXXX you XXXXX?
 
-[p|i|o] XXX? XXXX XXXXXX XXXXXX is in his XXXXXXX while playing XXX "XXXXXXX" brand XXXXXXXX. XXXX's so XXX.
+[p|i|o] XXX? XXXX XXXXXX XXXXXX is in his XXXXXXX while playing XXX "XXXXXXX" brand XXXXXXXX. XXXXXX so XXX.
 XXXX very XXXXXX, XXXXX you XXXXX?
 
                      🧑 👨 🧔 👨‍👩‍👦
