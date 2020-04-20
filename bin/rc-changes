@@ -1,6 +1,7 @@
 #!/usr/local/bin/perl
 ## recent Perl 6 updates on RosettaCode
-#c# 2016-02-07 2016-02-08 2016-02-09 2016-03-15 2018-01-30 2018-04-27 2018-04-30 2018-05-01 2018-05-31 2018-08-10
+#c# 2016-02-07 initial
+#c# 2020-04-19 latest
 
 open RC, qq{/opt/local/bin/curl --netrc -s 'http://rosettacode.org/mw/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' |};
 
@@ -8,7 +9,7 @@ $cnt = 0;
 $new = 'N';
 
 # skip users known to be adding non-Perl code (typically they add another 'P' language)
-$not_these_users = 'Chunes|Robbie|CraigD|Chunes|Gerard|Cwt1078|Objeck|Nigel';  
+$not_these_users = 'Petelomax|Chunes|Robbie|CraigD|Chunes|Gerard|Cwt1078|Objeck|Nigel';  
 
 while (<RC>) {
     ($day,$mon) = m#<h4>(\d+) (\S+) 20\d\d</h4># if m/<h4>/; $day =~ s/^(\d)$/0$1/;
