@@ -1,27 +1,28 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/LZW_compression
-#c# 2016-01-04 <RC
+#c# 2016-01-04 <RC, 2020-04-21 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
 
-#Translation of: Perl
+my @res;
+
 sub compress(Str $uncompressed --> Seq)  { 
     my $dict-size = 256;
     my %dictionary = (.chr => .chr for ^$dict-size);
 
     my $w = "";
     gather {
-	for $uncompressed.comb -> $c {
-	    my $wc = $w ~ $c;
-	    if %dictionary{$wc}:exists { $w = $wc }
-	    else {
-		take %dictionary{$w};
-		%dictionary{$wc} = +%dictionary;
-		$w = $c;
-	    }
-	}
+  for $uncompressed.encode('utf8').list.chrs.comb -> $c {
+      my $wc = $w ~ $c;
+      if %dictionary{$wc}:exists { $w = $wc }
+      else {
+    take %dictionary{$w};
+    %dictionary{$wc} = +%dictionary;
+    $w = $c;
+      }
+  }
 
-	take %dictionary{$w} if $w.chars;
+  take %dictionary{$w} if $w.chars;
     }
 }
 
@@ -30,24 +31,32 @@ sub decompress(@compressed --> Str) {
     my %dictionary = (.chr => .chr for ^$dict-size);
 
     my $w = shift @compressed;
-    join '', gather {
-	take $w;
-	for @compressed -> $k {
-	    my $entry;
-	    if %dictionary{$k}:exists { take $entry = %dictionary{$k} }
-	    elsif $k == $dict-size    { take $entry = $w ~ $w.substr(0,1) }
-	    else                      { die "Bad compressed k: $k" }
+    ( Blob.new: flat ( gather {
+  take $w;
+  for @compressed -> $k {
+      my $entry;
+      if %dictionary{$k}:exists { take $entry = %dictionary{$k} }
+      elsif $k == $dict-size    { take $entry = $w ~ $w.substr(0,1) }
+      else                      { die "Bad compressed k: $k" }
 
-	    %dictionary{$dict-size++} = $w ~ $entry.substr(0,1);
-	    $w = $entry;
-	}
-    }
+      %dictionary{$dict-size++} = $w ~ $entry.substr(0,1);
+      $w = $entry;
+  }
+    }  )».ords ).decode('utf-8')
 }
 
 my @compressed = compress('TOBEORNOTTOBEORTOBEORNOT');
-say @compressed;
-my $decompressed = decompress(@compressed);
-say $decompressed;
+@res.push: decompress(@compressed);
+
+@compressed = compress('こんにちは𝒳𝒴𝒵こんにちは𝒳𝒴𝒵こんにちは𝒳𝒴𝒵');
+@res.push: decompress(@compressed);
+
+.say for @res;
+
+my $ref = q:to/END/;
+TOBEORNOTTOBEORTOBEORNOT
+こんにちは𝒳𝒴𝒵こんにちは𝒳𝒴𝒵こんにちは𝒳𝒴𝒵
+END
 
 use Test;
-is $decompressed, 'TOBEORNOTTOBEORTOBEORNOT';
+is @res.join("\n"), chomp $ref;
