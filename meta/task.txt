@@ -1,6 +1,6 @@
-This is Rakudo version 2020.02.1-342-gec50b9618 built on MoarVM version 2020.02.1-107-gab089e947
+This is Rakudo version 2020.02.1-345-gfa3c0dba9 built on MoarVM version 2020.02.1-107-gab089e947
 implementing Raku 6.d.
-+--------------> Moar: Good/Bad [1216/13]
++--------------> Moar: Good/Bad [1215/13]
 |+-------------> JVM: Good/Bad [1039/191]
 ||+------------> Smoke testing [1099]
 |||+-----------> sKipping validation [129]
@@ -79,7 +79,7 @@ GGS.......... Arithmetic-geometric_mean
 GGS..T....... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
 GGS.......... Arithmetic_Integer
-GGS..TC...... Arithmetic_Rational
+!GS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS..T....... Arithmetic_evaluation
 GGS.......... Array_concatenation
@@ -297,7 +297,7 @@ GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -776,7 +776,7 @@ GGS..T....... Numeric_error_propagation
 GGS......D... Numeric_separator_syntax
 GGS.......... Numerical_and_alphabetical_suffixes
 GG.K......... Numerical_integration-1
-GGS.......... Numerical_integration-2
+!GS.......... Numerical_integration-2
 GGS......D... Numerical_integration_Adaptive_Simpson%27s_method
 GGS.......... Numerical_integration_Gauss-Legendre_Quadrature
 ..........XVU OLE_Automation
