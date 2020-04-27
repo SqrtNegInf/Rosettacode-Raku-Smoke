@@ -1,0 +1,51 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Imaginary_base_numbers
+#c# 2020-04-26 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Base::Any;
+
+# TESTING
+for 0, 2i, 1, 2i, 5, 2i, -13, 2i, 9i, 2i, -3i, 2i, 7.75-7.5i, 2i, .25, 2i, # base 2i tests
+    5+5i,  2i, 5+5i,  3i, 5+5i,  4i, 5+5i,  5i, 5+5i,  6i, # same value, positive imaginary bases
+    5+5i, -2i, 5+5i, -3i, 5+5i, -4i, 5+5i, -5i, 5+5i, -6i, # same value, negative imaginary bases
+    227.65625+10.859375i, 4i, # larger test value
+    31433.3487654321-2902.4480452675i, 6i, # heh
+    -3544.29+26541.468i, -10i
+  -> $v, $r {
+    my $ibase = $v.&to-base($r, :precision(-6));
+    @res.push: sprintf "%33s.&to-base\(%3si\) = %-11s : %13s.&from-base\(%3si\) = %s",
+    $v, $r.im, $ibase, "'$ibase'", $r.im, $ibase.&from-base($r).round(1e-10).narrow;
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+                                0.&to-base(  2i) = 0           :           '0'.&from-base(  2i) = 0
+                                1.&to-base(  2i) = 1           :           '1'.&from-base(  2i) = 1
+                                5.&to-base(  2i) = 10301       :       '10301'.&from-base(  2i) = 5
+                              -13.&to-base(  2i) = 1030003     :     '1030003'.&from-base(  2i) = -13
+                             0+9i.&to-base(  2i) = 103010.2    :    '103010.2'.&from-base(  2i) = 0+9i
+                            -0-3i.&to-base(  2i) = 1030.2      :      '1030.2'.&from-base(  2i) = 0-3i
+                        7.75-7.5i.&to-base(  2i) = 11210.31    :    '11210.31'.&from-base(  2i) = 7.75-7.5i
+                             0.25.&to-base(  2i) = 1.03        :        '1.03'.&from-base(  2i) = 0.25
+                             5+5i.&to-base(  2i) = 10331.2     :     '10331.2'.&from-base(  2i) = 5+5i
+                             5+5i.&to-base(  3i) = 25.3        :        '25.3'.&from-base(  3i) = 5+5i
+                             5+5i.&to-base(  4i) = 25.C        :        '25.C'.&from-base(  4i) = 5+5i
+                             5+5i.&to-base(  5i) = 15          :          '15'.&from-base(  5i) = 5+5i
+                             5+5i.&to-base(  6i) = 15.6        :        '15.6'.&from-base(  6i) = 5+5i
+                             5+5i.&to-base( -2i) = 11321.2     :     '11321.2'.&from-base( -2i) = 5+5i
+                             5+5i.&to-base( -3i) = 1085.6      :      '1085.6'.&from-base( -3i) = 5+5i
+                             5+5i.&to-base( -4i) = 10F5.4      :      '10F5.4'.&from-base( -4i) = 5+5i
+                             5+5i.&to-base( -5i) = 10O5        :        '10O5'.&from-base( -5i) = 5+5i
+                             5+5i.&to-base( -6i) = 5.U         :         '5.U'.&from-base( -6i) = 5+5i
+             227.65625+10.859375i.&to-base(  4i) = 10234.5678  :  '10234.5678'.&from-base(  4i) = 227.65625+10.859375i
+31433.3487654321-2902.4480452675i.&to-base(  6i) = PERL6.ROCKS : 'PERL6.ROCKS'.&from-base(  6i) = 31433.3487654321-2902.4480452675i
+              -3544.29+26541.468i.&to-base(-10i) = Raku.FTW    :    'Raku.FTW'.&from-base(-10i) = -3544.29+26541.468i
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
