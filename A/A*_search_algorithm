@@ -52,7 +52,7 @@ sub AStarSearch(\start, \end, \graph) {
          }
       }
 
-      if ([&&] @( $current »==« end)) { # why $current eqv end not working
+      if $current ~~ end {
          my @path = [].push($current);
          while %cameFrom{$current.Str}:exists {
             $current = %cameFrom{$current.Str};
