@@ -1,0 +1,32 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Monads/Writer_monad
+#c# 2020-05-09 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+class Writer { has Numeric $.value ; has Str $.log }
+
+sub Bind (Writer \v, &code) {
+   my \n = v.value.&code;
+   Writer.new: value => n.value, log => v.log ~ n.log
+};
+
+sub Unit(\v, \s) { Writer.new: value=>v, log=>sprintf "%-17s: %.12f\n",s,v}
+
+sub root(\v) { Unit v.sqrt, "Took square root" }
+
+sub addOne(\v) { Unit v+1, "Added one" }
+
+sub half(\v) { Unit v/2, "Divided by two" }
+
+say my $result = Unit(5, "Initial value").&Bind(&root).&Bind(&addOne).&Bind(&half).log;
+
+my $ref = q:to/END/;
+Initial value    : 5.000000000000
+Took square root : 2.236067977500
+Added one        : 3.236067977500
+Divided by two   : 1.618033988750
+END
+
+use Test;
+is $result, $ref;
