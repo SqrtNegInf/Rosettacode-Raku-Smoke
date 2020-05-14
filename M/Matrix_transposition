@@ -3,6 +3,7 @@
 #c# 2017-04-18 <RC, 2018-04-10 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-05-13 output format changed
 
 # transposition can be done with the reduced zip meta-operator 
 # on list-of-lists data structures
@@ -32,6 +33,17 @@ for ^$m X ^$n -> (\i, \j) {
 #exit;
 
 my $ref = qq:to/END/;
+A E I
+B F J
+C G K
+D H L
+[[A E I]
+ [B F J]
+ [C G K]
+ [D H L]]
+END
+
+my $ref-old = qq:to/END/;
 A E I
 B F J
 C G K
