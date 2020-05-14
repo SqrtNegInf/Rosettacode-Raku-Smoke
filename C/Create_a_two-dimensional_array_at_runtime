@@ -3,6 +3,7 @@
 #c# 2015-11-29 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-05-13 output format changed
 
 srand 123456;
 
@@ -28,7 +29,7 @@ my @a[$major;$minor] = (7 xx $minor ) xx $major;
 say @a;
 
 use Test;
-is @a.gist, '[[7 7 7 7 7] [7 7 42 7 7] [7 7 7 7 7]]';
+is @a.gist, "[[7 7 7 7 7]\n [7 7 42 7 7]\n [7 7 7 7 7]]";
 if $*VM ~~ /jvm/ {
 is @array.gist, '[[@ @ @ @ @] [@ @ @ @  ] [@ @ @ @ @]]';
 } else {
