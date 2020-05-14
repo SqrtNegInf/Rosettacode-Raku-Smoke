@@ -3,6 +3,7 @@
 #c# 2016-05-12 <RC, 2018-04-01 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-05-13 changed to non-overlapping
 
 sub count-substring($big,$little) { +$big.comb: ~$little }
 
@@ -14,5 +15,5 @@ say count-substring(123123123,12);
 
 use Test;
 is count-substring("the three truths","th"), 3;
-is count-substring("ababababab","abab"), 4;
+is count-substring("ababababab","abab"), 2; #4;
 is count-substring(123123123,12), 3;
