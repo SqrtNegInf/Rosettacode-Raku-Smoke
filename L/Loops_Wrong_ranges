@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Loops/Wrong_ranges
-#c# 2018-09-16 <RC, 2018-10-19 <RC
+#c# 2018-09-16 <RC, 2018-10-19 <RC, 2020-05-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -47,7 +47,7 @@ for   -2,    2,    1, # Normal
 @res.push: 1, -.5, 2.sqrt, * × * × * … *.abs < 1e-2;    # DH this is just a little bit clearer, don't you think?
 
 # Start with an array, iterate by rotating, end when 0 is in the last place.
-@res.push: [0,1,2,3,4,5], *.rotate(-1) … !*.tail;
+@res.push: [0,1,2,3,4,5], *.rotate(-1).Array … !*.tail;
 
 # Iterate strings backwards.
 @res.push: 'xp' … 'xf';
