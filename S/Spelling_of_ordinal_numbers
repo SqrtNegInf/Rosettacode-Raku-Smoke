@@ -1,10 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Spelling_of_ordinal_numbers
 #c# 2019-02-10 <RC, 2019-06-08 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #f# RC file: spelling_ordinals.txt
 #n# results cause 'malformed UTF' problems, output to file instead
+#n# 2020-05-14 recent changes to printf interact badly with Unicode
 
 my @res;
 
