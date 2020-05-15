@@ -2187,6 +2187,7 @@ File: C/Count_occurrences_of_a_substring
 #c# 2016-05-12 <RC, 2018-04-01 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-05-13 changed to non-overlapping
 
 File: C/Count_the_coins
 #!/usr/bin/env perl6
@@ -2226,6 +2227,7 @@ File: C/Create_a_two-dimensional_array_at_runtime
 #c# 2015-11-29 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-05-13 output format changed
 
 File: C/Create_an_HTML_table
 #!/usr/bin/env perl6
@@ -6296,6 +6298,7 @@ File: M/Matrix_transposition
 #c# 2017-04-18 <RC, 2018-04-10 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-05-13 output format changed
 
 File: M/Matrix_transposition.0
 #!/usr/bin/env perl6
@@ -10135,10 +10138,11 @@ File: S/Spelling_of_ordinal_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Spelling_of_ordinal_numbers
 #c# 2019-02-10 <RC, 2019-06-08 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #f# RC file: spelling_ordinals.txt
 #n# results cause 'malformed UTF' problems, output to file instead
+#n# 2020-05-14 recent changes to printf interact badly with Unicode
 
 File: S/Spelling_of_ordinal_numbers.jvm
 #!/usr/bin/env perl6
