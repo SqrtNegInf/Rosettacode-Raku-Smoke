@@ -1,6 +1,6 @@
-This is Rakudo version 2020.05.1-108-gf33ce01c1 built on MoarVM version 2020.05-2-g60b567089
+This is Rakudo version 2020.05.1-121-gadfa192bc built on MoarVM version 2020.05-2-g60b567089
 implementing Raku 6.d.
-+--------------> Moar: Good/Bad [1216/14]
++--------------> Moar: Good/Bad [1218/14]
 |+-------------> JVM: Good/Bad [1040/193]
 ||+------------> Smoke testing [1101]
 |||+-----------> sKipping validation [129]
@@ -297,7 +297,7 @@ GGS.......... Determinant_and_permanent
 GBS.......... Determine_if_a_string_has_all_the_same_characters
 GBS.......... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS......D... Determine_if_two_triangles_overlap
@@ -408,7 +408,7 @@ GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T...D... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
-!GS...C...... Find_largest_left_truncatable_prime_in_a_given_base
+GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
 GGS......D... Find_the_intersection_of_a_line_with_a_plane
@@ -457,7 +457,7 @@ GB.KI........ GUI_enabling_disabling_of_controls
 GGS....RF.... Galton_box_animation
 GGS.......... Gamma_function
 GGS.......... Gapful_numbers
-!GS..T...D... Gauss-Jordan_matrix_inversion
+GGS..T...D... Gauss-Jordan_matrix_inversion
 GGS.......... Gaussian_elimination
 GGS.......... General_FizzBuzz
 GGS..T...D... Generalised_floating_point_addition
@@ -654,7 +654,7 @@ GG.KI........ Loops_Infinite
 GGS.......... Loops_N_plus_one_half
 GGS....R..... Loops_Nested
 GGS.......... Loops_While
-!GS.......... Loops_Wrong_ranges
+GGS.......... Loops_Wrong_ranges
 GGS.......... Loops_with_multiple_ranges-1
 GGS..T....... Loops_with_multiple_ranges-2
 GBS...C...... Lucas-Lehmer_test
