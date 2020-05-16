@@ -5,6 +5,8 @@
 #j#  JVM: OK
 #n# flaps when .roll used
 #n# 2018-08-03 JVM stopped working?
+#n# 2020-05-15 how to test this:
+#n# react whenever Supply.from-list(@*ARGS).start({ .&sleep // +$_ }).flat { .say }
 
 my @res;
 await map -> $delay { start { sleep 0.5+$delay ; @res.push: $delay } },
