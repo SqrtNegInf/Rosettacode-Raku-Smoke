@@ -3663,6 +3663,7 @@ File: F/Find_largest_left_truncatable_prime_in_a_given_base
 #c# 2017-04-17 <RC, 2019-02-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-05-14 died: emit without supply or react
 
 File: F/Find_largest_left_truncatable_prime_in_a_given_base.1
 #!/usr/bin/env perl6
@@ -4130,9 +4131,10 @@ File: G/Gapful_numbers
 File: G/Gauss-Jordan_matrix_inversion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Gauss-Jordan_matrix_inversion
-#c# 2018-04-05 <RC, 2018-11-03 <RC, 2019-05-16 >RC
+#c# 2018-04-05 <RC, 2018-11-03 <RC, 2019-05-16 >RC, 2020-05-15 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# as with thundergat's fix for 'Loops_Wrong_ranges' 
 
 File: G/Gauss-Jordan_matrix_inversion.1
 #!/usr/bin/env perl6
@@ -5957,7 +5959,7 @@ File: L/Loops_While
 File: L/Loops_Wrong_ranges
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Loops/Wrong_ranges
-#c# 2018-09-16 <RC, 2018-10-19 <RC
+#c# 2018-09-16 <RC, 2018-10-19 <RC, 2020-05-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -7069,6 +7071,7 @@ File: N/Numerical_Integration-2
 #m# MOAR: OK
 #j#  JVM: OK
 #n# only running the two fastest examples
+#n# 2020-05-15 regularly dies with 'Not enough positional arguments' (starting 2020-03-21)
 
 File: N/Numerical_Integration-2.jvm
 #!/usr/bin/env perl6
@@ -7304,6 +7307,7 @@ File: P/Palindromic_dates
 #n#   non-cryptic variable names
 #n#   working the DRY principle pretty hard (too far?)
 #n#
+#n# 2020-05-14 'malloc' is an on-going issue, happening about once a month (5/135)
 #n# 2020-01-25 '3104' again, so there must be a race condition I'm missing?
 #n# 2019-12-02 '3104' instead of '3105 non-prime palindromic dates'
 #n# 2019-11-29 saw this error again
@@ -10079,6 +10083,8 @@ File: S/Sorting_algorithms_Sleep_sort
 #j#  JVM: OK
 #n# flaps when .roll used
 #n# 2018-08-03 JVM stopped working?
+#n# 2020-05-15 how to test this:
+#n# react whenever Supply.from-list(@*ARGS).start({ .&sleep // +$_ }).flat { .say }
 
 File: S/Sorting_algorithms_Stooge_sort
 #!/usr/bin/env perl6
@@ -10142,7 +10148,7 @@ File: S/Spelling_of_ordinal_numbers
 #j# JVM:  BROKEN
 #f# RC file: spelling_ordinals.txt
 #n# results cause 'malformed UTF' problems, output to file instead
-#n# 2020-05-14 recent changes to printf interact badly with Unicode
+#n# 2020-05-15 https://github.com/rakudo/rakudo/issues/3694 thundergnat++
 
 File: S/Spelling_of_ordinal_numbers.jvm
 #!/usr/bin/env perl6
