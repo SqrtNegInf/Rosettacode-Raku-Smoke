@@ -7066,10 +7066,19 @@ File: N/Numerical_Integration-1
 
 File: N/Numerical_Integration-2
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Numerical_Integration
-#c# 2015-12-16 <RC
+#u# http://rosettacode.org/wiki/Numerical_integration
+##c# 2015-12-16 <RC, 2018-10-06 >RC, 2020-05-16 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  BROKEN
+#n# <RC: "Move some calculations out of hot loops, more efficient looping constructs, arguably less idiomatic, but less horribly slow"
+#n# roughly 10x faster, but still just testing the first two examples
+
+File: N/Numerical_Integration-2.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Numerical_Integration
+#c# 2015-12-16 <RC, 2018-10-06 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
 #n# only running the two fastest examples
 #n# 2020-05-15 regularly dies with 'Not enough positional arguments' (starting 2020-03-21)
 
