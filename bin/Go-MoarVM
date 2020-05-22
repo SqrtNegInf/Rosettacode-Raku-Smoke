@@ -6,7 +6,7 @@
 #  sudo apt upgrade
 #  sudo apt install build-essential default-jdk vim git
 
-source $HOME/.profile
+#source $HOME/.profile
 
 #rm -rf .perl6/precomp # obsolete, bug has been fixed...
 
@@ -16,10 +16,10 @@ cd $HOME/.rakudobrew
 bin/rakudobrew self-upgrade > out.rb    2> err.rb
 (cd versions; rm -rf moar-yesterday; cp -pr moar-blead moar-yesterday)
 bin/rakudobrew build moar-blead >    out.moar  2>    err.moar
+bin/rakudobrew rehash
 (cd versions/moar-blead; make spectest   > ../out.mtest 2> ../err.mtest )
 bin/rakudobrew switch moar-blead >> out.moar 2>> err.moar
 bin/rakudobrew build zef
-bin/rakudobrew rehash
 shims/zef upgrade 
 #shims/zef upgrade > out.zef 2> err.zef
 
