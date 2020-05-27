@@ -6,7 +6,7 @@
 #  sudo apt upgrade
 #  sudo apt install build-essential default-jdk vim git
 
-#source $HOME/.profile
+source $HOME/.profile
 
 #rm -rf .perl6/precomp # obsolete, bug has been fixed...
 
@@ -27,7 +27,7 @@ cd $HOME/perl6/Rosetta-Code
 
 # smoking
 echo 'MOAR'
-$HOME/.rakudobrew/bin/rakudobrew switch moar-blead
+#$HOME/.rakudobrew/bin/rakudobrew switch moar-blead
 perl6 -v
 bin/rc-moar [0-Z]/*
 
