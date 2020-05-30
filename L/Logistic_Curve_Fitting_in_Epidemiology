@@ -43,8 +43,8 @@ my @May11 = <
 sub logistic-func ($rate, @y) {
     my $sq = 0;
     for ^@y -> $time {
-        my $ert = exp($rate * $time);
-        my $δt = ($n0 * $ert) / (1 + $n0 * ($ert-1) / $K) - @y[$time];
+        my $ert = exp($rate × $time);
+        my $δt = ($n0 × $ert) / (1 + $n0 × ($ert-1) / $K) - @y[$time];
         $sq += $δt²;
     }
     $sq
@@ -62,13 +62,13 @@ sub solve (&f, $guess, \ε, @y) {
         do {
             $fₙ    = $fₙ-minus;
             $rate -= $Δ;
-            $Δ    *= $factor;
+            $Δ    ×= $factor;
         } !!
         ($fₙ-plus = f $rate + $Δ, @y) < $fₙ ??
         do {
             $fₙ    = $fₙ-plus;
             $rate += $Δ;
-            $Δ    *= $factor;
+            $Δ    ×= $factor;
         } !!
         $Δ /= $factor
     }
@@ -78,7 +78,7 @@ sub solve (&f, $guess, \ε, @y) {
 for @Apr05, 'Dec 31 - Apr 5',
     @May11, 'Dec 31 - May 11' -> @y, $period {
     my $rate = solve(&logistic-func, 0.5, 0, @y);
-    my $R0   = exp(12 * $rate);
+    my $R0   = exp(12 × $rate);
     @res.push: "\nFor period: $period";
     @res.push: "Instantaneous rate of growth: r = " , $rate.fmt('%08f');
     @res.push: "Reproductive rate: R0 = ", $R0.fmt('%08f');
