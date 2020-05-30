@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Nimber_arithmetic
-#c# 2020-05-28 <RC
+#c# 2020-05-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -9,11 +9,11 @@ my @res;
 sub infix:<⊕> (Int $x, Int $y) { $x +^ $y }
 
 sub infix:<⊗> (Int $x, Int $y) {
-    return $x * $y if so $x|$y < 2;
+    return $x × $y if so $x|$y < 2;
     my $h = exp $x.lsb, 2;
     return ($h ⊗ $y) ⊕ (($x ⊕ $h) ⊗ $y) if $x > $h;
-    return ($y ⊗ $x) if (exp $y.lsb, 2) < $y;
-    return $x * $y unless my $comp = $x.lsb +& $y.lsb;
+    return ($y ⊗ $x) if $y.lsb < $y.msb;
+    return $x × $y unless my $comp = $x.lsb +& $y.lsb;
     $h = exp $comp.lsb, 2;
     (($x +> $h) ⊗ ($y +> $h)) ⊗ (3 +< ($h - 1))
 }
