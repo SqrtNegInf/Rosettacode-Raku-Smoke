@@ -15,14 +15,14 @@ sub leftrect(&f, $a, $b, $n) {
     my $end = $b-$h;
     my $sum = 0;
     loop (my $i = $a; $i <= $end; $i += $h) { $sum += f($i) }
-    $h * $sum;
+    $h × $sum;
 }
 
 sub rightrect(&f, $a, $b, $n) {
     my $h = ($b - $a) / $n;
     my $sum = 0;
     loop (my $i = $a+$h; $i <= $b; $i += $h) { $sum += f($i) }
-    $h * $sum;
+    $h × $sum;
 }
 
 sub midrect(&f, $a, $b, $n) {
@@ -30,15 +30,15 @@ sub midrect(&f, $a, $b, $n) {
     my $sum = 0;
     my ($start, $end) = $a+$h/2, $b-$h/2;
     loop (my $i = $start; $i <= $end; $i += $h) { $sum += f($i) }
-    $h * $sum;
+    $h × $sum;
 }
 
 sub trapez(&f, $a, $b, $n) {
     my $h = ($b - $a) / $n;
     my $partial-sum = 0;
     my ($start, $end) = $a+$h, $b-$h;
-    loop (my $i = $start; $i <= $end; $i += $h) { $partial-sum += f($i) * 2 }
-    $h / 2 * ( f($a) + f($b) + $partial-sum );
+    loop (my $i = $start; $i <= $end; $i += $h) { $partial-sum += f($i) × 2 }
+    $h / 2 × ( f($a) + f($b) + $partial-sum );
 }
 
 sub simpsons(&f, $a, $b, $n) {
@@ -51,7 +51,7 @@ sub simpsons(&f, $a, $b, $n) {
         $sum1 += f($i + $h2);
         $sum2 += f($i);
     }
-    ($h / 6) * (f($a) + f($b) + 4*$sum1 + 2*$sum2);
+    ($h / 6) × (f($a) + f($b) + 4×$sum1 + 2×$sum2);
 }
 
 sub integrate($f, $a, $b, $n, $exact) {
