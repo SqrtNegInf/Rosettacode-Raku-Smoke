@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Call_a_foreign-language_function
-#c# 2016-04-06 <RC
+#c# 2016-04-06 <RC, 2020-06-02 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# Getting funny numbers on Mac OS X?  This is all rather bogus at this point, or at least I don't understand what's going on...
@@ -11,9 +11,9 @@ die 'NativeCall...' if $*VM ~~ /jvm/;
 
 use NativeCall;
 
-sub strdup(Str $s --> OpaquePointer) is native {*}
-sub puts(OpaquePointer $p --> int32) is native {*}
-sub free(OpaquePointer $p --> int32) is native {*}
+sub strdup(Str $s --> Pointer) is native {*}
+sub puts(Pointer $p --> int32) is native {*}
+sub free(Pointer $p --> int32) is native {*}
 
 my $p = strdup("Success!");
 say 'puts returns ', puts($p);
