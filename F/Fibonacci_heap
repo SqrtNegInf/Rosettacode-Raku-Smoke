@@ -3,8 +3,11 @@
 #c# 2020-06-09 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#f# RC file: fib_heap.txt
 
 my @res;
+
+my $out = open('run/fib_heap.txt', :w);
 
 subset vEle of Any; 
 
@@ -171,20 +174,20 @@ class Heap {
 
    method Vis() {
 
-      if self.root.value ~~ Nil { @res.push: "<empty>" and return }
+      if self.root.value ~~ Nil { $out.say: "<empty>" and return }
 
       sub f(Node $n, Str $pre) {
          loop ( my $pc = "│ ", my $x = $n ; ; $x = $x.next) {
             if !($x.next ~~ $n) {
-               #print $pre, "├─"
+               $out.print: $pre, "├─"
             } else {
-               #print $pre, "└─";
+               $out.print: $pre, "└─";
                $pc = "  "
             }
             if not $x.child.defined {
-               @res.push: $x.value
+               $out.say: "╴", $x.value
             } else {
-               @res.push: $x.value;
+               $out.say: "┐", $x.value;
                f($x.child, $pre~$pc)
             }
             last if $x.next ~~ $n 
@@ -207,110 +210,39 @@ sub meld2(\a, \b) {
    ( a.prev, b.prev ) = ( b.prev, a.prev )
 }
 
-@res.push: "MakeHeap:";
+$out.say: "MakeHeap:";
 my $h = Heap.new; 
 $h.MakeHeap;
 $h.Vis;
 
-@res.push: "\nInsert:";
+$out.say: "\nInsert:";
 $h.Insert("cat");
 $h.Vis;
 
-@res.push: "\nUnion:";
+$out.say: "\nUnion:";
 my $h2 = Heap.new; 
 $h2.MakeHeap;
 $h2.Insert("rat");
 $h.Union($h2);
 $h.Vis;
 
-@res.push: "\nMinimum:";
+$out.say: "\nMinimum:";
 my \m = $h.Minimum();
-@res.push: m;
+$out.say: m;
 
-@res.push: "\nExtractMin:";
+$out.say: "\nExtractMin:";
 $h.Insert("bat");
 my $x = $h.Insert("meerkat"); 
-@res.push: "extracted: "~ my $mm = $h.ExtractMin();
+$out.say: "extracted: ", my $mm = $h.ExtractMin();
 $h.Vis;
 
-@res.push: "\nDecreaseKey:";
+$out.say: "\nDecreaseKey:";
 $h.DecreaseKey($x, "gnat");
 $h.Vis;
 
-@res.push: "\nDelete:";
+$out.say: "\nDelete:";
 $h.Insert("bobcat");
 $h.Insert("bat");
-@res.push: "deleting: "~ $x.value;
+$out.say: "deleting: ", $x.value;
 $h.Delete($x);
 $h.Vis;
-
-.say for @res;
-
-my $ref = q:to/END/;
-MakeHeap:
-<empty>
-
-Insert:
-cat
-
-Union:
-cat
-rat
-
-Minimum:
-cat
-
-ExtractMin:
-extracted: bat
-cat
-rat
-meerkat
-
-DecreaseKey:
-cat
-rat
-gnat
-
-Delete:
-deleting: gnat
-bat
-bobcat
-cat
-rat
-END
-
-my $xef = q:to/END/;
-MakeHeap:
-<empty>
-
-Insert:
-└─╴cat
-
-Union:
-├─╴cat
-└─╴rat
-
-Minimum:
-cat
-
-ExtractMin:
-extracted: bat
-├─┐cat
-│ └─╴rat
-└─╴meerkat
-
-DecreaseKey:
-├─┐cat
-│ └─╴rat
-└─╴gnat
-
-Delete:
-deleting: gnat
-├─╴bat
-├─╴bobcat
-└─┐cat
-  └─╴rat
-END
-
-use Test;
-is @res.join("\n"), chomp $ref;
