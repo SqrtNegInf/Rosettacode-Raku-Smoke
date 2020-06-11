@@ -1,17 +1,17 @@
-This is Rakudo version 2020.05.1-266-g4d1ef59e8 built on MoarVM version 2020.05-58-ga5df9ead1
+This is Rakudo version 2020.05.1-272-g7bace1bef built on MoarVM version 2020.05-58-ga5df9ead1
 implementing Raku 6.d.
-+--------------> Moar: Good/Bad [1219/14]
-|+-------------> JVM: Good/Bad [1039/194]
-||+------------> Smoke testing [1101]
++--------------> Moar: Good/Bad [1218/14]
+|+-------------> JVM: Good/Bad [1040/194]
+||+------------> Smoke testing [1102]
 |||+-----------> sKipping validation [129]
 ||||+----------> Interactive [62]
 |||||+---------> Touched (modified by me) [306]
 ||||||+--------> Concurrent/Async [60]
 |||||||+-------> Random seed [122]
-||||||||+------> File output [94]
+||||||||+------> File output [95]
 |||||||||+-----> Draft [223]
 ||||||||||+----> Ignoring [32]
-|||||||||||+---> Void (no local copy) [77]
+|||||||||||+---> Void (no local copy) [76]
 ||||||||||||+--> Un-implemented/reliable [57]
 |||||||||||||
 GGS.......... 100_doors
@@ -391,7 +391,7 @@ GGS..T...D... Faulhaber%27s_formula
 GGS......D... Faulhaber%27s_triangle
 GGS......D... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
-.........D.VU Fibonacci_heap
+GGS.....FD..U Fibonacci_heap
 BBS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
@@ -484,7 +484,7 @@ GGS....R..... Guess_the_number
 GG.K...R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
-GGS.......... HTTPS
+!GS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -811,7 +811,7 @@ GBS...C...... Parallel_calculations
 GBS...CR..... Parallel_calculations-2
 GGS.......... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
-GGS..T..FD... Parse_EBNF
+!GS..T..FD... Parse_EBNF
 GBS.......... Parse_an_IP_Address
 GGS......D... Parse_command-line_arguments
 GGS.......... Parsing_RPN_calculator_algorithm
