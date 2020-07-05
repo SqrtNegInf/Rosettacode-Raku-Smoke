@@ -1,0 +1,108 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Word_wheel
+#c# 2020-07-04 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my %*SUB-MAIN-OPTS = :named-anywhere;
+
+unit sub MAIN ($wheel = 'ndeokgelw', :$dict = 'ref/unixdict.txt', :$min = 3);
+
+my $must-have = $wheel.comb[4].lc;
+
+my $has = $wheel.comb».lc.Bag;
+
+my %words;
+$dict.IO.slurp.words».lc.map: {
+    next if not .contains($must-have) or .chars < $min;
+    %words{.chars}.push: $_ if .comb.Bag ⊆ $has;
+};
+
+@res.push: { qq:to/END/;
+Using $dict, minimum $min letters.
+\t┌───┬───┬───┐
+\t│ $^a │ $^b │ $^c │
+\t├───┼───┼───┤
+\t│ $^d │ $^e │ $^f │
+\t├───┼───┼───┤
+\t│ $^g │ $^h │ $^i │
+\t└───┴───┴───┘
+END
+}( |$wheel.comb».uc );
+
+@res.push: sprintf "%d letters:  %s", .key, .value.sort.join(', ') for %words.sort;
+
+.say for @res;
+
+my $ref = q:to/END/;
+Using ref/unixdict.txt, minimum 3 letters.
+	┌───┬───┬───┐
+	│ N │ D │ E │
+	├───┼───┼───┤
+	│ O │ K │ G │
+	├───┼───┼───┤
+	│ E │ L │ W │
+	└───┴───┴───┘
+
+3 letters:  eke, elk, keg, ken, wok
+4 letters:  keel, keen, keno, knee, knew, know, kong, leek, week, woke
+5 letters:  kneel
+9 letters:  knowledge
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+#`{{
+Using defaults
+raku word-wheel.raku
+Using ./unixdict.txt, minimum 3 letters.
+	┌───┬───┬───┐
+	│ N │ D │ E │
+	├───┼───┼───┤
+	│ O │ K │ G │
+	├───┼───┼───┤
+	│ E │ L │ W │
+	└───┴───┴───┘
+3 letters:  eke, elk, keg, ken, wok
+4 letters:  keel, keen, keno, knee, knew, know, kong, leek, week, woke
+5 letters:  kneel
+9 letters:  knowledge
+
+Larger dictionary
+Using the much larger dictionary words.txt file from https://github.com/dwyl/english-words
+
+raku word-wheel.raku --dict=./words.txt
+Using ./words.txt, minimum 3 letters.
+	┌───┬───┬───┐
+	│ N │ D │ E │
+	├───┼───┼───┤
+	│ O │ K │ G │
+	├───┼───┼───┤
+	│ E │ L │ W │
+	└───┴───┴───┘
+3 letters:  dkg, dkl, eek, egk, eke, ekg, elk, gok, ked, kee, keg, kel, ken, keo, kew, kln, koe, kol, kon, lek, lgk, nek, ngk, oke, owk, wok
+4 letters:  deek, deke, doek, doke, donk, eked, elke, elko, geek, genk, gonk, gowk, keel, keen, keld, kele, kend, keno, keon, klee, knee, knew, know, koel, koln, kone, kong, kwon, leek, leke, loke, lonk, okee, oken, week, welk, woke, wolk, wonk
+5 letters:  dekle, dekow, gleek, kedge, kendo, kleon, klong, kneed, kneel, knowe, konde, oklee, olnek, woken
+6 letters:  gowked, keldon, kelwen, knowle, koleen
+8 letters:  weeklong
+9 letters:  knowledge
+Exercise adjustable parameters
+raku word-wheel.raku iuymslleb --dict=./words.txt --min=4
+Using ./words.txt, minimum 4 letters.
+	┌───┬───┬───┐
+	│ I │ U │ Y │
+	├───┼───┼───┤
+	│ M │ S │ L │
+	├───┼───┼───┤
+	│ L │ E │ B │
+	└───┴───┴───┘
+4 letters:  bels, beys, bise, blus, bmus, bsem, bsie, bslm, bsme, bums, busy, buys, byes, eisb, elis, ells, elms, elsi, elsy, elys, emus, emys, ills, ilse, imsl, isle, islm, islu, ismy, leis, leys, libs, lies, lise, lues, luis, lums, lyes, lyse, mels, mibs, mils, mise, misy, msie, musb, muse, sbli, sell, semi, siey, sile, sill, sime, sium, slbm, sleb, sley, slim, slub, slue, slum, suey, suiy, sull, sumi, sumy, syli, syll, uims
+5 letters:  belis, bells, belus, bemis, biles, bills, bisme, blues, bulls, bulse, busey, buyse, eblis, ellis, embus, emuls, eulis, ileus, illus, ilyse, isbel, iseum, lesiy, lesli, lesly, lieus, liles, limbs, limes, limsy, lisle, lubes, luise, lusby, lyles, melis, mells, miles, mills, misly, mlles, mules, mulls, mulse, musie, musil, myles, mysel, sebum, selby, selim, selli, selly, sibel, sible, sibyl, silly, silyl, simul, slily, slime, slimy, smell, smile, smily, sully, sybil, syble, yells, yills, ylems, yules, yusem
+6 letters:  bellis, bisley, bluesy, blueys, bluism, blumes, bulies, bullis, busily, elymus, embusy, illyes, imbues, libels, libuse, limbus, limeys, milles, milsey, muesli, muleys, musily, mysell, sibell, sibley, simule, slimly, smelly, smiley, umbels, umbles
+7 letters:  besully, bullies, bullism, elysium, illumes, mulleys, sibylle, silybum, sublime, sybille
+8 letters:  bullyism, semibull
+9 letters:  sublimely
+}}
