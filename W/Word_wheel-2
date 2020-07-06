@@ -1,6 +1,5 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Word_wheel
-#t# skiptest
 #c# 2020-07-04 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -23,16 +22,29 @@ $dict.IO.slurp.words».lc.map: {
     %words{.chars}.push: $_ if .comb.Bag ⊆ $has;
 };
 
-say "Using $dict, minimum $min letters.";
+@res.push: "Using $dict, minimum $min letters.";
 
-print rs-box :3col, :3cell, :indent("\t"), $wheel.comb».uc;
+@res.push: rs-box :3col, :3cell, :indent("\t"), $wheel.comb».uc;
 
-printf "%d letters:  %s\n", .key, .value.sort.join(', ') for %words.sort;
+@res.push: sprintf "%d letters:  %s", .key, .value.sort.join(', ') for %words.sort;
 
 .say for @res;
 
 my $ref = q:to/END/;
+Using ref/unixdict.txt, minimum 3 letters.
+	╭───┬───┬───╮
+	│ N │ D │ E │
+	├───┼───┼───┤
+	│ O │ K │ G │
+	├───┼───┼───┤
+	│ E │ L │ W │
+	╰───┴───┴───╯
+
+3 letters:  eke, elk, keg, ken, wok
+4 letters:  keel, keen, keno, knee, knew, know, kong, leek, week, woke
+5 letters:  kneel
+9 letters:  knowledge
 END
 
 use Test;
-#is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
