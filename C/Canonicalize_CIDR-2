@@ -1,0 +1,56 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Canonicalize_CIDR
+#c# 2020-07-12 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+# Bit mask and shift
+
+# canonicalize a IP4 CIDR block
+sub CIDR-IP4-canonicalize ($address) {
+  constant @mask = 24, 16, 8, 0;
+
+  # dotted-decimal / subnet size
+  my ($dotted, $size) = |$address.split('/'), 32;
+
+  # get IP as binary address
+  my $binary = sum $dotted.comb(/\d+/) Z+< @mask;
+
+  # mask off subnet
+  $binary +&= (2 ** $size - 1) +< (32 - $size);
+
+  # Return dotted-decimal notation
+  (@mask.map($binary +> * +& 0xFF).join('.'), $size)
+}
+
+my @tests = <
+  87.70.141.1/22
+  100.68.0.18/18
+  10.4.30.77/30
+  10.207.219.251/32
+  10.207.219.251
+  110.200.21/4
+  10.11.12.13/8
+  10.../8
+>;
+
+@res.push: sprintf "CIDR: %18s  Routing prefix: %s/%s", $_, |.&CIDR-IP4-canonicalize
+  for @*ARGS || @tests».trim;
+
+.say for @res;
+
+my $ref = q:to/END/;
+CIDR:     87.70.141.1/22  Routing prefix: 87.70.140.0/22
+CIDR:     100.68.0.18/18  Routing prefix: 100.68.0.0/18
+CIDR:      10.4.30.77/30  Routing prefix: 10.4.30.76/30
+CIDR:  10.207.219.251/32  Routing prefix: 10.207.219.251/32
+CIDR:     10.207.219.251  Routing prefix: 10.207.219.251/32
+CIDR:       110.200.21/4  Routing prefix: 96.0.0.0/4
+CIDR:      10.11.12.13/8  Routing prefix: 10.0.0.0/8
+CIDR:            10.../8  Routing prefix: 10.0.0.0/8
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
