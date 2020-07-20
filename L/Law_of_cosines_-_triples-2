@@ -29,7 +29,7 @@ my $n = 13;
 say "Integer triangular triples for sides 1..$n:";
 my %itt = triples($n, (90, 60, 120));
 for %itt.keys.sort: {+%itt{$^a}} -> $angle {
-    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +%itt{$angle}, %itt{$angle}.keys.sort(*.&naturally).join(', ');
+    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +%itt{$angle}, %itt{$angle}.keys.sort(&naturally).join(', ');
 }
 
 .say for @res;
