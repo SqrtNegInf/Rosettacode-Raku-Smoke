@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Display_an_outline_as_a_nested_table
-#c# 2019-10-24 <RC
+#c# 2019-10-24 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -67,7 +67,7 @@ my @layout;
     multi insert (@array) {
         @width.push: @width[*-1] × 10;
         ++$depth;
-        @array.map: *.&insert;
+        @array.map: &insert;
         --$depth;
         @width.pop;
     }
@@ -132,7 +132,7 @@ my $result2;
         my $li = $depth ?? "</li>" !! '';
         $depth++;
         my $list = "<ol style=\"list-style: {@type[$depth - 1]};\">\n" ~
-        ( @array.map( *.&ol ).join ) ~ "</ol>$li\n";
+        ( @array.map( &ol ).join ) ~ "</ol>$li\n";
         $depth--;
         $list
     }
