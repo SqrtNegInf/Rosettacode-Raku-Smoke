@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Abbreviations,_simple
-#c# 2017-09-19 <RC, 2018-11-18 <RC
+#c# 2017-09-19 <RC, 2018-11-18 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -27,7 +27,7 @@ sub abbr-simple ( $str ) { %abr{$str.trim.fc} // '»error«' }
 my @res;
 for 'riG   rePEAT copies  put mo   rest    types   fup.    6       poweRin', '' -> $str {
     put ' Input: ', $str;
-    @res.push: 'Output: '~ join ' ', $str.words.map: *.&abbr-simple;
+    @res.push: 'Output: '~ join ' ', $str.words.map: &abbr-simple;
     put @res[*-1];
 }
 
