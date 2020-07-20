@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Amb
-#c# 2020-02-22 <RC
+#c# 2020-02-22 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 
@@ -18,7 +18,7 @@ my @fourthSet = «slowly quickly»;
 
 sub doAmb( @lol ) {	# Takes out the correct sentences.
 	my @sentences = map *.join(" "), [X] @lol;
-	grep *.&isAmb, @sentences;
+	grep &isAmb, @sentences;
 }
 
 sub isAmb( $sentence ) {	# Checks `$sentence` for correctness.
