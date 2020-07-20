@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cuban_primes
-#c# 2019-02-02 <RC, 2019-06-13 <RC, 2020-07-19 >RC
+#c# 2019-02-02 <RC, 2019-06-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n  now down to about a minute...
@@ -13,7 +13,8 @@ my @res;
 use Lingua::EN::Numbers;
 use ntheory:from<Perl5> <:all>;
 
-my @cubans = lazy (1..Inf).map({ ($_+1)³ - .³ }).grep: &is_prime;
+my @cubans = lazy (1..Inf).map({ ($_+1)³ - .³ }).grep: *.&is_prime;     # '*.' required
+#my @cubans = lazy (1..Inf).map({ ($_+1)³ - .³ }).grep: &is-prime;      # OK
 
 @res.push: @cubans[^200]».&comma».fmt("%9s").rotor(10).join: "\n";
 @res.push: ''; 
