@@ -3,8 +3,8 @@
 # to find modules in use:
 # gr '^\s*use .*;$' | pf 's/^.*?:\d+://;s/^\s+//' | pg -v '^use (v6|nqp|lib)' | pg -v '(MONKEY|experimental|Binary|:from)' | sortcnt
 #
-# faking it seems to work fine:
-# ln -s libxxhash.0.6.5.dylib libxxhash.0.7.0.dylib
+# for Digest::xxHash (and some similar dodges for other libraries, forget which ones):
+# ( cd /usr/local/lib; ln -s /opt/local/lib/libxxhash.0.7.4.dylib . )
 
 zef install p6doc;
 
@@ -12,6 +12,7 @@ zef --/test install ArrayHash
 zef --/test install Audio::PortAudio
 zef --/test install Audio::Sndfile
 zef --/test install Digest::xxHash
+zef --/test install https://github.com/raku-community-modules/raku-GD.git
 zef --/test install Gumbo
 zef --/test install GTK::Simple
 zef --/test install HTTP::UserAgent
@@ -34,6 +35,7 @@ zef --/test install X11::libxdo
 
 #zef install Crypt::Random
 
+zef install Base::Any
 zef install Bench
 zef install Cairo
 zef install Clifford
@@ -52,8 +54,9 @@ zef install Email::Simple
 zef install File::Find
 zef install File::Which
 zef install File::Temp
-zef install GD
+#zef install GD
 zef install GD::Raw
+zef install Geo::Hash
 zef install Gumbo
 zef install IO::Socket::SSL
 zef install Image::PNG::Portable
@@ -66,7 +69,6 @@ zef install Lingua::EN::Numbers
 zef install Log::Syslog::Native
 zef install Migration::RTtoGithub
 zef install NCurses
-#zef install NativeCall  # obsolete here?
 zef install P5pack
 zef install PerlStore::FileStore
 zef install Pod::To::HTML
@@ -79,8 +81,10 @@ zef install Sort::Naturally
 zef install Term::ReadKey
 zef install Term::termios
 zef install Terminal::ANSIColor
+zef install use Terminal::Boxer
 zef install Terminal::Caca;
 zef install Test::Output
+zef install use Text::Center;
 zef install Text::CSV
 zef install Text::Levenshtein::Damerau
 zef install TrigPi
