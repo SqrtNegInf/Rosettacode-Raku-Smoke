@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Square-free_integers
-#c# 2018-07-05 <RC, 2018-07-09 <RC
+#c# 2018-07-05 <RC, 2018-07-09 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -44,14 +44,14 @@ sub is-square-free (Int $n) { my @v = $n.&prime-factors.Bag.values; @v.sum/@v <=
 my @res;
 for 1, 145, 1e12.Int, 145+1e12.Int -> $start, $end {
     @res.push: "\nSquare─free numbers between $start and $end:\n"~
-    ($start .. $end).hyper(:4batch).grep( *.&is-square-free ).list.fmt("%3d").comb(84).join("\n");
+    ($start .. $end).hyper(:4batch).grep( &is-square-free ).list.fmt("%3d").comb(84).join("\n");
 }
 
 # Part 3
 #for 1e2, 1e3, 1e4, 1e5, 1e6 {
 for 1e2, 1e3, 1e4, 1e5 {
     @res.push: "\nThe number of square─free numbers between 1 and $_ (inclusive) is: "~
-    +(1 .. .Int).race.grep: *.&is-square-free;
+    +(1 .. .Int).race.grep: &is-square-free;
 }
 
 .say for @res;
