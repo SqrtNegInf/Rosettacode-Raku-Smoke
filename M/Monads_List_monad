@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Monads/List_monad
-#c# 2018-06-22 <RC
+#c# 2018-06-22 <RC,  2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -17,7 +17,7 @@ multi bind ($item, &code) { $item.&code };
 
 sub divisors (Int $int) { gather for 1 .. $int { .take if $int %% $_ } }
 
-put my @res = join "\n", (flat ^10).&bind(* + 3).&bind(*.&divisors)».&bind(*.base: 2);
+put my @res = join "\n", (flat ^10).&bind(* + 3).&bind(&divisors)».&bind(*.base: 2);
 
 my $ref = qq:to/END/;
 1 11
