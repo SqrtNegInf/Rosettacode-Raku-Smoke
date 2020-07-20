@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Long_year%3F
-#c# 2020-01-09 <RC
+#c# 2020-01-09 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -10,9 +10,9 @@ my @res;
 
 sub is-long ($year) { Date.new("$year-12-28").week[1] == 53 }
 
-@res.push:   "Long years in the 20th century:", (1900..^2000).grep: *.&is-long;
-@res.push: "\nLong years in the 21st century:", (2000..^2100).grep: *.&is-long;
-@res.push: "\nLong years in the 22nd century:", (2100..^2200).grep: *.&is-long;
+@res.push:   "Long years in the 20th century:", (1900..^2000).grep: &is-long;
+@res.push: "\nLong years in the 21st century:", (2000..^2100).grep: &is-long;
+@res.push: "\nLong years in the 22nd century:", (2100..^2200).grep: &is-long;
 
 .say for @res;
 
