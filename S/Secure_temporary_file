@@ -3,6 +3,7 @@
 #c# 2017-10-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# better testing
 
 # Works with: Rakudo version 2017.09
 # This is something best done with a module which is heavily tested, tries to account for all corner cases and automatically cleans up after itself.
@@ -32,4 +33,5 @@ my ($filename5,$filehandle5) = tempfile(:prefix('foo'), :suffix(".txt"));
 use Test;
 ok $filename1.so and $filename2.so;
 ok $filename0.IO ~~ :e and $filename3.IO ~~ :e;
-ok $filename5.IO ~~ /^^ '/tmp/foo' .* 'txt' $$/;
+ok $filename4.IO ~~ /^^ 'tmp/20' \d\d '-' \d\d '-' \d\d ':' /;
+ok $filename5.IO ~~ /'/foo' .* 'txt' $$/;
