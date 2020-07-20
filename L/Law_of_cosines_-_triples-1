@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
-#c# 2018-09-25 <RC, 2018-10-18 >RC
+#c# 2018-09-25 <RC, 2018-10-18 >RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# added atomic ops to avoid race condition, and must use fixed-size @triples
@@ -56,7 +56,7 @@ my $n = 13;
 for 120, 90, 60 -> $angle {
     my @itt = triples($angle, $n);
     if $angle == 60 { push @itt, "$_ $_ $_" for 1..$n }
-    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +@itt, @itt.sort(*.&naturally).join(', ');
+    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +@itt, @itt.sort(&naturally).join(', ');
 }
 
 my ($angle, $count) = 60, 10_000;
