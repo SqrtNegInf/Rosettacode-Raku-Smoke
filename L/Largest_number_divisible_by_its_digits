@@ -1,9 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Largest_number_divisible_by_its_digits
-#c# 2017-09-02 <RC, 2018-10-13 >RC
+#c# 2017-09-02 <RC, 2018-10-13 >RC, 2020-07-19 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# better than 5-folder improvement with .race  and better tests
+#n# align with version on RC
 
 #`{
 Base 10[edit]
@@ -37,30 +38,24 @@ There are fewer analytical optimizations available for base 16. Other than 0, no
 To verify that a number is divisible by 1 through 15, we only need to check 5, 7, 8, 9, 11, & 13.
 }
 
-sub find-match ($num) {
-    my $test = $num.base(16);
-    return if index $test, 0;
-    return if $test.comb.Bag.values.max > 1;
-    #return if $test.comb.Set.elems != $test.chars; # same speed, but more cluttered
-    return $test;
-}
-
 my $hex = 'FEDCBA987654321';        # largest possible hex number
-   $magic-number = [lcm] 1 .. 15;   # find least common multiple
-   $div = :16($hex) div $magic-number × $magic-number;
-
+$magic-number = [lcm] 1 .. 15;   # find least common multiple
+$div = :16($hex) div $magic-number * $magic-number;
+ 
 # hunt for target stepping backwards in multiples of the lcm
-my $target = ($div, { $_ - $magic-number } ... 0).race.grep(*.&find-match).first;
+my $target = ($div, * - $magic-number ... 0).race.first: -> \test {
+    my \num= test.base(16);
+    (num.contains('0') || num.comb.Bag.values.max > 1) ?? False !! True
+};
 my $hexnum = $target.base(16);
-
+ 
 @res.push: "Found $hexnum"; # Found a solution, display it
-@res.push: ' ' x 12 ~ 'In base 16' ~ ' ' x 36 ~ 'In base 10'; # newlines inserted in JVM?
-
+ 
+@res.push: ' ' x 12~ 'In base 16'~ ' ' x 36~ 'In base 10';
 for $hexnum.comb {
     @res.push: sprintf "%s / %s = %s  |  %d / %2d = %19d",
         $hexnum, $_, ($target / :16($_)).base(16),
-        $target, :16($_), $target / :16($_);
-}
+        $target, :16($_), $target / :16($_);}
 
 .say for @res;
 
