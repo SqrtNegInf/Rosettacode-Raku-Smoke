@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Primalty_by_Wilson%27s_theorem
-#c# 2020-01-01 <RC
+#c# 2020-01-01 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -17,7 +17,7 @@ sub is-wilson-prime (Int $p where * > 1) { (($p - 1)! + 1) %% $p }
 @res.push: '   p  prime?';
 @res.push: sprintf("%4d  %s", $_, .&is-wilson-prime) for 2, 3, 9, 15, 29, 37, 47, 57, 67, 77, 87, 97, 237, 409, 659;
 
-my $wilsons = (2,3,*+2…*).hyper.grep: *.&is-wilson-prime;
+my $wilsons = (2,3,*+2…*).hyper.grep: &is-wilson-prime;
 
 @res.push: "\nFirst 120 primes:";
 @res.push: $wilsons[^120].rotor(20)».fmt('%3d').join: "\n";
