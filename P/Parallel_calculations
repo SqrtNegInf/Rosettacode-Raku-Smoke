@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parallel_calculations
-#c# 2017-10-28 <RC, 2018-06-28 <RC, 2018-07-06 <RC
+#c# 2017-10-28 <RC, 2018-06-28 <RC, 2018-07-06 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -21,7 +21,7 @@ my @nums = 64921987050997300559,  70251412046988563035,  71774104902986066597,
            259826672618677756753, 262872058330672763871, 267440136898665274575,
            278352769033314050117, 281398154745309057242, 292057004737291582187;
 
-my @factories = @nums.hyper(:3batch).map: *.&prime-factors;
+my @factories = @nums.hyper(:3batch).map: &prime-factors;
 printf "%21d factors: %s\n", |$_ for @nums Z @factories;
 my $gmf = {}.append(@factories»[0] »=>« @nums).max: +*.key;
 $res = "\nGreatest minimum factor: "~ $gmf.key ~ "\nfrom: { $gmf.value }\n";
@@ -48,7 +48,7 @@ say '-' x 80;
 
 for 1..8 -> $degree {
     my $start = now;
-    my \factories = @nums.hyper(:degree($degree), :3batch).map: *.&prime-factors;
+    my \factories = @nums.hyper(:degree($degree), :3batch).map: &prime-factors;
     my $gmf = {}.append(factories»[0] »=>« @nums).max: +*.key;
     say "\nFactoring {+@nums} numbers, greatest minimum factor: {$gmf.key}";
     say "Using: $degree thread{ $degree > 1 ?? 's' !! ''}";
