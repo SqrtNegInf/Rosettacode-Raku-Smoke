@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fusc_sequence
-#c# 2019-02-22 <RC
+#c# 2019-02-22 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -16,7 +16,7 @@ sub comma { $^i.flip.comb(3).join(',').flip }
 
 for flat 'Index', 'Value', 0, 0, (1..4).map({
     my $l = 10**$_;
-    @Stern-Brocot.first(* > $l, :kv).map: *.&comma
+    @Stern-Brocot.first(* > $l, :kv).map: &comma
   }) -> $i, $v {
       @res.push: sprintf "%15s : %s", $i, $v
 }
