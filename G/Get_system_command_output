@@ -1,8 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Get_system_command_output
-#c# 2015-12-06 <RC
+#c# 2015-12-06 <RC, 2020-07-20 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 'slurp-rest' deprecated, plain 'slurp' works fine
 
 die 'This will hang!' if $*VM ~~ /jvm/;  # hangs under JVM, so bail now
 
@@ -16,7 +17,7 @@ die 'This will hang!' if $*VM ~~ /jvm/;  # hangs under JVM, so bail now
 
 my $p1 = run 'echo', 'Hello, world', :out;
 my $p2 = run 'cat', '-n', :in($p1.out), :out;
-say my $result = $p2.out.slurp-rest;
+say my $result = $p2.out.slurp;
 
 use Test;
 is $result, "     1\tHello, world\n";
