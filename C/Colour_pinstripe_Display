@@ -1,10 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Colour_pinstripe/Display
-#c# 2016-05-15 <RC, 2017-06-04 >RC, 2018-11-16 >RC
+#c# 2016-05-15 <RC, 2017-06-04 >RC, 2018-11-16 >RC, 2020-07-20 >RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: pinstripes.ppm
+#n# 'flatmap' deprecated
 
 my ($x,$y) = 1280, 720;
 
@@ -30,7 +31,7 @@ $img.print: qq:to/EOH/;
 my $vzones = $y div 4;
 for 1..4 -> $width {
     my $stripes = ceiling $x / $width / +@colors;
-    my $row = [((@colors Xxx $width) xx $stripes).flatmap: *.values].splice(0,$x);
+    my $row = [flat ((@colors Xxx $width) xx $stripes).map: *.values].splice(0,$x);
     $img.put: $row for ^$vzones;
 }
 
