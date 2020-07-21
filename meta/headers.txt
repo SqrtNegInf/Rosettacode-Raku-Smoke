@@ -221,7 +221,7 @@ File: A/Abbreviations,_automatic.1
 File: A/Abbreviations,_easy
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Abbreviations,_easy
-#c# 2017-09-19 <RC
+#c# 2017-09-19 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -236,7 +236,7 @@ File: A/Abbreviations,_easy.1
 File: A/Abbreviations,_simple
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Abbreviations,_simple
-#c# 2017-09-19 <RC, 2018-11-18 <RC
+#c# 2017-09-19 <RC, 2018-11-18 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -248,6 +248,14 @@ File: A/Abelian_sandpile_model
 #j# JVM:  BROKEN
 #f# RC file: abelian.BEND
 #n# JVM: works fine, just very very slow
+
+File: A/Abelian_sandpile_model-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Abelian_sandpile_model
+#t# interactive
+#c# 2020-07-19 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
 
 File: A/Abelian_sandpile_model_Identity
 #!/usr/bin/env raku
@@ -446,7 +454,7 @@ File: A/Amb-3
 File: A/Amb-4
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Amb
-#c# 2020-02-22 <RC
+#c# 2020-02-22 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 
@@ -1259,7 +1267,7 @@ File: B/Brace_expansion
 File: B/Brazilian_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brazilian_numbers
-#c# 2019-08-12 <RC, 2019-08-14 <RC
+#c# 2019-08-12 <RC, 2019-08-14 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -1857,11 +1865,12 @@ File: C/Colour_bars_Display
 File: C/Colour_pinstripe_Display
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Colour_pinstripe/Display
-#c# 2016-05-15 <RC, 2017-06-04 >RC, 2018-11-16 >RC
+#c# 2016-05-15 <RC, 2017-06-04 >RC, 2018-11-16 >RC, 2020-07-20 >RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: pinstripes.ppm
+#n# 'flatmap' deprecated
 
 File: C/Colour_pinstripe_Printer
 #!/usr/bin/env perl6
@@ -2388,9 +2397,10 @@ File: D/Data_Encryption_Standard
 File: D/Date_format
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Date_format
-#c# 2016-11-08 <>RC
+#c# 2016-11-08 <>RC, 2020-07-20 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 'slurp-rest' deprecated, plain 'slurp' works fine
 
 File: D/Date_format.1
 #!/usr/bin/env perl6
@@ -2703,7 +2713,7 @@ File: D/Display_a_linear_combination
 File: D/Display_an_outline_as_a_nested_table
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Display_an_outline_as_a_nested_table
-#c# 2019-10-24 <RC
+#c# 2019-10-24 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -4062,10 +4072,11 @@ File: F/Function_definition
 File: F/Function_frequency
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Function_frequency
-#c# 2015-12-12 <RC, 2020-03-16 >RC
+#c# 2015-12-12 <RC, 2020-03-16 >RC, 2020-07-20 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n#  needs periodic updates as codgen evolves?
+#n# 'slurp-rest' deprecated, plain 'slurp' works fine
 
 File: F/Functional_coverage_tree-1
 #!/usr/bin/env perl6
@@ -4094,7 +4105,7 @@ File: F/Functional_coverage_tree.0
 File: F/Fusc_sequence
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fusc_sequence
-#c# 2019-02-22 <RC
+#c# 2019-02-22 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -4160,7 +4171,7 @@ File: G/Gapful_numbers
 File: G/Gauss-Jordan_matrix_inversion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Gauss-Jordan_matrix_inversion
-#c# 2018-04-05 <RC, 2018-11-03 <RC, 2019-05-16 >RC, 2020-05-15 >RC
+#c# 2018-04-05 <RC, 2018-11-03 <RC, 2019-05-16 >RC, 2020-05-15 >RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# as with thundergat's fix for 'Loops_Wrong_ranges' 
@@ -4275,9 +4286,10 @@ File: G/Geometric_algebra
 File: G/Get_system_command_output
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Get_system_command_output
-#c# 2015-12-06 <RC
+#c# 2015-12-06 <RC, 2020-07-20 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 'slurp-rest' deprecated, plain 'slurp' works fine
 
 File: G/Globally_replace_text_in_several_files
 #!/usr/bin/env perl6
@@ -5531,10 +5543,11 @@ File: L/Largest_int_from_concatenated_ints
 File: L/Largest_number_divisible_by_its_digits
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Largest_number_divisible_by_its_digits
-#c# 2017-09-02 <RC, 2018-10-13 >RC
+#c# 2017-09-02 <RC, 2018-10-13 >RC, 2020-07-19 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# better than 5-folder improvement with .race  and better tests
+#n# align with version on RC
 
 File: L/Largest_number_divisible_by_its_digits.1
 #!/usr/bin/env perl6
@@ -5601,7 +5614,7 @@ File: L/Launch_rocket_with_countdown_and_acceleration_in_stdout
 File: L/Law_of_cosines_-_triples-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
-#c# 2018-09-25 <RC, 2018-10-18 >RC
+#c# 2018-09-25 <RC, 2018-10-18 >RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# added atomic ops to avoid race condition, and must use fixed-size @triples
@@ -5835,7 +5848,7 @@ File: L/Long_primes.jvm
 File: L/Long_year%3F
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Long_year%3F
-#c# 2020-01-09 <RC
+#c# 2020-01-09 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -6293,9 +6306,10 @@ File: M/Mastermind
 File: M/Matrix-exponentiation_operator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Matrix-exponentiation_operator
-#c# 2016-02-16 <RC, 2017-03-12 <RC
+#c# 2016-02-16 <RC, 2017-03-12 <RC, 2020-07-20 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 'flatmap' deprecated
 
 File: M/Matrix_Digital_Rain
 #!/usr/bin/env perl6
@@ -6614,7 +6628,7 @@ File: M/Moebius_function.1
 File: M/Monads_List_monad
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Monads/List_monad
-#c# 2018-06-22 <RC
+#c# 2018-06-22 <RC,  2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -7450,7 +7464,7 @@ File: P/Parallel_Brute_Force.jvm
 File: P/Parallel_calculations
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parallel_calculations
-#c# 2017-10-28 <RC, 2018-06-28 <RC, 2018-07-06 <RC
+#c# 2017-10-28 <RC, 2018-06-28 <RC, 2018-07-06 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -8201,7 +8215,7 @@ File: P/Primality_by_trial_division.1
 File: P/Primalty_by_Wilson%27s_theorem
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Primalty_by_Wilson%27s_theorem
-#c# 2020-01-01 <RC
+#c# 2020-01-01 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -8233,7 +8247,7 @@ File: P/Prime_conspiracy.1
 File: P/Prime_decomposition
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Prime_decomposition
-#c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC, 2018-11-15 <RC
+#c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC, 2018-11-15 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for JVM: use .1 version
@@ -9073,7 +9087,7 @@ File: R/Rosetta_Code_Find_bare_lang_tags
 File: R/Rosetta_Code_Find_unimplemented_tasks
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/Find_unimplemented_tasks
-#c# 2018-04-30 <RC
+#c# 2018-04-30 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -9087,7 +9101,7 @@ File: R/Rosetta_Code_Fix_code_tags
 File: R/Rosetta_Code_List_authors_of_task_descriptions
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/List_authors_of_task_descriptions
-#c# 2018-03-31 <RC, 2018-11-19 >RC
+#c# 2018-03-31 <RC, 2018-11-19 >RC, 2020-07-19 >RC
 #t# skiptest
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -9342,6 +9356,7 @@ File: S/Secure_temporary_file
 #c# 2017-10-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# better testing
 
 File: S/Selective_File_Copy
 #!/usr/bin/env perl6
@@ -10284,7 +10299,7 @@ File: S/Spoof_game
 File: S/Square-free_integers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Square-free_integers
-#c# 2018-07-05 <RC, 2018-07-09 <RC
+#c# 2018-07-05 <RC, 2018-07-09 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -11319,7 +11334,7 @@ File: T/Topological_sort_Extracted_top_item
 File: T/Topswops
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Topswops
-#c# 2018-12-01 <RC, 2019-10-16 >RC
+#c# 2018-12-01 <RC, 2019-10-16 >RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# bumping up to 9 swaps, but 10 still too slow ( > 7 min)
@@ -11873,9 +11888,10 @@ File: V/Voronoi_diagram.1
 File: W/Walk_a_directory_Non-recursively
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Walk_a_directory/Non-recursively
-#c# 2015-12-09 <RC
+#c# 2015-12-09 <RC, 2020-07-20 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 'slurp-rest' deprecated, plain 'slurp' works fine
 
 File: W/Walk_a_directory_Recursively
 #!/usr/bin/env perl6
