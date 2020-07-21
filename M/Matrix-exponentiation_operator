@@ -1,10 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Matrix-exponentiation_operator
-#c# 2016-02-16 <RC, 2017-03-12 <RC
+#c# 2016-02-16 <RC, 2017-03-12 <RC, 2020-07-20 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 'flatmap' deprecated
 
-# Works with: rakudo version 2015-09-22
 subset SqMat of Array where { .elems == all(.[]».elems) }
 
 multi infix:<×>(SqMat $a, SqMat $b) {[
@@ -30,61 +30,20 @@ multi infix:<**> (SqMat $m, Int $n is copy where { $_ >= 0 }) {
 my @res;
 
 multi show (SqMat $m) {
-    # change by Util, 2017-03-12
-    my $size = $m.flatmap( *.list».chars ).max;
+    my $size = $m.map( *.list».chars ).flat.max;
     say .fmt("%{$size}s", ' ') for $m.list;
-
-    #my $size = 1;
-    #for ^$m X ^$m -> ($i, $j) { $size max= $m[$i][$j].Str.chars; }
-    #.put for @$m».fmt("%{$size}s");
-    #say join("\n", $m».fmt("%{$size}s")); # older
 
     @res.push: "$_\n" for @$m».fmt("%{$size}s");
 }
 
-my @m = [1, 2, 0],
+my @m = 
+    [1, 2, 0],
 	[0, 3, 1],
 	[1, 0, 0];
 
 for 0 .. 10 -> $order {
     say "### Order $order";
     show @m ** $order;
-}
-
-#`{
-1 0 0
-0 1 0
-0 0 1
-1 2 0
-0 3 1
-1 0 0
-1 8 2
-1 9 3
-1 2 0
- 3 26  8
- 4 29  9
- 1  8  2
-11 84 26
-13 95 29
- 3 26  8
- 37 274  84
- 42 311  95
- 11  84  26
- 121  896  274
- 137 1017  311
-  37  274   84
- 395 2930  896
- 448 3325 1017
- 121  896  274
- 1291  9580  2930
- 1465 10871  3325
-  395  2930   896
- 4221 31322  9580
- 4790 35543 10871
- 1291  9580  2930
- 13801 102408  31322
- 15661 116209  35543
-  4221  31322   9580
 }
 
 my $ref = qq:to/END/;
