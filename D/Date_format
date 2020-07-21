@@ -1,19 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Date_format
-#c# 2016-11-08 <>RC
+#c# 2016-11-08 <>RC, 2020-07-20 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 'slurp-rest' deprecated, plain 'slurp' works fine
 
-#Library: DateTime::FormatFormat
 use DateTime::Format;
 
 my $dt1 = DateTime.now;
 
 say strftime('%Y-%m-%d', $dt1);
 say strftime('%A, %B %d, %Y', $dt1);
-
-#Rudimentary DateTime operations are built-in,
-#as the DateTime class itself is built into a Perl 6 compiler:
 
 use DateTime::Format;
 
@@ -23,7 +20,7 @@ say $dt2.yyyy-mm-dd;
 say strftime('%A, %B %d, %Y', $dt2);
 
 my $proc = run 'date', '+%Y-%m-%d', :out; 
-my $today = $proc.out.slurp-rest;
+my $today = $proc.out.slurp;
 
 use Test;
 is strftime('%Y-%m-%d', $dt1), chomp $today;
