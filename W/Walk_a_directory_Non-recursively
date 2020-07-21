@@ -1,12 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Walk_a_directory/Non-recursively
-#c# 2015-12-09 <RC
+#c# 2015-12-09 <RC, 2020-07-20 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 'slurp-rest' deprecated, plain 'slurp' works fine
 
 # The dir function takes the directory to traverse, and optionally a named parameter test, which is smart-matched against the basename of each file (so for example we can use a regex):
 
 .say for my @res = dir ".", :test(/txt$/);
 
 use Test;
-is +@res, +(run('ls', '-1', :out).out.slurp-rest).split("\n").grep(/txt$/);
+is +@res, +(run('ls', '-1', :out).out.slurp).split("\n").grep(/txt$/);
