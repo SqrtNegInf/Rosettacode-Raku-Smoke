@@ -1,15 +1,16 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Function_frequency
-#c# 2015-12-12 <RC, 2020-03-16 >RC
+#c# 2015-12-12 <RC, 2020-03-16 >RC, 2020-07-20 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n#  needs periodic updates as codgen evolves?
+#n# 'slurp-rest' deprecated, plain 'slurp' works fine
 
 #Here we just examine the ast of the Perl 6 compiler (which is written in Perl 6) to look for function calls.
 
 my $cmd = run 'raku', '--target=ast', 'S/Sorting_algorithms_Quicksort', :out, :err;
-my $text = $cmd.out.slurp-rest;
-my $err  = $cmd.err.slurp-rest;
+my $text = $cmd.out.slurp;
+my $err  = $cmd.err.slurp;
 
 my %fun;
 for $text.lines {
