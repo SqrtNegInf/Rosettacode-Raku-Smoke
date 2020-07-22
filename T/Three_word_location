@@ -1,0 +1,111 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Three_word_location
+#c# 2020-07-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+srand 123456;
+
+# SYNTHETICS HANDLING
+my @synth = flat < b d f h j k l m n p r s t w y z > X~ < a e i o u >;
+my %htnys = @synth.antipairs;
+my $exp   = @synth.elems;
+
+sub synth (Int $v) { @synth[($v + (^18).pick * 28126).polymod($exp xx *).reverse || 0].join }
+
+sub thnys (Str $v) { (sum %htnys{$v.comb(2).reverse} Z* 1, $exp, $exp**2) % 28126 }
+
+# ENCODE / DECODE
+sub w-encode ( Rat(Real) $lat, Rat(Real) $lon ) {
+    $_ = (($lat +  90) * 10000).round.fmt('%021b') ~ (($lon + 180) * 10000).round.fmt('%022b');
+    (:2(.substr(0,15)), :2(.substr(15,14)),:2(.substr(29)))».&synth
+}
+
+sub w-decode ( *@words ) {
+    my $bin = (@words».&thnys Z, <0 1 1>).map({.[0].fmt('%015b').substr(.[1])}).join;
+    (:2($bin.substr(0,21))/10000) - 90, (:2($bin.substr(21))/10000) - 180
+}
+
+# TESTING
+for 51.4337,  -0.2141, # Wimbledon
+    21.2596,-157.8117, # Diamond Head crater
+   -55.9652, -67.2256, # Monumento Cabo De Hornos
+    59.3586,  24.7447, # Lake Raku
+    29.2021,  81.5324, # Village Raku
+    -7.1662,  53.9470, # The Indian ocean, south-west of Seychelles
+    28.3852, -81.5638  # Walt Disney World
+  -> $lat, $lon {
+    my @words = w-encode $lat, $lon;
+    @res.push: sprintf "Coordinates: %s, %s\n  To 3-word: %-20s\n   And back: %s, %s\n",
+      $lat, $lon, @words.Str, w-decode(@words);
+}
+
+.say for @res;
+
+my $moar = q:to/END/;
+Coordinates: 51.4337, -0.2141
+  To 3-word: sehafe dowisi rupoza
+   And back: 51.4337, -0.2141
+
+Coordinates: 21.2596, -157.8117
+  To 3-word: jajopo nakoki sonepu
+   And back: 21.2596, -157.8117
+
+Coordinates: -55.9652, -67.2256
+  To 3-word: dahobo lofoya yimapo
+   And back: -55.9652, -67.2256
+
+Coordinates: 59.3586, 24.7447
+  To 3-word: tatiha tijehe bimiye
+   And back: 59.3586, 24.7447
+
+Coordinates: 29.2021, 81.5324
+  To 3-word: dijule kihore rukija
+   And back: 29.2021, 81.5324
+
+Coordinates: -7.1662, 53.947
+  To 3-word: lititu pazini bibeti
+   And back: -7.1662, 53.947
+
+Coordinates: 28.3852, -81.5638
+  To 3-word: jamine hukiwo heni  
+   And back: 28.3852, -81.5638
+
+END
+
+my $jvm = q:to/END/;
+Coordinates: 51.4337, -0.2141
+  To 3-word: luhije tepepu pawato
+   And back: 51.4337, -0.2141
+
+Coordinates: 21.2596, -157.8117
+  To 3-word: suwiti dahasu datisi
+   And back: 21.2596, -157.8117
+
+Coordinates: -55.9652, -67.2256
+  To 3-word: nalare yisobu zewifu
+   And back: -55.9652, -67.2256
+
+Coordinates: 59.3586, 24.7447
+  To 3-word: filuwu dafaso jumate
+   And back: 59.3586, 24.7447
+
+Coordinates: 29.2021, 81.5324
+  To 3-word: modalo jiwida rukija
+   And back: 29.2021, 81.5324
+
+Coordinates: -7.1662, 53.947
+  To 3-word: fatuyu deloko hupode
+   And back: -7.1662, 53.947
+
+Coordinates: 28.3852, -81.5638
+  To 3-word: feruku pasiju bupodo
+   And back: 28.3852, -81.5638
+
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
