@@ -41,7 +41,8 @@ class Wireworld {
 }
 
 my %*SUB-MAIN-OPTS;
-%*SUB-MAIN-OPTS<named-anywhere> = True;
+# my %*SUB-MAIN-OPTS = :named-anywhere;
+%*SUB-MAIN-OPTS<named-anywhere> = True; # alternate method
 
 multi sub MAIN (
     IO()      $filename,
