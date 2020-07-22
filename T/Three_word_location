@@ -13,13 +13,13 @@ my @synth = flat < b d f h j k l m n p r s t w y z > X~ < a e i o u >;
 my %htnys = @synth.antipairs;
 my $exp   = @synth.elems;
 
-sub synth (Int $v) { @synth[($v + (^18).pick * 28126).polymod($exp xx *).reverse || 0].join }
+sub synth (Int $v) { @synth[($v + (^18).pick × 28126).polymod($exp xx *).reverse || 0].join }
 
-sub thnys (Str $v) { (sum %htnys{$v.comb(2).reverse} Z* 1, $exp, $exp**2) % 28126 }
+sub thnys (Str $v) { (sum %htnys{$v.comb(2).reverse} Z× 1, $exp, $exp**2) % 28126 }
 
 # ENCODE / DECODE
 sub w-encode ( Rat(Real) $lat, Rat(Real) $lon ) {
-    $_ = (($lat +  90) * 10000).round.fmt('%021b') ~ (($lon + 180) * 10000).round.fmt('%022b');
+    $_ = (($lat +  90) × 10000).round.fmt('%021b') ~ (($lon + 180) × 10000).round.fmt('%022b');
     (:2(.substr(0,15)), :2(.substr(15,14)),:2(.substr(29)))».&synth
 }
 
