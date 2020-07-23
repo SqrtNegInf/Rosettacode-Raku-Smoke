@@ -40,9 +40,11 @@ class Wireworld {
     }
 }
 
-my %*SUB-MAIN-OPTS;
 # my %*SUB-MAIN-OPTS = :named-anywhere;
-%*SUB-MAIN-OPTS<named-anywhere> = True; # alternate method
+
+# alternate method, but must be done in two statements, else: "Shaped variable declarations not yet implemented."
+my %*SUB-MAIN-OPTS;
+%*SUB-MAIN-OPTS<named-anywhere> = True; 
 
 multi sub MAIN (
     IO()      $filename,
