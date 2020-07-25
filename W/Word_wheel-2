@@ -24,7 +24,7 @@ $dict.IO.slurp.words».lc.map: {
 
 @res.push: "Using $dict, minimum $min letters.";
 
-@res.push: rs-box :3col, :3cell, :indent("\t"), $wheel.comb».uc;
+@res.push: rs-box :3col, :3cw, :indent("\t"), $wheel.comb».uc;
 
 @res.push: sprintf "%d letters:  %s", .key, .value.sort.join(', ') for %words.sort;
 
