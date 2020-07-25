@@ -61,18 +61,18 @@ sub solve($sudoku, Int $level) {
             # Now let's try the possible values in the order of
             # uniqueness.
             for sort { matches-in-competing-cells($sudoku, $x, $y, $_) }, @($sudoku[$x][$y]) -> $val {
-                #trace $level, "Trying $val on "~($x+1)~","~($y+1)~" "~$sudoku[$x][$y].raku;
+                trace $level, "Trying $val on "~($x+1)~","~($y+1)~" "~$sudoku[$x][$y].raku;
                 my $solution = clone-sudoku($sudoku);
                 $solution[$x][$y] = $val;
                 my $solved = solve($solution, $level+1);
                 if $solved {
-                    #trace $level, "Solved... ($val on "~($x+1)~","~($y+1)~")";
+                    trace $level, "Solved... ($val on "~($x+1)~","~($y+1)~")";
                     return $solved;
                 }
             }
             # if we fell through, it means that we found no valid
             # value for this cell
-            #trace $level, "Backtrack, path unsolvable... (on "~($x+1)~" "~($y+1)~")";
+            trace $level, "Backtrack, path unsolvable... (on "~($x+1)~" "~($y+1)~")";
             return 0;
         }
         # all cells are already solved.
@@ -212,9 +212,9 @@ if $solved {
 
 # Utility functions, not really part of the solution
 
-#sub trace(Int $level, Str $message) {
+sub trace(Int $level, Str $message) {
 #    say '.' x $level, $message;
-#}
+}
 
 sub clone-sudoku($sudoku) {
     my $clone;
@@ -225,7 +225,7 @@ sub clone-sudoku($sudoku) {
 }
 
 sub print-sudoku($sudoku, Int $level = 1) {
-    #trace $level, '-' x 5×9;
+    trace $level, '-' x 5×9;
     gather {
     for @($sudoku) -> $row {
         take join " ", do for @($row) -> $cell {
