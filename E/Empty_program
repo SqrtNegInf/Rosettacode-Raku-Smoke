@@ -8,10 +8,12 @@
 # The empty program is valid and does nothing but return a successful exit code:
 
 # It is also possible to just specify that the program is written in Perl6:
-use v6;
+use v6; # deprecated now
 
 # or, even just
 v6;
+
+v6.z; # but no error?
 
 #or even: #DH no longer!
 #6;
