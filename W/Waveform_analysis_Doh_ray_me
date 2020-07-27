@@ -14,12 +14,11 @@ my \notes = < Doh Ray Mee Fah Soh Lah Tee doh >;
 
 sub getNote (\freq) {
    my $index = freqs;
-   for (0..^$index) { $index =$_ and last if freq ≤ freqs[$_] }
+   for (0..^$index) { $index = $_ and last if freq ≤ freqs[$_] }
    given $index {
       when 0      { 'Doh-' }
       when freqs  { 'doh+' }
-      default     { freqs[$index] - freq ≤ freq - freqs[$index-1]
-                       ?? notes[$index] ~ '-' !! notes[$index-1] ~ '+' }
+      default     { freqs[$index] - freq ≤ freq - freqs[$index-1] ?? notes[$index] ~ '-' !! notes[$index-1] ~ '+' }
    }
 }
 
@@ -37,8 +36,7 @@ my $dataLength = Blob.new(@$file[40..43]).read-uint32(0,LittleEndian);
 my $duration = $dataLength / $sampleRate;
 @res.push: "Duration       : $duration";
 
-my ( $sum , $sampleRateF )  =  ( 0, $sampleRate ) ;
-my $nbytes = 20;
+my ( $sum , $sampleRateF, $nbytes )  =  ( 0, $sampleRate, 20 );
 
 @res.push: "Bytes examined : $nbytes per sample";
 
