@@ -1,0 +1,35 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Twin_Prime_Conjecture
+#c# 2020-07-26 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# as should be, same as Perl for 10**12: 718.55s user 5.25s system 711% cpu 1:41.68 total
+
+my @res;
+
+use Lingua::EN::Numbers;
+use Math::Primesieve;
+
+my $p = Math::Primesieve.new;
+
+@res.push: sprintf "Twin prime pairs less than %14s: %s", comma(10**$_), comma $p.count(10**$_, :twins) for 1 .. 10;
+
+.say for @res;
+
+my $ref = q:to/END/;
+Twin prime pairs less than             10: 2
+Twin prime pairs less than            100: 8
+Twin prime pairs less than          1,000: 35
+Twin prime pairs less than         10,000: 205
+Twin prime pairs less than        100,000: 1,224
+Twin prime pairs less than      1,000,000: 8,169
+Twin prime pairs less than     10,000,000: 58,980
+Twin prime pairs less than    100,000,000: 440,312
+Twin prime pairs less than  1,000,000,000: 3,424,506
+Twin prime pairs less than 10,000,000,000: 27,412,679
+END
+
+# Twin prime pairs less than 1,000,000,000,000: 1,870,585,220
+
+use Test;
+is @res.join("\n"), chomp $ref;
