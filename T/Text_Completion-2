@@ -1,0 +1,42 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Text_Completion
+#t# inprogress
+#c# 2020-07-30 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# Sorenson-Dice - testing issue yet
+
+my @res;
+
+srand 123456;
+
+sub sorenson ($phrase, %hash) {
+    my $match = bigram $phrase;
+    %hash.race.map: {
+        my $this = .value;
+        [(2 * +($match ∩ $this) / (+$match + $this)).round(.001), .key]
+    }
+}
+
+sub bigram (\these) {
+    Bag.new( flat these.fc.words.map: { .comb.rotor(2 => -1)».join } )
+}
+
+# Load the dictionary
+my %hash = 'ref/unixdict.txt'.IO.slurp.words.race.map: { $_ => .&bigram };
+
+# Testing
+for 'complition', 'inconsqual', 'Sørenson' -> $w {
+    @res.push: "\n$w:";
+    @res.push: $_ for sorenson($w, %hash).grep(*.[0] >= .55).sort(-*[0]).head(10);
+}
+
+.say for @res;
+exit;
+
+my $ref = q:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
