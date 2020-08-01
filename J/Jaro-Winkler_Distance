@@ -8,7 +8,7 @@ my @res;
 
 sub jaro-winkler ($s, $t) {
 
-    return False if $s eq $t;
+    return 0 if $s eq $t;
 
     my $s_len = + my @s = $s.comb;
     my $t_len = + my @t = $t.comb;
@@ -34,7 +34,7 @@ sub jaro-winkler ($s, $t) {
         }
     }
 
-    return True if $matches == 0;
+    return 1 if $matches == 0;
 
     my $k              = 0;
     my $transpositions = 0;
