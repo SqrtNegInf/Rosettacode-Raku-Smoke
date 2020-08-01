@@ -8,26 +8,25 @@
 # Translation of: Perl
 
 sub jaro ($s, $t) {
-    return True if $s eq $t;
+    return 1 if $s eq $t;
 
     my $s_len = + my @s = $s.comb;
     my $t_len = + my @t = $t.comb;
     my $match_distance = ($s_len max $t_len) div 2 - 1;
-    my ($matches, @s_matches, @t_matches) = 0;  # arrays remain un-initialized
+    my ($matches, @s_matches, @t_matches);
 
     for ^@s -> $i {
         my $start = 0 max $i - $match_distance;
-        my $end   = $i + $match_distance min $t_len;
+        my $end   = $i + $match_distance min ($t_len - 1);
 
         for $start .. $end -> $j {
-            next if     @t_matches[$j];
-            next unless @s[$i] eq @t[$j];
+            next if @t_matches[$j] or @s[$i] ne @t[$j];
             (@s_matches[$i], @t_matches[$j]) = (1, 1); 
             $matches++;
             last;
         }
     }
-    return False if $matches == 0;
+    return 0 unless $matches;
 
     my ($k, $transpositions) = (0, 0);
     for ^@s -> $i {
@@ -45,11 +44,17 @@ my @res;
 @res.push: sprintf("%f", jaro("MARTHA",    "MARHTA"));
 @res.push: sprintf("%f", jaro("DIXON",     "DICKSONX"));
 @res.push: sprintf("%f", jaro("JELLYFISH", "SMELLYFISH"));
+@res.push: sprintf("%f", jaro("REPEAT",    "REPEAT"));
+@res.push: sprintf("%f", jaro("",          ""));
+
+.say for @res;
 
 my $ref = qq:to/END/;
 0.944444
 0.766667
 0.896296
+1.000000
+1.000000
 END
 
 use Test;
