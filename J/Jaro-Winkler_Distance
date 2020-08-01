@@ -2,13 +2,13 @@
 #u# http://rosettacode.org/wiki/Jaro-Winkler_Distance
 #c# 2020-07-31 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 
 my @res;
 
 sub jaro-winkler ($s, $t) {
 
-    return 0 if $s eq $t;
+    return False if $s eq $t;
 
     my $s_len = + my @s = $s.comb;
     my $t_len = + my @t = $t.comb;
@@ -34,7 +34,7 @@ sub jaro-winkler ($s, $t) {
         }
     }
 
-    return 1 if $matches == 0;
+    return True if $matches == 0;
 
     my $k              = 0;
     my $transpositions = 0;
@@ -136,5 +136,4 @@ Closest 5 dictionary words with a Jaro-Winkler distance < .15 from wich:
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
