@@ -1,0 +1,58 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Text_Completion
+#c# 2020-07-30 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+sub sorenson ($phrase, %hash) {
+    my $match = bigram $phrase;
+    %hash.map: { [(2 * +($match ∩ .value) / (+$match + .value)).round(.001), .key] }
+}
+
+sub bigram (\these) { Bag.new( flat these.fc.words.map: { .comb.rotor(2 => -1)».join } ) }
+
+# Load the dictionary
+my %hash = 'ref/unixdict.txt'.IO.slurp.words.map: { $_ => .&bigram };
+
+# Testing
+for <complition inconsqual Sørenson> -> $w {
+    @res.push: "\n$w:";
+    @res.push: $_ for sorenson($w, %hash).grep(*.[0] >= .55).sort({-.[0],~.[1]}).head(10);
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+complition:
+0.778 completion
+0.737 competition
+0.737 composition
+0.706 coalition
+0.7 incompletion
+0.667 complexion
+0.667 complicity
+0.667 decomposition
+0.632 compilation
+0.632 compunction
+
+inconsqual:
+0.609 inconsequential
+0.588 continual
+0.571 squall
+0.556 conceptual
+0.556 inconstant
+
+Sørenson:
+0.714 sorenson
+0.667 benson
+0.615 swenson
+0.571 evensong
+0.571 sorensen
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
