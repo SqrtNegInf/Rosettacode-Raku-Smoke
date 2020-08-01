@@ -15,9 +15,7 @@ sub jaro ($s, $t) {
 
     my $match_distance = ($s_len max $t_len) div 2 - 1;
 
-    my @s_matches;
-    my @t_matches;
-    my $matches = 0;
+    my ($matches, @s_matches, @t_matches) = 0;  # arrays remain un-initialized
 
     for ^@s -> $i {
 
