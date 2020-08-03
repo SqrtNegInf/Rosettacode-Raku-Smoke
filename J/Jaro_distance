@@ -32,7 +32,7 @@ sub jaro ($s, $t) {
     my ($k, $transpositions) = (0, 0);
     for ^@s -> $i {
         next unless @s_matches[$i];
-        until @t_matches[$k] { $k++ }
+        $k++ until  @t_matches[$k];
         $transpositions++ if @s[$i] ne @t[$k];
         $k++;
     }
@@ -41,11 +41,10 @@ sub jaro ($s, $t) {
     ( $matches/$s_len + $matches/$t_len + (($matches - $transpositions/2) / $matches) ) / 3 
 }
 
-for ('MARTHA', 'MARHTA', 'DIXON', 'DICKSONX', 'JELLYFISH', 'SMELLYFISH', 
-     'I repeat myself', 'I repeat myself', '', ''
-    ) -> $a, $b {
-        @res.push: sprintf '%.3f', jaro($a, $b)
-}
+#printf "%.3f\n", jaro(.key, .value) for 
+@res.push: sprintf '%.3f', jaro(.key, .value) for 
+    'MARTHA' => 'MARHTA', 'DIXON' => 'DICKSONX', 'JELLYFISH' => 'SMELLYFISH', 
+    'I repeat myself' => 'I repeat myself', '' => '';
 
 .say for @res;
 
