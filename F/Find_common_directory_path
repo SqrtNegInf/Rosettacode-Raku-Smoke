@@ -43,5 +43,5 @@ my @result2 =
         take @comps[0][$column] // last;
     }
 
-say 'The longest common path is ' ~ @result2.join("");
-is @result2.join(""), '/home/user1/tmp';
+say 'The longest common path is ' ~ @result2.join;
+is @result2.join, '/home/user1/tmp';
