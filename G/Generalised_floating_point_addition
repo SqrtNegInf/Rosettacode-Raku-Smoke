@@ -21,4 +21,4 @@ say my $result = join ' ', @res;
 my $ref = '-7:Y -6:Y -5:Y -4:Y -3:Y -2:Y -1:Y 0:Y 1:Y 2:Y 3:Y 4:Y 5:Y 6:Y 7:Y 8:Y 9:Y 10:Y 11:Y 12:Y 13:Y 14:Y 15:Y 16:Y 17:Y 18:Y 19:Y 20:Y 21:Y';
 
 use Test;
-is @res.join(' '), $ref;
+is @res, $ref;
