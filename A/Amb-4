@@ -17,15 +17,15 @@ my @fourthSet = «slowly quickly»;
 @res.push: $_ for doAmb [@firstSet, @secondSet, @thirdSet, @fourthSet];
 
 sub doAmb( @lol ) {	# Takes out the correct sentences.
-	my @sentences = map *.join(" "), [X] @lol;
+	my @sentences = map *.join(' '), [X] @lol;
 	grep &isAmb, @sentences;
 }
 
 sub isAmb( $sentence ) {	# Checks `$sentence` for correctness.
-	$sentence !~~ / (.) " " (.)	<!{$0 eq $1}> /	# <https://docs.raku.org/language/regexes#Regex_boolean_condition_check>
+	$sentence !~~ / (.) ' ' (.)	<!{$0 eq $1}> /	# <https://docs.raku.org/language/regexes#Regex_boolean_condition_check>
 }
 
-say my $result = join "", @res;;
+say my $result = @res.join;
 
 use Test;
 is $result, 'that thing grows slowly';
