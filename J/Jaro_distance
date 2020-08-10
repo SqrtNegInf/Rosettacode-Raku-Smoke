@@ -1,11 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Jaro_distance
-#c# 2018-03-20 <RC, 2020-08-01 >RC
+#c# 2018-03-20 <RC, 2020-08-09 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# fiddle a little, more idiomatic
-
-# Translation of: Perl
 
 my @res;
 
@@ -37,12 +35,10 @@ sub jaro ($s, $t) {
         $k++;
     }
 
-    #3 R/ [+] $matches/$s_len, $matches/$t_len, ($matches - $transpositions/2)/$matches
     ( $matches/$s_len + $matches/$t_len + (($matches - $transpositions/2) / $matches) ) / 3 
 }
 
-#printf "%.3f\n", jaro(.key, .value) for 
-@res.push: sprintf '%.3f', jaro(.key, .value) for 
+@res.push: jaro(.key, .value).fmt: '%.3f' for
     'MARTHA' => 'MARHTA', 'DIXON' => 'DICKSONX', 'JELLYFISH' => 'SMELLYFISH', 
     'I repeat myself' => 'I repeat myself', '' => '';
 
