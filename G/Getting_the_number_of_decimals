@@ -1,0 +1,25 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Getting_the_number_of_decimals
+#c# 2020-08-16 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Rat::Precise;
+
+@res.push: sprintf "Fractional precision: %-2s || Number: %s", (.split('.')[1] // '').chars, $_
+    for 9, 12.345, '12.3450', 0.1234567890987654321, (1.5**63).precise;
+
+.say for @res;
+
+my $ref = q:to/END/;
+Fractional precision: 0  || Number: 9
+Fractional precision: 3  || Number: 12.345
+Fractional precision: 4  || Number: 12.3450
+Fractional precision: 19 || Number: 0.1234567890987654321
+Fractional precision: 63 || Number: 124093581919.648947697827373650380188008224280338254175148904323577880859375
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
