@@ -1,0 +1,71 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Pseudo-random_numbers/PCG32
+#c# 2020-08-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+class PCG32 {
+    has $!state;
+    has $!incr;
+    constant mask32 = 2³² - 1;
+    constant mask64 = 2⁶⁴ - 1;
+    constant const = 6364136223846793005;
+
+    submethod BUILD (
+        Int :$seed = 0x853c49e6748fea9b, # default seed
+        Int :$incr = 0xda3e39cb94b95bdb  # default increment
+      ) {
+        $!incr  = $incr +< 1 +| 1 +& mask64;
+        $!state = (($!incr + $seed) * const + $!incr) +& mask64;
+    }
+
+    method next-int {
+        my $shift  = ($!state +> 18 +^ $!state) +> 27 +& mask32;
+        my $rotate =  $!state +> 59 +& 31;
+        $!state    = ($!state * const + $!incr) +& mask64;
+        ($shift +> $rotate) +| ($shift +< (32 - $rotate) +& mask32)
+    }
+
+    method next-rat { self.next-int / 2³² }
+}
+
+# Test next-int with custom seed and increment
+@res.push: 'Seed: 42, Increment: 54; first five Int values:';
+my $rng = PCG32.new( :seed(42), :incr(54) );
+@res.push: $_ for $rng.next-int xx 5;
+
+# Test next-rat (since these are rational numbers by default)
+@res.push: "\nSeed: 987654321, Increment: 1; first 1e5 Rat values histogram:";
+$rng = PCG32.new( :seed(987654321), :incr(1) );
+@res.push: ( ($rng.next-rat * 5).floor xx 100_000 ).Bag.sort.subst: /\t/, ' ', :g;
+
+# Test next-int with default seed and increment
+@res.push: "\nSeed: default, Increment: default; first five Int values:";
+$rng = PCG32.new;
+@res.push: $_ for $rng.next-int xx 5;
+
+.say for @res;
+
+my $ref = q:to/END/;
+Seed: 42, Increment: 54; first five Int values:
+2707161783
+2068313097
+3122475824
+2211639955
+3215226955
+
+Seed: 987654321, Increment: 1; first 1e5 Rat values histogram:
+0 20049 1 20022 2 20115 3 19809 4 20005
+
+Seed: default, Increment: default; first five Int values:
+465482994
+3895364073
+1746730475
+3759121132
+2984354868
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
