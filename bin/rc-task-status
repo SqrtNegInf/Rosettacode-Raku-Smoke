@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl
 ## RC task status
-#c# 2018-03-12 2018-03-19 2018-04-02 2018-04-29 2018-05-18 2018-06-02 2018-06-03 2019-01-24
+#c# 2018-03-12 ... 2020-08-16
 
 use utf8;
 use warnings;
@@ -8,7 +8,20 @@ use strict 'vars';
 
 my(%P);
 
-print `$ENV{HOME}/.rakudobrew/shims/perl6 -v`; 
+print `$ENV{HOME}/.rakudobrew/shims/raku -v`; 
+
+# update only once a day
+if (.95 < -M "Category:Programming_Tasks") {
+    print "updating from RC…\n";
+    system <<~'END';
+        mv Category:Programming_Tasks Category:Programming_Tasks~
+        mv Category:Draft_Programming_Tasks Category:Draft_Programming_Tasks~
+        mv Reports:Tasks_not_implemented_in_Raku Reports:Tasks_not_implemented_in_Raku~
+        /opt/local/bin/curl -s -O http://rosettacode.org/wiki/Category:Programming_Tasks
+        /opt/local/bin/curl -s -O http://rosettacode.org/wiki/Category:Draft_Programming_Tasks
+        /opt/local/bin/curl -s -O http://rosettacode.org/wiki/Reports:Tasks_not_implemented_in_Raku
+        END
+}
 
 sub path { return $_[0] =~ /^([A-Z])/ ? "$1/" : '0/' }
 
@@ -99,7 +112,7 @@ my($task,$header,@concur,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
     $header = `grep '^#[mjcft]#' $task`;
 
     $P{$p}{'M'} = $header =~ /MOAR:\s*OK/ ? 'G' : 'B';
-    $compiles = `$ENV{HOME}/.rakudobrew/bin/perl6 -c $task 2>&1 1>/dev/null`;
+    $compiles = `$ENV{HOME}/.rakudobrew/bin/raku -c $task 2>&1 1>/dev/null`;
     $mout = "../bench/moar/$p.out";
     $P{$p}{'S'} = -e $mout ? 'S' : '.';
     $merr = (-e $mout) ? `grep STDERR $mout` : undef;
@@ -164,24 +177,28 @@ my($p) = @_;
 #####
 # column totals
 sub tally {
-my($col,$val) = @_;
-$val = $col unless $val;
-my $x;
-for my $p (keys %P) { $x++ if defined $P{$p}{$col} && $P{$p}{$col} eq $val }
-return $x;
+    my($col,$val) = @_;
+    $val = $col unless $val;
+    my $x;
+    for my $p (keys %P) { $x++ if defined $P{$p}{$col} && $P{$p}{$col} eq $val }
+    return $x;
 }
 
 # these are being ignored, for various reasons
+# NB: Sieve_of_Eratosthenes actually has two good examples, but a third off-topic one that's marked as 'bad'
 __DATA__
 Arena_storage_pool
 Aspect_Oriented_Programming
 AudioAlarm
+CLI-based_maze-game
 Create_a_file_on_magnetic_tape
+Create_DWM_statusbar
 Doubly-linked_list_Traversal
 Function_prototype
 Generalised_floating_point_multiplication
 Interactive_programming
 JortSort
+Long_literals,_with_continuations
 Max_licenses_in_use
 Modulinos
 Narcissist
@@ -195,6 +212,7 @@ Random_number_generator_(included)
 SQL-based_authentication
 Self-hosting_compiler
 Shell_one-liner
+Sieve_of_Eratosthenes
 Snake
 Solving_coin_problems
 Sorting_algorithms/Tree_sort_on_a_linked_list
