@@ -1,18 +1,19 @@
 This is Rakudo version 2020.07-64-g9d6d8dd7a built on MoarVM version 2020.07-16-g03d3e43fa
 implementing Raku 6.d.
-+--------------> Moar: Good/Bad [1220/15]
-|+-------------> JVM: Good/Bad [1040/196]
-||+------------> Smoke testing [1103]
-|||+-----------> sKipping validation [130]
-||||+----------> Interactive [63]
-|||||+---------> Touched (modified by me) [322]
-||||||+--------> Concurrent/Async [61]
-|||||||+-------> Random seed [122]
+updating from RC…
++--------------> Moar: Good/Bad [1246/16]
+|+-------------> JVM: Good/Bad [1057/206]
+||+------------> Smoke testing [1128]
+|||+-----------> sKipping validation [131]
+||||+----------> Interactive [64]
+|||||+---------> Touched (modified by me) [320]
+||||||+--------> Concurrent/Async [64]
+|||||||+-------> Random seed [124]
 ||||||||+------> File output [95]
-|||||||||+-----> Draft [223]
-||||||||||+----> Ignoring [32]
-|||||||||||+---> Void (no local copy) [75]
-||||||||||||+--> Un-implemented/reliable [57]
+|||||||||+-----> Draft [206]
+||||||||||+----> Ignoring [36]
+|||||||||||+---> Void (no local copy) [83]
+||||||||||||+--> Un-implemented/reliable [54]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -21,7 +22,7 @@ GB.KI..R..... 15_Puzzle_Game
 ...........VU 15_puzzle_solver
 .........D.VU 16_Puzzle_Game
 GB.KI..R..... 2048
-GGS....R.D... 21_Game
+GGS....R..... 21_Game
 GGS....R..... 24_game
 GBS..TC...... 24_game_Solve-1
 GGS..T....... 24_game_Solve-2
@@ -33,12 +34,13 @@ GGS.......... ABC_Problem
 GGS.......... AKS_test_for_primes
 GGS....R..... ASCII_art_diagram_converter
 GGS....R..... AVL_tree
-.........D.VU A_star_search_algorithm
+.........D.V. A_star_search_algorithm
 GGS..T....... Abbreviations,_automatic
 GGS..T....... Abbreviations,_easy
 GGS..T....... Abbreviations,_simple
 GBS.....F.... Abelian_sandpile_model
 BB.KI........ Abelian_sandpile_model-2
+GBS.......... Abelian_sandpile_model_Identity
 GGS.......... Abstract_type
 GGS..T....... Abundant,_deficient_and_perfect_number_classifications
 GBS..TC...... Abundant_odd_numbers
@@ -154,7 +156,8 @@ GGS.......... Break_OO_privacy
 GGS..T.RF.... Brownian_tree
 GGS....R..... Bulls_and_cows
 GGS..T.R..... Bulls_and_cows_Player
-GBS......D... Burrows-Wheeler_transform
+GBS.......... Burrows-Wheeler_transform
+.........DXVU CLI-based_maze-game
 GBS..T....... CRC-32
 GGS..T..F.... CSV_data_manipulation
 GGS.......... CSV_to_HTML_translation
@@ -169,6 +172,8 @@ GGS.......... Call_a_function-2
 BB.K......... Call_a_function_in_a_shared_library
 GGS.......... Call_an_object_method
 ...........VU Canny_edge_detector
+GGS.......... Canonicalize_CIDR
+GGS.......... Canonicalize_CIDR-2
 GGS.......... Cantor_set
 GGS....R.D... Card_shuffles
 GGS.......... Carmichael_3_strong_pseudoprimes
@@ -185,14 +190,14 @@ GBS.......... Character_codes
 GG.KI........ Chat_server
 GGS......D... Chebyshev_coefficients
 GGS..T....... Check_Machin-like_formulas
-GGS......D... Check_input_device_is_a_terminal
-GG.KI....D... Check_output_device_is_a_terminal
+GGS.......... Check_input_device_is_a_terminal
+GG.KI........ Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
 GGS...C...... Checkpoint_synchronization
 GGS.....FD... Checksumcolor
 GGS..T...D... Chemical_Calculator
 GBS.......... Chernick%27s_Carmichael_numbers
-GGS......D... Cheryl%27s_Birthday
+GGS.......... Cheryl%27s_Birthday
 .........D.VU Chess_player
 GGS.......... Chinese_remainder_theorem
 GGS.......... Chinese_zodiac
@@ -202,6 +207,7 @@ GGS.......... Church_Numerals-1
 GGS.......... Church_Numerals-2
 GGS......D... Cipolla%27s_algorithm
 GGS.......... Circles_of_given_radius_through_two_points
+GBS..TC...... Circular_primes
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
 GGS....R..... Closures_Value_capture
@@ -210,7 +216,7 @@ GGS.......... Collections
 GB.KIT....... Color_of_a_screen_pixel
 BB........... Color_of_a_screen_pixel-2
 GBS.......... Color_quantization
-GBS...C.FD... Color_wheel
+GBS...C.F.... Color_wheel
 GGS..T..F.... Colour_bars_Display
 GGS..T..F.... Colour_pinstripe_Display
 GBS.....F.... Colour_pinstripe_Printer
@@ -227,7 +233,7 @@ GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
-BB.K.T...D..U Compiler__Verifying_Syntax
+.........D.V. Compiler_Verifying_Syntax
 GGS..T....... Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
 ...........VU Compiler_syntax_analyzer
@@ -248,7 +254,7 @@ GGS.......... Convert_seconds_to_compound_duration
 GGS.......... Convex_hull
 GGS.......... Conway%27s_Game_of_Life
 GGS..T....... Copy_a_string
-GG.K.....D... Copy_stdin_to_stdout
+GG.K......... Copy_stdin_to_stdout
 GBS.......... Count_in_factors-1
 GGS.......... Count_in_factors-2
 GGS.......... Count_in_factors-3
@@ -256,6 +262,7 @@ GGS.......... Count_in_octal
 GGS.......... Count_occurrences_of_a_substring
 GGS..T....... Count_the_coins
 GGS.......... Cramer%27s_rule
+.........DXVU Create_DWM_statusbar
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
 GGS..T.R..... Create_a_two-dimensional_array_at_runtime
@@ -273,7 +280,7 @@ GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
 GBS.......... Cyclotomic_Polynomial
 GGS.......... DNS_query
-GGS......D... Damm_algorithm
+GGS.......... Damm_algorithm
 GGS......D... Data_Encryption_Standard
 GGS..T....... Date_format
 GGS..T....... Date_manipulation
@@ -301,8 +308,8 @@ GGS.......... Determine_if_a_string_is_collapsible
 GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
-GGS......D... Determine_if_two_triangles_overlap
-GGS..T...D... Dice_game_probabilities
+GGS.......... Determine_if_two_triangles_overlap
+GGS..T....... Dice_game_probabilities
 GGS.......... Digital_root
 GGS.......... Digital_root_Multiplicative_digital_root
 GGS..T....... Dijkstra%27s_algorithm
@@ -310,7 +317,7 @@ GBS..T....... Dinesman%27s_multiple-dwelling_problem-1
 GGS..T....... Dinesman%27s_multiple-dwelling_problem-2
 GB.K..CR..... Dining_philosophers
 GGS..T....... Discordian_date
-GGS......D... Display_a_linear_combination
+GGS.......... Display_a_linear_combination
 GGS..T...D... Display_an_outline_as_a_nested_table
 GG.K......... Distributed_programming
 GGS..T...D... Diversity_prediction_theorem
@@ -338,10 +345,10 @@ GGS.......... Egyptian_division
 GGS..T....... Egyptian_fractions
 GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
-GGS......D... Elementary_cellular_automaton_Infinite_length
-GGS..T...D... Elementary_cellular_automaton_Random_Number_Generator
+GGS.......... Elementary_cellular_automaton_Infinite_length
+GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
 GGS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
-GGS..T...D... Elliptic_curve_arithmetic
+GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
 GGS..T....... Empty_program
@@ -352,6 +359,7 @@ GGS..T....... Entropy_Narcissist
 GGS..T....... Enumerations
 GGS.......... Environment_variables
 GGS..T....... Equilibrium_index
+GGS......D... Esthetic_numbers
 GGS.......... Ethiopian_multiplication
 GGS.......... Euler%27s_identity
 GGS...C...... Euler%27s_sum_of_powers_conjecture
@@ -382,17 +390,17 @@ BB.K......... FTP
 GGS.......... Faces_from_a_mesh
 GGS.......... Factorial
 GGS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
-GBS...C..D... Factorions
+GBS...C...... Factorions
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
 GGS...C...... Fairshare_between_two_and_more
 GBS...C...... Farey_sequence
 GGS.......... Fast_Fourier_transform
-GGS..T...D... Faulhaber%27s_formula
-GGS......D... Faulhaber%27s_triangle
-GGS......D... Feigenbaum_constant_calculation
+GGS..T....... Faulhaber%27s_formula
+GGS.......... Faulhaber%27s_triangle
+GGS.......... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
-GGS.....FD..U Fibonacci_heap
+GGS.....FD... Fibonacci_heap
 BBS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
@@ -403,16 +411,16 @@ GGS.....F.... File_input_output
 GGS.....F.... File_input_output-2
 GBS..T....... File_modification_time
 GGS.......... File_size
-GGS..T...D... File_size_distribution
+GGS..T....... File_size_distribution
 GGS.......... Filter
 GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
-!BS..T...D... Find_duplicate_files
+!BS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
-GGS......D... Find_the_intersection_of_a_line_with_a_plane
+GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
 GGS.......... Find_the_missing_permutation
@@ -423,7 +431,7 @@ GGS..T....... First_class_environments
 GBS.......... First_perfect_square_in_base_N_with_N_unique_digits
 GGS.......... First_power_of_2_that_has_leading_decimal_digits_of_12
 GGS.......... Five_weekends
-GGS......D... Fivenum
+GGS.......... Fivenum
 GGS..T..F.... Fixed_length_records
 GGS.......... FizzBuzz
 GGS.......... Flatten_a_list
@@ -458,7 +466,7 @@ GB.KI........ GUI_enabling_disabling_of_controls
 GGS....RF.... Galton_box_animation
 GGS.......... Gamma_function
 GGS.......... Gapful_numbers
-GGS..T...D... Gauss-Jordan_matrix_inversion
+GGS..T....... Gauss-Jordan_matrix_inversion
 GGS.......... Gaussian_elimination
 GGS.......... General_FizzBuzz
 GGS..T...D... Generalised_floating_point_addition
@@ -468,8 +476,12 @@ GGS.......... Generate_lower_case_ASCII_alphabet
 GGS....R..... Generate_random_chess_position
 GGS..T....... Generator_Exponential
 GGS.......... Generic_swap
+.........D... Geohash
+GBS.......... Geohash-1
+GGS.......... Geohash-2
 GGS....R.D... Geometric_algebra
 GBS..T....... Get_system_command_output
+GBS......D... Getting_the_number_of_decimals
 GGS.....F.... Globally_replace_text_in_several_files
 GG.KIT.R..... Go_Fish
 GGS......D... Gradient_descent
@@ -527,11 +539,10 @@ GGS.......... Huffman_coding
 GGS.......... Humble_numbers
 GG.KI........ Hunt_The_Wumpus
 .........D.VU I%27m_a_software_engineer,_get_me_out_of_here
-GGS..T...D... I.Q._Puzzle
 GGS.......... IBAN
 .........D.VU IPC_via_named_pipe
 .........D.VU IRC_gateway
-GGS......D... ISBN13_check_digit
+GGS.......... ISBN13_check_digit
 GGS.......... ISBN13_check_digit-2
 GGS.......... I_before_E_except_after_C-1
 GBS.......... I_before_E_except_after_C-2
@@ -564,10 +575,12 @@ GBS.......... Intersecting_Number_Wheels
 GGS..T....... Introspection
 GGS..T....... Inverted_index
 GG.K......... Inverted_syntax
+.........D.V. Isqrt_integer_square_root_of_X
 GG.K..c...... Iterated_digits_squaring
 GGS.......... Iterated_digits_squaring-1
 GGS.......... JSON
 GGS.......... Jacobi_symbol
+GBS...C..D... Jaro-Winkler_Distance
 GGS..T....... Jaro_distance
 GGS.......... Jensen%27s_Device
 GGS..T....... Jewels_and_Stones
@@ -620,25 +633,29 @@ GGS..T....... Law_of_cosines_-_triples-2
 GGS.......... Leap_year
 GGS.......... Least_common_multiple
 GBS..TC...... Left_factorials
+GGS......D... Length_of_an_arc_between_two_angles
 GGS.......... Leonardo_numbers
 GGS.......... Letter_frequency
 GGS.......... Levenshtein_distance
-GGS..T...D... Levenshtein_distance_Alignment
+GGS..T....... Levenshtein_distance_Alignment
 GGS..T...D... Line_circle_intersection
 GGS.......... Linear_congruential_generator
 GG.K.....D... Linux_CPU_utilization
 GGS.......... List_comprehensions
-GGS......D... List_rooted_trees
+GGS.......... List_rooted_trees
 GGS.......... Literals_Floating_point
 GGS.......... Literals_Integer
 GG.K......... Literals_String
 GGS..T....... Logical_operations
+BB.......D... Logistic_Curve_Fitting_in_Epidemiology
+..........XVU Long_literals,_with_continuations
 GGS..T....... Long_multiplication
 GBS...C...... Long_primes
 GGS..T....... Long_year%3F
 GGS.......... Longest_Common_Substring
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
+GGS......D... Longest_common_suffix
 GGS.......... Longest_increasing_subsequence
 GGS.......... Longest_string_challenge
 GGS.......... Look-and-say_sequence
@@ -667,12 +684,13 @@ GBS.......... MAC_Vendor_Lookup
 GGS..T....... MD4
 GGS.......... MD5
 GGS.......... MD5_Implementation
-...........VU Machine_code
+...........V. Machine_code
 GGS.......... Mad_Libs
-GGS....R.D... Magic_8-Ball
+GGS....R..... Magic_8-Ball
 GGS.......... Magic_squares_of_doubly_even_order
 GGS.......... Magic_squares_of_odd_order
 GGS.......... Magic_squares_of_singly_even_order
+GBS...C..D... Magnanimous_numbers
 GGS..T....... Main_step_of_GOST_28147-89
 GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
@@ -713,14 +731,14 @@ GGS.......... Minimal_steps_down_to_1
 .........D... Minimum_positive_multiple_in_base_10_using_only_0_and_1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
-GGS......D... Modular_arithmetic
+GGS.......... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
 .........DXV. Modulinos
 GGS...C..D... Moebius_function
-GGS..T...D... Monads_List_monad
-GGS......D... Monads_Maybe_monad
-GGS......D..U Monads_Writer_monad
+GGS..T....... Monads_List_monad
+GGS.......... Monads_Maybe_monad
+GGS.......... Monads_Writer_monad
 GGS....R..... Monte_Carlo_methods
 GGS......D... Montgomery_reduction
 GBS..TCR..... Monty_Hall_problem
@@ -764,6 +782,7 @@ GGS.......... Nested_function
 GGS.......... Nested_templated_data
 GGS.......... Next_highest_int_from_digits
 GGS.......... Nim_Game
+GGS......D... Nimber_arithmetic
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
 GGS.......... Non-decimal_radices_Input
@@ -785,7 +804,7 @@ GGS.......... Numerical_integration_Gauss-Legendre_Quadrature
 ..........XVU OLE_Automation
 GBS.......... Object_serialization
 GGS.......... Odd_word_problem
-GGS..T...D... Old_Russian_measure_of_length
+GGS..T....... Old_Russian_measure_of_length
 GGS..T....... Old_lady_swallowed_a_fly
 GGS.......... One-dimensional_cellular_automata
 GGS.......... One-time_pad
@@ -824,7 +843,7 @@ GBS..TC...... Partition_an_integer_X_into_N_primes
 GGS.......... Pascal%27s_triangle
 GGS.......... Pascal%27s_triangle_Puzzle
 GGS..T....... Pascal_matrix_generation
-GGS....R..... Password_generator
+GGS....R....U Password_generator
 GGS.......... Pathological_floating_point_problems
 GGS..T.R..... Pattern_matching
 GGS..T....... Peaceful_chess_queen_armies
@@ -844,7 +863,7 @@ GGS...C...... Perfect_numbers-1
 GGS.......... Perfect_numbers-2
 GGS.......... Perfect_shuffle
 GBS...C...... Perfect_totient_numbers
-GGS..T...D... Perlin_noise
+GGS..T....... Perlin_noise
 GBS..TC...... Permutation_test
 GGS..T....... Permutations
 GGS.......... Permutations_Derangements
@@ -865,7 +884,7 @@ GBS.....F.... Pinstripe_Printer
 GGS......D... Pisano_period
 GBS..TC.F.... Plasma_effect
 ..........XVU Play_recorded_sounds
-GGS..T...D... Playfair_cipher
+GGS..T....... Playfair_cipher
 GGS..T.R..... Playing_cards
 GGS..T..F.... Plot_coordinate_pairs
 GGS.......... Pointers_and_references
@@ -882,8 +901,8 @@ GGS.......... Power_set
 GGS......D... Powerful_numbers
 GG.K......... Pragmatic_directives
 GGS.......... Price_fraction
+...........V. Primality_by_Wilson%27s_theorem
 GGS.......... Primality_by_trial_division
-GBS..TC..D... Primalty_by_Wilson%27s_theorem
 GGS..T....... Prime_conspiracy
 GBS..TC...... Prime_decomposition
 GBS.......... Prime_decomposition-1
@@ -893,14 +912,20 @@ GGS..T....... Primorial_numbers
 GBS.......... Primorial_numbers-1
 GGS.......... Primorial_numbers-2
 GGS......D... Print_debugging_statement
+.........D.V. Print_itself
 GGS.......... Priority_queue
 GGS....R..... Probabilistic_choice
 GBS..T....... Problem_of_Apollonius
 GB.K....FD... Process_SMIL_directives_in_XML_data
 GGS..T....... Program_name
 GG.K......... Program_termination
-.........D.VU Proof
+.........D.V. Proof
 GGS..Tc...... Proper_divisors
+GGS......D... Pseudo-random_numbers_Combined_recursive_generator_MRG32k3a
+GGS......D... Pseudo-random_numbers_PCG32
+GGS......D... Pseudo-random_numbers_Splitmix64
+GGS......D... Pseudo-random_numbers_Xorshift_star
+.........D.VU Pseudorandom_Number_Generator_Image
 GGS.....F.... Pythagoras_tree
 GBS...c...... Pythagorean_quadruples
 GGS...C...... Pythagorean_triples
@@ -910,11 +935,12 @@ GGS..T....... Queue_Definition
 GGS.......... Queue_Usage
 GGS....R..... Quickselect_algorithm
 GG.K......... Quine
+GG.K.....D... Quoting_constructs
 ..........XV. RCRPG
 GGS..T....... RIPEMD-160
 GGS....R..... RPG_Attributes_Generator
 GGS..T....... RSA_code
-GBS......D..U Railway_circuit
+GBS......D... Railway_circuit
 GBS..T....... Ramanujan%27s_constant-1
 GGS..T....... Ramanujan%27s_constant-2
 GGS.......... Ramer-Douglas-Peucker_line_simplification
@@ -932,7 +958,7 @@ BB.KI....D... Raster_bars
 GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
-GGS..T...D... Read_a_file_character_by_character_UTF8
+GGS..T....... Read_a_file_character_by_character_UTF8
 GGS.......... Read_a_file_line_by_line
 GG.K......... Read_a_specific_line_from_a_file
 GGS.......... Read_entire_file
@@ -953,10 +979,11 @@ GGS.......... Regular_expressions
 .........D.VU Remote_agent_Simulation
 GGS.......... Remove_duplicate_elements
 GGS.....F.... Remove_lines_from_a_file
+GBS......D... Remove_vowels_from_a_string
 GGS.......... Rename_a_file
 GGS...CRF.... Rendezvous
 GBS.......... Rep-string
-GGS....R.D... Repeat
+GGS....R..... Repeat
 GGS.......... Repeat_a_string
 GGS......D... Resistance_Calculator
 GGS......D... Resistance_Network_Calculator
@@ -983,7 +1010,6 @@ GBS......D... Rosetta_Code_Rank_languages_by_number_of_users
 GBS.......... Rosetta_Code_Rank_languages_by_popularity-1
 GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
-.........D.VU Rosetta_Code_Tasks_sorted_by_average_lines_of_code
 GBS......D... Rosetta_Code_Tasks_without_examples
 GGS.......... Rot-13
 GGS.......... Run-length_encoding
@@ -1046,7 +1072,7 @@ GGS..T..F.... Sierpinski_pentagon
 GGS.....FD... Sierpinski_square_curve
 GGS.......... Sierpinski_triangle
 GGS..T..F.... Sierpinski_triangle_Graphical
-GGS..T....... Sieve_of_Eratosthenes
+GGS..T....X.U Sieve_of_Eratosthenes
 GB.K......... Simple_database
 GB.KI........ Simple_windowed_application
 GB.KI........ Simulate_input_Keyboard
@@ -1071,6 +1097,7 @@ GGS..T....... Solve_a_Hopido_puzzle
 GGS.......... Solve_a_Numbrix_puzzle
 .........D.VU Solve_a_Rubik%27s_Cube
 GGS.......... Solve_the_no_connection_puzzle
+.........D.V. Solve_triangle_solitare_puzzle
 .........DXVU Solving_coin_problems
 GGS.......... Sort_a_list_of_object_identifiers
 GGS..T....... Sort_an_array_of_composite_structures
@@ -1080,11 +1107,12 @@ GGS.......... Sort_numbers_lexicographically
 GGS.......... Sort_stability
 GGS.......... Sort_three_variables
 GGS.......... Sort_using_a_custom_comparator
-GGS....R.D... Sorting_Algorithms_Circle_Sort
+GGS....R..... Sorting_Algorithms_Circle_Sort
 GGS..T....... Sorting_algorithms_Bead_sort
 GGS.......... Sorting_algorithms_Bogosort
 GGS....R..... Sorting_algorithms_Bubble_sort
 GGS....R..... Sorting_algorithms_Cocktail_sort
+GGS....R..... Sorting_algorithms_Cocktail_sort_with_shifting_bounds
 GGS....R..... Sorting_algorithms_Comb_sort
 GGS..T.R..... Sorting_algorithms_Counting_sort
 GGS......D... Sorting_algorithms_Cycle_sort
@@ -1147,7 +1175,7 @@ GGS..T....... Strip_whitespace_from_a_string_Top_and_tail
 GBS.......... Strong_and_weak_primes
 GGS.......... Subleq
 GGS...c..D... Subset_sum_problem
-GGS....R.D... Substitution_Cipher
+GGS....R..... Substitution_Cipher
 GGS.......... Substring
 GBS.......... Substring_Top_and_tail
 GGS.......... Subtractive_generator
@@ -1181,7 +1209,7 @@ GGS.....F.... Take_notes_on_the_command_line
 .........D.VU Tamagotchi_emulator
 GGS.......... Tarjan
 GGS.....F.... Taxicab_numbers
-GGS......D... Teacup_rim_text
+GGS.......... Teacup_rim_text
 GGS.......... Temperature_conversion
 GG.KIT....... Terminal_control_Clear_the_screen
 GG.KI........ Terminal_control_Coloured_text
@@ -1201,6 +1229,8 @@ GGS..T....... Ternary_logic
 GGS..T....... Test_a_function
 GGS.......... Test_integerness
 .........D.VU Tetris
+GGS......D... Text_Completion
+GGS...C...... Text_Completion-2
 GGS......D... Text_between
 GGS.......... Text_processing_1
 GGS.......... Text_processing_2
@@ -1211,6 +1241,8 @@ GGS...C...... The_ISAAC_Cipher
 GGS.......... The_Name_Game
 GGS.....F.... The_Twelve_Days_of_Christmas
 GGS..T....... Thiele%27s_interpolation_formula
+GGS....R.D... Three_word_location
+GGS.......... Three_word_location-2
 GGS..T....... Thue-Morse
 GBS....R..... Tic-tac-toe
 GBS......D... Time-based_One-time_Password_Algorithm
@@ -1235,6 +1267,7 @@ GGS.......... Truncatable_primes
 GBS..T....... Truncate_a_file
 GGS.......... Truth_table
 GGS..T....... Twelve_statements
+GBS......D... Twin_Prime_Conjecture
 .........D... Two_Sum
 GGS.......... Two_Sum-1
 GGS..T....... Two_Sum-2
@@ -1274,7 +1307,7 @@ GGS.......... Variable_size_Get
 ..........XV. Variable_size_Set
 ..........XV. Variables
 GGS.......... Variadic_function
-GGS......D... Vector
+GGS.......... Vector
 GGS..T....... Vector_products
 GGS.......... Verify_distribution_uniformity_Chi-squared_test
 GGS....R..... Verify_distribution_uniformity_Naive
@@ -1282,6 +1315,7 @@ GGS....R..... Verify_distribution_uniformity_Naive
 GG.KI........ Vibrating_rectangles-1
 GB.KI........ Vibrating_rectangles-2
 GG.KI........ Video_display_modes
+BB.KI....D... Vidir
 GGS..T....... Vigen%C3%A8re_cipher
 GGS..TC...... Vigen%C3%A8re_cipher_Cryptanalysis
 GGS.......... Visualize_a_tree
@@ -1290,7 +1324,7 @@ GBS..TCRF.... Voronoi_diagram
 GGS.......... Walk_a_directory_Non-recursively
 GGS.......... Walk_a_directory_Recursively
 GGS.......... Water_collected_between_towers
-GBS..T...D..U Waveform_analysis_Doh_ray_me
+GBS..T...D... Waveform_analysis_Doh_ray_me
 .........D.VU Waveform_analysis_Top_and_tail
 .........DXVU Weather_Routing
 GBS..T....... Web_scraping
@@ -1305,6 +1339,9 @@ GBS.......... Wireworld
 GGS......D... Word_break_problem
 ...........V. Word_frequency
 GGS....R..... Word_search
+.........D... Word_wheel
+GGS.......... Word_wheel-1
+GBS.......... Word_wheel-2
 GGS.......... Word_wrap
 GGS..T....... World_Cup_group_stage
 GGS.....F.... Write_entire_file
@@ -1317,10 +1354,11 @@ GBS..T....... XML_Input
 GGS.......... XML_Output
 GB.K.....D... XML_Validation
 GBS.......... XML_XPath
+GBS......D... XXXX_redacted
 GGS..T....... Xiaolin_Wu%27s_line_algorithm
 GGS.......... Y_combinator
 GB.K......... Yahoo__search_interface
-GGS.....FD... Yellowstone_sequence
+GGS.....F.... Yellowstone_sequence
 GGS.....F.... Yin_and_yang
 GGS.......... Zebra_puzzle
 GGS..T....... Zeckendorf_arithmetic
