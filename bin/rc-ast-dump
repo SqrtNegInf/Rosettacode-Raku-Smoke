@@ -3,7 +3,8 @@
 #  2019-04-13 static list, 2019-09-23 complete re-write, 2020-05-30 properly ID 
 #  slow, lots of (ignorable) errors
 #  NB: always run by-hand, catch any new tasks that must be skipped, as per < less -p2019-04-12 docs/Notes_to_self >
-#  regarding */× swap: after run, check for tasks to fix with: fgrep '&infix:<*>' ast/*
+#  regarding */× swap: after run, check for tasks to fix with: 
+#      fgrep '&infix:<*>' ast/* | perl -npe 's/:.*//' | sort -u
 
 #my @runs-forever = split /\s*\n/, q:to/END/; # would then test with: $file.trim ∈ @hangs
 # 'R[X=>]' works too, as does 'RX=>'; which is most clear / least confusing?
