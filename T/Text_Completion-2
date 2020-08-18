@@ -8,7 +8,7 @@ my @res;
 
 sub sorenson ($phrase, %hash) {
     my $match = bigram $phrase;
-    %hash.race.map: { [(2 * +($match ∩ .value) / (+$match + .value)).round(.001), .key] }
+    %hash.race.map: { [(2 × +($match ∩ .value) / (+$match + .value)).round(.001), .key] }
 }
 
 sub bigram (\these) { Bag.new( flat these.fc.words.map: { .comb.rotor(2 => -1)».join } ) }
