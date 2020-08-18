@@ -13,7 +13,7 @@ sub geo-encode ( Rat(Real) $latitude, Rat(Real) $longitude, Int $precision = 9 )
     my @range = [-90, 90], [-180, 180];
     my $which = 1;
     my $value = '';
-    while $value.chars < $precision * 5 {
+    while $value.chars < $precision × 5 {
         my $mid = @range[$which].sum / 2;
         $value ~= my $upper = +(@coord[$which] > $mid);
         @range[$which][not $upper] = $mid;
