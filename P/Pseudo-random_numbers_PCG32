@@ -18,13 +18,13 @@ class PCG32 {
         Int :$incr = 0xda3e39cb94b95bdb  # default increment
       ) {
         $!incr  = $incr +< 1 +| 1 +& mask64;
-        $!state = (($!incr + $seed) * const + $!incr) +& mask64;
+        $!state = (($!incr + $seed) × const + $!incr) +& mask64;
     }
 
     method next-int {
         my $shift  = ($!state +> 18 +^ $!state) +> 27 +& mask32;
         my $rotate =  $!state +> 59 +& 31;
-        $!state    = ($!state * const + $!incr) +& mask64;
+        $!state    = ($!state × const + $!incr) +& mask64;
         ($shift +> $rotate) +| ($shift +< (32 - $rotate) +& mask32)
     }
 
@@ -39,7 +39,7 @@ my $rng = PCG32.new( :seed(42), :incr(54) );
 # Test next-rat (since these are rational numbers by default)
 @res.push: "\nSeed: 987654321, Increment: 1; first 1e5 Rat values histogram:";
 $rng = PCG32.new( :seed(987654321), :incr(1) );
-@res.push: ( ($rng.next-rat * 5).floor xx 100_000 ).Bag.sort.subst: /\t/, ' ', :g;
+@res.push: ( ($rng.next-rat × 5).floor xx 100_000 ).Bag.sort.subst: /\t/, ' ', :g;
 
 # Test next-int with default seed and increment
 @res.push: "\nSeed: default, Increment: default; first five Int values:";
