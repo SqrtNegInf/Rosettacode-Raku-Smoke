@@ -18,8 +18,8 @@ class MRG32k3a {
     submethod BUILD ( Int :$seed where 0 < * <= m1 = 1 ) { @!x1 = @!x2 = $seed, 0, 0 }
 
     method next-int {
-        @!x1.unshift: (a1[0] * @!x1[0] + a1[1] * @!x1[1] + a1[2] * @!x1[2]) % m1; @!x1.pop;
-        @!x2.unshift: (a2[0] * @!x2[0] + a2[1] * @!x2[1] + a2[2] * @!x2[2]) % m2; @!x2.pop;
+        @!x1.unshift: (a1[0] × @!x1[0] + a1[1] × @!x1[1] + a1[2] × @!x1[2]) % m1; @!x1.pop;
+        @!x2.unshift: (a2[0] × @!x2[0] + a2[1] × @!x2[1] + a2[2] × @!x2[2]) % m2; @!x2.pop;
         (@!x1[0] - @!x2[0]) % (m1 + 1)
     }
 
@@ -34,7 +34,7 @@ my $rng = MRG32k3a.new :seed(1234567);
 # Test next-rat (since these are rational numbers by default)
 @res.push: "\nSeed: 987654321; first 1e5 Rat values histogram:";
 $rng = MRG32k3a.new :seed(987654321);
-@res.push: ( ($rng.next-rat * 5).floor xx 100_000 ).Bag.sort.subst: /\t/, ' ', :g;
+@res.push: ( ($rng.next-rat × 5).floor xx 100_000 ).Bag.sort.subst: /\t/, ' ', :g;
 
 # Test next-int with default seed
 @res.push: "\nSeed: default; first five Int values:";
