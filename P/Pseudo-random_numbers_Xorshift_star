@@ -15,7 +15,7 @@ class Xorshift-star {
         $!state +^= $!state +> 12;
         $!state +^= $!state +< 25 +& (2⁶⁴ - 1);
         $!state +^= $!state +> 27;
-        ($!state * 0x2545F4914F6CDD1D) +> 32 +& (2³² - 1)
+        ($!state × 0x2545F4914F6CDD1D) +> 32 +& (2³² - 1)
     }
 
     method next-rat { self.next-int / 2³² }
@@ -29,7 +29,7 @@ my $rng = Xorshift-star.new( :seed(1234567) );
 # Test next-rat (since these are rational numbers by default)
 @res.push: "\nSeed: 987654321; first 1e5 Rat values histogram";
 $rng = Xorshift-star.new( :seed(987654321) );
-@res.push: ( ($rng.next-rat * 5).floor xx 100_000 ).Bag.sort.subst: /\t/, ' ', :g;
+@res.push: ( ($rng.next-rat × 5).floor xx 100_000 ).Bag.sort.subst: /\t/, ' ', :g;
 
 # Test with default seed
 @res.push: "\nSeed: default; first five Int values";
