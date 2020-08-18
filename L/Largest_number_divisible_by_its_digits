@@ -40,7 +40,7 @@ To verify that a number is divisible by 1 through 15, we only need to check 5, 7
 
 my $hex = 'FEDCBA987654321';        # largest possible hex number
 $magic-number = [lcm] 1 .. 15;   # find least common multiple
-$div = :16($hex) div $magic-number * $magic-number;
+$div = :16($hex) div $magic-number × $magic-number;
  
 # hunt for target stepping backwards in multiples of the lcm
 my $target = ($div, * - $magic-number ... 0).race.first: -> \test {
