@@ -8480,6 +8480,16 @@ File: P/Pseudo-random_numbers_Xorshift_star
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: P/Pseudorandom_Number_Generator_Image
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Pseudorandom_Number_Generator_Image
+#c# 2020-08-18 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: PNG-image500.png
+#n# original note: about 40% slower if @pixel split to ($x,$y) or (\x,\y)
+#n# my fancy-pants version over 5x slower
+
 File: P/Pythagoras_tree
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pythagoras_tree
