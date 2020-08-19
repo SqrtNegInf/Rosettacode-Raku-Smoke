@@ -1,0 +1,24 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Pseudorandom_Number_Generator_Image
+#c# 2020-08-18 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: PNG-image500.png
+#n# original note: about 40% slower if @pixel split to ($x,$y) or (\x,\y)
+#n# my fancy-pants version over 5x slower
+
+use Image::PNG::Portable;
+ 
+srand 2⁶³ - 25; # greatest prime smaller than 2⁶³ and the max my system can take
+ 
+#my @data = < 250 500 1000 1500 >;
+my @data = < 500 >;
+ 
+@data.map: {
+   my $o = Image::PNG::Portable.new: :width($_), :height($_);
+   for ^$_ X ^$_ -> @pixel { 
+      $o.set: @pixel[0], @pixel[1], 255.rand.Int, 255.rand.Int, 255.rand.Int
+      #$o.set: | @pixel, | (255 xx 3)».rand».Int
+   }
+   $o.write: "run/PNG-image$_.png" or die;
+}
