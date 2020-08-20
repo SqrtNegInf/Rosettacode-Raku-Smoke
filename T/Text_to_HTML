@@ -109,6 +109,7 @@ POD6
 
 my $result = render($pod6);
 $result ~~ s/ '20' \d\d '-' \d\d '-' \d\d 'T' \d\d ':' \d\d ':' \d\d 'Z' /2020-01-01T00:00:00Z/;
+#say $result; 
 
 # for display on Rosettacode
 #say escape-html render($pod6);
@@ -375,8 +376,7 @@ my $ref = q:to/END/;
 </pre>
 <h1 id="Lists"><a href="#___top" class="u" title="go to top of document">Lists</a></h1>
             <h3 id="Unordered_lists"><a href="#___top" class="u" title="go to top of document">Unordered lists</a></h3>
-            
-<ul>
+            <ul>
     <li><p>Grumpy</p></li>
             <li><p>Dopey</p></li>
             <li><p>Doc</p></li>
@@ -387,18 +387,15 @@ my $ref = q:to/END/;
             
 </ul>
 <h3 id="Multi-level_lists"><a href="#___top" class="u" title="go to top of document">Multi-level lists</a></h3>
-            
-<ul>
+            <ul>
     <li><p>Animal</p></li>
-            
-<ul>
+            <ul>
     <li><p>Vertebrate</p></li>
             <li><p>Invertebrate</p></li>
             
 </ul>
 <li><p>Phase</p></li>
-            
-<ul>
+            <ul>
     <li><p>Solid</p></li>
             <li><p>Liquid</p></li>
             <li><p>Gas</p></li>
@@ -407,8 +404,7 @@ my $ref = q:to/END/;
 
 </ul>
 <h1 id="Formatting_codes"><a href="#___top" class="u" title="go to top of document">Formatting codes</a></h1>
-            <p>Formatting codes provide a way to add inline mark-up to a piece of text.</p><p>All Pod6 formatting codes consist of a single capital letter followed immediately by a set of single or double angle brackets; Unicode double angle brackets may be used.</p><p>Formatting codes may nest other formatting codes.</p><p>There are many formatting codes available, some of the more common ones:</p>
-<ul>
+            <p>Formatting codes provide a way to add inline mark-up to a piece of text.</p><p>All Pod6 formatting codes consist of a single capital letter followed immediately by a set of single or double angle brackets; Unicode double angle brackets may be used.</p><p>Formatting codes may nest other formatting codes.</p><p>There are many formatting codes available, some of the more common ones:</p><ul>
     <li><p>B&lt; &gt; Bold</p></li>
             <li><p>I&lt; &gt; Italic</p></li>
             <li><p>U&lt; &gt; Underline</p></li>
