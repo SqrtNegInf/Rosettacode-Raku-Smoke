@@ -17,8 +17,8 @@ my @data = < 500 >;
 @data.map: {
    my $o = Image::PNG::Portable.new: :width($_), :height($_);
    for ^$_ X ^$_ -> @pixel { 
-      $o.set: @pixel[0], @pixel[1], 255.rand.Int, 255.rand.Int, 255.rand.Int
-      #$o.set: | @pixel, | (255 xx 3)».rand».Int
+      $o.set: @pixel[0], @pixel[1], 256.rand.Int, 256.rand.Int, 256.rand.Int
+      #$o.set: | @pixel, | (256 xx 3)».rand».Int
    }
    $o.write: "run/PNG-image$_.png" or die;
 }
