@@ -1,14 +1,15 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Text_Completion
-#c# 2020-07-30 <RC
+#c# 2020-07-30 <RC, 2020-08-xx >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# reduced size of 'sorenson' by over 1%! (neither '+' in ratio was needed)
 
 my @res;
 
 sub sorenson ($phrase, %hash) {
     my $match = bigram $phrase;
-    %hash.race.map: { [(2 × +($match ∩ .value) / (+$match + .value)).round(.001), .key] }
+    %hash.race.map: { [(2 × ($match ∩ .value) / ($match + .value)).round(.001), .key] }
 }
 
 sub bigram (\these) { Bag.new( flat these.fc.words.map: { .comb.rotor(2 => -1)».join } ) }
