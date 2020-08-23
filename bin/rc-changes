@@ -1,42 +1,49 @@
 #!/usr/local/bin/perl
-## recent Perl 6 updates on RosettaCode
+## recent Raku updates on RosettaCode
 #c# 2016-02-07 initial
-#c# 2020-04-19 latest
+#c# 2020-08-22 clean up, target 'Raku', not 'Perl6'
+
+use strict;
 
 open RC, qq{/opt/local/bin/curl --netrc -s 'http://rosettacode.org/mw/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' |};
 
-$cnt = 0;
-$new = 'N';
+my $cnt = 0;
+my $new = 'N';
 
-# skip users known to be adding non-Perl code (typically they add another 'P' language)
-$not_these_users = 'Petelomax|Chunes|Robbie|CraigD|Chunes|Gerard|Cwt1078|Objeck|Nigel';  
+# skip users known to be adding Raku code
+my $not_these_users = 'Petelomax|Chunes|Robbie|CraigD|Chunes|Gerard|Cwt1078|Objeck|Nigel|Palaing|Paddy3118';  
 
+my($day,$mon);
 while (<RC>) {
-    ($day,$mon) = m#<h4>(\d+) (\S+) 20\d\d</h4># if m/<h4>/; $day =~ s/^(\d)$/0$1/;
+    ($day,$mon) = m#<h4>(\d+)\s+(\S+)\s+20\d\d</h4># if m/<h4>/; 
+    $day =~ s/^(\d)$/0$1/;
 
-    next unless m#\bPerl|Raku|:Contributions/SqrtNegInf|:Contributions/Tybalt#i;       # catches Perl 5/6, and any of mine
-#    next if m#Perl\b#i;       # stop Perl5?
-    ($user)  = m#:Contributions/(.*?)"#;
+    next unless m#\bRaku#i;
+    #next unless m#\bRaku|:Contributions/SqrtNegInf#i;       # catches Raku, and any of mine
+    #next if m#Perl\b#i;                                     # but not my Perl entries
+
+    my($user)  = m#:Contributions/(.*?)"#;
     next if $user =~ /$not_these_users/i;
 
-    ($title) = /mw-changeslist-title/ ? /mw-changeslist-title">(.*?)</ : /index.php.title=(.*?)&/;
-    ($time) = m/[;>](\d\d:\d\d)[&<]/;
+    my($title) = /mw-changeslist-title/ ? /mw-changeslist-title">(.*?)</ : /index.php.title=(.*?)&/;
+    my($time)  = m/[;>](\d\d:\d\d)[&<]/;
+    my $line = sprintf "%9s %2d %5s  %-18s %s\n", $mon, $day, $time, $user, $title; # the slug
 
-    $line = sprintf "%9s %2d %5s  %-18s %s\n", $mon, $day, $time, $user, $title; # the slug
-
+    my $checkpt;
     if (0 == $cnt) {
-        $file = "$ENV{HOME}/perl6/Rosetta-Code/meta/RC-recent.txt";
+        my $file = "$ENV{HOME}/perl6/Rosetta-Code/meta/RC-recent.txt";
         open F, "<$file"; $checkpt = <F>; close F;  # read old check-point
         exit if $line eq $checkpt;                  # no changes, bail
         open F, ">$file"; print F $line; close F;   # save new check-point
     } 
 
+    our $prev;
     $new = ' ' if $line eq $checkpt;    # stop marking as 'new'
-    $ooo = out_of_order();
+    my $ooo = out_of_order();
     print "$new $ooo $line";
     last if 30 < $cnt++;                # just show recent updates
     $prev = $line;
-}
 
-# RC groups multiple edits, which leads items to be out of sequence chronologically
-sub out_of_order { $prev ne '' && $prev lt $line ? '^' : ' ' } 
+    # RC groups multiple edits, which leads items to be out of sequence chronologically
+    sub out_of_order { $prev ne '' && $prev lt $line ? '^' : ' ' } 
+}
