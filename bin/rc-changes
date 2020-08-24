@@ -10,7 +10,7 @@ open RC, qq{/opt/local/bin/curl --netrc -s 'http://rosettacode.org/mw/index.php?
 my $cnt = 0;
 my $new = 'N';
 
-# skip users known to be adding Raku code
+# skip users not known to be adding Raku code
 my $not_these_users = 'Petelomax|Chunes|Robbie|CraigD|Chunes|Gerard|Cwt1078|Objeck|Nigel|Palaing|Paddy3118';  
 
 my($day,$mon);
@@ -18,14 +18,15 @@ while (<RC>) {
     ($day,$mon) = m#<h4>(\d+)\s+(\S+)\s+20\d\d</h4># if m/<h4>/; 
     $day =~ s/^(\d)$/0$1/;
 
-    next unless m#\bRaku#i;
-    #next unless m#\bRaku|:Contributions/SqrtNegInf#i;       # catches Raku, and any of mine
-    #next if m#Perl\b#i;                                     # but not my Perl entries
+    next unless m#\bRaku|:Contributions/(SqrtNegInf|Thundergnat)#i; # catches Raku, any of mine, and known, habitual Raku offender
+    next if m#Perl\b#i;                                             # but not my Perl entries
+    next if m#full.list#i;                                          # get needed info via smoke tools
 
     my($user)  = m#:Contributions/(.*?)"#;
     next if $user =~ /$not_these_users/i;
 
     my($title) = /mw-changeslist-title/ ? /mw-changeslist-title">(.*?)</ : /index.php.title=(.*?)&/;
+    $title =~ s/_/ /g;
     my($time)  = m/[;>](\d\d:\d\d)[&<]/;
     my $line = sprintf "%9s %2d %5s  %-18s %s\n", $mon, $day, $time, $user, $title; # the slug
 
