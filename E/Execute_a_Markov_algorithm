@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Execute_a_Markov_algorithm
-#c# 2018-03-21 <RC, 2018-05-17 <RC
+#c# 2018-03-21 <RC, 2018-05-17 <RC, 2020-08-25 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# runs one rules/test from 'ref', and unary multiplication in-line
@@ -57,25 +57,25 @@ multi sub MAIN(Bool :$verbose?) {
                           // prompt("please give a start value: ");
 
         my $ruleset = slurp($rulefile);
-        say $start_value.raku();
-        say my $result = run(:$ruleset, :$start_value, :$verbose).raku;
+        say $start_value;
+        say my $result = run(:$ruleset, :$start_value, :$verbose);
         say '';
-        is $result, '"I bought a bag of apples from my brother."';
+        is $result, 'I bought a bag of apples from my brother.';
     }
 }
 
 multi sub MAIN(Str $rulefile where *.IO.f, Str $input where *.IO.f, Bool :$verbose?) {
     my $ruleset = slurp($rulefile);
     my $start_value = slurp($input).trim-trailing;
-    say "starting with $start_value.raku()";
-    say run(:$ruleset, :$start_value, :$verbose).raku;
+    say "starting with: $start_value";
+    say run(:$ruleset, :$start_value, :$verbose);
 }
 
 multi sub MAIN(Str $rulefile where *.IO.f, *@pieces, Bool :$verbose?) {
     my $ruleset = slurp($rulefile);
     my $start_value = @pieces.join(" ");
-    say "starting with $start_value.raku()";
-    say run(:$ruleset, :$start_value, :$verbose).raku;
+    say "starting with: $start_value";
+    say run(:$ruleset, :$start_value, :$verbose);
 }
 
 my $ruleset = q:to/END/;
@@ -111,8 +111,8 @@ END
 
 my $start_value = '_1111×11111_';
 
-say "starting with $start_value.raku()";
-say my $result = run(:$ruleset, :$start_value).raku;
+say "starting with: $start_value";
+say my $result = run(:$ruleset, :$start_value);
 
-is $result, '"11111111111111111111"';
+is $result, '11111111111111111111';
 say '';
