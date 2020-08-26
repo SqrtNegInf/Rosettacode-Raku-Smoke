@@ -1,18 +1,18 @@
-This is Rakudo version 2020.08.1-8-gc1784bda1 built on MoarVM version 2020.08-4-g0e7417add
+This is Rakudo version 2020.08.1-17-gca5e8df02 built on MoarVM version 2020.08-4-g0e7417add
 implementing Raku 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1248/16]
-|+-------------> JVM: Good/Bad [1057/207]
-||+------------> Smoke testing [1129]
+|+-------------> JVM: Good/Bad [1058/207]
+||+------------> Smoke testing [1130]
 |||+-----------> sKipping validation [131]
 ||||+----------> Interactive [64]
-|||||+---------> Touched (modified by me) [321]
+|||||+---------> Touched (modified by me) [327]
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [125]
 ||||||||+------> File output [96]
-|||||||||+-----> Draft [207]
+|||||||||+-----> Draft [208]
 ||||||||||+----> Ignoring [37]
-|||||||||||+---> Void (no local copy) [84]
+|||||||||||+---> Void (no local copy) [85]
 ||||||||||||+--> Un-implemented/reliable [55]
 |||||||||||||
 GGS.......... 100_doors
@@ -151,6 +151,7 @@ GGS..T....... Bitwise_operations
 GGS.......... Boolean_values
 GGS.......... Box_the_compass
 GGS..T....... Brace_expansion
+.........D.V. Brace_expansion_using_ranges
 GBS..TC...... Brazilian_numbers
 GGS.......... Break_OO_privacy
 GGS..T.RF.... Brownian_tree
@@ -243,7 +244,7 @@ GGS.......... Compound_data_type
 GB.K.TC...... Concurrent_computing
 GG.K......... Conditional_structures
 GGS.....F.... Conjugate_transpose
-GGS.......... Constrained_genericity
+GGS..T....... Constrained_genericity
 GGS..T.RF.... Constrained_random_points_on_a_circle
 GGS..T....... Continued_fraction
 GGS.......... Continued_fraction_Arithmetic_Construct_from_rational_number
@@ -294,7 +295,7 @@ GGS......D... Decision_tables
 GGS..T....... Deconvolution_1D
 GGS..T....... Deconvolution_2D%2B
 GGS...c...... Deconvolution_2D%2B-1
-GGS.......... Deepcopy
+GGS..T....... Deepcopy
 GGS.......... Define_a_primitive_data_type
 GGS.......... Delegates
 GGS.......... Delete_a_file
@@ -302,8 +303,8 @@ GGS..T....... Deming%27s_Funnel
 GGS.......... Department_Numbers
 GGS..T....... Detect_division_by_zero
 GGS...C...... Determinant_and_permanent
-GBS.......... Determine_if_a_string_has_all_the_same_characters
-GBS.......... Determine_if_a_string_has_all_unique_characters
+GBS..T....... Determine_if_a_string_has_all_the_same_characters
+GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
 GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
@@ -376,7 +377,7 @@ GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
 GGS.......... Execute_SNUSP
-GGS.......... Execute_a_Markov_algorithm
+GGS..T....... Execute_a_Markov_algorithm
 GGS..T....... Execute_a_system_command
 GGS.......... Exponentiation_operator
 GGS.......... Exponentiation_order
@@ -536,6 +537,7 @@ GBS..T....... Host_introspection
 GGS.......... Hostname
 GBS..Tc.F.... Hough_transform
 GGS.......... Huffman_coding
+GGS.......... Huffman_coding-2
 GGS.......... Humble_numbers
 GG.KI........ Hunt_The_Wumpus
 .........D.VU I%27m_a_software_engineer,_get_me_out_of_here
@@ -588,7 +590,7 @@ GGS..T....... Jewels_and_Stones
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
 GBS...C.F.... Julia_set
-GGS....R..... Jump_anywhere
+GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 GGS....R..... K-d_tree
 GGS....R..... K-means%2B%2B_clustering
@@ -613,7 +615,7 @@ GGS....R..... Knuth%27s_power_tree
 GGS....R..... Knuth_shuffle
 GGS.....F.... Koch_curve-1
 GGS.....F.... Koch_curve-2
-GGS.......... Kolakoski_sequence
+!GS.......... Kolakoski_sequence
 GGS.......... Kosaraju
 GGS.......... Kronecker_product
 GBS..TC.F.... Kronecker_product_based_fractals
