@@ -1,0 +1,72 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Huffman_coding
+#c# 2020-08-25 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# missed this one...
+
+my @res;
+
+sub huffman (%frequencies) {
+    my @queue = %frequencies.map: { .value => (hash .key => '') };
+    while @queue > 1 {
+        @queue.=sort;
+        my $x = @queue.shift;
+        my $y = @queue.shift;
+        @queue.push: ($x.key + $y.key) => hash $x.value.deepmap('0' ~ *),
+                                               $y.value.deepmap('1' ~ *);
+    }
+    @queue[0].value;
+}
+ 
+# Testing
+ 
+for sort huffman 'this is an example for huffman encoding'.comb.Bag {
+    @res.push: "'{.key}' : {.value}";
+}
+ 
+# To demonstrate that the table can do a round trip:
+ 
+@res.push: '';
+
+my $original = 'this is an example for huffman encoding';
+ 
+my %encode-key = huffman $original.comb.Bag;
+my %decode-key = %encode-key.invert;
+my @codes      = %decode-key.keys;
+ 
+my $encoded = $original.subst: /./,      { %encode-key{$_} }, :g;
+my $decoded = $encoded .subst: /@codes/, { %decode-key{$_} }, :g;
+ 
+@res.push: $_ for $original, $encoded, $decoded;
+
+.say for @res;
+
+my $ref = q:to/END/;
+' ' : 101
+'a' : 1001
+'c' : 110010
+'d' : 110011
+'e' : 1101
+'f' : 1110
+'g' : 00000
+'h' : 0001
+'i' : 1111
+'l' : 00001
+'m' : 0010
+'n' : 010
+'o' : 0011
+'p' : 01100
+'r' : 01101
+'s' : 0111
+'t' : 10000
+'u' : 10001
+'x' : 11000
+
+this is an example for huffman encoding
+1000000011111011110111110111101100101010111011100010010010011000000111011011110001101101101000110001111011100010100101010111010101100100011110011111101000000
+this is an example for huffman encoding
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
