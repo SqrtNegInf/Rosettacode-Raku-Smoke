@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parametric_polymorphism
-#c# 2016-06-06 <RC
+#c# 2016-06-06 <RC, 2020-08-25 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -23,7 +23,7 @@ my IntTree $it .= new(value => 1,
                       right => IntTree.new(value => 3));
 
 $it.replace-all(42);
-say $it.raku;
+say $it;
 
 use Test;
 
