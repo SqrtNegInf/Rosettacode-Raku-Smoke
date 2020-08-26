@@ -3,7 +3,7 @@
 #c# 2016-04-24 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n#  where 'say' just works, gather/take construct sometimes requires .raku
+#n#  where 'say' just works, gather/take construct sometimes requires .gist or .raku (they are equivalent here)
 
 #Perl 6 has an abundance of logical operators for various purposes.
 
@@ -12,7 +12,7 @@ return
  gather {
     take "$a && $b is", $a && $b;     # short-circuiting
     take "$a || $b is", $a || $b;     # short-circuiting
-    take "$a ^^ $b is", ($a ^^ $b).raku;    # emits Nil
+    take "$a ^^ $b is", ($a ^^ $b).gist;    # emits Nil
     take "!$a is",     !$a;
 
     take "$a ?& $b is", $a ?& $b;     # non-short-circuiting
@@ -28,7 +28,7 @@ return
     take "$a ~^ $b is", $a ~| $b;     # buffer bitwise
 
     take "$a & $b is", ($a & $b).raku;       # junctional/autothreading
-    take "$a | $b is", ($a | $b).raku;       # junctional/autothreading
+    take "$a | $b is", ($a | $b).gist;       # junctional/autothreading
     take "$a ^ $b is", ($a ^ $b).raku;       # junctional/autothreading
 
     take "$a and $b is", ($a and $b); # loose short-circuiting
