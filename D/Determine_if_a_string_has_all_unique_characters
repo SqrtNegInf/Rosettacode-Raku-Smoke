@@ -1,9 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Determine_if_a_string_has_all_unique_characters
-#c# 2019-10-30 <RC
+#c# 2019-10-30 <RC, 2020-08-25 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for JVM: NFC not yet implemented. Sorry.
+#n# '.raku' serves to quote the output, useful for empty test string
 
 my @res;
 
@@ -11,6 +12,7 @@ my @res;
 
   -> $str {
     @res.push: "\n{$str.raku} (length: {$str.chars}), has ";
+    #@res.push: qq/\n"$str" (length: {$str.chars}), has /;   # also works
     if my $match = $str.match( / (.).*$0 /, :ex ) {
         my %m;
         %m{.values.Str}.append(flat 1 + .from, .pos) for $match.list;
