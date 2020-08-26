@@ -1,10 +1,8 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Constrained_genericity
-#c# 2016-04-17 <RC
+#c# 2016-04-17 <RC, 2020-08-25 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-# Works with: Rakudo version 2016.01
 
 subset Eatable of Any where { .^can('eat') };
 
@@ -18,7 +16,7 @@ class Yummy does FoodBox[Cake] { }      # composes correctly
 # class Yucky does FoodBox[Int] { }     # fails to compose
 
 my Yummy $foodbox .= new;
-say $foodbox.raku;
+say $foodbox;
 
 use Test;
 is $foodbox.raku, 'Yummy.new(foodbox => {})';
