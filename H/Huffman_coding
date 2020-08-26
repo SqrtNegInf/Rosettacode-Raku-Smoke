@@ -4,9 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#use MONKEY-SEE-NO-EVAL;
-
 # Works with: rakudo version 2015-09-14
+
 sub huffman ($s) {
     my $de = $s.chars;
     my @q = $s.comb.classify({$_}).map({[+.value / $de, .key]}).sort;
@@ -17,15 +16,18 @@ sub huffman ($s) {
     sort *.value, gather walk @q[0][1], '';
 }
 
+multi walk ($node, $prefix) { 
+    take $node =>  $prefix 
+}
+
 multi walk (@node, $prefix) {
     walk @node[0], $prefix ~ 1;
     walk @node[1], $prefix ~ 0;
 }
-multi walk ($node, $prefix) { take $node => $prefix }
 
 say .raku for huffman('this is an example for huffman encoding');
 
-#To demonstrate that the table can do a round trip:
+# To demonstrate that the table can do a round trip:
 
 my $str = 'this is an example for huffman encoding';
 my %enc = huffman $str;
@@ -34,9 +36,7 @@ say $str;
 my $huf = %enc{$str.comb}.join;
 say $huf;
 my $rx = join '|', map { "'" ~ .key ~ "'" }, %dec;
-#$rx = EVAL '/' ~ $rx ~ '/';
 $rx = "/$rx/".EVAL;
-#say my $rt = $huf.subst(/<$rx>/, -> $/ {%dec{~$/}}, :g);
 say my $rt = $huf.subst(/<$rx>/, {%dec{~$/}}, :g);
 
 use Test;
