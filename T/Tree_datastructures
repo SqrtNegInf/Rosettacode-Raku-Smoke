@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Tree_datastructures
-#c# 2019-10-20 <RC, 2019-10-23 <RC
+#c# 2019-10-20 <RC, 2019-10-23 <RC, 2020-08-26 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# switch to JSON::Tiny to get JVM working
@@ -72,7 +72,7 @@ sub import (Str $trees, $level = '  ') {
     sub esc { $^s.subst( /(<['\\]>)/, -> $/ { "\\$0" }, :g) }
 
     $forest ~= ']' x 1 + $last;
-    use MONKEY-SEE-NO-EVAL;
+    #use MONKEY-SEE-NO-EVAL;
     $forest.EVAL;
 }
 
