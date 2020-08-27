@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Polymorphism
-#c# 2015-11-30 <>RC
+#c# 2015-11-30 <>RC, 2020-08-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -12,13 +12,13 @@
 class Point {
     has Real $.x is rw = 0;
     has Real $.y is rw = 0;
-    method Str { $.raku }
+    method Str { $ }
 }
 
 class Circle {
     has Point $.p is rw = Point.new;
     has Real $.r is rw = 0;
-    method Str { $.raku }
+    method Str { $ }
 }
 
 my $c = Circle.new(p => Point.new(x => 1, y => 2), r => 3);
