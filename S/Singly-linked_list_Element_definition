@@ -1,10 +1,8 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Singly-linked_list/Element_definition
-#t# nocode
 #c# 2018-11-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-
 
 #`{{
 With Pair[edit]
@@ -29,8 +27,7 @@ class Cell {
 
 sub cons ($value, $next) { Cell.new(:$value, :$next) }
 
-my $list = cons 10, (cons 20, (cons 30, Nil));
-say my $result = $list.raku;
+say my $result = (cons 10, (cons 20, (cons 30, Nil))).gist;
 
 my $ref = q:to/END/;
 Cell.new(value => 10, next => Cell.new(value => 20, next => Cell.new(value => 30, next => Cell)))
