@@ -39,10 +39,10 @@ class Cell {
 sub cons ($value, $next) { Cell.new(:$value, :$next) }
 
 my $list = cons 10, (cons 20, (cons 10, (cons 30, Nil)));
-@res.push: $list.raku;
+@res.push: $list.gist;
 
 $list = $list.delete(10);
-@res.push: $list.raku;
+@res.push: $list.gist;
 
 .say for @res;
 
