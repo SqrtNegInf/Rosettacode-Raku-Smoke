@@ -1,19 +1,19 @@
-This is Rakudo version 2020.08.1-17-gca5e8df02 built on MoarVM version 2020.08-4-g0e7417add
+This is Rakudo version 2020.08.2-28-gc74158223 built on MoarVM version 2020.08-6-g15a76dcb3
 implementing Raku 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1248/16]
++--------------> Moar: Good/Bad [1249/16]
 |+-------------> JVM: Good/Bad [1058/207]
 ||+------------> Smoke testing [1130]
 |||+-----------> sKipping validation [131]
 ||||+----------> Interactive [64]
-|||||+---------> Touched (modified by me) [327]
+|||||+---------> Touched (modified by me) [329]
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [125]
 ||||||||+------> File output [96]
 |||||||||+-----> Draft [208]
-||||||||||+----> Ignoring [37]
+||||||||||+----> Ignoring [38]
 |||||||||||+---> Void (no local copy) [85]
-||||||||||||+--> Un-implemented/reliable [55]
+||||||||||||+--> Un-implemented/reliable [54]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -615,7 +615,7 @@ GGS....R..... Knuth%27s_power_tree
 GGS....R..... Knuth_shuffle
 GGS.....F.... Koch_curve-1
 GGS.....F.... Koch_curve-2
-!GS.......... Kolakoski_sequence
+GGS.......... Kolakoski_sequence
 GGS.......... Kosaraju
 GGS.......... Kronecker_product
 GBS..TC.F.... Kronecker_product_based_fractals
@@ -831,7 +831,7 @@ GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
 GBS..TC...... Parallel_calculations
 GBS...CR..... Parallel_calculations-2
-GGS.......... Parametric_polymorphism
+GGS..T....... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
 GBS.......... Parse_an_IP_Address
@@ -934,7 +934,7 @@ GGS...C...... Pythagorean_triples
 GGS.......... QR_decomposition
 GGS.......... Quaternion_type
 GGS..T....... Queue_Definition
-GGS.......... Queue_Usage
+GGS..T....... Queue_Usage
 GGS....R..... Quickselect_algorithm
 GG.K......... Quine
 GG.K.....D... Quoting_constructs
@@ -1298,7 +1298,7 @@ GG.K......... Use_another_language_to_call_a_function
 GGS......D... User_defined_pipe_and_redirection_operators
 ..........XV. User_input_Graphical
 GGS.......... User_input_Text
-.........D.VU Using_a_Speech_engine_to_highlight_words
+.........DXV. Using_a_Speech_engine_to_highlight_words
 .........D.VU Using_the_Meetup.com_API
 GGS......D... VList
 GGS..T....... Validate_International_Securities_Identification_Number
