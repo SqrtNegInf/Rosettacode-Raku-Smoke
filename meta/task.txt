@@ -1,18 +1,18 @@
 This is Rakudo version 2020.08.2-28-gc74158223 built on MoarVM version 2020.08-6-g15a76dcb3
 implementing Raku 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1249/16]
-|+-------------> JVM: Good/Bad [1058/207]
-||+------------> Smoke testing [1130]
-|||+-----------> sKipping validation [131]
++--------------> Moar: Good/Bad [1250/16]
+|+-------------> JVM: Good/Bad [1059/207]
+||+------------> Smoke testing [1132]
+|||+-----------> sKipping validation [130]
 ||||+----------> Interactive [64]
-|||||+---------> Touched (modified by me) [329]
+|||||+---------> Touched (modified by me) [338]
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [125]
 ||||||||+------> File output [96]
 |||||||||+-----> Draft [208]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [85]
+|||||||||||+---> Void (no local copy) [84]
 ||||||||||||+--> Un-implemented/reliable [54]
 |||||||||||||
 GGS.......... 100_doors
@@ -207,7 +207,7 @@ GBS...C...... Chowla_numbers
 GGS.......... Church_Numerals-1
 GGS.......... Church_Numerals-2
 GGS......D... Cipolla%27s_algorithm
-GGS.......... Circles_of_given_radius_through_two_points
+GGS..T....... Circles_of_given_radius_through_two_points
 GBS..TC...... Circular_primes
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
@@ -990,7 +990,7 @@ GGS.......... Repeat_a_string
 GGS......D... Resistance_Calculator
 GGS......D... Resistance_Network_Calculator
 GGS..T....... Resistor_mesh
-GGS.......... Respond_to_an_unknown_method_call
+GGS..T....... Respond_to_an_unknown_method_call
 GG.KI........ Retrieve_and_search_chat_history
 GGS.......... Return_multiple_values
 GGS..T....... Reverse_a_string
@@ -1082,7 +1082,7 @@ GB.KI........ Simulate_input_Mouse
 GGS..T.R.D... Simulated_annealing
 GBS..T..FD... Sine_wave
 GG.K......... Singleton
-GG.K......... Singly-linked_list_Element_definition
+GGS.......... Singly-linked_list_Element_definition
 GG.K......... Singly-linked_list_Element_insertion
 GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
@@ -1105,7 +1105,7 @@ GGS.......... Sort_a_list_of_object_identifiers
 GGS..T....... Sort_an_array_of_composite_structures
 GGS..T....... Sort_an_integer_array
 .........D.VU Sort_an_outline_at_every_level
-GGS.......... Sort_disjoint_sublist
+GGS..T....... Sort_disjoint_sublist
 GGS.......... Sort_numbers_lexicographically
 GGS.......... Sort_stability
 GGS.......... Sort_three_variables
@@ -1185,7 +1185,7 @@ GGS.......... Subtractive_generator
 GBS.......... Successive_prime_differences-1
 GBS.......... Successive_prime_differences-2
 GGS.......... Sudoku-1
-GG.K......... Sudoku-2
+GG.K.T....... Sudoku-2
 GGS..T...D... Suffix_tree
 GGS.......... Suffixation_of_decimal_numbers
 GGS.......... Sum_and_Product_Puzzle
@@ -1263,7 +1263,7 @@ GBS...C...... Totient_function
 GGS.......... Towers_of_Hanoi
 GGS.......... Trabb_Pardo-Knuth_algorithm
 GGS..T...D... Transportation_problem
-GGS......D... Tree_datastructures
+GGS..T...D... Tree_datastructures
 GGS..T....... Tree_traversal
 GGS..T....... Trigonometric_functions
 GGS.......... Truncatable_primes
@@ -1274,7 +1274,7 @@ GBS......D... Twin_Prime_Conjecture
 .........D... Two_Sum
 GGS.......... Two_Sum-1
 GGS..T....... Two_Sum-2
-GGS......D... Type_detection
+GGS..T...D... Type_detection
 GGS......D... UPC
 GBS.......... URL_decoding
 GGS.......... URL_encoding
@@ -1283,7 +1283,7 @@ GB.K.....D... URL_shortener
 GBS.......... UTF-8_encode_and_decode
 .........D.VU Ukkonens_Suffix_Tree_Construction
 GGS.....F.... Ulam_spiral_for_primes
-GGS....R..... Unbias_a_random_generator
+GGS..T.R..... Unbias_a_random_generator
 GGS.......... Undefined_values
 .........D.VU Unicode_polynomial_equation
 GGS.......... Unicode_strings
@@ -1304,7 +1304,7 @@ GGS......D... VList
 GGS..T....... Validate_International_Securities_Identification_Number
 GBS...C...... Vampire_number
 GGS.......... Van_Eck_sequence
-GGS.......... Van_der_Corput_sequence
+GGS..T....... Van_der_Corput_sequence
 GGS.......... Variable-length_quantity
 GGS.......... Variable_size_Get
 ..........XV. Variable_size_Set
@@ -1341,7 +1341,7 @@ GB.KI........ Window_creation_X11
 GB.KI........ Window_management
 GBS.......... Wireworld
 GGS......D... Word_break_problem
-...........V. Word_frequency
+GGS..Tc...... Word_frequency
 GGS....R..... Word_search
 .........D... Word_wheel
 GGS.......... Word_wheel-1
