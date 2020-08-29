@@ -109,7 +109,7 @@ POD6
 
 my $result = render($pod6);
 $result ~~ s/ '20' \d\d '-' \d\d '-' \d\d 'T' \d\d ':' \d\d ':' \d\d 'Z' /2020-01-01T00:00:00Z/;
-#say $result; 
+#say $result; exit;
 
 # for display on Rosettacode
 #say escape-html render($pod6);
@@ -117,36 +117,32 @@ $result ~~ s/ '20' \d\d '-' \d\d '-' \d\d 'T' \d\d ':' \d\d ':' \d\d 'Z' /2020-0
 my $ref = q:to/END/;
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>UNNAMED</title>
-        <meta charset="UTF-8" />
-        <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAA/wAAAP8AAACGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAABA
-        AAAA/wAAAP8AAAAAAAAA/wAAAP9NAbX/TQG13gAAAPsAAABAAAAAAAAAAP8AAAD/AAAAAAAAAEAA
-        AAD/TQG1/00Btf8AAAD/AAAA/wAAAP8AAAD/TQG1//8AAP9rAvv/AAAA/wAAAEAAAABlAAAAAAAA
-        AP8AAAD/awL7//8AAP9NAbX/AAAA+QAAAP8AAAAAAAAA/wAAAP9NAbX/TQG1/wAAAP8AAAD/AAAA
-        2gAAAP8AAAD/AAAA/00Btf9NAbX/AAAA/wAAANMAAAAJAAAAAAAAAAAAAABlAAAA/wAAAP8AnJz/
-        AOLi/wD///8A////ANjY/wCFhf8AAAD/AAAA/wAAAEAAAAAAAAAACwAAAAAAAAAAAAAAAAAAAP8A
-        hYX/AP///wD///9rAvv/awL7/wD///8A////AIWF/wAAAP8AAAAAAAAAAAAAAAIAAAAAAAAAAAAA
-        AP8AAAD/AOPj/wD///9rAvv/AP///2sC+/8A////AP///wDj4/8AAAD/AAAA/wAAAAAAAAAAAAAA
-        AAAAAP8AAAD//35+/wD///8A////AP///wD///8A////AP///wD///8A////AAAA/wAAAP8AAAD/
-        AAAAAAAAAFYAAAD//35+/4UAAP8A////AIWF/wDT0/8A////AP///wCFhf8AxcX/AP///4UAAP+F
-        AAD/AAAA/wAAAAAAAACubycn/99vb//GAAD/XFxc//////9cXFz/AP///1xcXP//////XFxc/wAA
-        AP//fn7//35+/4UAAP8AAABAQAAA//8fH///fn7/AAAA//////8AAAD//////wAAAP//////AAAA
-        ////////AAD/awL7/4UAAP//fn7/AAAA/1IoKP//fn7//35+//8AAP9cXFz//////wCFhf8A////
-        AIWF//////+FhYX//35+/4UAAP9rAvv//35+/wAAAP9mMjL//35+/2sC+///fn7/APsC/wAAAP8A
-        ////AP///wD///8AAAD/AAAA//9+fv/9AAD//35+/wAAAP8AAAD/hQAA//9+fv9rAvv//35+/wD7
-        Av8AAAD/AAAAAAAAAEAAAAAAAAAAGQAAAP/RAACR/35+/wAAAP8A+wL/AAAA2gAAAGX/AADa/35+
-        //9+fv8AAAD/AAAAAAAAAAAAAAB7AAAAAAAAAEAAAAAAAAAA//0AAP//fn7//35+/wAAAGUAAAAP
-        AAAAZQAAAP8AAAD/AAAAAAAAAAAAAABlAAAA/4WFhQEAAAD/AAAAQAAAAAAAAAD/AAAA2gAAAGUA
-        AAAAj/kAAAZgAAADgAAAgAEAAOAHAADgBwAAwAMAAIABAACAAQAAAAEAAAAAAAAAAAAAAAAAAAPA
-        AACH4QAAzrMAAA==" rel="icon" type="image/x-icon" />        
-        <link rel="stylesheet" href="assets/pod.css">
-        
-        
-    </head>
-    <body class="pod">
-        <header><svg version="1.1" id="Camelia_bug" xmlns:svg="http://www.w3.org/2000/svg"
+<head>
+<title>UNNAMED</title>
+<meta charset="UTF-8" />
+<link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAA/wAAAP8AAACGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAABA
+AAAA/wAAAP8AAAAAAAAA/wAAAP9NAbX/TQG13gAAAPsAAABAAAAAAAAAAP8AAAD/AAAAAAAAAEAA
+AAD/TQG1/00Btf8AAAD/AAAA/wAAAP8AAAD/TQG1//8AAP9rAvv/AAAA/wAAAEAAAABlAAAAAAAA
+AP8AAAD/awL7//8AAP9NAbX/AAAA+QAAAP8AAAAAAAAA/wAAAP9NAbX/TQG1/wAAAP8AAAD/AAAA
+2gAAAP8AAAD/AAAA/00Btf9NAbX/AAAA/wAAANMAAAAJAAAAAAAAAAAAAABlAAAA/wAAAP8AnJz/
+AOLi/wD///8A////ANjY/wCFhf8AAAD/AAAA/wAAAEAAAAAAAAAACwAAAAAAAAAAAAAAAAAAAP8A
+hYX/AP///wD///9rAvv/awL7/wD///8A////AIWF/wAAAP8AAAAAAAAAAAAAAAIAAAAAAAAAAAAA
+AP8AAAD/AOPj/wD///9rAvv/AP///2sC+/8A////AP///wDj4/8AAAD/AAAA/wAAAAAAAAAAAAAA
+AAAAAP8AAAD//35+/wD///8A////AP///wD///8A////AP///wD///8A////AAAA/wAAAP8AAAD/
+AAAAAAAAAFYAAAD//35+/4UAAP8A////AIWF/wDT0/8A////AP///wCFhf8AxcX/AP///4UAAP+F
+AAD/AAAA/wAAAAAAAACubycn/99vb//GAAD/XFxc//////9cXFz/AP///1xcXP//////XFxc/wAA
+AP//fn7//35+/4UAAP8AAABAQAAA//8fH///fn7/AAAA//////8AAAD//////wAAAP//////AAAA
+////////AAD/awL7/4UAAP//fn7/AAAA/1IoKP//fn7//35+//8AAP9cXFz//////wCFhf8A////
+AIWF//////+FhYX//35+/4UAAP9rAvv//35+/wAAAP9mMjL//35+/2sC+///fn7/APsC/wAAAP8A
+////AP///wD///8AAAD/AAAA//9+fv/9AAD//35+/wAAAP8AAAD/hQAA//9+fv9rAvv//35+/wD7
+Av8AAAD/AAAAAAAAAEAAAAAAAAAAGQAAAP/RAACR/35+/wAAAP8A+wL/AAAA2gAAAGX/AADa/35+
+//9+fv8AAAD/AAAAAAAAAAAAAAB7AAAAAAAAAEAAAAAAAAAA//0AAP//fn7//35+/wAAAGUAAAAP
+AAAAZQAAAP8AAAD/AAAAAAAAAAAAAABlAAAA/4WFhQEAAAD/AAAAQAAAAAAAAAD/AAAA2gAAAGUA
+AAAAj/kAAAZgAAADgAAAgAEAAOAHAADgBwAAwAMAAIABAACAAQAAAAEAAAAAAAAAAAAAAAAAAAPA
+AACH4QAAzrMAAA==" rel="icon" type="image/x-icon" /><link rel="stylesheet" href="assets/pod.css"></head>
+	<body class="pod">
+<header><svg version="1.1" id="Camelia_bug" xmlns:svg="http://www.w3.org/2000/svg"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="146.887 35.071 679.648 628.263" enable-background="new 146.887 35.071 679.648 628.263" xml:space="preserve">
 <g>
@@ -312,122 +308,80 @@ my $ref = q:to/END/;
 		<rect x="551.153" y="428.32" transform="matrix(0.4226 -0.9063 0.9063 0.4226 -70.9303 749.6747)" stroke="#000000" stroke-width="1.0588" stroke-miterlimit="10" width="3.517" height="4.372"/>
 </g>
 </svg>
-<h1 class="title" id="___top">UNNAMED</h1></header>        <div class="toc-glossary">
-        <table id="TOC">
-    <caption>Table of Contents</caption>
-    <tr class="toc-level-1">
-        <td class="toc-text"><a href="#Section_headings"><span class="toc-counter">1</span> Section headings</a></td>
-    </tr>
-    <tr class="toc-level-1">
-        <td class="toc-text"><a href="#A_top_level_heading"><span class="toc-counter">2</span> A top level heading</a></td>
-    </tr>
-    <tr class="toc-level-2">
-        <td class="toc-text"><a href="#A_second_level_heading"><span class="toc-counter">2.1</span> A second level heading</a></td>
-    </tr>
-    <tr class="toc-level-3">
-        <td class="toc-text"><a href="#A_third_level_heading"><span class="toc-counter">2.1.1</span> A third level heading</a></td>
-    </tr>
-    <tr class="toc-level-4">
-        <td class="toc-text"><a href="#A_fourth_level_heading"><span class="toc-counter">2.1.1.1</span> A fourth level heading</a></td>
-    </tr>
-    <tr class="toc-level-1">
-        <td class="toc-text"><a href="#Text"><span class="toc-counter">3</span> Text</a></td>
-    </tr>
-    <tr class="toc-level-1">
-        <td class="toc-text"><a href="#Para"><span class="toc-counter">4</span> Para</a></td>
-    </tr>
-    <tr class="toc-level-1">
-        <td class="toc-text"><a href="#Code"><span class="toc-counter">5</span> Code</a></td>
-    </tr>
-    <tr class="toc-level-1">
-        <td class="toc-text"><a href="#Lists"><span class="toc-counter">6</span> Lists</a></td>
-    </tr>
-    <tr class="toc-level-3">
-        <td class="toc-text"><a href="#Unordered_lists"><span class="toc-counter">6.0.1</span> Unordered lists</a></td>
-    </tr>
-    <tr class="toc-level-3">
-        <td class="toc-text"><a href="#Multi-level_lists"><span class="toc-counter">6.0.2</span> Multi-level lists</a></td>
-    </tr>
-    <tr class="toc-level-1">
-        <td class="toc-text"><a href="#Formatting_codes"><span class="toc-counter">7</span> Formatting codes</a></td>
-    </tr>
-    <tr class="toc-level-1">
-        <td class="toc-text"><a href="#Tables"><span class="toc-counter">8</span> Tables</a></td>
-    </tr>
+<h1 class="title" id="___top">UNNAMED</h1></header><div class="toc-glossary"><table id="TOC">
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Section_headings"><span class="toc-counter">1</span> Section headings</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#A_top_level_heading"><span class="toc-counter">2</span> A top level heading</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#A_second_level_heading"><span class="toc-counter">2.1</span> A second level heading</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#A_third_level_heading"><span class="toc-counter">2.1.1</span> A third level heading</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-text"><a href="#A_fourth_level_heading"><span class="toc-counter">2.1.1.1</span> A fourth level heading</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Text"><span class="toc-counter">3</span> Text</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Para"><span class="toc-counter">4</span> Para</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Code"><span class="toc-counter">5</span> Code</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Lists"><span class="toc-counter">6</span> Lists</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Unordered_lists"><span class="toc-counter">6.0.1</span> Unordered lists</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Multi-level_lists"><span class="toc-counter">6.0.2</span> Multi-level lists</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Formatting_codes"><span class="toc-counter">7</span> Formatting codes</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Tables"><span class="toc-counter">8</span> Tables</a></td></tr>
 </table>
-
-        
-        </div>
-        <div class="subtitle"></div>        <div class="pod-body">
-            <section name="___top"><p>A very simple Pod6 document.</p><p>This is a very high-level, hand-wavey overview. There are <em>lots</em> of other options available.</p><h1 id="Section_headings"><a href="#___top" class="u" title="go to top of document">Section headings</a></h1>
-            <h1 id="A_top_level_heading"><a href="#___top" class="u" title="go to top of document">A top level heading</a></h1>
-            <h2 id="A_second_level_heading"><a href="#___top" class="u" title="go to top of document">A second level heading</a></h2>
-            <h3 id="A_third_level_heading"><a href="#___top" class="u" title="go to top of document">A third level heading</a></h3>
-            <h4 id="A_fourth_level_heading"><a href="#___top" class="u" title="go to top of document">A fourth level heading</a></h4>
-            <h1 id="Text"><a href="#___top" class="u" title="go to top of document">Text</a></h1>
-            <p>Ordinary paragraphs do not require an explicit marker or delimiters.</p><p>Alternatively, there is also an explicit =para marker that can be used to explicitly mark a paragraph.</p><section>
-    <h1 id="Para"><a href="#___top" class="u" title="go to top of document">para</a></h1>
-    <p>This is an ordinary paragraph. Its text will be squeezed and short lines filled.</p>
+</div><div class="subtitle"></div><div class="pod-body"><section name="___top"><p>A very simple Pod6 document.</p><p>This is a very high-level, hand-wavey overview. There are <em>lots</em> of other options available.</p><h1 id="Section_headings"><a href="#___top" class="u" title="go to top of document">Section headings</a></h1>
+<h1 id="A_top_level_heading"><a href="#___top" class="u" title="go to top of document">A top level heading</a></h1>
+<h2 id="A_second_level_heading"><a href="#___top" class="u" title="go to top of document">A second level heading</a></h2>
+<h3 id="A_third_level_heading"><a href="#___top" class="u" title="go to top of document">A third level heading</a></h3>
+<h4 id="A_fourth_level_heading"><a href="#___top" class="u" title="go to top of document">A fourth level heading</a></h4>
+<h1 id="Text"><a href="#___top" class="u" title="go to top of document">Text</a></h1>
+<p>Ordinary paragraphs do not require an explicit marker or delimiters.</p><p>Alternatively, there is also an explicit =para marker that can be used to explicitly mark a paragraph.</p><section>
+<h1id="Para"><a href="#___top" class="u" title="go to top of document">para</a></h1>
+<p>This is an ordinary paragraph. Its text will be squeezed and short lines filled.</p>
 </section>
 <h1 id="Code"><a href="#___top" class="u" title="go to top of document">Code</a></h1>
-            <p>Enclose code in a =code block (or C&lt; &gt; markup for short, inline samples)</p><pre class="pod-block-code">
-    my $name = 'Rakudo';
+<p>Enclose code in a =code block (or C&lt; &gt; markup for short, inline samples)</p><pre class="pod-block-code">    my $name = 'Rakudo';
     say $name;
-</pre>
-<h1 id="Lists"><a href="#___top" class="u" title="go to top of document">Lists</a></h1>
-            <h3 id="Unordered_lists"><a href="#___top" class="u" title="go to top of document">Unordered lists</a></h3>
-            <ul>
-    <li><p>Grumpy</p></li>
-            <li><p>Dopey</p></li>
-            <li><p>Doc</p></li>
-            <li><p>Happy</p></li>
-            <li><p>Bashful</p></li>
-            <li><p>Sneezy</p></li>
-            <li><p>Sleepy</p></li>
-            
+</pre><h1 id="Lists"><a href="#___top" class="u" title="go to top of document">Lists</a></h1>
+<h3 id="Unordered_lists"><a href="#___top" class="u" title="go to top of document">Unordered lists</a></h3>
+<ul>
+<li><p>Grumpy</p></li>
+<li><p>Dopey</p></li>
+<li><p>Doc</p></li>
+<li><p>Happy</p></li>
+<li><p>Bashful</p></li>
+<li><p>Sneezy</p></li>
+<li><p>Sleepy</p></li>
 </ul>
 <h3 id="Multi-level_lists"><a href="#___top" class="u" title="go to top of document">Multi-level lists</a></h3>
-            <ul>
-    <li><p>Animal</p></li>
-            <ul>
-    <li><p>Vertebrate</p></li>
-            <li><p>Invertebrate</p></li>
-            
+<ul>
+<li><p>Animal</p></li>
+<ul>
+<li><p>Vertebrate</p></li>
+<li><p>Invertebrate</p></li>
 </ul>
 <li><p>Phase</p></li>
-            <ul>
-    <li><p>Solid</p></li>
-            <li><p>Liquid</p></li>
-            <li><p>Gas</p></li>
-            
+<ul>
+<li><p>Solid</p></li>
+<li><p>Liquid</p></li>
+<li><p>Gas</p></li>
 </ul>
-
 </ul>
 <h1 id="Formatting_codes"><a href="#___top" class="u" title="go to top of document">Formatting codes</a></h1>
-            <p>Formatting codes provide a way to add inline mark-up to a piece of text.</p><p>All Pod6 formatting codes consist of a single capital letter followed immediately by a set of single or double angle brackets; Unicode double angle brackets may be used.</p><p>Formatting codes may nest other formatting codes.</p><p>There are many formatting codes available, some of the more common ones:</p><ul>
-    <li><p>B&lt; &gt; Bold</p></li>
-            <li><p>I&lt; &gt; Italic</p></li>
-            <li><p>U&lt; &gt; Underline</p></li>
-            <li><p>C&lt; &gt; Code</p></li>
-            <li><p>L&lt; &gt; Hyperlink</p></li>
-            <li><p>V&lt; &gt; Verbatim (Don't interpret anything inside as POD markup)</p></li>
-            
+<p>Formatting codes provide a way to add inline mark-up to a piece of text.</p><p>All Pod6 formatting codes consist of a single capital letter followed immediately by a set of single or double angle brackets; Unicode double angle brackets may be used.</p><p>Formatting codes may nest other formatting codes.</p><p>There are many formatting codes available, some of the more common ones:</p><ul>
+<li><p>B&lt; &gt; Bold</p></li>
+<li><p>I&lt; &gt; Italic</p></li>
+<li><p>U&lt; &gt; Underline</p></li>
+<li><p>C&lt; &gt; Code</p></li>
+<li><p>L&lt; &gt; Hyperlink</p></li>
+<li><p>V&lt; &gt; Verbatim (Don't interpret anything inside as POD markup)</p></li>
 </ul>
 <h1 id="Tables"><a href="#___top" class="u" title="go to top of document">Tables</a></h1>
-            <p>There is quite extensive markup to allow rendering tables.</p><p>A simple example:</p><table class="pod-table">
-    <caption>Mystery Men</caption>
-    
-    <tbody>
-        <tr><td>The Shoveller</td><td>Eddie Stevens</td><td>King Arthur's singing shovel</td></tr><tr><td>Blue Raja</td><td>Geoffrey Smith</td><td>Master of cutlery</td></tr><tr><td>Mr Furious</td><td>Roy Orson</td><td>Ticking time bomb of fury</td></tr><tr><td>The Bowler</td><td>Carol Pinnsler</td><td>Haunted bowling ball</td></tr>
-    </tbody>
+<p>There is quite extensive markup to allow rendering tables.</p><p>A simple example:</p><table class="pod-table"><caption>Mystery Men</caption>	<tbody>
+		<tr><td>The Shoveller</td><td>Eddie Stevens</td><td>King Arthur's singing shovel</td></tr>
+		<tr><td>Blue Raja</td><td>Geoffrey Smith</td><td>Master of cutlery</td></tr>
+		<tr><td>Mr Furious</td><td>Roy Orson</td><td>Ticking time bomb of fury</td></tr>
+		<tr><td>The Bowler</td><td>Carol Pinnsler</td><td>Haunted bowling ball</td></tr>
+	</tbody>
 </table>
-
-                </section>
-        </div>
-        
-        <footer><div>Rendered from <span class="path">UNNAMED</span></div>
-                        <div>at <span class="time">2020-01-01T00:00:00Z</span></div>
-                        </footer>    </body>
+</section>		</div>
+<footer><div>Rendered from <span class="path">UNNAMED</span></div><div>at <span class="time">2020-01-01T00:00:00Z</span></div></footer>
+	</body>
 </html>
 
 END
