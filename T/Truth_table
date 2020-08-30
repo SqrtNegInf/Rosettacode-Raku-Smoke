@@ -1,15 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Truth_table
-#c# 2016-06-06 <RC
+#c# 2016-06-06 <RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #    1st vs 2nd/3rd output screwy
 
-use MONKEY-SEE-NO-EVAL;
-
 sub MAINly ($x) {
     my @n = $x.comb(/<ident>/);
-    my &fun = EVAL "-> {('\\' «~« @n).join(',')} \{ [{ (|@n,"so $x").join(',') }] \}";
+    my &fun = "-> {('\\' «~« @n).join(',')} \{ [{ (|@n,"so $x").join(',') }] \}".EVAL;
 
     my @out.push: (|@n,$x).join("\t");
     my @xxx = map &fun, flat map { .fmt("\%0{+@n}b").comb».Int».so }, 0 ..^ 2**@n;
