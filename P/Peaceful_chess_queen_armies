@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Peaceful_chess_queen_armies
-#c# 2019-11-18 >RC
+#c# 2019-11-18 >RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# d'oh stop at first solution (was previously proceeding to the last before showing result)
@@ -30,7 +30,7 @@ sub place ($board, $n, $m, $empty-square) {
           ) ~
         ']' ~
         '<{%Q{$0}}>';               # 2nd queen
-      $attack = "rx/$re/".EVAL;
+      $attack = "/$re/".EVAL;
     }
 
     # return first result found (omit this line to get last result found)
