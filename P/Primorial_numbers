@@ -8,12 +8,10 @@
 
 my @res;
 
-# work-around for JVM
-use MONKEY-SEE-NO-EVAL;
 my @primes;
 my $sieve;
 if $*VM ~~ /jvm/ { @primes = lazy gather for 1 .. * { .take if $_.is-prime } }
-else             { EVAL 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes = $sieve.primes(105_000);' }
+else             { 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes = $sieve.primes(105_000);'.EVAL }
 
 sub primorial($n) { [×] @primes[^$n] }
 
