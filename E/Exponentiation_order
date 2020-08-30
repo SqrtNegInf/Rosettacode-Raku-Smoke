@@ -1,12 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Exponentiation_order
-#c# 2016-09-03 <RC
+#c# 2016-09-03 <RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: rakudo version 2016.08
-use MONKEY-SEE-NO-EVAL;
-sub demo($x) { say "  $x\t───► ", EVAL $x }
+sub demo($x) { say "  $x\t───► ", $x.EVAL }
 
 demo '5**3**2';      # show ** is right associative
 demo '(5**3)**2';
