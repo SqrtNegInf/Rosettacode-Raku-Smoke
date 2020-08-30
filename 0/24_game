@@ -1,20 +1,19 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game
-#c# 2015-11-01 <RC
+#c# 2015-11-01 <RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: 4*(3+1)+8
+#=# RC pipe: 5+(3+(4*4))
 #n# 'constant' evaluated at BEGIN phase, so do 'srand' then too
+#n# ...and now actually testing the code "For Real (TM)"
 
 BEGIN srand 123456;
-
-use MONKEY-SEE-NO-EVAL;
 
 say "Here are your digits: ", 
 constant @digits = (1..9).roll(4)».Str;
 
 grammar Exp24 {
-    token TOP { ^ <exp> $ { fail unless EVAL($/) == 24 } }
+    token TOP { ^ <exp> $ { fail unless $/.EVAL == 24 } }
     rule exp { <term>+ % <op> }
     rule term { '(' <exp> ')' | <@digits> }
     token op { < + - * / > }
@@ -22,7 +21,8 @@ grammar Exp24 {
 
 while my $exp = prompt "\n24? " {
     if Exp24.parse: $exp {
-	say "You win:)";
+	say "You win :)";
+	say 'ok 1 -';
 	last;
     } else {
 	say pick 1,
@@ -31,7 +31,6 @@ while my $exp = prompt "\n24? " {
 	'Nope.  Not even close.' xx 2,
 	'Are you five or something?',
 	'Come on, you can do better than that.';
+	say 'not ok -';
     }
 }
-
-say 'ok 1 -';
