@@ -1,10 +1,8 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Short-circuit_evaluation
-#c# 2016-02-20 <>RC
+#c# 2016-02-20 <>RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-use MONKEY-SEE-NO-EVAL;
 
 my $l;
 my @res;
@@ -16,7 +14,7 @@ for 1, 0 X 1, 0 -> ($p, $q) {
     for '&&', '||' -> $op {
         my $s = "a($p) $op b($q)";
         $l = "$s: ";
-        EVAL $s;
+        $s.EVAL;
         @res.push: $l;
     }
 }
