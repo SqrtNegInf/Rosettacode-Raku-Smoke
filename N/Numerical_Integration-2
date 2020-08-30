@@ -8,8 +8,6 @@
 
 my @res;
 
-use MONKEY-SEE-NO-EVAL;
-
 sub leftrect(&f, $a, $b, $n) {
     my $h = ($b - $a) / $n;
     my $end = $b-$h;
@@ -61,7 +59,7 @@ sub integrate($f, $a, $b, $n, $exact) {
 
     my ($r1,$r2,$r3,$r4,$r5);
     my &f;
-    EVAL "&f = $f";
+    "&f = $f".EVAL;
     my $p1 = Promise.start( { $r1 = '     rectangle method left: '~  leftrect(&f, $a, $b, $n).round($e) } );
     my $p2 = Promise.start( { $r2 = '    rectangle method right: '~ rightrect(&f, $a, $b, $n).round($e) } );
     my $p3 = Promise.start( { $r3 = '      rectangle method mid: '~   midrect(&f, $a, $b, $n).round($e) } );
