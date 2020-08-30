@@ -5,15 +5,13 @@
 #j#  JVM: OK
 #n# stopped trying the 100_000_000 calculation after two hours (ate memory too)
 
-# work-around for JVM
-use MONKEY-SEE-NO-EVAL;
 my @primes;
 my $sieve;
 my %conspiracy;
 my $upto = 1_000_000;
 
 if $*VM ~~ /jvm/ { @primes = lazy gather for 1 .. * { .take if $_.is-prime } }
-else             { EVAL 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes = $sieve.n-primes($upto+1);' }
+else             { 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes = $sieve.n-primes($upto+1);'.EVAL }
 
 @primes[^($upto+1)].reduce: -> $a, $b {
     my $d = $b % 10;
