@@ -7,8 +7,6 @@
 #A loose translation of the Perl entry. Does not return every possible permutation of the possible solutions. Filters out duplicates (from repeated digits) and only reports the solution for a particular order of digits and operators with the fewest parenthesis (avoids reporting duplicate solutions only differing by unnecessary parenthesis). Does not guarantee the order in which results are returned.
 #Since Perl 6 uses Rational numbers for division (whenever possible) there is no loss of precision as is common with floating point division. So a comparison like  (1 + 7) / (1 / 3) == 24 "Just Works"&#8482;
 
-use MONKEY-SEE-NO-EVAL;
-
 # Get $amount digits from the user,
 # ask for more if they don't supply enough
 #while @digits.elems < $amount {
@@ -42,7 +40,7 @@ my @perms;
     for @ops -> @o {
         for @formats -> $format {
             my $string = sprintf $format, flat roundrobin(|@p; |@o);
-            my $result = EVAL($string);
+            my $result = $string.EVAL;
             @perms.push: "$string = 24" and last if $result and $result == 24;
         }
     }
