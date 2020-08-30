@@ -67,11 +67,12 @@ File: 0/21_Game
 File: 0/24_game
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game
-#c# 2015-11-01 <RC
+#c# 2015-11-01 <RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: 4*(3+1)+8
+#=# RC pipe: 5+(3+(4*4))
 #n# 'constant' evaluated at BEGIN phase, so do 'srand' then too
+#n# ...and now actually testing the code "For Real (TM)"
 
 File: 0/24_game_Solve-1
 #!/usr/bin/env perl6
@@ -173,7 +174,7 @@ File: A/A*_search_algorithm
 File: A/ABC_Problem
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/ABC_Problem
-#c# 2015-12-04 <RC
+#c# 2015-12-04 <RC, 2020-08-29 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -2678,7 +2679,8 @@ File: D/Dinesman%27s_multiple-dwelling_problem-1
 #c# 2015-11-14 <>RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# $expr not set, grammar fails
+#n# for JVM: $expr not set, grammar fails
+#n# .EVAL syntax doesn't work here?
 
 File: D/Dinesman%27s_multiple-dwelling_problem-1.1
 #!/usr/bin/env perl6
@@ -2725,7 +2727,7 @@ File: D/Display_a_linear_combination
 File: D/Display_an_outline_as_a_nested_table
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Display_an_outline_as_a_nested_table
-#c# 2019-10-24 <RC, 2020-07-19 >RC
+#c# 2019-10-24 <RC, 2020-07-19 >RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -3301,7 +3303,7 @@ File: E/Exponentiation_operator
 File: E/Exponentiation_order
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Exponentiation_order
-#c# 2016-09-03 <RC
+#c# 2016-09-03 <RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -7695,7 +7697,7 @@ File: P/Pattern_matching
 File: P/Peaceful_chess_queen_armies
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Peaceful_chess_queen_armies
-#c# 2019-11-18 >RC
+#c# 2019-11-18 >RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# d'oh stop at first solution (was previously proceeding to the last before showing result)
@@ -9327,7 +9329,7 @@ File: R/Runtime_evaluation
 File: R/Runtime_evaluation_In_an_environment
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Runtime_evaluation/In_an_environment
-#c# 2015-12-22 <>RC, 2016-05-12 <RC
+#c# 2015-12-22 <>RC, 2016-05-12 <RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# migrated from 'Eval_in_environment'
@@ -9672,14 +9674,14 @@ File: S/Shoelace_formula_for_polygonal_area
 File: S/Short-circuit_evaluation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Short-circuit_evaluation
-#c# 2016-02-20 <>RC
+#c# 2016-02-20 <>RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
 File: S/Shortest_common_supersequence
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Longest_common_subsequence
-#c# 2015-11-30 <RC, 2018-08-18 >RC
+#u# http://rosettacode.org/wiki/Shortest_common_supersequence
+#c# 2015-11-30 <RC, 2018-08-18 >RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# borrowed code from 'Longest_common_subsequence' task
@@ -11587,7 +11589,7 @@ File: T/Truncate_a_file.jvm
 File: T/Truth_table
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Truth_table
-#c# 2016-06-06 <RC
+#c# 2016-06-06 <RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #    1st vs 2nd/3rd output screwy
