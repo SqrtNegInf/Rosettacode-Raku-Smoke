@@ -5,7 +5,7 @@
 #j#  JVM: OK
 #  2016-10-27: changed from returning 'True' to returning address string
 
-my $bitcoin-address = rx/
+my $bitcoin-address = /
     <+alnum-[0IOl]> ** 26..*  # an address is at least 26 characters long
     <?{
         use Digest::SHA;
@@ -21,7 +21,6 @@ my $bitcoin-address = rx/
     }>
 /;
 
-#my $foo = $bitcoin-address; say $foo; exit;
 say my $res = "Here is a bitcoin address: 1AGNa15ZQXAZUgFiqJ2i7Z2DPU2J6hW62i" ~~ $bitcoin-address;
 
 use Test;
