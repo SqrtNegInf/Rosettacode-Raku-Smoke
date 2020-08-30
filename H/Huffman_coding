@@ -4,8 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: rakudo version 2015-09-14
-
 sub huffman ($s) {
     my $de = $s.chars;
     my @q = $s.comb.classify({$_}).map({[+.value / $de, .key]}).sort;
@@ -29,14 +27,14 @@ say .raku for huffman('this is an example for huffman encoding');
 
 # To demonstrate that the table can do a round trip:
 
-my $str = 'this is an example for huffman encoding';
+say my $str = 'this is an example for huffman encoding';
 my %enc = huffman $str;
 my %dec = %enc.invert;
-say $str;
+
 my $huf = %enc{$str.comb}.join;
 say $huf;
+
 my $rx = join '|', map { "'" ~ .key ~ "'" }, %dec;
-$rx = "/$rx/".EVAL;
 say my $rt = $huf.subst(/<$rx>/, {%dec{~$/}}, :g);
 
 use Test;
