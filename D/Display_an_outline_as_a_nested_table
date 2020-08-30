@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Display_an_outline_as_a_nested_table
-#c# 2019-10-24 <RC, 2020-07-19 >RC
+#c# 2019-10-24 <RC, 2020-07-19 >RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -46,7 +46,6 @@ sub import (Str $trees, $level = '  ') {
     sub esc { $^s.subst( /(<['\\]>)/, -> $/ { "\\$0" }, :g) }
 
     $forest ~= ']' x 1 + $last;
-    use MONKEY-SEE-NO-EVAL;
     $forest.EVAL;
 }
 
