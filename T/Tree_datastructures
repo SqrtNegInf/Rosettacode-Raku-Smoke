@@ -72,7 +72,6 @@ sub import (Str $trees, $level = '  ') {
     sub esc { $^s.subst( /(<['\\]>)/, -> $/ { "\\$0" }, :g) }
 
     $forest ~= ']' x 1 + $last;
-    #use MONKEY-SEE-NO-EVAL;
     $forest.EVAL;
 }
 
