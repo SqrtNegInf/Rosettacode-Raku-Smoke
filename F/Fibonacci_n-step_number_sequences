@@ -1,10 +1,8 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fibonacci_n-step_number_sequences
-#c# 2016-01-23 <>RC
+#c# 2016-01-23 <>RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-use MONKEY-SEE-NO-EVAL;
 
 #Lazy List with Closure
 
@@ -14,7 +12,7 @@ sub fibo ($n) {
 }
 
 sub nacci (*@starter) {
-    EVAL "|@starter, { join '+', '*' xx @starter } ... *";
+    "|@starter, { join '+', '*' xx @starter } ... *".EVAL;
 }
 
 my @res1; 
