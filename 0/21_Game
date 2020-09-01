@@ -27,15 +27,15 @@ loop {
         insult $me;
     }
     $total += $me;
-    win('Human') if $total >= 21;
+    win('Human',$total) if $total >= 21;
     say "Computer plays: { $comp = (1,2,3).roll }\n";
     $total += $comp;
-    win('Computer') if $total >= 21;
+    win('Computer',$total) if $total >= 21;
 }
 
-sub win ($player) {
+sub win ($player,$total) {
     say "$player wins.";
-    is $player, 'Human';
+    ok $player eq 'Computer' and $total == 21;
     exit;
 }
 
