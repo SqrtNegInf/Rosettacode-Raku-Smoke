@@ -13,7 +13,7 @@ s:2nd['♖'] = '♔';
 put .comb;
 
 use Test;
-is (.comb), '♗ ♖ ♕ ♘ ♔ ♖ ♘ ♗' if $*VM ~~ /moar/;
+is (.comb), '♖ ♔ ♘ ♖ ♗ ♗ ♕ ♘' if $*VM ~~ /moar/;
 is (.comb), '♕ ♘ ♖ ♘ ♔ ♗ ♗ ♖' if $*VM ~~ /jvm/;
 
 # Here's a more "functional" solution that avoids side effects
@@ -25,7 +25,7 @@ sub chess960 {
 }
 
 say my $result = chess960;
-is $result, '♞♞♜♝♛♚♝♜' if $*VM ~~ /moar/;
+is $result, '♜♛♝♚♞♝♞♜' if $*VM ~~ /moar/;
 is $result, '♜♞♚♝♜♞♝♛' if $*VM ~~ /jvm/;
 
 # ♛♝♜♚♝♞♞♜
