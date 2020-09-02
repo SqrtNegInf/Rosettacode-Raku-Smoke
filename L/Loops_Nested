@@ -22,13 +22,9 @@ LINE: for @a -> @line {
 .say for @res;
 
 my $moar = qq:to/END/;
- 19 17 13 13 10 18 6 16 5 18
- 9 7 8 13 3 18 15 19 17 15
- 19 15 12 10 17 8 3 16 4 13
- 3 15 8 13 8 16 11 14 19 13
- 9 16 19 3 1 7 19 14 8 19
- 19 5 14 6 4 7 12 17 4 3
- 3 12 16 14 9 6 2 2 17 20
+ 15 8 13 8 16 11 14 19 13 9
+ 6 4 7 12 17 4 3 3 12 16
+ 14 9 6 2 2 17 20
 END
 
 my $jvm = qq:to/END/;
@@ -36,8 +32,5 @@ my $jvm = qq:to/END/;
 END
 
 use Test;
-if $*VM ~~ /jvm/ {
-is @res.join("\n"), chomp $jvm;
-} else {
-is @res.join("\n"), chomp $moar;
-}
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
