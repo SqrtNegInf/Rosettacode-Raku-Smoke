@@ -19,11 +19,14 @@ my @res.push:
  "Don't bet on it", "My reply is no", "My sources say no", "Outlook not so good",
  "Very doubtful"].roll while prompt('? : ').chars;
 
+print "\n";
+.say for @res;
+
 my $moar = qq:to/END/;
-Cannot predict now
+My sources say no
+Without a doubt
+Ask again later
 You may rely on it
-Better not tell you now
-Better not tell you now
 END
 
 my $jvm = qq:to/END/;
@@ -32,9 +35,6 @@ Very doubtful
 As I see it, yes
 Concentrate and ask again
 END
-
-print "\n";
-.say for @res;
 
 use Test;
 my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
