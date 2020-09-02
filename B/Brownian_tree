@@ -50,6 +50,7 @@ sub display {
     }).join("\n")
 }
 
+srand 123456;
 for ^particlenum -> $progress {
     my Int $x;
     my Int $y;
