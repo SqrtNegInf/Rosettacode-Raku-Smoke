@@ -5,6 +5,7 @@
 #j#  JVM: OK
 #f# RC file: forest_fire.BEND
 #n# run 'Forest_fire.1' to see interactive output
+#n# srand in two places to keep output stable?
 
 srand 123456;
 
@@ -76,10 +77,11 @@ sub MAIN (Int $height = $ROWS - 2, Int $width = $COLS div 2 - 1) {
     my $fh = open("run/forest_fire.$ext", :w);
     my Forest $forest .= new(:$height, :$width);
     #print "\e[2J";      # ANSI clear screen
+    srand 123456;
     loop {
 	#print "\e[H";   # ANSI home
 	#say $++;
-    last if $++ > 20;
+    last if $++ > 10;
 	$forest.show($fh);
 	$forest.step;
     }
