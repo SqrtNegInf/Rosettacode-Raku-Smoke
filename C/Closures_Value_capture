@@ -18,21 +18,33 @@ my @res1.push: .() for @c.pick(*);  # call them in random order
 #Or equivalently, using a more functional notation:
 
 srand 123456;
-
 my @res2.push: .() for pick *, map -> $i { -> {$i × $i} }, ^10;
-#.say for @res2;
+#say '--'; .say for @res2; exit;
 
-my $moar = qq:to/END/;
-36
-4
-25
-16
+my $moar1 = qq:to/END/;
 9
-0
-64
-1
 81
+4
+16
+36
+0
+1
 49
+64
+25
+END
+
+my $moar2 = qq:to/END/;
+81
+64
+9
+25
+36
+1
+49
+0
+16
+4
 END
 
 my $jvm = qq:to/END/;
@@ -54,6 +66,6 @@ if $*VM ~~ /jvm/ {
 is @res1.join("\n"), chomp $jvm;
 is @res2.join("\n"), chomp $jvm;
 } else {
-is @res1.join("\n"), chomp $moar;
-is @res2.join("\n"), chomp $moar;
+is @res1.join("\n"), chomp $moar1;
+is @res2.join("\n"), chomp $moar2;
 }
