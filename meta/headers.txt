@@ -794,11 +794,13 @@ File: A/Attractive_numbers.jvm
 File: A/Average_loop_length
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Average_loop_length
+#t# skiptest
 #c# 2016-05-09 <>RC, 2018-05-31 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# with hash key order now variable, testing upgraded with ArrayHash
 #n# 'random' output changed on 2017-08-10
+#n# something is unstable, run #2 flips between: 2.00 vs. 2.67;  ArrayHash module needs updating?
 
 File: A/Average_loop_length.0
 #!/usr/bin/env perl6
@@ -3960,6 +3962,7 @@ File: F/Forest_fire
 #j#  JVM: OK
 #f# RC file: forest_fire.BEND
 #n# run 'Forest_fire.1' to see interactive output
+#n# srand in two places to keep output stable?
 
 File: F/Forest_fire-2
 #!/usr/bin/env perl6
@@ -5292,6 +5295,7 @@ File: J/Just_in_time_processing_on_a_character_stream
 #c# 2019-04-12 <RC, 2019-06-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# encoding string is no longer stable, so don't test for it
 
 File: K/K-d_tree
 #!/usr/bin/env perl6
@@ -6358,7 +6362,7 @@ File: M/Mastermind
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: ABCD\nEBCF
+#=# RC pipe: A B C D\nF E C D
 
 File: M/Matrix-exponentiation_operator
 #!/usr/bin/env perl6
@@ -6466,6 +6470,7 @@ File: M/Maze_generation
 #c# 2015-12-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# unstable output...
 
 File: M/Maze_solving
 #!/usr/bin/env perl6
@@ -6473,6 +6478,7 @@ File: M/Maze_solving
 #c# 2015-12-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# unstable output
 
 File: M/McNuggets_Problem
 #!/usr/bin/env perl6
@@ -7806,6 +7812,7 @@ File: P/Percolation_Bond_percolation
 #n# these no longer yield same results:
 #n# my @a; @a.append: [0 xx 3], [1 xx 3]; say @a
 #n# my @b; append @b, [0 xx 3], [1 xx 3]; say @b'
+#n# unstable results for 100 trials?
 
 File: P/Percolation_Mean_cluster_density
 #!/usr/bin/env perl6
@@ -7814,6 +7821,7 @@ File: P/Percolation_Mean_cluster_density
 #m# MOAR: OK
 #j#  JVM: OK
 #n# downgraded Unicode names to ASCII
+#n# unstable results
 
 File: P/Percolation_Mean_run_density
 #!/usr/bin/env perl6
@@ -7828,6 +7836,7 @@ File: P/Percolation_Site_percolation
 #c# 2017-03-06 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# unstable results for 100 trials
 
 File: P/Percolation_Site_percolation.1
 #!/usr/bin/env perl6
