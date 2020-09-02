@@ -35,7 +35,7 @@ loop {
 
 sub win ($player,$total) {
     say "$player wins.";
-    ok $player eq 'Computer' and $total == 21;
+    ok ($player eq 'Computer' and $total == 21);
     exit;
 }
 
