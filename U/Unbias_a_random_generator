@@ -27,13 +27,14 @@ for 3 .. 6 -> $n {
     @res.push: sprintf "N=%d   randN:%s,%4.1f%%   unbiased:%s,%4.1f%%",
         $n, map { .raku, .[1] × 100 / $iterations }, @raw, @fixed;
 }
+
 .say for @res;
 
 my $moar = qq:to/END/;
-N=3   randN:[677, 323],32.3%   unbiased:[495, 505],50.5%
-N=4   randN:[754, 246],24.6%   unbiased:[508, 492],49.2%
-N=5   randN:[781, 219],21.9%   unbiased:[515, 485],48.5%
-N=6   randN:[818, 182],18.2%   unbiased:[503, 497],49.7%
+N=3   randN:[679, 321],32.1%   unbiased:[492, 508],50.8%
+N=4   randN:[750, 250],25.0%   unbiased:[511, 489],48.9%
+N=5   randN:[779, 221],22.1%   unbiased:[513, 487],48.7%
+N=6   randN:[819, 181],18.1%   unbiased:[506, 494],49.4%
 END
 
 my $jvm = qq:to/END/;
