@@ -77,17 +77,17 @@ $s = '[][]';
 .say for @res;
 
 my $moar = qq:to/END/;
-[[][][[]]] is well-balanced (depth counter)
-][[[[]][]] is not well-balanced (depth counter)
+][]][]][[[ is not well-balanced (depth counter)
+[[]][[]][] is well-balanced (depth counter)
 [][] is well-balanced (depth counter)
-[]][]] is not well-balanced (FP oriented)
-[][]]][][[][ is not well-balanced (FP oriented)
+[]]]][ is not well-balanced (FP oriented)
+][][[][[]][[ is not well-balanced (FP oriented)
 [][] is well-balanced (FP oriented)
-][[][[[]]] is  not well-balanced (string munging)
+][]][[][[[ is  not well-balanced (string munging)
 [][][][][][] is  well-balanced (string munging)
 [][] is well-balanced (string munging)
-]][[]][][[ is not well-balanced (parsing with a grammar)
-[[]] is well-balanced (parsing with a grammar)
+[][]][[[]] is not well-balanced (parsing with a grammar)
+][[] is not well-balanced (parsing with a grammar)
 [][] is not well-balanced (parsing with a grammar)
 END
 
