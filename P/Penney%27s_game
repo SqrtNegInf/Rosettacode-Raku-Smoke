@@ -63,7 +63,7 @@ sub your-choice($p is copy) {
     sub check($a,$b,$c) {
         given [$a,$b,$c] {
             when @mine  { say $result2 = "\n{Yay.pick}, I win, and you lose!"; Nil }
-            when @yours { say "\n{Boo.pick}, you win, but I'll beat you next time!"; Nil }
+            when @yours { say $result2 = "\n{Boo.pick}, you win, but I'll beat you next time!"; Nil }
             default     { Coin.roll }
         }
     }
@@ -94,11 +94,11 @@ Tails I start, heads you start, flipping...
     Heads
 OK, you'll win if we see: [Heads Tails Heads]
 In that case, I'll just randomly choose: [Heads Heads Tails]
-So...
-You feeling lucky?
+Yo!
+No way you gonna win this...
 Here we go!
-    Heads Tails Tails Heads Tails Tails Heads Heads Tails
-Cool, I win, and you lose!
+    Tails Heads Tails Tails Heads Tails Heads
+Oops, you win, but I'll beat you next time!
 END
 
 use Test;
@@ -106,6 +106,6 @@ if $*VM ~~ /jvm/ {
 is $result1, 'Tails Heads Tails Tails Tails Heads Heads Heads Tails ';
 is $result2, "\nHah, I win, and you lose!";
 } else {
-is $result1, 'Heads Tails Tails Heads Tails Tails Heads Heads Tails ';
-is $result2, "\nCool, I win, and you lose!";
+is $result1, 'Tails Heads Tails Tails Heads Tails Heads ';
+is $result2, "\nOops, you win, but I'll beat you next time!";
 }
