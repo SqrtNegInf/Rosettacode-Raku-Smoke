@@ -3,6 +3,7 @@
 #c# 2019-04-12 <RC, 2019-06-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# encoding string is no longer stable, so don't test for it
 
 my @res;
 
@@ -64,15 +65,16 @@ END
 
 @res.push: "== Secret: ==\n$secret";
 
-@res.push: "== Encoded: ==";
-@res.push: my $enc = jit-encode($secret);
+#@res.push: "== Encoded: ==";
+#@res.push: my $enc = jit-encode($secret);
+my $enc = jit-encode($secret);
 
 @res.push: "\n== Decoded: ==";
 @res.push: jit-decode($enc);
 
-#.say for @res; exit;
+.say for @res; 
 
-say jit-decode($enc);
+#say jit-decode($enc);
 
 my $moar = q:to/END/;
 == Secret: ==
@@ -83,13 +85,6 @@ In my opinion, this task is pretty silly.
 
 !@#$%^&*()_+}{[].,><\|/?'";:1234567890
 
-== Encoded: ==
-26j52d6Ie1Ge4Cd26po1GdsQa3Ms52piQd4Cn3Md2Wcf1GtciQz1GwQb5Si2
-WnQlQmQjQv1GmQra2Wt4Cpc1Gysatu26va1Gq52x4Cp1Gv4CeQv1Gb1Gp4Co
-6IbaQyAUmd26a7Yw3Mh2Wu26v1GfQsQwbQpn26z1Gi1Gl1GmQb1Gfs26v4Ce
-Qy2Wm78xaaa4Cj26x6If3Msqu2Wx2Wku1Gh52ydQh3Mb78rll1GvcQap5Sgy
-Qm26s1Gh26clj1Gm1GzA4y26bat1Gdk1Gs1Gpm1GlQs7Ys52dQw1Giv5Se5S
-u3Mb1Gucn4Cq26h26pQq2Wh5Sh7Yi8OrpQl26p26i3MqtQiQhQi4Ckb3Mi
 
 == Decoded: ==
 In my opinion, this task is pretty silly.
