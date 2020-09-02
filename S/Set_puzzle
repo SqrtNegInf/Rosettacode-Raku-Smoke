@@ -37,39 +37,40 @@ sub MAIN($DRAW = 9, $GOAL = $DRAW div 2) {
         @res.push: "\nSet {$i+1}:";
         show-cards @cards;
     }
+
 .say for @res;
 
 my $moar = qq:to/END/;
 Drew 9 cards:
-      red    one  squiggle  striped
-    green    one      oval     open
-      red    two      oval  striped
-      red    one      oval     open
-    green    two   diamond     open
-    green  three  squiggle     open
+    green    two  squiggle     open
       red    one   diamond    solid
-   purple    two  squiggle    solid
-    green    one      oval  striped
+    green  three  squiggle     open
+   purple    one  squiggle  striped
+      red  three  squiggle    solid
+   purple    two      oval  striped
+      red    two   diamond  striped
+    green    two  squiggle  striped
+      red  three  squiggle  striped
 
 Set 1:
-      red    one  squiggle  striped
-      red    one      oval     open
-      red    one   diamond    solid
+    green    two  squiggle     open
+   purple    one  squiggle  striped
+      red  three  squiggle    solid
 
 Set 2:
-      red    one  squiggle  striped
+      red    one   diamond    solid
     green  three  squiggle     open
-   purple    two  squiggle    solid
+   purple    two      oval  striped
 
 Set 3:
-    green    one      oval     open
-    green    two   diamond     open
-    green  three  squiggle     open
+   purple    one  squiggle  striped
+    green    two  squiggle  striped
+      red  three  squiggle  striped
 
 Set 4:
-      red    two      oval  striped
-    green    two   diamond     open
-   purple    two  squiggle    solid
+   purple    two      oval  striped
+      red    two   diamond  striped
+    green    two  squiggle  striped
 END
 
 my $jvm = qq:to/END/;
