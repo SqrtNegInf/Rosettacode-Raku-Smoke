@@ -18,6 +18,7 @@ sub MAIN (
   ) {
     my @valid = ('A' .. 'T')[^$colors];
     my $puzzle = $repeat ?? @valid.roll($length) !! @valid.pick($length);
+say "Puzzle answer is: $puzzle"; # DH leave this in, or when run as cronjob, fails?
     my @guesses;
 
     my $black = '●';
