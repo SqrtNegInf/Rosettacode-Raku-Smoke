@@ -3,7 +3,8 @@
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: ABCD\nFECD
+#x# RC pipe: A B C D\nA F E C
+#n# give up on pseudo-interactive input
 
 srand 123456;
 
@@ -62,8 +63,8 @@ sub MAIN (
 
     sub clearscr { $*KERNEL ~~ /'win32'/ ?? run('cls') !! run('clear') }
 
-    #sub get-guess { (uc prompt 'Your guess?: ').comb(/@valid/) }
-    sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! (uc prompt 'Your guess?: ').comb(/@valid/) }
+    sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! <A F E C> }
+    #sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! (uc prompt 'Your guess?: ').comb(/@valid/) }
 
     sub is-valid (@guess) { so $length == @guess }
 
