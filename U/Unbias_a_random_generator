@@ -3,6 +3,7 @@
 #c# 2016-01-06 <RC, 2020-08-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-09-01 different answers when run from interactive shell vs cron-launch?
 
 srand 123456;
 
@@ -30,7 +31,14 @@ for 3 .. 6 -> $n {
 
 .say for @res;
 
-my $moar = qq:to/END/;
+my $moar-cronjob = qq:to/END/;
+N=3   randN:[679, 321],32.1%   unbiased:[492, 508],50.8%
+N=4   randN:[751, 249],24.9%   unbiased:[510, 490],49.0%
+N=5   randN:[781, 219],21.9%   unbiased:[512, 488],48.8%
+N=6   randN:[819, 181],18.1%   unbiased:[507, 493],49.3%
+END
+
+my $moar-terminal = qq:to/END/;
 N=3   randN:[679, 321],32.1%   unbiased:[492, 508],50.8%
 N=4   randN:[750, 250],25.0%   unbiased:[511, 489],48.9%
 N=5   randN:[779, 221],22.1%   unbiased:[513, 487],48.7%
@@ -45,5 +53,4 @@ N=6   randN:[848, 152],15.2%   unbiased:[517, 483],48.3%
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
