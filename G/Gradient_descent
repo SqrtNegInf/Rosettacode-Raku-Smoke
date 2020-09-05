@@ -1,37 +1,38 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Gradient_descent
-#c# 2019-10-29 <RC, 2019-10-31 <RC, 2019-11-02 <RC
+##c# 2019-10-29 <RC, 2019-10-31 <RC, 2019-11-02 <RC, 2020-09-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-sub steepestDescent(@x, $alpha is copy, $h is copy) {
+sub steepestDescent(@x, $alpha is copy, $h) {
 
-   my $g0 = g(@x) ;    # Initial estimate of result.
+   my $g0 = g |@x ; # Initial estimate of result.
 
-   my @fi = gradG(@x, $h, $g0) ;    #  Calculate initial gradient
+   my @fi = gradG |@x ; #  Calculate initial gradient
 
-   # Calculate initial norm.
-   my $b = $alpha / sqrt(my $delG = sum(map {$_²}, @fi));
+   my $b = $alpha / my $delG = sqrt ( sum @fi»² ) ;  # Calculate initial norm.
 
    while ( $delG > $h ) {   # Iterate until value is <= tolerance.
 
-      for @fi.kv -> $i, $j { @x[$i] -= $b × $j } #  Calculate next value.
+      @x «-»= $b «*« @fi; #  Calculate next value.
 
-      # Calculate next gradient and next value
-      @fi = gradG(@x, $h /= 2, my $g1 = g(@x));  
+      @fi = gradG |@x ; # Calculate next gradient and next value
 
-      $b = $alpha / sqrt($delG = sum(map {$_²}, @fi) );  # Calculate next norm.
+      $b = $alpha / ($delG = sqrt( sum @fi»² ));  # Calculate next norm.
+
+      my $g1 = g |@x ;
 
       $g1 > $g0 ?? ( $alpha /= 2 ) !! ( $g0 = $g1 )   # Adjust parameter.
    }
 }
 
-sub gradG(@x is copy, $h, $g0) { # gives a rough calculation of gradient g(x).
-   map { $_ += $h ; (g(@x) - $g0) / $h }, @x
+sub gradG(\x,\y) { # gives a rough calculation of gradient g(x).
+   2*(x-1)*exp(-y²) - 4*x*exp(-2*x²)*y*(y+2) , -2*(x-1)²*y*exp(-y²) + exp(-2*x²)*(2*y+2)
 }
 
 # Function for which minimum is to be found.
-sub g(\x) { (x[0]-1)² × exp(-x[1]²) + x[1]×(x[1]+2) × exp(-2×x[0]²) }
+sub g(\x,\y) { (x-1)² * exp(-y²) + y*(y+2) * exp(-2*x²) }
+
 my $tolerance = 0.0000006 ; my $alpha = 0.1;
 
 my @x = 0.1, -1; # Initial guess of location of minimum.
@@ -39,10 +40,10 @@ my @x = 0.1, -1; # Initial guess of location of minimum.
 steepestDescent(@x, $alpha, $tolerance);
 
 say "Testing steepest descent method:";
-say my $result = 'The minimum is at x[0] = ' ~ @x[0] ~ ', x[1] = ' ~ @x[1];
+say my $result = "The minimum is at x[0] = "~ @x[0]~ ", x[1] = "~ @x[1];
 
 my $moar = q:to/END/;
-The minimum is at x[0] = 0.10765273561778406, x[1] = -1.223326198625842
+The minimum is at x[0] = 0.10762682432947938, x[1] = -1.2232596548816097
 END
 
 my $jvm = q:to/END/;
