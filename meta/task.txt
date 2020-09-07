@@ -1,4 +1,4 @@
-This is Rakudo version 2020.08.2-54-ge59262f65 built on MoarVM version 2020.08-77-g51d399cb5
+This is Rakudo version 2020.08.2-59-ge65466fcd built on MoarVM version 2020.08-77-g51d399cb5
 implementing Raku 6.d.
 updating from RC…
 +--------------> Moar: Good/Bad [1238/16]
@@ -10,10 +10,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [126]
 ||||||||+------> File output [96]
-|||||||||+-----> Draft [208]
+|||||||||+-----> Draft [206]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [83]
-||||||||||||+--> Un-implemented/reliable [54]
+|||||||||||+---> Void (no local copy) [84]
+||||||||||||+--> Un-implemented/reliable [55]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -307,7 +307,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -610,7 +610,7 @@ GGS.......... Knapsack_problem_Bounded-1
 GGS..T....... Knapsack_problem_Bounded-2
 GBS.......... Knapsack_problem_Continuous
 GGS..T....... Knapsack_problem_Unbounded
-GGS....R..... Knight%27s_tour
+!GS....R..... Knight%27s_tour
 GGS....R..... Knuth%27s_algorithm_S
 GGS....R..... Knuth%27s_power_tree
 GGS....R..... Knuth_shuffle
@@ -790,6 +790,7 @@ GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
 GGS.......... Non-decimal_radices_Input
 GGS.......... Non-decimal_radices_Output
+.........D.VU Non-transitive_dice
 GGS..T....... Nonoblock
 BB.K.T......U Nonogram_solver
 GGS.......... Nth_root
@@ -831,7 +832,7 @@ GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
 GBS..TC...... Parallel_calculations
-!BS...CR..... Parallel_calculations-2
+GBS...CR..... Parallel_calculations-2
 GGS..T....... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
@@ -925,9 +926,9 @@ GG.K......... Program_termination
 .........D.V. Proof
 GGS..Tc...... Proper_divisors
 GGS......D... Pseudo-random_numbers_Combined_recursive_generator_MRG32k3a
-GGS......D... Pseudo-random_numbers_PCG32
+GGS.......... Pseudo-random_numbers_PCG32
 GGS......D... Pseudo-random_numbers_Splitmix64
-GGS......D... Pseudo-random_numbers_Xorshift_star
+GGS.......... Pseudo-random_numbers_Xorshift_star
 GBS....RFD... Pseudorandom_Number_Generator_Image
 GGS.....F.... Pythagoras_tree
 GBS...c...... Pythagorean_quadruples
@@ -1058,7 +1059,7 @@ GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
-GGS..T.R..... Set_puzzle
+!GS..T.R..... Set_puzzle
 GGS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
 ..........XV. Shell_one-liner
@@ -1264,7 +1265,7 @@ GBS...C...... Totient_function
 GGS.......... Towers_of_Hanoi
 GGS.......... Trabb_Pardo-Knuth_algorithm
 GGS..T...D... Transportation_problem
-GGS..T...D... Tree_datastructures
+GGS..T....... Tree_datastructures
 GGS..T....... Tree_traversal
 GGS..T....... Trigonometric_functions
 GGS.......... Truncatable_primes
