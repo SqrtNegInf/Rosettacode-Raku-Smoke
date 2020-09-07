@@ -3,6 +3,7 @@
 #c# 2016-01-19 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-09-06 answer changed since yesterday?
 
 srand 123456;
 
@@ -41,6 +42,39 @@ sub MAIN($DRAW = 9, $GOAL = $DRAW div 2) {
 .say for @res;
 
 my $moar = qq:to/END/;
+Drew 9 cards:
+    green    one   diamond     open
+    green    two      oval    solid
+   purple    one      oval  striped
+    green  three      oval  striped
+    green  three   diamond     open
+   purple  three  squiggle     open
+      red  three      oval     open
+   purple  three      oval    solid
+   purple    two      oval     open
+
+Set 1:
+    green    two      oval    solid
+   purple    one      oval  striped
+      red  three      oval     open
+
+Set 2:
+   purple    one      oval  striped
+   purple  three      oval    solid
+   purple    two      oval     open
+
+Set 3:
+    green  three      oval  striped
+      red  three      oval     open
+   purple  three      oval    solid
+
+Set 4:
+    green  three   diamond     open
+   purple  three  squiggle     open
+      red  three      oval     open
+END
+
+my $xoar = qq:to/END/;
 Drew 9 cards:
     green    two  squiggle     open
       red    one   diamond    solid
