@@ -1,7 +1,7 @@
 This is Rakudo version 2020.08.2-59-ge65466fcd built on MoarVM version 2020.08-77-g51d399cb5
 implementing Raku 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1238/16]
++--------------> Moar: Good/Bad [1241/16]
 |+-------------> JVM: Good/Bad [1060/208]
 ||+------------> Smoke testing [1133]
 |||+-----------> sKipping validation [131]
@@ -82,7 +82,7 @@ GGS.......... Arithmetic-geometric_mean
 GGS..T....... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
 GGS.......... Arithmetic_Integer
-GGS..TC...... Arithmetic_Rational
+!GS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS..T....... Arithmetic_evaluation
 GGS.......... Array_concatenation
@@ -349,7 +349,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-!GS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
+GGS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -610,7 +610,7 @@ GGS.......... Knapsack_problem_Bounded-1
 GGS..T....... Knapsack_problem_Bounded-2
 GBS.......... Knapsack_problem_Continuous
 GGS..T....... Knapsack_problem_Unbounded
-!GS....R..... Knight%27s_tour
+GGS....R..... Knight%27s_tour
 GGS....R..... Knuth%27s_algorithm_S
 GGS....R..... Knuth%27s_power_tree
 GGS....R..... Knuth_shuffle
@@ -701,7 +701,7 @@ GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
 GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
-!GS..T.R.D... Markov_chain_text_generator
+GGS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
 GGS..T....... Matrix-exponentiation_operator
 GG.K......... Matrix_Digital_Rain
@@ -1059,7 +1059,7 @@ GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
-!GS..T.R..... Set_puzzle
+GGS..T.R..... Set_puzzle
 GGS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
 ..........XV. Shell_one-liner
