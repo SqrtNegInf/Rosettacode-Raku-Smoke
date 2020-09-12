@@ -1,11 +1,11 @@
-# Smoke testing Perl 6 Rosettacode tasks
+# Smoke testing Raku Rosettacode tasks
 
 This space intentionally left blank.
 
 ## Back-story
 
 I was at The Perl Conference when the coffee mugs were thrown and the idea of 
-what was to become Perl 6 was born. Sounded great to me. I checked up on the
+what was to become Raku was born. Sounded great to me. I checked up on the
 news about the language from time to time, being patient, knowing that Rome 2.0 
 wasn't built in a day...
 
@@ -27,13 +27,13 @@ The whole time I kept plugging away with Perl 5, and happy to be doing so, but w
 dream of merging the **Perl Way** with enhancements drawn from *APL*...
 
 But at the end of 2015 with the 6.c release looking like it really was going to happen, 
-I decided to put some effort into learning the current state of Perl 6, via the examples on Rosetta-Code.
+I decided to put some effort into learning the current state of Perl 6 (as it was then called) via the examples on Rosetta-Code.
 And one of the first tasks I looked at was **broken**. Oh the horror! Checked the docs, saw the problem, thought:
-I can fix that...  Have kept pulling the thread on that sweater for 3+ years.
+I can fix that!  Have kept pulling the thread on that sweater for many years...
 
-## Smoking is Good (for Perl 6)
+## Smoking is Good (for Raku)
 
-Precisely because of the very long gestation and continued evolution of Perl 6, 
+Precisely because of the very long gestation and continued evolution of Raku, 
 tasks on Rosetta-Code were really susceptible to bit-rot. 
 For example, some guy named
 [Tim](http://rosettacode.org/wiki/User:TimToady) found out 
@@ -43,11 +43,11 @@ code was broken the day before he was off to a conference
 where he wanted to demonstrate it. Oops. *Someone* had to do *something*.
 
 Daily testing results have been saved since 2016-09-01, at which point just under 600
-tasks were in the system.  At start of 2019, task count is over 1000.  For each
+tasks were in the system.  The task count now approaches 1200.  For each
 task the `stdout` (and any `stderr`) are saved and tested against expected output 
 
-Both MoarVM and JVM backends are being tested.  MoarVM is `pull`'d daily, JVM less often,
-about once a month.  Fewer tasks work with JVM.  A couple
+Both MoarVM and JVM backends are being tested.  MoarVM is `pull`'d daily, JVM less often.
+Fewer tasks work with JVM.  A couple
 dozen crash, and it's hard to get JVM to work with modules (in particular, tasks that produce image 
 output are affected by this).
 
@@ -72,8 +72,8 @@ aside from necessary under-the-hood upgrades like hash-key randomization.
 
 Using a small set of Perl 5 programs I wrote, which are [here](./bin).
 
-Why are these written in Perl 5 not Perl 6?  In my defense, when I first started I didn't
-know Perl 6 that well. Plus, 6 wasn't always working 100%, so the tools might not have been
+Why are these written in Perl 5 not Raku?  In my defense, when I first started I didn't
+know Raku that well. Plus, Raku wasn't always working 100%, so the tools might not have been
 reliable.
 
 ## To-Do
@@ -82,8 +82,8 @@ Include testing of Javascript backend.
 
 Currently testing on just macOS, expand to Linux, Windows.
 
-## MTYEWTKATLOP6ST
-##### (more than you ever wanted to know about the logistics of Perl 6 smoke testing)
+## MTYEWTKATLORST
+##### (more than you ever wanted to know about the logistics of Raku smoke testing)
 
 ### Header
 
@@ -91,7 +91,7 @@ I keep track of the status of each task with custom header inserted right after
 the hash-bang line, e.g.:  
 
 ```
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Take_notes_on_the_command_line
 #c# 2016-05-18 <RC
 #m# MOAR: OK
@@ -172,7 +172,7 @@ The simplest tests then are just:
 
 ### Random-ness
 
-If the task involves `.rand`, `.pick`, `.roll` or any other source randomness, I set
-a fixed seed with `srand 123456`, to get consistent output for testing. 
+If the task involves `.rand`, `.pick`, `.roll` or any other sort of randomness, I set
+a fixed seed, e.g. `srand 123456`, to get consistent output for testing. 
 MoarVM and JVM differ in the random sequence they emit, 
 so separate results must be tested for each.
