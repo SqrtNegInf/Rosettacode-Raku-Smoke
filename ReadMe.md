@@ -46,10 +46,9 @@ Daily testing results have been saved since 2016-09-01, at which point just unde
 tasks were in the system.  The task count now approaches 1200.  For each
 task the `stdout` (and any `stderr`) are saved and tested against expected output 
 
-Both MoarVM and JVM backends are being tested.  MoarVM is `pull`'d daily, JVM less often.
-Fewer tasks work with JVM.  A couple
-dozen crash, and it's hard to get JVM to work with modules (in particular, tasks that produce image 
-output are affected by this).
+Both MoarVM and JVM backends are being tested.  MoarVM is sync'd to `moar-blead` daily, JVM much 
+less often.  Fewer tasks work with JVM.  A couple dozen crash, and it's hard to get JVM to 
+work with modules (in particular, tasks that produce image output are affected by this).
 
 Real Soon Now I will put up a pretty front-end, but for now you can view
 task status report in 
@@ -59,9 +58,9 @@ task status report in
 
 Work began (though I didn't know it at the time) just before the *Christmas* release
 in late 2015. A lot of tasks worked as-is, but a wide variety of small changes were needed (turns out 
-debugging is a pretty good way to learn a language).   
-Many of the initial fixes were handling fallout from the GLR (**Great List Refactor**), 
-where the 'fix' was a single `|`, but the trick was finding out where it was needed...
+debugging is a pretty good way to learn a language).   Many of the initial fixes were handling fallout 
+from the GLR (**Great List Refactor**), where the 'fix' was a single `|`, but the trick was 
+finding out where it was needed...
 
 There were also Niecza-specific solutions, which were retired.
 
