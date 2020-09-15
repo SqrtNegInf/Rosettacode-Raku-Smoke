@@ -165,6 +165,9 @@ Int $n where * > 0
 (3 ** **)(^30)
 <a bcd ef ghij>.sort: -*.chars
 
+printf: "%.*g\t%.*g\n", $x_precision, $x, $y_precision, $y;
+(in W/Write_float_arrays_to_a_text_file)
+
 == random
 srand (which would imply the others, otherwise WTF)
 .pick
