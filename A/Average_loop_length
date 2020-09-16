@@ -1,12 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Average_loop_length
-#t# skiptest
 #c# 2016-05-09 <>RC, 2018-05-31 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# with hash key order now variable, testing upgraded with ArrayHash
 #n# 'random' output changed on 2017-08-10
-#n# something is unstable, run #2 flips between: 2.00 vs. 2.67;  ArrayHash module needs updating?
+#n# 2020-09-01 something is unstable, run #2 flips between: 2.00 vs. 2.67;
 
 use lib 'lib';
 use ArrayHash;
