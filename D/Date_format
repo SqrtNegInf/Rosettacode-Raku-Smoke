@@ -1,27 +1,38 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Date_format
-#c# 2016-11-08 <>RC
+#c# 2016-11-08 <>RC, 2020-09-16 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 'slurp-rest' deprecated, plain 'slurp' works fine
+#n# 2020-09-16 modified from RC a bit for testing
 
 use DateTime::Format;
 
 my $dt1 = DateTime.now;
-
 say strftime('%Y-%m-%d', $dt1);
 say strftime('%A, %B %d, %Y', $dt1);
 
-use DateTime::Format;
-
 my $dt2 = DateTime.now;
-
 say $dt2.yyyy-mm-dd;
 say strftime('%A, %B %d, %Y', $dt2);
 
+my $dt3 = Date.today;
+say $dt3.yyyy-mm-dd;
+#say strftime('%A, %B %d, %Y', $dt3);
+
+my @months = <Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec>;
+my @days   = <Sun Mon Tues Wed Thu Fri Sat>;
+my $us-abbr = sub ($self) { "{@days[$self.day-of-week]}, {@months[$self.month-1]} {$self.day}, {$self.year}" };
+my $dt4 = Date.today :formatter($us-abbr);
+say $dt4.yyyy-mm-dd; # still works
+say $dt4;            # uses our formatter sub;
+
 my $proc = run 'date', '+%Y-%m-%d', :out; 
-my $today = $proc.out.slurp;
+my $today = $proc.out.slurp; $today .= chomp;
 
 use Test;
-is strftime('%Y-%m-%d', $dt1), chomp $today;
-is $dt2.yyyy-mm-dd, chomp $today;
+is strftime('%Y-%m-%d', $dt1), $today;
+is $dt2.yyyy-mm-dd, $today;
+is $dt3.yyyy-mm-dd, $today;
+is $dt4.yyyy-mm-dd, $today;
+is $dt4, strftime('%a, %b %d, %Y', $dt1);
