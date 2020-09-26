@@ -1,7 +1,7 @@
-This is Rakudo version 2020.08.2-83-gef0ecec34 built on MoarVM version 2020.08-91-g590bac47e
+This is Rakudo version 2020.08.2-85-g8c0155844 built on MoarVM version 2020.08-104-g25c70bfe0
 implementing Raku 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1239/17]
++--------------> Moar: Good/Bad [1241/17]
 |+-------------> JVM: Good/Bad [1061/209]
 ||+------------> Smoke testing [1134]
 |||+-----------> sKipping validation [132]
@@ -10,10 +10,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [127]
 ||||||||+------> File output [96]
-|||||||||+-----> Draft [205]
+|||||||||+-----> Draft [207]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [82]
-||||||||||||+--> Un-implemented/reliable [54]
+|||||||||||+---> Void (no local copy) [84]
+||||||||||||+--> Un-implemented/reliable [56]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -307,7 +307,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -328,6 +328,7 @@ GGS.......... Dot_product
 GGS.......... Doubly-linked_list_Definition
 GG.K......... Doubly-linked_list_Element_definition
 GGS.......... Doubly-linked_list_Element_insertion
+.........D.VU Doubly-linked_list_Element_removal
 ..........XV. Doubly-linked_list_Traversal
 GGS.....F.... Dragon_curve
 GG.KI........ Draw_a_clock
@@ -349,7 +350,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-GGS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
+!GS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -499,7 +500,7 @@ GGS....R..... Guess_the_number
 GG.K...R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
-!GS.......... HTTPS
+GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -832,7 +833,7 @@ GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
 GBS..TC...... Parallel_calculations
-!BS...CR..... Parallel_calculations-2
+GBS...CR..... Parallel_calculations-2
 GGS..T....... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
@@ -1163,6 +1164,7 @@ GGS..T....... Stern-Brocot_sequence
 GGS.......... Stirling_numbers_of_the_first_kind
 GGS.......... Stirling_numbers_of_the_second_kind
 GGS..T....... Straddling_checkerboard
+.........D.VU Strassen%27s_algorithm
 GGS..T....... Stream_Merge
 GGS.......... String_append
 GGS..T....... String_case
