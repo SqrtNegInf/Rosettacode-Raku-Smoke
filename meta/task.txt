@@ -1,7 +1,7 @@
 This is Rakudo version 2020.09-3-gf74950c51 built on MoarVM version 2020.09-3-gcd8e18280
 implementing Raku 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1240/17]
++--------------> Moar: Good/Bad [1239/17]
 |+-------------> JVM: Good/Bad [1061/209]
 ||+------------> Smoke testing [1134]
 |||+-----------> sKipping validation [132]
@@ -10,7 +10,7 @@ updating from RC…
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [127]
 ||||||||+------> File output [96]
-|||||||||+-----> Draft [207]
+|||||||||+-----> Draft [206]
 ||||||||||+----> Ignoring [38]
 |||||||||||+---> Void (no local copy) [84]
 ||||||||||||+--> Un-implemented/reliable [56]
@@ -284,7 +284,7 @@ GBS.......... Cyclotomic_Polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
 GGS......D... Data_Encryption_Standard
-GGS..T....... Date_format
+!GS..T....... Date_format
 GGS..T....... Date_manipulation
 GGS.......... Day_of_the_week
 GGS......D... Days_between_dates
@@ -307,7 +307,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -350,7 +350,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-!GS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
+GGS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -579,7 +579,7 @@ GBS.......... Intersecting_Number_Wheels
 GGS..T....... Introspection
 GGS..T....... Inverted_index
 GG.K......... Inverted_syntax
-.........DXV. Isqrt_integer_square_root_of_X
+..........XV. Isqrt_integer_square_root_of_X
 GG.K..c...... Iterated_digits_squaring
 GGS.......... Iterated_digits_squaring-1
 GGS.......... JSON
