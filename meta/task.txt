@@ -1,7 +1,7 @@
-This is Rakudo version 2020.09-3-gf74950c51 built on MoarVM version 2020.09-3-gcd8e18280
+This is Rakudo version 2020.09-6-ga26beb66e built on MoarVM version 2020.09-3-gcd8e18280
 implementing Raku 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1239/17]
++--------------> Moar: Good/Bad [1240/17]
 |+-------------> JVM: Good/Bad [1061/209]
 ||+------------> Smoke testing [1134]
 |||+-----------> sKipping validation [132]
@@ -10,10 +10,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [127]
 ||||||||+------> File output [96]
-|||||||||+-----> Draft [206]
+|||||||||+-----> Draft [207]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [84]
-||||||||||||+--> Un-implemented/reliable [56]
+|||||||||||+---> Void (no local copy) [85]
+||||||||||||+--> Un-implemented/reliable [55]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -284,7 +284,7 @@ GBS.......... Cyclotomic_Polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
 GGS......D... Data_Encryption_Standard
-!GS..T....... Date_format
+GGS..T....... Date_format
 GGS..T....... Date_manipulation
 GGS.......... Day_of_the_week
 GGS......D... Days_between_dates
@@ -307,7 +307,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -328,7 +328,7 @@ GGS.......... Dot_product
 GGS.......... Doubly-linked_list_Definition
 GG.K......... Doubly-linked_list_Element_definition
 GGS.......... Doubly-linked_list_Element_insertion
-.........D.VU Doubly-linked_list_Element_removal
+.........D.V. Doubly-linked_list_Element_removal
 ..........XV. Doubly-linked_list_Traversal
 GGS.....F.... Dragon_curve
 GG.KI........ Draw_a_clock
@@ -350,7 +350,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-GGS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
+!GS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -661,6 +661,7 @@ GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
 GGS......D... Longest_common_suffix
 GGS.......... Longest_increasing_subsequence
+.........D.V. Longest_palindromic_substrings
 GGS.......... Longest_string_challenge
 GGS.......... Look-and-say_sequence
 GGS.......... Loop_over_multiple_arrays_simultaneously
