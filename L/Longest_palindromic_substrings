@@ -1,8 +1,10 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Longest_palindromic_substrings
-#c# 2020-09-28 <RC
+#c# 2020-09-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+my @res;
 
 # This version regularizes (ignores) case and ignores non alphabetic characters. It is only concerned with finding the longest palindromic substrings so does not exhaustively find all possible palindromes. If a palindromic substring is found to be part of a longer palindrome, it is not captured separately.
 
@@ -67,15 +69,20 @@ for ^@chars -> $i {
     @cpfoa[(my $pal = @chars[$i - $rev ^..^ $i + $fwd].join).chars].push: $pal if $rev + $fwd > 2;
 }
 
-# .unique.sort.put for @cpfoa.grep( *.so ).tail;
-say my $result = .unique.sort for @cpfoa.grep( *.so ).tail;
+@res.push: .unique.sort for @cpfoa.grep( *.so ).tail(5).reverse;
+
+.say for @res;
 
 my $ref = q:to/END/;
 doninemeninterpretninemeninod godarednuggetafateggunderadog
+gohangasalamiimalasagnahog
+arwontloversrevoltnowra
+imanamregalagermanami mayamoodybabydoomayam ootnolemonsnomelontoo oozyratinasanitaryzoo
+ratsliveonnoevilstar
 END
 
 use Test;
-is $result, chomp $ref;
+is @res.join("\n"), chomp $ref;
 
 #`{
 This isn't particularly optimised but isn't too shabby either. When run against the first million digits of pi: http://www.eveandersson.com/pi/digits/1000000, and modifying the last line to return the top five longest palindrome groups .unique.sort.put for @cpfoa.grep( *.so ).tail(5).reverse; We get:
