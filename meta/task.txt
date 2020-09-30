@@ -1,18 +1,18 @@
 This is Rakudo version 2020.09-6-ga26beb66e built on MoarVM version 2020.09-3-gcd8e18280
 implementing Raku 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1240/17]
-|+-------------> JVM: Good/Bad [1061/209]
-||+------------> Smoke testing [1134]
++--------------> Moar: Good/Bad [1243/17]
+|+-------------> JVM: Good/Bad [1063/209]
+||+------------> Smoke testing [1136]
 |||+-----------> sKipping validation [132]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [341]
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [127]
 ||||||||+------> File output [96]
-|||||||||+-----> Draft [207]
+|||||||||+-----> Draft [208]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [85]
+|||||||||||+---> Void (no local copy) [84]
 ||||||||||||+--> Un-implemented/reliable [55]
 |||||||||||||
 GGS.......... 100_doors
@@ -350,7 +350,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-!GS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
+GGS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -661,7 +661,7 @@ GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
 GGS......D... Longest_common_suffix
 GGS.......... Longest_increasing_subsequence
-.........D.V. Longest_palindromic_substrings
+GGS......D... Longest_palindromic_substrings
 GGS.......... Longest_string_challenge
 GGS.......... Look-and-say_sequence
 GGS.......... Loop_over_multiple_arrays_simultaneously
@@ -800,6 +800,7 @@ GGS.......... Null_object
 GGS.......... Number_names-1
 GBS.......... Number_names-2
 GGS.......... Number_reversal_game
+GGS......D... Numbers_with_prime_digits_whose_sum_is_13
 GGS..T....... Numeric_error_propagation
 GGS......D... Numeric_separator_syntax
 GGS.......... Numerical_and_alphabetical_suffixes
