@@ -1,12 +1,10 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Longest_palindromic_substrings
-#c# 2020-09-29 <RC
+#c# 2020-09-29 <RC, 2020-10-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 my @res;
-
-# This version regularizes (ignores) case and ignores non alphanumeric characters. It is only concerned with finding the longest palindromic substrings so does not exhaustively find all possible palindromes. If a palindromic substring is found to be part of a longer palindrome, it is not captured separately. Showing the longest 5 palindromic substring groups. Run it with no parameters to operate on the default; pass in a file name to run it against that instead.
 
 my @chars = ( @*ARGS[0] ?? @*ARGS[0].IO.slurp !! q:to/BOB/ ) .lc.comb: /\w/;
     Lyrics to "Bob" copyright Weird Al Yankovic
@@ -62,27 +60,29 @@ my int $i = 1;
 
 loop {
     last if $i >= @chars;
-    my int ($rev, $fwd) = 0, 0;
-    ++$rev if @chars[$i - 1] eq @chars[$i];
-    loop {
-        quietly last if $rev > $i or $rev && (@chars[$i - $rev] ne @chars[$i + $fwd]);
-        $rev = $rev + 1;
-        $fwd = $fwd + 1;
+    for 0, 1 {
+       my int ($rev, $fwd) = $_, 0;
+       loop {
+            quietly last if $rev > $i or $rev && (@chars[$i - $rev] ne @chars[$i + $fwd]);
+            $rev = $rev + 1;
+            $fwd = $fwd + 1;
+        }
+        @cpfoa[(my $pal = @chars[$i - $rev ^..^ $i + $fwd].join).chars].push: $pal if $rev + $fwd > 2;
+        last if @chars[$i - 1] ne @chars[$i];
     }
-    @cpfoa[(my $pal = @chars[$i - $rev ^..^ $i + $fwd].join).chars].push: $pal if $rev + $fwd > 2;
     $i = $i + 1;
 }
 
-@res.push: .unique.sort for @cpfoa.grep( *.so ).tail(5).reverse;
+@res.push: "{.[0].chars} ({+$_})  {.unique.sort}" for @cpfoa.grep( *.so ).tail(5).reverse;
 
 .say for @res;
 
 my $ref = q:to/END/;
-doninemeninterpretninemeninod godarednuggetafateggunderadog
-gohangasalamiimalasagnahog
-arwontloversrevoltnowra
-imanamregalagermanami mayamoodybabydoomayam ootnolemonsnomelontoo oozyratinasanitaryzoo
-ratsliveonnoevilstar
+29 (2)  doninemeninterpretninemeninod godarednuggetafateggunderadog
+26 (1)  gohangasalamiimalasagnahog
+23 (1)  arwontloversrevoltnowra
+21 (4)  imanamregalagermanami mayamoodybabydoomayam ootnolemonsnomelontoo oozyratinasanitaryzoo
+20 (1)  ratsliveonnoevilstar
 END
 
 use Test;
@@ -91,11 +91,10 @@ is @res.join("\n"), chomp $ref;
 #`{
 This isn't intensively optimised but isn't too shabby either. When run against the first million digits of pi: http://www.eveandersson.com/pi/digits/1000000 (Pass in the file path/name at the command line) we get:
 
-9475082805749
-450197791054
-04778787740 09577577590 28112721182 41428782414 49612121694 53850405835 84995859948
-0045445400 0136776310 1112552111 3517997153 5783993875 6282662826 7046006407 7264994627 8890770988
-019161910 020141020 023181320 036646630 037101730 037585730 065363560 068363860 087191780 091747190 100353001 104848401 111262111 131838131 132161231 156393651 160929061 166717661 182232281 193131391 193505391 207060702 211878112 222737222 223404322 242424242 250171052 258232852 267919762 272636272 302474203 313989313 314151413 314424413 318272813 323212323 330626033 332525233 336474633 355575553 357979753 365949563 398989893 407959704 408616804 448767844 450909054 463202364 469797964 479797974 480363084 489696984 490797094 532121235 549161945 557040755 563040365 563828365 598292895 621969126 623707326 636414636 641949146 650272056 662292266 667252766 681565186 712383217 720565027 726868627 762727267 769646967 777474777 807161708 819686918 833303338 834363438 858838858 866292668 886181688 895505598 896848698 909565909 926676629 927202729 929373929 944525449 944848449 953252359 972464279 975595579 979202979 992868299
+13 (1)	9475082805749
+12 (1)	450197791054
+11 (8)	04778787740 09577577590 21348884312 28112721182 41428782414 49612121694 53850405835 84995859948
+10 (9)	0045445400 0136776310 1112552111 3517997153 5783993875 6282662826 7046006407 7264994627 8890770988
+9 (98)	019161910 020141020 023181320 036646630 037101730 037585730 065363560 068363860 087191780 091747190 100353001 104848401 111262111 131838131 132161231 156393651 160929061 166717661 182232281 193131391 193505391 207060702 211878112 222737222 223404322 242424242 250171052 258232852 267919762 272636272 302474203 313989313 314151413 314424413 318272813 323212323 330626033 332525233 336474633 355575553 357979753 365949563 398989893 407959704 408616804 448767844 450909054 463202364 469797964 479797974 480363084 489696984 490797094 532121235 546000645 549161945 557040755 559555955 563040365 563828365 598292895 621969126 623707326 636414636 636888636 641949146 650272056 662292266 667252766 681565186 684777486 712383217 720565027 726868627 762727267 769646967 777474777 807161708 819686918 833303338 834363438 858838858 866292668 886181688 895505598 896848698 909565909 918888819 926676629 927202729 929373929 944525449 944848449 953252359 972464279 975595579 979202979 992868299
 in slightly more than 12 seconds on my system.
 }
-
