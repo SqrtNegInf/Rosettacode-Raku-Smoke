@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Longest_palindromic_substrings
-#c# 2020-09-29 <RC, 2020-10-03 <RC
+#c# 2020-09-29 <RC, <RC, 2020-10-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -60,10 +60,10 @@ my int $i = 1;
 
 loop {
     last if $i >= @chars;
-    for 0, 1 {
-       my int ($rev, $fwd) = $_, 0;
+    for 1, 2 {
+       my int ($rev, $fwd) = $_, 1;
        loop {
-            quietly last if $rev > $i or $rev && (@chars[$i - $rev] ne @chars[$i + $fwd]);
+            last if ($rev > $i) || (($i + $fwd) == @chars) || (@chars[$i - $rev] ne @chars[$i + $fwd]);
             $rev = $rev + 1;
             $fwd = $fwd + 1;
         }
