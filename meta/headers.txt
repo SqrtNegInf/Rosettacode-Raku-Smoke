@@ -8489,7 +8489,7 @@ File: P/Problem_of_Apollonius.jvm
 #j#  JVM: OK
 
 File: P/Process_SMIL_directives_in_XML_data
-#!/usr/bin/env perl6
+#!/usr/bin/env perl6 do-not-check
 #u# http://rosettacode.org/wiki/Process_SMIL_directives_in_XML_data
 #t# skiptest
 #c# 2020-03-04 <RC
@@ -12345,12 +12345,13 @@ File: X/XML_Validation
 #n# 2020-01-03 why broken?  
 
 File: X/XML_XPath
-#!/usr/bin/env perl6
+#!/usr/bin/env perl6 do-not-check
 #u# http://rosettacode.org/wiki/XML/XPath
 #c# 2018-03-11 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #n# JVM runs forever, so leave BEGIN/die in
+#n# 2020-10-04 runs forever, what changed?
 
 File: X/XXXX_redacted
 #!/usr/bin/env raku
