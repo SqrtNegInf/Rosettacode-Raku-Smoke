@@ -1,12 +1,12 @@
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Word_count
+#u# http://rosettacode.org/wiki/Word_frequency
 #c# 2017-09-02 <RC, 2020-08-26 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# .race provides no benefit here
 #n# 2020-07-14 one edit behind (thundergnat++ 'Demonstrate[s] general use capability', with Russian, Greek)
+#n# 2020-10-06 another edit behind (thundergnat++ 'Add regex matching comparison')
 
-# Works with: Rakudo version 2017.07
 #`{
 Note: much of the following exposition is no longer critical to the task as the requirements have been updated, but is left here for historical and informational reasons.
 This is slightly trickier than it appears initially. The task specifically states: "A word is a sequence of one or more contiguous letters", so contractions and hyphenated words are broken up. Initially we might reach for a regex matcher like /\w+/ , but \w includes underscore, which is not a letter but a punctuation connector; and this text is full of underscores since that is how Project Gutenberg texts denote italicized text. The underscores are not actually parts of the words though, they are markup.
