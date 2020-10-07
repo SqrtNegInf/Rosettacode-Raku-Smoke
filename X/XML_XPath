@@ -1,9 +1,10 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env perl6 do-not-check
 #u# http://rosettacode.org/wiki/XML/XPath
 #c# 2018-03-11 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #n# JVM runs forever, so leave BEGIN/die in
+#n# 2020-10-04 runs forever, what changed?
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
