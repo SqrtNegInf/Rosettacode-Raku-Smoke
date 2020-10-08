@@ -3,7 +3,8 @@
 #c# 2016-06-04 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   Note much faster generation time: 1.4519163s (vs 67+)
+#n# much faster generation time: 1.4519163s (vs 67+) [when/why?]
+#n# stable now?
 
 srand 123456;
 
@@ -142,6 +143,25 @@ sub random_points($k, $n) { [random_point($k) xx $n] }
 .say for @res;
 
 my $moar = qq:to/END/;
+Wikipedia example data:
+Point:            [9,2]
+
+Nearest neighbor: [8,1]
+Distance:         1.4142135623730951
+Nodes visited:    3
+
+
+k-d tree with 1000 random 3D points:
+Point:            [0.6958203488086103,0.6385109224873322,0.5333759706890162]
+
+Nearest neighbor: [0.6903719219157646,0.6459105972167614,0.5141818317477589]
+Distance:         0.02128040204987509
+Nodes visited:    17
+
+
+END
+
+my $xoar = qq:to/END/;
 Wikipedia example data:
 Point:            [9,2]
 
