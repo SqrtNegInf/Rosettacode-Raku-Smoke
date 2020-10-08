@@ -800,6 +800,7 @@ File: A/Average_loop_length
 #n# with hash key order now variable, testing upgraded with ArrayHash
 #n# 'random' output changed on 2017-08-10
 #n# 2020-09-01 something is unstable, run #2 flips between: 2.00 vs. 2.67;
+#n# 2020-10-07 still flips
 
 File: A/Average_loop_length.0
 #!/usr/bin/env perl6
@@ -1308,6 +1309,7 @@ File: B/Brownian_tree
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: brownian_tree.BEND
+#n# 2020-10-07 still varies
 
 File: B/Bulls_and_cows
 #!/usr/bin/env perl6
@@ -5334,7 +5336,8 @@ File: K/K-d_tree
 #c# 2016-06-04 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   Note much faster generation time: 1.4519163s (vs 67+)
+#n# much faster generation time: 1.4519163s (vs 67+) [when/why?]
+#n# stable now?
 
 File: K/K-means%2B%2B_clustering
 #!/usr/bin/env perl6
@@ -5480,7 +5483,6 @@ File: K/Knight%27s_tour
 #c# 2015-11-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2020-09-06 answer changed since yesterday?
 
 File: K/Knuth%27s_algorithm_S
 #!/usr/bin/env perl6
@@ -7418,6 +7420,7 @@ File: O/Order_two_numerical_lists
 #c# 2016-01-22 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-10-07 now stable?
 
 File: O/Ordered_Partitions
 #!/usr/bin/env perl6
@@ -10556,6 +10559,7 @@ File: S/Statistics_Normal_distribution
 #c# 2016-03-19 <RC, 2018-03-27 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-10-07 now stable?
 
 File: S/Stem-and-leaf_plot
 #!/usr/bin/env perl6
@@ -11760,7 +11764,6 @@ File: U/Unbias_a_random_generator
 #c# 2016-01-06 <RC, 2020-08-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2020-09-01 different answers when run from interactive shell vs cron-launch?
 
 File: U/Undefined_values
 #!/usr/bin/env perl6
@@ -12220,12 +12223,13 @@ File: W/Word_break_problem
 
 File: W/Word_frequency
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Word_count
+#u# http://rosettacode.org/wiki/Word_frequency
 #c# 2017-09-02 <RC, 2020-08-26 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# .race provides no benefit here
 #n# 2020-07-14 one edit behind (thundergnat++ 'Demonstrate[s] general use capability', with Russian, Greek)
+#n# 2020-10-06 another edit behind (thundergnat++ 'Add regex matching comparison')
 
 File: W/Word_frequency.1
 #!/usr/bin/env perl6
