@@ -1,12 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parallel_calculations
 #c# 2017-10-27 <RC, 2018-02-28 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #n# Exception in thread "Thread-1" org.perl6.nqp.runtime.UnwindException
 #n#  older version of task; unlike up-to-date version, this shows wall-clock benefit of .race:
 #n#     69.168u 0.426s 0:19.66 353.9%
 #n#     67.238u 0.228s 1:07.22 100.3%
+#n# 2020-10-07 fails, likely due to more efficient .is-prime code that doesn't chew time...
 
 srand 123456;
 
