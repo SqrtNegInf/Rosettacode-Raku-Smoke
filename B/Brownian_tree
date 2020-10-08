@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: brownian_tree.BEND
+#n# 2020-10-07 still varies
 
 srand 123456;
 
@@ -50,7 +51,6 @@ sub display {
     }).join("\n")
 }
 
-srand 123456;
 for ^particlenum -> $progress {
     my Int $x;
     my Int $y;
