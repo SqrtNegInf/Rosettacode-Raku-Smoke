@@ -6,6 +6,7 @@
 #n# with hash key order now variable, testing upgraded with ArrayHash
 #n# 'random' output changed on 2017-08-10
 #n# 2020-09-01 something is unstable, run #2 flips between: 2.00 vs. 2.67;
+#n# 2020-10-07 still flips
 
 use lib 'lib';
 use ArrayHash;
@@ -30,7 +31,7 @@ for 1 .. MAX_N -> $N {
             $N,  $empiric,
                         $theoric, 100 × abs($theoric - $empiric) / $theoric;
 }
-.say for @res;  #exit;
+.say for @res;  exit;
 
 sub random-mapping ($n) {
     my %temp = random-mapping-orig($n);
