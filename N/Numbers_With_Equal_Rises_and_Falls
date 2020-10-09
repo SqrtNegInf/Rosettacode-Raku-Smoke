@@ -2,7 +2,8 @@
 #u# http://rosettacode.org/wiki/Numbers_With_Equal_Rises_and_Falls
 #c# 2020-10-08 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN OK
+#j# JVM:  BROKEN
+#n# not testing the slow step (~9 min)
 
 my @res;
 
@@ -24,16 +25,14 @@ my @rf = lazy flat 1..9, (10..∞).hyper(:65536batch).map: {
     $_
 };
 
-put "First 200:";
-.put for @rf[^200]>>.fmt("%3d").batch(20);
+#put "First 200:";
+@res.push: $_ for @rf[^200]>>.fmt("%3d").batch(20);
 
-put "\nThe {10000000.&comma}th: ", comma @rf[9_999_999];
+#put "\nThe {10000000.&comma}th: ", comma @rf[9_999_999];
 
-exit;
 .say for @res; 
 
 my $ref = q:to/END/;
-First 200:
   1   2   3   4   5   6   7   8   9  11  22  33  44  55  66  77  88  99 101 102
 103 104 105 106 107 108 109 111 120 121 130 131 132 140 141 142 143 150 151 152
 153 154 160 161 162 163 164 165 170 171 172 173 174 175 176 180 181 182 183 184
@@ -44,10 +43,9 @@ First 200:
 309 312 313 314 315 316 317 318 319 323 324 325 326 327 328 329 333 340 341 342
 343 350 351 352 353 354 360 361 362 363 364 365 370 371 372 373 374 375 376 380
 381 382 383 384 385 386 387 390 391 392 393 394 395 396 397 398 401 402 403 404
-
-The 10,000,000th: 41,909,002
 END
 
+#The 10,000,000th: 41,909,002
+
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
