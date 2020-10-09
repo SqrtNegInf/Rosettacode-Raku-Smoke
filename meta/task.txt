@@ -1,9 +1,9 @@
-This is Rakudo version 2020.09-18-gd6c7a0773 built on MoarVM version 2020.09-8-g60070970c
+This is Rakudo version 2020.09-22-ga57740946 built on MoarVM version 2020.09-8-g60070970c
 implementing Raku 6.d.
 updating from RC…
-+--------------> Moar: Good/Bad [1245/18]
++--------------> Moar: Good/Bad [1248/19]
 |+-------------> JVM: Good/Bad [1063/209]
-||+------------> Smoke testing [1135]
+||+------------> Smoke testing [1134]
 |||+-----------> sKipping validation [132]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [341]
@@ -12,7 +12,7 @@ updating from RC…
 ||||||||+------> File output [96]
 |||||||||+-----> Draft [208]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [85]
+|||||||||||+---> Void (no local copy) [86]
 ||||||||||||+--> Un-implemented/reliable [56]
 |||||||||||||
 GGS.......... 100_doors
@@ -350,7 +350,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-GGS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
+!GS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -792,7 +792,7 @@ GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
 GGS.......... Non-decimal_radices_Input
 GGS.......... Non-decimal_radices_Output
-.........D.VU Non-transitive_dice
+...........VU Non-transitive_dice
 GGS..T....... Nonoblock
 BB.K.T......U Nonogram_solver
 GGS.......... Nth_root
@@ -800,6 +800,7 @@ GGS.......... Null_object
 GGS.......... Number_names-1
 GBS.......... Number_names-2
 GGS.......... Number_reversal_game
+.........D.V. Numbers_With_Equal_Rises_and_Falls
 GGS......D... Numbers_with_prime_digits_whose_sum_is_13
 GGS..T....... Numeric_error_propagation
 GGS......D... Numeric_separator_syntax
@@ -835,7 +836,7 @@ GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_Brute_Force
 GBS..TC...... Parallel_calculations
-!BS...CR..... Parallel_calculations-2
+BB....CR..... Parallel_calculations-2
 GGS..T....... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
@@ -1047,7 +1048,7 @@ GGS......D... Selective_File_Copy
 GGS.......... Self-describing_numbers
 .........DXV. Self-hosting_compiler
 GGS..T....... Self-referential_sequence
-.........D.VU Self_numbers_sequence_A003052_in_the_OEIS
+.........D.VU Self_numbers
 GGS..T.R..... Semiprime-1
 GGS.......... Semiprime-2
 GGS..T....... Semordnilap
@@ -1085,7 +1086,7 @@ GB.K......... Simple_database
 GB.KI........ Simple_windowed_application
 GB.KI........ Simulate_input_Keyboard
 GB.KI........ Simulate_input_Mouse
-!GS..T.R.D... Simulated_annealing
+GGS..T.R.D... Simulated_annealing
 GBS..T..FD... Sine_wave
 GG.K......... Singleton
 GGS.......... Singly-linked_list_Element_definition
@@ -1160,7 +1161,7 @@ GGS.......... Stack_traces
 GG.K......... Start_from_a_main_routine
 GGS.....FD... Starting_a_web_browser
 GGS..T....... State_name_puzzle
-!GS..T.R..... Statistics_Basic
+GGS..T.R..... Statistics_Basic
 GGS....R..... Statistics_Normal_distribution
 GGS.......... Stem-and-leaf_plot
 GGS..T....... Stern-Brocot_sequence
@@ -1320,7 +1321,7 @@ GGS.......... Variadic_function
 GGS.......... Vector
 GGS..T....... Vector_products
 GGS.......... Verify_distribution_uniformity_Chi-squared_test
-!GS....R..... Verify_distribution_uniformity_Naive
+GGS....R..... Verify_distribution_uniformity_Naive
 .........D... Vibrating_rectangles
 GG.KI........ Vibrating_rectangles-1
 GB.KI........ Vibrating_rectangles-2
@@ -1349,7 +1350,7 @@ GB.KI........ Window_management
 GBS.......... Wireworld
 GGS......D... Word_break_problem
 GGS..Tc...... Word_frequency
-!GS....R..... Word_search
+GGS....R..... Word_search
 .........D... Word_wheel
 GGS.......... Word_wheel-1
 GBS.......... Word_wheel-2
