@@ -16,8 +16,8 @@ sub execute (\y,\x) {
    my \i = $ = @board[Y+y;X+x];
    if countSteps(i, x, y) {
       score += i;
-      @board[ Y +  y*$_ ; X +  x*$_ ] = ' ' for ^i;
-      @board[ Y += y*i  ; X += x*i  ] = '@';
+      @board[ Y +  y×$_ ; X +  x×$_ ] = ' ' for ^i;
+      @board[ Y += y×i  ; X += x×i  ] = '@';
    }
 }
 
