@@ -26,8 +26,8 @@ my @quadrants = [ ('up and rising',    'peak'),
   @res.push: "Day $days:";
   for %cycles.sort(+*.value)».kv -> ($label, $length) {
     my $position = $days % $length;
-    my $quadrant = floor($position / $length * 4);
-    my $percentage = floor(sin($position / $length * 2 * π )*1000)/10;
+    my $quadrant = floor($position / $length × 4);
+    my $percentage = floor(sin($position / $length × 2 × π )×1000)/10;
     my $description;
     if $percentage > 95 {
       $description = 'peak';
@@ -36,7 +36,7 @@ my @quadrants = [ ('up and rising',    'peak'),
     } elsif abs($percentage) < 5 {
       $description = 'critical transition'
     } else {
-      my $transition = $target + floor(($quadrant + 1)/4 * $length) - $position;
+      my $transition = $target + floor(($quadrant + 1)/4 × $length) - $position;
       my ($trend, $next) = @quadrants[$quadrant];
       $description = "$percentage% ($trend, next $next $transition)";
     }
