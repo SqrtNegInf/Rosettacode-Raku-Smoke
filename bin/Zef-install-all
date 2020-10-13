@@ -4,9 +4,14 @@
 # gr '^\s*use .*;$' | pf 's/^.*?:\d+://;s/^\s+//' | pg -v '^use (v6|nqp|lib)' | pg -v '(MONKEY|experimental|Binary|:from)' | sortcnt
 #
 # for Digest::xxHash (and some similar dodges for other libraries, forget which ones):
-# ( cd /usr/local/lib; ln -s /opt/local/lib/libxxhash.0.7.4.dylib . )
+# ( cd /usr/local/lib; ln -s /opt/local/lib/libxxhash.0.8.0.dylib . )
 
 zef install p6doc;
+
+# needs to be done from git archive? (or it tries to use non-existant perl5.30.0 library)
+# zef --force-test --force-install install https://github.com/niner/Inline-Perl5.git
+#X zef --/test install Inline::Perl5
+#X  or: zef --exclude=perl install Inline::Perl5
 
 zef --/test install ArrayHash
 zef --/test install Audio::PortAudio
@@ -16,8 +21,6 @@ zef --/test install https://github.com/raku-community-modules/raku-GD.git
 zef --/test install Gumbo
 zef --/test install GTK::Simple
 zef --/test install HTTP::UserAgent
-zef --/test install Inline::Perl5
-# or: zef --exclude=perl install Inline::Perl5
 zef --/test install IO::Socket::Async::SSL
 zef --/test install LWP::Simple
 zef --/test install Lingua::EN::Numbers::Cardinal
@@ -90,6 +93,7 @@ zef install Text::CSV
 zef install Text::Levenshtein::Damerau
 zef install TrigPi
 zef install URI
+zef install UUID
 zef install WWW
 zef install XML
 zef install XML::XPath;
