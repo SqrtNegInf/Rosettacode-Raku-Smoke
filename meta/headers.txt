@@ -414,6 +414,13 @@ File: A/Aliquot_sequence_classifications.1
 #j#  JVM: OK
 #n# 2018-11-03 at one point 'state @seq' brought a huge speed-up?  Now no diff.
 
+File: A/Almkvist-Giullera_formula_for_pi
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Almkvist-Giullera_formula_for_pi
+#c# 2020-10-13 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
 File: A/Almost_prime-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Almost_prime
@@ -3040,6 +3047,7 @@ File: E/Elliptic_Curve_Digital_Signature_Algorithm
 #c# 2020-02-24 <RC, 2020-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# fails only under conditions of high system load?
 
 File: E/Elliptic_Curve_Digital_Signature_Algorithm.1
 #!/usr/bin/env perl6
@@ -12355,11 +12363,10 @@ File: X/XML_Output
 File: X/XML_Validation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/XML_Validation
-#t# skiptest
 #c# 2019-10-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# 2020-01-03 why broken?  
+#n# 2020-10-12 Pod::To::Markdown fails tests, Zef-install-all uses 'force-install'
 
 File: X/XML_XPath
 #!/usr/bin/env perl6 do-not-check
