@@ -12,12 +12,14 @@
 #    20180814:  193.769u 1.137s 3:14.83 100.0%
 #    20181004:  179.995u 1.058s 3:00.72 100.1%
 #    20181005:  622.302u 663.345s 7:32.78 283.9% (much worse with .race, likewise for other method)
+#    20201012:  135.45u   0.71s 2:16.26 99%
 #    _NEXT_
 
 # 'faster' method for 100 million, compare with *-nqp
 #    20170613:  769.361u 2.068s 12:54.36 99.6% 
 #    20180814:  409.173u 0.882s  6:50.60 99.8%
 #    20181004:  359.537u 0.832s  6:00.49 99.9%
+#    20201012:  463.720u 0.78s   7:44.32  100%  slower?? 
 
 #This fairly abstract version does caching and filtering to reduce the number of values it needs to check 
 # and moves calculations out of the hot loop, but is still fairly slow... even for just up to 1,000,000.
@@ -73,12 +75,12 @@ sub ids(int $num --> int) {
 }
 
 my int $c = 0;
-#for 1 .. 100_000_000 -> int $n {
-for 1 .. 1_000_000 -> int $n {
+for 1 .. 100_000_000 -> int $n {
+#for 1 .. 1_000_000 -> int $n {
    $c = $c + 1 if altEuler92($n) == 89;
 }
 say $c;
 
 use Test;
-is $c, 856929,   'Faster method'; # for   1_000_000
-#is $c, 85744333, 'Faster method'; # for 100_000_000
+#is $c, 856929,   'Faster method'; # for   1_000_000
+is $c, 85744333, 'Faster method'; # for 100_000_000
