@@ -1,10 +1,9 @@
 This is Rakudo version 2020.09-39-ge0e24a8db built on MoarVM version 2020.09-8-g60070970c
 implementing Raku 6.d.
-updating from RC…
-+--------------> Moar: Good/Bad [1249/19]
-|+-------------> JVM: Good/Bad [1063/210]
-||+------------> Smoke testing [1135]
-|||+-----------> sKipping validation [132]
++--------------> Moar: Good/Bad [1251/19]
+|+-------------> JVM: Good/Bad [1063/211]
+||+------------> Smoke testing [1137]
+|||+-----------> sKipping validation [131]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [341]
 ||||||+--------> Concurrent/Async [64]
@@ -12,7 +11,7 @@ updating from RC…
 ||||||||+------> File output [96]
 |||||||||+-----> Draft [209]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [87]
+|||||||||||+---> Void (no local copy) [86]
 ||||||||||||+--> Un-implemented/reliable [58]
 |||||||||||||
 GGS.......... 100_doors
@@ -55,7 +54,7 @@ GGS..T...D... Addition_chains
 GGS.......... Address_of_a_variable
 GGS.......... Align_columns
 GGS..Tc...... Aliquot_sequence_classifications
-.........D.VU Almkvist-Giullera_formula_for_pi
+GBS......D..U Almkvist-Giullera_formula_for_pi
 GGS.......... Almost_prime-1
 GGS.......... Almost_prime-2
 GGS.......... Amb-1
@@ -351,7 +350,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-!GS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
+GGS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -864,7 +863,7 @@ GGS..T..F.... Pentagram
 .........D.VU Pentomino_tiling
 GBS.......... Percentage_difference_between_images
 .........D.VU Perceptron
-GGS....R..... Percolation_Bond_percolation
+!GS....R..... Percolation_Bond_percolation
 !GS....R..... Percolation_Mean_cluster_density
 GGS....R..... Percolation_Mean_run_density
 GGS....R..... Percolation_Site_percolation
@@ -964,7 +963,7 @@ GGS.......... Range_extraction
 GGS..T....... Ranking_methods
 GBS...c.....U Rare_numbers
 BB.KI....D... Raster_bars
-!GS.......... Rate_counter
+GGS.......... Rate_counter
 GGS.......... Ray-casting_algorithm
 GGS..T....... Read_a_configuration_file
 GGS..T....... Read_a_file_character_by_character_UTF8
@@ -1366,7 +1365,7 @@ GG.K......X.. Write_to_Windows_event_log
 GBS.......... XML_DOM_serialization
 GBS..T....... XML_Input
 GGS.......... XML_Output
-GB.K.....D... XML_Validation
+GBS......D... XML_Validation
 BB........... XML_XPath
 GBS......D... XXXX_redacted
 GGS..T....... Xiaolin_Wu%27s_line_algorithm
