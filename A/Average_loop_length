@@ -31,7 +31,7 @@ for 1 .. MAX_N -> $N {
             $N,  $empiric,
                         $theoric, 100 × abs($theoric - $empiric) / $theoric;
 }
-.say for @res;  exit;
+.say for @res;
 
 sub random-mapping ($n) {
     my %temp = random-mapping-orig($n);
