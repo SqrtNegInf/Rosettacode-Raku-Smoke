@@ -20,8 +20,8 @@ sub converge-at ( @ints ) {
     my @ekgs = @ints.map: &EKG;
 
     return (2 .. *).first: -> $i {
-        [==]  @ekgs.map(     *.[$i]     ) and
-        [===] @ekgs.map( *.head($i).Set )
+        [==] @ekgs.map(     *.[$i]     ) and
+        [≡]  @ekgs.map( *.head($i).Set )
     }
 }
 
