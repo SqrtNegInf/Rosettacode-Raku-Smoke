@@ -16,7 +16,8 @@ multi can-spell-word([$head,*@tail], @regex) {
         if $head ~~ $re {
             return True unless @tail;
             return False if @regex == 1;
-            return True if can-spell-word @tail, list @regex.grep: * !=== $re;
+            return True if can-spell-word @tail, list @regex.grep: * ≢ $re;  # equivalent to !===
+            #return True if can-spell-word @tail, list @regex.grep: * !≡ $re;  # likewise, same as ≢
         }
     }
     False;
