@@ -44,7 +44,7 @@ sub infix:<±+> (Num $a, Num $b) {
 
 @res.push: "\nRationals:";
 
-@res.push: ".1 + .2 is exactly equal to .3: " ~  (.1 + .2 === .3).Str;
+@res.push: ".1 + .2 is exactly equal to .3: " ~  (.1 + .2 ≡ .3).Str; # equivalent to ===
 
 @res.push: "\nLarge denominators require explicit coercion to FatRats:";
 @res.push: "Sum of inverses of the first 500 natural numbers:";
