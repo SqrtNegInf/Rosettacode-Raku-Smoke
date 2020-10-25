@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Square_Root_by_Hand
-#c# 2020-10-23 <RC
+#c# 2020-10-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -19,7 +19,7 @@ sub SpigotSqrt ($in) {
    my @dividends, my @fractional; # holds digital duos
    my $d = 9;    # unit  digit part of divisors & running answer
    my $D = '';   # tens+ digit part of divisors
-   my $once = 0; # for printing '.' only once
+   my $dot_printed  = False; # for printing '.' only once
    my $dividend; my $quotient = ''; my $remainder;
 
    return "Sorry, minimum charge is $0⁺" if $in < 0;
@@ -44,7 +44,7 @@ sub SpigotSqrt ($in) {
       $quotient ~= $d;
       unless @dividends.Bool {
          last if ( $remainder == 0 and $quotient != 0 and !@fractional.Bool );
-         $accum ~= '.' unless $once++ ; # happen only once
+         unless $dot_printed { $accum ~= '.' and $dot_printed = True }
          if @fractional.Bool {      # happen only once
             @dividends.append: @fractional;
             @fractional = (); # retired
