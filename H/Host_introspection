@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Host_introspection
-#c# 2016-02-02 <RC, 2018-11-15 <RC, 2018-12-12 <>RC
+#c# 2016-02-02 <RC, 2018-11-15 <RC, 2018-12-12 <>RC, 2020-10-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN 
 #n# presumably JVM will get the read-int16 method sooner than NativeCall?
@@ -24,12 +24,16 @@ my $bytes = nativecast(CArray[uint8], CArray[uint16].new(1));
 @res.push: blob8.new(1,0).read-int16(0) == 1 ?? LittleEndian !! BigEndian;
 #say blob8.new(1,0).read-int16(0) == 0 ?? "little-endian" !! "big-endian"; # this is backwards?
 
+#  2020-10-29 alternate
+@res.push: join ', ', $*KERNEL, $*KERNEL.bits, $*KERNEL.arch, $*KERNEL.endian;
+
 .say for @res;
 
 my $ref = q:to/END/;
 8
 little-endian
 LittleEndian
+darwin, 64, i386, LittleEndian
 END
 
 use Test;
