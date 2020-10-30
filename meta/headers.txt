@@ -4836,7 +4836,7 @@ File: H/Horner%27s_rule_for_polynomial_evaluation
 File: H/Host_introspection
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Host_introspection
-#c# 2016-02-02 <RC, 2018-11-15 <RC, 2018-12-12 <>RC
+#c# 2016-02-02 <RC, 2018-11-15 <RC, 2018-12-12 <>RC, 2020-10-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN 
 #n# presumably JVM will get the read-int16 method sooner than NativeCall?
@@ -7708,6 +7708,13 @@ File: P/Partial_function_application
 #c# 2016-06-11 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: P/Partition_Function_P
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Partition_Function_P
+#c# 2020-10-29 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: P/Partition_an_integer_X_into_N_primes
 #!/usr/bin/env perl6
@@ -11592,6 +11599,14 @@ File: T/Topswops
 #n# bumping up to 9 swaps, but 10 still too slow ( > 7 min)
 #n# 2019-10-17 concurrency is sometimes not working well?  
 #n# 2019-10-18 problem appears to be limited to older MacOS?
+
+File: T/Topswops-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Topswops
+#c# 2020-10-29 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# yeah, still slow-ish on 10
 
 File: T/Topswops.jvm
 #!/usr/bin/env perl6
