@@ -1,20 +1,20 @@
-Welcome to Rakudo(tm) v2020.10-35-gc54193e81.
+Welcome to Rakudo(tm) v2020.10-48-gede52fb02.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.10-20-g70e3608cb.
 updating from RC…
 +--------------> Moar: Good/Bad [1252/19]
 |+-------------> JVM: Good/Bad [1068/211]
-||+------------> Smoke testing [1141]
+||+------------> Smoke testing [1142]
 |||+-----------> sKipping validation [131]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [341]
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [128]
 ||||||||+------> File output [96]
-|||||||||+-----> Draft [210]
+|||||||||+-----> Draft [212]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [85]
-||||||||||||+--> Un-implemented/reliable [56]
+|||||||||||+---> Void (no local copy) [87]
+||||||||||||+--> Un-implemented/reliable [58]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -286,7 +286,7 @@ GBS.......... Cyclotomic_Polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
 GGS......D... Data_Encryption_Standard
-!GS..T....... Date_format
+GGS..T....... Date_format
 GGS..T....... Date_manipulation
 GGS.......... Day_of_the_week
 GGS......D... Days_between_dates
@@ -309,7 +309,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -385,6 +385,7 @@ GGS..T....... Execute_a_Markov_algorithm
 GGS..T....... Execute_a_system_command
 GGS.......... Exponentiation_operator
 GGS..T....... Exponentiation_order
+.........D.VU Exponentiation_with_infix_operators_in_or_operating_on_the_base
 GGS..T....... Extend_your_language
 GGS.......... Extensible_prime_generator
 GBS..T...D... External_sort
@@ -864,7 +865,7 @@ GGS.......... Pell%27s_equation
 GGS....R..... Penney%27s_game
 GGS.....FD... Penrose_tiling
 GGS..T..F.... Pentagram
-GG.....R.D... Pentomino_tiling
+GGS....R.D... Pentomino_tiling
 GBS.......... Percentage_difference_between_images
 .........D.VU Perceptron
 !GS....R..... Percolation_Bond_percolation
@@ -1099,6 +1100,7 @@ GG.K......... Singly-linked_list_Element_insertion
 GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
+.........D.VU Smallest_enclosing_circle_problem
 GBS.......... Smarandache_prime-digital_sequence
 GGS.......... Smith_numbers
 .........DXV. Snake
