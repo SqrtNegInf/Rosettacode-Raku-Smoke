@@ -3,8 +3,8 @@ Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.10-20-g70e3608cb.
 updating from RC…
 +--------------> Moar: Good/Bad [1252/19]
-|+-------------> JVM: Good/Bad [1068/211]
-||+------------> Smoke testing [1142]
+|+-------------> JVM: Good/Bad [1067/211]
+||+------------> Smoke testing [1141]
 |||+-----------> sKipping validation [131]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [341]
@@ -13,8 +13,8 @@ updating from RC…
 ||||||||+------> File output [96]
 |||||||||+-----> Draft [212]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [87]
-||||||||||||+--> Un-implemented/reliable [57]
+|||||||||||+---> Void (no local copy) [89]
+||||||||||||+--> Un-implemented/reliable [58]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -478,6 +478,7 @@ GGS.......... General_FizzBuzz
 GGS..T...D... Generalised_floating_point_addition
 .........DXVU Generalised_floating_point_multiplication
 GGS..T.R..... Generate_Chess960_starting_position
+...........VU Generate_JSON
 GGS.......... Generate_lower_case_ASCII_alphabet
 !GS....R..... Generate_random_chess_position
 GGS..T....... Generator_Exponential
@@ -585,7 +586,6 @@ GG.K......... Inverted_syntax
 ..........XV. Isqrt_integer_square_root_of_X
 GG.K..c...... Iterated_digits_squaring
 GGS.......... Iterated_digits_squaring-1
-GGS.......... JSON
 GGS.......... Jacobi_symbol
 GBS...C..D... Jaro-Winkler_Distance
 GGS..T....... Jaro_distance
@@ -844,6 +844,7 @@ BB....CR..... Parallel_calculations-2
 GGS..T....... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
+...........V. Parse_JSON
 GBS.......... Parse_an_IP_Address
 GGS......D... Parse_command-line_arguments
 GGS.......... Parsing_RPN_calculator_algorithm
@@ -868,7 +869,7 @@ GGS..T..F.... Pentagram
 GGS....R.D... Pentomino_tiling
 GBS.......... Percentage_difference_between_images
 .........D.VU Perceptron
-!GS....R..... Percolation_Bond_percolation
+GGS....R..... Percolation_Bond_percolation
 !GS....R..... Percolation_Mean_cluster_density
 GGS....R..... Percolation_Mean_run_density
 GGS....R..... Percolation_Site_percolation
