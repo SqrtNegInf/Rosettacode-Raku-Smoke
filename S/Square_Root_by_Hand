@@ -37,7 +37,7 @@ sub SpigotSqrt ($in) {
 
    my $accum = '';
    loop {
-      until ( $remainder = $dividend - ($D~$d) * $d ) ≥ 0 {
+      until ( $remainder = $dividend - ($D~$d) × $d ) ≥ 0 {
          $d-- # keep trying till the max divisor is found
       }
       $accum ~= $d; # running answer
@@ -53,7 +53,7 @@ sub SpigotSqrt ($in) {
          }
       }
       $dividend = $remainder.Str ~ shift @dividends;
-      $D = 2*$quotient;
+      $D = 2×$quotient;
       $d = 9
    }
    return $accum;
