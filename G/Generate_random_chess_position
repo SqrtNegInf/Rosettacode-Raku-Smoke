@@ -3,6 +3,8 @@
 #c# 2016-01-27 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-11-03 results changed with: Rakudo(tm) v2020.10-51-g53b558fe0
+#n# 2020-11-07 but once in a while flips back to old result apparently... (v2020.10-55-g2fe6420e8)
 
 srand 123456;
 
@@ -42,6 +44,7 @@ sub pick-FEN {
 say my $result = pick-FEN();
 
 use Test;
-is $result, '4n3/8/K2r4/6B1/6R1/6Nb/1qb3kQ/8 w - - 0 1'  if $*VM ~~ /moar/;
+is $result, '4r3/8/K2R4/6r1/6p1/6PP/1np3kN/8 w - - 0 1'  if $*VM ~~ /moar/;
+#is $result, '4n3/8/K2r4/6B1/6R1/6Nb/1qb3kQ/8 w - - 0 1'  if $*VM ~~ /moar/;
 is $result, '8/5k2/1Q1K4/2qn4/1P6/8/7p/q5B1 w - - 0 1' if $*VM ~~ /jvm/;
 
