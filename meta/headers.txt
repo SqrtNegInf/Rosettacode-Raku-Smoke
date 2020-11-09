@@ -141,12 +141,12 @@ File: 0/99_Bottles_of_Beer
 #j#  JVM: OK
 
 File: 0/9_billion_names_of_God_the_integer
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/9_billion_names_of_God_the_integer
-#c# 2016-07-25 <RC
+#c# 2016-07-25 <RC, 2020-11-08 <RC
 #m# MOAR: OK
-#j#  JVM: OK
-#    eats 10+Gb memory to get to 12345
+#j# JVM:  OK
+#n# no time/memory issues any longer
 
 File: 0/9_billion_names_of_God_the_integer.1
 #!/usr/bin/env perl6
@@ -1795,6 +1795,14 @@ File: C/Circular_primes
 #c# 2020-04-06 <RC, 2020-04-07 <>RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+
+File: C/Cistercian_numerals
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Cistercian_numerals
+#c# 2020-11-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: cistercian.svg
 
 File: C/Classes
 #!/usr/bin/env perl6
@@ -4291,6 +4299,7 @@ File: G/Generate_random_chess_position
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-11-03 results changed with: Rakudo(tm) v2020.10-51-g53b558fe0
+#n# 2020-11-07 but once in a while flips back to old result apparently... (v2020.10-55-g2fe6420e8)
 
 File: G/Generator_Exponential
 #!/usr/bin/env perl6
@@ -9486,6 +9495,22 @@ File: S/SHA-256-2
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
+File: S/SHA-256_Merkle_tree-1
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/SHA-256_Merkle_tree
+#c# 2020-11-08 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#i# RC cli: ref/rc-title.png
+
+File: S/SHA-256_Merkle_tree-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/SHA-256_Merkle_tree
+#c# 2020-11-08 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#i# RC cli: ref/rc-title.png
+
 File: S/SOAP
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/SOAP
@@ -9598,15 +9623,6 @@ File: S/Self-describing_numbers.0
 #c# 2015-10-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-File: S/Self-referential_sequence
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Self-referential_sequence
-#c# 2016-06-12 <>RC
-#m# MOAR: OK
-#j#  JVM: OK
-#n# 2016 196.742u 2.298s 4:29.33 73.8%
-#n# 2019  80.076u 0.845s 1:21.28 99.5% 
 
 File: S/Semiprime-1
 #!/usr/bin/env perl6
@@ -11023,6 +11039,16 @@ File: S/Sum_to_100.1
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: S/Summarize_and_say_sequence
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Summarize_and_say_sequence
+#c# 2016-06-12 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2016 196.742u 2.298s 4:29.33 73.8%
+#n# 2019  80.076u 0.845s 1:21.28 99.5% 
+#n# 2020-11-08 renamed from 'Self-referential_sequence'
+
 File: S/Sunflower_fractal
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sunflower_fractal
@@ -11737,13 +11763,14 @@ File: T/Twelve_statements
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: T/Twin_Prime_Conjecture
+File: T/Twin_Primes
 #!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Twin_Prime_Conjecture
+#u# http://rosettacode.org/wiki/Twin_Primes
 #c# 2020-07-26 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# as should be, same as Perl for 10**12: 718.55s user 5.25s system 711% cpu 1:41.68 total
+#n# 2020-11-08 renamed from 'Twin_Prime_Conjecture'
 
 File: T/Two_Sum-1
 #!/usr/bin/env perl6
