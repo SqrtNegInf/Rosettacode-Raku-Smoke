@@ -1,19 +1,19 @@
-Welcome to Rakudo(tm) v2020.10-55-g2fe6420e8.
+Welcome to Rakudo(tm) v2020.10-59-g1321a8533.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.10-31-gb13f6a24c.
 updating from RC…
-+--------------> Moar: Good/Bad [1247/19]
-|+-------------> JVM: Good/Bad [1065/210]
-||+------------> Smoke testing [1138]
++--------------> Moar: Good/Bad [1251/19]
+|+-------------> JVM: Good/Bad [1067/213]
+||+------------> Smoke testing [1143]
 |||+-----------> sKipping validation [131]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [339]
+|||||+---------> Touched (modified by me) [340]
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [128]
-||||||||+------> File output [96]
+||||||||+------> File output [97]
 |||||||||+-----> Draft [211]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [91]
+|||||||||||+---> Void (no local copy) [87]
 ||||||||||||+--> Un-implemented/reliable [55]
 |||||||||||||
 GGS.......... 100_doors
@@ -214,7 +214,7 @@ GGS.......... Church_numerals-2
 GGS......D... Cipolla%27s_algorithm
 GGS..T....... Circles_of_given_radius_through_two_points
 GBS..TC...... Circular_primes
-.........D.V. Cistercian_numerals
+GGS.....FD... Cistercian_numerals
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
 GGS....R..... Closures_Value_capture
@@ -289,7 +289,7 @@ GBS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
 GGS......D... Data_Encryption_Standard
-GGS..T....... Date_format
+!GS..T....... Date_format
 GGS..T....... Date_manipulation
 GGS.......... Day_of_the_week
 GGS......D... Days_between_dates
@@ -312,7 +312,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -343,7 +343,7 @@ GB.KIT....... Draw_a_rotating_cube
 GGS..TC.F.... Draw_a_sphere-1
 GBS.....F.... Draw_a_sphere-2
 GB.KI....D... Draw_pixel_2
-GGS..T.R..... Dutch_national_flag_problem
+!GS..T.R..... Dutch_national_flag_problem
 GGS.......... Dynamic_variable_names
 GGS.......... EKG_sequence_convergence
 GBS.......... Eban_numbers
@@ -482,7 +482,7 @@ GGS..T...D... Generalised_floating_point_addition
 .........DXVU Generalised_floating_point_multiplication
 GGS..T.R..... Generate_Chess960_starting_position
 GGS.......... Generate_lower_case_ASCII_alphabet
-!GS....R..... Generate_random_chess_position
+GGS....R..... Generate_random_chess_position
 GGS..T....... Generator_Exponential
 GGS.......... Generic_swap
 .........D... Geohash
@@ -1041,7 +1041,8 @@ GGS..T....... SHA-1
 GBS.......... SHA-1-2
 GGS.......... SHA-256
 GBS.......... SHA-256-2
-...........V. SHA-256_Merkle_tree
+GBS.......... SHA-256_Merkle_tree-1
+GBS.......... SHA-256_Merkle_tree-2
 GBS.......... SOAP
 ..........XV. SQL-based_authentication
 GBS.......... Safe_addition
@@ -1173,7 +1174,7 @@ GGS.......... Stack_traces
 GG.K......... Start_from_a_main_routine
 GGS.....FD... Starting_a_web_browser
 GGS..T....... State_name_puzzle
-GGS..T.R..... Statistics_Basic
+!GS..T.R..... Statistics_Basic
 GGS....R..... Statistics_Normal_distribution
 GGS.......... Stem-and-leaf_plot
 GGS..T....... Stern-Brocot_sequence
@@ -1216,7 +1217,7 @@ GGS.......... Sum_multiples_of_3_and_5
 GGS..T....... Sum_of_a_series
 GGS.......... Sum_of_squares
 GGS.......... Sum_to_100
-...........V. Summarize_and_say_sequence
+GGS..T....... Summarize_and_say_sequence
 GGS.....F.... Sunflower_fractal
 GBS...C...... Super-d_numbers-1
 GBS...C...... Super-d_numbers-2
@@ -1292,7 +1293,7 @@ GGS.......... Truncatable_primes
 GBS..T....... Truncate_a_file
 GGS..T....... Truth_table
 GGS..T....... Twelve_statements
-.........D.V. Twin_primes
+GBS......D... Twin_primes
 .........D... Two_sum
 GGS.......... Two_sum-1
 GGS..T....... Two_sum-2
