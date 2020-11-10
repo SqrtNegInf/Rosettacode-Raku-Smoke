@@ -3,6 +3,7 @@
 #c# 2016-04-22 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2020-11-08 answer changed
 
 srand 123456;
 
@@ -15,7 +16,7 @@ my @res;
 sub how'bout (&this-way) {
     sub show {
         @res.push: @colors;
-        @res.push: "Ordered: ", [<=] @colors;
+        @res.push: "Ordered: "~ [<=] @colors;
     }
 
     @colors = NL.roll(20);
@@ -41,43 +42,60 @@ how'bout { @colors = flat (.grep(red), .grep(white), .grep(blue) given @colors) 
 
 .say for @res;
 
-use Test;
 my $moar = q:to/END/;
 Using functional sort
+red red red red white white white white white white white white white white white blue blue blue blue blue
+Ordered: False
+red red red red white white white white white white white white white white white blue blue blue blue blue
+Ordered: True
+Using in-place sort
+red red red red white white white white white white white white white white white blue blue blue blue blue
+Ordered: False
+red red red red white white white white white white white white white white white blue blue blue blue blue
+Ordered: True
+Using a Bag
+red red red red white white white white white white white white white white white blue blue blue blue blue
+Ordered: False
+red red red red white white white white white white white white white white white blue blue blue blue blue
+Ordered: True
+Using the classify method
+red red red red white white white white white white white white white white white blue blue blue blue blue
+Ordered: False
+red red red red white white white white white white white white white white white blue blue blue blue blue
+Ordered: True
+Using multiple greps
+red red red red white white white white white white white white white white white blue blue blue blue blue
+Ordered: False
+red red red red white white white white white white white white white white white blue blue blue blue blue
+Ordered: True
+END
+
+my $xoar = q:to/END/;
+Using functional sort
 red red red red red red white white white white white blue blue blue blue blue blue blue blue blue
-Ordered: 
-False
+Ordered: False
 red red red red red red white white white white white blue blue blue blue blue blue blue blue blue
-Ordered: 
-True
+Ordered: True
 Using in-place sort
 red red red red red red white white white white white blue blue blue blue blue blue blue blue blue
-Ordered: 
-False
+Ordered: False
 red red red red red red white white white white white blue blue blue blue blue blue blue blue blue
-Ordered: 
-True
+Ordered: True
 Using a Bag
 red red red red red red white white white white white blue blue blue blue blue blue blue blue blue
-Ordered: 
-False
+Ordered: False
 red red red red red red white white white white white blue blue blue blue blue blue blue blue blue
-Ordered: 
-True
+Ordered: True
 Using the classify method
 red red red red red red white white white white white blue blue blue blue blue blue blue blue blue
-Ordered: 
-False
+Ordered: False
 red red red red red red white white white white white blue blue blue blue blue blue blue blue blue
-Ordered: 
-True
+Ordered: True
 Using multiple greps
 red red red red red red white white white white white blue blue blue blue blue blue blue blue blue
-Ordered: 
-False
+Ordered: False
 red red red red red red white white white white white blue blue blue blue blue blue blue blue blue
-Ordered: 
-True
+Ordered: True
 END
 
 my $jvm = q:to/END/;
