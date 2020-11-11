@@ -1,0 +1,27 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Pancake_numbers
+#c# 2020-11-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub pancake(\n) {
+   my ($gap,$sum,$adj) = 2, 2, -1;
+   while ($sum < n) { $sum += $gap = $gap × 2 - 1 and $adj++ }
+   return n + $adj;
+}
+
+for (1..20).rotor(5) { @res.push: [~] @_».&{ sprintf "p(%2d) = %2d ",$_,pancake $_ } }
+
+.say for @res;
+
+my $ref = q:to/END/;
+p( 1) =  0 p( 2) =  1 p( 3) =  3 p( 4) =  4 p( 5) =  5 
+p( 6) =  7 p( 7) =  8 p( 8) =  9 p( 9) = 10 p(10) = 11 
+p(11) = 13 p(12) = 14 p(13) = 15 p(14) = 16 p(15) = 17 
+p(16) = 18 p(17) = 19 p(18) = 20 p(19) = 21 p(20) = 23 
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
