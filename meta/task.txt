@@ -1,10 +1,10 @@
-Welcome to Rakudo(tm) v2020.10-59-g1321a8533.
+Welcome to Rakudo(tm) v2020.10-62-g2436532fd.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.10-31-gb13f6a24c.
 updating from RC…
-+--------------> Moar: Good/Bad [1251/19]
-|+-------------> JVM: Good/Bad [1067/213]
-||+------------> Smoke testing [1143]
++--------------> Moar: Good/Bad [1253/19]
+|+-------------> JVM: Good/Bad [1068/213]
+||+------------> Smoke testing [1144]
 |||+-----------> sKipping validation [131]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
@@ -13,8 +13,8 @@ updating from RC…
 ||||||||+------> File output [97]
 |||||||||+-----> Draft [210]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [87]
-||||||||||||+--> Un-implemented/reliable [55]
+|||||||||||+---> Void (no local copy) [86]
+||||||||||||+--> Un-implemented/reliable [54]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -312,7 +312,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -418,7 +418,7 @@ GGS.......... Fibonacci_word_fractal
 GGS.......... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
 GGS.....F.... File_input_output-2
-GBS..T....... File_modification_time
+!BS..T....... File_modification_time
 GGS.......... File_size
 GGS..T....... File_size_distribution
 GGS.......... Filter
@@ -559,7 +559,7 @@ GBS.......... I_before_E_except_after_C-2
 GGS.......... Identity_matrix
 GBS.......... Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols
 GGS.......... Idiomatically_determine_all_the_lowercase_and_uppercase_letters
-!BS..T..F.... Image_convolution
+GBS..T..F.... Image_convolution
 GB.KI........ Image_noise
 GGS.......... Imaginary_base_numbers
 GBS.......... Imaginary_base_numbers-2
@@ -839,7 +839,7 @@ GGS..T....... P-value_correction
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
 GGS...c...... Palindromic_gapful_numbers
-.........D.VU Pancake_numbers
+GGS......D... Pancake_numbers
 GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_brute_force
