@@ -1,23 +1,23 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Loop_over_multiple_arrays_simultaneously
-#c# 2015-10-27 <RC
+#c# 2015-10-27 <RC, 2020-11-10 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
 my @res;
-# Works with: niecza version 2011.07
+
 for <a b c> Z <A B C> Z 1, 2, 3 -> $x, $y, $z {
    @res.push: $x, $y, $z;
 }
-
-#The Z operator stops emitting items as soon as the shortest input list is exhausted. However, short lists are easily extended by replicating all or part of the list, or by appending any kind of lazy list generator to supply default values as necessary.
-#Note that we can also factor out the concatenation by making the Z metaoperator apply the ~ concatenation operator across each triple:
+@res.push: '';
 
 @res.push: $_ for <a b c> Z~ <A B C> Z~ 1, 2, 3;
-
-#We could also use the zip-to-string with the reduction metaoperator:
+@res.push: '';
 
 @res.push: $_ for [Z~] [<a b c>], [<A B C>], [1,2,3];
+@res.push: '';
+
+@res.push: $_ for roundrobin <a b c>, 'A'..'G', ^5;
 
 .say for @res;
 
@@ -25,12 +25,22 @@ my $ref = qq:to/END/;
 a A 1
 b B 2
 c C 3
+
 aA1
 bB2
 cC3
+
 aA1
 bB2
 cC3
+
+a A 0
+b B 1
+c C 2
+D 3
+E 4
+F
+G
 END
 
 use Test;
