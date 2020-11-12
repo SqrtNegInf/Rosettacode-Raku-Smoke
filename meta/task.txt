@@ -1,17 +1,17 @@
-Welcome to Rakudo(tm) v2020.10-62-g2436532fd.
+Welcome to Rakudo(tm) v2020.10-63-g08f5d028e.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.10-31-gb13f6a24c.
 updating from RC…
 +--------------> Moar: Good/Bad [1253/19]
-|+-------------> JVM: Good/Bad [1068/213]
-||+------------> Smoke testing [1144]
+|+-------------> JVM: Good/Bad [1069/213]
+||+------------> Smoke testing [1145]
 |||+-----------> sKipping validation [131]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [128]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [210]
+|||||||||+-----> Draft [211]
 ||||||||||+----> Ignoring [38]
 |||||||||||+---> Void (no local copy) [86]
 ||||||||||||+--> Un-implemented/reliable [54]
@@ -312,7 +312,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -418,7 +418,7 @@ GGS.......... Fibonacci_word_fractal
 GGS.......... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
 GGS.....F.... File_input_output-2
-!BS..T....... File_modification_time
+GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T....... File_size_distribution
 GGS.......... Filter
@@ -426,6 +426,7 @@ GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
+GGS......D... Find_if_a_point_is_within_a_triangle
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
@@ -1021,7 +1022,7 @@ GGS.......... Roots_of_a_quadratic_function
 GGS.......... Roots_of_unity
 GB.K.T....... Rosetta_Code_Count_examples
 GGS.......... Rosetta_Code_Find_bare_lang_tags
-GBS..T....... Rosetta_Code_Find_unimplemented_tasks
+!BS..T....... Rosetta_Code_Find_unimplemented_tasks
 GGS.......... Rosetta_Code_Fix_code_tags
 GB.K.T...D... Rosetta_Code_List_authors_of_task_descriptions
 GBS......D... Rosetta_Code_Rank_languages_by_number_of_users
