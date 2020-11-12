@@ -17,6 +17,15 @@ for <a b c> Z <A B C> Z 1, 2, 3 -> $x, $y, $z {
 @res.push: $_ for [Z~] [<a b c>], [<A B C>], [1,2,3];
 @res.push: '';
 
+@res.push: $_ for zip :with(&infix:<~>), <a b c>, <A B C>, (1,2,3);
+@res.push: '';
+
+for ^Inf Z <a b c d> -> ($i, $letter) { @res.push: "$i: $letter" }
+@res.push: '';
+
+for <a b c d>.kv -> $i, $letter { @res.push: "$i: $letter" }
+@res.push: '';
+
 @res.push: $_ for roundrobin <a b c>, 'A'..'G', ^5;
 
 .say for @res;
@@ -33,6 +42,20 @@ cC3
 aA1
 bB2
 cC3
+
+aA1
+bB2
+cC3
+
+0: a
+1: b
+2: c
+3: d
+
+0: a
+1: b
+2: c
+3: d
 
 a A 0
 b B 1
