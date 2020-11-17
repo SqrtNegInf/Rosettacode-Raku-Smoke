@@ -1,11 +1,11 @@
-Welcome to Rakudo(tm) v2020.10-104-g1f090e04d.
+Welcome to Rakudo(tm) v2020.10-110-ga3ed02042.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.10-31-gb13f6a24c.
 updating from RC…
-+--------------> Moar: Good/Bad [1211/19]
-|+-------------> JVM: Good/Bad [1069/213]
-||+------------> Smoke testing [1145]
-|||+-----------> sKipping validation [131]
++--------------> Moar: Good/Bad [1212/20]
+|+-------------> JVM: Good/Bad [1069/214]
+||+------------> Smoke testing [1144]
+|||+-----------> sKipping validation [132]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
 ||||||+--------> Concurrent/Async [64]
@@ -13,7 +13,7 @@ updating from RC…
 ||||||||+------> File output [97]
 |||||||||+-----> Draft [211]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [87]
+|||||||||||+---> Void (no local copy) [86]
 ||||||||||||+--> Un-implemented/reliable [54]
 |||||||||||||
 GGS.......... 100_doors
@@ -289,7 +289,7 @@ GBS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
 GGS......D... Data_Encryption_Standard
-!GS..T....... Date_format
+GGS..T....... Date_format
 GGS..T....... Date_manipulation
 GGS.......... Day_of_the_week
 GGS......D... Days_between_dates
@@ -312,7 +312,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -873,7 +873,7 @@ GGS.....FD... Penrose_tiling
 GGS..T..F.... Pentagram
 !GS....R.D... Pentomino_tiling
 GBS.......... Percentage_difference_between_images
-.........D.V. Perceptron
+BB.......D... Perceptron
 !GS....R..... Percolation_Bond_percolation
 !GS....R..... Percolation_Mean_cluster_density
 !GS....R..... Percolation_Mean_run_density
@@ -1271,7 +1271,7 @@ GGS..T....... Thiele%27s_interpolation_formula
 !GS....R.D... Three_word_location
 GGS.......... Three_word_location-2
 GGS..T....... Thue-Morse
-!BS....R..... Tic-tac-toe
+GB.K...R..... Tic-tac-toe
 GBS......D... Time-based_one-time_password_algorithm
 GGS.......... Time_a_function
 GGS.......... Tokenize_a_string
