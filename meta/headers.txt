@@ -7920,6 +7920,14 @@ File: P/Percentage_difference_between_images
 #j# JVM:  BROKEN
 #n# difference in output from RC examples due to library code, probably
 
+File: P/Perceptron
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Perceptron
+#c# 2020-11-15 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+#n# need library: libMagickWand-7.Q16HDRI.dylib
+
 File: P/Percolation_Bond_percolation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Percolation/Bond_percolation
@@ -11536,10 +11544,12 @@ File: T/Thue-Morse
 File: T/Tic-tac-toe
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Tic-tac-toe
+#t# skiptest
 #c# 2018-04-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #=# RC pipe: 5\n1\n9
+#n# 2020-11-15 hangs, now try: 4\n3\n8\n1
 
 File: T/Tic-tac-toe.1
 #!/usr/bin/env perl6
