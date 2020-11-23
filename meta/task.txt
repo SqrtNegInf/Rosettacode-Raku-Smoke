@@ -1,10 +1,10 @@
-Welcome to Rakudo(tm) v2020.11-21-g96285afb6.
+Welcome to Rakudo(tm) v2020.11-26-gf2f2cf824.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.11-1-gca5d19d21.
 updating from RC…
-+--------------> Moar: Good/Bad [1212/20]
-|+-------------> JVM: Good/Bad [1069/214]
-||+------------> Smoke testing [1144]
++--------------> Moar: Good/Bad [1205/20]
+|+-------------> JVM: Good/Bad [1070/214]
+||+------------> Smoke testing [1145]
 |||+-----------> sKipping validation [132]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
@@ -13,7 +13,7 @@ updating from RC…
 ||||||||+------> File output [97]
 |||||||||+-----> Draft [210]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [86]
+|||||||||||+---> Void (no local copy) [85]
 ||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
@@ -134,7 +134,7 @@ GGS..T....... Binary_strings
 !GS....R..... Bioinformatics_Sequence_mutation
 GGS.......... Bioinformatics_base_count
 GGS.......... Biorhythms
-!GS..TcR.D... Birthday_problem
+GGS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
 GGS.......... Bitmap
@@ -161,7 +161,7 @@ GBS..TC...... Brazilian_numbers
 GGS.......... Break_OO_privacy
 GGS..T.RF.... Brownian_tree
 GGS....R..... Bulls_and_cows
-GGS..T.R..... Bulls_and_cows_Player
+!GS..T.R..... Bulls_and_cows_Player
 GBS.......... Burrows-Wheeler_transform
 .........DXVU CLI-based_maze-game
 GBS..T....... CRC-32
@@ -289,7 +289,7 @@ GBS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
 GGS......D... Data_Encryption_Standard
-GGS..T....... Date_format
+!GS..T....... Date_format
 GGS..T....... Date_manipulation
 GGS.......... Day_of_the_week
 GGS......D... Days_between_dates
@@ -297,7 +297,7 @@ GGS.......... De_Bruijn_sequences
 GGS..T.R..... Deal_cards_for_FreeCell
 GGS..TC.F.... Death_Star
 GGS......D... Decimal_floating_point_number_to_binary
-GGS......D... Decision_tables
+!GS......D... Decision_tables
 GGS..T....... Deconvolution_1D
 GGS..T....... Deconvolution_2D%2B
 GGS...c...... Deconvolution_2D%2B-1
@@ -312,7 +312,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -503,9 +503,9 @@ GGS..T....... Greatest_common_divisor
 GGS.......... Greatest_subsequential_sum
 GG.KI..R.D... Greed
 GGS..T..F.... Greyscale_bars_Display
-GGS....R..... Guess_the_number
+!GS....R..... Guess_the_number
 GG.K...R..... Guess_the_number_With_feedback
-GGS....R..... Guess_the_number_With_feedback_player
+!GS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
 GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
@@ -576,7 +576,7 @@ GGS.......... Inheritance_Single
 GGS......D... Input_Output_for_lines_of_text
 GGS......D... Input_Output_for_pairs_of_numbers
 GG.K......... Input_loop
-GGS.......... Integer_comparison
+!GS.......... Integer_comparison
 GGS.......... Integer_overflow
 GGS..T...D... Integer_roots
 GG.KI........ Integer_sequence
@@ -697,8 +697,8 @@ GGS..T....... MD4
 GGS.......... MD5
 GGS.......... MD5_Implementation
 ...........V. Machine_code
-GGS.......... Mad_Libs
-GGS....R..... Magic_8-ball
+!GS.......... Mad_Libs
+!GS....R..... Magic_8-ball
 GGS.......... Magic_squares_of_doubly_even_order
 GGS.......... Magic_squares_of_odd_order
 GGS.......... Magic_squares_of_singly_even_order
@@ -743,7 +743,7 @@ GGS.......... Minimal_steps_down_to_1
 .........D... Minimum_positive_multiple_in_base_10_using_only_0_and_1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
-.........D.V. Minkowski_question-mark_function
+GGS......D... Minkowski_question-mark_function
 GGS.......... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
@@ -794,7 +794,7 @@ GBS.......... Negative_base_numbers-2
 GGS.......... Nested_function
 GGS.......... Nested_templated_data
 GGS.......... Next_highest_int_from_digits
-GGS.......... Nim_Game
+!GS.......... Nim_Game
 GGS......D... Nimber_arithmetic
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
@@ -1322,7 +1322,7 @@ GGS.....F.... Update_a_configuration_file
 GG.K......... Use_another_language_to_call_a_function
 GGS......D... User_defined_pipe_and_redirection_operators
 ..........XV. User_input_Graphical
-GGS.......... User_input_Text
+!GS.......... User_input_Text
 ..........X.. Using_a_Speech_engine_to_highlight_words
 .........D.V. Using_a_speech_engine_to_highlight_words
 .........D.VU Using_the_Meetup.com_API
