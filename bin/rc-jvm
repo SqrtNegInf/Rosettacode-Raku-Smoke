@@ -96,8 +96,9 @@ for my $prog (@ARGV) {
     $Pfile{$prog} = $difftest if $difftest ne '';
 
     if ($mode eq 'jvm' and -e "$prog.jvm") { push @Programs, "$prog.jvm" }
-    elsif (defined %Solo{$prog})           { push @P_one_at_a_time, $prog } 
-    else                                   { push @Programs, $prog }
+    else                                   { push @P_one_at_a_time, $prog }   # run all 'solo' to solve precomp issues?
+    #elsif (defined %Solo{$prog})           { push @P_one_at_a_time, $prog } 
+    #else                                   { push @Programs, $prog }
 
 }
 
