@@ -1,6 +1,7 @@
-Welcome to Rakudo(tm) v2020.11-28-geae309a49.
+Welcome to Rakudo(tm) v2020.11-32-ge46a1da29.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.11-1-gca5d19d21.
+updating from RC…
 +--------------> Moar: Good/Bad [1209/20]
 |+-------------> JVM: Good/Bad [1070/214]
 ||+------------> Smoke testing [1140]
@@ -8,7 +9,7 @@ Built on MoarVM version 2020.11-1-gca5d19d21.
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
 ||||||+--------> Concurrent/Async [64]
-|||||||+-------> Random seed [128]
+|||||||+-------> Random seed [129]
 ||||||||+------> File output [97]
 |||||||||+-----> Draft [210]
 ||||||||||+----> Ignoring [38]
@@ -213,7 +214,7 @@ GGS.......... Church_numerals-2
 GGS......D... Cipolla%27s_algorithm
 GGS..T....... Circles_of_given_radius_through_two_points
 GBS..TC...... Circular_primes
-GGS.....F.... Cistercian_numerals
+GGS....RF.... Cistercian_numerals
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
 !GS....R..... Closures_Value_capture
@@ -243,7 +244,7 @@ GGS.......... Compile-time_calculation
 GGS..T....... Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
 ...........VU Compiler_syntax_analyzer
-GGS..T....... Compiler_virtual_machine_interpreter
+!GS..T....... Compiler_virtual_machine_interpreter
 BB........... Compiler_virtual_machine_interpreter-2
 GGS.......... Compound_data_type
 GB.K.TC...... Concurrent_computing
@@ -311,7 +312,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -661,7 +662,7 @@ BB.......D... Logistic_curve_fitting_in_epidemiology
 ..........XVU Long_literals,_with_continuations
 GGS..T....... Long_multiplication
 GBS...C...... Long_primes
-GGS..T....... Long_year%3F
+GGS..T....... Long_year
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
 GGS.......... Longest_common_substring
@@ -793,7 +794,7 @@ GBS.......... Negative_base_numbers-2
 GGS.......... Nested_function
 GGS.......... Nested_templated_data
 GGS.......... Next_highest_int_from_digits
-!GS.......... Nim_Game
+!GS.......... Nim_game
 GGS......D... Nimber_arithmetic
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
