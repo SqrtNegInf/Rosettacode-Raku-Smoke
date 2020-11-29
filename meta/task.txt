@@ -1,8 +1,8 @@
-Welcome to Rakudo(tm) v2020.11-40-g6852f40d2.
+Welcome to Rakudo(tm) v2020.11-53-g1b2698319.
 Implementing the Raku(tm) programming language v6.d.
-Built on MoarVM version 2020.11-1-gca5d19d21.
+Built on MoarVM version 2020.11-47-g1c7358004.
 updating from RC…
-+--------------> Moar: Good/Bad [1209/20]
++--------------> Moar: Good/Bad [1207/20]
 |+-------------> JVM: Good/Bad [1070/214]
 ||+------------> Smoke testing [1140]
 |||+-----------> sKipping validation [137]
@@ -14,7 +14,7 @@ updating from RC…
 |||||||||+-----> Draft [212]
 ||||||||||+----> Ignoring [38]
 |||||||||||+---> Void (no local copy) [87]
-||||||||||||+--> Un-implemented/reliable [54]
+||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -312,7 +312,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -355,7 +355,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-GGS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
+!GS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -1297,7 +1297,7 @@ GBS..T....... Truncate_a_file
 GGS..T....... Truth_table
 GGS..T....... Twelve_statements
 GBS......D... Twin_primes
-.........D.VU Two_bullet_roulette
+.........D.V. Two_bullet_roulette
 .........D... Two_sum
 GGS.......... Two_sum-1
 GGS..T....... Two_sum-2
