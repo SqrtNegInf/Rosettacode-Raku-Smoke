@@ -1,0 +1,93 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Two_bullet_roulette
+#c# 2020-11-30 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# ends up a little different than RC version
+
+my @res;
+
+srand 123456;
+
+#unit sub MAIN ($shots = 6);
+my $shots = 6;
+my @cyl;
+
+sub load () {
+    @cyl.=rotate(-1) while @cyl[1];
+    @cyl[1] = 1;
+    @cyl.=rotate(-1);
+}
+
+sub spin () { @cyl.=rotate: (^@cyl).pick }
+
+sub fire () { @cyl.=rotate; @cyl[0] }
+
+sub LSLSFSF {
+    @cyl = 0 xx $shots;
+    load, spin, load, spin;
+    return 1 if fire;
+    spin;
+    fire
+}
+
+sub LSLSFF {
+    @cyl = 0 xx $shots;
+    load, spin, load, spin;
+    fire() || fire
+}
+
+sub LLSFSF {
+    @cyl = 0 xx $shots;
+    load, load, spin;
+    return 1 if fire;
+    spin;
+    fire
+}
+
+sub LLSFF {
+    @cyl = 0 xx $shots;
+    load, load, spin;
+    fire() || fire
+}
+
+sub roulette ($ref) {
+    my $trials = 10000;
+    my $total += $ref() for ^$trials;
+    "{$ref.gist.substr(1).fmt('%7s')}: %{($total / $trials × 100).fmt('%.2f')}"
+}
+
+@res.push: roulette $_ for (&LSLSFSF, &LSLSFF, &LLSFSF, &LLSFF);
+
+.say for @res;
+
+my $ref = q:to/END/;
+LSLSFSF: %55.55
+ LSLSFF: %58.80
+ LLSFSF: %54.63
+  LLSFF: %49.24
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+#`{
+# Though if you go and look at the  Wikipedia article for the 1895 Nagant revolver mentioned in the task reference section, you'll see it is actually a 7 shot revolver... so, run again with 7 chambers:
+raku roulette.raku 7
+
+Sample output (7 shooter):
+LSLSFSF: %49.29
+ LSLSFF: %51.14
+ LLSFSF: %48.74
+  LLSFF: %43.08
+
+# Or, how about a Ruger GP100 10 round revolver?
+raku roulette.raku 10
+
+Sample output (10 shooter):
+LSLSFSF: %36.00
+ LSLSFF: %37.00
+ LLSFSF: %36.13
+  LLSFF: %29.77
+Doesn't change the answers, B (LSLSFF) is definitely the worst most likely choice in all cases.
+}
