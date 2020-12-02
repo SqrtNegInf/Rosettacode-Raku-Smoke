@@ -1336,8 +1336,8 @@ File: B/Bulls_and_cows
 File: B/Bulls_and_cows_Player
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bulls_and_cows/Player
-#t# skiptest
 #c# 2016-05-10 <RC, 2018-03-23 >RC, 2019-01-19 >RC
+#t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: 2 1\n2 1\n2 1
@@ -3383,6 +3383,13 @@ File: E/External_sort
 #m# MOAR: OK
 #j#  JVM: BROKEN
 
+File: E/Extra_primes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Extra_primes
+#c# 2020-12-01 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: E/Extract_file_extension
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Extract_file_extension
@@ -4484,7 +4491,6 @@ File: G/Greyscale_bars_Display
 File: G/Guess_the_number
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number
-#t# skiptest
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -4498,13 +4504,12 @@ File: G/Guess_the_number_With_feedback
 #c# 2016-06-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: 10\n5\n3\n8\n
-#n# libtommath issues, runs forever currently
+#=# RC pipe: 10\n5\n3\n
+#x# XXX solved?  libtommath issues, runs forever currently
 
 File: G/Guess_the_number_With_feedback_player
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number/With_feedback_(player)
-#t# skiptest
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -6449,7 +6454,7 @@ File: M/Mastermind
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#x# RC pipe: A B C D\nA F E C
+#x# xx pipe: A B C D\nA F E C
 #n# give up on pseudo-interactive input
 
 File: M/Matrix-exponentiation_operator
@@ -6610,7 +6615,6 @@ File: M/Memory_layout_of_a_data_structure
 File: M/Menu
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Menu
-#t# skiptest
 #c# 2016-04-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -8191,7 +8195,7 @@ File: P/Pig_the_dice_game
 #c# 2016-06-11 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-### RC pipe: \nY\nY\nY\nY
+#=# RC pipe: \nY\nY\nY\nY
 #n# 'prompt' started generating errors in non-interactive mode, so just dispense with it
 #n# (since repeated 'Y' leads to desired outcome)
 
@@ -11904,6 +11908,13 @@ File: U/UTF-8_encode_and_decode
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# noticed on 2018-03-20
+
+File: U/Ulam_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Ulam_numbers
+#c# 2020-12-01 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: U/Ulam_spiral_for_primes
 #!/usr/bin/env perl6
