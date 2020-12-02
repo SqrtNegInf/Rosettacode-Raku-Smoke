@@ -9,8 +9,8 @@ my @res;
 
 srand 123456;
 
-#unit sub MAIN ($shots = 6);
-my $shots = 6;
+unit sub MAIN ($shots = 6);
+
 my @cyl;
 
 sub load () {
@@ -51,21 +51,19 @@ sub LLSFF {
     fire() || fire
 }
 
-sub roulette ($ref) {
+for &LSLSFSF, &LSLSFF, &LLSFSF, &LLSFF -> $ref {
     my $trials = 10000;
     my $total += $ref() for ^$trials;
-    "{$ref.gist.substr(1).fmt('%7s')}: %{($total / $trials × 100).fmt('%.2f')}"
+    @res.push: "{$ref.gist.substr(1).fmt('%7s')}: %{($total / $trials × 100).fmt('%.2f')}"
 }
-
-@res.push: roulette $_ for (&LSLSFSF, &LSLSFF, &LLSFSF, &LLSFF);
 
 .say for @res;
 
 my $ref = q:to/END/;
-LSLSFSF: %55.55
- LSLSFF: %58.80
- LLSFSF: %54.63
-  LLSFF: %49.24
+LSLSFSF: %55.48
+ LSLSFF: %57.77
+ LLSFSF: %54.55
+  LLSFF: %49.29
 END
 
 use Test;
