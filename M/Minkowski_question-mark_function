@@ -35,7 +35,7 @@ sub minkowskiInv($x is copy) {
    my $i = my $curr = 0 ; my $count = 1;
 
    loop {
-      $x *= 2;
+      $x ×= 2;
       if $curr == 0 {
          if $x < 1 {
             $count++
@@ -65,7 +65,7 @@ sub minkowskiInv($x is copy) {
     return 1 / $ret
 }
 
-@res.push: sprintf "%19.16f %19.16f", minkowski(0.5*(1 + 5.sqrt)), 5/3;
+@res.push: sprintf "%19.16f %19.16f", minkowski(0.5×(1 + 5.sqrt)), 5/3;
 @res.push: sprintf "%19.16f %19.16f", minkowskiInv(-5/9), (13.sqrt-7)/6;
 @res.push: sprintf "%19.16f %19.16f", minkowski(minkowskiInv(0.718281828)), minkowskiInv(minkowski(0.1213141516171819));
 
