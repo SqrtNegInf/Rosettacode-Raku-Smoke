@@ -5,21 +5,23 @@
 #  graphical - image output, usually tested against reference image
 #  trivial - some have no tests, which is OK
 #
-#  Programs not tested:
-#  toodamnslow - extract timings embedded in programs with:
-#  nocode - have no runnable code
-#  skiptest - hard to test
-#  inprogress - WIP
-#  interactive - requires user input
-#  gui - requires windowing system (X11,Tk,GTK,SDL)
-#  forever - hangs, never terminates
-#  broken - hangs, never terminates
+#  Programs not tested are tagged:
+#  toodamnslow      extract timings embedded in programs with:
+#  nocode           have no runnable code
+#  skiptest         hard to test
+#  inprogress       WIP
+#  interactive      requires user input
+#  gui              requires windowing system (X11,Tk,GTK,SDL)
+#  forever          hangs/never terminates
+#  broken           just plain doesn't work
+
+# NB: currently all tasks are run in 'solo' mode due to precompilation issues
 
 #use warnings;
 
 use Parallel::ForkManager;
 
-# some program to test run solo (slow and/or use .race [latter applied only Rakudo/Moar])
+# some tasks need to run solo (slow and/or use .race [latter applied only Rakudo/Moar])
 %Solo = (
 'E/Elliptic_Curve_Digital_Signature_Algorithm' => 1,  # strange, needs to be run 'solo' 
 '0/24_game_Solve-2' => 1,
@@ -56,7 +58,7 @@ system "date";
 my $skip = 'interactive|gui|toodamnslow|skiptest|inprogress|nocode|forever|broken';
 
 # find Perl6 programs
-#$DB::single = 1;
+
 for my $prog (@ARGV) {
     next if $prog =~ /\.(jvm|ubuntu|pl|[0-9])$/;
     next if $prog =~ /^Temp-/;
@@ -111,8 +113,27 @@ for my $prog (@P_one_at_a_time) {
     $run .= " $Prun{$prog}" if defined $Prun{$prog};
 
     system "$Ppre{$prog}" if defined $Ppre{$prog};
-    system "rc-runone '$exe $run' > bench/$dir/$pbase.out 2> bench/$dir/$pbase.err";
-    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$pbase.out" if defined $Pfile{$prog};
+    #system "rc-runone '$exe $run' > bench/$dir/$pbase.out 2> bench/$dir/$pbase.err";
+    #system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$pbase.out" if defined $Pfile{$prog};
+
+    $task = "bench/$dir/$pbase";
+    if ($Pipe{$prog}) {
+        print "$prog: *using* pipe\n";
+        $exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
+        ($u0,$s0) = cpu_time(); $r0 = (time());
+        system qq{$exe $run 1> $task.out 2> $task.tmp};
+        ($u1,$s1) = cpu_time(); $r1 = (time());
+        if (! -z "$task.tmp") { system qq{echo '::STDERR::' >> $task.out; cat $task.tmp >> $task.out} }
+        unlink "$task.tmp";
+        open E, ">$task.err"; 
+        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0, 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
+        close E;
+    } else {
+        print "$prog: *not* using pipe\n";
+        system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
+    }
+    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> $task.out" if defined $Pfile{$prog};
+
 }
 
 # run remainder in parallel 
@@ -129,7 +150,6 @@ for my $prog (@Programs) {
 
     $task = "bench/$dir/$pbase";
     if ($Pipe{$prog}) {
-$DB::single = 1;
         $exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
         ($u0,$s0) = cpu_time(); $r0 = (time());
         system qq{$exe $run 1> $task.out 2> $task.tmp};
