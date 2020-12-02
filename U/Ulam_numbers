@@ -1,0 +1,34 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Ulam_numbers
+#c# 2020-12-01 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my @ulams = 1, 2, &next-ulam … *;
+
+sub next-ulam {
+    state $i = 1;
+    state @sums = 0,1,1;
+    my $last = @ulams[$i];
+    (^$i).map: { @sums[@ulams[$_] + $last]++ };
+    ++$i;
+    quietly ($last ^.. *).first: { @sums[$_] == 1 };
+}
+
+for 1 .. 3 { #4 {
+    @res.push: "The {10**$_}th Ulam nmber is: "~ @ulams[10**$_ - 1]
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+The 10th Ulam nmber is: 18
+The 100th Ulam nmber is: 690
+The 1000th Ulam nmber is: 12294
+END
+#The 10000th Ulam nmber is: 132788
+
+use Test;
+is @res.join("\n"), chomp $ref;
