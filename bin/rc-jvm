@@ -105,7 +105,6 @@ for my $prog (@ARGV) {
 }
 
 # run some programs solo (those with .race/.hyper, or have real-time aspect)
-#$DB::single = 1;
 for my $prog (@P_one_at_a_time) {
 
     my $run = $prog;
@@ -118,7 +117,6 @@ for my $prog (@P_one_at_a_time) {
 
     $task = "bench/$dir/$pbase";
     if ($Pipe{$prog}) {
-        print "$prog: *using* pipe\n";
         $exe = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
         ($u0,$s0) = cpu_time(); $r0 = (time());
         system qq{$exe $run 1> $task.out 2> $task.tmp};
@@ -129,7 +127,6 @@ for my $prog (@P_one_at_a_time) {
         printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0, 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
         close E;
     } else {
-        print "$prog: *not* using pipe\n";
         system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
     }
     system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> $task.out" if defined $Pfile{$prog};
