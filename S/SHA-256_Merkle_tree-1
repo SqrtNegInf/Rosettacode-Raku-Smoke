@@ -9,7 +9,7 @@ my @res;
 
 use Digest::SHA256::Native;
 
-sub MAIN(Int :b(:$block-size) = 1024 * 1024, *@args) {
+sub MAIN(Int :b(:$block-size) = 1024 × 1024, *@args) {
   my ($block, @blocks);
   my $in = @args ?? IO::CatHandle.new(@args) !! $*IN;
   @blocks.push(sha256($block)) while $block = $in.read($block-size);
