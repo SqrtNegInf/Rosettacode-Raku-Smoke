@@ -13,7 +13,7 @@ class Point {
 }
  
 sub sign (Point $a, Point $b, Point $c) {
-    ($b.x - $a.x)*($c.y - $a.y) - ($b.y - $a.y)*($c.x - $a.x);
+    ($b.x - $a.x)×($c.y - $a.y) - ($b.y - $a.y)×($c.x - $a.x);
 }
  
 sub triangle (*@points where *.elems == 6) {
