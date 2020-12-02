@@ -41,7 +41,7 @@ for flat ^10, 20, 300, 4000, 5555, 6789, 9394, (^10000).pick(14) -> $cistercian 
         last if $order > 3; # truncate too large integers
 
         # draw the component line segments
-        $out.say: join "\n", @components[$order * 10 + $value].map: {
+        $out.say: join "\n", @components[$order × 10 + $value].map: {
             qq|<line x1="{.[0] + $hs}" y1="{.[1] + $vs}" x2="{.[2] + $hs}" y2="{.[3] + $vs}"/>|
         }
     }
