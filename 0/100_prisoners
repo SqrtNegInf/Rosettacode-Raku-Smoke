@@ -9,20 +9,20 @@ my @res;
 
 srand 123456;
 
+# use either MAIN or static values
 #unit sub MAIN (:$prisoners = 100, :$simulations = 10000);
-#my @prisoners = ^$prisoners;
-#my $half = floor +@prisoners / 2;
+my $prisoners   =    100;
+my $simulations = 10_000;
 
-my @prisoners = ^100;
+my @prisoners = ^$prisoners;
 my $half = floor +@prisoners / 2;
-my $n = 10_000;
-@res.push: " Simulation count: $n";
-@res.push: sprintf " Random play wins: %.3f%% of simulations", random $n;
-@res.push: sprintf "Optimal play wins: %.3f%% of simulations", optimal $n;
+@res.push: " Simulation count: $simulations";
+@res.push: sprintf " Random play wins: %.3f%% of simulations", random $simulations;
+@res.push: sprintf "Optimal play wins: %.3f%% of simulations", optimal $simulations;
 
 @prisoners = ^10;
-$half = 5;
-$n = 100_000;
+$half = floor +@prisoners / 2;
+my $n = 100_000;
 @res.push: " Simulation count: $n";
 @res.push: sprintf " Random play wins: %.3f%% of simulations", random $n;
 @res.push: sprintf "Optimal play wins: %.3f%% of simulations", optimal $n;
@@ -68,6 +68,7 @@ sub optimal ($n) {
 
 .say for @res;
 
+# results without 'MAIN'
 my $moar = q:to/END/;
  Simulation count: 10000
  Random play wins: 0.000% of simulations
@@ -75,6 +76,16 @@ Optimal play wins: 31.120% of simulations
  Simulation count: 100000
  Random play wins: 0.093% of simulations
 Optimal play wins: 35.282% of simulations
+END
+
+# results with 'MAIN'
+my $xxxx = q:to/END/;
+ Simulation count: 10000
+ Random play wins: 0.000% of simulations
+Optimal play wins: 31.750% of simulations
+ Simulation count: 100000
+ Random play wins: 0.093% of simulations
+Optimal play wins: 35.202% of simulations
 END
 
 my $jvm = q:to/END/;
