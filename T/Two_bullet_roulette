@@ -51,8 +51,11 @@ sub LLSFF {
     fire() || fire
 }
 
+my $trials = 10000;
+
 for &LSLSFSF, &LSLSFF, &LLSFSF, &LLSFF -> $ref {
-    my $trials = 10000;
+    #@res.push: sprintf '%7s: %%%.2f', $ref.gist.substr(1), ([+] ($ref() for ^$trials)) / $trials × 100;
+
     my $total += $ref() for ^$trials;
     @res.push: "{$ref.gist.substr(1).fmt('%7s')}: %{($total / $trials × 100).fmt('%.2f')}"
 }
