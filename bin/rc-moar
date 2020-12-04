@@ -17,12 +17,24 @@
 
 # NB: currently all tasks are run in 'solo' mode due to precompilation issues
 
-#use warnings;
+use warnings;
 
 use Parallel::ForkManager;
 
+# run 
+%NotSolo = (
+'B/Bulls_and_cows_Player' => 1,
+'G/Guess_the_number' => 1,
+'M/Menu' => 1,
+'M/Magic_8-Ball' => 1,
+'D/Decision_tables' => 1,
+'G/Guess_the_number_With_feedback' => 1,
+'G/Guess_the_number_With_feedback_player' => 1,
+'T/Take_notes_on_the_command_line' => 1,
+);
+
 # some tasks need to run solo (slow and/or use .race [latter applied only Rakudo/Moar])
-%Solo = (
+%SoloX = (
 'E/Elliptic_Curve_Digital_Signature_Algorithm' => 1,  # strange, needs to be run 'solo' 
 '0/24_game_Solve-2' => 1,
 'R/Rate_counter' => 1,
@@ -98,6 +110,7 @@ for my $prog (@ARGV) {
     $Pfile{$prog} = $difftest if $difftest ne '';
 
     if ($mode eq 'jvm' and -e "$prog.jvm") { push @Programs, "$prog.jvm" }
+    elsif (defined $NotSolo{$prog})        { push @Programs, $prog }          # some tasks don't like being run solo?
     else                                   { push @P_one_at_a_time, $prog }   # run all 'solo' to solve precomp issues?
     #elsif (defined %Solo{$prog})           { push @P_one_at_a_time, $prog } 
     #else                                   { push @Programs, $prog }
@@ -124,7 +137,7 @@ for my $prog (@P_one_at_a_time) {
         if (! -z "$task.tmp") { system qq{echo '::STDERR::' >> $task.out; cat $task.tmp >> $task.out} }
         unlink "$task.tmp";
         open E, ">$task.err"; 
-        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0, 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
+        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
         close E;
     } else {
         system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
@@ -154,7 +167,7 @@ for my $prog (@Programs) {
         if (! -z "$task.tmp") { system qq{echo '::STDERR::' >> $task.out; cat $task.tmp >> $task.out} }
         unlink "$task.tmp";
         open E, ">$task.err"; 
-        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0, 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
+        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
         close E;
     } else {
         system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
