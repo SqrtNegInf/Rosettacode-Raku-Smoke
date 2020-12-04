@@ -3,11 +3,12 @@
 #c# 2020-02-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 20200225 flapping errors?  happen about half the time:
-#n#    WARNING: unhandled Failure detected in DESTROY
+#n# 20200225 flapping errors? Happen about half the time.
 #n# very old GC issue, cf. https://github.com/rakudo/rakudo/issues/1515
 #n# so looks to be a low-priority bug, put a work-around in 'rc-capture' and ignore for now
 #n# 2020-04-10 'quietly' does not help
+#n# WARNING: unhandled Failure detected in DESTROY. 
+#n# If you meant to ignore it, you can mark it as handled by calling .Bool, .so, .not, or .defined
 
 my @res;
 
