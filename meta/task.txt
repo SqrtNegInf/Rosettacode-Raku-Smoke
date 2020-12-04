@@ -1,29 +1,30 @@
-Welcome to Rakudo(tm) v2020.11-80-ged16d6c10.
+Welcome to Rakudo(tm) v2020.11-91-g2c5b54576.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.11-47-g1c7358004.
-+--------------> Moar: Good/Bad [1262/20]
+updating from RC…
++--------------> Moar: Good/Bad [1259/20]
 |+-------------> JVM: Good/Bad [1075/214]
-||+------------> Smoke testing [1146]
-|||+-----------> sKipping validation [135]
+||+------------> Smoke testing [1150]
+|||+-----------> sKipping validation [138]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
 ||||||+--------> Concurrent/Async [64]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [215]
+|||||||||+-----> Draft [214]
 ||||||||||+----> Ignoring [38]
 |||||||||||+---> Void (no local copy) [85]
 ||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
-GGS...cR..... 100_prisoners
+!GS...cR..... 100_prisoners
 GB.KI..R..... 15_puzzle_game
 .........D.VU 15_puzzle_game_in_3D
 ...........VU 15_puzzle_solver
 .........D.VU 16_puzzle_game
 GB.KI..R..... 2048
 GGS....R..... 21_game
-GGS..T.R..... 24_game
+GG.K.T.R..... 24_game
 GBS..TC...... 24_game_Solve-1
 GGS..T....... 24_game_Solve-2
 GGS.......... 4-rings_or_4-squares_puzzle
@@ -32,7 +33,7 @@ GGS.......... 9_billion_names_of_God_the_integer
 GGS.......... A%2BB
 GGS.......... ABC_problem
 GGS.......... AKS_test_for_primes
-GGS....R..... ASCII_art_diagram_converter
+!GS....R..... ASCII_art_diagram_converter
 GGS....R..... AVL_tree
 .........D.V. A_star_search_algorithm
 GGS..T....... Abbreviations,_automatic
@@ -103,7 +104,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GGS..T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -161,7 +162,7 @@ GBS..TC...... Brazilian_numbers
 GGS.......... Break_OO_privacy
 GGS..T.RF.... Brownian_tree
 GGS....R..... Bulls_and_cows
-GG.K.T.R..... Bulls_and_cows_Player
+GGSK.T.R..... Bulls_and_cows_Player
 GBS.......... Burrows-Wheeler_transform
 .........DXVU CLI-based_maze-game
 GBS..T....... CRC-32
@@ -297,7 +298,7 @@ GGS.......... De_Bruijn_sequences
 GGS..T.R..... Deal_cards_for_FreeCell
 GGS..TC.F.... Death_Star
 GGS......D... Decimal_floating_point_number_to_binary
-GG.K.....D... Decision_tables
+GGSK.....D... Decision_tables
 GGS..T....... Deconvolution_1D
 GGS..T....... Deconvolution_2D%2B
 GGS...c...... Deconvolution_2D%2B-1
@@ -504,9 +505,9 @@ GGS....R..... Greatest_element_of_a_list
 GGS.......... Greatest_subsequential_sum
 GG.KI..R.D... Greed
 GGS..T..F.... Greyscale_bars_Display
-!GS....R..... Guess_the_number
-GG.K...R..... Guess_the_number_With_feedback
-GG.....R..... Guess_the_number_With_feedback_player
+GGSK...R..... Guess_the_number
+GGSK...R..... Guess_the_number_With_feedback
+!GSK...R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
 GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
@@ -728,7 +729,7 @@ GGS.......... McNuggets_problem
 GBS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
-GG.K......... Menu
+GGSK......... Menu
 GBS......D... Mersenne_primes
 GGS...C...... Mertens_function
 GGS.......... Metallic_ratios
@@ -796,7 +797,7 @@ GGS.......... Nested_function
 GGS.......... Nested_templated_data
 GGS.......... Next_highest_int_from_digits
 !GS.......... Nim_game
-GGS......D... Nimber_arithmetic
+GGS.......... Nimber_arithmetic
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
 GGS.......... Non-decimal_radices_Input
