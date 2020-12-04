@@ -1,11 +1,14 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/I_before_E_except_after_C
 #c# 2015-12-11 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: BROKEN
 #n# java.lang.StackOverflowError
+#n# 2020-12-04 
+#n# Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
+#n#  in method word at I/I_before_E_except_after_C-2 line 43
 
-#This solution uses grammars and actions to parse the given file, the Bag for tallying up occurrences of each possible thing we're looking for ("ie", "ei", "cie", and "cei"), and junctions to determine the plausibility of a phrase from the subphrases. Note that a version of rakudo newer than the January 2014 compiler or Star releases is needed, as this code relies on a recent bugfix to the make function.
+# This solution uses grammars and actions to parse the given file, the Bag for tallying up occurrences of each possible thing we're looking for ("ie", "ei", "cie", and "cei"), and junctions to determine the plausibility of a phrase from the subphrases. 
 
 grammar CollectWords {
     token TOP {
@@ -40,7 +43,7 @@ class CollectWords::Actions {
 
     method word($/) {
         if $<with_c> + $<no_c> {
-            make flat $<with_c>».ast xx $<freq>, $<no_c>».ast xx $<freq>; # DH change
+            make flat $<with_c>».ast xx $<freq>, $<no_c>».ast xx $<freq>; # DH change ## here is the coercion error
         } else {
             make ();
         }
