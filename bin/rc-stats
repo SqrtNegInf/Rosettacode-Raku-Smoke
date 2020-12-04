@@ -65,7 +65,7 @@ $notok  = `$pcre '$isbad' $dir/*out | wc -l`; $notok =~ s/\s//g;
 $ok     = `$pcre 'ok \\d|are identical\$' $dir/*out | wc -l`; $ok =~ s/\s//g;
 
 printf "$path Secs: %5d RC: $rc Tasks: $cnt  OK: %4d  Err: %2d !OK: %2d  Top: $top\n", int($sum), $ok, $err, $notok ;
-system("$pcre -l 'STDERR|^Files.*differ' $dir/*out | perl -npe 's#.*/##;s/\\.out//'") if $err > 0;
+system("$pcre -l 'not ok|STDERR|^Files.*differ' $dir/*out | perl -npe 's#.*/##;s/\\.out//'") if $err > 0;
 print "\n";
 
 }
