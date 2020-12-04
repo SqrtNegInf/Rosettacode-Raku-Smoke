@@ -67,12 +67,14 @@ File: 0/21_Game
 File: 0/24_game
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game
+#t# skiptest
 #c# 2015-11-01 <RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: 5+(3+(4*4))
 #n# 'constant' evaluated at BEGIN phase, so do 'srand' then too
 #n# ...and now actually testing the code "For Real (TM)"
+#n# 2020-12-02 this task works, but messing up testing system, turn off for now
 
 File: 0/24_game_Solve-1
 #!/usr/bin/env perl6
@@ -1336,8 +1338,8 @@ File: B/Bulls_and_cows
 File: B/Bulls_and_cows_Player
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bulls_and_cows/Player
-#c# 2016-05-10 <RC, 2018-03-23 >RC, 2019-01-19 >RC
 #t# skiptest
+#c# 2016-05-10 <RC, 2018-03-23 >RC, 2019-01-19 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: 2 1\n2 1\n2 1
@@ -2096,6 +2098,7 @@ File: C/Compiler_virtual_machine_interpreter
 #n# the bad:  It cheats
 #n# the ugly: It can't do byte-level VM simulation because Raku's 'pack' can't do signed integers?
 #n#           (but maybe someone better with pack/unpack skills could figure that out...)
+#n# 2020-11-24: '&value' no longer works, use 'value()' in all instances
 
 File: C/Compiler_virtual_machine_interpreter-2
 #!/usr/bin/env perl6
@@ -2524,7 +2527,7 @@ File: D/Decision_tables
 #c# 2016-05-01 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: y\nn\nn\n
+#=# RC pipe: y\nn\nn
 
 File: D/Deconvolution_1D
 #!/usr/bin/env perl6
@@ -2640,11 +2643,12 @@ File: D/Determine_if_a_string_is_numeric
 #c# 2020-02-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 20200225 flapping errors?  happen about half the time:
-#n#    WARNING: unhandled Failure detected in DESTROY
+#n# 20200225 flapping errors? Happen about half the time.
 #n# very old GC issue, cf. https://github.com/rakudo/rakudo/issues/1515
 #n# so looks to be a low-priority bug, put a work-around in 'rc-capture' and ignore for now
 #n# 2020-04-10 'quietly' does not help
+#n# WARNING: unhandled Failure detected in DESTROY. 
+#n# If you meant to ignore it, you can mark it as handled by calling .Bool, .so, .not, or .defined
 
 File: D/Determine_if_a_string_is_numeric.1
 #!/usr/bin/env perl6
@@ -4491,25 +4495,27 @@ File: G/Greyscale_bars_Display
 File: G/Guess_the_number
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number
+#t# skiptest
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#=# RC pipe: 1\n2\n3\n4\n5\n6\n7\n8\n\9\n10
-#n# always win if you guess every number... (further fun with 'srand' issues)
+#=# RC pipe: 1\n2\n3
+#n# always win if you guess every number...
 
 File: G/Guess_the_number_With_feedback
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number/With_feedback
-#t# skiptest
 #c# 2016-06-02 <RC
+#t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: 10\n5\n3\n
-#x# XXX solved?  libtommath issues, runs forever currently
+#x# [solved]  libtommath issues, runs forever currently
 
 File: G/Guess_the_number_With_feedback_player
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number/With_feedback_(player)
+#t# skiptest
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
