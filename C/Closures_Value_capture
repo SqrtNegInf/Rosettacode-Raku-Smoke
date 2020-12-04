@@ -22,16 +22,16 @@ my @res2.push: .() for pick *, map -> $i { -> {$i × $i} }, ^10;
 #say '--'; .say for @res2; exit;
 
 my $moar1 = qq:to/END/;
-9
-81
-4
-16
-36
-0
 1
-49
-64
+4
 25
+49
+0
+81
+9
+64
+36
+16
 END
 
 my $moar2 = qq:to/END/;
