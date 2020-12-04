@@ -1,6 +1,5 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game
-#t# skiptest
 #c# 2015-11-01 <RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -8,8 +7,6 @@
 #n# 'constant' evaluated at BEGIN phase, so do 'srand' then too
 #n# ...and now actually testing the code "For Real (TM)"
 #n# 2020-12-02 this task works, but messing up testing system, turn off for now
-
-exit;
 
 BEGIN srand 123456;
 
