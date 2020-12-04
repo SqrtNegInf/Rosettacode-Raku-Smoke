@@ -7,6 +7,7 @@
 #n# the bad:  It cheats
 #n# the ugly: It can't do byte-level VM simulation because Raku's 'pack' can't do signed integers?
 #n#           (but maybe someone better with pack/unpack skills could figure that out...)
+#n# 2020-11-24: '&value' no longer works, use 'value()' in all instances
 
 my $result;
 
@@ -62,8 +63,8 @@ my %ops = (
   'ge'    => sub { @stack[*-1]   =   @stack[*-2] >= @stack.pop ?? 1 !! 0 },
   'ne'    => sub { @stack[*-1]   =   @stack[*-2] != @stack.pop ?? 1 !! 0 },
   'eq'    => sub { @stack[*-1]   =   @stack[*-2] == @stack.pop ?? 1 !! 0 },
-  'store' => sub { @data[&value] =   @stack.pop },
-  'fetch' => sub { @stack.push:      @data[&value] // 0 },
+  'store' => sub { @data[value()] =   @stack.pop },
+  'fetch' => sub { @stack.push:      @data[value()] // 0 },
   'push'  => sub { @stack.push:      value() },
   'jmp'   => sub { $pc += value() - $w },
   'jz'    => sub { $pc += @stack.pop ?? $w !! value() - $w },
