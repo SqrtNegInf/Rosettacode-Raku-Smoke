@@ -25,7 +25,7 @@ if $*VM ~~ /jvm/ {
 is @res1.join(' '), 'S2 C3 C1 S1 H3 D2 H1 D1 D3 H2 C2 S3';
 is @res2.join(' '), 'H2 C3 S1 H3 H1 C2 D3 D1 S3 C1 D2 S2';
 } else {
-is @res1.join(' '), 'S3 H2 D1 C2 S1 H3 D3 D2 S2 C1 H1 C3';
-is @res2.join(' '), 'D1 S2 C2 H2 C3 C1 H1 S1 D2 D3 H3 S3';
+is @res1.join(' '), 'S2 H3 H1 C1 S1 C2 H2 D2 S3 C3 D3 D1';
+is @res2.join(' '), 'S1 S3 S2 C2 C3 C1 D3 D1 H2 D2 H3 H1';
 }
 
