@@ -1,11 +1,12 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Pseudorandom_Number_Generator_Image
 #c# 2020-08-18 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #f# RC file: PNG-image500.png
 #n# original note: about 40% slower if @pixel split to ($x,$y) or (\x,\y)
 #n# my fancy-pants version over 5x slower
+#n# srand bug knocks this out for now
 
 use Image::PNG::Portable;
  
