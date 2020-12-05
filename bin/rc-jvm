@@ -21,33 +21,21 @@ use warnings;
 
 use Parallel::ForkManager;
 
-# run 
-#%NotSolo = (
-#'B/Bulls_and_cows_Player' => 1,
-#'G/Guess_the_number' => 1,
-#'M/Menu' => 1,
-#'M/Magic_8-Ball' => 1,
-#'D/Decision_tables' => 1,
-#'G/Guess_the_number_With_feedback' => 1,
-#'G/Guess_the_number_With_feedback_player' => 1,
-#'T/Take_notes_on_the_command_line' => 1,
-#);
-
 # some tasks need to run solo (slow and/or use .race [latter applied only Rakudo/Moar])
-%SoloX = (
-'E/Elliptic_Curve_Digital_Signature_Algorithm' => 1,  # strange, needs to be run 'solo' 
-'0/24_game_Solve-2' => 1,
-'R/Rate_counter' => 1,
-'A/Arithmetic_Rational' => 1,
-'C/Color_wheel' => 1,
-'F/Farey_sequence' => 1,
-'K/Kaprekar_numbers-2' => 1,
-'L/Long_primes' => 1,
-'P/Parallel_calculations' => 1,
-'P/Parallel_calculations-2' => 1,
-'P/Permutation_test' => 1,
-'S/Square-free_integers' => 1,
-);
+#%Solo = (
+#'E/Elliptic_Curve_Digital_Signature_Algorithm' => 1,  # strange, needs to be run 'solo' 
+#'0/24_game_Solve-2' => 1,
+#'R/Rate_counter' => 1,
+#'A/Arithmetic_Rational' => 1,
+#'C/Color_wheel' => 1,
+#'F/Farey_sequence' => 1,
+#'K/Kaprekar_numbers-2' => 1,
+#'L/Long_primes' => 1,
+#'P/Parallel_calculations' => 1,
+#'P/Parallel_calculations-2' => 1,
+#'P/Permutation_test' => 1,
+#'S/Square-free_integers' => 1,
+#);
 
 # with new rakudobrew, simpler switching
 $mode = $0 =~ /moar/i ? 'moar' : 'jvm';
@@ -110,7 +98,6 @@ for my $prog (@ARGV) {
     $Pfile{$prog} = $difftest if $difftest ne '';
 
     if ($mode eq 'jvm' and -e "$prog.jvm") { push @Programs, "$prog.jvm" }
-#   elsif (defined $NotSolo{$prog})        { push @Programs, $prog }          # some tasks don't like being run solo?
     else                                   { push @P_one_at_a_time, $prog }   # run all 'solo' to solve precomp issues?
     #elsif (defined %Solo{$prog})           { push @P_one_at_a_time, $prog } 
     #else                                   { push @Programs, $prog }
@@ -130,7 +117,6 @@ for my $prog (@P_one_at_a_time) {
 
     $task = "bench/$dir/$pbase";
     if ($Pipe{$prog}) {
-        $DB::single = 1;
         $exep = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
         ($u0,$s0) = cpu_time(); $r0 = (time());
         system qq{$exep $run 1> $task.out 2> $task.tmp};
