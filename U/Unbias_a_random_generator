@@ -31,17 +31,17 @@ for 3 .. 6 -> $n {
 .say for @res;
 
 my $moar-cronjob = qq:to/END/;
-N=3   randN:[679, 321],32.1%   unbiased:[492, 508],50.8%
-N=4   randN:[751, 249],24.9%   unbiased:[510, 490],49.0%
-N=5   randN:[781, 219],21.9%   unbiased:[512, 488],48.8%
+N=3   randN:[677, 323],32.3%   unbiased:[494, 506],50.6%
+N=4   randN:[750, 250],25.0%   unbiased:[511, 489],48.9%
+N=5   randN:[780, 220],22.0%   unbiased:[512, 488],48.8%
 N=6   randN:[819, 181],18.1%   unbiased:[507, 493],49.3%
 END
 
 my $moar-terminal = qq:to/END/;
-N=3   randN:[679, 321],32.1%   unbiased:[492, 508],50.8%
+N=3   randN:[677, 323],32.3%   unbiased:[494, 506],50.6%
 N=4   randN:[750, 250],25.0%   unbiased:[511, 489],48.9%
-N=5   randN:[779, 221],22.1%   unbiased:[513, 487],48.7%
-N=6   randN:[819, 181],18.1%   unbiased:[506, 494],49.4%
+N=5   randN:[780, 220],22.0%   unbiased:[512, 488],48.8%
+N=6   randN:[819, 181],18.1%   unbiased:[507, 493],49.3%
 END
 
 my $jvm = qq:to/END/;
