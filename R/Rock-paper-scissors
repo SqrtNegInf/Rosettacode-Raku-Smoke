@@ -56,7 +56,7 @@ print "\n";
 
 use Test;
 if $*VM ~~ /jvm/ { is @stats.join(' '), '1 1 2' }
-else             { is @stats.join(' '), '0 3 1' }
+else             { is @stats.join(' '), '0 4 0' }
 
 #`{{
 # Here is example output from the same code only with a different %vs data structure implementing Rock-Paper-Scissors-Lizard-Spock.
