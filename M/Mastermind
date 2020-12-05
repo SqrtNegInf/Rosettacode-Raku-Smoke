@@ -3,8 +3,8 @@
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#x# xx pipe: A B C D\nA F E C
-#n# give up on pseudo-interactive input
+#n# RC pipe: A B C D\nE F A B\nE F B A
+#n# better testing again
 
 srand 123456;
 
@@ -64,8 +64,8 @@ say "Puzzle answer is: $puzzle"; # DH leave this in, or when run as cronjob, fai
 
     sub clearscr { $*KERNEL ~~ /'win32'/ ?? run('cls') !! run('clear') }
 
-    sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! <A F E C> }
-    #sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! (uc prompt 'Your guess?: ').comb(/@valid/) }
+    #sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! <E F B A> }
+    sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! (uc prompt 'Your guess?: ').comb(/@valid/) }
 
     sub is-valid (@guess) { so $length == @guess }
 
