@@ -67,7 +67,6 @@ File: 0/21_Game
 File: 0/24_game
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game
-#t# skiptest
 #c# 2015-11-01 <RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -1338,7 +1337,6 @@ File: B/Bulls_and_cows
 File: B/Bulls_and_cows_Player
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bulls_and_cows/Player
-#t# skiptest
 #c# 2016-05-10 <RC, 2018-03-23 >RC, 2019-01-19 >RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -2523,11 +2521,10 @@ File: D/Decimal_floating_point_number_to_binary
 File: D/Decision_tables
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Decision_tables
-#t# skiptest
 #c# 2016-05-01 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: y\nn\nn
+#=# RC pipe: y\nn\nn\n
 
 File: D/Deconvolution_1D
 #!/usr/bin/env perl6
@@ -4495,7 +4492,6 @@ File: G/Greyscale_bars_Display
 File: G/Guess_the_number
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number
-#t# skiptest
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -4506,7 +4502,6 @@ File: G/Guess_the_number_With_feedback
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number/With_feedback
 #c# 2016-06-02 <RC
-#t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: 10\n5\n3\n
@@ -4515,7 +4510,6 @@ File: G/Guess_the_number_With_feedback
 File: G/Guess_the_number_With_feedback_player
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number/With_feedback_(player)
-#t# skiptest
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -4996,9 +4990,12 @@ File: I/I_before_E_except_after_C-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/I_before_E_except_after_C
 #c# 2015-12-11 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: BROKEN
 #n# java.lang.StackOverflowError
+#n# 2020-12-04 
+#n# Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
+#n#  in method word at I/I_before_E_except_after_C-2 line 43
 
 File: I/Identity_matrix
 #!/usr/bin/env perl6
@@ -6621,7 +6618,6 @@ File: M/Memory_layout_of_a_data_structure
 File: M/Menu
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Menu
-#t# skiptest
 #c# 2016-04-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -7434,15 +7430,16 @@ File: O/One_of_n_lines_in_a_file
 #j# JVM:  OK
 
 File: O/OpenGL
-#!/usr/bin/env perl6 do-not-check
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/OpenGL
 #t# gui
 #c# 2019-12-10 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# creates window, but no good content
 #n# 2020-11-16 Given that this wasn't working to start with, not going to worry about:
 #n#   No such method 'can' for invocant of type in 'Perl6::Metamodel::CoercionHOW'
+#n# 2020-12-04 commenting out glfwSetWindow* lets code compile (but still does nothing meaningful on my system)
 
 File: O/OpenWebNet_Password
 #!/usr/bin/env perl6
