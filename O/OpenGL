@@ -1,12 +1,13 @@
-#!/usr/bin/env perl6 do-not-check
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/OpenGL
 #t# gui
 #c# 2019-12-10 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# creates window, but no good content
 #n# 2020-11-16 Given that this wasn't working to start with, not going to worry about:
 #n#   No such method 'can' for invocant of type in 'Perl6::Metamodel::CoercionHOW'
+#n# 2020-12-04 commenting out glfwSetWindow* lets code compile (but still does nothing meaningful on my system)
 
 use NativeCall;
 
@@ -20,7 +21,7 @@ sub glfwInit(--> int32) is native($lib) {*}
 sub glfwCreateWindow(int32, int32, Str, Monitor, Window --> Window) is native($lib) {*}
 sub glfwTerminate() is native($lib) {*}
 sub glfwMakeContextCurrent(Window) is native($lib) {*}
-sub glfwSetWindowShouldClose(Window, int32(Bool)) is native($lib) {*}
+#sub glfwSetWindowShouldClose(Window, int32(Bool)) is native($lib) {*}
 sub glfwWindowShouldClose(Window --> int32) is native($lib) {*}
 sub glfwSwapBuffers(Window) is native($lib) {*}
 sub glfwSwapInterval(int32) is native($lib) {*}
@@ -95,13 +96,3 @@ while not glfwWindowShouldClose($w) {
 }
 
 glfwTerminate();
-
-
-#END
-
-#.say for @res;
-#my $ref = q:to/END/;
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
