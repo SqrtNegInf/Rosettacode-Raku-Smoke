@@ -5914,8 +5914,9 @@ File: L/List_rooted_trees
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/List_rooted_trees
 #c# 2016-05-23 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: OK
+#n# Cannot call 'shift' on an immutable 'List'
 
 File: L/Literals_Floating_point
 #!/usr/bin/env perl6
@@ -6457,8 +6458,8 @@ File: M/Mastermind
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#x# xx pipe: A B C D\nA F E C
-#n# give up on pseudo-interactive input
+#n# RC pipe: A B C D\nE F A B\nE F B A
+#n# better testing again
 
 File: M/Matrix-exponentiation_operator
 #!/usr/bin/env perl6
@@ -8670,11 +8671,12 @@ File: P/Pseudorandom_Number_Generator_Image
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Pseudorandom_Number_Generator_Image
 #c# 2020-08-18 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #f# RC file: PNG-image500.png
 #n# original note: about 40% slower if @pixel split to ($x,$y) or (\x,\y)
 #n# my fancy-pants version over 5x slower
+#n# srand bug knocks this out for now
 
 File: P/Pythagoras_tree
 #!/usr/bin/env perl6
@@ -9823,7 +9825,6 @@ File: S/Set_puzzle
 #c# 2016-01-19 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2020-09-06 answer changed since yesterday?
 
 File: S/Seven-sided_dice_from_five-sided_dice
 #!/usr/bin/env perl6
