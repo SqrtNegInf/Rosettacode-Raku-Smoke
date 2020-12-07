@@ -1,0 +1,26 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Date_format
+#c# 2020-12-06 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+#  {{Works with|rakudo|2020.12}} or {{broken|Raku}}  
+
+use DateTime::Format;
+
+my $dt = DateTime.now;
+
+say strftime('%Y-%m-%d', $dt);
+say strftime('%A, %B %d, %Y', $dt);
+
+my $d = Date.today;
+
+say $d.yyyy-mm-dd;
+
+my @months = <January February March April May June July
+              August September October November December>;
+my @days = <Monday Tuesday Wednesday Thursday Friday Saturday Sunday>;
+my $us-long = sub ($self) { "{@days[$self.day-of-week - 1]}, {@months[$self.month - 1]} {$self.day}, {$self.year}" };
+my $d = Date.today :formatter($us-long);
+
+say $d.yyyy-mm-dd; # still works
+say $d; # uses our formatter sub
