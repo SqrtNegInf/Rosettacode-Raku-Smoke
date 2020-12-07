@@ -5,6 +5,7 @@
 #j# JVM:  OK
 #n# 2020-10-18 'srand' problems strikes intermittantly (but only in non-interactive runs?)
 #n# 2020-10-19 output bi-stable, test for which version of results present
+#n# 2020-12-06 OK now? Maybe? Hopefully? We'll see...
 
 srand 123456;
 
@@ -103,28 +104,14 @@ my ($r, $s, \Qa) = $ec.generate_signature(dA, message);
 
 .say for @res;
 
-my $moar1 = q:to/END/;
+my $moar = q:to/END/;
 The Curve E is        : 𝑦² = 𝑥³ + 355 𝑥 + 671 (mod 1073741789) 
 with Generator G at   : (13693,10088)
 Order(G, E) is        : 1073807281
 Is G  ∈ E ?           : True
 Message               : Show me the monKey
-The private key dA is : 418038534
-The public  key Qa is : EC Point at x=142154383, y=688845509
-Is Qa ∈ E ?           : True
-Is signature valid?   : True
-Message (Tampered)    : Show me the money
-Is signature valid?   : False
-END
-
-my $moar2 = q:to/END/;
-The Curve E is        : 𝑦² = 𝑥³ + 355 𝑥 + 671 (mod 1073741789) 
-with Generator G at   : (13693,10088)
-Order(G, E) is        : 1073807281
-Is G  ∈ E ?           : True
-Message               : Show me the monKey
-The private key dA is : 965516091
-The public  key Qa is : EC Point at x=692813379, y=5987683
+The private key dA is : 528738334
+The public  key Qa is : EC Point at x=556462377, y=711720878
 Is Qa ∈ E ?           : True
 Is signature valid?   : True
 Message (Tampered)    : Show me the money
@@ -144,8 +131,6 @@ Is signature valid?   : True
 Message (Tampered)    : Show me the money
 Is signature valid?   : False
 END
-
-my $moar = @res.join("\n") ~~ /965516091/ ?? $moar2 !! $moar1;
 
 use Test;
 my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
