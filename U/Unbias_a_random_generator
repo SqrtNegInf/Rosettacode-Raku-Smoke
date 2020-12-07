@@ -30,14 +30,7 @@ for 3 .. 6 -> $n {
 
 .say for @res;
 
-my $moar-cronjob = qq:to/END/;
-N=3   randN:[677, 323],32.3%   unbiased:[494, 506],50.6%
-N=4   randN:[750, 250],25.0%   unbiased:[511, 489],48.9%
-N=5   randN:[780, 220],22.0%   unbiased:[512, 488],48.8%
-N=6   randN:[819, 181],18.1%   unbiased:[507, 493],49.3%
-END
-
-my $moar-terminal = qq:to/END/;
+my $moar = qq:to/END/;
 N=3   randN:[677, 323],32.3%   unbiased:[494, 506],50.6%
 N=4   randN:[750, 250],25.0%   unbiased:[511, 489],48.9%
 N=5   randN:[780, 220],22.0%   unbiased:[512, 488],48.8%
@@ -52,4 +45,5 @@ N=6   randN:[848, 152],15.2%   unbiased:[517, 483],48.3%
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
