@@ -21,8 +21,8 @@ say $dt3.yyyy-mm-dd;
 #say strftime('%A, %B %d, %Y', $dt3);
 
 my @months = <Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec>;
-my @days   = <Sun Mon Tue Wed Thu Fri Sat>;
-my $us-abbr = sub ($self) { "{@days[$self.day-of-week]}, {@months[$self.month-1]} {$self.day}, {$self.year}" };
+my @days   = <Mon Tue Wed Thu Fri Sat Sun>;
+my $us-abbr = sub ($self) { "{@days[$self.day-of-week -1]}, {@months[$self.month-1]} {$self.day}, {$self.year}" };
 my $dt4 = Date.today :formatter($us-abbr);
 say $dt4.yyyy-mm-dd; # still works
 say $dt4;            # uses our formatter sub;
