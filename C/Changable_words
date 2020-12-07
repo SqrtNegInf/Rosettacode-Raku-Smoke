@@ -1,0 +1,61 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Changable_words
+#c# 2020-12-06 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Text::Levenshtein;
+use Text::Sorensen :sorensen;
+
+my @words = grep {.chars > 11}, 'ref/unixdict.txt'.IO.words;
+
+my %bi-grams = @words.map: { $_ => .&bi-gram };
+
+my %skip = @words.map: { $_ => 0 };
+
+@res.push: (++$).fmt('%2d') ~ |$_ for @words.hyper.map: -> $this {
+    next if %skip{$this};
+    my ($word, @sorensens) = sorensen($this, %bi-grams);
+    next unless @sorensens.=grep: { 1 > .[0] > .8 };
+    @sorensens = @sorensens»[1].grep: {$this.chars == .chars};
+    my @levenshtein = distance($this, @sorensens).grep: * == 1, :k;
+    next unless +@levenshtein;
+    %skip{$_}++ for @sorensens[@levenshtein];
+    ": {$this.fmt('%14s')}  <->  ", @sorensens[@levenshtein].join: ', ';
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+ 1:   aristotelean  <->   aristotelian
+ 2: claustrophobia  <->   claustrophobic
+ 3:   committeeman  <->   committeemen
+ 4: committeewoman  <->   committeewomen
+ 5:  complementary  <->   complimentary
+ 6:   confirmation  <->   conformation
+ 7:  congresswoman  <->   congresswomen
+ 8:   councilwoman  <->   councilwomen
+ 9:   draftsperson  <->   craftsperson
+10:   eavesdropped  <->   eavesdropper
+11:   frontiersman  <->   frontiersmen
+12: handicraftsman  <->   handicraftsmen
+13:   incommutable  <->   incomputable
+14:   installation  <->   instillation
+15:   kaleidescope  <->   kaleidoscope
+16:   neuroanatomy  <->   neuroanotomy
+17:   newspaperman  <->   newspapermen
+18:   nonagenarian  <->   nonogenarian
+19:   onomatopoeia  <->   onomatopoeic
+20:   philanthrope  <->   philanthropy
+21:   prescription  <->   proscription
+22:  schizophrenia  <->   schizophrenic
+23:  shakespearean  <->   shakespearian
+24:   spectroscope  <->   spectroscopy
+25:  underclassman  <->   underclassmen
+26:  upperclassman  <->   upperclassmen
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
