@@ -35,6 +35,7 @@ srand 1; # for testing, make 'rand' always come out the same
 
 # the native Perl 6 module that I looked at is currently busted, 
 # but takes approximately zero effort to borrow a Perl 5 version
+use Lingua::EN::Numbers;
 use Lingua::EN::Numbers::Ordinate:from<Perl5>;
 
 # will make date logic easier to read 
@@ -127,7 +128,8 @@ my %century;
 %century{$_}++ for map { substr $_, 6, 2 }, my @mm-dd-yyyy = find-palindromes($date-format, 1, my $last= 2099); 
 
 # string interpolation here is the value returned from the subroutine 'ordinate', which was supplied with an on-the-fly calculation
-@res.push: "Using '$date-format' format, the distribution of palindromic dates for the 1st through {ordinate 1 + $last div 100} century:";
+#@res.push: "Using '$date-format' format, the distribution of palindromic dates for the 1st through {ordinate 1 + $last div 100} century:";
+@res.push: "Using '$date-format' format, the distribution of palindromic dates for the 1st through {ordinal 1 + $last div 100} century:";
 
 # 'R' reverses order of arguments, here avoids extra set of parens just for tagging on the newline (OK, a bit contrived)
 @res.push: "\n" R~ join "\n", (sprintf "%3d in the %4s century", %century{$_}, ordinate 1 + $_ for %century.keys.sort: +*);
@@ -160,9 +162,35 @@ for find-palindromes(date-fmt, begin , end, :pairs<True>) -> \k, \v {
 @res.push: date-prime.pick(20).sort».values.rotor(5)».fmt('%12s').join: "\n";
 
 .say for @res;
-exit;
+#exit;
 
 my $ref = q:to/END/;
+Using 'M-D-Y' format, there are 26 palindromic dates in a century that use only one digit:
+1-1-1    1-11-1   11-1-1   11-11-1  2-2-2    2-22-2   3-3-3    4-4-4    5-5-5    6-6-6    7-7-7    8-8-8    9-9-9   
+1-1-11   1-11-11  11-1-11  11-11-11 2-2-22   2-22-22  3-3-33   4-4-44   5-5-55   6-6-66   7-7-77   8-8-88   9-9-99  
+
+Using 'MM.DD.YYYY' format, the distribution of palindromic dates for the 1st through twenty-first century:
+ 12 in the  2nd century
+ 12 in the  3rd century
+ 11 in the  4th century
+ 12 in the 11th century
+ 12 in the 12th century
+ 12 in the 13th century
+  7 in the 14th century
+ 12 in the 21st century
+
+Using 'yyyy/mm/dd' format, in the years 10001 to 99999, there are:
+    3105 non-prime palindromic dates (10010/10/01 ... 92909/09/29)
+     197     prime palindromic dates (10011/10/01 ... 92802/08/29)
+
+A random selection of the prime palindromic dates:
+ 10807/08/01  11118/11/11  12706/07/21  12809/08/21  12908/09/21
+ 30705/07/03  31205/02/13  31501/05/13  32508/05/23  70115/11/07
+ 71200/02/17  71202/02/17  71404/04/17  71901/09/17  72010/10/27
+ 90408/04/09  90503/05/09  90807/08/09  91700/07/19  92304/03/29
+END
+
+my $xef = q:to/END/;
 Using 'M-D-Y' format, there are 26 palindromic dates in a century that use only one digit:
 1-1-1    1-11-1   11-1-1   11-11-1  2-2-2    2-22-2   3-3-3    4-4-4    5-5-5    6-6-6    7-7-7    8-8-8    9-9-9   
 1-1-11   1-11-11  11-1-11  11-11-11 2-2-22   2-22-22  3-3-33   4-4-44   5-5-55   6-6-66   7-7-77   8-8-88   9-9-99  
