@@ -1,0 +1,20 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/ABC_words
+#c# 2020-12-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+.say for my @res = 'ref/unixdict.txt'.IO.words».fc.grep({ (.index('a')//next) < (.index('b')//next) < (.index('c')//next) })\
+    .&{"{+$_} words:\n  " ~ .batch(11)».fmt('%-12s').join: "\n  "};
+
+my $ref = q:to/END/;
+55 words:
+  aback        abacus       abc          abdicate     abduct       abeyance     abject       abreact      abscess      abscissa     abscissae   
+  absence      abstract     abstracter   abstractor   adiabatic    aerobacter   aerobic      albacore     alberich     albrecht     algebraic   
+  alphabetic   ambiance     ambuscade    aminobenzoic anaerobic    arabic       athabascan   auerbach     diabetic     diabolic     drawback    
+  fabric       fabricate    flashback    halfback     iambic       lampblack    leatherback  metabolic    nabisco      paperback    parabolic   
+  playback     prefabricate quarterback  razorback    roadblock    sabbatical   snapback     strabismic   syllabic     tabernacle   tablecloth  
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
