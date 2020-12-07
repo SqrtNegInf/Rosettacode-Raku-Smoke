@@ -1,23 +1,23 @@
-Welcome to Rakudo(tm) v2020.11-99-gc4c4ba98c.
+Welcome to Rakudo(tm) v2020.11-104-g60fa48ec8.
 Implementing the Raku(tm) programming language v6.d.
-Built on MoarVM version 2020.11-47-g1c7358004.
+Built on MoarVM version 2020.11-57-g51cc76c16.
 updating from RC…
-+--------------> Moar: Good/Bad [1252/22]
-|+-------------> JVM: Good/Bad [1075/214]
-||+------------> Smoke testing [1148]
++--------------> Moar: Good/Bad [1258/22]
+|+-------------> JVM: Good/Bad [1079/216]
+||+------------> Smoke testing [1154]
 |||+-----------> sKipping validation [131]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
-||||||+--------> Concurrent/Async [64]
+||||||+--------> Concurrent/Async [66]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [217]
+|||||||||+-----> Draft [219]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [89]
+|||||||||||+---> Void (no local copy) [86]
 ||||||||||||+--> Un-implemented/reliable [54]
 |||||||||||||
 GGS.......... 100_doors
-GGS...cR..... 100_prisoners
+!GS...cR..... 100_prisoners
 GB.KI..R..... 15_puzzle_game
 .........D.VU 15_puzzle_game_in_3D
 ...........VU 15_puzzle_solver
@@ -32,7 +32,7 @@ GGS.......... 99_bottles_of_beer
 GGS.......... 9_billion_names_of_God_the_integer
 GGS.......... A%2BB
 GGS.......... ABC_problem
-.........D.V. ABC_words
+GGS......D... ABC_words
 GGS.......... AKS_test_for_primes
 GGS....R..... ASCII_art_diagram_converter
 GGS....R..... AVL_tree
@@ -174,6 +174,7 @@ GGS.......... Caesar_cipher
 GGS.......... Calculating_the_value_of_e
 GGS.......... Calendar
 GGS.......... Calendar_-_for_%22REAL%22_programmers
+GGS......D... Calkin-Wilf_sequence
 GBS.......... Call_a_foreign-language_function
 GG.K......... Call_a_function
 GGS.......... Call_a_function-2
@@ -192,7 +193,7 @@ GGS.......... Catalan_numbers
 GGS.......... Catalan_numbers_Pascal%27s_triangle
 GGS..T....... Catamorphism
 ...........VU Catmull-Clark_subdivision_surface
-.........D.VU Changable_words
+GBS...C..D... Changable_words
 GGS.......... Chaocipher
 GBS...CRF.... Chaos_game
 GBS.......... Character_codes
@@ -292,7 +293,7 @@ GBS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
 GGS......D... Data_Encryption_Standard
-GGS..T....... Date_format
+!GS..T....... Date_format
 GGS..T....... Date_manipulation
 GGS.......... Day_of_the_week
 GGS......D... Days_between_dates
@@ -725,13 +726,14 @@ GGS..T....... Matrix_transposition
 GGS..T....... Maximum_triangle_path_sum
 GGS......D... Mayan_calendar
 GGS.......... Mayan_numerals
-!GS....R..... Maze_generation
+GGS....R..... Maze_generation
 !GS....R..... Maze_solving
 GGS.......... McNuggets_problem
 GBS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
+...........VU Merge_and_aggregate_datasets
 GBS......D... Mersenne_primes
 GGS...C...... Mertens_function
 GGS.......... Metallic_ratios
@@ -825,7 +827,7 @@ GGS.......... Numerical_integration_Gauss-Legendre_Quadrature
 ...........VU OLE_automation
 GBS.......... Object_serialization
 GGS.......... Odd_word_problem
-.........D.V. Odd_words
+GGS......D... Odd_words
 GGS..T....... Old_Russian_measure_of_length
 GGS..T....... Old_lady_swallowed_a_fly
 GGS.......... One-dimensional_cellular_automata
@@ -861,7 +863,7 @@ GGS.......... Parsing_RPN_calculator_algorithm
 GGS..T....... Parsing_RPN_to_infix_conversion
 GGS.......... Parsing_Shunting-yard_algorithm
 GGS.......... Partial_function_application
-!GS..T.R.D... Particle_swarm_optimization
+GGS..T.R.D... Particle_swarm_optimization
 GBS..TC...... Partition_an_integer_x_into_n_primes
 GGS.......... Partition_function_P
 GGS.......... Pascal%27s_triangle
@@ -931,7 +933,7 @@ GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
 GBS..TC...... Prime_decomposition
 GBS.......... Prime_decomposition-1
-.........D.V. Prime_words
+GBS...C..D... Prime_words
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
 GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS..T....... Primorial_numbers
@@ -1381,6 +1383,7 @@ GGS..Tc...... Word_frequency
 GGS.......... Word_wheel-1
 GBS.......... Word_wheel-2
 GGS.......... Word_wrap
+GGS......D... Words_containing_%22the%22_substring
 GGS..T....... World_Cup_group_stage
 GGS.....F.... Write_entire_file
 GGS..T..F.... Write_float_arrays_to_a_text_file
