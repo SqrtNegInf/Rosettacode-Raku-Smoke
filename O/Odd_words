@@ -1,0 +1,53 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Odd_words
+#c# 2020-12-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my %words = 'ref/unixdict.txt'.IO.slurp.words.map: * => 1;
+
+my (@odds, @evens);
+
+for %words {
+    next if .key.chars < 9;
+    my $odd  = .key.comb[0,2 … *].join;
+    @odds.push(.key => $odd) if %words{$odd} and $odd.chars > 4;
+    my $even = .key.comb[1,3 … *].join;
+    @evens.push(.key => $even) if %words{$even} and $even.chars > 4;
+}
+
+@res.push: $_ for flat 'Odd words > 4:', @odds.sort;
+
+@res.push: $_ for flat "\nEven words > 4:", @evens.sort;
+
+.say for @res;
+
+my $ref = q:to/END/;
+Odd words > 4:
+barbarian	brain
+childbear	cider
+corrigenda	cried
+gargantuan	grata
+headdress	hades
+palladian	plain
+propionate	point
+salvation	slain
+siltation	slain
+slingshot	sight
+statuette	saute
+supersede	spree
+supervene	spree
+terminable	trial
+
+Even words > 4:
+cannonball	annal
+importation	motto
+psychopomp	scoop
+starvation	train
+upholstery	posey
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
