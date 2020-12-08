@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Date_format
-#c# 2016-11-08 <>RC, 2020-09-16 <RC
+#c# 2016-11-08 <>RC, 2020-09-16 <RC, 2020-12-07 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 'slurp-rest' deprecated, plain 'slurp' works fine
@@ -22,7 +22,7 @@ say $dt3.yyyy-mm-dd;
 
 my @months = <Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec>;
 my @days   = <Mon Tue Wed Thu Fri Sat Sun>;
-my $us-abbr = sub ($self) { "{@days[$self.day-of-week -1]}, {@months[$self.month-1]} {$self.day}, {$self.year}" };
+my $us-abbr = sub ($self) { "{@days[$self.day-of-week-1]}, {@months[$self.month-1]} {$self.day}, {$self.year}" };
 my $dt4 = Date.today :formatter($us-abbr);
 say $dt4.yyyy-mm-dd; # still works
 say $dt4;            # uses our formatter sub;
