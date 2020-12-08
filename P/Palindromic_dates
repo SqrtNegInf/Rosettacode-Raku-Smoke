@@ -16,18 +16,10 @@
 #n#   no 'suspicious' parentheses -- code less 'busy' but you might have to think a little harder about implied scopes
 #n#   non-cryptic variable names
 #n#   working the DRY principle pretty hard (too far?)
-#n#
-#n# 2020-05-14 'malloc' is an on-going issue, happening about once a month (5/135)
-#n# 2020-01-25 '3104' again, so there must be a race condition I'm missing?
-#n# 2019-12-02 '3104' instead of '3105 non-prime palindromic dates'
-#n# 2019-11-29 saw this error again
-#n# At one point seeing this, but seems to have cleared up:
-#n#  perl6(80736,0x70000280d000) malloc: *** error for object 0x7fdf654fc000: incorrect checksum for freed object - object was probably modified after being freed.
-#n#  *** set a breakpoint in malloc_error_break to debug
 
 my @res;
 
-srand 1; # for testing, make 'rand' always come out the same
+srand 123456; # for testing, make 'rand' always come out the same
 
 ##
 ## utilities
@@ -35,8 +27,8 @@ srand 1; # for testing, make 'rand' always come out the same
 
 # the native Perl 6 module that I looked at is currently busted, 
 # but takes approximately zero effort to borrow a Perl 5 version
-use Lingua::EN::Numbers;
-use Lingua::EN::Numbers::Ordinate:from<Perl5>;
+use Lingua::EN::Numbers; # Raku library works now
+#use Lingua::EN::Numbers::Ordinate:from<Perl5>;
 
 # will make date logic easier to read 
 enum months_less_than_31 (Feb => 2, Apr => 4, Jun => 6, Sep => 9, Nov => 11);
@@ -75,9 +67,10 @@ sub find-palindromes ($format is copy = 'MM-DD-YYYY', $first-year = 0, $last-yea
 
 # generate all combinations of day/month/year, in the required order 
 # love the cross-operator, which hides loops (currently pretty slow, but someday...)
-# only requires a trivial change to add concurrency:
-#for @(@range[1]) X @(@range[2]) X @(@range[3])            -> @date-triple {
-    (@(@range[1]) X @(@range[2]) X @(@range[3])).race.map: -> @date-triple {
+ for @(@range[1]) X @(@range[2]) X @(@range[3])            -> @date-triple {
+
+# only requires a trivial change to add concurrency: (but irredeemably buggy)
+#   (@(@range[1]) X @(@range[2]) X @(@range[3])).race.map: -> @date-triple {
 
         # check if it's a palindrome
         next unless $_ eq .flip given @date-triple.join;
@@ -128,11 +121,12 @@ my %century;
 %century{$_}++ for map { substr $_, 6, 2 }, my @mm-dd-yyyy = find-palindromes($date-format, 1, my $last= 2099); 
 
 # string interpolation here is the value returned from the subroutine 'ordinate', which was supplied with an on-the-fly calculation
+@res.push: "Using '$date-format' format, the distribution of palindromic dates for the 1st through {ordinal-digit 1 + $last div 100} century:";
 #@res.push: "Using '$date-format' format, the distribution of palindromic dates for the 1st through {ordinate 1 + $last div 100} century:";
-@res.push: "Using '$date-format' format, the distribution of palindromic dates for the 1st through {ordinal 1 + $last div 100} century:";
 
 # 'R' reverses order of arguments, here avoids extra set of parens just for tagging on the newline (OK, a bit contrived)
-@res.push: "\n" R~ join "\n", (sprintf "%3d in the %4s century", %century{$_}, ordinate 1 + $_ for %century.keys.sort: +*);
+@res.push: "\n" R~ join "\n", (sprintf "%3d in the %4s century", %century{$_}, ordinal-digit 1 + $_ for %century.keys.sort: +*);
+#@res.push: "\n" R~ join "\n", (sprintf "%3d in the %4s century", %century{$_}, ordinate 1 + $_ for %century.keys.sort: +*);
 #@res.push: join("\n", (sprintf "%3d in the %4s century", %century{$_}, ordinate 1 + $_ for %century.keys.sort: +*)) ~ "\n";
 
 ######## Factoid 3 - prime dates 
@@ -162,35 +156,8 @@ for find-palindromes(date-fmt, begin , end, :pairs<True>) -> \k, \v {
 @res.push: date-prime.pick(20).sort».values.rotor(5)».fmt('%12s').join: "\n";
 
 .say for @res;
-#exit;
 
 my $ref = q:to/END/;
-Using 'M-D-Y' format, there are 26 palindromic dates in a century that use only one digit:
-1-1-1    1-11-1   11-1-1   11-11-1  2-2-2    2-22-2   3-3-3    4-4-4    5-5-5    6-6-6    7-7-7    8-8-8    9-9-9   
-1-1-11   1-11-11  11-1-11  11-11-11 2-2-22   2-22-22  3-3-33   4-4-44   5-5-55   6-6-66   7-7-77   8-8-88   9-9-99  
-
-Using 'MM.DD.YYYY' format, the distribution of palindromic dates for the 1st through twenty-first century:
- 12 in the  2nd century
- 12 in the  3rd century
- 11 in the  4th century
- 12 in the 11th century
- 12 in the 12th century
- 12 in the 13th century
-  7 in the 14th century
- 12 in the 21st century
-
-Using 'yyyy/mm/dd' format, in the years 10001 to 99999, there are:
-    3105 non-prime palindromic dates (10010/10/01 ... 92909/09/29)
-     197     prime palindromic dates (10011/10/01 ... 92802/08/29)
-
-A random selection of the prime palindromic dates:
- 10807/08/01  11118/11/11  12706/07/21  12809/08/21  12908/09/21
- 30705/07/03  31205/02/13  31501/05/13  32508/05/23  70115/11/07
- 71200/02/17  71202/02/17  71404/04/17  71901/09/17  72010/10/27
- 90408/04/09  90503/05/09  90807/08/09  91700/07/19  92304/03/29
-END
-
-my $xef = q:to/END/;
 Using 'M-D-Y' format, there are 26 palindromic dates in a century that use only one digit:
 1-1-1    1-11-1   11-1-1   11-11-1  2-2-2    2-22-2   3-3-3    4-4-4    5-5-5    6-6-6    7-7-7    8-8-8    9-9-9   
 1-1-11   1-11-11  11-1-11  11-11-11 2-2-22   2-22-22  3-3-33   4-4-44   5-5-55   6-6-66   7-7-77   8-8-88   9-9-99  
@@ -210,10 +177,10 @@ Using 'yyyy/mm/dd' format, in the years 10001 to 99999, there are:
      197     prime palindromic dates (10011/10/01 ... 92802/08/29)
 
 A random selection of the prime palindromic dates:
- 10404/04/01  11011/10/11  11118/11/11  11303/03/11  11502/05/11
- 13504/05/31  31905/09/13  32307/03/23  32405/04/23  32506/05/23
- 32508/05/23  70201/02/07  70300/03/07  70409/04/07  70805/08/07
- 71306/03/17  71307/03/17  72103/01/27  72908/09/27  90408/04/09
+ 10016/10/01  10204/02/01  10700/07/01  11506/05/11  12111/11/21
+ 12400/04/21  13017/10/31  30409/04/03  71200/02/17  71301/03/17
+ 71307/03/17  71505/05/17  71800/08/17  71809/08/17  72010/10/27
+ 72302/03/27  72908/09/27  90700/07/09  92011/10/29  92407/04/29
 END
 
 use Test;
