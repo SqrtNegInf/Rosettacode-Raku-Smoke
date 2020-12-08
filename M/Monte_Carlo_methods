@@ -3,6 +3,7 @@
 #c# 2016-03-31 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# different results when initiated from 1) command line 2) shell script 3) shell script via cron
 
 srand 123456;
 
@@ -21,11 +22,18 @@ my @pi = ([\+] 4 × (1 > [+] rand**2 xx 2) xx *) Z/ 1 .. *;
 
 .say for @res;
 
-my $moar = qq:to/END/;
+my $moar-cronjob = qq:to/END/;
 100 iterations:  3.16
-1000 iterations:  3.164
-10000 iterations:  3.1376
-4 3.072927 3.128087
+1000 iterations:  3.124
+10000 iterations:  3.1276
+3.272727 3.116883 3.131287
+END
+
+my $moar-terminal = qq:to/END/;
+100 iterations:  3.16
+1000 iterations:  3.136
+10000 iterations:  3.1276
+2.909091 3.108891 3.130487
 END
 
 my $jvm = qq:to/END/;
@@ -36,5 +44,5 @@ my $jvm = qq:to/END/;
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+#is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
