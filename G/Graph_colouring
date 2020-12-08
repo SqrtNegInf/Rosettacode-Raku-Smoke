@@ -51,68 +51,67 @@ for DATA {
 }
 
 .say for @res;
-exit;
 
 my $ref = q:to/END/;
-DATA   : [(0 1) (1 2) (2 0) (3 NaN) (4 NaN) (5 NaN)]
-Result :
-0-1:     Color 2 4
-1-2:     Color 4 3
-2-0:     Color 3 2
-3-NaN:   Color 4
-4-NaN:   Color 3
-5-NaN:   Color 2
+DATA   : 0 1 1 2 2 0 3 NaN 4 NaN 5 NaN
+Result : 
+0-1:	 Color 1 4
+1-2:	 Color 4 0
+2-0:	 Color 0 1
+3-NaN:	 Color 1 
+4-NaN:	 Color 1 
+5-NaN:	 Color 4 
 Nodes  : 6
 Edges  : 6
 Colors : 3
-DATA   : [(1 6) (1 7) (1 8) (2 5) (2 7) (2 8) (3 5) (3 6) (3 8) (4 5) (4 6) (4 7)]
-Result :
-1-6:     Color 5 6
-1-7:     Color 5 6
-1-8:     Color 5 6
-2-5:     Color 5 6
-2-7:     Color 5 6
-2-8:     Color 5 6
-3-5:     Color 5 6
-3-6:     Color 5 6
-3-8:     Color 5 6
-4-5:     Color 5 6
-4-6:     Color 5 6
-4-7:     Color 5 6
+DATA   : 1 6 1 7 1 8 2 5 2 7 2 8 3 5 3 6 3 8 4 5 4 6 4 7
+Result : 
+1-6:	 Color 1 4
+1-7:	 Color 1 4
+1-8:	 Color 1 4
+2-5:	 Color 1 4
+2-7:	 Color 1 4
+2-8:	 Color 1 4
+3-5:	 Color 1 4
+3-6:	 Color 1 4
+3-8:	 Color 1 4
+4-5:	 Color 1 4
+4-6:	 Color 1 4
+4-7:	 Color 1 4
 Nodes  : 8
 Edges  : 12
 Colors : 2
-DATA   : [(1 4) (1 6) (1 8) (3 2) (3 6) (3 8) (5 2) (5 4) (5 8) (7 2) (7 4) (7 6)]
-Result :
-1-4:     Color 3 6
-1-6:     Color 3 6
-1-8:     Color 3 6
-3-2:     Color 3 6
-3-6:     Color 3 6
-3-8:     Color 3 6
-5-2:     Color 3 6
-5-4:     Color 3 6
-5-8:     Color 3 6
-7-2:     Color 3 6
-7-4:     Color 3 6
-7-6:     Color 3 6
+DATA   : 1 4 1 6 1 8 3 2 3 6 3 8 5 2 5 4 5 8 7 2 7 4 7 6
+Result : 
+1-4:	 Color 6 4
+1-6:	 Color 6 4
+1-8:	 Color 6 4
+3-2:	 Color 6 4
+3-6:	 Color 6 4
+3-8:	 Color 6 4
+5-2:	 Color 6 4
+5-4:	 Color 6 4
+5-8:	 Color 6 4
+7-2:	 Color 6 4
+7-4:	 Color 6 4
+7-6:	 Color 6 4
 Nodes  : 8
 Edges  : 12
 Colors : 2
-DATA   : [(1 6) (7 1) (8 1) (5 2) (2 7) (2 8) (3 5) (6 3) (3 8) (4 5) (4 6) (4 7)]
-Result :
-1-6:     Color 1 5
-7-1:     Color 5 1
-8-1:     Color 5 1
-5-2:     Color 5 1
-2-7:     Color 1 5
-2-8:     Color 1 5
-3-5:     Color 1 5
-6-3:     Color 5 1
-3-8:     Color 1 5
-4-5:     Color 1 5
-4-6:     Color 1 5
-4-7:     Color 1 5
+DATA   : 1 6 7 1 8 1 5 2 2 7 2 8 3 5 6 3 3 8 4 5 4 6 4 7
+Result : 
+1-6:	 Color 3 1
+7-1:	 Color 1 3
+8-1:	 Color 1 3
+5-2:	 Color 1 3
+2-7:	 Color 3 1
+2-8:	 Color 3 1
+3-5:	 Color 3 1
+6-3:	 Color 1 3
+3-8:	 Color 3 1
+4-5:	 Color 3 1
+4-6:	 Color 3 1
+4-7:	 Color 3 1
 Nodes  : 8
 Edges  : 12
 Colors : 2
