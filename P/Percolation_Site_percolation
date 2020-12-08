@@ -7,7 +7,6 @@
 
 srand 123456;
 
-# Works with: Rakudo version 2017.02
 my $block = '▒';
 my $water = '+';
 my $pore  = ' ';
@@ -35,7 +34,6 @@ for .1, .2 ... 1 -> $p {
 }
 
 .say for @res;
-exit;
 
 sub infix:<deq> ( $a, $b ) { $a.defined && ($a eq $b) }
 
