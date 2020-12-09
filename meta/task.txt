@@ -1,10 +1,10 @@
-Welcome to Rakudo(tm) v2020.11-109-g1ae04788c.
+Welcome to Rakudo(tm) v2020.11-112-g2274aa85a.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.11-82-g6294b666f.
 updating from RC…
-+--------------> Moar: Good/Bad [1214/22]
-|+-------------> JVM: Good/Bad [1079/216]
-||+------------> Smoke testing [1154]
++--------------> Moar: Good/Bad [1229/22]
+|+-------------> JVM: Good/Bad [1081/216]
+||+------------> Smoke testing [1156]
 |||+-----------> sKipping validation [131]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
@@ -13,17 +13,17 @@ updating from RC…
 ||||||||+------> File output [97]
 |||||||||+-----> Draft [219]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [86]
-||||||||||||+--> Un-implemented/reliable [53]
+|||||||||||+---> Void (no local copy) [84]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
-GGS...cR..... 100_prisoners
+!GS...cR..... 100_prisoners
 GB.KI..R..... 15_puzzle_game
 .........D.VU 15_puzzle_game_in_3D
 ...........VU 15_puzzle_solver
 .........D.VU 16_puzzle_game
 GB.KI..R..... 2048
-!GS....R..... 21_game
+GGS....R..... 21_game
 GGS..T.R..... 24_game
 GBS..TC...... 24_game_Solve-1
 GGS..T....... 24_game_Solve-2
@@ -34,8 +34,8 @@ GGS.......... A%2BB
 GGS.......... ABC_problem
 GGS......D... ABC_words
 GGS.......... AKS_test_for_primes
-!GS....R..... ASCII_art_diagram_converter
-!GS....R..... AVL_tree
+GGS....R..... ASCII_art_diagram_converter
+GGS....R..... AVL_tree
 .........D.V. A_star_search_algorithm
 GGS..T....... Abbreviations,_automatic
 GGS..T....... Abbreviations,_easy
@@ -116,7 +116,7 @@ GGS.......... Averages_Root_mean_square
 GGS.......... Averages_Simple_moving_average
 GGS.......... Babbage_problem
 GGS.....FD... Bacon_cipher
-!GS....R..... Balanced_brackets
+GGS....R..... Balanced_brackets
 GGS..T....... Balanced_ternary
 GGS..T...D... Banker%27s_algorithm
 GBS....RF.... Barnsley_fern
@@ -128,15 +128,15 @@ GGS.......... Bell_numbers-2
 GGS.......... Bell_numbers-3
 GGS..T....... Benford%27s_law
 GGS..T....... Bernoulli_numbers
-!GS....R..... Best_shuffle
+GGS....R..... Best_shuffle
 GBS.....FD... Bilinear_interpolation
 GGS.......... Binary_digits
 GGS.......... Binary_search
 GGS..T....... Binary_strings
-!GS....R..... Bioinformatics_Sequence_mutation
+GGS....R..... Bioinformatics_Sequence_mutation
 GGS.......... Bioinformatics_base_count
 GGS.......... Biorhythms
-!GS..TcR.D... Birthday_problem
+GGS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
 GGS.......... Bitmap
@@ -221,7 +221,7 @@ GBS..TC...... Circular_primes
 GGS....RF.... Cistercian_numerals
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
-!GS....R..... Closures_Value_capture
+GGS....R..... Closures_Value_capture
 GG.K.....D... Code_segment_unload
 GGS.......... Collections
 GB.KIT....... Color_of_a_screen_pixel
@@ -276,8 +276,8 @@ GGS.......... Cramer%27s_rule
 ..........X.. Create_DWM_statusbar
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
-!GS..T.R..... Create_a_two-dimensional_array_at_runtime
-!GS....R..... Create_an_HTML_table
+GGS..T.R..... Create_a_two-dimensional_array_at_runtime
+GGS....R..... Create_an_HTML_table
 GGS..T...D... Create_an_object_Native_demonstration
 GBS.......... Create_an_object_at_a_given_address
 GGS.......... Cuban_primes-1
@@ -733,7 +733,7 @@ GBS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
-...........V. Merge_and_aggregate_datasets
+GGS.......... Merge_and_aggregate_datasets
 GBS......D... Mersenne_primes
 GGS...C...... Mertens_function
 GGS.......... Metallic_ratios
@@ -758,7 +758,7 @@ GGS...C..D... Moebius_function
 GGS..T....... Monads_List_monad
 GGS.......... Monads_Maybe_monad
 GGS.......... Monads_Writer_monad
-!GS....R..... Monte_Carlo_methods
+GGS....R..... Monte_Carlo_methods
 GGS......D... Montgomery_reduction
 GBS..TCR..... Monty_Hall_problem
 .........D.VU Morpion_solitaire
@@ -878,7 +878,7 @@ GGS.......... Pell%27s_equation
 !GS....R..... Penney%27s_game
 GGS.....FD... Penrose_tiling
 GGS..T..F.... Pentagram
-!GS....R.D... Pentomino_tiling
+GGS....R.D... Pentomino_tiling
 GBS.......... Percentage_difference_between_images
 BB.......D... Perceptron
 !GS....R..... Percolation_Bond_percolation
@@ -1087,7 +1087,7 @@ GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
 !GS..T.R..... Set_puzzle
-!GS....R..... Seven-sided_dice_from_five-sided_dice
+GGS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
 ..........XV. Shell_one-liner
 GGS.......... Shoelace_formula_for_polygonal_area
@@ -1116,7 +1116,7 @@ GG.K......... Singly-linked_list_Element_insertion
 GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
-.........D.VU Smallest_enclosing_circle_problem
+GGS......D... Smallest_enclosing_circle_problem
 GBS.......... Smarandache_prime-digital_sequence
 GGS.......... Smith_numbers
 .........DXV. Snake
@@ -1319,7 +1319,7 @@ GBS.......... UTF-8_encode_and_decode
 .........D.VU Ukkonens_suffix_tree_construction
 GGS......D... Ulam_numbers
 GGS.....F.... Ulam_spiral_for_primes
-!GS..T.R..... Unbias_a_random_generator
+GGS..T.R..... Unbias_a_random_generator
 GGS.......... Undefined_values
 .........D.VU Unicode_polynomial_equation
 GGS.......... Unicode_strings
