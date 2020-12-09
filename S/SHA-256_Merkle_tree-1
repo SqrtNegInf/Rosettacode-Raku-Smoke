@@ -5,8 +5,6 @@
 #j# JVM:  BROKEN
 #i# RC cli: ref/rc-title.png
 
-my @res;
-
 use Digest::SHA256::Native;
 
 sub MAIN(Int :b(:$block-size) = 1024 × 1024, *@args) {
@@ -24,5 +22,4 @@ sub MAIN(Int :b(:$block-size) = 1024 × 1024, *@args) {
 
 use Test;
 is $result, 'b29515968f4d025fdf80c759481ea57df2e98b9d6fe0004a0e073c861e58481c';
-#a4f902cf9d51fe51eda156a6792e1445dff65edf3a217a1f3334cc9cf1495c2c
 }
