@@ -44,6 +44,4 @@ sub pick-FEN {
 say my $result = pick-FEN();
 
 use Test;
-is $result, '1nq5/3n3B/1N5K/8/4p1k1/8/8/B4q1B w - - 0 1'  if $*VM ~~ /moar/;
-is $result, '8/5k2/1Q1K4/2qn4/1P6/8/7p/q5B1 w - - 0 1' if $*VM ~~ /jvm/;
-
+is $result, $*VM ~~ /jvm/ ?? '8/5k2/1Q1K4/2qn4/1P6/8/7p/q5B1 w - - 0 1' !! '8/1R6/3qn3/4K1qq/b7/5B2/p1Q2b2/1kn2P1r w - - 0 1';
