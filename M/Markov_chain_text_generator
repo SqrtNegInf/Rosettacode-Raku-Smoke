@@ -6,7 +6,7 @@
 #n#  key order of hashes no longer stable (but ArrayHash provides a work-around)
 
 use lib 'lib';
-use lib '../lib';
+#use lib '../lib';
 use ArrayHash;
 
 srand 123456;
@@ -55,8 +55,8 @@ my @generated-text = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.pick } ...
 my @res = @generated-text.head: $words;
 say @res.join(' ');
 
-my $moar = qq:to/END/;
-very deep, or she fell past it. 'Well!' thought Alice 'without pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversations?' So she was ever to get very tired of sitting by her sister on the second time round, she came upon a little bottle on it, ('which certainly was not here before,' said Alice,) and round the hall, but they were filled with cupboards and book-shelves; here and there she saw maps and pictures hung upon pegs. She took down a jar from one of the cupboards as she couldn't
+my $moar  = qq:to/END/;
+it?) 'And what an ignorant little girl she'll think me at home! Why, I wouldn't say anything about it, even if I shall fall right through the little golden key, and when she went back to the table for it, she found herself falling down a very good advice, (though she very soon finished it off. 'What a curious feeling!' said Alice; 'I must be shutting up like telescopes: this time she found herself falling down a very deep well. Either the well was very likely true.) Down, down, down. Would the fall never come to an end! 'I wonder
 END
 
 my $jvm = qq:to/END/;
