@@ -62,15 +62,15 @@ sub swap (@r, @b, $a) {
 .say for @res;
 
 my $moar = q:to/END/;
-Shuffled deck:          B B B R B R R B R R R R B R R R R B B B R R B R R R R B B R B B R R R R R R B B B R B B B B B B B R B B
-Discard pile:           B B B R R R B R R B R B R R B B R R R B B B B B B B
-"Red"   pile:           B R R R B R R B R R R
-"Black" pile:           B R R R B R R B B R B B B R B
-Number of cards to swap: 5
-Red pile after swaps:   B R R R B R R B R B R
-Black pile after swaps: B R R R B R R B B R R B B R B
-Number of Red   cards in the Red   pile: 7
-Number of Black cards in the Black pile: 7
+Shuffled deck:          R R B B B R R R R B B B B R R R B R B B B R B R R R B B B B R B R R B B B R B B R R B R R B R B B R R R
+Discard pile:           R B B R R B B R B B B B R B B R R B B B R B R R B R
+"Red"   pile:           R R B R R B R R B B R
+"Black" pile:           B R B R R B R R B B B R B R R
+Number of cards to swap: 8
+Red pile after swaps:   R B B B R R R R B B R
+Black pile after swaps: B B B R R B R R B R R R B R R
+Number of Red   cards in the Red   pile: 6
+Number of Black cards in the Black pile: 6
 END
 
 my $jvm = q:to/END/;
