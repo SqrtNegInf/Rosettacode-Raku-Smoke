@@ -52,12 +52,12 @@ my $bottom = $d.cheat;
 .say for @res;
 
 my $moar = qq:to/END/;
-Deck: 3♥ 8♠ 10♣ Q♣ J♦ 3♠ 2♠ 5♣ Q♦ 2♥ 3♦ Q♥ 2♣ 6♥ 6♠ 9♣ 4♣ 9♦ A♥ K♣ K♦ 10♠ K♠ 4♥ 10♦ 4♦ A♣ 7♦ 8♦ 2♦ J♥ 5♦ 9♠ 10♥ 5♠ 5♥ 7♥ J♠ 4♠ A♦ 7♣ A♠ K♥ 8♥ 9♥ Q♠ 6♦ 8♣ 3♣ 7♠ J♣ 6♣
-Deal top card: 3♥
-Deck, re-shuffled: 4♣ 9♠ J♥ 2♠ 6♦ 4♦ K♦ K♥ A♣ 9♥ 8♥ 6♠ 6♣ A♦ 5♥ 4♥ 9♣ A♥ 2♣ Q♦ 5♠ 3♦ A♠ 10♥ 7♣ 3♠ Q♠ K♠ 5♣ 8♦ 3♣ J♠ Q♣ 2♦ J♣ K♣ 6♥ Q♥ 5♦ 7♥ J♦ 8♣ 4♠ 10♦ 8♠ 7♦ 10♠ 2♥ 7♠ 10♣ 9♦
+Deck: J♦ 9♠ A♠ A♦ 4♠ 10♦ K♥ 8♠ Q♦ K♦ Q♠ Q♣ 9♦ 4♣ 7♣ 2♣ 3♣ 9♣ 8♦ 6♠ J♠ 2♦ 6♦ Q♥ 2♥ 7♠ J♥ 10♥ 3♦ J♣ K♠ 10♠ 7♥ 5♣ A♥ 4♦ 8♣ 9♥ 6♣ A♣ 2♠ 5♠ 10♣ 7♦ 3♠ 5♥ K♣ 3♥ 6♥ 4♥ 5♦ 8♥
+Deal top card: J♦
+Deck, re-shuffled: 4♣ 4♥ 3♣ Q♣ 3♦ 7♦ 8♣ 6♥ 4♦ A♣ 6♠ 8♦ J♥ 6♣ K♣ 5♠ A♥ K♦ K♥ 9♦ 7♣ Q♦ 7♠ 10♠ K♠ 8♠ 3♥ 6♦ 9♣ 2♠ A♠ 2♣ 5♦ J♠ J♣ 8♥ 2♥ 5♣ 4♠ A♦ 9♥ Q♠ 7♥ 5♥ 10♦ 10♣ 2♦ Q♥ 10♥ 3♠ 9♠
 Peek at top card: 4♣
-Bottom of deck card: 9♦
-Deck state now: 4♣ 9♠ J♥ 2♠ 6♦ 4♦ K♦ K♥ A♣ 9♥ 8♥ 6♠ 6♣ A♦ 5♥ 4♥ 9♣ A♥ 2♣ Q♦ 5♠ 3♦ A♠ 10♥ 7♣ 3♠ Q♠ K♠ 5♣ 8♦ 3♣ J♠ Q♣ 2♦ J♣ K♣ 6♥ Q♥ 5♦ 7♥ J♦ 8♣ 4♠ 10♦ 8♠ 7♦ 10♠ 2♥ 7♠ 10♣
+Bottom of deck card: 9♠
+Deck state now: 4♣ 4♥ 3♣ Q♣ 3♦ 7♦ 8♣ 6♥ 4♦ A♣ 6♠ 8♦ J♥ 6♣ K♣ 5♠ A♥ K♦ K♥ 9♦ 7♣ Q♦ 7♠ 10♠ K♠ 8♠ 3♥ 6♦ 9♣ 2♠ A♠ 2♣ 5♦ J♠ J♣ 8♥ 2♥ 5♣ 4♠ A♦ 9♥ Q♠ 7♥ 5♥ 10♦ 10♣ 2♦ Q♥ 10♥ 3♠
 END
 
 my $jvm = qq:to/END/;
