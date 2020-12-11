@@ -1,8 +1,8 @@
-Welcome to Rakudo(tm) v2020.11-116-gac84c1886.
+Welcome to Rakudo(tm) v2020.11-118-g9dbb52f9e.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.11-82-g6294b666f.
 updating from RC…
-+--------------> Moar: Good/Bad [1245/22]
++--------------> Moar: Good/Bad [1257/22]
 |+-------------> JVM: Good/Bad [1081/216]
 ||+------------> Smoke testing [1156]
 |||+-----------> sKipping validation [131]
@@ -11,10 +11,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [66]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [219]
+|||||||||+-----> Draft [220]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [84]
-||||||||||||+--> Un-implemented/reliable [52]
+|||||||||||+---> Void (no local copy) [85]
+||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -316,7 +316,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -832,7 +832,7 @@ GGS..T....... Old_Russian_measure_of_length
 GGS..T....... Old_lady_swallowed_a_fly
 GGS.......... One-dimensional_cellular_automata
 GGS.......... One-time_pad
-!GS....R..... One_of_n_lines_in_a_file
+GGS....R..... One_of_n_lines_in_a_file
 GB.KI.....X.. OpenGL
 .........D.VU OpenGL_Utah_Teapot
 .........D.VU OpenGL_pixel_shader
@@ -841,7 +841,7 @@ GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
 GBS......D... Orbital_elements
 GGS.......... Order_disjoint_list_items
-!GS..T.R..... Order_two_numerical_lists
+GGS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_partitions
 GGS.......... Ordered_words
 GGS..T....... P-value_correction
@@ -871,11 +871,11 @@ GGS.......... Pascal%27s_triangle_Puzzle
 GGS..T....... Pascal_matrix_generation
 GGS....R....U Password_generator
 GGS.......... Pathological_floating_point_problems
-!GS..T.R..... Pattern_matching
+GGS..T.R..... Pattern_matching
 GGS..T....... Peaceful_chess_queen_armies
 GGS.....F.... Peano_curve
 GGS.......... Pell%27s_equation
-!GS....R..... Penney%27s_game
+GGS....R..... Penney%27s_game
 GGS.....FD... Penrose_tiling
 GGS..T..F.... Pentagram
 GGS....R.D... Pentomino_tiling
@@ -893,14 +893,14 @@ GGS..T....... Perlin_noise
 GBS..TC...... Permutation_test
 GGS..T....... Permutations
 GGS.......... Permutations_Derangements
-!GS....R..... Permutations_Rank_of_a_permutation
+GGS....R..... Permutations_Rank_of_a_permutation
 GGS.......... Permutations_by_swapping
 GGS......D... Permutations_with_repetitions
 GGS......D... Permutations_with_some_identical_elements
 GGS.......... Pernicious_numbers
 GGS.......... Phrase_reversals
 GGS..T....... Pi
-!GS..T.R..... Pick_random_element
+GGS..T.R..... Pick_random_element
 GBS.......... Pierpont_primes-1
 GGS.......... Pierpont_primes-2
 GBS....R..... Pig_the_dice_game
@@ -911,7 +911,7 @@ GGS......D... Pisano_period
 GBS..TC.F.... Plasma_effect
 ..........XVU Play_recorded_sounds
 GGS..T....... Playfair_cipher
-!GS..T.R..... Playing_cards
+GGS..T.R..... Playing_cards
 GGS..T..F.... Plot_coordinate_pairs
 GGS.......... Pointers_and_references
 GGS..T....... Poker_hand_analyser
@@ -966,14 +966,14 @@ GG.K......... Quine
 GG.K.....D... Quoting_constructs
 ..........XV. RCRPG
 GGS..T....... RIPEMD-160
-!GS....R..... RPG_attributes_generator
+GGS....R..... RPG_attributes_generator
 GGS..T....... RSA_code
 GBS......D... Railway_circuit
 GBS..T....... Ramanujan%27s_constant-1
 GGS..T....... Ramanujan%27s_constant-2
 GGS.......... Ramer-Douglas-Peucker_line_simplification
 GGS..T...D... Ramsey%27s_theorem
-!GS....R.D... Random_Latin_squares
+GGS....R.D... Random_Latin_squares
 GGS..T....... Random_number_generator_device
 ..........XV. Random_number_generator_included
 GGS....R..... Random_numbers
@@ -1012,7 +1012,7 @@ GBS......D... Remove_vowels_from_a_string
 GGS.......... Rename_a_file
 GGS...CRF.... Rendezvous
 GBS.......... Rep-string
-!GS....R..... Repeat
+GGS....R..... Repeat
 GGS.......... Repeat_a_string
 GGS......D... Resistance_calculator
 GGS......D... Resistance_network_calculator
@@ -1024,7 +1024,7 @@ GGS..T....... Reverse_a_string
 GGS......D... Reverse_the_gender_of_a_string
 GGS.......... Reverse_words_in_a_string
 GB.KI....D... Robots
-!GS..T.R..... Rock-paper-scissors
+GGS..T.R..... Rock-paper-scissors
 GGS.......... Roman_numerals_Decode
 GGS.......... Roman_numerals_Encode
 GGS.......... Roots_of_a_function
@@ -1373,13 +1373,14 @@ GGS.......... Weird_numbers
 .........D... Welch%27s_t-test
 GGS..T....... Welch%27s_t-test-1
 GBS..T....... Welch%27s_t-test-2
+.........D.VU WiktionaryDumps_to_words
 GB.KI........ Window_creation
 GB.KI........ Window_creation_X11
 GB.KI........ Window_management
 GBS.......... Wireworld
 GGS......D... Word_break_problem
 GGS..Tc...... Word_frequency
-!GS....R..... Word_search
+GGS....R..... Word_search
 GGS.......... Word_wheel-1
 GBS.......... Word_wheel-2
 GGS.......... Word_wrap
@@ -1388,7 +1389,7 @@ GGS..T....... World_Cup_group_stage
 GGS.....F.... Write_entire_file
 GGS..T..F.... Write_float_arrays_to_a_text_file
 GGS.......... Write_float_arrays_to_a_text_file-2
-!GS..T.R..... Write_language_name_in_3D_ASCII
+GGS..T.R..... Write_language_name_in_3D_ASCII
 GG.K......X.. Write_to_Windows_event_log
 GBS.......... XML_DOM_serialization
 GBS..T....... XML_Input
