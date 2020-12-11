@@ -5,11 +5,10 @@
 #j#  JVM: OK
 #f# RC file: forest_fire.BEND
 #n# run 'Forest_fire.1' to see interactive output
-#n# srand in two places to keep output stable?
+#n# srand in two places to keep output stable?  ==> YES
 
 srand 123456;
 
-# Works with: rakudo version 2015-10-04
 #This version saves a lot of looking around by using four states instead of three; the Heating state does a lookahead to track trees that are being heated up by burning trees, so we only ever have to traverse the neighbors of burning trees, not all trees.  Also, by only checking the list of burning trees, we can avoid copying the entire forest each iteration, since real forests are mutable.
 
 my $RED = "\e[1;31m";
@@ -77,7 +76,7 @@ sub MAIN (Int $height = $ROWS - 2, Int $width = $COLS div 2 - 1) {
     my $fh = open("run/forest_fire.$ext", :w);
     my Forest $forest .= new(:$height, :$width);
     #print "\e[2J";      # ANSI clear screen
-    srand 123456;
+    srand 1;
     loop {
 	#print "\e[H";   # ANSI home
 	#say $++;
@@ -87,4 +86,3 @@ sub MAIN (Int $height = $ROWS - 2, Int $width = $COLS div 2 - 1) {
     }
     $fh.close;
 }
-
