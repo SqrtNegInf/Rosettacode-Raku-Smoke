@@ -106,6 +106,6 @@ if $*VM ~~ /jvm/ {
 is $result1, 'Tails Heads Tails Tails Tails Heads Heads Heads Tails ';
 is $result2, "\nHah, I win, and you lose!";
 } else {
-is $result1, 'Heads Heads Heads Tails ';
-is $result2, "\nGood, I win, and you lose!";
+is $result1, 'Tails Tails Heads Tails Heads ';
+is $result2, "\nArgh, you win, but I'll beat you next time!";
 }
