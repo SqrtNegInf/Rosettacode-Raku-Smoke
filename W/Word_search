@@ -3,7 +3,7 @@
 #c# 2020-02-07 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2020-10-07 different answers when run from interactive shell vs cron-launch?
+#n# 2020-10-07 different answers when run from interactive shell vs cron-launch
 
 srand 123456;
 
@@ -143,98 +143,93 @@ sub compare (@s, @w) {
 
 my $moar = q:to/END/;
      A B C D E F G H I J
-   0 s n a s u R r g u m
-   1 e v e e r g O r i o
-   2 r n o o l b s S e a
-   3 a e p i a p a t E s
-   4 T t b n p o m r i T
-   5 p A d l i g r i v r
-   6 i c C p i l u t s b
-   7 e i e O o f r e e u
-   8 r r i d D a m m e l
-   9 p u p c e E r a m f
+   0 w t e i d R x g a y
+   1 s t t f l y O e n s
+   2 s u e o t u v S h e
+   3 e p o e r r n a E q
+   4 T i i i k r a n r T
+   5 c A v l d s i m a y
+   6 c y C h c u u d g a
+   7 i b o O e s t y x m
+   8 t b o s D y m s n i
+   9 l l a b t E c r a m
 
   Words used:
-   band  F 2 ↙  
-   cede  B 6 ↘  
-    cpu  D 9 ←  
-    err  I 2 ↖  
-   flub  J 9 ↑  
-   free  F 7 →  
-   glib  F 1 ↙  
-    gum  H 0 →  
-    iii  C 8 ↖  
-  lemma  J 8 ←  
-   loon  E 2 ←  
-    mar  I 9 ←  
-    mop  G 4 ←  
-    oar  E 7 ↘  
-    pea  C 3 ←  
-   pier  A 5 ↓  
-    pup  A 9 →  
-    reb  A 2 ↘  
-  reeve  E 1 ←  
-    rio  H 1 →  
-   rite  H 4 ↓  
-   sans  D 0 ←  
-    sao  J 3 ↑  
- simple  I 6 ↖  
-   stir  G 2 ↘  
-   tapa  H 3 ←  
-    ten  B 4 ↑  
-  tulip  H 6 ←  
-    uri  B 9 ↑  
-    usa  E 0 ←  
- virgil  I 5 ←  
+      ami  J 6 ↓  
+   annuli  I 5 ↖  
+     ball  D 9 ←  
+      bob  B 7 ↘  
+     clip  E 6 ↖  
+     cram  G 9 →  
+     diet  E 0 ←  
+      eng  J 2 ↖  
+      fly  D 1 →  
+      gay  H 0 →  
+      gym  I 6 ↙  
+      hex  I 2 ↖  
+      hey  D 6 ↘  
+      icc  A 7 ↑  
+     mart  H 5 ↖  
+      nyu  I 8 ↖  
+      ram  H 9 →  
+      seq  J 1 ↓  
+    skeet  F 5 ↖  
+      sob  D 8 ←  
+      ssw  A 2 ↑  
+ studious  H 8 ↖  
+     styx  F 7 →  
+      tic  A 8 ↑  
+   torrid  C 1 ↘  
+     vary  G 2 ↘  
+      vie  C 5 ↖  
+     yost  B 6 ↘  
 
 
 END
 
-my $xoar = q:to/END/;
+my $moar-terminal = q:to/END/;
      A B C D E F G H I J
-   0 s n a s u R r g u m
-   1 e v e e r g O r i o
-   2 r n o o l b s S e a
-   3 a e p i a p a t E s
-   4 T t b n p o m r i T
-   5 p A d l i g r i v r
-   6 i c C p i l u t s b
-   7 e i e O o f r e e u
-   8 r r i d D a m m e l
-   9 p u p c e E r a m f
+   0 r s s e t R k n i k
+   1 i y d t l u O y i t
+   2 p t v r u o h S h d
+   3 e h e i o d t e E s
+   4 T l o r e l f s j T
+   5 t A v m t t d o a t
+   6 c o C e o i y n v s
+   7 o c o O n j a r a u
+   8 m w i r D a s r u l
+   9 b w o l b E l o y k
 
   Words used:
-   band  F 2 ↙  
-   cede  B 6 ↘  
-    cpu  D 9 ←  
-    err  I 2 ↖  
-   flub  J 9 ↑  
-   free  F 7 →  
-   glib  F 1 ↙  
-    gum  H 0 →  
-    iii  C 8 ↖  
-  lemma  J 8 ←  
-   loon  E 2 ←  
-    mar  I 9 ←  
-    mop  G 4 ←  
-    oar  E 7 ↘  
-    pea  C 3 ←  
-   pier  A 5 ↓  
-    pup  A 9 →  
-    reb  A 2 ↘  
-  reeve  E 1 ←  
-    rio  H 1 →  
-   rite  H 4 ↓  
-   sans  D 0 ←  
-    sao  J 3 ↑  
- simple  I 6 ↖  
-   stir  G 2 ↘  
-   tapa  H 3 ←  
-    ten  B 4 ↑  
-  tulip  H 6 ←  
-    uri  B 9 ↑  
-    usa  E 0 ←  
- virgil  I 5 ←  
+     blow  E 9 ←  
+     comb  A 6 ↓  
+      din  J 2 ↖  
+     homo  B 3 ↘  
+      hut  G 2 ↖  
+      icc  C 8 ↖  
+      ink  I 0 ←  
+      ivy  D 3 ↖  
+      jar  F 7 →  
+     java  I 4 ↓  
+     kink  J 0 ←  
+ landlord  J 8 ↖  
+     lore  B 4 →  
+      low  D 9 ←  
+      orr  H 9 ↑  
+     ripe  A 0 ↓  
+     root  D 8 ↖  
+      say  G 8 ↑  
+      shy  J 3 ↖  
+      sse  B 0 →  
+    stole  H 4 ↖  
+     stud  C 0 ↘  
+     sulk  J 6 ↓  
+      tao  J 5 ←  
+ tertiary  B 2 ↘  
+    theft  J 1 ↙  
+     ursa  I 8 ←  
+    venal  C 5 ↘  
+      woe  B 8 ↗  
 
 
 END
