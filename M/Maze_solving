@@ -5,7 +5,9 @@
 #j#  JVM: OK
 #n# unstable output
 
+srand 1; rand; # does not help
 srand 123456;
+
 my @res;
 
 constant mapping = :OPEN(' '),
