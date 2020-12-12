@@ -6,6 +6,7 @@
 #f# RC file: brownian_tree.BEND
 #n# 2020-10-07 still varies
 
+srand 1; rand; # 2020-11-10 head fake to produce stability?
 srand 123456;
 
 my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
