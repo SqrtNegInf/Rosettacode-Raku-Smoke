@@ -7,8 +7,6 @@
 #n# minor idiomatification
 #n# RC x-cli-x: 10 4 (this wasn't working for JVM?)
 
-srand 123456;
-
 # UPPER HALF BLOCK and LOWER HALF BLOCK alternate to give a somewhat smooth animation.
 
 my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
@@ -152,6 +150,10 @@ sub simulate($coins is copy) {
 
 #sub MAIN($coins =250, $peg-lines = 13) {
 sub MAIN($coins =10, $peg-lines = 4) {
+
+    srand 1; rand; # head fake helps?
+    srand 123456;
+
     $row-count = $peg-lines;
     simulate($coins);
 }
