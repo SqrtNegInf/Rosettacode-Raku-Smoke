@@ -8,6 +8,7 @@
 # Works with: rakudo version 2015-09-22
 #Supply a width and height and optionally the x,y grid coords for the starting cell. If no starting cell is supplied, a random one will be selected automatically. 0,0 is the top left corner.
 
+srand 1; rand; # does not help
 srand 123456;
 
 my @res;
