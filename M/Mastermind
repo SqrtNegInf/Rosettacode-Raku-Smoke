@@ -3,10 +3,8 @@
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# RC pipe: A B C D\nC F A B\nF C B A
+#n# RC pipe: A B C D\nC A F B\nF A C B
 #n# better testing again
-
-srand 123456;
 
 use Test;  
 
@@ -17,6 +15,8 @@ sub MAIN (
     Int :$guesses where 7 < * < 21 = 10, Bool :$repeat = False
   ) {
     my @valid = ('A' .. 'T')[^$colors];
+srand 1; say rand;
+srand 123456;
     my $puzzle = $repeat ?? @valid.roll($length) !! @valid.pick($length);
 say "Puzzle answer is: $puzzle"; # DH leave this in, or when run as cronjob, fails?
     my @guesses;
