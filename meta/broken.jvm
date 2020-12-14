@@ -1,7 +1,7 @@
 >>>>>>>>>>>>>>>> » KLUDGES « <<<<<<<<<<<<<<<<<
 
 # 'constant' fails, use plain variable instead
-# P/Perlin_noise 
+# P/Perlin_noise  [2020-12-13 no change with jvm-2020.11]
 
 # uint64 instead of uint32
 # M/MD5_Implementation
@@ -9,7 +9,7 @@
 # avoid 'use Crypt::Random' for JVM (and reliable testing)
 # O/One-time_pad  
 
-# these work after downgrading U/Unicode names to ASCII
+# these work after downgrading U/Unicode names to ASCII [2020-12-13 no change with jvm-2020.11]
 # A/Ackermann_function
 # B/Box_the_compass
 # C/Cipolla%27s_algorithm
@@ -34,7 +34,7 @@
 # New errors for 2018-08
 # S/Sorting_algorithms_Sleep_sort # 2018-10-11 working again
 # U/Unicode_variable_names # 2018-12-08 working again
-# B/Burrows-Wheeler_transform # 2019-10-25 could merge back to main?
+# B/Burrows-Wheeler_transform [2020-12-13 still needs non-Unicode delimiter, keep .jvm version]
 
 # some are msb/lsb, but not all:
 # bench/jvm/Date_manipulation.out:Cannot assign to an immutable value # 2018-12-08 working again
@@ -66,7 +66,7 @@ D/Determine_if_a_string_has_all_unique_characters
 R/Rep-string
 # S/Split_a_character_string_based_on_change_of_character # dumbed it down, works for ASCII-only
 S/Substring_Top_and_tail
-U/UTF-8_encode_and_decode
+#U/UTF-8_encode_and_decode 2020-12-13 2020.11
 
 # pg 'Type check failed' bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
 # F/Fractran # Type check failed in binding to nu; expected Int but got Rat (<34/91>) # works 2018-05-17
@@ -77,7 +77,7 @@ U/UTF-8_encode_and_decode
 
 # pg StackOverflowError bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
 # C/Count_the_coins # partial fix: smaller piles work
-I/I_before_E_except_after_C-2
+I/I_before_E_except_after_C-2 # 2020-12-13 jvm-2020.11 fails in the same way as Moar does now?
 L/Lychrel_numbers
 M/Man_or_boy_test
 
@@ -144,6 +144,7 @@ R/Rosetta_Code_Tasks_without_examples
 S/SOAP
 
 # other ecosystem problems (and probably some involve NativeCall too...)
+F/Find_URI_in_text      # use IETF::RFC_Grammar::URI
 F/FTP                   # use Net::FTP
 H/HTTP                  # use LWP::Simple
 M/Multiple_regression   # use Clifford
@@ -162,9 +163,8 @@ P/Parallel_calculations-2
 S/Super-d_numbers-3
 
 # misc problems
-F/Find_URI_in_text
-# N/Names_to_numbers
 G/Get_system_command_output
+S/Sequence:_nth_number_with_exactly_n_divisors.jvm
 
 ===================================================================
 
@@ -174,5 +174,3 @@ G/Get_system_command_output
 # task failures not categorized above (some can be fixed, chipping away at the list...)
 
 2019-10-22-j Secs: 104289 RC: 976 Tasks: 1025  OK: 1528  Err: 69 !OK: 11  Top: 5858 3442 2138 1543 1312 1203 1115
-
-S/Sequence:_nth_number_with_exactly_n_divisors # DH a non-trivial code issue here?
