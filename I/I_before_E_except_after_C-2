@@ -6,7 +6,7 @@
 #n# java.lang.StackOverflowError
 #n# 2020-12-04 
 #n# Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
-#n#  in method word at I/I_before_E_except_after_C-2 line 43
+#n#  in method word at I/I_before_E_except_after_C-2 line xx
 
 # This solution uses grammars and actions to parse the given file, the Bag for tallying up occurrences of each possible thing we're looking for ("ie", "ei", "cie", and "cei"), and junctions to determine the plausibility of a phrase from the subphrases. 
 
@@ -38,12 +38,17 @@ grammar CollectWords {
 
 class CollectWords::Actions {
     method TOP($/) {
-        make $<word>».ast.flat.Bag; # DH change
+        make $<word>».ast.flat.Bag;
     }
 
     method word($/) {
         if $<with_c> + $<no_c> {
-            make flat $<with_c>».ast xx $<freq>, $<no_c>».ast xx $<freq>; # DH change ## here is the coercion error
+            # all of the following lines trigger the coercion error
+            make (($<with_c>, $<no_c>) xx $<freq>).flat».ast;
+            #make ($<with_c>, $<no_c>).flat».ast xx $<freq>;
+            #make (flat $<with_c>, $<no_c>)».ast xx $<freq>;
+            #make flat ($<with_c>».ast, $<no_c>».ast) xx $<freq>;
+            #make flat $<with_c>».ast xx $<freq>, $<no_c>».ast xx $<freq>; # original
         } else {
             make ();
         }
