@@ -3,7 +3,7 @@
 #c# 2019-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# problem is getting info out of iterator
+#n# A non-trivial code issue here? JVM runs, but results are not the same
 
 my @res;
 
@@ -20,21 +20,19 @@ my @primes = grep { .is-prime }, 1..*;
 @primes[$limit]; # prime the array. SCNR
 
 @res.push: "First $limit terms of OEIS:A073916";
-my @terms = gather for 1..$limit -> $n {
+@res.push: (1..$limit).map: -> $n {
     ($n > 4 and $n.is-prime) ??
-    take exp($n - 1, @primes[$n - 1]) !!
+    exp($n - 1, @primes[$n - 1]) !!
     do {
         my $i = 0;
-        # with JVM, can't collect terms out of iterator? [MOAR works]
         my $iterator = $n %% 2 ?? (1..*) !! (1..*).map: *²;
-        take $iterator.first: {
+        $iterator.first: {
             next unless $n == .&div-count;
             next unless ++$i == $n;
             $_
         }
     }
 };
-@res.push: join ' ', @terms;
 
 .say for @res;
 
