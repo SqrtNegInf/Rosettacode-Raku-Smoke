@@ -35,7 +35,8 @@ class CollectWords::Actions {
 
     method word($/) {
         if $<with_c> + $<no_c> {
-            make flat $<with_c>».ast, $<no_c>».ast; # DH change
+            make ($<with_c>, $<no_c>).flat».ast;
+            #make flat $<with_c>».ast, $<no_c>».ast; # DH change
         } else {
             make ();
         }
