@@ -5259,7 +5259,7 @@ File: I/Inverted_syntax
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: I/Isqrt__integer_square_root__of_X
+File: I/Isqrt_integer_square_root_of_X
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Isqrt_(integer_square_root)_of_X
 #c# 2020-12-10 <RC
@@ -9786,7 +9786,9 @@ File: S/Sequence:_nth_number_with_exactly_n_divisors.jvm
 #c# 2019-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# A non-trivial code issue here? JVM runs, but results are not the same
+#n# A non-trivial code issue here? 
+#n# JVM runs, but results are not the same, due to failure to proceed through $iterator values?
+#n# note: 'div-count' works for JVM in other Sequence* tasks
 
 File: S/Sequence:_smallest_number_greater_than_previous_term_with_exactly_n_divisors
 #!/usr/bin/env perl6
@@ -9895,6 +9897,13 @@ File: S/Sexy_primes.jvm
 #c# 2018-09-27 <RC, 2018-10-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: S/Shell_one-liner
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Shell_one-liner
+#c# 2020-12-15 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
 
 File: S/Shoelace_formula_for_polygonal_area
 #!/usr/bin/env perl6
@@ -12105,6 +12114,15 @@ File: U/User_input_Text
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: ad astra, per asperagus\n1024
+
+File: U/Using_a_speech_engine_to_highlight_words
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Using_a_speech_engine_to_highlight_words
+#t# skiptest
+#c# 2020-12-15 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# no 'espeak'
 
 File: V/VList
 #!/usr/bin/env perl6
