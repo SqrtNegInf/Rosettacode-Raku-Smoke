@@ -1,19 +1,19 @@
-Welcome to Rakudo(tm) v2020.11-136-g1639c7877.
+Welcome to Rakudo(tm) v2020.11-139-g3808eaa41.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.11-85-g82a34e25a.
 updating from RC…
-+--------------> Moar: Good/Bad [1256/22]
-|+-------------> JVM: Good/Bad [1082/215]
-||+------------> Smoke testing [1156]
-|||+-----------> sKipping validation [131]
++--------------> Moar: Good/Bad [1260/23]
+|+-------------> JVM: Good/Bad [1083/217]
+||+------------> Smoke testing [1158]
+|||+-----------> sKipping validation [132]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
 ||||||+--------> Concurrent/Async [66]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [97]
 |||||||||+-----> Draft [220]
-||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [85]
+||||||||||+----> Ignoring [35]
+|||||||||||+---> Void (no local copy) [82]
 ||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
@@ -316,7 +316,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -591,7 +591,7 @@ GBS.......... Intersecting_number_wheels
 GGS..T....... Introspection
 GGS..T....... Inverted_index
 GG.K......... Inverted_syntax
-..........XV. Isqrt_integer_square_root_of_X
+GGS.......... Isqrt_integer_square_root_of_X
 GG.K..c...... Iterated_digits_squaring
 GGS.......... Iterated_digits_squaring-1
 GGS.......... JSON
@@ -603,7 +603,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-!BS...C.F.... Julia_set
+GBS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 GGS....R..... K-d_tree
@@ -1089,7 +1089,7 @@ GGS..T....... Set_of_real_numbers
 !GS..T.R..... Set_puzzle
 GGS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
-..........XV. Shell_one-liner
+GBS.......... Shell_one-liner
 GGS.......... Shoelace_formula_for_polygonal_area
 GGS..T....... Short-circuit_evaluation
 GGS..T....... Shortest_common_supersequence
@@ -1334,8 +1334,7 @@ GG.K......... Use_another_language_to_call_a_function
 GGS......D... User_defined_pipe_and_redirection_operators
 ..........XV. User_input_Graphical
 GGS.......... User_input_Text
-..........X.. Using_a_Speech_engine_to_highlight_words
-.........D.V. Using_a_speech_engine_to_highlight_words
+BB.K.....D... Using_a_speech_engine_to_highlight_words
 .........D.VU Using_the_Meetup.com_API
 GGS......D... VList
 GGS..T....... Validate_International_Securities_Identification_Number
