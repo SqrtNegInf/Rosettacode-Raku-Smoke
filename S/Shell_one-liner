@@ -1,0 +1,10 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Shell_one-liner
+#c# 2020-12-15 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+say my $result = qqx{raku -e 'say "Hello, world!"'};
+
+use Test;
+is $result, "Hello, world!\n";
