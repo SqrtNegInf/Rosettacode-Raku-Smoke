@@ -3,13 +3,15 @@
 #c# 2019-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# A non-trivial code issue here? JVM runs, but results are not the same
+#n# A non-trivial code issue here? 
+#n# JVM runs, but results are not the same, due to failure to proceed through $iterator values?
+#n# note: 'div-count' works for JVM in other Sequence* tasks
 
 my @res;
 
 sub div-count (\x) {
     return 2 if x.is-prime;
-    flat (1 .. x.sqrt.floor).map: -> \d {  # DH '+' not needed?
+    +flat (1 .. x.sqrt.floor).map: -> \d {  # DH '+' not needed?
         unless x % d { my \y = x div d; y == d ?? y !! (y, d) }
     }
 }
@@ -22,19 +24,23 @@ my @primes = grep { .is-prime }, 1..*;
 @res.push: "First $limit terms of OEIS:A073916";
 @res.push: (1..$limit).map: -> $n {
     ($n > 4 and $n.is-prime) ??
-    exp($n - 1, @primes[$n - 1]) !!
+    exp($n - 1, @primes[$n - 1]) !!  # this branch executes properly
     do {
         my $i = 0;
         my $iterator = $n %% 2 ?? (1..*) !! (1..*).map: *²;
         $iterator.first: {
+say "$i : $_"; # see 'exp/Sequence:_nth_exactly.txt' for what this ought to be
             next unless $n == .&div-count;
+say "first1: $n";
             next unless ++$i == $n;
+say "first2: $n";
             $_
         }
     }
 };
 
 .say for @res;
+exit;
 
 my $ref = q:to/END/;
 First 20 terms of OEIS:A073916
