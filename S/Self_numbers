@@ -3,8 +3,7 @@
 #c# 2020-11-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-
-my @res;
+#n# faster than the literal-minded Perl translation; hard-coding '50' sub-optimal
 
 my ( $st, $count, $i, $pow, $digits, $offset, $lastSelf, $done, @selfs) =
      now,      0,  1,   10,       1,       9,         0, False;
@@ -15,17 +14,15 @@ until $done {
    my $sum    = (my $start = max ($i-$offset), 0).comb.sum;
    loop ( my $j = $start; $j < $i; $j+=1 ) {
       if $j+$sum == $i { $isSelf = False and last }
-      ($j+1)%10 != 0 ?? ( $sum+=1 ) !! ( $sum = ($j+1).comb.sum ) ;
+      ($j+1) % 10 ?? ( $sum+=1 ) !! $sum = ($j+1).comb.sum;
+      #($j+1)%10 != 0 ?? ( $sum+=1 ) !! ( $sum = ($j+1).comb.sum ) ;
    }
    if $isSelf {
       $count+=1;
       $lastSelf = $i;
       if $count <= 50 {
          @selfs.append: $i;
-         if $count == 50 {
-            @res.push: "The first 50 self numbers are:", join ' ', @selfs;
-            $done = True;
-         }
+         $done = True if $count == 50;
       }
    }
    $i+=1;
@@ -39,12 +36,11 @@ until $done {
 # say "The 100 millionth self number is ", $lastSelf;
 # say "Took ", now - $st, " seconds."
 
-.say for @res;
+say "The first 50 self numbers are:" ~ my $result = join ' ', @selfs;
 
 my $ref = q:to/END/;
-The first 50 self numbers are:
 1 3 5 7 9 20 31 42 53 64 75 86 97 108 110 121 132 143 154 165 176 187 198 209 211 222 233 244 255 266 277 288 299 310 312 323 334 345 356 367 378 389 400 411 413 424 435 446 457 468
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is $result, chomp $ref;
