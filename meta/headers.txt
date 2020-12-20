@@ -5013,12 +5013,11 @@ File: I/I_before_E_except_after_C-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/I_before_E_except_after_C
 #c# 2015-12-11 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #n# java.lang.StackOverflowError
-#n# 2020-11-15 moar-blead 
+#n# 2020-11-15 moar-blead [FIXED: thundergnat++, the necessary coercion is '+$<freq>']
 #n# Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
-#n#  in method word at I/I_before_E_except_after_C-2 line xx
 
 File: I/Identity_matrix
 #!/usr/bin/env perl6
@@ -10076,8 +10075,12 @@ File: S/Simulate_input_Keyboard
 #u# http://rosettacode.org/wiki/Simulate_input/Keyboard
 #t# gui
 #c# 2018-12-21 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
+#n# 2020-12-19 on Mac OS X does switch to a browser, bring up Google search, but then:
+#n# Warning: XTEST extension unavailable on '(null)'. Some functionality may be disabled; See 'man xdotool' for more info.
+#n# Type List does not support associative indexing.
+#n#   in block <unit> at S/Simulate_input_Keyboard line 24
 
 File: S/Simulate_input_Mouse
 #!/usr/bin/env perl6
