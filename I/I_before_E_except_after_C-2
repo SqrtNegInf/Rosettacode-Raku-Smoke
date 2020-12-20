@@ -1,12 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/I_before_E_except_after_C
 #c# 2015-12-11 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #n# java.lang.StackOverflowError
-#n# 2020-11-15 moar-blead 
+#n# 2020-11-15 moar-blead [FIXED: thundergnat++, the necessary coercion is '+$<freq>']
 #n# Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
-#n#  in method word at I/I_before_E_except_after_C-2 line xx
 
 # This solution uses grammars and actions to parse the given file, the Bag for tallying up occurrences of each possible thing we're looking for ("ie", "ei", "cie", and "cei"), and junctions to determine the plausibility of a phrase from the subphrases. 
 
@@ -43,12 +42,11 @@ class CollectWords::Actions {
 
     method word($/) {
         if $<with_c> + $<no_c> {
-            # all of the following lines trigger the same coercion error
-            make (($<with_c>, $<no_c>) xx $<freq>).flat».ast;
-            #make ($<with_c>, $<no_c>).flat».ast xx $<freq>;
-            #make (flat $<with_c>, $<no_c>)».ast xx $<freq>;
-            #make flat ($<with_c>».ast, $<no_c>».ast) xx $<freq>;
-            #make flat $<with_c>».ast xx $<freq>, $<no_c>».ast xx $<freq>; # original
+            make (($<with_c>, $<no_c>) xx +$<freq>).flat».ast;
+            #make ($<with_c>, $<no_c>).flat».ast xx +$<freq>;
+            #make (flat $<with_c>, $<no_c>)».ast xx +$<freq>;
+            #make flat ($<with_c>».ast, $<no_c>».ast) xx +$<freq>;
+            #make flat $<with_c>».ast xx +$<freq>, $<no_c>».ast xx +$<freq>; # original
         } else {
             make ();
         }
