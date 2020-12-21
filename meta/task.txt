@@ -1,17 +1,17 @@
-Welcome to Rakudo(tm) v2020.12-3-g357a7f300.
+Welcome to Rakudo(tm) v2020.12-5-g3beb71cc9.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-1-g9320005bd.
 updating from RC…
-+--------------> Moar: Good/Bad [1229/23]
-|+-------------> JVM: Good/Bad [1083/217]
-||+------------> Smoke testing [1159]
++--------------> Moar: Good/Bad [1234/23]
+|+-------------> JVM: Good/Bad [1083/221]
+||+------------> Smoke testing [1163]
 |||+-----------> sKipping validation [132]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
 ||||||+--------> Concurrent/Async [66]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [220]
+|||||||||+-----> Draft [224]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [82]
 ||||||||||||+--> Un-implemented/reliable [53]
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-!GS..T.R..... Average_loop_length
+GGS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -945,6 +945,7 @@ GGS.......... Priority_queue
 GGS....R..... Probabilistic_choice
 GBS..T....... Problem_of_Apollonius
 GB.K....FD... Process_SMIL_directives_in_XML_data
+GBS......D... Product_of_divisors
 GGS..T....... Program_name
 GG.K......... Program_termination
 .........D.V. Proof
@@ -1226,6 +1227,7 @@ GGS......D... Sum_data_type
 GGS.......... Sum_digits_of_an_integer
 GGS.......... Sum_multiples_of_3_and_5
 GGS..T....... Sum_of_a_series
+GBS......D... Sum_of_divisors
 GGS.......... Sum_of_squares
 GGS.......... Sum_to_100
 GGS..T....... Summarize_and_say_sequence
@@ -1244,6 +1246,8 @@ BB.K......... Table_creation_Postal_addresses
 GGS.....F.... Take_notes_on_the_command_line
 .........D.VU Tamagotchi_emulator
 GGS.......... Tarjan
+GBS......D... Tau_function
+GBS......D... Tau_number
 GGS.....F.... Taxicab_numbers
 GGS.......... Teacup_rim_text
 GGS.......... Temperature_conversion
