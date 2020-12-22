@@ -17,8 +17,9 @@ sub minkowski(\x) {
    my $r = $p + 1;
 
    loop {
-      last if ( $y + ($d /= 2)  == $y )        ||
-              ( my $m = $p + $r) <  0 | $p < 0 ||
+      last if ( $y + ($d /= 2)  == $y )        or
+              ( my $m = $p + $r) <  0          or
+              #( my $m = $p + $r) <  0 | $p < 0 || # ?
               ( my $n = $q + $s) <  0           ;
       x < $m/$n ?? ( ($r,$s) = ($m, $n) ) !! ( $y += $d; ($p,$q) = ($m, $n) );
    }
