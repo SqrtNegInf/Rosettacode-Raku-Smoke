@@ -2,19 +2,19 @@ Welcome to Rakudo(tm) v2020.12-9-g4b6b2e070.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-1-g9320005bd.
 updating from RC…
-+--------------> Moar: Good/Bad [1234/23]
-|+-------------> JVM: Good/Bad [1083/221]
-||+------------> Smoke testing [1163]
++--------------> Moar: Good/Bad [1233/23]
+|+-------------> JVM: Good/Bad [1081/221]
+||+------------> Smoke testing [1161]
 |||+-----------> sKipping validation [132]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [340]
+|||||+---------> Touched (modified by me) [339]
 ||||||+--------> Concurrent/Async [66]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [97]
 |||||||||+-----> Draft [223]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [82]
-||||||||||||+--> Un-implemented/reliable [53]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -316,7 +316,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -511,8 +511,6 @@ GGS..T..F.... Greyscale_bars_Display
 GGS....R..... Guess_the_number
 GGS....R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
-GGS..T....... HTTP
-GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -806,7 +804,7 @@ GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
 GGS.......... Non-decimal_radices_Input
 GGS.......... Non-decimal_radices_Output
-...........VU Non-transitive_dice
+...........V. Non-transitive_dice
 GGS..T....... Nonoblock
 BB.K.T......U Nonogram_solver
 GGS.......... Nth_root
