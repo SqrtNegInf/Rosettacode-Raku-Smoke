@@ -1,0 +1,86 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Non-transitive_dice
+#c# 2020-12-26 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my @dicepool = ^4 xx 4 ;
+
+sub fourFaceCombs { # for brevity, changed to use 0-based dice on input
+   my @res = my @found = [];
+   for [X] @dicepool {
+      unless @found[ my \key = [+] (64,16,4,1) Z* $_.sort ] {
+         @found[key] = True;
+         @res.push: $_ »+» 1
+      }
+   }
+   return @res
+}
+
+sub infix:<⚖️>(@x, @y) {
+   my $xw = my $yw = 0;
+   for @x X<=> @y { given $_.Int { when 1 {$xw++} ; when -1 {$yw++} } }
+   return ( $xw <=> $yw ).Int
+}
+
+sub findIntransitive3(\cs) {
+   my \c = +cs;
+   my @results = [];
+   for [X] ^c xx 3 -> (\i,\j,\k) {
+      if so all ( cs[i] ⚖️ cs[j] , cs[j] ⚖️ cs[k] ) »==» -1 {
+         if cs[i] ⚖️ cs[k] == 1 { @results.push: [ cs[i], cs[j], cs[k] ] }
+      }
+   }
+   return @results
+}
+
+sub findIntransitive4(\cs) {
+   my \c = +cs;
+   my @results = [];
+   for [X] ^c xx 4 -> (\i,\j,\k,\l) {
+      if so all ( cs[i] ⚖️ cs[j] , cs[j] ⚖️ cs[k], cs[k] ⚖️ cs[l] ) »==» -1 {
+         if cs[i] ⚖️ cs[l] == 1 { @results.push: [ cs[i], cs[j], cs[k], cs[l] ] }
+      }
+   }
+   return @results
+}
+
+@res.push: "Number of eligible 4-faced dice : " ~ (my \combs = fourFaceCombs).elems;
+
+my @it3 = findIntransitive3(combs);
+@res.push: +@it3 ~ " ordered lists of 3 non-transitive dice found, namely:";
+@res.push: $_.gist for @it3;
+
+#my @it4 := findIntransitive4(combs);
+#@res.push: +@it4. " ordered lists of 4 non-transitive dice found, namely:";
+#.say for @it4;
+
+.say for @res;
+
+my $ref = q:to/END/;
+Number of eligible 4-faced dice : 35
+3 ordered lists of 3 non-transitive dice found, namely:
+[(1 1 4 4) (2 2 2 4) (1 3 3 3)]
+[(1 3 3 3) (1 1 4 4) (2 2 2 4)]
+[(2 2 2 4) (1 3 3 3) (1 1 4 4)]
+END
+
+#`{{
+my $zef = q:to/END/;
+Number of eligible 4-faced dice : 35
+3 ordered lists of 3 non-transitive dice found, namely:
+[(1 1 4 4) (2 2 2 4) (1 3 3 3)]
+[(1 3 3 3) (1 1 4 4) (2 2 2 4)]
+[(2 2 2 4) (1 3 3 3) (1 1 4 4)]
+4 ordered lists of 4 non-transitive dice found, namely:
+[(1 1 4 4) (2 2 2 4) (2 2 3 3) (1 3 3 3)]
+[(1 3 3 3) (1 1 4 4) (2 2 2 4) (2 2 3 3)]
+[(2 2 2 4) (2 2 3 3) (1 3 3 3) (1 1 4 4)]
+[(2 2 3 3) (1 3 3 3) (1 1 4 4) (2 2 2 4)]
+END
+}}
+
+use Test;
+is @res.join("\n"), chomp $ref;
