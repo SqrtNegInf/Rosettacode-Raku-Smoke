@@ -1,8 +1,8 @@
-Welcome to Rakudo(tm) v2020.12-19-g5df809e29.
+Welcome to Rakudo(tm) v2020.12-21-g94d685d95.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-9-gb8663f53a.
 updating from RC…
-+--------------> Moar: Good/Bad [1229/23]
++--------------> Moar: Good/Bad [1227/23]
 |+-------------> JVM: Good/Bad [1084/221]
 ||+------------> Smoke testing [1164]
 |||+-----------> sKipping validation [132]
@@ -11,7 +11,7 @@ updating from RC…
 ||||||+--------> Concurrent/Async [66]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [224]
+|||||||||+-----> Draft [225]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [82]
 ||||||||||||+--> Un-implemented/reliable [53]
@@ -174,7 +174,7 @@ GGS.......... Caesar_cipher
 GGS.......... Calculating_the_value_of_e
 GGS.......... Calendar
 GGS.......... Calendar_-_for_%22REAL%22_programmers
-GGS.......... Calkin-Wilf_sequence
+GGS......D... Calkin-Wilf_sequence
 GBS.......... Call_a_foreign-language_function
 GG.K......... Call_a_function
 GGS.......... Call_a_function-2
@@ -316,7 +316,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -603,7 +603,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-GBS...C.F.... Julia_set
+!BS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
