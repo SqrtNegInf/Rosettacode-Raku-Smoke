@@ -1,12 +1,12 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Calkin-Wilf_sequence
-#c# 2020-12-06 <RC
+#c# 2020-12-06 <RC, 2020-12-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 my @res;
 
-my @calkin-wilf = 0, 1, {1 / (.Int × 2 + 1 - $_)} … *;
+my @calkin-wilf = Any, 1, {1 / (.Int × 2 + 1 - $_)} … *;
 
 # Rational to Calkin-Wilf index
 sub r2cw (Rat $rat) { :2( join '', flat (flat (1,0) xx *) Zxx reverse r2cf $rat ) }
