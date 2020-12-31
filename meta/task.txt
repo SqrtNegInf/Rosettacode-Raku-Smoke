@@ -1,10 +1,10 @@
-Welcome to Rakudo(tm) v2020.12-23-geb1eabf6a.
+Welcome to Rakudo(tm) v2020.12-29-g86fd7f67b.
 Implementing the Raku(tm) programming language v6.d.
-Built on MoarVM version 2020.12-9-gb8663f53a.
+Built on MoarVM version 2020.12-16-g34f9d8c7a.
 updating from RC…
-+--------------> Moar: Good/Bad [1227/23]
-|+-------------> JVM: Good/Bad [1084/221]
-||+------------> Smoke testing [1164]
++--------------> Moar: Good/Bad [1228/23]
+|+-------------> JVM: Good/Bad [1085/221]
+||+------------> Smoke testing [1165]
 |||+-----------> sKipping validation [132]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [340]
@@ -13,8 +13,8 @@ updating from RC…
 ||||||||+------> File output [97]
 |||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [83]
-||||||||||||+--> Un-implemented/reliable [54]
+|||||||||||+---> Void (no local copy) [82]
+||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -316,7 +316,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -383,7 +383,7 @@ GGS....R..... Evolutionary_algorithm
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -550,7 +550,7 @@ GGS.......... Horner%27s_rule_for_polynomial_evaluation
 GBS..T....... Host_introspection
 GGS.......... Hostname
 GBS..Tc.F.... Hough_transform
-.........D.VU Hourglass_puzzle
+GGS......D... Hourglass_puzzle
 GGS.......... Huffman_coding
 GGS.......... Huffman_coding-2
 GGS.......... Humble_numbers
@@ -1367,7 +1367,7 @@ GGS..T....... Vogel%27s_approximation_method
 GBS..TCRF.... Voronoi_diagram
 GGS.......... Walk_a_directory_Non-recursively
 GGS.......... Walk_a_directory_Recursively
-.........D.VU War_Card_Game
+.........D.VU War_card_game
 GGS.......... Water_collected_between_towers
 GBS..T...D... Waveform_analysis_Doh_ray_me
 .........D.VU Waveform_analysis_Top_and_tail
