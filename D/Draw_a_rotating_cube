@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Draw_a_rotating_cube
 #t# interactive
-#c# 2018-03-19 <RC, 2019-01-22 >RC
+#c# 2018-03-19 <RC, 2019-01-22 >RC, 2020-12-30 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -46,8 +46,8 @@ given my $canvas = Terminal::Caca.new {
       ( [1, 1, -1], [-1, -1, -1], [ 1, -1, -1] ),
       ( [1, 1,  1], [-1, -1,  1], [-1,  1,  1] ), # near face
       ( [1, 1,  1], [-1, -1,  1], [ 1, -1,  1] );
-      @mesh.push: $_».rotate( 1) for @mesh[^4]; # positive and
-      @mesh.push: $_».rotate(-1) for @mesh[^4]; # negative rotations
+      @mesh.push: [$_».rotate( 1)».Array] for @mesh[^4]; # positive and
+      @mesh.push: [$_».rotate(-1)».Array] for @mesh[^4]; # positive and
 
     # Rotate to correct orientation for task
     for ^@mesh X ^@mesh[0] -> ($i, $j) {
