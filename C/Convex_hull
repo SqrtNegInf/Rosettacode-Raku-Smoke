@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Convex_hull
-#c# 2017-06-11 <RC
+#c# 2017-06-11 <RC, 2020-12-30 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -42,10 +42,11 @@ sub graham-scan (**@coords) {
     # check through the remaining list making sure that
     # there is always a positive angle
     for @sp -> $point {
-        if ccw( |@h.tail(2), $point ) >= 0 {
+        if ccw( |@h.tail(2), $point ) > 0 {
             @h.push: $point;
         } else {
             @h.pop;
+            @h.push: $point and next if +@h < 2;
             redo;
         }
     }
@@ -63,11 +64,11 @@ say "Convex Hull ({+@hull1} points): ", @hull1;
 my @hull2 = graham-scan(
     (16, 3), (12,17), ( 0, 6), (-4,-6), (16, 6), (16,-7), (16,-3),
     (17,-4), ( 5,19), (19,-8), ( 3,16), (12,13), ( 3,-4), (17, 5),
-    (-3,15), (-3,-9), ( 0,11), (-9,-3), (-4,-2), (12,10), (14,-9), (1,-9)
+    (-3,15), (-3,-9), ( 0,11), (-9,-3), (-4,-2), (12,10), (20,-9), (1,-9)
   );
 
 say "Convex Hull ({+@hull2} points): ", @hull2;
 
 use Test;
 is @hull1.gist, '[(-3, -9) (19, -8) (17, 5) (12, 17) (5, 19) (-3, 15) (-9, -3)]';
-is @hull2.gist, '[(-3, -9) (1, -9) (14, -9) (19, -8) (17, 5) (12, 17) (5, 19) (-3, 15) (-9, -3)]';
+is @hull2.gist, '[(-3, -9) (20, -9) (17, 5) (12, 17) (5, 19) (-3, 15) (-9, -3)]';
