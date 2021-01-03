@@ -1,8 +1,8 @@
-Welcome to Rakudo(tm) v2020.12-31-gf89863249.
+Welcome to Rakudo(tm) v2020.12-32-g8150a2864.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-16-g34f9d8c7a.
 updating from RC…
-+--------------> Moar: Good/Bad [1231/23]
++--------------> Moar: Good/Bad [1229/23]
 |+-------------> JVM: Good/Bad [1085/221]
 ||+------------> Smoke testing [1165]
 |||+-----------> sKipping validation [132]
@@ -11,10 +11,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [66]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [224]
+|||||||||+-----> Draft [225]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [82]
-||||||||||||+--> Un-implemented/reliable [53]
+|||||||||||+---> Void (no local copy) [83]
+||||||||||||+--> Un-implemented/reliable [54]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GGS..T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -316,7 +316,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -439,6 +439,7 @@ GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
 GGS.......... Find_the_missing_permutation
+.........D.VU Find_words_which_odd_letters_are_consonants_and_even_letters_are_vowels_or_vice_versa
 GBS......D... Finite_state_machine
 GGS.......... First-class_functions
 GGS.......... First-class_functions_Use_numbers_analogously
