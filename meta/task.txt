@@ -1,7 +1,8 @@
 Welcome to Rakudo(tm) v2020.12-35-g4d40e23e0.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-16-g34f9d8c7a.
-+--------------> Moar: Good/Bad [1228/23]
+updating from RC…
++--------------> Moar: Good/Bad [1229/23]
 |+-------------> JVM: Good/Bad [1085/221]
 ||+------------> Smoke testing [1165]
 |||+-----------> sKipping validation [132]
@@ -10,9 +11,9 @@ Built on MoarVM version 2020.12-16-g34f9d8c7a.
 ||||||+--------> Concurrent/Async [67]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [225]
+|||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [83]
+|||||||||||+---> Void (no local copy) [84]
 ||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
@@ -271,6 +272,7 @@ GGS.......... Count_in_factors-3
 GGS.......... Count_in_octal
 GGS.......... Count_occurrences_of_a_substring
 GGS..T....... Count_the_coins
+.........D.V. Count_the_coins_0_1
 GGS.......... Cramer%27s_rule
 ..........X.. Create_DWM_statusbar
 GGS.......... Create_a_file
@@ -604,7 +606,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-!BS...C.F.... Julia_set
+GBS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
