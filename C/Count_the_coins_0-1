@@ -1,0 +1,49 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Count_the_coins/0-1
+#c# 2021-01-07 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+for <1 2 3 4 5>, 6
+   ,<1 1 2 3 3 4 5>, 6
+#   ,<1 2 3 4 5 5 5 5 15 15 10 10 10 10 25 100>, 40
+  -> @items, $sum {
+
+    @res.push: "\nHow many combinations of [{ @items.join: ', ' }] sum to $sum?";
+
+    given ^@items .combinations.grep: { @items[$_].sum == $sum } {
+        .&display;
+        display .race.map( { Slip(.permutations) } ), '';
+    }
+}
+
+sub display ($list, $un = 'un') {
+    @res.push: "\nOrder {$un}important:\nCount: { +$list }" #Indices" ~ ( +$list > 10 ?? ' (10 random examples):' !! ':' );
+    #put $list.pick(10).sort».join(', ').join: "\n"
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+How many combinations of [1, 2, 3, 4, 5] sum to 6?
+
+Order unimportant:
+Count: 3
+
+Order important:
+Count: 10
+
+How many combinations of [1, 1, 2, 3, 3, 4, 5] sum to 6?
+
+Order unimportant:
+Count: 9
+
+Order important:
+Count: 38
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
