@@ -11,7 +11,7 @@ my @dicepool = ^4 xx 4 ;
 sub FaceCombs(\N, @dp) { # for brevity, changed to use 0-based dice on input
    my @res = my @found = [];
    for [X] @dp {
-      unless @found[ my \key = [+] ( N «**« (N-1…0) ) Z* .sort ] {
+      unless @found[ my \key = [+] ( N «**« (N-1…0) ) Z× .sort ] {
          @found[key] = True;
          @res.push: $_ »+» 1
       }
