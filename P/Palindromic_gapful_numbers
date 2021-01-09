@@ -8,7 +8,7 @@
 my @res;
 
 # Infinite lazy iterator to generate palindromic "gap" numbers
-my @npal = flat [ ^10 ], [ ^10 .map: * x 2 ],
+my @npal = lazy flat [ ^10 ], [ ^10 .map: * x 2 ],
   {
       sink @^previous;
       my \count = +@^penultimate;
