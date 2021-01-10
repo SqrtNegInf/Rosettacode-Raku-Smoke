@@ -7663,6 +7663,12 @@ File: P/Palindromic_gapful_numbers
 #m# MOAR: OK
 #j# JVM:  OK
 #n# cannot use 'hyper' in generation of inf/lazy iterators? (@npal/@gappal)
+#n#  2021-01-09 additional notes:
+#n#  * the runtime error is: 'This continuation has already been invoked'
+#n#  * consistently seen on older Mac OS, a useful 'canary' (or just a PITA?)
+#n#  * the same code runs fine on Ubuntu (no matter how memory/CPU stressed the system is)
+#n#  * no error when generating only one block of values, which implicates the nested hypers?
+#n#  * same error seen even when outer/display .hyper is removed (or converted to plain 'for' loop)
 
 File: P/Pancake_numbers
 #!/usr/bin/env raku
