@@ -10,6 +10,8 @@
 #n# big wart: in 'place' routine using literal '◦•' in regex because I cannot figure out a
 #n#             way to efficiently create a regex object which is built from $empty-square
 
+use MONKEY-SEE-NO-EVAL;
+
 # recursively place the next queen
 sub place ($board, $n, $m, $empty-square) {
     my $cnt;
@@ -30,7 +32,8 @@ sub place ($board, $n, $m, $empty-square) {
           ) ~
         ']' ~
         '<{%Q{$0}}>';               # 2nd queen
-      $attack = "/$re/".EVAL;
+      $attack = EVAL "/$re/";
+      #$attack = "/$re/".EVAL; # deprecated?
     }
 
     # return first result found (omit this line to get last result found)
