@@ -5,6 +5,8 @@
 #j#  JVM: OK
 #n# borrowed code from 'Longest_common_subsequence' task
 
+use MONKEY-SEE-NO-EVAL;
+
 my @res;
 
 sub lcs(Str $xstr, Str $ystr) { # longest common subsequence
@@ -17,7 +19,15 @@ sub lcs(Str $xstr, Str $ystr) { # longest common subsequence
 
 sub scs ($u, $v) { # shortest common supersequence
     my @lcs = (lcs $u, $v).comb;
-    my $regex = "/ (.*) {@lcs.join: '(.*)'} (.*) /".EVAL;
+
+    # what's on RC:
+    #my $pat = '(.*)' ~ join('(.*)',@lcs) ~ '(.*)';
+    #my $regex = "rx/$pat/".EVAL;
+
+    # but I'm using:
+    my $regex = EVAL "/ (.*) {@lcs.join: '(.*)'} (.*) /";
+    #my $regex = "/ (.*) {@lcs.join: '(.*)'} (.*) /".EVAL; # deprecated?
+
     my @u = ($u ~~ $regex).list;
     my @v = ($v ~~ $regex).list;
     my $scs = shift(@u) ~ shift(@v);
