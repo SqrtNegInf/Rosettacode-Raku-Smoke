@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
+use MONKEY-SEE-NO-EVAL;
+
 my @res;
 
 # Use a slightly more complicated outline than the task example to test some edge conditions. Limited to about a 10 x 10 outline (table) as is. Easily adapted for larger if necessary.
@@ -46,7 +48,8 @@ sub import (Str $trees, $level = '  ') {
     sub esc { $^s.subst( /(<['\\]>)/, -> $/ { "\\$0" }, :g) }
 
     $forest ~= ']' x 1 + $last;
-    $forest.EVAL;
+    EVAL $forest;
+    #$forest.EVAL; # deprecated?
 }
 
 my @AoA = import $outline, '    ';
