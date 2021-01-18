@@ -8,6 +8,8 @@
 #n# ...and now actually testing the code "For Real (TM)"
 #n# 2020-12-02 this task works, but messing up testing system, turn off for now
 
+use MONKEY-SEE-NO-EVAL;
+
 BEGIN srand 123456;
 
 say "Here are your digits: ", 
@@ -15,7 +17,8 @@ say "Here are your digits: ",
 my @digits = <5 3 4 4>;
 
 grammar Exp24 {
-    token TOP { ^ <exp> $ { fail unless $/.EVAL == 24 } }
+    token TOP { ^ <exp> $ { fail unless 24 == EVAL $/ } }
+    #token TOP { ^ <exp> $ { fail unless $/.EVAL == 24 } } # deprecated?
     rule exp { <term>+ % <op> }
     rule term { '(' <exp> ')' | <@digits> }
     token op { < + - * / > }
