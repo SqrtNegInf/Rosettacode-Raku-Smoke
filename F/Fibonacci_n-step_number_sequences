@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#Lazy List with Closure
+use MONKEY-SEE-NO-EVAL;
 
 sub fibo ($n) {
     constant @starters = 1,1,2,4 ... *;
@@ -12,7 +12,8 @@ sub fibo ($n) {
 }
 
 sub nacci (*@starter) {
-    "|@starter, { join '+', '*' xx @starter } ... *".EVAL;
+    EVAL "|@starter, { join '+', '*' xx @starter } ... *";
+    #"|@starter, { join '+', '*' xx @starter } ... *".EVAL; # deprecated?
 }
 
 my @res1; 
