@@ -111,7 +111,7 @@ my $Ramanujan = 𝑒**(π×√163);
 @res.push: "Heegner numbers yielding 'almost' integers";
 for 19, 96, 43, 960, 67, 5280, 163, 640320 -> $heegner, $x {
     my $almost = 𝑒**(π×√$heegner);
-    my $exact  = $x**3 + 744;
+    my $exact  = $x³ + 744;
     @res.push: format($exact,$almost);
 }
 
