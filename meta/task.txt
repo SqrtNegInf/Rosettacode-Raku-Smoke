@@ -1,7 +1,8 @@
-Welcome to Rakudo(tm) v2020.12-61-g927fa332c.
+Welcome to Rakudo(tm) v2020.12-62-gf623f1b6e.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-85-g2d9899c72.
-+--------------> Moar: Good/Bad [1231/23]
+updating from RC…
++--------------> Moar: Good/Bad [1228/23]
 |+-------------> JVM: Good/Bad [1086/222]
 ||+------------> Smoke testing [1167]
 |||+-----------> sKipping validation [132]
@@ -13,7 +14,7 @@ Built on MoarVM version 2020.12-85-g2d9899c72.
 |||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [83]
-||||||||||||+--> Un-implemented/reliable [52]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -147,7 +148,7 @@ GGS.....F.... Bitmap_Histogram
 GGS.....F.... Bitmap_Midpoint_circle_algorithm
 GGS.....F.... Bitmap_PPM_conversion_through_a_pipe
 GGS.....F.... Bitmap_Read_a_PPM_file
-GBS.....F.... Bitmap_Read_an_image_through_a_pipe
+!BS.....F.... Bitmap_Read_an_image_through_a_pipe
 GGS.....F.... Bitmap_Write_a_PPM_file
 GGS..T....... Bitwise_IO
 GGS..T....... Bitwise_operations
@@ -316,7 +317,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -512,7 +513,7 @@ GGS..T..F.... Greyscale_bars_Display
 GGS....R..... Guess_the_number
 GGS....R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
-GGS..T....... HTTP
+!GS..T....... HTTP
 GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
@@ -871,7 +872,7 @@ GGS.......... Partition_function_P
 GGS.......... Pascal%27s_triangle
 GGS.......... Pascal%27s_triangle_Puzzle
 GGS..T....... Pascal_matrix_generation
-GGS....R....U Password_generator
+GGS....R..... Password_generator
 GGS..T.R..... Password_generator-2
 GGS.......... Pathological_floating_point_problems
 !GS..T.R..... Pattern_matching
@@ -882,7 +883,7 @@ GGS.......... Pell%27s_equation
 GGS.....FD... Penrose_tiling
 GGS..T..F.... Pentagram
 !GS....R.D... Pentomino_tiling
-GBS.......... Percentage_difference_between_images
+!BS.......... Percentage_difference_between_images
 BB.......D... Perceptron
 !GS....R..... Percolation_Bond_percolation
 !GS....R..... Percolation_Mean_cluster_density
@@ -1369,7 +1370,7 @@ GGS..T....... Vogel%27s_approximation_method
 GBS..TCRF.... Voronoi_diagram
 GGS.......... Walk_a_directory_Non-recursively
 GGS.......... Walk_a_directory_Recursively
-!BS......D... War_card_game
+GBS......D... War_card_game
 GGS.......... Water_collected_between_towers
 GBS..T...D... Waveform_analysis_Doh_ray_me
 .........D.VU Waveform_analysis_Top_and_tail
