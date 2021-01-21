@@ -1,0 +1,31 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Find_words_with_alternating_vowels_and_consonants
+#c# 2021-01-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+grammar VOWCON {
+    token       TOP { <|w> <vowel>? ( <consonant> <vowel> )* <consonant>? <|w> }
+    token     vowel { <[aeiou]> }
+    token consonant { <[a..z] - [aeiou]> }
+}
+
+say my $result = ( grep { VOWCON.parse: .lc }, grep { .chars > 9 }, 'ref/unixdict.txt'.IO.words ).batch(6)».fmt('%-15s').join: "\n";
+
+my $ref = q:to/END/;
+aboriginal      apologetic      bimolecular     borosilicate    calorimeter     capacitate     
+capacitive      capitoline      capitulate      caricature      colatitude      coloratura     
+colorimeter     debilitate      decelerate      decolonize      definitive      degenerate     
+deliberate      demodulate      denominate      denotative      deregulate      desiderata     
+desideratum     dilapidate      diminutive      epigenetic      facilitate      hemosiderin    
+heretofore      hexadecimal     homogenate      inoperative     judicature      latitudinal    
+legitimate      lepidolite      literature      locomotive      manipulate      metabolite     
+nicotinamide    oratorical      paragonite      pejorative      peridotite      peripatetic    
+polarimeter     recitative      recuperate      rehabilitate    rejuvenate      remunerate     
+repetitive      reticulate      savonarola      similitude      solicitude      tananarive     
+telekinesis     teratogenic     topologize      unilateral      unimodular      uninominal     
+verisimilitude 
+END
+
+use Test;
+is $result, chomp $ref;
