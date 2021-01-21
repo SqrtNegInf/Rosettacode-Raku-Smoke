@@ -29,7 +29,7 @@ class Graph {
   method dijkstra ($source, $dest) {
     my (%node_data, $v, $u); my @q = self.nodes.keys;
 
-    for self.nodes.keys {%node_data{$_}{'dist'} = Inf;%node_data{$_}{'prev'} = '';}
+    for self.nodes.keys { %node_data{$_}{'dist'} = Inf; %node_data{$_}{'prev'} = '' }
     %node_data{$source}{'dist'} = 0;
 
     while @q {
