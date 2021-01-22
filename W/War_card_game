@@ -59,7 +59,7 @@ use Terminal::ANSI;
 clear-screen;
 hide-cursor;
 # Set background color
-print "\e[H\e[J\e[48;2;245;245;245m", ' ' xx $rows * $cols + 1;
+print "\e[H\e[J\e[48;2;245;245;245m", ' ' xx $rows × $cols + 1;
  
 # Add header
 print-at 1, $cols div 2 - 1, "{%c<red>}WAR!";
@@ -103,8 +103,8 @@ loop {
     else {
         @round[0].append: @player[0].&take($war);
         @round[1].append: @player[1].&take($war);
-        print-at $row, @index[0] - $_ * 2, ($_ %% $war) ?? @round[0; $_] !! $back for ^@round[0];
-        print-at $row, @index[1] + $_ * 2, ($_ %% $war) ?? @round[1; $_] !! $back for ^@round[1];
+        print-at $row, @index[0] - $_ × 2, ($_ %% $war) ?? @round[0; $_] !! $back for ^@round[0];
+        print-at $row, @index[1] + $_ × 2, ($_ %% $war) ?? @round[1; $_] !! $back for ^@round[1];
         next
     }
     last if $lose;
