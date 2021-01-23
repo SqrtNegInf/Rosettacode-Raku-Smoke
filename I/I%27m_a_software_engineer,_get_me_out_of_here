@@ -1,6 +1,5 @@
-#!/usr/bin/env raku
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/I%27m_a_software_engineer,_get_me_out_of_here
-#t# inprogress
 #c# 2021-01-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -33,77 +32,67 @@ my $d = qq:to/END/;
          00000
 END
 
-$d ~= " \n" x 2;
 my $w = $d.split("\n")».chars.max;
 $d = $d.split("\n")».fmt("%-{$w}s").join("\n");
 $w++;
-my @directions = ( 1, -1, -$w-1 .. -$w+1, $w-1 .. $w+1 );
+
+my @directions = ( 1, -1, -$w-1, -$w, -$w+1, $w-1, $w, $w+1);
 my @nodes.push: .pos - 1 for $d ~~ m:g/\d/;
 
-my %dist = map { $_ => alldest($_) }, @nodes; # all shortest from-to paths
+my %dist = map { $_ => all-destinations($_) }, @nodes; # all shortest from-to paths
 
-#sub alldest (@queue) {
-sub alldest ($node) {
+sub all-destinations ($node) {
     my $dd = $d;
     my %to;
     my @queue.push: $node;
     while shift @queue -> $path {
-        last unless $path;
         my $from = ($path.split(' '))[*-1];
         my $steps = substr $dd, $from, 1;
-        next unless ' ' ne $steps;
+        next if $steps eq ' ';
         %to{$from} //= $path;
         next unless $steps ne '0';
         substr-rw($dd, $from, 1) = '0';
         for @directions -> $dir {
             my $next = $from + $steps × $dir;
+            next if $next < 0 or $next > $d.chars;
             @queue.push: "$path $next" if substr($dd, $next, 1) ~~ /\d/;
         }
     }
     %to;
 }
 
-sub   to-xy ($i)     { '(' ~ join(',', int($i/$w), $i%$w) ~ ')' }
+sub   to-xy ($i)     { '(' ~ join(',', floor($i/$w), $i%$w) ~ ')' }
 sub from-xy ($x, $y) { $x × $w + $y }
 
-#`[[
+my $startpos = from-xy 11, 11;
 
-my $startpos   = from-xy 11, 11;
+my %best;
+%best{$_.split(' ').elems}.push: .split(' ')».&to-xy.join(' ')
+    for grep { .so }, map { %dist{$startpos}{$_} }, grep { '0' eq substr $d, $_, 1 }, @nodes;
+my $n = %best{ my $short-route = %best.keys.sort.first }.elems;
+@res.push: "Shortest escape routes ($n) of length {$short-route - 1}:\n\t"~
+    %best{$short-route}.join("\n\t");
 
-my @best;
-$best[ tr/ // ] .= "\t$_\n" for grep $_, map $dist{$startpos}{$_},
-  grep { '0' eq substr $d, $_, 1 } @nodes;
-my $short = first { $best[$_] } 0 .. $#best;
-my $n = $best[$short] =~ tr/\n//;
-push @res, "shortest escape routes ($n) of length $short:\n".
-  $best[$short] =~ s/\d+/ to-xy $& /ger;
+@res.push: "\nShortest from (21,11) to  (1,11):\n\t" ~ %dist{from-xy 21, 11}{from-xy  1, 11}.split(' ')».&to-xy.join(' ');
+@res.push: "\nShortest from  (1,11) to (21,11):\n\t" ~ %dist{from-xy  1, 11}{from-xy 21, 11}.split(' ')».&to-xy.join(' ');
 
-push @res, "\nshortest from (21,11) to (1,11):\n\t".
-  $dist{from-xy 21, 11}{from-xy 1, 11} =~ s/\d+/ to-xy $& /ger, "\n";
-push @res, "\nshortest from (1,11) to (21,11):\n\t".
-  $dist{from-xy 1, 11}{from-xy 21, 11} =~ s/\d+/ to-xy $& /ger, "\n";
+my @long-short = reverse sort { .split(' ').elems }, gather { %dist.deepmap(*.take) };
+my $l = @long-short[0].split(' ').elems;
+@res.push: "\nLongest 'shortest' paths (length {$l-1}):";
+@res.push: "\t" ~ .split(' ')».&to-xy.join(' ') for grep { .split(' ').elems == $l }, @long-short.sort; # sort is for testing
 
-@best = ();
-$best[tr/ //] .= "\t$_\n" for sort map { values %$_ } values %dist;
-push @res, "\nlongestshortest paths (length $#best):\n".
-  $best[-1] =~ s/\d+/ to-xy $& /ger;
+my @notreach = grep { not %dist{$startpos}{$_} }, @nodes;
+@res.push: "\nNot reachable from HQ:\n\t" ~ @notreach.split(' ')».&to-xy.join(' ');
 
-my @notreach = grep !$dist{$startpos}{$_}, @nodes;
-push @res, "\nnot reached from HQ:\n\t@notreach\n" =~ s/\d+/ to-xy $& /ger;
+#@best = ();
+#$best[tr/ //] .= "\t$_\n" for sort values %{ $dist{$startpos} };
+#push @res, "\nLongest reinforcement from HQ is $#best for:\n".
+#  $best[-1] =~ s/\d+/ to-xy $& /ger;
 
-@best = ();
-$best[tr/ //] .= "\t$_\n" for sort values %{ $dist{$startpos} };
-push @res, "\nlongest reinforcement from HQ is $#best for:\n".
-  $best[-1] =~ s/\d+/ to-xy $& /ger;
-
-my $result = join "", @res;
-
-]]
-
-exit;
+#say my $result = join "\n", @res; exit;
 
 my $ref = qq:to/END/;
-shortest escape routes (40) of length 4:
+Shortest escape routes (40) of length 4:
 	(11,11) (11,12) (8,12) (6,12) (0,12)
 	(11,11) (10,11) (7,11) (7,12) (1,6)
 	(11,11) (11,12) (8,9) (2,9) (1,8)
@@ -145,13 +134,13 @@ shortest escape routes (40) of length 4:
 	(11,11) (12,11) (15,8) (18,11) (22,11)
 	(11,11) (11,12) (14,9) (18,13) (22,13)
 
-shortest from (21,11) to (1,11):
+Shortest from (21,11) to  (1,11):
 	(21,11) (21,12) (19,10) (14,10) (10,10) (8,8) (4,8) (1,11)
 
-shortest from (1,11) to (21,11):
+Shortest from  (1,11) to (21,11):
 	(1,11) (2,10) (5,13) (9,9) (15,3) (20,8) (20,10) (21,11)
 
-longestshortest paths (length 9):
+Longest 'shortest' paths (length 9):
 	(7,3) (7,4) (5,4) (8,7) (8,9) (14,15) (16,17) (17,16) (18,16) (20,14)
 	(10,21) (10,20) (9,19) (9,16) (9,9) (15,3) (15,8) (15,5) (15,2) (14,2)
 	(11,21) (11,20) (11,16) (11,17) (11,13) (13,11) (17,7) (15,5) (15,2) (14,2)
@@ -160,17 +149,16 @@ longestshortest paths (length 9):
 	(2,9) (2,10) (5,7) (8,7) (8,9) (14,15) (16,17) (17,16) (18,16) (20,14)
 	(2,13) (2,15) (3,15) (6,12) (12,18) (13,19) (13,20) (17,16) (18,16) (20,14)
 
-not reached from HQ:
+Not reachable from HQ:
 	(2,18) (4,3) (18,20)
-
-longest reinforcement from HQ is 6 for:
-	(11,11) (11,12) (11,15) (11,17) (7,17) (7,20) (6,20)
-	(11,11) (11,12) (11,15) (13,17) (13,19) (13,20) (17,20)
-	(11,11) (11,12) (14,12) (16,12) (20,12) (21,11) (22,12)
-	(11,11) (11,12) (14,15) (16,17) (17,16) (18,16) (20,14)
-	(11,11) (12,11) (9,14) (6,17) (4,17) (4,18) (3,19)
-
 END
+
+#Longest reinforcement from HQ is 6 for:
+#	(11,11) (11,12) (11,15) (11,17) (7,17) (7,20) (6,20)
+#	(11,11) (11,12) (11,15) (13,17) (13,19) (13,20) (17,20)
+#	(11,11) (11,12) (14,12) (16,12) (20,12) (21,11) (22,12)
+#	(11,11) (11,12) (14,15) (16,17) (17,16) (18,16) (20,14)
+#	(11,11) (12,11) (9,14) (6,17) (4,17) (4,18) (3,19)
 
 use Test;
 is (join "\n", @res), chomp $ref;
