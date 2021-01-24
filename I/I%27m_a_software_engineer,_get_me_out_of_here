@@ -1,6 +1,6 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/I%27m_a_software_engineer,_get_me_out_of_here
-#c# 2021-01-xx >RC
+#c# 2021-01-23 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -33,29 +33,27 @@ my $d = qq:to/END/;
 END
 
 my $w = $d.split("\n")».chars.max;
-$d = $d.split("\n")».fmt("%-{$w}s").join("\n");
+$d = $d.split("\n")».fmt("%-{$w}s").join("\n"); # pad lines to same length
 $w++;
 
 my @directions = ( 1, -1, -$w-1, -$w, -$w+1, $w-1, $w, $w+1);
 my @nodes.push: .pos - 1 for $d ~~ m:g/\d/;
+my %dist = @nodes.race.map: { $_ => all-destinations([$_]) }; # all shortest from-to paths
 
-my %dist = map { $_ => all-destinations($_) }, @nodes; # all shortest from-to paths
-
-sub all-destinations ($node) {
-    my $dd = $d;
+sub all-destinations (@queue) {
     my %to;
-    my @queue.push: $node;
+    my $dd = $d;
     while shift @queue -> $path {
         my $from = ($path.split(' '))[*-1];
-        my $steps = substr $dd, $from, 1;
+        my $steps = $dd.substr($from, 1);
         next if $steps eq ' ';
         %to{$from} //= $path;
-        next unless $steps ne '0';
-        substr-rw($dd, $from, 1) = '0';
+        next if $steps eq '0';
+        $dd.substr-rw($from, 1) = '0';
         for @directions -> $dir {
             my $next = $from + $steps × $dir;
             next if $next < 0 or $next > $d.chars;
-            @queue.push: "$path $next" if substr($dd, $next, 1) ~~ /\d/;
+            @queue.push: "$path $next" if $dd.substr($next, 1) ~~ /\d/;
         }
     }
     %to;
@@ -66,28 +64,30 @@ sub from-xy ($x, $y) { $x × $w + $y }
 
 my $startpos = from-xy 11, 11;
 
-my %best;
-%best{$_.split(' ').elems}.push: .split(' ')».&to-xy.join(' ')
-    for grep { .so }, map { %dist{$startpos}{$_} }, grep { '0' eq substr $d, $_, 1 }, @nodes;
-my $n = %best{ my $short-route = %best.keys.sort.first }.elems;
-@res.push: "Shortest escape routes ($n) of length {$short-route - 1}:\n\t"~
-    %best{$short-route}.join("\n\t");
+my %routes;
+%routes{.split(' ').elems}.push: .split(' ')».&to-xy.join(' ')
+    for grep { .so }, map { %dist{$startpos}{$_} }, grep { '0' eq $d.substr($_, 1) }, @nodes;
+my $n = %routes{ my $short-route = %routes.keys.sort.first }.elems;
+@res.push: "Shortest escape routes ($n) of length {$short-route - 1}:\n\t" ~
+    %routes{$short-route}.join("\n\t");
 
 @res.push: "\nShortest from (21,11) to  (1,11):\n\t" ~ %dist{from-xy 21, 11}{from-xy  1, 11}.split(' ')».&to-xy.join(' ');
 @res.push: "\nShortest from  (1,11) to (21,11):\n\t" ~ %dist{from-xy  1, 11}{from-xy 21, 11}.split(' ')».&to-xy.join(' ');
 
-my @long-short = reverse sort { .split(' ').elems }, gather { %dist.deepmap(*.take) };
+#my @long-short = reverse sort { .split(' ').elems }, gather %dist.deepmap(*.take); # slow
+my @long-short = %dist.values».map( *.values ).flat.sort( *.split(' ').elems).reverse; # about the same
 my $l = @long-short[0].split(' ').elems;
 @res.push: "\nLongest 'shortest' paths (length {$l-1}):";
 @res.push: "\t" ~ .split(' ')».&to-xy.join(' ') for grep { .split(' ').elems == $l }, @long-short.sort; # sort is for testing
 
-my @notreach = grep { not %dist{$startpos}{$_} }, @nodes;
+my @notreach = @nodes.grep: { not %dist{$startpos}{$_} };
 @res.push: "\nNot reachable from HQ:\n\t" ~ @notreach.split(' ')».&to-xy.join(' ');
 
-#@best = ();
-#$best[tr/ //] .= "\t$_\n" for sort values %{ $dist{$startpos} };
-#push @res, "\nLongest reinforcement from HQ is $#best for:\n".
-#  $best[-1] =~ s/\d+/ to-xy $& /ger;
+my @HQ;
+@HQ[.split(' ').elems].push: .split(' ')».&to-xy.join(' ') for %dist{$startpos}.values;
+
+#@HQ .= grep: *.so; @res.push: "\nLongest reinforcement from HQ is {@HQ - 1} for:\n\t" ~ @HQ[*-1].sort.join("\n\t"); # sort is for testing
+@res.push: "\nLongest reinforcement from HQ is {@HQ - 2} for:\n\t" ~ @HQ[*-1].sort.join("\n\t"); # sort is for testing
 
 #say my $result = join "\n", @res; exit;
 
@@ -151,14 +151,14 @@ Longest 'shortest' paths (length 9):
 
 Not reachable from HQ:
 	(2,18) (4,3) (18,20)
+
+Longest reinforcement from HQ is 6 for:
+	(11,11) (11,12) (11,15) (11,17) (7,17) (7,20) (6,20)
+	(11,11) (11,12) (11,15) (13,17) (13,19) (13,20) (17,20)
+	(11,11) (11,12) (14,12) (16,12) (20,12) (21,11) (22,12)
+	(11,11) (11,12) (14,15) (16,17) (17,16) (18,16) (20,14)
+	(11,11) (12,11) (9,14) (6,17) (4,17) (4,18) (3,19)
 END
 
-#Longest reinforcement from HQ is 6 for:
-#	(11,11) (11,12) (11,15) (11,17) (7,17) (7,20) (6,20)
-#	(11,11) (11,12) (11,15) (13,17) (13,19) (13,20) (17,20)
-#	(11,11) (11,12) (14,12) (16,12) (20,12) (21,11) (22,12)
-#	(11,11) (11,12) (14,15) (16,17) (17,16) (18,16) (20,14)
-#	(11,11) (12,11) (9,14) (6,17) (4,17) (4,18) (3,19)
-
 use Test;
-is (join "\n", @res), chomp $ref;
+is @res.join("\n"), chomp $ref;
