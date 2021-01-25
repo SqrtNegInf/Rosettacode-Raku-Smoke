@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/I%27m_a_software_engineer,_get_me_out_of_here
-#c# 2021-01-23 >RC
+#c# 2021-01-24 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -59,37 +59,37 @@ sub all-destinations (@queue) {
     %to;
 }
 
-sub   to-xy ($i)     { '(' ~ join(',', floor($i/$w), $i%$w) ~ ')' }
+sub   to-xy ($nodes) { join ' ', $nodes.split(' ').map: { '(' ~ join(',', floor($_/$w), $_%$w) ~ ')' } }
 sub from-xy ($x, $y) { $x × $w + $y }
 
 my $startpos = from-xy 11, 11;
 
 my %routes;
-%routes{.split(' ').elems}.push: .split(' ')».&to-xy.join(' ')
+%routes{.split(' ').elems}.push: .&to-xy
     for grep { .so }, map { %dist{$startpos}{$_} }, grep { '0' eq $d.substr($_, 1) }, @nodes;
 my $n = %routes{ my $short-route = %routes.keys.sort.first }.elems;
 @res.push: "Shortest escape routes ($n) of length {$short-route - 1}:\n\t" ~
     %routes{$short-route}.join("\n\t");
 
-@res.push: "\nShortest from (21,11) to  (1,11):\n\t" ~ %dist{from-xy 21, 11}{from-xy  1, 11}.split(' ')».&to-xy.join(' ');
-@res.push: "\nShortest from  (1,11) to (21,11):\n\t" ~ %dist{from-xy  1, 11}{from-xy 21, 11}.split(' ')».&to-xy.join(' ');
+@res.push: "\nShortest from (21,11) to  (1,11):\n\t" ~ %dist{from-xy 21, 11}{from-xy  1, 11}.&to-xy;
+@res.push: "\nShortest from  (1,11) to (21,11):\n\t" ~ %dist{from-xy  1, 11}{from-xy 21, 11}.&to-xy;
 
 #my @long-short = reverse sort { .split(' ').elems }, gather %dist.deepmap(*.take); # slow
-my @long-short = %dist.values».map( *.values ).flat.sort( *.split(' ').elems).reverse; # about the same
+my @long-short = %dist.values».map( *.values ).flat.sort( *.split(' ').elems).reverse; # about the same, .race doesn't help
 my $l = @long-short[0].split(' ').elems;
 @res.push: "\nLongest 'shortest' paths (length {$l-1}):";
-@res.push: "\t" ~ .split(' ')».&to-xy.join(' ') for grep { .split(' ').elems == $l }, @long-short.sort; # sort is for testing
+@res.push: "\t" ~ .&to-xy for grep { .split(' ').elems == $l }, @long-short.sort; # sort is for testing
 
-my @notreach = @nodes.grep: { not %dist{$startpos}{$_} };
-@res.push: "\nNot reachable from HQ:\n\t" ~ @notreach.split(' ')».&to-xy.join(' ');
+@res.push: "\nNot reachable from HQ:\n\t" ~ @nodes.grep({not %dist{$startpos}{$_}}).&to-xy; 
+#@res.push: "\nNot reachable from HQ:\n\t" ~ (@nodes.grep: not %dist{$startpos}{$_}).&to-xy;
 
 my @HQ;
-@HQ[.split(' ').elems].push: .split(' ')».&to-xy.join(' ') for %dist{$startpos}.values;
-
+#@HQ[.split(' ').elems] = $_ for %dist{$startpos}.values».&to-xy;
+@HQ[.split(' ').elems].push: .&to-xy for %dist{$startpos}.values; # how to get rid of the one 'Any' value (and why is it there)?
 #@HQ .= grep: *.so; @res.push: "\nLongest reinforcement from HQ is {@HQ - 1} for:\n\t" ~ @HQ[*-1].sort.join("\n\t"); # sort is for testing
 @res.push: "\nLongest reinforcement from HQ is {@HQ - 2} for:\n\t" ~ @HQ[*-1].sort.join("\n\t"); # sort is for testing
 
-#say my $result = join "\n", @res; exit;
+#say join "\n", @res; exit;
 
 my $ref = qq:to/END/;
 Shortest escape routes (40) of length 4:
