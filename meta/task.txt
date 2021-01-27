@@ -1,4 +1,4 @@
-Welcome to Rakudo(tm) v2020.12-85-ga3c7d00d8.
+Welcome to Rakudo(tm) v2020.12-86-g9c7b55612.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-85-g2d9899c72.
 updating from RC…
@@ -14,7 +14,7 @@ updating from RC…
 |||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [81]
-||||||||||||+--> Un-implemented/reliable [51]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -317,7 +317,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -716,7 +716,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-!BS.....F.... Mandelbrot_set-2
+GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -1197,7 +1197,7 @@ GGS..T....... Stern-Brocot_sequence
 GGS.......... Stirling_numbers_of_the_first_kind
 GGS.......... Stirling_numbers_of_the_second_kind
 GGS..T....... Straddling_checkerboard
-.........D.VU Strassen%27s_algorithm
+.........D.V. Strassen%27s_algorithm
 GGS..T....... Stream_merge
 GGS.......... String_append
 GGS..T....... String_case
