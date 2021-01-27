@@ -1,0 +1,31 @@
+#!/usr/bin/env raku
+## use and abuse of non-integral array indices 
+#t# skiptest
+#c# 2018-10-10, 2021-01-25 NOT ON RC
+#n# motivated by debugging a program that was mistakenly using negative indices
+#n# how much of this is documented / expected / desirable?
+#n# the most concerning is the do-nothing-silently statements
+
+my @a;
+
+@a = 42; @a[π] = 3.14; say @a;  # [42 (Any) (Any) 3.14]     so far, so fun: non-integer rounds down
+@a[ 0.8]  = 0.8;       say @a;  # [0.8 (Any) (Any) 3.14]    also rounds down (I sort of hoping it would round up...)
+@a[-0.8] = -0.8;       say @a;  # [-0.8 (Any) (Any) 3.14]   surprise, rounds towards zero!
+@a[-1.8] = -1.8;       say @a;  # [-0.8 (Any) (Any) 3.14]   runs, no warnings
+
+my $i = -42; 
+say 'Boo' if @a[$i];                                 # runs, no warnings
+for -1, 0, 1 -> $i { say "$i: " ~ @a[$i] if @a[$i] } #       "
+#say @a[$i];           # compare with: Index out of range. Is: -42, should be in 0..^Inf (run-time failure)
+
+# compile-time failure
+#@a[-1] = 42;
+#Unsupported use of a negative -1 subscript to index from the end.  
+#In Raku please use: a function such as *-1.
+
+# run-time failure
+#my @b[∞] = ∞;
+#Cannot convert Inf to Int:
+#  in block <unit> at exp/Non-Int-Ind line 29
+
+say 'Done';
