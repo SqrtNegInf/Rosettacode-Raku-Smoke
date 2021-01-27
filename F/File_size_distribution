@@ -3,10 +3,11 @@
 #c# 2017-05-31 <RC, 2018-05-17 <RC, 2018-09-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# should update this once a year
 
 # By default, process the current and all readable sub-directories, or, pass in a directory path at the command line.
 
-sub MAIN($dir = 'bench/2020-01-01-m') {
+sub MAIN($dir = 'bench/2021-01-01-m') {
     my @res;
     sub log10 (Int $s) { $s ?? $s.log(10).Int !! 0 }
     my %fsize;
@@ -37,14 +38,14 @@ sub histogram ($max, $value, $width = 60) {
 .say for @res;
 
 my $ref = qq:to/END/;
-File size distribution in bytes for directory: bench/2020-01-01-m
+File size distribution in bytes for directory: bench/2021-01-01-m
 
 # Files @     0b        0: 
-# Files @  10e0b     1264: ████████████████████████████████████████████████████████████████████████████████
-# Files @  10e1b      742: ████████████████████████████████████████▊
-# Files @  10e2b      120: ▉
-# Files @  10e3b        2: 
-2128 total files.
+# Files @  10e0b     1396: ████████████████████████████████████████████████████████████████████████████████
+# Files @  10e1b      800: ████████████████████████████████████████▋
+# Files @  10e2b      156: ████████
+# Files @  10e3b        4: 
+2356 total files.
 END
 
 use Test;
