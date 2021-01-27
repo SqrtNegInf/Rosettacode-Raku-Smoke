@@ -1,3 +1,8 @@
+2021-01-26
+Upgraded to perl5.32.1, again need to install Inline::Perl5 directly from git archive:
+(zef uninstall Inline::Perl5; cd $HOME/perl6/Inline-Perl5; git pull; make install)
+NB: this does NOT work for me: zef --force-install install https://github.com/niner/Inline-Perl5.git
+
 2021-01-25
 No hangs (but managing my expectations)
 
@@ -323,7 +328,8 @@ Precompilation issue not getting better (esp. for *SSL modules) so clear before 
 LibXML depended on Pod::To::Markdown, which failed tests, so required force-install
 
 2020-10-11
-Upgrade to perl5.32.0: After removing all dependencies on 5.30.0, Inline::Perl5 needed install direct from git archive.
+Upgrade to perl5.32.0: After removing all dependencies on 5.30.0, Inline::Perl5 needed install direct from git archive:
+zef install https://github.com/niner/Inline-Perl5.git
 
 2020-10-09
 SSL tasks seem to be OK now?
