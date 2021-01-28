@@ -1,11 +1,11 @@
-Welcome to Rakudo(tm) v2020.12-86-g9c7b55612.
+Welcome to Rakudo(tm) v2020.12-88-g3865f1cae.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-85-g2d9899c72.
 updating from RC…
-+--------------> Moar: Good/Bad [1232/23]
-|+-------------> JVM: Good/Bad [1088/222]
++--------------> Moar: Good/Bad [1232/24]
+|+-------------> JVM: Good/Bad [1088/223]
 ||+------------> Smoke testing [1169]
-|||+-----------> sKipping validation [132]
+|||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [342]
 ||||||+--------> Concurrent/Async [68]
@@ -13,7 +13,7 @@ updating from RC…
 ||||||||+------> File output [97]
 |||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [81]
+|||||||||||+---> Void (no local copy) [80]
 ||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GGS..T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -317,7 +317,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -1197,7 +1197,7 @@ GGS..T....... Stern-Brocot_sequence
 GGS.......... Stirling_numbers_of_the_first_kind
 GGS.......... Stirling_numbers_of_the_second_kind
 GGS..T....... Straddling_checkerboard
-.........D.V. Strassen%27s_algorithm
+BB.K.....D... Strassen%27s_algorithm
 GGS..T....... Stream_merge
 GGS.......... String_append
 GGS..T....... String_case
