@@ -30,9 +30,9 @@ printf "π  ≈%.9f\n", my $p2 = continued-fraction1((3, |(6 xx *)), ((1, 3, 5 .
 
 use Test;
 plan 6;
-is-approx $r1, 2**.5, '√2';
-is-approx $e1, e,     'e';
-is-approx $p1, pi,    'π';
-is-approx $r2, 2**.5, '√2';
-is-approx $e2, e,     'e';
-is-approx $p2, pi,    'π';
+is-approx $r1, 2**0.5, '√2';
+is-approx $e1, 𝑒,      '𝑒';  # Unicode (not for JVM)
+is-approx $p1, π,      'π';  #          "
+is-approx $r2, sqrt(2),'√2';
+is-approx $e2, e,      'e';
+is-approx $p2, pi,     'pi';
