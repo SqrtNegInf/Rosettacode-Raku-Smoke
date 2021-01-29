@@ -6,7 +6,6 @@
 #j# JVM:  OK
 #f# RC file: bezier-cubic.ppm
 
-# Works with: Rakudo version 2017.09
 # Uses pieces from  Bitmap, and  Bresenham's line algorithm tasks. They are included here to make a complete, runnable program.
 
 class Pixel { has UInt ($.R, $.G, $.B) }
@@ -40,10 +39,10 @@ class Bitmap {
             ($x0, $x1) = ($x1, $x0);
             ($y0, $y1) = ($y1, $y0);
         }
-        my $Δx = $x1 - $x0;
-        my $Δy = abs($y1 - $y0);
-        my $error = 0;
-        my $Δerror = $Δy / $Δx;
+        my \Δx = $x1 - $x0;
+        my \Δy = abs($y1 - $y0);
+        my $error  = 0;
+        my \Δerror = Δy / Δx;
         my $y-step = $y0 < $y1 ?? 1 !! -1;
         my $y = $y0;
         for $x0 .. $x1 -> $x {
@@ -52,8 +51,7 @@ class Bitmap {
             } else {
                 self.set-pixel($x, $y, $pix);
             }
-            $error += $Δerror;
-            if $error >= 0.5 {
+            if ($error += Δerror) >= 0.5 {
                 $y += $y-step;
                 $error -= 1.0;
             }
