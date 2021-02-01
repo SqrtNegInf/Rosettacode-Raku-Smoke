@@ -5,7 +5,7 @@
 #j#  JVM: OK
 #n# kludge for JVM: 'my' instead of 'constant' for @p (java.lang.IllegalArgumentException: bad parameter count 259)
 #n# 2019-10-26 kludge still needed...
-#n# don't need to double input permutation?
+#n# 2020-01-30 for this particular input permutation doesn't need to doubled
 
 #constant @p =
 my @p = map { :36($_) }, flat <
@@ -19,7 +19,7 @@ my @p = map { :36($_) }, flat <
 30 32 27 35 68 6G 4Y 55 34 2W 62 6U 2P 6C 6Z  Y 6Q 5D 6M 5U 40  C 5B 4Z 4I 6P
 29 1F 41 6J 6X  E 6N 2Z 1D 5C 5Y  V 51 5J 2Y 4D 54 2C 5O 4W 37 3D 1E 19 3J  4
 46 72 3U 6K 5P 2L 66 36 1V  T  O 20 6R 3X 3K 5F 26 1U 5Z 1P 4C 50
->; # xx 2; # doesn't need to be doubled?
+> xx 2;
 
 #say @p».fmt("%2s").rotor(26, :partial).join: "\n"; exit;
 #say @p».fmt("%3d").rotor(21, :partial).join: "\n"; exit;
