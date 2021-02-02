@@ -1,15 +1,15 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Perceptron
 #c# 2020-11-15 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
-#n# need library: libMagickWand-7.Q16HDRI.dylib
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# before 'zef install': (cd /usr/local/lib; ls -l /opt/local/lib/libMagickWand-6.Q16.dylib libMagickWand-7.Q16HDRI.dylib)
 
-my @res;
+srand 123456;
 
 use MagickWand;
 
-our ( \c, \runs ) = 0.00001, 2000 ;
+our ( \c, \runs ) = 0.00001, 500 ;
 
 class Trainer { has ( @.inputs, $.answer ) is rw }
 
@@ -57,14 +57,4 @@ my $perc = Perceptron.new: n => 3, w => $w, h => $h;
 my $o = MagickWand.new or die; 
 $o.create( $w, $h, "white" );
 $perc.draw($o);
-$o.write('./perceptron.png') or die
-
-
-END
-
-.say for @res;
-my $ref = q:to/END/;
-
-use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
+$o.write('run/perceptron.png') or die
