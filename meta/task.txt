@@ -1,4 +1,4 @@
-Welcome to Rakudo(tm) v2020.12-110-g446caae36.
+Welcome to Rakudo(tm) v2020.12-111-g4fb9c19b0.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-90-g1082d8893.
 updating from RC…
@@ -7,14 +7,14 @@ updating from RC…
 ||+------------> Smoke testing [1170]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [342]
+|||||+---------> Touched (modified by me) [343]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [132]
 ||||||||+------> File output [97]
 |||||||||+-----> Draft [226]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [81]
-||||||||||||+--> Un-implemented/reliable [51]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -86,7 +86,7 @@ GGS.......... Arithmetic-geometric_mean
 GGS..T....... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
 GGS.......... Arithmetic_Integer
-GGS..TC...... Arithmetic_Rational
+!GS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS..T....... Arithmetic_evaluation
 GGS.......... Array_concatenation
@@ -317,7 +317,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -851,7 +851,7 @@ GGS..T....... P-value_correction
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
 GGS...C...... Palindromic_gapful_numbers
-GGS......D..U Pancake_numbers
+GGS......D... Pancake_numbers
 GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_brute_force
@@ -973,7 +973,7 @@ GG.K.....D... Quoting_constructs
 GGS..T....... RIPEMD-160
 !GS....R..... RPG_attributes_generator
 GGS..T....... RSA_code
-GBS......D... Railway_circuit
+GBS..T...D... Railway_circuit
 GBS..T....... Ramanujan%27s_constant-1
 GGS..T....... Ramanujan%27s_constant-2
 GGS.......... Ramer-Douglas-Peucker_line_simplification
