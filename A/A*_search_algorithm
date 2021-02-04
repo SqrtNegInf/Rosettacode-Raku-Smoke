@@ -80,7 +80,7 @@ sub AStarSearch(\start, \end, \graph) {
          %F{neighbour.Str} = %G{neighbour.Str} + H;
       }
    }
-   die "A* failed to find a solution"
+   die 'A* failed to find a solution'
 }
 
 my \graph = AStarGraph.new;
@@ -89,15 +89,15 @@ my (\route, \cost) = AStarSearch(<0 0>, <7 7>, graph);
 my \w = my \h = 10;
 
 my @grid = [ ['.' xx w ] xx h ];
-for ^h -> \y { @grid[y;0] = "█"; @grid[y;*-1] = "█" }
-for ^w -> \x { @grid[0;x] = "█"; @grid[*-1;x] = "█" }
+for ^h -> \y { @grid[y;0] = '█'; @grid[y;*-1] = '█' }
+for ^w -> \x { @grid[0;x] = '█'; @grid[*-1;x] = '█' }
 
-for (graph.barriers) -> \d { @grid[d[0]+1][d[1]+1] = "█" }
-for @(route)         -> \d { @grid[d[0]+1][d[1]+1] = "x" }
+for (graph.barriers) -> \d { @grid[d[0]+1][d[1]+1] = '█' }
+for @(route)         -> \d { @grid[d[0]+1][d[1]+1] = 'x' }
 
 @res.push: .join for @grid;
 
-@res.push: "Path cost : "~ cost~ " and route : "~ route;
+@res.push: 'Path cost : '~ cost~ ' and route : '~ route;
 
 .say for @res;
 
