@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Railway_circuit
-#c# 2020-04-05 <RC
+#c# 2020-04-05 <RC, 2021-02-02 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for JVM: fails on Unicode character: 𝒫
@@ -22,9 +22,11 @@ sub digits($n!, $base!, $pad=0) {
 }
  
 sub addsymmetries(%infound, \turns) {
-    sub circularsymmetries(@c) { (0..^+@c).map: {rotate @c, $_} }
-    my @allsym.push: | .&circularsymmetries for turns, -«turns; # DRY
-    #my @allsym = |(circularsymmetries turns), |circularsymmetries -«turns;
+    #sub circularsymmetries(@c) { (0..^+@c).map: {rotate @c, $_} }
+    #my @allsym.push: | .&circularsymmetries for turns, -«turns; # DRY
+    #my @allsym = |(circularsymmetries turns), |circularsymmetries -«turns; # original
+
+    my @allsym.push: | .&{ (0..^+@$_).map: -> $n {rotate @$_, $n} } for turns, -«turns;
     %infound{$_} = True for @allsym;
     @allsym.max
 }
