@@ -1,19 +1,19 @@
-Welcome to Rakudo(tm) v2020.12-111-g4fb9c19b0.
+Welcome to Rakudo(tm) v2020.12-114-g583ce30c8.
 Implementing the Raku(tm) programming language v6.d.
-Built on MoarVM version 2020.12-90-g1082d8893.
+Built on MoarVM version 2020.12-98-gf6c505dae.
 updating from RC…
-+--------------> Moar: Good/Bad [1232/23]
++--------------> Moar: Good/Bad [1233/23]
 |+-------------> JVM: Good/Bad [1088/223]
 ||+------------> Smoke testing [1170]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [343]
 ||||||+--------> Concurrent/Async [68]
-|||||||+-------> Random seed [132]
+|||||||+-------> Random seed [131]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [226]
+|||||||||+-----> Draft [227]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [81]
+|||||||||||+---> Void (no local copy) [82]
 ||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
@@ -86,7 +86,7 @@ GGS.......... Arithmetic-geometric_mean
 GGS..T....... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
 GGS.......... Arithmetic_Integer
-!GS..TC...... Arithmetic_Rational
+GGS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS..T....... Arithmetic_evaluation
 GGS.......... Array_concatenation
@@ -123,6 +123,7 @@ GBS....RF.... Barnsley_fern
 GGS......D... Base58Check_encoding
 GGS.......... Base64_decode_data
 GGS..T...D... Base64_encode_data
+.........D.VU Basic_p-adic_numbers
 GGS.......... Bell_numbers-1
 GGS.......... Bell_numbers-2
 GGS.......... Bell_numbers-3
@@ -502,7 +503,7 @@ GBS......D... Getting_the_number_of_decimals
 GGS.....F.... Globally_replace_text_in_several_files
 GG.KIT.R..... Go_Fish
 GGS......D... Gradient_descent
-!GS....R..... Graph_colouring
+GGS.......... Graph_colouring
 GGS.......... Gray_code
 GGS..T..F.... Grayscale_image
 GGS..T....... Greatest_common_divisor
@@ -716,7 +717,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-GBS.....F.... Mandelbrot_set-2
+!BS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -1306,7 +1307,7 @@ GGS.......... Towers_of_Hanoi
 GGS.......... Trabb_Pardo-Knuth_algorithm
 GGS..T...D... Transportation_problem
 GGS..T....... Tree_datastructures
-.........D.VU Tree_from_nesting_levels
+.........D.V. Tree_from_nesting_levels
 GGS..T....... Tree_traversal
 GGS..T....... Trigonometric_functions
 GGS.......... Truncatable_primes
