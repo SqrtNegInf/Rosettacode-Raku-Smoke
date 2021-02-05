@@ -5,12 +5,12 @@
 #j# JVM:  OK
 #n# Unicode symbol '↑' is what sinks use of .EVAL syntax.
 
+use MONKEY-SEE-NO-EVAL;
+
 my @res;
 
 sub infix:<↑> is looser(&prefix:<->) { $^a ** $^b }
 sub infix:<^> is looser(&infix:<->)  { $^a ** $^b }
-
-use MONKEY;
 
 for 'Default precedence: infix exponentiation is tighter (higher) precedence than unary negation.',
     ('1 + -$x**$p', '1 + (-$x)**$p', '1 + (-($x)**$p)', '(1 + -$x)**$p', '1 + -($x**$p)'),
@@ -22,7 +22,7 @@ for 'Default precedence: infix exponentiation is tighter (higher) precedence tha
     ('1 + -$x^$p ', '1 + (-$x)^$p ', '1 + (-($x)^$p) ', '(1 + -$x)^$p ', '1 + -($x^$p) ')
     -> $message, $ops {
     @res.push: $message;
-    for -5, 2, -5, 3, 5, 2, 5, 3 -> $x, $p {
+    for -5, 5 X 2, 3 -> ($x, $p) {
         my $line = sprintf "x = %2d  p = %d", $x, $p;
         -> $op { $line ~= sprintf " │ %s = %4d", $op, EVAL $op } for |$ops;
         #-> $op { $line ~= sprintf " │ %s = %4d", $op, $op.EVAL } for |$ops;
