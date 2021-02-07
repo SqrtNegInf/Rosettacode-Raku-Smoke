@@ -1,17 +1,17 @@
-Welcome to Rakudo(tm) v2020.12-116-g842bbae3c.
+Welcome to Rakudo(tm) v2020.12-117-g1b45d0ad1.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-98-gf6c505dae.
 updating from RC…
-+--------------> Moar: Good/Bad [1234/23]
-|+-------------> JVM: Good/Bad [1088/223]
-||+------------> Smoke testing [1170]
++--------------> Moar: Good/Bad [1235/23]
+|+-------------> JVM: Good/Bad [1089/223]
+||+------------> Smoke testing [1172]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [343]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [131]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [227]
+|||||||||+-----> Draft [228]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [82]
 ||||||||||||+--> Un-implemented/reliable [50]
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GGS..T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -131,6 +131,7 @@ GGS..T....... Benford%27s_law
 GGS..T....... Bernoulli_numbers
 !GS....R..... Best_shuffle
 GBS.....FD... Bilinear_interpolation
+GGS.......... Bin_given_limits
 GGS.......... Binary_digits
 GGS.......... Binary_search
 GGS..T....... Binary_strings
@@ -558,7 +559,7 @@ GGS.......... Huffman_coding
 GGS.......... Huffman_coding-2
 GGS.......... Humble_numbers
 GG.KI........ Hunt_the_Wumpus
-GGS..TC..D... I%27m_a_software_engineer,_get_me_out_of_here
+G!S..TC..D... I%27m_a_software_engineer,_get_me_out_of_here
 GGS.......... IBAN
 BB.KI....D..U IPC_via_named_pipe
 .........D.VU IRC_gateway
@@ -1395,6 +1396,7 @@ GGS.......... Word_wheel-1
 GBS.......... Word_wheel-2
 GGS.......... Word_wrap
 GGS......D... Words_containing_%22the%22_substring
+GGS......D... Words_from_neighbour_ones
 GGS..T....... World_Cup_group_stage
 GGS.....F.... Write_entire_file
 GGS..T..F.... Write_float_arrays_to_a_text_file
