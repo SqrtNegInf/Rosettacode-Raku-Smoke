@@ -2,19 +2,19 @@ Welcome to Rakudo(tm) v2020.12-117-g1b45d0ad1.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-98-gf6c505dae.
 updating from RC…
-+--------------> Moar: Good/Bad [1235/23]
-|+-------------> JVM: Good/Bad [1089/223]
-||+------------> Smoke testing [1172]
++--------------> Moar: Good/Bad [1237/23]
+|+-------------> JVM: Good/Bad [1093/223]
+||+------------> Smoke testing [1175]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [343]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [131]
 ||||||||+------> File output [97]
-|||||||||+-----> Draft [228]
+|||||||||+-----> Draft [229]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [82]
-||||||||||||+--> Un-implemented/reliable [50]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -137,6 +137,7 @@ GGS.......... Binary_search
 GGS..T....... Binary_strings
 !GS....R..... Bioinformatics_Sequence_mutation
 GGS.......... Bioinformatics_base_count
+.........D.VU Bioinformatics_global_alignment
 GGS.......... Biorhythms
 !GS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
@@ -559,7 +560,7 @@ GGS.......... Huffman_coding
 GGS.......... Huffman_coding-2
 GGS.......... Humble_numbers
 GG.KI........ Hunt_the_Wumpus
-G!S..TC..D... I%27m_a_software_engineer,_get_me_out_of_here
+GGS..TC..D... I%27m_a_software_engineer,_get_me_out_of_here
 GGS.......... IBAN
 BB.KI....D..U IPC_via_named_pipe
 .........D.VU IRC_gateway
@@ -608,7 +609,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-GBS...C.F.... Julia_set
+!BS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -1308,7 +1309,10 @@ GGS.......... Towers_of_Hanoi
 GGS.......... Trabb_Pardo-Knuth_algorithm
 GGS..T...D... Transportation_problem
 GGS..T....... Tree_datastructures
-.........D.V. Tree_from_nesting_levels
+.........D... Tree_from_nesting_levels
+GGS.......... Tree_from_nesting_levels-1
+GGS.......... Tree_from_nesting_levels-2
+GGS.......... Tree_from_nesting_levels-3
 GGS..T....... Tree_traversal
 GGS..T....... Trigonometric_functions
 GGS.......... Truncatable_primes
