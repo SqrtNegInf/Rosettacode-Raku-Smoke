@@ -17,7 +17,7 @@ for (1..20).rotor(5) { @res.push: [~] @_».&{ sprintf "p(%2d) = %2d ",$_,pancake
 
 # Maximum number of flips plus examples using exhaustive search
 sub pancake2(\n) {
-   my @goalStack = (my \numStacks = $ = 1)..n ; # DH anon. variable an artifact of siggil-less style
+   my @goalStack = (my \numStacks = $ = 1)..n ; # DH anon. variable an artifact of sigil-less style
    my %newStacks = my %stacks = @goalStack, 0 ;
    for 1..1000 -> \k { 
       my %nextStacks = (); 
