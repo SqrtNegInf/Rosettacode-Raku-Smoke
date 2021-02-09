@@ -1,0 +1,87 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Price_list_behind_API
+#c# 2021-02-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# reduced everything by factor of 10, now has orphan group at high end
+
+srand 123456;
+
+my @res;
+
+my \minDelta = 1;
+
+sub getMaxPrice { @_.max }
+
+sub getPRangeCount(@prices,\min,\max) { +@prices.grep: min ≤ * ≤ max }
+
+sub get500(@prices, $min, $max is copy, \n) {
+   my $count = getPRangeCount(@prices, $min, $max);
+   my $delta = ($max - $min) / 2;
+   while $count != n && $delta ≥ minDelta/2 {
+      $count > n ?? ($max -= $delta) !! ($max += $delta);
+      $count = getPRangeCount(@prices, $min, $max); 
+      $delta /= 2;
+   }
+   $max, $count
+}
+
+sub getAll500(@prices, \min, \max, \n) {
+   my ( $pmax, $pcount ) = get500(@prices, min, max, n);
+   my @results = [ min, $pmax, $pcount ] , ;
+   while $pmax < max {
+      my $pmin = $pmax + 1;
+      ( $pmax, $pcount ) = get500(@prices, $pmin, max, n);
+      $pcount == 0 and note "Price list from $pmin has too many duplicates.";
+      @results.push: [ $pmin, $pmax, $pcount ];
+   } 
+   @results
+} 
+
+my $numPrices = (9900..10101).roll;
+my \maxPrice  = 1e4;
+my @prices    = (1..$numPrices+1).roll xx $numPrices ;
+
+my $actualMax = getMaxPrice(@prices);
+@res.push: "Using $numPrices items with prices from 0 to $actualMax:";
+
+my @results = getAll500(@prices, 0, $actualMax, 500);
+@res.push: "Split into " ~ +@results ~ " bins of approx 500 elements:";
+
+for @results -> @row {
+   my ($min,$max,$subtotal) = @row;
+   $max = $actualMax if $max > $actualMax ;
+   @res.push: sprintf "  From %6d to %6d with %4d items", $min, $max, $subtotal 
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+Using 10079 items with prices from 0 to 10080:
+Split into 21 bins of approx 500 elements:
+  From      0 to    522 with  501 items
+  From    523 to   1017 with  501 items
+  From   1018 to   1533 with  501 items
+  From   1534 to   2057 with  504 items
+  From   2058 to   2539 with  501 items
+  From   2540 to   3032 with  500 items
+  From   3033 to   3511 with  500 items
+  From   3512 to   4045 with  500 items
+  From   4046 to   4541 with  497 items
+  From   4542 to   5027 with  499 items
+  From   5028 to   5550 with  500 items
+  From   5551 to   6057 with  501 items
+  From   6058 to   6554 with  500 items
+  From   6555 to   7046 with  500 items
+  From   7047 to   7561 with  500 items
+  From   7562 to   8059 with  500 items
+  From   8060 to   8552 with  500 items
+  From   8553 to   9063 with  500 items
+  From   9064 to   9552 with  500 items
+  From   9553 to  10024 with  500 items
+  From  10025 to  10080 with   48 items
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
