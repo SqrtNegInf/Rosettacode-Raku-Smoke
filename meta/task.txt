@@ -1,20 +1,20 @@
-Welcome to Rakudo(tm) v2020.12-122-g3f1607f8d.
+Welcome to Rakudo(tm) v2020.12-125-g98b91f43b.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-98-gf6c505dae.
 updating from RC…
-+--------------> Moar: Good/Bad [1239/23]
-|+-------------> JVM: Good/Bad [1094/223]
-||+------------> Smoke testing [1176]
++--------------> Moar: Good/Bad [1241/23]
+|+-------------> JVM: Good/Bad [1095/223]
+||+------------> Smoke testing [1177]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [343]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [132]
-||||||||+------> File output [97]
-|||||||||+-----> Draft [229]
+||||||||+------> File output [98]
+|||||||||+-----> Draft [230]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [81]
-||||||||||||+--> Un-implemented/reliable [50]
+|||||||||||+---> Void (no local copy) [83]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-!GS..T.R..... Average_loop_length
+GGS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -123,7 +123,6 @@ GBS....RF.... Barnsley_fern
 GGS......D... Base58Check_encoding
 GGS.......... Base64_decode_data
 GGS..T...D... Base64_encode_data
-.........D.VU Basic_p-adic_numbers
 GGS.......... Bell_numbers-1
 GGS.......... Bell_numbers-2
 GGS.......... Bell_numbers-3
@@ -137,7 +136,7 @@ GGS.......... Binary_search
 GGS..T....... Binary_strings
 !GS....R..... Bioinformatics_Sequence_mutation
 GGS.......... Bioinformatics_base_count
-.........D.VU Bioinformatics_global_alignment
+GGS......D... Bioinformatics_global_alignment
 GGS.......... Biorhythms
 !GS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
@@ -363,7 +362,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-!GS....R.D... Elliptic_Curve_Digital_Signature_Algorithm
+!GS....R..... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -443,6 +442,7 @@ GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
 GGS.......... Find_the_missing_permutation
+.........D.V. Find_words_which_contains_more_than_3_e_vowels
 GGS......D... Find_words_with_alternating_vowels_and_consonants
 GBS......D... Finite_state_machine
 GGS.......... First-class_functions
@@ -850,6 +850,8 @@ GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_partitions
 GGS.......... Ordered_words
+...........VU P-Adic_numbers,_basic
+.........D.VU P-Adic_square_roots
 GGS..T....... P-value_correction
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
@@ -887,7 +889,7 @@ GGS.....FD... Penrose_tiling
 GGS..T..F.... Pentagram
 !GS....R.D... Pentomino_tiling
 !BS.......... Percentage_difference_between_images
-GBS....R.D... Perceptron
+GBS....RFD... Perceptron
 !GS....R..... Percolation_Bond_percolation
 !GS....R..... Percolation_Mean_cluster_density
 !GS....R..... Percolation_Mean_run_density
@@ -1343,6 +1345,7 @@ GGS.......... Unicode_variable_names
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
 GBS...C...... Unprimeable_numbers
+.........D.VU Untouchable_numbers
 GG.K.....D... Untrusted_environment
 GGS.....F.... Update_a_configuration_file
 GG.K......... Use_another_language_to_call_a_function
