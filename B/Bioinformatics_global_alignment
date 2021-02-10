@@ -1,0 +1,92 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Bioinformatics/global_alignment
+#c# 2021-02-09 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub printCounts(\seq) {
+   my %bases = seq.comb.Bag ;
+   @res.push: "\nNucleotide counts for \n" ~ seq; # ~ " :";
+   #@res.push: %bases.kv, " and total length = ", %bases.values.sum  
+   @res.push: (%bases.keys.sort.map:{"$_: " ~ %bases{$_}}).join(' ') ~ " and total length = " ~ %bases.values.sum;
+}
+
+sub stringCentipede(\s1, \s2) {
+   loop ( my $offset = 0, my \S1 = $ = '' ; ; $offset++ ) {
+      S1 = s1.substr: $offset ;
+      with S1.index(s2.substr(0,1)) -> $p { $offset += $p } else { return 0 }
+      S1 = s1.substr: $offset ; 
+      return s1.chars - $offset if s2.starts-with: S1 
+   }
+}
+
+sub deduplicate {
+   my @sorted = @_.unique.sort: { $^a.chars <=> $^b.chars } ; # by length   
+   gather while ( my $target = shift @sorted ) {
+      take $target unless @sorted.grep: { .contains: $target }  
+   }
+}
+
+sub shortestCommonSuperstring {
+   my @ss = deduplicate @_ ;
+   my \ß = $ = [~] @ss ;           # ShortestSuper 
+   for @ss.permutations -> @perm {
+      my \sup = $ = @perm[0];
+      for @perm.rotor(2 => -1) -> @duo {
+         my \overlapPos = stringCentipede @duo[0], @duo[1]; 
+         sup ~= @duo[1].substr: overlapPos;
+      }
+      ß = sup if sup.chars < ß.chars ;
+   }
+   ß
+}
+
+.&shortestCommonSuperstring.&printCounts for ( 
+
+   <TA AAG TA GAA TA>,
+
+   <CATTAGGG ATTAG GGG TA>,
+
+   <AAGAUGGA GGAGCGCAUC AUCGCAAUAAGGA>,
+
+   <ATGAAATGGATGTTCTGAGTTGGTCAGTCCCAATGTGCGGGGTTTCTTTTAGTACGTCGGGAGTGGTATTAT 
+    GGTCGATTCTGAGGACAAAGGTCAAGATGGAGCGCATCGAACGCAATAAGGATCATTTGATGGGACGTTTCGTCGACAAAGT
+    CTATGTTCTTATGAAATGGATGTTCTGAGTTGGTCAGTCCCAATGTGCGGGGTTTCTTTTAGTACGTCGGGAGTGGTATTATA
+    TGCTTTCCAATTATGTAAGCGTTCCGAGACGGGGTGGTCGATTCTGAGGACAAAGGTCAAGATGGAGCGCATC
+    AACGCAATAAGGATCATTTGATGGGACGTTTCGTCGACAAAGTCTTGTTTCGAGAGTAACGGCTACCGTCTT
+    GCGCATCGAACGCAATAAGGATCATTTGATGGGACGTTTCGTCGACAAAGTCTTGTTTCGAGAGTAACGGCTACCGTC
+    CGTTTCGTCGACAAAGTCTTGTTTCGAGAGTAACGGCTACCGTCTTCGATTCTGCTTATAACACTATGTTCT
+    TGCTTTCCAATTATGTAAGCGTTCCGAGACGGGGTGGTCGATTCTGAGGACAAAGGTCAAGATGGAGCGCATC
+    CGTAAAAAATTACAACGTCCTTTGGCTATCTCTTAAACTCCTGCTAAATGCTCGTGC
+    GATGGAGCGCATCGAACGCAATAAGGATCATTTGATGGGACGTTTCGTCGACAAAGTCTTGTTTCGAGAGTAACGGCTACCGTCTTCGATT
+    TTTCCAATTATGTAAGCGTTCCGAGACGGGGTGGTCGATTCTGAGGACAAAGGTCAAGATGGAGCGCATC
+    CTATGTTCTTATGAAATGGATGTTCTGAGTTGGTCAGTCCCAATGTGCGGGGTTTCTTTTAGTACGTCGGGAGTGGTATTATA
+    TCTCTTAAACTCCTGCTAAATGCTCGTGCTTTCCAATTATGTAAGCGTTCCGAGACGGGGTGGTCGATTCTGAGGACAAAGGTCAAGA
+   >,
+);
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+Nucleotide counts for 
+TAAGAA
+A: 4 G: 1 T: 1 and total length = 6
+
+Nucleotide counts for 
+CATTAGGG
+A: 2 C: 1 G: 3 T: 2 and total length = 8
+
+Nucleotide counts for 
+AAGAUGGAGCGCAUCGCAAUAAGGA
+A: 10 C: 4 G: 8 U: 3 and total length = 25
+
+Nucleotide counts for 
+CGTAAAAAATTACAACGTCCTTTGGCTATCTCTTAAACTCCTGCTAAATGCTCGTGCTTTCCAATTATGTAAGCGTTCCGAGACGGGGTGGTCGATTCTGAGGACAAAGGTCAAGATGGAGCGCATCGAACGCAATAAGGATCATTTGATGGGACGTTTCGTCGACAAAGTCTTGTTTCGAGAGTAACGGCTACCGTCTTCGATTCTGCTTATAACACTATGTTCTTATGAAATGGATGTTCTGAGTTGGTCAGTCCCAATGTGCGGGGTTTCTTTTAGTACGTCGGGAGTGGTATTATA
+A: 74 C: 57 G: 75 T: 94 and total length = 300
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
