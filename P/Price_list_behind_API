@@ -3,7 +3,7 @@
 #c# 2021-02-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# reduced everything by factor of 10, now has orphan group at high end
+#n# reduced everything by factor of 10, now has orphan group at high end (with Moar)
 
 srand 123456;
 
@@ -56,7 +56,7 @@ for @results -> @row {
 
 .say for @res;
 
-my $ref = q:to/END/;
+my $moar = q:to/END/;
 Using 10079 items with prices from 0 to 10080:
 Split into 21 bins of approx 500 elements:
   From      0 to    522 with  501 items
@@ -82,6 +82,31 @@ Split into 21 bins of approx 500 elements:
   From  10025 to  10080 with   48 items
 END
 
+my $jvm = q:to/END/;
+Using 9939 items with prices from 0 to 9940:
+Split into 20 bins of approx 500 elements:
+  From      0 to    459 with  500 items
+  From    460 to    988 with  500 items
+  From    989 to   1480 with  500 items
+  From   1481 to   1949 with  500 items
+  From   1950 to   2457 with  501 items
+  From   2458 to   2981 with  500 items
+  From   2982 to   3443 with  500 items
+  From   3444 to   3946 with  500 items
+  From   3947 to   4453 with  500 items
+  From   4454 to   4969 with  500 items
+  From   4970 to   5472 with  500 items
+  From   5473 to   5971 with  500 items
+  From   5972 to   6492 with  501 items
+  From   6493 to   6995 with  499 items
+  From   6996 to   7496 with  502 items
+  From   7497 to   7973 with  500 items
+  From   7974 to   8486 with  500 items
+  From   8487 to   8997 with  502 items
+  From   8998 to   9502 with  500 items
+  From   9503 to   9940 with  415 items
+END
+
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
