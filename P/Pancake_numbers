@@ -9,7 +9,7 @@ my @res;
 # Maximum number of flips only
 sub pancake1(\n) {
    my ($gap,$sum,$adj) = 2, 2, -1;
-   while ($sum < n) { $sum += $gap = $gap * 2 - 1 and $adj++ }
+   while ($sum < n) { $sum += $gap = $gap × 2 - 1 and $adj++ }
    return n + $adj;
 }
 
