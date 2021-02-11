@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Bioinformatics/global_alignment
-#c# 2021-02-09 <RC
+#c# 2021-02-09 <RC, 2021-02-10 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -9,21 +9,21 @@ my @res;
 sub printCounts(\seq) {
    my %bases = seq.comb.Bag ;
    @res.push: "\nNucleotide counts for \n" ~ seq; # ~ " :";
-   #@res.push: %bases.kv, " and total length = ", %bases.values.sum  
+   # say %bases.kv, " and total length = ", %bases.values.sum 
    @res.push: (%bases.keys.sort.map:{"$_: " ~ %bases{$_}}).join(' ') ~ " and total length = " ~ %bases.values.sum;
 }
 
 sub stringCentipede(\s1, \s2) {
    loop ( my $offset = 0, my \S1 = $ = '' ; ; $offset++ ) {
       S1 = s1.substr: $offset ;
-      with S1.index(s2.substr(0,1)) -> $p { $offset += $p } else { return 0 }
+      with S1.index(s2.substr(0,1)) -> $p { $offset += $p } else { return False }
       S1 = s1.substr: $offset ; 
       return s1.chars - $offset if s2.starts-with: S1 
    }
 }
 
 sub deduplicate {
-   my @sorted = @_.unique.sort: { $^a.chars <=> $^b.chars } ; # by length   
+   my @sorted = @_.unique.sort: *.chars; # { $^a.chars <=> $^b.chars } ; # by length   
    gather while ( my $target = shift @sorted ) {
       take $target unless @sorted.grep: { .contains: $target }  
    }
@@ -35,7 +35,7 @@ sub shortestCommonSuperstring {
    for @ss.permutations -> @perm {
       my \sup = $ = @perm[0];
       for @perm.rotor(2 => -1) -> @duo {
-         my \overlapPos = stringCentipede @duo[0], @duo[1]; 
+         my \overlapPos = stringCentipede |@duo[0,1]; # @duo[0], @duo[1]; 
          sup ~= @duo[1].substr: overlapPos;
       }
       ß = sup if sup.chars < ß.chars ;
