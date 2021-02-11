@@ -5,7 +5,9 @@
 #j#  JVM: OK
 
 my @strings = <Here are some sample strings to be sorted>;
-my @sorted_strings = sort { $^a.chars <=> $^b.chars or $^a.lc cmp $^b.lc }, @strings;
+#my @sorted_strings = sort { $^a.chars <=> $^b.chars or $^a.lc cmp $^b.lc }, @strings;
+#my @sorted_strings = sort { .chars, .lc }, @strings;
+my @sorted_strings = @strings.sort:{.chars, .lc};
 .say for @sorted_strings;
 
 # This behavior is triggered by use of an arity 2 sort routine.
