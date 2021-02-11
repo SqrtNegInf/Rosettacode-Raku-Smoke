@@ -1,17 +1,17 @@
-Welcome to Rakudo(tm) v2020.12-125-g98b91f43b.
+Welcome to Rakudo(tm) v2020.12-128-g3235f3e42.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-98-gf6c505dae.
 updating from RC…
-+--------------> Moar: Good/Bad [1241/23]
-|+-------------> JVM: Good/Bad [1095/223]
-||+------------> Smoke testing [1177]
++--------------> Moar: Good/Bad [1243/23]
+|+-------------> JVM: Good/Bad [1096/223]
+||+------------> Smoke testing [1178]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [343]
+|||||+---------> Touched (modified by me) [345]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [132]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [230]
+|||||||||+-----> Draft [231]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [83]
 ||||||||||||+--> Un-implemented/reliable [51]
@@ -136,7 +136,7 @@ GGS.......... Binary_search
 GGS..T....... Binary_strings
 !GS....R..... Bioinformatics_Sequence_mutation
 GGS.......... Bioinformatics_base_count
-GGS......D... Bioinformatics_global_alignment
+GGS..T...D... Bioinformatics_global_alignment
 GGS.......... Biorhythms
 !GS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
@@ -319,7 +319,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS.......... Determine_if_two_triangles_overlap
@@ -443,6 +443,7 @@ GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
 GGS.......... Find_the_missing_permutation
 .........D.V. Find_words_which_contains_more_than_3_e_vowels
+GGS......D... Find_words_which_first_and_last_three_letters_are_equals
 GGS......D... Find_words_with_alternating_vowels_and_consonants
 GBS......D... Finite_state_machine
 GGS.......... First-class_functions
@@ -676,7 +677,7 @@ GBS...C...... Long_primes
 GGS..T....... Long_year
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
-GGS.......... Longest_common_substring
+GGS..T....... Longest_common_substring
 GGS......D... Longest_common_suffix
 GGS.......... Longest_increasing_subsequence
 GGS......D... Longest_palindromic_substrings
