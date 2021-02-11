@@ -1,36 +1,21 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Longest_Common_Substring
-#c# 2016-05-15 <RC
+#c# 2016-05-15 <RC, 2021-02-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-sub createSubstrings( Str $word --> Array ) {
-   my $length = $word.chars ;
-   my @substrings ;
-   for (0..$length - 1) -> $start {
-      for (1..$length - $start) -> $howmany {
-	 @substrings.push( $word.substr( $start , $howmany ) ) ;
-      }
-   }
-   return @substrings ;
+sub substrings($word) {
+    my $l = $word.chars;
+    (flat (0..$l X 1..$l).grep:{.[1] <= $l-.[0]}).map: -> $a, $b { $word.substr($a, $b) }
 }
 
-sub findLongestCommon( Str $first , Str $second --> Str ) {
-   my @substringsFirst = createSubstrings( $first ) ;
-   my @substringsSecond = createSubstrings( $second ) ;
-   my $firstset = set( @substringsFirst ) ;
-   my $secondset = set( @substringsSecond ) ;
-   my $common = $firstset (&) $secondset ;
-   return $common.keys.sort({$^b.chars <=> $^a.chars})[0] ;
+sub infix:<LCS>($s1, $s2) {
+    ([∩] ($s1, $s2)>>.&substrings).keys.sort(*.chars).tail
 }
 
-#sub MAIN( Str $first , Str $second ) {
-   my $first = 'thisisatest'; my $second = 'testing123testing';
-   say "The longest common substring of $first and $second is {findLongestCommon( $first , $second ) } !" ;
-#}
-
-
-# The longest common substring of thisisatest and testing123testing is test !
+my $first  = 'thisisatest'; 
+my $second = 'testing123testing';
+say "The longest common substring between '$first' and '$second' is '{$first LCS $second}'.";
 
 use Test;
-is findLongestCommon('thisisatest', 'testing123testing'), 'test';
+is ('thisisatest' LCS 'testing123testing'), 'test';
