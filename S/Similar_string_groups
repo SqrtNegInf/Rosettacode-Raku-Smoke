@@ -9,9 +9,8 @@
 
 sub are-similar ( (Str $a, Str $b) --> Bool ) {
     my @ne = map { .[0] ~ .[1] if .[0] ne .[1] }, ($a.comb Z $b.comb);
-
-    return @ne == 0
-        || @ne == 2 && @ne[0] eq @ne[1].flip;
+    #(@ne == 0 or @ne == 2) and @ne[0] eq @ne[1].flip;
+    so @ne == 0|2 and @ne[0] eq @ne[1].flip;
 }
 
 .say for my @res = <tars rats arts star>.combinations(2).grep: &are-similar;
