@@ -78,7 +78,7 @@ sub moar {
 
 $*VM ~~ /jvm/ ?? jvm() !! moar();
 
-@res .= sort({$^a.chars <=> $^b.chars});
+@res .= sort: *.chars;
 .say for @res;
 
 my $ref2 = qq:to/END/;
