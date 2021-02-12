@@ -3,22 +3,23 @@
 #c# 2016-05-15 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# the one metric where this version comes out ahead: speed
 
 sub createSubstrings( Str $word --> Array ) {
    my $length = $word.chars ;
    my @substrings ;
    for (0..$length - 1) -> $start {
       for (1..$length - $start) -> $howmany {
-	 @substrings.push( $word.substr( $start , $howmany ) ) ;
+	     @substrings.push( $word.substr( $start , $howmany ) ) ;
       }
    }
    return @substrings ;
 }
 
 sub findLongestCommon( Str $first , Str $second --> Str ) {
-   my @substringsFirst = createSubstrings( $first ) ;
+   my @substringsFirst  = createSubstrings( $first ) ;
    my @substringsSecond = createSubstrings( $second ) ;
-   my $firstset = set( @substringsFirst ) ;
+   my $firstset  = set( @substringsFirst ) ;
    my $secondset = set( @substringsSecond ) ;
    my $common = $firstset (&) $secondset ;
    return $common.keys.sort({$^b.chars <=> $^a.chars})[0] ;
@@ -28,7 +29,6 @@ sub findLongestCommon( Str $first , Str $second --> Str ) {
    my $first = 'thisisatest'; my $second = 'testing123testing';
    say "The longest common substring of $first and $second is {findLongestCommon( $first , $second ) } !" ;
 #}
-
 
 # The longest common substring of thisisatest and testing123testing is test !
 
