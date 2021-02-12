@@ -1093,7 +1093,7 @@ File: B/Bioinformatics_base_count
 File: B/Bioinformatics_global_alignment
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Bioinformatics/global_alignment
-#c# 2021-02-09 <RC, 2021-02-10 >RC
+#c# 2021-02-09 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -2539,7 +2539,7 @@ File: D/Deal_cards_for_FreeCell
 File: D/Death_Star
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Death_Star
-#c# 2016-02-24 <RC, 2017-06-04 >RC, 2018-11-10 <RC, 2018-11-16 >RC
+#c# 2016-02-24 <RC, 2017-06-04 >RC, 2018-11-10 <RC, 2018-11-16 >RC, 2021-02-11 >RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
@@ -2718,7 +2718,7 @@ File: D/Determine_if_only_one_instance_is_running
 File: D/Determine_if_two_triangles_overlap
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Determine_if_two_triangles_overlap
-#c# 2019-02-12 <RC
+#c# 2019-02-12 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -6093,9 +6093,10 @@ File: L/Long_year
 File: L/Longest_Common_Substring
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Longest_Common_Substring
-#c# 2016-05-15 <RC, 2021-02-xx >RC
+#c# 2016-05-15 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# how many language elements can I wedge into 2 one-line functions?
 
 File: L/Longest_Common_Substring.1
 #!/usr/bin/env perl6
@@ -6103,6 +6104,7 @@ File: L/Longest_Common_Substring.1
 #c# 2016-05-15 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# the one metric where this version comes out ahead: speed
 
 File: L/Longest_common_prefix
 #!/usr/bin/env perl6
@@ -6656,12 +6658,20 @@ File: M/Mayan_calendar
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: M/Mayan_numerals
-#!/usr/bin/env perl6
+File: M/Mayan_numerals-1
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Mayan_numerals
-#c# 2019-01-18 <RC
+#c# 2019-01-18 <RC, 2021-02-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: M/Mayan_numerals-2
+#!/usr/bin/env raku
+##u# http://rosettacode.org/wiki/Mayan_numerals
+##c# 2021-02-11 <RC
+##m# MOAR: OK
+##j# JVM:  BROKEN
+#n#  plain old text mode. Not as pretty, but still serviceable.
 
 File: M/Maze_generation
 #!/usr/bin/env perl6
@@ -8083,7 +8093,7 @@ File: P/Perceptron
 File: P/Percolation_Bond_percolation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Percolation/Bond_percolation
-#c# 2017-03-08 <RC
+#c# 2017-03-08 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-03-31 changes required by 2020.02.1-270-g61b5e488e [fixed by 2020-04-01 / 2020.02.1-287-gaa5154e02, no GH issue]
@@ -8111,7 +8121,7 @@ File: P/Percolation_Mean_run_density
 File: P/Percolation_Site_percolation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Percolation/Site_percolation
-#c# 2017-03-06 <RC
+#c# 2017-03-06 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# unstable results for 100 trials
@@ -10458,7 +10468,7 @@ File: S/Sort_three_variables.1
 File: S/Sort_using_a_custom_comparator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sort_using_a_custom_comparator
-#c# 2016-05-04 <RC
+#c# 2016-05-04 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -11175,7 +11185,7 @@ File: S/Sudoku-1
 File: S/Sudoku-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sudoku
-#c# 2016-11-25 <RC, 2020-08-26 >RC
+#c# 2016-11-25 <RC, 2020-08-26 >RC, 2021-02-11 >RC
 #t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
