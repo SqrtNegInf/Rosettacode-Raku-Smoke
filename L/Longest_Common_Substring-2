@@ -1,17 +1,20 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Longest_Common_Substring
-#c# 2016-05-15 <RC, 2021-02-11 >RC
+#c# 2016-05-15 <RC, 2021-02-12 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# how many language elements can I wedge into 2 one-line functions?
+#n# the 'grep' is a notionally for efficiency (upper-triangular) but program runs faster without it
 
-sub substrings($word) {
-    #my $l = $word.chars;
-    #(flat (0..$l X 1..$l).grep:{$l ≥ [+] @_}).map: { $word.substr($^a, $^b) }
+sub substrings($s) {
+    #my $l = $s.chars;
+    #(flat (0..$l X 1..$l).grep:{$l ≥ [+] @_}).map: { $s.substr($^a, $^b) }
 
-    #with $word.chars -> $l { (flat (0..$l X 1..$l).grep:{$l ≥ [+] @_}).map: { $word.substr($^a, $^b) } }
+    #with $s.chars -> $l { (flat (0..$l X 1..$l).grep:{$l ≥ [+] @_}).map: { $s.substr($^a, $^b) } }
 
-    (flat (0..$_ X 1..$_).grep:{$_ ≥ [+] @_}).map: { $word.substr($^a, $^b) } given $word.chars
+    #(flat (0..$_ X 1..$_).grep:{$_ ≥ [+] @_}).map:{ $s.substr($^a, $^b) } given $s.chars
+
+    (flat (0..$_ X 1..$_)).map:{ $s.substr($^a, $^b) } given $s.chars
 }
 
 sub infix:<LCS>($s1, $s2) {
