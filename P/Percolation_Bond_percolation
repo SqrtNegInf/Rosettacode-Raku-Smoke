@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Percolation/Bond_percolation
-#c# 2017-03-08 <RC
+#c# 2017-03-08 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-03-31 changes required by 2020.02.1-270-g61b5e488e [fixed by 2020-04-01 / 2020.02.1-287-gaa5154e02, no GH issue]
@@ -51,10 +51,10 @@ sub percolate ( $prob  = .6 ) {
             $current = move( $dir, $current )
         }
         else {
-            return 0 unless @stack;
+            return False unless @stack;
             $current = @stack.pop
         }
-        return 1 if $current[1] == +@bond - 1
+        return True if $current[1] == +@bond - 1
     }
 
     sub direction( [$x, $y] ) {
