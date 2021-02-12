@@ -1,16 +1,21 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Longest_Common_Substring
-#c# 2016-05-15 <RC, 2021-02-xx >RC
+#c# 2016-05-15 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# how many language elements can I wedge into 2 one-line functions?
 
 sub substrings($word) {
-    my $l = $word.chars;
-    (flat (0..$l X 1..$l).grep:{.[1] <= $l-.[0]}).map: -> $a, $b { $word.substr($a, $b) }
+    #my $l = $word.chars;
+    #(flat (0..$l X 1..$l).grep:{$l ≥ [+] @_}).map: { $word.substr($^a, $^b) }
+
+    #with $word.chars -> $l { (flat (0..$l X 1..$l).grep:{$l ≥ [+] @_}).map: { $word.substr($^a, $^b) } }
+
+    (flat (0..$_ X 1..$_).grep:{$_ ≥ [+] @_}).map: { $word.substr($^a, $^b) } given $word.chars
 }
 
 sub infix:<LCS>($s1, $s2) {
-    ([∩] ($s1, $s2)>>.&substrings).keys.sort(*.chars).tail
+    ([∩] ($s1, $s2)».&substrings).keys.sort(*.chars).tail
 }
 
 my $first  = 'thisisatest'; 
@@ -18,4 +23,4 @@ my $second = 'testing123testing';
 say "The longest common substring between '$first' and '$second' is '{$first LCS $second}'.";
 
 use Test;
-is ('thisisatest' LCS 'testing123testing'), 'test';
+is ($first LCS $second), 'test';
