@@ -27,7 +27,7 @@ sub jaro ($s, $t) {
     }
     return 0 unless $matches;
 
-    my ($k, $transpositions) = (0, 0);
+    my ($k, $transpositions) = 0, 0;
     for ^@s -> $i {
         next unless @s_matches[$i];
         $k++ until  @t_matches[$k];
