@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Longest_Common_Substring
-#c# 2016-05-15 <RC
+#c# 2016-05-15 <RC, 2021-02-12 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# the one metric where this version comes out ahead: speed
+#n# 4x faster, even when 'grep' is left out of alternate version
 
 sub createSubstrings( Str $word --> Array ) {
    my $length = $word.chars ;
@@ -22,7 +22,8 @@ sub findLongestCommon( Str $first , Str $second --> Str ) {
    my $firstset  = set( @substringsFirst ) ;
    my $secondset = set( @substringsSecond ) ;
    my $common = $firstset (&) $secondset ;
-   return $common.keys.sort({$^b.chars <=> $^a.chars})[0] ;
+   return $common.keys.sort(-*.chars)[0] ;
+   #return $common.keys.sort({$^b.chars <=> $^a.chars})[0] ;
 }
 
 #sub MAIN( Str $first , Str $second ) {
