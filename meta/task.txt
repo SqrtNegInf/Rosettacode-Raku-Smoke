@@ -2,12 +2,12 @@ Welcome to Rakudo(tm) v2020.12-128-g3235f3e42.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-98-gf6c505dae.
 updating from RC…
-+--------------> Moar: Good/Bad [1243/23]
-|+-------------> JVM: Good/Bad [1096/223]
-||+------------> Smoke testing [1178]
++--------------> Moar: Good/Bad [1242/24]
+|+-------------> JVM: Good/Bad [1096/224]
+||+------------> Smoke testing [1179]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [345]
+|||||+---------> Touched (modified by me) [349]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [132]
 ||||||||+------> File output [98]
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GGS..T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -322,7 +322,7 @@ GGS.......... Determine_if_a_string_is_collapsible
 GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
-GGS.......... Determine_if_two_triangles_overlap
+GGS..T....... Determine_if_two_triangles_overlap
 GGS..T....... Dice_game_probabilities
 GGS.......... Digital_root
 GGS.......... Digital_root_Multiplicative_digital_root
@@ -732,7 +732,8 @@ GGS..T....... Matrix_transposition
 ..........X.. Max_licenses_in_use
 GGS..T....... Maximum_triangle_path_sum
 GGS......D... Mayan_calendar
-GGS.......... Mayan_numerals
+GGS.......... Mayan_numerals-1
+BBS.......... Mayan_numerals-2
 !GS....R..... Maze_generation
 !GS....R..... Maze_solving
 GGS.......... McNuggets_problem
@@ -891,10 +892,10 @@ GGS..T..F.... Pentagram
 !GS....R.D... Pentomino_tiling
 !BS.......... Percentage_difference_between_images
 GBS....RFD... Perceptron
-!GS....R..... Percolation_Bond_percolation
+!GS..T.R..... Percolation_Bond_percolation
 !GS....R..... Percolation_Mean_cluster_density
 !GS....R..... Percolation_Mean_run_density
-!GS....R..... Percolation_Site_percolation
+!GS..T.R..... Percolation_Site_percolation
 GGS...C...... Perfect_numbers-1
 GGS.......... Perfect_numbers-2
 GGS.......... Perfect_shuffle
@@ -1150,7 +1151,7 @@ GGS..T....... Sort_disjoint_sublist
 GGS.......... Sort_numbers_lexicographically
 GGS.......... Sort_stability
 GGS.......... Sort_three_variables
-GGS.......... Sort_using_a_custom_comparator
+GGS..T....... Sort_using_a_custom_comparator
 GGS....R..... Sorting_Algorithms_Circle_Sort
 GGS..T....... Sorting_algorithms_Bead_sort
 GGS.......... Sorting_algorithms_Bogosort
