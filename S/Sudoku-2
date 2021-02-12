@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sudoku
-#c# 2016-11-25 <RC, 2020-08-26 >RC
+#c# 2016-11-25 <RC, 2020-08-26 >RC, 2021-02-11 >RC
 #t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
@@ -73,7 +73,7 @@ sub solve($sudoku, Int $level) {
             # if we fell through, it means that we found no valid
             # value for this cell
             trace $level, "Backtrack, path unsolvable... (on "~($x+1)~" "~($y+1)~")";
-            return 0;
+            return False;
         }
         # all cells are already solved.
         return $sudoku;
@@ -98,7 +98,7 @@ sub cleanup-impossible-values($sudoku, Int $level = 1) {
 
             # A unfilled cell is not resolved, so it shouldn't match
             my multi match-resolved-cell(Array $other, Int $this) {
-                return 0;
+                return False;
             }
             my multi match-resolved-cell(Int $other, Int $this) {
                 return $other == $this;
@@ -117,13 +117,13 @@ sub cleanup-impossible-values($sudoku, Int $level = 1) {
                 $resolved = True;
             } elsif (@r.elems == 0) {
                 # This is an invalid grid
-                return 0;
+                return False;
             } else {
                 $sudoku[$x][$y] = @r;
             }
         }
     } while $resolved; # repeat if there was any change
-    return 1;
+    return True;
 }
 
 sub solution-complexity-factor($sudoku, Int $x, Int $y) {
