@@ -6090,21 +6090,22 @@ File: L/Long_year
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: L/Longest_Common_Substring
+File: L/Longest_Common_Substring-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Longest_Common_Substring
-#c# 2016-05-15 <RC, 2021-02-11 >RC
+#c# 2016-05-15 <RC, 2021-02-12 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 4x faster, even when 'grep' is left out of alternate version
+
+File: L/Longest_Common_Substring-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Longest_Common_Substring
+#c# 2016-05-15 <RC, 2021-02-12 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# how many language elements can I wedge into 2 one-line functions?
-
-File: L/Longest_Common_Substring.1
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Longest_Common_Substring
-#c# 2016-05-15 <RC
-#m# MOAR: OK
-#j#  JVM: OK
-#n# the one metric where this version comes out ahead: speed
+#n# the 'grep' is a notionally for efficiency (upper-triangular) but program runs faster without it
 
 File: L/Longest_common_prefix
 #!/usr/bin/env perl6
@@ -10468,7 +10469,7 @@ File: S/Sort_three_variables.1
 File: S/Sort_using_a_custom_comparator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sort_using_a_custom_comparator
-#c# 2016-05-04 <RC, 2021-02-11 >RC
+#c# 2016-05-04 <RC, 2021-02-12 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
