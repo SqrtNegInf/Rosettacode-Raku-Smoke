@@ -2,19 +2,19 @@ Welcome to Rakudo(tm) v2020.12-128-g3235f3e42.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-98-gf6c505dae.
 updating from RC…
-+--------------> Moar: Good/Bad [1242/24]
-|+-------------> JVM: Good/Bad [1096/224]
-||+------------> Smoke testing [1179]
++--------------> Moar: Good/Bad [1243/24]
+|+-------------> JVM: Good/Bad [1097/224]
+||+------------> Smoke testing [1180]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [349]
+|||||+---------> Touched (modified by me) [350]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [132]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [231]
+|||||||||+-----> Draft [234]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [83]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [86]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -195,6 +195,7 @@ GGS.......... Catalan_numbers
 GGS.......... Catalan_numbers_Pascal%27s_triangle
 GGS..T....... Catamorphism
 ...........VU Catmull-Clark_subdivision_surface
+.........D.V. Change_e_letters_to_i_in_words
 GBS...C..D... Changeable_words
 GGS.......... Chaocipher
 GBS...CRF.... Chaos_game
@@ -442,6 +443,7 @@ GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
 GGS.......... Find_the_missing_permutation
+.........D.V. Find_words_which_contains_all_the_vowels
 .........D.V. Find_words_which_contains_more_than_3_e_vowels
 GGS......D... Find_words_which_first_and_last_three_letters_are_equals
 GGS......D... Find_words_with_alternating_vowels_and_consonants
@@ -677,7 +679,8 @@ GBS...C...... Long_primes
 GGS..T....... Long_year
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
-GGS..T....... Longest_common_substring
+GGS..T....... Longest_common_substring-1
+GGS..T....... Longest_common_substring-2
 GGS......D... Longest_common_suffix
 GGS.......... Longest_increasing_subsequence
 GGS......D... Longest_palindromic_substrings
@@ -989,6 +992,7 @@ GGS..T...D... Ramsey%27s_theorem
 GGS..T....... Random_number_generator_device
 ..........XV. Random_number_generator_included
 GGS....R..... Random_numbers
+.........D.VU Random_sentence_from_book
 GGS..T....... Range_consolidation
 GGS.......... Range_expansion
 GGS.......... Range_extraction
