@@ -1,0 +1,175 @@
+#!/usr/local/bin/perl
+## benchmark Rosettacode programs, output and timings go in 'bench'
+#  2016-08-05 initial version, updated regularly (latest: 2020-01-16)
+#  Special designations
+#  graphical - image output, usually tested against reference image
+#  trivial - some have no tests, which is OK
+#
+#  Programs not tested are tagged:
+#  toodamnslow      extract timings embedded in programs with:
+#  nocode           have no runnable code
+#  skiptest         hard to test
+#  inprogress       WIP
+#  interactive      requires user input
+#  gui              requires windowing system (X11,Tk,GTK,SDL)
+#  forever          hangs/never terminates
+#  broken           just plain doesn't work
+
+# NB: currently all tasks are run in 'solo' mode due to precompilation issues
+
+use warnings;
+
+use Parallel::ForkManager;
+
+# some tasks need to run solo (slow and/or use .race [latter applied only Rakudo/Moar])
+#%Solo = (
+#'E/Elliptic_Curve_Digital_Signature_Algorithm' => 1,  # strange, needs to be run 'solo' 
+#'0/24_game_Solve-2' => 1,
+#'R/Rate_counter' => 1,
+#'A/Arithmetic_Rational' => 1,
+#'C/Color_wheel' => 1,
+#'F/Farey_sequence' => 1,
+#'K/Kaprekar_numbers-2' => 1,
+#'L/Long_primes' => 1,
+#'P/Parallel_calculations' => 1,
+#'P/Parallel_calculations-2' => 1,
+#'P/Permutation_test' => 1,
+#'S/Square-free_integers' => 1,
+#);
+
+# with new rakudobrew, simpler switching
+$mode = $0 =~ /moar/i ? 'moar' : 'jvm';
+my $shim = $mode eq 'moar' ?  '-blead' : '-2020.11';
+system "rakudobrew switch $mode${shim}";
+
+chdir "$ENV{HOME}/raku/Rosetta-Code" || die;
+
+$dir = `date '+%Y-%m-%d'`; chomp $dir;
+$dir .= $mode eq 'jvm' ? '-j' : '-m';
+mkdir "bench/$dir"   if ! -e "bench/$dir";
+unlink "bench/$mode" if   -e "bench/$mode";
+system qq{cd bench; symlink $dir $mode};
+
+$exe  = 'perl6'; # don't have a 'raku-j' yet
+$exe .= $mode eq 'jvm' ? '-j -I lib ' : '-m';
+
+system "date";
+
+my $skip = 'interactive|gui|toodamnslow|skiptest|inprogress|nocode|forever|broken';
+
+# find Perl6 programs
+
+for my $prog (@ARGV) {
+    next if $prog =~ /\.(jvm|ubuntu|pl|[0-9])$/;
+    next if $prog =~ /^Temp-/;
+
+    if (! -e $prog) {
+        my($l) = $prog =~ m#^([0A-Z])#;
+        $prog = "$l/$prog" if $l;
+        die "No such program $prog" if ! -e $prog;
+    }
+
+    @status = `head -12 $prog`;
+    next unless $status[0] =~ /env (perl6|raku)/;
+    next if grep { /^#t#.*($skip)/ } @status;
+    next if $mode eq 'moar' && grep { /^#m#.*BROKEN/i } @status;
+    #next if $mode eq 'jvm'  && grep { /^#j#.*BROKEN/i } @status; # always run to see if now un-breaks
+
+    $clargs = `grep 'RC.cli' $prog`; chomp $clargs; 
+    $clargs =~ s/^.*RC.cli:\s+//; 
+    $clargs =~ s/"/\\"/g; 
+    $Prun{$prog} =  $clargs if $clargs ne '';
+
+    $precmd = `grep 'RC.prep:' $prog`; chomp $precmd; 
+    $precmd =~ s/^.*RC.prep:\s+//; 
+    $precmd =~ s/\s+$//;
+    $Ppre{$prog} =  $precmd if $precmd ne '';
+
+    $pipe   = `grep 'RC.pipe:' $prog`; chomp $pipe; 
+    $pipe   =~ s/^.*RC.pipe:\s+//; 
+    $pipe   =~ s/\s+$//;
+    $Pipe{$prog} =  $pipe   if $pipe   ne '';
+
+    $difftest = `grep 'RC.file' $prog`; chomp $difftest; 
+    $difftest =~ s/^.*RC.file:\s+//; 
+    $difftest =~ s/\s+$//;
+    $difftest =~ s/\.BEND/.moar/ if $mode ne 'jvm';
+    $difftest =~ s/\.BEND/.jvm/  if $mode eq 'jvm';
+    $Pfile{$prog} = $difftest if $difftest ne '';
+
+    if ($mode eq 'jvm' and -e "$prog.jvm") { push @Programs, "$prog.jvm" }
+    else                                   { push @P_one_at_a_time, $prog }   # run all 'solo' to solve precomp issues?
+    #elsif (defined %Solo{$prog})           { push @P_one_at_a_time, $prog } 
+    #else                                   { push @Programs, $prog }
+
+}
+
+# run some programs solo (those with .race/.hyper, or have real-time aspect)
+for my $prog (@P_one_at_a_time) {
+
+    my $run = $prog;
+    (my $pbase = $prog) =~ s/^..//;
+    $run .= " $Prun{$prog}" if defined $Prun{$prog};
+
+    system "$Ppre{$prog}" if defined $Ppre{$prog};
+    #system "rc-runone '$exe $run' > bench/$dir/$pbase.out 2> bench/$dir/$pbase.err";
+    #system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> bench/$dir/$pbase.out" if defined $Pfile{$prog};
+
+    $task = "bench/$dir/$pbase";
+    if ($Pipe{$prog}) {
+        $exep = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
+        ($u0,$s0) = cpu_time(); $r0 = (time());
+        system qq{$exep $run 1> $task.out 2> $task.tmp};
+        ($u1,$s1) = cpu_time(); $r1 = (time());
+        if (! -z "$task.tmp") { system qq{echo '::STDERR::' >> $task.out; cat $task.tmp >> $task.out} }
+        unlink "$task.tmp";
+        open E, ">$task.err"; 
+        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
+        close E;
+    } else {
+        system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
+    }
+    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> $task.out" if defined $Pfile{$prog};
+
+}
+
+# run remainder in parallel 
+my $pm = Parallel::ForkManager->new(8);
+RUN:
+for my $prog (@Programs) {
+    $pm->start and next RUN;
+
+    my $run = $prog;
+    (my $pbase = $prog) =~ s/^..//;
+    $run .= " $Prun{$prog}" if defined $Prun{$prog};
+
+    system "$Ppre{$prog}" if defined $Ppre{$prog};
+
+    $task = "bench/$dir/$pbase";
+    if ($Pipe{$prog}) {
+        $exep = qq[perl -e "print qq[$Pipe{$prog}]" | ] . $exe;
+        ($u0,$s0) = cpu_time(); $r0 = (time());
+        system qq{$exep $run 1> $task.out 2> $task.tmp};
+        ($u1,$s1) = cpu_time(); $r1 = (time());
+        if (! -z "$task.tmp") { system qq{echo '::STDERR::' >> $task.out; cat $task.tmp >> $task.out} }
+        unlink "$task.tmp";
+        open E, ">$task.err"; 
+        printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
+        close E;
+    } else {
+        system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
+    }
+    system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> $task.out" if defined $Pfile{$prog};
+
+    $pm->finish;
+}
+$pm->wait_all_children;
+
+# clean up
+system('bin/rc-ts');
+system "date";
+
+sub cpu_time {
+  my ($user,$system,$cuser,$csystem) = times;
+  ($user+$cuser, $system+$csystem);
+}
