@@ -1,0 +1,33 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Find_words_which_contains_more_than_3_e_vowels
+#c# 2021-02-13 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+# as one-liner
+# .say for "unixdict.txt".IO.lines.grep: { !/<[aiou]>/ and /e.*e.*e.*e/ };
+
+# In an attempt to be a little less useless, here's an alternate script that allows you to specify a vowel, the minimum count to search for, and the file to search. Counts base vowels case, and combining accent insensitive; works with any text file, not just word lists. Defaults to finding words with at least 4 'e's in unixdict.txt. Default output is same as above.
+
+#unit sub MAIN ($vowel = 'e', $min = 4, $file = 'unixdict.txt');
+unit sub MAIN ($vowel = 'a', $min = 4, $file = 'ref/word-count.txt');
+@res.push: $_ for squish sort
+  ( $file.IO.slurp.words.grep: { ((my $b = .lc.samemark(' ').comb.Bag){$vowel} >= $min) && $b<a e i o u>.sum == $b{$vowel} } )\
+  ».subst(/<[":;,.?!_\[\]]>/, '', :g);
+
+# How about: find words with at least 4 'a's in the Les Misérables file used for the Word frequency task?
+# Command line > raku monovowel a 4 lemiz.txt
+
+.say for @res;
+
+my $ref = q:to/END/;
+Caracalla
+Caracara
+Salamanca
+Vâsaphantâ
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
