@@ -7,8 +7,7 @@
 
 # Works with: Rakudo version 2016.07
 
-#my @anagrams = '/usr/share/dict/words'.IO.words
-my @anagrams = 'unixdict.txt'.IO.words
+my @anagrams = 'ref/unixdict.txt'.IO.words
     .map(*.comb.cache)                # explode words into lists of characters
     .classify({ .sort.join }).values  # group words with the same characters
     .grep(* > 1)                      # only take groups with more than one word
