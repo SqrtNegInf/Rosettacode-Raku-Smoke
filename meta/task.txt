@@ -2,19 +2,19 @@ Welcome to Rakudo(tm) v2020.12-128-g3235f3e42.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-98-gf6c505dae.
 updating from RC…
-+--------------> Moar: Good/Bad [1243/24]
-|+-------------> JVM: Good/Bad [1097/224]
-||+------------> Smoke testing [1180]
++--------------> Moar: Good/Bad [1244/24]
+|+-------------> JVM: Good/Bad [1098/224]
+||+------------> Smoke testing [1181]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [350]
+|||||+---------> Touched (modified by me) [349]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [132]
 ||||||||+------> File output [98]
 |||||||||+-----> Draft [234]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [86]
-||||||||||||+--> Un-implemented/reliable [52]
+|||||||||||+---> Void (no local copy) [85]
+||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-!GS..T.R..... Average_loop_length
+GGS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -320,7 +320,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -431,6 +431,7 @@ GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T....... File_size_distribution
 GGS.......... Filter
+.........D.VU Filter_words
 GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T....... Find_duplicate_files
@@ -443,8 +444,7 @@ GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
 GGS.......... Find_the_missing_permutation
-.........D.V. Find_words_which_contains_all_the_vowels
-.........D.V. Find_words_which_contains_more_than_3_e_vowels
+GGS......D... Find_words_which_contains_more_than_3_e_vowels
 GGS......D... Find_words_which_first_and_last_three_letters_are_equals
 GGS......D... Find_words_with_alternating_vowels_and_consonants
 GBS......D... Finite_state_machine
@@ -1322,7 +1322,7 @@ GGS.......... Tree_from_nesting_levels-1
 GGS.......... Tree_from_nesting_levels-2
 GGS.......... Tree_from_nesting_levels-3
 GGS..T....... Tree_traversal
-GGS..T....... Trigonometric_functions
+GGS.......... Trigonometric_functions
 GGS.......... Truncatable_primes
 GBS..T....... Truncate_a_file
 GGS..T....... Truth_table
