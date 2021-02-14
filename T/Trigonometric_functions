@@ -1,29 +1,42 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Trigonometric_functions
-#c# 2016-01-26 <>RC
+#c# 2021-02-13 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
+#n# locally, can't correctly display Unicode for 2nd function
 
 my @res;
 
-@res.push: sin(pi/3).fmt('%.13f');
-@res.push: sin(pi/3).fmt('%.13f');
-@res.push: cos(pi/4).fmt('%.13f');
-@res.push: tan(pi/6).fmt('%.13f');
-@res.push: asin(sqrt(3)/2).fmt('%.13f');
-@res.push: acos(1/sqrt 2).fmt('%.13f');
-@res.push: atan(1/sqrt 3).fmt('%.13f');
+sub postfix:<°>    (\ᵒ) { ᵒ × τ / 360 }
+
+sub postfix:<㎭🡆°> (\ᶜ) { ᶜ / π × 180 }
+
+@res.push: sin π/3 ;
+@res.push: sin 60° ;
+
+@res.push: cos π/4 ;
+@res.push: cos 45° ;
+
+@res.push: tan π/6 ;
+@res.push: tan 30° ;
+
+( asin(3.sqrt/2), acos(1/sqrt 2), atan(1/sqrt 3) )».&{ @res.push: $_; @res.push: .㎭🡆° }
 
 .say for @res;
 
-my $ref = qq:to/END/;
-0.8660254037844
-0.8660254037844
-0.7071067811865
-0.5773502691896
-1.0471975511966
-0.7853981633974
-0.5235987755983
+my $ref = q:to/END/;
+0.8660254037844386
+0.8660254037844386
+0.7071067811865476
+0.7071067811865476
+0.5773502691896256
+0.5773502691896256
+1.0471975511965976
+60
+0.7853981633974484
+45.00000000000001
+0.5235987755982989
+30.000000000000004
 END
 
 use Test;
