@@ -5,7 +5,6 @@
 #j#  JVM: OK
 
 my $words = set slurp("ref/unixdict.txt").lines;
-#my $words = set slurp("/usr/share/dict/words").lines;
 
 my @sems = reverse sort gather for $words.flat -> $word {
     next if $word.key.chars < 3;
