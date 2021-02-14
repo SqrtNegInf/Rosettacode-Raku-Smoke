@@ -1,0 +1,21 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Find_words_which_contains_all_the_vowels
+#c# 2021-02-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $result = +.words ~ " words found:\n" ~ $_ with 'ref/unixdict.txt'.IO.words\
+  .grep({ .chars > 10 and all(.comb.Bag<a e i o u>) == 1 })\
+  .batch(5)».fmt('%-13s').join: "\n";
+
+my $ref = q:to/END/;
+25 words found:
+ambidextrous  bimolecular   cauliflower   communicable  communicate  
+consanguine   consultative  countervail   exclusionary  grandiloquent
+importunate   incommutable  incomputable  insupportable loudspeaking 
+malnourished  mensuration   oneupmanship  pandemonium   permutation  
+perturbation  portraiture   praseodymium  stupefaction  sulfonamide  
+END
+
+use Test;
+is $result, chomp $ref;
