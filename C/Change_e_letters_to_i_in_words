@@ -1,0 +1,21 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Change_e_letters_to_i_in_words
+#c# 2021-02-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my %ei = 'ref/unixdict.txt'.IO.words.grep({ .chars > 5 and /<[ie]>/ }).map: { $_ => .subst('e', 'i', :g) };
+say my $result = %ei.grep( *.key.contains: 'e' ).grep({ %ei{.value}:exists }).sort.batch(4)».gist».fmt('%-22s').join: "\n";
+
+my $ref = q:to/END/;
+analyses => analysis   atlantes => atlantis   bellow => billow       breton => briton      
+clench => clinch       convect => convict     crises => crisis       diagnoses => diagnosis
+enfant => infant       enquiry => inquiry     frances => francis     galatea => galatia    
+harden => hardin       heckman => hickman     inequity => iniquity   inflect => inflict    
+jacobean => jacobian   marten => martin       module => moduli       pegging => pigging    
+psychoses => psychosis rabbet => rabbit       sterling => stirling   synopses => synopsis  
+vector => victor       welles => willis      
+END
+
+use Test;
+is $result, chomp $ref;
