@@ -11,8 +11,8 @@ source $HOME/.profile
 rakudobrew switch moar-blead
 
 #rm -rf $HOME/.perl6/precomp # obsolete, bug has been fixed...
-rm -rf $HOME/.raku/precomp # new bug, old solution?
-rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
+#rm -rf $HOME/.raku/precomp # new bug, old solution?
+#rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
 
 cd $HOME/.rakudobrew
 
@@ -33,8 +33,8 @@ cd $HOME/perl6/Rosetta-Code
 echo 'MOAR'
 #$HOME/.rakudobrew/bin/rakudobrew switch moar-blead
 perl6 -v
-bin/rc-moar-parallel [0-Z]/*
-#bin/rc-moar-single [0-Z]/*
+#bin/rc-moar-parallel [0-Z]/*
+bin/rc-moar-single [0-Z]/*
 
 # track stats
 /bin/echo -n `date +%Y-%m-%d` >> bench/rakudo-builds.txt
