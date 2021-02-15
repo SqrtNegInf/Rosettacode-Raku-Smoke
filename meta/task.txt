@@ -2,9 +2,9 @@ Welcome to Rakudo(tm) v2020.12-128-g3235f3e42.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2020.12-98-gf6c505dae.
 updating from RC…
-+--------------> Moar: Good/Bad [1244/24]
-|+-------------> JVM: Good/Bad [1098/224]
-||+------------> Smoke testing [1181]
++--------------> Moar: Good/Bad [1245/24]
+|+-------------> JVM: Good/Bad [1099/224]
+||+------------> Smoke testing [1182]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [349]
@@ -13,7 +13,7 @@ updating from RC…
 ||||||||+------> File output [98]
 |||||||||+-----> Draft [234]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [85]
+|||||||||||+---> Void (no local copy) [84]
 ||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GGS..T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -195,7 +195,7 @@ GGS.......... Catalan_numbers
 GGS.......... Catalan_numbers_Pascal%27s_triangle
 GGS..T....... Catamorphism
 ...........VU Catmull-Clark_subdivision_surface
-.........D.V. Change_e_letters_to_i_in_words
+GGS......D... Change_e_letters_to_i_in_words
 GBS...C..D... Changeable_words
 GGS.......... Chaocipher
 GBS...CRF.... Chaos_game
@@ -320,7 +320,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
