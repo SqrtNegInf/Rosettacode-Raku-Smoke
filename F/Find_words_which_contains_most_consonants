@@ -1,0 +1,42 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Find_words_which_contains_most_consonants
+#c# 2021-02-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# just 1st part
+
+my @res;
+
+#unit sub MAIN ($min = 11);
+my $min = 11;
+my @vowel = <a e i o u>;
+my $vowel = rx/ @vowel /;
+my @consonant = ('a'..'z').grep: { $_ ∉ @vowel };
+my $consonant = rx/ @consonant /;
+
+@res.push: "Minimum characters in a word: $min";
+
+@res.push: "Number found, consonant count and list of words with the largest absolute number of unique, unrepeated consonants:";
+@res.push: +.value ~ ' @ '~ $_ for 'ref/unixdict.txt'.IO.words.grep( {.chars >= $min and so all(.comb.Bag{@consonant}) <= 1} )
+    .classify( { +.comb(/$consonant/) } ).sort(-*.key).head(2);
+
+@res.push: "\nNumber found, ratio and list of words with the highest ratio of unique, unrepeated consonants to vowels:";
+@res.push: +.value ~ ' @ '~ $_  for 'ref/unixdict.txt'.IO.slurp.words.grep( {.chars >= $min and so all(.comb.Bag{@consonant}) <= 1} )
+    .classify( { +.comb(/$vowel/) ?? (+.comb(/$consonant/) / +.comb(/$vowel/) ) !! Inf } ).sort(-*.key).head(3);
+
+.say for @res;
+
+my $ref = q:to/END/;
+Minimum characters in a word: 11
+Number found, consonant count and list of words with the largest absolute number of unique, unrepeated consonants:
+1 @ 9	comprehensible
+39 @ 8	administrable anthropology blameworthy bluestocking boustrophedon bricklaying chemisorption christendom claustrophobia compensatory comprehensive counterexample demonstrable disciplinary discriminable geochemistry hypertensive indecipherable indecomposable indiscoverable lexicography manslaughter misanthropic mockingbird monkeyflower neuropathology paralinguistic pharmacology pitchblende playwriting shipbuilding shortcoming springfield stenography stockholder switchblade switchboard switzerland thunderclap
+
+Number found, ratio and list of words with the highest ratio of unique, unrepeated consonants to vowels:
+14 @ 2.666667	blameworthy bricklaying christendom mockingbird pitchblende playwriting shortcoming springfield stenography stockholder switchblade switchboard switzerland thunderclap
+13 @ 2	anthropology bluestocking compensatory demonstrable disciplinary geochemistry hypertensive lexicography manslaughter misanthropic monkeyflower pharmacology shipbuilding
+1 @ 1.8	comprehensible
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
