@@ -1,9 +1,9 @@
 #!/usr/bin/env raku
-#t# skiptest
 #u# http://rosettacode.org/wiki/Untouchable_numbers
 #c# 2021-02-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# slow, so limited the number of values calculated
 
 my @res;
 
@@ -23,7 +23,7 @@ sub sieve (\n) {
    %s;
 }
 
-my \limit = 1e3;
+my \limit = 1e3; # 1e5;
 my %c = ( grep { !.is-prime }, 1..limit ).Set; # store composites
 my %s = sieve(14 * limit);
 my @untouchable = 2, 5;
@@ -34,13 +34,14 @@ loop ( my \n = $ = 6 ; n ≤ limit ; n += 2 ) {
 
 my ($c, $last) = 0, False;  
 for @untouchable.rotor(10) { 
-   @res.push: [~] @_».&{$c++ ; $_ > 200 ?? ( $last = True and last ) !! .fmt: "%6d "}
+   @res.push: [~] @_».&{$c++ ; $_ > 625 ?? ( $last = True and last ) !! .fmt: "%6d "}
    $c-- and last if $last
 }
 
-@res.push: "\nList of untouchable numbers ≤ 2,000 : $c \n"; 
+@res.push: "\nList of untouchable numbers ≤ 625 : $c \n"; 
+#@res.push: "\nList of untouchable numbers ≤ 2,000 : $c \n"; 
 
-#`{{
+#`{{ skip for now
 my ($p, $count) = 10,0;
 BREAK: for @untouchable -> \n {
    $count++;
@@ -53,9 +54,20 @@ BREAK: for @untouchable -> \n {
 }}
 
 .say for @res;
-exit;
 
 my $ref = q:to/END/;
+     2      5     52     88     96    120    124    146    162    188 
+   206    210    216    238    246    248    262    268    276    288 
+   290    292    304    306    322    324    326    336    342    372 
+   406    408    426    430    448    472    474    498    516    518 
+   520    530    540    552    556    562    576    584    612    624 
+
+
+List of untouchable numbers ≤ 625 : 50 
+
+END
+
+my $full-answer = q:to/END/;
      2      5     52     88     96    120    124    146    162    188
    206    210    216    238    246    248    262    268    276    288
    290    292    304    306    322    324    326    336    342    372
