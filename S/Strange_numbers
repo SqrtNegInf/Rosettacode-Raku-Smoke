@@ -6,17 +6,21 @@
 
 my @res;
 
-sub infix:<′>(\x,\y) { abs(x -y) ∈ [2, 3, 5, 7] ?? True !! False }
+sub infix:<′>(\x,\y) { abs(x - y) ∈ (2, 3, 5, 7) ?? True !! False }
 
-my @strange;
 my ($low, $high) = 100, 500;
-for ($low ^..^ $high) { @strange.push: $_ if so all .comb.rotor(2 => -1).map: { @_[0] ′ @_[1] } }
+
+#my @strange;
+#for ($low ^..^ $high) { @strange.push: $_ if so all .comb.rotor(2 => -1).map: { .[0] ′ .[1] } }    # revised
+#for (101..499) { .say if so all .comb.rotor(2 => -1).map: { @_[0] ′ @_[1] } }                      # original
+
+my @strange.push: $_ if so all .comb.rotor(2 => -1).map: { .[0] ′ .[1] } for $low ^..^ $high;       # DH
 
 say "Between $low and $high there are {+@strange} strange numbers:\n";
-#print $_>>.fmt("%4d") ~ "\n" for @strange.rotor(20, :partial);
+#put $_».fmt("%4d") for @strange.rotor(20, :partial);
 @res.push: $_».fmt("%4d") for @strange.rotor(20, :partial);
 
-.say for @res;
+.put for @res;
 
 my $ref = q:to/END/;
  130  131  135  136  138  141  142  146  147  149  161  163  164  168  169  181  183  185  186  202
