@@ -1,12 +1,14 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Strange_numbers
-#c# 2021-02-22 <RC
+#c# 2021-02-22 <RC, 2021-02-23 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# junctions are a little faster
 
 my @res;
 
-sub infix:<′>(\x,\y) { abs(x - y) ∈ (2, 3, 5, 7) ?? True !! False }
+#sub infix:<′>(\x,\y) { abs(x - y) ∈ (2, 3, 5, 7) ?? True !! False }
+sub infix:<′>(\x,\y) { abs(x - y) == 2|3|5|7 ?? True !! False }
 
 my ($low, $high) = 100, 500;
 
