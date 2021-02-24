@@ -3,7 +3,7 @@
 #c# 2021-02-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# slow, so limited the number of values calculated
+#n# slow, so limited the number of values calculated (even with Perl/ntheory functions)
 
 my @res;
 
@@ -17,19 +17,19 @@ sub propdiv (\x) {
 
 sub sieve (\n) {
    my %s;
-   for (0..(n+1)) -> \k {
-      given ( [+] propdiv k ) { %s{$_} = True if $_ ≤ (n+1) }
+   for (0.. n+1) -> \k {
+      given ( [+] propdiv k ) { %s{$_} = True if $_ ≤ n+1 }
    }
    %s;
 }
 
 my \limit = 1e3; # 1e5;
 my %c = ( grep { !.is-prime }, 1..limit ).Set; # store composites
-my %s = sieve(14 * limit);
+my %s = sieve 14 × limit;
 my @untouchable = 2, 5;
 
 loop ( my \n = $ = 6 ; n ≤ limit ; n += 2 ) {
-   @untouchable.append(n) if (!%s{n} && %c{n-1} && %c{n-3})
+   @untouchable.append(n) if !%s{n} and %c{n-1} and %c{n-3}
 }
 
 my ($c, $last) = 0, False;  
