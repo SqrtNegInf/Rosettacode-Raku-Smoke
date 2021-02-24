@@ -1,4 +1,4 @@
-Welcome to Rakudo(tm) v2021.02-14-ga5ca53a8b.
+Welcome to Rakudo(tm) v2021.02-16-g7d6e43224.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-1-g15353bb9e.
 updating from RC…
@@ -7,13 +7,13 @@ updating from RC…
 ||+------------> Smoke testing [1186]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [349]
+|||||+---------> Touched (modified by me) [350]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [132]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [236]
+|||||||||+-----> Draft [237]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [83]
+|||||||||||+---> Void (no local copy) [84]
 ||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
@@ -435,6 +435,7 @@ GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
+.........D.V. Find_first_missing_positive
 GGS......D... Find_if_a_point_is_within_a_triangle
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
@@ -1209,7 +1210,7 @@ GGS..T....... Stern-Brocot_sequence
 GGS.......... Stirling_numbers_of_the_first_kind
 GGS.......... Stirling_numbers_of_the_second_kind
 GGS..T....... Straddling_checkerboard
-GGS......D... Strange_numbers
+GGS..T...D... Strange_numbers
 .........D.VU Strange_plus_numbers
 BB.K.....D... Strassen%27s_algorithm
 GGS..T....... Stream_merge
