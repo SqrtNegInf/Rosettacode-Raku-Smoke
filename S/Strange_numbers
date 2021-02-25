@@ -19,7 +19,8 @@ my ($low, $high) = 100, 500;
 my @strange.push: $_ if so all .comb.rotor(2 => -1).map: { (.[0] - .[1]).abs == 2|3|5|7 } for $low ^..^ $high;
 
 say "Between $low and $high there are {+@strange} strange numbers:\n";
-#put $_».fmt("%4d") for @strange.rotor(20, :partial);
+#put $_».fmt("%4d") for @strange.rotor(20, :partial); # DH 
+#print @strange.batch(20)».fmt("%4d").join: "\n";     # on RC
 @res.push: $_».fmt("%4d") for @strange.rotor(20, :partial);
 
 .put for @res;
