@@ -1,20 +1,20 @@
-Welcome to Rakudo(tm) v2021.02-16-g7d6e43224.
+Welcome to Rakudo(tm) v2021.02.1-11-g69aca7540.
 Implementing the Raku(tm) programming language v6.d.
-Built on MoarVM version 2021.02-1-g15353bb9e.
+Built on MoarVM version 2021.02-3-g4ae157c33.
 updating from RC…
-+--------------> Moar: Good/Bad [1248/24]
-|+-------------> JVM: Good/Bad [1103/224]
-||+------------> Smoke testing [1186]
++--------------> Moar: Good/Bad [1249/24]
+|+-------------> JVM: Good/Bad [1104/224]
+||+------------> Smoke testing [1187]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [350]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [132]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [237]
+|||||||||+-----> Draft [239]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [84]
-||||||||||||+--> Un-implemented/reliable [52]
+|||||||||||+---> Void (no local copy) [85]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -243,6 +243,8 @@ GGS.......... Comma_quibbling
 GG.K......... Command-line_arguments
 GGS.......... Commatizing_numbers
 GGS.......... Comments
+.........D.V. Common_list_elements
+.........D.V. Common_sorted_list
 GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
@@ -435,7 +437,7 @@ GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
-.........D.V. Find_first_missing_positive
+GGS......D... Find_first_missing_positive
 GGS......D... Find_if_a_point_is_within_a_triangle
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
@@ -1211,7 +1213,7 @@ GGS.......... Stirling_numbers_of_the_first_kind
 GGS.......... Stirling_numbers_of_the_second_kind
 GGS..T....... Straddling_checkerboard
 GGS..T...D... Strange_numbers
-.........D.VU Strange_plus_numbers
+.........D.V. Strange_plus_numbers
 BB.K.....D... Strassen%27s_algorithm
 GGS..T....... Stream_merge
 GGS.......... String_append
