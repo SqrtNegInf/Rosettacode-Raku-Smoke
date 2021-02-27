@@ -1,19 +1,20 @@
 Welcome to Rakudo(tm) v2021.02.1-13-g17c7c1889.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-3-g4ae157c33.
-+--------------> Moar: Good/Bad [1248/24]
-|+-------------> JVM: Good/Bad [1104/224]
-||+------------> Smoke testing [1187]
+updating from RC…
++--------------> Moar: Good/Bad [1253/24]
+|+-------------> JVM: Good/Bad [1108/224]
+||+------------> Smoke testing [1191]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [350]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [132]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [239]
+|||||||||+-----> Draft [241]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [85]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [83]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -104,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-!GS..T.R..... Average_loop_length
+GGS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -242,8 +243,8 @@ GGS.......... Comma_quibbling
 GG.K......... Command-line_arguments
 GGS.......... Commatizing_numbers
 GGS.......... Comments
-.........D.V. Common_list_elements
-.........D.V. Common_sorted_list
+GGS......D... Common_list_elements
+GGS......D... Common_sorted_list
 GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
@@ -764,6 +765,7 @@ GGS.......... Minimal_steps_down_to_1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 GGS.......... Minkowski_question-mark_function
+.........D.VU Modified_random_distribution
 GGS.......... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
@@ -858,9 +860,10 @@ GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_partitions
 GGS.......... Ordered_words
-...........VU P-Adic_numbers,_basic
+GGS.......... P-Adic_numbers,_basic
 .........D.VU P-Adic_square_roots
 GGS..T....... P-value_correction
+.........D.VU Padovan_sequence
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
 GGS...C...... Palindromic_gapful_numbers
@@ -1212,7 +1215,7 @@ GGS.......... Stirling_numbers_of_the_first_kind
 GGS.......... Stirling_numbers_of_the_second_kind
 GGS..T....... Straddling_checkerboard
 GGS..T...D... Strange_numbers
-.........D.V. Strange_plus_numbers
+GGS...c..D... Strange_plus_numbers
 BB.K.....D... Strassen%27s_algorithm
 GGS..T....... Stream_merge
 GGS.......... String_append
