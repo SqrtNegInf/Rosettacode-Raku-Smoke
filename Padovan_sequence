@@ -1,0 +1,36 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Padovan_sequence
+#c# 2021-02-27 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+constant p = 1.32471795724474602596;
+constant s = 1.0453567932525329623;
+constant %rules = A => 'B', B => 'C', C => 'AB';
+
+my @pad-recur = 1, 1, 1, -> $c, $b, $ { $b + $c }  … *;
+
+my @pad-floor = { floor 1/2 + p ** ($++ - 1) / s } … *;
+
+my @pad-L-sys = 'A', { %rules{$^axiom.comb}.join } … *;
+my @pad-L-len = @pad-L-sys.map: *.chars;
+
+@res.push: @pad-recur.head(20);
+@res.push: @pad-L-sys.head(10);
+
+@res.push: "Recurrence == Floor to N=64" if (@pad-recur Z== @pad-floor).head(64).all;
+@res.push: "Recurrence == L-len to N=32" if (@pad-recur Z== @pad-L-len).head(32).all;
+
+.say for @res;
+
+my $ref = q:to/END/;
+1 1 1 2 2 3 4 5 7 9 12 16 21 28 37 49 65 86 114 151
+A B C AB BC CAB ABBC BCCAB CABABBC ABBCBCCAB
+Recurrence == Floor to N=64
+Recurrence == L-len to N=32
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
