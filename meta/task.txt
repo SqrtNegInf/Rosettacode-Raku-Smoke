@@ -1,8 +1,8 @@
-Welcome to Rakudo(tm) v2021.02.1-13-g17c7c1889.
+Welcome to Rakudo(tm) v2021.02.1-15-gc5d635d99.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-3-g4ae157c33.
 updating from RC…
-+--------------> Moar: Good/Bad [1253/24]
++--------------> Moar: Good/Bad [1251/24]
 |+-------------> JVM: Good/Bad [1108/224]
 ||+------------> Smoke testing [1191]
 |||+-----------> sKipping validation [133]
@@ -11,10 +11,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [132]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [241]
+|||||||||+-----> Draft [240]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [83]
-||||||||||||+--> Un-implemented/reliable [52]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GGS..T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -616,7 +616,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-GBS...C.F.... Julia_set
+!BS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -863,7 +863,7 @@ GGS.......... Ordered_words
 GGS.......... P-Adic_numbers,_basic
 .........D.VU P-Adic_square_roots
 GGS..T....... P-value_correction
-.........D.VU Padovan_sequence
+...........V. Padovan_sequence
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
 GGS...C...... Palindromic_gapful_numbers
