@@ -17,7 +17,7 @@ my \languages = set gather for @lines {
 
 @lines = $categories.lines;
 my @freq = sort -*.[0], gather for @lines {
-    take [+$1.subst(",", ""), ~$0] if
+    take [+$1.subst(',', ''), ~$0] if
         / '<li><a href="/wiki/Category:' .*? '" title="Category:' .*? '">'
         (.*?) <?{ ~$0 ∈ languages }>
         '</a>' .*? '(' (<[, 0..9]>+) ' member' /;
@@ -25,12 +25,12 @@ my @freq = sort -*.[0], gather for @lines {
 
 my @res;
 for @freq.kv -> $i, @l {
-    @res.push: sprintf "%d:\t%4d - %s", $i+1, |@l;
+    @res.push: sprintf '%d:\t%4d - %s', $i+1, |@l;
     last if 20 == $i;
 }
 .say for @res;
 
-say "freq: " ~ +@freq;
+say 'freq: ' ~ +@freq;
 
 use Test;
 ok 740 < +@freq;
