@@ -120,7 +120,7 @@ class Heap {
    }
 
    method DecreaseKey(\n, \v) {
-      die "DecreaseKey new value greater than existing value" if n.value ⪡ v;
+      die 'DecreaseKey new value greater than existing value' if n.value ⪡ v;
       n.value = v; 
       return Nil if n ~~ self.root;
       my \p = n.parent;
@@ -174,26 +174,26 @@ class Heap {
 
    method Vis() {
 
-      if self.root.value ~~ Nil { $out.say: "<empty>" and return }
+      if self.root.value ~~ Nil { $out.say: '<empty>' and return }
 
       sub f(Node $n, Str $pre) {
-         loop ( my $pc = "│ ", my $x = $n ; ; $x = $x.next) {
+         loop ( my $pc = '│ ', my $x = $n ; ; $x = $x.next) {
             if !($x.next ~~ $n) {
-               $out.print: $pre, "├─"
+               $out.print: $pre, '├─'
             } else {
-               $out.print: $pre, "└─";
-               $pc = "  "
+               $out.print: $pre, '└─';
+               $pc = '  '
             }
             if not $x.child.defined {
-               $out.say: "╴", $x.value
+               $out.say: '╴', $x.value
             } else {
-               $out.say: "┐", $x.value;
+               $out.say: '┐', $x.value;
                f($x.child, $pre~$pc)
             }
             last if $x.next ~~ $n 
          }
       }
-      f(self.root, "")
+      f(self.root, '')
    }
 }
 
@@ -210,19 +210,19 @@ sub meld2(\a, \b) {
    ( a.prev, b.prev ) = ( b.prev, a.prev )
 }
 
-$out.say: "MakeHeap:";
+$out.say: 'MakeHeap:';
 my $h = Heap.new; 
 $h.MakeHeap;
 $h.Vis;
 
 $out.say: "\nInsert:";
-$h.Insert("cat");
+$h.Insert('cat');
 $h.Vis;
 
 $out.say: "\nUnion:";
 my $h2 = Heap.new; 
 $h2.MakeHeap;
-$h2.Insert("rat");
+$h2.Insert('rat');
 $h.Union($h2);
 $h.Vis;
 
@@ -231,18 +231,18 @@ my \m = $h.Minimum();
 $out.say: m;
 
 $out.say: "\nExtractMin:";
-$h.Insert("bat");
-my $x = $h.Insert("meerkat"); 
-$out.say: "extracted: ", my $mm = $h.ExtractMin();
+$h.Insert('bat');
+my $x = $h.Insert('meerkat'); 
+$out.say: 'extracted: ', my $mm = $h.ExtractMin();
 $h.Vis;
 
 $out.say: "\nDecreaseKey:";
-$h.DecreaseKey($x, "gnat");
+$h.DecreaseKey($x, 'gnat');
 $h.Vis;
 
 $out.say: "\nDelete:";
-$h.Insert("bobcat");
-$h.Insert("bat");
-$out.say: "deleting: ", $x.value;
+$h.Insert('bobcat');
+$h.Insert('bat');
+$out.say: 'deleting: ', $x.value;
 $h.Delete($x);
 $h.Vis;
