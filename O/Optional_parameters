@@ -16,7 +16,7 @@ my method sorttable-pos($column = 0, $reverse?, &ordering = &infix:<cmp>) {
     return $reverse ?? @result.reverse !! @result;
 }
 
-my @a = [["a", "b", "c"], ["zap", "zip", "Zot"], ["", "q", "z"]];
+my @a = [['a', 'b', 'c'], ['zap', 'zip', 'Zot'], ['', 'q', 'z']];
 my @b = sorttable(@a, column => 1, reverse=>1);
 say @b;
 my @c = sorttable-pos(@a, 1, 1);
