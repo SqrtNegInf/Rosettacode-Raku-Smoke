@@ -1,46 +1,63 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/P-Adic_numbers,_basic
-#c# 2021-02-26 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-#n# .add not 100%? testing needs to be expanded...
+#c# 2021-02-28 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
 
 my @res;
 
-class Padic { has @.v is default([]) is rw ;
+class Padic { has ($.p is default(2), @.v is default([])) is rw ;
 
    method r2pa (Rat $x is copy, \p, \d) { # Reference: math.stackexchange.com/a/1187037
+      self.p = p;
       while +self.v < d {
-         my %d = ^p Z=> (( $x «-« ^p ) »/» p )».&{ .denominator % p };
+         my %d = ^p Z=> (( $x «-« ^p ) »/» p )».&{ .denominator % p }; # .kv
          for %d.keys { self.v.unshift: $_  and last if %d{$_} != 0 }
          $x = ($x - self.v.first) / p 
       }
-      self.v
+      self
    }
 
    method add (Padic \x, \p) {
       my $div = 0;
-      reverse gather for ( self.v.reverse Z x.v.reverse )».sum { 
-         take ( $_ + $div ) % p and $div = $_ div p
-      }
+      return Padic.new:  
+         p => p,
+         v => reverse gather for ( self.v.reverse Z x.v.reverse )».sum
+                 { take ( $_ + $div ) % p and $div = $_ div p } # .polymod 
+   }
+
+   method gist { # en.wikipedia.org/wiki/P-adic_number#Notation
+      my %H = (0..9) Z=> ('0'..'9'); # (0x2080 .. 0x2089);
+      '… ' ~ self.v ~ ' ' ~ [~] self.p.comb».&{ %H{$_} } 
    }
 }
 
-given my $a = Padic.new { @res.push: .r2pa: 5/8, 7, 11 }
+#-9/5 + O(3^8)
+# 2 1 0 1 2 1 0 0
+# 27/7 + O(3^8)
+# 1 2 0 1 1 0 0 0
+#+ =
+# 1 0 1 0 0 1 0 0
+# 72/35
 
-given my $b = Padic.new { @res.push: .r2pa: 353/30809, 7, 11 }
+my \DATA = < -9/5 27/7 3 8 > ;
 
-@res.push: $b.add: $a, 7;
+given my $a = Padic.new { say .r2pa: DATA[0], DATA[2], DATA[3] }
 
-given my $c = Padic.new { @res.push: .r2pa: 47099/10977, 7, 11 }
+given my $b = Padic.new { say .r2pa: DATA[1], DATA[2], DATA[3] }
+
+say $a.add: $b, DATA[2] ;
+
+given my $c = Padic.new { say .r2pa: DATA[0]+DATA[1] , DATA[2], DATA[3] }
 
 .say for @res;
+exit;
 
 my $ref = q:to/END/;
-4 2 4 2 4 2 4 2 4 2 5
-2 3 6 6 3 6 4 3 4 5 5
-6 6 4 2 1 2 1 6 2 1 3
-6 6 4 2 1 2 1 6 2 1 3
+… 29 17 29 17 29 17 29 17 29 17 30 ₄₇
+… 4 13 42 28 43 43 34 36 25 20 1 ₄₇
+… 33 31 24 46 26 14 17 7 7 37 31 ₄₇
+… 33 31 24 46 26 14 17 7 7 37 31 ₄₇
 END
 
 use Test;
