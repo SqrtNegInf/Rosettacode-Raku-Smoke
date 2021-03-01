@@ -14,7 +14,7 @@ my $fh = open("run/galton_box.$ext", :w) || die;
 
 my $row-count = 6;
 
-constant $peg = "*";
+constant $peg = '*';
 constant @coin-icons = "\c[UPPER HALF BLOCK]", "\c[LOWER HALF BLOCK]";
 
 sub display-board(@positions, @stats is copy, $halfstep) {
@@ -27,14 +27,14 @@ sub display-board(@positions, @stats is copy, $halfstep) {
             @tmpl.push: $[@stuff.join>>.ords.flat];
         }
         # three lines of space above
-        out "  ", " " x (2 × $row-count) for 1..3; # DH
+        out '  ', ' ' x (2 × $row-count) for 1..3; # DH
 
         # $row-count lines of pegs
         for flat ($row-count...1) Z (1...$row-count) -> $spaces, $pegs {
-            out "  ", " " x $spaces, ($peg xx $pegs).join(" "), " " x $spaces;
+            out '  ', ' ' x $spaces, ($peg xx $pegs).join(' '), ' ' x $spaces;
         }
         # four lines of space below
-        out "  ", " " x (2 × $row-count) for 1..4; # DH
+        out '  ', ' ' x (2 × $row-count) for 1..4; # DH
 
         @tmpl
     }();
@@ -48,7 +48,7 @@ sub display-board(@positions, @stats is copy, $halfstep) {
         sub print(Str $foo) { @output.push: $foo       }
 
         # make some space above the picture
-        say "" for ^10;
+        say '' for ^10;
 
         my @output-lines = map { [map *.clone, @$_].item }, @board-tmpl;
         # place the coins
@@ -58,14 +58,14 @@ sub display-board(@positions, @stats is copy, $halfstep) {
         }
         # output the board with its coins
         for @output-lines -> @line {
-            say @line>>.chr.join("");
+            say @line>>.chr.join('');
         }
 
         # show the statistics
         my $padding = 0;
         while any(@stats) > 0 {
             $padding++;
-            print "  ";
+            print '  ';
             @stats = do for @stats -> $stat {
                 given $stat {
                     when 1 {
@@ -73,7 +73,7 @@ sub display-board(@positions, @stats is copy, $halfstep) {
                         $stat - 1;
                     }
                     when * <= 0 {
-                        print " ";
+                        print ' ';
                         0
                     }
                     default {
@@ -82,11 +82,11 @@ sub display-board(@positions, @stats is copy, $halfstep) {
                     }
                 }
             }
-            say "";
+            say '';
         }
-        say "" for $padding..^10; # DH works same as ...^10;
+        say '' for $padding..^10; # DH works same as ...^10;
     }
-    $fh.say: @output.join("");
+    $fh.say: @output.join('');
 }
 
 sub simulate($coins is copy) {
