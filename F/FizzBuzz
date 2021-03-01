@@ -24,7 +24,7 @@ my @res2 = (1 .. 100)».&fizzbuzz.join("\n");
 # readable:
 my @res3.push: 'Fizz' x $_ %% 3 ~ 'Buzz' x $_ %% 5 || $_ for 1 .. 100;
 # golf:
-my @res4.push: "Fizz"x$_%%3~"Buzz"x$_%%5||$_ for 1..100;
+my @res4.push: 'Fizz'x$_%%3~'Buzz'x$_%%5||$_ for 1..100;
 
 # And here's an implementation that never checks for divisibility:
 my @res5.push: $_ for
@@ -37,7 +37,7 @@ my @res5.push: $_ for
     1 .. 100;
 
 # David Hand @Ptolemarch:
-my @res6.push: ([~] ($_%%3, $_%%5) »||» "" Z&& <Fizz Buzz> or $_) for 1..100;
+my @res6.push: ([~] ($_%%3, $_%%5) »||» '' Z&& <Fizz Buzz> or $_) for 1..100;
 
 my $ref = qq:to/END/;
 1
