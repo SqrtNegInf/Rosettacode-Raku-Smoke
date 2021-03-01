@@ -91,7 +91,7 @@ sub b2h (\b) { b.ords.fmt('%02X', '') };
 sub u2b (\u) { [~] map { .chr }, @( [~] map { .encode('utf8') }, u.comb) };
 
 # convert hexadecimals to UTF-8
-#sub h2u (\h) { pack("H" x h.chars/2, h ~~ m:g/../).decode('utf8') };
+#sub h2u (\h) { pack('H' x h.chars/2, h ~~ m:g/../).decode('utf8') };
 sub h2u (\h) { Blob.new( h.comb(2).map: { :16( $_ ) } ).decode('utf8') };
 
 # convert quadbits to hex
@@ -101,7 +101,7 @@ sub q2h (\q) { [~] map { :2($_.Str).fmt('%X') }, q ~~ m:g/..../ };
 sub q2b (\q) { map { :2($_.Str) }, q ~~ m:g/. ** 8/ };
 
 # turn a 16 digit hexadecimal str to a 64 bits list
-sub h2bits (\h) { ([~] map { :16($_).base(2).fmt('%04s') }, h.comb).split("")[1..64] };
+sub h2bits (\h) { ([~] map { :16($_).base(2).fmt('%04s') }, h.comb).split('')[1..64] };
 
 sub infix:<⥀>(\a is copy, \b) { a.append: a.shift for ^b ; a } # XOR addition
 
@@ -124,7 +124,7 @@ sub ƒ (List \R is copy, Seq \Kn is copy --> Seq) {
    my @er = map { Kn[$_] +^ R[E[$_]-1] }, ^48;
    my @sr = flat map { # Sn(Bn) loop, process @er six bits at a time
       ((S.[$_][([~] @er[$_×6,$_×6+5]).parse-base(2)×16+([~]
-         @er[$_×6+1 .. $_×6+4]).parse-base(2)]).fmt('%04b').split(""))[1..4]
+         @er[$_×6+1 .. $_×6+4]).parse-base(2)]).fmt('%04b').split(''))[1..4]
    }, ^8;
    return map { @sr[$_-1] }, P;
 }
@@ -141,7 +141,7 @@ sub process_block(Str \message, \K is copy --> Str) { # return 8 quadbits
 sub des(Str \key, Str $msg is copy, Bool \DECODE --> Str) { # return hexdecimal
    my @K; my \length = $msg.encode('iso-8859-1').bytes;
    if ( DECODE and length % 8 ) { # early exit, avoid the subkeys computation
-      die "Message must be in multiples of 8 bytes"
+      die 'Message must be in multiples of 8 bytes'
    } else { 
       @K = DECODE ?? reverse get_subkeys key !! get_subkeys key  
    }
@@ -160,19 +160,19 @@ sub des(Str \key, Str $msg is copy, Bool \DECODE --> Str) { # return hexdecimal
    return q2h $quad
 }
 
-@res.push: "Encryption examples:";
-@res.push: des "133457799BBCDFF1", h2bytes("0123456789ABCDEF"), False;
-@res.push: des "0E329232EA6D0D73", h2bytes("8787878787878787"), False;
-@res.push: des "0E329232EA6D0D73", "Your lips are smoother than vaseline", False;
-#@res.push: des "0E329232EA6D0D73", "Your lips are smoother than vaseline\r\n", False;
-@res.push: des "0E329232EA6D0D73", u2b("BMP: こんにちは ; Astral plane: 𝒳𝒴𝒵"), False;
+@res.push: 'Encryption examples:';
+@res.push: des '133457799BBCDFF1', h2bytes('0123456789ABCDEF'), False;
+@res.push: des '0E329232EA6D0D73', h2bytes('8787878787878787'), False;
+@res.push: des '0E329232EA6D0D73', 'Your lips are smoother than vaseline', False;
+#@res.push: des '0E329232EA6D0D73', "Your lips are smoother than vaseline\r\n", False;
+@res.push: des '0E329232EA6D0D73', u2b('BMP: こんにちは ; Astral plane: 𝒳𝒴𝒵'), False;
 
-@res.push: "Decryption examples:";
-@res.push: des "133457799BBCDFF1", h2bytes("85E813540F0AB405FDF2E174492922F8"), True;
-@res.push: des "0E329232EA6D0D73", h2bytes("0000000000000000A913F4CB0BD30F97"), True;
-@res.push: h2bytes des "0E329232EA6D0D73", h2bytes("C0999FDDE378D7ED727DA00BCA5A84EE47F269A4D6438190D9D52F78F535849980A2E7453703513E"), True;
-#@res.push: h2bytes des "0E329232EA6D0D73", h2bytes("C0999FDDE378D7ED727DA00BCA5A84EE47F269A4D6438190D9D52F78F53584997F922CCB5B068D99"), True;
-@res.push: h2u des "0E329232EA6D0D73", h2bytes("C040FB6A6E72D7C36D60CA9B9A35EB38D3194468AD808103C28E33AEF0B268D0E0366C160B028DDACF340003DCA8969343EBBD289DB94774"), True;
+@res.push: 'Decryption examples:';
+@res.push: des '133457799BBCDFF1', h2bytes('85E813540F0AB405FDF2E174492922F8'), True;
+@res.push: des '0E329232EA6D0D73', h2bytes('0000000000000000A913F4CB0BD30F97'), True;
+@res.push: h2bytes des '0E329232EA6D0D73', h2bytes('C0999FDDE378D7ED727DA00BCA5A84EE47F269A4D6438190D9D52F78F535849980A2E7453703513E'), True;
+#@res.push: h2bytes des '0E329232EA6D0D73', h2bytes('C0999FDDE378D7ED727DA00BCA5A84EE47F269A4D6438190D9D52F78F53584997F922CCB5B068D99'), True;
+@res.push: h2u des '0E329232EA6D0D73', h2bytes('C040FB6A6E72D7C36D60CA9B9A35EB38D3194468AD808103C28E33AEF0B268D0E0366C160B028DDACF340003DCA8969343EBBD289DB94774'), True;
 
 .say for @res;
 
