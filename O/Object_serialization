@@ -28,17 +28,17 @@ class Rectangle does  FileStore {
 
 my $r1 = Rectangle.new(lower => Point.new(x => 0, y => 0),
                       upper => Point.new(x => 10, y => 10));
-@res.push: "Create Rectangle1 with area " ~ $r1.area();
-@res.push: "Serialize Rectangle1 to object.dat";
+@res.push: 'Create Rectangle1 with area ' ~ $r1.area();
+@res.push: 'Serialize Rectangle1 to object.dat';
 $r1.to_file('./run/objects.dat');
-@res.push: "";
-@res.push: "take a peek on object.dat ..";
-@res.push: slurp "./run/objects.dat";
-@res.push: "";
-@res.push: "Deserialize to Rectangle2";
+@res.push: '';
+@res.push: 'take a peek on object.dat ..';
+@res.push: slurp './run/objects.dat';
+@res.push: '';
+@res.push: 'Deserialize to Rectangle2';
 my $r2 = from_file('run/objects.dat');
-@res.push: "Rectangle2 is of type " ~ $r2.WHAT.raku;
-@res.push: "Rectangle2 area is " ~ $r2.area();
+@res.push: 'Rectangle2 is of type ' ~ $r2.WHAT.raku;
+@res.push: 'Rectangle2 area is ' ~ $r2.area();
 
 .say for @res;
 
