@@ -10,7 +10,7 @@ sub compress(Str $uncompressed --> Seq)  {
     my $dict-size = 256;
     my %dictionary = (.chr => .chr for ^$dict-size);
 
-    my $w = "";
+    my $w = '';
     gather {
   for $uncompressed.encode('utf8').list.chrs.comb -> $c {
       my $wc = $w ~ $c;
