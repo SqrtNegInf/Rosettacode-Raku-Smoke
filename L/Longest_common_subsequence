@@ -5,7 +5,7 @@
 #j#  JVM: OK
 
 sub lcs(Str $xstr, Str $ystr) {
-    return "" unless $xstr && $ystr;
+    return '' unless $xstr && $ystr;
 
     my ($x, $xs, $y, $ys) = $xstr.substr(0, 1), $xstr.substr(1), $ystr.substr(0, 1), $ystr.substr(1);
     return $x eq $y
@@ -25,7 +25,7 @@ sub lcs2(Str $xstr, Str $ystr) {
 
     my @x = $xstr.comb;
     my ($x, $y) = ($xlen, $ylen);
-    my $result = "";
+    my $result = '';
     while $x != 0 && $y != 0 {
         if @lengths[$x][$y] == @lengths[$x-1][$y] {
             $x--;
@@ -62,7 +62,7 @@ sub lcs3(Str $xstr, Str $ystr) {
     }
 
     my ($i,$j) = (+$a-1, +$b-1);
-    my $result = "";
+    my $result = '';
     while ($i >= 0 && $j >= 0) {
         if ($Vs[$j] +& (1 +< $i)) { $i-- }
         else {
@@ -77,18 +77,18 @@ sub lcs3(Str $xstr, Str $ystr) {
 }
 
 use Test;
-say my $out1 = lcs("thisisa", "pisatest");
+say my $out1 = lcs('thisisa', 'pisatest');
 is $out1, 'iss';
 
 my $beg1 = now;
-say my $out2 = lcs("testing123testing", "thisisatest");
+say my $out2 = lcs('testing123testing', 'thisisatest');
 is $out2, 'tsitest';
 say 'lcs1 took: ', now - $beg1;
 
 my $beg2 = now;
-is lcs2("testing123testing", "thisisatest"), 'tsitest';
+is lcs2('testing123testing', 'thisisatest'), 'tsitest';
 say 'lcs2 took: ', now - $beg2;
 
 my $beg3 = now;
-is lcs3("testing123testing", "thisisatest"), 'tsitest';
+is lcs3('testing123testing', 'thisisatest'), 'tsitest';
 say 'lcs3 took: ', now - $beg3;
