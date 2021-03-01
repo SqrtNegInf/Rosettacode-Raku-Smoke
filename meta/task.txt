@@ -2,19 +2,19 @@ Welcome to Rakudo(tm) v2021.02.1-15-gc5d635d99.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-3-g4ae157c33.
 updating from RC…
-+--------------> Moar: Good/Bad [1251/24]
-|+-------------> JVM: Good/Bad [1108/224]
-||+------------> Smoke testing [1191]
++--------------> Moar: Good/Bad [1253/25]
+|+-------------> JVM: Good/Bad [1109/225]
+||+------------> Smoke testing [1192]
 |||+-----------> sKipping validation [133]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [350]
 ||||||+--------> Concurrent/Async [68]
-|||||||+-------> Random seed [132]
+|||||||+-------> Random seed [133]
 ||||||||+------> File output [98]
 |||||||||+-----> Draft [240]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [83]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [81]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -322,7 +322,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -616,7 +616,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-!BS...C.F.... Julia_set
+GBS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -765,7 +765,7 @@ GGS.......... Minimal_steps_down_to_1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 GGS.......... Minkowski_question-mark_function
-.........D.VU Modified_random_distribution
+!GS....R.D... Modified_random_distribution
 GGS.......... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
@@ -860,10 +860,10 @@ GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_partitions
 GGS.......... Ordered_words
-GGS.......... P-Adic_numbers,_basic
+BB........... P-Adic_numbers,_basic
 .........D.VU P-Adic_square_roots
 GGS..T....... P-value_correction
-...........V. Padovan_sequence
+GGS.......... Padovan_sequence
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
 GGS...C...... Palindromic_gapful_numbers
