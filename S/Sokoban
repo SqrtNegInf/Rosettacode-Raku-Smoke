@@ -102,10 +102,10 @@ sub solve(Str $start --> Str) {
     my $board = $start;
     my $width = $board.lines[0].chars + 1;
     my @dirs =
-        ["u", "U", -$width],
-        ["r", "R", 1],
-        ["d", "D", $width],
-        ["l", "L", -1];
+        ['u', 'U', -$width],
+        ['r', 'R', 1],
+        ['d', 'D', $width],
+        ['l', 'L', -1];
 
     my %visited = $board => True;
 
@@ -120,7 +120,7 @@ sub solve(Str $start --> Str) {
             given $state.board.substr($pos,1) {
                 when '$' | '*' {
                     $board = $state.push($delta);
-                    next if $board eq "" || %visited{$board};
+                    next if $board eq '' || %visited{$board};
                     $sol = $state.sol ~ $push;
                     return $sol unless $board ~~ /<[ . + ]>/;
                 }
@@ -135,7 +135,7 @@ sub solve(Str $start --> Str) {
             %visited{$board} = True;
         }
     }
-    return "No solution";
+    return 'No solution';
 }
 
 #`{
