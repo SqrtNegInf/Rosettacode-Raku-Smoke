@@ -7,9 +7,9 @@
 
 sub extension ( Str $filename --> Str ) {
     given $filename.split(/\./)[*-1] {
-        when $filename   { "" }
-        when / <[\/_]> / { "" }
-        default          { "." ~ $_ }
+        when $filename   { '' }
+        when / <[\/_]> / { '' }
+        default          { '.' ~ $_ }
     }
 }
 
