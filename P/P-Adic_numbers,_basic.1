@@ -1,0 +1,47 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/P-Adic_numbers,_basic
+#c# 2021-02-26 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# .add not 100%? testing needs to be expanded...
+
+my @res;
+
+class Padic { has @.v is default([]) is rw ;
+
+   method r2pa (Rat $x is copy, \p, \d) { # Reference: math.stackexchange.com/a/1187037
+      while +self.v < d {
+         my %d = ^p Z=> (( $x «-« ^p ) »/» p )».&{ .denominator % p };
+         for %d.keys { self.v.unshift: $_  and last if %d{$_} != 0 }
+         $x = ($x - self.v.first) / p 
+      }
+      self.v
+   }
+
+   method add (Padic \x, \p) {
+      my $div = 0;
+      reverse gather for ( self.v.reverse Z x.v.reverse )».sum { 
+         take ( $_ + $div ) % p and $div = $_ div p
+      }
+   }
+}
+
+given my $a = Padic.new { @res.push: .r2pa: 5/8, 7, 11 }
+
+given my $b = Padic.new { @res.push: .r2pa: 353/30809, 7, 11 }
+
+@res.push: $b.add: $a, 7;
+
+given my $c = Padic.new { @res.push: .r2pa: 47099/10977, 7, 11 }
+
+.say for @res;
+
+my $ref = q:to/END/;
+4 2 4 2 4 2 4 2 4 2 5
+2 3 6 6 3 6 4 3 4 5 5
+6 6 4 2 1 2 1 6 2 1 3
+6 6 4 2 1 2 1 6 2 1 3
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
