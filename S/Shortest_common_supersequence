@@ -10,7 +10,7 @@ use MONKEY-SEE-NO-EVAL;
 my @res;
 
 sub lcs(Str $xstr, Str $ystr) { # longest common subsequence
-    return "" unless $xstr && $ystr;
+    return '' unless $xstr && $ystr;
     my ($x, $xs, $y, $ys) = $xstr.substr(0, 1), $xstr.substr(1), $ystr.substr(0, 1), $ystr.substr(1);
     return $x eq $y
         ?? $x ~ lcs($xs, $ys)
@@ -37,9 +37,9 @@ sub scs ($u, $v) { # shortest common supersequence
 
 my $u = 'abcbdab';
 my $v = 'bdcaba';
-@res.push: sprintf "Strings: %s %s", $u, $v;
-@res.push: sprintf "Longest common subsequence:   %s", lcs $u, $v;
-@res.push: sprintf "Shortest common supersquence: %s", scs $u, $v;
+@res.push: sprintf 'Strings: %s %s', $u, $v;
+@res.push: sprintf 'Longest common subsequence:   %s', lcs $u, $v;
+@res.push: sprintf 'Shortest common supersquence: %s', scs $u, $v;
 
 .say for @res;
 
