@@ -528,9 +528,9 @@ my @res2;
 for 99...1 -> $bottles {
     sing $bottles, :wall;
     sing $bottles;
-    @res2.push:  "Take one down, pass it around";
+    @res2.push:  'Take one down, pass it around';
     sing $bottles - 1, :wall;
-    @res2.push:  "";
+    @res2.push:  '';
 }
 
 #| Prints a verse about a certain number of beers, possibly on a wall.
@@ -538,9 +538,9 @@ sub sing(
     Int $number, #= Number of bottles of beer.
     Bool :$wall, #= Mention that the beers are on a wall?
 ) {
-    my $quantity = $number == 0 ?? "No more"      !! $number;
-    my $plural   = $number == 1 ?? ""             !! "s";
-    my $location = $wall        ?? " on the wall" !! "";
+    my $quantity = $number == 0 ?? 'No more'      !! $number;
+    my $plural   = $number == 1 ?? ''             !! 's';
+    my $location = $wall        ?? ' on the wall' !! '';
     @res2.push: "$quantity bottle$plural of beer$location"
 }
 
