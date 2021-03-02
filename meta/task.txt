@@ -1,8 +1,8 @@
-Welcome to Rakudo(tm) v2021.02.1-15-gc5d635d99.
+Welcome to Rakudo(tm) v2021.02.1-21-g7cdb4fbb9.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-3-g4ae157c33.
 updating from RC…
-+--------------> Moar: Good/Bad [1253/25]
++--------------> Moar: Good/Bad [1254/25]
 |+-------------> JVM: Good/Bad [1109/225]
 ||+------------> Smoke testing [1192]
 |||+-----------> sKipping validation [133]
@@ -11,7 +11,7 @@ updating from RC…
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [133]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [240]
+|||||||||+-----> Draft [238]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [81]
 ||||||||||||+--> Un-implemented/reliable [50]
@@ -128,7 +128,7 @@ GGS.......... Bell_numbers-2
 GGS.......... Bell_numbers-3
 GGS..T....... Benford%27s_law
 GGS..T....... Bernoulli_numbers
-!GS....R..... Best_shuffle
+GGS....R..... Best_shuffle
 GBS.....FD... Bilinear_interpolation
 GGS.......... Bin_given_limits
 GGS.......... Binary_digits
@@ -186,7 +186,7 @@ GGS.......... Call_an_object_method
 GGS.......... Canonicalize_CIDR
 GGS.......... Canonicalize_CIDR-2
 GGS.......... Cantor_set
-!GS....R.D... Card_shuffles
+GGS....R.D... Card_shuffles
 GGS.......... Carmichael_3_strong_pseudoprimes
 GGS.......... Cartesian_product_of_two_or_more_lists
 GGS.......... Case-sensitivity_of_identifiers
@@ -322,7 +322,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -861,7 +861,7 @@ GGS.......... Order_disjoint_list_items
 GGS..T....... Ordered_partitions
 GGS.......... Ordered_words
 BB........... P-Adic_numbers,_basic
-.........D.VU P-Adic_square_roots
+...........VU P-Adic_square_roots
 GGS..T....... P-value_correction
 GGS.......... Padovan_sequence
 GGS.......... Palindrome_dates
@@ -1270,7 +1270,7 @@ GGS.....F.... Take_notes_on_the_command_line
 .........D.VU Tamagotchi_emulator
 GGS.......... Tarjan
 GBS......D... Tau_function
-GBS......D... Tau_number
+GBS.......... Tau_number
 GGS.....F.... Taxicab_numbers
 GGS.......... Teacup_rim_text
 GGS.......... Temperature_conversion
