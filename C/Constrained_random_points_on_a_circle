@@ -4,9 +4,9 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: constrained_random_points.BEND
-#n# unstable, depending on placement of 'srand'?
+#n# unstable, depending on placement of 'srand'? [NB: 'ENTER srand 123456' solves that]
 
-srand 123456;  # output changes if placed after $ext is set, or $out is open
+srand 123456;
 
 my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
 my $out = open("run/constrained_random_points.$ext", :w);
