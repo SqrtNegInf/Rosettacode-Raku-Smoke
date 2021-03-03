@@ -817,12 +817,14 @@ File: A/Average_loop_length
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Average_loop_length
 #c# 2016-05-09 <>RC, 2018-05-31 <RC
+#t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
 #n# with hash key order now variable, testing upgraded with ArrayHash
 #n# 'random' output changed on 2017-08-10
 #n# 2020-09-01 something is unstable, run #2 flips between: 2.00 vs. 2.67;
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch?
+#n# 2021-03-01 still unstable
 
 File: A/Average_loop_length.0
 #!/usr/bin/env perl6
@@ -1081,7 +1083,6 @@ File: B/Bioinformatics_Sequence_mutation
 #c# 2019-11-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# JVM needs separate test data...
 
 File: B/Bioinformatics_base_count
 #!/usr/bin/env perl6
@@ -1225,6 +1226,7 @@ File: B/Bitmap_PPM_conversion_through_a_pipe
 #j# JVM:  OK
 #f# RC file: output_piped.jpg
 #n# output trivially different on Ubuntu
+#n# doesn't have 'srand', why was this broken?
 
 File: B/Bitmap_Read_a_PPM_file
 #!/usr/bin/env perl6
@@ -1342,10 +1344,12 @@ File: B/Brownian_tree
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brownian_tree
 #c# 2016-01-23 <RC, 2018-04-24 >RC
+#t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: brownian_tree.BEND
 #n# 2020-10-07 still varies
+#n# 2021-03-02 cannot get stable output
 
 File: B/Bulls_and_cows
 #!/usr/bin/env perl6
@@ -1637,6 +1641,7 @@ File: C/Chaos_game
 #f# RC file: chaos-game-perl6.png
 #n# see '.race' version below
 #n# 2020-09-07 answer changed since yesterday?
+#n# 2021-03-02 using 'ENTER srand'
 
 File: C/Character_codes
 #!/usr/bin/env perl6
@@ -2209,7 +2214,7 @@ File: C/Constrained_random_points_on_a_circle
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: constrained_random_points.BEND
-#n# unstable, depending on placement of 'srand'?
+#n# unstable, depending on placement of 'srand'? [NB: 'ENTER srand 123456' solves that]
 
 File: C/Continued_fraction
 #!/usr/bin/env perl6
