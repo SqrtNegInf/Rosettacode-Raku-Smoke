@@ -1,12 +1,15 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brownian_tree
 #c# 2016-01-23 <RC, 2018-04-24 >RC
+#t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: brownian_tree.BEND
 #n# 2020-10-07 still varies
+#n# 2021-03-02 cannot get stable output
 
-srand 1; rand; # 2020-11-10 head fake to produce stability?
+#srand 1; rand; # 2020-11-10 head fake to produce stability?
+#ENTER srand 123456;
 srand 123456;
 
 my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
