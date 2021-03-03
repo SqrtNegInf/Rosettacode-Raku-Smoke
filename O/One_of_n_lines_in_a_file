@@ -6,8 +6,6 @@
 
 srand 123456;
 
-# Translation of: Python
-
 sub one_of_n($n) {
     my $choice;
     $choice = $_ if .rand < 1 for 1 .. $n;
@@ -20,9 +18,9 @@ sub one_of_n_test($n = 10, $trials = 10_000) {
     @bins;
 }
 
-say my $result = one_of_n_test();
+put my $result = one_of_n_test();
 
-my $moar = '1025 1009 973 990 1022 945 1025 1005 1003 1003';
+my $moar = '991 999 994 1010 1002 968 1074 960 997 1005';
 my $jvm  = '1017 971 994 988 978 1059 950 960 1043 1040';
 
 use Test;
