@@ -7,12 +7,11 @@
 #f# RC file: chaos-game-perl6.png
 #n# see '.race' version below
 #n# 2020-09-07 answer changed since yesterday?
+#n# 2021-03-02 using 'ENTER srand'
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-srand 123456;
-
-# Works with: Rakudo version 2016.05
+ENTER srand 123456;
 
 use Image::PNG::Portable;
 
