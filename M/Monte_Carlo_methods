@@ -23,17 +23,17 @@ my @pi = ([\+] 4 × (1 > [+] rand**2 xx 2) xx *) Z/ 1 .. *;
 .say for @res;
 
 my $moar-cronjob = qq:to/END/;
-100 iterations:  3.16
-1000 iterations:  3.124
-10000 iterations:  3.1276
-3.272727 3.116883 3.131287
+100 iterations:  3.12
+1000 iterations:  3.132
+10000 iterations:  3.1264
+2.181818 3.096903 3.143686
 END
 
 my $moar-terminal = qq:to/END/;
-100 iterations:  3.16
-1000 iterations:  3.136
-10000 iterations:  3.1276
-2.909091 3.108891 3.130487
+100 iterations:  3.12
+1000 iterations:  3.128
+10000 iterations:  3.1264
+2.545455 3.092907 3.143686
 END
 
 my $jvm = qq:to/END/;
