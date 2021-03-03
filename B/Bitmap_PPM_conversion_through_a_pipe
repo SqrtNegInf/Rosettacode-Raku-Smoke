@@ -5,6 +5,7 @@
 #j# JVM:  OK
 #f# RC file: output_piped.jpg
 #n# output trivially different on Ubuntu
+#n# doesn't have 'srand', why was this broken?
 
 class Pixel { has uint8 ($.R, $.G, $.B) }
 class Bitmap {
