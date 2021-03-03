@@ -103,8 +103,23 @@ my ($r, $s, \Qa) = $ec.generate_signature(dA, message);
 @res.push: "Is signature valid?   : "~ $ec.verify_signature(altered, $r, $s, Qa);
 
 .say for @res;
+#exit;
 
 my $moar = q:to/END/;
+The Curve E is        : 𝑦² = 𝑥³ + 355 𝑥 + 671 (mod 1073741789) 
+with Generator G at   : (13693,10088)
+Order(G, E) is        : 1073807281
+Is G  ∈ E ?           : True
+Message               : Show me the monKey
+The private key dA is : 1060432314
+The public  key Qa is : EC Point at x=354102939, y=184797780
+Is Qa ∈ E ?           : True
+Is signature valid?   : True
+Message (Tampered)    : Show me the money
+Is signature valid?   : False
+END
+
+my $xoar = q:to/END/;
 The Curve E is        : 𝑦² = 𝑥³ + 355 𝑥 + 671 (mod 1073741789) 
 with Generator G at   : (13693,10088)
 Order(G, E) is        : 1073807281
