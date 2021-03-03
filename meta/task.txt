@@ -2,10 +2,10 @@ Welcome to Rakudo(tm) v2021.02.1-21-g7cdb4fbb9.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-3-g4ae157c33.
 updating from RC…
-+--------------> Moar: Good/Bad [1254/25]
++--------------> Moar: Good/Bad [1266/25]
 |+-------------> JVM: Good/Bad [1109/225]
-||+------------> Smoke testing [1192]
-|||+-----------> sKipping validation [133]
+||+------------> Smoke testing [1190]
+|||+-----------> sKipping validation [135]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [350]
 ||||||+--------> Concurrent/Async [68]
@@ -34,8 +34,8 @@ GGS.......... A%2BB
 GGS.......... ABC_problem
 GGS......D... ABC_words
 GGS.......... AKS_test_for_primes
-!GS....R..... ASCII_art_diagram_converter
-!GS....R..... AVL_tree
+GGS....R..... ASCII_art_diagram_converter
+GGS....R..... AVL_tree
 .........D.V. A_star_search_algorithm
 GGS..T....... Abbreviations,_automatic
 GGS..T....... Abbreviations,_easy
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-!GS..T.R..... Average_loop_length
+GG.K.T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -134,11 +134,11 @@ GGS.......... Bin_given_limits
 GGS.......... Binary_digits
 GGS.......... Binary_search
 GGS..T....... Binary_strings
-!GS....R..... Bioinformatics_Sequence_mutation
+GGS....R..... Bioinformatics_Sequence_mutation
 GGS.......... Bioinformatics_base_count
 GGS..T...D... Bioinformatics_global_alignment
 GGS.......... Biorhythms
-!GS..TcR.D... Birthday_problem
+GGS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
 GGS.......... Bitmap
@@ -163,7 +163,7 @@ GGS..T....... Brace_expansion
 GBS......D... Brace_expansion_using_ranges
 GBS..TC...... Brazilian_numbers
 GGS.......... Break_OO_privacy
-GGS..T.RF.... Brownian_tree
+GG.K.T.RF.... Brownian_tree
 GGS....R..... Bulls_and_cows
 GGS..T.R..... Bulls_and_cows_Player
 GBS.......... Burrows-Wheeler_transform
@@ -224,7 +224,7 @@ GBS..TC...... Circular_primes
 GGS....RF.... Cistercian_numerals
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
-!GS....R..... Closures_Value_capture
+GGS....R..... Closures_Value_capture
 GG.K.....D... Code_segment_unload
 GGS.......... Collections
 GB.KIT....... Color_of_a_screen_pixel
@@ -283,7 +283,7 @@ GGS.......... Cramer%27s_rule
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
 GGS..T.R..... Create_a_two-dimensional_array_at_runtime
-!GS....R..... Create_an_HTML_table
+GGS....R..... Create_an_HTML_table
 GGS..T...D... Create_an_object_Native_demonstration
 GBS.......... Create_an_object_at_a_given_address
 GGS.......... Cuban_primes-1
@@ -322,7 +322,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -353,7 +353,7 @@ GB.KIT....... Draw_a_rotating_cube
 GGS..TC.F.... Draw_a_sphere-1
 GBS.....F.... Draw_a_sphere-2
 GB.KI....D... Draw_pixel_2
-!GS..T.R..... Dutch_national_flag_problem
+GGS..T.R..... Dutch_national_flag_problem
 GGS.......... Dynamic_variable_names
 GGS.......... EKG_sequence_convergence
 GBS.......... Eban_numbers
@@ -409,7 +409,7 @@ GGS.......... FASTA_format
 BB.K......... FTP
 GGS.......... Faces_from_a_mesh
 GGS.......... Factorial
-!GS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
+GGS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
 GBS...C...... Factorions
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
@@ -500,7 +500,7 @@ GGS..T...D... Generalised_floating_point_addition
 .........DXVU Generalised_floating_point_multiplication
 GGS..T.R..... Generate_Chess960_starting_position
 GGS.......... Generate_lower_case_ASCII_alphabet
-!GS....R..... Generate_random_chess_position
+GGS....R..... Generate_random_chess_position
 GGS..T....... Generator_Exponential
 GGS.......... Generic_swap
 .........D... Geohash
@@ -516,7 +516,7 @@ GGS.......... Graph_colouring
 GGS.......... Gray_code
 GGS..T..F.... Grayscale_image
 GGS..T....... Greatest_common_divisor
-!GS....R..... Greatest_element_of_a_list
+GGS....R..... Greatest_element_of_a_list
 GGS.......... Greatest_subsequential_sum
 GG.KI..R.D... Greed
 GGS..T..F.... Greyscale_bars_Display
