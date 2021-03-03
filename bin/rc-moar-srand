@@ -1,0 +1,33 @@
+#!/bin/sh
+## 2021-03-01 another run at 'srand' issues
+
+source $HOME/.profile
+
+rakudobrew switch moar-blead
+
+cd $HOME/perl6/Rosetta-Code
+
+#failing
+#bin/rc-moar-single A/Average_loop_length
+#bin/rc-moar-single B/Brownian_tree
+
+# fixed, maybe?
+bin/rc-moar-single A/ASCII_art_diagram_converter
+bin/rc-moar-single B/Barnsley_fern
+bin/rc-moar-single B/Bioinformatics_Sequence_mutation
+bin/rc-moar-single B/Birthday_problem
+bin/rc-moar-single B/Bitmap_PPM_conversion_through_a_pipe
+bin/rc-moar-single C/Chaos_game
+bin/rc-moar-single C/Cistercian_numerals
+bin/rc-moar-single C/Closures_Value_capture
+bin/rc-moar-single C/Constrained_random_points_on_a_circle
+bin/rc-moar-single C/Create_an_HTML_table
+bin/rc-moar-single D/Dutch_national_flag_problem
+bin/rc-moar-single F/Factorial_base_numbers_indexing_permutations_of_a_collection
+bin/rc-moar-single E/Elliptic_Curve_Digital_Signature_Algorithm
+#bin/rc-moar-single F/Forest_fire
+#bin/rc-moar-single G/Galton_box_animation
+bin/rc-moar-single G/Generate_random_chess_position
+bin/rc-moar-single G/Greatest_element_of_a_list
+
+#bin/rc-moar-single x/
