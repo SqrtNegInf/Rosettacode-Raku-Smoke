@@ -90,7 +90,10 @@ Length 23: 1248 candidates
 Length of longest: 23
 }
 
-my $ref = 'machamp pinsir remoraid darmanitan nosepass seaking girafarig gabite emboar relicanth heatmor rufflet trapinch haxorus simisear registeel landorus scrafty yamask kricketune exeggcute emolga audino';
+#my $ref = 'machamp pinsir remoraid darmanitan nosepass seaking girafarig gabite emboar relicanth heatmor rufflet trapinch haxorus simisear registeel landorus scrafty yamask kricketune exeggcute emolga audino';
+
+# same words, re-arranged
+my $ref = 'machamp pinsir remoraid darmanitan nosepass simisear rufflet trapinch haxorus scrafty yamask kricketune exeggcute emboar relicanth heatmor registeel landorus seaking girafarig gabite emolga audino'
 
 use Test;
 is $eg.chars, '23';
