@@ -1114,6 +1114,7 @@ File: B/Birthday_problem
 #n# ouch, for 2..5: 5755.022u 5223.779s 4:53:17.36 62.3% (which is why just running 2..2 for now)
 #n# current approach is to repeatedly 'roll' out groups of birthdays (a memory hog, and too slow to be useful)
 #n# would it be faster to build a 'population' and sample it?  code everything into bit-fields?
+#n# 2021-03-03 flips between .505 and .506
 
 File: B/Bitcoin_address_validation
 #!/usr/bin/env perl6
@@ -1311,6 +1312,7 @@ File: B/Brace_expansion
 #j# JVM:  OK
 #n# multiple GLR fixes on the one line of 'crosswalk': '|' and 'flat' (and removed redundant enclosures)
 #n# 3 failing tests removed; bah humbug, not going to spend more time on this...
+#n# 2021-03-03 output turned pretty much to gibberish today
 
 File: B/Brace_expansion_using_ranges
 #!/usr/bin/env raku
@@ -1642,6 +1644,7 @@ File: C/Chaos_game
 #n# see '.race' version below
 #n# 2020-09-07 answer changed since yesterday?
 #n# 2021-03-02 using 'ENTER srand'
+#n# 2021-03-03 ref/run difference, very small (not visible in images) but not identical like before
 
 File: C/Character_codes
 #!/usr/bin/env perl6
@@ -3141,11 +3144,13 @@ File: E/Elliptic_Curve_Digital_Signature_Algorithm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm
 #c# 2020-02-24 <RC, 2020-02-28 <RC
+#t# skiptest
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2020-10-18 'srand' problems strikes intermittantly (but only in non-interactive runs?)
 #n# 2020-10-19 output bi-stable, test for which version of results present
 #n# 2020-12-06 OK now? Maybe? Hopefully? We'll see...
+#n# 2021-03-02 still unstable
 
 File: E/Elliptic_Curve_Digital_Signature_Algorithm.1
 #!/usr/bin/env perl6
@@ -6732,18 +6737,20 @@ File: M/Mayan_numerals-2
 File: M/Maze_generation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Maze_generation
+#t# skiptest
 #c# 2015-12-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# unstable output
+#n# 2021-03-01 still unstable ('ENTER' does not help)
 
 File: M/Maze_solving
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Maze_solving
+#t# skiptest
 #c# 2015-12-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# unstable output
+#n# 2021-03-01 still unstable
 
 File: M/McNuggets_Problem
 #!/usr/bin/env perl6
@@ -6934,7 +6941,7 @@ File: M/Minkowski_question-mark_function
 #j# JVM:  OK
 
 File: M/Modified_random_distribution
-#!/usr/bin/env perl6-j
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Modified_random_distribution
 #c# 2021-02-28 <RC
 #m# MOAR: OK
@@ -7761,6 +7768,26 @@ File: P/Palindrome_pairs
 #j# JVM:  OK
 
 File: P/Palindromic_dates
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Palindromic_dates
+#c# 2019-10-xx NOT ON RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# you snooze, you lose... this is overkill for Steenslag's task, so giving it a miss
+#n#
+#n# Fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
+#n#   copiously annotated for the beginning programmer (Hi Oscar!)
+#n#
+#n# Further notes:
+#n#   fortunately 2-29-22 is not a leap year (yy in m-d-yy ambiguous)
+#n#   the Julian/Gregorian change-over 'missing' days were not palindrome candidates
+#n#   slow, but the results are good for 100,000 years!
+#n#   not using any date/time facility in the language (though might be good to validate dates?)
+#n#   no 'suspicious' parentheses -- code less 'busy' but you might have to think a little harder about implied scopes
+#n#   non-cryptic variable names
+#n#   working the DRY principle pretty hard (too far?)
+
+File: P/Palindromic_dates.0
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Palindromic_dates
 #c# 2019-10-xx NOT ON RC
