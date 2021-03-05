@@ -139,97 +139,100 @@ sub compare (@s, @w) {
     True
 }
 
-.say for @res;
+.put for @res;
 
-my $moar = q:to/END/;
+my $moar-cronjob = q:to/END/;
      A B C D E F G H I J
-   0 w t e i d R x g a y
-   1 s t t f l y O e n s
-   2 s u e o t u v S h e
-   3 e p o e r r n a E q
-   4 T i i i k r a n r T
-   5 c A v l d s i m a y
-   6 c y C h c u u d g a
-   7 i b o O e s t y x m
-   8 t b o s D y m s n i
-   9 l l a b t E c r a m
+   0 o p e c k R g a w e
+   1 y t o c s a O d i n
+   2 e x t i n c t S a d
+   3 n c a r c h a e E b
+   4 T h u r l e y m c T
+   5 a A n j a b r y e d
+   6 i n C p m a l r l g
+   7 d i a O g n o l a e
+   8 a n r u D h u r t p
+   9 w e s u s E c n e w
 
   Words used:
-      ami  J 6 ↓  
-   annuli  I 5 ↖  
-     ball  D 9 ←  
-      bob  B 7 ↘  
-     clip  E 6 ↖  
-     cram  G 9 →  
-     diet  E 0 ←  
-      eng  J 2 ↖  
-      fly  D 1 →  
-      gay  H 0 →  
-      gym  I 6 ↙  
-      hex  I 2 ↖  
-      hey  D 6 ↘  
-      icc  A 7 ↑  
-     mart  H 5 ↖  
-      nyu  I 8 ↖  
-      ram  H 9 →  
-      seq  J 1 ↓  
-    skeet  F 5 ↖  
-      sob  D 8 ←  
-      ssw  A 2 ↑  
- studious  H 8 ↖  
-     styx  F 7 →  
-      tic  A 8 ↑  
-   torrid  C 1 ↘  
-     vary  G 2 ↘  
-      vie  C 5 ↖  
-     yost  B 6 ↘  
+    ache  F 1 ↓  
+     aid  C 7 ←  
+    alec  I 7 ↑  
+     ana  A 5 ↘  
+  archae  C 3 →  
+     bad  J 3 ↖  
+     car  B 3 →  
+     cot  D 1 ←  
+    crag  G 9 ↗  
+     dey  J 5 ←  
+     din  H 1 →  
+     end  J 0 ↓  
+ extinct  A 2 →  
+  hurley  B 4 →  
+    hurt  F 8 →  
+     jab  D 5 →  
+    lamp  G 6 ←  
+    long  H 7 ←  
+     new  H 9 →  
+    nine  B 6 ↓  
+     nrc  C 5 ↗  
+    opec  A 0 →  
+    peck  B 0 →  
+     peg  J 8 ↑  
+     rna  C 8 ←  
+    scam  E 1 ↘  
+   shore  E 9 ↗  
+   sugar  C 9 ↗  
+     use  D 9 ←  
+    wadi  A 9 ↑  
+     wag  I 0 ←  
+     yen  A 1 ↓  
 
 
 END
 
 my $moar-terminal = q:to/END/;
      A B C D E F G H I J
-   0 r s s e t R k n i k
-   1 i y d t l u O y i t
-   2 p t v r u o h S h d
-   3 e h e i o d t e E s
-   4 T l o r e l f s j T
-   5 t A v m t t d o a t
-   6 c o C e o i y n v s
-   7 o c o O n j a r a u
-   8 m w i r D a s r u l
-   9 b w o l b E l o y k
+   0 t o n a l R r i m p
+   1 z t h t z n O a i m
+   2 a c o l o n y S t u
+   3 g u g w r r l c E j
+   4 T y t o n r o h t T
+   5 h A t o r s p i y t
+   6 e e C n o d m a d a
+   7 l c r O u g i e a w
+   8 i u a c D o r a n s
+   9 x r s e a E b e n o
 
   Words used:
-     blow  E 9 ←  
-     comb  A 6 ↓  
-      din  J 2 ↖  
-     homo  B 3 ↘  
-      hut  G 2 ↖  
-      icc  C 8 ↖  
-      ink  I 0 ←  
-      ivy  D 3 ↖  
-      jar  F 7 →  
-     java  I 4 ↓  
-     kink  J 0 ←  
- landlord  J 8 ↖  
-     lore  B 4 →  
-      low  D 9 ←  
-      orr  H 9 ↑  
-     ripe  A 0 ↓  
-     root  D 8 ↖  
-      say  G 8 ↑  
-      shy  J 3 ↖  
-      sse  B 0 →  
-    stole  H 4 ↖  
-     stud  C 0 ↘  
-     sulk  J 6 ↓  
-      tao  J 5 ←  
- tertiary  B 2 ↘  
-    theft  J 1 ↙  
-     ursa  I 8 ←  
-    venal  C 5 ↘  
-      woe  B 8 ↗  
+      ace  C 8 ↖  
+     acre  E 9 ↖  
+      ada  H 6 →  
+      aim  H 1 →  
+      ann  I 7 ↓  
+     auto  A 2 ↘  
+   bounty  G 9 ↖  
+   colony  B 2 →  
+      cur  B 7 ↓  
+  gordian  C 3 ↘  
+    helix  A 5 ↓  
+      hog  C 1 ↓  
+     jump  J 3 ↑  
+      lop  G 3 ↓  
+      nyc  F 1 ↘  
+     ogre  E 6 ↘  
+      one  J 9 ←  
+      rim  G 0 →  
+      sea  C 9 →  
+     swat  J 8 ↑  
+    thorn  I 4 ←  
+      tim  I 2 ↑  
+    tonal  A 0 →  
+   toroid  D 1 ↘  
+ townsmen  B 1 ↘  
+      yip  I 5 ←  
+      zag  A 1 ↓  
+     zorn  E 1 ↓  
 
 
 END
@@ -283,5 +286,4 @@ my $jvm = q:to/END/;
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
