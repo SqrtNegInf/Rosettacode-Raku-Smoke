@@ -55,8 +55,7 @@ while my $player = (prompt "Round {++$round}: " ~ $prompt).lc {
 print "\n";
 
 use Test;
-if $*VM ~~ /jvm/ { is @stats.join(' '), '1 1 2' }
-else             { is @stats.join(' '), '1 2 1' }
+is @stats.join(' '), $*VM ~~ /jvm/ ?? '1 1 2' !! '2 1 1';
 
 #`{{
 # Here is example output from the same code only with a different %vs data structure implementing Rock-Paper-Scissors-Lizard-Spock.
