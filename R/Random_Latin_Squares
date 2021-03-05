@@ -46,6 +46,53 @@ display random latin-square, :size($_) for 12, 2, 1;
 .say for @res;
 
 my $moar = q:to/END/;
+ J   B   I   Q   H 
+ B   Q   H   I   J 
+ Q   I   J   H   B 
+ I   H   B   J   Q 
+ H   J   Q   B   I 
+   
+ C   E   V   G   J 
+ J   V   C   E   G 
+ V   G   E   J   C 
+ E   J   G   C   V 
+ G   C   J   V   E 
+   
+ C   B   D 
+ B   D   C 
+ D   C   B 
+   
+ A   V   Q   Y   G   J   K   M   N 
+ G   Q   Y   A   K   V   N   J   M 
+ Q   M   J   V   Y   N   A   K   G 
+ Y   J   V   Q   A   M   G   N   K 
+ V   N   M   J   Q   K   Y   G   A 
+ J   K   N   M   V   G   Q   A   Y 
+ K   Y   A   G   N   Q   M   V   J 
+ M   G   K   N   J   A   V   Y   Q 
+ N   A   G   K   M   Y   J   Q   V 
+   
+ V   Z   L   U   A   G   Y   B   T   C   S   E 
+ Y   T   G   A   E   C   S   Z   B   L   V   U 
+ L   A   V   B   Z   Y   G   U   E   S   C   T 
+ E   V   T   C   L   B   U   S   Y   Z   A   G 
+ B   G   U   V   Y   A   Z   L   C   E   T   S 
+ G   E   Y   Z   T   S   C   A   U   V   L   B 
+ U   Y   B   L   G   Z   A   V   S   T   E   C 
+ C   U   S   T   B   V   L   E   A   Y   G   Z 
+ S   B   C   E   U   L   V   T   Z   G   Y   A 
+ A   S   Z   G   C   T   E   Y   V   B   U   L 
+ Z   C   A   Y   S   E   T   G   L   U   B   V 
+ T   L   E   S   V   U   B   C   G   A   Z   Y 
+   
+ N   Y 
+ Y   N 
+   
+ V 
+   
+END
+
+my $xoar = q:to/END/;
  A   B   K   J   C 
  B   C   A   K   J 
  J   K   C   B   A 
