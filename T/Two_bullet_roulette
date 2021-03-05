@@ -62,22 +62,23 @@ for &LSLSFSF, &LSLSFF, &LLSFSF, &LLSFF -> $ref {
 
 .say for @res;
 
-my $ref = q:to/END/;
-LSLSFSF: %55.57
- LSLSFF: %57.77
- LLSFSF: %54.70
-  LLSFF: %49.16
+my $moar-cronjob = q:to/END/;
+LSLSFSF: %55.60
+ LSLSFF: %58.62
+ LLSFSF: %54.74
+  LLSFF: %49.12
 END
 
 my $moar-terminal = q:to/END/;
-LSLSFSF: %55.57
- LSLSFF: %57.78
- LLSFSF: %54.67
-  LLSFF: %49.17
+LSLSFSF: %55.60
+ LSLSFF: %58.61
+ LLSFSF: %54.72
+  LLSFF: %49.11
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*IN.t ?? $moar-terminal !! $moar-cronjob;
+#is @res.join("\n"), chomp $ref;
 
 #`{
 # Though if you go and look at the  Wikipedia article for the 1895 Nagant revolver mentioned in the task reference section, you'll see it is actually a 7 shot revolver... so, run again with 7 chambers:
