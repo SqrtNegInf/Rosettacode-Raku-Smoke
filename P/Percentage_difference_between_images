@@ -3,12 +3,9 @@
 #c# 2018-12-07 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# difference in output from RC examples due to library code, probably
+#n# No longer a different Mac OS/darwin answer of '1.78189346'
 
 use GD::Raw;
-
-# Reference:
-# https://github.com/dagurval/perl6-gd-raw
 
 my $fh1 = fopen('ref/Lenna50.jpg', "rb") or die;
 my $img1 = gdImageCreateFromJpeg($fh1);
@@ -42,6 +39,4 @@ gdImageDestroy($img1);
 gdImageDestroy($img2);
 
 use Test;
-is $result, '1.78189346'  if $*KERNEL eq 'darwin';
-is $result, '1.625593098' if $*KERNEL eq 'linux';
-# results vary due to different under-lying libraries?
+is $result, '1.625593098';
