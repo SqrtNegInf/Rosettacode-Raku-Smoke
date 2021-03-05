@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# slow, so limited the number of values calculated (even with Perl/ntheory functions)
+#n# need to update RC with future-proofed version
 
 my @res;
 
@@ -32,14 +33,17 @@ loop ( my \n = $ = 6 ; n ≤ limit ; n += 2 ) {
    @untouchable.append(n) if !%s{n} and %c{n-1} and %c{n-3}
 }
 
-my ($c, $last) = 0, False;  
-for @untouchable.rotor(10) { 
-   @res.push: [~] @_».&{$c++ ; $_ > 625 ?? ( $last = True and last ) !! .fmt: "%6d "}
-   $c-- and last if $last
-}
+# a bit convoluted, and breaks with release v2021.02.1-28-gceac52170
+#my ($c, $last) = 0, False;  
+#for @untouchable.rotor(10) { 
+#   #@res.push: [~] @_».&{$c++ ; $_ > 625 ?? ( $last = True and last ) !! .fmt: "%6d "}
+#   #$c-- and last if $last
+#}
 
-@res.push: "\nList of untouchable numbers ≤ 625 : $c \n"; 
-#@res.push: "\nList of untouchable numbers ≤ 2,000 : $c \n"; 
+my $max = 625;
+my @list = @untouchable.grep: * < $max;
+@res.push: "Count of untouchable numbers ≤ $max: {+@list}\n";
+@res.push: @list.batch(10)».fmt("%6d").join: "\n";
 
 #`{{ skip for now
 my ($p, $count) = 10,0;
@@ -56,18 +60,18 @@ BREAK: for @untouchable -> \n {
 .say for @res;
 
 my $ref = q:to/END/;
-     2      5     52     88     96    120    124    146    162    188 
-   206    210    216    238    246    248    262    268    276    288 
-   290    292    304    306    322    324    326    336    342    372 
-   406    408    426    430    448    472    474    498    516    518 
-   520    530    540    552    556    562    576    584    612    624 
+Count of untouchable numbers ≤ 625: 50
 
-
-List of untouchable numbers ≤ 625 : 50 
-
+     2      5     52     88     96    120    124    146    162    188
+   206    210    216    238    246    248    262    268    276    288
+   290    292    304    306    322    324    326    336    342    372
+   406    408    426    430    448    472    474    498    516    518
+   520    530    540    552    556    562    576    584    612    624
 END
 
 my $full-answer = q:to/END/;
+Count of untouchable numbers ≤ 2000 : 196
+
      2      5     52     88     96    120    124    146    162    188
    206    210    216    238    246    248    262    268    276    288
    290    292    304    306    322    324    326    336    342    372
@@ -88,8 +92,6 @@ my $full-answer = q:to/END/;
   1806   1816   1820   1822   1830   1838   1840   1842   1844   1852
   1860   1866   1884   1888   1894   1896   1920   1922   1944   1956
   1958   1960   1962   1972   1986   1992
-
-List of untouchable numbers ≤ 2,000 : 196
 
      2 untouchable numbers were found  ≤      10
      5 untouchable numbers were found  ≤     100
