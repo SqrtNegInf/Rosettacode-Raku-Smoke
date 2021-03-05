@@ -135,14 +135,14 @@ for ^4 {
 PrintResult() if solve 0,0;
 
 my $moar = q:to/END/;
-F  I  I  I  I  I  N  N  
-F  F  F  W  N  N  N  Z  
-V  F  W  W  Ⓡ  Z  Z  Z  
-V  W  W  P  P  Z  Y  Ⓐ  
-V  V  V  P  P  P  Y  L  
-U  U  X  Ⓚ  T  Y  Y  L  
-U  X  X  X  T  Ⓤ  Y  L  
-U  U  X  T  T  T  L  L  
+F  I  I  I  I  I  L  N  
+F  F  F  L  L  L  L  N  
+Y  F  U  U  X  Ⓡ  N  N  
+Y  Y  U  X  X  X  N  W  
+Y  Ⓐ  U  U  X  Ⓚ  W  W  
+Y  Z  Z  P  T  W  W  V  
+Ⓤ  Z  P  P  T  T  T  V  
+Z  Z  P  P  T  V  V  V  
 END
 
 my $jvm = q:to/END/;
