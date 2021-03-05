@@ -3,7 +3,7 @@
 #
 # The problems with 'srand' that would be nice to fix: (ordered by # of tasks affected)
 #  133 global changes that make all tasks fail (rare, but an extra-big headache)
-#  ~54 unstable output from 'next-day' builds of Raku
+#  ~54 potentially unstable output from 'next-day' builds of Raku
 #      (all working on 2021-03-03 with v2021.02.1-27-g22ea9d903)
 #    9 varying results, batch vs terminal
 #    8 never-stable/flappers (differ from run to run within a given build)
@@ -15,7 +15,7 @@ rakudobrew switch moar-blead
 
 cd $HOME/perl6/Rosetta-Code
 
-#bin/rc-moar-single E/Elliptic_Curve_Digital_Signature_Algorithm; exit
+#bin/rc-moar-single P/Perceptron; exit
 
 # results never stable
 #bin/rc-moar-single \
@@ -24,17 +24,17 @@ cd $HOME/perl6/Rosetta-Code
 #M/Maze_generation \
 #M/Maze_solving \
 # the next 4 partly work (graph, but not table)
-#P/Percolation_Bond_percolation \
+#P/Percolation_Bond_percolation \               # this task modified to test just graph
 #P/Percolation_Mean_cluster_density \
 #P/Percolation_Mean_run_density \
 #P/Percolation_Site_percolation \
 
 #bin/rc-moar-single x/
 
-# failing sporadically
+# failing (at least part of the time) with new Raku builds
 #bin/rc-moar-single \
 
-# working (for a given build of Raku)
+# working for now
 bin/rc-moar-single \
 A/ASCII_art_diagram_converter \
 B/Barnsley_fern \
@@ -59,7 +59,7 @@ K/Knuth%27s_algorithm_S \
 K/Knuth_shuffle \
 L/Loops_Break \
 L/Loops_Nested \
-M/Markov_chain_text_generator \
+Markov_chain_text_generator \
 M/Mind_boggling_card_trick \
 M/Monte_Carlo_methods \
 Modified_random_distribution \
@@ -71,7 +71,7 @@ P/Pattern_matching \
 P/Penney%27s_game \
 P/Pentomino_tiling \
 P/Percentage_difference_between_images \
-P/Perceptron \
+Perceptron \
 P/Permutations_Rank_of_a_permutation \
 P/Pick_random_element \
 P/Pig_the_dice_game_Player \
