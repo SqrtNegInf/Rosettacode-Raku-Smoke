@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n#  key order of hashes no longer stable (but ArrayHash provides a work-around)
+#n# 2021-03-03 yesterday's "good" answer no longer works, updated again...
 
 use lib 'lib';
 use lib '../lib';
@@ -56,7 +57,7 @@ my @res = @generated-text.head: $words;
 say @res.join(' ');
 
 my $moar  = qq:to/END/;
-are no mice in the lock, and to wonder what Latitude was, or Longitude I've got to?' (Alice had no idea what Latitude was, or Longitude either, but thought they were filled with cupboards and book-shelves; here and there she saw maps and pictures hung upon pegs. She took down a large rabbit-hole under the hedge. In another moment down went Alice after it, never once considering how in the air, I'm afraid, but you might catch a bat, and that's very like a telescope! I think I could, if I fell off the top of the shelves as she
+the White Rabbit with pink eyes ran close by her. There was nothing else to do, so Alice ventured to taste it, and fortunately was just in time to see it written up somewhere.' Down, down, down. There was nothing else to do, so Alice soon began talking again. 'Dinah'll miss me very much out of its waistcoat-pocket, and looked at the thought that she was now the right distance-but then I wonder what I should be like then?' And she tried her best to climb up one of the house!' (Which was very deep, or she fell very slowly,
 END
 
 my $jvm = qq:to/END/;
