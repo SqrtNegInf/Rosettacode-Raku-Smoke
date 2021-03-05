@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-10-07 now stable?
+#n# 2021-03-04 not bothering to test the graph until 'srand' issues fixed
 
 srand 123456;
 
@@ -125,7 +126,7 @@ if $*VM ~~ /jvm/ {
 is @res1.join("\n"), "m	49.99285096001682\nσ	4.009831520915964";
 is @res2.join("\n"), chomp $jvm;
 } else {
-is @res1.join("\n"), "m	49.99807493023515\nσ	4.005219889119943";
+is @res1.join("\n"), "m	49.99800615469169\nσ	4.0053278475171314";
 #is @res2.join("\n"), chomp $moar;
 }
 }
