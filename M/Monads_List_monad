@@ -1,15 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Monads/List_monad
-#c# 2018-06-22 <RC,  2020-07-19 >RC
+#c# 2018-06-22 <RC, 2020-07-19 >RC, 2021-03-05 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-
-#`{
-Perl 6 does not have Monad types built in but they can be emulated/implemented without a great deal of difficulty. List Monads especially are of questionable utility in Perl 6. Most item types and Listy types have a Cool role in Perl 6. (Cool being a play on the slang term "cool" as in: "That's cool with me." (That's ok with me). So Ints are pretty much treated like one item lists for operators that work with lists. ("I work on a list." "Here's an Int." "Ok, that's cool.") Explicitly wrapping an Int into a List is worse than useless. It won't do anything Perl 6 can't do natively, and will likely remove some functionality that it would normally have. That being said, just because it is a bad idea (in Perl 6) doesn't mean it can't be done.
-In Perl 6, bind is essentially map. I'll shadow map here but again, it removes capability, not adds it. Perl 6 also provided "hyper" operators which will descend into data structures and apply an operator / function to each member of that data structure.
-Here's a simple, if contrived example. take the numbers from 0 to 9, add 3 to each, find the divisors of those sums and print the list of divisors for each sum... in base 2. Again, a bind function was implemented but it is more limited than if we just used map directly. The built in map method will work with either items or lists, here we need to implement a multi sub to handle either.
-The * in the bind blocks are typically referred to as "whatever"; whatever + 3 etc. The guillemot (») is the hyper operator; descend into the data structure and apply the following operator/function to each member.
-}
+#n# prefix/postfix 'join' started behaving differently with raku version v2021.02.1-28-gceac52170
+#n# TIL that there has long been a difference in pre/post behavior:
+#n# my $a = ((1,2),(3,4)); say join(':',$a) ~ ' vs ' ~ $a.join: ':' ==> 1 2 3 4 vs 1 2:3 4
 
 multi bind (@list, &code) { @list.map: &code };
 
@@ -17,7 +13,8 @@ multi bind ($item, &code) { $item.&code };
 
 sub divisors (Int $int) { gather for 1 .. $int { .take if $int %% $_ } }
 
-put my @res = join "\n", (flat ^10).&bind(* + 3).&bind(&divisors)».&bind(*.base: 2);
+#put my @res = join "\n", (flat ^10).&bind(* + 3).&bind(&divisors)».&bind(*.base: 2); # also: 'flat' not needed (was it ever?)
+put my @res = (^10).&bind(* + 3).&bind(&divisors)».&bind(*.base: 2).join: "\n";
 
 my $ref = qq:to/END/;
 1 11
