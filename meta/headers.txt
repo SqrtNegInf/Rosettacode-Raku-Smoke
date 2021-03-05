@@ -1308,11 +1308,11 @@ File: B/Brace_expansion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brace_expansion
 #c# 2018-03-22 <RC, 2019-11-20 >RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  OK
 #n# multiple GLR fixes on the one line of 'crosswalk': '|' and 'flat' (and removed redundant enclosures)
 #n# 3 failing tests removed; bah humbug, not going to spend more time on this...
-#n# 2021-03-03 output turned pretty much to gibberish today
+#n# 2021-03-03 output turned pretty much to gibberish today, v2021.02.1-27-g22ea9d903
 
 File: B/Brace_expansion_using_ranges
 #!/usr/bin/env raku
@@ -6607,6 +6607,7 @@ File: M/Markov_chain_text_generator
 #m# MOAR: OK
 #j#  JVM: OK
 #n#  key order of hashes no longer stable (but ArrayHash provides a work-around)
+#n# 2021-03-03 yesterday's "good" answer no longer works, updated again...
 
 File: M/Markov_chain_text_generator.1
 #!/usr/bin/env perl6
@@ -8191,7 +8192,7 @@ File: P/Percentage_difference_between_images
 #c# 2018-12-07 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# difference in output from RC examples due to library code, probably
+#n# No longer a different Mac OS/darwin answer of '1.78189346'
 
 File: P/Perceptron
 #!/usr/bin/env raku
@@ -8213,6 +8214,7 @@ File: P/Percolation_Bond_percolation
 #n# my @a; @a.append: [0 xx 3], [1 xx 3]; say @a
 #n# my @b; append @b, [0 xx 3], [1 xx 3]; say @b'
 #n# unstable results for 100 trials?
+#n# 2021-03-04 graph OK, numeric table results unstable
 
 File: P/Percolation_Mean_cluster_density
 #!/usr/bin/env perl6
@@ -10980,6 +10982,7 @@ File: S/Statistics_Basic
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch?
+#n# 2021-03-04 yes to above, and that has not changed
 
 File: S/Statistics_Normal_distribution
 #!/usr/bin/env perl6
@@ -10988,6 +10991,7 @@ File: S/Statistics_Normal_distribution
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-10-07 now stable?
+#n# 2021-03-04 not bothering to test the graph until 'srand' issues fixed
 
 File: S/Stem-and-leaf_plot
 #!/usr/bin/env perl6
