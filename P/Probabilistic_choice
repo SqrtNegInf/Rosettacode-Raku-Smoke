@@ -4,10 +4,10 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-09-01 different answers when run from interactive shell vs cron-launch?
+#n# 2021-03-04 yes, and still true
 
 srand 123456;
 
-# Works with: rakudo version 2015-10-20
 constant TRIALS = 1e6;
 
 constant @event = <aleph beth gimel daleth he waw zayin heth>;
@@ -32,14 +32,14 @@ for ^@results {
 .say for @res;
 
 my $moar-terminal = qq:to/END/;
-aleph      199689 200000.0       311.0
-beth       166193 166666.7       473.7
-gimel      143331 142857.1       473.9
-daleth     125624 125000.0       624.0
-he         110853 111111.1       258.1
-waw         99829 100000.0       171.0
-zayin       91015  90909.1       105.9
-heth        63466  63456.0        10.0
+aleph      200229 200000.0       229.0
+beth       165997 166666.7       669.7
+gimel      143504 142857.1       646.9
+daleth     124946 125000.0        54.0
+he         110988 111111.1       123.1
+waw         99717 100000.0       283.0
+zayin       91063  90909.1       153.9
+heth        63556  63456.0       100.0
 END
 
 my $moar-cronjob = qq:to/END/;
