@@ -1,11 +1,11 @@
-Welcome to Rakudo(tm) v2021.02.1-28-gceac52170.
+Welcome to Rakudo(tm) v2021.02.1-29-gaffdd0583.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-3-g4ae157c33.
 updating from RC…
-+--------------> Moar: Good/Bad [1301/26]
++--------------> Moar: Good/Bad [1304/26]
 |+-------------> JVM: Good/Bad [1109/225]
-||+------------> Smoke testing [1187]
-|||+-----------> sKipping validation [138]
+||+------------> Smoke testing [1185]
+|||+-----------> sKipping validation [139]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [350]
 ||||||+--------> Concurrent/Async [68]
@@ -86,7 +86,7 @@ GGS.......... Arithmetic-geometric_mean
 GGS..T....... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
 GGS.......... Arithmetic_Integer
-GGS..TC...... Arithmetic_Rational
+!GS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS..T....... Arithmetic_evaluation
 GGS.......... Array_concatenation
@@ -159,7 +159,7 @@ GGS..T....... Bitwise_operations
 .........D.VU Boids
 GGS.......... Boolean_values
 GGS.......... Box_the_compass
-BGS..T....... Brace_expansion
+BG...T....... Brace_expansion
 GBS......D... Brace_expansion_using_ranges
 GBS..TC...... Brazilian_numbers
 GGS.......... Break_OO_privacy
@@ -729,7 +729,7 @@ GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
 GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
-!GS..T.R.D... Markov_chain_text_generator
+GGS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
 GGS..T....... Matrix-exponentiation_operator
 GGS..T....... Matrix_chain_multiplication
@@ -771,7 +771,7 @@ GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
 .........DXV. Modulinos
 GGS...C..D... Moebius_function
-!GS..T....... Monads_List_monad
+GGS..T....... Monads_List_monad
 GGS.......... Monads_Maybe_monad
 GGS.......... Monads_Writer_monad
 GGS....R..... Monte_Carlo_methods
@@ -1358,7 +1358,7 @@ GGS.......... Unicode_variable_names
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
 GBS...C...... Unprimeable_numbers
-!GS.......... Untouchable_numbers
+GGS.......... Untouchable_numbers
 GG.K.....D... Untrusted_environment
 GGS.....F.... Update_a_configuration_file
 GG.K......... Use_another_language_to_call_a_function
@@ -1393,7 +1393,7 @@ GGS..T....... Vogel%27s_approximation_method
 GBS..TCRF.... Voronoi_diagram
 GGS.......... Walk_a_directory_Non-recursively
 GGS.......... Walk_a_directory_Recursively
-!BS......D... War_card_game
+GB.K.....D... War_card_game
 GGS.......... Water_collected_between_towers
 GBS..T...D... Waveform_analysis_Doh_ray_me
 .........D.VU Waveform_analysis_Top_and_tail
