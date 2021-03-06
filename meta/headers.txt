@@ -1313,6 +1313,8 @@ File: B/Brace_expansion
 #n# multiple GLR fixes on the one line of 'crosswalk': '|' and 'flat' (and removed redundant enclosures)
 #n# 3 failing tests removed; bah humbug, not going to spend more time on this...
 #n# 2021-03-03 output turned pretty much to gibberish today, v2021.02.1-27-g22ea9d903
+#n# 2021-03-05 code depends on this intermediate structure $["Downloads", "Pictures"] (single element of array, so AofA)
+#n#            but recent versions of raku produce this:    ["Downloads", "Pictures"] (which is just an array)
 
 File: B/Brace_expansion_using_ranges
 #!/usr/bin/env raku
@@ -6988,9 +6990,12 @@ File: M/Moebius_function.1
 File: M/Monads_List_monad
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Monads/List_monad
-#c# 2018-06-22 <RC,  2020-07-19 >RC
+#c# 2018-06-22 <RC, 2020-07-19 >RC, 2021-03-05 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# prefix/postfix 'join' started behaving differently with raku version v2021.02.1-28-gceac52170
+#n# TIL that there has long been a difference in pre/post behavior:
+#n# my $a = ((1,2),(3,4)); say join(':',$a) ~ ' vs ' ~ $a.join: ':' ==> 1 2 3 4 vs 1 2:3 4
 
 File: M/Monads_Maybe_monad
 #!/usr/bin/env perl6
@@ -8843,6 +8848,7 @@ File: P/Probabilistic_choice
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-09-01 different answers when run from interactive shell vs cron-launch?
+#n# 2021-03-04 yes, and still true
 
 File: P/Problem_of_Apollonius
 #!/usr/bin/env perl6
@@ -12418,6 +12424,7 @@ File: U/Untouchable_numbers
 #m# MOAR: OK
 #j# JVM:  OK
 #n# slow, so limited the number of values calculated (even with Perl/ntheory functions)
+#n# need to update RC with future-proofed version
 
 File: U/Untrusted_environment
 #!/usr/bin/env perl6
@@ -12731,6 +12738,7 @@ File: W/Walk_a_directory_Recursively
 File: W/War_card_game
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/War_card_game
+#t# skiptest
 #i# interactive
 #c# 2021-01-12 <RC
 #m# MOAR: OK
