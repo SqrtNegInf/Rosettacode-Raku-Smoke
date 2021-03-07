@@ -1,0 +1,66 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/xxxx
+#c# 2021-03-06 not yet submitted as issue
+#n# bug source: http://rosettacode.org/wiki/Monads/List_monad#Raku
+#n# Rakudo version v2021.02.1-28-gceac52170 built on MoarVM version 2021.02-3-g4ae157c33.
+#n# maybe fixing this will help 'B/Brace_expansion'?
+
+my $a = ((1,2),(3,4)); say join(':',$a) ~ ' vs ' ~ $a.join: ':'; # differ 1 2 3 4 vs 1 2:3 4 
+my @a = ((1,2),(3,4)); say join(':',@a) ~ ' vs ' ~ @a.join: ':'; # same   1 2:3 4 vs 1 2:3 4
+say '==';
+
+#my $b = [[1,2],[3,4]]; say join(':',$b) ~ ' vs ' ~ $b.join: ':'; # differ 1 2 3 4 vs 1 2:3 4 
+#my @b = [[1,2],[3,4]]; say join(':',@b) ~ ' vs ' ~ @b.join: ':'; # same   1 2:3 4 vs 1 2:3 4
+
+#my $c = (qw<1 2>,qw<3 4>); say join(':',$c) ~ ' vs ' ~ $c.join: ':'; # differ 1 2 3 4 vs 1 2:3 4 
+#my @c = (qw<1 2>,qw<3 4>); say join(':',@c) ~ ' vs ' ~ @c.join: ':'; # same   1 2:3 4 vs 1 2:3 4
+
+# no change
+#multi woof (@list, &code) { map { code($_) }, @list };
+#multi woof ($item, &code) { code($item) };
+
+# nub of the routines from Rosetta-Code task http://rosettacode.org/wiki/Monads/List_monad#Raku
+multi woof (@list, &code) { @list.map: &code };
+multi woof ($item, &code) { $item.&code };
+sub   meow ($int)         { (1, 0) }
+
+# There was a change with the 'A2' code's output starting with v2021.02.1-28-gceac52170:
+#  A1/B1 show correct results of join()/.join operating on a list
+#  A2 previously gave the desired output, but was actually 'wrong' (inconsisent with A1)
+#  B2 gives the desired (and consistent) result in all versions of Raku
+#  B3/B4 model how A2 is failing: somewhere in the chain the list gets flattened
+# Executive summary: A2 code was broken before, and now is broken in a different way
+
+dd my $foo = (^2).&woof(*+0).&woof(&meow)».&woof(*+0);
+print 'A1 join()  as expected '; dd join "\n", $foo;
+print 'B1 .join   as expected '; dd $foo.join: "\n";
+print 'A2 join() NOT expected '; dd join "\n", (^2).&woof(*+0).&woof(&meow).».&woof(*+0);     # original (used to give same as 'B2')
+print 'B2 .join   as expected '; dd (^2).&woof(*+0).&woof(&meow).».&woof(*+0).join: "\n";     # method-chaining form gives proper output
+print 'B3 .join  acts like A2 '; dd (^2).&woof(*+0).&woof(&meow).flat».&woof(*+0).join: "\n";
+print 'B4 .join  acts like A2 '; dd (^2).&woof(*+0).&woof(&meow)».&woof(*+0).flat.join: "\n";
+
+#`{
+List $foo = $((1, 0), (1, 0))
+A1 join()  as expected "1 0 1 0"
+B1 .join   as expected "1 0\n1 0"
+A2 join() NOT expected "1\n0\n1\n0"
+B2 .join   as expected "1 0\n1 0"
+B3 .join  acts like A2 "1\n0\n1\n0"
+B4 .join  acts like A2 "1\n0\n1\n0"
+}
+
+exit;
+say '';
+
+(^2).&woof(*+0).&woof(&meow)».&woof(*+0).raku.say; say '';
+my @res1 = join "\n", (^2).&woof(* + 3).&woof(&meow).».&woof(*.base: 2);     # original
+my @res2 = (^2).&woof(* + 3).&woof(&meow).».&woof(*.base: 2).join: "\n";     # needed since v2021.02.1-28-gceac52170
+my @res3 = (^2).&woof(* + 3).&woof(&meow).flat».&woof(*.base: 2).join: "\n"; # on HEAD, fails like original
+exit;
+
+use Test;
+my $ref = "1 0\n1 0";
+is @res1.join("\n"), $ref;
+is @res2.join("\n"), $ref;
+is @res3.join("\n"), $ref;
