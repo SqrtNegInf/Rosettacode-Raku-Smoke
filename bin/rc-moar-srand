@@ -3,17 +3,17 @@
 #
 # The problems with 'srand' that would be nice to fix: (ordered by # of tasks affected)
 #  133 global changes that make all tasks fail (rare, but an extra-big headache)
-#  ~54 potentially unstable output from 'next-day' builds of Raku
+#  ~53 potentially unstable output from 'next-day' builds of Raku
 #      (all working on 2021-03-03 with v2021.02.1-27-g22ea9d903)
 #    9 varying results, batch vs terminal
 #    8 never-stable/flappers (differ from run to run within a given build)
-#   xx xx
 
 source $HOME/.profile
+cd $HOME/perl6/Rosetta-Code
 
 rakudobrew switch moar-blead
-
-cd $HOME/perl6/Rosetta-Code
+bin/rc-moar-single H/Hello_world_Text
+rm -f bench/moar/*
 
 #bin/rc-moar-single P/Perceptron; exit
 
@@ -33,13 +33,14 @@ cd $HOME/perl6/Rosetta-Code
 
 # failing (at least part of the time) with new Raku builds
 bin/rc-moar-single \
-Markov_chain_text_generator \
-Perceptron \
+M/Markov_chain_text_generator \
+P/Perceptron \
+B/Barnsley_fern \
+#P/Palindromic_dates \               # skip testing, known to be slightly skeezy
 
 # working for now
 bin/rc-moar-single \
 A/ASCII_art_diagram_converter \
-B/Barnsley_fern \
 B/Bioinformatics_Sequence_mutation \
 B/Birthday_problem \
 B/Bitmap_PPM_conversion_through_a_pipe \
@@ -63,15 +64,15 @@ L/Loops_Break \
 L/Loops_Nested \
 M/Mind_boggling_card_trick \
 M/Monte_Carlo_methods \
-Modified_random_distribution \
+M/Modified_random_distribution \
 O/One_of_n_lines_in_a_file \
 O/Order_two_numerical_lists \
-P/Palindromic_dates \
 P/Particle_Swarm_Optimization \
 P/Pattern_matching \
 P/Penney%27s_game \
 P/Pentomino_tiling \
 P/Percentage_difference_between_images \
+P/Percolation_Bond_percolation \
 P/Permutations_Rank_of_a_permutation \
 P/Pick_random_element \
 P/Pig_the_dice_game_Player \
@@ -91,6 +92,5 @@ U/Unbias_a_random_generator \
 V/Verify_distribution_uniformity_Naive \
 W/Word_search \
 W/Write_language_name_in_3D_ASCII \
-P/Percolation_Bond_percolation \
 
 bin/rc-stats
