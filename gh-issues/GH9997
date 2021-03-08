@@ -20,34 +20,34 @@ say '==';
 #multi woof (@list, &code) { map { code($_) }, @list };
 #multi woof ($item, &code) { code($item) };
 
-# nub of the routines from Rosetta-Code task http://rosettacode.org/wiki/Monads/List_monad#Raku
+# nub of the routines from Rosetta Code task http://rosettacode.org/wiki/Monads/List_monad#Raku
 multi woof (@list, &code) { @list.map: &code };
 multi woof ($item, &code) { $item.&code };
 sub   meow ($int)         { (1, 0) }
 
-# There was a change with the 'A2' code's output starting with v2021.02.1-28-gceac52170:
-#  A1/B1 show correct results of join()/.join operating on a list
-#  A2 previously gave the desired output, but was actually 'wrong' (inconsisent with A1)
+# There was a change with the code labelled A2 below starting around v2021.02.1-28-gceac52170:
+#  A1, B1 show correct results of join() and join operating on a list
+#  A2 previously gave the desired output, but was actually 'wrong' (inconsistent with A1)
 #  B2 gives the desired (and consistent) result in all versions of Raku
-#  B3/B4 model how A2 is failing: somewhere in the chain the list gets flattened
+#  B3, B4 model how A2 is failing: somewhere in the chain the list gets flattened
 # Executive summary: A2 code was broken before, and now is broken in a different way
 
 dd my $foo = (^2).&woof(*+0).&woof(&meow)».&woof(*+0);
-print 'A1 join()  as expected '; dd join "\n", $foo;
-print 'B1 .join   as expected '; dd $foo.join: "\n";
-print 'A2 join() NOT expected '; dd join "\n", (^2).&woof(*+0).&woof(&meow).».&woof(*+0);     # original (used to give same as 'B2')
-print 'B2 .join   as expected '; dd (^2).&woof(*+0).&woof(&meow).».&woof(*+0).join: "\n";     # method-chaining form gives proper output
-print 'B3 .join  acts like A2 '; dd (^2).&woof(*+0).&woof(&meow).flat».&woof(*+0).join: "\n";
-print 'B4 .join  acts like A2 '; dd (^2).&woof(*+0).&woof(&meow)».&woof(*+0).flat.join: "\n";
+say 'A1 join()  as expected: ' ~ join ':', $foo;
+say 'B1 .join   as expected: ' ~ $foo.join: ':';
+say 'A2 join() NOT expected: ' ~ join ':', (^2).&woof(*+0).&woof(&meow).».&woof(*+0);     # original (previously gave same output as B1/B2)
+say 'B2 .join   as expected: ' ~ (^2).&woof(*+0).&woof(&meow)».&woof(*+0).join: ':';      # method-chaining form gives proper output
+say 'B3 .join  acts like A2: ' ~ (^2).&woof(*+0).&woof(&meow).flat».&woof(*+0).join: ':';
+say 'B4 .join  acts like A2: ' ~ (^2).&woof(*+0).&woof(&meow)».&woof(*+0).flat.join: ':';
 
 #`{
 List $foo = $((1, 0), (1, 0))
-A1 join()  as expected "1 0 1 0"
-B1 .join   as expected "1 0\n1 0"
-A2 join() NOT expected "1\n0\n1\n0"
-B2 .join   as expected "1 0\n1 0"
-B3 .join  acts like A2 "1\n0\n1\n0"
-B4 .join  acts like A2 "1\n0\n1\n0"
+A1 join()  as expected: "1 0 1 0"
+B1 .join   as expected: "1 0:1 0"
+A2 join() NOT expected: "1:0:1:0"
+B2 .join   as expected: "1 0:1 0"
+B3 .join  acts like A2: "1:0:1:0"
+B4 .join  acts like A2: "1:0:1:0"
 }
 
 exit;
