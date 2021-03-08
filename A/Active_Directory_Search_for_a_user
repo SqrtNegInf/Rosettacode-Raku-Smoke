@@ -1,0 +1,42 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Active_Directory/Search_for_a_user
+#c# 2021-03-07 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+
+my @res;
+
+use Cro::LDAP::Client;
+
+my $client = await Cro::LDAP::Client.connect('ldap://ldap.forumsys.com');
+
+my $bind = await $client.bind(
+   name=>'cn=read-only-admin,dc=example,dc=com',password=>'password'
+);
+die $bind.error-message if $bind.result-code;
+
+my $resp = $client.search(
+   :dn<dc=example,dc=com>, base=>"ou=mathematicians", filter=>'(&(uid=gauss))'
+);
+
+react {
+   whenever $resp -> $entry {
+      for $entry.attributes.kv -> $k, $v {
+         my $value-str = $v ~~ Blob ?? $v.decode !! $v.map(*.decode);
+         note "$k -> $value-str";
+      }
+   }
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+objectClass -> inetOrgPerson organizationalPerson top person
+mail -> [email protected]
+uid -> gauss
+cn -> Carl Friedrich Gauss
+sn -> Gauss
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
