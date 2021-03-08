@@ -1,12 +1,20 @@
 #!/bin/sh
 ## 2021-03-01 another run at 'srand' issues
-#
+
 # The problems with 'srand' that would be nice to fix: (ordered by # of tasks affected)
-#  133 global changes that make all tasks fail (rare, but an extra-big headache)
-#  ~53 potentially unstable output from 'next-day' builds of Raku
-#      (all working on 2021-03-03 with v2021.02.1-27-g22ea9d903)
-#    9 varying results, batch vs terminal
-#    8 never-stable/flappers (differ from run to run within a given build)
+#  133 global changes that make all tasks fail (rare, maybe necessary, but an extra-big headache)
+#  ~50 potentially unstable, output varies from 'next-day' builds of Raku
+#        2021-03-03  0 failed (with v2021.02.1-27-g22ea9d903)
+#        2021-03-04  0 failed
+#        2021-03-04  1 failed
+#        2021-03-05  4 failed
+#        2021-03-06 47 failed
+#    8 varying results, batch vs terminal
+#        2020-03-03  0 failed
+#        2020-03-04  0 failed
+#        2020-03-05  0 failed
+#        2020-03-06  5 failed
+#    8 never-stable/flappers (continuously differ from run to run within a given build)
 
 source $HOME/.profile
 cd $HOME/perl6/Rosetta-Code
@@ -14,8 +22,6 @@ cd $HOME/perl6/Rosetta-Code
 rakudobrew switch moar-blead
 bin/rc-moar-single H/Hello_world_Text
 rm -f bench/moar/*
-
-#bin/rc-moar-single P/Perceptron; exit
 
 # results never stable
 #bin/rc-moar-single \
@@ -31,58 +37,66 @@ rm -f bench/moar/*
 
 #bin/rc-moar-single x/
 
-# failing (at least part of the time) with new Raku builds
+# failing as of 2020-03-05 (at least part of the time) with new Raku build v2021.02.1-29-gaffdd0583
 bin/rc-moar-single \
 M/Markov_chain_text_generator \
 P/Perceptron \
 B/Barnsley_fern \
 #P/Palindromic_dates \               # skip testing, known to be slightly skeezy
 
-# working for now
+# failing as of 2020-03-06 (at least part of the time) with Raku build v2021.02.1-40-gb21bb5ab6
 bin/rc-moar-single \
-A/ASCII_art_diagram_converter \
+A/AVL_tree \
+B/Best_shuffle \
 B/Bioinformatics_Sequence_mutation \
 B/Birthday_problem \
-B/Bitmap_PPM_conversion_through_a_pipe \
+C/Card_shuffles \
 C/Chaos_game \
 C/Cistercian_numerals \
 C/Closures_Value_capture \
-C/Constrained_random_points_on_a_circle \
 C/Create_an_HTML_table \
 D/Dutch_national_flag_problem \
-E/Elliptic_Curve_Digital_Signature_Algorithm \
-F/Factorial_base_numbers_indexing_permutations_of_a_collection \
+E/Evolutionary_algorithm \
 F/Forest_fire \
 G/Galton_box_animation \
 G/Generate_random_chess_position \
 G/Greatest_element_of_a_list \
 K/K-d_tree \
-K/Knight%27s_tour \
 K/Knuth%27s_algorithm_S \
 K/Knuth_shuffle \
-L/Loops_Break \
-L/Loops_Nested \
-M/Mind_boggling_card_trick \
 M/Monte_Carlo_methods \
-M/Modified_random_distribution \
 O/One_of_n_lines_in_a_file \
 O/Order_two_numerical_lists \
 P/Particle_Swarm_Optimization \
 P/Pattern_matching \
+P/Percolation_Site_percolation \
+P/Permutations_Rank_of_a_permutation \
+R/RPG_Attributes_Generator \
+R/Random_Latin_Squares \
+S/Set_puzzle \
+S/Simulated_annealing \
+S/Snake_And_Ladder \
+
+# working for now
+bin/rc-moar-single \
+A/ASCII_art_diagram_converter \
+B/Bitmap_PPM_conversion_through_a_pipe \
+C/Constrained_random_points_on_a_circle \
+E/Elliptic_Curve_Digital_Signature_Algorithm \
+F/Factorial_base_numbers_indexing_permutations_of_a_collection \
+K/Knight%27s_tour \
+L/Loops_Break \
+L/Loops_Nested \
+M/Mind_boggling_card_trick \
+M/Modified_random_distribution \
 P/Penney%27s_game \
 P/Pentomino_tiling \
 P/Percentage_difference_between_images \
 P/Percolation_Bond_percolation \
-P/Permutations_Rank_of_a_permutation \
 P/Pick_random_element \
 P/Pig_the_dice_game_Player \
-R/RPG_Attributes_Generator \
-R/Random_Latin_Squares \
 R/Rock-paper-scissors \
-S/Set_puzzle \
 S/Seven-sided_dice_from_five-sided_dice \
-S/Simulated_annealing \
-S/Snake_And_Ladder \
 S/Statistics_Basic \
 S/Statistics_Normal_distribution \
 S/Strip_control_codes_and_extended_characters_from_a_string \
