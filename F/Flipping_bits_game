@@ -3,11 +3,12 @@
 #c# 2016-03-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    runs a fixed 3x3 game, in 3 turns
+#n#  runs a fixed 3x3 game, in 3 turns
+#n# oops, testing was bogus (now fixed)
 
 srand 123456;
 
-#Pass in a parameter to set the square size for the puzzle. (Defaults to 4.) Arbitrarily limited to between 1 and 26. Yes, you can choose to solve a 1 element square puzzle, but it won't be very challenging. Accepts upper or lower case letters for columns. Disregards any out-of-range indices. Enter a blank or 0 (zero) to exit.
+use Test;
 
 sub MAIN ($square = 3) {
     say "{$square}? Seriously?" and exit if $square < 1 or $square > 26;
@@ -21,21 +22,19 @@ sub MAIN ($square = 3) {
     #while my $flip = prompt "Turn {++$turns}: Flip which row / column? " {
     my @answers = $*VM ~~ /jvm/ ?? ['A', 'C', '2'] !! ['3', 'A', 'C'];
     for @answers -> $flip {
-say "f: $flip";
         ++$turns;
         flip $flip.match(/\w/).uc, %bits;
         if display($target, %bits) {
             say "Hurray! You solved it in $turns turns.";
-            use Test;
-            is $turns, 3;
-            last;
         }
     }
+    say "Hurray! You solved it in $turns turns.";
+    ok $turns, 3;
 }
 
 sub display($goal, %hash) {
     #shell('clear'); # DH interferes with batch run
-    say "Goal\n$goal\nYou";
+    #say "Goal\n$goal\nYou";
     my $this = build %hash;
     say $this;
     return ($goal eq $this);
@@ -65,68 +64,7 @@ sub build (%hash) {
 }
 
 sub scramble(%hash) {
-    my @keys = keys %hash;
-    @keys.push: | keys %hash{'1'};
+    my @keys = sort keys %hash;                 # 'sort' for stability in testing
+    @keys.push: | sort keys %hash{'1'};         # 'sort' for stability in testing
     flip $_,  %hash for @keys.pick( @keys/2 );
 }
-
-#`{
-A sample 3 x 3 game might look like this:
-
-Goal
-    A  B  C 
- 1  1  1  0 
- 2  0  0  1 
- 3  1  1  0 
-
-You
-    A  B  C 
- 1  0  0  0 
- 2  1  1  1 
- 3  1  1  1 
-
-Turn 1: Flip which row / column? 2
-
-Goal
-    A  B  C 
- 1  1  1  0 
- 2  0  0  1 
- 3  1  1  0 
-
-You
-    A  B  C 
- 1  0  0  0 
- 2  0  0  0 
- 3  1  1  1 
-
-Turn 2: Flip which row / column? 1
-
-Goal
-    A  B  C 
- 1  1  1  0 
- 2  0  0  1 
- 3  1  1  0 
-
-You
-    A  B  C 
- 1  1  1  1 
- 2  0  0  0 
- 3  1  1  1 
-
-Turn 3: Flip which row / column? c
-
-Goal
-    A  B  C 
- 1  1  1  0 
- 2  0  0  1 
- 3  1  1  0 
-
-You
-    A  B  C 
- 1  1  1  0 
- 2  0  0  1 
- 3  1  1  0 
-
-Hurray! You solved it in 3 turns.
-}
-
