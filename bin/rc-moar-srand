@@ -1,20 +1,36 @@
 #!/bin/sh
-## 2021-03-01 another run at 'srand' issues
+## 2021-03-01 another run at 'srand' issues, what fun...
 
+# On March 1st/2nd, fixed the output so all tests would pass.
+#
 # The problems with 'srand' that would be nice to fix: (ordered by # of tasks affected)
-#  133 global changes that make all tasks fail (rare, maybe necessary, but an extra-big headache)
+#
+#  122 global changes that make all tasks what rand/pick/roll change 
+#        Rare, maybe necessary, but an extra-big headache.
+#
 #  ~50 potentially unstable, output varies from 'next-day' builds of Raku
 #        2021-03-03  0 failed (with v2021.02.1-27-g22ea9d903)
 #        2021-03-04  0 failed
 #        2021-03-04  1 failed
 #        2021-03-05  4 failed
-#        2021-03-06 47 failed
-#    8 varying results, batch vs terminal
-#        2020-03-03  0 failed
-#        2020-03-04  0 failed
-#        2020-03-05  0 failed
-#        2020-03-06  5 failed
+#        2021-03-06 44 failed
+#        2021-03-07 45 failed (Mandelbrot-2 intermittant?)
+#
+#    8 varying results, batch vs terminal [stats for terminal]
+#        2021-03-03  0 failed
+#        2021-03-04  0 failed
+#        2021-03-05  0 failed
+#        2021-03-06  5 failed
+#
 #    8 never-stable/flappers (continuously differ from run to run within a given build)
+#
+#    ? varying results between OS/hardware ?
+#      Differences even with-in same OS
+#      BUT... 
+#      One OS (El Capitan) on two hosts yields two different results (Brownian_tree: constant vs never-the-same)
+#        [but not tested on exact same release...]
+#      While an independent OS (Ubuntu 19) gives never-the-same results for same task
+
 
 source $HOME/.profile
 cd $HOME/perl6/Rosetta-Code
@@ -37,14 +53,14 @@ rm -f bench/moar/*
 
 #bin/rc-moar-single x/
 
-# failing as of 2020-03-05 (at least part of the time) with new Raku build v2021.02.1-29-gaffdd0583
+# failing as of 2021-03-05 (at least part of the time) with new Raku build v2021.02.1-29-gaffdd0583
 bin/rc-moar-single \
 M/Markov_chain_text_generator \
 P/Perceptron \
 B/Barnsley_fern \
 #P/Palindromic_dates \               # skip testing, known to be slightly skeezy
 
-# failing as of 2020-03-06 (at least part of the time) with Raku build v2021.02.1-40-gb21bb5ab6
+# failing as of 2021-03-06 (at least part of the time) with Raku build v2021.02.1-40-gb21bb5ab6 [plus 2021-03-07, and beyond]
 bin/rc-moar-single \
 A/AVL_tree \
 B/Best_shuffle \
@@ -64,6 +80,7 @@ G/Greatest_element_of_a_list \
 K/K-d_tree \
 K/Knuth%27s_algorithm_S \
 K/Knuth_shuffle \
+M/Mandelbrot_set-2 \
 M/Monte_Carlo_methods \
 O/One_of_n_lines_in_a_file \
 O/Order_two_numerical_lists \
@@ -76,6 +93,13 @@ R/Random_Latin_Squares \
 S/Set_puzzle \
 S/Simulated_annealing \
 S/Snake_And_Ladder \
+S/Statistics_Basic \
+S/Strip_control_codes_and_extended_characters_from_a_string \
+T/Three_word_location \
+T/Two_bullet_roulette \
+U/Unbias_a_random_generator \
+V/Voronoi_diagram \
+W/Word_search \
 
 # working for now
 bin/rc-moar-single \
@@ -97,14 +121,66 @@ P/Pick_random_element \
 P/Pig_the_dice_game_Player \
 R/Rock-paper-scissors \
 S/Seven-sided_dice_from_five-sided_dice \
-S/Statistics_Basic \
 S/Statistics_Normal_distribution \
-S/Strip_control_codes_and_extended_characters_from_a_string \
-T/Three_word_location \
-T/Two_bullet_roulette \
-U/Unbias_a_random_generator \
 V/Verify_distribution_uniformity_Naive \
-W/Word_search \
 W/Write_language_name_in_3D_ASCII \
+
+# have never failed (and why not?)
+bin/rc-moar-single \
+0/100_prisoners \
+0/15_Puzzle_Game \
+0/2048 \
+0/21_Game \
+0/24_game \
+A/Amb-2 \
+A/Amb-3 \
+A/Atomic_updates \
+B/Balanced_brackets \
+B/Bulls_and_cows \
+B/Bulls_and_cows_Player \
+C/Closest-pair_problem \
+C/Create_a_two-dimensional_array_at_runtime \
+D/Deal_cards_for_FreeCell \
+D/Dining_philosophers \
+E/Enforced_immutability \
+F/Flipping_bits_game \
+F/Function_frequency \
+G/Generate_Chess960_starting_position \
+G/Geometric_algebra \
+G/Go_Fish \
+G/Greed \
+G/Guess_the_number \
+G/Guess_the_number_With_feedback \
+G/Guess_the_number_With_feedback_player \
+I/Index_finite_lists_of_positive_integers-1 \
+I/Index_finite_lists_of_positive_integers-2 \
+J/Jump_anywhere \
+J/Just_in_time_processing_on_a_character_stream \
+K/K-means%2B%2B_clustering \
+K/Knuth%27s_power_tree \
+L/Langton%27s_ant \
+L/Last_letter-first_letter \
+M/Magic_8-Ball \
+M/Mastermind \
+M/Miller-Rabin_primality_test \
+M/Minesweeper_game \
+M/Monty_Hall_problem \
+P/Parallel_calculations-2 \
+P/Password_generator \
+P/Password_generator-2 \
+P/Pig_the_dice_game \
+P/Playing_cards \
+P/Price_list_behind_API \
+P/Probabilistic_choice \
+P/Pseudorandom_Number_Generator_Image \
+Q/Quickselect_algorithm \
+R/Random_numbers \
+R/Rendezvous \
+R/Repeat \
+S/Semiprime-1 \
+S/Spoof_game \
+S/Substitution_Cipher \
+T/Terminal_control_Positional_read \
+T/Tic-tac-toe \
 
 bin/rc-stats
