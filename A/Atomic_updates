@@ -3,12 +3,9 @@
 #c# 2016-08-10 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   I guess, hard to validate
+#   Don't test output, just run or die
 
 srand 123456;
-
-# Translation of: Ruby
-# Works with: Rakudo version 2016.07
 
 #| A collection of non-negative integers, with atomic operations.
 class BucketStore {
@@ -77,7 +74,7 @@ loop {
   say "{@buckets.fmt: '%4d'}, total $sum";
 
   if $sum != $initial-sum {
-    note "ERROR: Total changed from $initial-sum to $sum";
+    die "ERROR: Total changed from $initial-sum to $sum";
     exit 1;
   }
 }
@@ -91,4 +88,4 @@ loop {
 ...
 }
 
-use Test;
+#use Test;
