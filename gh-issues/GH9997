@@ -3,39 +3,46 @@
 #u# https://github.com/rakudo/rakudo/issues/xxxx
 #c# 2021-03-06 not yet submitted as issue
 #n# bug source: http://rosettacode.org/wiki/Monads/List_monad#Raku
-#n# Rakudo version v2021.02.1-28-gceac52170 built on MoarVM version 2021.02-3-g4ae157c33.
+#n# first seen: Rakudo version v2021.02.1-28-gceac52170 built on MoarVM version 2021.02-3-g4ae157c33.
+#n# https://gist.github.com/d2b7deb4bb20bd3c0ab07c6e9a0fdd87 ==> commit 412d770
 #n# maybe fixing this will help 'B/Brace_expansion'?
 
-my $a = ((1,2),(3,4)); say join(':',$a) ~ ' vs ' ~ $a.join: ':'; # differ 1 2 3 4 vs 1 2:3 4 
-my @a = ((1,2),(3,4)); say join(':',@a) ~ ' vs ' ~ @a.join: ':'; # same   1 2:3 4 vs 1 2:3 4
-say '==';
-
-#my $b = [[1,2],[3,4]]; say join(':',$b) ~ ' vs ' ~ $b.join: ':'; # differ 1 2 3 4 vs 1 2:3 4 
-#my @b = [[1,2],[3,4]]; say join(':',@b) ~ ' vs ' ~ @b.join: ':'; # same   1 2:3 4 vs 1 2:3 4
-
-#my $c = (qw<1 2>,qw<3 4>); say join(':',$c) ~ ' vs ' ~ $c.join: ':'; # differ 1 2 3 4 vs 1 2:3 4 
-#my @c = (qw<1 2>,qw<3 4>); say join(':',@c) ~ ' vs ' ~ @c.join: ':'; # same   1 2:3 4 vs 1 2:3 4
-
-# no change
-#multi woof (@list, &code) { map { code($_) }, @list };
-#multi woof ($item, &code) { code($item) };
+my $a = ((1,2),(3,4)); say 'all ok: ', join(':',$a), ' vs ', $a.join: ':'; # differ 1 2 3 4 vs 1 2:3 4 
+my @a = ((1,2),(3,4)); say 'all ok: ', join(':',@a), ' vs ', @a.join: ':'; # same   1 2:3 4 vs 1 2:3 4
 
 # nub of the routines from Rosetta Code task http://rosettacode.org/wiki/Monads/List_monad#Raku
 multi woof (@list, &code) { @list.map: &code };
-multi woof ($item, &code) { $item.&code };
+multi woof ($item, &code) { $item.&code };          # only this on GH
 sub   meow ($int)         { (1, 0) }
+
+# minimum to demonstrate the bug
+say '1   ok: ',                    ( (0,1),(2,3) )».&woof(*+1).join: ':' ; # ok (was always/still is)
+say '2  bad: ', join ':',         ( (0,1),(2,3) )».&woof(*+1);            # prior results also bad, but different: 1 2:3 4
+say '3  bad: ', join ':',(my $x = ( (0,1),(2,3)))».&woof(*+1);            # prior results ok
+say '4   ok: ', join ':', my $y = ( (0,1),(2,3) )».&woof(*+1);            # prior results ok
+exit;
+
+#`{ current results:
+all ok: 1 2 3 4 vs 1 2:3 4
+all ok: 1 2:3 4 vs 1 2:3 4
+1   ok: 1 2:3 4
+2  bad: 1:2:3:4
+3  bad: 1:2:3:4
+4   ok: 1 2 3 4
+}
 
 # There was a change with the code labelled A2 below starting around v2021.02.1-28-gceac52170:
 #  A1, B1 show correct results of join() and join operating on a list
 #  A2 previously gave the desired output, but was actually 'wrong' (inconsistent with A1)
 #  B2 gives the desired (and consistent) result in all versions of Raku
 #  B3, B4 model how A2 is failing: somewhere in the chain the list gets flattened
+# The bug only shows up when hyper is involved AND not working on intermediate variable?
 # Executive summary: A2 code was broken before, and now is broken in a different way
 
 dd my $foo = (^2).&woof(*+0).&woof(&meow)».&woof(*+0);
 say 'A1 join()  as expected: ' ~ join ':', $foo;
 say 'B1 .join   as expected: ' ~ $foo.join: ':';
-say 'A2 join() NOT expected: ' ~ join ':', (^2).&woof(*+0).&woof(&meow).».&woof(*+0);     # original (previously gave same output as B1/B2)
+say 'A2 join() NOT expected: ' ~ join ':', (^2).&woof(*+0).&woof(&meow)».&woof(*+0);      # original (previously gave same output as B1/B2)
 say 'B2 .join   as expected: ' ~ (^2).&woof(*+0).&woof(&meow)».&woof(*+0).join: ':';      # method-chaining form gives proper output
 say 'B3 .join  acts like A2: ' ~ (^2).&woof(*+0).&woof(&meow).flat».&woof(*+0).join: ':';
 say 'B4 .join  acts like A2: ' ~ (^2).&woof(*+0).&woof(&meow)».&woof(*+0).flat.join: ':';
