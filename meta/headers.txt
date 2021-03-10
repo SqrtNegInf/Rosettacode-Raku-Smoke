@@ -1315,13 +1315,14 @@ File: B/Brace_expansion
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brace_expansion
 #c# 2018-03-22 <RC, 2019-11-20 >RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  OK
 #n# multiple GLR fixes on the one line of 'crosswalk': '|' and 'flat' (and removed redundant enclosures)
 #n# 3 failing tests removed; bah humbug, not going to spend more time on this...
 #n# 2021-03-03 output turned pretty much to gibberish today, v2021.02.1-27-g22ea9d903
 #n# 2021-03-05 code depends on this intermediate structure $["Downloads", "Pictures"] (single element of array, so AofA)
 #n#            but recent versions of raku produce this:    ["Downloads", "Pictures"] (which is just an array)
+#n#            Errors likely in part due to hyper bug revealed by 'Monads_List_monad'.
 
 File: B/Brace_expansion_using_ranges
 #!/usr/bin/env raku
