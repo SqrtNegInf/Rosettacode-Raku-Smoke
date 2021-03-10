@@ -5,8 +5,8 @@
 #
 # The problems with 'srand' that would be nice to fix: (ordered by # of tasks affected)
 #
-#  122 global changes that make all tasks what rand/pick/roll change 
-#        Rare, maybe necessary, but an extra-big headache.
+#  122 global changes that make all tasks containing rand/pick/roll change 
+#        Rare, maybe necessary, but an extra-big headache when it happens.
 #
 #  ~50 potentially unstable, output varies from 'next-day' builds of Raku
 #        2021-03-03  0 failed (with v2021.02.1-27-g22ea9d903)
@@ -15,12 +15,15 @@
 #        2021-03-05  4 failed
 #        2021-03-06 44 failed
 #        2021-03-07 45 failed (Mandelbrot-2 intermittant?)
+#        2021-03-08 46 failed (Julia_set/Jump_anywhere/Mandelbrot-2 intermittant failures?)
 #
 #    8 varying results, batch vs terminal [stats for terminal]
 #        2021-03-03  0 failed
 #        2021-03-04  0 failed
 #        2021-03-05  0 failed
 #        2021-03-06  5 failed
+#        2021-03-07  5 failed
+#        2021-03-08  5 failed
 #
 #    8 never-stable/flappers (continuously differ from run to run within a given build)
 #
@@ -31,13 +34,12 @@
 #        [but not tested on exact same release...]
 #      While an independent OS (Ubuntu 19) gives never-the-same results for same task
 
-
 source $HOME/.profile
 cd $HOME/perl6/Rosetta-Code
 
 rakudobrew switch moar-blead
-bin/rc-moar-single H/Hello_world_Text
-rm -f bench/moar/*
+#bin/rc-moar-single H/Hello_world_Text
+#rm -f bench/moar/*
 
 # results never stable
 #bin/rc-moar-single \
