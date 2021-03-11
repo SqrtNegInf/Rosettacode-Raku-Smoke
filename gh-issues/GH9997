@@ -1,34 +1,54 @@
 #!/usr/bin/env perl6
 #t# skiptest
 #u# https://github.com/rakudo/rakudo/issues/xxxx
-#c# 2021-03-06 not yet submitted as issue
+#c# 2021-03-06 not yet submitted as issue [ and never got around to it :-( ]
+#n# 2021-03-10 lizmat++ commit 722c2c9792 restores previous behavior of deepmap, from roast:
+#n# is ((0,1),(2,3)).deepmap(* + 1).raku, '($(1, 2), $(3, 4))', 'did we get sublists in containers';            
 #n# bug source: http://rosettacode.org/wiki/Monads/List_monad#Raku
 #n# first seen: Rakudo version v2021.02.1-28-gceac52170 built on MoarVM version 2021.02-3-g4ae157c33.
-#n# https://gist.github.com/d2b7deb4bb20bd3c0ab07c6e9a0fdd87 ==> commit 412d770
-#n# maybe fixing this will help 'B/Brace_expansion'?
+#n# bisect: https://gist.github.com/d2b7deb4bb20bd3c0ab07c6e9a0fdd87 ==> commit 412d770
+#n# maybe fixing this will help 'B/Brace_expansion'? [no dice!]
 
-my $a = ((1,2),(3,4)); say 'all ok: ', join(':',$a), ' vs ', $a.join: ':'; # differ 1 2 3 4 vs 1 2:3 4 
-my @a = ((1,2),(3,4)); say 'all ok: ', join(':',@a), ' vs ', @a.join: ':'; # same   1 2:3 4 vs 1 2:3 4
+my $a = ((1,2),(3,4)); say join(':',$a), ' vs ', $a.join: ':'; # differ 1 2 3 4 vs 1 2:3 4 
+my @a = ((1,2),(3,4)); say join(':',@a), ' vs ', @a.join: ':'; # same   1 2:3 4 vs 1 2:3 4
 
 # nub of the routines from Rosetta Code task http://rosettacode.org/wiki/Monads/List_monad#Raku
 multi woof (@list, &code) { @list.map: &code };
-multi woof ($item, &code) { $item.&code };          # only this on GH
+multi woof ($item, &code) { $item.&code };      # this is the problematic item
 sub   meow ($int)         { (1, 0) }
 
-# minimum to demonstrate the bug
-say '1   ok: ',                    ( (0,1),(2,3) )».&woof(*+1).join: ':' ; # ok (was always/still is)
-say '2  bad: ', join ':',         ( (0,1),(2,3) )».&woof(*+1);            # prior results also bad, but different: 1 2:3 4
-say '3  bad: ', join ':',(my $x = ( (0,1),(2,3)))».&woof(*+1);            # prior results ok
-say '4   ok: ', join ':', my $y = ( (0,1),(2,3) )».&woof(*+1);            # prior results ok
+# minimum to demonstrate the bug-fix
+say join ':', ((0,1),(2,3))>>.&(*+1);
+say join ':', $a>>.&(*+1);
+#exit;
+
+# minimum demostration similar to RC task
+my $x = ((0,1),(2,3))».&woof(*+1);
+say 'x: '; dd $x;
+say 'y: '; dd ((0,1),(2,3))».&woof(*+1);
 exit;
 
-#`{ current results:
-all ok: 1 2 3 4 vs 1 2:3 4
-all ok: 1 2:3 4 vs 1 2:3 4
-1   ok: 1 2:3 4
-2  bad: 1:2:3:4
-3  bad: 1:2:3:4
-4   ok: 1 2 3 4
+say '0: ', ( (0,1),(2,3) )».&woof(*+1).join: ':';          # ok (was always/still is)
+say '1: ', join ':', $x;                                   # ok (was always/still is)
+say '2: ', join ':',         ( (0,1),(2,3) )».&woof(*+1);  # prior results also bad, but different: 1 2:3 4
+say '3: ', join ':',(my $y = ( (0,1),(2,3)))».&woof(*+1);  # prior results ok
+say '4: ', join ':', my $z = ( (0,1),(2,3) )».&woof(*+1);  # prior results ok
+exit;
+
+#`{ results with commit  722c2c9792:
+1 2 3 4 vs 1 2:3 4
+1 2:3 4 vs 1 2:3 4
+a:
+List $x = $($(1, 2), $(3, 4))
+b:
+($(1, 2), $(3, 4))
+c:
+($(1, 2), $(3, 4))
+0: 1 2:3 4
+1: 1 2 3 4
+2: 1 2:3 4
+3: 1 2:3 4
+4: 1 2 3 4
 }
 
 # There was a change with the code labelled A2 below starting around v2021.02.1-28-gceac52170:
