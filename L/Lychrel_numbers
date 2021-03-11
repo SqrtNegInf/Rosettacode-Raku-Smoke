@@ -57,10 +57,10 @@ for %lychrels{*}»[0].unique.sort -> $ly {
 
 my @res;
 @res.push: "   Number of Lychrel seed numbers < $limit: "~ +@seeds;
-@res.push: "             Lychrel seed numbers < $limit: "~ join ", ", @seeds;
+@res.push: "             Lychrel seed numbers < $limit: "~ join ', ', @seeds;
 @res.push: "Number of Lychrel related numbers < $limit: "~ +$count - @seeds;
 @res.push: "    Number of Lychrel palindromes < $limit: "~ +@palindromes;
-@res.push: "              Lychrel palindromes < $limit: "~ join ", ", @palindromes;
+@res.push: "              Lychrel palindromes < $limit: "~ join ', ', @palindromes;
 .say for @res;
 
 my $ref = qq:to/END/;
