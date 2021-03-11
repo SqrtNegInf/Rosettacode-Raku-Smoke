@@ -18,8 +18,8 @@ my $object = Foo.new;
 
 my @res;
 for $object.^methods {
-    say join ", ", .name, .arity, .count, .signature.gist;
-    @res.push: join ", ", .name, .arity, .count, .signature.gist;
+    say join ', ', .name, .arity, .count, .signature.gist;
+    @res.push: join ', ', .name, .arity, .count, .signature.gist;
 }
 
 my $ref = q:to/END/;
@@ -29,7 +29,6 @@ baz, 2, 3, (Foo: $x, $y?, *%_)
 BUILDALL, 3, 3, (Any:D: ;; @auto, %init, *%_)
 END
 
-# 2019-04-17 changed sometime after the 5th...
 my $refx = q:to/END/;
 foo, 2, 2, (Foo: $x, *%_)
 bar, 3, 3, (Foo: $x, $y, *%_)
