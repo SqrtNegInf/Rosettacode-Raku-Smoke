@@ -47,9 +47,9 @@ sub solve_matrix (@matrix_array is copy, @delta is copy) {
    { use Math::Matrix;
       my $matrix = Math::Matrix.new(@matrix_array);
       my $vector = Math::Matrix.new(@delta.map({.list}));
-      die "Matrix is not invertible" unless $matrix.is-invertible;
+      die 'Matrix is not invertible' unless $matrix.is-invertible;
       my @result = ( $matrix.inverted dot $vector ).transposed;
-      return @result.split(" ");
+      return @result.split(' ');
    }
 }
 
@@ -63,7 +63,7 @@ my @guesses = (1,1,0);
 
 my @solution = solve_funcs $funcs, @guesses, 20, 1e-8;
 
-say my $result = "Solution: " ~ join " ", @solution;
+say my $result = 'Solution: ' ~ join ' ', @solution;
 
 my $ref = 'Solution: 0.8936282344764825 0.8945270103905782 -0.04008928615915281';
 
