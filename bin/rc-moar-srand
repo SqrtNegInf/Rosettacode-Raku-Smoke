@@ -15,15 +15,19 @@
 #        2021-03-05  4 failed
 #        2021-03-06 44 failed
 #        2021-03-07 45 failed (Mandelbrot-2 intermittant?)
-#        2021-03-08 46 failed (Julia_set/Jump_anywhere/Mandelbrot-2 intermittant failures?)
+#        2021-03-08 46 failed (Julia_set/Jump_anywhere/Mandelbrot-2: intermittent failures?)
+#        2021-03-09 45 failed 
+#        2021-03-10 46 failed (100_prisoners output now differs batch/terminal)
 #
-#    8 varying results, batch vs terminal [stats for terminal]
+#    9 varying results, batch vs terminal [stats for terminal]
 #        2021-03-03  0 failed
 #        2021-03-04  0 failed
 #        2021-03-05  0 failed
 #        2021-03-06  5 failed
 #        2021-03-07  5 failed
 #        2021-03-08  5 failed
+#        2021-03-09  5 failed
+#        2021-03-10  5 failed
 #
 #    8 never-stable/flappers (continuously differ from run to run within a given build)
 #
@@ -38,8 +42,8 @@ source $HOME/.profile
 cd $HOME/perl6/Rosetta-Code
 
 rakudobrew switch moar-blead
-#bin/rc-moar-single H/Hello_world_Text
-#rm -f bench/moar/*
+bin/rc-moar-single H/Hello_world_Text
+rm -f bench/moar/*
 
 # results never stable
 #bin/rc-moar-single \
@@ -47,11 +51,11 @@ rakudobrew switch moar-blead
 #B/Brownian_tree \
 #M/Maze_generation \
 #M/Maze_solving \
-# the next 4 partly work (graph, but not table)
-#P/Percolation_Bond_percolation \               # this task modified to test just graph
+# the next 4 may partly work (graph, but not table) [nope, now all failing]
+#P/Percolation_Bond_percolation \
+#P/Percolation_Site_percolation \
 #P/Percolation_Mean_cluster_density \
 #P/Percolation_Mean_run_density \
-#P/Percolation_Site_percolation \
 
 #bin/rc-moar-single x/
 
@@ -64,6 +68,7 @@ B/Barnsley_fern \
 
 # failing as of 2021-03-06 (at least part of the time) with Raku build v2021.02.1-40-gb21bb5ab6 [plus 2021-03-07, and beyond]
 bin/rc-moar-single \
+0/100_Prisoners
 A/AVL_tree \
 B/Best_shuffle \
 B/Bioinformatics_Sequence_mutation \
@@ -118,7 +123,6 @@ M/Modified_random_distribution \
 P/Penney%27s_game \
 P/Pentomino_tiling \
 P/Percentage_difference_between_images \
-P/Percolation_Bond_percolation \
 P/Pick_random_element \
 P/Pig_the_dice_game_Player \
 R/Rock-paper-scissors \
