@@ -13,12 +13,12 @@ class Foo {
     has Int $.c is rw;
 }
 
-my $object = Foo.new: b => "Hello", c => 42;
+my $object = Foo.new: b => 'Hello', c => 42;
 
 my @res;
 for $object.^attributes {
-    say join ", ", .name, .readonly, .container.^name, .get_value($object);
-    my $temp = join ", ", .name, .readonly, .container.^name, .get_value($object);
+    say join ', ', .name, .readonly, .container.^name, .get_value($object);
+    my $temp = join ', ', .name, .readonly, .container.^name, .get_value($object);
     $temp ~~ s/Instant.*$//;
     @res.push: $temp;
 }
