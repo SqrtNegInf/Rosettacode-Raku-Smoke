@@ -824,14 +824,14 @@ File: A/Average_loop_length
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Average_loop_length
 #c# 2016-05-09 <>RC, 2018-05-31 <RC
-#t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
-#n# with hash key order now variable, testing upgraded with ArrayHash
-#n# 'random' output changed on 2017-08-10
-#n# 2020-09-01 something is unstable, run #2 flips between: 2.00 vs. 2.67;
+#n# 2017-08-10 'random' output changed on 
+#n# 2019-??-?? with hash key order now variable, testing upgraded with ArrayHash
+#n# 2020-09-01 something is unstable, run #2 flips between: 2.00% vs. 2.67%;
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch?
-#n# 2021-03-01 still unstable
+#n# 2021-03-01 still unstable when cron-launched
+#n# 2021-03-10 problem mostly in #2, 1.33% (98+%), or 0.67%, and very rarely 0.00% (then #3-6 are different too)
 
 File: A/Average_loop_length.0
 #!/usr/bin/env perl6
@@ -1319,10 +1319,6 @@ File: B/Brace_expansion
 #j# JVM:  OK
 #n# multiple GLR fixes on the one line of 'crosswalk': '|' and 'flat' (and removed redundant enclosures)
 #n# 3 failing tests removed; bah humbug, not going to spend more time on this...
-#n# 2021-03-03 output turned pretty much to gibberish today, v2021.02.1-27-g22ea9d903
-#n# 2021-03-05 code depends on this intermediate structure $["Downloads", "Pictures"] (single element of array, so AofA)
-#n#            but recent versions of raku produce this:    ["Downloads", "Pictures"] (which is just an array)
-#n#            Errors likely in part due to hyper bug revealed by 'Monads_List_monad'.
 
 File: B/Brace_expansion_using_ranges
 #!/usr/bin/env raku
