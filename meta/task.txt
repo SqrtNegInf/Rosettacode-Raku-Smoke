@@ -2,10 +2,10 @@ Welcome to Rakudo(tm) v2021.02.1-51-g722c2c979.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-17-g9f0579d2a.
 updating from RC…
-+--------------> Moar: Good/Bad [1273/26]
++--------------> Moar: Good/Bad [1272/26]
 |+-------------> JVM: Good/Bad [1109/226]
-||+------------> Smoke testing [1186]
-|||+-----------> sKipping validation [139]
+||+------------> Smoke testing [1187]
+|||+-----------> sKipping validation [138]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [350]
 ||||||+--------> Concurrent/Async [68]
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GG.K.T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -322,7 +322,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -616,7 +616,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-!BS...C.F.... Julia_set
+GBS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -1218,7 +1218,7 @@ GGS.......... Stirling_numbers_of_the_second_kind
 GGS..T....... Straddling_checkerboard
 GGS..T...D... Strange_numbers
 GGS...c..D... Strange_plus_numbers
-.........D.VU Strange_primes
+.........D.VU Strange_unique_prime_triplets
 BB.K.....D... Strassen%27s_algorithm
 GGS..T....... Stream_merge
 GGS.......... String_append
