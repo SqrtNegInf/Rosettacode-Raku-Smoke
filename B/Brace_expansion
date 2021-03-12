@@ -5,10 +5,12 @@
 #j# JVM:  OK
 #n# multiple GLR fixes on the one line of 'crosswalk': '|' and 'flat' (and removed redundant enclosures)
 #n# 3 failing tests removed; bah humbug, not going to spend more time on this...
+
 #n# 2021-03-03 output turned pretty much to gibberish today, v2021.02.1-27-g22ea9d903
-#n# 2021-03-05 code depends on this intermediate structure $["Downloads", "Pictures"] (single element of array, so AofA)
-#n#            but recent versions of raku produce this:    ["Downloads", "Pictures"] (which is just an array)
-#n#            Errors likely in part due to hyper bug revealed by 'Monads_List_monad'.
+#n# 2021-03-05 code depends on this intermediate structure $["Downloads", "Pictures"] (array in container)
+#n#            but recent versions of raku produce this:    ["Downloads", "Pictures"] (bare array)
+#n#            Errors related to regression involving 'deepmap' (revealed by 'Monads_List_monad' failure)?
+#n# 2021-03-10 work-around for blead found, but commit 722c2c9792 did not help here
 
 
 grammar BraceExpansion {
@@ -25,9 +27,8 @@ sub crosswalk($/) {
 sub alternatives($_) {
     when :not { () }
     when 1    { '{' X~ $_».&crosswalk X~ '}' }
-    #default   { $_».&crosswalk }               # original
-    #default   { (my $foo = $_)».&crosswalk }   # would help if could keep $foo from being optimized away?
-    default   { my @foo; for $_.split(' ') -> $x { @foo.push: crosswalk($x) }; [[@foo],] } # partially restores
+    #default   { $_».&crosswalk }               # original prior to commit 412d770 (or something slightly earlier?)
+    default   { [$_».&crosswalk,] }
 }
 
 sub brace-expand($s) { crosswalk BraceExpansion.parse($s) }
@@ -57,12 +58,12 @@ bxtest Q:to/EOD/.lines;
     a{b,{{c}}
     {a{\}b,c}d
     EOD
+
     #{}} some {\\{edge,edgy} }{ cases, here\\\}
     #a{b{1,2}c{}}
     #{a,b{{1,2}e}f
 
 say $result;
-exit;
 
 my $ref = q:to/END/;
 
@@ -138,4 +139,4 @@ END
 #    {a,b{2e}f
 
 use Test;
-is $result, chomp $ref;
+is $result, $ref;
