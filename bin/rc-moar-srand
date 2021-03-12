@@ -57,10 +57,9 @@ rm -f bench/moar/*
 #P/Percolation_Mean_cluster_density \
 #P/Percolation_Mean_run_density \
 
-#bin/rc-moar-single x/
-
 # failing as of 2021-03-05 (at least part of the time) with new Raku build v2021.02.1-29-gaffdd0583
 bin/rc-moar-single \
+A/Average_loop_length \
 M/Markov_chain_text_generator \
 P/Perceptron \
 B/Barnsley_fern \
@@ -68,7 +67,6 @@ B/Barnsley_fern \
 
 # failing as of 2021-03-06 (at least part of the time) with Raku build v2021.02.1-40-gb21bb5ab6 [plus 2021-03-07, and beyond]
 bin/rc-moar-single \
-0/100_Prisoners
 A/AVL_tree \
 B/Best_shuffle \
 B/Bioinformatics_Sequence_mutation \
@@ -84,6 +82,7 @@ F/Forest_fire \
 G/Galton_box_animation \
 G/Generate_random_chess_position \
 G/Greatest_element_of_a_list \
+J/Julia_set \
 K/K-d_tree \
 K/Knuth%27s_algorithm_S \
 K/Knuth_shuffle \
@@ -132,6 +131,7 @@ V/Verify_distribution_uniformity_Naive \
 W/Write_language_name_in_3D_ASCII \
 
 # have never failed (and why not?)
+# but '100_prisoners' started having different results terminal/batch
 bin/rc-moar-single \
 0/100_prisoners \
 0/15_Puzzle_Game \
