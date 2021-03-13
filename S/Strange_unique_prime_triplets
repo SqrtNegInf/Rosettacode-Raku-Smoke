@@ -1,0 +1,23 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Strange_unique_prime_triplets
+#c# 2021-03-12 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+
+my @res;
+
+for 30, 1000 -> \k {
+   given (2..k).grep(*.is-prime).combinations(3).grep(*.sum.is-prime) {
+      @res.push: 'Found ' ~ +$_ ~ ' strange unique prime triplets up to ' ~ k
+   }
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+Found 42 strange unique prime triplets up to 30
+Found 241580 strange unique prime triplets up to 1000
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
