@@ -1,23 +1,29 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Nice_primes
-#c# 2021-03-xx >RC
+#c# 2021-03-14 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 my @res;
 
-#sub digroot ($r) { .[*-1] given $r, { [+] .comb } ... { .chars == 1 } }
-#my @nice-pr.push: $_ if .&is-prime and is-prime(.&digroot) for 500 ^..^ 1000;
-#@res.push: @nice-pr.batch(11)».fmt("%4d").join: "\n";
+sub dr ($r) { .[*-1] given $r, { [+] .comb } ... { .chars == 1 } }
+my @nice-primes.push: $_ if .&is-prime and is-prime(.&dr) for 500 ^..^ 1000;
+@res.push: @nice-primes.batch(11)».fmt("%4d").join: "\n";
 
 #sub digroot ($r) { .tail given $r, { [+] .comb } ... { .chars == 1 } }
-#my @nice-pr = lazy gather for 1..* { .take if .&is-prime and .&digroot.&is-prime }
-#my @list = grep { 500 < $_ < 1000 or $_ > 1000 and last }, @nice-pr;
+#my @nice-primes = lazy gather for 1..* { .take if .&is-prime and .&digroot.&is-prime }
+#my @list = grep { 500 < $_ < 1000 or $_ > 1000 and last }, @nice-primes;
 #@res.push: @list.batch(11)».fmt("%4d").join: "\n";
 
 sub digroot ($r) { .tail given $r, { [+] .comb } ... { .chars == 1 } }
-my @is-nice = lazy gather for 0..* { take .&is-prime && .&digroot.&is-prime ?? $_ !! Nil }
-@res = @is-nice[500 ^..^ 1000].grep(*.so).batch(11)».fmt("%4d").join: "\n";
+
+my @is-nice1 = lazy (0..*).map: { .&is-prime && .&digroot.&is-prime ?? $_ !! False };
+my @is-nice2 = lazy gather { take .&is-prime && .&digroot.&is-prime ?? $_ !! False for 0..* };
+my @is-nice3 = lazy gather for 0..* { take .&is-prime && .&digroot.&is-prime ?? $_ !! False }
+
+my @res1 = @is-nice1[500 ^..^ 1000].grep(*.so).batch(11)».fmt("%4d").join: "\n";
+my @res2 = @is-nice2[500 ^..^ 1000].grep(*.so).batch(11)».fmt("%4d").join: "\n";
+my @res3 = @is-nice3[500 ^..^ 1000].grep(*.so).batch(11)».fmt("%4d").join: "\n";
 
 .say for @res;
 
@@ -29,3 +35,6 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
+is @res1.join("\n"), chomp $ref;
+is @res2.join("\n"), chomp $ref;
+is @res3.join("\n"), chomp $ref;
