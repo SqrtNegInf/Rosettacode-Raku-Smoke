@@ -1,0 +1,12 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Shift_list_elements_to_left_by_3
+#c# 2021-03-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+put my $result = [1..9].rotate(3);
+
+my $ref = '4 5 6 7 8 9 1 2 3';
+
+use Test;
+is $result, $ref;
