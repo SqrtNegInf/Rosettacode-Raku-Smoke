@@ -6,14 +6,18 @@
 
 my @res;
 
-sub digroot ($r) { .[*-1] given $r, { [+] .comb } ... { .chars == 1 } }
+#sub digroot ($r) { .[*-1] given $r, { [+] .comb } ... { .chars == 1 } }
+#my @nice-pr.push: $_ if .&is-prime and is-prime(.&digroot) for 500 ^..^ 1000;
+#@res.push: @nice-pr.batch(11)».fmt("%4d").join: "\n";
 
-#my @isnice.push: $_ if .&is-prime and is-prime(.&digroot) for 500 ^..^ 1000;
-#@res.push: @isnice.batch(11)».fmt("%4d").join: "\n";
+#sub digroot ($r) { .tail given $r, { [+] .comb } ... { .chars == 1 } }
+#my @nice-pr = lazy gather for 1..* { .take if .&is-prime and .&digroot.&is-prime }
+#my @list = grep { 500 < $_ < 1000 or $_ > 1000 and last }, @nice-pr;
+#@res.push: @list.batch(11)».fmt("%4d").join: "\n";
 
-my @is-nice = lazy gather for 1..* { .take if .&is-prime and .&digroot.&is-prime }
-my @list = grep { 500 < $_ < 1000 or $_ > 1000 and last }, @is-nice;
-@res.push: @list.batch(11)».fmt("%4d").join: "\n";
+sub digroot ($r) { .tail given $r, { [+] .comb } ... { .chars == 1 } }
+my @is-nice = lazy gather for 0..* { take .&is-prime && .&digroot.&is-prime ?? $_ !! Nil }
+@res = @is-nice[500 ^..^ 1000].grep(*.so).batch(11)».fmt("%4d").join: "\n";
 
 .say for @res;
 
