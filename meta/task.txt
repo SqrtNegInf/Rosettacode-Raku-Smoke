@@ -1,17 +1,17 @@
-Welcome to Rakudo(tm) v2021.02.1-57-g5c5ffcd95.
+Welcome to Rakudo(tm) v2021.02.1-60-g21e5be64e.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-17-g9f0579d2a.
 updating from RC…
 +--------------> Moar: Good/Bad [1274/27]
-|+-------------> JVM: Good/Bad [1109/227]
-||+------------> Smoke testing [1187]
+|+-------------> JVM: Good/Bad [1111/227]
+||+------------> Smoke testing [1189]
 |||+-----------> sKipping validation [138]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [350]
+|||||+---------> Touched (modified by me) [351]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [133]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [235]
+|||||||||+-----> Draft [237]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [82]
 ||||||||||||+--> Un-implemented/reliable [52]
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GGS..T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -816,7 +816,7 @@ GBS.......... Negative_base_numbers-2
 GGS.......... Nested_function
 GGS.......... Nested_templated_data
 GGS.......... Next_highest_int_from_digits
-.........D.VU Nice_primes
+GGS..T...D... Nice_primes
 GGS.......... Nim_game
 GGS.......... Nimber_arithmetic
 GGS..T....... Non-continuous_subsequences
@@ -864,6 +864,7 @@ GGS.......... Ordered_words
 BB........... P-Adic_numbers,_basic
 ...........VU P-Adic_square_roots
 GGS..T....... P-value_correction
+.........D.VU Padovan_n-step_number_sequences
 GGS.......... Padovan_sequence
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
@@ -1047,7 +1048,7 @@ GGS..T....... Reverse_a_string
 GGS......D... Reverse_the_gender_of_a_string
 GGS.......... Reverse_words_in_a_string
 GB.KI....D... Robots
-GGS..T.R..... Rock-paper-scissors
+!GS..T.R..... Rock-paper-scissors
 GGS.......... Roman_numerals_Decode
 GGS.......... Roman_numerals_Encode
 GGS.......... Roots_of_a_function
@@ -1113,6 +1114,7 @@ GGS..T....... Set_of_real_numbers
 GGS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
 GBS.......... Shell_one-liner
+GGS......D... Shift_list_elements_to_left_by_3
 GGS.......... Shoelace_formula_for_polygonal_area
 GGS..T....... Short-circuit_evaluation
 GGS..T....... Shortest_common_supersequence
