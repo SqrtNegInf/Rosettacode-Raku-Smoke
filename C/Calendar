@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-my $months-per-col = 3;
+my $months-per-row = 3;
 my @week-day-names = <Mo Tu We Th Fr Sa Su>;
 my @month-names = <Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec>;
 
@@ -20,9 +20,9 @@ sub fmt-year ($year) {
         my Array @month-strs;
         @month-strs[$_] = fmt-month($year, $_).lines.Array for 1 .. 12;
 
-        loop ( my $month = 1; $month <= 12; $month += $months-per-col ) {
+        loop ( my $month = 1; $month <= 12; $month += $months-per-row ) {
                 while @month-strs[$month] {
-                        for ^$months-per-col {
+                        for ^$months-per-row {
                                 next unless @month-strs[$month+$_];
                                 $str ~= @month-strs[$month+$_].shift;
                                 $str ~= " " x 3;
@@ -33,6 +33,7 @@ sub fmt-year ($year) {
         }
         return $str;
 }
+
 sub fmt-month ($year, $month) {
         my $str = sprintf "%-20s\n", @month-names[$month-1];
         $str ~= @week-day-names~"\n";
