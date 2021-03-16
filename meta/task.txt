@@ -1,19 +1,19 @@
-Welcome to Rakudo(tm) v2021.02.1-60-g21e5be64e.
+Welcome to Rakudo(tm) v2021.02.1-62-gd525dbe33.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-17-g9f0579d2a.
 updating from RC…
-+--------------> Moar: Good/Bad [1274/27]
-|+-------------> JVM: Good/Bad [1111/227]
-||+------------> Smoke testing [1189]
++--------------> Moar: Good/Bad [1277/27]
+|+-------------> JVM: Good/Bad [1112/227]
+||+------------> Smoke testing [1190]
 |||+-----------> sKipping validation [138]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [351]
+|||||+---------> Touched (modified by me) [352]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [133]
 ||||||||+------> File output [98]
 |||||||||+-----> Draft [237]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [82]
+|||||||||||+---> Void (no local copy) [83]
 ||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
@@ -105,7 +105,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-!GS..T.R..... Average_loop_length
+GGS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -442,6 +442,7 @@ GGS......D... Find_if_a_point_is_within_a_triangle
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
+.........D.V. Find_prime_numbers_of_the_form_n*n*n%2B2
 GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
@@ -487,6 +488,7 @@ GGS..T....... Function_frequency
 GGS..T....... Functional_coverage_tree-1
 GG.K.T....... Functional_coverage_tree-2
 GGS..T....... Fusc_sequence
+GGS..T....... Fusc_sequence-2
 GB.KI........ GUI_Maximum_window_dimensions
 GB.KI........ GUI_component_interaction
 GB.KI........ GUI_enabling_disabling_of_controls
@@ -864,7 +866,7 @@ GGS.......... Ordered_words
 BB........... P-Adic_numbers,_basic
 ...........VU P-Adic_square_roots
 GGS..T....... P-value_correction
-.........D.VU Padovan_n-step_number_sequences
+...........VU Padovan_n-step_number_sequences
 GGS.......... Padovan_sequence
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
@@ -1048,7 +1050,7 @@ GGS..T....... Reverse_a_string
 GGS......D... Reverse_the_gender_of_a_string
 GGS.......... Reverse_words_in_a_string
 GB.KI....D... Robots
-!GS..T.R..... Rock-paper-scissors
+GGS..T.R..... Rock-paper-scissors
 GGS.......... Roman_numerals_Decode
 GGS.......... Roman_numerals_Encode
 GGS.......... Roots_of_a_function
