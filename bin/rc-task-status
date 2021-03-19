@@ -158,6 +158,8 @@ my($l) = @_;
     $p =~ s/%C3%B6/oe/;                         # e.g. Möbius_function
     $p =~ s/A\*/A_star/;                        # e.g. A*_search_algorithm
     $p =~ s/0-1/0_1/;                           # Knapsack_problem_0-1, now in two versions: *_0_1-1, *_0_1-2
+    $p =~ s/n\*n\*n/n_n_/;                      # Find_prime_numbers_of_the_form_n_n_n%2B2
+    $p =~ s/Erdős/Erdos/;                       # Erdős-primes
 #    $p =~ s/Yahoo./Yahoo_/;                     # getting rid of the '!'
     return pfix($p);
 }
