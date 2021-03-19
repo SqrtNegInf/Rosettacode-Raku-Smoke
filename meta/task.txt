@@ -3,17 +3,17 @@ Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-17-g9f0579d2a.
 updating from RC…
 +--------------> Moar: Good/Bad [1277/27]
-|+-------------> JVM: Good/Bad [1112/227]
-||+------------> Smoke testing [1190]
+|+-------------> JVM: Good/Bad [1114/227]
+||+------------> Smoke testing [1192]
 |||+-----------> sKipping validation [138]
-||||+----------> Interactive [66]
+||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [352]
 ||||||+--------> Concurrent/Async [68]
 |||||||+-------> Random seed [133]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [237]
+|||||||||+-----> Draft [238]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [84]
+|||||||||||+---> Void (no local copy) [83]
 ||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
@@ -278,6 +278,7 @@ GGS.......... Count_in_octal
 GGS.......... Count_occurrences_of_a_substring
 GGS..T....... Count_the_coins
 .........D.V. Count_the_coins_0_1
+GGS......D... Cousin_primes
 GGS.......... Cramer%27s_rule
 ..........X.. Create_DWM_statusbar
 GGS.......... Create_a_file
@@ -322,7 +323,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -1044,7 +1045,7 @@ GGS......D... Resistance_calculator
 GGS......D... Resistance_network_calculator
 GGS..T....... Resistor_mesh
 GGS..T....... Respond_to_an_unknown_method_call
-GG.KI........ Retrieve_and_search_chat_history
+GG.K......... Retrieve_and_search_chat_history
 GGS.......... Return_multiple_values
 GGS..T....... Reverse_a_string
 GGS......D... Reverse_the_gender_of_a_string
@@ -1061,7 +1062,7 @@ GGS.......... Rosetta_Code_Find_bare_lang_tags
 GBS..T....... Rosetta_Code_Find_unimplemented_tasks
 GGS.......... Rosetta_Code_Fix_code_tags
 GB.K.T...D... Rosetta_Code_List_authors_of_task_descriptions
-GBS......D... Rosetta_Code_Rank_languages_by_number_of_users
+!BS......D... Rosetta_Code_Rank_languages_by_number_of_users
 GBS.......... Rosetta_Code_Rank_languages_by_popularity-1
 GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
@@ -1194,7 +1195,7 @@ GGS..T....... Sorting_algorithms_Strand_sort
 GGS.......... Soundex
 GGS.......... Sparkline_in_unicode
 GG.K......... Special_characters
-.........D.V. Special_factorials
+GGS......D... Special_factorials
 GG.K.T....... Special_variables
 GG.K......... Speech_synthesis
 BB......F.... Spelling_of_ordinal_numbers
