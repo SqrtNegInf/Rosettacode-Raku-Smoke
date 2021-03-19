@@ -6,10 +6,6 @@
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-# Works with: Rakudo version 2017.11
-# Use the mediawiki API rather than web scraping since it is much faster and less resource intensive. Show languages with more than 25 users since that is still a pretty short list and to demonstrate how tied rankings are handled. Change the $minimum parameter to adjust what the cut-off point will be.
-# This is all done in a single pass; ties are not detected until a language has the same count as a previous one, so ties are marked by a T next to the count indicating that this language has the same count as the previous.
-
 use HTTP::UserAgent;
 use URI::Escape;
 use JSON::Fast;
@@ -70,56 +66,6 @@ sub uri-query-string (*%fields) {
     join '&', %fields.map: { "{.key}={uri-escape .value}" }
 }
 
-#`{{
-========= Generated: 2018-05-19T12:08:51Z =========
-#  1  Rank:  1    with 378  users:  C
-#  2  Rank:  2    with 267  users:  Java
-#  3  Rank:  3    with 265  users:  C++
-#  4  Rank:  4    with 251  users:  Python
-#  5  Rank:  5    with 233  users:  JavaScript
-#  6  Rank:  6    with 165  users:  PHP
-#  7  Rank:  6 T  with 165  users:  Perl
-#  8  Rank:  8    with 133  users:  SQL
-#  9  Rank:  9    with 124  users:  UNIX Shell
-# 10  Rank: 10    with 118  users:  BASIC
-# 11  Rank: 11    with 116  users:  C sharp
-# 12  Rank: 12    with 112  users:  Pascal
-# 13  Rank: 13    with 99   users:  Haskell
-# 14  Rank: 14    with 92   users:  Ruby
-# 15  Rank: 15    with 73   users:  Fortran
-# 16  Rank: 16    with 67   users:  Visual Basic
-# 17  Rank: 17    with 62   users:  Prolog
-# 18  Rank: 18    with 61   users:  Scheme
-# 19  Rank: 19    with 58   users:  Common Lisp
-# 20  Rank: 20    with 55   users:  Lua
-# 21  Rank: 21    with 53   users:  AWK
-# 22  Rank: 22    with 52   users:  HTML
-# 23  Rank: 23    with 46   users:  Assembly
-# 24  Rank: 24    with 44   users:  Batch File
-# 25  Rank: 25    with 42   users:  Bash
-# 26  Rank: 25 T  with 42   users:  X86 Assembly
-# 27  Rank: 27    with 40   users:  Erlang
-# 28  Rank: 28    with 38   users:  Forth
-# 29  Rank: 29    with 37   users:  MATLAB
-# 30  Rank: 30    with 36   users:  Lisp
-# 31  Rank: 31    with 35   users:  J
-# 32  Rank: 31 T  with 35   users:  Visual Basic .NET
-# 33  Rank: 33    with 34   users:  Delphi
-# 34  Rank: 34    with 33   users:  Ada
-# 35  Rank: 34 T  with 33   users:  Brainf***
-# 36  Rank: 34 T  with 33   users:  Objective-C
-# 37  Rank: 34 T  with 33   users:  Tcl
-# 38  Rank: 38    with 32   users:  APL
-# 39  Rank: 38 T  with 32   users:  R
-# 40  Rank: 40    with 31   users:  COBOL
-# 41  Rank: 41    with 30   users:  Go
-# 42  Rank: 42    with 28   users:  Perl 6
-# 43  Rank: 43    with 27   users:  Clojure
-# 44  Rank: 43 T  with 27   users:  Mathematica
-# 45  Rank: 45    with 25   users:  AutoHotkey
-========= elapsed: 1.41 seconds =========
-}}
-
 use Test;
 @res.join("\n") ~~ m/'with ' (\d+) \s+ 'users:  Perl 6'/;
-ok 27 ≤ +$0;  # this value may go up or down...
+ok 26 ≤ +$0;  # this value may go up or down... [down, since I moved my listing to 'Raku']
