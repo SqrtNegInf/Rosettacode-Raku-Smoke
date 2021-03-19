@@ -1,0 +1,846 @@
+m 2021-03-16T23:02:31Z ijchain {<user____1> FAKE ENTRY 1 is xcircuit by Tim Edwards. It is a custom wish shell running xcircuit.tcl}
+m 2021-03-16T23:03:24Z {} {jima has left}
+m 2021-03-16T23:03:32Z ijchain {*** tech_exorcist leaves}
+m 2021-03-16T23:08:45Z ijchain {*** puremourning joins}
+m 2021-03-16T23:13:56Z suchenwi {/me zzz}
+m 2021-03-16T23:16:26Z ijchain {*** puremourning leaves}
+m 2021-03-16T23:27:29Z {} {suchenwi has left}
+m 2021-03-16T23:31:25Z ijchain {*** TCZ joins}
+m 2021-03-16T23:57:58Z ijchain {*** ischain leaves}
+m 2021-03-17T00:02:15Z ijchain {*** TCZ leaves}
+m 2021-03-17T00:04:26Z {} {stevel has left}
+m 2021-03-17T00:12:31Z ijchain {<user____1> FAKE ENTRY 2 is xcircuit by Tim Edwards. It is a custom wish shell running xcircuit.tcl}
+m 2021-03-17T00:16:15Z ijchain {*** SomeHacker leaves}
+m 2021-03-17T00:19:34Z ijchain {*** SomeHacker joins}
+m 2021-03-17T00:28:03Z ijchain {*** ischain leaves}
+m 2021-03-17T00:28:32Z {} {stevel has become available}
+m 2021-03-17T00:40:20Z {} {emiliano has left}
+m 2021-03-17T00:43:17Z ijchain {*** TCZ joins}
+m 2021-03-17T00:49:44Z ijchain {*** TCZ leaves}
+m 2021-03-17T00:50:13Z ijchain {*** TCZ joins}
+m 2021-03-17T00:53:00Z ijchain {*** cousteau joins}
+m 2021-03-17T00:53:08Z {} {kevin_walzer has become available}
+m 2021-03-17T00:55:38Z ijchain {<cousteau> How fast is sqlite3 for queries compared to dict?  I noticed that dict is about O(1) for looking up entries based on a string (it doesn't have to compare the keys one by one), whereas an unordered lookup table would be O(n)}
+m 2021-03-17T00:56:11Z ijchain {<cousteau> (and an ordered lookup table or a binary tree would be O(log n))}
+m 2021-03-17T00:56:20Z stevel {try it and see, but I find SQLite sufficiently good that I only use dicts for reading JSON}
+m 2021-03-17T00:56:49Z stevel {and I probably should use SQLite there too, now that it has JSON support}
+m 2021-03-17T00:56:56Z ijchain {<cousteau> OK then... Where can I look up info on implementation details?}
+m 2021-03-17T00:57:22Z stevel {it's open source, you should be able to find it with a little effort}
+m 2021-03-17T00:57:35Z ijchain {<cousteau> I'm curious about what it uses to look up elements}
+m 2021-03-17T00:57:52Z ijchain {<cousteau> Yeah I meant without diving into the code}
+m 2021-03-17T00:58:20Z stevel {I suggest you exert some energy yourself}
+m 2021-03-17T00:58:22Z ijchain {<cousteau> Like, some documentation explaining the technology}
+m 2021-03-17T00:58:29Z ijchain {*** morganw leaves}
+m 2021-03-17T00:58:37Z ijchain {<cousteau> Damn, but I'm already put of energy}
+m 2021-03-17T00:59:55Z ijchain {<cousteau> The thing about source code is that I won't understand what's going on and won't have a picture of how things are being done.  Unless it's a super awesomely written code that is ridiculously self-explanatory}
+m 2021-03-17T01:00:27Z stevel {you won't learn if you won't try}
+m 2021-03-17T01:00:35Z ijchain {<oldlaptop> cousteau: sqlite.org has *lots* of information on implementation details}
+m 2021-03-17T01:00:45Z ijchain {<cousteau> Maybe I'll try googling a bit before I jump into trying to understand the code}
+m 2021-03-17T01:01:03Z ijchain {<cousteau> oldlaptop: thanks!  I'll start from there}
+m 2021-03-17T01:01:06Z stevel {he could have found that himself with a simple web query}
+m 2021-03-17T01:01:08Z ijchain {<oldlaptop> https://www.sqlite.org/docs.html the whole "technical and design documentation" section is a treasure trove of that stuff}
+m 2021-03-17T01:02:28Z ijchain {<oldlaptop> stevel: I had sort of blindly assumed it's likely to get buried under, um, less helpful things}
+m 2021-03-17T01:03:49Z ijchain {<oldlaptop> now that I look it's not that bad, at least on duckduckgo the crummy 'tutorials' and stuff don't drown it out too badly}
+m 2021-03-17T01:04:01Z stevel {in which case I'd have been glad to help, but it appears s/he didn't want to try}
+m 2021-03-17T01:05:46Z stevel {re DDG, and Gargoyle gives even better results}
+m 2021-03-17T01:10:55Z ijchain {<oldlaptop> I'm honestly surprised, I figured random ad-milking w3schoolreferencewhatever things would probably swamp the actual documentation}
+m 2021-03-17T01:11:41Z ijchain {<cousteau> Stevel: it wasn't sheer laziness, I promise.  It's just that I assumed the source code would be a huge thing and would be hard to decipher.  It could be showing me a hash table and I wouldn't know it.}
+m 2021-03-17T01:12:12Z stevel {I didn't say it was laziness, I suspected a lack of confidence}
+m 2021-03-17T01:12:49Z stevel {but, for your own sake, you should leat least try. That's what I tell myself when facing a Perl program :/}
+m 2021-03-17T01:15:11Z ijchain {<cousteau> ...yeah it's like 120 C files.  Will give it a try though, but I don't think I'd even know where to start}
+m 2021-03-17T01:17:20Z ijchain {<oldlaptop> the website should give you some ideas on that front}
+m 2021-03-17T01:17:32Z ijchain {<cousteau> It does have a hash.c file, so I suspect hash tables are indeed being used}
+m 2021-03-17T01:22:00Z ijchain {<cousteau> Anyway, I'll go for the documentation, since I was looking for a sort of high level answer.  (But hey, at least the source code is nicely commented; that has some merit)}
+m 2021-03-17T01:22:16Z ijchain {*** TCZ leaves}
+m 2021-03-17T01:22:54Z {} {kevin_walzer has left}
+m 2021-03-17T01:26:24Z {} {aku has left}
+m 2021-03-17T01:26:24Z {} {aku has become available}
+m 2021-03-17T01:27:23Z ijchain {*** karakedi leaves}
+m 2021-03-17T01:29:34Z ijchain {*** spyda joins}
+m 2021-03-17T01:34:27Z ijchain {<cousteau> Oh nice, the FAQ mentions the export control classification!  Back in the day figuring out that sort of thing would be a huge headache most of the time.}
+m 2021-03-17T01:35:01Z stevel {If it were me I'd first define the question - you might find the answer without having to read code}
+m 2021-03-17T01:35:16Z ijchain {<cousteau> (Then again, it often went like "if it's public domain it's not export controlled, so just use the EAR99 one")}
+m 2021-03-17T01:36:30Z ijchain {<cousteau> Stevel: it would be "how are entries looked up?  Does it use some sort of multi-entry hash table?"}
+m 2021-03-17T01:38:48Z ijchain {<cousteau> All this comes from a program I had to deal with, which used matrix-like tables to store the info, and which had a disastrous performance if the database grew too big.  I was trying to ensure that this wouldn't be the case for sqlite3}
+m 2021-03-17T01:39:24Z {} {kevin_walzer has become available}
+m 2021-03-17T01:40:07Z ijchain {<oldlaptop> I know on-disk it's various forms of B-tree (the docs have TAOCP references for the exact algorithms)}
+m 2021-03-17T01:40:23Z ijchain {<cousteau> ...well, pretty much the question was the "is it O(1)?" one.  The method being used would indirectly answer that question}
+m 2021-03-17T01:40:59Z ijchain {<cousteau> I really should read TAOCP.  Is it finished yet?}
+m 2021-03-17T01:41:04Z ijchain {<oldlaptop> no :P}
+m 2021-03-17T01:41:13Z ijchain {<cousteau> Dammit}
+m 2021-03-17T01:41:47Z ijchain {<cousteau> I'll have to continue programming computers non-artistically}
+m 2021-03-17T01:57:07Z {} {kevin_walzer has left}
+m 2021-03-17T01:57:51Z ijchain {<cousteau> I think I'll just do some tests and try the timing.  Good night everyone!}
+m 2021-03-17T02:01:21Z {} {dburns has left}
+m 2021-03-17T02:01:24Z {} {kevin_walzer has become available}
+m 2021-03-17T02:02:30Z ijchain {*** iv4nshm4k0v joins}
+m 2021-03-17T02:04:24Z ijchain {*** spyda leaves}
+m 2021-03-17T02:10:40Z {} {kevin_walzer has left}
+m 2021-03-17T02:15:15Z {} {kevin_walzer has become available}
+m 2021-03-17T02:28:40Z ijchain {*** cousteau_ joins}
+m 2021-03-17T02:28:41Z ijchain {*** cousteau leaves}
+m 2021-03-17T02:46:08Z ijchain {*** ischain leaves}
+m 2021-03-17T02:58:46Z ijchain {*** cousteau joins}
+m 2021-03-17T02:58:47Z ijchain {*** cousteau_ leaves}
+m 2021-03-17T02:59:09Z ijchain {*** cousteau is now known as Guest30170}
+m 2021-03-17T03:13:41Z ijchain {*** puremourning joins}
+m 2021-03-17T03:14:24Z {} {kevin_walzer has left}
+m 2021-03-17T03:16:14Z ijchain {*** ischain leaves}
+m 2021-03-17T03:18:15Z ijchain {*** puremourning leaves}
+m 2021-03-17T03:19:54Z ijchain {*** xharx_ joins}
+m 2021-03-17T03:22:25Z ijchain {*** xharx leaves}
+m 2021-03-17T03:22:26Z {} {kevin_walzer has become available}
+m 2021-03-17T03:30:26Z ijchain {*** Guest30170 leaves}
+m 2021-03-17T03:46:18Z ijchain {*** ischain leaves}
+m 2021-03-17T03:46:24Z {} {kevin_walzer has left}
+m 2021-03-17T04:00:12Z {} {dburns has become available}
+m 2021-03-17T04:09:59Z {} {dburns has left}
+m 2021-03-17T04:16:23Z ijchain {*** ischain leaves}
+m 2021-03-17T04:36:17Z ijchain {*** iv4nshm4k0v leaves}
+m 2021-03-17T04:46:28Z ijchain {*** ischain leaves}
+m 2021-03-17T04:47:20Z ijchain {*** iv4nshm4k0v joins}
+m 2021-03-17T04:52:59Z ijchain {*** waveriders joins}
+m 2021-03-17T04:57:00Z ijchain {*** tjm leaves}
+m 2021-03-17T04:58:38Z ijchain {*** waveriders leaves}
+m 2021-03-17T04:58:52Z ijchain {*** tjm joins}
+m 2021-03-17T05:14:29Z ijchain {*** puremourning joins}
+m 2021-03-17T05:16:33Z ijchain {*** ischain leaves}
+m 2021-03-17T05:19:17Z ijchain {*** puremourning leaves}
+m 2021-03-17T05:21:47Z {} {kevin_walzer has become available}
+m 2021-03-17T05:23:45Z ijchain {*** DeusIX joins}
+m 2021-03-17T05:32:50Z ijchain {*** anticrisis leaves}
+m 2021-03-17T05:34:36Z ijchain {*** anticrisis joins}
+m 2021-03-17T05:40:33Z {} {kevin_walzer has left}
+m 2021-03-17T05:46:38Z ijchain {*** ischain leaves}
+m 2021-03-17T05:52:37Z {} {kevin_walzer has become available}
+m 2021-03-17T06:02:01Z ijchain {*** epony leaves}
+m 2021-03-17T06:16:43Z ijchain {*** ischain leaves}
+m 2021-03-17T06:17:42Z {} {kevin_walzer has left}
+m 2021-03-17T06:23:29Z {} {kevin_walzer has become available}
+m 2021-03-17T06:46:48Z ijchain {*** ischain leaves}
+m 2021-03-17T06:48:12Z ijchain {*** karakedi joins}
+m 2021-03-17T07:00:10Z ijchain {*** shawnw joins}
+m 2021-03-17T07:07:52Z ijchain {*** GreaseMonkey leaves}
+m 2021-03-17T07:09:29Z ijchain {*** greaser|q joins}
+m 2021-03-17T07:10:33Z ijchain {*** greaser|q leaves}
+m 2021-03-17T07:10:33Z ijchain {*** greaser|q joins}
+m 2021-03-17T07:10:56Z {} {suchenwi has become available}
+m 2021-03-17T07:11:06Z ijchain {*** greaser|q is now known as GreaseMonkey}
+m 2021-03-17T07:15:20Z ijchain {*** puremourning joins}
+m 2021-03-17T07:17:15Z {} {kevin_walzer has left}
+m 2021-03-17T07:17:29Z ijchain {*** ischain leaves}
+m 2021-03-17T07:19:54Z ijchain {*** puremourning leaves}
+m 2021-03-17T07:25:06Z {} {kevin_walzer has become available}
+m 2021-03-17T07:39:56Z ijchain {*** gg leaves}
+m 2021-03-17T07:43:22Z ijchain {*** gahr leaves}
+m 2021-03-17T07:43:55Z ijchain {*** absc joins}
+m 2021-03-17T07:44:21Z ijchain {*** Jinx leaves}
+m 2021-03-17T07:45:51Z ijchain {*** gahr joins}
+m 2021-03-17T07:47:34Z ijchain {*** ischain leaves}
+m 2021-03-17T07:55:35Z {} {kevin_walzer has left}
+m 2021-03-17T07:55:54Z {} {kevin_walzer has become available}
+m 2021-03-17T08:08:56Z ijchain {*** MIF leaves}
+m 2021-03-17T08:14:35Z {} {kevin_walzer has left}
+m 2021-03-17T08:16:21Z aku {good morning}
+m 2021-03-17T08:16:36Z suchenwi {/me waves}
+m 2021-03-17T08:16:50Z ijchain {«aku» waves back}
+m 2021-03-17T08:17:02Z ijchain {*** MIF joins}
+m 2021-03-17T08:17:05Z ijchain {*** xharx_ leaves}
+m 2021-03-17T08:17:26Z ijchain {*** MIF is now known as Guest87476}
+m 2021-03-17T08:17:57Z ijchain {*** xharx_ joins}
+m 2021-03-17T08:18:35Z ijchain {*** xharx_ leaves}
+m 2021-03-17T08:26:00Z ijchain {*** anticrisis leaves}
+m 2021-03-17T08:26:43Z {} {kevin_walzer has become available}
+m 2021-03-17T08:27:55Z ijchain {*** luser978 leaves}
+m 2021-03-17T08:28:05Z ijchain {*** luser977 joins}
+m 2021-03-17T08:45:01Z {} {kevin_walzer has left}
+m 2021-03-17T08:50:04Z ijchain {*** puremourning joins}
+m 2021-03-17T08:57:33Z {} {kevin_walzer has become available}
+m 2021-03-17T09:16:43Z ijchain {*** xharx joins}
+m 2021-03-17T09:18:28Z stevel {/me waves}
+m 2021-03-17T09:20:59Z {} {de has left}
+m 2021-03-17T09:21:00Z {} {de has become available}
+m 2021-03-17T09:33:39Z {} {kevin_walzer has left}
+m 2021-03-17T09:49:08Z {} {stevel has left}
+m 2021-03-17T09:55:26Z ijchain {*** absc leaves}
+m 2021-03-17T09:57:57Z ijchain {*** karakedi leaves}
+m 2021-03-17T09:59:00Z {} {kevin_walzer has become available}
+m 2021-03-17T10:01:29Z ijchain {*** absc joins}
+m 2021-03-17T10:09:12Z ijchain {*** gg- joins}
+m 2021-03-17T10:18:20Z {} {kevin_walzer has left}
+m 2021-03-17T10:20:03Z ijchain {*** karakedi joins}
+m 2021-03-17T10:22:35Z ijchain {*** spyda joins}
+m 2021-03-17T10:23:35Z ijchain {*** sebres joins}
+m 2021-03-17T10:48:39Z ijchain {*** ischain leaves}
+m 2021-03-17T11:08:17Z ijchain {*** rjhobart leaves}
+m 2021-03-17T11:16:40Z {} {emiliano has become available}
+m 2021-03-17T11:18:44Z ijchain {*** ischain leaves}
+m 2021-03-17T11:21:53Z ijchain {«aku» And my boxes from vancouver have arrived ... Unpacking over the next week ...}
+m 2021-03-17T11:49:49Z ijchain {*** ischain leaves}
+m 2021-03-17T11:52:58Z {} {stu has become available}
+m 2021-03-17T12:01:07Z ijchain {*** rjhobart joins}
+m 2021-03-17T12:08:34Z stu {It's weird to me to see such obsession with speed in a scripting language.}
+m 2021-03-17T12:09:08Z stu {I'd guess a dict is faster than sqlite but ... like are you processing telescope data or something?}
+m 2021-03-17T12:12:59Z kbk {/me mumbles something else about Ousterhout's Dichotomy}
+m 2021-03-17T12:17:00Z ijchain {*** tech_exorcist joins}
+m 2021-03-17T12:18:07Z suchenwi {re programming vs. scripting languages?}
+m 2021-03-17T12:21:08Z ijchain {*** spyda leaves}
+m 2021-03-17T12:29:55Z {} {kevin_walzer has become available}
+m 2021-03-17T12:34:14Z ijchain {*** Zelouille joins}
+m 2021-03-17T12:34:34Z ijchain {*** Zarutian_HTC leaves}
+m 2021-03-17T12:35:42Z steveb {Would thed codebreakers at Bletchley Park have thought that assembly language was proper programming.  I do remember doubts being cast on the propriety of Fortran IV by grizzled assembler veterans.  And as for javascript... :headbang:}
+m 2021-03-17T12:38:47Z ijchain {*** Thedarkb joins}
+m 2021-03-17T12:38:49Z ijchain {<sebres> as for performance of dict vs. sqlite (memory) table: it depends... his original question was something about dual lookup (I guess meaning some join), so then an index+index in sqlite may be faster than pure tclish join (let alone some fullscan); but I'm agree the Q is a bit strange, since the purposes and capabilities of DB (table) and dicts of tcl are surely different.}
+m 2021-03-17T12:44:08Z emiliano {https://preview.redd.it/a0033509llm61.jpg?width=960&crop=smart&auto=webp&s=bcf82461abf9d016a71c67d1a15cbd985b8af2fa
+I have been feeling like this lately}
+m 2021-03-17T12:45:04Z ijchain {<sebres> there are also many other tcl modules which could probably show better performance (for simplest join) e. g. redis or even some memory resident DBs (like flightaware speedtables), the only question is if tomorrow one would need something more complex than such simplest join...}
+m 2021-03-17T12:45:11Z ijchain {<sebres> ...  mostly it ends with "let us stop with development of own database engine and migrate to some SQL/NOSQL/whatever"}
+m 2021-03-17T12:51:13Z {} {kevin_walzer has left}
+m 2021-03-17T12:52:11Z ijchain {*** epony joins}
+m 2021-03-17T12:53:49Z ijchain {*** iv4nshm4k0v leaves}
+m 2021-03-17T12:55:12Z ijchain {*** iv4nshm4k0v joins}
+m 2021-03-17T13:09:09Z {} {kevin_walzer has become available}
+m 2021-03-17T13:24:35Z stu {Meh. You can do all your db stuff on unix with text files and command-line progs.}
+m 2021-03-17T13:24:43Z ijchain {*** Jinx joins}
+m 2021-03-17T13:27:43Z emiliano {GNU recutils comes to mind}
+m 2021-03-17T13:27:46Z ijchain {<iv4nshm4k0v> Depends on the required performance, I'd say.  Text files and sh, grep, sed, awk, and occasional perl have so far worked great for me... in the cases when I need to process millions of values per day.  And order of magnitude or two, and I'd be thinking PostgreSQL or Sqlite instead.}
+m 2021-03-17T13:30:55Z ijchain {<iv4nshm4k0v> (Desired latency limit is to be considered as well; it's one thing to process millions records per day /and/ processing the same gross amount /as well/ as needing to get the result within a few seconds.)}
+m 2021-03-17T13:31:50Z suchenwi {My favorite "database" at home is CSV format, created by a Tcl script from PDF files, searchable with grep, or awk in more complex cases.}
+m 2021-03-17T13:33:37Z ijchain {<iv4nshm4k0v> (M-m.  Just checked: the DB I frequently access is over 2 M values, around 320 MiB worth... of plain text files.  RE searches over that with Awk take seconds.)}
+m 2021-03-17T13:37:10Z ijchain {*** shawnw leaves}
+m 2021-03-17T13:46:57Z {} {stu has left}
+m 2021-03-17T13:49:20Z ijchain {«aku» Heh. For managing my boxes in the move my data was modified TSV, and Tcl scripts converted that to CSV, and markdown. PDF from the latter via `pandoc`.}
+m 2021-03-17T14:02:07Z ijchain {<mjanssen> one big advantage of using something like sqlite is that the solution is then platform independend. This is a big plus if you are regularly mixing OS-es}
+m 2021-03-17T14:03:02Z ijchain {<mjanssen> but plain text with Tcl modules also works well in that case}
+m 2021-03-17T14:09:24Z {} {stu has become available}
+m 2021-03-17T14:14:23Z ijchain {*** kyak_ leaves}
+m 2021-03-17T14:14:58Z ijchain {*** kyak joins}
+m 2021-03-17T14:17:55Z {} {kevin_walzer has left}
+m 2021-03-17T14:22:02Z {} {kevin_walzer has become available}
+m 2021-03-17T14:27:55Z ijchain {*** Zarutian_HTC joins}
+m 2021-03-17T14:27:58Z ijchain {*** TCZ joins}
+m 2021-03-17T14:36:50Z ijchain {*** mezen joins}
+m 2021-03-17T14:37:23Z ijchain {<sebres> I'll try to explain on simplest example:}
+m 2021-03-17T14:37:23Z ijchain <sebres>\ \ \ %\ sqlite3\ db\ :memory:\;\ db\ eval\ \{create\ table\ d(k\ int\ primary\ key,\ v\ double)\}\;\ \\
+m 2021-03-17T14:37:23Z ijchain {<sebres>     set c 1000000; set i 0; while {[incr i] <= $c} { set v [expr {rand()*$c}]; db eval {insert into d values (:i, :v)}; dict set d $i $v }}
+m 2021-03-17T14:37:23Z ijchain {<sebres>   % set i 0; timerate { incr i; db onecolumn {select v from d where k = :i}; } 1000 $c}
+m 2021-03-17T14:37:23Z ijchain {<sebres>   1.918994 µs/# 521107 # 521106 #/sec 1000.001 net-ms}
+m 2021-03-17T14:37:25Z ijchain {<sebres>   % set i 0; timerate { incr i; dict get $d $i } 1000 $c}
+m 2021-03-17T14:37:27Z ijchain {<sebres>   0.358234 µs/# 1000000 # 2791471 #/sec 358.234 net-ms}
+m 2021-03-17T14:37:29Z ijchain {<sebres> but... then we may need something like that:}
+m 2021-03-17T14:37:31Z ijchain {<sebres>   % set i 0; set j 100; timerate { incr i; incr j; db onecolumn {select avg(v) from d where k >= :i and k < :j}; } 1000}
+m 2021-03-17T14:37:34Z ijchain {<sebres>   13.0503 µs/# 76627 # 76626.5 #/sec 1000.006 net-ms}
+m 2021-03-17T14:37:36Z ijchain {<sebres> I'll even not try to implement this in tcl (with dicts), it will be anyway slower than 13µs (100 * 0.36 + expr & cycle overhead, etc)}
+m 2021-03-17T14:40:12Z ijchain {*** mezen leaves}
+m 2021-03-17T14:44:00Z {} {kevin_walzer has left}
+m 2021-03-17T14:44:52Z {} {kevin_walzer has become available}
+m 2021-03-17T14:52:31Z ijchain {*** Thedarkb leaves}
+m 2021-03-17T14:53:25Z ijchain {«Markem» Is this the idiomatic way to get the namespace of the calling proc? -- `set parent_ns [uplevel {namespace current}]`}
+m 2021-03-17T14:55:47Z ijchain {*** absc leaves}
+m 2021-03-17T14:58:47Z ijchain {<sebres> no, this is the current namespace of upper frame (scope), whatever it is (it can be for example a script of "namespace eval ..." etc and not the proc):}
+m 2021-03-17T14:58:55Z ijchain {<sebres> % namespace eval a {namespace eval b {uplevel {namespace current}}} --> ::a}
+m 2021-03-17T15:01:26Z ijchain {*** absc joins}
+m 2021-03-17T15:03:37Z {} {dburns has become available}
+m 2021-03-17T15:07:11Z ijchain {«Markem» Right thanks. Possibly the word 'proc' was erroneous (apologies). Scope is what I need. i.e. what was the namespace at the time the current proc was called from}
+m 2021-03-17T15:08:35Z ijchain {*** Bradipo joins}
+m 2021-03-17T15:09:38Z {} {kevin_walzer has left}
+m 2021-03-17T15:17:15Z ijchain {*** Guest87476 leaves}
+m 2021-03-17T15:24:29Z ijchain {*** MIF joins}
+m 2021-03-17T15:31:17Z ijchain {*** Buster joins}
+m 2021-03-17T15:39:55Z ijchain {*** ischain leaves}
+m 2021-03-17T15:45:09Z ijchain {*** Zarutian_HTC leaves}
+m 2021-03-17T15:45:22Z ijchain {*** Zarutian_HTC joins}
+m 2021-03-17T15:59:23Z ijchain {«dkf» I use that sort of thing quite a lot in the implementation of TclOO}
+m 2021-03-17T15:59:27Z emiliano {Interesting blog post: https://leancrew.com/all-this/2011/12/more-shell-less-egg/ , which leads me to a rosettacode task without Tcl implementation: https://rosettacode.org/wiki/Word_frequency}
+m 2021-03-17T16:00:54Z ijchain {<yukonbob> hello #tcl}
+m 2021-03-17T16:07:27Z ijchain {«apn» @emiliano, thanks for that very interesting post, more so from the historical/personalities aspect.}
+m 2021-03-17T16:10:02Z emiliano yw
+m 2021-03-17T16:15:11Z ijchain {*** TCZ leaves}
+m 2021-03-17T16:16:11Z ijchain {*** q3cpma joins}
+m 2021-03-17T16:16:23Z ijchain {<q3cpma> Hello, does anyone know how to get an account to edit the wiki?}
+m 2021-03-17T16:18:40Z {} {emiliano has left}
+m 2021-03-17T16:19:13Z {} {kevin_walzer has become available}
+m 2021-03-17T16:21:12Z ijchain {*** Zarutian_HTC leaves}
+m 2021-03-17T16:25:29Z {} {stu has left}
+m 2021-03-17T16:30:07Z ijchain {*** rjhobart leaves}
+m 2021-03-17T16:33:45Z {} {stu has become available}
+m 2021-03-17T16:34:18Z ijchain {<q3cpma> Anyone? I never got a mail for any wiki account demand, is this expect?}
+m 2021-03-17T16:37:06Z {} {kevin_walzer has left}
+m 2021-03-17T16:39:53Z ijchain {<rkeene> I'm not sure it's possible to edit the wiki}
+m 2021-03-17T16:40:16Z ijchain {<q3cpma> Hmmmm? You can at least append to pages/create pages, no?}
+m 2021-03-17T16:41:40Z ijchain {*** Zarutian_HTC joins}
+m 2021-03-17T16:44:26Z ijchain {<q3cpma> Well, I guess I'll give up trying to put thing in the wiki. Anyway, here's another question: what is the idiomatic way of having a FIFO-like lists between threads? Certainly don't want to use pipes and have to serialize to/from strings}
+m 2021-03-17T16:47:30Z ijchain {<rkeene> You can use thread::send to lappend stuff into a queue, then lpop to pull things off}
+m 2021-03-17T16:47:48Z ijchain {<q3cpma> Aren't there synchronisation concerns?}
+m 2021-03-17T16:48:36Z ijchain {<rkeene> Like what ?}
+m 2021-03-17T16:49:04Z ijchain {<q3cpma> I mean, atomicity of operations. Can't the lappend/lpop happen at the same time?}
+m 2021-03-17T16:49:08Z ijchain {<rkeene> No}
+m 2021-03-17T16:49:36Z ijchain {<rkeene> Tcl interpreters can only run one thing at a time, there's no concurrency within an interp}
+m 2021-03-17T16:49:40Z ijchain {<q3cpma> Oh, it's scheduled via the event loop}
+m 2021-03-17T16:49:43Z ijchain {<q3cpma> Didn't see that}
+m 2021-03-17T16:49:45Z ijchain {<rkeene> So things will be strictly ordered}
+m 2021-03-17T16:49:58Z ijchain {<q3cpma> I see, thanks}
+m 2021-03-17T16:50:28Z ijchain {<rkeene> (Maybe "strictly" is too strong there)}
+m 2021-03-17T16:50:32Z ijchain {<q3cpma> Guess I'll think about writing my own pipethread with lists, then}
+m 2021-03-17T16:50:55Z ijchain {<rkeene> Yeah, with Tcl there's much less issues with concurrency when using threads because of the apartment model}
+m 2021-03-17T16:51:01Z ijchain {<q3cpma> Never interleaved, at least}
+m 2021-03-17T16:51:24Z ijchain {<q3cpma> That's certainly something I like about it}
+m 2021-03-17T16:51:41Z ijchain {<rkeene> The thing pipethread is based on (by pooryorick) didn't use pipes (... or threads...) and just passed data around}
+m 2021-03-17T16:51:43Z {} {jima has become available}
+m 2021-03-17T16:51:52Z ijchain {<q3cpma> (my biggest regret is the lack of homoiconicity through lists and how ugly uplevel can get)}
+m 2021-03-17T16:53:26Z ijchain {<q3cpma> How does it "pass data around"? By using a thread::transfer?}
+m 2021-03-17T16:53:35Z ijchain {<yukonbob> <pedantry>s/concurrency/parallelism/</pedantry>}
+m 2021-03-17T16:55:18Z ijchain {<q3cpma> Looks like thread::transfer, indeed}
+m 2021-03-17T16:55:28Z ijchain {<rkeene> Since it didn't use threads, it did not use thread::transfer (which is for channels anyway?)}
+m 2021-03-17T16:56:03Z ijchain {<q3cpma> https://chiselapp.com/user/rkeene/repository/pipethread/doc/trunk/pipethread.tcl?mimetype=text/plain is the source code, right?}
+m 2021-03-17T16:56:18Z ijchain {<rkeene> pooryorick's thing was like: pipe { foo } | { bar }    and the results of foo was passed as an appeneded value to bar, or something like that}
+m 2021-03-17T16:56:36Z ijchain {<rkeene> Yes, but that's pipethread -- not the thing pipethread is based on (by pooryorick)}
+m 2021-03-17T16:57:11Z ijchain {<q3cpma> Ah, I was talking about pipethread since the beginning}
+m 2021-03-17T16:58:14Z ijchain {<rkeene> 11:51 < rkeene> The thing pipethread is based on (by pooryorick) didn't use pipes (... or threads...) and just passed data around}
+m 2021-03-17T16:58:32Z ijchain {<q3cpma> Yes, but I say "writing my own pipethread with lists"}
+m 2021-03-17T16:58:59Z ijchain {<rkeene> 11:53 < q3cpma> How does it "pass data around"? By using a thread::transfer?}
+m 2021-03-17T16:58:59Z ijchain {<q3cpma> Because I wondered how much performance was lost if serializing big objects like dicts to/from string by using channels.}
+m 2021-03-17T16:59:11Z ijchain {<rkeene> The only mention of "pass data around" was w.r.t to pooryorick's thing}
+m 2021-03-17T16:59:16Z ijchain {<q3cpma> But I don't even know if thread::send actually avoid that}
+m 2021-03-17T16:59:35Z ijchain {<rkeene> pipethread lets you use thread::send to send objects back and forth}
+m 2021-03-17T16:59:45Z ijchain {<q3cpma> Oh}
+m 2021-03-17T17:00:32Z ijchain {<rkeene> It just doesn't use inchan/outchan for that}
+m 2021-03-17T17:01:05Z ijchain {<q3cpma> Guess I didn't read the examples carefully enough}
+m 2021-03-17T17:01:41Z ijchain <rkeene>\ ::pipethread::getThreadId\ \{relative\}\ \{
+m 2021-03-17T17:03:31Z ijchain {<rkeene> And: :pipethread::put  :pipethread::get    which use a handle-based mechanism... and just does lappend}
+m 2021-03-17T17:03:47Z ijchain {<rkeene> http://chiselapp.com/user/rkeene/repository/pipethread/file?udc=1&ln=866-925&ci=302046bd70&name=pipethread.tcl}
+m 2021-03-17T17:03:59Z ijchain {<sebres> if you need some queue across the threads, you can use tsv::* primitives... they are mostly atomic and if more operations expected one can use `tsv::lock v {...}` to lock some container}
+m 2021-03-17T17:04:04Z ijchain {<q3cpma> It's finding the foreach/lmap/exec that explained it to me}
+m 2021-03-17T17:05:25Z ijchain {<q3cpma> Damn, never knew about tsv, just stopped at thread::mutex/cond}
+m 2021-03-17T17:06:03Z ijchain {<rkeene> I also wrote "dbsv", which lets you do "tsv"-esque stuff over multiple processes (or threads)}
+m 2021-03-17T17:06:15Z ijchain {<rkeene> https://rkeene.org/viewer/tmp/dbsv.tcl.htm}
+m 2021-03-17T17:06:21Z ijchain {*** greycat joins}
+m 2021-03-17T17:06:54Z ijchain {<q3cpma> I see}
+m 2021-03-17T17:07:03Z ijchain {<q3cpma> Well, nice of you to indulge me}
+m 2021-03-17T17:07:10Z ijchain {<rkeene> It uses traces and serialization, so it's likely not as fast as tsv}
+m 2021-03-17T17:08:16Z ijchain {<q3cpma> I wanted to know mainly because I wrote some kind of utility to chain operations on CSV some years ago, but didn't have the thread extension on the machine where I was at the time}
+m 2021-03-17T17:09:11Z ijchain {<rkeene> It's possible to write something like pipethread that doesn't use threads}
+m 2021-03-17T17:09:11Z ijchain {<q3cpma> So wanted to know "how would I have done it if I had?"}
+m 2021-03-17T17:09:20Z ijchain {<rkeene> Just uses child interps}
+m 2021-03-17T17:09:27Z ijchain {<rkeene> Most of pipethread is just wrangling interps anyway}
+m 2021-03-17T17:10:34Z ijchain {<q3cpma> Now that you say it, didn't really know about it at the time}
+m 2021-03-17T17:10:55Z ijchain {<q3cpma> Really amazing the breadth of the standard lib while still remaining lean and elegant}
+m 2021-03-17T17:11:14Z ijchain {<sebres> tsv has also persistent db support, but both bindings (implemented in core atm) are not process-safe, I had also my binding to sqlite at some point but switched to redis later due to cluster ability}
+m 2021-03-17T17:15:14Z ijchain {<rkeene> dbsv has worked well for me -- it uses SQLite, but it could be implemented to be backed by anything}
+m 2021-03-17T17:19:58Z {} {kevin_walzer has become available}
+m 2021-03-17T17:21:52Z ijchain {*** absc leaves}
+m 2021-03-17T17:23:41Z ijchain {«Markem» Yes, I'm beginning to discover why ð Namespace wrangling... ugh... how I hate '::', still, so long as I'm using the correct form, that's great, thanks}
+m 2021-03-17T17:25:59Z ijchain {<sebres> there is also [namespace path], what could allow you to forget all the ::any::long::ns::names :)}
+m 2021-03-17T17:29:28Z suchenwi {::any::long::ns::names are, to me, an indicator of overengineering. Namespaces are boxes to stow variables, commands, and maybe sub-namespaces. Intuitively, one namespace per package seems best fitting :)}
+m 2021-03-17T17:33:50Z {} {dgp has become available}
+m 2021-03-17T17:38:57Z {} {kevin_walzer has left}
+m 2021-03-17T17:40:13Z ijchain {<q3cpma> Sorry for asking again one last time, but is the registering mecanism of the wiki supposed to be not working? Temporarily? I'm really lost here}
+m 2021-03-17T17:41:37Z ijchain {<sebres> well, regardless the naming convention (which is surely matter of taste or even company "policy" sometimes), one can simply switch some path to another namespace (if it has the same interface) and get different handling using the same code}
+m 2021-03-17T17:41:40Z ijchain {<sebres> e. g. if you have some proc serialize/unserialize using {::tcl::json::serializer ::database::mssql::storage} namespaces, switching path to {::tcl::json5::serializer database::redis::storage} can allow you to serialize using json5 and use as storage redis, without to rewrite whole file}
+m 2021-03-17T17:43:01Z aku {@q3cpma - I do not know - Possible person to ask is `@stevel`. He is in the australian TZ.}
+m 2021-03-17T17:43:17Z ijchain {<q3cpma> aku: Thanks}
+m 2021-03-17T17:44:09Z {} {dgp has left}
+m 2021-03-17T17:54:33Z ijchain {*** puremourning leaves}
+m 2021-03-17T17:55:34Z ijchain {*** q3cpma leaves}
+m 2021-03-17T17:56:18Z ijchain {«Markem» _an indicator of overengineering_.... or OCD; guilty on both charges :(}
+m 2021-03-17T17:58:48Z ijchain {*** xharx_ joins}
+m 2021-03-17T17:59:33Z ijchain {*** xharx leaves}
+m 2021-03-17T18:07:37Z {} {kevin_walzer has become available}
+m 2021-03-17T18:19:56Z ijchain {*** puremourning joins}
+m 2021-03-17T18:26:05Z ijchain {*** silascou[m] joins}
+m 2021-03-17T18:31:59Z ijchain {<sebres> hmm... strange result by deterministic functions in tclsqlite3 now (they are simply always slower than non-deterministic, so that one feels no cache is there):}
+m 2021-03-17T18:31:59Z ijchain {<sebres>   % db function aft_d -deterministic -argcount 1 -returntype text ::after}
+m 2021-03-17T18:31:59Z ijchain {<sebres>   % timerate { db eval {select aft_d(100)} }}
+m 2021-03-17T18:31:59Z ijchain {<sebres>   100661.4 µs/# 10 # 9.934 #/sec 1006.614 net-ms}
+m 2021-03-17T18:32:14Z ijchain {<sebres> it doesn't even cache executed several times in same statement!}
+m 2021-03-17T18:32:14Z ijchain {<sebres>   % timerate { db eval [join [lrepeat 5 {select aft_d(100)}] { union all }] }}
+m 2021-03-17T18:32:14Z ijchain {<sebres>   503362.5 µs/# 2 # 1.987 #/sec 1006.725 net-ms}
+m 2021-03-17T18:36:34Z {} {kevin_walzer has left}
+m 2021-03-17T18:41:12Z ijchain {*** rjhobart joins}
+m 2021-03-17T18:44:21Z ijchain {*** puremourning leaves}
+m 2021-03-17T18:46:34Z ijchain {*** Buster leaves}
+m 2021-03-17T18:46:34Z ijchain {*** Jinx leaves}
+m 2021-03-17T18:52:49Z ijchain {*** Buster joins}
+m 2021-03-17T18:54:56Z ijchain {*** absc joins}
+m 2021-03-17T18:58:17Z ijchain {*** puremourning joins}
+m 2021-03-17T19:03:03Z ijchain {*** puremourning leaves}
+m 2021-03-17T19:07:03Z ijchain {*** ischain leaves}
+m 2021-03-17T19:08:26Z ijchain {<sebres> grrr... found this one - https://www.sqlite.org/src/info/c5f96a085db9688a, so now it will be optimized in criteria only}
+m 2021-03-17T19:09:09Z ijchain {<sebres> nope, % timerate { db eval {select 1 where aft_d(100) = aft_d(100)} }}
+m 2021-03-17T19:09:09Z ijchain {<sebres> 201343.0 µs/# 5 # 4.967 #/sec 1006.715 net-ms}
+m 2021-03-17T19:11:02Z ijchain {* sebres must implement own optimization of deterministic functions now :(}
+m 2021-03-17T19:15:25Z ijchain {*** sebres leaves}
+m 2021-03-17T19:17:19Z ijchain {<oldlaptop> Maybe there should be a -deterministic -noexceptions}
+m 2021-03-17T19:17:46Z ijchain {<oldlaptop> -deterministic -yesimreallysure}
+m 2021-03-17T19:25:30Z {} {kevin_walzer has become available}
+m 2021-03-17T19:43:40Z {} {kevin_walzer has left}
+m 2021-03-17T19:47:44Z ijchain {*** puremourning joins}
+m 2021-03-17T19:52:09Z {} {emiliano has become available}
+m 2021-03-17T20:03:06Z {} {emiliano has left}
+m 2021-03-17T20:03:34Z ijchain {*** Ellenor is now known as LightningB}
+m 2021-03-17T20:04:37Z {} {kevin_walzer has become available}
+m 2021-03-17T20:12:44Z ijchain {*** xharx joins}
+m 2021-03-17T20:13:22Z ijchain {*** xharx_ leaves}
+m 2021-03-17T20:20:39Z ijchain {*** TCZ joins}
+m 2021-03-17T20:24:25Z {} {kevin_walzer has left}
+m 2021-03-17T20:29:58Z ijchain {*** TCZ leaves}
+m 2021-03-17T20:39:14Z ijchain {*** TCZ joins}
+m 2021-03-17T20:43:29Z ijchain {*** TCZ leaves}
+m 2021-03-17T20:43:42Z suchenwi -nocomplain
+m 2021-03-17T20:43:56Z ijchain {<rkeene> -yescomplain}
+m 2021-03-17T20:44:06Z suchenwi :D
+m 2021-03-17T20:49:14Z ijchain {*** jfoutaise leaves}
+m 2021-03-17T20:50:59Z ijchain {*** jfoutaise joins}
+m 2021-03-17T20:51:21Z {} {emiliano has become available}
+m 2021-03-17T20:54:13Z ijchain {*** rjhobart1 joins}
+m 2021-03-17T20:55:14Z ijchain {*** rjhobart leaves}
+m 2021-03-17T20:55:14Z ijchain {*** rjhobart1 is now known as rjhobart}
+m 2021-03-17T20:56:34Z {} {kevin_walzer has become available}
+m 2021-03-17T20:58:27Z ijchain {*** mezen joins}
+m 2021-03-17T20:59:07Z ijchain {*** puremouron joins}
+m 2021-03-17T21:02:18Z ijchain {*** TCZ joins}
+m 2021-03-17T21:04:02Z ijchain {*** puremouron leaves}
+m 2021-03-17T21:27:09Z ijchain {*** ischain leaves}
+m 2021-03-17T21:36:11Z ijchain {*** Buster leaves}
+m 2021-03-17T21:44:43Z ijchain {*** mezen leaves}
+m 2021-03-17T21:57:14Z ijchain {*** ischain leaves}
+m 2021-03-17T22:09:42Z ijchain {*** waveriders joins}
+m 2021-03-17T22:12:56Z ijchain {*** Jinx joins}
+m 2021-03-17T22:18:48Z {} {suchenwi has left}
+m 2021-03-17T22:19:14Z ijchain {*** SomeHacker leaves}
+m 2021-03-17T22:25:40Z {} {jima has left}
+m 2021-03-17T22:27:19Z ijchain {*** ischain leaves}
+m 2021-03-17T22:27:30Z ijchain {*** puremourning leaves}
+m 2021-03-17T22:34:59Z {} {kevin_walzer has left}
+m 2021-03-17T22:36:34Z ijchain {*** absc leaves}
+m 2021-03-17T22:37:58Z ijchain {*** TCZ leaves}
+m 2021-03-17T22:41:48Z {} {kevin_walzer has become available}
+m 2021-03-17T22:47:16Z ijchain {*** SomeHacker joins}
+m 2021-03-17T22:57:25Z ijchain {*** ischain leaves}
+m 2021-03-17T22:59:53Z ijchain {*** mixfix41 joins}
+m 2021-03-17T23:01:29Z ijchain {*** mjanssen leaves}
+m 2021-03-17T23:03:51Z ijchain {*** opello_ is now known as opello}
+m 2021-03-17T23:04:24Z ijchain {*** mjanssen joins}
+m 2021-03-17T23:12:52Z ijchain {*** Bradipo leaves}
+m 2021-03-17T23:14:22Z {} {kevin_walzer has left}
+m 2021-03-17T23:19:30Z {} {stevel has become available}
+m 2021-03-17T23:20:24Z ijchain {*** greycat leaves}
+m 2021-03-17T23:21:37Z ijchain {*** TCZ joins}
+m 2021-03-17T23:27:30Z ijchain {*** ischain leaves}
+m 2021-03-17T23:32:58Z ijchain {*** anticrisis joins}
+m 2021-03-17T23:35:45Z {} {stu has left}
+m 2021-03-17T23:35:52Z ijchain {*** emanuele6 leaves}
+m 2021-03-17T23:44:29Z ijchain {*** tech_exorcist leaves}
+m 2021-03-17T23:50:13Z {} {emiliano has left}
+m 2021-03-17T23:55:40Z ijchain {*** luser977 leaves}
+m 2021-03-17T23:56:25Z ijchain {*** MIF leaves}
+m 2021-03-17T23:57:35Z ijchain {*** ischain leaves}
+m 2021-03-18T00:01:06Z ijchain {*** TCZ leaves}
+m 2021-03-18T00:05:42Z {} {stevel has left}
+m 2021-03-18T00:07:39Z ijchain {*** coruja leaves}
+m 2021-03-18T00:12:57Z ijchain {*** coruja joins}
+m 2021-03-18T00:19:15Z ijchain {*** Robby leaves}
+m 2021-03-18T00:23:06Z ijchain {*** Robby joins}
+m 2021-03-18T00:27:40Z ijchain {*** ischain leaves}
+m 2021-03-18T00:33:18Z {} {stevel has become available}
+m 2021-03-18T00:36:49Z stevel {-whatever
+-meh}
+m 2021-03-18T00:44:27Z ijchain {*** waveriders leaves}
+m 2021-03-18T00:45:05Z ijchain {*** xharx leaves}
+m 2021-03-18T00:45:29Z ijchain {*** xharx joins}
+m 2021-03-18T00:49:58Z {} {kevin_walzer has become available}
+m 2021-03-18T00:50:50Z ijchain {*** emanuele6 joins}
+m 2021-03-18T01:01:01Z ijchain {*** puremouron joins}
+m 2021-03-18T01:04:09Z ijchain {*** rjhobart1 joins}
+m 2021-03-18T01:05:26Z ijchain {*** rjhobart leaves}
+m 2021-03-18T01:05:27Z ijchain {*** rjhobart1 is now known as rjhobart}
+m 2021-03-18T01:05:32Z {} {dburns has left}
+m 2021-03-18T01:05:33Z {} {dburns has become available}
+m 2021-03-18T01:05:46Z ijchain {*** puremouron leaves}
+m 2021-03-18T01:08:01Z {} {kevin_walzer has left}
+m 2021-03-18T01:11:06Z ijchain {*** nektomk leaves}
+m 2021-03-18T01:15:19Z {} {kevin_walzer has become available}
+m 2021-03-18T01:18:19Z ijchain {*** mixfix41 leaves}
+m 2021-03-18T01:20:26Z ijchain {*** nektomk joins}
+m 2021-03-18T01:23:53Z {} {aku has left}
+m 2021-03-18T01:23:58Z ijchain {*** puremourning joins}
+m 2021-03-18T01:24:41Z {} {aku has become available}
+m 2021-03-18T01:28:45Z ijchain {*** puremourning leaves}
+m 2021-03-18T01:31:22Z ijchain {*** spyda joins}
+m 2021-03-18T01:40:42Z ijchain {*** mixfix41 joins}
+m 2021-03-18T01:54:45Z ijchain {*** ischain leaves}
+m 2021-03-18T02:01:57Z ijchain {*** Zelouille leaves}
+m 2021-03-18T02:07:19Z ijchain {*** yukonbob leaves}
+m 2021-03-18T02:13:48Z ijchain {*** yukonbob joins}
+m 2021-03-18T02:16:32Z {} {dburns has left}
+m 2021-03-18T02:20:49Z ijchain {*** luser977 joins}
+m 2021-03-18T02:23:25Z ijchain {*** Thedarkb joins}
+m 2021-03-18T02:24:50Z ijchain {*** ischain leaves}
+m 2021-03-18T02:39:57Z ijchain {*** luser977 leaves}
+m 2021-03-18T02:44:21Z ijchain {*** Robby_ joins}
+m 2021-03-18T02:44:51Z ijchain {*** Robby leaves}
+m 2021-03-18T02:45:06Z ijchain {*** Robby_ is now known as Robby}
+m 2021-03-18T02:46:12Z ijchain {*** karakedi leaves}
+m 2021-03-18T02:47:19Z ijchain {*** Atlas leaves}
+m 2021-03-18T02:47:55Z ijchain {*** Atlas joins}
+m 2021-03-18T02:54:25Z ijchain {*** MIF joins}
+m 2021-03-18T02:54:55Z ijchain {*** ischain leaves}
+m 2021-03-18T03:05:24Z ijchain {*** xharx_ joins}
+m 2021-03-18T03:07:44Z ijchain {*** xharx leaves}
+m 2021-03-18T03:08:36Z ijchain {*** Zarutian_HTC leaves}
+m 2021-03-18T03:25:00Z ijchain {*** ischain leaves}
+m 2021-03-18T03:49:02Z ijchain {*** luser977 joins}
+m 2021-03-18T03:55:05Z ijchain {*** ischain leaves}
+m 2021-03-18T04:02:38Z ijchain {*** SomeHacker leaves}
+m 2021-03-18T04:02:59Z ijchain {*** SomeHacker joins}
+m 2021-03-18T04:06:03Z {} {kevin_walzer has left}
+m 2021-03-18T04:25:10Z ijchain {*** ischain leaves}
+m 2021-03-18T04:56:16Z ijchain {*** ischain leaves}
+m 2021-03-18T05:02:41Z ijchain {*** puremouron joins}
+m 2021-03-18T05:05:47Z ijchain {*** SomeHacker leaves}
+m 2021-03-18T05:06:08Z ijchain {*** SomeHacker joins}
+m 2021-03-18T05:07:00Z ijchain {*** puremouron leaves}
+m 2021-03-18T05:08:14Z {} {stu has become available}
+m 2021-03-18T05:08:57Z {} {stu has left}
+m 2021-03-18T05:26:21Z ijchain {*** ischain leaves}
+m 2021-03-18T05:43:58Z {} {kevin_walzer has become available}
+m 2021-03-18T05:56:26Z ijchain {*** ischain leaves}
+m 2021-03-18T06:12:11Z {} {kevin_walzer has left}
+m 2021-03-18T06:26:31Z ijchain {*** ischain leaves}
+m 2021-03-18T06:56:37Z ijchain {*** ischain leaves}
+m 2021-03-18T07:03:26Z ijchain {*** puremouron joins}
+m 2021-03-18T07:08:22Z ijchain {*** puremouron leaves}
+m 2021-03-18T07:11:39Z {} {suchenwi has become available}
+m 2021-03-18T07:18:13Z {} {arjen has become available}
+m 2021-03-18T07:18:26Z arjen {Good morning, everyone}
+m 2021-03-18T07:18:38Z stevel {/me waves}
+m 2021-03-18T07:19:43Z suchenwi {/me waves}
+m 2021-03-18T07:38:02Z ijchain {*** luser978 joins}
+m 2021-03-18T07:38:03Z ijchain {*** luser977 leaves}
+m 2021-03-18T07:43:51Z ijchain {*** luser978 leaves}
+m 2021-03-18T07:43:58Z ijchain {*** luser977 joins}
+m 2021-03-18T07:44:56Z {} {kevin_walzer has become available}
+m 2021-03-18T07:46:45Z ijchain {*** absc joins}
+m 2021-03-18T07:50:42Z ijchain {*** luser978 joins}
+m 2021-03-18T07:51:03Z ijchain {*** luser977 leaves}
+m 2021-03-18T08:02:21Z {} {kevin_walzer has left}
+m 2021-03-18T08:18:25Z ijchain {*** anticrisis leaves}
+m 2021-03-18T08:21:34Z arjen {Elections done - surprising outcome ...}
+m 2021-03-18T08:21:49Z suchenwi {Rutte won?}
+m 2021-03-18T08:22:26Z arjen {Yes, that was no surprise, but the second party is D66 now, liberal democrats, instead of PVV, Wilders' party}
+m 2021-03-18T08:22:42Z arjen {And the left-wing parties are diminished}
+m 2021-03-18T08:24:32Z ijchain {<yukonbob> tok = Tcl_CreateObjCommand(...); the command token is good for the life of the command  for things like Tcl_GetInfoFromToken(tok, &cmdinfo);}
+m 2021-03-18T08:26:08Z ijchain {<yukonbob> question -- how can one *know* the life of the command associated w/ the token? Will the next new command fill in as a same-signature command like a file-handle will fill in an fd? Or is there some epoch component that makes it impossible, or some other property that makes it Very Unlikely ?}
+m 2021-03-18T08:32:08Z arjen brb
+m 2021-03-18T08:32:20Z {} {arjen has left}
+m 2021-03-18T08:38:46Z ijchain {«aku» moin}
+m 2021-03-18T08:39:34Z ijchain {<yukonbob> hey aku}
+m 2021-03-18T08:39:49Z ijchain {«aku» @stevel - Did you see @q3cpma's question about wiki registration ?}
+m 2021-03-18T08:40:03Z ijchain {«aku» hey yukon}
+m 2021-03-18T08:40:17Z ijchain {*** puremouron joins}
+m 2021-03-18T08:40:27Z stevel {nope - where?}
+m 2021-03-18T08:41:24Z ijchain {«aku» Here in the history ... To quote}
+m 2021-03-18T08:41:24Z ijchain {«aku» > Sorry for asking again one last time, but is the registering mecanism of the wiki supposed to be not working? Temporarily? I'm really lost here}
+m 2021-03-18T08:41:39Z stevel {where was this asked?}
+m 2021-03-18T08:41:49Z ijchain {«aku» I have no other info. Here in the chat}
+m 2021-03-18T08:41:59Z stevel {I don't have time to read chat logs ..}
+m 2021-03-18T08:42:27Z ijchain {«aku» Good busy, or bad busy ?}
+m 2021-03-18T08:42:34Z stevel {but yes, it is broken due to spammers trying to register ... unless we now have thousands of indian and russion Tcl programmers wanting to join}
+m 2021-03-18T08:42:38Z stevel {good busy}
+m 2021-03-18T08:43:13Z ijchain {«aku» Is there a person I should direct q3cpma direct to, who can register him ?}
+m 2021-03-18T08:43:16Z stevel {Jos and I have designed a new registration facility, Jos has programmed it and it's sitting on my todo list to test and go live}
+m 2021-03-18T08:43:36Z stevel {I'll try to take a look over the weekend}
+m 2021-03-18T08:44:08Z ijchain {«aku» thank you. I will tell him the above when he appears here. Don't know his TZ.}
+m 2021-03-18T08:44:14Z stevel {I presume s/he will see this conversation in the meantime}
+m 2021-03-18T08:44:40Z ijchain {* yukonbob looks at struct Command{}, is heartened to see reference to cmdEpoch...}
+m 2021-03-18T08:46:31Z ijchain {«aku» @stevel - yes, I hope as well}
+m 2021-03-18T08:50:02Z ijchain {*** luser978 leaves}
+m 2021-03-18T08:59:34Z ijchain {*** karakedi joins}
+m 2021-03-18T09:04:49Z {} {arjen has become available}
+m 2021-03-18T09:05:10Z arjen {/me back}
+m 2021-03-18T09:23:05Z ijchain {*** luser977 joins}
+m 2021-03-18T09:27:23Z ijchain {*** luser977 leaves}
+m 2021-03-18T09:33:02Z {} {dburns has become available}
+m 2021-03-18T09:45:34Z {} {kevin_walzer has become available}
+m 2021-03-18T09:57:08Z {} {dburns has left}
+m 2021-03-18T10:00:52Z ijchain {*** luser977 joins}
+m 2021-03-18T10:03:22Z ijchain {*** luser977 leaves}
+m 2021-03-18T10:03:29Z ijchain {*** luser978 joins}
+m 2021-03-18T10:08:57Z ijchain {*** xharx__ joins}
+m 2021-03-18T10:09:20Z ijchain {*** xharx_ leaves}
+m 2021-03-18T10:14:01Z {} {kevin_walzer has left}
+m 2021-03-18T10:17:10Z ijchain {*** luser977 joins}
+m 2021-03-18T10:17:11Z ijchain {*** luser978 leaves}
+m 2021-03-18T10:22:15Z ijchain {*** luser977 leaves}
+m 2021-03-18T10:22:20Z ijchain {*** luser978 joins}
+m 2021-03-18T10:31:55Z ijchain {*** Zelouille joins}
+m 2021-03-18T10:35:22Z ijchain {«apn» @yukonbob, my belief is use of the command token is only safe from the component that "owns" the command since that can register a delete callback to inform any internal pieces that have interest in that token that it is gone. I'm not sure it is safe to use from "outside" that component for the reasons you mention. But I could be wrong ð}
+m 2021-03-18T10:39:09Z ijchain {«apn» And it is not clear to me cmdEpoch helps}
+m 2021-03-18T10:41:15Z ijchain {*** luser978 leaves}
+m 2021-03-18T10:41:27Z ijchain {*** luser977 joins}
+m 2021-03-18T10:44:48Z ijchain {*** ischain leaves}
+m 2021-03-18T11:13:05Z {} {dburns has become available}
+m 2021-03-18T11:14:54Z ijchain {*** ischain leaves}
+m 2021-03-18T11:19:38Z ijchain {*** nuclightq_ leaves}
+m 2021-03-18T11:27:16Z {} {emiliano has become available}
+m 2021-03-18T11:29:35Z ijchain {*** xharx__ leaves}
+m 2021-03-18T11:30:04Z ijchain {*** xharx__ joins}
+m 2021-03-18T11:44:59Z ijchain {*** ischain leaves}
+m 2021-03-18T11:46:22Z {} {kevin_walzer has become available}
+m 2021-03-18T11:56:32Z ijchain {*** tech_exorcist joins}
+m 2021-03-18T11:57:35Z ijchain {*** xharx__ leaves}
+m 2021-03-18T11:58:13Z ijchain {*** xharx__ joins}
+m 2021-03-18T11:59:05Z ijchain {*** xharx__ leaves}
+m 2021-03-18T12:04:32Z ijchain {*** tech_exorcist leaves}
+m 2021-03-18T12:04:45Z ijchain {*** tech_exorcist joins}
+m 2021-03-18T12:10:50Z {} {kevin_walzer has left}
+m 2021-03-18T12:11:26Z {} {kevin_walzer has become available}
+m 2021-03-18T12:13:00Z {} {dburns has left}
+m 2021-03-18T12:15:04Z ijchain {*** ischain leaves}
+m 2021-03-18T12:34:15Z {} {stu has become available}
+m 2021-03-18T12:36:26Z {} {stu has left}
+m 2021-03-18T12:45:09Z ijchain {*** ischain leaves}
+m 2021-03-18T12:50:24Z ijchain {*** nuclightq joins}
+m 2021-03-18T12:54:45Z ijchain {*** sebres joins}
+m 2021-03-18T12:56:48Z ijchain {*** sebres leaves}
+m 2021-03-18T13:08:25Z {} {teo1 has left}
+m 2021-03-18T13:09:12Z {} {teo1 has become available}
+m 2021-03-18T13:15:14Z ijchain {*** ischain leaves}
+m 2021-03-18T13:42:33Z {} {dburns has become available}
+m 2021-03-18T13:45:19Z ijchain {*** ischain leaves}
+m 2021-03-18T14:15:24Z ijchain {*** ischain leaves}
+m 2021-03-18T14:27:40Z ijchain {*** Thedarkb leaves}
+m 2021-03-18T14:30:52Z {} {stevel has left}
+m 2021-03-18T14:32:23Z ijchain {*** TOB_CyxoB joins}
+m 2021-03-18T14:32:23Z {} {kevin_walzer has left}
+m 2021-03-18T14:45:29Z ijchain {*** ischain leaves}
+m 2021-03-18T14:47:31Z {} {kevin_walzer has become available}
+m 2021-03-18T14:50:36Z ijchain {*** LambdaComplex leaves}
+m 2021-03-18T14:51:23Z ijchain {*** tabakhase leaves}
+m 2021-03-18T14:55:38Z ijchain {*** tabakhase joins}
+m 2021-03-18T14:56:06Z ijchain {*** Zarutian_HTC joins}
+m 2021-03-18T14:58:41Z ijchain {*** aliss joins}
+m 2021-03-18T15:04:14Z ijchain {*** LambdaComplex joins}
+m 2021-03-18T15:08:15Z ijchain {*** Bradipo joins}
+m 2021-03-18T15:15:35Z ijchain {*** ischain leaves}
+m 2021-03-18T15:31:53Z ijchain {*** Buster joins}
+m 2021-03-18T15:32:44Z {} {kevin_walzer has left}
+m 2021-03-18T15:38:22Z ijchain {*** xharx joins}
+m 2021-03-18T15:43:13Z ijchain {*** xharx leaves}
+m 2021-03-18T15:44:18Z ijchain {*** xharx joins}
+m 2021-03-18T15:45:28Z {} {kevin_walzer has become available}
+m 2021-03-18T15:45:40Z ijchain {*** ischain leaves}
+m 2021-03-18T15:46:06Z ijchain {*** xharx leaves}
+m 2021-03-18T15:53:26Z ijchain {*** user____1 joins}
+m 2021-03-18T15:54:04Z ijchain {<user____1> Hi. Under what circumstances would TKCON be defined on a windows or linux cli when launching wish? I found a program whose startup seems to check for $TKCON}
+m 2021-03-18T15:54:25Z ijchain {<user____1> The program is xcircuit by Tim Edwards. It is a custom wish shell running xcircuit.tcl}
+m 2021-03-18T15:54:51Z ijchain {<user____1> The program checking for TKCON is the bash program which starts the program itself, i.e. the executable from the point of view of the user.}
+m 2021-03-18T15:55:46Z suchenwi {tkcon is an optional feature-enriched console for wish.}
+m 2021-03-18T15:56:27Z ijchain {<user____1> I know what it is but under what circumstances, if any, would wish check for that? I think never, in a vanilla wish context? Correct?}
+m 2021-03-18T15:56:40Z ijchain {* user____1 loves undocumented features in other people's sources}
+m 2021-03-18T15:59:12Z ijchain {<user____1> Next: in an ~/.Xdefaults file on linux, do i have to spell the program name camel cased or lowercase as the command is?}
+m 2021-03-18T15:59:44Z ijchain {<thrig> unix filesystems are usually case sensitive}
+m 2021-03-18T16:02:05Z ijchain {<iv4nshm4k0v> user____1: Try using xwininfo(1) on the window.  The X convention is to use a leading upper case letter (not necessarily CamelCase proper) for the /class/ name, and a leading lower case one for /instance/ name.  For example, if you've installed a new version of xterm(1) on your system as xterm-new, then its instance name would be xterm-new, while its class name would still be XTerm.}
+m 2021-03-18T16:03:01Z ijchain {<user____1> The program ignores my resource setting even after manual xrdb -merge ~/.Xdefault}
+m 2021-03-18T16:03:05Z ijchain {<user____1> +s}
+m 2021-03-18T16:03:09Z ijchain {<user____1> It looks like a bug}
+m 2021-03-18T16:03:39Z ijchain {<user____1> thrig: yes but the xrdb db might not be. In that it requires capitalized things in unexpected places iirc.}
+m 2021-03-18T16:05:37Z ijchain {<user____1> Tim Edwards neutered even wish's -geometry option on the cli. Argh.}
+m 2021-03-18T16:05:42Z ijchain {<iv4nshm4k0v> user____1: JFTR, ~/.Xdefaults does not need to be loaded into Xrdb; X applications just read that file directly.  It's ~/.Xresources that is /not/ read by X applications and is instead ought to be so loaded.}
+m 2021-03-18T16:05:46Z ijchain {<user____1> Okay, program bug, not related to wish.}
+m 2021-03-18T16:05:57Z ijchain {«dkf» Xrdb names are obscure in the extreme}
+m 2021-03-18T16:06:04Z ijchain {<user____1> iv4nshm4k0v: in theory. I tried to load it using -override anyway}
+m 2021-03-18T16:06:47Z ijchain {«dkf» Tk only includes a partial implementation of the naming scheme}
+m 2021-03-18T16:06:52Z ijchain {<user____1> So, I rest my case. Anyway xcircuit is a nice circuit (and other) drawing program with high quality PS output. I use it a lot, been using it for like 15 years.}
+m 2021-03-18T16:06:59Z ijchain {«dkf» It’s most of the sane bits ð}
+m 2021-03-18T16:07:14Z ijchain {<user____1> dkf therefore a tiny subset then >:-)}
+m 2021-03-18T16:07:26Z ijchain {«dkf» exactly}
+m 2021-03-18T16:07:35Z ijchain {<iv4nshm4k0v> dkf: I think Xt-based applications mostly support Editres protocol.  When the documentation was lacking, I've just used editres(1) to discover what I need.}
+m 2021-03-18T16:07:59Z ijchain {<user____1> I am amazed Tim E. is not on here, he wrote quite a lot of tcl code for that xcircuit program.}
+m 2021-03-18T16:08:21Z ijchain {<user____1> dkf I won't bother, I assume someone will tell him some day to fix it.}
+m 2021-03-18T16:08:34Z ijchain {<user____1> The real program is xcircuit.tcl and I could edit that at will. Won't.}
+m 2021-03-18T16:08:56Z ijchain {<iv4nshm4k0v> user____1: I don't recall .Xdefaults vs. .Xresources ever working /not/ like that for me.}
+m 2021-03-18T16:08:57Z ijchain {<user____1> Starting maximized with no wm handle every time is a bit annoying but I have a quick macro to fix it now.}
+m 2021-03-18T16:09:17Z ijchain {<user____1> iv4nshm4k0v: hm? could you please rephrase?}
+m 2021-03-18T16:09:55Z ijchain {<user____1> the installed program on linux has these things: /usr/share/xcircuit/boot_xcircuit.tcl /usr/share/xcircuit/xcircuit.tcl}
+m 2021-03-18T16:10:33Z {} {kevin_walzer has left}
+m 2021-03-18T16:10:38Z ijchain {«dkf» It’s a very long time since I remembered all the details of the xrdb stuff. I remember that the data is _actually_ stored in an X property of the root window.}
+m 2021-03-18T16:12:21Z ijchain {<user____1> wm title $name also sets the resource program property name no?}
+m 2021-03-18T16:12:42Z ijchain {<iv4nshm4k0v> dkf: Yep.  This way, the ~/.Xresources file data loaded from whenever your X session is started on is used by the X applications regardless of where /they/ are started on.}
+m 2021-03-18T16:13:08Z {} {kevin_walzer has become available}
+m 2021-03-18T16:17:08Z ijchain {*** Zarutian_HTC leaves}
+m 2021-03-18T16:17:12Z ijchain {<user____1> I can't find code in the tcl side which maximizes the window, I think it is in the C-side, the modified wish startup code.}
+m 2021-03-18T16:17:21Z ijchain {<user____1> Anyway, enough of this.}
+m 2021-03-18T16:17:44Z ijchain {<user____1> The xrdb app name is XCircuit but setting props for that did not help either.}
+m 2021-03-18T16:18:49Z ijchain {<user____1> iv4nshm4k0v: your assertions are true assuming a X11 session restart occurred in between edits of the Xresources. When that is not the case (I last rebooted about 2 months ago), one needs manual xrdb -override $res}
+m 2021-03-18T16:19:20Z ijchain {<user____1> Also finding the dpy etc names requires extra effort if the application changes title/name after starting.}
+m 2021-03-18T16:19:26Z ijchain {<user____1> Which is the case here.}
+m 2021-03-18T16:27:48Z ijchain {*** Zarutian_HTC joins}
+m 2021-03-18T16:32:22Z {} {emiliano has left}
+m 2021-03-18T16:32:45Z ijchain {*** greycat joins}
+m 2021-03-18T16:33:00Z {} {kevin_walzer has left}
+m 2021-03-18T16:33:54Z ijchain {*** nektomk leaves}
+m 2021-03-18T16:41:34Z ijchain {*** nektomk joins}
+m 2021-03-18T16:45:07Z ijchain {*** nektomk2 joins}
+m 2021-03-18T16:45:07Z ijchain {*** nektomk leaves}
+m 2021-03-18T16:47:50Z ijchain {«dkf» Changing the title shouldn’t matter too much.}
+m 2021-03-18T16:48:16Z ijchain {«dkf» But changing the name or class is uncommon in the extreme}
+m 2021-03-18T16:48:44Z ijchain {«dkf» That said… the name/class quite possibly isn’t what people think it is}
+m 2021-03-18T16:48:49Z ijchain {*** MIF leaves}
+m 2021-03-18T16:49:18Z {} {kevin_walzer has become available}
+m 2021-03-18T16:54:27Z ijchain {*** MIF joins}
+m 2021-03-18T16:55:08Z ijchain {<iv4nshm4k0v> user____1: That's correct, but that's precisely the difference between ~/.Xresources vs. ~/.Xdefaults: changes to the latter are effective immediately.  (For any newly started X applications, that is.)}
+m 2021-03-18T16:55:22Z ijchain {<iv4nshm4k0v> dkf: Specifically?}
+m 2021-03-18T17:00:51Z {} {stu has become available}
+m 2021-03-18T17:02:27Z ijchain {*** cousteau joins}
+m 2021-03-18T17:04:45Z ijchain {*** Guest73106` joins}
+m 2021-03-18T17:05:27Z ijchain {<iv4nshm4k0v> Some years back I've clarified the few bits regarding X resources near the top of the Emacs etc/PROBLEMS file.  As it happens, they're still there (e. g., http://sources.debian.org/data/main/e/emacs/1:27.1+1-3/etc/PROBLEMS .)}
+m 2021-03-18T17:05:27Z ijchain {<cousteau> I did it!  I managed to successfully break the profiler package with a testcase that consistently fails.}
+m 2021-03-18T17:05:45Z ijchain {<cousteau> As someone suggested here, it seems to choke on certain recursive functions}
+m 2021-03-18T17:07:39Z ijchain {*** Guest73106 leaves}
+m 2021-03-18T17:08:09Z ijchain {*** Guest73106` is now known as Guest73106}
+m 2021-03-18T17:08:52Z {} {kevin_walzer has left}
+m 2021-03-18T17:10:14Z ijchain {<cousteau> Specifically, it does things I don't quite understand on normal recursive functions (functions that call themselves), but it goes absolutely nuts on "indirectly recursive functions" (A calls B, B calls A)}
+m 2021-03-18T17:11:04Z ijchain {<cousteau> As a result, totalRuntime - descendantTime may be negative}
+m 2021-03-18T17:11:29Z ijchain {<cousteau> (I was using totalRuntime - descendantTime to calculate the exclusive time, since it is not provided directly)}
+m 2021-03-18T17:11:31Z ijchain {<user____1> a calls b, b calls a sounds like an eternal loop?}
+m 2021-03-18T17:11:56Z ijchain {<cousteau> only if you don't tell them to stop at some point}
+m 2021-03-18T17:12:03Z ijchain {<thrig> recursion is fine, stack space and exit condition permitting}
+m 2021-03-18T17:12:18Z ijchain {<user____1> tail-calling a vs b is evil.}
+m 2021-03-18T17:12:24Z ijchain {<user____1> i.e. each}
+m 2021-03-18T17:12:28Z suchenwi {Every recursive function, direct or indirect, should know when to stop :)}
+m 2021-03-18T17:12:30Z ijchain {<user____1> look, no stack growth}
+m 2021-03-18T17:12:56Z ijchain {<user____1> suchenwi but the stopping condition is not decidable in most programming languages!}
+m 2021-03-18T17:13:45Z ijchain {<cousteau> anyway, my point is, Tcllib's profiler chokes on recursive functions.  How I made the function and whether it could be optimized is irrelevant.}
+m 2021-03-18T17:14:03Z ijchain {<rkeene> Have you tried optimizing it more ?}
+m 2021-03-18T17:14:46Z ijchain {<cousteau> (if the code I wanted to run the profiler on were already optimized I wouldn't need to profile it in the first place; of course the code I'm running it on can be written better, that's the point=}
+m 2021-03-18T17:16:41Z ijchain {*** absc leaves}
+m 2021-03-18T17:18:31Z ijchain {<yukonbob> apn: yeah - it's not *clear* to me that its helpful, though its existence (and the comment) is suggestive... istm its sort of hidden away -- it pulls the Tcl_Command data via a cast somewhere deeper (I forget where). It'd be a nice feature if that Tcl_Command token *were* durable against mistaken identity, but depending how one thinks of it, it also seems like a big ask.}
+m 2021-03-18T17:19:20Z ijchain {<user____1> iv4nshm4k0v: thanks for the reminder about ~/.Xdefaults vs ~/.Xresources . I think sometime in the last century I knew this :)}
+m 2021-03-18T17:21:03Z ijchain {<cousteau> now, where's the best place to report the bug?  Because a similar bug was reported on the mailing list 8 years ago and no one had fixed or replied yet (until a few days ago when I found the bug)}
+m 2021-03-18T17:21:42Z ijchain {<cousteau> (it's a Tcllib bug)}
+m 2021-03-18T17:21:58Z suchenwi {Is the profiler actively maintained at all?}
+m 2021-03-18T17:22:31Z arjen {Have a nice chat, everyone}
+m 2021-03-18T17:22:42Z {} {arjen has left}
+m 2021-03-18T17:23:34Z aku {Most Tcllib packages have no real maintainer. You can count profiler among them.}
+m 2021-03-18T17:23:42Z stu {user____1, which version of xcircuit are you using, and with which version of Tcl/Tk?}
+m 2021-03-18T17:24:19Z aku {As I have a hack week next week I plan to put in some more time into handling Tcllib bugs.}
+m 2021-03-18T17:24:50Z aku {Updating the old ticket will bring it to the top of the report I use (sort by last modified first/top)}
+m 2021-03-18T17:24:52Z ijchain {<cousteau> aku: yeah I somehow realized that...}
+m 2021-03-18T17:25:41Z ijchain {<cousteau> (re: it being unmaintained)}
+m 2021-03-18T17:26:10Z ijchain {<cousteau> ok then, I guess I'll report the bug}
+m 2021-03-18T17:26:57Z ijchain {<cousteau> in any case, the real bug is "descendantTime is sometimes greater than totalRuntime".  This doubly-recursive function was just one use case I managed to come up with where this is reflected.}
+m 2021-03-18T17:28:11Z steveb {FWIW EU medicines agency has just confirmed AZ vaccine is 'safe and effective'}
+m 2021-03-18T17:28:33Z ijchain {<cousteau> yaaay}
+m 2021-03-18T17:28:57Z ijchain {<user____1> Yes, why would they say anything else.}
+m 2021-03-18T17:29:20Z ijchain {<cousteau> now they only need to make the vaccines}
+m 2021-03-18T17:29:52Z ijchain {<cousteau> user____1: EU medicines agency = EU.  AstraZeneca = not EU.}
+m 2021-03-18T17:30:26Z ijchain {<user____1> After this epidemic the cretins in Europe and elsewhere who Excel-optimized all production to overseas outsourcing will be deleted and a normal strategic capability to mnufacture key medication, and PPE, will be maintained at EU level.}
+m 2021-03-18T17:30:42Z ijchain {<user____1> cousteau: Sweden is in the EU Economic Zone.}
+m 2021-03-18T17:30:56Z ijchain {<cousteau> ok, I'll rephrase it}
+m 2021-03-18T17:31:02Z ijchain {<cousteau> user____1: EU medicines agency = EU.  Oxford = not EU.}
+m 2021-03-18T17:31:09Z ijchain {<user____1> I can't wait for the Excel "army" to join the layer of lawyers at the bottom of a lake.}
+m 2021-03-18T17:31:11Z ijchain {<cousteau> there; bug fixed :)}
+m 2021-03-18T17:31:25Z ijchain {<user____1> cousteau: The other half of Astra-Zeneca is in Sweden.}
+m 2021-03-18T17:32:51Z ijchain {<cousteau> is it half of it really?  It seemed to me that it was mostly UK-led}
+m 2021-03-18T17:33:26Z ijchain {<user____1> off topic but highly relevant https://www.supplychainbrain.com/blogs/1-think-tank/post/31756-how-the-pandemic-will-permanently-transform-sourcing-strategies}
+m 2021-03-18T17:33:48Z ijchain {<user____1> cousteau: UK end has the money and the CEOs, iirc Sweden has production and labs}
+m 2021-03-18T17:34:07Z ijchain {<user____1> https://en.wikipedia.org/wiki/AstraZeneca cousteau}
+m 2021-03-18T17:34:26Z ijchain {<cousteau> the pandemic is permanently going to change many things, or SHOULD at least... let's hope humanity is able to learn the lessons from it.  My expectations aren't very big though}
+m 2021-03-18T17:34:46Z ijchain {<user____1> Humanity will learn, Excel jockeys and beancounters won't.}
+m 2021-03-18T17:34:50Z ijchain {<user____1> Thus the need for lakes.}
+m 2021-03-18T17:35:50Z ijchain {<thrig> learn from history? probably not}
+m 2021-03-18T17:36:13Z ijchain {<user____1> History is a harsh teacher. Only those who did not make big mistakes get to write it...}
+m 2021-03-18T17:36:25Z ijchain {«Markem» Grr.. if it could change just one thing in Tcl, it'd be:   `namespace current` ... _returns *::* for the global namespace as a convenience to programmers_. ... I have yet to find this 'convenient'. Convenient would be the empty string.}
+m 2021-03-18T17:36:39Z ijchain {<user____1> Of course, new idiots are free to ignore history, and repeat it's mistakes.}
+m 2021-03-18T17:37:14Z ijchain {<cousteau> "Those who learn from history are doomed to see others repeat it"}
+m 2021-03-18T17:37:16Z ijchain {<user____1> Markem I prefer :: and it's easy to check against it. Also any global name is also ::name}
+m 2021-03-18T17:37:30Z ijchain {<cousteau> Alternatively, "We learn from history that we don't learn from history"}
+m 2021-03-18T17:37:50Z ijchain {<RhodiumToad> "Those who do not learn from history are doomed to repeat its errors; those who do will find other ways to err"}
+m 2021-03-18T17:38:01Z ijchain {<user____1> "we learn from history because we did not make big mistakes. those who made, are no longer around to learn"}
+m 2021-03-18T17:38:24Z ijchain {<cousteau> yeah, that is a good point}
+m 2021-03-18T17:38:44Z steveb {The vaccine was developed in OXford  at the Jenner Institute, a part of Oxford University.  It is a reworked  version of an MERS vaccine developed there, with re-edited genetic material to match the difference in viruses.  UK government poured money iinnto the development, and a deal was brokered to sell the finished product at ost price to all-comers,  That's how it happened so quickly.}
+m 2021-03-18T17:38:54Z ijchain {<cousteau> RhodiumToad: at least those are being innovative and creative}
+m 2021-03-18T17:38:56Z ijchain {«Markem» Yeah but it's mixing :: as a separator and also as the name of a namespace, any other namespace is not returned with a trailing '::'...}
+m 2021-03-18T17:39:50Z ijchain {<cousteau> you can think of it as a :: followed by an empty string}
+m 2021-03-18T17:39:55Z ijchain {<cousteau> ::{}}
+m 2021-03-18T17:41:20Z ijchain {«Markem» actually, isn't it really {}::}
+m 2021-03-18T17:42:02Z ijchain {«Markem» i.e. {}::ns1::ns2}
+m 2021-03-18T17:42:03Z ijchain {<cousteau> whereas {} would mean "a sequence of exactly zero tokens of the form "::<identifier>"", but has the problem that it doesn't start with :: so it's not based on the "namespace root"}
+m 2021-03-18T17:43:05Z ijchain {«Markem» the global namespace is the empty string...therefore, returning :: is not convenient, it just leads to horrid little special case checks.}
+m 2021-03-18T17:43:18Z suchenwi {Root and separators are often the same: / in file systems, "." in Tk widgets, "::" for namespaces...}
+m 2021-03-18T17:43:29Z ijchain {<cousteau> I'm thinking of :: as Unix's "/".  foo/bar means bar in the foo directory in the current directory.  /foo/bar means bar in the foo directory in the root directory.}
+m 2021-03-18T17:43:55Z ijchain {<iv4nshm4k0v> cousteau: +1.}
+m 2021-03-18T17:44:00Z ijchain {<cousteau> /foo is foo hanging from the root directory; the root directory is "/", not ""}
+m 2021-03-18T17:44:22Z ijchain {<cousteau> BUT, as Markem mentions, this is somewhat an exception}
+m 2021-03-18T17:45:01Z ijchain {«Markem» I'm only talking about the `namespace current` command, not the entire scheme.}
+m 2021-03-18T17:45:10Z ijchain {<cousteau> like, the trailing / is not really part of the directory name, EXCEPT for the root directory}
+m 2021-03-18T17:45:35Z ijchain {<cousteau> ...Well, yeah, I can see how that's annoying}
+m 2021-03-18T17:45:43Z ijchain {<cousteau> because then you can't just append ::blah to it}
+m 2021-03-18T17:45:49Z ijchain {«Markem» exactly}
+m 2021-03-18T17:45:55Z ijchain {<cousteau> like [namespace current]::blah}
+m 2021-03-18T17:46:16Z ijchain {<cousteau> I was missing a use case there :)}
+m 2021-03-18T17:46:22Z ijchain {<user____1> Markem simply: use :: on ALL globals. Never use globals with no :: anywhere, including not in visibly global source.}
+m 2021-03-18T17:46:40Z suchenwi {oh, you can: two or more colons are namespace separator...}
+m 2021-03-18T17:46:50Z ijchain {<user____1> This is what I do. Keeps me sane when programs get complex enough to stomp on global vars by mistake}
+m 2021-03-18T17:47:01Z ijchain {<cousteau> ok so :::::foo is the same as ::foo?  That's convenient}
+m 2021-03-18T17:47:14Z ijchain {<cousteau> same as doing //tmp I guess}
+m 2021-03-18T17:47:33Z ijchain {<user____1> % set ::foo "42"}
+m 2021-03-18T17:47:34Z ijchain {<user____1> 42}
+m 2021-03-18T17:47:34Z ijchain {<user____1> % puts $::::foo}
+m 2021-03-18T17:47:34Z ijchain {<user____1> 42}
+m 2021-03-18T17:47:34Z ijchain {<user____1> %}
+m 2021-03-18T17:47:57Z ijchain {<cousteau> yeah but the most interesting thing, it works with an odd number of colons too}
+m 2021-03-18T17:48:00Z ijchain {<user____1> But simply just use :: on all globals.}
+m 2021-03-18T17:48:00Z ijchain {<cousteau> (3 or more)}
+m 2021-03-18T17:48:18Z ijchain {<user____1> cousteau: I think that's tcl's shortest-unique-match at work}
+m 2021-03-18T17:48:26Z ijchain {<user____1> Possibly not intended here.}
+m 2021-03-18T17:48:34Z ijchain {<cousteau> this explains why var names beginning with a single : are "private" -- there's no way to refer to them from another namespace}
+m 2021-03-18T17:48:44Z ijchain {<user____1> :)}
+m 2021-03-18T17:49:04Z ijchain {<user____1> Wait, where is this documented?}
+m 2021-03-18T17:49:06Z ijchain {<cousteau> well, suchenwi said "two or more colons are namespace separator"}
+m 2021-03-18T17:49:41Z ijchain {<cousteau> (this wasn't a reply to "where is this documented" btw.  I don't consider a single comment on IRC as documentation)}
+m 2021-03-18T17:49:48Z ijchain {<cousteau> (even in logged channels)}
+m 2021-03-18T17:50:01Z ijchain {<user____1> i just learned the hard way that lua's functions are variadic always. function foo( bar, ... ); can be called as function(); function(x); etc. the ... is just noise used to access the variadic args in the body}
+m 2021-03-18T17:50:30Z ijchain {<cousteau> yeah, I remember lua being weird in that way}
+m 2021-03-18T17:50:32Z ijchain {<user____1> So foo() call is not an error, unless detected in the body by user code}
+m 2021-03-18T17:50:38Z ijchain {<cousteau> same for return arguments.  Always variadic.}
+m 2021-03-18T17:50:42Z ijchain {<user____1> It is beyond weird, it is evil}
+m 2021-03-18T17:51:14Z ijchain {<user____1> Make a small mistake and the errors pop up elsewhere than expected}
+m 2021-03-18T17:51:35Z ijchain {<cousteau> Oh, and this is funny: if foo() returns multiple values, say `1,2,3`, then blah(foo(),foo(),foo()) is the same as blah(1,1,1,2,3)}
+m 2021-03-18T17:51:49Z ijchain {<user____1> yep. See unpack()}
+m 2021-03-18T17:52:28Z ijchain {<user____1> lua with it's metatables is quite trippy. Been coding in lua for a week, on openwrt platform, it is quite fast, unlike tcl.}
+m 2021-03-18T17:52:33Z ijchain {«Markem» _ok so :::::foo is the same as ::foo_  yup, unless you want to do a comparison with a stored value}
+m 2021-03-18T17:52:50Z ijchain {<cousteau> I like lua's syntactic simplicity (while avoiding Tcl's "everything's a string" paradigm and awkward way to type expressions), but it IS weird as hell}
+m 2021-03-18T17:52:58Z stu {user____1, which version of xcircuit are you using, and with which version of Tcl/Tk?}
+m 2021-03-18T17:53:17Z ijchain {<user____1> stu xcircuit has it's own built in wish interpreter.}
+m 2021-03-18T17:54:00Z ijchain {<cousteau> Markem: I'd say that's a more specific use case}
+m 2021-03-18T17:54:28Z stu {user____1, which version of xcircuit are you using?}
+m 2021-03-18T17:54:48Z ijchain {<cousteau> I don't know if there's a function to load/`cd` to a certain workspace, but in that case I guess "::" will be clearer than ""}
+m 2021-03-18T17:55:07Z ijchain {<user____1> stu 3.9.73 on debian buster/devuan beowulf}
+m 2021-03-18T17:55:14Z stu {Thanks you}
+m 2021-03-18T17:55:19Z ijchain {<user____1> yw}
+m 2021-03-18T17:55:45Z ijchain {<user____1> stu why interested in the version if I may ask?}
+m 2021-03-18T17:57:13Z stu {Because I'm the porter for xcircuit on OpenBSD, which is currently using a pre-3.9 version.}
+m 2021-03-18T17:57:19Z ijchain {<user____1> ah}
+m 2021-03-18T17:58:03Z stu {I believe there was a big jump at that time and so I was curious to see if  a more recent xcircuit was working well with a more recent Tcl.}
+m 2021-03-18T17:58:09Z ijchain {<user____1> I am curious if it shows the same behavior on OpenBSD. Full screen open on xfce4 wm with no decorations, disregarding -geometry cli and ~/.Xdefaults settings}
+m 2021-03-18T17:59:07Z stu {I don't remember if xcircuit builds a whole Tcl/Tk or just has a tkAppInit. Either way there should be some indication of a Tcl version somewhere.}
+m 2021-03-18T17:59:21Z ijchain {<user____1> One can open a console iirc}
+m 2021-03-18T17:59:23Z ijchain {<user____1> lookin}
+m 2021-03-18T17:59:33Z stu {Or About screen.}
+m 2021-03-18T17:59:44Z ijchain {<user____1> (hw-interface) 1 % puts $tcl_version}
+m 2021-03-18T17:59:51Z ijchain {<user____1> 8.6}
+m 2021-03-18T17:59:56Z stu {Great, thanks.}
+m 2021-03-18T18:00:04Z ijchain {<user____1> No About screen, but "TCL Console" option in File menu...}
+m 2021-03-18T18:00:41Z stu {I'm not able to test such a thing right now.}
+m 2021-03-18T18:00:48Z ijchain {<user____1> specifically 8.6.9}
+m 2021-03-18T18:01:30Z stu thanks
+m 2021-03-18T18:02:25Z {} {suchenwi has left}
+m 2021-03-18T18:02:27Z {} {suchenwi has become available}
+m 2021-03-18T18:03:33Z ijchain {*** puremouron leaves}
+m 2021-03-18T18:03:55Z ijchain {<user____1> Note this is the same tcl version installed on this system outside xcircuit.}
+m 2021-03-18T18:04:18Z ijchain {<user____1> So I have no way to know if it is reporting the system tclsh version or the xcircuit one. But I assume it is the former.}
+m 2021-03-18T18:04:35Z ijchain {<user____1> tcl is not in the dependencies list of xcircuit binary afaik.}
+m 2021-03-18T18:04:48Z ijchain {* user____1 checks}
+m 2021-03-18T18:05:21Z ijchain {<user____1> It does depend on system libtcl and libtk}
