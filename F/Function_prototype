@@ -1,0 +1,49 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Function_prototype
+#c# 2021-03-19 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# include mostly to make sure it compiles/runs without croaking
+
+# There is no restriction on placement of prototype declarations. (Actually, we call them "stub declarations".) In fact, stub declarations are rarely needed in Raku because post-declaration of functions is allowed, and normal function declarations do not bend the syntax the way they sometimes do in Perl 5.
+# Note that the ... in all of these stub bodies is literally part of the declaration syntax.
+
+# A prototype declaration for a function that does not require arguments (and returns an Int):
+sub foo ( --> Int) {...}
+
+# A prototype declaration for a function that requires two arguments.
+# Note that we can omit the variable name and just use the sigil in the stub, since we don't need to reference the argument until the actual definition of the routine. Also, unlike in Perl 5, a sigil like @ defaults to binding a single positional argument.
+sub foo (@, $ --> Int) {...}
+
+# A prototype declaration for a function that utilizes varargs after one required argument.
+# Note the "slurpy" star turns the @ sigil into a parameter that accepts all the rest of the positional arguments.
+sub foo ($, *@ --> Int) {...}
+
+# A prototype declaration for a function that utilizes optional arguments after one required argument. Optionality is conferred by either a question mark or a default:
+sub foo ($, $?, $ = 42 --> Int) {...}
+
+# A prototype declaration for a function that utilizes named parameters:
+sub foo ($, :$faster, :$cheaper --> Int) {...}
+
+# Example of prototype declarations for subroutines or procedures, which in Raku is done simply by noting that nothing is returned:
+sub foo ($, $ --> Nil) {...}
+
+# A routine may also slurp up all the named arguments that were not bound earlier in the signature:
+sub foo ($, :$option, *% --> Int) {...}
+
+# A routine may make a named parameter mandatory using exclamation mark. (This is more useful in multi subs than in stubs though.)
+sub foo ($, :$option! --> Int) {...}
+
+# A routine may unpack an Array automaticly. Here the first element is stored in a scalar and the rest in an Array. Other buildin types can be unpacked as well.
+sub foo ([$, @]) {...}
+
+# A routine may ask for a closure parameter to implement higher order functions. Typed or untyped signatures can be supplied.
+sub foo (@, &:(Str --> Int)) {...}
+
+# concrete example of last prototype
+sub bar (@, &:(Str --> Int)) {...}
+sub bar (@data, &func) { @data>>.&func }
+say my $result = join ' ', bar(<a bb ccc dddd eeeee ffffff ggggg hhhh iii jj k>, {.chars});
+
+use Test;
+is $result, '1 2 3 4 5 6 5 4 3 2 1';
