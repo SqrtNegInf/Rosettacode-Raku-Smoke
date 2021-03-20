@@ -2,19 +2,19 @@ Welcome to Rakudo(tm) v2021.02.1-64-gbf67b1f71.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.02-17-g9f0579d2a.
 updating from RC…
-+--------------> Moar: Good/Bad [1277/27]
-|+-------------> JVM: Good/Bad [1114/227]
-||+------------> Smoke testing [1192]
-|||+-----------> sKipping validation [138]
++--------------> Moar: Good/Bad [1285/28]
+|+-------------> JVM: Good/Bad [1120/229]
+||+------------> Smoke testing [1199]
+|||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [352]
-||||||+--------> Concurrent/Async [68]
+|||||+---------> Touched (modified by me) [355]
+||||||+--------> Concurrent/Async [69]
 |||||||+-------> Random seed [133]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [238]
-||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [83]
-||||||||||||+--> Un-implemented/reliable [52]
+|||||||||+-----> Draft [242]
+||||||||||+----> Ignoring [34]
+|||||||||||+---> Void (no local copy) [79]
+||||||||||||+--> Un-implemented/reliable [55]
 |||||||||||||
 GGS.......... 100_doors
 GGS...cR..... 100_prisoners
@@ -36,7 +36,7 @@ GGS......D... ABC_words
 GGS.......... AKS_test_for_primes
 GGS....R..... ASCII_art_diagram_converter
 !GS....R..... AVL_tree
-.........D.V. A_star_search_algorithm
+GGS......D... A_star_search_algorithm
 GGS..T....... Abbreviations,_automatic
 GGS..T....... Abbreviations,_easy
 GGS..T....... Abbreviations,_simple
@@ -54,6 +54,7 @@ GG.K......... Active_object
 GGS.......... Add_a_variable_to_a_class_instance_at_runtime
 .........D.VU Addition-chain_exponentiation
 GGS..T...D... Addition_chains
+GGS..T...D..U Additive_primes
 GGS.......... Address_of_a_variable
 GGS.......... Align_columns
 GGS..Tc...... Aliquot_sequence_classifications
@@ -249,7 +250,7 @@ GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
-.........D.V. Compiler_Verifying_syntax
+BB.K.T...D... Compiler_Verifying_syntax
 GGS..T....... Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
 ...........VU Compiler_syntax_analyzer
@@ -378,6 +379,7 @@ GGS..T....... Entropy_Narcissist
 GGS..T....... Enumerations
 GGS.......... Environment_variables
 GGS..T....... Equilibrium_index
+.........D.VU Erdos-primes
 GGS......D... Esthetic_numbers
 GGS.......... Ethiopian_multiplication
 GGS.......... Euler%27s_identity
@@ -399,7 +401,7 @@ GGS..T....... Execute_a_Markov_algorithm
 GGS..T....... Execute_a_system_command
 GGS.......... Exponentiation_operator
 GGS..T....... Exponentiation_order
-...........V. Exponentiation_with_infix_operators_in_or_operating_on_the_base
+GGS.......... Exponentiation_with_infix_operators_in_or_operating_on_the_base
 GGS..T....... Extend_your_language
 GGS.......... Extensible_prime_generator
 GBS..T...D... External_sort
@@ -443,7 +445,8 @@ GGS......D... Find_if_a_point_is_within_a_triangle
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
-.........D.V. Find_prime_numbers_of_the_form_n*n*n%2B2
+.........D.VU Find_prime_n_for_that_reversed_n_is_also_prime
+GGS......D... Find_prime_numbers_of_the_form_n_n_n%2B2
 GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
@@ -485,7 +488,7 @@ GGS......D... French_Republican_calendar
 GGS..T....... Function_composition
 GGS.......... Function_definition
 GGS..T....... Function_frequency
-..........XV. Function_prototype
+GGS.......... Function_prototype
 GGS..T....... Functional_coverage_tree-1
 GG.K.T....... Functional_coverage_tree-2
 GGS..T....... Fusc_sequence
@@ -555,7 +558,7 @@ GGS.......... Higher-order_functions
 GGS.....F.... Hilbert_curve-1
 GGS.....F.... Hilbert_curve-2
 GGS.......... History_variables
-GGS..Tc...... Hofstadter-Conway__10,000_sequence
+GGS..Tc...... Hofstadter-Conway_10,000_sequence
 GGS.......... Hofstadter_Figure-Figure_sequences
 GGS..T....... Hofstadter_Q_sequence
 GGS.......... Holidays_related_to_Easter
@@ -953,7 +956,7 @@ GGS......D... Powerful_numbers
 GG.K......... Pragmatic_directives
 GGS.......... Price_fraction
 GGS....R.D... Price_list_behind_API
-...........V. Primality_by_Wilson%27s_theorem
+GBS..TC...... Primality_by_Wilson%27s_theorem
 GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
 GBS..TC...... Prime_decomposition
@@ -1062,7 +1065,7 @@ GGS.......... Rosetta_Code_Find_bare_lang_tags
 GBS..T....... Rosetta_Code_Find_unimplemented_tasks
 GGS.......... Rosetta_Code_Fix_code_tags
 GB.K.T...D... Rosetta_Code_List_authors_of_task_descriptions
-!BS......D... Rosetta_Code_Rank_languages_by_number_of_users
+GBS......D... Rosetta_Code_Rank_languages_by_number_of_users
 GBS.......... Rosetta_Code_Rank_languages_by_popularity-1
 GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
@@ -1145,6 +1148,7 @@ GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
 GGS......D... Smallest_enclosing_circle_problem
+GGS......D... Smallest_square_that_begins_with_n
 GBS.......... Smarandache_prime-digital_sequence
 GGS.......... Smith_numbers
 .........DXV. Snake
