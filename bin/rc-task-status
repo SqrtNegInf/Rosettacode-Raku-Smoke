@@ -153,13 +153,14 @@ my($l) = @_;
     my($p) = $l =~ m#<li><a href="/wiki/(.*?)"#;
     return '' if $p =~ /Niecza|Pugs|Rakudo/;    # stray stuff from 'unimplemented'
     $p =~ s/Brain\*\*\*\*/Brainfuck/;           # 'fix' Brainfuck name
-    $p =~ s/%E2%80%93/-/;                       # e.g. Burrows%E2%80%93Wheeler_transform
-    $p =~ s/%E2%80%99//;                        # e.g. Ukkonen%E2%80%99s
-    $p =~ s/%C3%B6/oe/;                         # e.g. Möbius_function
-    $p =~ s/A\*/A_star/;                        # e.g. A*_search_algorithm
+    $p =~ s/%E2%80%93/-/;                       # Burrows%E2%80%93Wheeler_transform
+    $p =~ s/%E2%80%99//;                        # Ukkonen%E2%80%99s
+    $p =~ s/%C3%B6/oe/;                         # Möbius_function
+    $p =~ s/\$10/10/;                           # Hofstadter-Conway_$10,000_sequence
+    $p =~ s/A\*/A_star/;                        # A*_search_algorithm
     $p =~ s/0-1/0_1/;                           # Knapsack_problem_0-1, now in two versions: *_0_1-1, *_0_1-2
-    $p =~ s/n\*n\*n/n_n_/;                      # Find_prime_numbers_of_the_form_n_n_n%2B2
-    $p =~ s/Erdős/Erdos/;                       # Erdős-primes
+    $p =~ s/n\*n\*n/n_n_n/;                     # Find_prime_numbers_of_the_form_n_n_n%2B2
+    $p =~ s/%C5%91/o/;                          # Erdős-primes
 #    $p =~ s/Yahoo./Yahoo_/;                     # getting rid of the '!'
     return pfix($p);
 }
@@ -196,7 +197,6 @@ CLI-based_maze-game
 Create_a_file_on_magnetic_tape
 Create_DWM_statusbar
 Doubly-linked_list_Traversal
-Function_prototype
 Generalised_floating_point_multiplication
 Interactive_programming
 JortSort
