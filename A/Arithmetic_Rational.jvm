@@ -1,0 +1,39 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Arithmetic/Rational
+#c# 2016-08-02 <>RC, 2018-05-19 <RC, 2018-09-26 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res;
+
+for 2..2**15 -> $candidate {
+    my $sum = 1 / $candidate;
+    for 2 .. ceiling(sqrt($candidate)) -> $factor {
+        if $candidate %% $factor {
+            $sum += 1 / $factor + 1 / ($candidate / $factor);
+        }
+    }
+    if $sum.nude[1] == 1 {
+        push @res, ("Sum of reciprocal factors of $candidate = $sum exactly", $sum == 1 ?? ", perfect!" !! ".");
+        say @res[*-1];
+    }
+}
+
+for 1.0, 1.1, 1.2 ... 2 { 
+    .say;
+    LAST { is 2, $_, 'terminated with "2", as intended' }
+}
+
+my $ref = qq:to/END/;
+Sum of reciprocal factors of 2 = 2 exactly .
+Sum of reciprocal factors of 28 = 1 exactly , perfect!
+Sum of reciprocal factors of 120 = 2 exactly .
+Sum of reciprocal factors of 496 = 1 exactly , perfect!
+Sum of reciprocal factors of 672 = 2 exactly .
+Sum of reciprocal factors of 8128 = 1 exactly , perfect!
+Sum of reciprocal factors of 30240 = 3 exactly .
+Sum of reciprocal factors of 32760 = 3 exactly .
+END
+
+use Test;
+is  @res.join("\n"), chomp $ref;
