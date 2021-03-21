@@ -3,7 +3,6 @@
 #c# 2015-12-05 <RC, 2018-10-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# work-arounds for JVM to avoid .hyper/.race
 #n# 2018-10-05 added '.race', over 2x speed-up 
 #n# small bug: why doesn't .hyper doesn't keep result in order?
 #n#  including base 10 & base 17:
@@ -15,8 +14,7 @@
 #n#  20181005    748.930u  21.489s    3:23.42 378.7% (with 10:1e6/17:1e5) ! doing more
 #n#  20181006  10899.558u 259.860s   50:13.82 370.2% (with 10:1e6/17:1e6) ! doing much more
 #n#  _NEXT_
-
-# Numeric version (medium)
+#n# 2021-03-20 split from JVM version, added back base-17 calculations
 
 sub kaprekar( Int $n, Int :$base = 10 ) {
     my $hi = $n ** 2;
@@ -38,33 +36,21 @@ use Test;
 is $out, $ref1;
 
 my $n;
-if $*VM ~~ /jvm/ { for ^100_000 { $n++ if kaprekar $_ } }
-else             { (^100_000).race.map: { $n++ if kaprekar $_ } }
+(^100_000).race.map: { $n++ if kaprekar $_ }
 
 say "\n\nBase 10 Kaprekar numbers < :10<1_000_000> = $n";
 is $n, 24;
 #say "\n\nBase 10 Kaprekar numbers < :10<1_000_000> = ", $n = [+] (1 if kaprekar $_ for ^100_000);
 #is $n, 54;
 
-exit;
+#exit; # un-comment to skip base-17 calculations
 
 say "\nBase 17 Kaprekar numbers < :17<100_000>";
 
 my &k17 = &kaprekar.assuming(:base(17));
 
 my @res;
-sub jvm {
-for ^:17<100_000> -> $n {
-    my ($h,$l) = k17 $n;
-    next unless $l;
-    my $n17 = $n.base(17);
-    my $s17 = ($n × $n).base(17);
-    my $h17 = $h.base(17);
-    @res.push: "$n $n17 $s17 ($h17 + $s17.substr(* - max(1,($s17.chars - $h17.chars))))";
-}
-}
 
-sub moar {
 (^:17<100_000>).hyper.map: -> $n {
 #(^:17<100_000>).race.map: -> $n {
     my ($h,$l) = k17 $n;
@@ -74,9 +60,6 @@ sub moar {
     my $h17 = $h.base(17);
     @res.push: "$n $n17 $s17 ($h17 + $s17.substr(* - max(1,($s17.chars - $h17.chars))))";
 }
-}
-
-$*VM ~~ /jvm/ ?? jvm() !! moar();
 
 @res .= sort: *.chars;
 .say for @res;
