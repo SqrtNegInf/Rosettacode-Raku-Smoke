@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
+use Test;
+
 sub runge-kutta(&yp) {
     return -> \t, \y, \δt {
         my $a = δt × yp( t, y );
@@ -21,32 +23,12 @@ loop (
     my ($t, $y) = (0, 1);
     $t <= 10;
     ($t, $y) »+=« (δt, δy($t, $y, δt))
-   #$t, $y Z[+=] δt, δy($t, $y, δt)
+   #$t, $y Z[+=] δt, δy($t, $y, δt)  # fails, see also: N/N-body_problem.0
 ) {
-    printf "y(%2d) =%12f ±%e\n", $t, $y, abs($y - ($t**2 + 4)**2 / 16)
+    printf "y(%2d) =%12f ±%e\n", $t, $y, abs($y - ($t² + 4)² / 4²)
     if $t.narrow ~~ Int;
     if $t.narrow == 0  { is $y, 1; }
     if $t.narrow == 1  { is-approx $y, 1.56249985427811; }
     if $t.narrow == 10 { is-approx $y, 675.99994901671; }
 }
 
-
-# Failed test at Runge-Kutta_method line 29
-# expected: '675.99994901671'
-#      got: '675.9999490167097'
-
-#`{
-y( 0) =     1.000000 ± 0.000000e+00
-y( 1) =     1.562500 ± 1.457219e-07
-y( 2) =     3.999999 ± 9.194792e-07
-y( 3) =    10.562497 ± 2.909562e-06
-y( 4) =    24.999994 ± 6.234909e-06
-y( 5) =    52.562489 ± 1.081970e-05
-y( 6) =    99.999983 ± 1.659460e-05
-y( 7) =   175.562476 ± 2.351773e-05
-y( 8) =   288.999968 ± 3.156520e-05
-y( 9) =   451.562459 ± 4.072316e-05
-y(10) =   675.999949 ± 5.098329e-05
-}
-
-use Test;
