@@ -1,0 +1,19 @@
+#!/usr/bin/env raku
+## generic task runner to detect varying output
+#    2021-03-20
+
+my $task = @*ARGS.shift or die 'Say what?';
+
+my $cmd0  = run 'raku', $task, :out, :err;
+my $text0 = $cmd0.out.slurp;
+#my $err0  = $cmd0.err.slurp;
+
+for 1..* -> $i {
+    my $cmd = run 'raku', $task, :out, :err;
+    my $text  = $cmd.out.slurp;
+    #my $err   = $cmd.err.slurp;
+    next if $text0 eq $text;
+
+    say "OMG, found a difference at iteration $i:";
+    say "$text0\n\n === \n$text";
+}
