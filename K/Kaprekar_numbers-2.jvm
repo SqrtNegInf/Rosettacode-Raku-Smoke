@@ -1,0 +1,100 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Kaprekar_numbers
+#c# 2015-12-05 <RC, 2018-10-05 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+sub kaprekar( Int $n, Int :$base = 10 ) {
+    my $hi = $n ** 2;
+    my $lo = 0;
+    loop (my $s = 1; $hi; $s ×= $base) {
+        $lo += ($hi % $base) × $s;
+        $hi div= $base;
+        return $hi,$lo if $lo + $hi == $n and $lo;
+    }
+    ();
+}
+
+my $out ~= " $_" if .&kaprekar for ^10_000;
+say $out;
+
+my $ref1 = ' 1 9 45 55 99 297 703 999 2223 2728 4879 4950 5050 5292 7272 7777 9999';
+
+use Test;
+is $out, $ref1;
+
+my $n;
+for ^100_000 { $n++ if kaprekar $_ }
+
+say "\n\nBase 10 Kaprekar numbers < :10<1_000_000> = $n";
+is $n, 24;
+#say "\n\nBase 10 Kaprekar numbers < :10<1_000_000> = ", $n = [+] (1 if kaprekar $_ for ^100_000);
+#is $n, 54;
+
+exit; # skipping base-17 calculations, very slow
+
+say "\nBase 17 Kaprekar numbers < :17<100_000>";
+
+my &k17 = &kaprekar.assuming(:base(17));
+
+my @res;
+sub jvm {
+for ^:17<100_000> -> $n {
+    my ($h,$l) = k17 $n;
+    next unless $l;
+    my $n17 = $n.base(17);
+    my $s17 = ($n × $n).base(17);
+    my $h17 = $h.base(17);
+    @res.push: "$n $n17 $s17 ($h17 + $s17.substr(* - max(1,($s17.chars - $h17.chars))))";
+}
+}
+
+sub moar {
+(^:17<100_000>).hyper.map: -> $n {
+#(^:17<100_000>).race.map: -> $n {
+    my ($h,$l) = k17 $n;
+    next unless $l;
+    my $n17 = $n.base(17);
+    my $s17 = ($n × $n).base(17);
+    my $h17 = $h.base(17);
+    @res.push: "$n $n17 $s17 ($h17 + $s17.substr(* - max(1,($s17.chars - $h17.chars))))";
+}
+}
+
+$*VM ~~ /jvm/ ?? jvm() !! moar();
+
+@res .= sort: *.chars;
+.say for @res;
+
+my $ref2 = qq:to/END/;
+1 1 1 (0 + 1)
+16 G F1 (F + 1)
+64 3D E2G (E + 2G)
+225 D4 A52G (A5 + 2G)
+288 GG GF01 (GF + 01)
+1536 556 1B43B2 (1B4 + 3B2)
+3377 BBB 8093B2 (809 + 3B2)
+4912 GGG GGF001 (GGF + 001)
+7425 18BD 24E166G (24E + 166G)
+9280 1F1F 39B1B94 (39B + 1B94)
+16705 36DB B992C42 (B99 + 2C42)
+20736 43CD 10DE32FG (10DE + 32FG)
+30016 61EB 23593F92 (2359 + 3F92)
+36801 785D 351E433G (351E + 433G)
+37440 7A96 37144382 (3714 + 4382)
+46081 967B 52G94382 (52G9 + 4382)
+46720 98B4 5575433G (5575 + 433G)
+53505 AF26 6GA43F92 (6GA4 + 3F92)
+62785 CD44 9A5532FG (9A55 + 32FG)
+66816 DA36 AEG42C42 (AEG4 + 2C42)
+74241 F1F2 D75F1B94 (D75F + 1B94)
+76096 F854 E1F5166G (E1F5 + 166G)
+83520 GGGG GGGF0001 (GGGF + 0001)
+266224 33334 A2C52A07G (A2C5 + 2A07G)
+1153633 DDDDD B3D5E2A07G (B3D5E + 2A07G)
+1334529 FGACC F0540F1A78 (F054 + 0F1A78)
+1419856 GGGGG GGGGF00001 (GGGGF + 00001)
+END
+
+use Test;
+is @res.join("\n"), chomp $ref2;
