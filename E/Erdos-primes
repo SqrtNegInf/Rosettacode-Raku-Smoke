@@ -16,6 +16,7 @@ my @Erdős = ^Inf .grep: { .is-prime and none($_ «-« @factorial[^(@factorial.f
 #@res.push: "\nThe 7,875th Erdős prime is: " ~ @Erdős[7874].&comma;
 my $n = @Erdős.first: * > 1e6, :k;
 @res.push: "\nThe {$n.&comma ~ $n.&ordinal-digit.substr(*-2,2)} Erdős prime is largest less than a million: " ~ @Erdős[$n-1].&comma;
+# nope: $n.&comma.&ordinal-digit, $n.&ordinal-digit.&comma
 
 .say for @res;
 
