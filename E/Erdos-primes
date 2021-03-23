@@ -11,21 +11,19 @@ use Lingua::EN::Numbers;
 my @factorial = 1, |[\*] 1..*;
 my @Erdős = ^Inf .grep: { .is-prime and none($_ «-« @factorial[^(@factorial.first: * > $_, :k)]).is-prime }
 
-
 @res.push: 'Erdős primes < 2500:';
 @res.push: @Erdős[^(@Erdős.first: * > 2500, :k)]».&comma;
 #@res.push: "\nThe 7,875th Erdős prime is: " ~ @Erdős[7874].&comma;
-my $n = (@Erdős.first: * >= 1e6, :k);
-@res.push: "\nThe " ~ $n.&ordinal-digit ~ ' Erdős prime is: ' ~ @Erdős[$n-1].&comma;
+my $n = @Erdős.first: * > 1e6, :k;
+@res.push: "\nThe {$n.&comma ~ $n.&ordinal-digit.substr(*-2,2)} Erdős prime is largest less than a million: " ~ @Erdős[$n-1].&comma;
 
 .say for @res;
-exit;
 
 my $ref = q:to/END/;
 Erdős primes < 2500:
 2 101 211 367 409 419 461 557 673 709 769 937 967 1,009 1,201 1,259 1,709 1,831 1,889 2,141 2,221 2,309 2,351 2,411 2,437
 
-The 7875th Erdős prime is: 999,721
+The 7,875th Erdős prime is largest less than a million: 999,721
 END
 
 use Test;
