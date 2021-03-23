@@ -1,19 +1,18 @@
-Welcome to Rakudo(tm) v2021.03-1-gbccb2ce2d.
+Welcome to Rakudo(tm) v2021.03-3-gb21a0c378.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.03-1-gc48fd57a3.
-updating from RC…
-+--------------> Moar: Good/Bad [1289/28]
-|+-------------> JVM: Good/Bad [1122/231]
-||+------------> Smoke testing [1203]
++--------------> Moar: Good/Bad [1290/28]
+|+-------------> JVM: Good/Bad [1124/232]
+||+------------> Smoke testing [1206]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [355]
 ||||||+--------> Concurrent/Async [70]
-|||||||+-------> Random seed [133]
+|||||||+-------> Random seed [134]
 ||||||||+------> File output [98]
 |||||||||+-----> Draft [244]
 ||||||||||+----> Ignoring [34]
-|||||||||||+---> Void (no local copy) [79]
+|||||||||||+---> Void (no local copy) [76]
 ||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
@@ -108,7 +107,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GGS..T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -138,7 +137,7 @@ GGS.......... Binary_digits
 GGS.......... Binary_search
 GGS..T....... Binary_strings
 !GS....R..... Bioinformatics_Sequence_mutation
-.........D.V. Bioinformatics_Subsequence
+!BS....R.D... Bioinformatics_Subsequence
 GGS.......... Bioinformatics_base_count
 GGS..T...D... Bioinformatics_global_alignment
 GGS.......... Biorhythms
@@ -327,7 +326,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -448,7 +447,7 @@ GGS......D... Find_if_a_point_is_within_a_triangle
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
-.........D.V. Find_prime_n_for_that_reversed_n_is_also_prime
+GGS......D... Find_prime_n_for_that_reversed_n_is_also_prime
 GGS......D... Find_prime_numbers_of_the_form_n_n_n%2B2
 GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
@@ -632,7 +631,7 @@ GGS......D... Just_in_time_processing_on_a_character_stream
 GGS....R..... K-means%2B%2B_clustering
 GGS......D... Kahan_summation
 GGS.......... Kaprekar_numbers-1
-GGS..TC...... Kaprekar_numbers-2
+!GS..TC...... Kaprekar_numbers-2
 GBS.......... Kaprekar_numbers-3
 GGS.......... Kernighans_large_earthquake_problem
 GB.KI........ Keyboard_input_Flush_the_keyboard_buffer
@@ -874,7 +873,7 @@ GGS.......... Ordered_words
 BB........... P-Adic_numbers,_basic
 ...........VU P-Adic_square_roots
 GGS..T....... P-value_correction
-...........V. Padovan_n-step_number_sequences
+GGS.......... Padovan_n-step_number_sequences
 GGS.......... Padovan_sequence
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
