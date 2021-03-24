@@ -15,6 +15,7 @@
 #n#  20181006  10899.558u 259.860s   50:13.82 370.2% (with 10:1e6/17:1e6) ! doing much more
 #n#  _NEXT_
 #n# 2021-03-20 split from JVM version, added back base-17 calculations
+#n# 2021-03-22 dropped base-17 again, race-condition in testing
 
 sub kaprekar( Int $n, Int :$base = 10 ) {
     my $hi = $n ** 2;
@@ -43,7 +44,7 @@ is $n, 24;
 #say "\n\nBase 10 Kaprekar numbers < :10<1_000_000> = ", $n = [+] (1 if kaprekar $_ for ^100_000);
 #is $n, 54;
 
-#exit; # un-comment to skip base-17 calculations
+exit; # un-comment to skip base-17 calculations
 
 say "\nBase 17 Kaprekar numbers < :17<100_000>";
 
