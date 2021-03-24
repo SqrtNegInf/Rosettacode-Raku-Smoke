@@ -5704,6 +5704,7 @@ File: K/Kaprekar_numbers-2
 #n#  20181006  10899.558u 259.860s   50:13.82 370.2% (with 10:1e6/17:1e6) ! doing much more
 #n#  _NEXT_
 #n# 2021-03-20 split from JVM version, added back base-17 calculations
+#n# 2021-03-22 dropped base-17 again, race-condition in testing
 
 File: K/Kaprekar_numbers-2.jvm
 #!/usr/bin/env perl6
@@ -10600,10 +10601,17 @@ File: S/Smallest_enclosing_circle_problem
 File: S/Smallest_square_that_begins_with_n
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Smallest_square_that_begins_with_n
-#c# 2021-03-19 <RC, 2021-03-20 <RC
+#c# 2021-03-19 <RC, 2021-03-20 <RC, 2021-03-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# minor display tweaks
+
+File: S/Smallest_square_that_begins_with_n-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Smallest_square_that_begins_with_n
+#c# 2021-03-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: S/Smarandache_prime-digital_sequence
 #!/usr/bin/env perl6
