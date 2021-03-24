@@ -12,7 +12,7 @@ use String::Splice:ver<0.0.3>;
 
 my $line = 80;
 
-my $haystack = [~] <A C G T>.roll($line * 8);
+my $haystack = [~] <A C G T>.roll($line × 8);
 
 @res.push: 'Needle: ' ~ my $needle = [~] <A C G T>.roll(4);
 
