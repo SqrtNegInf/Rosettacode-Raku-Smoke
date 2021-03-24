@@ -2,8 +2,9 @@
 #u# http://rosettacode.org/wiki/Vidir
 #t# interactive
 #c# 2020-06-15 <RC
-#m# MOAR: BROKEN OK
+#m# MOAR: OK
 #j# JVM:  BROKEN OK
+#n# 2021-03-23 $*DISTRO changed: from 'Darwin' to 'macosx'
 
 #`{{
 Will get a list of all file names from the specified director(y|ies), put them in a temporary file and open the text file with the default (or specified) text editor.
@@ -19,6 +20,8 @@ Notice that all of the above operations will fail to apply if you lack sufficien
 use Sort::Naturally;
 use File::Temp;
 
+say $*DISTRO ;exit;
+
 my %*SUB-MAIN-OPTS = :named-anywhere;
 
 unit sub MAIN (
@@ -26,7 +29,7 @@ unit sub MAIN (
     Str $filter       = '',     #= default file filter
     Bool :r(:$recurse)= False,  #= recursion flag
     Bool :v(:$verbose)= False,  #= verbose mode
-    Str :e(:$editor)  = $*DISTRO ~~ /'Darwin'/ ?? "open" !! "xdg-open"; #= default editor
+    Str :e(:$editor)  = $*DISTRO ~~ /'macosx'/ ?? "open" !! "xdg-open"; #= default editor
 );
 
 my $dir = $path;
