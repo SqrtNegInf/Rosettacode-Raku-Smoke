@@ -1,15 +1,17 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Strange_unique_prime_triplets
 #c# 2021-03-12 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#m# MOAR: OK
+#j# JVM:  OK
 
 my @res;
 
 for 30, 1000 -> \k {
-   given (2..k).grep(*.is-prime).combinations(3).grep(*.sum.is-prime) {
-      @res.push: 'Found ' ~ +$_ ~ ' strange unique prime triplets up to ' ~ k
-   }
+#   given (2..k).grep(*.is-prime).combinations(3).grep(*.sum.is-prime) {
+#      @res.push: 'Found ' ~ +$_ ~ ' strange unique prime triplets up to ' ~ k
+
+   @res.push: 'Found ' ~ +$_ ~ ' strange unique prime triplets up to ' ~ k
+       given (2..k).grep(*.is-prime).combinations(3).grep(*.sum.is-prime)
 }
 
 .say for @res;
