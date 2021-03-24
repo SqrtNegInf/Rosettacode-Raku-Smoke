@@ -1,11 +1,12 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Spelling_of_ordinal_numbers
 #c# 2019-02-10 <RC, 2019-06-08 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: spelling_ordinals.txt
 #n# results cause 'malformed UTF' problems, output to file instead
 #n# 2020-05-15 https://github.com/rakudo/rakudo/issues/3694 thundergnat++
+#n# 2021-03-23 removed Allomorph '123+0i'
 
 my @res;
 
@@ -27,7 +28,7 @@ my $fh = open('run/spelling_ordinals.txt', :w);
 123, 00123.0, 1.23e2, 123+0i,
 
 'Allomorphs',
-|<123 1_2_3 00123.0 1.23e2 123+0i 0b1111011 0o173 0x7B 861/7>,
+|<123 1_2_3 00123.0 1.23e2 0b1111011 0o173 0x7B 861/7>,
 
 'Numeric Strings',
 |'1_2_3 00123.0 1.23e2 123+0i 0b1111011 0o173 0x7B 861/7'.words,
