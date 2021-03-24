@@ -1,23 +1,27 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Smallest_square_that_begins_with_n
-#c# 2021-03-19 <RC, 2021-03-20 <RC
+#c# 2021-03-19 <RC, 2021-03-20 <RC, 2021-03-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# minor display tweaks
 
-my (@res1,@res2);
+my (@res1,@res2,@res3);
 
 my @needles  = (1..49);
-my @haystack = (1..*) Z× (1..*);
-my @altstack = ( 1, 4, -> \a, \b { 2*b - a + 2 } ... * );
+my @haystack1 = (1..*) Z× (1..*);
+my @haystack2 = ( 1, 4, -> \a, \b { 2×b - a + 2 } ... * );
+my @haystack3 = ( 1, { (++$)² } ... * );
 
 for @needles -> \needle {
-   for @haystack -> \hay {
+   for @haystack1 -> \hay {
       { @res1.push: needle ~ ' => ' ~ sqrt(hay) ~ ' => ' ~ hay and last } if hay.starts-with: needle
       #{ say needle ~ ' => ' ~ hay and last } if hay.starts-with: needle
    }
-   for @altstack -> \hay {
+   for @haystack2 -> \hay {
       { @res2.push: needle ~ ' => ' ~ sqrt(hay) ~ ' => ' ~ hay and last } if hay.starts-with: needle
+   }
+   for @haystack3 -> \hay {
+      { @res3.push: needle ~ ' => ' ~ sqrt(hay) ~ ' => ' ~ hay and last } if hay.starts-with: needle
    }
 }
 
@@ -79,3 +83,4 @@ END
 use Test;
 is @res1.join("\n"), chomp $ref;
 is @res2.join("\n"), chomp $ref;
+is @res3.join("\n"), chomp $ref;
