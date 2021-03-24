@@ -8,7 +8,7 @@ my @res;
 
 use Lingua::EN::Numbers;
 
-my @factorial = 1, |[\*] 1..*;
+my @factorial = 1, |[\×] 1..*;
 my @Erdős = ^Inf .grep: { .is-prime and none($_ «-« @factorial[^(@factorial.first: * > $_, :k)]).is-prime }
 
 @res.push: 'Erdős primes < 2500:';
