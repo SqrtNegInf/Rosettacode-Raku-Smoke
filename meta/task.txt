@@ -1,10 +1,10 @@
-Welcome to Rakudo(tm) v2021.03-3-gb21a0c378.
+Welcome to Rakudo(tm) v2021.03-8-g195e4461e.
 Implementing the Raku(tm) programming language v6.d.
-Built on MoarVM version 2021.03-1-gc48fd57a3.
+Built on MoarVM version 2021.03-11-g13f926228.
 updating from RC…
-+--------------> Moar: Good/Bad [1292/28]
-|+-------------> JVM: Good/Bad [1125/232]
-||+------------> Smoke testing [1207]
++--------------> Moar: Good/Bad [1298/21]
+|+-------------> JVM: Good/Bad [1126/231]
+||+------------> Smoke testing [1210]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [355]
@@ -108,7 +108,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GGS..T.R..... Average_loop_length
+!GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
 GGS.......... Averages_Mean_time_of_day
@@ -427,7 +427,7 @@ GGS.......... Faulhaber%27s_triangle
 GGS.......... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
 GGS.....FD... Fibonacci_heap
-BBS..T...D... Fibonacci_matrix-exponentiation
+GBS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_sequence
 GGS.......... Fibonacci_word
@@ -749,7 +749,7 @@ GGS..T....... Matrix_transposition
 GGS..T....... Maximum_triangle_path_sum
 GGS......D... Mayan_calendar
 GGS.......... Mayan_numerals-1
-BBS.......... Mayan_numerals-2
+GBS.......... Mayan_numerals-2
 GG.K...R..... Maze_generation
 GG.K...R..... Maze_solving
 GGS.......... McNuggets_problem
@@ -884,7 +884,7 @@ GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_brute_force
 GBS..TC...... Parallel_calculations
-BB....CR..... Parallel_calculations-2
+GBS...CR..... Parallel_calculations-2
 GGS..T....... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
@@ -1208,7 +1208,7 @@ GG.K......... Special_characters
 GGS......D... Special_factorials
 GG.K.T....... Special_variables
 GG.K......... Speech_synthesis
-BB......F.... Spelling_of_ordinal_numbers
+GBS.....F.... Spelling_of_ordinal_numbers
 GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
 GGS.......... Spiral_matrix-2
@@ -1234,7 +1234,7 @@ GGS.......... Stirling_numbers_of_the_second_kind
 GGS..T....... Straddling_checkerboard
 GGS..T...D... Strange_numbers
 GGS...c..D... Strange_plus_numbers
-BB.......D... Strange_unique_prime_triplets
+GGS......D... Strange_unique_prime_triplets
 BB.K.....D... Strassen%27s_algorithm
 GGS..T....... Stream_merge
 GGS.......... String_append
@@ -1284,7 +1284,7 @@ GGS..T....... Symmetric_difference
 GGS.....F.... Synchronous_concurrency
 GGS.......... System_time
 GG.K.....D... Table_creation
-BB.K......... Table_creation_Postal_addresses
+GB.K......... Table_creation_Postal_addresses
 GGS.....F.... Take_notes_on_the_command_line
 .........D.VU Tamagotchi_emulator
 GGS.......... Tarjan
@@ -1404,7 +1404,7 @@ GGS....R..... Verify_distribution_uniformity_Naive
 GG.KI........ Vibrating_rectangles-1
 GB.KI........ Vibrating_rectangles-2
 GG.KI........ Video_display_modes
-BB.KI....D... Vidir
+GB.KI....D... Vidir
 GGS..T....... Vigen%C3%A8re_cipher
 GGS..TC...... Vigen%C3%A8re_cipher_Cryptanalysis
 GGS.......... Visualize_a_tree
