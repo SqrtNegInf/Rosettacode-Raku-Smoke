@@ -3779,7 +3779,8 @@ File: F/Fibonacci_matrix-exponentiation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fibonacci_matrix-exponentiation
 #c# 2020-02-05 >RC, 2020-02-11 >RC
-#p# OK
+#m# MOAR: OK
+#j# JVM:  BROKEN
 #n# works for 16/32, not 64:
 #n#   first20: no error, but bogus value 11175807536929531904
 #n#   last20:  Math::AnyNum / 'fibmod': Cannot unbox 65 bit wide bigint into native integer
@@ -5462,7 +5463,7 @@ File: I/Interactive_Help
 File: I/Interactive_programming
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Interactive_programming
-#t# nocode
+#t# skiptest
 #c# 2020-03-17 <RC
 #m# MOAR: BROKEN
 #j# JVM:  BROKEN
@@ -5693,7 +5694,6 @@ File: K/Kaprekar_numbers-2
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2018-10-05 added '.race', over 2x speed-up 
-#n# small bug: why doesn't .hyper doesn't keep result in order?
 #n#  including base 10 & base 17:
 #n#  20161123: 12946.216u 383.841s 3:44:04.17 99.1%  (with 10:1e5/17:1e6)
 #n#  20170123: 11099.346u 213.517s 3:22:29.73 93.1%  ( " )
@@ -6852,10 +6852,10 @@ File: M/Mayan_numerals-1
 
 File: M/Mayan_numerals-2
 #!/usr/bin/env raku
-##u# http://rosettacode.org/wiki/Mayan_numerals
-##c# 2021-02-11 <RC
-##m# MOAR: OK
-##j# JVM:  BROKEN
+#u# http://rosettacode.org/wiki/Mayan_numerals
+#c# 2021-02-11 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
 #n#  plain old text mode. Not as pretty, but still serviceable.
 
 File: M/Maze_generation
@@ -8054,13 +8054,13 @@ File: P/Parallel_calculations-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parallel_calculations
 #c# 2017-10-27 <RC, 2018-02-28 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# Exception in thread "Thread-1" org.perl6.nqp.runtime.UnwindException
 #n#  older version of task; unlike up-to-date version, this shows wall-clock benefit of .race:
 #n#     69.168u 0.426s 0:19.66 353.9%
 #n#     67.238u 0.228s 1:07.22 100.3%
-#n# 2020-10-07 fails, likely due to more efficient .is-prime code that doesn't chew time...
+#n# 2020-10-07 fails to show benefit, likely due to more efficient .is-prime code that doesn't chew time...
 
 File: P/Parallel_calculations.1
 #!/usr/bin/env perl6
@@ -11008,11 +11008,12 @@ File: S/Spelling_of_ordinal_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Spelling_of_ordinal_numbers
 #c# 2019-02-10 <RC, 2019-06-08 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: spelling_ordinals.txt
 #n# results cause 'malformed UTF' problems, output to file instead
 #n# 2020-05-15 https://github.com/rakudo/rakudo/issues/3694 thundergnat++
+#n# 2021-03-23 removed Allomorph '123+0i'
 
 File: S/Spelling_of_ordinal_numbers.jvm
 #!/usr/bin/env perl6
@@ -11263,8 +11264,8 @@ File: S/Strange_unique_prime_triplets
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Strange_unique_prime_triplets
 #c# 2021-03-12 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: S/Strassen%27s_algorithm
 #!/usr/bin/env raku
@@ -11275,36 +11276,6 @@ File: S/Strassen%27s_algorithm
 #j# JVM:  BROKEN
 #n# was not able to get modules to work on my old Mac...
 #n# 2021-02-18 code now OK, current
-
-File: S/Strassen%27s_algorithm~
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Strassen%27s_algorithm
-#t# inprogress
-#c# 2021-01-26 <RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
-#n# was not able to get modules to work on my old Mac...
-#n# also: Unicode character problems
-
-File: S/Strassen%27s_algorithy~
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Strassen%27s_algorithm
-#t# inprogress
-#c# 2021-01-26 <RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
-#n# was not able to get modules to work on my old Mac...
-#n# also: Unicode character problems
-
-File: S/Strassen%27s_algorithz~
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Strassen%27s_algorithm
-#t# inprogress
-#c# 2021-01-26 <RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
-#n# was not able to get modules to work on my old Mac...
-#n# also: Unicode character problems
 
 File: S/Stream_Merge
 #!/usr/bin/env perl6
@@ -11794,9 +11765,9 @@ File: T/Table_creation_Postal_addresses
 #t# skiptest
 #u# http://rosettacode.org/wiki/Table_creation/Postal_addresses
 #c# 2019-09-21 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#n# need to config local sql to get DBIish to install
+#n# probably OK, need to config local sql to get DBIish to install
 
 File: T/Take_notes_on_the_command_line
 #!/usr/bin/env perl6
@@ -12843,8 +12814,9 @@ File: V/Vidir
 #u# http://rosettacode.org/wiki/Vidir
 #t# interactive
 #c# 2020-06-15 <RC
-#m# MOAR: BROKEN OK
+#m# MOAR: OK
 #j# JVM:  BROKEN OK
+#n# 2021-03-23 $*DISTRO changed: from 'Darwin' to 'macosx'
 
 File: V/Vigen%C3%A8re_cipher
 #!/usr/bin/env perl6
