@@ -1,9 +1,21 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Square_Form_Factorization
-#c# 2021-03-xx >RC NOT ON RC
+#c# 2021-03-xx NOT ON RC
 #p# OK
-#n# original code
-#n# All Unicode removed
+#n# in this version all Unicode function/variable names removed, otherwise the same
+#n# timings to document the 'Unicode variable name' penalty
+
+#n# 10x penalty for minimal run (up to 13290059) [it's almost all in the start-up to 1st result]
+#n#   10.20s user 0.45s system 108% cpu 9.789 total | original code
+#n#    1.31s user 0.14s system 140% cpu 1.030 total | after all Unicode removed
+
+#n# 1.4x penalty for short run (up to 60012462237239)
+#n#   56.57s user 0.58s system 101% cpu 56.289 total | original code
+#n#   39.79s user 0.36s system 100% cpu 39.759 total | after all Unicode removed
+
+#n# 1.2x penalty for long run (up to 1000000000000000127)
+#n# 2689.66s user 10.85s system 98% cpu 45:41.17 total | original code
+#n# 2231.07s user 13.18s system 99% cpu 37:30.02 total | after all Unicode removed
 
 my @res;
 
@@ -53,12 +65,12 @@ for (
    11111,
    4558849,
    2501,12851,13289,75301,120787,967009,997417,7091569,13290059,
-   42854447,223553581,2027651281,11111111111,100895598169,1002742628021,
-   60012462237239,
-   287129523414791,
-   11111111111111111,
-   384307168202281507,
-   1000000000000000127,
+#  42854447,223553581,2027651281,11111111111,100895598169,1002742628021,
+#  60012462237239,
+#  287129523414791,
+#  11111111111111111,
+#  384307168202281507,
+#  1000000000000000127,
 #  9007199254740931,
 #  922337203685477563,
 #  314159265358979323,
