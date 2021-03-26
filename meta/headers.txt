@@ -1375,7 +1375,7 @@ File: B/Brace_expansion
 #c# 2018-03-22 <RC, 2019-11-20 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# multiple GLR fixes on the one line of 'crosswalk': '|' and 'flat' (and removed redundant enclosures)
+#n# two GLR fixes on the one line of 'crosswalk': '|' and 'flat' (and removed redundant enclosures)
 #n# 3 failing tests removed; bah humbug, not going to spend more time on this...
 
 File: B/Brace_expansion_using_ranges
@@ -3786,6 +3786,13 @@ File: F/Fibonacci_matrix-exponentiation
 #n#   last20:  Math::AnyNum / 'fibmod': Cannot unbox 65 bit wide bigint into native integer
 
 File: F/Fibonacci_n-step_number_sequences
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Fibonacci_n-step_number_sequences
+#c# 2016-01-23 <>RC, 2020-08-30 >RC, 2021-03-25 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+File: F/Fibonacci_n-step_number_sequences-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Fibonacci_n-step_number_sequences
 #c# 2016-01-23 <>RC, 2020-08-30 >RC
@@ -11100,6 +11107,25 @@ File: S/Square-free_integers.jvm
 #c# 2018-07-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: S/Square_Form_Factorization
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Square_Form_Factorization
+#c# 2021-03-25 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# tried to run the whole task once (waaaaay slow), cut down on results for daily smoke-testing
+#n# would have to replace the Unicode symbols for JVM to work (anyhow, would probably be glacial)
+#n# can't display some of the Unicode (on RC, here)
+#n# Start-up is really slow? Back-porting the Perl port I get much snappier results; a Unicode penalty?
+
+File: S/Square_Form_Factorization.1
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Square_Form_Factorization
+#c# 2021-03-xx >RC NOT ON RC
+#p# OK
+#n# original code
+#n# All Unicode removed
 
 File: S/Square_Root_by_Hand
 #!/usr/bin/env raku
