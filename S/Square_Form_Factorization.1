@@ -1,0 +1,112 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Square_Form_Factorization
+#c# 2021-03-xx >RC NOT ON RC
+#p# OK
+#n# original code
+#n# All Unicode removed
+
+my @res;
+
+my @multiplier = ( 1, 3, 5, 7, 11, 3*5, 3*7, 3*11, 5*7, 5*11, 7*11, 3*5*7, 3*5*11, 3*7*11, 5*7*11, 3*5*7*11 );
+
+sub SQUFOF ($N) {
+
+   return 1 if is-prime($N);                          # if n is prime
+   return sqrt($N) if sqrt($N) == sqrt($N).Int;  # if n is a perfect square
+
+   for @multiplier -> $k { 
+      my $P0 = sqrt($k*$N).Int;     # P[0]=floor(sqrt(N)
+      my $Q0 = 1 ;                  # Q[0]=1
+      my $Q = $k*$N - $P0**2;       # Q[1]=N-P[0]^2 & Q[i]
+      my $Pgoo = $P0;               # P[i-1] = P[0]
+      my $Qfoo = $Q0;               # Q[i-1] = Q[0] 
+      my $P = 0;                    # P[i]
+      my $Qblah = 0;                # $P[$i+1];        
+      my $b = 0;                    # b[i]
+                                    # i = 1
+      #repeat until (0 == (sqrt($Q)%1)) {      # don't do 'sqrt' twice, prob. no big speed-up from this though...
+      repeat until (sqrt($Q) == floor(sqrt($Q))) {      # until Q[i] is a perfect square
+         $b = floor( floor(sqrt($k*$N) + $Pgoo) / $Q);    # floor(floor(sqrt(N+P[i-1])/Q[i])
+         $P = $b*$Q - $Pgoo;                 # P[i]=b*Q[i]-P[i-1] 
+         $Qblah = $Qfoo + $b*($Pgoo - $P);    # Q[i+1]=Q[i-1]+b(P[i-1]-P[i]) 
+         ($Qfoo, $Q, $Pgoo) = ($Q, $Qblah, $P);  # i++
+      } 
+
+      $b    = floor( floor( sqrt($k*$N)+$P ) / $Q );     # b=floor((floor(sqrt(N)+P[i])/Q[0])
+      $Pgoo = $b*$Q0 - $P;                                # P[i-1]=b*Q[0]-P[i]
+      $Q    = ( $k*$N - $Pgoo**2 )/$Q0;                  # Q[1]=(N-P[0]^2)/Q[0] & Q[i]
+      $Qfoo = $Q0;                                        # Q[i-1] = Q[0]
+                                                          # i = 1
+      loop {
+         $b  = floor( floor( sqrt($k*$N)+$Pgoo ) / $Q );    # b=floor(floor(sqrt(N)+P[i-1])/Q[i])
+         $P  = $b*$Q - $Pgoo;                           # P[i]=b*Q[i]-P[i-1]
+         $Qblah = $Qfoo + $b*($Pgoo - $P);              # Q[i+1]=Q[i-1]+b(P[i-1]-P[i])
+         last if ($P == $Pgoo);                         # until P[i+1]=P[i]
+         ($Qfoo, $Q, $Pgoo) = ($Q, $Qblah, $P);       # i++ 
+      }  
+      given $N gcd $P { return $_ if $_ != 1 && $_ != $N }    
+   }
+   return 0
+}
+
+for ( 
+   11111,
+   4558849,
+   2501,12851,13289,75301,120787,967009,997417,7091569,13290059,
+   42854447,223553581,2027651281,11111111111,100895598169,1002742628021,
+   60012462237239,
+   287129523414791,
+   11111111111111111,
+   384307168202281507,
+   1000000000000000127,
+#  9007199254740931,
+#  922337203685477563,
+#  314159265358979323,
+#  1152921505680588799,
+#  658812288346769681,
+#  419244183493398773,
+#  1537228672809128917,
+) -> $data {
+   given $data.&SQUFOF {
+      when 0  { say 'The number ' ~ $data ~ ' is not factored.' }
+      when 1  { say 'The number ' ~ $data ~ ' is a prime.' }
+      default { say $data ~ " = $_ × " ~ $data div $_.Int }
+   }
+}
+
+say my $result = join "\n", @res;
+exit;
+
+#`{
+my $ref = <<'END';
+11111 = 41 * 271
+4558849 = 383 * 11903
+2501 = 61 * 41
+12851 = 71 * 181
+13289 = 97 * 137
+75301 = 293 * 257
+120787 = 43 * 2809
+967009 = 601 * 1609
+997417 = 257 * 3881
+7091569 = 2663 * 2663
+13290059 = 3119 * 4261
+42854447 = 4423 * 9689
+223553581 = 11213 * 19937
+2027651281 = 44021 * 46061
+11111111111 = 21649 * 513239
+100895598169 = 112303 * 898423
+The number 1002742628021 is a prime.
+60012462237239 = 6862753 * 8744663
+287129523414791 = 6059887 * 47381993
+11111111111111111 = 2071723 * 5363222357
+384307168202281507 = 415718707 * 924440401
+1000000000000000127 = 111756107 * 8948056861
+9007199254740931 = 10624181 * 847801751
+922337203685477563 = 110075821 * 8379108103
+314159265358979323 = 317213509 * 990371647
+1152921505680588799 = 139001459 * 8294312261
+658812288346769681 = 62222119 * 10588072199
+419244183493398773 = 48009977 * 8732438749
+1537228672809128917 = 26675843 * 57626245319
+END
+}
