@@ -7484,6 +7484,13 @@ File: N/Next_highest_int_from_digits
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: N/Next_special_primes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Next_special_primes
+#c# 2021-03-26 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: N/Nice_primes
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Nice_primes
@@ -11117,15 +11124,16 @@ File: S/Square_Form_Factorization
 #n# tried to run the whole task once (waaaaay slow), cut down on results for daily smoke-testing
 #n# would have to replace the Unicode symbols for JVM to work (anyhow, would probably be glacial)
 #n# can't display some of the Unicode (on RC, here)
-#n# Start-up is really slow? Back-porting the Perl port I get much snappier results; a Unicode penalty?
+#n# Start-up is really slow? Back-porting the Perl port I get much snappier results; a Unicode start-up penalty?
 
 File: S/Square_Form_Factorization.1
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Square_Form_Factorization
-#c# 2021-03-xx >RC NOT ON RC
+#c# 2021-03-xx NOT ON RC
 #p# OK
-#n# original code
-#n# All Unicode removed
+#n# in this version all Unicode function/variable names removed, otherwise the same
+#n# timings to document the 'Unicode' start-up penalty 
+#n# (avoiding custom routine calls is the major component for runtime slowdown)
 
 File: S/Square_Root_by_Hand
 #!/usr/bin/env raku
