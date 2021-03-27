@@ -3,7 +3,8 @@
 #c# 2021-03-xx NOT ON RC
 #p# OK
 #n# in this version all Unicode function/variable names removed, otherwise the same
-#n# timings to document the 'Unicode variable name' penalty
+#n# timings to document the 'Unicode' start-up penalty 
+#n# (avoiding custom routine calls is the major component for runtime slowdown)
 
 #n# 10x penalty for minimal run (up to 13290059) [it's almost all in the start-up to 1st result]
 #n#   10.20s user 0.45s system 108% cpu 9.789 total | original code
