@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-my @res;
+my (@res1,@res2);
 
 sub is-special ( ($previous, $gap) ) {
     state @primes = grep *.is-prime, 2..*;
@@ -16,11 +16,20 @@ my @specials = (2, 0), &is-special … *;
 
 my $limit = @specials.first: :k, *.[0] > 1050;
 
-@res.push: .fmt('%4d') for @specials.head($limit);
+@res1.push: .fmt('%4d') for @specials.head($limit);
+#.say for @res1;
 
-.say for @res;
+          .put for @specials.head($limit)».kv.map({ (.[1],.[3]).join: ',' }).batch(7)».fmt('%7s');
+@res2.push: $_ for @specials.head($limit)».kv.map({ (.[1],.[3]).join: ',' }).batch(7)».fmt('%7s');
 
-my $ref = q:to/END/;
+my $ref2 = q:to/END/;
+    2,0     3,1     5,2    11,6    19,8   29,10   41,12
+  59,18   79,20  101,22  127,26  157,30  191,34  227,36
+ 269,42  313,44  359,46  409,50  461,52  521,60  587,66
+ 659,72  733,74  809,76  887,78  967,80 1049,82
+END
+
+my $ref1 = q:to/END/;
    2    0
    3    1
    5    2
@@ -51,4 +60,5 @@ my $ref = q:to/END/;
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res1.join("\n"), chomp $ref1;
+is @res2.join("\n"), chomp $ref2;
