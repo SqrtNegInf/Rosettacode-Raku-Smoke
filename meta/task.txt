@@ -1,17 +1,17 @@
-Welcome to Rakudo(tm) v2021.03-21-gdc50951e4.
+Welcome to Rakudo(tm) v2021.03-22-gec73d6c96.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.03-14-g16fe88fdf.
 updating from RC…
-+--------------> Moar: Good/Bad [1303/21]
-|+-------------> JVM: Good/Bad [1129/232]
-||+------------> Smoke testing [1214]
++--------------> Moar: Good/Bad [1302/21]
+|+-------------> JVM: Good/Bad [1130/232]
+||+------------> Smoke testing [1215]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [356]
 ||||||+--------> Concurrent/Async [70]
 |||||||+-------> Random seed [134]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [246]
+|||||||||+-----> Draft [247]
 ||||||||||+----> Ignoring [34]
 |||||||||||+---> Void (no local copy) [75]
 ||||||||||||+--> Un-implemented/reliable [50]
@@ -294,6 +294,7 @@ GBS.......... Create_an_object_at_a_given_address
 GGS.......... Cuban_primes-1
 GGS...c...... Cuban_primes-2
 GGS.......... Cuban_primes-3
+GGS......D... Cubic_Special_Primes
 GGS.......... Cumulative_standard_deviation
 GGS.......... Currency
 GGS.......... Currying
@@ -327,7 +328,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -1229,7 +1230,7 @@ GG.K......... Start_from_a_main_routine
 GGS.....FD... Starting_a_web_browser
 GGS..T....... State_name_puzzle
 !GS..T.R..... Statistics_Basic
-GGS....R..... Statistics_Normal_distribution
+!GS....R..... Statistics_Normal_distribution
 GGS.......... Stem-and-leaf_plot
 GGS..T....... Stern-Brocot_sequence
 GGS.......... Stirling_numbers_of_the_first_kind
