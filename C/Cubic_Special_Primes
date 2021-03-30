@@ -1,0 +1,29 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Cubic_Special_Primes
+#c# 2021-03-29 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# A two character difference from the Quadrat Special Primes entry. (And it could have been one.)
+
+my @sqp = 2, -> $previous {
+    my $next;
+    for (1..∞).map: *³ {
+        $next = $previous + $_;
+        last if $next.is-prime;
+    }
+    $next
+} … *;
+
+say my $result = "{+$_} matching numbers:\n" ~ $_».fmt('%5d').batch(7).join: "\n" given
+    @sqp[^(@sqp.first: * > 15000, :k)];
+
+my $ref = q:to/END/;
+23 matching numbers:
+    2     3    11    19    83  1811  2027
+ 2243  2251  2467  2531  2539  3539  3547
+ 4547  5059 10891 12619 13619 13627 13691
+13907 14419
+END
+
+use Test;
+is $result, chomp $ref;
