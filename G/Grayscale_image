@@ -6,8 +6,8 @@
 #j#  JVM: OK
 #f# RC file: grayscale.pgm
 #    buggy algorithm? problem with example image, seems to fail with most other images
-
-# This script expects to be fed a P6 .ppm file name at the command line. It will convert it to grey scale and save it as a binary portable grey map (P5 .pgm) file.  
+#n# 2021-03-31 Raku v2021.03-56-g18c4c5d4e: No such method 'chr' for invocant of type 'Rat'.
+#n# Today's blead revealed that 'chr' was previously taking rational input, silently doing 'floor'; now must be done explicitly.
 
 sub MAIN ($filename = 'ref/bitmap.ppm') {
 
@@ -24,13 +24,9 @@ sub MAIN ($filename = 'ref/bitmap.ppm') {
     for $in.lines.ords -> $r, $g, $b {
     #for $in.IO.slurp.ords -> $r, $g, $b {
         my $gs = $r × 0.2126 + $g × 0.7152 + $b × 0.0722;
-        $out.print: chr($gs min 255);
+        $out.print: chr($gs.floor min 255);
     }
 
     $in.close;
     $out.close;
 }
-
-#Using the .ppm file from the Write a PPM file task:
-
-#Original:    Grey Scale: 
