@@ -1,3 +1,15 @@
+2021-03-31
+Three brand-new failures today: 
+Verify_distribution_uniformity_Naive
+Probabilistic_choice
+Penney%27s_game
+
+New code issue: 'chr' failing on getting 'Rat' type [resolved]
+Grayscale_image
+
+New code issue: 'unpack' fails? Need to investigate
+ASCII_art_diagram_converter
+
 2021-03-30
 'Rock-paper-scissors' definitely in the sometimes-fail category.
 
@@ -22,7 +34,7 @@ And today 'Rock-paper-scissors' is OK again. Huh.
 'Average_loop_length' failed in a new manner (run #2 was 2.00%) not seen before.
 
 2021-03-08
-'Julia_set' aborted in daily test? Ran find by-hand afterwards.
+'Julia_set' aborted in daily test? Ran fine by-hand afterwards.
 
 2021-03-06
 Problem with 'Monads_List_monad' reveals a old/new bug, see gh-issues, would be great if a fix helped 'Brace_expansion' too.
@@ -38,7 +50,8 @@ See 'bench/2021-03-05-m/Arithmetic_Rational.out' where lines 8 and 9 are reverse
 Today 'Monads_List_monad' output borked.  Like yesterday, has to do with newlines (here, too many)
 
 2021-03-03
-'Brace_expansion' task started failing today
+Fixed all issues with 'srand' that I could, now watch for a month to see how the failures develop.
+Separately, 'Brace_expansion' task started failing today
 
 2021-03-02
 Cannot get stable output for numerous tasks, see: bin/rc-moar-srand
