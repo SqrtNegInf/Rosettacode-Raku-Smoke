@@ -1,20 +1,22 @@
 #!/bin/sh
 ## tasks that yield different answers when run from terminal vs batch
 # 2021-03-05 all OK
-# 2021-03-06 5 of 8 now fail
+# 2021-03-06 5 of 10 now fail reliably
+# 2021-03-31 7 of 10       "
 
 # ok
 0/100_Prisoners
 M/Modified_random_distribution
-P/Probabilistic_choice
-V/Verify_distribution_uniformity_Naive
+E/Elliptic_Curve_Digital_Signature_Algorithm
 
 # fails sporadically [and now giving same result terminal/batch again]
 #A/Average_loop_length 
 
 # fail reliably
 M/Monte_Carlo_methods
+P/Probabilistic_choice
 S/Statistics_Basic
 T/Two_bullet_roulette
 U/Unbias_a_random_generator
+V/Verify_distribution_uniformity_Naive
 W/Word_search
