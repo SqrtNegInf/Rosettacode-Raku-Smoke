@@ -1,17 +1,17 @@
-Welcome to Rakudo(tm) v2021.03-39-g2d5e81b13.
+Welcome to Rakudo(tm) v2021.03-56-g18c4c5d4e.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.03-16-gd7220f95a.
 updating from RC…
-+--------------> Moar: Good/Bad [1303/21]
-|+-------------> JVM: Good/Bad [1130/234]
-||+------------> Smoke testing [1217]
++--------------> Moar: Good/Bad [1300/21]
+|+-------------> JVM: Good/Bad [1131/234]
+||+------------> Smoke testing [1218]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [356]
 ||||||+--------> Concurrent/Async [71]
 |||||||+-------> Random seed [134]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [249]
+|||||||||+-----> Draft [250]
 ||||||||||+----> Ignoring [34]
 |||||||||||+---> Void (no local copy) [75]
 ||||||||||||+--> Un-implemented/reliable [50]
@@ -34,7 +34,7 @@ GGS.......... A%2BB
 GGS.......... ABC_problem
 GGS......D... ABC_words
 GGS.......... AKS_test_for_primes
-GGS....R..... ASCII_art_diagram_converter
+!GS....R..... ASCII_art_diagram_converter
 !GS....R..... AVL_tree
 GGS......D... A_star_search_algorithm
 GGS..T....... Abbreviations,_automatic
@@ -525,7 +525,7 @@ GG.KIT.R..... Go_Fish
 GGS......D... Gradient_descent
 GGS.......... Graph_colouring
 GGS.......... Gray_code
-GGS..T..F.... Grayscale_image
+!GS..T..F.... Grayscale_image
 GGS..T....... Greatest_common_divisor
 !GS....R..... Greatest_element_of_a_list
 GGS.......... Greatest_subsequential_sum
@@ -910,7 +910,7 @@ GGS.......... Pathological_floating_point_problems
 GGS..T....... Peaceful_chess_queen_armies
 GGS.....F.... Peano_curve
 GGS.......... Pell%27s_equation
-GGS....R..... Penney%27s_game
+!GS....R..... Penney%27s_game
 GGS.....FD... Penrose_tiling
 GGS..T..F.... Pentagram
 GGS....R.D... Pentomino_tiling
@@ -973,13 +973,14 @@ GBS...C..D... Prime_words
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
 GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS...C..D... Primes_which_sum_of_digits_is_25
+GGS......D... Primes_with_digits_in_nondecreasing_order
 GGS..T....... Primorial_numbers
 GBS.......... Primorial_numbers-1
 GGS.......... Primorial_numbers-2
 GGS......D... Print_debugging_statement
 .........D.V. Print_itself
 GGS.......... Priority_queue
-GGS....R..... Probabilistic_choice
+!GS....R..... Probabilistic_choice
 GBS..T....... Problem_of_Apollonius
 GB.K....FD... Process_SMIL_directives_in_XML_data
 GBS......D... Product_of_divisors
@@ -1126,7 +1127,7 @@ GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
-!GS..T.R..... Set_puzzle
+GGS..T.R..... Set_puzzle
 GGS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
 GBS.......... Shell_one-liner
@@ -1405,7 +1406,7 @@ GGS.......... Variadic_function
 GGS.......... Vector
 GGS..T....... Vector_products
 GGS.......... Verify_distribution_uniformity_Chi-squared_test
-GGS....R..... Verify_distribution_uniformity_Naive
+!GS....R..... Verify_distribution_uniformity_Naive
 .........D... Vibrating_rectangles
 GG.KI........ Vibrating_rectangles-1
 GB.KI........ Vibrating_rectangles-2
