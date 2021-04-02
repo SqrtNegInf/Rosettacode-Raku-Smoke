@@ -195,6 +195,8 @@ File: A/ASCII_art_diagram_converter
 #c# 2018-06-17 <RC, 2018-06-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n#  2021-03-31 Raku v2021.03-56-g18c4c5d4e
+#n#  unpack giving different results? have to investigate tomorrow...
 
 File: A/AVL_tree
 #!/usr/bin/env perl6
@@ -3223,7 +3225,6 @@ File: E/Elliptic_Curve_Digital_Signature_Algorithm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm
 #c# 2020-02-24 <RC, 2020-02-28 <RC
-#t# skiptest
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2020-10-18 'srand' problems strikes intermittantly (but only in non-interactive runs?)
@@ -4701,6 +4702,8 @@ File: G/Grayscale_image
 #j#  JVM: OK
 #f# RC file: grayscale.pgm
 #    buggy algorithm? problem with example image, seems to fail with most other images
+#n# 2021-03-31 Raku v2021.03-56-g18c4c5d4e: No such method 'chr' for invocant of type 'Rat'.
+#n# Today's blead revealed that 'chr' was previously taking rational input, silently doing 'floor'; now must be done explicitly.
 
 File: G/Greatest_common_divisor
 #!/usr/bin/env perl6
