@@ -1,23 +1,23 @@
-Welcome to Rakudo(tm) v2021.03-56-g18c4c5d4e.
+Welcome to Rakudo(tm) v2021.03-82-gd14dda68d.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.03-16-gd7220f95a.
 updating from RC…
-+--------------> Moar: Good/Bad [1300/21]
++--------------> Moar: Good/Bad [1299/21]
 |+-------------> JVM: Good/Bad [1131/234]
-||+------------> Smoke testing [1218]
-|||+-----------> sKipping validation [139]
+||+------------> Smoke testing [1219]
+|||+-----------> sKipping validation [138]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [356]
 ||||||+--------> Concurrent/Async [71]
 |||||||+-------> Random seed [134]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [250]
+|||||||||+-----> Draft [251]
 ||||||||||+----> Ignoring [34]
-|||||||||||+---> Void (no local copy) [75]
-||||||||||||+--> Un-implemented/reliable [50]
+|||||||||||+---> Void (no local copy) [76]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
-GGS...cR..... 100_prisoners
+!GS...cR..... 100_prisoners
 GB.KI..R..... 15_puzzle_game
 .........D.VU 15_puzzle_game_in_3D
 ...........VU 15_puzzle_solver
@@ -328,7 +328,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -371,7 +371,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-GG.K...R..... Elliptic_Curve_Digital_Signature_Algorithm
+!GS....R..... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
 GGS.......... Empty_directory
@@ -490,6 +490,7 @@ GGS...c...... Fraction_reduction
 GGS.......... Fractran
 .........D.VU Free_polyominoes_enumeration
 GGS......D... French_Republican_calendar
+.........D.VU Frobenius_primes
 GGS..T....... Function_composition
 GGS.......... Function_definition
 GGS..T....... Function_frequency
@@ -525,7 +526,7 @@ GG.KIT.R..... Go_Fish
 GGS......D... Gradient_descent
 GGS.......... Graph_colouring
 GGS.......... Gray_code
-!GS..T..F.... Grayscale_image
+GGS..T..F.... Grayscale_image
 GGS..T....... Greatest_common_divisor
 !GS....R..... Greatest_element_of_a_list
 GGS.......... Greatest_subsequential_sum
@@ -1127,7 +1128,7 @@ GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
-GGS..T.R..... Set_puzzle
+!GS..T.R..... Set_puzzle
 GGS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
 GBS.......... Shell_one-liner
