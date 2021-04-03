@@ -8,7 +8,7 @@
 #  122 global changes that make all tasks containing rand/pick/roll change 
 #        Rare, maybe necessary, but an extra-big headache when it happens.
 #
-#  ~50 potentially unstable, output varies from 'next-day' builds of Raku
+#  ~50 potentially unstable, output varies from 'previous-day' builds of Raku
 #        2021-03-03  0 failed (with v2021.02.1-27-g22ea9d903)
 #        2021-03-04  0 failed
 #        2021-03-04  1 failed
@@ -16,18 +16,19 @@
 #        2021-03-06 44 failed
 #        2021-03-07 45 failed (Mandelbrot-2 intermittant?)
 #        2021-03-08 46 failed (Julia_set/Jump_anywhere/Mandelbrot-2: intermittent failures?)
-#        2021-03-09 45 failed 
 #        2021-03-10 46 failed (100_prisoners output now differs batch/terminal)
+#        2021-03-29 47 failed (Rock-paper-scissors)
+#        2021-03-30 48 failed (Set_puzzle)
+#        2021-03-31 51 failed (Verify_distribution_uniformity_Naive Probabilistic_choice Penney%27s_game)
+#        2021-04-01 53 failed (100_prisoners, Elliptic_Curve_Digital_Signature_Algorithm)
 #
 #    9 varying results, batch vs terminal [stats for terminal]
 #        2021-03-03  0 failed
 #        2021-03-04  0 failed
 #        2021-03-05  0 failed
 #        2021-03-06  5 failed
-#        2021-03-07  5 failed
-#        2021-03-08  5 failed
-#        2021-03-09  5 failed
-#        2021-03-10  5 failed
+#        2021-03-31  7 failed
+#        2021-04-01  8 failed
 #
 #    8 never-stable/flappers (continuously differ from run to run within a given build)
 #
@@ -66,6 +67,7 @@ B/Barnsley_fern \
 
 # failing as of 2021-03-06 (at least part of the time) with Raku build v2021.02.1-40-gb21bb5ab6 [plus 2021-03-07, and beyond]
 bin/rc-moar-single \
+0/100_prisoners \
 A/ASCII_art_diagram_converter \
 A/AVL_tree \
 B/Best_shuffle \
@@ -114,7 +116,7 @@ V/Verify_distribution_uniformity_Naive \
 V/Voronoi_diagram \
 W/Word_search \
 
-# working for now
+# working for now (but had failed at points prior to 2021-03-02)
 bin/rc-moar-single \
 B/Bitmap_PPM_conversion_through_a_pipe \
 C/Constrained_random_points_on_a_circle \
@@ -132,9 +134,7 @@ S/Seven-sided_dice_from_five-sided_dice \
 W/Write_language_name_in_3D_ASCII \
 
 # have never failed (and why not?)
-# but '100_prisoners' started having different results terminal/batch
 bin/rc-moar-single \
-0/100_prisoners \
 0/15_Puzzle_Game \
 0/2048 \
 0/21_Game \
