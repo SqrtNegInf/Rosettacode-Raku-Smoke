@@ -870,6 +870,7 @@ File: A/Average_loop_length-t
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Average_loop_length
 #c# 2016-05-09 <>RC, 2018-05-31 <RC
+#t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2017-08-10 'random' output changed on 
@@ -4378,6 +4379,13 @@ File: F/French_Republican_calendar
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: F/Frobenius_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Frobenius_numbers
+#c# 2021-04-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: F/Function_Composition
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Function_Composition
@@ -4696,14 +4704,14 @@ File: G/Gray_code
 File: G/Grayscale_image
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Grayscale_image
-#c# 2016-05-11 <>RC, 2018-11-17 <RC
+#c# 2016-05-11 <>RC, 2018-11-17 <RC, 2021-04-01 >RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: grayscale.pgm
 #    buggy algorithm? problem with example image, seems to fail with most other images
-#n# 2021-03-31 Raku v2021.03-56-g18c4c5d4e: No such method 'chr' for invocant of type 'Rat'.
-#n# Today's blead revealed that 'chr' was previously taking rational input, silently doing 'floor'; now must be done explicitly.
+#n# 2021-03-31 Raku v2021.03-56-g18c4c5d4e: No such method 'chr' for invocant of type 'Rat'. [deemed a regression, previous behavior restored]
+#n# Today's blead revealed that 'chr' was previously taking rational input, silently doing 'floor'; for clarity, now done explicitly.
 
 File: G/Greatest_common_divisor
 #!/usr/bin/env perl6
@@ -7733,6 +7741,13 @@ File: O/Object_serialization
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
+File: O/Odd_squarefree_semiprimes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Odd_squarefree_semiprimes
+#c# 2021-04-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: O/Odd_word_problem
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Odd_word_problem
@@ -8659,6 +8674,13 @@ File: P/Pinstripe_Printer
 #j# JVM:  BROKEN
 #f# RC file: Pinstripe-printer-perl6.png
 #n# effectively another image generation task
+
+File: P/Piprimes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Piprimes
+#c# 2021-04-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: P/Pisano_period
 #!/usr/bin/env perl6
