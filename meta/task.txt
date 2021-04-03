@@ -1,20 +1,20 @@
-Welcome to Rakudo(tm) v2021.03-82-gd14dda68d.
+Welcome to Rakudo(tm) v2021.03-91-g496f986e6.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.03-16-gd7220f95a.
 updating from RC…
-+--------------> Moar: Good/Bad [1299/21]
-|+-------------> JVM: Good/Bad [1131/234]
-||+------------> Smoke testing [1219]
++--------------> Moar: Good/Bad [1302/21]
+|+-------------> JVM: Good/Bad [1134/234]
+||+------------> Smoke testing [1222]
 |||+-----------> sKipping validation [138]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [356]
 ||||||+--------> Concurrent/Async [71]
 |||||||+-------> Random seed [134]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [251]
+|||||||||+-----> Draft [254]
 ||||||||||+----> Ignoring [34]
 |||||||||||+---> Void (no local copy) [76]
-||||||||||||+--> Un-implemented/reliable [51]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -263,6 +263,7 @@ GGS.......... Compound_data_type
 GB.K.TC...... Concurrent_computing
 GG.K......... Conditional_structures
 GGS.....F.... Conjugate_transpose
+.........D.V. Consecutive_Primes_With_Ascending_Or_Descending_Differences
 GGS..T....... Constrained_genericity
 GGS..T.RF.... Constrained_random_points_on_a_circle
 GGS..T....... Continued_fraction
@@ -490,7 +491,7 @@ GGS...c...... Fraction_reduction
 GGS.......... Fractran
 .........D.VU Free_polyominoes_enumeration
 GGS......D... French_Republican_calendar
-.........D.VU Frobenius_primes
+GGS......D... Frobenius_numbers
 GGS..T....... Function_composition
 GGS.......... Function_definition
 GGS..T....... Function_frequency
@@ -857,6 +858,7 @@ GGS.......... Numerical_integration_Gauss-Legendre_Quadrature
 ..........X.. OLE_Automation
 ...........VU OLE_automation
 GBS.......... Object_serialization
+GGS......D... Odd_squarefree_semiprimes
 GGS.......... Odd_word_problem
 GGS......D... Odd_words
 GGS..T....... Old_Russian_measure_of_length
@@ -943,6 +945,7 @@ GBS....R..... Pig_the_dice_game
 GGS....RF.... Pig_the_dice_game_Player
 GGS..T..F.... Pinstripe_Display
 GBS.....F.... Pinstripe_Printer
+GGS......D... Piprimes
 GGS......D... Pisano_period
 GBS..TC.F.... Plasma_effect
 ..........XVU Play_recorded_sounds
