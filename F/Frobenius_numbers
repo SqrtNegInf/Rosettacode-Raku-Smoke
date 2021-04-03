@@ -1,0 +1,19 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Frobenius_numbers
+#c# 2021-04-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $result = "{+$_} matching numbers\n{.batch(10)».fmt('%4d').join: "\n"}\n"
+    given (^1000).grep( *.is-prime ).rotor(2 => -1)
+    .map( { (.[0] * .[1] - .[0] - .[1]) } ).grep(* < 10000);
+
+my $ref = q:to/END/;
+25 matching numbers
+   1    7   23   59  119  191  287  395  615  839
+1079 1439 1679 1931 2391 3015 3479 3959 4619 5039
+5615 6395 7215 8447 9599
+END
+
+use Test;
+is $result, $ref;
