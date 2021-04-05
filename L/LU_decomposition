@@ -81,7 +81,7 @@ sub mmult(@a,@b) {
 
 sub rat-int ($num is rw) {
     return $num unless $num ~~ Rat;
-    return $num.narrow if $num.narrow.WHAT ~~ Int;
+    return $num.narrow if $num.narrow ~~ Int; # 'WHAT' was not needed
     $num.nude.join: '/';
 }
 
