@@ -42,7 +42,7 @@ sub rref (@m) {
 
 sub rat-or-int ($num) {
     return $num unless $num ~~ Rat|FatRat;
-    return $num.narrow if $num.narrow.WHAT ~~ Int;
+    return $num.narrow if $num.narrow ~~ Int; # 'WHAT' was not needed
     $num.nude.join: '/';
 }
 
