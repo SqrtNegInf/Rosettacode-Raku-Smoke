@@ -5,9 +5,6 @@
 #j# JVM:  OK
 #f# RC file: reduced_row.txt
 
-# Translation of: Perl
-# Works with: Rakudo version 2018.03
-
 my $out = open('run/reduced_row.txt', :w);
 
 sub rref (@m) {
@@ -36,7 +33,7 @@ sub rref (@m) {
 
 sub rat-or-int ($num) {
     return $num unless $num ~~ Rat;
-    return $num.narrow if $num.narrow.WHAT ~~ Int;
+    return $num.narrow if $num.narrow ~~ Int; # 'WHAT' was not needed
     $num.nude.join: '/';
 }
 
