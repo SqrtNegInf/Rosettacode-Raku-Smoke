@@ -38,6 +38,8 @@
 #      One OS (El Capitan) on two hosts yields two different results (Brownian_tree: constant vs never-the-same)
 #        [but not tested on exact same release...]
 #      While an independent OS (Ubuntu 19) gives never-the-same results for same task
+#
+# NB: Mandelbrot_set-2 has no 'srand', still varies sometimes (basically works, just tiny differences)
 
 source $HOME/.profile
 cd $HOME/perl6/Rosetta-Code
@@ -88,8 +90,10 @@ G/Generate_random_chess_position \
 G/Greatest_element_of_a_list \
 J/Julia_set \
 K/K-d_tree \
+K/Knight%27s_tour \
 K/Knuth%27s_algorithm_S \
 K/Knuth_shuffle \
+L/Langton%27s_ant \
 M/Mandelbrot_set-2 \
 M/Monte_Carlo_methods \
 O/One_of_n_lines_in_a_file \
@@ -97,6 +101,7 @@ O/Order_two_numerical_lists \
 P/Particle_Swarm_Optimization \
 P/Pattern_matching \
 P/Penney%27s_game \
+P/Pentomino_tiling \
 P/Percolation_Site_percolation \
 P/Permutations_Rank_of_a_permutation \
 P/Probabilistic_choice \
@@ -121,12 +126,10 @@ bin/rc-moar-single \
 B/Bitmap_PPM_conversion_through_a_pipe \
 C/Constrained_random_points_on_a_circle \
 F/Factorial_base_numbers_indexing_permutations_of_a_collection \
-K/Knight%27s_tour \
 L/Loops_Break \
 L/Loops_Nested \
 M/Mind_boggling_card_trick \
 M/Modified_random_distribution \
-P/Pentomino_tiling \
 P/Percentage_difference_between_images \
 P/Pick_random_element \
 P/Pig_the_dice_game_Player \
@@ -165,7 +168,6 @@ J/Jump_anywhere \
 J/Just_in_time_processing_on_a_character_stream \
 K/K-means%2B%2B_clustering \
 K/Knuth%27s_power_tree \
-L/Langton%27s_ant \
 L/Last_letter-first_letter \
 M/Magic_8-Ball \
 M/Mastermind \
