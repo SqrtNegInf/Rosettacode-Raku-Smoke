@@ -2937,6 +2937,20 @@ File: D/Display_an_outline_as_a_nested_table
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: D/Distinct_Palindromes_Within_Decimal_Numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Distinct_Palindromes_Within_Decimal_Numbers
+#c# 2021-04-06 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: D/Distinct_Palindromes_Within_Decimal_Numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Distinct_Palindromes_Within_Decimal_Numbers
+#c# 2021-04-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: D/Distributed_programming
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Distributed_programming
@@ -7652,6 +7666,13 @@ File: N/Numbers_With_Equal_Rises_and_Falls
 #j# JVM:  BROKEN
 #n# not testing the slow step (~9 min)
 
+File: N/Numbers_which_binary_and_ternary_digit_sum_are_prime
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Numbers_which_binary_and_ternary_digit_sum_are_prime
+#c# 2021-04-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: N/Numbers_with_prime_digits_whose_sum_is_13
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Numbers_with_prime_digits_whose_sum_is_13
@@ -10086,10 +10107,14 @@ File: S/SHA-256_Merkle_tree-2
 File: S/SOAP
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/SOAP
+#t# skiptest
 #c# 2018-12-17 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 501 Protocol scheme 'https' is only supported if IO::Socket::SSL is installed <URL:https://www.w3schools.com/xml/tempconvert.asmx?WSDL>
+#n# New error:
+#n# err code: 336032814
+#n# error:1407742E:SSL routines:SSL23_GET_SERVER_HELLO:tlsv1 alert protocol version
 
 File: S/Safe_addition
 #!/usr/bin/env perl6
@@ -10427,6 +10452,13 @@ File: S/Show_Ascii_table-2
 #j# JVM:  OK
 #f# RC File: ASCII_wiki.txt
 #n# wiki-table output (this is current on RC)
+
+File: S/Show_the_decimal_value_of_a_number_of_1s_appended_with_a_3,_then_squared
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Show_the_(decimal)_value_of_a_number_of_1s_appended_with_a_3,_then_squared
+#c# 2021-04-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: S/Show_the_epoch
 #!/usr/bin/env perl6
