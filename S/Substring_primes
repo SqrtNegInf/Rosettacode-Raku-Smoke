@@ -1,0 +1,47 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Substring_primes
+#c# 2021-04-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my @p = (^10).grep: *.is-prime;
+
+@res.push: gather while @p {
+    .take for @p;
+
+    @p = ( @p X~ <3 7> ).grep: { .is-prime and .substr(*-2,2).is-prime }
+}
+
+my $prime-tests = 0;
+my @non-primes;
+sub spy-prime ($n) {
+    $prime-tests++;
+    my $is-p = $n.is-prime;
+
+    push @non-primes, $n unless $is-p;
+    return $is-p;
+}
+
+my @p4 = <2 3 5 7>;
+
+@res.push: gather while @p4 {
+    .take for @p4;
+
+    @p4 = ( @p4 X~ <3 7> ).grep: { !.ends-with(33|77) and .&spy-prime };
+}
+
+@res.push: $_ for :$prime-tests, :@non-primes;
+
+.put for @res;
+
+my $ref = q:to/END/;
+2 3 5 7 23 37 53 73 373
+2 3 5 7 23 37 53 73 373
+prime-tests	11
+non-primes	27 57 237 537 737 3737
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
