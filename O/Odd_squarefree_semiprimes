@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-say my $result = (3..333).grep(*.is-prime).combinations(2)».map( * * * ).flat\
+say my $result = (3..333).grep(*.is-prime).combinations(2)».map( * × * ).flat\
     .grep( * < 1000 ).sort.batch(20)».fmt('%3d').join: "\n";
 
 my $ref = q:to/END/;
