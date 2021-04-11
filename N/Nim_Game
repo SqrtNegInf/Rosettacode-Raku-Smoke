@@ -12,7 +12,8 @@ my $tokens = 12;
 
 loop {
     #my $player = trim prompt "How many tokens do you want to remove; 1, 2 or 3? : ";
-    my $player = trim prompt;
+    #my $player = trim prompt;
+    my $player = prompt;
     @res.push: "Nice try. $tokens tokens remaining.\n" and
     next unless $player eq any <1 2 3>;
     $tokens -= 4;
