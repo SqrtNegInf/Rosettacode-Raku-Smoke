@@ -1,8 +1,8 @@
-Welcome to Rakudo(tm) v2021.03-145-g995d39c03.
+Welcome to Rakudo(tm) v2021.03-158-gda80b57cf.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.03-41-gfb696f18a.
 updating from RC…
-+--------------> Moar: Good/Bad [1307/21]
++--------------> Moar: Good/Bad [1303/21]
 |+-------------> JVM: Good/Bad [1141/236]
 ||+------------> Smoke testing [1230]
 |||+-----------> sKipping validation [139]
@@ -13,8 +13,8 @@ updating from RC…
 ||||||||+------> File output [98]
 |||||||||+-----> Draft [261]
 ||||||||||+----> Ignoring [34]
-|||||||||||+---> Void (no local copy) [75]
-||||||||||||+--> Un-implemented/reliable [50]
+|||||||||||+---> Void (no local copy) [76]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -468,7 +468,7 @@ GGS.......... First-class_functions
 GGS.......... First-class_functions_Use_numbers_analogously
 GGS..T....... First_class_environments
 GBS.......... First_perfect_square_in_base_n_with_n_unique_digits
-GGS.......... First_power_of_2_that_has_leading_decimal_digits_of_12
+!GS.......... First_power_of_2_that_has_leading_decimal_digits_of_12
 GGS.......... Five_weekends
 GGS.......... Fivenum
 GGS..T..F.... Fixed_length_records
@@ -491,7 +491,7 @@ GGS.....F.... Fractal_tree
 GGS...c...... Fraction_reduction
 GGS.......... Fractran
 .........D.VU Free_polyominoes_enumeration
-GGS......D... French_Republican_calendar
+GGS.......... French_Republican_calendar
 GGS......D... Frobenius_numbers
 GGS..T....... Function_composition
 GGS.......... Function_definition
@@ -833,7 +833,7 @@ GGS.......... Next_highest_int_from_digits
 GGS......D... Next_special_primes
 GGS..T...D... Nice_primes
 GGS.......... Nice_primes-2
-GGS.......... Nim_game
+!GS.......... Nim_game
 GGS.......... Nimber_arithmetic
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
@@ -942,7 +942,7 @@ GGS......D... Permutations_with_some_identical_elements
 GGS.......... Pernicious_numbers
 GGS.......... Phrase_reversals
 GGS..T....... Pi
-GGS..T.R..... Pick_random_element
+!GS..T.R..... Pick_random_element
 GBS.......... Pierpont_primes-1
 GGS.......... Pierpont_primes-2
 GBS....R..... Pig_the_dice_game
@@ -1168,6 +1168,7 @@ GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
 GGS......D... Smallest_enclosing_circle_problem
+.........D.VU Smallest_numbers
 GGS......D... Smallest_power_of_6_whose_decimal_expansion_contains_n
 GGS......D... Smallest_square_that_begins_with_n
 GGS.......... Smallest_square_that_begins_with_n-2
@@ -1459,7 +1460,7 @@ GGS..T....... World_Cup_group_stage
 GGS.....F.... Write_entire_file
 GGS..T..F.... Write_float_arrays_to_a_text_file
 GGS.......... Write_float_arrays_to_a_text_file-2
-GGS..T.R..... Write_language_name_in_3D_ASCII
+!GS..T.R..... Write_language_name_in_3D_ASCII
 GG.K......X.. Write_to_Windows_event_log
 GBS.......... XML_DOM_serialization
 GBS..T....... XML_Input
