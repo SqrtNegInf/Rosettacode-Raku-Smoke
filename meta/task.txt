@@ -1,19 +1,19 @@
-Welcome to Rakudo(tm) v2021.03-158-gda80b57cf.
+Welcome to Rakudo(tm) v2021.03-175-gad81b9806.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.03-41-gfb696f18a.
 updating from RC…
-+--------------> Moar: Good/Bad [1303/21]
-|+-------------> JVM: Good/Bad [1141/236]
-||+------------> Smoke testing [1230]
++--------------> Moar: Good/Bad [1311/21]
+|+-------------> JVM: Good/Bad [1145/236]
+||+------------> Smoke testing [1234]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [356]
 ||||||+--------> Concurrent/Async [71]
 |||||||+-------> Random seed [134]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [261]
+|||||||||+-----> Draft [266]
 ||||||||||+----> Ignoring [34]
-|||||||||||+---> Void (no local copy) [76]
+|||||||||||+---> Void (no local copy) [77]
 ||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
@@ -58,6 +58,7 @@ GGS..T...D... Addition_chains
 GGS..T....... Additive_primes-1
 GGS.......... Additive_primes-2
 GGS.......... Address_of_a_variable
+.........D.VU Air_mass
 GGS.......... Align_columns
 GGS..Tc...... Aliquot_sequence_classifications
 GBS......D... Almkvist-Giullera_formula_for_pi
@@ -468,7 +469,7 @@ GGS.......... First-class_functions
 GGS.......... First-class_functions_Use_numbers_analogously
 GGS..T....... First_class_environments
 GBS.......... First_perfect_square_in_base_n_with_n_unique_digits
-!GS.......... First_power_of_2_that_has_leading_decimal_digits_of_12
+GGS.......... First_power_of_2_that_has_leading_decimal_digits_of_12
 GGS.......... Five_weekends
 GGS.......... Fivenum
 GGS..T..F.... Fixed_length_records
@@ -827,13 +828,14 @@ GG.KI........ Nautical_bell
 GGS.......... Nautical_bell-2
 GGS.......... Negative_base_numbers
 GBS.......... Negative_base_numbers-2
+GGS......D... Neighbour_primes
 GGS.......... Nested_function
 GGS.......... Nested_templated_data
 GGS.......... Next_highest_int_from_digits
 GGS......D... Next_special_primes
 GGS..T...D... Nice_primes
 GGS.......... Nice_primes-2
-!GS.......... Nim_game
+GGS.......... Nim_game
 GGS.......... Nimber_arithmetic
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
@@ -876,6 +878,7 @@ GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
 GBS......D... Orbital_elements
+GGS......D... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_partitions
@@ -894,7 +897,7 @@ GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_brute_force
 GBS..TC...... Parallel_calculations
-!BS...CR..... Parallel_calculations-2
+GBS...CR..... Parallel_calculations-2
 GGS..T....... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
@@ -942,7 +945,7 @@ GGS......D... Permutations_with_some_identical_elements
 GGS.......... Pernicious_numbers
 GGS.......... Phrase_reversals
 GGS..T....... Pi
-!GS..T.R..... Pick_random_element
+GGS..T.R..... Pick_random_element
 GBS.......... Pierpont_primes-1
 GGS.......... Pierpont_primes-2
 GBS....R..... Pig_the_dice_game
@@ -977,6 +980,7 @@ GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
 GBS..TC...... Prime_decomposition
 GBS.......... Prime_decomposition-1
+.........D.V. Prime_triplets
 GBS...C..D... Prime_words
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
 GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
@@ -1168,7 +1172,7 @@ GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
 GGS......D... Smallest_enclosing_circle_problem
-.........D.VU Smallest_numbers
+GGS......D... Smallest_numbers
 GGS......D... Smallest_power_of_6_whose_decimal_expansion_contains_n
 GGS......D... Smallest_square_that_begins_with_n
 GGS.......... Smallest_square_that_begins_with_n-2
@@ -1290,6 +1294,7 @@ GGS.......... Sum_multiples_of_3_and_5
 GGS..T....... Sum_of_a_series
 GBS......D... Sum_of_divisors
 GGS.......... Sum_of_squares
+GGS......D... Sum_of_the_digits_of_n_is_substring_of_n
 GGS.......... Sum_to_100
 GGS..T....... Summarize_and_say_sequence
 GGS.....F.... Sunflower_fractal
