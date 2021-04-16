@@ -1,0 +1,100 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Summarize_primes
+#c# 2021-04-15 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my @primesums = ([\+] grep *.is-prime, ^Inf)[^1000];
+
+say my $result = "Of the first {+@primesums} primes: {.elems} cumulative prime sums:\n" ~
+    .map( -> $p {
+        sprintf "The sum of the first %*d is prime: %s",
+        @primesums.end.chars, 1 + $p, @primesums[$p]
+      }
+    ).join("\n")
+    given grep { @primesums[$_].is-prime }, ^+@primesums;
+
+my $ref = q:to/END/;
+Of the first 1000 primes: 76 cumulative prime sums:
+The sum of the first   1 is prime: 2
+The sum of the first   2 is prime: 5
+The sum of the first   4 is prime: 17
+The sum of the first   6 is prime: 41
+The sum of the first  12 is prime: 197
+The sum of the first  14 is prime: 281
+The sum of the first  60 is prime: 7699
+The sum of the first  64 is prime: 8893
+The sum of the first  96 is prime: 22039
+The sum of the first 100 is prime: 24133
+The sum of the first 102 is prime: 25237
+The sum of the first 108 is prime: 28697
+The sum of the first 114 is prime: 32353
+The sum of the first 122 is prime: 37561
+The sum of the first 124 is prime: 38921
+The sum of the first 130 is prime: 43201
+The sum of the first 132 is prime: 44683
+The sum of the first 146 is prime: 55837
+The sum of the first 152 is prime: 61027
+The sum of the first 158 is prime: 66463
+The sum of the first 162 is prime: 70241
+The sum of the first 178 is prime: 86453
+The sum of the first 192 is prime: 102001
+The sum of the first 198 is prime: 109147
+The sum of the first 204 is prime: 116533
+The sum of the first 206 is prime: 119069
+The sum of the first 208 is prime: 121631
+The sum of the first 214 is prime: 129419
+The sum of the first 216 is prime: 132059
+The sum of the first 296 is prime: 263171
+The sum of the first 308 is prime: 287137
+The sum of the first 326 is prime: 325019
+The sum of the first 328 is prime: 329401
+The sum of the first 330 is prime: 333821
+The sum of the first 332 is prime: 338279
+The sum of the first 334 is prime: 342761
+The sum of the first 342 is prime: 360979
+The sum of the first 350 is prime: 379667
+The sum of the first 356 is prime: 393961
+The sum of the first 358 is prime: 398771
+The sum of the first 426 is prime: 581921
+The sum of the first 446 is prime: 642869
+The sum of the first 458 is prime: 681257
+The sum of the first 460 is prime: 687767
+The sum of the first 464 is prime: 700897
+The sum of the first 480 is prime: 754573
+The sum of the first 484 is prime: 768373
+The sum of the first 488 is prime: 782263
+The sum of the first 512 is prime: 868151
+The sum of the first 530 is prime: 935507
+The sum of the first 536 is prime: 958577
+The sum of the first 548 is prime: 1005551
+The sum of the first 568 is prime: 1086557
+The sum of the first 620 is prime: 1313041
+The sum of the first 630 is prime: 1359329
+The sum of the first 676 is prime: 1583293
+The sum of the first 680 is prime: 1603597
+The sum of the first 696 is prime: 1686239
+The sum of the first 708 is prime: 1749833
+The sum of the first 734 is prime: 1891889
+The sum of the first 762 is prime: 2051167
+The sum of the first 768 is prime: 2086159
+The sum of the first 776 is prime: 2133121
+The sum of the first 780 is prime: 2156813
+The sum of the first 784 is prime: 2180741
+The sum of the first 808 is prime: 2327399
+The sum of the first 814 is prime: 2364833
+The sum of the first 820 is prime: 2402537
+The sum of the first 836 is prime: 2504323
+The sum of the first 844 is prime: 2556187
+The sum of the first 848 is prime: 2582401
+The sum of the first 852 is prime: 2608699
+The sum of the first 926 is prime: 3120833
+The sum of the first 942 is prime: 3238237
+The sum of the first 984 is prime: 3557303
+The sum of the first 992 is prime: 3619807
+END
+
+use Test;
+is $result, chomp $ref;
