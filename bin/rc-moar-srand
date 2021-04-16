@@ -23,6 +23,7 @@
 #        2021-04-01 53 failed (100_prisoners, Elliptic_Curve_Digital_Signature_Algorithm)
 #        2021-04-xx 55 failed (Parallel_calculations-2, Langton%27s_ant)
 #        2021-04-10 57 failed (Pick_random_element, Write_language_name_in_3D_ASCII)
+#        2021-04-14 58 failed (Constrained_random_points_on_a_circle)
 #
 #    9 varying results, batch vs terminal [stats for terminal]
 #        2021-03-03  0 failed
@@ -69,7 +70,7 @@ P/Perceptron \
 B/Barnsley_fern \
 #P/Palindromic_dates \               # skip testing, known to be slightly skeezy
 
-# failing as of 2021-03-06 (at least part of the time) with Raku build v2021.02.1-40-gb21bb5ab6 [plus 2021-03-07, and beyond]
+# failing from  2021-03-06 forward (at least part of the time)
 bin/rc-moar-single \
 0/100_prisoners \
 A/ASCII_art_diagram_converter \
@@ -82,6 +83,7 @@ C/Card_shuffles \
 C/Chaos_game \
 C/Cistercian_numerals \
 C/Closures_Value_capture \
+C/Constrained_random_points_on_a_circle \
 C/Create_an_HTML_table \
 D/Dutch_national_flag_problem \
 E/Elliptic_Curve_Digital_Signature_Algorithm \
@@ -129,7 +131,6 @@ W/Write_language_name_in_3D_ASCII \
 # working for now (but had failed at points prior to 2021-03-02)
 bin/rc-moar-single \
 B/Bitmap_PPM_conversion_through_a_pipe \
-C/Constrained_random_points_on_a_circle \
 F/Factorial_base_numbers_indexing_permutations_of_a_collection \
 L/Loops_Break \
 L/Loops_Nested \
