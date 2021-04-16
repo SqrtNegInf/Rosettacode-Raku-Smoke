@@ -1,20 +1,20 @@
-Welcome to Rakudo(tm) v2021.03-175-gad81b9806.
+Welcome to Rakudo(tm) v2021.03-176-g6fdc2b690.
 Implementing the Raku(tm) programming language v6.d.
-Built on MoarVM version 2021.03-41-gfb696f18a.
+Built on MoarVM version 2021.03-50-g948128995.
 updating from RC…
-+--------------> Moar: Good/Bad [1311/21]
-|+-------------> JVM: Good/Bad [1145/236]
-||+------------> Smoke testing [1234]
-|||+-----------> sKipping validation [139]
++--------------> Moar: Good/Bad [1312/21]
+|+-------------> JVM: Good/Bad [1146/237]
+||+------------> Smoke testing [1235]
+|||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [356]
 ||||||+--------> Concurrent/Async [71]
 |||||||+-------> Random seed [134]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [266]
+|||||||||+-----> Draft [267]
 ||||||||||+----> Ignoring [34]
-|||||||||||+---> Void (no local copy) [77]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [76]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -58,7 +58,7 @@ GGS..T...D... Addition_chains
 GGS..T....... Additive_primes-1
 GGS.......... Additive_primes-2
 GGS.......... Address_of_a_variable
-.........D.VU Air_mass
+GG.K.....D... Air_mass
 GGS.......... Align_columns
 GGS..Tc...... Aliquot_sequence_classifications
 GBS......D... Almkvist-Giullera_formula_for_pi
@@ -897,7 +897,7 @@ GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_brute_force
 GBS..TC...... Parallel_calculations
-GBS...CR..... Parallel_calculations-2
+!BS...CR..... Parallel_calculations-2
 GGS..T....... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
@@ -1297,6 +1297,7 @@ GGS.......... Sum_of_squares
 GGS......D... Sum_of_the_digits_of_n_is_substring_of_n
 GGS.......... Sum_to_100
 GGS..T....... Summarize_and_say_sequence
+GBS......D... Summarize_primes
 GGS.....F.... Sunflower_fractal
 GBS...C...... Super-d_numbers-1
 GBS...C...... Super-d_numbers-2
