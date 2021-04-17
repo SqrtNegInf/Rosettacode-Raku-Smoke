@@ -7,8 +7,6 @@
 
 my @res;
 
-# Uses logs similar to Go and Pascal entries. Takes advantage of patterns in the powers to cut out a bunch of calculations.
-
 use Lingua::EN::Numbers;
 
 constant $ln2ln10 = log(2) / log(10);
@@ -31,8 +29,8 @@ my @startswith123 = lazy gather loop {
             $this = 485 unless ( 10 ** (n × $ln2ln10 % 1) ).substr(0,4) eq $pre;
         }
         when 289 { $this = 196 }
-        when 90  { $this = 289 }
-        when 0   { $this = 90  }
+        when  90 { $this = 289 }
+        when   0 { $this =  90  }
     }
     take $count += $this;
 }
