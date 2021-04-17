@@ -16,7 +16,8 @@ an implicit call:
 $_ = 'Outside';
 for <3 5 7 10> {
     @res.push: $_;
-    .³.map: { @res[*-1] ~= join "\t", '', $_, .², .sqrt, .log(2), OUTER::<$_>, UNIT::<$_>  }
+    .³.map: { @res[*-1] ~= join "\t", '', $_, .², .sqrt, .log2, OUTER::<$_>, UNIT::<$_>  }
+    #.³.map: { @res[*-1] ~= join "\t", '', $_, .², .sqrt, .log(2), OUTER::<$_>, UNIT::<$_>  }
 }
 
 .say for @res;
