@@ -1,8 +1,8 @@
-Welcome to Rakudo(tm) v2021.03-183-g600bb6b06.
+Welcome to Rakudo(tm) v2021.03-185-gc64dc5733.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.03-50-g948128995.
 updating from RC…
-+--------------> Moar: Good/Bad [1312/21]
++--------------> Moar: Good/Bad [1313/21]
 |+-------------> JVM: Good/Bad [1146/237]
 ||+------------> Smoke testing [1236]
 |||+-----------> sKipping validation [139]
@@ -13,7 +13,7 @@ updating from RC…
 ||||||||+------> File output [98]
 |||||||||+-----> Draft [267]
 ||||||||||+----> Ignoring [34]
-|||||||||||+---> Void (no local copy) [76]
+|||||||||||+---> Void (no local copy) [77]
 ||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
@@ -275,6 +275,7 @@ GGS..T....... Convert_decimal_number_to_rational
 GGS.......... Convert_seconds_to_compound_duration
 GGS.......... Convex_hull
 GGS.......... Conway%27s_Game_of_Life
+.........D.V. Coprimes
 GGS..T....... Copy_a_string
 GG.K......... Copy_stdin_to_stdout
 GBS.......... Count_in_factors-1
@@ -878,7 +879,7 @@ GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
 GBS......D... Orbital_elements
-GGS......D... Order_by_pair_comparisons
+GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_partitions
@@ -897,7 +898,7 @@ GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_brute_force
 GBS..TC...... Parallel_calculations
-!BS...CR..... Parallel_calculations-2
+GBS...CR..... Parallel_calculations-2
 GGS..T....... Parametric_polymorphism
 ..........XV. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
