@@ -1,0 +1,23 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Coprimes
+#c# 2021-04-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+@res.push: $_.raku ~ (( [gcd] |$_ ) == 1 ?? ' Coprime' !! '') for [21,15],[17,23],[36,12],[18,29],[60,15],[21,22,25,31,143];
+
+.say for @res;
+
+my $ref = q:to/END/;
+[21, 15]
+[17, 23] Coprime
+[36, 12]
+[18, 29] Coprime
+[60, 15]
+[21, 22, 25, 31, 143] Coprime
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
