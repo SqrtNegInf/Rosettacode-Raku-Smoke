@@ -8,8 +8,6 @@
 
 source $HOME/.profile
 
-rakudobrew switch moar-blead
-
 rm -rf $HOME/.raku/precomp # new bug, old solution?
 rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
 
@@ -31,7 +29,7 @@ bin/rc-jvm-cleanup
 
 # smoking
 echo 'MOAR'
-#$HOME/.rakudobrew/bin/rakudobrew switch moar-blead
+$HOME/.rakudobrew/bin/rakudobrew switch moar-blead
 perl6 -v
 #bin/rc-moar-parallel [0-Z]/*
 bin/rc-moar-single [0-Z]/*
