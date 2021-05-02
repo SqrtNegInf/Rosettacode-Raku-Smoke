@@ -7,8 +7,8 @@
 my @res;
 
 sub ft_inner ( @x, $k, $pos_neg_i where * == i|-i ) {
-    my @exp := ( $pos_neg_i * tau / +@x * $k ) «*« @x.keys;
-    return sum @x »*« 𝑒 «**« @exp;
+    my @exp := ( $pos_neg_i × tau / +@x × $k ) «×« @x.keys;
+    return sum @x »×« 𝑒 «**« @exp;
 }
 sub dft   ( @x ) { return @x.keys.map: { ft_inner( @x, $_, -i )       } }
 sub idft  ( @x ) { return @x.keys.map: { ft_inner( @x, $_,  i ) / +@x } }
