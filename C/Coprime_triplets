@@ -9,7 +9,7 @@ my @res;
 my @coprime-triplets = 1, 2, {
    state %seen = 1, True, 2, True;
    state $min = 3;
-   my $g = $^a * $^b;
+   my $g = $^a × $^b;
    my $n = ($min .. *).first: { !%seen{$_} && ($_ gcd $g == 1) }
    %seen{$n} = True;
    if %seen.elems %% 100 { $min = ($min .. *).first: { !%seen{$_} } }
