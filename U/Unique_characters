@@ -1,0 +1,35 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Unique_characters
+#c# 2021-05-05 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+my @list = <133252abcdeeffd a6789798st yxcdfgxcyz>;
+
+for @list, (@list, 'AАΑSäaoö٥🤔👨‍👩‍👧‍👧') {
+    @res.push: "$_\nSemi-bogus \"Unicode natural sort\" order: "~
+    .map( *.comb ).Bag.grep( *.value == 1 )».key.sort( { .unival, .NFKD[0], .fc } ).join~
+    "\n        (DUCET) Unicode collation order: "~
+    .map( *.comb ).Bag.grep( *.value == 1 )».key.collate.join, "\n";
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+133252abcdeeffd a6789798st yxcdfgxcyz
+Semi-bogus "Unicode natural sort" order: 156bgstz
+        (DUCET) Unicode collation order: 156bgstz
+
+
+133252abcdeeffd a6789798st yxcdfgxcyz AАΑSäaoö٥🤔👨‍👩‍👧‍👧
+Semi-bogus "Unicode natural sort" order: 15٥6ASäbgoöstzΑА👨‍👩‍👧‍👧🤔
+        (DUCET) Unicode collation order: 👨‍👩‍👧‍👧🤔15٥6AäbgoösStzΑА
+
+
+END
+      #(DUCET) Unicode collation order: 👨‍👩‍👧‍👧🤔ä15٥6AbögosStzΑА
+
+use Test;
+is @res.join("\n"), chomp $ref;
