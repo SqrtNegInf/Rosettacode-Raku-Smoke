@@ -1,0 +1,41 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Sleeping_Beauty_problem
+#c# 2021-05-09 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN OK
+
+srand 123456;
+
+my @res;
+
+sub sleeping-beauty ($trials) {
+    my $gotheadsonwaking = 0;
+    my $wakenings = 0;
+    ^$trials .map: {
+        given <Heads Tails>.roll {
+            ++$wakenings;
+            when 'Heads' { ++$gotheadsonwaking }
+            when 'Tails' { ++$wakenings }
+        }
+    }
+    @res.push: "Wakenings over $trials experiments: "~ $wakenings;
+    $gotheadsonwaking / $wakenings
+}
+
+@res.push: "Results of experiment:  Sleeping Beauty should estimate a credence of: " ~ sleeping-beauty(1_000_000);
+
+.say for @res;
+
+my $moar = q:to/END/;
+Wakenings over 1000000 experiments: 1498974
+Results of experiment:  Sleeping Beauty should estimate a credence of: 0.334246
+END
+
+my $jvm = q:to/END/;
+Wakenings over 1000000 experiments: 1500639
+Results of experiment:  Sleeping Beauty should estimate a credence of: 0.33276558
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
