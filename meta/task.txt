@@ -1,10 +1,10 @@
-Welcome to Rakudo(tm) v2021.04-25-g8d37210ee.
+Welcome to Rakudo(tm) v2021.04-28-g816281b91.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.04-46-g5ee04f0fa.
 updating from RC…
 +--------------> Moar: Good/Bad [1317/21]
-|+-------------> JVM: Good/Bad [1149/239]
-||+------------> Smoke testing [1241]
+|+-------------> JVM: Good/Bad [1150/239]
+||+------------> Smoke testing [1242]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [356]
@@ -13,7 +13,7 @@ updating from RC…
 ||||||||+------> File output [98]
 |||||||||+-----> Draft [272]
 ||||||||||+----> Ignoring [34]
-|||||||||||+---> Void (no local copy) [77]
+|||||||||||+---> Void (no local copy) [76]
 ||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
@@ -443,7 +443,7 @@ GGS.......... Fibonacci_word_fractal
 GGS.......... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
 GGS.....F.... File_input_output-2
-GBS..T....... File_modification_time
+!BS..T....... File_modification_time
 GGS.......... File_size
 GGS..T....... File_size_distribution
 GGS.......... Filter
@@ -1404,7 +1404,7 @@ GGS.......... Undefined_values
 GGS.......... Unicode_strings
 GGS.......... Unicode_variable_names
 GBS......D... Unique_characters
-.........D.V. Unique_characters_in_each_string
+GGS......D... Unique_characters_in_each_string
 .........DXV. Unit_testing
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
