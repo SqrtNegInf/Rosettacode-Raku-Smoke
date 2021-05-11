@@ -1,0 +1,14 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Unique_characters_in_each_string
+#c# 2021-05-09 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my $strings = <1a3c52debeffd 2b6178c97a938stf 3ycxdb1fgxa2yz>;
+
+say my $result = sort keys [∩] $strings.map: *.comb.Bag.grep: *.value == 1;
+
+my $ref = '1 2 3 a b c';
+
+use Test;
+is $result, chomp $ref;
