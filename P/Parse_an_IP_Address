@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parse_an_IP_Address
-#c# 2016-05-19 <RC, 2018-11-26 <RC
+#c# 2016-05-19 <RC, 2018-11-26 <RC, 2021-05-26 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN 
 #n# java.util.regex.PatternSyntaxException: Unknown character property name {hexdigit}
@@ -33,7 +33,8 @@ grammar IP_Addr {
 
     token d8  { (\d+) <?{ $0 < 256   }> }
     token d16 { (\d+) <?{ $0 < 65536 }> }
-    token h16 { (<:hexdigit>+) <?{ @$0 ≤ 4 }> }
+    token h16 { (<:hexdigit>+) <?{ $0.chars ≤ 4 }> }
+    #token h16 { (<:hexdigit>+) <?{ @$0 ≤ 4 }> }
 
     token port {
         ':' <d16> { $*port = +$<d16> }
