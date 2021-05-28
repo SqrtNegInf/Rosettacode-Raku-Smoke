@@ -10,18 +10,17 @@ use Lingua::EN::Numbers;
 
 my @H = [\+] (1..*).map: { FatRat.new( 1, $_ ) };
 
-say "First twenty harmonic numbers as rationals:\n",
+@res.push: "First twenty harmonic numbers as rationals:\n"~
     @H[^20].&ratty.batch(5)».fmt("%18s").join: "\n";
 
-put "\nOne Hundredth:\n", @H[99].&ratty;
+@res.push: "\nOne Hundredth:\n" ~ @H[99].&ratty;
 
-say "\n(zero based) Index of first value:";
-printf "  greater than %2d: %6s (%s term)\n",
+@res.push: "\n(zero based) Index of first value:";
+@res.push: sprintf "  greater than %2d: %6s (%s term)",
   $_, comma( my $i = @H.first(* > $_, :k) ), ordinal 1 + $i for 1..10;
 
 sub ratty (*@a) { @a.map: { .narrow.^name eq 'Int' ?? .narrow !! .nude.join('/') } }
 
-exit;
 .say for @res;
 
 my $ref = q:to/END/;
