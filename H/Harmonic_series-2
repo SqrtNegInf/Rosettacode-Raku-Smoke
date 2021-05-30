@@ -1,9 +1,8 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Harmonic_series
 #c# 2021-05-28 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#n# need module update?
 
 my @res;
 
@@ -11,17 +10,16 @@ use Lingua::EN::Numbers;
 
 my @H = [\+] (1..*).map: { FatRat.new: 1, $_ };
 
-@res.push: "First twenty harmonic numbers as rationals:\n",
+@res.push: "First twenty harmonic numbers as rationals:\n" ~
     @H[^20]».&pretty-rat.batch(5)».fmt("%18s").join: "\n";
 
-@res.push: "\nOne Hundredth:\n", pretty-rat @H[99];
+@res.push: "\nOne Hundredth:\n" ~ pretty-rat @H[99];
 
 @res.push: "\n(zero based) Index of first value:";
 @res.push: sprintf "  greater than %2d: %6s (%s term)",
   $_, comma( my $i = @H.first(* > $_, :k) ), ordinal 1 + $i for 1..10;
 
 .say for @res;
-exit;
 
 my $ref = q:to/END/;
 First twenty harmonic numbers as rationals:
