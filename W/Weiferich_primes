@@ -1,0 +1,14 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Weiferich_primes
+#c# 2021-05-30 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+say my $result = "Weiferich primes less than 5000: " ~ join ', ', ^5000 .grep: { .is-prime and not ( exp($_-1, 2) - 1 ) % .² };
+
+my $ref = 'Weiferich primes less than 5000: 1093, 3511';
+
+use Test;
+is $result, $ref;
