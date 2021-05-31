@@ -27,7 +27,7 @@ my @sorted = @colors.sort: &by_asking;
 say my $result = (:@sorted);
 
 die if @sorted».substr(0,1).join ne 'roygbiv';
-my $expected_ask_count = @colors.elems * log(@colors.elems);
+my $expected_ask_count = @colors.elems × log(@colors.elems);
 warn "Too many questions? ({:$ask_count} > {:$expected_ask_count})" if $ask_count > $expected_ask_count;
 
 .say for @res;
