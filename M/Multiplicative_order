@@ -10,10 +10,10 @@ use Prime::Factor;
 
 sub mo-prime($a, $p, $e) {
     my $m = $p ** $e;
-    my $t = ($p - 1) * ($p ** ($e - 1)); #  = Phi($p**$e) where $p prime
+    my $t = ($p - 1) × ($p ** ($e - 1)); #  = Phi($p**$e) where $p prime
     my @qs = 1;
     for prime-factors($t).Bag -> $f {
-        @qs = flat @qs.map(-> $q { (0..$f.value).map(-> $j { $q * $f.key ** $j }) });
+        @qs = flat @qs.map(-> $q { (0..$f.value).map(-> $j { $q × $f.key ** $j }) });
     }
 
     @qs.sort.first: -> $q { expmod( $a, $q, $m ) == 1 };
@@ -28,7 +28,7 @@ sub mo($a, $m) {
     use Test;
 
     for (10, 21, 25, 150, 1231, 123141, 34131) -> $n {
-        is ([*] prime-factors($n).Bag.map( { .key ** .value } )), $n, "$n factors correctly";
+        is ([×] prime-factors($n).Bag.map( { .key ** .value } )), $n, "$n factors correctly";
     }
 
     is mo(37, 1000), 100, 'mo(37,1000) == 100';
