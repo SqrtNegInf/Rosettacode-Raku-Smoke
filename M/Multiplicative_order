@@ -1,62 +1,54 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Multiplicative_order
-#c# 2016-02-17 <>RC, 2018-03-14 <RC
+#c# 2016-02-17 <>RC, 2018-03-14 <RC, 2021-05-30 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN UnwindException
+#j# JVM:  BROKEN
 
-constant @primes = 2, |(3, 5, 7 ... *).grep: *.is-prime; # DH change
+my @res;
 
-sub factor($a is copy) {
-    gather {
-        for @primes -> $p {
-            my $j = 0;
-            while $a %% $p {
-                $a div= $p;
-                $j++;
-            }
-            take $p => $j if $j > 0;
-            last if $a < $p × $p;
-        }
-
-        take $a => 1 if $a > 1;
-    }
-}
+use Prime::Factor;
 
 sub mo-prime($a, $p, $e) {
     my $m = $p ** $e;
-    my $t = ($p - 1) × ($p ** ($e - 1)); #  = Phi($p**$e) where $p prime
+    my $t = ($p - 1) * ($p ** ($e - 1)); #  = Phi($p**$e) where $p prime
     my @qs = 1;
-    for factor($t) -> $f {
-        @qs = flat @qs.map(-> $q { (0..$f.value).map(-> $j { $q × $f.key ** $j }) }); # DH change
+    for prime-factors($t).Bag -> $f {
+        @qs = flat @qs.map(-> $q { (0..$f.value).map(-> $j { $q * $f.key ** $j }) });
     }
-    for @qs -> $q { return $q if expmod( $a, $q, $m ) == 1 };
-    @qs.sort.first(-> $q { expmod( $a, $q, $m ) == 1}); # 'Llfourn' added 'sort'
+
+    @qs.sort.first: -> $q { expmod( $a, $q, $m ) == 1 };
 }
 
 sub mo($a, $m) {
-    $a gcd $m == 1 || die "$a and $m are not relatively prime";
-    [lcm] flat 1, factor($m).map(-> $r { mo-prime($a, $r.key, $r.value) }); # DH change
+    $a gcd $m == 1 or die "$a and $m are not relatively prime";
+    [lcm] flat 1, prime-factors($m).Bag.map: { mo-prime($a, .key, .value) };
 }
 
-#sub MAIN("test") {
-    my @testvals = <10 21 25 150 1231 123141 34131>;
-    my @res1;
-    for @testvals -> $n {
-        @res1.push: [×] factor($n).map(-> $pair { $pair.key ** $pair.value });
-        #is ([×] factor($n).map(-> $pair { $pair.key ** $pair.value })), $n, "$n factors correctly";
+#multi MAIN('test') {
+    use Test;
+
+    for (10, 21, 25, 150, 1231, 123141, 34131) -> $n {
+        is ([*] prime-factors($n).Bag.map( { .key ** .value } )), $n, "$n factors correctly";
     }
-    .say for @res1;
 
-
-    my @res2.push: mo(37, 1000);
+    is mo(37, 1000), 100, 'mo(37,1000) == 100';
     my $b = 10**20-1;
-    @res2.push: mo(2, $b);
-    @res2.push: mo(17, $b);
+    is mo(2, $b), 3748806900, 'mo(2,10**20-1) == 3748806900';
+    is mo(17, $b), 1499522760, 'mo(17,10**20-1) == 1499522760';
     $b = 100001;
-    @res2.push: mo(54, $b);
-    .say for @res2;
+    is mo(54, $b), 9090, 'mo(54,100001) == 9090';
 #}
 
-use Test;
-is @res1, @testvals;
-is @res2.gist, '[100 3748806900 1499522760 9090]';
+my $ref = q:to/END/;
+ok 1 - 10 factors correctly
+ok 2 - 21 factors correctly
+ok 3 - 25 factors correctly
+ok 4 - 150 factors correctly
+ok 5 - 1231 factors correctly
+ok 6 - 123141 factors correctly
+ok 7 - 34131 factors correctly
+ok 8 - mo(37,1000) == 100
+ok 9 - mo(2,10**20-1) == 3748806900
+ok 10 - mo(17,10**20-1) == 1499522760
+ok 11 - mo(54,100001) == 9090
+END
