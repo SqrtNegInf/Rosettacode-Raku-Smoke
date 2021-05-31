@@ -1,0 +1,62 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Multiplicative_order
+#c# 2016-02-17 <>RC, 2018-03-14 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN UnwindException
+
+constant @primes = 2, |(3, 5, 7 ... *).grep: *.is-prime; # DH change
+
+sub factor($a is copy) {
+    gather {
+        for @primes -> $p {
+            my $j = 0;
+            while $a %% $p {
+                $a div= $p;
+                $j++;
+            }
+            take $p => $j if $j > 0;
+            last if $a < $p × $p;
+        }
+
+        take $a => 1 if $a > 1;
+    }
+}
+
+sub mo-prime($a, $p, $e) {
+    my $m = $p ** $e;
+    my $t = ($p - 1) × ($p ** ($e - 1)); #  = Phi($p**$e) where $p prime
+    my @qs = 1;
+    for factor($t) -> $f {
+        @qs = flat @qs.map(-> $q { (0..$f.value).map(-> $j { $q × $f.key ** $j }) }); # DH change
+    }
+    for @qs -> $q { return $q if expmod( $a, $q, $m ) == 1 };
+    @qs.sort.first(-> $q { expmod( $a, $q, $m ) == 1}); # 'Llfourn' added 'sort'
+}
+
+sub mo($a, $m) {
+    $a gcd $m == 1 || die "$a and $m are not relatively prime";
+    [lcm] flat 1, factor($m).map(-> $r { mo-prime($a, $r.key, $r.value) }); # DH change
+}
+
+#sub MAIN("test") {
+    my @testvals = <10 21 25 150 1231 123141 34131>;
+    my @res1;
+    for @testvals -> $n {
+        @res1.push: [×] factor($n).map(-> $pair { $pair.key ** $pair.value });
+        #is ([×] factor($n).map(-> $pair { $pair.key ** $pair.value })), $n, "$n factors correctly";
+    }
+    .say for @res1;
+
+
+    my @res2.push: mo(37, 1000);
+    my $b = 10**20-1;
+    @res2.push: mo(2, $b);
+    @res2.push: mo(17, $b);
+    $b = 100001;
+    @res2.push: mo(54, $b);
+    .say for @res2;
+#}
+
+use Test;
+is @res1, @testvals;
+is @res2.gist, '[100 3748806900 1499522760 9090]';
