@@ -1,0 +1,5 @@
+#!/usr/local/bin/perl
+## show RC task currently being run 
+#  2021-05-31
+
+while () { print `ps aux | grep moar-blead | grep -v mbc | cut -c 17-23,148- | grep '/' | sort -n` and sleep 30 } 
