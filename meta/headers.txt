@@ -5202,7 +5202,16 @@ File: H/Home_primes
 #c# 2021-05-24 <RC, 2021-05-28 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# not testing HP49
+#n# not testing HP49, removed timing code
+
+File: H/Home_primes.1
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Home_primes
+#c# 2021-06-01 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN OK
+#n# full version, not routinely tested
+#n# 104.58s user 4.47s system 77% cpu 2:20.89 total
 
 File: H/Horizontal_sundial_calculations
 #!/usr/bin/env perl6
@@ -6083,6 +6092,13 @@ File: L/Largest_number_divisible_by_its_digits.jvm
 #c# 2017-09-02 <RC, 2018-10-13 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: L/Largest_proper_divisor_of_n
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Largest_proper_divisor_of_n
+#c# 2021-06-01 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
 
 File: L/Last_Friday_of_each_month
 #!/usr/bin/env perl6
@@ -13311,13 +13327,6 @@ File: W/Web_scraping.1
 #m# MOAR: OK
 #j#  JVM: BROKEN
 
-File: W/Weiferich_primes
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Weiferich_primes
-#c# 2021-05-30 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-
 File: W/Weird_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Weird_numbers
@@ -13340,6 +13349,13 @@ File: W/Welch%27s_t-test-2
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# '×' seems like a natural upgrade, '÷' less so; maybe just have to encounter it more often...
+
+File: W/Wieferich_primes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Weiferich_primes
+#c# 2021-05-30 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: W/Window_creation
 #!/usr/bin/env perl6
