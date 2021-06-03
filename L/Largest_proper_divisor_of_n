@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Largest_proper_divisor_of_n
-#c# 2021-06-01 <RC
+#c# 2021-06-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -15,7 +15,8 @@ for 0, 2**67 - 1 -> $add {
 
     @res.push: "GPD for {$range.min} through {$range.max}:";
 
-    @res.push: ( $range.hyper(:18batch).map: {$_ == 1 ?? 1 !! $_ %% 2 ?? $_ / 2 !! .&proper-divisors.sort.tail} )\
+    #@res.push: ( $range.hyper(:18batch).map: {$_ == 1 ?? 1 !! $_ %% 2 ?? $_ / 2 !! .&proper-divisors.sort.tail} )\
+    @res.push: ( $range.hyper(:14batch).map: {$_ == 1 ?? 1 !! $_ %% 2 ?? $_ / 2 !! .&proper-divisors.max} )\
         .batch(10)».fmt("%{$add.chars + 1}d").join: "\n";
 
     #say (now - $start).fmt("%0.3f seconds\n");
