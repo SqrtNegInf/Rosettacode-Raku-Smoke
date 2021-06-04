@@ -1,19 +1,19 @@
-Welcome to Rakudo(tm) v2021.05-3-gf83e55116.
+Welcome to Rakudo(tm) v2021.05-6-g89fd8a8df.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.05-1-gd57f575c2.
 updating from RC…
-+--------------> Moar: Good/Bad [1326/21]
-|+-------------> JVM: Good/Bad [1152/245]
-||+------------> Smoke testing [1250]
++--------------> Moar: Good/Bad [1327/21]
+|+-------------> JVM: Good/Bad [1151/247]
+||+------------> Smoke testing [1251]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [355]
-||||||+--------> Concurrent/Async [73]
+||||||+--------> Concurrent/Async [74]
 |||||||+-------> Random seed [135]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [281]
+|||||||||+-----> Draft [280]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [79]
+|||||||||||+---> Void (no local copy) [78]
 ||||||||||||+--> Un-implemented/reliable [49]
 |||||||||||||
 GGS.......... 100_doors
@@ -58,7 +58,7 @@ GGS..T...D... Addition_chains
 GGS..T....... Additive_primes-1
 GGS.......... Additive_primes-2
 GGS.......... Address_of_a_variable
-GGS......D... Air_mass
+GBS...C..D... Air_mass
 GGS.......... Align_columns
 GGS..Tc...... Aliquot_sequence_classifications
 GBS......D... Almkvist-Giullera_formula_for_pi
@@ -124,7 +124,7 @@ GGS....R..... Balanced_brackets
 GGS..T....... Balanced_ternary
 GGS..T...D... Banker%27s_algorithm
 GBS....RF.... Barnsley_fern
-.........D.V. Base-16_representation
+GBS......D... Base-16_representation
 GGS......D... Base58Check_encoding
 GGS.......... Base64_decode_data
 GGS..T...D... Base64_encode_data
@@ -675,7 +675,7 @@ GGS.......... Lah_numbers
 !GS....R..... Langton%27s_ant
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
-GBS...C..D... Largest_proper_divisor_of_n
+GBS...C...... Largest_proper_divisor_of_n
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
 GGS..T....... Latin_Squares_in_reduced_form
