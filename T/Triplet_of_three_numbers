@@ -3,10 +3,12 @@
 #c# 2021-05-17 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 'hyper' is safer for testing
 
 my @res;
 
-@res.push: "{.[0]+1}: "~$_ for grep *.all.is-prime, ^6000 .race.map: { $_-1, $_+3, $_+5 };
+@res.push: "{.[0]+1}: "~$_ for grep *.all.is-prime, ^6000 .hyper.map: { $_-1, $_+3, $_+5 };
+#@res.push: "{.[0]+1}: "~$_ for grep *.all.is-prime, ^6000 .race.map: { $_-1, $_+3, $_+5 };
 
 .say for @res[^15];
 
