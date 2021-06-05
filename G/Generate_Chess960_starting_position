@@ -3,6 +3,7 @@
 #c# 2016-06-02 <RC, 2018-03-28 >RC, 2018-04-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2021-06-04 results for test #2 changed
 
 srand 123456;
 
@@ -24,7 +25,8 @@ sub chess960 {
 }
 
 say my $result = chess960;
-is $result, $*VM ~~ /jvm/ ?? '♜♞♚♝♜♞♝♛' !! '♝♝♜♚♞♛♞♜';
+is $result, $*VM ~~ /jvm/ ?? '♜♞♚♝♜♞♝♛' !! '♞♝♝♜♚♞♜♛'; 
+#is $result, $*VM ~~ /jvm/ ?? '♜♞♚♝♜♞♝♛' !! '♝♝♜♚♞♛♞♜';
 
 # ♛♝♜♚♝♞♞♜
 # We can also pregenerate the list of 960 positions, though the method we use below is a bit wasteful, since it
