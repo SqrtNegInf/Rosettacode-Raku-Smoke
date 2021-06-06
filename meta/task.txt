@@ -2,7 +2,7 @@ Welcome to Rakudo(tm) v2021.05-7-g0de28ae72.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.05-1-gd57f575c2.
 updating from RC…
-+--------------> Moar: Good/Bad [1324/21]
++--------------> Moar: Good/Bad [1326/21]
 |+-------------> JVM: Good/Bad [1151/247]
 ||+------------> Smoke testing [1251]
 |||+-----------> sKipping validation [139]
@@ -11,10 +11,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [74]
 |||||||+-------> Random seed [135]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [280]
+|||||||||+-----> Draft [281]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [78]
-||||||||||||+--> Un-implemented/reliable [49]
+|||||||||||+---> Void (no local copy) [79]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -518,7 +518,7 @@ GGS.......... Gaussian_elimination
 GGS.......... General_FizzBuzz
 GGS..T...D... Generalised_floating_point_addition
 .........DXVU Generalised_floating_point_multiplication
-!GS..T.R..... Generate_Chess960_starting_position
+GGS..T.R..... Generate_Chess960_starting_position
 GGS.......... Generate_lower_case_ASCII_alphabet
 !GS....R..... Generate_random_chess_position
 GGS..T....... Generator_Exponential
@@ -639,7 +639,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-GBS...C.F.... Julia_set
+!BS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -752,7 +752,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-!BS.....F.... Mandelbrot_set-2
+GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -1387,7 +1387,7 @@ GGS.......... Tree_from_nesting_levels-2
 GGS.......... Tree_from_nesting_levels-3
 GGS..T....... Tree_traversal
 GGS.......... Trigonometric_functions
-!BS...C..D... Triplet_of_three_numbers
+GBS...C..D... Triplet_of_three_numbers
 GGS.......... Truncatable_primes
 GBS..T....... Truncate_a_file
 GGS..T....... Truth_table
@@ -1473,6 +1473,7 @@ GB.KI........ Window_management
 GBS.......... Wireworld
 GGS......D... Word_break_problem
 GGS..Tc...... Word_frequency
+.........D.VU Word_ladder
 !GS....R..... Word_search
 GGS.......... Word_wheel-1
 GBS.......... Word_wheel-2
