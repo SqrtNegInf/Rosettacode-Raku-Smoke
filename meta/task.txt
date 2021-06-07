@@ -2,16 +2,16 @@ Welcome to Rakudo(tm) v2021.05-7-g0de28ae72.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.05-1-gd57f575c2.
 updating from RC…
-+--------------> Moar: Good/Bad [1326/21]
-|+-------------> JVM: Good/Bad [1151/247]
-||+------------> Smoke testing [1251]
++--------------> Moar: Good/Bad [1329/21]
+|+-------------> JVM: Good/Bad [1152/248]
+||+------------> Smoke testing [1253]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [355]
-||||||+--------> Concurrent/Async [74]
+||||||+--------> Concurrent/Async [75]
 |||||||+-------> Random seed [135]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [281]
+|||||||||+-----> Draft [283]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [79]
 ||||||||||||+--> Un-implemented/reliable [50]
@@ -255,6 +255,7 @@ GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
+.........D.VU Compiler_Simple_file_inclusion_pre_processor
 BB.K.T...D... Compiler_Verifying_syntax
 GGS..T....... Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
@@ -317,6 +318,7 @@ GGS......D... Days_between_dates
 GGS.......... De_Bruijn_sequences
 GGS..T.R..... Deal_cards_for_FreeCell
 GGS..TC.F.... Death_Star
+GBS...C..D... Decimal_-_Hexadecimal_numbers
 GGS......D... Decimal_floating_point_number_to_binary
 GGS......D... Decision_tables
 GGS..T....... Deconvolution_1D
@@ -639,7 +641,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-!BS...C.F.... Julia_set
+GBS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -1473,7 +1475,7 @@ GB.KI........ Window_management
 GBS.......... Wireworld
 GGS......D... Word_break_problem
 GGS..Tc...... Word_frequency
-.........D.VU Word_ladder
+GGS......D... Word_ladder
 !GS....R..... Word_search
 GGS.......... Word_wheel-1
 GBS.......... Word_wheel-2
