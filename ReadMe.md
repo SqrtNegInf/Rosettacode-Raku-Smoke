@@ -43,7 +43,7 @@ code was broken the day before he was off to a conference
 where he wanted to demonstrate it. Oops. *Someone* had to do *something*.
 
 Daily testing results have been saved since 2016-09-01, at which point just under 600
-tasks were in the system.  The task count now approaches 1200.  For each
+tasks were in the system.  The task count now exceeds 1300.  For each
 task the `stdout` (and any `stderr`) are saved and tested against expected output 
 
 Both MoarVM and JVM backends are being tested.  MoarVM is sync'd to `moar-blead` daily, JVM much 
@@ -79,7 +79,7 @@ reliable.
 
 Include testing of Javascript backend.
 
-Currently testing on just macOS, expand to Linux, Windows.
+Currently daily testing is just on macOS, could expand to Linux, Windows?
 
 ## MTYEWTKATLORST
 ##### (more than you ever wanted to know about the logistics of Raku smoke testing)
