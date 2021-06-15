@@ -19,7 +19,7 @@ sub height ( \a, \z, \d ) {
     # z = zenith angle (in degrees)
     # d = distance along line of sight
     my \AA = RE + a;
-    sqrt( AA² + d² - 2*d*AA*cos((180-z)*DEG) ) - AA;
+    sqrt( AA² + d² - 2×d×AA×cos((180-z)×DEG) ) - AA;
 }
 
 #| Integrates density along the line of sight
@@ -27,8 +27,8 @@ sub column_density ( \a, \z ) {
     my $sum = 0;
     my $d   = 0;
     while $d < FIN {
-        my \delta = max(dd, (dd)*$d);  # Adaptive step size to avoid it taking forever
-        $sum += rho(height(a, z, $d + delta/2))*delta;
+        my \delta = max(dd, (dd)×$d);  # Adaptive step size to avoid it taking forever
+        $sum += rho(height(a, z, $d + delta/2))×delta;
         $d   += delta;
     }
     $sum;
