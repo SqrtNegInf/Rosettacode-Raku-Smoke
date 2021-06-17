@@ -1,8 +1,8 @@
-Welcome to Rakudo(tm) v2021.05-17-g168da39ae.
+Welcome to Rakudo(tm) v2021.05-19-gcd4a72b6a.
 Implementing the Raku(tm) programming language v6.d.
 Built on MoarVM version 2021.05-14-g0a62f0c6a.
 updating from RC…
-+--------------> Moar: Good/Bad [1327/21]
++--------------> Moar: Good/Bad [1317/21]
 |+-------------> JVM: Good/Bad [1152/248]
 ||+------------> Smoke testing [1253]
 |||+-----------> sKipping validation [139]
@@ -120,7 +120,7 @@ GGS.......... Averages_Root_mean_square
 GGS.......... Averages_Simple_moving_average
 GGS.......... Babbage_problem
 GGS.....FD... Bacon_cipher
-GGS....R..... Balanced_brackets
+!GS....R..... Balanced_brackets
 GGS..T....... Balanced_ternary
 GGS..T...D... Banker%27s_algorithm
 GBS....RF.... Barnsley_fern
@@ -427,8 +427,8 @@ GGS.......... FASTA_format
 BB.K......... FTP
 GGS.......... Faces_from_a_mesh
 GGS.......... Factorial
-GGS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
-GBS...C...... Factorions
+!GS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
+!BS...C...... Factorions
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
 GGS...C...... Fairshare_between_two_and_more
@@ -521,7 +521,7 @@ GGS.......... Gaussian_elimination
 GGS.......... General_FizzBuzz
 GGS..T...D... Generalised_floating_point_addition
 .........DXVU Generalised_floating_point_multiplication
-GGS..T.R..... Generate_Chess960_starting_position
+!GS..T.R..... Generate_Chess960_starting_position
 GGS.......... Generate_lower_case_ASCII_alphabet
 !GS....R..... Generate_random_chess_position
 GGS..T....... Generator_Exponential
@@ -646,7 +646,7 @@ BB.K......... Joystick_position
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
-GGS....R..... K-means%2B%2B_clustering
+!GS....R..... K-means%2B%2B_clustering
 GGS......D... Kahan_summation
 GGS.......... Kaprekar_numbers-1
 GGS..TC...... Kaprekar_numbers-2
@@ -719,7 +719,7 @@ GGS.......... Longest_string_challenge
 GBS......D... Longest_substrings_without_repeating_characters
 GGS.......... Look-and-say_sequence
 GGS.......... Loop_over_multiple_arrays_simultaneously
-GGS....R..... Loops_Break
+!GS....R..... Loops_Break
 GGS.......... Loops_Continue
 GGS.......... Loops_Do-while
 GGS.......... Loops_Downward_for
@@ -755,10 +755,10 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-GBS.....F.... Mandelbrot_set-2
+!BS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
-GGS....R..... Mastermind
+!GS....R..... Mastermind
 GGS..T....... Matrix-exponentiation_operator
 GGS..T....... Matrix_chain_multiplication
 GG.K......... Matrix_digital_rain
@@ -786,7 +786,7 @@ GGS.......... Metronome
 GGS.......... Mian-Chowla_sequence
 GGS.......... Middle_three_digits
 GGS....R..... Miller-Rabin_primality_test
-GGS....R..... Mind_boggling_card_trick
+!GS....R..... Mind_boggling_card_trick
 GG.KI..R..... Minesweeper_game
 GGS.......... Minimal_steps_down_to_1
 .........D... Minimum_positive_multiple_in_base_10_using_only_0_and_1
@@ -958,7 +958,7 @@ GGS......D... Permutations_with_some_identical_elements
 GGS.......... Pernicious_numbers
 GGS.......... Phrase_reversals
 GGS..T....... Pi
-GGS..T.R..... Pick_random_element
+!GS..T.R..... Pick_random_element
 GBS.......... Pierpont_primes-1
 GGS.......... Pierpont_primes-2
 GBS....R..... Pig_the_dice_game
@@ -970,7 +970,7 @@ GGS......D... Pisano_period
 GBS..TC.F.... Plasma_effect
 ..........XVU Play_recorded_sounds
 GGS..T....... Playfair_cipher
-GGS..T.R..... Playing_cards
+!GS..T.R..... Playing_cards
 GGS..T..F.... Plot_coordinate_pairs
 GGS.......... Pointers_and_references
 GGS..T....... Poker_hand_analyser
@@ -996,7 +996,7 @@ GBS.......... Prime_decomposition-1
 .........D.V. Prime_triplets
 GBS...C..D... Prime_words
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
-!GS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
+GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS...C..D... Primes_which_sum_of_digits_is_25
 GGS......D... Primes_with_digits_in_nondecreasing_order
 GGS..T....... Primorial_numbers
