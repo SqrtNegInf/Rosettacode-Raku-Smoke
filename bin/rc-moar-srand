@@ -46,13 +46,14 @@
 
 # 2021-05-10
 # give up for now, results not changing and not behaving when launched via cron
-exit
+#exit
 
 source $HOME/.profile
 cd $HOME/perl6/Rosetta-Code
 
 rakudobrew switch moar-blead
-bin/rc-moar-single H/Hello_world_Text
+#bin/rc-moar-single H/Hello_world_Text
+bin/rc-moar-single M/Mastermind ; exit
 rm -f bench/moar/*
 
 # results never stable
