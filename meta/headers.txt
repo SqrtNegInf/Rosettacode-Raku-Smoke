@@ -2719,7 +2719,7 @@ File: D/Death_Star.jvm
 File: D/Decimal_-_Hexadecimal_numbers
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Decimal_-_Hexadecimal_numbers
-#c# 2021-06-19 <RC
+#c# 2021-06-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -3024,6 +3024,16 @@ File: D/Distributed_programming
 #c# 2018-04-27 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: D/Distribution_of_0_Digits_in_Factorial_Series
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Distribution_of_0_Digits_in_Factorial_Series
+#c# 2021-06-19 <RC, 2021-06-20 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# thundergnat: Works, but depressingly slow for 10000
+#n# locally:  9232.92s user 25.16s system 471% cpu 32:42.82 total
+#n# fixed indexing off-by-one error
 
 File: D/Diversity_prediction_theorem
 #!/usr/bin/env perl6
