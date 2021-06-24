@@ -1,16 +1,17 @@
-Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.06-14-g772711ad3.
+Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.06-18-gad94ef1d6.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.06-6-g6977d0591.
-+--------------> Moar: Good/Bad [1310/21]
-|+-------------> JVM: Good/Bad [1153/247]
-||+------------> Smoke testing [1253]
-|||+-----------> sKipping validation [139]
+updating from RC…
++--------------> Moar: Good/Bad [1315/21]
+|+-------------> JVM: Good/Bad [1155/248]
+||+------------> Smoke testing [1254]
+|||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [356]
 ||||||+--------> Concurrent/Async [75]
-|||||||+-------> Random seed [135]
+|||||||+-------> Random seed [136]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [282]
+|||||||||+-----> Draft [283]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [80]
 ||||||||||||+--> Un-implemented/reliable [49]
@@ -19,7 +20,7 @@ GGS.......... 100_doors
 !GS...cR..... 100_prisoners
 GB.KI..R..... 15_puzzle_game
 .........D.VU 15_puzzle_game_in_3D
-...........VU 15_puzzle_solver
+GG.K...R..... 15_puzzle_solver
 .........D.VU 16_puzzle_game
 GB.KI..R..... 2048
 GGS....R..... 21_game
@@ -60,7 +61,7 @@ GGS.......... Address_of_a_variable
 GBS...C..D... Air_mass
 GGS.......... Align_columns
 GGS..Tc...... Aliquot_sequence_classifications
-GBS......D... Almkvist-Giullera_formula_for_pi
+GBS.......... Almkvist-Giullera_formula_for_pi
 GGS.......... Almost_prime-1
 GGS.......... Almost_prime-2
 GGS......D... Alternade_words
@@ -306,6 +307,7 @@ GGS.......... Currying
 GBS......D... Curve_that_touches_three_points
 GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
+GB.K.....D... Cyclops_numbers
 GBS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
@@ -405,7 +407,7 @@ GGS.......... Events
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -753,7 +755,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-!BS.....F.... Mandelbrot_set-2
+GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -785,6 +787,7 @@ GGS.......... Mian-Chowla_sequence
 GGS.......... Middle_three_digits
 GGS....R..... Miller-Rabin_primality_test
 !GS....R..... Mind_boggling_card_trick
+.........D.VU Mine_a_bitcoin
 GG.KI..R..... Minesweeper_game
 GGS.......... Minimal_steps_down_to_1
 .........D... Minimum_positive_multiple_in_base_10_using_only_0_and_1
@@ -904,6 +907,7 @@ GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
 GGS...C...... Palindromic_gapful_numbers
 GGS......D... Palindromic_primes
+GGS......D... Palindromic_primes_in_base_16
 GGS.......... Pancake_numbers
 GGS.......... Pangram_checker
 GGS..T....... Paraffins
@@ -1270,7 +1274,7 @@ GGS..T....... Straddling_checkerboard
 GGS..T...D... Strange_numbers
 GGS...c..D... Strange_plus_numbers
 GGS......D... Strange_unique_prime_triplets
-BB.K.....D... Strassen%27s_algorithm
+BB.K......... Strassen%27s_algorithm
 GGS..T....... Stream_merge
 GGS.......... String_append
 GGS..T....... String_case
