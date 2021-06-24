@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Base-16_representation
-#c# 2021-06-02 <RC, 2021-06-22 <RC
+#c# 2021-06-02 <RC, 2021-06-23 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -65,7 +65,7 @@ for 500
    -> $threshold {
     my $limit = $threshold.base(16);
     my $i  = $limit.index: ['A'..'F'];
-    $limit = $limit.substr(0, $i) ~ ('9' x ($limit.chars - $i)) if $i.Str;
+    quietly $limit = $limit.substr(0, $i) ~ ('9' x ($limit.chars - $i)) if $i.Str;
 
     for '  CAN  ', $limit,
         'CAN NOT', $threshold - $limit {
