@@ -3,15 +3,15 @@ Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.06-6-g6977d0591.
 updating from RC…
 +--------------> Moar: Good/Bad [1315/21]
-|+-------------> JVM: Good/Bad [1155/248]
-||+------------> Smoke testing [1254]
-|||+-----------> sKipping validation [141]
+|+-------------> JVM: Good/Bad [1157/248]
+||+------------> Smoke testing [1257]
+|||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [356]
 ||||||+--------> Concurrent/Async [75]
 |||||||+-------> Random seed [136]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [283]
+|||||||||+-----> Draft [285]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [80]
 ||||||||||||+--> Un-implemented/reliable [49]
@@ -307,7 +307,7 @@ GGS.......... Currying
 GBS......D... Curve_that_touches_three_points
 GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
-GB.K.....D... Cyclops_numbers
+GBS......D... Cyclops_numbers
 GBS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
@@ -407,7 +407,7 @@ GGS.......... Events
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -755,7 +755,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-GBS.....F.... Mandelbrot_set-2
+!BS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -864,6 +864,8 @@ GGS.......... Number_names-1
 GBS.......... Number_names-2
 GGS.......... Number_reversal_game
 GGS......D... Numbers_divisible_by_their_individual_digits,_but_not_by_the_product_of_their_digits.
+GGS......D... Numbers_in_base-16_representation_that_cannot_be_written_with_decimal_digits
+GGS......D... Numbers_in_base_10_that_are_palindromic_in_bases_2,_4,_and_16
 GGS......D... Numbers_which_binary_and_ternary_digit_sum_are_prime
 GBS...C..D... Numbers_with_equal_rises_and_falls
 GGS......D... Numbers_with_prime_digits_whose_sum_is_13
