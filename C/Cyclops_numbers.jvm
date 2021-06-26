@@ -8,14 +8,9 @@ my @res;
 
 sub comma { $^i.flip.comb(3).join(',').flip }
 
-my @cyclops = 0, |lazy gather for 0..* -> $exp {
-    (exp($exp, 10) ..^ exp($exp + 1, 10)).map: -> $start {
-        next if $start.contains: 0;
-        for exp($exp, 10) ..^ exp($exp + 1, 10) -> $end {
-            next if $end.contains: 0;
-            take $start ~ 0 ~ $end;
-        }
-    }
+my @cyclops = 0, |flat lazy ^∞ .map: -> $exp {
+      my @oom = (exp($exp, 10) ..^ exp($exp + 1, 10)).grep: { !.contains: 0 }
+      |@oom.hyper.map: { $_ ~ 0 «~« @oom }
 }
 
 my @prime-cyclops = @cyclops.grep: { .is-prime };
