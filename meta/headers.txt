@@ -2621,6 +2621,13 @@ File: C/Cycle_detection
 File: C/Cyclops_numbers
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Cyclops_numbers
+#c# 2021-06-23 <RC, 2021-06-25 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: C/Cyclops_numbers.1
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Cyclops_numbers
 #c# 2021-06-23 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -11469,7 +11476,7 @@ File: S/Square_Form_Factorization
 #n# tried to run the whole task once (waaaaay slow), cut down on results for daily smoke-testing
 #n# would have to replace the Unicode symbols for JVM to work (anyhow, would probably be glacial)
 #n# can't display some of the Unicode (on RC, here)
-#n# Start-up is really slow? Back-porting the Perl port I get much snappier results; a Unicode start-up penalty?
+#n# Start-up is really slow: See .1 version for documentation on Unicode start-up penalty
 
 File: S/Square_Form_Factorization.1
 #!/usr/bin/env raku
