@@ -65,7 +65,7 @@ for 500
    -> $threshold {
     my $limit = $threshold.base(16);
     my $i  = $limit.index: ['A'..'F'];
-    quietly $limit = $limit.substr(0, $i) ~ ('9' x ($limit.chars - $i)) if $i.Str;
+    $limit = $limit.substr(0, $i) ~ ('9' x ($limit.chars - $i)) if $i.Str;
 
     for '  CAN  ', $limit,
         'CAN NOT', $threshold - $limit {
