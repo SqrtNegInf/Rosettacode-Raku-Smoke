@@ -4,10 +4,8 @@
 #c# 2021-06-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-
-srand 123456;
-
-my @res;
+#n# changes not on RC
+#n# 1490.73s user 20.51s system 100% cpu 25:01.55 total
 
 use Test;
 
@@ -23,8 +21,7 @@ my @N2 is default(0);
 sub fY() {
    if @N2[$n] == 0x123456789abcdef0 {
       my $result = [~] @N3[1..$n];
-      my $ref = 'rrrulddluuuldrurdddrullulurrrddldluurddlulurruldrdrd';
-      is $result, $ref;
+      is $result, 'rrrulddluuuldrurdddrullulurrrddldluurddlulurruldrdrd';
       exit;
       #say "Solution found in $n moves: ", [~] @N3[1..$n] and exit();
    }
@@ -33,10 +30,10 @@ sub fY() {
 
 sub fN() {
    sub common { ++$n; return True if fY(); --$n }
-   if (@N3[$n] ne 'u' && @N0[$n] div 4 < 3) { fI() and common }
-   if (@N3[$n] ne 'd' && @N0[$n] div 4 > 0) { fG() and common }
-   if (@N3[$n] ne 'l' && @N0[$n]  %  4 < 3) { fE() and common }
-   if (@N3[$n] ne 'r' && @N0[$n]  %  4 > 0) { fL() and common }
+   if (@N3[$n] ne 'u' && @N0[$n] div 4 < 3) { fI; common }
+   if (@N3[$n] ne 'd' && @N0[$n] div 4 > 0) { fG; common }
+   if (@N3[$n] ne 'l' && @N0[$n]  %  4 < 3) { fE; common }
+   if (@N3[$n] ne 'r' && @N0[$n]  %  4 > 0) { fL; common }
    return False;
 }
 
@@ -67,7 +64,7 @@ sub fE() {
    @N4[$n+1]=@N4[$n]+(Nc[a+>g] ≤ @N0[$n]%4 ?? 0 !! 1);
 }
 
-sub fL(){
+sub fL() {
    my \g = (16-@N0[$n])×4;
    my \a = @N2[$n] +& (15 +< g);
    @N0[$n+1]=@N0[$n]-1;
@@ -76,9 +73,7 @@ sub fL(){
    @N4[$n+1]=@N4[$n]+(Nc[a+>g] ≥ @N0[$n]%4 ?? 0 !! 1);
 }
 
-sub fifteenSolver(\n, \g){@N0[0]=n; @N2[0]=g}
+sub fifteenSolver(\n, \g) { @N0[0]=n; @N2[0]=g }
 
 fifteenSolver(8,0xfe169b4c0a73d852);
 loop { fY() or ++$m }
-
-# Solution found in 52 moves: rrrulddluuuldrurdddrullulurrrddldluurddlulurruldrdrd
