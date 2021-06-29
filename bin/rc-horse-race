@@ -3,6 +3,7 @@
 #  David H.  Fri Sep 13 16:05:56 PDT 2019
 ## not a race, not a race, not a race...
 ## 2020-03-14 P6 -> Raku
+## 2021-06-28 limit to languages being actively worked on (basically those with task count over 1200)
 
 use HTTP::UserAgent;
 use URI::Escape;
@@ -14,18 +15,16 @@ my $url = 'http://rosettacode.org/mw';
 my %langs = ( 
 'Go'     => 'Go',
 'Julia'  => 'Ju',
-'Kotlin' => 'Ko',
+#'Kotlin' => 'Ko',  # drop 
 'Perl'   => 'P5',
+'Nim'    => 'Ni',   # add
 #'Perl_5' => 'P5',
 'Raku'   => 'Rk',
 #'Perl_6' => 'P6',
 'Phix'   => 'Ph',
 'Python' => 'Py',
-'Racket' => 'Ra',
-#'Java'   => 'Ja',  # will add someday
-#'Zkl'    => 'Zk',  # will add someday
-#'C'      => 'C ',  # least useful, from porting perspective
-#'Sidef'  => 'Si',  # most useful, from porting perspective
+'Wren'   => 'Wr',
+#'Racket' => 'Ra',  # drop 
 );
 
 my (%impl,%h);
