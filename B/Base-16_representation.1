@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Base-16_representation
-#c# 2021-06-02 <RC, 2021-06-23 <RC, 2021-07-12 <RC
+#c# 2021-06-02 <RC, 2021-06-23 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -8,15 +8,9 @@ use Test;
 use Base::Any;
 use Lingua::EN::Numbers;
 
-sub display ($list, :$cols = 10, :$fmt = '%6d', :$title = "{+$list} matching:\n" )   {
-    cache $list;
-    $title ~ $list.batch($cols)».fmt($fmt).join: "\n"
-}
-
-my $result1 = display :20cols, :fmt('%3d'), (^501).grep( { so any |.map: { .polymod(16 xx *) »>» 9 } } );
+my @res1 = (0..500).grep( { any |.map: { .polymod(16 xx *) »>» 9 } } ).batch(20)».fmt('%3d').join: "\n";
 
 my $ref1 = q:to/END/;
-301 matching:
  10  11  12  13  14  15  26  27  28  29  30  31  42  43  44  45  46  47  58  59
  60  61  62  63  74  75  76  77  78  79  90  91  92  93  94  95 106 107 108 109
 110 111 122 123 124 125 126 127 138 139 140 141 142 143 154 155 156 157 158 159
@@ -35,12 +29,14 @@ my $ref1 = q:to/END/;
 500
 END
 
-is $result1, chomp $ref1;
+is @res1.join("\n"), chomp $ref1;
 
-my $result2 = display :20cols, :fmt('%3d'), (^501).grep( { .&to-base(-16).contains: /<[A..F]>/ } );
+my @res2 = "Integers from 0 to 500 that when expressed in Base -16 in standard notation, contain an alphabetic: {+$_}\n"~
+    .batch(20)».fmt('%3d').join("\n")
+    given (^501).grep( { .&to-base(-16).contains: /<[A..F]>/ } );
 
 my $ref2 = q:to/END/;
-306 matching:
+Integers from 0 to 500 that when expressed in Base -16 in standard notation, contain an alphabetic: 306
  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29
  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49
  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69
@@ -59,7 +55,7 @@ my $ref2 = q:to/END/;
 490 491 492 493 494 495
 END
 
-is $result2, chomp $ref2;
+is @res2.join("\n"), chomp $ref2;
 
 my @res3;
 for 500
@@ -69,15 +65,15 @@ for 500
    -> $threshold {
     my $limit = $threshold.base(16);
     my $i  = $limit.index: ['A'..'F'];
-    quietly $limit = $limit.substr(0, $i) ~ ('9' x ($limit.chars - $i)) if $i.Str;
+    $limit = $limit.substr(0, $i) ~ ('9' x ($limit.chars - $i)) if $i.Str;
 
     for '  CAN  ', $limit,
         'CAN NOT', $threshold - $limit {
-        push @res3, sprintf( "Quantity of numbers up to %s that %s be expressed in hexadecimal without using any alphabetics: %*s",
+        @res3.push: sprintf( "Quantity of numbers up to %s that %s be expressed in hexadecimal without using any alphabetics: %*s",
          comma($threshold), $^a, comma($threshold).chars, comma($^c) )
     }
 
-    push @res3, '';
+    @res3.push: '';
 }
 
 my $ref3 = q:to/END/;
@@ -94,8 +90,9 @@ Quantity of numbers up to 100,000,000,000,000,000,000,000,000,000,000,000 that  
 Quantity of numbers up to 100,000,000,000,000,000,000,000,000,000,000,000 that CAN NOT be expressed in hexadecimal without using any alphabetics:  99,999,865,738,270,000,000,000,000,000,000,001
 END
 
-is join("\n",@res3), $ref3;
+is @res3.join("\n"), $ref3;
 
+# safest if this follows the other test ('set-digits')
 set-digits <⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳ ㉑ ㉒ ㉓ ㉔ ㉕>;
 my $result = (7**35).&to-base(16);
 is $result, '⑭㉒⑱⑩⑰⑰⑳⑮⑱⑳⑩⑳⑱㉒㉑⑰㉒⑫⑭⑲⑯⑩㉔⑮⑰';
