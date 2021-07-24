@@ -1,11 +1,14 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rot-13
-#c# 2016-12-17 <RC, 2018-04-17 <RC
+#c# 2016-12-17 <RC, 2018-04-17 <RC, 2021-07-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #   special case of 'Substitution_Cipher'
 
-# this is on RC now:
+# and now this is on RC:
+#put .trans: ['A'..'Z','a'..'z'] => ['N'..'Z','A'..'M','n'..'z','a'..'m'] for $*IN.lines
+
+# this was on RC:
 # print slurp.trans: ['A'..'Z','a'..'z'] => ['N'..'Z','A'..'M','n'..'z','a'..'m'];
 
 # embedding into a routine:
