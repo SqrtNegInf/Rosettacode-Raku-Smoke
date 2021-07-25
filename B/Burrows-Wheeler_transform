@@ -3,6 +3,7 @@
 #c# 2018-08-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2021-07-23 working again, frabjous (https://github.com/rakudo/rakudo/issues/4476)
 #n# 2021-07-21 see if this stays broken
 
 my @res;
@@ -18,11 +19,6 @@ sub transform (Str $s is copy) {
     $s = STX ~ $s;
     (^$s.chars).map({ $s.comb.list.rotate: $_ }).sort[*;*-1].join
 }
-
-#  The iterator of this Seq is already in use/consumed by another Seq (you
-#  might solve this by adding .cache on usages of the Seq, or by assigning
-#  the Seq into an array)
-#    in sub transform at B/Burrows-Wheeler_transform line 18
 
 # Burrows-Wheeler inverse transform
 sub ɯɹoɟsuɐɹʇ (Str $s) {
