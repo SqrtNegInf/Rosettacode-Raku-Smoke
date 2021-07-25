@@ -1489,6 +1489,7 @@ File: B/Burrows-Wheeler_transform
 #c# 2018-08-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2021-07-23 working again, frabjous (https://github.com/rakudo/rakudo/issues/4476)
 #n# 2021-07-21 see if this stays broken
 
 File: B/Burrows-Wheeler_transform.jvm
@@ -9305,6 +9306,13 @@ File: P/Primes_which_sum_of_digits_is_25
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: P/Primes_whose_first_and_last_number_is_3
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Primes_whose_first_and_last_number_is_3
+#c# 2021-07-24 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: P/Primes_with_digits_in_nondecreasing_order
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Primes_with_digits_in_nondecreasing_order
@@ -11166,6 +11174,13 @@ File: S/Sort_stability
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: S/Sort_the_letters_of_string_in_alphabitical_order
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Sort_the_letters_of_string_in_alphabitical_order
+#c# 2021-07-24 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: S/Sort_three_variables
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sort_three_variables
@@ -12992,10 +13007,11 @@ File: U/UPC
 File: U/URL_decoding
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/URL_decoding
-#c# 2015-12-06 <RC
+#c# 2015-12-06 <RC, 2021-07-24 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#N# java.util.regex.PatternSyntaxException: Unknown character property name {hexdigit} near index 11
+#n# java.util.regex.PatternSyntaxException: Unknown character property name {hexdigit} near index 11
+#n# was completelly wiping previous code the best thing to do?
 
 File: U/URL_encoding
 #!/usr/bin/env perl6
