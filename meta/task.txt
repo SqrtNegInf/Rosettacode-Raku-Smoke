@@ -1,16 +1,17 @@
 Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-2-g74d7ff771.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.07-3-g20f363d43.
-+--------------> Moar: Good/Bad [1323/22]
-|+-------------> JVM: Good/Bad [1164/251]
-||+------------> Smoke testing [1266]
+updating from RC…
++--------------> Moar: Good/Bad [1325/22]
+|+-------------> JVM: Good/Bad [1165/251]
+||+------------> Smoke testing [1267]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [357]
 ||||||+--------> Concurrent/Async [78]
 |||||||+-------> Random seed [136]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [292]
+|||||||||+-----> Draft [293]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [81]
 ||||||||||||+--> Un-implemented/reliable [49]
@@ -281,6 +282,7 @@ GGS......D... Coprime_triplets
 GGS......D... Coprimes
 GGS..T....... Copy_a_string
 GG.K......... Copy_stdin_to_stdout
+GGS......D... Count_how_many_vowels_and_consonants_occur_in_a_string
 GBS.......... Count_in_factors-1
 GGS.......... Count_in_factors-2
 GGS.......... Count_in_factors-3
@@ -335,7 +337,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -1224,7 +1226,7 @@ GGS..T....... Sort_an_integer_array
 GGS..T....... Sort_disjoint_sublist
 GGS.......... Sort_numbers_lexicographically
 GGS.......... Sort_stability
-GGS......D... Sort_the_letters_of_string_in_alphabitical_order
+GGS......D... Sort_the_letters_of_string_in_alphabetical_order
 GGS.......... Sort_three_variables
 GGS..T....... Sort_using_a_custom_comparator
 GGS....R..... Sorting_Algorithms_Circle_Sort
