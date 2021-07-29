@@ -1,15 +1,20 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Factors_of_an_integer
-#c# 2015-10-16 <RC
+#c# 2015-10-16 <RC, 2021-07-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-sub factors (Int $n) { squish sort ($_, $n div $_ if $n %% $_ for 1 .. sqrt $n) }
+#sub factors (Int $n) { squish sort ($_, $n div $_ if $n %% $_ for 1 .. sqrt $n) }  # 2015 version
+sub factors1 (Int $n) {        sort ($_, $n div $_ if $n %% $_ for 1 .. sqrt $n) }  # minor cleanup
 
-say factors(2015);
-say factors(1066);
+sub factors2 (Int $n) { (1..$n).grep($n %% *) }                                     # slower but simpler
+
+say factors1(2015); say factors2(2015);
+say factors1(1066); say factors2(1066);
 
 use Test;
-my @ff = sort map { +$_ }, split ' ', factors(120).flat;
+my @ff1 = sort map { +$_ }, split ' ', factors1(120).flat;
+my @ff2 = sort map { +$_ }, split ' ', factors2(120).flat;
 my @ref = <1 2 3 4 5 6 8 10 12 15 20 24 30 40 60 120>;
-is @ff, @ref, Q :a "16 factors for 120: @ref[]";
+is @ff1, @ref;
+is @ff2, @ref;
