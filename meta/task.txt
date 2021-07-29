@@ -2,19 +2,19 @@ Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-2-g74d7ff771.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.07-3-g20f363d43.
 updating from RC…
-+--------------> Moar: Good/Bad [1325/22]
-|+-------------> JVM: Good/Bad [1165/251]
-||+------------> Smoke testing [1267]
++--------------> Moar: Good/Bad [1329/22]
+|+-------------> JVM: Good/Bad [1168/252]
+||+------------> Smoke testing [1269]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [357]
-||||||+--------> Concurrent/Async [78]
+||||||+--------> Concurrent/Async [79]
 |||||||+-------> Random seed [136]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [293]
+|||||||||+-----> Draft [296]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [81]
-||||||||||||+--> Un-implemented/reliable [49]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -264,6 +264,7 @@ GGS.......... Compiler_lexical_analyzer
 GGS..T....... Compiler_virtual_machine_interpreter
 BB........... Compiler_virtual_machine_interpreter-2
 GGS.......... Compound_data_type
+GGS......D... Concatenate_two_primes_is_also_prime
 GB.K.TC...... Concurrent_computing
 GG.K......... Conditional_structures
 GGS.....F.... Conjugate_transpose
@@ -337,7 +338,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -432,7 +433,7 @@ GGS.......... Factorial
 !GS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
 !BS...C...... Factorions
 GGS..T....... Factors_of_a_Mersenne_number
-GGS.......... Factors_of_an_integer
+GGS.........U Factors_of_an_integer
 GGS...C...... Fairshare_between_two_and_more
 GBS...C...... Farey_sequence
 GGS.......... Fast_Fourier_transform
@@ -757,7 +758,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-!BS.....F.... Mandelbrot_set-2
+GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -1011,6 +1012,7 @@ GGS......D... Prime_numbers_which_contain_123
 GBS...C..D... Prime_words
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
 GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
+GGS......D... Primes_which_contain_only_one_odd_number
 GGS...C..D... Primes_which_sum_of_digits_is_25
 GGS......D... Primes_whose_first_and_last_number_is_3
 GGS......D... Primes_with_digits_in_nondecreasing_order
@@ -1487,6 +1489,9 @@ GGS..T....... Welch%27s_t-test-1
 GBS..T....... Welch%27s_t-test-2
 GGS......D... Wieferich_primes
 .........D.VU WiktionaryDumps_to_words
+.........D... Wilson_primes_of_order_n
+GG........... Wilson_primes_of_order_n-1
+GB....C...... Wilson_primes_of_order_n-2
 GB.KI........ Window_creation
 GB.KI........ Window_creation_X11
 GB.KI........ Window_management
