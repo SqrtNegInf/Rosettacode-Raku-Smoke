@@ -22,7 +22,7 @@ my @primes = $sieve.primes($threshold);
     @primes[^(@primes.first: * > $threshold, :k)].race.map: { .base($base) => $base };
 }
 
-%prime-base.=grep: +*.value.elems > 10;
+#%prime-base.=grep: +*.value.elems > 10; # Why? Maybe for full run with '5'?
 
 for 1 .. $chars -> $m {
     @res.push: "$m character strings that are prime in maximum bases: " ~ (my $e = ((%prime-base.grep( *.key.chars == $m )).max: +*.value.elems).value.elems);
