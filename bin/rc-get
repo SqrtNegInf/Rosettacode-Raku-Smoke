@@ -34,6 +34,7 @@ die "No text!" if $raku =~ /currently no text/i;
 $raku =~ s/^Raku\[edit\]//;
 $raku =~ s/Works with/# Works with/ms;
 $raku =~ s/\xA0//g;
+$raku =~ s/’//g;
 $raku =~ s/PerlÂ/Perl /g;
 $raku =~ s/\n\s+\n/\n\n/msg;
 
