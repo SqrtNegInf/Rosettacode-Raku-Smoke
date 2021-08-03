@@ -1,64 +1,45 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Calendar
-#c# 2015-11-07 <RC
+#c# 2015-11-07 <RC, 2021-08-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# so the output has always been wrong: clipping 1969/06/30, dropping March dates into Feb for 2021
+#n# more idiomatic args vs default, as per: https://github.polettix.it/ETOOBUSY/2021/07/26/raku-community-answered/
 
 my $months-per-row = 3;
-my @week-day-names = <Mo Tu We Th Fr Sa Su>;
-my @month-names = <Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec>;
+my @weekday-names  = <Mo Tu We Th Fr Sa Su>;
+my @month-names    = <Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec>;
 
-my Int $year = +(@*ARGS.shift || 1969);
+my Int() $year = @*ARGS.shift || 1969;
 
-say fmt-year($year);
-my @res = fmt-year($year);
+say my $result = fmt-year($year);
 
 sub fmt-year ($year) {
+    my @month-strs;
+    @month-strs[$_] = [fmt-month($year, $_).lines] for 1 .. 12;
 
-        my $str = (' ' x 30) ~ $year ~ "\n";
-
-        my Array @month-strs;
-        @month-strs[$_] = fmt-month($year, $_).lines.Array for 1 .. 12;
-
-        loop ( my $month = 1; $month <= 12; $month += $months-per-row ) {
-                while @month-strs[$month] {
-                        for ^$months-per-row {
-                                next unless @month-strs[$month+$_];
-                                $str ~= @month-strs[$month+$_].shift;
-                                $str ~= " " x 3;
-                        }
-                        $str ~= "\n";
-                }
-                $str ~= "\n";
+    my @C = ' ' x 30 ~ $year, '';
+    for 1, 1+$months-per-row ... 12 -> $month {
+        while @month-strs[$month] {
+            for ^$months-per-row -> $column {
+                @C[*-1] ~= @month-strs[$month+$column].shift ~ ' ' x 3 if @month-strs[$month+$column];
+            }
+            @C.push: '';
         }
-        return $str;
+        @C.push: '';
+    }
+    @C.join: "\n";
 }
 
 sub fmt-month ($year, $month) {
-        my $str = sprintf "%-20s\n", @month-names[$month-1];
-        $str ~= @week-day-names~"\n";
-        my $date = DateTime.new(year => $year, month => $month);
-        my $week-day = $date.day-of-week;
-
-        $str ~= ("  " xx $week-day-1).join(" ");
-
-        for $date.day .. $date.days-in-month -> $day {
-
-                $date = DateTime.new(year => $year, month => $month, day => $day);
-
-                $str ~= " " if 1 < $week-day < 8;
-                if $week-day == 8 {
-                        $str ~= "\n";
-                        $week-day = 1;
-                }
-                $str ~= sprintf "%2d", $day;
-
-                $week-day++;
-        }
-        $str ~= " " if $week-day < 8;
-        $str ~= ("  " xx 8-$week-day).join(" ");
-        $str ~= "\n";
-        return $str;
+    my $date    = DateTime.new(year => $year, month => $month);
+    my $weekday = $date.day-of-week;
+    my $str     = @month-names[$month-1].fmt("%-20s\n") ~ @weekday-names ~ "\n"; 
+    my @dates = 1 .. $date.days-in-month;
+    $str ~= ( flat ('  ' xx $weekday-1), @dates».fmt('%2d') ).rotor(7, :partial).join: "\n";
+    my $month-end = Date.new($year, $month, $date.days-in-month);
+    $weekday = $month-end.day-of-week;
+    $str ~= (' ' if $weekday < 7) ~ ('  ' xx 7-$weekday).join(' ')
 }
 
 my $ref = qq:to/END/;
@@ -99,4 +80,4 @@ Mo Tu We Th Fr Sa Su   Mo Tu We Th Fr Sa Su   Mo Tu We Th Fr Sa Su
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is $result, chomp $ref;
