@@ -3,15 +3,15 @@ Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.07-8-g860cc6550.
 updating from RC…
 +--------------> Moar: Good/Bad [1330/23]
-|+-------------> JVM: Good/Bad [1169/254]
-||+------------> Smoke testing [1273]
+|+-------------> JVM: Good/Bad [1170/254]
+||+------------> Smoke testing [1274]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [357]
+|||||+---------> Touched (modified by me) [358]
 ||||||+--------> Concurrent/Async [80]
 |||||||+-------> Random seed [137]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [299]
+|||||||||+-----> Draft [300]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [81]
 ||||||||||||+--> Un-implemented/reliable [49]
@@ -145,7 +145,7 @@ GGS..T....... Binary_strings
 GGS.......... Bioinformatics_base_count
 GGS..T...D... Bioinformatics_global_alignment
 GGS.......... Biorhythms
-GGS..TcR.D... Birthday_problem
+!GS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
 GGS.......... Bitmap
@@ -181,7 +181,7 @@ GGS.......... CSV_to_HTML_translation
 GGS.......... CUSIP
 GGS.......... Caesar_cipher
 GGS.......... Calculating_the_value_of_e
-GGS.......... Calendar
+GGS..T....... Calendar
 GGS.......... Calendar_-_for_%22REAL%22_programmers
 GGS.......... Calkin-Wilf_sequence
 GBS.......... Call_a_foreign-language_function
@@ -795,6 +795,7 @@ GGS....R..... Miller-Rabin_primality_test
 .........D.VU Mine_a_bitcoin
 GG.KI..R..... Minesweeper_game
 GGS.......... Minimal_steps_down_to_1
+GGS......D... Minimum_number_of_cells_after,_before,_above_and_below_NxN_squares
 .........D... Minimum_positive_multiple_in_base_10_using_only_0_and_1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
