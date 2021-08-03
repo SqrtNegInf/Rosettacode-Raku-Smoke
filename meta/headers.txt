@@ -1584,6 +1584,15 @@ File: C/Calculating_the_value_of_e.1
 #n# downgraded Unicode variable name for JVM
 
 File: C/Calendar
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Calendar
+#c# 2015-11-07 <RC, 2021-08-xx >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# so the output has always been wrong: clipping 1969/06/30, dropping March dates into Feb for 2021
+#n# more idiomatic args vs default, as per: https://github.polettix.it/ETOOBUSY/2021/07/26/raku-community-answered/
+
+File: C/Calendar.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Calendar
 #c# 2015-11-07 <RC
@@ -7307,6 +7316,13 @@ File: M/Minimal_steps_down_to_1.jvm
 #m# MOAR: OK
 #j# JVM:  OK
 #n# for JVM: .perl not .raku (temporary)
+
+File: M/Minimum_number_of_cells_after,_before,_above_and_below_NxN_squares
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Minimum_number_of_cells_after,_before,_above_and_below_NxN_squares
+#c# 2021-08-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 #!/usr/bin/env perl6
