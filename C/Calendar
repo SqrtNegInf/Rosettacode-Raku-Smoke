@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Calendar
-#c# 2015-11-07 <RC, 2021-08-xx >RC
+#c# 2015-11-07 <RC, 2021-08-03 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# so the output has always been wrong: clipping 1969/06/30, dropping March dates into Feb for 2021
@@ -32,14 +32,10 @@ sub fmt-year ($year) {
 }
 
 sub fmt-month ($year, $month) {
-    my $date    = DateTime.new(year => $year, month => $month);
-    my $weekday = $date.day-of-week;
-    my $str     = @month-names[$month-1].fmt("%-20s\n") ~ @weekday-names ~ "\n"; 
-    my @dates = 1 .. $date.days-in-month;
-    $str ~= ( flat ('  ' xx $weekday-1), @dates».fmt('%2d') ).rotor(7, :partial).join: "\n";
-    my $month-end = Date.new($year, $month, $date.days-in-month);
-    $weekday = $month-end.day-of-week;
-    $str ~= (' ' if $weekday < 7) ~ ('  ' xx 7-$weekday).join(' ')
+    my $date = Date.new($year,$month,1);
+    @month-names[$month-1].fmt("%-20s\n") ~ @weekday-names ~ "\n" ~
+    (('  ' xx $date.day-of-week - 1), (1..$date.days-in-month)».fmt('%2d')).flat.rotor(7, :partial).join("\n") ~
+    (' ' if $_ < 7) ~ ('  ' xx 7-$_).join(' ') given Date.new($year, $month, $date.days-in-month).day-of-week;
 }
 
 my $ref = qq:to/END/;
