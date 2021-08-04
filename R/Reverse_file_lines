@@ -1,0 +1,21 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Reverse_file_lines
+#t# nocode
+#c# 2021-08-03 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+#`{{
+
+Simplest thing that could possibly satisfy the extremely vague task description and completely glossing over all of the questions raised on the discussion page.
+
+ASSUMPTIONS:
+
+ File is redirected into STDIN from command line.
+ Is a Unix or Windows format text file.
+ Is in UTF8 encoding or some subset thereof.
+ May hold entire file in memory.
+
+.put for reverse lines
+
+}}
