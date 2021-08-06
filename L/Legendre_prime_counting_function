@@ -1,0 +1,34 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Legendre_prime_counting_function
+#c# 2021-08-04 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# Seems like an awful lot of pointless work. Using prime sieve anyway, why not just use it?
+
+my @res;
+
+use Math::Primesieve;
+
+my $sieve = Math::Primesieve.new;
+
+@res.push: "10^$_\t" ~ $sieve.count: exp($_,10) for ^10;
+
+#say (now - INIT now) ~ ' elapsed seconds';
+
+.say for @res;
+
+my $ref = q:to/END/;
+10^0	0
+10^1	4
+10^2	25
+10^3	168
+10^4	1229
+10^5	9592
+10^6	78498
+10^7	664579
+10^8	5761455
+10^9	50847534
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
