@@ -1,20 +1,20 @@
-Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-11-g2c0343b5b.
+Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-14-g66ae86129.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.07-8-g860cc6550.
 updating from RC…
-+--------------> Moar: Good/Bad [1333/23]
-|+-------------> JVM: Good/Bad [1169/255]
-||+------------> Smoke testing [1274]
++--------------> Moar: Good/Bad [1331/23]
+|+-------------> JVM: Good/Bad [1169/254]
+||+------------> Smoke testing [1273]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [358]
 ||||||+--------> Concurrent/Async [80]
 |||||||+-------> Random seed [137]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [301]
+|||||||||+-----> Draft [302]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [82]
-||||||||||||+--> Un-implemented/reliable [49]
+|||||||||||+---> Void (no local copy) [84]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -125,10 +125,10 @@ GGS.......... Bacon_cipher-2
 GGS..T....... Balanced_ternary
 GGS..T...D... Banker%27s_algorithm
 GBS....RF.... Barnsley_fern
-GBS......D... Base-16_representation
 GGS......D... Base58Check_encoding
 GGS.......... Base64_decode_data
 GGS..T...D... Base64_encode_data
+.........D.V. Base_16_numbers_needing_a_to_f
 GGS.......... Bell_numbers-1
 GGS.......... Bell_numbers-2
 GGS.......... Bell_numbers-3
@@ -338,7 +338,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -645,7 +645,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-GBS...C.F.... Julia_set
+!BS...C.F.... Julia_set
 !GS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -759,7 +759,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-GBS.....F.... Mandelbrot_set-2
+!BS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -1264,6 +1264,7 @@ GGS.......... Sparkline_in_unicode
 GBS......D... Special_Divisors
 GG.K......... Special_characters
 GGS......D... Special_factorials
+.........D.VU Special_neighbor_primes
 GG.K.T....... Special_variables
 GG.K......... Speech_synthesis
 GBS.....F.... Spelling_of_ordinal_numbers
