@@ -6,7 +6,7 @@
 
 my $b = 99;
 
-my @res1;
+my (@res1, @res2, @res3);
 
 repeat while --$b {
     @res1.push: "{b $b} on the wall";
@@ -22,7 +22,40 @@ sub b($b) {
 
 .say for @res1;
 
-my $ref = qq:to/END/;
+for 99...1 -> $bottles {
+    sing $bottles, :wall;
+    sing $bottles;
+    @res2.push:  'Take one down, pass it around';
+    sing $bottles - 1, :wall;
+    @res2.push:  '';
+}
+
+#| Prints a verse about a certain number of beers, possibly on a wall.
+sub sing(
+    Int $number, #= Number of bottles of beer.
+    Bool :$wall, #= Mention that the beers are on a wall?
+) {
+    my $quantity = $number == 0 ?? 'No more'      !! $number;
+    my $plural   = $number == 1 ?? ''             !! 's';
+    my $location = $wall        ?? ' on the wall' !! '';
+    @res2.push: "$quantity bottle$plural of beer$location"
+}
+
+my @quantities = flat (99 ... 1), 'No more', 99;
+my @bottles = flat 'bottles' xx 98, 'bottle', 'bottles' xx 2;
+my @actions = flat 'Take one down, pass it around' xx 99,
+              'Go to the store, buy some more';
+
+for @quantities Z @bottles Z @actions Z
+    @quantities[1 .. *] Z @bottles[1 .. *]
+    -> ($a, $b, $c, $d, $e) {
+    @res3.push: "$a $b of beer on the wall";
+    @res3.push: "$a $b of beer";
+    @res3.push: $c;
+    @res3.push: "$d $e of beer on the wall\n";
+}
+
+my $ref1 = qq:to/END/;
 99 bottles of beer on the wall
 99 bottles of beer
 Take one down, pass it around
@@ -519,30 +552,6 @@ Take one down, pass it around
 0 bottles of beer on the wall
 
 END
-
-use Test;
-is @res1.join("\n"), chomp $ref;
-
-my @res2;
-
-for 99...1 -> $bottles {
-    sing $bottles, :wall;
-    sing $bottles;
-    @res2.push:  'Take one down, pass it around';
-    sing $bottles - 1, :wall;
-    @res2.push:  '';
-}
-
-#| Prints a verse about a certain number of beers, possibly on a wall.
-sub sing(
-    Int $number, #= Number of bottles of beer.
-    Bool :$wall, #= Mention that the beers are on a wall?
-) {
-    my $quantity = $number == 0 ?? 'No more'      !! $number;
-    my $plural   = $number == 1 ?? ''             !! 's';
-    my $location = $wall        ?? ' on the wall' !! '';
-    @res2.push: "$quantity bottle$plural of beer$location"
-}
 
 my $ref2 = qq:to/END/;
 99 bottles of beer on the wall
@@ -1041,25 +1050,6 @@ Take one down, pass it around
 No more bottles of beer on the wall
 
 END
-
-is @res2.join("\n"), chomp $ref2;
-
-
-my @res3;
-
-my @quantities = flat (99 ... 1), 'No more', 99;
-my @bottles = flat 'bottles' xx 98, 'bottle', 'bottles' xx 2;
-my @actions = flat 'Take one down, pass it around' xx 99,
-              'Go to the store, buy some more';
-
-for @quantities Z @bottles Z @actions Z
-    @quantities[1 .. *] Z @bottles[1 .. *]
-    -> ($a, $b, $c, $d, $e) {
-    @res3.push: "$a $b of beer on the wall";
-    @res3.push: "$a $b of beer";
-    @res3.push: $c;
-    @res3.push: "$d $e of beer on the wall\n";
-}
 
 my $ref3 = qq:to/END/;
 99 bottles of beer on the wall
@@ -1564,4 +1554,7 @@ Go to the store, buy some more
 
 END
 
+use Test;
+is @res1.join("\n"), chomp $ref1;
+is @res2.join("\n"), chomp $ref2;
 is @res3.join("\n"), chomp $ref3
