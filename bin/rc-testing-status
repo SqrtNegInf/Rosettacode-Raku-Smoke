@@ -3,8 +3,8 @@
 #  2021-05-31
 
 while () { 
-    $p = `ps aux | grep moar-blead | grep -v mbc | cut -c 16-21,146- | grep '/' | sort -n`;
-    #$p = `ps aux | grep moar-blead | grep -v mbc | cut -c 17-23,148- | grep '/' | sort -n`;
+    #$p = `ps aux | grep moar-blead | grep -v mbc | cut -c 16-21,146- | grep '/' | sort -n`;
+    $p = `ps aux | grep moar-blead | grep -v mbc | cut -c 17-23,148- | grep '/' | sort -n`;
     exit if length($p) > 2000;
     print $p;
     sleep 30;
