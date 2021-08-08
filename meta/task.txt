@@ -2,7 +2,7 @@ Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-14-g66ae86129.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.07-8-g860cc6550.
 updating from RC…
-+--------------> Moar: Good/Bad [1331/23]
++--------------> Moar: Good/Bad [1330/23]
 |+-------------> JVM: Good/Bad [1169/254]
 ||+------------> Smoke testing [1273]
 |||+-----------> sKipping validation [141]
@@ -11,10 +11,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [80]
 |||||||+-------> Random seed [137]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [302]
+|||||||||+-----> Draft [303]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [84]
-||||||||||||+--> Un-implemented/reliable [50]
+|||||||||||+---> Void (no local copy) [85]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -145,7 +145,7 @@ GGS..T....... Binary_strings
 GGS.......... Bioinformatics_base_count
 GGS..T...D... Bioinformatics_global_alignment
 GGS.......... Biorhythms
-GGS..TcR.D... Birthday_problem
+!GS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
 GGS.......... Bitmap
@@ -759,7 +759,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-!BS.....F.... Mandelbrot_set-2
+GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -786,7 +786,7 @@ GGS.......... Merge_and_aggregate_datasets
 GGS...C...... Mertens_function
 GGS.......... Metallic_ratios
 GGS.......... Metaprogramming
-GGS.......... Metered_concurrency
+!GS.......... Metered_concurrency
 GGS.......... Metronome
 GGS.......... Mian-Chowla_sequence
 GGS.......... Middle_three_digits
@@ -1415,6 +1415,7 @@ GGS.......... Tree_from_nesting_levels-3
 GGS..T....... Tree_traversal
 GGS.......... Trigonometric_functions
 GBS...C..D... Triplet_of_three_numbers
+.........D.VU Tropical_algebra_overloading
 GGS.......... Truncatable_primes
 GBS..T....... Truncate_a_file
 GGS..T....... Truth_table
