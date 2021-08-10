@@ -1,7 +1,8 @@
 Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-16-g10b016ccf.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.07-8-g860cc6550.
-+--------------> Moar: Good/Bad [1331/23]
+updating from RC…
++--------------> Moar: Good/Bad [1333/23]
 |+-------------> JVM: Good/Bad [1169/254]
 ||+------------> Smoke testing [1273]
 |||+-----------> sKipping validation [141]
@@ -10,10 +11,10 @@ Built on MoarVM version 2021.07-8-g860cc6550.
 ||||||+--------> Concurrent/Async [80]
 |||||||+-------> Random seed [137]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [303]
+|||||||||+-----> Draft [302]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [85]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [87]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -462,6 +463,7 @@ GGS......D... Find_first_missing_positive
 GGS......D... Find_if_a_point_is_within_a_triangle
 GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
+.........D.VU Find_minimum_number_of_coins_that_make_a_given_value
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
 GGS......D... Find_prime_n_for_that_reversed_n_is_also_prime
 GGS......D... Find_prime_numbers_of_the_form_n_n_n%2B2
@@ -494,7 +496,7 @@ GB.KI........ Forest_fire-2
 GBS..T....... Fork
 GGS..T....... Formal_power_series
 GGS.......... Formatted_numeric_output
-GBS...C..D... Fortunate_numbers
+GBS...C...... Fortunate_numbers
 GGS..T....... Forward_difference
 GGS..T....... Four_bit_adder
 GGS.......... Four_is_magic
@@ -748,7 +750,7 @@ GGS.......... MD5
 GGS.......... MD5_Implementation
 ...........V. Machine_code
 GGS.......... Mad_Libs
-!GS....R..... Magic_8-ball
+GGS....R..... Magic_8-ball
 GGS.......... Magic_squares_of_doubly_even_order
 GGS.......... Magic_squares_of_odd_order
 GGS.......... Magic_squares_of_singly_even_order
@@ -760,7 +762,7 @@ GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
 !BS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
-!GS..T.R.D... Markov_chain_text_generator
+GGS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
 GGS..T....... Matrix-exponentiation_operator
 GGS..T....... Matrix_chain_multiplication
@@ -1263,7 +1265,7 @@ GGS.......... Sparkline_in_unicode
 GBS......D... Special_Divisors
 GG.K......... Special_characters
 GGS......D... Special_factorials
-.........D.VU Special_neighbor_primes
+.........D.V. Special_neighbor_primes
 GG.K.T....... Special_variables
 GG.K......... Speech_synthesis
 GBS.....F.... Spelling_of_ordinal_numbers
@@ -1386,6 +1388,7 @@ GGS.......... Textonyms
 GGS...C...... The_ISAAC_Cipher
 GGS.......... The_Name_Game
 GGS.....F.... The_Twelve_Days_of_Christmas
+...........VU The_sieve_of_Sundaram
 GGS..T....... Thiele%27s_interpolation_formula
 !GS....R.D... Three_word_location
 GGS.......... Three_word_location-2
@@ -1494,7 +1497,6 @@ GGS..T....... Welch%27s_t-test-1
 GBS..T....... Welch%27s_t-test-2
 GGS......D... Wieferich_primes
 .........D.VU WiktionaryDumps_to_words
-.........D... Wilson_primes_of_order_n
 GGS.......... Wilson_primes_of_order_n-1
 GBS...C...... Wilson_primes_of_order_n-2
 GB.KI........ Window_creation
