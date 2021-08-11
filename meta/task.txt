@@ -1,10 +1,9 @@
 Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-16-g10b016ccf.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.07-8-g860cc6550.
-updating from RC…
-+--------------> Moar: Good/Bad [1333/23]
-|+-------------> JVM: Good/Bad [1169/254]
-||+------------> Smoke testing [1273]
++--------------> Moar: Good/Bad [1332/23]
+|+-------------> JVM: Good/Bad [1170/254]
+||+------------> Smoke testing [1274]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [358]
@@ -13,7 +12,7 @@ updating from RC…
 ||||||||+------> File output [98]
 |||||||||+-----> Draft [302]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [87]
+|||||||||||+---> Void (no local copy) [86]
 ||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
@@ -338,7 +337,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -750,7 +749,7 @@ GGS.......... MD5
 GGS.......... MD5_Implementation
 ...........V. Machine_code
 GGS.......... Mad_Libs
-GGS....R..... Magic_8-ball
+!GS....R..... Magic_8-ball
 GGS.......... Magic_squares_of_doubly_even_order
 GGS.......... Magic_squares_of_odd_order
 GGS.......... Magic_squares_of_singly_even_order
@@ -760,9 +759,9 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-!BS.....F.... Mandelbrot_set-2
+GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
-GGS..T.R.D... Markov_chain_text_generator
+!GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
 GGS..T....... Matrix-exponentiation_operator
 GGS..T....... Matrix_chain_multiplication
@@ -1265,7 +1264,7 @@ GGS.......... Sparkline_in_unicode
 GBS......D... Special_Divisors
 GG.K......... Special_characters
 GGS......D... Special_factorials
-.........D.V. Special_neighbor_primes
+GGS......D... Special_neighbor_primes
 GG.K.T....... Special_variables
 GG.K......... Speech_synthesis
 GBS.....F.... Spelling_of_ordinal_numbers
