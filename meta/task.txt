@@ -1,10 +1,10 @@
-Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-23-g548803393.
+Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-26-g289a62f4a.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.07-8-g860cc6550.
 updating from RC…
-+--------------> Moar: Good/Bad [1335/23]
-|+-------------> JVM: Good/Bad [1173/253]
-||+------------> Smoke testing [1276]
++--------------> Moar: Good/Bad [1336/23]
+|+-------------> JVM: Good/Bad [1173/255]
+||+------------> Smoke testing [1278]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [358]
@@ -14,7 +14,7 @@ updating from RC…
 |||||||||+-----> Draft [297]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [86]
-||||||||||||+--> Un-implemented/reliable [50]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -145,7 +145,7 @@ GGS..T...D... Bioinformatics_Global_alignment
 !BS....R.D... Bioinformatics_Subsequence
 GGS.......... Bioinformatics_base_count
 GGS.......... Biorhythms
-GGS..TcR.D... Birthday_problem
+!GS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
 GGS.......... Bitmap
@@ -590,6 +590,7 @@ GBS......D... Home_primes
 ...........VU Honeycombs
 GGS.......... Horizontal_sundial_calculations
 GGS.......... Horner%27s_rule_for_polynomial_evaluation
+.........D.VU Horse_racing
 GBS..T....... Host_introspection
 GGS.......... Hostname
 GBS..Tc.F.... Hough_transform
@@ -817,7 +818,9 @@ GBS..TCR..... Monty_Hall_problem
 .........D.VU Morpion_solitaire
 GGS.......... Morse_code
 GGS......D... Most_frequent_k_chars_distance
-.........D.V. Motzkin_numbers
+.........D... Motzkin_numbers
+GBS.......... Motzkin_numbers-1
+GBS.......... Motzkin_numbers-2
 GB.KI........ Mouse_position
 GGS.......... Move-to-front_algorithm
 GBS...C..D... Multi-base_primes
@@ -1512,7 +1515,7 @@ GGS.......... Word_ladder
 GGS.......... Word_wheel-1
 GBS.......... Word_wheel-2
 GGS.......... Word_wrap
-.........D.VU Wordiff
+...........VU Wordiff
 GGS......D... Words_containing_%22the%22_substring
 GGS......D... Words_from_neighbour_ones
 GGS..T....... World_Cup_group_stage
