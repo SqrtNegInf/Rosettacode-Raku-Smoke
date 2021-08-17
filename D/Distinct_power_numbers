@@ -1,0 +1,12 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Distinct_power_numbers
+#c# 2021-08-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $result = squish sort [X**] (2..5) xx 2;
+
+my $ref = '4 8 9 16 25 27 32 64 81 125 243 256 625 1024 3125';
+
+use Test;
+is $result, chomp $ref;
