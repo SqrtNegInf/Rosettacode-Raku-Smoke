@@ -3,15 +3,15 @@ Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.07-8-g860cc6550.
 updating from RC…
 +--------------> Moar: Good/Bad [1337/23]
-|+-------------> JVM: Good/Bad [1174/256]
-||+------------> Smoke testing [1280]
+|+-------------> JVM: Good/Bad [1174/257]
+||+------------> Smoke testing [1281]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [358]
-||||||+--------> Concurrent/Async [80]
+||||||+--------> Concurrent/Async [81]
 |||||||+-------> Random seed [138]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [299]
+|||||||||+-----> Draft [300]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [86]
 ||||||||||||+--> Un-implemented/reliable [50]
@@ -412,7 +412,7 @@ GGS.......... Events
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -978,6 +978,7 @@ GGS.......... Permutations_Derangements
 GGS.......... Permutations_by_swapping
 GGS......D... Permutations_with_repetitions
 GGS......D... Permutations_with_some_identical_elements
+GBS...C..D... Permuted_multiples
 GGS.......... Pernicious_numbers
 GGS.......... Phrase_reversals
 GGS..T....... Pi
