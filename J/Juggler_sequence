@@ -1,0 +1,79 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Juggler_sequence
+#c# 2021-08-18 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Lingua::EN::Numbers;
+
+sub juggler (Int $n where * > 0) { $n, { $_ +& 1 ?? .³.&isqrt !! .&isqrt } … 1 }
+
+sub isqrt ( \x ) { my ( $X, $q, $r, $t ) =  x, 1, 0 ;
+    $q +<= 2 while $q ≤ $X ;
+    while $q > 1 {
+        $q +>= 2; $t = $X - $r - $q; $r +>= 1;
+        if $t ≥ 0 { $X = $t; $r += $q }
+    }
+    $r
+}
+
+@res.push: " n  l[n]  i[n]   h[n]";
+for 20..39 {
+    my @j = .&juggler;
+    my $max = @j.max;
+    @res.push: sprintf "%2s %4d  %4d    %s", .&comma, +@j-1, @j.first(* == $max, :k), comma $max;
+}
+
+#`{{
+@res.push: "\n      n     l[n]   i[n]    d[n]";
+( 113, 173, 193, 2183, 11229, 15065, 15845, 30817 ).hyper(:1batch).map: {
+    my $start = now;
+    my @j = .&juggler;
+    my $max = @j.max;
+    @res.push: sprintf "%10s %4d   %4d %10s   %6.2f seconds", .&comma, +@j-1, @j.first(* == $max, :k),
+      $max.chars.&comma, (now - $start);
+}
+}}
+
+.say for @res;
+
+my $ref = q:to/END/;
+ n  l[n]  i[n]   h[n]
+20    3     0    20
+21    9     4    140
+22    3     0    22
+23    9     1    110
+24    3     0    24
+25   11     3    52,214
+26    6     3    36
+27    6     1    140
+28    6     3    36
+29    9     1    156
+30    6     3    36
+31    6     1    172
+32    6     3    36
+33    8     2    2,598
+34    6     3    36
+35    8     2    2,978
+36    3     0    36
+37   17     8    24,906,114,455,136
+38    3     0    38
+39   14     3    233,046
+END
+
+#`{{
+      n     l[n]   i[n]    d[n]
+       113   16      9         27     0.01 seconds
+       173   32     17         82     0.01 seconds
+       193   73     47        271     0.09 seconds
+     2,183   72     32      5,929     1.05 seconds
+    11,229  101     54      8,201     1.98 seconds
+    15,065   66     25     11,723     2.05 seconds
+    15,845  139     43     23,889    10.75 seconds
+    30,817   93     39     45,391    19.60 seconds
+}}
+
+use Test;
+is @res.join("\n"), chomp $ref;
