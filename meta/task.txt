@@ -1,18 +1,19 @@
-Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-26-g289a62f4a.
+Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.07-29-g6d529046e.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.07-8-g860cc6550.
-+--------------> Moar: Good/Bad [1336/23]
-|+-------------> JVM: Good/Bad [1175/257]
-||+------------> Smoke testing [1282]
+updating from RC…
++--------------> Moar: Good/Bad [1348/23]
+|+-------------> JVM: Good/Bad [1175/258]
+||+------------> Smoke testing [1283]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [358]
-||||||+--------> Concurrent/Async [81]
+||||||+--------> Concurrent/Async [82]
 |||||||+-------> Random seed [138]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [300]
+|||||||||+-----> Draft [302]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [85]
+|||||||||||+---> Void (no local copy) [86]
 ||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
@@ -296,7 +297,7 @@ GGS.......... Cramer%27s_rule
 ..........X.. Create_DWM_statusbar
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
-!GS..T.R..... Create_a_two-dimensional_array_at_runtime
+GGS..T.R..... Create_a_two-dimensional_array_at_runtime
 !GS....R..... Create_an_HTML_table
 GGS..T...D... Create_an_object_Native_demonstration
 GBS.......... Create_an_object_at_a_given_address
@@ -338,7 +339,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -432,7 +433,7 @@ BB.K......... FTP
 GGS.......... Faces_from_a_mesh
 GGS.......... Factorial
 !GS....R..... Factorial_base_numbers_indexing_permutations_of_a_collection
-!BS...C...... Factorions
+GBS...C...... Factorions
 GGS..T....... Factors_of_a_Mersenne_number
 GGS.......... Factors_of_an_integer
 GGS...C...... Fairshare_between_two_and_more
@@ -591,7 +592,7 @@ GBS......D... Home_primes
 ...........VU Honeycombs
 GGS.......... Horizontal_sundial_calculations
 GGS.......... Horner%27s_rule_for_polynomial_evaluation
-GGS......D..U Horse_racing
+GGS......D... Horse_racing
 GBS..T....... Host_introspection
 GGS.......... Hostname
 GBS..Tc.F.... Hough_transform
@@ -649,8 +650,9 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
+GBS...C..D... Juggler_sequence
 !BS...C.F.... Julia_set
-!GS..T.R..... Jump_anywhere
+GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
 !GS....R..... K-means%2B%2B_clustering
@@ -737,7 +739,7 @@ GGS.......... Loops_Foreach
 GGS.......... Loops_Increment_loop_index_within_loop_body
 GG.KI........ Loops_Infinite
 GGS.......... Loops_N_plus_one_half
-!GS....R..... Loops_Nested
+GGS....R..... Loops_Nested
 GGS.......... Loops_While
 GGS.......... Loops_With_multiple_ranges-1
 GGS..T....... Loops_With_multiple_ranges-2
@@ -753,7 +755,7 @@ GGS.......... MD5
 GGS.......... MD5_Implementation
 ...........V. Machine_code
 GGS.......... Mad_Libs
-!GS....R..... Magic_8-ball
+GGS....R..... Magic_8-ball
 GGS.......... Magic_squares_of_doubly_even_order
 GGS.......... Magic_squares_of_odd_order
 GGS.......... Magic_squares_of_singly_even_order
@@ -790,7 +792,7 @@ GGS.......... Merge_and_aggregate_datasets
 GGS...C...... Mertens_function
 GGS.......... Metallic_ratios
 GGS.......... Metaprogramming
-!GS.......... Metered_concurrency
+GGS.......... Metered_concurrency
 GGS.......... Metronome
 GGS.......... Mian-Chowla_sequence
 GGS.......... Middle_three_digits
@@ -804,7 +806,7 @@ GGS......D... Minimum_number_of_cells_after,_before,_above_and_below_NxN_squares
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 GGS.......... Minkowski_question-mark_function
-!GS....R..... Modified_random_distribution
+GGS....R..... Modified_random_distribution
 GGS.......... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
@@ -875,6 +877,7 @@ GGS..T....... Nonoblock
 BB.K.T......U Nonogram_solver
 GGS.......... Nth_root
 GGS.......... Null_object
+.........D.VU Number_Triplets_Game
 GGS.......... Number_names-1
 GBS.......... Number_names-2
 GGS.......... Number_reversal_game
@@ -1010,7 +1013,7 @@ GGS......D... Powerful_numbers
 GBS...C..D... Practical_numbers
 GG.K......... Pragmatic_directives
 GGS.......... Price_fraction
-!GS....R.D... Price_list_behind_API
+GGS....R.D... Price_list_behind_API
 GBS..TC...... Primality_by_Wilson%27s_theorem
 GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
@@ -1032,7 +1035,7 @@ GGS.......... Primorial_numbers-2
 GGS......D... Print_debugging_statement
 .........D.V. Print_itself
 GGS.......... Priority_queue
-GGS....R..... Probabilistic_choice
+!GS....R..... Probabilistic_choice
 GBS..T....... Problem_of_Apollonius
 GB.K....FD... Process_SMIL_directives_in_XML_data
 GBS......D... Product_of_divisors
@@ -1105,7 +1108,7 @@ GBS......D... Remove_vowels_from_a_string
 GGS.......... Rename_a_file
 GGS...CRF.... Rendezvous
 GBS.......... Rep-string
-!GS....R..... Repeat
+GGS....R..... Repeat
 GGS.......... Repeat_a_string
 GGS......D... Resistance_calculator
 GGS......D... Resistance_network_calculator
@@ -1181,7 +1184,7 @@ GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
 !GS..T.R..... Set_puzzle
-!GS....R..... Seven-sided_dice_from_five-sided_dice
+GGS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
 GBS.......... Shell_one-liner
 GGS......D... Shift_list_elements_to_left_by_3
@@ -1213,7 +1216,7 @@ GG.K......... Singly-linked_list_Element_insertion
 GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
-!BS....R..... Sleeping_Beauty_problem
+GBS....R..... Sleeping_Beauty_problem
 GGS..T...D... Smallest_enclosing_circle_problem
 GGS......D... Smallest_numbers
 GGS......D... Smallest_power_of_6_whose_decimal_expansion_contains_n
