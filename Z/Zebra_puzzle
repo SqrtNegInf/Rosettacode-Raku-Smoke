@@ -66,7 +66,6 @@ multi sub solve(@houses, @facts is copy) {
 #| find all possible solutions for pairs of houses with
 #| %a attributes, left of a house  with %b attributes
 multi sub consider(@houses, :Left-Of(%b)!, *%a) {
-    my @scenarios;
     for @houses {
         my $idx = .<num> - 1;
         if $idx > 0 && plausible(@houses[$idx-1], %a) && plausible(@houses[$idx], %b) {
