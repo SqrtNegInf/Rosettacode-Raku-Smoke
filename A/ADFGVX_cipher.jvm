@@ -21,7 +21,7 @@ my %cypher   = (@header X~ @header) Z=> $polybius.comb;
 my $message = 'Attack at 1200AM';
 
 @res.push: "Key: $key\n";
-@res.push: "Polybius square:\n", ss-box :7col, :3cw, :indent("\t"), '', |@header, |(@header Z $polybius.comb.batch: 6);
+@res.push: "Polybius square:\n", |@header, |(@header Z $polybius.comb.batch: 6);
 @res.push: "Message to encode: $message";
 @res.push: "\nEncoded: " ~ my $encoded = encode $message;
 @res.push: "\nDecoded: " ~ decode $encoded;
@@ -42,9 +42,30 @@ sub decode ($text is copy) {
 }
 
 .say for @res;
-exit;
+#exit;
 
 my $ref = q:to/END/;
+Key: SWITCHMAN
+
+Polybius square:
+
+A
+D
+F
+G
+V
+X
+A O 8 I X C Q
+D M P Z S L 5
+F D 9 G B 6 0
+G 1 3 J 2 R Y
+V U 4 A 7 W H
+X N K V F T E
+Message to encode: Attack at 1200AM
+
+Encoded: FGFA XFF VXX XDF VVV AAD VVG VVX FXG
+
+Decoded: ATTACKAT1200AM
 END
 
 use Test;
