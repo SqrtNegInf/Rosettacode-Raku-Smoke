@@ -1,4 +1,4 @@
-Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-1-g5c74b4053.
+Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-4-g9ce3fc3a6.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.08-2-gad66a397e.
 updating from RC…
@@ -11,9 +11,9 @@ updating from RC…
 ||||||+--------> Concurrent/Async [82]
 |||||||+-------> Random seed [138]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [303]
+|||||||||+-----> Draft [304]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [87]
+|||||||||||+---> Void (no local copy) [88]
 ||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
@@ -339,7 +339,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -532,6 +532,7 @@ GGS..T...D... Generalised_floating_point_addition
 !GS..T.R..... Generate_Chess960_starting_position
 GGS.......... Generate_lower_case_ASCII_alphabet
 !GS....R..... Generate_random_chess_position
+.........D.V. Generate_random_numbers_without_repeating_a_value
 GGS..T....... Generator_Exponential
 GGS.......... Generic_swap
 .........D... Geohash
@@ -1025,7 +1026,7 @@ GGS......D... Prime_numbers_which_contain_123
 .........D.V. Prime_triplets
 GBS...C..D... Prime_words
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
-GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
+!GS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS......D... Primes_which_contain_only_one_odd_number
 GGS...C..D... Primes_which_sum_of_digits_is_25
 GGS......D... Primes_whose_first_and_last_number_is_3
