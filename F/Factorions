@@ -5,7 +5,7 @@
 #j# JVM:  BROKEN
 #n# little slower than previous version (when doing 1.5 million iterations)
 #n# 2019-10-07 crashed, race condition?
-
+#n# 2021-08-25 .race starts causing failure, so remove for now
 #n# tune .race to match # of bases
 
 constant @factorial = 1, |[\×] 1..*;
@@ -17,7 +17,8 @@ constant $bases = 9 .. 12;
 my @result;
 
 #$bases.race(:1batch).map: -> $base {
-$bases.race(:degree($bases.elems), :1batch).map: -> $base {
+#$bases.race(:degree($bases.elems), :1batch).map: -> $base {
+$bases.map: -> $base {
 
     @result[$base] = "\nFactorions in base $base:\n1 2";
 
