@@ -3832,6 +3832,8 @@ File: F/Factorions
 #j# JVM:  BROKEN
 #n# little slower than previous version (when doing 1.5 million iterations)
 #n# 2019-10-07 crashed, race condition?
+#n# 2021-08-25 .race starts causing failure, so remove for now
+#n# tune .race to match # of bases
 
 File: F/Factorions.0
 #!/usr/bin/env perl6
@@ -4813,6 +4815,13 @@ File: G/Generate_random_chess_position
 #j#  JVM: OK
 #n# 2020-11-03 results changed with: Rakudo(tm) v2020.10-51-g53b558fe0
 #n# 2020-11-07 but once in a while flips back to old result apparently... (v2020.10-55-g2fe6420e8)
+
+File: G/Generate_random_numbers_without_repeating_a_value
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Generate_random_numbers_without_repeating_a_value
+#c# 2021-08-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: G/Generator_Exponential
 #!/usr/bin/env perl6
@@ -13514,6 +13523,13 @@ File: V/Vector_products
 #m# MOAR: OK
 #j#  JVM: OK
 #n# note use of 'MULTIPLICATION SIGN' for simple product, 'VECTOR OR CROSS PRODUCT' for vector product (via infix sub)
+
+File: V/Verhoeff_algorithm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Verhoeff_algorithm
+#c# 2021-08-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: V/Verify_distribution_uniformity_Chi-squared_test
 #!/usr/bin/env perl6
