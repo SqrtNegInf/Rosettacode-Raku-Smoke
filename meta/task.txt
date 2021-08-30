@@ -1,8 +1,8 @@
-Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-6-gc0a6823b0.
+Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-8-g5492452b2.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
-Built on MoarVM version 2021.08-2-gad66a397e.
+Built on MoarVM version 2021.08-9-g4b7ffe3af.
 updating from RC…
-+--------------> Moar: Good/Bad [1349/23]
++--------------> Moar: Good/Bad [1352/23]
 |+-------------> JVM: Good/Bad [1177/258]
 ||+------------> Smoke testing [1285]
 |||+-----------> sKipping validation [141]
@@ -11,10 +11,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [81]
 |||||||+-------> Random seed [139]
 ||||||||+------> File output [98]
-|||||||||+-----> Draft [306]
+|||||||||+-----> Draft [305]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [88]
-||||||||||||+--> Un-implemented/reliable [52]
+|||||||||||+---> Void (no local copy) [89]
+||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -55,7 +55,6 @@ GG.K......... Active_object
 GGS.......... Add_a_variable_to_a_class_instance_at_runtime
 .........D.VU Addition-chain_exponentiation
 GGS..T...D... Addition_chains
-.........D... Additive_primes
 GGS..T....... Additive_primes-1
 GGS.......... Additive_primes-2
 GGS.......... Address_of_a_variable
@@ -340,7 +339,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -388,7 +387,7 @@ GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
-.........D.VU Elevator_Game
+.........D.VU Elevator_simulation
 !GS....R..... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
 GBS..T....... Emirp_primes
@@ -654,7 +653,7 @@ GGS..T....... Jewels_and_stones
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
 GBS...C..D... Juggler_sequence
-!BS...C.F.... Julia_set
+GBS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -768,7 +767,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-!BS.....F.... Mandelbrot_set-2
+GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -975,6 +974,7 @@ GGS...C...... Perfect_numbers-1
 GGS.......... Perfect_numbers-2
 GGS.......... Perfect_shuffle
 GBS...C...... Perfect_totient_numbers
+.........D.VU Peripheral_Drift_Illusion
 GGS..T....... Perlin_noise
 GBS..TC...... Permutation_test
 GGS..T....... Permutations
@@ -1350,7 +1350,7 @@ GGS.......... Sum_of_squares
 GGS......D... Sum_of_the_digits_of_n_is_substring_of_n
 GGS.......... Sum_to_100
 GGS..T....... Summarize_and_say_sequence
-GBS......D... Summarize_primes
+GBS.......... Summarize_primes
 GGS.....F.... Sunflower_fractal
 GBS...C...... Super-d_numbers-1
 GBS...C...... Super-d_numbers-2
