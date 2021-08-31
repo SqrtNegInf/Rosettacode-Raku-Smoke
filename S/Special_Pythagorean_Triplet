@@ -1,0 +1,27 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Special_Pythagorean_Triplet
+#c# 2021-08-30 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+#hyper for 1..998 -> $a {
+for 1..998 -> $a {
+    my $a2 = $a²;
+    for $a + 1 .. 999 -> $b {
+        my $c = 1000 - $a - $b;
+        last if $c < $b;
+        @res.push: "$a² + $b² = $c²\n$a  + $b  + $c = 1000" and last if $a2 + $b² == $c²
+    }
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+200² + 375² = 425²
+200  + 375  + 425 = 1000
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
