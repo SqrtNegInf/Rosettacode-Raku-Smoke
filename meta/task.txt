@@ -1,17 +1,17 @@
-Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-12-g3c1c709ce.
+Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-18-g3ebbcee23.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.08-9-g4b7ffe3af.
 updating from RC…
-+--------------> Moar: Good/Bad [1352/23]
-|+-------------> JVM: Good/Bad [1178/259]
-||+------------> Smoke testing [1287]
++--------------> Moar: Good/Bad [1354/23]
+|+-------------> JVM: Good/Bad [1179/259]
+||+------------> Smoke testing [1288]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [358]
 ||||||+--------> Concurrent/Async [81]
 |||||||+-------> Random seed [139]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [306]
+|||||||||+-----> Draft [298]
 ||||||||||+----> Ignoring [35]
 |||||||||||+---> Void (no local copy) [88]
 ||||||||||||+--> Un-implemented/reliable [52]
@@ -401,7 +401,7 @@ GGS..T....... Enumerations
 GGS.......... Environment_variables
 GGS..T....... Equilibrium_index
 GBS......D... Erdos-primes
-GGS......D... Esthetic_numbers
+GGS.......... Esthetic_numbers
 GGS.......... Ethiopian_multiplication
 GGS.......... Euler%27s_identity
 GGS...C...... Euler%27s_sum_of_powers_conjecture
@@ -761,13 +761,13 @@ GGS....R..... Magic_8-ball
 GGS.......... Magic_squares_of_doubly_even_order
 GGS.......... Magic_squares_of_odd_order
 GGS.......... Magic_squares_of_singly_even_order
-GBS......D... Magnanimous_numbers
+GBS.......... Magnanimous_numbers
 GGS..T....... Main_step_of_GOST_28147-89
 GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-!BS.....F.... Mandelbrot_set-2
+GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -779,7 +779,7 @@ GGS..T....... Matrix_transposition
 ..........X.. Max_licenses_in_use
 GGS....R.D... Maximum_difference_between_adjacent_elements_of_list
 GGS..T....... Maximum_triangle_path_sum
-GGS......D... Mayan_calendar
+GGS.......... Mayan_calendar
 GGS.......... Mayan_numerals-1
 GBS.......... Mayan_numerals-2
 GG.K...R..... Maze_generation
@@ -804,7 +804,6 @@ GGS....R..... Miller-Rabin_primality_test
 GG.KI..R..... Minesweeper_game
 GGS.......... Minimal_steps_down_to_1
 GGS......D... Minimum_number_of_cells_after,_before,_above_and_below_NxN_squares
-.........D... Minimum_positive_multiple_in_base_10_using_only_0_and_1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 GGS.......... Minkowski_question-mark_function
@@ -813,7 +812,7 @@ GGS.......... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
 .........DXV. Modulinos
-GGS...C..D... Moebius_function
+GGS...C...... Moebius_function
 GGS..T....... Monads_List_monad
 GGS.......... Monads_Maybe_monad
 GGS.......... Monads_Writer_monad
@@ -1048,7 +1047,7 @@ GG.K......... Program_termination
 GGS..Tc...... Proper_divisors
 GGS.......... Pseudo-random_numbers_Combined_recursive_generator_MRG32k3a
 GGS.......... Pseudo-random_numbers_PCG32
-GGS......D... Pseudo-random_numbers_Splitmix64
+GGS.......... Pseudo-random_numbers_Splitmix64
 GGS.......... Pseudo-random_numbers_Xorshift_star
 BB.....RFD... Pseudorandom_number_generator_image
 GGS.....F.... Pythagoras_tree
@@ -1198,11 +1197,11 @@ GGS.....F.... Show_ASCII_table-1
 GGS.....F.... Show_ASCII_table-2
 GGS......D... Show_the_decimal_value_of_a_number_of_1s_appended_with_a_3,_then_squared
 GGS.......... Show_the_epoch
-GGS.....FD... Sierpinski_arrowhead_curve
+GGS.....F.... Sierpinski_arrowhead_curve
 GGS..T....... Sierpinski_carpet
 GGS.....FD... Sierpinski_curve
 GGS..T..F.... Sierpinski_pentagon
-GGS.....FD... Sierpinski_square_curve
+GGS.....F.... Sierpinski_square_curve
 GGS.......... Sierpinski_triangle
 GGS..T..F.... Sierpinski_triangle_Graphical
 GGS..T....X.U Sieve_of_Eratosthenes
@@ -1347,6 +1346,7 @@ GGS..T....... Sum_of_a_series
 GBS......D... Sum_of_divisors
 GGS......D... Sum_of_elements_below_main_diagonal_of_matrix
 GGS......D... Sum_of_first_n_cubes
+GGS......D... Sum_of_primes_in_odd_positions_is_prime
 GGS.......... Sum_of_squares
 GGS......D... Sum_of_the_digits_of_n_is_substring_of_n
 GGS.......... Sum_to_100
@@ -1359,7 +1359,7 @@ GBS..TC...... Super-d_numbers-3
 GGS..T..F.... Superellipse
 GGS..T....... Superpermutation_minimisation
 GGS.......... Sutherland-Hodgman_polygon_clipping
-GGS......D... Sylvester%27s_sequence
+GGS.......... Sylvester%27s_sequence
 GGS..T....... Symmetric_difference
 GGS.....F.... Synchronous_concurrency
 GGS.......... System_time
