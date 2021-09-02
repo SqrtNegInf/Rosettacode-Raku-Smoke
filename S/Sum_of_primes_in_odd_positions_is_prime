@@ -1,0 +1,31 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Sum_of_primes_in_odd_positions_is_prime
+#c# 2021-09-01 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my @odd  = grep { ++$ !%% 2 }, grep &is-prime, 2 ..^ 1000;
+my @sums = [\+] @odd;
+
+@res.push: .fmt('%5d') for grep { .[1].is-prime }, ( @odd Z @sums );
+
+.say for @res;
+
+my $ref = q:to/END/;
+    2     2
+    5     7
+   31    89
+  103   659
+  149  1181
+  331  5021
+  467  9923
+  499 10909
+  523 11941
+  653 17959
+  823 26879
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
