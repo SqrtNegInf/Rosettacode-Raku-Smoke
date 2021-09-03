@@ -2,7 +2,8 @@ File: 0/0-high-precision-routines
 #!/usr/bin/env perl6
 #u# http://localhost/0/0-high-precision-routines
 #c# 2020-02-11 NOT ON RC
-#p# OK
+#m# MOAR: OK
+#j#  JVM: BROKEN
 #n# NB: this is not a 'task' for any particular purpose, just a collect of useful routines high-precision FatRat math
 #n# collected from:
 #n#  A/Arithmetic-geometric_mean/Calculate_Pi
@@ -11767,7 +11768,8 @@ File: S/Square_Form_Factorization.1
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Square_Form_Factorization
 #c# 2021-03-xx NOT ON RC
-#p# OK
+#m# MOAR: OK
+#j#  JVM: OK
 #n# in this version all Unicode function/variable names removed, otherwise the same
 #n# timings to document the 'Unicode' start-up penalty 
 #n# (avoiding custom routine calls is the major component for runtime slowdown)
@@ -12320,6 +12322,8 @@ File: S/Sum_of_primes_in_odd_positions_is_prime
 #c# 2021-09-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# this approach loses track of 'i', so not quite to task spec, need something like:
+#n# @res.push: .fmt('%5d') for grep { .[2].is-prime }, ( @indices Z @odd Z @sums );
 
 File: S/Sum_of_squares
 #!/usr/bin/env perl6
@@ -13888,6 +13892,14 @@ File: W/Word_wrap
 #c# 2015-12-20 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: W/Wordiff
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Wordiff
+#t# interactive
+#c# 2021-09-02 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
 
 File: W/Words_containing_%22the%22_substring
 #!/usr/bin/env raku
