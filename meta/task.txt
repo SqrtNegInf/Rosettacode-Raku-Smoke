@@ -2,19 +2,19 @@ Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-20-g57841911f.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.08-9-g4b7ffe3af.
 updating from RC…
-+--------------> Moar: Good/Bad [1353/23]
-|+-------------> JVM: Good/Bad [1179/260]
-||+------------> Smoke testing [1288]
++--------------> Moar: Good/Bad [1350/23]
+|+-------------> JVM: Good/Bad [1175/260]
+||+------------> Smoke testing [1284]
 |||+-----------> sKipping validation [142]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [358]
+|||||+---------> Touched (modified by me) [359]
 ||||||+--------> Concurrent/Async [82]
 |||||||+-------> Random seed [139]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [298]
+|||||||||+-----> Draft [299]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [87]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [92]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -339,7 +339,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -468,16 +468,16 @@ GGS...C...... Find_largest_left_truncatable_prime_in_a_given_base
 GGS..T....... Find_limit_of_recursion
 GGS......D... Find_minimum_number_of_coins_that_make_a_given_value
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
-GGS......D... Find_prime_n_for_that_reversed_n_is_also_prime
+.........D.V. Find_prime_n_such_that_reversed_n_is_also_prime
 GGS......D... Find_prime_numbers_of_the_form_n_n_n%2B2
 GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
 GGS.......... Find_the_missing_permutation
+.........D.V. Find_words_which_contain_the_most_consonants
 GGS......D... Find_words_which_contains_all_the_vowels
 GGS......D... Find_words_which_contains_more_than_3_e_vowels
-GGS......D... Find_words_which_contains_most_consonants
-GGS......D... Find_words_which_first_and_last_three_letters_are_equals
+.........D.V. Find_words_whose_first_and_last_three_letters_are_equal
 GGS......D... Find_words_with_alternating_vowels_and_consonants
 GBS......D... Finite_state_machine
 GGS.......... First-class_functions
@@ -885,7 +885,6 @@ GGS.......... Number_reversal_game
 GGS......D... Numbers_divisible_by_their_individual_digits,_but_not_by_the_product_of_their_digits.
 GGS......D... Numbers_in_base-16_representation_that_cannot_be_written_with_decimal_digits
 GGS......D... Numbers_in_base_10_that_are_palindromic_in_bases_2,_4,_and_16
-GGS......D... Numbers_n_in_which_number_1_occur_twice
 GGS......D... Numbers_which_binary_and_ternary_digit_sum_are_prime
 GBS......D... Numbers_which_count_of_divisors_is_prime
 GBS...C...... Numbers_with_equal_rises_and_falls
@@ -1010,6 +1009,7 @@ GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
 GGS.......... Population_count
+.........D.V. Positive_decimal_integers_with_the_digit_1_occurring_exactly_twice
 GGS.......... Power_set
 GGS......D... Powerful_numbers
 GBS...C..D... Practical_numbers
@@ -1068,6 +1068,7 @@ GGS..T....... RSA_code
 GBS..T...D... Railway_circuit
 GBS..T....... Ramanujan%27s_constant-1
 GGS..T....... Ramanujan%27s_constant-2
+.........D.VU Ramanujan_primes
 GGS.......... Ramer-Douglas-Peucker_line_simplification
 GGS..T...D... Ramsey%27s_theorem
 !GS....R..... Random_Latin_squares
@@ -1346,7 +1347,7 @@ GGS..T....... Sum_of_a_series
 GBS......D... Sum_of_divisors
 GGS......D... Sum_of_elements_below_main_diagonal_of_matrix
 GGS......D... Sum_of_first_n_cubes
-GGS......D... Sum_of_primes_in_odd_positions_is_prime
+GGS..T...D... Sum_of_primes_in_odd_positions_is_prime
 GGS.......... Sum_of_squares
 GGS......D... Sum_of_the_digits_of_n_is_substring_of_n
 GGS.......... Sum_to_100
