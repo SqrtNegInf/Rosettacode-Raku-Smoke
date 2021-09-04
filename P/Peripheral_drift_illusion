@@ -10,9 +10,9 @@ my @res;
 use SVG;
 
 my @blocks = (1..15 X 1..10).map: -> ($X, $Y) {
-    my $x = $X * 75;
-    my $y = $Y * 75;
-    my $a = (my $r = ($X + $Y) div 2 % 4 * 90) > 0 ?? "rotate($r,$x,$y) " !! '';
+    my $x = $X × 75;
+    my $y = $Y × 75;
+    my $a = (my $r = ($X + $Y) div 2 % 4 × 90) > 0 ?? "rotate($r,$x,$y) " !! '';
     :use['xlink:href'=>'#block', 'transform'=>"{$a}translate($x,$y)"]
 }
 
