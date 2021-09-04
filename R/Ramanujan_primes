@@ -1,0 +1,48 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Ramanujan_primes
+#c# 2021-09-04 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Math::Primesieve;
+use Lingua::EN::Numbers;
+
+my $primes = Math::Primesieve.new;
+
+my @mem;
+
+sub ramanujan-prime (\n) {
+   1 + (1..(4×n × (4×n).log / 2.log).floor).first: :end, -> \x {
+       my \y = x div 2;
+       ((@mem[x] //= $primes.count(x)) - (@mem[y] //= $primes.count(y))) < n
+   }
+}
+
+@res.push: 'First 100:';
+@res.push: (1..100).map( &ramanujan-prime ).batch(10)».&comma».fmt("%6s").join: "\n";
+@res.push: "\n 1,000th: { comma 1000.&ramanujan-prime }";
+#@res.push: "10,000th: {  comma 10000.&ramanujan-prime }";
+
+.say for @res;
+
+my $ref = q:to/END/;
+First 100:
+     2     11     17     29     41     47     59     67     71     97
+   101    107    127    149    151    167    179    181    227    229
+   233    239    241    263    269    281    307    311    347    349
+   367    373    401    409    419    431    433    439    461    487
+   491    503    569    571    587    593    599    601    607    641
+   643    647    653    659    677    719    727    739    751    769
+   809    821    823    827    853    857    881    937    941    947
+   967    983  1,009  1,019  1,021  1,031  1,049  1,051  1,061  1,063
+ 1,087  1,091  1,097  1,103  1,151  1,163  1,187  1,217  1,229  1,249
+ 1,277  1,289  1,297  1,301  1,367  1,373  1,423  1,427  1,429  1,439
+
+ 1,000th: 19,403
+END
+#10,000th: 242,057
+
+use Test;
+is @res.join("\n"), chomp $ref;
