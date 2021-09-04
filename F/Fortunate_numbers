@@ -5,7 +5,7 @@
 #j# JVM:  BROKEN
 #n# Limit of 75 primorials to get first 50 unique fortunates is arbitrary, found through trial and error.
 
-my @primorials = [\*] grep *.is-prime, ^∞;
+my @primorials = [\×] grep *.is-prime, ^∞;
 
 say my $result = display :title("First 50 distinct fortunate numbers:\n"),
    (squish sort @primorials[^75].hyper.map: -> $primorial {
