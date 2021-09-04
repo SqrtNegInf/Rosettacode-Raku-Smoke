@@ -6,12 +6,10 @@
 
 my @res;
 
-#my @indices.push: $_-1 if &is-prime and !(++$  %% 2) for 2 ..^ 1000;
-my  @indices.push: $_-1 if &is-prime and   ++$ !%% 2  for 2 ..^ 1000;
 my @odd = grep { ++$ !%% 2 }, grep &is-prime, 2 ..^ 1000;
 my @sums = [\+] @odd;
 
-@res.push: .fmt('%5d') for grep { .[2].is-prime }, ( @indices Z @odd Z @sums );
+@res.push: .fmt('%5d') for grep { .[2].is-prime }, ( (1,3…*) Z @odd Z @sums );
 
 .say for @res;
 
