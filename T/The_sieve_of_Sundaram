@@ -3,7 +3,7 @@
 #c# 2021-09-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# not testing the large value, too slow
+#n# not testing the large value, ~3 min
 
 my @res;
 
@@ -15,7 +15,8 @@ my int @sieve;
 
 @sieve[$k] = 0;
 
-hyper for 1 .. $k -> \i {
+#hyper for 1 .. $k -> \i {
+for 1 .. $k -> \i {
     my int $j = i;
     while (my int $l = i + $j + 2 * i * $j) < $k {
         @sieve[$l] = 1;
