@@ -4,6 +4,9 @@
 ## not a race, not a race, not a race...
 ## 2020-03-14 P6 -> Raku
 ## 2021-06-28 limit to languages being actively worked on (basically those with task count over 1200)
+## 2021-09-04  update to module needed to make this go away?
+#    Stringification of a Buf is not done with 'Str'.  The 'decode' method should be used to convert a Buf to a Str.
+#    in sub from-json at /Users/dhoekman/.rakudobrew/versions/moar-blead/install/share/perl6/site/sources/xxx (JSON::Fast) line 715
 
 use HTTP::UserAgent;
 use URI::Escape;
