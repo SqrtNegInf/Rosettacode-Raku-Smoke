@@ -1,20 +1,20 @@
-Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-20-g57841911f.
+Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-22-gb451f89b6.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.08-9-g4b7ffe3af.
 updating from RC…
-+--------------> Moar: Good/Bad [1350/23]
-|+-------------> JVM: Good/Bad [1175/260]
-||+------------> Smoke testing [1284]
++--------------> Moar: Good/Bad [1352/23]
+|+-------------> JVM: Good/Bad [1177/261]
+||+------------> Smoke testing [1287]
 |||+-----------> sKipping validation [142]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [359]
 ||||||+--------> Concurrent/Async [82]
 |||||||+-------> Random seed [139]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [299]
+|||||||||+-----> Draft [300]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [92]
-||||||||||||+--> Un-implemented/reliable [52]
+|||||||||||+---> Void (no local copy) [90]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -339,7 +339,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -878,10 +878,10 @@ GGS..T....... Nonoblock
 BB.K.T......U Nonogram_solver
 GGS.......... Nth_root
 GGS.......... Null_object
-.........D.VU Number_Triplets_Game
 GGS.......... Number_names-1
 GBS.......... Number_names-2
 GGS.......... Number_reversal_game
+.........D.VU Number_triplets_game
 GGS......D... Numbers_divisible_by_their_individual_digits,_but_not_by_the_product_of_their_digits.
 GGS......D... Numbers_in_base-16_representation_that_cannot_be_written_with_decimal_digits
 GGS......D... Numbers_in_base_10_that_are_palindromic_in_bases_2,_4,_and_16
@@ -931,6 +931,7 @@ GGS...C...... Palindromic_gapful_numbers
 GGS......D... Palindromic_primes
 GGS......D... Palindromic_primes_in_base_16
 GGS.......... Pancake_numbers
+GGS......D... Pandigital_prime
 GGS.......... Pangram_checker
 GGS..T....... Paraffins
 GBS...c...... Parallel_brute_force
@@ -1068,7 +1069,7 @@ GGS..T....... RSA_code
 GBS..T...D... Railway_circuit
 GBS..T....... Ramanujan%27s_constant-1
 GGS..T....... Ramanujan%27s_constant-2
-.........D.VU Ramanujan_primes
+GBS......D... Ramanujan_primes
 GGS.......... Ramer-Douglas-Peucker_line_simplification
 GGS..T...D... Ramsey%27s_theorem
 !GS....R..... Random_Latin_squares
@@ -1403,7 +1404,7 @@ GGS.......... Textonyms
 GGS...C...... The_ISAAC_Cipher
 GGS.......... The_Name_Game
 GGS.....F.... The_Twelve_Days_of_Christmas
-...........V. The_sieve_of_Sundaram
+GGS.......... The_sieve_of_Sundaram
 GGS..T....... Thiele%27s_interpolation_formula
 !GS....R.D... Three_word_location
 GGS.......... Three_word_location-2
