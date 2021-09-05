@@ -1,0 +1,12 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Pandigital_prime
+#c# 2021-09-04 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $result = max (1..9).map: -> $size {
+    |(1..$size).permutations».join.grep(&is-prime);
+}
+
+use Test;
+is $result, 7652413;
