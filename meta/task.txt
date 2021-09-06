@@ -3,7 +3,7 @@ Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.08-9-g4b7ffe3af.
 updating from RC…
 +--------------> Moar: Good/Bad [1352/23]
-|+-------------> JVM: Good/Bad [1177/261]
+|+-------------> JVM: Good/Bad [1178/260]
 ||+------------> Smoke testing [1287]
 |||+-----------> sKipping validation [142]
 ||||+----------> Interactive [66]
@@ -11,9 +11,9 @@ updating from RC…
 ||||||+--------> Concurrent/Async [82]
 |||||||+-------> Random seed [139]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [300]
+|||||||||+-----> Draft [301]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [90]
+|||||||||||+---> Void (no local copy) [91]
 ||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
@@ -767,7 +767,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-!BS.....F.... Mandelbrot_set-2
+GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -946,6 +946,7 @@ GGS.......... Parsing_RPN_calculator_algorithm
 GGS..T....... Parsing_RPN_to_infix_conversion
 GGS.......... Parsing_Shunting-yard_algorithm
 GGS.......... Partial_function_application
+.........D.V. Particle_fountain
 !GS..T.R.D... Particle_swarm_optimization
 GBS..TC...... Partition_an_integer_x_into_n_primes
 GGS.......... Partition_function_P
@@ -1027,7 +1028,7 @@ GGS......D... Prime_numbers_which_contain_123
 .........D.V. Prime_triplets
 GBS...C..D... Prime_words
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
-GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
+!GS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS......D... Primes_which_contain_only_one_odd_number
 GGS...C..D... Primes_which_sum_of_digits_is_25
 GGS......D... Primes_whose_first_and_last_number_is_3
@@ -1353,7 +1354,7 @@ GGS.......... Sum_of_squares
 GGS......D... Sum_of_the_digits_of_n_is_substring_of_n
 GGS.......... Sum_to_100
 GGS..T....... Summarize_and_say_sequence
-GBS.......... Summarize_primes
+GGS.......... Summarize_primes
 GGS.....F.... Sunflower_fractal
 GBS...C...... Super-d_numbers-1
 GBS...C...... Super-d_numbers-2
