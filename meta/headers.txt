@@ -9853,6 +9853,7 @@ File: R/Ramanujan_primes
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# not testing 10_000 as much, much slower than suggested on RC
+#n# cf 'Twin_Primes' for use of '.count'
 
 File: R/Ramer-Douglas-Peucker_line_simplification
 #!/usr/bin/env perl6
@@ -12392,7 +12393,8 @@ File: S/Summarize_primes
 #u# http://rosettacode.org/wiki/Summarize_primes
 #c# 2021-04-15 <RC, 2021-07-08 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
+#n# on RC 'Prime_numbers_p_which_sum_of_prime_numbers_less_or_equal_to_p_is_prime' is a dup (may get removed?)
 
 File: S/Summarize_primes.1
 #!/usr/bin/env raku
