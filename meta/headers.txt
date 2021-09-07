@@ -9479,6 +9479,7 @@ File: P/Primes_-_allocate_descendants_to_their_ancestors-1
 #j# JVM:  OK
 #n# running with lowered $max
 #n# JVM emits errors, but works
+#n# 2021-09-05 fails fairly often during automated testing lately?
 
 File: P/Primes_which_contain_only_one_odd_number
 #!/usr/bin/env raku
@@ -9900,6 +9901,14 @@ File: R/Random_numbers
 #c# 2015-10-27 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: R/Random_sentence_from_book
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Random_sentence_from_book
+#c# 2021-09-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# for MOAR: 'sort' trick not working, 'srand' bug bites?
 
 File: R/Range_consolidation
 #!/usr/bin/env perl6
