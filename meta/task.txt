@@ -3,8 +3,8 @@ Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.08-9-g4b7ffe3af.
 updating from RC…
 +--------------> Moar: Good/Bad [1350/23]
-|+-------------> JVM: Good/Bad [1179/259]
-||+------------> Smoke testing [1287]
+|+-------------> JVM: Good/Bad [1178/259]
+||+------------> Smoke testing [1286]
 |||+-----------> sKipping validation [142]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [359]
@@ -13,8 +13,8 @@ updating from RC…
 ||||||||+------> File output [99]
 |||||||||+-----> Draft [302]
 ||||||||||+----> Ignoring [35]
-|||||||||||+---> Void (no local copy) [92]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [93]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -339,7 +339,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -413,7 +413,7 @@ GGS.......... Events
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -1028,8 +1028,8 @@ GGS......D... Prime_numbers_which_contain_123
 .........D.V. Prime_triplets
 GBS...C..D... Prime_words
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
-GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
-GGS......D... Primes_which_contain_only_one_odd_number
+!GS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
+.........D.V. Primes_which_contain_only_one_odd_digit
 GGS...C..D... Primes_which_sum_of_digits_is_25
 GGS......D... Primes_whose_first_and_last_number_is_3
 GGS......D... Primes_with_digits_in_nondecreasing_order
@@ -1163,7 +1163,7 @@ GBS.......... Safe_addition
 GBS.......... Safe_primes_and_unsafe_primes
 GGS.......... Sailors,_coconuts_and_a_monkey_problem
 GGS.......... Same_fringe
-.........D.VU Sanitize_user_input
+.........D.V. Sanitize_user_input
 GGS......D... Sattolo_cycle
 GGS.......... Scope_Function_names_and_labels
 GG.K......... Scope_modifiers
