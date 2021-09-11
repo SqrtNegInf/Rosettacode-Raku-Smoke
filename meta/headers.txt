@@ -3833,8 +3833,9 @@ File: F/Factorions
 #j# JVM:  BROKEN
 #n# little slower than previous version (when doing 1.5 million iterations)
 #n# 2019-10-07 crashed, race condition?
-#n# 2021-08-25 .race starts causing failure, so remove for now
-#n# tune .race to match # of bases
+#n# 2020-?     tune .race to match # of bases
+#n# 2021-08-25 .race starts causing failure
+#n# 2021-09-10 pre-allocating @result, making @factorial non-lazy does not help
 
 File: F/Factorions.0
 #!/usr/bin/env perl6
@@ -4792,6 +4793,14 @@ File: G/Generate_Chess960_starting_position
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2021-06-04 results for test #2 changed
+
+File: G/Generate_Chess960_starting_position-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Generate_Chess960_starting_position
+#c# 2021-09-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# from SPID
 
 File: G/Generate_lower_case_ASCII_alphabet
 #!/usr/bin/env perl6
