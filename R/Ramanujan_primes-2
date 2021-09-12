@@ -1,0 +1,51 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Ramanujan_primes
+#c# 2021-09-11 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use ntheory:from<Perl5> <ramanujan_primes nth_ramanujan_prime>;
+use Lingua::EN::Numbers;
+
+@res.push: 'First 100:';
+@res.push: ramanujan_primes( nth_ramanujan_prime(100) ).batch(10)».&comma».fmt("%6s").join: "\n";
+@res.push: '';
+
+for (2..10).map: {exp $_, 10} -> $limit {
+    @res.push: "{tc ordinal $limit}: { comma nth_ramanujan_prime($limit) }";
+}
+
+#say (now - INIT now).fmt('%.3f') ~ ' seconds';
+
+.say for @res;
+
+my $ref = q:to/END/;
+First 100:
+     2     11     17     29     41     47     59     67     71     97
+   101    107    127    149    151    167    179    181    227    229
+   233    239    241    263    269    281    307    311    347    349
+   367    373    401    409    419    431    433    439    461    487
+   491    503    569    571    587    593    599    601    607    641
+   643    647    653    659    677    719    727    739    751    769
+   809    821    823    827    853    857    881    937    941    947
+   967    983  1,009  1,019  1,021  1,031  1,049  1,051  1,061  1,063
+ 1,087  1,091  1,097  1,103  1,151  1,163  1,187  1,217  1,229  1,249
+ 1,277  1,289  1,297  1,301  1,367  1,373  1,423  1,427  1,429  1,439
+
+One hundredth: 1,439
+One thousandth: 19,403
+Ten thousandth: 242,057
+One hundred thousandth: 2,916,539
+One millionth: 34,072,993
+Ten millionth: 389,433,437
+One hundred millionth: 4,378,259,731
+One billionth: 48,597,112,639
+Ten billionth: 533,902,884,973
+END
+#One hundred billionth: 5,816,713,968,619
+#One trillionth: 62,929,891,461,461
+
+use Test;
+is @res.join("\n"), chomp $ref;
