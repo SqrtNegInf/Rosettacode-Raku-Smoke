@@ -1,20 +1,20 @@
-Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-22-gb451f89b6.
+Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-23-ga86ec91e3.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.08-9-g4b7ffe3af.
 updating from RC…
-+--------------> Moar: Good/Bad [1351/23]
-|+-------------> JVM: Good/Bad [1179/259]
-||+------------> Smoke testing [1287]
++--------------> Moar: Good/Bad [1356/23]
+|+-------------> JVM: Good/Bad [1180/261]
+||+------------> Smoke testing [1290]
 |||+-----------> sKipping validation [142]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [359]
-||||||+--------> Concurrent/Async [82]
+||||||+--------> Concurrent/Async [83]
 |||||||+-------> Random seed [141]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [301]
+|||||||||+-----> Draft [300]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [94]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [92]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -339,7 +339,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -458,6 +458,7 @@ GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T....... File_size_distribution
 GGS.......... Filter
+GGS.......... Find_Chess960_starting_position_identifier
 GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T....... Find_duplicate_files
@@ -654,7 +655,7 @@ GGS..T....... Jewels_and_stones
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
 GBS...C..D... Juggler_sequence
-!BS...C.F.... Julia_set
+GBS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -768,7 +769,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-GBS.....F.... Mandelbrot_set-2
+!BS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
@@ -1029,7 +1030,7 @@ GGS......D... Prime_numbers_which_contain_123
 .........D.V. Prime_triplets
 GBS...C..D... Prime_words
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
-!GS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
+GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 .........D.V. Primes_which_contain_only_one_odd_digit
 GGS...C..D... Primes_which_sum_of_digits_is_25
 GGS......D... Primes_whose_first_and_last_number_is_3
@@ -1072,7 +1073,8 @@ GBS..T...D... Railway_circuit
 GBS..T....... Ramanujan%27s_constant-1
 GGS..T....... Ramanujan%27s_constant-2
 GBS......D... Ramanujan_primes
-...........VU Ramanujan_primes_twins
+GBS.......... Ramanujan_primes-2
+GBS...C...... Ramanujan_primes_twins
 GGS.......... Ramer-Douglas-Peucker_line_simplification
 GGS..T...D... Ramsey%27s_theorem
 !GS....R..... Random_Latin_squares
@@ -1165,7 +1167,6 @@ GBS.......... Safe_addition
 GBS.......... Safe_primes_and_unsafe_primes
 GGS.......... Sailors,_coconuts_and_a_monkey_problem
 GGS.......... Same_fringe
-.........D.V. Sanitize_user_input
 GGS......D... Sattolo_cycle
 GGS.......... Scope_Function_names_and_labels
 GG.K......... Scope_modifiers
