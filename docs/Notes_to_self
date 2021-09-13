@@ -1,3 +1,18 @@
+2021-09-11
+Starting 2021-06-10, sporadic errors of the form:
+MoarVM oops: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
+
+Prior to that date, more generic error message:
+malloc: *** error for object 0x7f92322a6200: pointer being freed was not allocated
+
+Seen in:
+Executable_library
+Julia_set
+Mandelbrot_set-2
+Primes_-_allocate_descendants_to_their_ancestors-1
+
+Commonality: All use .race
+
 2021-08-19
 Why did so many fail today?  See if persists...
 
