@@ -63,7 +63,7 @@ my $light = @bishops.grep({ not $_ %% 2 })[0] div 2;
 #my $dark  = @bishops.grep({ $_ % 2 == 0 })[0] div 2;
 #my $light = @bishops.grep({ $_ % 2 == 1 })[0] div 2;
 
-my $sp-id = 4*(4*(6*$knight + $queen)+$dark)+$light;
+my $sp-id = 4×(4×(6×$knight + $queen)+$dark)+$light;
 
 # standardize output
 my $display = $ascii.trans("RNBQK" => "♖♘♗♕♔");
