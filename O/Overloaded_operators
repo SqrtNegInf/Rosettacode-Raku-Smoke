@@ -1,0 +1,32 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Overloaded_operators
+#c# 2021-09-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# jut Line class part
+
+my @res;
+
+class Line {
+    has @.start;
+    has @.end;
+}
+
+multi infix:<+> (Line $x, Line $y) {
+    Line.new(
+       :start(
+          sqrt($x.start[0]² + $y.start[0]²),
+          sqrt($x.start[1]² + $y.start[1]²)
+       ),
+       :end(
+          sqrt($x.end[0]² + $y.end[0]²),
+          sqrt($x.end[1]² + $y.end[1]²)
+       )
+    )
+}
+
+say my $result = (Line.new(:start(-4,7), :end(5,0)) + Line.new(:start(1,1), :end(2,3))).gist;
+
+
+use Test;
+is $result, 'Line.new(start => [4.123105625617661e0, 7.0710678118654755e0], end => [5.385164807134504e0, 3e0])';
