@@ -39,8 +39,8 @@ multi infix:<**> (FatRat $base, FatRat $exp where * <  1 --> FatRat) {
 
     while (abs($mid - $exp) > $eps) {
       $sqr = sqrt($sqr);
-      if ($mid <= $exp) { $low  = $mid; $acc *=   $sqr }
-      else              { $high = $mid; $acc *= 1/$sqr }
+      if ($mid <= $exp) { $low  = $mid; $acc ×=   $sqr }
+      else              { $high = $mid; $acc ×= 1/$sqr }
       $mid = ($low + $high) / 2;
     }
 
@@ -55,8 +55,8 @@ sub Pi (--> FatRat) {
     my $pi;
 
     for ^d {
-        given [ ($a + $g)/2, sqrt $a * $g ] {
-            $z -= (.[0] - $a)**2 * $n;
+        given [ ($a + $g)/2, sqrt $a × $g ] {
+            $z -= (.[0] - $a)**2 × $n;
             $n += $n;
             ($a, $g) = @$_;
             $pi = ($a ** 2 / $z).substr: 0, 2 + D;
@@ -67,7 +67,7 @@ sub Pi (--> FatRat) {
 }
 
 multi sqrt(FatRat $r --> FatRat) {
-    FatRat.new: sqrt($r.nude[0] * 10**(D*2) div $r.nude[1]), 10**D;
+    FatRat.new: sqrt($r.nude[0] × 10**(D×2) div $r.nude[1]), 10**D;
 }
 
 
@@ -103,7 +103,7 @@ my $pi = &Pi();
 my $eu = &Eu();
 
 # everything in place: calculate Ramanujan's constant
-my $Ramanujan = $eu**($pi*√163);
+my $Ramanujan = $eu**($pi×√163);
 @res.push: "Ramanujan's constant to 32 decimal places:\nActual:     " ~
     "262537412640768743.99999999999925007259719818568888\n" ~
     "Calculated: " ~ $Ramanujan.precise(32, :z), "\n";
@@ -112,7 +112,7 @@ my $Ramanujan = $eu**($pi*√163);
 # Heegner numbers used to generate 'almost' integers
 @res.push: "Heegner numbers yielding 'almost' integers";
 for 19, 96, 43, 960, 67, 5280, 163, 640320 -> $heegner, $x {
-    my $almost = $eu**($pi*√$heegner);
+    my $almost = $eu**($pi×√$heegner);
     my $exact  = $x**3 + 744;
     @res.push: format($exact,$almost);
 }
