@@ -33,7 +33,6 @@ die "No text!" if $raku =~ /currently no text/i;
 
 $raku =~ s/^Raku\[edit\]//;
 #$raku =~ s/Works with/# Works with/ms;
-$raku =~ s/Works with[^\n]+//ms;
 $raku =~ s/\xA0//g;
 $raku =~ s/’//g;
 $raku =~ s/PerlÂ/Perl /g;
@@ -49,13 +48,14 @@ print F <<EOP;
 #c# $ymd <RC
 #m# MOAR: BROKEN OK
 #j# JVM:  BROKEN OK
-#  {{Works with|rakudo|$ym}} or {{broken|Raku}}  
 
 my \@res;
-
 $raku
 
 END
+
+# not really using anymore...
+#  {{Works with|rakudo|$ym}} or {{broken|Raku}}  
 
 .say for \@res;
 my \$ref = q:to/END/;
