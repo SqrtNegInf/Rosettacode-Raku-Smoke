@@ -54,9 +54,6 @@ $raku
 
 END
 
-# not really using anymore...
-#  {{Works with|rakudo|$ym}} or {{broken|Raku}}  
-
 .say for \@res;
 my \$ref = q:to/END/;
 
@@ -64,5 +61,8 @@ use Test;
 #my \$ref = \$*VM ~~ /jvm/ ?? \$jvm !! \$moar;
 #is \@res.join("\\n"), chomp \$ref;
 EOP
+
+# not really using anymore...
+#  {{Works with|rakudo|$ym}} or {{broken|Raku}}  
 
 system "chmod +x $f";
