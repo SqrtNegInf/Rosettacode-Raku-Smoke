@@ -5094,6 +5094,7 @@ File: H/Halt_and_catch_fire
 #c# 2021-09-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# a bare statement of '1/0' doesn't crash, only 'say 1/0' does
 
 File: H/Hamming_numbers-1
 #!/usr/bin/env perl6
@@ -12068,6 +12069,7 @@ File: S/String_matching
 #c# 2016-08-28 <RC, 2020-01-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2021-09-13 cf 'Find_Chess960_starting_position_identifier' as the one other task where '.indices' used
 
 File: S/String_matching.1
 #!/usr/bin/env perl6
