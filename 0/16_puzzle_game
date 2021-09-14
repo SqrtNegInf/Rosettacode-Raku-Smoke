@@ -13,7 +13,7 @@ sub setDiff($level) {
    say "\nTarget is ", ( moves = $level == hard ?? 12 !! 3 ).Str, " moves."; 
    for ^moves {
       my \s = (^4).roll;
-      @n[ ( [ s, s+4 ... s+12 ] , [ s*4 .. s*4+3 ] ).roll ] .= rotate ;
+      @n[ ( [ s, s+4 ... s+12 ] , [ s×4 .. s×4+3 ] ).roll ] .= rotate ;
       redo if hasWon
    }
 }
@@ -57,9 +57,9 @@ loop {
    given $*IN.get.uc {
       my \c = .substr(*-1).ord - 49 ; moves++ ; 
       when 'D1'|'D2'|'D3'|'D4' { @n[ (12,8,4,0) >>+>> c   ] .= rotate }
-      when 'L1'|'L2'|'L3'|'L4' { @n[ (0,1,2,3)  >>+>> 4*c ] .= rotate }
+      when 'L1'|'L2'|'L3'|'L4' { @n[ (0,1,2,3)  >>+>> 4×c ] .= rotate }
       when 'U1'|'U2'|'U3'|'U4' { @n[ (0,4,8,12) >>+>> c   ] .= rotate }
-      when 'R1'|'R2'|'R3'|'R4' { @n[ (3,2,1,0)  >>+>> 4*c ] .= rotate }
+      when 'R1'|'R2'|'R3'|'R4' { @n[ (3,2,1,0)  >>+>> 4×c ] .= rotate }
       when 'Q'                 { exit } 
       when 'S'                 { init } 
       default                  { say "\nInvalid move, try again." and moves-- }
