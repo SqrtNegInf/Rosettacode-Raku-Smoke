@@ -21,11 +21,11 @@ $out.say: qq:to/STOP/;
     <?xml version="1.0" standalone="no" ?>
      <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
      "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-    <svg height="{$dim*2}" width="{$dim*2}" style="" xmlns="http://www.w3.org/2000/svg">
+    <svg height="{$dim×2}" width="{$dim×2}" style="" xmlns="http://www.w3.org/2000/svg">
     <rect height="100%" width="100%" style="fill:bisque;" />
     STOP
 
-my @vertices = map { 0.9 * $dim * cis($_ * τ / $sides) }, ^$sides;
+my @vertices = map { 0.9 × $dim × cis($_ × τ / $sides) }, ^$sides;
 
 $out.say: pline map |*.reals, flat @vertices[0, 2 ... *], @vertices[1, 3 ... *];
 
