@@ -2,26 +2,26 @@ Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-27-g10b327292.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.08-9-g4b7ffe3af.
 updating from RC…
-+--------------> Moar: Good/Bad [1356/23]
-|+-------------> JVM: Good/Bad [1181/261]
-||+------------> Smoke testing [1290]
-|||+-----------> sKipping validation [143]
-||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [359]
++--------------> Moar: Good/Bad [1359/23]
+|+-------------> JVM: Good/Bad [1183/261]
+||+------------> Smoke testing [1291]
+|||+-----------> sKipping validation [144]
+||||+----------> Interactive [67]
+|||||+---------> Touched (modified by me) [360]
 ||||||+--------> Concurrent/Async [83]
 |||||||+-------> Random seed [141]
 ||||||||+------> File output [99]
 |||||||||+-----> Draft [300]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [95]
-||||||||||||+--> Un-implemented/reliable [53]
+|||||||||||+---> Void (no local copy) [93]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
 GB.KI..R..... 15_puzzle_game
 .........D.VU 15_puzzle_game_in_3D
 GG.K......... 15_puzzle_solver
-.........D.VU 16_puzzle_game
+GG.KI....D... 16_puzzle_game
 GB.KI..R..... 2048
 GGS....R..... 21_game
 GGS..T.R..... 24_game
@@ -458,7 +458,7 @@ GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T....... File_size_distribution
 GGS.......... Filter
-GGS.......... Find_Chess960_starting_position_identifier
+GGS..T....... Find_Chess960_starting_position_identifier
 GGS......D... Find_URI_in_text
 GGS..T....... Find_common_directory_path
 GBS..T....... Find_duplicate_files
@@ -656,7 +656,7 @@ GGS..T....... Jewels_and_stones
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
 GBS...C...... Juggler_sequence
-!BS...C.F.... Julia_set
+GBS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -923,7 +923,7 @@ GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_partitions
 GGS.......... Ordered_words
-.........D.VU Overloaded_operators
+GGS......D... Overloaded_operators
 BB........... P-Adic_numbers,_basic
 ...........VU P-Adic_square_roots
 GGS..T....... P-value_correction
