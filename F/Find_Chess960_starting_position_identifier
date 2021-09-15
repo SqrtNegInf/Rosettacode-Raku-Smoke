@@ -3,7 +3,7 @@
 #c# 2021-09-11 <RC, 2021-09-14 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# some syntactic contortions not on RC
+#n# some syntactic contortions to avoid sub-scripting (not on RC)
 
 my @res;
 
@@ -48,7 +48,7 @@ my @knights = $ascii
   .subst(/<[QB]>/,'',:g)
   .indices('N');
 
-#my $knight  = combinations(5,2).kv.grep( -> $i,@c { @c eq @knights } )[0][0]; 
+#my $knight = combinations(5,2).kv.grep( -> $i,@c { @c eq @knights } )[0][0]; 
 my $knight = combinations(5,2).kv.grep( -> $i,@c { @c eq @knights } ).flat.head; # or .first
 
 # 2. Then which queen position:
@@ -60,7 +60,7 @@ my $queen = $ascii
 my @bishops = $ascii.indices('B');
 #my $dark  = @bishops.grep({     $_ %% 2 })[0] div 2;
 #my $light = @bishops.grep({ not $_ %% 2 })[0] div 2;
-my ($dark,$light) = 2 R[Xdiv] @bishops[0] %% 2 ?? @bishops !! @bishops.rotate; # or .reverse
+my ($dark,$light) = (@bishops.first %% 2 ?? @bishops !! @bishops.reverse) Xdiv 2; # or .rotate
 
 my $sp-id = 4×(4×(6×$knight + $queen)+$dark)+$light;
 
