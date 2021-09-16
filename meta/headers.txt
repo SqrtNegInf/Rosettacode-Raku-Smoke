@@ -5099,8 +5099,7 @@ File: H/Hailstone_sequence.jvm
 File: H/Halt_and_catch_fire
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Halt_and_catch_fire
-#t# nocode
-#c# 2021-09-12 <RC
+#c# 2021-09-12 <RC, 2021-09-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# a bare statement of '1/0' doesn't crash, only 'say 1/0' does
@@ -5756,6 +5755,14 @@ File: I/Integer_comparison
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: 1\n2\n3\n3
+
+File: I/Integer_long_division
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Integer_long_division
+#c# 2021-09-15 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# inputs like '1/199999901' consume memory without bound (or beyond my patience)
 
 File: I/Integer_overflow
 #!/usr/bin/env perl6
@@ -6617,6 +6624,7 @@ File: L/Long_primes
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# full calculation: 1100.497u 83.821s 3:25.17 577.2%
+#n# the '.base-repeating' approach in the .jvm version is substantially slower
 
 File: L/Long_primes.jvm
 #!/usr/bin/env perl6
