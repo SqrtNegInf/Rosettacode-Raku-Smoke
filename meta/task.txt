@@ -2,16 +2,16 @@ Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.08-27-g10b327292.
 Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
 Built on MoarVM version 2021.08-9-g4b7ffe3af.
 updating from RC…
-+--------------> Moar: Good/Bad [1359/23]
-|+-------------> JVM: Good/Bad [1183/261]
-||+------------> Smoke testing [1291]
-|||+-----------> sKipping validation [144]
++--------------> Moar: Good/Bad [1357/23]
+|+-------------> JVM: Good/Bad [1184/261]
+||+------------> Smoke testing [1293]
+|||+-----------> sKipping validation [143]
 ||||+----------> Interactive [67]
 |||||+---------> Touched (modified by me) [360]
 ||||||+--------> Concurrent/Async [83]
 |||||||+-------> Random seed [141]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [300]
+|||||||||+-----> Draft [301]
 ||||||||||+----> Ignoring [36]
 |||||||||||+---> Void (no local copy) [93]
 ||||||||||||+--> Un-implemented/reliable [51]
@@ -339,7 +339,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -413,7 +413,7 @@ GGS.......... Events
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -562,7 +562,7 @@ GGS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
-GG.K......... Halt_and_catch_fire
+GGS.......... Halt_and_catch_fire
 GGS..T....... Hamming_numbers-1
 GGS.......... Hamming_numbers-2
 GG.KI........ Handle_a_signal
@@ -634,6 +634,7 @@ GGS......D... Input_Output_for_lines_of_text
 GGS......D... Input_Output_for_pairs_of_numbers
 GG.K......... Input_loop
 GGS.......... Integer_comparison
+GGS......D... Integer_long_division
 GGS.......... Integer_overflow
 GGS..T...D... Integer_roots
 GG.KI........ Integer_sequence
@@ -656,7 +657,7 @@ GGS..T....... Jewels_and_stones
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
 GBS...C...... Juggler_sequence
-GBS...C.F.... Julia_set
+!BS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
