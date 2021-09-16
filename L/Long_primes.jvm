@@ -24,7 +24,6 @@ my @res = "Long primes ≤ 500:\n"~ @long-primes[^(@long-primes.first: * > 500, 
   #for 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000;
 
 .say for @res;
-#exit;
 
 my $ref = qq:to/END/;
 Long primes ≤ 500:
