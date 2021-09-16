@@ -1,10 +1,22 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Halt_and_catch_fire
-#t# nocode
-#c# 2021-09-12 <RC
+#c# 2021-09-12 <RC, 2021-09-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# a bare statement of '1/0' doesn't crash, only 'say 1/0' does
+
+use Test;
+ 
+dies-ok { ++8 };
+dies-ok { die };
+dies-ok {  …  };
+ 
+ok      { 1/0 };
+dies-ok { say 1/0 };
+
+eval-dies-ok '++8';
+eval-dies-ok 'die';
+#eval-dies-ok  '…' ; # nope
 
 #`{{
 
@@ -12,9 +24,5 @@
 
 Syntactically: Valid.
 Semantically: Change the mathematical concept of 8 to 9, either in your whole computer, or maybe the whole universe.
-
-or: 
-
-die
 
 }}
