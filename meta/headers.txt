@@ -5766,11 +5766,12 @@ File: I/Integer_comparison
 File: I/Integer_long_division
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Integer_long_division
-#c# 2021-09-15 <RC
+#c# 2021-09-15 <RC , 2021-09-21 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# inputs like '1/199999901' consume memory without bound (or beyond my patience, or my Mac's capacity [crashed!])
-#n# some much smaller values that are dog-slow: 1/7096261 (1635 secs) 1/85897601 (4020 secs)
+#n# 2021-09-18 some much smaller values that are dog-slow: 1/7096261 (1635 secs) 1/85897601 (4020 secs)
+#n# fixed over-strikes (combiners follow, not precede)
 
 File: I/Integer_overflow
 #!/usr/bin/env perl6
