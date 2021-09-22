@@ -1,5 +1,5 @@
-Welcome to 𝐑𝐚𝐤𝐮𝐝𝐨™ v2021.09-3-gb2bfa4dec.
-Implementing the 𝐑𝐚𝐤𝐮™ programming language v6.d.
+Welcome to Rakudo™ v2021.09-4-gba15173fd.
+Implementing the Raku™ programming language v6.d.
 Built on MoarVM version 2021.09-1-gb516702c4.
 updating from RC…
 +--------------> Moar: Good/Bad [1360/23]
@@ -7,7 +7,7 @@ updating from RC…
 ||+------------> Smoke testing [1294]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [67]
-|||||+---------> Touched (modified by me) [360]
+|||||+---------> Touched (modified by me) [361]
 ||||||+--------> Concurrent/Async [83]
 |||||||+-------> Random seed [141]
 ||||||||+------> File output [99]
@@ -340,7 +340,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -635,7 +635,7 @@ GGS......D... Input_Output_for_lines_of_text
 GGS......D... Input_Output_for_pairs_of_numbers
 GG.K......... Input_loop
 GGS.......... Integer_comparison
-GGS......D... Integer_long_division
+GGS..T...D... Integer_long_division
 GGS.......... Integer_overflow
 GGS..T...D... Integer_roots
 GG.KI........ Integer_sequence
@@ -772,7 +772,7 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-GBS.....F.... Mandelbrot_set-2
+!BS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
