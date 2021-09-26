@@ -1,6 +1,5 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Latin_Squares_in_reduced_form/Randomizing_using_Jacobson_and_Matthews’_Technique
-#t# output varies
 #c# 2021-07-30 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN OK
@@ -88,12 +87,13 @@ my (%freq, @c, @in);
 #say "Part 1: 10,000 latin Squares of order 4 in reduced form:\n";
 @in = [[1, 2, 3, 4], [2, 1, 4, 3], [3, 4, 1, 2], [4, 3, 2, 1]];
 @c = makeCube(@in, 4); 
-for ^10_000 {
+for ^4000 {
    shuffleCube @c ; 
    %freq{@c.&toMatrix.&toReduced».List.flat.Str}++
 }    
+for %freq.keys.sort -> $k { @res.push: %freq{$k} }
 #for %freq.kv -> $k, $v { printAs1based $k.split(' ');   say "\nOccurs $v times.\n" }
-for %freq.keys.sort -> $k { printAs1based $k.split(' '); @res.push: "\nOccurs %freq{$k} times." }
+#for %freq.keys.sort -> $k { printAs1based $k.split(' '); @res.push: "\nOccurs %freq{$k} times." }
 
 #`{{ these results vary
 say "Part 2: 10,000 latin Squares of order 5 in reduced form:\n";
@@ -122,10 +122,16 @@ say "Generated in { now - $snapshot } seconds."
 }}
 
 .say for @res;
-exit;
+
+my $ref = q:to/END/;
+1253
+1152
+1280
+1315
+END
 
 #Part 1: 10,000 latin Squares of order 4 in reduced form:
-my $ref = q:to/END/;
+my $xef = q:to/END/;
 
 1 2 3 4
 2 1 4 3
