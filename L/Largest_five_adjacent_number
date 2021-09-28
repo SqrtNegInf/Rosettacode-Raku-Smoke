@@ -1,0 +1,15 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Largest_five_adjacent_number
+#c# 2021-09-27 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+srand 123456;
+
+#say my $result = (^10).roll(1000).rotor(5 => -4)».join.max;
+
+say my $result = (^௰).roll(௲).rotor(5 => -4)».join.minmax.bounds xx 5;
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? 99988 !! 99978;
+is $result, '00058 99978 00196 99964 00111 99823 00142 99994 00268 99905';
