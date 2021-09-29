@@ -1,16 +1,17 @@
 Welcome to Rakudo™ v2021.09-4-gba15173fd.
 Implementing the Raku™ programming language v6.d.
 Built on MoarVM version 2021.09-1-gb516702c4.
-+--------------> Moar: Good/Bad [1361/22]
-|+-------------> JVM: Good/Bad [1185/261]
-||+------------> Smoke testing [1295]
+updating from RC…
++--------------> Moar: Good/Bad [1362/22]
+|+-------------> JVM: Good/Bad [1186/261]
+||+------------> Smoke testing [1296]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [67]
 |||||+---------> Touched (modified by me) [361]
 ||||||+--------> Concurrent/Async [83]
-|||||||+-------> Random seed [141]
+|||||||+-------> Random seed [142]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [303]
+|||||||||+-----> Draft [304]
 ||||||||||+----> Ignoring [36]
 |||||||||||+---> Void (no local copy) [93]
 ||||||||||||+--> Un-implemented/reliable [51]
@@ -339,7 +340,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -657,7 +658,7 @@ GGS..T....... Jewels_and_stones
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
 GBS...C...... Juggler_sequence
-!BS...C.F.... Julia_set
+GBS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -691,6 +692,7 @@ GGS.....F.... LU_decomposition
 GGS.......... LZW_compression
 GGS.......... Lah_numbers
 !GS....R..... Langton%27s_ant
+GGS....R.D... Largest_five_adjacent_number
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
 GBS...C...... Largest_proper_divisor_of_n
