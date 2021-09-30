@@ -1,8 +1,8 @@
-Welcome to Rakudo™ v2021.09-4-gba15173fd.
+Welcome to Rakudo™ v2021.09-228-gdd2b274fd.
 Implementing the Raku™ programming language v6.d.
-Built on MoarVM version 2021.09-1-gb516702c4.
+Built on MoarVM version 2021.09-584-g962e835dc.
 updating from RC…
-+--------------> Moar: Good/Bad [1362/22]
++--------------> Moar: Good/Bad [1353/22]
 |+-------------> JVM: Good/Bad [1186/261]
 ||+------------> Smoke testing [1296]
 |||+-----------> sKipping validation [143]
@@ -11,10 +11,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [83]
 |||||||+-------> Random seed [142]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [304]
+|||||||||+-----> Draft [305]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [93]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [94]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -143,10 +143,10 @@ GGS.......... Binary_search
 GGS..T....... Binary_strings
 GGS..T...D... Bioinformatics_Global_alignment
 !GS....R..... Bioinformatics_Sequence_mutation
-!BS....R.D... Bioinformatics_Subsequence
+GBS....R.D... Bioinformatics_Subsequence
 GGS.......... Bioinformatics_base_count
 GGS.......... Biorhythms
-!GS..TcR.D... Birthday_problem
+GGS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
 GGS.......... Bitmap
@@ -298,7 +298,7 @@ GGS.......... Cramer%27s_rule
 ..........X.. Create_DWM_statusbar
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
-GGS..T.R..... Create_a_two-dimensional_array_at_runtime
+!GS..T.R..... Create_a_two-dimensional_array_at_runtime
 !GS....R..... Create_an_HTML_table
 GGS..T...D... Create_an_object_Native_demonstration
 GBS.......... Create_an_object_at_a_given_address
@@ -313,7 +313,7 @@ GBS......D... Curve_that_touches_three_points
 GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
 GBS...C..D... Cyclops_numbers
-GBS.......... Cyclotomic_polynomial
+!BS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
 GGS......D... Data_Encryption_Standard
@@ -340,7 +340,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -535,7 +535,7 @@ GGS..T...D... Generalised_floating_point_addition
 GGS....R..... Generate_Chess960_starting_position-2
 GGS.......... Generate_lower_case_ASCII_alphabet
 !GS....R..... Generate_random_chess_position
-GGS....R.D... Generate_random_numbers_without_repeating_a_value
+!GS....R.D... Generate_random_numbers_without_repeating_a_value
 GGS..T....... Generator_Exponential
 GGS.......... Generic_swap
 .........D... Geohash
@@ -658,7 +658,7 @@ GGS..T....... Jewels_and_stones
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
 GBS...C...... Juggler_sequence
-GBS...C.F.... Julia_set
+!BS...C.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
@@ -678,7 +678,7 @@ GGS.......... Knapsack_problem_Bounded-1
 GGS..T....... Knapsack_problem_Bounded-2
 GBS.......... Knapsack_problem_Continuous
 GGS..T....... Knapsack_problem_Unbounded
-!GS....R..... Knight%27s_tour
+GGS....R..... Knight%27s_tour
 !GS....R..... Knuth%27s_algorithm_S
 GGS....R..... Knuth%27s_power_tree
 !GS....R..... Knuth_shuffle
@@ -692,14 +692,14 @@ GGS.....F.... LU_decomposition
 GGS.......... LZW_compression
 GGS.......... Lah_numbers
 !GS....R..... Langton%27s_ant
-GGS....R.D... Largest_five_adjacent_number
+!GS....R.D... Largest_five_adjacent_number
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
 GBS...C...... Largest_proper_divisor_of_n
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
 GGS..T....... Latin_Squares_in_reduced_form
-GBS....R..... Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Technique
+!BS....R..... Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Technique
 GB.KI....D... Launch_rocket_with_countdown_and_acceleration_in_stdout
 GBS..TC...... Law_of_cosines_-_triples-1
 GGS..T....... Law_of_cosines_-_triples-2
@@ -747,7 +747,7 @@ GGS.......... Loops_Foreach
 GGS.......... Loops_Increment_loop_index_within_loop_body
 GG.KI........ Loops_Infinite
 GGS.......... Loops_N_plus_one_half
-GGS....R..... Loops_Nested
+!GS....R..... Loops_Nested
 GGS.......... Loops_While
 GGS.......... Loops_With_multiple_ranges-1
 GGS..T....... Loops_With_multiple_ranges-2
@@ -813,7 +813,7 @@ GGS......D... Minimum_number_of_cells_after,_before,_above_and_below_NxN_squares
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 GGS.......... Minkowski_question-mark_function
-GGS....R..... Modified_random_distribution
+!GS....R..... Modified_random_distribution
 GGS.......... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
@@ -1024,7 +1024,7 @@ GGS......D... Powerful_numbers
 GBS...C..D... Practical_numbers
 GG.K......... Pragmatic_directives
 GGS.......... Price_fraction
-GGS....R.D... Price_list_behind_API
+!GS....R.D... Price_list_behind_API
 GBS..TC...... Primality_by_Wilson%27s_theorem
 GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
@@ -1122,7 +1122,7 @@ GBS......D... Remove_vowels_from_a_string
 GGS.......... Rename_a_file
 GGS...CRF.... Rendezvous
 GBS.......... Rep-string
-GGS....R..... Repeat
+!GS....R..... Repeat
 GGS.......... Repeat_a_string
 GGS......D... Resistance_calculator
 GGS......D... Resistance_network_calculator
@@ -1136,6 +1136,7 @@ GGS......D... Reverse_the_gender_of_a_string
 GGS.......... Reverse_words_in_a_string
 GB.KI....D... Robots
 !GS..T.R..... Rock-paper-scissors
+.........D.VU Rodrigues_Rotation_Formula
 GGS.......... Roman_numerals_Decode
 GGS.......... Roman_numerals_Encode
 GGS.......... Roots_of_a_function
@@ -1198,7 +1199,7 @@ GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
 !GS..T.R..... Set_puzzle
-GGS....R..... Seven-sided_dice_from_five-sided_dice
+!GS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
 GBS.......... Shell_one-liner
 GGS......D... Shift_list_elements_to_left_by_3
@@ -1230,7 +1231,7 @@ GG.K......... Singly-linked_list_Element_insertion
 GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
-GBS....R..... Sleeping_Beauty_problem
+!BS....R..... Sleeping_Beauty_problem
 GGS..T...D... Smallest_enclosing_circle_problem
 GGS......D... Smallest_numbers
 GGS......D... Smallest_power_of_6_whose_decimal_expansion_contains_n
@@ -1298,7 +1299,7 @@ GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
 GGS.......... Spiral_matrix-2
 GBS.......... Split_a_character_string_based_on_change_of_character
-GGS..T.R.D... Spoof_game
+!GS..T.R.D... Spoof_game
 GBS..TC...... Square-free_integers
 GGS.......... Square_but_not_cube
 GBS.......... Square_form_factorization
