@@ -9,14 +9,14 @@
 #n# 2021-08-25 .race starts causing failure
 #n# 2021-09-10 pre-allocating @result, making @factorial non-lazy does not help
 
-#constant @factorial = 1, |[\×] 1..*;
-constant @factorial = 1, |[\×] 1..10000;
+constant @factorial = 1, |[\×] 1..*;
+#constant @factorial = 1, |[\×] 1..10000;
 
 constant $limit = 42_000; # 1_500_000;
 
 constant $bases = 9 .. 12;
 
-my @result[13];
+my @result; #[13];
 
 #$bases.race(:1batch).map: -> $base {
 #$bases.race(:degree($bases.elems), :1batch).map: -> $base {
