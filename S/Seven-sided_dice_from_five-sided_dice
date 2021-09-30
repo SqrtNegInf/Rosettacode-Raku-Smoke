@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# could switch back to 1_000_000 iterations, fast enough now
+#n# new-disp 'srand' shift
 
 srand 123456;
 
@@ -32,13 +33,13 @@ for @dist.kv -> $i, $v {
 
 my $moar = qq:to/END/;
 Expect 14285.714
-1 14385 +0.70%
-2 14204 -0.57%
-3 14223 -0.44%
-4 14134 -1.06%
-5 14343 +0.40%
-6 14437 +1.06%
-7 14274 -0.08%
+1 14376 +0.63%
+2 14313 +0.19%
+3 14297 +0.08%
+4 14330 +0.31%
+5 14408 +0.86%
+6 14084 -1.41%
+7 14192 -0.66%
 END
 
 my $jvm = qq:to/END/;
