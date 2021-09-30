@@ -1,5 +1,39 @@
 2021-09-29
+'new-disp' release
 'Mastermind' needs to be fixed, 'Use of Nil.uc coerced to empty string'
+'Julia_set' failing: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
+'srand' shift for about 15 others
+
+Heronian_triangles saw huge improvement:
+real     13.5  175.2
+user     53.3  245.2
+sys       3.5  146.4
+
+But 'Unprimeable_numbers' got slower (about 2x)
+
+Current:
+384.1   384.0   Knapsack_problem_Bounded-1
+327.7   328.5   Addition_chains
+277.3   326.5   Palindromic_dates
+157.6   168.3   Unprimeable_numbers
+148.1   157.4   Fibonacci_matrix-exponentiation
+134.6   194.6   XML_Validation
+129.7   131.1   24_game_Solve-1
+114.1   115.1   Smarandache_prime-digital_sequence
+113.7   217.2   Prime_words
+ 98.3   122.7   Perceptron
+
+Previous:
+641.6   638.1   Knapsack_problem_Bounded-1
+329.3   329.9   Addition_chains
+231.6   232.2   Palindromic_dates
+175.2   391.6   Heronian_triangles
+169.6   337.7   Prime_words
+161.8   160.8   Knapsack_problem_0_1-1
+123.1   123.8   Simulated_annealing
+121.3   124.5   24_game_Solve-1
+113.0   160.4   XML_Validation
+ 99.7   104.6   Fibonacci_matrix-exponentiation
 
 2021-09-27
 Hung on single instance of 'XML_Validation'?
