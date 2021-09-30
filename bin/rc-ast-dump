@@ -5,7 +5,6 @@
 #  NB: always run by-hand, catch any new tasks that must be skipped, as per < less -p2019-04-12 docs/Notes_to_self >
 #  check for tasks to fix (regarding */× swap) with:
 #      rc-ast-dump; fgrep '&infix:<*>' ast/* | perl -npe 's/:.*//' | sort -u
-#  why 'Factorions'?
 
 # clear out files from last run
 shell 'rm -f ast/*'; 
@@ -15,7 +14,6 @@ shell 'rm -f ast/*';
 my %runs-forever = 1 R[X[=>]] split /\s*\n/, q:to/END/;
 Bernoulli_numbers 
 Catalan_numbers_Pascal%27s_triangle
-Factorions
 Find_palindromic_numbers_in_both_binary_and_ternary_bases
 Floyd%27s_triangle
 Left_factorials
