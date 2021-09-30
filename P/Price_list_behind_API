@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# reduced everything by factor of 10, now has orphan group at high end (with Moar)
+#n# new-disp 'srand' shift
 
 srand 123456;
 
@@ -58,29 +59,28 @@ for @results -> @row {
 .say for @res;
 
 my $moar = q:to/END/;
-Using 10079 items with prices from 0 to 10080:
-Split into 21 bins of approx 500 elements:
-  From      0 to    522 with  501 items
-  From    523 to   1017 with  501 items
-  From   1018 to   1533 with  501 items
-  From   1534 to   2057 with  504 items
-  From   2058 to   2539 with  501 items
-  From   2540 to   3032 with  500 items
-  From   3033 to   3511 with  500 items
-  From   3512 to   4045 with  500 items
-  From   4046 to   4541 with  497 items
-  From   4542 to   5027 with  499 items
-  From   5028 to   5550 with  500 items
-  From   5551 to   6057 with  501 items
-  From   6058 to   6554 with  500 items
-  From   6555 to   7046 with  500 items
-  From   7047 to   7561 with  500 items
-  From   7562 to   8059 with  500 items
-  From   8060 to   8552 with  500 items
-  From   8553 to   9063 with  500 items
-  From   9064 to   9552 with  500 items
-  From   9553 to  10024 with  500 items
-  From  10025 to  10080 with   48 items
+Using 9984 items with prices from 0 to 9985:
+Split into 20 bins of approx 500 elements:
+  From      0 to    477 with  500 items
+  From    478 to   1005 with  501 items
+  From   1006 to   1482 with  502 items
+  From   1483 to   2007 with  500 items
+  From   2008 to   2451 with  499 items
+  From   2452 to   2957 with  500 items
+  From   2958 to   3435 with  500 items
+  From   3436 to   3925 with  500 items
+  From   3926 to   4461 with  501 items
+  From   4462 to   4936 with  500 items
+  From   4937 to   5448 with  499 items
+  From   5449 to   5959 with  500 items
+  From   5960 to   6476 with  499 items
+  From   6477 to   7025 with  500 items
+  From   7026 to   7528 with  500 items
+  From   7529 to   8027 with  500 items
+  From   8028 to   8532 with  500 items
+  From   8533 to   9026 with  500 items
+  From   9027 to   9528 with  500 items
+  From   9529 to   9985 with  456 items
 END
 
 my $jvm = q:to/END/;
