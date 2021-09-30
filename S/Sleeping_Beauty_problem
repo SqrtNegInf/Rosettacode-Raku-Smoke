@@ -3,6 +3,7 @@
 #c# 2021-05-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN OK
+#n# new-disp 'srand' shift
 
 srand 123456;
 
@@ -27,8 +28,8 @@ sub sleeping-beauty ($trials) {
 .say for @res;
 
 my $moar = q:to/END/;
-Wakenings over 1000000 experiments: 1498974
-Results of experiment:  Sleeping Beauty should estimate a credence of: 0.334246
+Wakenings over 1000000 experiments: 1498978
+Results of experiment:  Sleeping Beauty should estimate a credence of: 0.3342424
 END
 
 my $jvm = q:to/END/;
