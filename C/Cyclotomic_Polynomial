@@ -1,8 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cyclotomic_Polynomial
 #c# 2020-01-30 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
+#n# new-disp 'srand' shift
+#`{{
+No such method 'DESTROY' for invocant of type 'Math::Polynomial'.  Did
+you mean 'DESTROY'?
+  in method DESTROY at /Users/dhoekman/.rakudobrew/versions/moar-blead/install/share/perl6/site/sources/D05B283A0B3853A171F242BF3BBECC84E0DA5A31 (Inline::Perl5::ClassHOW) line 144
+  in block  at C/Cyclotomic_Polynomial line 24
+  in block <unit> at C/Cyclotomic_Polynomial line 20
+}}
 
 my @res;
 
