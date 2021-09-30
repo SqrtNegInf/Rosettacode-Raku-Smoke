@@ -3,8 +3,10 @@
 #c# 2016-02-25 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# new-disp 'srand' shift
 
 srand 123456;
+
 my @res;
 
 sub repeat (&f, $n) { f() xx $n };
@@ -15,8 +17,8 @@ repeat(&example, 3);
 
 my $moar = qq:to/END/;
 0.6764574829055268
-0.41703743117286907
-0.8940320547582592
+0.7990304472892966
+0.9576004610417211
 END
 
 my $jvm = qq:to/END/;
