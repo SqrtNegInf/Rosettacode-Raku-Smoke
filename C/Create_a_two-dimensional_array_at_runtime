@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-05-13 output format changed
+#n# new-disp 'srand' shift
 
 srand 123456;
 
@@ -33,6 +34,6 @@ is @a.gist, "[[7 7 7 7 7]\n [7 7 42 7 7]\n [7 7 7 7 7]]";
 if $*VM ~~ /jvm/ {
 is @array.gist, '[[@ @ @ @ @] [@ @ @ @  ] [@ @ @ @ @]]';
 } else {
-is @array.gist, '[[  @ @ @ @] [@ @ @ @ @] [@ @ @ @ @]]';
+is @array.gist, '[[@ @ @ @ @] [@ @ @ @ @] [@ @ @ @  ]]';
 }
 
