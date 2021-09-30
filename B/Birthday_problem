@@ -7,6 +7,7 @@
 #n# current approach is to repeatedly 'roll' out groups of birthdays (a memory hog, and too slow to be useful)
 #n# would it be faster to build a 'population' and sample it?  code everything into bit-fields?
 #n# 2021-03-03 flips between .505 and .506
+#n# new-disp 'srand' shift (for the better, to testing 'ok')
 
 srand 123456;
 
@@ -58,6 +59,7 @@ exit;
 
 .say for @res;
 
+exit;
 my $moar = qq:to/END/;
 2 people in a group of 23 share a common birthday. (0.506)
 END
