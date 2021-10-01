@@ -8,6 +8,7 @@
 #n# 2018-09-26 running time is no longer an issue!
 #n# 2020-03-12 caching more than halves wall-clock time
 #n# 2021-09-29 MoarVM oops: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
+#n#            test without concurrency, now reasonably fast (<1min) without
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -32,7 +33,8 @@ julia($out);
 $out.write: 'run/julia-set-perl6.png';
 
 sub julia ( $png ) {
-    ^$w .race.map: -> $x {
+    #^$w .race.map: -> $x {
+    ^$w .map: -> $x {
         for ^$h -> $y {
             my $z = Complex.new(($x - $w / 2) / $w × 3, ($y - $h / 2) / $h × 2);
             my $i = $maxIter;
