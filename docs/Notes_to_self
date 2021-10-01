@@ -2,16 +2,17 @@
 'new-disp' release
 'Mastermind' needs to be fixed, 'Use of Nil.uc coerced to empty string'
 'Julia_set' failing: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
+'Cyclotomic_Polynomial' has issue with Inline::Perl5, module 'Math::Polynomial'
 'srand' shift for about 15 others
 
 Heronian_triangles saw huge improvement:
-real     13.5  175.2
-user     53.3  245.2
-sys       3.5  146.4
+real     13.5  152.4
+user     53.3  216.0
+sys       3.5  137.5
 
-But 'Unprimeable_numbers' got slower (about 2x)
+But 'Unprimeable_numbers' and 'Smarandache_prime-digital_sequence' got slower (about 2x)
 
-Current:
+Current 10 slowest:
 384.1   384.0   Knapsack_problem_Bounded-1
 327.7   328.5   Addition_chains
 277.3   326.5   Palindromic_dates
@@ -23,17 +24,17 @@ Current:
 113.7   217.2   Prime_words
  98.3   122.7   Perceptron
 
-Previous:
-641.6   638.1   Knapsack_problem_Bounded-1
-329.3   329.9   Addition_chains
-231.6   232.2   Palindromic_dates
-175.2   391.6   Heronian_triangles
-169.6   337.7   Prime_words
-161.8   160.8   Knapsack_problem_0_1-1
-123.1   123.8   Simulated_annealing
-121.3   124.5   24_game_Solve-1
-113.0   160.4   XML_Validation
- 99.7   104.6   Fibonacci_matrix-exponentiation
+Previous 10 slowest:
+595.6   595.9   Knapsack_problem_Bounded-1
+342.6   342.5   Addition_chains
+226.3   227.4   Palindromic_dates
+168.5   330.8   Prime_words
+160.1   369.3   Heronian_triangles
+146.0   146.3   Knapsack_problem_0_1-1
+118.5   121.7   24_game_Solve-1
+112.9   113.7   Simulated_annealing
+109.3   159.2   XML_Validation
+102.6   556.7   Abundant_odd_numbers
 
 2021-09-27
 Hung on single instance of 'XML_Validation'?
