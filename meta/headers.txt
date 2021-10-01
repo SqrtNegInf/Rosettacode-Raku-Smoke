@@ -1221,6 +1221,7 @@ File: B/Bioinformatics_Subsequence
 #c# 2021-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# new-disp 'srand' shift
 
 File: B/Bioinformatics_Subsequence.jvm
 #!/usr/bin/env raku
@@ -1260,6 +1261,7 @@ File: B/Birthday_problem
 #n# current approach is to repeatedly 'roll' out groups of birthdays (a memory hog, and too slow to be useful)
 #n# would it be faster to build a 'population' and sample it?  code everything into bit-fields?
 #n# 2021-03-03 flips between .505 and .506
+#n# new-disp 'srand' shift (for the better, to testing 'ok')
 
 File: B/Bitcoin_address_validation
 #!/usr/bin/env perl6
@@ -2586,6 +2588,7 @@ File: C/Create_a_two-dimensional_array_at_runtime
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-05-13 output format changed
+#n# new-disp 'srand' shift
 
 File: C/Create_an_HTML_table
 #!/usr/bin/env perl6
@@ -2721,8 +2724,16 @@ File: C/Cyclotomic_Polynomial
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cyclotomic_Polynomial
 #c# 2020-01-30 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
+#n# new-disp 'srand' shift
+#`{{
+No such method 'DESTROY' for invocant of type 'Math::Polynomial'.  Did
+you mean 'DESTROY'?
+  in method DESTROY at /Users/dhoekman/.rakudobrew/versions/moar-blead/install/share/perl6/site/sources/D05B283A0B3853A171F242BF3BBECC84E0DA5A31 (Inline::Perl5::ClassHOW) line 144
+  in block  at C/Cyclotomic_Polynomial line 24
+  in block <unit> at C/Cyclotomic_Polynomial line 20
+}}
 
 File: D/DNS_query
 #!/usr/bin/env perl6
@@ -5979,6 +5990,8 @@ File: J/Julia_set
 #f# RC file: julia-set-perl6.png
 #n# 2018-09-26 running time is no longer an issue!
 #n# 2020-03-12 caching more than halves wall-clock time
+#n# 2021-09-29 MoarVM oops: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
+#n#            test without concurrency, now reasonably fast (<1min) without
 
 File: J/Julia_set.1
 #!/usr/bin/env perl6
@@ -6167,6 +6180,7 @@ File: K/Knight%27s_tour
 #c# 2015-11-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# new-disp 'srand' shift
 
 File: K/Knuth%27s_algorithm_S
 #!/usr/bin/env perl6
@@ -6310,6 +6324,7 @@ File: L/Largest_five_adjacent_number
 #c# 2021-09-27 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# new-disp 'srand' shift
 
 File: L/Largest_int_from_concatenated_ints
 #!/usr/bin/env perl6
@@ -6394,6 +6409,7 @@ File: L/Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Te
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# somewhat limited testing, but better than none
+#n# new-disp 'srand' shift
 
 File: L/Launch_rocket_with_countdown_and_acceleration_in_stdout
 #!/usr/bin/env perl6
@@ -6841,6 +6857,7 @@ File: L/Loops_Nested
 #c# 2016-05-10 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# new-disp 'srand' shift
 
 File: L/Loops_While
 #!/usr/bin/env perl6
@@ -7136,12 +7153,13 @@ File: M/Mastermind
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mastermind
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: OK
 #n# RC pipe: D B C E\nD F B E\nD F E B
 #z# RC pipe: A B C D\nC A F B\nF A C B
 #n# better testing again
 #n# 2021-06-17 yesterday/today: hangs in automated testing, more srand drift? [yes, it was]
+#n# new-disp 'srand' shift
 
 File: M/Matrix-exponentiation_operator
 #!/usr/bin/env perl6
@@ -7477,6 +7495,7 @@ File: M/Modified_random_distribution
 #c# 2021-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# new-disp 'srand' shift
 
 File: M/Modular_arithmetic
 #!/usr/bin/env perl6
@@ -9191,6 +9210,7 @@ File: P/Pig_the_dice_game_Player
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: pig_dice_player.BEND
+#n# new-disp 'srand' shift
 
 File: P/Pinstripe_Display
 #!/usr/bin/env perl6
@@ -9418,6 +9438,7 @@ File: P/Price_list_behind_API
 #m# MOAR: OK
 #j# JVM:  OK
 #n# reduced everything by factor of 10, now has orphan group at high end (with Moar)
+#n# new-disp 'srand' shift
 
 File: P/Primality_by_Wilson%27s_theorem
 #!/usr/bin/env perl6
@@ -10293,6 +10314,7 @@ File: R/Repeat
 #c# 2016-02-25 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# new-disp 'srand' shift
 
 File: R/Repeat_a_string
 #!/usr/bin/env perl6
@@ -10420,12 +10442,20 @@ File: R/Rock-paper-scissors
 #=# RC pipe: ro\nro\nro\nro\nq
 #n# answer changed, srand drift?
 
-File: R/Rodrigues%27_rotation_formula
+File: R/Rodrigues%E2%80%99_rotation_formula-1
 #!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Rodrigues%27_rotation_formula
-#c# 2021-09-29 NOT ON RC
+#u# http://rosettacode.org/wiki/Rodrigues%E2%80%99_Rotation_Formula
+#c# 2021-09-29 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: R/Rodrigues%E2%80%99_rotation_formula-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Rodrigues%E2%80%99_Rotation_Formula
+#c# 2021-09-30 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# very stylish indeed, but hit with Unicode penalty, over 2x as slow as plain-ASCII version
 
 File: R/Roman_numerals_Decode
 #!/usr/bin/env perl6
@@ -10968,6 +10998,7 @@ File: S/Seven-sided_dice_from_five-sided_dice
 #m# MOAR: OK
 #j#  JVM: OK
 #n# could switch back to 1_000_000 iterations, fast enough now
+#n# new-disp 'srand' shift
 
 File: S/Sexy_primes
 #!/usr/bin/env perl6
@@ -11296,6 +11327,7 @@ File: S/Sleeping_Beauty_problem
 #c# 2021-05-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN OK
+#n# new-disp 'srand' shift
 
 File: S/Smallest_enclosing_circle_problem
 #!/usr/bin/env raku
@@ -11846,7 +11878,7 @@ File: S/Spoof_game
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Spoof_game
 #c# 2020-02-07 >RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: OK
 #n# rendered non-interactive for testing
 
