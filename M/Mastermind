@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mastermind
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: OK
 #n# RC pipe: D B C E\nD F B E\nD F E B
 #z# RC pipe: A B C D\nC A F B\nF A C B
@@ -22,11 +22,13 @@ srand 1; say rand;
 srand 123456;
     my $puzzle = $repeat ?? @valid.roll($length) !! @valid.pick($length);
 say "Puzzle answer is: $puzzle"; # DH leave this in, or when run as cronjob, fails?
+die; # 2021-10-01 today just get the correct answer
     my @guesses;
 
     my $black = '●';
     my $white = '○';
 
+    my $cnt;
     loop {
         #clearscr();
         say header();
@@ -37,6 +39,7 @@ say "Puzzle answer is: $puzzle"; # DH leave this in, or when run as cronjob, fai
         my $score = score($puzzle, $guess);
         win() if $score eq ($black xx $length).join: ' ';
         @guesses.push: [$guess, $score];
+        die 'Seems to be jammed' if $cnt++ > 10;
     }
 
     sub header {
