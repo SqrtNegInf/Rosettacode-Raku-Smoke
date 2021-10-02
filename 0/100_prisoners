@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# don't use .race, otherwise testing is only approximate
+#n# cronjob and terminal results the same now?
 
 my @res;
 
@@ -72,30 +73,32 @@ sub optimal ($n) {
 my $moar-cronjob = q:to/END/;
  Simulation count: 10000
  Random play wins: 0.000% of simulations
-Optimal play wins: 31.740% of simulations
+Optimal play wins: 31.000% of simulations
  Simulation count: 100000
  Random play wins: 0.103% of simulations
-Optimal play wins: 35.493% of simulations
+Optimal play wins: 35.304% of simulations
 END
 
 my $moar-terminal = q:to/END/;
  Simulation count: 10000
  Random play wins: 0.000% of simulations
-Optimal play wins: 31.630% of simulations
+Optimal play wins: 31.000% of simulations
  Simulation count: 100000
  Random play wins: 0.103% of simulations
-Optimal play wins: 35.608% of simulations
+Optimal play wins: 35.304% of simulations
 END
 
 # results with 'MAIN'
-my $xxxx = q:to/END/;
+#`{
+$moar-terminal = q:to/END/;
  Simulation count: 10000
  Random play wins: 0.000% of simulations
-Optimal play wins: 31.750% of simulations
+Optimal play wins: 31.370% of simulations
  Simulation count: 100000
- Random play wins: 0.093% of simulations
-Optimal play wins: 35.202% of simulations
+ Random play wins: 0.103% of simulations
+Optimal play wins: 35.322% of simulations
 END
+}
 
 my $jvm = q:to/END/;
  Simulation count: 10000
