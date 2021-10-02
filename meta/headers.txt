@@ -29,6 +29,7 @@ File: 0/100_prisoners
 #m# MOAR: OK
 #j# JVM:  OK
 #n# don't use .race, otherwise testing is only approximate
+#n# cronjob and terminal results the same now?
 
 File: 0/15_Puzzle_Game
 #!/usr/bin/env perl6
@@ -7153,7 +7154,7 @@ File: M/Mastermind
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mastermind
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: OK
 #n# RC pipe: D B C E\nD F B E\nD F E B
 #z# RC pipe: A B C D\nC A F B\nF A C B
@@ -10442,17 +10443,17 @@ File: R/Rock-paper-scissors
 #=# RC pipe: ro\nro\nro\nro\nq
 #n# answer changed, srand drift?
 
-File: R/Rodrigues%E2%80%99_rotation_formula-1
+File: R/Rodrigues_rotation_formula-1
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Rodrigues%E2%80%99_Rotation_Formula
 #c# 2021-09-29 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: R/Rodrigues%E2%80%99_rotation_formula-2
+File: R/Rodrigues_rotation_formula-2
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Rodrigues%E2%80%99_Rotation_Formula
-#c# 2021-09-30 <RC
+#c# 2021-09-30 <RC, 2021-10-01 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# very stylish indeed, but hit with Unicode penalty, over 2x as slow as plain-ASCII version
@@ -11878,7 +11879,7 @@ File: S/Spoof_game
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Spoof_game
 #c# 2020-02-07 >RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: OK
 #n# rendered non-interactive for testing
 
