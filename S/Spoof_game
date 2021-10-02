@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Spoof_game
 #c# 2020-02-07 >RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: OK
 #n# rendered non-interactive for testing
 
@@ -24,8 +24,8 @@ sub spoof_for_2 {
         say 'I have set my pot and guess.';
 
         repeat {
-            $yourpot   = 3; # query_for_integer('Your pot?'  );
-            $yourguess = 1; # query_for_integer('Your guess?');
+            $yourpot   = 2; # query_for_integer('Your pot?'  );
+            $yourguess = 3; # query_for_integer('Your guess?');
         } until 0 <= $yourpot & $yourguess <= 6 and $yourpot+4 > $yourguess;
 
         push @res, "My pot is: $mypot\nMy guess is: $myguess";
@@ -40,14 +40,13 @@ sub spoof_for_2 {
 }
  
 spoof_for_2();
-exit;
 
 say my $result = join "\n", @res;
 
 my $moar = qq:to/END/;
-My pot is: 2
-My guess is: 6
-No winner!
+My pot is: 1
+My guess is: 5
+You won!
 END
 
 my $jvm = qq:to/END/;
