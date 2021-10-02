@@ -3,6 +3,8 @@
 #c# 2021-06-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2021-10-01 new-disp concurrency problem? MoarVM oops: MVM_str_hash_lvalue_fetch_nocheck called concurrently on the same hash
+#n#            test without concurrency
 
 my @res;
 
@@ -16,7 +18,8 @@ for 0, 2**67 - 1 -> $add {
     @res.push: "GPD for {$range.min} through {$range.max}:";
 
     #@res.push: ( $range.hyper(:18batch).map: {$_ == 1 ?? 1 !! $_ %% 2 ?? $_ / 2 !! .&proper-divisors.sort.tail} )\
-    @res.push: ( $range.hyper(:14batch).map: {$_ == 1 ?? 1 !! $_ %% 2 ?? $_ / 2 !! .&proper-divisors.max} )\
+    #@res.push: ( $range.hyper(:14batch).map: {$_ == 1 ?? 1 !! $_ %% 2 ?? $_ / 2 !! .&proper-divisors.max} )\
+    @res.push: ( $range.map: {$_ == 1 ?? 1 !! $_ %% 2 ?? $_ / 2 !! .&proper-divisors.max} )\
         .batch(10)».fmt("%{$add.chars + 1}d").join: "\n";
 
     #say (now - $start).fmt("%0.3f seconds\n");
