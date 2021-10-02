@@ -1,13 +1,13 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Rodrigues%E2%80%99_Rotation_Formula
-#c# 2021-09-30 <RC
+#c# 2021-09-30 <RC, 2021-10-01 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# very stylish indeed, but hit with Unicode penalty, over 2x as slow as plain-ASCII version
 
 my @res;
 
-sub infix:<•> { sum @^v1 Z× @^v2 } # dot product
+sub infix:<•> { sum @^v1 Z× @^v2 }  # dot product
 
 sub infix:<❌> (@v1, @v2) {         # cross product
     my \a = <1 2 0>; my \b = <2 0 1>;
@@ -26,12 +26,12 @@ sub postfix:<°> (\d) { d × τ / 360 } # degrees to radians
 
 sub rodrigues-rotate( @point, @axis, $θ ) {
     my (\cos𝜃, \sin𝜃) = cis($θ).reals;
-    my \𝑡    = 1 - cos𝜃;
-    my (\𝑥, \𝑦, \𝑧) = @axis;
+    my \𝑡             = 1 - cos𝜃;
+    my (\𝑥, \𝑦, \𝑧)   = @axis;
     map @point • *, [
-       [ cos𝜃 + 𝑥²⁢𝑡, 𝑥⁢𝑦⁢𝑡 - 𝑧⁢sin𝜃, 𝑥⁢𝑧⁢𝑡 + 𝑦⁢sin𝜃 ],
-       [ 𝑥⁢𝑦⁢𝑡 + 𝑧⁢sin𝜃, cos𝜃 + 𝑦²⁢𝑡, 𝑦⁢𝑧⁢𝑡 - 𝑥⁢sin𝜃 ],
-       [ 𝑧⁢𝑥⁢𝑡 - 𝑦⁢sin𝜃, 𝑧⁢𝑦⁢𝑡 + 𝑥⁢sin𝜃, cos𝜃 + 𝑧²⁢𝑡 ]
+       [  𝑥²⁢𝑡 +   cos𝜃, 𝑦⁢𝑥⁢𝑡 - 𝑧⁢sin𝜃, 𝑧⁢𝑥⁢𝑡 + 𝑦⁢sin𝜃 ],
+       [ 𝑥⁢𝑦⁢𝑡 + 𝑧⁢sin𝜃,  𝑦²⁢𝑡 +   cos𝜃, 𝑧⁢𝑦⁢𝑡 - 𝑥⁢sin𝜃 ],
+       [ 𝑥⁢𝑧⁢𝑡 - 𝑦⁢sin𝜃, 𝑦⁢𝑧⁢𝑡 + 𝑥⁢sin𝜃,  𝑧²⁢𝑡 +   cos𝜃 ]
     ]
 }
 
@@ -39,31 +39,32 @@ sub point-vector (@point, @vector) {
     rodrigues-rotate @point, normal(@point ❌ @vector), angle-between @point, @vector
 }
 
-@res.push: "Task example - Point and composite axis / angle:\n" ~
-    point-vector [5, -6, 4], [8, 5, -30];
-
-@res.push: qq:to/END/;
-
-   Perhaps more useful, (when calculating a range of motion for a robot appendage,
-   for example), feeding a point, axis of rotation and rotation angle separately;
-   since theoretically, the point vector and axis of rotation should be constant:
-   END
-
-for 0, 10, 20 ... 180 { # in degrees
-    @res.push: sprintf "Rotated %3d°: %.13f, %.13f, %.13f", $_,
+@res.push: qq:to/TESTING/;
+Task example - Point and composite axis / angle:
+{ point-vector [5, -6, 4], [8, 5, -30] }
+ 
+Perhaps more useful, (when calculating a range of motion for a robot appendage,
+for example), feeding a point, axis of rotation and rotation angle separately;
+since theoretically, the point vector and axis of rotation should be constant:
+ 
+{
+(0, 10, 20 ... 180).map( { # in degrees
+    sprintf "Rotated %3d°: %.13f, %.13f, %.13f", $_,
     rodrigues-rotate [5, -6, 4], ([5, -6, 4] ❌ [8, 5, -30]).&normal, .°
+}).join: "\n"
 }
+TESTING
 
 .say for @res;
 
 my $ref = q:to/END/;
 Task example - Point and composite axis / angle:
 2.2322210733082275 1.3951381708176431 -8.370829024905852
-
+ 
 Perhaps more useful, (when calculating a range of motion for a robot appendage,
 for example), feeding a point, axis of rotation and rotation angle separately;
 since theoretically, the point vector and axis of rotation should be constant:
-
+ 
 Rotated   0°: 5.0000000000000, -6.0000000000000, 4.0000000000000
 Rotated  10°: 5.7240554466526, -6.0975296976939, 2.6561853906284
 Rotated  20°: 6.2741883650704, -6.0097890410223, 1.2316639322573
@@ -83,6 +84,7 @@ Rotated 150°: -2.0265707929363, 4.6528608599741, -7.1584842417190
 Rotated 160°: -3.1227378427887, 5.2665224084086, -6.2858770340300
 Rotated 170°: -4.1240220834695, 5.7201633384526, -5.2222766334692
 Rotated 180°: -5.0000000000000, 6.0000000000000, -4.0000000000000
+
 END
 
 use Test;
