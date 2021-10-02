@@ -1,23 +1,23 @@
-Welcome to Rakudo™ v2021.09-229-g38f6f8731.
+Welcome to Rakudo™ v2021.09-231-g21271aa5f.
 Implementing the Raku™ programming language v6.d.
 Built on MoarVM version 2021.09-584-g962e835dc.
 updating from RC…
-+--------------> Moar: Good/Bad [1363/25]
-|+-------------> JVM: Good/Bad [1186/261]
-||+------------> Smoke testing [1293]
++--------------> Moar: Good/Bad [1365/23]
+|+-------------> JVM: Good/Bad [1187/263]
+||+------------> Smoke testing [1298]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [67]
-|||||+---------> Touched (modified by me) [361]
+|||||+---------> Touched (modified by me) [362]
 ||||||+--------> Concurrent/Async [82]
 |||||||+-------> Random seed [142]
 ||||||||+------> File output [99]
 |||||||||+-----> Draft [305]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [94]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [92]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
-!GS...cR..... 100_prisoners
+GGS...cR..... 100_prisoners
 GB.KI..R..... 15_puzzle_game
 .........D.VU 15_puzzle_game_in_3D
 GG.K......... 15_puzzle_solver
@@ -270,7 +270,7 @@ GB.K.TC...... Concurrent_computing
 GG.K......... Conditional_structures
 GGS......D... Conjugate_a_Latin_verb
 GGS.....F.... Conjugate_transpose
-...........V. Consecutive_primes_with_ascending_or_descending_dfferences
+GBS.......... Consecutive_primes_with_ascending_or_descending_differences
 GGS..T....... Constrained_genericity
 GGS..T.RF.... Constrained_random_points_on_a_circle
 GGS..T....... Continued_fraction
@@ -695,7 +695,7 @@ GGS.......... Lah_numbers
 GGS....R.D... Largest_five_adjacent_number
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
-GBS...C...... Largest_proper_divisor_of_n
+!BS...C...... Largest_proper_divisor_of_n
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
 GGS..T....... Latin_Squares_in_reduced_form
@@ -773,10 +773,10 @@ GGS.....FD... Make_a_backup_file
 GGS..T....... Make_directory_path
 GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
-GBS.....F.... Mandelbrot_set-2
+!BS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
-BG.....R..... Mastermind
+!GS....R..... Mastermind
 GGS..T....... Matrix-exponentiation_operator
 GGS..T....... Matrix_chain_multiplication
 GG.K......... Matrix_digital_rain
@@ -843,7 +843,7 @@ GB.K......... Multiple_regression
 GGS.......... Multiplication_tables
 GBS..T....... Multiplicative_order
 GGS..T....... Multisplit
-.........D.VU Multiton
+.........D.V. Multiton
 GGS.......... Munchausen_numbers
 GGS..T..F.... Munching_squares-1
 GGS..T..F.... Munching_squares-2
@@ -1035,7 +1035,7 @@ GGS......D... Prime_numbers_which_contain_123
 .........D.V. Prime_triplets
 GBS...C..D... Prime_words
 GGS..T....... Primes_-_allocate_descendants_to_their_ancestors
-GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
+!GS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 .........D.V. Primes_which_contain_only_one_odd_digit
 GGS......D... Primes_whose_first_and_last_number_is_3
 GGS...C..D... Primes_whose_sum_of_digits_is_25
@@ -1136,7 +1136,9 @@ GGS......D... Reverse_the_gender_of_a_string
 GGS.......... Reverse_words_in_a_string
 GB.KI....D... Robots
 !GS..T.R..... Rock-paper-scissors
-.........D.V. Rodrigues_rotation_formula
+.........D... Rodrigues_rotation_formula
+GGS..T....... Rodrigues_rotation_formula-1
+GBS.......... Rodrigues_rotation_formula-2
 GGS.......... Roman_numerals_Decode
 GGS.......... Roman_numerals_Encode
 GGS.......... Roots_of_a_function
@@ -1299,7 +1301,7 @@ GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
 GGS.......... Spiral_matrix-2
 GBS.......... Split_a_character_string_based_on_change_of_character
-BG...T.R.D... Spoof_game
+GGS..T.R.D... Spoof_game
 GBS..TC...... Square-free_integers
 GGS.......... Square_but_not_cube
 GBS.......... Square_form_factorization
