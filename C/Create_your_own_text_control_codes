@@ -1,0 +1,35 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Create_your_own_text_control_codes
+#c# 2021-10-02 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# printf -> sprintf;
+
+use Lingua::EN::Numbers;
+use Acme::Text::UpsideDown;
+
+sub sprintf (Str $format is copy, *@vars is copy) {
+    my @directives = $format.comb(/ <?after <-[%]>|^> '%' <[ +0#-]>* <alpha>/);
+    for ^@directives {
+        if @directives[$_] eq '%y' {
+            $format.=subst('%y', '%s');
+            @vars[$_].=&comma;
+        } elsif @directives[$_] eq '%z' {
+            $format.=subst('%z', '%s');
+            @vars[$_].=&upsidedown;
+        }
+    }
+    &CORE::sprintf($format, @vars)
+}
+
+say my $result = sprintf "Integer %d with commas: %y\nSpelled out: %s\nInverted: %z",
+       12345, 12345, 12345.&cardinal, 12345.&cardinal;
+
+my $ref = q:to/END/;
+Integer 12345 with commas: 12,345
+Spelled out: twelve thousand, three hundred forty-five
+Inverted: ǝʌᴉɟ-ʎʇɹoɟ pǝɹpunɥ ǝǝɹɥʇ ‘puɐsnoɥʇ ǝʌꞁǝʍʇ
+END
+
+use Test;
+is $result, chomp $ref;
