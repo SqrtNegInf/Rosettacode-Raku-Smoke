@@ -5,6 +5,8 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #f# RC file: mandelbrot.png
+#n# 2021-10-01 new-disp concurrency problem:? MoarVM oops: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
+#n#            test without concurrency
 
 use Image::PNG::Portable;
  
@@ -16,7 +18,8 @@ my $maxIter = 150;
 my @re = scale(-2.05 .. 1.05, $h);
 my @im = scale( -11/8 .. 11/8, $w) X× 1i;
  
-race for ^($w div 2) -> $x {
+#race for ^($w div 2) -> $x {
+for ^($w div 2) -> $x {
     ^$h .map: -> $y {
         my $i = (mandelbrot( @re[$y] + @im[$x] ) / $maxIter) ** .25;
         my @hsv = hsv2rgb($i, 1, ?$i).rotate;
