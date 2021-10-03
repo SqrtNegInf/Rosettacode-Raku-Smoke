@@ -2617,6 +2617,14 @@ File: C/Create_an_object_at_a_given_address
 #n# Type check failed for return value; expected NativeCall::Types::Pointer[uint8] but got Whatever (*)
 #n#  in block <unit> at C/Create_an_object_at_a_given_address line 22
 
+File: C/Create_your_own_text_control_codes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Create_your_own_text_control_codes
+#c# 2021-10-02 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# printf -> sprintf;
+
 File: C/Cuban_primes-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cuban_primes
@@ -5991,7 +5999,7 @@ File: J/Julia_set
 #f# RC file: julia-set-perl6.png
 #n# 2018-09-26 running time is no longer an issue!
 #n# 2020-03-12 caching more than halves wall-clock time
-#n# 2021-09-29 MoarVM oops: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
+#n# 2021-09-29 new-disp concurrency problem:? MoarVM oops: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
 #n#            test without concurrency, now reasonably fast (<1min) without
 
 File: J/Julia_set.1
@@ -6365,6 +6373,8 @@ File: L/Largest_proper_divisor_of_n
 #c# 2021-06-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2021-10-01 new-disp concurrency problem? MoarVM oops: MVM_str_hash_lvalue_fetch_nocheck called concurrently on the same hash
+#n#            test without concurrency
 
 File: L/Last_Friday_of_each_month
 #!/usr/bin/env perl6
@@ -7113,6 +7123,8 @@ File: M/Mandelbrot_set-2
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #f# RC file: mandelbrot.png
+#n# 2021-10-01 new-disp concurrency problem:? MoarVM oops: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
+#n#            test without concurrency
 
 File: M/Mandelbrot_set.1
 #!/usr/bin/env perl6
@@ -7156,7 +7168,7 @@ File: M/Mastermind
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# RC pipe: D B C E\nD F B E\nD F E B
+#n# RC pipe: D B C E\nC B D A\nA B D C
 #z# RC pipe: A B C D\nC A F B\nF A C B
 #n# better testing again
 #n# 2021-06-17 yesterday/today: hangs in automated testing, more srand drift? [yes, it was]
@@ -7741,6 +7753,14 @@ File: M/Multisplit
 #c# 2015-12-01 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: M/Multiton
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Multiton
+#c# 2021-10-02 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# fairly often no results?
 
 File: M/Munchausen_numbers
 #!/usr/bin/env perl6
@@ -9567,6 +9587,8 @@ File: P/Primes_-_allocate_descendants_to_their_ancestors-1
 #n# running with lowered $max
 #n# JVM emits errors, but works
 #n# 2021-09-05 fails fairly often during automated testing lately?
+#n# 2021-10-01 new-disp concurrency problem:? MoarVM oops: MVM_str_hash_entry_size called with a stale hashtable pointer
+#n#            test without concurrency
 
 File: P/Primes_which_contain_only_one_odd_number
 #!/usr/bin/env raku
