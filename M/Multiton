@@ -1,0 +1,53 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Multiton
+#c# 2021-10-02 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# fairly often no results?
+
+srand  123456;
+
+my @res[10];
+
+# 20211001 Raku programming solution 
+
+enum MultitonType < Gold Silver Bronze >;
+
+class Multiton { 
+
+   my %instances = MultitonType.keys Z=> $ ⚛= 1 xx MultitonType.keys.elems;
+
+   has $.type is rw; 
+
+   method TWEAK { self.type = 'Nothing' unless cas(%instances{self.type}, 1, 0) }
+}
+
+race for ^10 -> $i {
+   Thread.start(
+      sub {
+#         sleep roll(^2);
+         my $obj = Multiton.new: type => MultitonType.roll;
+         @res[$i] = "Thread $i has got " ~ $obj.type;
+      }
+   );
+}
+
+.say for @res;
+
+# results vary
+my $ref = q:to/END/;
+Thread 5 has got Bronze
+Thread 9 has got Gold
+Thread 7 has got Nothing
+Thread 8 has got Nothing
+Thread 3 has got Nothing
+Thread 2 has got Nothing
+Thread 1 has got Nothing
+Thread 0 has got Silver
+Thread 4 has got Nothing
+Thread 6 has got Nothing
+END
+
+use Test;
+say my $result = @res.join(' ');
+say 'ok 1 -' if [and] ($result.contains: $_ for <Gold Silver Bronze>);
