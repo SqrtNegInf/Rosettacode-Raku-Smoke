@@ -6,13 +6,16 @@
 #n# running with lowered $max
 #n# JVM emits errors, but works
 #n# 2021-09-05 fails fairly often during automated testing lately?
+#n# 2021-10-01 new-disp concurrency problem:? MoarVM oops: MVM_str_hash_entry_size called with a stale hashtable pointer
+#n#            test without concurrency
 
 my @res;
 
 my $max = 50;
 my @primes = (2 .. $max).race(:16batch).grep: *.is-prime;
 my %tree;
-(1..$max).race(:16batch).map: {
+#(1..$max).race(:16batch).map: {
+(1..$max).map: {
     %tree{$_}<ancestor> = ();
     %tree{$_}<descendants> = {};
 };
