@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Multiton
-#c# 2021-10-02 <RC
+#c# 2021-10-02 <RC, 2021-10-03 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# fairly often no results?
@@ -15,11 +15,11 @@ enum MultitonType < Gold Silver Bronze >;
 
 class Multiton { 
 
-   my %instances = MultitonType.keys Z=> $ ⚛= 1 xx MultitonType.keys.elems;
+   my %instances = MultitonType.keys Z=> $ ⚛= 1 xx *;
 
    has $.type is rw; 
 
-   method TWEAK { self.type = 'Nothing' unless cas(%instances{self.type}, 1, 0) }
+   method TWEAK { $.type = 'Nothing' unless cas(%instances{$.type}, 1, 0) }
 }
 
 race for ^10 -> $i {
