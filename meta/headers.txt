@@ -2019,6 +2019,7 @@ File: C/Cistercian_numerals
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: cistercian.svg
+#n# 2021-10-04 ordering of random selection wasn't stable, so have to sort?
 
 File: C/Classes
 #!/usr/bin/env perl6
@@ -7365,8 +7366,9 @@ File: M/Mersenne_primes
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mersenne_primes
 #c# 2018-01-27 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
+#n# network connection failure (since before 'new-disp')
 
 File: M/Mertens_function
 #!/usr/bin/env perl6
@@ -8397,6 +8399,7 @@ File: O/Order_two_numerical_lists
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-10-07 now stable?
+#n# 2020-10-04 wow, been ignoring this for a year now...  Try testing new results, see what happens.
 
 File: O/Ordered_Partitions
 #!/usr/bin/env perl6
@@ -8495,19 +8498,7 @@ File: P/Palindromic_dates
 #c# 2019-10-xx NOT ON RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# you snooze, you lose... this is overkill for Steenslag's task, so giving it a miss
-#n#
-#n# Fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
-#n#   copiously annotated for the beginning programmer (Hi Oscar!)
-#n#
-#n# Further notes:
-#n#   fortunately 2-29-22 is not a leap year (yy in m-d-yy ambiguous)
-#n#   the Julian/Gregorian change-over 'missing' days were not palindrome candidates
-#n#   slow, but the results are good for 100,000 years!
-#n#   not using any date/time facility in the language (though might be good to validate dates?)
-#n#   no 'suspicious' parentheses -- code less 'busy' but you might have to think a little harder about implied scopes
-#n#   non-cryptic variable names
-#n#   working the DRY principle pretty hard (too far?)
+#n# 2021-10-04 the random part was proving hard to test, so skip for now
 
 File: P/Palindromic_dates.0
 #!/usr/bin/env perl6
