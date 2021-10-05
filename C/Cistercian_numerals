@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: cistercian.svg
+#n# 2021-10-04 ordering of random selection wasn't stable, so have to sort?
 
 srand 123456;
 
@@ -28,7 +29,8 @@ q|<svg  width="875" height="470" style="stroke:black;" version="1.1" xmlns="http
 my $hs = 50; # horizontal spacing
 my $vs = 25; # vertical spacing
 
-for flat ^10, 20, 300, 4000, 5555, 6789, 9394, (^10000).pick(14) -> $cistercian {
+#for flat ^10, 20, 300, 4000, 5555, 6789, 9394, (^10000).pick(14) -> $cistercian {
+for flat ^10, 20, 300, 4000, 5555, 6789, 9394, sort (^10000).pick(14) -> $cistercian {
 
     $out.say: |@components[0].map: { # draw zero / base vertical bar
         qq|<line x1="{.[0] + $hs}" y1="{.[1] + $vs}" x2="{.[2] + $hs}" y2="{.[3] + $vs}"/>|
