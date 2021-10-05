@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-10-07 now stable?
+#n# 2020-10-04 wow, been ignoring this for a year now...  Try testing new results, see what happens.
 
 # This is already a built-in comparison operator.
 
@@ -33,16 +34,16 @@ my $moar = qq:to/END/;
 1 2 4 before 1 2 4 = False
 1 2 4 before 1 2 = False
 1 2 before 1 2 4 = True
-50 26 before 50 67 = True
-94 71 64 before 94 71 64 = False
-40 33 before 40 1 22 = False
-32 59 2 before 32 2 = False
-40 60 64 before 22 78 43 = False
-4 26 before 4 71 60 = True
-76 21 66 before 76 84 75 66 = True
-73 73 22 before 73 54 30 48 = False
-15 87 59 before 15 87 87 4 = True
-81 66 before 66 = False
+84 70 67 before 98 44 70 67 = True
+15 60 79 before 94 79 = True
+70 54 93 before 85 93 37 = True
+59 2 before 59 = False
+6 40 before 88 65 22 = True
+43 40 50 before 43 40 50 = False
+71 60 85 before 71 60 85 = False
+18 99 before 18 = False
+22 36 80 before 30 36 36 = True
+87 59 before 87 59 = False
 END
 
 my $jvm = qq:to/END/;
