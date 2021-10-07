@@ -5,7 +5,8 @@
 #j#  JVM: OK
 
 sub horner1 ( @coeffs, $x ) {
-    @coeffs.reverse.reduce: { $^a × $x + $^b };
+    #@coeffs.reverse.reduce: { $^a × $x + $^b };
+    @coeffs.reverse.reduce(* × $x + *);
 }
 
 say horner1( [ -19, 7, -4, 6 ], 3 );
