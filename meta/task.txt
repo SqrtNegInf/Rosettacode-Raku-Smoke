@@ -1,20 +1,20 @@
-Welcome to Rakudo™ v2021.09-280-gd4f7d1742.
+Welcome to Rakudo™ v2021.09-281-gb34ae24ae.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.09-646-g4e7fa7704.
 updating from RC…
-+--------------> Moar: Good/Bad [1370/25]
-|+-------------> JVM: Good/Bad [1188/265]
-||+------------> Smoke testing [1299]
++--------------> Moar: Good/Bad [1372/25]
+|+-------------> JVM: Good/Bad [1188/266]
+||+------------> Smoke testing [1300]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [362]
 ||||||+--------> Concurrent/Async [81]
 |||||||+-------> Random seed [142]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [307]
+|||||||||+-----> Draft [309]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [91]
-||||||||||||+--> Un-implemented/reliable [50]
+|||||||||||+---> Void (no local copy) [92]
+||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -415,7 +415,7 @@ GGS.......... Events
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -696,6 +696,7 @@ GGS.......... Lah_numbers
 GGS....R.D... Largest_five_adjacent_number
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
+.........D.VU Largest_product_in_a_grid
 GBS...c...... Largest_proper_divisor_of_n
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
@@ -1236,6 +1237,7 @@ GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
 GBS....R..... Sleeping_Beauty_problem
 GGS..T...D... Smallest_enclosing_circle_problem
+GBS......D... Smallest_multiple
 GGS......D... Smallest_numbers
 GGS......D... Smallest_power_of_6_whose_decimal_expansion_contains_n
 GGS......D... Smallest_square_that_begins_with_n
