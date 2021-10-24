@@ -1,0 +1,59 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Last_list_item
+#c# 2021-10-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# original output not replicated for testing, see 'refx'
+
+my @res;
+
+# Uses no sorting; does not modify overall list order while processing.
+
+@res.push: ' Original ' ~ my @list = 6, 81, 243, 14, 25, 49, 123, 69, 11;
+
+push @list: get(min @list) + get(min @list) while @list > 1;
+@res.push: @list;
+
+sub get ($min) {
+    @list.splice: @list.first(* == $min, :k), 1;
+    @res.push: sprintf " %3d", $min;
+    $min;
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+ Original 6 81 243 14 25 49 123 69 11
+   6
+  11
+  14
+  17
+  25
+  31
+  49
+  56
+  69
+  81
+ 105
+ 123
+ 150
+ 228
+ 243
+ 378
+621
+END
+
+my $refx = q:to/END/;
+ Original [6 81 243 14 25 49 123 69 11]
+   6   11 [81 243 14 25 49 123 69 17]
+  14   17 [81 243 25 49 123 69 31]
+  25   31 [81 243 49 123 69 56]
+  49   56 [81 243 123 69 105]
+  69   81 [243 123 105 150]
+ 105  123 [243 150 228]
+ 150  228 [243 378]
+ 243  378 [621]
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
