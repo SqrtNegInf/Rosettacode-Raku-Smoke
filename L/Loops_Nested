@@ -3,7 +3,7 @@
 #c# 2016-05-10 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# new-disp 'srand' shift
+#n# new-disp 'srand' shift (2021-10-22: further shift)
 
 srand 123456;
 
@@ -23,6 +23,13 @@ LINE: for @a -> @line {
 .say for @res;
 
 my $moar = qq:to/END/;
+ 12 15 2 5 12 5 18 6 7 6
+ 11 12 19 7 18 15 11 3 2 2
+ 6 13 17 19 3 10 3 11 19 6
+ 5 17 10 20
+END
+
+my $moarx = qq:to/END/;
  10 14 11 9 15 1 19 12 15 2
  14 18 6 10 16 6 17 11 12 19
  7 18 15 11 3 2 2 6 13 17
