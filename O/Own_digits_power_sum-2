@@ -3,9 +3,9 @@
 #c# 2021-10-25 NOT ON RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# 'race' is just a band-aid over the non-performant code
+#n# 'race' is just a band-aid over the expressive but non-performant code
 
-my @n;
+my @n[100];
 my atomicint $i;
 
 my $lo = 3;
