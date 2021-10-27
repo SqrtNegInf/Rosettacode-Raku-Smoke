@@ -1,0 +1,16 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Minimum_primes
+#c# 2021-10-27 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+say my $result = ([Zmax] <5 45 23 21 67>, <43 22 78 46 38>, <9 98 12 54 53>)».&next-prime[^5];
+
+sub next-prime { ($^m..*).first: &is-prime }
+
+my $ref = '43 101 79 59 67';
+
+use Test;
+is $result, $ref;
