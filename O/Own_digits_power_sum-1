@@ -8,9 +8,7 @@
 
 for 3..4 -> $d {
     for [X](^10 xx $d).unique(as => *.sort.cache, with => &[eqv]) -> @digits {
-        #my $dps = sum @digits X** $d;
-        #say $dps if $d == $dps.comb.elems and @digits.sort.join == $dps.comb.sort.join;
-        .say if $d == .comb.elems and @digits.sort.join == .comb.sort.join given sum @digits X** $d;
+        .say if $d == .comb.elems and @digits.join == .comb.sort.join given sum @digits X** $d;
     }
 }
 
