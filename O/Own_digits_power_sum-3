@@ -1,0 +1,38 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Own_digits_power_sum
+#c# 2021-10-25 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# brute force: 'race' is just a band-aid over the expressive but non-performant code
+#n# try changing the .race iterator: no real help, predictably
+
+my @n[100];
+my atomicint $i;
+
+my ($lo,$hi) = 3, 7;
+
+($lo..$hi).race.map: -> $d {
+    @n[$i⚛++] = $_ if $_ == sum .comb X** $d for 10**($lo-1) .. 10**$hi - 1
+}
+
+.say for @n.grep(so *).sort; exit;
+
+say my $result = @n.grep(so *).sort.join("\n");
+
+my $ref = q:to/END/;
+153
+370
+371
+407
+1634
+4150
+4151
+8208
+9474
+54748
+92727
+93084
+END
+
+use Test;
+is $result, chomp $ref;
