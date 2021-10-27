@@ -6,7 +6,7 @@
 #j# JVM:  OK
 #n# combinatorics
 
-for 3..4 -> $d {
+for 3..8 -> $d {
     for [X](^10 xx $d).unique(as => *.sort.cache, with => &[eqv]) -> @digits {
         .say if $d == .comb.elems and @digits.join == .comb.sort.join given sum @digits X** $d;
     }
