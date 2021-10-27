@@ -2,16 +2,16 @@ Welcome to Rakudo™ v2021.10-9-gd37b11186.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.10-1-g07060faf1.
 updating from RC…
-+--------------> Moar: Good/Bad [1376/25]
-|+-------------> JVM: Good/Bad [1191/267]
-||+------------> Smoke testing [1304]
-|||+-----------> sKipping validation [143]
++--------------> Moar: Good/Bad [1379/25]
+|+-------------> JVM: Good/Bad [1193/268]
+||+------------> Smoke testing [1305]
+|||+-----------> sKipping validation [144]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [362]
-||||||+--------> Concurrent/Async [82]
+||||||+--------> Concurrent/Async [84]
 |||||||+-------> Random seed [142]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [311]
+|||||||||+-----> Draft [312]
 ||||||||||+----> Ignoring [36]
 |||||||||||+---> Void (no local copy) [91]
 ||||||||||||+--> Un-implemented/reliable [51]
@@ -814,6 +814,7 @@ GGS....R..... Miller-Rabin_primality_test
 GG.KI..R..... Minesweeper_game
 GGS.......... Minimal_steps_down_to_1
 GGS......D... Minimum_number_of_cells_after,_before,_above_and_below_NxN_squares
+GGS......D... Minimum_numbers_of_three_lists
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 GGS.......... Minkowski_question-mark_function
@@ -932,7 +933,9 @@ GGS..T....... Ordered_partitions
 GGS.......... Ordered_words
 GGS......D... Overloaded_operators
 .........D..U Own_digits_power_sum
+GG.K..C...... Own_digits_power_sum-1
 GBS...C...... Own_digits_power_sum-2
+GB....C...... Own_digits_power_sum-3
 BB........... P-Adic_numbers,_basic
 ...........VU P-Adic_square_roots
 GGS..T....... P-value_correction
