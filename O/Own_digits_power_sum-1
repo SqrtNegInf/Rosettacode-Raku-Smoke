@@ -1,55 +1,20 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Own_digits_power_sum
-#t# inprogress
-#c# 2021-10-xx NOT ON RC
-#m# MOAR: OK
-#j# JVM:  OK
-#n# combinatorics
+#c# 2021-10-27 NOT ON RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# combinatorics code slow
+#n# 3,5:  258.50s user 0.52s system 100% cpu 4:18.73 total
 
-for 3..8 -> $d {
-    for [X](^10 xx $d).unique(as => *.sort.cache, with => &[eqv]) -> @digits {
-        .say if $d == .comb.elems and @digits.join == .comb.sort.join given sum @digits X** $d;
+say my $result = sort gather {
+    for 3..5 -> $d {
+        for [X](^10 xx $d).unique(as => *.sort.cache, with => &[eqv]) -> @digits {
+            .take if $d == .comb.elems and @digits.join == .comb.sort.join given sum @digits X** $d;
+        }
     }
 }
 
-exit;
-my $result;
-
-my $ref = q:to/END/;
-153
-370
-371
-407
-1634
-4150
-4151
-8208
-9474
-54748
-92727
-93084
-548834
-1741725
-4210818
-9800817
-9926315
-24678050
-24678051
-88593477
-146511208
-472335975
-534494836
-912985153
-END
+my $ref = '153 370 371 407 1634 8208 9474 54748 92727 93084';
 
 use Test;
-is $result, chomp $ref;
-
-=finish 
-
-( 10**($lo-1) .. 10**$hi - 1 ).race.map: -> $n {
-}
-
-#.say for @n.grep(so *).sort;
-say my $result = @n.grep(so *).sort.join("\n");
-exit;
+is $result, $ref;
