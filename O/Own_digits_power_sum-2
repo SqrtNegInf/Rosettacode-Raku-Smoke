@@ -1,36 +1,29 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Own_digits_power_sum
 #c# 2021-10-25 NOT ON RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #n# brute force: 'race' is just a band-aid over the expressive but non-performant code
+#n# 3,7:  1366.62s user  25.13s system 558% cpu     4:09.27 total
+#n# 3,8: 33147.68s user 309.32s system  89% cpu 10:21:25.16 total (killed before completion)
+#n# 3,8: xx
 
 my @n[100];
 my atomicint $i;
 
-my ($lo,$hi) = 3, 5;
+my ($lo,$hi) = 3, 8;
 
 ( 10**($lo-1) .. 10**$hi - 1 ).race.map: -> $n {
-    @n[$i⚛++] = $n if $n == sum $n.comb X** $_ for $lo..$hi
+    for $lo..$hi -> $d {
+        next unless $d ==  $n.comb.elems;
+        @n[$i⚛++] = $n if $n == (sum $n.comb X** $d);
+    }
 }
 
-#.say for @n.grep(so *).sort;
-say my $result = @n.grep(so *).sort.join("\n");
+say my $result = @n.grep(so *).sort;
+exit;
 
-my $ref = q:to/END/;
-153
-370
-371
-407
-1634
-4150
-4151
-8208
-9474
-54748
-92727
-93084
-END
+my $ref = '153 370 371 407 1634 8208 9474 54748 92727 93084';
 
 use Test;
-is $result, chomp $ref;
+is $result, $ref;
