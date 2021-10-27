@@ -1,0 +1,57 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Own_digits_power_sum
+#t# inprogress
+#c# 2021-10-xx NOT ON RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# combinatorics
+
+for 3..4 -> $d {
+    for [X](^10 xx $d).unique(as => *.sort.cache, with => &[eqv]) -> @digits {
+        #my $dps = sum @digits X** $d;
+        #say $dps if $d == $dps.comb.elems and @digits.sort.join == $dps.comb.sort.join;
+        .say if $d == .comb.elems and @digits.sort.join == .comb.sort.join given sum @digits X** $d;
+    }
+}
+
+exit;
+my $result;
+
+my $ref = q:to/END/;
+153
+370
+371
+407
+1634
+4150
+4151
+8208
+9474
+54748
+92727
+93084
+548834
+1741725
+4210818
+9800817
+9926315
+24678050
+24678051
+88593477
+146511208
+472335975
+534494836
+912985153
+END
+
+use Test;
+is $result, chomp $ref;
+
+=finish 
+
+( 10**($lo-1) .. 10**$hi - 1 ).race.map: -> $n {
+}
+
+#.say for @n.grep(so *).sort;
+say my $result = @n.grep(so *).sort.join("\n");
+exit;
