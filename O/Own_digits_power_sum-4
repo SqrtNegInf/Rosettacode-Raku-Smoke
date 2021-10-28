@@ -1,54 +1,44 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Own_digits_power_sum
-#c# 2021-10-xx >RC
+#c# 2021-10-27 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# both correct and reasonably fast
+#n# reasonably fast, scales well
+#n# 3,7: 13.27s user 0.25s system 104% cpu   12.97 total
 #n# 3,8: 32.48s user 0.36s system 101% cpu   32.37 total
 #n# 3,9: 81.02s user 0.66s system 100% cpu 1:21.34 total
+#n# 3,9: 89.61s user 0.66s system 100% cpu 1:29.76 total Bag
+#n# Used code from 'Combinations with repetitions' task, the one-liner form *very* slow (cf -1 version)
+#n# 'race' does not help here
 
-proto combs_with_rep (UInt, @) {*}
-
-multi combs_with_rep (0,  @)  { () }
-multi combs_with_rep (1,  @a)  { map { $_, }, @a }
-multi combs_with_rep ($,  []) { () }
+proto combs_with_rep (UInt, @ ) { * }
+multi combs_with_rep (0,    @ ) { () }
+multi combs_with_rep ($,    []) { () }
+multi combs_with_rep (1,    @a) { map { $_, }, @a }
 multi combs_with_rep ($n, [$head, *@tail]) {
     |combs_with_rep($n - 1, ($head, |@tail)).map({ $head, |@_ }),
     |combs_with_rep($n, @tail);
 }
 
-say sort gather {
+say my $result = sort gather {
     for 3..9 -> $d {
         for combs_with_rep($d, [^10]) -> @digits {
+            #.take if @digits>>.Str.Bag eqv .comb.Bag given sum @digits X** $d; # maybe a hair slower
             .take if $d == .comb.elems and @digits.join == .comb.sort.join given sum @digits X** $d;
         }
     }
 }
+
+my $ref = '153 370 371 407 1634 8208 9474 54748 92727 93084 548834 1741725 4210818 9800817 9926315 24678050 24678051 88593477 146511208 472335975 534494836 912985153';
+
+use Test;
+is $result, $ref;
 
 =finish 
 
 =={{header|Raku}}==
-===Brute force===
-<lang perl6>my @n[100];
-my atomicint $i;
 
-my ($lo,$hi) = 3, 8;
-
-( 10**($lo-1) .. 10**$hi - 1 ).race.map: -> $n {
-    @n[$i⚛++] = $n if $n == sum $n.comb X** $_ for $lo..$hi
-}
-
-say @n.grep(so *).sort; </lang>
+<lang perl6>
+</lang>
 {{out}}
-<pre>153 370 371 407 1634 4150 4151 8208 9474 54748 92727 93084 548834 1741725 4210818 9800817 9926315 24678050 24678051</pre>
-
-===Combinatorics===
-<lang perl6>say sort gather {
-    for 3..8 -> $d {
-        for [X](^10 xx $d).unique(as => *.sort.cache, with => &[eqv]) -> @digits {
-            .take if $d == .comb.elems and @digits.join == .comb.sort.join given sum @digits X** $d;
-        }
-    }
-}</lang>
-{{out}}
-<pre>153 370 371 407 1634 4150 4151 8208 9474 54748 92727 93084 548834 1741725 4210818 9800817 9926315 24678050 24678051</pre>
+<pre>153 370 371 407 1634 8208 9474 54748 92727 93084 548834 1741725 4210818 9800817 9926315 24678050 24678051 88593477 146511208 472335975 534494836 912985153</pre>
