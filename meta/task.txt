@@ -1,11 +1,11 @@
-Welcome to Rakudo™ v2021.10-9-gd37b11186.
+Welcome to Rakudo™ v2021.10-13-g165a883df.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2021.10-1-g07060faf1.
+Built on MoarVM version 2021.10-11-g1f9861eea.
 updating from RC…
-+--------------> Moar: Good/Bad [1379/25]
-|+-------------> JVM: Good/Bad [1193/268]
-||+------------> Smoke testing [1305]
-|||+-----------> sKipping validation [144]
++--------------> Moar: Good/Bad [1377/26]
+|+-------------> JVM: Good/Bad [1194/269]
+||+------------> Smoke testing [1308]
+|||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [362]
 ||||||+--------> Concurrent/Async [84]
@@ -13,8 +13,8 @@ updating from RC…
 ||||||||+------> File output [99]
 |||||||||+-----> Draft [312]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [91]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [92]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -254,6 +254,7 @@ GGS.......... Comments
 GGS......D... Common_list_elements
 GGS......D... Common_sorted_list
 GGS.......... Compare_a_list_of_strings
+...........V. Compare_length_of_two_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
@@ -291,7 +292,7 @@ GGS.......... Count_in_factors-2
 GGS.......... Count_in_factors-3
 GGS.......... Count_in_octal
 GGS.......... Count_occurrences_of_a_substring
-GGS..T....... Count_the_coins
+!GS..T....... Count_the_coins
 .........D.V. Count_the_coins_0_1
 GGS......D... Cousin_primes
 GGS.......... Cramer%27s_rule
@@ -673,9 +674,9 @@ GB.KI........ Keyboard_input_Flush_the_keyboard_buffer
 GB.KI........ Keyboard_input_Keypress_check
 GG.KI........ Keyboard_input_Obtain_a_Y_or_N_response
 GG.KI........ Keyboard_macros
-GGS.......... Knapsack_problem_0_1-1
+!GS.......... Knapsack_problem_0_1-1
 GGS.......... Knapsack_problem_0_1-2
-GGS.......... Knapsack_problem_Bounded-1
+!GS.......... Knapsack_problem_Bounded-1
 GGS..T....... Knapsack_problem_Bounded-2
 GBS.......... Knapsack_problem_Continuous
 GGS..T....... Knapsack_problem_Unbounded
@@ -817,6 +818,7 @@ GGS......D... Minimum_number_of_cells_after,_before,_above_and_below_NxN_squares
 GGS......D... Minimum_numbers_of_three_lists
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
+GGS......D... Minimum_primes
 GGS.......... Minkowski_question-mark_function
 GGS....R..... Modified_random_distribution
 GGS.......... Modular_arithmetic
@@ -932,10 +934,10 @@ GGS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_partitions
 GGS.......... Ordered_words
 GGS......D... Overloaded_operators
-.........D..U Own_digits_power_sum
-GG.K..C...... Own_digits_power_sum-1
+GGS...C..D... Own_digits_power_sum
+BB........... Own_digits_power_sum-1
 GBS...C...... Own_digits_power_sum-2
-GB....C...... Own_digits_power_sum-3
+GBS...C...... Own_digits_power_sum-3
 BB........... P-Adic_numbers,_basic
 ...........VU P-Adic_square_roots
 GGS..T....... P-value_correction
@@ -1251,7 +1253,7 @@ GGS......D... Smallest_square_that_begins_with_n
 GGS.......... Smallest_square_that_begins_with_n-2
 GBS.......... Smarandache_prime-digital_sequence
 GGS.......... Smith_numbers
-.........DXV. Snake
+..........XV. Snake
 GGS....RFD... Snake_and_Ladder
 GG.KIT....... Sockets
 GGS.......... Sokoban
