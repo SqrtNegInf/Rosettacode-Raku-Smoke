@@ -1,17 +1,16 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Own_digits_power_sum
 #c# 2021-10-25 NOT ON RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# brute force: 'race' is just a band-aid over the expressive but non-performant code
 #n# 3,7:  1366.62s user  25.13s system 558% cpu     4:09.27 total
-#n# 3,8: 33147.68s user 309.32s system  89% cpu 10:21:25.16 total (killed before completion)
-#n# 3,8: xx
+#n# 3,8: 14571.11s user 341.07s system 522% cpu    47:35.78 total
 
 my @n[100];
 my atomicint $i;
 
-my ($lo,$hi) = 3, 8;
+my ($lo,$hi) = 3, 5;
 
 ( 10**($lo-1) .. 10**$hi - 1 ).race.map: -> $n {
     for $lo..$hi -> $d {
@@ -21,7 +20,6 @@ my ($lo,$hi) = 3, 8;
 }
 
 say my $result = @n.grep(so *).sort;
-exit;
 
 my $ref = '153 370 371 407 1634 8208 9474 54748 92727 93084';
 
