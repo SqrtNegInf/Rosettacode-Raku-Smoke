@@ -3,19 +3,19 @@
 #c# 2021-10-27 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 3,7:   615.42s user   10.73s system 531% cpu    1:57 total
+#n# 3,7:   566.27s user   14.97s system 554% cpu    1:44 total
 #n# 3,8:  7538.45s user  236.54s system 527% cpu   24:34 total
-#n# 3,9: 56516.67s user 1703.93s system 525% cpu 3:04:33 total (killed before completion)
+#n# 3,9: 51093.73s user 1770.76s system 434% cpu 3:22:55 total
 
 my @res;
 
-(3..7).map: -> $p {
+(3..9).map: -> $p {
     my %pow = (^10).map: { $_ => $_ ** $p };
     my $start = 10 ** ($p - 1);
     my $end   = 10 ** $p;
     my @temp;
     for ^9 -> $i {
-        my $str = sprintf "%0*d", $p, $i x $p;
+        #my $str = sprintf "%0*d", $p, $i x $p;
         ([X] ($i..9) xx $p).race.map: {
             next unless [<=] $_;
             my $sum = %pow{$_}.sum;
@@ -28,6 +28,7 @@ my @res;
 }
 
 .say for @res;
+exit;
 
 my $ref = q:to/END/;
 153
