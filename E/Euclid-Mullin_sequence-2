@@ -1,0 +1,16 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Euclid-Mullin_sequence
+#c# 2021-10-28 NOT ON RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# fails at @Euclid-Mullin[^10]:
+#n# Cannot unbox 91 bit wide bigint into native integer
+
+use ntheory:from<Perl5> <factor>;
+
+my @Euclid-Mullin = 2, { state $i = 1; (1 + [×] @Euclid-Mullin[^$i++]).&factor.min } … *;
+
+put @Euclid-Mullin[^10];
+
+#use Test;
+#is $result, chomp $ref;
