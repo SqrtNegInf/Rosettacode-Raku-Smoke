@@ -1,0 +1,18 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Euclid-Mullin_sequence
+#c# 2021-10-28 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN OK
+#n# for 16:   2.21s user 0.20s system 116% cpu    2.08 total
+#n# for 17: 261.60s user 7.07s system  99% cpu 4:28.85 total
+
+use Prime::Factor;
+
+my @Euclid-Mullin = 2, { state $i = 1; (1 + [×] @Euclid-Mullin[^$i++]).&prime-factors.min } … *;
+
+put my $result = 'First sixteen: ' ~ @Euclid-Mullin[^16];
+
+my $ref = 'First sixteen: 2 3 7 43 13 53 5 6221671 38709183810571 139 2801 11 17 5471 52662739 23003';
+
+use Test;
+is $result, chomp $ref;
