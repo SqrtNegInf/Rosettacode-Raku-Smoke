@@ -3598,6 +3598,24 @@ File: E/Ethiopian_multiplication
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: E/Euclid-Mullin_sequence-1
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Euclid-Mullin_sequence
+#c# 2021-10-28 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN OK
+#n# for 16:   2.21s user 0.20s system 116% cpu    2.08 total
+#n# for 17: 261.60s user 7.07s system  99% cpu 4:28.85 total
+
+File: E/Euclid-Mullin_sequence-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Euclid-Mullin_sequence
+#c# 2021-10-28 NOT ON RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# fails at @Euclid-Mullin[^10]:
+#n# Cannot unbox 91 bit wide bigint into native integer
+
 File: E/Euler%27s_identity
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Euler%27s_identity
@@ -8466,12 +8484,13 @@ File: O/Overloaded_operators
 File: O/Own_digits_power_sum
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Own_digits_power_sum
-#c# 2021-10-27 <RC
+#c# 2021-10-27 <RC, 2021-10-28 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 3,7:   615.42s user   10.73s system 531% cpu    1:57 total
+#n# removed stray '$str'
+#n# 3,7:   566.27s user   14.97s system 554% cpu    1:44 total
 #n# 3,8:  7538.45s user  236.54s system 527% cpu   24:34 total
-#n# 3,9: 56516.67s user 1703.93s system 525% cpu 3:04:33 total (killed before completion)
+#n# 3,9: 51093.73s user 1770.76s system 434% cpu 3:22:55 total
 
 File: O/Own_digits_power_sum-1
 #!/usr/bin/env perl6
@@ -8509,12 +8528,13 @@ File: O/Own_digits_power_sum-4
 #m# MOAR: OK
 #j# JVM:  OK
 #n# reasonably fast, scales well
-#n# 3,7: 13.27s user 0.25s system 104% cpu   12.97 total
-#n# 3,8: 32.48s user 0.36s system 101% cpu   32.37 total
-#n# 3,9: 81.02s user 0.66s system 100% cpu 1:21.34 total
-#n# 3,9: 89.61s user 0.66s system 100% cpu 1:29.76 total Bag
-#n# Used code from 'Combinations with repetitions' task, the one-liner form *very* slow (cf -1 version)
-#n# 'race' does not help here
+#n# 3,7:   13.27s user 0.25s system 104% cpu    12.97 total
+#n# 3,8:   32.48s user 0.36s system 101% cpu    32.37 total
+#n# 3,9:   81.02s user 0.66s system 100% cpu  1:21.34 total
+#n# 3,9:   89.61s user 0.66s system 100% cpu  1:29.76 total Bag
+#n# 3,10: 188.27s user 1.70s system  99% cpu  3:11.19 total
+#n# 3,11: 439.17s user 2.84s system  99% cpu  7:22.60 total 
+#n# 3,12: 925.80s user 7.14s system  99% cpu 15:35.98 total
 
 File: P/P-Adic_numbers,_basic
 #!/usr/bin/env raku
