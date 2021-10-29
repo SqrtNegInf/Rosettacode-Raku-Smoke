@@ -10,7 +10,4 @@ use ntheory:from<Perl5> <factor>;
 
 my @Euclid-Mullin = 2, { state $i = 1; (1 + [×] @Euclid-Mullin[^$i++]).&factor.min } … *;
 
-put @Euclid-Mullin[^10];
-
-#use Test;
-#is $result, chomp $ref;
+put @Euclid-Mullin[^16];
