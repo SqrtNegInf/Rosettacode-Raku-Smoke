@@ -1,0 +1,40 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Largest_prime_factor
+#c# 2021-11-02 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# quick version uses P5/ntheory (particularly funny)
+
+my @res;
+
+use Inline::Perl5;
+my $p5 = Inline::Perl5.new();
+$p5.use: 'ntheory';
+
+my &lpf = $p5.run('sub { ntheory::todigitstring ntheory::vecmax ntheory::factor $_[0] }');
+
+#my $start = now;
+
+for flat 600851475143, (1..10).map: { 2 +< (160+$_) - 1 } {
+    @res.push: "Largest prime factor of $_: " ~ lpf "$_";
+    #last if now - $start > 1; # quit after one second of total run time
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+Largest prime factor of 600851475143: 6857
+Largest prime factor of 5846006549323611672814739330865132078623730171903: 272010961
+Largest prime factor of 11692013098647223345629478661730264157247460343807: 36230454570129675721
+Largest prime factor of 23384026197294446691258957323460528314494920687615: 8831418697
+Largest prime factor of 46768052394588893382517914646921056628989841375231: 2048568835297380486760231
+Largest prime factor of 93536104789177786765035829293842113257979682750463: 57912614113275649087721
+Largest prime factor of 187072209578355573530071658587684226515959365500927: 79638304766856507377778616296087448490695649
+Largest prime factor of 374144419156711147060143317175368453031918731001855: 88959882481
+Largest prime factor of 748288838313422294120286634350736906063837462003711: 3340762283952395329506327023033
+Largest prime factor of 1496577676626844588240573268701473812127674924007423: 26831423036065352611
+Largest prime factor of 2993155353253689176481146537402947624255349848014847: 3042645634792541312037847
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
