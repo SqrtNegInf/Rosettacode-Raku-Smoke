@@ -1,0 +1,33 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Largest_prime_factor
+#c# 2021-11-02 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# like Perl
+
+my @res;
+
+sub f ($a) { $a % $_ or return split ' ', grep { .so }, $_, f($a/$_) for 2..$a }
+
+for flat +600851475143, (1..10).map: { 2 +< $_ - 1 } {
+    @res.push: "Largest prime factor of $_: " ~ .&f.tail;
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+Largest prime factor of 600851475143: 6857
+Largest prime factor of 3: 3
+Largest prime factor of 7: 7
+Largest prime factor of 15: 5
+Largest prime factor of 31: 31
+Largest prime factor of 63: 7
+Largest prime factor of 127: 127
+Largest prime factor of 255: 17
+Largest prime factor of 511: 73
+Largest prime factor of 1023: 31
+Largest prime factor of 2047: 89
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
