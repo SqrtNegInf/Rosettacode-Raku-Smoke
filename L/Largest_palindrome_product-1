@@ -1,0 +1,33 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Largest_palindrome_product
+#c# 2021-11-03 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Prime::Factor;
+
+(^6).map: -> $oom {
+    LOOP: for (+(1 ~ (0 x $oom)) .. +(9 ~ (9 x $oom))).reverse.map({ +($_ ~ .flip) }) -> $pal {
+        for my @factors = $pal.&divisors.grep: {.chars == ($oom + 1)} {
+            next unless $pal div $_ ∈ @factors;
+            my $pairs = ($_, $pal div $_).sort.join(' × ');
+            @res.push: "Largest palindromic product of two {$oom + 1}-digit integers: $pairs = $pal" and last LOOP;
+            #say "Largest palindromic product of two {$oom + 1}-digit integers: $_ × {$pal div $_} = $pal" and last LOOP;
+        }
+    }
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+Largest palindromic product of two 2-digit integers: 91 × 99 = 9009
+Largest palindromic product of two 3-digit integers: 913 × 993 = 906609
+Largest palindromic product of two 4-digit integers: 9901 × 9999 = 99000099
+Largest palindromic product of two 5-digit integers: 99681 × 99979 = 9966006699
+Largest palindromic product of two 6-digit integers: 999001 × 999999 = 999000000999
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
