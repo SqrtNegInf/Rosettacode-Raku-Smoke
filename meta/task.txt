@@ -1,17 +1,17 @@
-Welcome to Rakudo™ v2021.10-29-g580b3ba79.
+Welcome to Rakudo™ v2021.10-47-gab02205ed.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2021.10-11-g1f9861eea.
+Built on MoarVM version 2021.10-23-g4d145b465.
 updating from RC…
-+--------------> Moar: Good/Bad [1381/30]
-|+-------------> JVM: Good/Bad [1195/273]
-||+------------> Smoke testing [1309]
++--------------> Moar: Good/Bad [1377/30]
+|+-------------> JVM: Good/Bad [1195/276]
+||+------------> Smoke testing [1312]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [363]
 ||||||+--------> Concurrent/Async [84]
 |||||||+-------> Random seed [142]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [314]
+|||||||||+-----> Draft [315]
 ||||||||||+----> Ignoring [36]
 |||||||||||+---> Void (no local copy) [93]
 ||||||||||||+--> Un-implemented/reliable [51]
@@ -378,7 +378,7 @@ GB.KIT....... Draw_a_rotating_cube
 GGS..TC.F.... Draw_a_sphere-1
 GBS.....F.... Draw_a_sphere-2
 GB.KI....D... Draw_pixel_2
-!GS..T.R..... Dutch_national_flag_problem
+GGS..T.R..... Dutch_national_flag_problem
 GGS.......... Dynamic_variable_names
 GGS.......... EKG_sequence_convergence
 GBS.......... Eban_numbers
@@ -420,7 +420,7 @@ GGS.......... Events
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -684,7 +684,7 @@ BG........... Knapsack_problem_Bounded-1
 GGS..T....... Knapsack_problem_Bounded-2
 GBS.......... Knapsack_problem_Continuous
 GGS..T....... Knapsack_problem_Unbounded
-GGS....R..... Knight%27s_tour
+!GS....R..... Knight%27s_tour
 !GS....R..... Knuth%27s_algorithm_S
 GGS....R..... Knuth%27s_power_tree
 !GS....R..... Knuth_shuffle
@@ -698,9 +698,13 @@ GGS.....F.... LU_decomposition
 GGS.......... LZW_compression
 GGS.......... Lah_numbers
 !GS....R..... Langton%27s_ant
-GGS....R.D... Largest_five_adjacent_number
+!GS....R.D... Largest_five_adjacent_number
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
+.........D... Largest_palindrome_product
+GBS.......... Largest_palindrome_product-1
+GBS...c...... Largest_palindrome_product-2
+GBS.......... Largest_palindrome_product-3
 .........D... Largest_prime_factor
 GBS.......... Largest_prime_factor-1
 GBS.......... Largest_prime_factor-2
@@ -712,7 +716,7 @@ GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
 GGS......D... Last_list_item
 GGS..T....... Latin_Squares_in_reduced_form
-GBS....R..... Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Technique
+!BS....R..... Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Technique
 GB.KI....D... Launch_rocket_with_countdown_and_acceleration_in_stdout
 GBS..TC...... Law_of_cosines_-_triples-1
 GGS..T....... Law_of_cosines_-_triples-2
@@ -760,7 +764,7 @@ GGS.......... Loops_Foreach
 GGS.......... Loops_Increment_loop_index_within_loop_body
 GG.KI........ Loops_Infinite
 GGS.......... Loops_N_plus_one_half
-GGS....R..... Loops_Nested
+!GS....R..... Loops_Nested
 GGS.......... Loops_While
 GGS.......... Loops_With_multiple_ranges-1
 GGS..T....... Loops_With_multiple_ranges-2
@@ -828,7 +832,7 @@ GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 GGS......D... Minimum_primes
 GGS.......... Minkowski_question-mark_function
-GGS....R..... Modified_random_distribution
+!GS....R..... Modified_random_distribution
 GGS.......... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
@@ -938,7 +942,7 @@ GGS..T....... Optional_parameters
 GBS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
-GGS..T.R..... Order_two_numerical_lists
+!GS..T.R..... Order_two_numerical_lists
 GGS..T....... Ordered_partitions
 GGS.......... Ordered_words
 GGS......D... Overloaded_operators
@@ -1154,7 +1158,7 @@ GGS......D... Reverse_the_gender_of_a_string
 .........D.V. Reverse_the_order_of_lines_in_a_text_file_while_preserving_the_contents_of_each_line
 GGS.......... Reverse_words_in_a_string
 GB.KI....D... Robots
-!GS..T.R..... Rock-paper-scissors
+GGS..T.R..... Rock-paper-scissors
 .........D... Rodrigues_rotation_formula
 GGS..T....... Rodrigues_rotation_formula-1
 GBS.......... Rodrigues_rotation_formula-2
@@ -1252,7 +1256,7 @@ GG.K......... Singly-linked_list_Element_insertion
 GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
-GBS....R..... Sleeping_Beauty_problem
+!BS....R..... Sleeping_Beauty_problem
 GGS..T...D... Smallest_enclosing_circle_problem
 GBS......D... Smallest_multiple
 GGS......D... Smallest_numbers
@@ -1321,7 +1325,7 @@ GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
 GGS.......... Spiral_matrix-2
 GBS.......... Split_a_character_string_based_on_change_of_character
-GGS..T.R.D... Spoof_game
+!GS..T.R.D... Spoof_game
 GBS..TC...... Square-free_integers
 GGS.......... Square_but_not_cube
 GBS.......... Square_form_factorization
