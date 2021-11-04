@@ -1,0 +1,49 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Largest_palindrome_product
+#c# 2021-11-03 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Prime::Factor;
+
+@res.push: $_ for (1..5).map: {.&lpp};
+#.say for (1..9).hyper(:1batch).map: {.&lpp};
+
+multi lpp ($oom where {$_ +& 1}) { # even number of multiplicand digits
+    my $f = +(9 x ($oom + 1));
+    my $o = (1 + $oom) / 2;
+    my $pal = +(9 x $o ~ 0 x $o × 2 ~ 9 x $o);
+    sprintf "Largest palindromic product of two %2d-digit integers: %d × %d = %d", $oom + 1, $pal div $f, $f, $pal
+}
+
+multi lpp ($oom where {$_ +^ 1}) { # odd number of multiplicand digits
+    my $p;
+    (+(1 ~ (0 x $oom)) .. +(9 ~ (9 x $oom))).reverse.map({ +($_ ~ .flip) }).map: -> $pal {
+        for my @factors = $pal.&divisors.grep({.chars == ($oom + 1)}).sort(-*) {
+            next unless $pal div $_ ∈ @factors;
+            $p = sprintf("Largest palindromic product of two %2d-digit integers: %d × %d = %d", $oom + 1, $pal div $_, $_, $pal) and last;
+        }
+        last if $p;
+    }
+    $p
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+Largest palindromic product of two  2-digit integers: 91 × 99 = 9009
+Largest palindromic product of two  3-digit integers: 913 × 993 = 906609
+Largest palindromic product of two  4-digit integers: 9901 × 9999 = 99000099
+Largest palindromic product of two  5-digit integers: 99681 × 99979 = 9966006699
+Largest palindromic product of two  6-digit integers: 999001 × 999999 = 999000000999
+END
+
+#Largest palindromic product of two  7-digit integers: 9997647 × 9998017 = 99956644665999
+#Largest palindromic product of two  8-digit integers: 99990001 × 99999999 = 9999000000009999
+#Largest palindromic product of two  9-digit integers: 999920317 × 999980347 = 999900665566009999
+#Largest palindromic product of two 10-digit integers: 9999900001 × 9999999999 = 99999000000000099999
+
+use Test;
+is @res.join("\n"), chomp $ref;
