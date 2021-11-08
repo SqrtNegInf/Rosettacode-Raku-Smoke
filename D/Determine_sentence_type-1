@@ -1,0 +1,28 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Determine_sentence_type
+#c# 2021-11-07 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Lingua::EN::Sentence;
+
+my $paragraph = q:to/PARAGRAPH/;
+hi there, how are you today? I'd like to present to you
+the washing machine 9001. You have been nominated to win
+one of these! Just make sure you don't break it
+PARAGRAPH
+
+say my $result = join '|', $paragraph.&get_sentences.map: {
+    /(<:punct>)$/;
+    given $0 {
+        when '!' { 'E' };
+        when '?' { 'Q' };
+        when '.' { 'S' };
+        default  { 'N' };
+    }
+}
+
+use Test;
+is $result, 'Q|S|E|N';
