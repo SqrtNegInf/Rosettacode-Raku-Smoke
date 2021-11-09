@@ -1,0 +1,13 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Summation_of_primes
+#c# 2021-11-08 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+use Math::Primesieve;
+
+my $sieve = Math::Primesieve.new;
+say my $result = sum $sieve.primes(2e6.Int);
+
+use Test;
+is $result, 142913828922;
