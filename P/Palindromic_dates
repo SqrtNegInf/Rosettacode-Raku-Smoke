@@ -36,7 +36,7 @@ use Lingua::EN::Numbers; # Raku library works now
 enum months_less_than_31 (Feb => 2, Apr => 4, Jun => 6, Sep => 9, Nov => 11);
 
 # code is terse, but the goal is pretty clear from the name of the routine
-sub leap-year { !(@_[0] % 100) ?? !(@_[0] % 400) !! !(@_[0] % 4) }
+sub leap-year ($year) { !($year % 100) ?? !($year % 400) !! !($year % 4) }
 
 ##
 ## generating dates
