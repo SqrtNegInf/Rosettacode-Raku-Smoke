@@ -1,0 +1,32 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Summation_of_primes
+#c# 2021-11-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $result = sum (^2e6).grep: {.&is-prime};
+
+use Test;
+is $result, 142913828922;
+
+=finish
+
+Output:
+142913828922
+Much faster using external libraries (well under half a second)
+
+use Math::Primesieve;
+my $sieve = Math::Primesieve.new;
+say sum $sieve.primes(2e6.Int);
+Same output
+
+
+
+END
+
+.say for @res;
+my $ref = q:to/END/;
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
