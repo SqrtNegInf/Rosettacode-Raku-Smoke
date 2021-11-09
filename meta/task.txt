@@ -1,20 +1,20 @@
-Welcome to Rakudo™ v2021.10-52-ge98e17da7.
+Welcome to Rakudo™ v2021.10-77-g490229998.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2021.10-28-g6ff815576.
+Built on MoarVM version 2021.10-42-ge7ebdae40.
 updating from RC…
-+--------------> Moar: Good/Bad [1381/30]
-|+-------------> JVM: Good/Bad [1196/278]
-||+------------> Smoke testing [1315]
++--------------> Moar: Good/Bad [1384/30]
+|+-------------> JVM: Good/Bad [1198/280]
+||+------------> Smoke testing [1319]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [363]
-||||||+--------> Concurrent/Async [84]
+||||||+--------> Concurrent/Async [85]
 |||||||+-------> Random seed [142]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [316]
+|||||||||+-----> Draft [321]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [93]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [95]
+||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS.......... 100_doors
 !GS...cR..... 100_prisoners
@@ -423,7 +423,7 @@ GGS.......... Events
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -658,6 +658,7 @@ GGS.......... Isqrt_integer_square_root_of_X
 GG.K..c...... Iterated_digits_squaring
 GGS.......... Iterated_digits_squaring-1
 GGS.......... JSON
+.........D.VU Jaccard_index
 GGS.......... Jacobi_symbol
 GBS...C...... Jaro-Winkler_distance
 ...........V. Jaro_similarity
@@ -784,6 +785,7 @@ GGS.......... MD5_Implementation
 ...........V. Machine_code
 GGS.......... Mad_Libs
 GGS....R..... Magic_8-ball
+GBS...C..D... Magic_constant
 GGS.......... Magic_squares_of_doubly_even_order
 GGS.......... Magic_squares_of_odd_order
 GGS.......... Magic_squares_of_singly_even_order
@@ -1038,6 +1040,7 @@ GGS.......... Pointers_and_references
 GGS..T....... Poker_hand_analyser
 GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
+.........D.VU Polynomial_derivative
 GGS..T....... Polynomial_long_division
 GBS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
@@ -1277,6 +1280,7 @@ GGS.......... Solve_a_Holy_Knight%27s_tour
 GGS..T....... Solve_a_Hopido_puzzle
 GGS.......... Solve_a_Numbrix_puzzle
 .........D.VU Solve_a_Rubik%27s_Cube
+GGS......D... Solve_equations_with_substitution_method
 GGS.......... Solve_the_no_connection_puzzle
 .........D.V. Solve_triangle_solitare_puzzle
 .........DXVU Solving_coin_problems
@@ -1394,6 +1398,9 @@ GGS......D... Sum_of_the_digits_of_n_is_substring_of_n
 GGS.......... Sum_to_100
 GGS..T....... Summarize_and_say_sequence
 GGS.......... Summarize_primes
+.........D... Summation_of_primes
+GGS.......... Summation_of_primes-1
+GBS.......... Summation_of_primes-2
 GGS.....FD... Sunflower_fractal
 GBS...C...... Super-d_numbers-1
 GBS...C...... Super-d_numbers-2
