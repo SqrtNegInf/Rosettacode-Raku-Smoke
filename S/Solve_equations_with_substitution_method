@@ -1,0 +1,19 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Solve_equations_with_substitution_method
+#c# 2021-11-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+sub solve-system-of-two-linear-equations ( [ \a1, \b1, \c1 ], [ \a2, \b2, \c2 ] ) {
+    my \X = ( b2 * c1   -   b1 * c2 )
+          / ( b2 * a1   -   b1 * a2 );
+
+    my \Y = ( a1 * X    -   c1 ) / -b1;
+
+    return X, Y;
+}
+
+say my $result = solve-system-of-two-linear-equations( (3,1,-1), (2,-3,-19) );
+
+use Test;
+is $result, '-2 5';
