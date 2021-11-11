@@ -1,17 +1,17 @@
-Welcome to Rakudo™ v2021.10-81-g09f5069cc.
+Welcome to Rakudo™ v2021.10-89-g3d80bec7c.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2021.10-42-ge7ebdae40.
+Built on MoarVM version 2021.10-46-gf27cdeaec.
 updating from RC…
-+--------------> Moar: Good/Bad [1387/30]
-|+-------------> JVM: Good/Bad [1199/281]
-||+------------> Smoke testing [1321]
++--------------> Moar: Good/Bad [1388/30]
+|+-------------> JVM: Good/Bad [1201/282]
+||+------------> Smoke testing [1324]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [363]
 ||||||+--------> Concurrent/Async [85]
 |||||||+-------> Random seed [142]
 ||||||||+------> File output [99]
-|||||||||+-----> Draft [321]
+|||||||||+-----> Draft [324]
 ||||||||||+----> Ignoring [36]
 |||||||||||+---> Void (no local copy) [93]
 ||||||||||||+--> Un-implemented/reliable [51]
@@ -80,6 +80,7 @@ GB.KI........ Animation
 GGS.......... Anonymous_recursion
 GGS...c...... Anti-primes
 GGS.......... Append_a_record_to_the_end_of_a_text_file
+GGS......D... Append_numbers_at_same_position_in_strings
 GGS.......... Apply_a_callback_to_an_array
 GGS.......... Apply_a_digital_filter_direct_form_II_transposed
 GGS.......... Approximate_equality
@@ -321,6 +322,7 @@ GGS.......... Damm_algorithm
 GGS......D... Data_Encryption_Standard
 GGS..T....... Date_format
 GGS..T....... Date_manipulation
+GBS......D... Dating_agency
 GGS.......... Day_of_the_week
 GGS......D... Days_between_dates
 GGS.......... De_Bruijn_sequences
@@ -381,7 +383,7 @@ GB.KIT....... Draw_a_rotating_cube
 GGS..TC.F.... Draw_a_sphere-1
 GBS.....F.... Draw_a_sphere-2
 GB.KI....D... Draw_pixel_2
-GGS..T.R..... Dutch_national_flag_problem
+!GS..T.R..... Dutch_national_flag_problem
 GGS.......... Dynamic_variable_names
 GGS.......... EKG_sequence_convergence
 GBS.......... Eban_numbers
@@ -593,6 +595,7 @@ GGS.......... Hello_world_Text
 GG.KI........ Hello_world_Web_server
 GGS..T....... Here_document
 GGS..TC...... Heronian_triangles
+GGS......D... Hex_words
 .........D.VU Hexapawn
 GGS.......... Hickerson_series_of_almost_integers
 GGS.......... Higher-order_functions
@@ -1164,7 +1167,7 @@ GGS......D... Reverse_the_gender_of_a_string
 .........D.V. Reverse_the_order_of_lines_in_a_text_file_while_preserving_the_contents_of_each_line
 GGS.......... Reverse_words_in_a_string
 GB.KI....D... Robots
-GGS..T.R..... Rock-paper-scissors
+!GS..T.R..... Rock-paper-scissors
 .........D... Rodrigues_rotation_formula
 GGS..T....... Rodrigues_rotation_formula-1
 GBS.......... Rodrigues_rotation_formula-2
