@@ -12,7 +12,7 @@ sub dr (Int $_ is copy) { $_ = dr(.comb.sum) while .chars > 1; $_ }
 my %hex = 'ref/unixdict.txt'.IO.slurp.words.grep( *.chars > 3 )\
   .grep({ not / <-[abcdef]> / }).map: { $_ => dr :16($_).comb.sum }
 
-@res.push: "{+%hex} hex words longer than 4 characters found in unixdict.txt:";
+@res.push: "{+%hex} hex words longer than 3 characters found in unixdict.txt:";
 @res.push: sprintf "%6s ➡ %8d ➡ %d", .key, :16(.key), .value for %hex.sort: { .value, .key }
 
 my %many = %hex.grep: +*.key.comb.Set > 3;
@@ -23,7 +23,7 @@ my %many = %hex.grep: +*.key.comb.Set > 3;
 .say for @res;
 
 my $ref = q:to/END/;
-26 hex words longer than 4 characters found in unixdict.txt:
+26 hex words longer than 3 characters found in unixdict.txt:
  ababa ➡   703162 ➡ 1
   abbe ➡    43966 ➡ 1
   dada ➡    56026 ➡ 1
