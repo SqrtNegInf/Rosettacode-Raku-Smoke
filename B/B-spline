@@ -29,16 +29,16 @@ sub control_points(\g, \l, @p1, @p2) {
    my \lgt = sqrt([+]([ g.B.[0]-l.A.[0], g.B.[1]-l.A.[1] ]>>²));
 
    h.B = l.A.clone;
-   h.A = g.B.[0] - lgt * cos(angle g) , g.B.[1] - lgt * sin(angle g);
+   h.A = g.B.[0] - lgt × cos(angle g) , g.B.[1] - lgt × sin(angle g);
 
    my $a = angle h ;
-   @p1 = g.B.[0] + lgt * cos($a) * CURVE_F,  g.B.[1] + lgt * sin($a) * CURVE_F;
+   @p1 = g.B.[0] + lgt × cos($a) × CURVE_F,  g.B.[1] + lgt × sin($a) × CURVE_F;
 
    h.A = g.B.clone;
-   h.B = l.A.[0] + lgt * cos(angle l) , l.A.[1] + lgt * sin(angle l);
+   h.B = l.A.[0] + lgt × cos(angle l) , l.A.[1] + lgt × sin(angle l);
 
    $a = angle h;
-   @p2 = l.A.[0] - lgt * cos($a) * CURVE_F,  l.A.[1] - lgt * sin($a) * CURVE_F;
+   @p2 = l.A.[0] - lgt × cos($a) × CURVE_F,  l.A.[1] - lgt × sin($a) × CURVE_F;
 }
 
 given Cairo::Image.create(Cairo::FORMAT_ARGB32, WIDTH, HEIGHT) {
