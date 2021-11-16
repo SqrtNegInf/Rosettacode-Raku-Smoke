@@ -1,21 +1,23 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Round-robin_tournament_schedule
-#c# 2021-11-14 <RC
+#c# 2021-11-14 <RC, 2021-11-14 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# handles even and odd number of players, not on RC
+#n# handles even and odd number of players
 
 my @res;
 
-my $n = 12;
-
- my @players = (1,0)[$n%2] .. $n;
+#my $n = 12;
+#my @players = (1,0)[$n%2] .. $n;
 #my @players = ($n%%2 ?? 1 !! 0) .. $n;
-my $half    = +@players div 2;
+
+my @players = (1,0)[$_%2] .. $_ given 12;
+my $half    = +@players / 2;
 my $round;
 
 loop {
-    @res.push: sprintf "Round %2d: %s", ++$round, "{ zip( @players[^$half], @players[$half..*].reverse ).map: { sprintf "(%2d vs %-2d)", |$_ } }";
+    @res.push: sprintf "Round %2d: %s", ++$round, "{ ( @players[^$half] Z @players[$half..*].reverse ).map: { sprintf "(%2d vs %-2d)", |$_ } }";
+    #@res.push: sprintf "Round %2d: %s", ++$round, "{ zip( @players[^$half], @players[$half..*].reverse ).map: { sprintf "(%2d vs %-2d)", |$_ } }";
     @players[1..*].=rotate(-1);
     last if [<] @players;
 }
