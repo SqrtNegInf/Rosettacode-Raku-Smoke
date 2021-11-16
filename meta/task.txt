@@ -1,17 +1,17 @@
-Welcome to Rakudo™ v2021.10-96-gb0b971721.
+Welcome to Rakudo™ v2021.10-97-g95164a768.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2021.10-65-gf8addda15.
+Built on MoarVM version 2021.10-68-g10e5344c3.
 updating from RC…
-+--------------> Moar: Good/Bad [1390/30]
-|+-------------> JVM: Good/Bad [1202/283]
-||+------------> Smoke testing [1326]
-|||+-----------> sKipping validation [143]
++--------------> Moar: Good/Bad [1390/31]
+|+-------------> JVM: Good/Bad [1202/284]
+||+------------> Smoke testing [1327]
+|||+-----------> sKipping validation [145]
 ||||+----------> Interactive [66]
-|||||+---------> Touched (modified by me) [363]
+|||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [85]
-|||||||+-------> Random seed [142]
+|||||||+-------> Random seed [143]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [325]
+|||||||||+-----> Draft [326]
 ||||||||||+----> Ignoring [36]
 |||||||||||+---> Void (no local copy) [92]
 ||||||||||||+--> Un-implemented/reliable [50]
@@ -749,6 +749,7 @@ BB.......D... Logistic_curve_fitting_in_epidemiology
 ..........XVU Long_literals,_with_continuations
 GGS..T....... Long_multiplication
 GBS...C...... Long_primes
+GBS....R.D... Long_stairs
 GGS..T....... Long_year
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
@@ -947,7 +948,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-GBS......D... Orbital_elements
+BBSK.....D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
@@ -1045,7 +1046,7 @@ GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GBS......D... Polynomial_derivative
 GGS..T....... Polynomial_long_division
-GBS.......... Polynomial_regression
+GBSK......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
@@ -1187,7 +1188,7 @@ GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
 GBS......D... Rosetta_Code_Tasks_without_examples
 GGS.......... Rot-13
-GGS......D... Round-robin_tournament_schedule
+GGS..T...D... Round-robin_tournament_schedule
 GGS.......... Run-length_encoding
 GB.K.....D... Run_as_a_daemon_or_service
 GGS..T....... Runge-Kutta_method
