@@ -6825,6 +6825,20 @@ File: L/Long_primes.jvm
 #j# JVM:  OK
 #n# drastically cut down on results calculated
 
+File: L/Long_stairs
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Long_stairs
+#c# 2021-11-15 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: L/Long_stairs.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Long_stairs
+#c# 2021-11-15 <RC
+#m# MOAR: BROKEN
+#j# JVM:  OK
+
 File: L/Long_year
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Long_year
@@ -8541,10 +8555,12 @@ File: O/Optional_parameters.1
 File: O/Orbital_elements
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Orbital_elements
+#t# skiptest
 #c# 2016-07-07 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'Clifford' module
+#n# 2021-11-15 Clifford library precomp hangs?
 
 File: O/Order_by_pair_comparisons
 #!/usr/bin/env raku
@@ -9578,10 +9594,12 @@ File: P/Polynomial_long_division
 File: P/Polynomial_regression
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Polynomial_regression
+#t# skiptest
 #c# 2016-05-03 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'Clifford' module
+#n# 2021-11-15 Clifford library precomp hangs?
 
 File: P/Polynomial_regression.1
 #!/usr/bin/env perl6
@@ -10876,10 +10894,10 @@ File: R/Rot-13
 File: R/Round-robin_tournament_schedule
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Round-robin_tournament_schedule
-#c# 2021-11-14 <RC
+#c# 2021-11-14 <RC, 2021-11-14 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# handles even and odd number of players, not on RC
+#n# handles even and odd number of players
 
 File: R/Run-length_encoding
 #!/usr/bin/env perl6
