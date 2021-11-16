@@ -1,0 +1,55 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Long_stairs
+#c# 2021-11-15 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+srand 123456;
+
+my ($trials, $t-total, $s-total) = 100;
+
+@res.push: 'Seconds  steps behind  steps ahead';
+
+for ^$trials {
+    my $stairs   = 100;
+    my $location = 0;
+    my $seconds  = 0;
+
+    loop {
+        ++$seconds;
+        ++$location;
+        last if $location > $stairs;
+        for (1..$stairs).roll(5) {
+            ++$location if $_ <= $location;
+            ++$stairs;
+        }
+        @res.push: "  $seconds        $location         {$stairs-$location}" if !$_ && (599 < $seconds < 610);
+    }
+
+    $t-total += $seconds;
+    $s-total += $stairs;
+}
+
+@res.push: "Average seconds: {$t-total/$trials},  Average steps: {$s-total/$trials}";
+
+.say for @res;
+
+my $ref = q:to/END/;
+Seconds  steps behind  steps ahead
+  600        2191         909
+  601        2196         909
+  602        2201         909
+  603        2206         909
+  604        2210         910
+  605        2214         911
+  606        2218         912
+  607        2222         913
+  608        2226         914
+  609        2232         913
+Average seconds: 2954.72,  Average steps: 14868.6
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
