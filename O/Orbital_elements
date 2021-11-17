@@ -1,11 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Orbital_elements
-#t# skiptest
 #c# 2016-07-07 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'Clifford' module
-#n# 2021-11-15 Clifford library precomp hangs?
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
