@@ -1,11 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Polynomial_regression
-#t# skiptest
 #c# 2016-05-03 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'Clifford' module
-#n# 2021-11-15 Clifford library precomp hangs?
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
