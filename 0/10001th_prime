@@ -1,0 +1,10 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/10001th_prime
+#c# 2021-11-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $result = (^∞).grep( &is-prime )[10000];
+
+use Test;
+is $result, 104743;
