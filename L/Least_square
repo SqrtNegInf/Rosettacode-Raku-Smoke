@@ -1,0 +1,10 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Least_square
+#c# 2021-11-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $result = first { $_² - ($_-1)² > 1000 }, ^Inf;
+
+use Test;
+is $result, 501;
