@@ -2,8 +2,8 @@ Welcome to Rakudo™ v2021.10-124-g6fce35ba8.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.10-111-gbd83921de.
 updating from RC…
-+--------------> Moar: Good/Bad [1396/30]
-|+-------------> JVM: Good/Bad [1205/286]
++--------------> Moar: Good/Bad [1394/30]
+|+-------------> JVM: Good/Bad [1204/287]
 ||+------------> Smoke testing [1332]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
@@ -11,9 +11,9 @@ updating from RC…
 ||||||+--------> Concurrent/Async [85]
 |||||||+-------> Random seed [143]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [331]
+|||||||||+-----> Draft [332]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [93]
+|||||||||||+---> Void (no local copy) [94]
 ||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -206,7 +206,7 @@ GGS.......... Catalan_numbers_Pascal%27s_triangle
 GGS..T....... Catamorphism
 ...........VU Catmull-Clark_subdivision_surface
 GGS......D... Change_e_letters_to_i_in_words
-GBS...C..D... Changeable_words
+!BS...C..D... Changeable_words
 GGS.......... Chaocipher
 GBS...CRF.... Chaos_game
 GBS.......... Character_codes
@@ -428,7 +428,7 @@ GGS.......... Events
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -475,6 +475,7 @@ GGS..T....... File_size_distribution
 GGS.......... Filter
 GGS..T....... Find_Chess960_starting_position_identifier
 GGS......D... Find_URI_in_text
+GBS......D... Find_adjacents_primes_which_difference_is_square_integer
 GGS..T....... Find_common_directory_path
 GBS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
@@ -486,6 +487,7 @@ GGS......D... Find_minimum_number_of_coins_that_make_a_given_value
 GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
 .........D.V. Find_prime_n_such_that_reversed_n_is_also_prime
 GGS......D... Find_prime_numbers_of_the_form_n_n_n%2B2
+.........D.V. Find_square_difference
 GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
@@ -735,7 +737,6 @@ GBS..TC...... Law_of_cosines_-_triples-1
 GGS..T....... Law_of_cosines_-_triples-2
 GGS.......... Leap_year
 GGS.......... Least_common_multiple
-GGS......D... Least_square
 GBS..TC...... Left_factorials
 GBS.......... Legendre_prime_counting_function
 GGS......D... Length_of_an_arc_between_two_angles
