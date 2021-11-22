@@ -1,0 +1,63 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Find_adjacents_primes_which_difference_is_square_integer
+#c# 2021-11-21 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+##n# lowered limit to 1e7
+
+my @res;
+
+use Lingua::EN::Numbers;
+use Math::Primesieve;
+
+my $iterator = Math::Primesieve::iterator.new;
+my $limit    = 1e7;
+my @squares  = (1..30).map: *²;
+my $last     = 2;
+my @gaps;
+
+loop {
+    my $this = (my $p = $iterator.next) - $last;
+    quietly @gaps[$this].push($last) if +@gaps[$this] < 10;
+    last if $p > $limit;
+    $last = $p;
+}
+
+#print "Adjacent primes up to {comma $limit.Int} with a gap value that is a perfect square:";
+for @gaps.pairs.grep: { (.key ∈ @squares) && .value.defined} -> $p {
+    my $ten = ($p.value > 10) ?? ', (first ten)' !! '';
+    @res.push: "\nGap {$p.key}: {comma +$p.value} found$ten:";
+    @res.push: join "\n", $p.value.batch(5)».map({"($_, {$_+ $p.key})"})».join(', ');
+}
+
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+Gap 1: 1 found:
+(2, 3)
+
+Gap 4: 10 found:
+(7, 11), (13, 17), (19, 23), (37, 41), (43, 47)
+(67, 71), (79, 83), (97, 101), (103, 107), (109, 113)
+
+Gap 16: 10 found:
+(1831, 1847), (1933, 1949), (2113, 2129), (2221, 2237), (2251, 2267)
+(2593, 2609), (2803, 2819), (3121, 3137), (3373, 3389), (3391, 3407)
+
+Gap 36: 10 found:
+(9551, 9587), (12853, 12889), (14107, 14143), (15823, 15859), (18803, 18839)
+(22193, 22229), (22307, 22343), (22817, 22853), (24281, 24317), (27143, 27179)
+
+Gap 64: 10 found:
+(89689, 89753), (107377, 107441), (288583, 288647), (367957, 368021), (381103, 381167)
+(400759, 400823), (445363, 445427), (623107, 623171), (625699, 625763), (637003, 637067)
+
+Gap 100: 10 found:
+(396733, 396833), (838249, 838349), (1313467, 1313567), (1648081, 1648181), (1655707, 1655807)
+(2345989, 2346089), (2784373, 2784473), (3254959, 3255059), (3595489, 3595589), (4047157, 4047257)
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
