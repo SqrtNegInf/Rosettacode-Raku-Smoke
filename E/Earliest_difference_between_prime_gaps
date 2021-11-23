@@ -30,12 +30,12 @@ for 1..7 {
 
 sub check-gap ($n, $this, @p) {
     my %upto = @p[^$this].pairs.grep: *.value;
-    my @upto = (1..$this).map: { last unless %upto{$_ * 2}; %upto{$_ * 2} }
+    my @upto = (1..$this).map: { last unless %upto{$_ × 2}; %upto{$_ × 2} }
     my $key = @upto.rotor(2=>-1).first( {.sink; abs(.[0] - .[1]) > $n}, :k );
     return False unless $key;
     @res.push: "Earliest difference > {comma $n} between adjacent prime gap starting primes:";
     @res.push: sprintf "Gap %s starts at %s, gap %s starts at %s, difference is %s\n",
-    |(2 * $key + 2, @upto[$key], 2 * $key + 4, @upto[$key+1], abs(@upto[$key] - @upto[$key+1]))».&comma;
+    |(2 × $key + 2, @upto[$key], 2 × $key + 4, @upto[$key+1], abs(@upto[$key] - @upto[$key+1]))».&comma;
     True
 }
 
