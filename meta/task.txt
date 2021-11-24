@@ -1,19 +1,20 @@
-Welcome to Rakudo™ v2021.10-124-g6fce35ba8.
+Welcome to Rakudo™ v2021.10-125-g974a381dc.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.10-111-gbd83921de.
+updating from RC…
 +--------------> Moar: Good/Bad [1396/30]
-|+-------------> JVM: Good/Bad [1204/287]
-||+------------> Smoke testing [1332]
+|+-------------> JVM: Good/Bad [1205/287]
+||+------------> Smoke testing [1333]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [85]
 |||||||+-------> Random seed [143]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [332]
+|||||||||+-----> Draft [335]
 ||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [94]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [97]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -191,6 +192,7 @@ GG.K......... Call_a_function
 GGS.......... Call_a_function-2
 BB.K......... Call_a_function_in_a_shared_library
 GGS.......... Call_an_object_method
+.........D.V. Camel_Case_and_Snake_Case
 ...........VU Canny_edge_detector
 GGS.......... Canonicalize_CIDR
 GGS.......... Canonicalize_CIDR-2
@@ -344,7 +346,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -417,6 +419,7 @@ GGS.......... Ethiopian_multiplication
 .........D... Euclid-Mullin_sequence
 GBS.......... Euclid-Mullin_sequence-1
 BB........... Euclid-Mullin_sequence-2
+...........VU Euler%27s_constant_0.5772...
 GGS.......... Euler%27s_identity
 GGS...C...... Euler%27s_sum_of_powers_conjecture
 GGS.......... Euler_method
@@ -926,6 +929,7 @@ GGS.......... Number_reversal_game
 GGS......D... Numbers_divisible_by_their_individual_digits,_but_not_by_the_product_of_their_digits.
 GGS......D... Numbers_in_base-16_representation_that_cannot_be_written_with_decimal_digits
 GGS......D... Numbers_in_base_10_that_are_palindromic_in_bases_2,_4,_and_16
+.........D.V. Numbers_which_are_not_the_sum_of_distinct_squares
 GGS......D... Numbers_which_binary_and_ternary_digit_sum_are_prime
 .........D.V. Numbers_whose_count_of_divisors_is_prime
 GBS...C...... Numbers_with_equal_rises_and_falls
@@ -941,6 +945,7 @@ GGS.......... Numerical_integration_Gauss-Legendre_Quadrature
 ..........X.. OLE_Automation
 ...........VU OLE_automation
 GBS.......... Object_serialization
+GGS......D... Odd_and_square_numbers
 GGS......D... Odd_squarefree_semiprimes
 GGS.......... Odd_word_problem
 GGS......D... Odd_words
