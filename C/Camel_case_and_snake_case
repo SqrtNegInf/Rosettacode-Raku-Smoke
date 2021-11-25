@@ -1,0 +1,77 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Camel_case_and_snake_case
+#c# 2021-11-24 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my @tests = qww<
+  snakeCase  snake_case  variable_10_case  variable10Case  "ɛrgo rE tHis"
+  hurry-up-joe!  c://my-docs/happy_Flag-Day/12.doc  "  spaces  "
+>;
+
+sub to_snake_case (Str $snake_case_string is copy) {
+    $snake_case_string.=trim;
+    return $snake_case_string if $snake_case_string.contains: / \s | '/' /;
+    $snake_case_string.=subst: / <after <:Ll>> (<:Lu>|<:digit>+) /, {'_' ~ $0.lc}, :g;
+    $snake_case_string.=subst: / <after <:digit>> (<:Lu>) /, {'_' ~ $0.lc}, :g;
+}
+
+sub toCamelCase (Str $CamelCaseString is copy) {
+    $CamelCaseString.=trim;
+    return $CamelCaseString if $CamelCaseString.contains: / \s | '/' /;
+    $CamelCaseString.=subst: / ('_') (\w) /, {$1.uc}, :g;
+}
+
+sub to-kebab-case (Str $kebab-case-string is copy) {
+    $kebab-case-string.=trim;
+    return $kebab-case-string if $kebab-case-string.contains: / \s | '/' /;
+    $kebab-case-string.=subst: / ('_') (\w) /, {'-' ~ $1.lc}, :g;
+    $kebab-case-string.=subst: / <after <:Ll>> (<:Lu>|<:digit>+) /, {'-' ~ $0.lc}, :g;
+    $kebab-case-string.=subst: / <after <:digit>> (<:Lu>) /, {'-' ~ $0.lc}, :g;
+}
+
+@res.push:   "{' ' x 30}to_snake_case";
+@res.push: sprintf "%33s ==> %s", $_, .&to_snake_case for @tests;
+@res.push: "\n{' ' x 30}toCamelCase";
+@res.push: sprintf "%33s ==> %s", $_,   .&toCamelCase for @tests;
+@res.push: "\n{' ' x 30}to-kabab-case";
+@res.push: sprintf "%33s ==> %s", $_, .&to-kebab-case for @tests;
+
+.say for @res;
+
+my $ref = q:to/END/;
+                              to_snake_case
+                        snakeCase ==> snake_case
+                       snake_case ==> snake_case
+                 variable_10_case ==> variable_10_case
+                   variable10Case ==> variable_10_case
+                     ɛrgo rE tHis ==> ɛrgo rE tHis
+                    hurry-up-joe! ==> hurry-up-joe!
+c://my-docs/happy_Flag-Day/12.doc ==> c://my-docs/happy_Flag-Day/12.doc
+                         spaces   ==> spaces
+
+                              toCamelCase
+                        snakeCase ==> snakeCase
+                       snake_case ==> snakeCase
+                 variable_10_case ==> variable10Case
+                   variable10Case ==> variable10Case
+                     ɛrgo rE tHis ==> ɛrgo rE tHis
+                    hurry-up-joe! ==> hurry-up-joe!
+c://my-docs/happy_Flag-Day/12.doc ==> c://my-docs/happy_Flag-Day/12.doc
+                         spaces   ==> spaces
+
+                              to-kabab-case
+                        snakeCase ==> snake-case
+                       snake_case ==> snake-case
+                 variable_10_case ==> variable-10-case
+                   variable10Case ==> variable-10-case
+                     ɛrgo rE tHis ==> ɛrgo rE tHis
+                    hurry-up-joe! ==> hurry-up-joe!
+c://my-docs/happy_Flag-Day/12.doc ==> c://my-docs/happy_Flag-Day/12.doc
+                         spaces   ==> spaces
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
