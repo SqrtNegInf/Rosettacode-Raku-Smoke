@@ -2,4 +2,5 @@
 ## store JVM results and zap directory & link
 #    2021-03-20
 
-shell "cd bench; mv jvm/* jlast; rmdir {Date.today}-j; rm jvm";
+exit unless 'bench/jvm'.IO ~~ :e;
+shell "rakudobrew switch moar-blead; cd bench; mv jvm/* jlast; rmdir {Date.today}-j; rm jvm";
