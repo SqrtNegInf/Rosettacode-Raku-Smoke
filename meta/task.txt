@@ -1,20 +1,20 @@
-Welcome to Rakudo™ v2021.10-126-g259d29b36.
+Welcome to Rakudo™ v2021.10-127-g1fc8cce31.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.10-111-gbd83921de.
 updating from RC…
-+--------------> Moar: Good/Bad [1400/30]
-|+-------------> JVM: Good/Bad [1208/287]
-||+------------> Smoke testing [1336]
++--------------> Moar: Good/Bad [1401/30]
+|+-------------> JVM: Good/Bad [1209/287]
+||+------------> Smoke testing [1337]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [364]
-||||||+--------> Concurrent/Async [85]
+||||||+--------> Concurrent/Async [86]
 |||||||+-------> Random seed [144]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [336]
+|||||||||+-----> Draft [337]
 ||||||||||+----> Ignoring [36]
 |||||||||||+---> Void (no local copy) [95]
-||||||||||||+--> Un-implemented/reliable [51]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -419,7 +419,7 @@ GGS.......... Ethiopian_multiplication
 .........D... Euclid-Mullin_sequence
 GBS.......... Euclid-Mullin_sequence-1
 BB........... Euclid-Mullin_sequence-2
-...........V. Euler%27s_constant_0.5772...
+GGS...C...... Euler%27s_constant_0.5772...
 GGS.......... Euler%27s_identity
 GGS...C...... Euler%27s_sum_of_powers_conjecture
 GGS.......... Euler_method
@@ -1227,6 +1227,7 @@ GG.K......... Scope_modifiers
 GGS.......... Search_a_list
 GGS..T....... Search_a_list_of_records
 GGS.......... Secure_temporary_file
+.........D.VU Segmentation_fault_protection
 GGS......D... Selective_file_copy
 GGS.......... Self-describing_numbers
 .........DXV. Self-hosting_compiler
