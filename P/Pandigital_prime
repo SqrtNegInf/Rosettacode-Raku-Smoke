@@ -1,8 +1,10 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Pandigital_prime
-#c# 2021-09-04 <RC, 2021-09-11 <RC
+#c# 2021-09-04 <RC, 2021-09-11 <RC, 2021-11-27 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+my @res;
 
 say my $result1 = max (1..9).map: -> $size {
     |(1..$size).permutations».join.grep(&is-prime);
@@ -12,6 +14,14 @@ say my $result2 = max (0..7).map: -> $size {
     |(0..$size).permutations».join.grep(&is-prime);
 }
 
+# alternatively...
+for 1, 0 -> $i {
+    @res.push: max ($i..7).map: -> $size {
+        |($i..$size).permutations».join.grep(&is-prime);
+    }
+}
+
 use Test;
 is $result1, 7652413;
 is $result2, 76540231;
+is @res.join(' '), '7652413 76540231';
