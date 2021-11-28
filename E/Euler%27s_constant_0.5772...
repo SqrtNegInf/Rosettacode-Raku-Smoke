@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Euler%27s_constant_0.5772...
-#c# 2021-11-26 <RC
+#c# 2021-11-26 <RC, 2021-11-27 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# very slow with FatRat
@@ -18,7 +18,8 @@ sub gamma (\N) {
       # for ($power..^2*$power) { $term += (1 / (($sign *= -1)*$_)).FatRat }
 
       my $term;
-      for ($power..^2*$power) { $term += 1 / (($sign *= -1)*$_) }
+     #for ($power..^2*$power) { $term += 1 / (($sign *= -1)*$_) }
+      for ($power..^2*$power) { $term += ($sign = -$sign) / $_ }
 
       n*$term 
    } 
