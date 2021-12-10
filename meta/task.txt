@@ -1,18 +1,18 @@
-Welcome to Rakudo™ v2021.10-143-gb405d417a.
+Welcome to Rakudo™ v2021.10-146-gc7e456d35.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.10-124-g6fd623291.
 updating from RC…
-+--------------> Moar: Good/Bad [1403/27]
-|+-------------> JVM: Good/Bad [1210/286]
-||+------------> Smoke testing [1340]
++--------------> Moar: Good/Bad [1402/28]
+|+-------------> JVM: Good/Bad [1210/288]
+||+------------> Smoke testing [1341]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [86]
 |||||||+-------> Random seed [144]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [338]
-||||||||||+----> Ignoring [36]
+|||||||||+-----> Draft [340]
+||||||||||+----> Ignoring [37]
 |||||||||||+---> Void (no local copy) [97]
 ||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
@@ -236,6 +236,7 @@ GGS....RF.... Cistercian_numerals
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
 !GS....R..... Closures_Value_capture
+.........DXV. Code_Golf:_Code_Golf
 GG.K.....D... Code_segment_unload
 GGS.......... Collections
 GB.KIT....... Color_of_a_screen_pixel
@@ -346,7 +347,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -478,7 +479,7 @@ GGS..T....... File_size_distribution
 GGS.......... Filter
 GGS..T....... Find_Chess960_starting_position_identifier
 GGS......D... Find_URI_in_text
-.........D.V. Find_adjacent_primes_which_differ_by_a_square_integer
+GBS......D... Find_adjacent_primes_which_differ_by_a_square_integer
 GGS..T....... Find_common_directory_path
 GBS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
@@ -828,7 +829,7 @@ GBS.......... Mayan_numerals-2
 GG.K...R..... Maze_generation
 GG.K...R..... Maze_solving
 GGS.......... McNuggets_problem
-GBS..T..F.... Median_filter
+!BS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
@@ -1218,6 +1219,7 @@ GBS.......... SHA-256_Merkle_tree-2
 GB.K......... SOAP
 ..........XV. SQL-based_authentication
 GBS.......... Safe_addition
+.........D.VU Safe_and_Sophie_Germain_primes
 .........D.V. Safe_mode
 GBS.......... Safe_primes_and_unsafe_primes
 GGS.......... Sailors,_coconuts_and_a_monkey_problem
@@ -1582,7 +1584,7 @@ GGS..T....... Welch%27s_t-test-1
 GBS..T....... Welch%27s_t-test-2
 !GS....R.D... What_weekdays_will_Christmas_and_New_Year
 GGS......D... Wieferich_primes
-.........D.VU WiktionaryDumps_to_words
+BB.......D... WiktionaryDumps_to_words
 GGS.......... Wilson_primes_of_order_n-1
 GBS...C...... Wilson_primes_of_order_n-2
 GB.KI........ Window_creation
