@@ -2,19 +2,19 @@ Welcome to Rakudo™ v2021.10-146-gc7e456d35.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.10-124-g6fd623291.
 updating from RC…
-+--------------> Moar: Good/Bad [1402/28]
-|+-------------> JVM: Good/Bad [1210/288]
-||+------------> Smoke testing [1341]
++--------------> Moar: Good/Bad [1407/28]
+|+-------------> JVM: Good/Bad [1211/289]
+||+------------> Smoke testing [1343]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [86]
-|||||||+-------> Random seed [144]
+|||||||+-------> Random seed [143]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [340]
-||||||||||+----> Ignoring [37]
-|||||||||||+---> Void (no local copy) [97]
-||||||||||||+--> Un-implemented/reliable [53]
+|||||||||+-----> Draft [341]
+||||||||||+----> Ignoring [36]
+|||||||||||+---> Void (no local copy) [96]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -54,6 +54,7 @@ GB.K......... Active_Directory_Connect
 BB........... Active_Directory_Search_for_a_user
 GG.K......... Active_object
 GGS.......... Add_a_variable_to_a_class_instance_at_runtime
+GGS......D... Add_and_sort_square_numbers_in_ascending_order_from_three_lists
 .........D.VU Addition-chain_exponentiation
 GGS..T...D... Addition_chains
 GGS..T....... Additive_primes-1
@@ -236,7 +237,7 @@ GGS....RF.... Cistercian_numerals
 GGS.......... Classes
 GGS....R..... Closest-pair_problem
 !GS....R..... Closures_Value_capture
-.........DXV. Code_Golf:_Code_Golf
+GBS......D... Code_Golf:_Code_Golf
 GG.K.....D... Code_segment_unload
 GGS.......... Collections
 GB.KIT....... Color_of_a_screen_pixel
@@ -327,6 +328,7 @@ GGS..T....... Date_format
 GGS..T....... Date_manipulation
 GBS......D... Dating_agency
 GGS.......... Day_of_the_week
+.........D.V. Day_of_the_week_of_Christmas_and_New_Year
 GGS......D... Days_between_dates
 GGS.......... De_Bruijn_sequences
 GGS..T.R..... Deal_cards_for_FreeCell
@@ -347,7 +349,7 @@ GGS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -829,7 +831,7 @@ GBS.......... Mayan_numerals-2
 GG.K...R..... Maze_generation
 GG.K...R..... Maze_solving
 GGS.......... McNuggets_problem
-!BS..T..F.... Median_filter
+GBS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
@@ -1219,7 +1221,7 @@ GBS.......... SHA-256_Merkle_tree-2
 GB.K......... SOAP
 ..........XV. SQL-based_authentication
 GBS.......... Safe_addition
-.........D.VU Safe_and_Sophie_Germain_primes
+GGS......D... Safe_and_Sophie_Germain_primes
 .........D.V. Safe_mode
 GBS.......... Safe_primes_and_unsafe_primes
 GGS.......... Sailors,_coconuts_and_a_monkey_problem
@@ -1582,7 +1584,6 @@ GGS.......... Weird_numbers
 .........D... Welch%27s_t-test
 GGS..T....... Welch%27s_t-test-1
 GBS..T....... Welch%27s_t-test-2
-!GS....R.D... What_weekdays_will_Christmas_and_New_Year
 GGS......D... Wieferich_primes
 BB.......D... WiktionaryDumps_to_words
 GGS.......... Wilson_primes_of_order_n-1
