@@ -1,0 +1,165 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Palindromic_primes_with_alternating_digits
+#t# inprogress
+#c# 2021-12-11 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# essentially 'smoothly undulating palindromic primes': a(ba){1,}, (but allowing a == b)
+
+use experimental :cached; # definitely helps
+
+multi is-SUPP ( $n where [and] 1 X== *.comb) { $n.is-prime } 
+multi is-SUP  ( $n )           { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) }
+multi is-SUPP ( $n ) is cached { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) and $n.is-prime }
+sub   gen-SUP ( $a, $b, $m --> Int) { ((("$a$b"×(10**$m))-"$b$a")/99).Int }
+
+sub is-SUPPx ( Int $n --> Bool) { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) and $n.is-prime }
+#say (181, 18181, 1818181)>>.is-SUPPx; exit;      # no
+say .is-SUPPx for (181, 18181, 1818181); exit;       # no
+
+sub is-SUPPy ( $n ) { [and] 
+#`{ is palindromic }  $n eq $n.flip, 
+#`{ is undulating  }  ([==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs})), 
+#`{ is prime       }  $n.is-prime
+}
+#say is-SUPPy $_ for (181, 18181, 1818181); exit;
+
+#say is-SUPP $_ for (11, 111, 1111, 1111111111111111111); exit;
+
+#say is-SUPP $_ for <181 18181 1818181>;
+
+# from A193419:
+#my ($a,$b) = 1, 8;
+#say gen-SUP(7,2,$_) == (3 + 4*gen-SUP(1,8,$_)) for <3 5 77 163 1479 3657 4573 8315>;
+say is-SUPP (3 + 4*gen-SUP(1,8,$_)) for <3 5 77 163 1479 3657 4573 8315>;
+say '2nd pass';
+say is-SUPP (3 + 4*gen-SUP(1,8,$_)) for <3 5 77 163 1479 3657 4573 8315>;
+exit;
+
+#say my $x = gen-SUP 1, 8, 5;
+#say is-SUPP($_) ~ ' ' ~ .comb.elems for map { gen-SUP 1, 8, $_ }, <3 5 77 163 1479 3657 4573 8315>;
+
+say is-SUPP gen-SUP 1, 8, $_ for <3 5 77 163>; # 1479 3657 4573 8315>;
+say '--';
+say [and] map {is-SUPP gen-SUP 1, 8, $_}, <3 5 77 163>; # 1479 3657 4573 8315>;
+#say '==';
+#say [and] gen-SUP(1, 8, $_).is-SUPP for <3 5 77 163>; # 1479 3657 4573 8315>;
+
+=finish 
+
+#n# http://www.worldofnumbers.com/undulat.htm
+#n# So related to huge number of OEIS entries: A032758 A059758 A242541
+#n# or in degenerate case of a=b, one digit, for lengths: 19, 23, 317, 1031 (the repunit primes, as per A004023)
+#n# b=0 only once, never 3/4, 7/1, 7/6: 
+#n# to-do: instead of listing, build table of generator-pair frequencies
+
+# (12*10**46499-21)/99
+# (15*10**44653-51)/99
+# (18*10**66657-81)/99 .
+# (31*10**43869-13)/99
+# (38*10**91997-83)/99 .
+# (72*10**53847-27)/99 .
+# (75*10**41657-57)/99
+# (75*10**72941-57)/99 .
+# (79*10**51663-97)/99 .
+# (79*10**66447-97)/99 .
+# (94*10**92981-49)/99 !
+# (98*10**52931-89)/99 .
+# (98*10**88595-89)/99 .
+my @res;
+
+use strict;
+use warnings;
+use feature 'say';
+
+use Math::Prime::Util 'is_prime';
+#use Math::AnyNum 'is_prime';       # faster with smallest primes
+
+my $lo = 2; my $hi = 8;
+#my $lo = 2; my $hi = 10_000;
+
+my @digits = 0..9; 
+my $zero;
+
+for my $d ($lo..$hi) {
+    my @pr = ();
+    for my $a (<1 3 7 9>) {
+        for my $b (@digits) {
+            next if "$a$b" eq '34' or "$a$b" eq '71' or "$a$b" eq '76';
+            my $p = $a . "$b$a" x ($d-1);
+#           print "$p " if is_prime $p;
+            push @pr, [$a, $b] if is_prime $p
+        }
+    }
+#print "\n";
+    $zero = shift @digits unless defined $zero;
+    printf "%d %s\n", 1+2*($d-1), join ' ', @{$pr[$_]} for 0..$#pr;
+    push @res, sprintf "%d %s", 1+2*($d-1), join ' ', @{$pr[$_]} for 0..$#pr;
+}
+
+#print "\n" and exit;
+
+exit unless $hi == 8;
+my $result = join "\n", @res;
+
+my $ref = <<'EOD';
+3 1 0
+3 1 3
+3 1 5
+3 1 8
+3 1 9
+3 3 1
+3 3 5
+3 3 7
+3 3 8
+3 7 2
+3 7 5
+3 7 8
+3 7 9
+3 9 1
+3 9 2
+5 1 8
+5 3 2
+5 3 5
+5 7 2
+5 7 4
+5 7 8
+5 9 4
+5 9 5
+7 1 2
+7 1 6
+9 3 2
+9 3 8
+9 7 2
+9 9 1
+9 9 2
+9 9 7
+9 9 8
+11 1 2
+11 1 4
+11 3 2
+11 9 1
+15 1 5
+15 3 8
+15 7 3
+EOD
+
+use Test::More;
+chomp $ref;
+is ($result, $ref);
+done_testing();
+
+__END__
+
+18181 wins a prize for appearing in 80+ OEIS entries (strobogrammatic, really?)
+
+  727 = 4*  181 + 3
+72727 = 4*18181 + 3
+
+101 131 151 181 191 313 353 373 383 727 757 787 797 919 929
+18181 32323 35353 72727 74747 78787 94949 95959
+1212121 1616161
+323232323 383838383 727272727 919191919 929292929 979797979 989898989
+12121212121 14141414141 32323232323 91919191919
+151515151515151 383838383838383 737373737373737
+
