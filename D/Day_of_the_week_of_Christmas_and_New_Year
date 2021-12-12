@@ -3,6 +3,7 @@
 #c# 2021-11-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2021-12-11 srand drift? Try to fix...
 
 my @res;
 
@@ -18,16 +19,16 @@ my @d-o-w = < Sunday Monday Tuesday Wednesday Thursday Friday Saturday >;
 .say for @res;
 
 my $moar = q:to/END/;
-In 1795, New Years is on a Thursday, and Christmas on a Friday.
-In 1957, New Years is on a Tuesday, and Christmas on a Wednesday.
-In 1965, New Years is on a Friday, and Christmas on a Saturday.
+In 1543, New Years is on a Friday, and Christmas on a Saturday.
+In 1969, New Years is on a Wednesday, and Christmas on a Thursday.
 In 2020, New Years is on a Wednesday, and Christmas on a Friday.
 In 2021, New Years is on a Friday, and Christmas on a Saturday.
 In 2022, New Years is on a Saturday, and Christmas on a Sunday.
-In 2037, New Years is on a Thursday, and Christmas on a Friday.
-In 2174, New Years is on a Saturday, and Christmas on a Sunday.
-In 2187, New Years is on a Monday, and Christmas on a Tuesday.
-In 2210, New Years is on a Monday, and Christmas on a Tuesday.
+In 2022, New Years is on a Saturday, and Christmas on a Sunday.
+In 2080, New Years is on a Monday, and Christmas on a Wednesday.
+In 2236, New Years is on a Friday, and Christmas on a Sunday.
+In 2254, New Years is on a Sunday, and Christmas on a Monday.
+In 2277, New Years is on a Monday, and Christmas on a Tuesday.
 END
 
 my $jvm = q:to/END/;
