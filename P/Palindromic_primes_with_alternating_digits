@@ -8,15 +8,20 @@
 
 use experimental :cached; # definitely helps
 
-multi is-SUPP ( $n where so 1 == *.comb.all) { $n.is-prime }
-#ulti is-SUPP ( $n where [and] 1 X== *.comb) { $n.is-prime }
-multi is-SUP  ( $n )           { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) }
-multi is-SUPP ( $n ) is cached { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) and $n.is-prime }
 sub   gen-SUP ( $a, $b, $m --> Int) { ((("$a$b"×(10**$m))-"$b$a")/99).Int }
+multi is-SUPP ( $n where so 1 == *.comb.all) { $n.is-prime }
+#multi is-SUPP ( $n where [and] 1 X== *.comb) { $n.is-prime }
+multi is-SUPP ( $n ) is cached { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) and $n.is-prime }
+sub   is-SUP  ( $n )           { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) }
 
-sub is-SUPPx ( Int $n --> Bool) { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) and $n.is-prime }
-#say (181, 18181, 1818181) ==> is-SUPPx; exit;      # no
-say $_ ==> is-SUPPx for (181, 18181, 1818181); exit;       # no
+for 3,5 ... 1001 -> $m {
+  for <1 3 7 9> X ^10 -> ($a,$b) {
+    next if $b == 0 && $m > 3 or $a == $b && $a > 1;
+    next if "$a$b" eq '34' or "$a$b" eq '71' or "$a$b" eq '76';
+    say "$m $a $b" if is-SUPP gen-SUP $a, $b, $m;
+  }
+}
+exit;
 
 sub is-SUPPy ( $n ) { [and] 
 #`{ is palindromic }  $n eq $n.flip, 
