@@ -5,34 +5,46 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# essentially 'smoothly undulating palindromic primes': a(ba){1,}, (but allowing a == b)
+#n# 3,5,...1501:  564.97s user  7.89s system 
+#n#     "      :  575.00s user 12.43s system - latest
+#n# b=0 only once, never a=7, b=6 (proved) but 3/4, 7/1?
+#n# 18181 is a 'SUPER' prime: (smoothly undulating|strobogrammatic unlucky) palindromic emirp-adjacent rotatable|reflectable
+#n# (A345905 Primes p such that 11*p is the concatenation of an emirp and its reverse)
+#n# (A178654 Palprimes of the form (q//R(q))/11 where q is an emirp, R() denotes digit-reversal and // concatenation)
 
 use experimental :cached; # definitely helps
 
-sub   gen-SUP ( $a, $b, $m --> Int) { ((("$a$b"×(10**$m))-"$b$a")/99).Int }
-multi is-SUPP ( $n where so 1 == *.comb.all) { $n.is-prime }
+sub   gen-SUP ( $a, $b, $m ) { ((("$a$b"×10**$m)-"$b$a")/99) }
+multi is-SUPP ( $n where so 1 == *.comb.all) { $n.is-prime }  # where a == b == 1
 #multi is-SUPP ( $n where [and] 1 X== *.comb) { $n.is-prime }
-multi is-SUPP ( $n ) is cached { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) and $n.is-prime }
-sub   is-SUP  ( $n )           { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) }
+multi is-SUPP     ( $n ) is cached { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) and $n.is-prime }
+sub   is-SUP      ( $n )           { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) }
+multi is-SUPP-dry ( $n ) is cached { is-SUP $n and $n.is-prime }
 
-for 3,5 ... 1001 -> $m {
+sub is-SUPP-with-docs ( $n ) { [and] 
+  #`{ palindromic }  $n eq $n.flip, 
+  #`{ undulating  }  ([==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs})),  # smoothly!
+  #`{ prime       }  $n.is-prime
+}
+
+for 3,5 ... 1501 -> $m {
   for <1 3 7 9> X ^10 -> ($a,$b) {
-    next if $b == 0 && $m > 3 or $a == $b && $a > 1;
-    next if "$a$b" eq '34' or "$a$b" eq '71' or "$a$b" eq '76';
-    say "$m $a $b" if is-SUPP gen-SUP $a, $b, $m;
+    next if [or] 
+            ($b ==  0 and $m > 3),
+            ($a == $b and $a > 1),
+            <$a $b> Xeq <3 4>, <7 1>, <7 6>;
+    say "$m $a $b" if is-SUPP-dry gen-SUP $a, $b, $m;
   }
 }
 exit;
 
-sub is-SUPPy ( $n ) { [and] 
-#`{ is palindromic }  $n eq $n.flip, 
-#`{ is undulating  }  ([==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs})), 
-#`{ is prime       }  $n.is-prime
-}
-#say is-SUPPy $_ for (181, 18181, 1818181); exit;
+# a=7, b=6 will never yield a SUPP
+my ($a,$b) = 7, 6;
+say [and] map {so "$a$b"x$_ %% 3|7|13 ~ $a}, 1..10;
 
 #say is-SUPP gen-SUP(1,1,$_) for <2 3 4 5 19 23 25 317 1031>; exit;
 
-# from A193419:
+# A193419     Numbers n such that 4n+3 is a palindromic prime.
 #my ($a,$b) = 1, 8;
 #say gen-SUP(7,2,$_) == (3 + 4*gen-SUP(1,8,$_)) for <3 5 77 163 1479 3657 4573 8315>;
 say is-SUPP (3 + 4*gen-SUP(1,8,$_)) for <3 5 77 163 1479 3657 4573 8315>;
@@ -57,54 +69,19 @@ say [and] map {is-SUPP gen-SUP 1, 8, $_}, <3 5 77 163>; # 1479 3657 4573 8315>;
 #n# b=0 only once, never 3/4, 7/1, 7/6: 
 #n# to-do: instead of listing, build table of generator-pair frequencies
 
-# (12*10**46499-21)/99
-# (15*10**44653-51)/99
-# (18*10**66657-81)/99 .
-# (31*10**43869-13)/99
-# (38*10**91997-83)/99 .
-# (72*10**53847-27)/99 .
 # (75*10**41657-57)/99
-# (75*10**72941-57)/99 .
+# (31*10**43869-13)/99
+# (15*10**44653-51)/99
+# (12*10**46499-21)/99
 # (79*10**51663-97)/99 .
-# (79*10**66447-97)/99 .
-# (94*10**92981-49)/99 !
 # (98*10**52931-89)/99 .
+# (72*10**53847-27)/99 .
+# (79*10**66447-97)/99 .
+# (18*10**66657-81)/99 .
+# (75*10**72941-57)/99 .
 # (98*10**88595-89)/99 .
-my @res;
-
-use strict;
-use warnings;
-use feature 'say';
-
-use Math::Prime::Util 'is_prime';
-#use Math::AnyNum 'is_prime';       # faster with smallest primes
-
-my $lo = 2; my $hi = 8;
-#my $lo = 2; my $hi = 10_000;
-
-my @digits = 0..9; 
-my $zero;
-
-for my $d ($lo..$hi) {
-    my @pr = ();
-    for my $a (<1 3 7 9>) {
-        for my $b (@digits) {
-            next if "$a$b" eq '34' or "$a$b" eq '71' or "$a$b" eq '76';
-            my $p = $a . "$b$a" x ($d-1);
-#           print "$p " if is_prime $p;
-            push @pr, [$a, $b] if is_prime $p
-        }
-    }
-#print "\n";
-    $zero = shift @digits unless defined $zero;
-    printf "%d %s\n", 1+2*($d-1), join ' ', @{$pr[$_]} for 0..$#pr;
-    push @res, sprintf "%d %s", 1+2*($d-1), join ' ', @{$pr[$_]} for 0..$#pr;
-}
-
-#print "\n" and exit;
-
-exit unless $hi == 8;
-my $result = join "\n", @res;
+# (38*10**91997-83)/99 .
+# (94*10**92981-49)/99 !
 
 my $ref = <<'EOD';
 3 1 0
@@ -147,13 +124,6 @@ my $ref = <<'EOD';
 15 3 8
 15 7 3
 EOD
-
-use Test::More;
-chomp $ref;
-is ($result, $ref);
-done_testing();
-
-__END__
 
 18181 wins a prize for appearing in 80+ OEIS entries (strobogrammatic, really?)
 
