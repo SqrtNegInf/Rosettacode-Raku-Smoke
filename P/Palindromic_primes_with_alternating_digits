@@ -8,14 +8,15 @@
 
 use experimental :cached; # definitely helps
 
-multi is-SUPP ( $n where [and] 1 X== *.comb) { $n.is-prime } 
+multi is-SUPP ( $n where so 1 == *.comb.all) { $n.is-prime }
+#ulti is-SUPP ( $n where [and] 1 X== *.comb) { $n.is-prime }
 multi is-SUP  ( $n )           { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) }
 multi is-SUPP ( $n ) is cached { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) and $n.is-prime }
 sub   gen-SUP ( $a, $b, $m --> Int) { ((("$a$b"×(10**$m))-"$b$a")/99).Int }
 
 sub is-SUPPx ( Int $n --> Bool) { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) and $n.is-prime }
-#say (181, 18181, 1818181)>>.is-SUPPx; exit;      # no
-say .is-SUPPx for (181, 18181, 1818181); exit;       # no
+#say (181, 18181, 1818181) ==> is-SUPPx; exit;      # no
+say $_ ==> is-SUPPx for (181, 18181, 1818181); exit;       # no
 
 sub is-SUPPy ( $n ) { [and] 
 #`{ is palindromic }  $n eq $n.flip, 
@@ -24,9 +25,7 @@ sub is-SUPPy ( $n ) { [and]
 }
 #say is-SUPPy $_ for (181, 18181, 1818181); exit;
 
-#say is-SUPP $_ for (11, 111, 1111, 1111111111111111111); exit;
-
-#say is-SUPP $_ for <181 18181 1818181>;
+#say is-SUPP gen-SUP(1,1,$_) for <2 3 4 5 19 23 25 317 1031>; exit;
 
 # from A193419:
 #my ($a,$b) = 1, 8;
@@ -152,9 +151,6 @@ done_testing();
 __END__
 
 18181 wins a prize for appearing in 80+ OEIS entries (strobogrammatic, really?)
-
-  727 = 4*  181 + 3
-72727 = 4*18181 + 3
 
 101 131 151 181 191 313 353 373 383 727 757 787 797 919 929
 18181 32323 35353 72727 74747 78787 94949 95959
