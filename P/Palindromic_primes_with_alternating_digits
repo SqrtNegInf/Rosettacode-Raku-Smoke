@@ -5,8 +5,10 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# essentially 'smoothly undulating palindromic primes': a(ba){1,}, (but allowing a == b)
-#n# 3,5,...1501:  564.97s user  7.89s system 
-#n#     "      :  575.00s user 12.43s system - latest
+#n# 3,5,...1501:  564.97s user 7.89s system 
+#n#               536.58s user 8.57s system
+#n#     "      :  537.64s user 7.62s system 91%  cpu 9:55.11 total # .hyper inner loop
+#n#     "      :  491.13s user 6.86s system 281% cpu 2:56.60 total # .hyper outer loop
 #n# b=0 only once, never a=7, b=6 (proved) but 3/4, 7/1?
 #n# 18181 is a 'SUPER' prime: (smoothly undulating|strobogrammatic unlucky) palindromic emirp-adjacent rotatable|reflectable
 #n# (A345905 Primes p such that 11*p is the concatenation of an emirp and its reverse)
@@ -14,10 +16,10 @@
 
 use experimental :cached; # definitely helps
 
-sub   gen-SUP ( $a, $b, $m ) { ((("$a$b"×10**$m)-"$b$a")/99) }
+sub   gen-SUP ( $a, $b, $m ) { ("$a$b"×10**$m - "$b$a")/99 }
 multi is-SUPP ( $n where so 1 == *.comb.all) { $n.is-prime }  # where a == b == 1
 #multi is-SUPP ( $n where [and] 1 X== *.comb) { $n.is-prime }
-multi is-SUPP-solo( $n ) is cached { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) and $n.is-prime }
+multi is-SUPP-noc ( $n )           { is-SUP $n and $n.is-prime }
 sub   is-SUP      ( $n )           { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) }
 multi is-SUPP     ( $n ) is cached { is-SUP $n and $n.is-prime }
 
@@ -27,20 +29,26 @@ sub is-SUPP-with-docs ( $n ) { [and]
   #`{ prime       }  $n.is-prime
 }
 
-for 3,5 ... 15 -> $m {
+#(<1 3 7 9> X ^10 X (3,5 ... 15)).map: -> ($a,$b,$m) {
+((3,5 ... 15) X <1 3 7 9> X ^10).map: -> ($m,$a,$b) {
+    next if ($b == 0 and $m > 3) or ($a == $b and $a > 1);
+    say "$m $a $b" if is-SUPP gen-SUP $a, $b, $m
+}
+exit;
+
+(3,5 ... 1501).hyper.map: -> $m {
   for <1 3 7 9> X ^10 -> ($a,$b) {
-    next if [or] 
-            ($b ==  0 and $m > 3),
-            ($a == $b and $a > 1),
-            <$a $b> Xeq <3 4>, <7 1>, <7 6>;
-    say "$m $a $b" if is-SUPP gen-SUP $a, $b, $m;
+    next if ($b == 0 and $m > 3) or ($a == $b and $a > 1);
+    #so ($a,$b) eq (3,4)|(7,1)|(7,6); # 'eqv' not required? In any case, OK, but just begging the question about gaps
+    say "$m $a $b" if is-SUPP-noc gen-SUP $a, $b, $m; # with .hyper
   }
 }
 exit;
 
 # a=7, b=6 will never yield a SUPP
 my ($a,$b) = 7, 6;
-say [and] map {so "$a$b"x$_ %% 3|7|13 ~ $a}, 1..10;
+say [and] map {so ($a~$b)x$_ %% 3|7|13 ~ $a}, 1..10;
+exit;
 
 #say is-SUPP gen-SUP(1,1,$_) for <2 3 4 5 19 23 25 317 1031>; exit;
 
