@@ -2,8 +2,8 @@ Welcome to Rakudo™ v2021.10-146-gc7e456d35.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.10-124-g6fd623291.
 updating from RC…
-+--------------> Moar: Good/Bad [1407/28]
-|+-------------> JVM: Good/Bad [1212/289]
++--------------> Moar: Good/Bad [1406/27]
+|+-------------> JVM: Good/Bad [1212/288]
 ||+------------> Smoke testing [1344]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
@@ -12,8 +12,8 @@ updating from RC…
 |||||||+-------> Random seed [144]
 ||||||||+------> File output [100]
 |||||||||+-----> Draft [342]
-||||||||||+----> Ignoring [36]
-|||||||||||+---> Void (no local copy) [96]
+||||||||||+----> Ignoring [37]
+|||||||||||+---> Void (no local copy) [97]
 ||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -208,7 +208,7 @@ GGS.......... Catalan_numbers_Pascal%27s_triangle
 GGS..T....... Catamorphism
 ...........VU Catmull-Clark_subdivision_surface
 GGS......D... Change_e_letters_to_i_in_words
-!BS...C..D... Changeable_words
+GBS...C..D... Changeable_words
 GGS.......... Chaocipher
 GBS...CRF.... Chaos_game
 GBS.......... Character_codes
@@ -434,7 +434,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -1070,7 +1070,7 @@ GGS.......... Population_count
 .........D.V. Positive_decimal_integers_with_the_digit_1_occurring_exactly_twice
 GGS.......... Power_set
 GGS......D... Powerful_numbers
-GBS...C..D... Practical_numbers
+!BS...C..D... Practical_numbers
 GG.K......... Pragmatic_directives
 GGS.......... Price_fraction
 GGS....R.D... Price_list_behind_API
@@ -1586,7 +1586,7 @@ GGS.......... Weird_numbers
 GGS..T....... Welch%27s_t-test-1
 GBS..T....... Welch%27s_t-test-2
 GGS......D... Wieferich_primes
-BB.......D... WiktionaryDumps_to_words
+.........DXV. WiktionaryDumps_to_words
 GGS.......... Wilson_primes_of_order_n-1
 GBS...C...... Wilson_primes_of_order_n-2
 GB.KI........ Window_creation
