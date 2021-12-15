@@ -8921,8 +8921,10 @@ File: P/Palindromic_primes_with_alternating_digits
 #m# MOAR: OK
 #j# JVM:  OK
 #n# essentially 'smoothly undulating palindromic primes': a(ba){1,}, (but allowing a == b)
-#n# 3,5,...1501:  564.97s user  7.89s system 
-#n#     "      :  575.00s user 12.43s system - latest
+#n# 3,5,...1501:  564.97s user 7.89s system 
+#n#               536.58s user 8.57s system
+#n#     "      :  537.64s user 7.62s system 91%  cpu 9:55.11 total # .hyper inner loop
+#n#     "      :  491.13s user 6.86s system 281% cpu 2:56.60 total # .hyper outer loop
 #n# b=0 only once, never a=7, b=6 (proved) but 3/4, 7/1?
 #n# 18181 is a 'SUPER' prime: (smoothly undulating|strobogrammatic unlucky) palindromic emirp-adjacent rotatable|reflectable
 #n# (A345905 Primes p such that 11*p is the concatenation of an emirp and its reverse)
@@ -14376,14 +14378,6 @@ File: W/Wieferich_primes
 #c# 2021-05-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-
-File: W/WiktionaryDumps_to_words
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/WiktionaryDumps_to_words
-#c# 2021-12-09 <RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
-#n# stalls, don't know why (SSL library issues?)
 
 File: W/Wilson_primes_of_order_n-1
 #!/usr/bin/env raku
