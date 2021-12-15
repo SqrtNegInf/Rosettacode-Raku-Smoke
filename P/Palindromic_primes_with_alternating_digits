@@ -16,12 +16,20 @@
 
 use experimental :cached; # definitely helps
 
-sub   gen-SUP ( $a, $b, $m ) { ("$a$b"×10**$m - "$b$a")/99 }
-multi is-SUPP ( $n where so 1 == *.comb.all) { $n.is-prime }  # where a == b == 1
-#multi is-SUPP ( $n where [and] 1 X== *.comb) { $n.is-prime }
-multi is-SUPP-noc ( $n )           { is-SUP $n and $n.is-prime }
-sub   is-SUP      ( $n )           { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) }
-multi is-SUPP     ( $n ) is cached { is-SUP $n and $n.is-prime }
+sub   gen-SUP         ($a, $b, $m)   { ("$a$b"×10**$m - "$b$a")/99 }
+sub   is-SUP          ($n)           { $n eq $n.flip and [==] $n.comb.rotor(2=>-1).map({(.[1]-.[0]).abs}) }
+multi is-SUPP         ($n) is cached { is-SUP $n and $n.is-prime }
+multi is-SUPP-nocache ($n)           { is-SUP $n and $n.is-prime }  # for use with hyper/race
+multi is-SUPP         ($n where so 1==*.comb.all) {  $n.is-prime }  # a == b == 1
+
+multi is-SUPP-state   ($n) { 
+    state %abm;
+    return True if is-SUP $n and defined %abm{join ':',$n.comb[0,1]};
+    return False unless is-SUP $n and $n.is-prime;
+    %abm{join ':',$n.comb[0,1]} = $n.chars;
+#dd %abm; sleep 1;
+    True;
+}
 
 sub is-SUPP-with-docs ( $n ) { [and] 
   #`{ palindromic }  $n eq $n.flip, 
@@ -29,45 +37,55 @@ sub is-SUPP-with-docs ( $n ) { [and]
   #`{ prime       }  $n.is-prime
 }
 
+say 'no-op right now';
+exit;
+
+(3,5 ... 1501).hyper.map: -> $m {
+  for <1 3 7 9> X ^10 -> ($a,$b) {
+    next if ($b == 0 and $m > 3) or ($a == $b and $a > 1); # move into is-SUPP?
+    sink is-SUPP-state gen-SUP $a, $b, $m
+}
+print "\n";
+
+# A193419     Numbers n such that 4n+3 is a palindromic prime.
+my ($a,$b) = 1, 8;
+say "a=$a, b=$b, m=3 ==> 181, and 3+4*181 yields { 3+4*181 }, which breaks down as a={ (3+4*181).comb[0,1].join(', b=')}, m=3";
+say '   m SUP  SUPP';
+say $_.comb.elems.fmt('%4d') ~ ' ' ~ is-SUP($_) ~ ' ' ~ is-SUPP($_) for map { 3 + 4 * gen-SUP($a,$b,$_)}, <3,5 ... 1501>;
+#say $_.comb.elems.fmt('%4d') ~ ' ' ~ is-SUP($_) ~ ' ' ~ is-SUPP($_) for map { 3 + 4 * gen-SUP($a,$b,$_)}, <3 5 77 163 1479 3657 4573>;# 8315
+exit;
+
 #(<1 3 7 9> X ^10 X (3,5 ... 15)).map: -> ($a,$b,$m) {
 ((3,5 ... 15) X <1 3 7 9> X ^10).map: -> ($m,$a,$b) {
-    next if ($b == 0 and $m > 3) or ($a == $b and $a > 1);
+    next if ($b == 0 and $m > 3) or ($a == $b and $a > 1); # move into is-SUPP?
+    #say "$m $a $b" if is-SUPP gen-SUP $a, $b, $m
     say "$m $a $b" if is-SUPP gen-SUP $a, $b, $m
 }
 exit;
 
 (3,5 ... 1501).hyper.map: -> $m {
   for <1 3 7 9> X ^10 -> ($a,$b) {
-    next if ($b == 0 and $m > 3) or ($a == $b and $a > 1);
-    #so ($a,$b) eq (3,4)|(7,1)|(7,6); # 'eqv' not required? In any case, OK, but just begging the question about gaps
-    say "$m $a $b" if is-SUPP-noc gen-SUP $a, $b, $m; # with .hyper
+    next if ($b == 0 and $m > 3) or ($a == $b and $a > 1); # move into is-SUPP?
+    #so ($a,$b) eq (3,4)|(7,1)|(7,6); # 'eqv' not required? In any case, just begging the question about gaps
+    say "$m $a $b" if is-SUPP-nocache gen-SUP $a, $b, $m;
   }
 }
 exit;
 
 # a=7, b=6 will never yield a SUPP
-my ($a,$b) = 7, 6;
-say [and] map {so ($a~$b)x$_ %% 3|7|13 ~ $a}, 1..10;
+#my ($a,$b) = 7, 6;
+#say [and] map {so ($a~$b)x$_ %% 3|7|13 ~ $a}, 1..10;
 exit;
 
 #say is-SUPP gen-SUP(1,1,$_) for <2 3 4 5 19 23 25 317 1031>; exit;
 
-# A193419     Numbers n such that 4n+3 is a palindromic prime.
-#my ($a,$b) = 1, 8;
-#say gen-SUP(7,2,$_) == (3 + 4*gen-SUP(1,8,$_)) for <3 5 77 163 1479 3657 4573 8315>;
-say is-SUPP (3 + 4*gen-SUP(1,8,$_)) for <3 5 77 163 1479 3657 4573 8315>;
-say '2nd pass';
-say is-SUPP (3 + 4*gen-SUP(1,8,$_)) for <3 5 77 163 1479 3657 4573 8315>;
+my @mgood = <3 5 77 163 1479>; # 3657 4573 8315>;
+my @mbad  = <3 5 77 163 1477>; # 3657 4573 8315>;
+say [and] map {is-SUPP gen-SUP 1, 8, $_}, @mgood; # all good
+say [and] map {is-SUPP gen-SUP 1, 8, $_}, @mbad;  # bad apple in there
 exit;
 
-#say my $x = gen-SUP 1, 8, 5;
 #say is-SUPP($_) ~ ' ' ~ .comb.elems for map { gen-SUP 1, 8, $_ }, <3 5 77 163 1479 3657 4573 8315>;
-
-say is-SUPP gen-SUP 1, 8, $_ for <3 5 77 163>; # 1479 3657 4573 8315>;
-say '--';
-say [and] map {is-SUPP gen-SUP 1, 8, $_}, <3 5 77 163>; # 1479 3657 4573 8315>;
-#say '==';
-#say [and] gen-SUP(1, 8, $_).is-SUPP for <3 5 77 163>; # 1479 3657 4573 8315>;
 
 =finish 
 
