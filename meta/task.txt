@@ -2,16 +2,16 @@ Welcome to Rakudo™ v2021.10-149-g0851a253a.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.10-124-g6fd623291.
 updating from RC…
-+--------------> Moar: Good/Bad [1407/27]
-|+-------------> JVM: Good/Bad [1212/288]
-||+------------> Smoke testing [1344]
++--------------> Moar: Good/Bad [1408/27]
+|+-------------> JVM: Good/Bad [1213/288]
+||+------------> Smoke testing [1345]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [86]
 |||||||+-------> Random seed [144]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [342]
+|||||||||+-----> Draft [343]
 ||||||||||+----> Ignoring [37]
 |||||||||||+---> Void (no local copy) [97]
 ||||||||||||+--> Un-implemented/reliable [52]
@@ -47,7 +47,7 @@ BB.KI........ Abelian_sandpile_model-2
 GBS.......... Abelian_sandpile_model_Identity
 GGS.......... Abstract_type
 GGS..T....... Abundant,_deficient_and_perfect_number_classifications
-!BS..TC...... Abundant_odd_numbers
+GBS..TC...... Abundant_odd_numbers
 GGS.......... Accumulator_factory
 GGS.......... Ackermann_function
 GB.K......... Active_Directory_Connect
@@ -494,6 +494,7 @@ GGS.......... Find_palindromic_numbers_in_both_binary_and_ternary_bases
 .........D.V. Find_prime_n_such_that_reversed_n_is_also_prime
 GGS......D... Find_prime_numbers_of_the_form_n_n_n%2B2
 .........D.V. Find_square_difference
+GGS......D... Find_squares_n_where_n%2B1_is_prime
 GGS.......... Find_the_intersection_of_a_line_with_a_plane
 GGS.......... Find_the_intersection_of_two_lines
 GGS..T....... Find_the_last_Sunday_of_each_month
@@ -831,7 +832,7 @@ GBS.......... Mayan_numerals-2
 GG.K...R..... Maze_generation
 GG.K...R..... Maze_solving
 GGS.......... McNuggets_problem
-GBS..T..F.... Median_filter
+!BS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
