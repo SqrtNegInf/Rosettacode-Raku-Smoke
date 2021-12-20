@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-say my $result = join "\n", (^∞ .grep: { .is-prime && ($_*2+1).is-prime } )[^50].batch(10)».fmt: "%4d";
+say my $result = join "\n", (^∞ .grep: { .is-prime && ($_×2+1).is-prime } )[^50].batch(10)».fmt: "%4d";
 
 my $ref = q:to/END/;
    2    3    5   11   23   29   41   53   83   89
