@@ -15,13 +15,13 @@ sub gamma (\N) {
       my $sign = -1;
 
       # my FatRat $term;               # for arbitrary precision
-      # for ($power..^2*$power) { $term += (1 / (($sign *= -1)*$_)).FatRat }
+      # for ($power..^2×$power) { $term += (1 / (($sign ×= -1)×$_)).FatRat }
 
       my $term;
-     #for ($power..^2*$power) { $term += 1 / (($sign *= -1)*$_) }
-      for ($power..^2*$power) { $term += ($sign = -$sign) / $_ }
+     #for ($power..^2×$power) { $term += 1 / (($sign ×= -1)×$_) }
+      for ($power..^2×$power) { $term += ($sign = -$sign) / $_ }
 
-      n*$term 
+      n×$term 
    } 
 }
 
