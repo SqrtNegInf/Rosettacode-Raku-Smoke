@@ -3,15 +3,15 @@ Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.10-124-g6fd623291.
 updating from RC…
 +--------------> Moar: Good/Bad [1409/27]
-|+-------------> JVM: Good/Bad [1213/288]
-||+------------> Smoke testing [1344]
+|+-------------> JVM: Good/Bad [1214/288]
+||+------------> Smoke testing [1346]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [86]
 |||||||+-------> Random seed [144]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [344]
+|||||||||+-----> Draft [345]
 ||||||||||+----> Ignoring [37]
 |||||||||||+---> Void (no local copy) [98]
 ||||||||||||+--> Un-implemented/reliable [53]
@@ -238,7 +238,7 @@ GGS....R..... Closest-pair_problem
 !GS....R..... Closures_Value_capture
 GBS......D... Code_Golf:_Code_Golf
 GG.K.....D... Code_segment_unload
-GG.......D... Collect_and_sort_square_numbers_in_ascending_order_from_three_lists
+GGS......D... Collect_and_sort_square_numbers_in_ascending_order_from_three_lists
 GGS.......... Collections
 GB.KIT....... Color_of_a_screen_pixel
 BB........... Color_of_a_screen_pixel-2
@@ -833,7 +833,7 @@ GBS.......... Mayan_numerals-2
 GG.K...R..... Maze_generation
 GG.K...R..... Maze_solving
 GGS.......... McNuggets_problem
-GBS..T..F.... Median_filter
+!BS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
@@ -1256,6 +1256,7 @@ GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
 !GS..T.R..... Set_puzzle
+GGS......D..U Set_right-adjacent_bits
 GGS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
 GBS.......... Shell_one-liner
@@ -1274,7 +1275,7 @@ GGS..T..F.... Sierpinski_pentagon
 GGS.....F.... Sierpinski_square_curve
 GGS.......... Sierpinski_triangle
 GGS..T..F.... Sierpinski_triangle_Graphical
-GGS..T....X.U Sieve_of_Eratosthenes
+GGS..T....X.. Sieve_of_Eratosthenes
 GB.K......... Simple_database
 .........D.VU Simple_turtle_graphics
 GB.KI........ Simple_windowed_application
