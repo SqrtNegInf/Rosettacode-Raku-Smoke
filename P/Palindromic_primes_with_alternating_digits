@@ -33,7 +33,7 @@ multi is-SUPP ($n) is cached {
 
 sub is-SUPP-state ($n) {
     state %abm;
-    my ($a,$b,$m) = $n.comb[0,1], $n.chars; # must use '|' here, but not above?
+    my ($a,$b,$m) = |$n.comb[0,1], $n.chars; # required to use '|' here, but not above?
     return False if ($b == 0 and $m > 3) or ($a == $b and $a > 1);
     return False unless is-SUP $n;
     my $key = join ':', $a,$b,$m;
@@ -50,7 +50,7 @@ sub is-SUPP-with-docs ( $n ) { [and]
   #`{ prime       }  $n.is-prime
 }
 
-#say 'no-op'; exit;
+say 'no-op'; exit;
 my $start-time; $start-time = now;
 
 #my ($lo,$hi) = 375, 1501;
