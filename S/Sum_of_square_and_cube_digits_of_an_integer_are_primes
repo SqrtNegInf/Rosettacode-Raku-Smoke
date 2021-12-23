@@ -1,0 +1,10 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Sum_of_square_and_cube_digits_of_an_integer_are_primes
+#c# 2021-12-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $result = ^100 .grep: { .².comb.sum.is-prime && .³.comb.sum.is-prime }
+
+use Test;
+is $result, '16 17 25 28 34 37 47 52 64';
