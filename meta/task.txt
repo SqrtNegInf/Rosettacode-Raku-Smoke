@@ -1,10 +1,10 @@
-Welcome to Rakudo™ v2021.10-150-gd301860e5.
+Welcome to Rakudo™ v2021.10-157-g26dd2f482.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2021.10-124-g6fd623291.
+Built on MoarVM version 2021.10-137-g2914410fa.
 updating from RC…
-+--------------> Moar: Good/Bad [1409/27]
-|+-------------> JVM: Good/Bad [1214/288]
-||+------------> Smoke testing [1346]
++--------------> Moar: Good/Bad [1410/27]
+|+-------------> JVM: Good/Bad [1216/288]
+||+------------> Smoke testing [1348]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [364]
@@ -13,7 +13,7 @@ updating from RC…
 ||||||||+------> File output [100]
 |||||||||+-----> Draft [347]
 ||||||||||+----> Ignoring [37]
-|||||||||||+---> Void (no local copy) [100]
+|||||||||||+---> Void (no local copy) [98]
 ||||||||||||+--> Un-implemented/reliable [53]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -304,7 +304,7 @@ GGS.......... Cramer%27s_rule
 ..........X.. Create_DWM_statusbar
 GGS.......... Create_a_file
 ..........XV. Create_a_file_on_magnetic_tape
-GGS..T.R..... Create_a_two-dimensional_array_at_runtime
+!GS..T.R..... Create_a_two-dimensional_array_at_runtime
 !GS....R..... Create_an_HTML_table
 GGS..T...D... Create_an_object_Native_demonstration
 GBS.......... Create_an_object_at_a_given_address
@@ -476,7 +476,7 @@ GGS.......... Fibonacci_word_fractal
 GGS.......... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
 GGS.....F.... File_input_output-2
-GBS..T....... File_modification_time
+!BS..T....... File_modification_time
 GGS.......... File_size
 GGS..T....... File_size_distribution
 GGS.......... Filter
@@ -833,7 +833,7 @@ GBS.......... Mayan_numerals-2
 GG.K...R..... Maze_generation
 GG.K...R..... Maze_solving
 GGS.......... McNuggets_problem
-!BS..T..F.... Median_filter
+GBS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
@@ -1373,7 +1373,7 @@ GGS.....FD... Starting_a_web_browser
 GGS..T....... State_name_puzzle
 !GS..T.R..... Statistics_Basic
 !GS....R..... Statistics_Normal_distribution
-.........D.V. Steady_Squares
+GGS......D... Steady_Squares
 GGS.......... Stem-and-leaf_plot
 GGS..T....... Stern-Brocot_sequence
 GGS.......... Stirling_numbers_of_the_first_kind
@@ -1421,7 +1421,7 @@ GBS......D... Sum_of_divisors
 GGS.......... Sum_of_elements_below_main_diagonal_of_matrix
 GGS......D... Sum_of_first_n_cubes
 GGS..T...D... Sum_of_primes_in_odd_positions_is_prime
-.........D.V. Sum_of_square_and_cube_digits_of_an_integer_are_primes
+GGS......D... Sum_of_square_and_cube_digits_of_an_integer_are_primes
 GGS.......... Sum_of_squares
 GGS......D... Sum_of_the_digits_of_n_is_substring_of_n
 GGS.......... Sum_to_100
