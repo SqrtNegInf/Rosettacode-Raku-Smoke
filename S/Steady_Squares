@@ -1,0 +1,27 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Steady_Squares
+#c# 2021-12-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+@res.push: $_ for ({$++²}…*).kv.grep( {$^v.ends-with: $^k} )[1..10];
+
+.say for @res;
+
+my $ref = q:to/END/;
+1 1
+5 25
+6 36
+25 625
+76 5776
+376 141376
+625 390625
+9376 87909376
+90625 8212890625
+109376 11963109376
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
