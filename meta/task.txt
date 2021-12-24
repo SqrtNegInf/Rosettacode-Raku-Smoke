@@ -1,8 +1,8 @@
-Welcome to Rakudo™ v2021.10-157-g26dd2f482.
+Welcome to Rakudo™ v2021.12-2-gbf43cffc4.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2021.10-137-g2914410fa.
+Built on MoarVM version 2021.12-3-g52aa63120.
 updating from RC…
-+--------------> Moar: Good/Bad [1410/27]
++--------------> Moar: Good/Bad [1406/27]
 |+-------------> JVM: Good/Bad [1216/288]
 ||+------------> Smoke testing [1348]
 |||+-----------> sKipping validation [143]
@@ -11,10 +11,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [86]
 |||||||+-------> Random seed [144]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [347]
+|||||||||+-----> Draft [348]
 ||||||||||+----> Ignoring [37]
-|||||||||||+---> Void (no local copy) [98]
-||||||||||||+--> Un-implemented/reliable [53]
+|||||||||||+---> Void (no local copy) [99]
+||||||||||||+--> Un-implemented/reliable [54]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -363,6 +363,7 @@ GGS..T....... Dijkstra%27s_algorithm
 GBS..T....... Dinesman%27s_multiple-dwelling_problem-1
 GGS..T....... Dinesman%27s_multiple-dwelling_problem-2
 GB.K..CR..... Dining_philosophers
+.........D.VU Diophantine_linear_system_solving
 GGS..T....... Discordian_date
 GGS......D... Discrete_Fourier_transform
 GGS.......... Display_a_linear_combination
@@ -476,7 +477,7 @@ GGS.......... Fibonacci_word_fractal
 GGS.......... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
 GGS.....F.... File_input_output-2
-!BS..T....... File_modification_time
+GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T....... File_size_distribution
 GGS.......... Filter
@@ -484,7 +485,7 @@ GGS..T....... Find_Chess960_starting_position_identifier
 GGS......D... Find_URI_in_text
 GBS......D... Find_adjacent_primes_which_differ_by_a_square_integer
 GGS..T....... Find_common_directory_path
-GBS..T....... Find_duplicate_files
+!BS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
 GGS......D... Find_first_missing_positive
 GGS.......... Find_if_a_point_is_within_a_triangle
@@ -833,7 +834,7 @@ GBS.......... Mayan_numerals-2
 GG.K...R..... Maze_generation
 GG.K...R..... Maze_solving
 GGS.......... McNuggets_problem
-GBS..T..F.... Median_filter
+!BS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
@@ -966,7 +967,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-GBS......D... Orbital_elements
+!BS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
@@ -1064,7 +1065,7 @@ GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GBS......D... Polynomial_derivative
 GGS..T....... Polynomial_long_division
-GBS.......... Polynomial_regression
+!BS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
@@ -1204,7 +1205,7 @@ GBS.......... Rosetta_Code_Rank_languages_by_number_of_users
 GBS.......... Rosetta_Code_Rank_languages_by_popularity-1
 GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
-GBS......D... Rosetta_Code_Tasks_without_examples
+!BS......D... Rosetta_Code_Tasks_without_examples
 GGS.......... Rot-13
 GGS..T...D... Round-robin_tournament_schedule
 GGS.......... Run-length_encoding
