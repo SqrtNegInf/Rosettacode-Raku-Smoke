@@ -1,10 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Barnsley_fern
-#c# 2018-03-21 <RC
+#c# 2018-03-21 <RC, 2021-12-29 <RC
 #t# graphical
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: barnsley-fern.png
+#n# some warning suppressed?
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -28,7 +29,7 @@ for ^2e5 {
         when  $r <= 15 { (-0.15 × $x + 0.28 × $y,  0.26 × $x + 0.24 × $y + 0.44) }
         default        { ( 0.85 × $x + 0.04 × $y, -0.04 × $x + 0.85 × $y + 1.60) }
     };
-    $png.set(($w / 2 + $x × 60).Int, $h - ($y × 60).Int, 0, 255, 0);
+    $png.set(($w / 2 + $x × 60).Int, ($h - $y × 60).Int, 0, 255, 0);
 }
 
 $png.write: 'run/barnsley-fern.png';
