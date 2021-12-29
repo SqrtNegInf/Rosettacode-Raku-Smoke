@@ -3,6 +3,8 @@
 #c# 2017-06-03 <RC, 2017-07-23 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 2021-12-29 not getting 'Digest::SHA256::Native' to work here
+#n# (was broken since 2021-11-30 due to library issue, using above module would be less fragile...
 
 #BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -10,6 +12,7 @@
 # This implementation takes a starting directory (defaults to the current directory) and has a few flags to set behaviour: --minsize, minimum file size to look at, defaults to 5 bytes; and --recurse, recurse into the directory structure, default True. It finds files of the same size, calculates hashes to compare, then reports files that hash the same. Uses the very fast but cryptographically poor xxHash library to hash the files.
 
 use Digest::xxHash;
+#use Digest::SHA256::Native;
 
 #sub MAIN( $dir = '.', :$minsize = 5, :$recurse = True ) {
 sub MAIN( $dir = 'bin', :$minsize = 5, :$recurse = True ) {
@@ -28,6 +31,7 @@ sub MAIN( $dir = 'bin', :$minsize = 5, :$recurse = True ) {
     my @res;
     for %files.sort( +*.key ).grep( *.value.elems > 1)».kv -> ($size, @list) {
         my %dups;
+       #@list.map: { %dups{ sha256( $_.slurp :bin ) }.push: $_.Str }; # ??
         @list.map: { %dups{ xxHash( $_.slurp :bin ) }.push: $_.Str }; # DH change: encoding no longer needed
         #@list.map: { %dups{ xxHash( :buf-u8( $_.slurp :bin ) ) }.push: $_.Str };
 
