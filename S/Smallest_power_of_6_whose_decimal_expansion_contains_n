@@ -3,7 +3,7 @@
 #c# 2021-04-07 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# inline 'comma' for sake of JVM
+#n# inline 'comma' for sake of JVM (and likewise keep .super)
 
 #use Lingua::EN::Numbers;
 sub comma { $^i.flip.comb(3).join(',').flip }
