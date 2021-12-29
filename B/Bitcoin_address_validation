@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bitcoin/address_validation
-#c# 2016-05-10 <RC
+#c# 2016-05-10 <RC, 2021-12-29 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #  2016-10-27: changed from returning 'True' to returning address string
@@ -8,7 +8,7 @@
 my $bitcoin-address = /
     <+alnum-[0IOl]> ** 26..*  # an address is at least 26 characters long
     <?{
-        use Digest::SHA;
+        use Digest::SHA256::Native;
         .subbuf(21, 4) eqv sha256(sha256 .subbuf(0, 21)).subbuf(0, 4) given
         Blob.new: <
             1 2 3 4 5 6 7 8 9
