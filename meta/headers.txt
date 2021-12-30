@@ -1109,11 +1109,12 @@ File: B/Banker%27s_algorithm.0
 File: B/Barnsley_fern
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Barnsley_fern
-#c# 2018-03-21 <RC
+#c# 2018-03-21 <RC, 2021-12-29 <RC
 #t# graphical
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: barnsley-fern.png
+#n# some warning suppressed?
 
 File: B/Base-16_representation
 #!/usr/bin/env raku
@@ -1290,7 +1291,7 @@ File: B/Birthday_problem
 File: B/Bitcoin_address_validation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bitcoin/address_validation
-#c# 2016-05-10 <RC
+#c# 2016-05-10 <RC, 2021-12-29 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #  2016-10-27: changed from returning 'True' to returning address string
@@ -1298,7 +1299,7 @@ File: B/Bitcoin_address_validation
 File: B/Bitcoin_public_point_to_address
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bitcoin/public_point_to_address
-#c# 2016-07-31 <RC
+#c# 2016-07-31 <RC,  2021-12-29 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -4314,6 +4315,8 @@ File: F/Find_duplicate_files
 #c# 2017-06-03 <RC, 2017-07-23 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 2021-12-29 not getting 'Digest::SHA256::Native' to work here
+#n# (was broken since 2021-11-30 due to library issue, using above module would be less fragile...
 
 File: F/Find_duplicate_files.ubuntu
 #!/usr/bin/env perl6
@@ -8899,6 +8902,7 @@ File: P/Palindromic_gapful_numbers
 #m# MOAR: OK
 #j# JVM:  OK
 #n# cannot use 'hyper' in generation of inf/lazy iterators? (@npal/@gappal)
+#n#  2021-12-29 Thundergnat sees some issue here too...
 #n#  2021-01-09 additional notes:
 #n#  * the runtime error is: 'This continuation has already been invoked'
 #n#  * consistently seen on older Mac OS, a useful 'canary' (or just a PITA?)
@@ -11767,7 +11771,7 @@ File: S/Smallest_power_of_6_whose_decimal_expansion_contains_n
 #c# 2021-04-07 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# inline 'comma' for sake of JVM
+#n# inline 'comma' for sake of JVM (and likewise keep .super)
 
 File: S/Smallest_square_that_begins_with_n
 #!/usr/bin/env raku
