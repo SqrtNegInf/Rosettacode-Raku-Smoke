@@ -5,18 +5,22 @@
 #j#  JVM: OK
 #   update RC with optional task
 
-say 'ref/unixdict.txt'.IO ~~ :e;
-say 'other'.IO ~~ :d;
-say '/unixdict.txt'.IO ~~ :e;
-say '/other'.IO ~~ :d;
+my @res;
 
-say '---';
+@res.push: 'ref/unixdict.txt'.IO ~~ :e;
+@res.push: 'other'.IO ~~ :d;
+@res.push: '/unixdict.txt'.IO ~~ :e;
+@res.push: '/other'.IO ~~ :d;
+
 run ('touch', "Abdu'l-Bahá.txt");
-#run ('touch', 'Abdu\'l-Bahá.txt');
-say Q{Abdu'l-Bahá.txt}.IO ~~ :e;
-say 'Abdu\'l-Bahá.txt'.IO ~~ :e;
-say "Abdu'l-Bahá.txt".IO ~~ :e;
+@res.push: Q{Abdu'l-Bahá.txt}.IO ~~ :e;
+@res.push: 'Abdu\'l-Bahá.txt'.IO ~~ :e;
+@res.push: "Abdu'l-Bahá.txt".IO ~~ :e;
 unlink Q{Abdu'l-Bahá.txt};
 
+say my $result = @res.join(' ');
+
 use Test;
-is ('ref/unixdict.txt'.IO ~~ :e, ';edf%a$d.!XYZ'.IO !~~ :e), 'True True';
+is $result, 'True False False False True True True';
+is (not 'zizzer-zazzer-zuzz'.IO ~~ :e), 'True';
+is ('zizzer-zazzer-zuzz'.IO !~~ :e), 'zizzer-zazzer-zuzz'; # why not 'False'?
