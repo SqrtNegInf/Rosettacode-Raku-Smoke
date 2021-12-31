@@ -15,6 +15,7 @@
 #n#  _NEXT_
 #n# 2021-03-20 split from JVM version, added back base-17 calculations
 #n# 2021-03-22 dropped base-17 again, race-condition in testing
+#n# 2021-12-29 with .race, should always have been using 'atomicint $n'
 
 sub kaprekar( Int $n, Int :$base = 10 ) {
     my $hi = $n ** 2;
@@ -35,15 +36,14 @@ my $ref1 = ' 1 9 45 55 99 297 703 999 2223 2728 4879 4950 5050 5292 7272 7777 99
 use Test;
 is $out, $ref1;
 
-my $n;
+my atomicint $n;
 (^100_000).race.map: { $n++ if kaprekar $_ }
-
 say "\n\nBase 10 Kaprekar numbers < :10<1_000_000> = $n";
 is $n, 24;
 #say "\n\nBase 10 Kaprekar numbers < :10<1_000_000> = ", $n = [+] (1 if kaprekar $_ for ^100_000);
 #is $n, 54;
 
-exit; # un-comment to skip base-17 calculations
+#exit; # comment to add base-17 calculations
 
 say "\nBase 17 Kaprekar numbers < :17<100_000>";
 
@@ -62,6 +62,7 @@ my @res;
 }
 
 @res .= sort: *.chars;
+
 .say for @res;
 
 my $ref2 = qq:to/END/;
