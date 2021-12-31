@@ -6237,6 +6237,7 @@ File: K/Kaprekar_numbers-2
 #n#  _NEXT_
 #n# 2021-03-20 split from JVM version, added back base-17 calculations
 #n# 2021-03-22 dropped base-17 again, race-condition in testing
+#n# 2021-12-29 with .race, should always have been using 'atomicint $n'
 
 File: K/Kaprekar_numbers-2.jvm
 #!/usr/bin/env perl6
