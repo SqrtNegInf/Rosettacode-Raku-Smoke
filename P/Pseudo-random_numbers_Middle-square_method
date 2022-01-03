@@ -1,0 +1,16 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Pseudo-random_numbers/Middle-square_method
+#c# 2022-01-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# terrible algorithm, many seeds lead to cycles or hit a fixed value
+
+sub msq {
+    state $seed = 675248;
+    $seed = $seed² div 1000 mod 1000000;
+}
+
+say my $result = msq() xx 5;
+
+use Test;
+is $result, '959861 333139 981593 524817 432883';
