@@ -1904,7 +1904,8 @@ File: C/Check_that_file_exists
 #c# 2015-12-20 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   update RC with optional task
+#n# update RC with optional task
+#n# '!~~ :e' issue fixed
 
 File: C/Checkpoint_synchronization
 #!/usr/bin/env perl6
@@ -11018,9 +11019,7 @@ File: R/Rosetta_Code_Tasks_without_examples
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 2019-05-01 testing is pretty weak, only one task (100 doors)
-#n# skip writing output to fail, and panic goes away, but it hangs after a short while, cause unknown...
-#n# MoarVM panic: Internal error: zeroed target thread ID in work pass
-#n# flaps: sometimes works, sometimes doesn't
+#n# 2022-01-05 trailing space in output caused trivial testing failure
 
 File: R/Rot-13
 #!/usr/bin/env perl6
