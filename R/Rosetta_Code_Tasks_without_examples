@@ -4,9 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 2019-05-01 testing is pretty weak, only one task (100 doors)
-#n# skip writing output to fail, and panic goes away, but it hangs after a short while, cause unknown...
-#n# MoarVM panic: Internal error: zeroed target thread ID in work pass
-#n# flaps: sometimes works, sometimes doesn't
+#n# 2022-01-05 trailing space in output caused trivial testing failure
 
 use HTTP::UserAgent;
 use Gumbo;
@@ -69,7 +67,7 @@ sub cleanup ( $string ) {
     $string.subst( /^.+ '</div>'/, '' )
 }
 
-#say $result;
+#say $result; exit;
 
 my $ref = q:to/END/;
 100_doors
@@ -85,7 +83,7 @@ my $ref = q:to/END/;
 <dd></dd></dl>
 <p>Answer the question: &#160; what state are the doors in after the last pass? &#160; Which are open, which are closed?
 </p><p><br />
-<b><a href="/wiki/Rosetta_Code:Extra_credit" title="Rosetta Code:Extra credit">Alternate</a>:</b>
+<b><a href="/wiki/Rosetta_Code:Extra_credit" title="Rosetta Code:Extra credit">Alternate</a>:</b> 
 As noted in this page's &#160; <a href="/wiki/Talk:100_doors" title="Talk:100 doors">discussion page</a>, &#160; the only doors that remain open are those whose numbers are perfect squares.
 </p><p>Opening only those doors is an &#160; <a href="/wiki/Rosetta_Code:Optimization" title="Rosetta Code:Optimization">optimization</a> &#160; that may also be expressed;
 however, as should be obvious, this defeats the intent of comparing implementations across programming languages.
@@ -94,5 +92,6 @@ however, as should be obvious, this defeats the intent of comparing implementati
 
 
 END
+
 use Test;
 is $result, $ref;
