@@ -4,12 +4,9 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# 2021-12-29 not getting 'Digest::SHA256::Native' to work here
-#n# (was broken since 2021-11-30 due to library issue, using above module would be less fragile...
+#n# (was broken since 2021-11-30 due to local library issue, using above module would be less fragile...
 
 #BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
-
-# Works with: Rakudo version 2017.05
-# This implementation takes a starting directory (defaults to the current directory) and has a few flags to set behaviour: --minsize, minimum file size to look at, defaults to 5 bytes; and --recurse, recurse into the directory structure, default True. It finds files of the same size, calculates hashes to compare, then reports files that hash the same. Uses the very fast but cryptographically poor xxHash library to hash the files.
 
 use Digest::xxHash;
 #use Digest::SHA256::Native;
