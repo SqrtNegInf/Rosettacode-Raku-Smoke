@@ -1,25 +1,37 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Element-wise_operations
-#c# 2016-05-15 <>RC
+#c# 2016-05-15 <>RC, 2022-01-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-01-12 cannot fix warning on ternary?
+#n# 2022-01-12 cannot fix warning on ternary as written, so re-write to be more idiomatic
 
 #Perl 6 already implements this and other metaoperators as higher-order functions (cross, zip, reduce, triangle, etc.) that are usually accessed through a meta-operator syntactic sugar that is productive over all appropriate operators, including user-defined ones. In this case, a dwimmy element-wise operator (generically known as a "hyper") is indicated by surrounding the operator with double angle quotes. Hypers dwim on the pointy end with cyclic APL semantics as necessary. You can turn the quote the other way to suppress dwimmery on that end. In this case we could have used »op» instead of «op» since the short side is always on the right.
+
+my @res;
 
 my @a =
     [1,2,3],
     [4,5,6],
     [7,8,9];
 
-my @res;
+sub msay-for-RC(@x) {
+    #.map( { ($_%1) ?? $_.nude.join('/') !! $_ } ).join(' ').say for @x; # looks a bit odd but works
+    say .map( { ($_%1) ?? $_.nude.join('/') !! $_ } ).join(' ') for @x;
+    say '';
+}
+
 sub msay(@x) {
+    @res.push: .map( {($_%1) ?? $_.nude.join('/') !! $_ } ).join(' ') for @x;
+    @res.push: '';
+}
+
+sub msay-old(@x) {
     for @x -> @row {
-        my $line = '';
+        #my $line = '';
         #quietly $line ~= ' ' ~ (($_%1) ?? $_.nude.join('/') !! $_) for @row; # doesn't help
         #($line ~= ($_%1) ?? ' '~$_.nude.join('/') !! " $_") for @row;        #    "
-        ($line ~= ' '; $line ~= $_%1 ?? $_.nude.join('/') !! $_) for @row;    # original
-        @res.push: $line;
+        #($line ~= ' '; $line ~= $_%1 ?? $_.nude.join('/') !! $_) for @row;    # original
+        #@res.push: $line;
     }
     @res.push: '';
 }
@@ -48,65 +60,65 @@ msay @a M+ 2;
 .say for @res;
 
 my $ref = qq:to/END/;
- 2 4 6
- 8 10 12
- 14 16 18
+2 4 6
+8 10 12
+14 16 18
 
- 0 0 0
- 0 0 0
- 0 0 0
+0 0 0
+0 0 0
+0 0 0
 
- 1 4 9
- 16 25 36
- 49 64 81
+1 4 9
+16 25 36
+49 64 81
 
- 1 1 1
- 1 1 1
- 1 1 1
+1 1 1
+1 1 1
+1 1 1
 
- 2 3 4
- 6 7 8
- 10 11 12
+2 3 4
+6 7 8
+10 11 12
 
- 0 1 2
- 2 3 4
- 4 5 6
+0 1 2
+2 3 4
+4 5 6
 
- 1 2 3
- 8 10 12
- 21 24 27
+1 2 3
+8 10 12
+21 24 27
 
- 1 2 3
- 2 5/2 3
- 7/3 8/3 3
+1 2 3
+2 5/2 3
+7/3 8/3 3
 
- 3 4 5
- 6 7 8
- 9 10 11
+3 4 5
+6 7 8
+9 10 11
 
- -1 0 1
- 2 3 4
- 5 6 7
+-1 0 1
+2 3 4
+5 6 7
 
- 2 4 6
- 8 10 12
- 14 16 18
+2 4 6
+8 10 12
+14 16 18
 
- 1/2 1 3/2
- 2 5/2 3
- 7/2 4 9/2
+1/2 1 3/2
+2 5/2 3
+7/2 4 9/2
 
- 2 4 6
- 8 10 12
- 14 16 18
+2 4 6
+8 10 12
+14 16 18
 
- 2 3 4
- 6 7 8
- 10 11 12
+2 3 4
+6 7 8
+10 11 12
 
- 3 4 5
- 6 7 8
- 9 10 11
+3 4 5
+6 7 8
+9 10 11
 
 END
 
