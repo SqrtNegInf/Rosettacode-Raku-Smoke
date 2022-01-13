@@ -3,12 +3,13 @@
 #c# 2021-08-18 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2022-01-12 fixed warning on ternary 
 
 my @res;
 
 use Lingua::EN::Numbers;
 
-sub juggler (Int $n where * > 0) { $n, { $_ +& 1 ?? .³.&isqrt !! .&isqrt } … 1 }
+sub juggler (Int $n where * > 0) { $n, { ($_ +& 1) ?? .³.&isqrt !! .&isqrt } … 1 }
 
 sub isqrt ( \x ) { my ( $X, $q, $r, $t ) =  x, 1, 0 ;
     $q +<= 2 while $q ≤ $X ;
