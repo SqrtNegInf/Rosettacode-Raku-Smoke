@@ -6,6 +6,7 @@
 #n# kludge for JVM: 'my' instead of 'constant' for @p (java.lang.IllegalArgumentException: bad parameter count 259)
 #n# 2019-10-26 kludge still needed...
 #n# 2020-01-30 for this particular input permutation doesn't need to doubled
+#n# 2022-01-12 fixed warning on ternary
 
 #constant @p =
 my @p = map { :36($_) }, flat <
@@ -32,7 +33,7 @@ sub grad($h is copy, $x, $y, $z) {
     $h +&= 15;
     my $u = $h < 8 ?? $x !! $y;
     my $v = $h < 4 ?? $y !! $h == 12|14 ?? $x !! $z;
-    ($h +& 1 ?? -$u !! $u) + ($h +& 2 ?? -$v !! $v);
+    (($h +& 1) ?? -$u !! $u) + (($h +& 2) ?? -$v !! $v);
 }
 
 sub noise($x is copy, $y is copy, $z is copy) is export {
