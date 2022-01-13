@@ -3,6 +3,7 @@
 #c# 2015-12-11 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-01-12 fixed warning on ternary
 
 #This solution uses grammars and actions to parse the given file, the Bag for tallying up occurrences of each possible thing we're looking for ("ie", "ei", "cie", and "cei"), and junctions to determine the plausibility of a phrase from the subphrases. Note that a version of rakudo newer than the January 2014 compiler or Star releases is needed, as this code relies on a recent bugfix to the make function.
 
@@ -76,7 +77,7 @@ my $results = CollectWords.parsefile("ref/unixdict.txt", :actions(CollectWords::
 my $phrasetest = [&] plausible($results<!cie>, $results<!cei>, "I before E when not preceded by C"),
                      plausible($results<cei>, $results<cie>, "E before I when preceded by C");
 
-say "I before E except after C: "~ $phrasetest ?? "PLAUSIBLE" !! "NOT PLAUSIBLE";
+say "I before E except after C: " ~ ($phrasetest ?? "PLAUSIBLE" !! "NOT PLAUSIBLE");
 my $test-result = $phrasetest ?? "PLAUSIBLE" !! "NOT PLAUSIBLE";
 @res.push: "I before E except after C: $test-result";
 
