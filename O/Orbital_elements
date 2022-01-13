@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'Clifford' module
+#n# 2022-01-12 fixed warning on ternary (in 'Clifford' module at 'lib/MultiVector.pm6' lines 36 and 37)
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
