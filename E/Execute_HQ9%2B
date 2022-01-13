@@ -33,7 +33,7 @@ class HQ9Interpreter {
         }
     }
     sub bob ($beer is copy) {
-        sub what  { "{$beer??$beer!!'No more'} bottle{($beer-1)??'s'!!''} of beer" };
+        sub what  { "{$beer ?? $beer !! 'No more'} bottle{($beer-1) ?? 's' !! ''} of beer" };
         sub where { 'on the wall' };
         sub drink { $beer--; "Take one down, pass it around," }
         while $beer {
