@@ -6,6 +6,7 @@
 #n# 2018-05-21 all previous errors (in tests 26, 27) are gone, wa-hoo…
 #n# glory be, */× swap worked even here
 #n# 2020-02-27 why does AST still show '*' in use as multiplication?
+#n# 2022-01-12 fixed warning on ternary
 
 unit class MultiVector;
 subset UIntHash of MixHash where .keys.all ~~ UInt;
@@ -28,7 +29,7 @@ my sub order(UInt:D $i is copy, UInt:D $j) {
 	    $i +>= 1;
 	    $n += [+] ($i +& $j).polymod(2 xx *);
 	} until $i == 0;
-	$n +& 1 ?? -1 !! 1;
+	($n +& 1) ?? -1 !! 1;
     }
 }
 
