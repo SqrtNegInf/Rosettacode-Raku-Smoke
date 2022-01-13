@@ -1,0 +1,10 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k
+#c# 2022-01-11 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+say my $result = (1..∞).hyper(:250batch).map(* × 2 + 1).grep( -> $k { !(1 ..^ $k).first: ($k + 1 +< *).is-prime } )[^5];
+
+use Test;
+is $result, '773 2131 2491 4471 5101';
