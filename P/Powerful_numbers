@@ -3,6 +3,7 @@
 #c# 2020-02-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-01-12 fixed warning on ternary
 
 my @res;
 
@@ -19,7 +20,7 @@ sub powerfuls (\n, \k, \enumerate = False) {
     p(1, 2×k - 1);
     sub p (\m, \r) {
         if r < k {
-            enumerate ?? @powerful.push(m) !! ++@powerful[m - 1  ?? (m - 1).chars !! 0];
+            enumerate ?? @powerful.push(m) !! ++@powerful[(m - 1)  ?? (m - 1).chars !! 0];
             return
         }
         for 1 .. ((n / m) ** (1/r) + .0001).Int -> \v {
