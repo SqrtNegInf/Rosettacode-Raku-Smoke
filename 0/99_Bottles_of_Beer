@@ -20,7 +20,7 @@ sub b($b) {
     "$b bottle{'s' if $b != 1} of beer";
 }
 
-.say for @res1;
+#.say for @res1;
 
 for 99...1 -> $bottles {
     sing $bottles, :wall;
