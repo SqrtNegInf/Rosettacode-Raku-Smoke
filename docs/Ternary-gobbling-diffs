@@ -1,34 +1,32 @@
--        ($line ~= ' '; $line ~= $_%1 ?? $_.nude.join('/') !! $_) for @row;
-+        #quietly $line ~= ' ' ~ (($_%1) ?? $_.nude.join('/') !! $_) for @row; # doesn't help
-+        #($line ~= ($_%1) ?? ' '~$_.nude.join('/') !! " $_") for @row;        #    "
-+        ($line ~= ' '; $line ~= $_%1 ?? $_.nude.join('/') !! $_) for @row;    # original
+- ($line ~= ' '; $line ~= $_%1 ?? $_.nude.join('/') !! $_) for @row; # could not silence warning in this code
++ say join ' ', map { ($_%1) ?? $_.nude.join('/') !! $_ }, @row;     # more idiomatic anyhow
 
--        sub what  { "{$beer??$beer!!'No more'} bottle{$beer-1??'s'!!''} of beer" };
-+        sub what  { "{$beer??$beer!!'No more'} bottle{($beer-1)??'s'!!''} of beer" };
+- sub what { "{$beer ?? $beer !! 'No more'} bottle{$beer-1 ?? 's' !! ''} of beer" };
++ sub what { "{$beer ?? $beer !! 'No more'} bottle{($beer-1) ?? 's'!! ''} of beer" };
 
--	$n +& 1 ?? -1 !! 1;
-+	($n +& 1) ?? -1 !! 1;
+- $n +& 1 ?? -1 !! 1;
++ ($n +& 1) ?? -1 !! 1;
 
--say "I before E except after C: " ~ $phrasetest ?? "PLAUSIBLE" !! "NOT PLAUSIBLE";
-+say "I before E except after C: " ~ ($phrasetest ?? "PLAUSIBLE" !! "NOT PLAUSIBLE");
+- say "I before E except after C: " ~ $phrasetest ?? "PLAUSIBLE" !! "NOT PLAUSIBLE";
++ say "I before E except after C: " ~ ($phrasetest ?? "PLAUSIBLE" !! "NOT PLAUSIBLE");
 
--sub juggler (Int $n where * > 0) { $n, { $_ +& 1 ?? .³.&isqrt !! .&isqrt } … 1 }
-+sub juggler (Int $n where * > 0) { $n, { ($_ +& 1) ?? .³.&isqrt !! .&isqrt } … 1 }
+- sub juggler (Int $n where * > 0) { $n, { $_ +& 1 ?? .³.&isqrt !! .&isqrt } … 1 }
++ sub juggler (Int $n where * > 0) { $n, { ($_ +& 1) ?? .³.&isqrt !! .&isqrt } … 1 }
 
--    ($h +& 1 ?? -$u !! $u) + ($h +& 2 ?? -$v !! $v);
-+    (($h +& 1) ?? -$u !! $u) + (($h +& 2) ?? -$v !! $v);
+- ($h +& 1 ?? -$u !! $u) + ($h +& 2 ?? -$v !! $v);
++ (($h +& 1) ?? -$u !! $u) + (($h +& 2) ?? -$v !! $v);
 
--            enumerate ?? @powerful.push(m) !! ++@powerful[m - 1  ?? (m - 1).chars !! 0];
-+            enumerate ?? @powerful.push(m) !! ++@powerful[(m - 1)  ?? (m - 1).chars !! 0];
+- enumerate ?? @powerful.push(m) !! ++@powerful[m - 1  ?? (m - 1).chars !! 0];
++ enumerate ?? @powerful.push(m) !! ++@powerful[(m - 1)  ?? (m - 1).chars !! 0];
 
--      $j+1 % 10 ?? ( $sum+=1 ) !! $sum = ($j+1).comb.sum;
-+      ($j+1 % 10) ?? ( $sum+=1 ) !! $sum = ($j+1).comb.sum;
+- $j+1 % 10 ?? ( $sum+=1 ) !! $sum = ($j+1).comb.sum;
++ ($j+1 % 10) ?? ( $sum+=1 ) !! $sum = ($j+1).comb.sum;
 
--   given $in { .chars mod 2 ?? ('0'~$_).comb(2) !! .comb(2) }
-+   given $in { (.chars mod 2) ?? ('0'~$_).comb(2) !! .comb(2) }
+- given $in { .chars mod 2 ?? ('0'~$_).comb(2) !! .comb(2) }
++ given $in { (.chars mod 2) ?? ('0'~$_).comb(2) !! .comb(2) }
 
--printf "𝜑(%2d) = %3d %s", $_, 𝜑[$_], $_ - 𝜑[$_] - 1 ?? '' !! 'Prime' for 1 .. 25;
-+printf "𝜑(%2d) = %3d %s", $_, 𝜑[$_], ($_ - 𝜑[$_] - 1) ?? '' !! 'Prime' for 1 .. 25;
+- printf "𝜑(%2d) = %3d %s", $_, 𝜑[$_], $_ - 𝜑[$_] - 1 ?? '' !! 'Prime' for 1 .. 25;
++ printf "𝜑(%2d) = %3d %s", $_, 𝜑[$_], ($_ - 𝜑[$_] - 1) ?? '' !! 'Prime' for 1 .. 25;
 
--        for ( $j%2 ?? 0 .. $j !! reverse 0 .. $j) -> $i {
-+        for ( ($j%2) ?? 0 .. $j !! reverse 0 .. $j) -> $i {
+- for ( $j%2 ?? 0 .. $j !! reverse 0 .. $j) -> $i {
++ for ( ($j%2) ?? 0 .. $j !! reverse 0 .. $j) -> $i {
