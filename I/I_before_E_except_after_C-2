@@ -4,8 +4,9 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# java.lang.StackOverflowError
-#n# 2020-11-15 moar-blead [FIXED: thundergnat++, the necessary coercion is '+$<freq>']
-#n# Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
+#n# 2020-11-15 FIXED: thundergnat++, the necessary coercion is '+$<freq>'
+#n#            error was: Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
+#n# 2022-01-12 fixed warning on ternary
 
 # This solution uses grammars and actions to parse the given file, the Bag for tallying up occurrences of each possible thing we're looking for ("ie", "ei", "cie", and "cei"), and junctions to determine the plausibility of a phrase from the subphrases. 
 
@@ -79,7 +80,7 @@ my $results = CollectWords.parse($file, :actions(CollectWords::Actions)).ast;
 my $phrasetest = [&] plausible($results<!cie>, $results<!cei>, "I before E when not preceded by C"),
                      plausible($results<cei>, $results<cie>, "E before I when preceded by C");
 
-say "I before E except after C: "~ $phrasetest ?? "PLAUSIBLE" !! "NOT PLAUSIBLE";
+say "I before E except after C: " ~ ($phrasetest ?? "PLAUSIBLE" !! "NOT PLAUSIBLE");
 my $test-result = $phrasetest ?? "PLAUSIBLE" !! "NOT PLAUSIBLE";
 @res.push: "I before E except after C: $test-result";
 
