@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# faster than the literal-minded Perl translation; hard-coding '50' sub-optimal
+#n# 2022-01-12 fixed warning on ternary
 
 my ( $st, $count, $i, $pow, $digits, $offset, $lastSelf, $done, @selfs) =
      now,      0,  1,   10,       1,       9,         0, False;
@@ -14,7 +15,7 @@ until $done {
    my $sum    = (my $start = max ($i-$offset), 0).comb.sum;
    loop ( my $j = $start; $j < $i; $j+=1 ) {
       if $j+$sum == $i { $isSelf = False and last }
-      ($j+1) % 10 ?? ( $sum+=1 ) !! $sum = ($j+1).comb.sum;
+      ($j+1 % 10) ?? ( $sum+=1 ) !! $sum = ($j+1).comb.sum;
       #($j+1)%10 != 0 ?? ( $sum+=1 ) !! ( $sum = ($j+1).comb.sum ) ;
    }
    if $isSelf {
