@@ -1,17 +1,17 @@
-Welcome to Rakudo™ v2021.12-102-g94b9d497e.
+Welcome to Rakudo™ v2021.12-112-g4d78bc6ac.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.12-29-g1b1b7d59e.
 updating from RC…
-+--------------> Moar: Good/Bad [1402/27]
-|+-------------> JVM: Good/Bad [1219/289]
-||+------------> Smoke testing [1352]
++--------------> Moar: Good/Bad [1414/27]
+|+-------------> JVM: Good/Bad [1220/289]
+||+------------> Smoke testing [1353]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [66]
 |||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [87]
 |||||||+-------> Random seed [144]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [347]
+|||||||||+-----> Draft [348]
 ||||||||||+----> Ignoring [38]
 |||||||||||+---> Void (no local copy) [98]
 ||||||||||||+--> Un-implemented/reliable [52]
@@ -401,7 +401,7 @@ GG.KIT....... Echo_server
 GGS.......... Eertree
 GGS.......... Egyptian_division
 GGS..T....... Egyptian_fractions
-!GS..T....... Element-wise_operations
+GGS..T....... Element-wise_operations
 GGS.......... Elementary_cellular_automaton
 GGS.......... Elementary_cellular_automaton_Infinite_length
 GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
@@ -440,7 +440,7 @@ GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
 GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
-!GS.....F.... Execute_HQ9%2B
+GGS.....F.... Execute_HQ9%2B
 GGS.......... Execute_SNUSP
 GGS..T....... Execute_a_Markov_algorithm
 GGS..T....... Execute_a_system_command
@@ -567,7 +567,7 @@ GGS.......... Generic_swap
 .........D... Geohash
 GBS.......... Geohash-1
 GGS.......... Geohash-2
-!GS....R.D... Geometric_algebra
+GGS....R.D... Geometric_algebra
 GBS..T....... Get_system_command_output
 GBS......D... Getting_the_number_of_decimals
 GGS.....F.... Globally_replace_text_in_several_files
@@ -640,8 +640,8 @@ BB.KI....D..U IPC_via_named_pipe
 .........D.VU IRC_gateway
 GGS.......... ISBN13_check_digit
 GGS.......... ISBN13_check_digit-2
-!GS.......... I_before_E_except_after_C-1
-!BS.......... I_before_E_except_after_C-2
+GGS.......... I_before_E_except_after_C-1
+GBS.......... I_before_E_except_after_C-2
 GGS.......... Identity_matrix
 GBS.......... Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols
 GGS.......... Idiomatically_determine_all_the_lowercase_and_uppercase_letters
@@ -685,7 +685,7 @@ GGS..T....... Jewels_and_stones
 ..........XV. JortSort
 GGS..T....... Josephus_problem
 BB.K......... Joystick_position
-!BS...C...... Juggler_sequence
+GBS...C...... Juggler_sequence
 GBS...c.F.... Julia_set
 GGS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
@@ -1033,7 +1033,7 @@ GGS.......... Perfect_numbers-2
 GGS.......... Perfect_shuffle
 GBS...C...... Perfect_totient_numbers
 GBS.....F.... Peripheral_drift_illusion
-!GS..T....... Perlin_noise
+GGS..T....... Perlin_noise
 GBS..TC...... Permutation_test
 GGS..T....... Permutations
 GGS.......... Permutations_Derangements
@@ -1072,7 +1072,7 @@ GB.KI........ Polyspiral-2
 GGS.......... Population_count
 .........D.V. Positive_decimal_integers_with_the_digit_1_occurring_exactly_twice
 GGS.......... Power_set
-!GS......D... Powerful_numbers
+GGS......D... Powerful_numbers
 GBS...C..D... Practical_numbers
 GG.K......... Pragmatic_directives
 GGS.......... Price_fraction
@@ -1206,7 +1206,7 @@ GBS.......... Rosetta_Code_Rank_languages_by_number_of_users
 GBS.......... Rosetta_Code_Rank_languages_by_popularity-1
 GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
-GBS......D... Rosetta_Code_Tasks_without_examples
+!BS......D... Rosetta_Code_Tasks_without_examples
 GGS.......... Rot-13
 GGS..T...D... Round-robin_tournament_schedule
 GGS.......... Run-length_encoding
@@ -1241,7 +1241,7 @@ GGS.......... Secure_temporary_file
 GGS......D... Selective_file_copy
 GGS.......... Self-describing_numbers
 .........DXV. Self-hosting_compiler
-!GS.......... Self_numbers
+GGS.......... Self_numbers
 GGS..T.R..... Semiprime-1
 GGS.......... Semiprime-2
 GGS..T....... Semordnilap
@@ -1366,7 +1366,7 @@ GBS.......... Split_a_character_string_based_on_change_of_character
 GBS..TC...... Square-free_integers
 GGS.......... Square_but_not_cube
 GBS.......... Square_form_factorization
-!GS......D... Square_root_by_hand
+GGS......D... Square_root_by_hand
 GGS..T....... Stable_marriage_problem
 GGS.......... Stack
 GGS.......... Stack_traces
@@ -1501,7 +1501,7 @@ GGS......D... Topological_sort_Extracted_top_item
 GBS..TC...... Topswops
 GGS.......... Topswops-2
 GGS..T....... Total_circles_area
-!BS...C...... Totient_function
+GBS...C...... Totient_function
 GGS.......... Towers_of_Hanoi
 GGS.......... Trabb_Pardo-Knuth_algorithm
 GGS..T...D... Transportation_problem
@@ -1534,6 +1534,7 @@ GGS.......... UTF-8_encode_and_decode
 GGS......D... Ulam_numbers
 GGS.......... Ulam_numbers-2
 GGS.....F.... Ulam_spiral_for_primes
+GGS......D... Ultra_useful_primes
 !GS..T.R..... Unbias_a_random_generator
 GGS.......... Undefined_values
 .........D.VU Unicode_polynomial_equation
@@ -1636,5 +1637,5 @@ GGS..T....... Zeckendorf_number_representation
 GGS.......... Zero_to_the_zero_power
 GGS..T....... Zhang-Suen_thinning_algorithm
 GGS..T....... Zig-zag_matrix-1
-!GS.......... Zig-zag_matrix-2
+GGS.......... Zig-zag_matrix-2
 GBS.......... Zumkeller_numbers
