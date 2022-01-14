@@ -3519,9 +3519,10 @@ File: E/Egyptian_fractions
 File: E/Element-wise_operations
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Element-wise_operations
-#c# 2016-05-15 <>RC
+#c# 2016-05-15 <>RC, 2022-01-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-01-12 cannot fix warning on ternary as written, so re-write to be more idiomatic
 
 File: E/Elementary_cellular_automaton
 #!/usr/bin/env perl6
@@ -3854,6 +3855,7 @@ File: E/Execute_HQ9%2B
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: hq9.txt
+#n# 2022-01-12 fixed warning on ternary
 
 File: E/Execute_SNUSP
 #!/usr/bin/env perl6
@@ -5064,6 +5066,7 @@ File: G/Geometric_algebra
 #n# 2018-05-21 all previous errors (in tests 26, 27) are gone, wa-hoo…
 #n# glory be, */× swap worked even here
 #n# 2020-02-27 why does AST still show '*' in use as multiplication?
+#n# 2022-01-12 fixed warning on ternary
 
 File: G/Get_system_command_output
 #!/usr/bin/env perl6
@@ -5763,6 +5766,7 @@ File: I/I_before_E_except_after_C-1
 #c# 2015-12-11 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-01-12 fixed warning on ternary
 
 File: I/I_before_E_except_after_C-2
 #!/usr/bin/env perl6
@@ -5771,8 +5775,9 @@ File: I/I_before_E_except_after_C-2
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# java.lang.StackOverflowError
-#n# 2020-11-15 moar-blead [FIXED: thundergnat++, the necessary coercion is '+$<freq>']
-#n# Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
+#n# 2020-11-15 FIXED: thundergnat++, the necessary coercion is '+$<freq>'
+#n#            error was: Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
+#n# 2022-01-12 fixed warning on ternary
 
 File: I/Identity_matrix
 #!/usr/bin/env perl6
@@ -6154,6 +6159,7 @@ File: J/Juggler_sequence
 #c# 2021-08-18 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2022-01-12 fixed warning on ternary 
 
 File: J/Julia_set
 #!/usr/bin/env perl6
@@ -8684,6 +8690,7 @@ File: O/Orbital_elements
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'Clifford' module
+#n# 2022-01-12 fixed warning on ternary (in 'Clifford' module at 'lib/MultiVector.pm6' lines 36 and 37)
 
 File: O/Order_by_pair_comparisons
 #!/usr/bin/env raku
@@ -9428,6 +9435,7 @@ File: P/Perlin_noise
 #n# kludge for JVM: 'my' instead of 'constant' for @p (java.lang.IllegalArgumentException: bad parameter count 259)
 #n# 2019-10-26 kludge still needed...
 #n# 2020-01-30 for this particular input permutation doesn't need to doubled
+#n# 2022-01-12 fixed warning on ternary
 
 File: P/Permutation_test
 #!/usr/bin/env perl6
@@ -9792,6 +9800,7 @@ File: P/Powerful_numbers
 #c# 2020-02-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-01-12 fixed warning on ternary
 
 File: P/Powerful_numbers.1
 #!/usr/bin/env perl6
@@ -11272,6 +11281,7 @@ File: S/Self_numbers
 #m# MOAR: OK
 #j# JVM:  OK
 #n# faster than the literal-minded Perl translation; hard-coding '50' sub-optimal
+#n# 2022-01-12 fixed warning on ternary
 
 File: S/Semiprime-1
 #!/usr/bin/env perl6
@@ -12382,6 +12392,7 @@ File: S/Square_Root_by_Hand
 #c# 2020-10-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-01-12 fixed warning on ternary
 
 File: S/Square_but_not_cube
 #!/usr/bin/env perl6
@@ -13688,6 +13699,7 @@ File: T/Totient_function
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# see JVM for previous method of calculation
+#n# 2022-01-12 fixed warning on ternary
 
 File: T/Totient_function.jvm
 #!/usr/bin/env perl6
@@ -13951,6 +13963,14 @@ File: U/Ulam_spiral_for_primes
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: ulam_spiral.dat
+
+File: U/Ultra_useful_primes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Ultra_useful_primes
+#c# 2022-01-13 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A058220 - Ultra-useful primes: smallest k such that 2^(2^n) - k is prime
 
 File: U/Unbias_a_random_generator
 #!/usr/bin/env perl6
@@ -14807,6 +14827,7 @@ File: Z/Zig-zag_matrix-2
 #c# 2016-12-13 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-01-12 fixed warning on ternary
 
 File: Z/Zumkeller_numbers
 #!/usr/bin/env perl6
