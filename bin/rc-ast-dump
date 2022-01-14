@@ -14,6 +14,8 @@ shell 'rm -f ast/*';
 my %runs-forever = 1 R[X[=>]] split /\s*\n/, q:to/END/;
 Bernoulli_numbers 
 Catalan_numbers_Pascal%27s_triangle
+Fibonacci_word
+Fibonacci_word_fractal
 Find_palindromic_numbers_in_both_binary_and_ternary_bases
 Floyd%27s_triangle
 Left_factorials
@@ -30,7 +32,6 @@ Modular_arithmetic
 Multidimensional_Newton-Raphson_method
 Multiple_regression
 Orbital_elements
-Polynomial_regression
 END
 
 for flat 0, 'A'..'Z' -> $dir {
