@@ -1,3 +1,5 @@
+# 2022-01-15 was unintentional after all, changes to be reverted (collateral benefit: 'Element-wise_operations' was improved)
+
 - ($line ~= ' '; $line ~= $_%1 ?? $_.nude.join('/') !! $_) for @row; # could not silence warning in this code
 + say join ' ', map { ($_%1) ?? $_.nude.join('/') !! $_ }, @row;     # more idiomatic anyhow
 
