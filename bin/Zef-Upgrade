@@ -1,0 +1,15 @@
+#!/bin/sh
+## update ecosystem modules and report
+
+source $HOME/.profile
+cd $HOME/.rakudobrew
+
+bin/rakudobrew build zef
+shims/zef upgrade > out.zef 2> err.zef
+
+echo ' '
+echo 'out.zef'
+/usr/local/bin/pcregrep 'FAIL|OK' out.zef
+echo ' '
+echo 'err.zef'
+/usr/local/bin/pcregrep -v mirror: err.zef
