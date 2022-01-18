@@ -1,7 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Nautical_bell
 #c# 2016-01-12 <RC
-#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -13,6 +12,7 @@ my @ordinal = <One Two Three Four Five Six Seven Eight>;
 my $thishour;
 my $thisminute = '';
 
+#`{{
 loop {
     my $utc = DateTime.new(time);
     if $utc.minute ~~ any(0,30) and $utc.minute != $thisminute {
@@ -23,12 +23,21 @@ loop {
     printf "%s%02d:%02d:%02d", "\r", $utc.hour, $utc.minute, $utc.second;
     sleep(1);
 }
+}}
+
+my $result;
+
+for 0..23 -> $h {
+    $result ~= sprintf "%s%02d:%02d:%02d", "\r", $h,  0, 0; bell($h,  0);
+    $result ~= sprintf "%s%02d:%02d:%02d", "\r", $h, 30, 0; bell($h, 30);
+    
+}
 
 sub bell ($hour, $minute) {
 
     my $bells = (($hour % 4) × 2 + $minute div 30) || 8;
 
-    printf "%s%02d:%02d%9s watch,%6s Bell%s Gone: \t", "\b" x 9, $hour, $minute,
+    $result ~= sprintf "%s%02d:%02d%9s watch,%6s Bell%s Gone: \t", "\b" x 9, $hour, $minute,
       @watch[($hour div 4 - !?($minute + $hour % 4) + 6) % 6],
       @ordinal[$bells - 1], $bells == 1 ?? '' !! 's';
 
@@ -36,66 +45,71 @@ sub bell ($hour, $minute) {
 
     sub chime ($count) {
 	for 1..$count div 2 {
-		print "\a♫ ";
-		sleep .25;
-		print "\a";
-		sleep .75;
+		$result ~= "\a♫ ";
+		#sleep .25;
+		$result ~= "\a";
+		#sleep .75;
 	}
 	if $count % 2 {
-	     print "\a♪";
-	     sleep 1;
+	     $result ~= "\a♪";
+	    # sleep 1;
         }
-        print "\n";
+        $result ~= "\n";
     }
 }
 
-#`{
-00:00     First watch,  Eight Bells Gone: 	♫ ♫ ♫ ♫ 
-00:30    Middle watch,    One Bell Gone: 	♪
-01:00    Middle watch,    Two Bells Gone: 	♫ 
-01:30    Middle watch,  Three Bells Gone: 	♫ ♪
-02:00    Middle watch,   Four Bells Gone: 	♫ ♫ 
-02:30    Middle watch,   Five Bells Gone: 	♫ ♫ ♪
-03:00    Middle watch,    Six Bells Gone: 	♫ ♫ ♫ 
-03:30    Middle watch,  Seven Bells Gone: 	♫ ♫ ♫ ♪
-04:00    Middle watch,  Eight Bells Gone: 	♫ ♫ ♫ ♫ 
-04:30   Morning watch,    One Bell Gone: 	♪
-05:00   Morning watch,    Two Bells Gone: 	♫ 
-05:30   Morning watch,  Three Bells Gone: 	♫ ♪
-06:00   Morning watch,   Four Bells Gone: 	♫ ♫ 
-06:30   Morning watch,   Five Bells Gone: 	♫ ♫ ♪
-07:00   Morning watch,    Six Bells Gone: 	♫ ♫ ♫ 
-07:30   Morning watch,  Seven Bells Gone: 	♫ ♫ ♫ ♪
-08:00   Morning watch,  Eight Bells Gone: 	♫ ♫ ♫ ♫ 
-08:30  Forenoon watch,    One Bell Gone: 	♪
-09:00  Forenoon watch,    Two Bells Gone: 	♫ 
-09:30  Forenoon watch,  Three Bells Gone: 	♫ ♪
-10:00  Forenoon watch,   Four Bells Gone: 	♫ ♫ 
-10:30  Forenoon watch,   Five Bells Gone: 	♫ ♫ ♪
-11:00  Forenoon watch,    Six Bells Gone: 	♫ ♫ ♫ 
-11:30  Forenoon watch,  Seven Bells Gone: 	♫ ♫ ♫ ♪
-12:00  Forenoon watch,  Eight Bells Gone: 	♫ ♫ ♫ ♫ 
-12:30 Afternoon watch,    One Bell Gone: 	♪
-13:00 Afternoon watch,    Two Bells Gone: 	♫ 
-13:30 Afternoon watch,  Three Bells Gone: 	♫ ♪
-14:00 Afternoon watch,   Four Bells Gone: 	♫ ♫ 
-14:30 Afternoon watch,   Five Bells Gone: 	♫ ♫ ♪
-15:00 Afternoon watch,    Six Bells Gone: 	♫ ♫ ♫ 
-15:30 Afternoon watch,  Seven Bells Gone: 	♫ ♫ ♫ ♪
-16:00 Afternoon watch,  Eight Bells Gone: 	♫ ♫ ♫ ♫ 
-16:30       Dog watch,    One Bell Gone: 	♪
-17:00       Dog watch,    Two Bells Gone: 	♫ 
-17:30       Dog watch,  Three Bells Gone: 	♫ ♪
-18:00       Dog watch,   Four Bells Gone: 	♫ ♫ 
-18:30       Dog watch,   Five Bells Gone: 	♫ ♫ ♪
-19:00       Dog watch,    Six Bells Gone: 	♫ ♫ ♫ 
-19:30       Dog watch,  Seven Bells Gone: 	♫ ♫ ♫ ♪
-20:00       Dog watch,  Eight Bells Gone: 	♫ ♫ ♫ ♫ 
-20:30     First watch,    One Bell Gone: 	♪
-21:00     First watch,    Two Bells Gone: 	♫ 
-21:30     First watch,  Three Bells Gone: 	♫ ♪
-22:00     First watch,   Four Bells Gone: 	♫ ♫ 
-22:30     First watch,   Five Bells Gone: 	♫ ♫ ♪
-23:00     First watch,    Six Bells Gone: 	♫ ♫ ♫ 
-23:30     First watch,  Seven Bells Gone: 	♫ ♫ ♫ ♪
-}
+#say $result;
+
+my $ref = qq:to/END/;
+00:00:0000:00    First watch, Eight Bells Gone: 	♫ ♫ ♫ ♫ 
+00:30:0000:30   Middle watch,   One Bell Gone: 	♪
+01:00:0001:00   Middle watch,   Two Bells Gone: 	♫ 
+01:30:0001:30   Middle watch, Three Bells Gone: 	♫ ♪
+02:00:0002:00   Middle watch,  Four Bells Gone: 	♫ ♫ 
+02:30:0002:30   Middle watch,  Five Bells Gone: 	♫ ♫ ♪
+03:00:0003:00   Middle watch,   Six Bells Gone: 	♫ ♫ ♫ 
+03:30:0003:30   Middle watch, Seven Bells Gone: 	♫ ♫ ♫ ♪
+04:00:0004:00   Middle watch, Eight Bells Gone: 	♫ ♫ ♫ ♫ 
+04:30:0004:30  Morning watch,   One Bell Gone: 	♪
+05:00:0005:00  Morning watch,   Two Bells Gone: 	♫ 
+05:30:0005:30  Morning watch, Three Bells Gone: 	♫ ♪
+06:00:0006:00  Morning watch,  Four Bells Gone: 	♫ ♫ 
+06:30:0006:30  Morning watch,  Five Bells Gone: 	♫ ♫ ♪
+07:00:0007:00  Morning watch,   Six Bells Gone: 	♫ ♫ ♫ 
+07:30:0007:30  Morning watch, Seven Bells Gone: 	♫ ♫ ♫ ♪
+08:00:0008:00  Morning watch, Eight Bells Gone: 	♫ ♫ ♫ ♫ 
+08:30:0008:30 Forenoon watch,   One Bell Gone: 	♪
+09:00:0009:00 Forenoon watch,   Two Bells Gone: 	♫ 
+09:30:0009:30 Forenoon watch, Three Bells Gone: 	♫ ♪
+10:00:0010:00 Forenoon watch,  Four Bells Gone: 	♫ ♫ 
+10:30:0010:30 Forenoon watch,  Five Bells Gone: 	♫ ♫ ♪
+11:00:0011:00 Forenoon watch,   Six Bells Gone: 	♫ ♫ ♫ 
+11:30:0011:30 Forenoon watch, Seven Bells Gone: 	♫ ♫ ♫ ♪
+12:00:0012:00 Forenoon watch, Eight Bells Gone: 	♫ ♫ ♫ ♫ 
+12:30:0012:30Afternoon watch,   One Bell Gone: 	♪
+13:00:0013:00Afternoon watch,   Two Bells Gone: 	♫ 
+13:30:0013:30Afternoon watch, Three Bells Gone: 	♫ ♪
+14:00:0014:00Afternoon watch,  Four Bells Gone: 	♫ ♫ 
+14:30:0014:30Afternoon watch,  Five Bells Gone: 	♫ ♫ ♪
+15:00:0015:00Afternoon watch,   Six Bells Gone: 	♫ ♫ ♫ 
+15:30:0015:30Afternoon watch, Seven Bells Gone: 	♫ ♫ ♫ ♪
+16:00:0016:00Afternoon watch, Eight Bells Gone: 	♫ ♫ ♫ ♫ 
+16:30:0016:30      Dog watch,   One Bell Gone: 	♪
+17:00:0017:00      Dog watch,   Two Bells Gone: 	♫ 
+17:30:0017:30      Dog watch, Three Bells Gone: 	♫ ♪
+18:00:0018:00      Dog watch,  Four Bells Gone: 	♫ ♫ 
+18:30:0018:30      Dog watch,  Five Bells Gone: 	♫ ♫ ♪
+19:00:0019:00      Dog watch,   Six Bells Gone: 	♫ ♫ ♫ 
+19:30:0019:30      Dog watch, Seven Bells Gone: 	♫ ♫ ♫ ♪
+20:00:0020:00      Dog watch, Eight Bells Gone: 	♫ ♫ ♫ ♫ 
+20:30:0020:30    First watch,   One Bell Gone: 	♪
+21:00:0021:00    First watch,   Two Bells Gone: 	♫ 
+21:30:0021:30    First watch, Three Bells Gone: 	♫ ♪
+22:00:0022:00    First watch,  Four Bells Gone: 	♫ ♫ 
+22:30:0022:30    First watch,  Five Bells Gone: 	♫ ♫ ♪
+23:00:0023:00    First watch,   Six Bells Gone: 	♫ ♫ ♫ 
+23:30:0023:30    First watch, Seven Bells Gone: 	♫ ♫ ♫ ♪
+END
+
+use Test;
+is $result, $ref;
