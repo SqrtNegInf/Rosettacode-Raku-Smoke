@@ -3522,7 +3522,7 @@ File: E/Element-wise_operations
 #c# 2016-05-15 <>RC, 2022-01-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-01-12 cannot fix warning on ternary as written, so re-write to be more idiomatic
+#n# 2022-01-12 cannot fix warning on ternary as written, so start fresh, be more idiomatic (and lose an intermediate variable and loop)
 
 File: E/Elementary_cellular_automaton
 #!/usr/bin/env perl6
@@ -8212,7 +8212,6 @@ File: N/Nautical_bell
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Nautical_bell
 #c# 2016-01-12 <RC
-#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -8220,6 +8219,14 @@ File: N/Nautical_bell-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Nautical_bell
 #c# 2018-09-20 
+#m# MOAR: OK
+#j#  JVM: OK
+
+File: N/Nautical_bell.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Nautical_bell
+#c# 2016-01-12 <RC
+#t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
 
