@@ -9,7 +9,7 @@ shims/zef upgrade > out.zef 2> err.zef
 
 echo ' '
 echo 'out.zef'
-/usr/local/bin/pcregrep 'FAIL|OK' out.zef
+/usr/local/bin/pcregrep 'FAIL|OK' out.zef | sort
 echo ' '
 echo 'err.zef'
-/usr/local/bin/pcregrep -v mirror: err.zef
+/usr/local/bin/pcregrep -v mirror: err.zef | sort
