@@ -2,7 +2,8 @@
 #u# http://rosettacode.org/wiki/Long_stairs
 #c# 2021-11-15 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
+#n# not sure why JVM was marked as broken...
 
 my @res;
 
@@ -36,7 +37,7 @@ for ^$trials {
 
 .say for @res;
 
-my $ref = q:to/END/;
+my $moar = q:to/END/;
 Seconds  steps behind  steps ahead
   600        2306         794
   601        2311         794
@@ -51,5 +52,21 @@ Seconds  steps behind  steps ahead
 Average seconds: 2807.55,  Average steps: 14132.75
 END
 
+my $jvm = q:to/END/;
+Seconds  steps behind  steps ahead
+  600        2215         885
+  601        2218         887
+  602        2221         889
+  603        2226         889
+  604        2229         891
+  605        2234         891
+  606        2239         891
+  607        2243         892
+  608        2245         895
+  609        2249         896
+Average seconds: 2851,  Average steps: 14350
+END
+
 use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
