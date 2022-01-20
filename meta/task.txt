@@ -1,19 +1,19 @@
-Welcome to Rakudo™ v2021.12-120-g16c3dc9a7.
+Welcome to Rakudo™ v2021.12-122-g25562dd80.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.12-67-g4b2de6d1d.
 updating from RC…
-+--------------> Moar: Good/Bad [1413/27]
-|+-------------> JVM: Good/Bad [1220/289]
-||+------------> Smoke testing [1354]
++--------------> Moar: Good/Bad [1415/27]
+|+-------------> JVM: Good/Bad [1221/289]
+||+------------> Smoke testing [1355]
 |||+-----------> sKipping validation [142]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [364]
-||||||+--------> Concurrent/Async [87]
+||||||+--------> Concurrent/Async [88]
 |||||||+-------> Random seed [144]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [348]
+|||||||||+-----> Draft [350]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [98]
+|||||||||||+---> Void (no local copy) [99]
 ||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -270,6 +270,7 @@ GGS.......... Compiler_lexical_analyzer
 ...........VU Compiler_syntax_analyzer
 GGS..T....... Compiler_virtual_machine_interpreter
 BB........... Compiler_virtual_machine_interpreter-2
+GBS...C..D... Composite_numbers_k_with_no_single_digit_factors_whose_factors_are_all_substrings_of_k
 GGS.......... Compound_data_type
 GGS......D... Concatenate_two_primes_is_also_prime
 GB.K.TC...... Concurrent_computing
@@ -510,6 +511,7 @@ GGS......D... Find_words_with_alternating_vowels_and_consonants
 GBS......D... Finite_state_machine
 GGS.......... First-class_functions
 GGS.......... First-class_functions_Use_numbers_analogously
+.........D.V. First_9_Prime_Fibonacci_Number
 GGS..T....... First_class_environments
 GBS.......... First_perfect_square_in_base_n_with_n_unique_digits
 GGS.......... First_power_of_2_that_has_leading_decimal_digits_of_12
@@ -693,7 +695,7 @@ GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-means%2B%2B_clustering
 GGS......D... Kahan_summation
 GGS.......... Kaprekar_numbers-1
-GGS..TC...... Kaprekar_numbers-2
+!GS..TC...... Kaprekar_numbers-2
 GBS.......... Kaprekar_numbers-3
 GGS.......... Kernighans_large_earthquake_problem
 GB.KI........ Keyboard_input_Flush_the_keyboard_buffer
@@ -767,7 +769,7 @@ BB.......D... Logistic_curve_fitting_in_epidemiology
 ..........XVU Long_literals,_with_continuations
 GGS..T....... Long_multiplication
 GBS...C...... Long_primes
-!BS....R.D... Long_stairs
+GGS....R.D... Long_stairs
 GGS..T....... Long_year
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
@@ -967,7 +969,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-!BS......D... Orbital_elements
+GBS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
