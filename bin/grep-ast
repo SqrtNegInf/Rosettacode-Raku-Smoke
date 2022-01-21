@@ -1,10 +1,12 @@
 #!/usr/bin/env perl6
 ## grep AST of RC tasks (and/or source code)
-#  David H.  2020-02-02
+#  2022-01-20
+#   QAST generation less noisy, poke around a bit...
+#  2020-02-02
 #   another run at fleshing out the design document, only pre-alpha code yet... (not in this file)
 #   make emphasis on the less common constructs, if too commmon just ignore
 #   make a particular effort to highlight the obscure, the one-offs
-#  David H.  2019-04-14
+#  2019-04-14
 #   blue-sky goal: tie examples back to documentation
 #   just a (very vague) concept at this point...
 
@@ -188,18 +190,18 @@ tap ?
 
 grep -h QAST::Op ast/* | perl -npe 's/\Q+{QAST::SpecialArg}//;s/^\s+.*::Op\((.*?)\).*/$1/' | sort | uniq -c | sort -rn | g META
 
-1664 call &METAOP_ASSIGN
- 501 call &METAOP_REDUCE_LEFT
- 369 call &METAOP_HYPER
- 238 call &METAOP_ZIP
- 210 call &METAOP_CROSS
-  64 call &METAOP_HYPER_POSTFIX_ARGS
-  62 call &METAOP_REVERSE
-  54 call &METAOP_NEGATE
-  48 call &METAOP_REDUCE_LISTINFIX
-  34 call &METAOP_REDUCE_CHAIN
+1912 call &METAOP_ASSIGN
+ 576 call &METAOP_REDUCE_LEFT
+ 457 call &METAOP_HYPER
+ 297 call &METAOP_ZIP
+ 253 call &METAOP_CROSS
+  97 call &METAOP_HYPER_POSTFIX_ARGS
+  74 call &METAOP_REDUCE_LISTINFIX
+  61 call &METAOP_REVERSE
+  55 call &METAOP_NEGATE
+  47 call &METAOP_REDUCE_CHAIN
+  20 call &METAOP_REDUCE_LIST
   17 call &METAOP_REDUCE_RIGHT
-  12 call &METAOP_REDUCE_LIST
   10 call &METAOP_HYPER_PREFIX
    2 p6fatalize &METAOP_ASSIGN
    2 call &METAOP_HYPER_CALL
@@ -208,5 +210,9 @@ grep -h QAST::Op ast/* | perl -npe 's/\Q+{QAST::SpecialArg}//;s/^\s+.*::Op\((.*?
 
 https://andrewshitov.com/2020/09/17/the-pearls-of-raku-issue-10-the-rw-things/
 (substr|take|return)-rw
+
+== Gotchas
+
+Method 'clone' is called implicitly in most code (i.e. shows up in .ast, but not in .raku source)
 
 ]]
