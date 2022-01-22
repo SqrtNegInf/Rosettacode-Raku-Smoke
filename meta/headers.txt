@@ -5044,6 +5044,14 @@ File: G/Generate_random_numbers_without_repeating_a_value
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: G/Generate_random_numbers_without_repeating_a_value-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Generate_random_numbers_without_repeating_a_value
+#c# 2021-08-28 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# illustrate use of enhanced 'pick'
+
 File: G/Generator_Exponential
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Generator/Exponential
@@ -8714,6 +8722,7 @@ File: O/Orbital_elements
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'Clifford' module
 #n# 2022-01-12 fixed warning on ternary (in 'Clifford' module at 'lib/MultiVector.pm6' lines 36 and 37)
+#n# 2022-01-20 from cron uses 'system' version of Clifford, force local lib (until ternary issue fixed)
 
 File: O/Order_by_pair_comparisons
 #!/usr/bin/env raku
@@ -12995,6 +13004,13 @@ File: S/Sum_of_the_digits_of_n_is_substring_of_n
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Sum_of_the_digits_of_n_is_substring_of_n
 #c# 2021-04-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: S/Sum_of_two_adjacent_numbers_are_primes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Sum_of_two_adjacent_numbers_are_primes
+#c# 2022-01-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
