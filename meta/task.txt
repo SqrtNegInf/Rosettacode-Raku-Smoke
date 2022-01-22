@@ -1,17 +1,17 @@
-Welcome to Rakudo™ v2021.12-126-g284b56232.
+Welcome to Rakudo™ v2021.12-141-g3823f88ce.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2021.12-67-g4b2de6d1d.
+Built on MoarVM version 2021.12-80-gb585b5e32.
 updating from RC…
-+--------------> Moar: Good/Bad [1415/27]
-|+-------------> JVM: Good/Bad [1222/289]
-||+------------> Smoke testing [1356]
++--------------> Moar: Good/Bad [1401/27]
+|+-------------> JVM: Good/Bad [1223/290]
+||+------------> Smoke testing [1358]
 |||+-----------> sKipping validation [142]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [88]
-|||||||+-------> Random seed [144]
+|||||||+-------> Random seed [145]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [350]
+|||||||||+-----> Draft [351]
 ||||||||||+----> Ignoring [38]
 |||||||||||+---> Void (no local copy) [98]
 ||||||||||||+--> Un-implemented/reliable [52]
@@ -277,7 +277,7 @@ GB.K.TC...... Concurrent_computing
 GG.K......... Conditional_structures
 GGS......D... Conjugate_a_Latin_verb
 GGS.....F.... Conjugate_transpose
-GBS.......... Consecutive_primes_with_ascending_or_descending_differences
+!BS.......... Consecutive_primes_with_ascending_or_descending_differences
 GGS..T....... Constrained_genericity
 GGS..T.RF.... Constrained_random_points_on_a_circle
 GGS..T....... Continued_fraction
@@ -409,7 +409,7 @@ GGS..T....... Elementary_cellular_automaton_Random_Number_Generator
 .........D.VU Elevator_simulation
 !GS....R..... Elliptic_Curve_Digital_Signature_Algorithm
 GGS..T....... Elliptic_curve_arithmetic
-GBS..T....... Emirp_primes
+!BS..T....... Emirp_primes
 GGS.......... Empty_directory
 GGS..T....... Empty_program
 GGS.......... Empty_string
@@ -487,7 +487,7 @@ GGS..T....... Find_Chess960_starting_position_identifier
 GGS......D... Find_URI_in_text
 GBS......D... Find_adjacent_primes_which_differ_by_a_square_integer
 GGS..T....... Find_common_directory_path
-GBS..T....... Find_duplicate_files
+!BS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
 GGS......D... Find_first_missing_positive
 GGS.......... Find_if_a_point_is_within_a_triangle
@@ -564,6 +564,7 @@ GGS....R..... Generate_Chess960_starting_position-2
 GGS.......... Generate_lower_case_ASCII_alphabet
 !GS....R..... Generate_random_chess_position
 !GS....R.D... Generate_random_numbers_without_repeating_a_value
+GBS....R..... Generate_random_numbers_without_repeating_a_value-2
 GGS..T....... Generator_Exponential
 GGS.......... Generic_swap
 .........D... Geohash
@@ -695,7 +696,7 @@ GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-means%2B%2B_clustering
 GGS......D... Kahan_summation
 GGS.......... Kaprekar_numbers-1
-!GS..TC...... Kaprekar_numbers-2
+GGS..TC...... Kaprekar_numbers-2
 GBS.......... Kaprekar_numbers-3
 GGS.......... Kernighans_large_earthquake_problem
 GB.KI........ Keyboard_input_Flush_the_keyboard_buffer
@@ -724,7 +725,7 @@ GGS.......... Lah_numbers
 !GS....R..... Langton%27s_ant
 .........D... Largest_difference_between_adjacent_primes
 GGS.......... Largest_difference_between_adjacent_primes-1
-GBS.......... Largest_difference_between_adjacent_primes-2
+!BS.......... Largest_difference_between_adjacent_primes-2
 !GS....R.D... Largest_five_adjacent_number
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
@@ -768,7 +769,7 @@ GGS..T....... Logical_operations
 BB.......D... Logistic_curve_fitting_in_epidemiology
 ..........XVU Long_literals,_with_continuations
 GGS..T....... Long_multiplication
-GBS...C...... Long_primes
+!BS...C...... Long_primes
 GGS....R.D... Long_stairs
 GGS..T....... Long_year
 GGS..T...D... Longest_common_prefix
@@ -805,7 +806,7 @@ GBS...c...... Lychrel_numbers
 GBS.......... MAC_Vendor_Lookup
 GGS..T....... MD4
 GGS.......... MD5
-GGS.......... MD5_Implementation
+!GS.......... MD5_Implementation
 ...........V. Machine_code
 GGS.......... Mad_Libs
 GGS....R..... Magic_8-ball
@@ -879,7 +880,7 @@ GBS.......... Motzkin_numbers-1
 GBS.......... Motzkin_numbers-2
 GB.KI........ Mouse_position
 GGS.......... Move-to-front_algorithm
-GBS...C..D... Multi-base_primes
+!BS...C..D... Multi-base_primes
 BB.K..C...... Multi-base_primes-2
 GGS.......... Multi-dimensional_array
 GGS......D... Multidimensional_Newton-Raphson_method
@@ -969,7 +970,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-!BS......D... Orbital_elements
+GBS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
@@ -1008,7 +1009,7 @@ GGS.......... Parsing_Shunting-yard_algorithm
 GGS.......... Partial_function_application
 .........D.V. Particle_fountain
 !GS..T.R.D... Particle_swarm_optimization
-GBS..TC...... Partition_an_integer_x_into_n_primes
+!BS..TC...... Partition_an_integer_x_into_n_primes
 GGS.......... Partition_function_P
 GGS.......... Pascal%27s_triangle
 GGS.......... Pascal%27s_triangle_Puzzle
@@ -1067,7 +1068,7 @@ GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GBS......D... Polynomial_derivative
 GGS..T....... Polynomial_long_division
-GBS.......... Polynomial_regression
+!BS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
@@ -1094,9 +1095,9 @@ GGS..TC...... Primes_-_allocate_descendants_to_their_ancestors-1
 GGS......D... Primes_whose_first_and_last_number_is_3
 GGS...C..D... Primes_whose_sum_of_digits_is_25
 GGS......D... Primes_with_digits_in_nondecreasing_order
-GGS..T....... Primorial_numbers
+!GS..T....... Primorial_numbers
 GBS.......... Primorial_numbers-1
-GGS.......... Primorial_numbers-2
+!GS.......... Primorial_numbers-2
 GGS......D... Print_debugging_statement
 .........D.V. Print_itself
 GGS.......... Priority_queue
@@ -1229,7 +1230,7 @@ GB.K......... SOAP
 GBS.......... Safe_addition
 GGS......D... Safe_and_Sophie_Germain_primes
 .........D.V. Safe_mode
-GBS.......... Safe_primes_and_unsafe_primes
+!BS.......... Safe_primes_and_unsafe_primes
 GGS.......... Sailors,_coconuts_and_a_monkey_problem
 GGS.......... Same_fringe
 .........D.V. Sanitize_user_input
@@ -1262,7 +1263,7 @@ GGS..T....... Set_of_real_numbers
 !GS..T.R..... Set_puzzle
 GGS.........U Set_right-adjacent_bits
 GGS....R..... Seven-sided_dice_from_five-sided_dice
-GBS.......... Sexy_primes
+!BS.......... Sexy_primes
 GBS.......... Shell_one-liner
 GGS......D... Shift_list_elements_to_left_by_3
 GGS.......... Shoelace_formula_for_polygonal_area
@@ -1402,7 +1403,7 @@ GGS.......... Strip_block_comments
 GGS.......... Strip_comments_from_a_string
 !GS....R..... Strip_control_codes_and_extended_characters_from_a_string
 GGS..T....... Strip_whitespace_from_a_string_Top_and_tail
-GBS.......... Strong_and_weak_primes
+!BS.......... Strong_and_weak_primes
 GGS.......... Subleq
 GGS...c..D... Subset_sum_problem
 GGS....R..... Substitution_cipher
@@ -1410,8 +1411,8 @@ GGS.......... Substring
 GBS.......... Substring_Top_and_tail
 GGS......D... Substring_primes
 GGS.......... Subtractive_generator
-GBS.......... Successive_prime_differences-1
-GBS.......... Successive_prime_differences-2
+!BS.......... Successive_prime_differences-1
+!BS.......... Successive_prime_differences-2
 GGS.......... Sudoku-1
 GG.K.T....... Sudoku-2
 GGS..T...D... Suffix_tree
@@ -1429,12 +1430,13 @@ GGS..T...D... Sum_of_primes_in_odd_positions_is_prime
 GGS......D... Sum_of_square_and_cube_digits_of_an_integer_are_primes
 GGS.......... Sum_of_squares
 GGS......D... Sum_of_the_digits_of_n_is_substring_of_n
+GGS......D... Sum_of_two_adjacent_numbers_are_primes
 GGS.......... Sum_to_100
 GGS..T....... Summarize_and_say_sequence
 GGS.......... Summarize_primes
 .........D... Summation_of_primes
 GGS.......... Summation_of_primes-1
-GBS.......... Summation_of_primes-2
+!BS.......... Summation_of_primes-2
 GGS.....FD... Sunflower_fractal
 GBS...C...... Super-d_numbers-1
 GBS...C...... Super-d_numbers-2
@@ -1482,7 +1484,7 @@ GGS.......... Text_processing_2
 GGS.......... Text_processing_Max_licenses_in_use
 BB...T...D... Text_to_HTML
 GGS.......... Textonyms
-GGS...C...... The_ISAAC_Cipher
+!GS...C...... The_ISAAC_Cipher
 GGS.......... The_Name_Game
 GGS.....F.... The_Twelve_Days_of_Christmas
 GGS.......... The_sieve_of_Sundaram
