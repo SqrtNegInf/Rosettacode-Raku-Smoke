@@ -5,6 +5,7 @@
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'Clifford' module
 #n# 2022-01-12 fixed warning on ternary (in 'Clifford' module at 'lib/MultiVector.pm6' lines 36 and 37)
+#n# 2022-01-20 from cron uses 'system' version of Clifford, force local lib (until ternary issue fixed)
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -18,6 +19,7 @@ sub position(
     Real :$argument-of-periapsis,
     Real :$true-anomaly
 ) {
+    use lib 'lib'; # DH temp
     use Clifford;
     my ($i, $j, $k) = @e[^3];
 
