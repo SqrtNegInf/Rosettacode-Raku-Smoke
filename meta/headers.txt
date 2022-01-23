@@ -3714,6 +3714,7 @@ File: E/Euclid-Mullin_sequence-1
 #j# JVM:  BROKEN OK
 #n# for 16:   2.21s user 0.20s system 116% cpu    2.08 total
 #n# for 17: 261.60s user 7.07s system  99% cpu 4:28.85 total
+#n# OEIS:A000945 
 
 File: E/Euclid-Mullin_sequence-2
 #!/usr/bin/env raku
@@ -3723,6 +3724,7 @@ File: E/Euclid-Mullin_sequence-2
 #j# JVM:  BROKEN
 #n# fails at @Euclid-Mullin[^10]:
 #n# Cannot unbox 91 bit wide bigint into native integer
+#n# OEIS:A000945
 
 File: E/Euler%27s_constant_0.5772...
 #!/usr/bin/env raku
@@ -4127,6 +4129,7 @@ File: F/Feigenbaum_constant_calculation
 #m# MOAR: OK
 #j# JVM:  OK
 #n# https://www.nytimes.com/2019/07/18/science/mitchell-feigenbaum-dead.htm
+#n# δ = 4.6692016091029906 from OEIS:A006890
 
 File: F/Feigenbaum_constant_calculation.0
 #!/usr/bin/env perl6
@@ -4138,7 +4141,7 @@ File: F/Feigenbaum_constant_calculation.0
 #n# δ = 4.6692031586047085 MOAR output with x²
 #n# δ = 4.6692053720403180 MOAR output with x*x
 #n# δ = 4.6692053720403180 JVM output does not vary
-#n# δ = 4.6692016091029906 from https://oeis.org/A006890
+#n# δ = 4.6692016091029906 from OEIS:A006890
 
 File: F/Fermat_numbers
 #!/usr/bin/env perl6
@@ -6183,6 +6186,8 @@ File: J/Juggler_sequence
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 2022-01-12 fixed warning on ternary 
+#n# OEIS:A007320 Number of steps needed for Juggler sequence started at n to reach 1
+#n# OEIS:A094716 Largest value in the Juggler sequence started at n
 
 File: J/Julia_set
 #!/usr/bin/env perl6
@@ -7212,6 +7217,7 @@ File: L/Lucas-Lehmer_test
 #c# 2016-02-18 <RC, 2019-02-24 <RC, 2019-02-27 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# agrees with OEIS:A000043
 
 File: L/Lucas-Lehmer_test.jvm
 #!/usr/bin/env perl6
@@ -7338,6 +7344,7 @@ File: M/Magic_constant
 #c# 2021-11-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A006003 is a similar sequence, though it includes terms for <0 1 2>
 
 File: M/Magic_squares_Perl_6
 #!/usr/bin/env perl6
@@ -7784,6 +7791,15 @@ File: M/Minimal_steps_down_to_1.jvm
 #j# JVM:  OK
 #n# for JVM: .perl not .raku (temporary)
 
+File: M/Minimum_multiple_of_m_where_digital_sum_equals_m
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Minimum_multiple_of_m_where_digital_sum_equals_m
+#c# 2022-01-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A131382 - Minimal number m such that Sum_digits(n*m)=n
+#n# limit testing, full span slow, nearly 6m
+
 File: M/Minimum_number_of_cells_after,_before,_above_and_below_NxN_squares
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Minimum_number_of_cells_after,_before,_above_and_below_NxN_squares
@@ -7949,6 +7965,7 @@ File: M/Motzkin_numbers-1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# Using binomial coefficients and Catalan numbers
+#n# OEIS:A001006 
 
 File: M/Motzkin_numbers-1.jvm
 #!/usr/bin/env raku
@@ -7964,6 +7981,7 @@ File: M/Motzkin_numbers-2
 #c# 2021-08-14 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A001006 
 
 File: M/Mouse_position
 #!/usr/bin/env perl6
@@ -8451,6 +8469,7 @@ File: N/Numbers_With_Equal_Rises_and_Falls
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# not testing the slow step (~9 min)
+#n# doesn't match RC due to local style of reference to OEIS
 
 File: N/Numbers_divisible_by_their_individual_digits,_but_not_by_the_product_of_their_digits.
 #!/usr/bin/env raku
@@ -8486,6 +8505,7 @@ File: N/Numbers_which_are_not_the_sum_of_distinct_squares
 #c# 2021-11-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A001422
 
 File: N/Numbers_which_binary_and_ternary_digit_sum_are_prime
 #!/usr/bin/env raku
@@ -9410,6 +9430,7 @@ File: P/Perfect_numbers-1
 #n# nearly 4x speed-up with .hyper:
 #n#  before: 27.897u 0.231s 0:27.96 100.5%
 #n#  after:  26.412u 0.935s 0:07.13 383.4%
+#n# OEIS:A000396
 
 File: P/Perfect_numbers-1.jvm
 #!/usr/bin/env perl6
@@ -9425,6 +9446,7 @@ File: P/Perfect_numbers-2
 #m# MOAR: OK
 #j# JVM:  OK
 #n# much, much faster version
+#n# OEIS:A000396
 
 File: P/Perfect_shuffle
 #!/usr/bin/env perl6
@@ -10360,7 +10382,7 @@ File: R/Ramanujan%27s_constant-1
 #n# calculate Ramanujan's constant as per http://oeis.org/wiki/Ramanujan%27s_constant
 #n# cobbled together from other RC tasks (calculation of 𝑒 and π) and a custom ** operator
 #n# show 'almost integer' of Heegner-number series (19 43 67 163), make table of deltas
-#n# https://oeis.org/A003173, https://en.wikipedia.org/wiki/Heegner_number
+#n# OEIS:A003173, https://en.wikipedia.org/wiki/Heegner_number
 
 File: R/Ramanujan%27s_constant-1.jvm
 #!/usr/bin/env perl6
@@ -10372,7 +10394,6 @@ File: R/Ramanujan%27s_constant-1.jvm
 #n# calculate Ramanujan's constant as per http://oeis.org/wiki/Ramanujan%27s_constant
 #n# cobbled together from other RC tasks (calculation of 𝑒 and π) and a custom ** operator
 #n# show 'almost integer' of Heegner-number series (19 43 67 163), make table of deltas
-#n# https://oeis.org/A003173, https://en.wikipedia.org/wiki/Heegner_number
 
 File: R/Ramanujan%27s_constant-2
 #!/usr/bin/env perl6
@@ -10392,6 +10413,7 @@ File: R/Ramanujan_primes
 #j# JVM:  BROKEN
 #n# not testing 10_000 as much, much slower than suggested on RC
 #n# cf 'Twin_Primes' for use of '.count'
+#n# OEIS:A104272
 
 File: R/Ramanujan_primes-2
 #!/usr/bin/env raku
@@ -10399,6 +10421,7 @@ File: R/Ramanujan_primes-2
 #c# 2021-09-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A104272
 
 File: R/Ramanujan_primes_twins
 #!/usr/bin/env raku
@@ -11124,6 +11147,15 @@ File: R/Runtime_evaluation_In_an_environment
 #j#  JVM: OK
 #n# migrated from 'Eval_in_environment'
 
+File: R/Ruth-Aaron_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Ruth-Aaron_numbers
+#c# 2022-01-22 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# OEIS:A006145 - Ruth-Aaron numbers (1): sum of prime divisors of n = sum of prime divisors of n+1
+#n# OEIS:A039752 - Ruth-Aaron numbers (2): sum of prime divisors of n = sum of prime divisors of n+1 (both taken with multiplicity)
+
 File: S/S-Expressions
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/S-Expressions
@@ -11230,6 +11262,10 @@ File: S/Sailors,_coconuts_and_a_monkey_problem
 #c# 2015-10-29 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# cf OEIS:A002021 
+#n# J version:
+#n#  I.(=<.)%&5 verb def'4*(y-1)%5'^:5 i.10000
+#n# 3121
 
 File: S/Same_Fringe
 #!/usr/bin/env perl6
@@ -11313,6 +11349,7 @@ File: S/Self_numbers
 #m# MOAR: OK
 #j# JVM:  OK
 #n# faster than the literal-minded Perl translation; hard-coding '50' sub-optimal
+#n# OEIS:A003052
 #n# 2022-01-12 fixed warning on ternary
 
 File: S/Semiprime-1
@@ -11395,6 +11432,7 @@ File: S/Sequence_of_non-squares
 #c# 2016-03-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A000037
 
 File: S/Sequence_of_primes_by_Trial_Division
 #!/usr/bin/env perl6
@@ -11822,6 +11860,7 @@ File: S/Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k
 #c# 2022-01-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A033939
 
 File: S/Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k.jvm
 #!/usr/bin/env raku
@@ -12004,6 +12043,13 @@ File: S/Sort_numbers_lexicographically.1
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Sort_numbers_lexicographically
 #c# 2018-07-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: S/Sort_primes_from_list_to_a_list
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Sort_primes_from_list_to_a_list
+#c# 2022-01-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -14085,6 +14131,7 @@ File: U/Unprimeable_numbers
 #c# 2019-12-01 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A118118
 
 File: U/Unprimeable_numbers.jvm
 #!/usr/bin/env perl6
