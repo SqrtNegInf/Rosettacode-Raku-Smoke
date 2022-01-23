@@ -6,6 +6,7 @@
 #n# nearly 4x speed-up with .hyper:
 #n#  before: 27.897u 0.231s 0:27.96 100.5%
 #n#  after:  26.412u 0.935s 0:07.13 383.4%
+#n# OEIS:A000396
 
 sub is-perf($n) { $n == [+] grep $n %% *, 1 .. $n div 2 }
 
