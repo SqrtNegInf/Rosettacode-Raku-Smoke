@@ -1,0 +1,10 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Sort_primes_from_list_to_a_list
+#c# 2022-01-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $result = <2 43 81 122 63 13 7 95 103>.grep( &is-prime ).sort;
+
+use Test;
+is $result, '2 7 13 43 103';
