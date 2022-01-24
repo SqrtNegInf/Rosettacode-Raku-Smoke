@@ -1,8 +1,9 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Divide_a_rectangle_into_a_number_of_unequal_triangles
-#c# 2022-01-23 <RC
+#c# 2022-01-23 <RC, 2022-01-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# bug-fix from 24th didn't change anything
 
 my @res;
 
@@ -10,7 +11,7 @@ my @res;
 
 sub UnequalDivider (\L,\H,\N where N > 2) { 
 
-   if N == 3 { return (0,H), (0,0), ((2/5)×L,0), (L,0), (L,H) }
+   if N == 3 { return (0,H), (0,0), ((2/5)×L,H), (L,0), (L,H) }
 
    my @primes = ((2..*).grep:{.is-prime})[^N] ;                 # for randomness
    my @base = @primes[0..N/2-1] and my @roof = @primes[N/2..*]; # add .pick(*) 
