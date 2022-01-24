@@ -429,6 +429,7 @@ File: A/Additive_primes-1
 #c# 2021-03-xx >RC NOT ON RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A046704
 
 File: A/Additive_primes-2
 #!/usr/bin/env raku
@@ -437,6 +438,7 @@ File: A/Additive_primes-2
 #m# MOAR: OK
 #j# JVM:  OK
 #n# thundergnat++
+#n# OEIS:A046704
 
 File: A/Address_of_a_variable
 #!/usr/bin/env perl6
@@ -2622,6 +2624,8 @@ File: C/Cousin_primes
 #c# 2021-03-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A094343
+#n# OEIS:A023200
 
 File: C/Cramer%27s_rule
 #!/usr/bin/env perl6
@@ -2777,6 +2781,10 @@ File: C/Cyclops_numbers
 #c# 2021-06-23 <RC, 2021-06-25 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A134808 - Cyclops numbers
+#n# OEIS:A134809 - Cyclops primes
+#n# OEIS:A329737 - Cyclops primes that remain prime after being "blinded"
+#n# OEIS:A136098 - Prime palindromic cyclops numbers
 
 File: C/Cyclops_numbers.1
 #!/usr/bin/env raku
@@ -3236,6 +3244,8 @@ File: D/Distinct_Palindromes_Within_Decimal_Numbers
 #c# 2021-04-06 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A262188
+#n# OEIS:A151997
 
 File: D/Distinct_Palindromes_Within_Decimal_Numbers.jvm
 #!/usr/bin/env raku
@@ -3275,6 +3285,13 @@ File: D/Diversity_prediction_theorem
 #c# 2016-12-03 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: D/Divide_a_rectangle_into_a_number_of_unequal_triangles
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Divide_a_rectangle_into_a_number_of_unequal_triangles
+#c# 2022-01-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: D/Documentation
 #!/usr/bin/env perl6
@@ -4737,6 +4754,8 @@ File: F/Fortunate_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# Limit of 75 primorials to get first 50 unique fortunates is arbitrary, found through trial and error.
+#n# OEIS:A005235 Fortunate numbers
+#n# OEIS:A046066 Fortunate numbers, sorted with duplicates removed
 
 File: F/Fortunate_numbers.jvm
 #!/usr/bin/env raku
@@ -5630,6 +5649,7 @@ File: H/Home_primes
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# not testing HP49, removed timing code
+#n# OEIS:A037274 - Home primes for n >= 2
 
 File: H/Home_primes.1
 #!/usr/bin/env raku
@@ -6654,6 +6674,7 @@ File: L/Largest_proper_divisor_of_n
 #j# JVM:  BROKEN
 #n# 2021-10-01 new-disp concurrency problem? MoarVM oops: MVM_str_hash_lvalue_fetch_nocheck called concurrently on the same hash
 #n#            test without concurrency
+#n# OEIS:A032742 
 
 File: L/Last_Friday_of_each_month
 #!/usr/bin/env perl6
@@ -8884,6 +8905,11 @@ File: P/Padovan_n-step_number_sequences
 #c# 2021-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A134816 Padovan's spiral numbers
+#n# OEIS:A000930 Narayana's cows sequence
+#n# OEIS:A072465 Fibonacci-like model
+#n# OEIS:A060961 Number of compositions (ordered partitions) of n into 1's, 3's and 5's
+#n# OEIS:A117760 Expansion of 1/(1 - x - x^3 - x^5 - x^7)
 
 File: P/Padovan_sequence
 #!/usr/bin/env raku
@@ -9691,6 +9717,7 @@ File: P/Piprimes
 #c# 2021-04-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A0000720
 
 File: P/Pisano_period
 #!/usr/bin/env perl6
@@ -9878,6 +9905,7 @@ File: P/Practical_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for some inputs with many factors, glacial... (but doesn't hog memory)
+#n# OEIS:A005153
 
 File: P/Pragmatic_directives
 #!/usr/bin/env perl6
@@ -9997,6 +10025,7 @@ File: P/Prime_tripets-1
 #c# 2021-04-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A022004
 
 File: P/Prime_tripets-2
 #!/usr/bin/env raku
@@ -10004,6 +10033,7 @@ File: P/Prime_tripets-2
 #c# 2021-04-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A022004
 
 File: P/Prime_words
 #!/usr/bin/env raku
@@ -10155,6 +10185,7 @@ File: P/Product_of_divisors
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A000005
 
 File: P/Program_name
 #!/usr/bin/env perl6
@@ -10796,6 +10827,13 @@ File: R/Repeat_a_string
 #c# 2015-10-16 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: R/Repunit_primes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Repunit_primes
+#c# 2022-01-23 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
 
 File: R/Resistance_Calculator
 #!/usr/bin/env perl6
@@ -12320,6 +12358,10 @@ File: S/Special_factorials
 #c# 2021-03-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000178 super-factorial
+#n# OEIS:A002109 hyper-factorial 
+#n# OEIS:A005165 alternating factorial
+#n# OEIS:A049384 exponential factorial 
 
 File: S/Special_neighbor_primes
 #!/usr/bin/env raku
@@ -12848,6 +12890,7 @@ File: S/Substring_primes
 #c# 2021-04-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A085823
 
 File: S/Subtractive_generator
 #!/usr/bin/env perl6
@@ -13000,6 +13043,7 @@ File: S/Sum_of_divisors
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A000005
 
 File: S/Sum_of_elements_below_main_diagonal_of_matrix
 #!/usr/bin/env raku
@@ -13209,6 +13253,7 @@ File: S/Sylvester%27s_sequence
 #c# 2021-05-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000058
 
 File: S/Symmetric_difference
 #!/usr/bin/env perl6
@@ -13284,6 +13329,7 @@ File: T/Tau_function
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A000005
 
 File: T/Tau_number
 #!/usr/bin/env raku
@@ -13294,6 +13340,7 @@ File: T/Tau_number
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A000005
 
 File: T/Taxicab_numbers
 #!/usr/bin/env perl6
@@ -14147,8 +14194,10 @@ File: U/Untouchable_numbers
 #c# 2021-02-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# slow, so limited the number of values calculated (even with Perl/ntheory functions)
-#n# need to update RC with future-proofed version
+#n# slow, ~35m, so limited the number of values calculated (even with Perl/ntheory functions)
+#n# need to update RC with future-proofed version [ which means what? ]
+#n# 2022-01-23 added back in 'total found' results
+#n# OEIS:A005114
 
 File: U/Untrusted_environment
 #!/usr/bin/env perl6
@@ -14554,6 +14603,7 @@ File: W/Wieferich_primes
 #c# 2021-05-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A001220
 
 File: W/Wilson_primes_of_order_n-1
 #!/usr/bin/env raku
