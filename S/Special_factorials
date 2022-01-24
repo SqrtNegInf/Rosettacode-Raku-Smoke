@@ -3,6 +3,10 @@
 #c# 2021-03-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000178 super-factorial
+#n# OEIS:A002109 hyper-factorial 
+#n# OEIS:A005165 alternating factorial
+#n# OEIS:A049384 exponential factorial 
 
 my @res;
 
@@ -28,7 +32,6 @@ sub rf ($n) {
 @res.push: 'rf(119) = '~ rf(119).raku;
 
 .say for @res;
-#exit;
 
 my $ref = q:to/END/;
 sf : 1 1 2 12 288 34560 24883200 125411328000 5056584744960000 1834933472251084800000
