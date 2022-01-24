@@ -1,0 +1,48 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Divide_a_rectangle_into_a_number_of_unequal_triangles
+#c# 2022-01-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+# All triangle vertices lie over the lengths and corners of the rectangle and their locations are defined by ratios among prime numbers drawn from two sequences.
+
+sub UnequalDivider (\L,\H,\N where N > 2) { 
+
+   if N == 3 { return (0,H), (0,0), ((2/5)×L,0), (L,0), (L,H) }
+
+   my @primes = ((2..*).grep:{.is-prime})[^N] ;                 # for randomness
+   my @base = @primes[0..N/2-1] and my @roof = @primes[N/2..*]; # add .pick(*) 
+
+   my ($bTotal,$rTotal) <<[+]=<< [ @base, @roof ] ;
+   my ($bPartial,$rPartial) = [ @base, @roof ]>>.shift ;
+   my @vertices = (0,H), (0,0), (($rPartial/$rTotal)×L,H), ;
+
+   for ^+@base {
+      @vertices.push: ( ($bPartial/$bTotal)×L , 0 );
+      if +@base == 1 { # last segment, the rest just by hand
+         return N %% 2 ?? @vertices.append: (L,H) , (L,0) 
+            !!  @vertices.append: (L×(1-@roof[*-1]/$rTotal),H), (L,0), (L,H)
+      } 
+      ($bPartial,$rPartial) <<+=<< [ @base, @roof ]>>.shift;  #>> 
+      @vertices.push: ( ($rPartial/$rTotal)×L , H );
+   }
+}
+
+@res.push: $_.gist for UnequalDivider(1000,500,7).rotor( 3 => -2 );
+
+.say for @res;
+
+my $ref = q:to/END/;
+((0 500) (0 0) (145.833333 500))
+((0 0) (145.833333 500) (200 0))
+((145.833333 500) (200 0) (375 500))
+((200 0) (375 500) (500 0))
+((375 500) (500 0) (645.833333 500))
+((500 0) (645.833333 500) (1000 0))
+((645.833333 500) (1000 0) (1000 500))
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
