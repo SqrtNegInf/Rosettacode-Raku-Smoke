@@ -2,14 +2,15 @@
 #u# http://rosettacode.org/wiki/Juggler_sequence
 #c# 2021-08-18 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# 2022-01-12 fixed warning on ternary 
 #n# OEIS:A007320 Number of steps needed for Juggler sequence started at n to reach 1
 #n# OEIS:A094716 Largest value in the Juggler sequence started at n
 
 my @res;
 
-use Lingua::EN::Numbers;
+# use Lingua::EN::Numbers;
+sub comma { $^i.flip.comb(3).join(',').flip }
 
 sub juggler (Int $n where * > 0) { $n, { ($_ +& 1) ?? .³.&isqrt !! .&isqrt } … 1 }
 
