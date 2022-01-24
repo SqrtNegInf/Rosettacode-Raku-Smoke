@@ -3,8 +3,10 @@
 #c# 2021-02-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# slow, so limited the number of values calculated (even with Perl/ntheory functions)
-#n# need to update RC with future-proofed version
+#n# slow, ~35m, so limited the number of values calculated (even with Perl/ntheory functions)
+#n# need to update RC with future-proofed version [ which means what? ]
+#n# 2022-01-23 added back in 'total found' results
+#n# OEIS:A005114
 
 my @res;
 
@@ -45,17 +47,15 @@ my @list = @untouchable.grep: * < $max;
 @res.push: "Count of untouchable numbers ≤ $max: {+@list}\n";
 @res.push: @list.batch(10)».fmt("%6d").join: "\n";
 
-#`{{ skip for now
 my ($p, $count) = 10,0;
 BREAK: for @untouchable -> \n {
    $count++;
    if (n > $p) {
-      @res.push: printf "%6d untouchable numbers were found  ≤ %7d\n", $count-1, $p;
-      last BREAK if limit == ($p *= 10)
+      @res.push: sprintf "%6d untouchable numbers were found  ≤ %7d", $count-1, $p;
+      last BREAK if 1e5 == ($p *= 10)
    }
 }
-@res.push: sprintf "%6d untouchable numbers were found  ≤ %7d\n", +@untouchable, limit
-}}
+@res.push: sprintf "%6d untouchable numbers were found  ≤ %7d\n", +@untouchable, limit;
 
 .say for @res;
 
@@ -67,6 +67,9 @@ Count of untouchable numbers ≤ 625: 50
    290    292    304    306    322    324    326    336    342    372
    406    408    426    430    448    472    474    498    516    518
    520    530    540    552    556    562    576    584    612    624
+     2 untouchable numbers were found  ≤      10
+     5 untouchable numbers were found  ≤     100
+    89 untouchable numbers were found  ≤    1000
 END
 
 my $full-answer = q:to/END/;
@@ -101,4 +104,4 @@ Count of untouchable numbers ≤ 2000 : 196
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), $ref;
