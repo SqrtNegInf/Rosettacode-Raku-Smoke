@@ -1,0 +1,38 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Magic_constant
+#c# 2021-11-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+#use Lingua::EN::Numbers:ver<2.8+>;
+sub comma { $^i.flip.comb(3).join(',').flip }
+sub super ($n) { $n.trans(<0 1 2 3 4 5 6 7 8 9> => <⁰ ¹ ² ³ ⁴ ⁵ ⁶ ⁷ ⁸ ⁹>) }
+
+my @magic-constants = lazy (3..∞).map: { (1 + .²) * $_ / 2 };
+
+@res.push: "First 20 magic constants: " ~ @magic-constants[^20]».&comma;
+@res.push: "1000th magic constant: " ~ @magic-constants[999].&comma;
+@res.push: "\nSmallest order magic square with a constant greater than:";
+
+(1..7).map: -> $p {@res.push: sprintf "10%-2s: %s", $p.&super, comma 3 + @magic-constants.first( * > exp($p, 10), :k ) }
+
+.say for @res;
+
+my $ref = q:to/END/;
+First 20 magic constants: 15 34 65 111 175 260 369 505 671 870 1,105 1,379 1,695 2,056 2,465 2,925 3,439 4,010 4,641 5,335
+1000th magic constant: 503,006,505
+
+Smallest order magic square with a constant greater than:
+10¹ : 3
+10² : 6
+10³ : 13
+10⁴ : 28
+10⁵ : 59
+10⁶ : 126
+10⁷ : 272
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
