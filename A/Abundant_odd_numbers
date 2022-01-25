@@ -29,7 +29,8 @@ sub odd-abundants (Int :$start-at is copy) {
 }
 
 @res.push: 'First 25 abundant odd numbers:';
-@res.push: $_ for odd-abundants( :start-at(1) )[^25];
+@res.push: | odd-abundants( :start-at(1) )[^25];
+#@res.push: $_ for odd-abundants( :start-at(1) )[^25];
 @res.push: "\nOne thousandth abundant odd number:\n" ~ odd-abundants( :start-at(1) )[999];
 @res.push: "\nFirst abundant odd number above one billion:\n" ~ odd-abundants( :start-at(1_000_000_000) ).head;
 
