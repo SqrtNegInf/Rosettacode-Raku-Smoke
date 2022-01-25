@@ -3,6 +3,7 @@
 #c# 2021-02-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-01-24 experiment with pushing onto array
 
 my @res;
 
@@ -35,7 +36,9 @@ my @tests =
 ;
 for @tests -> ( :@limits, :@data ) {
     my @bins = bin_it( @limits, @data );
-    @res.push: $_ for bin_format(@bins);
+    @res.push: | bin_format(@bins);       # slip whole batch of new items into existing
+    #@res.push: .$ for bin_format(@bins); # anon state variable mirroring topic
+    #@res.push: $_ for bin_format(@bins); # the way it's been done by default
     @res.push: '';
 }
 
