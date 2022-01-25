@@ -1212,6 +1212,7 @@ File: B/Bin_given_limits
 #c# 2021-02-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-01-24 experiment with pushing onto array
 
 File: B/Binary_digits
 #!/usr/bin/env perl6
@@ -2046,6 +2047,7 @@ File: C/Circular_primes
 #c# 2020-04-06 <RC, 2020-04-07 <>RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A016114
 
 File: C/Cistercian_numerals
 #!/usr/bin/env raku
@@ -3289,9 +3291,10 @@ File: D/Diversity_prediction_theorem
 File: D/Divide_a_rectangle_into_a_number_of_unequal_triangles
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Divide_a_rectangle_into_a_number_of_unequal_triangles
-#c# 2022-01-23 <RC
+#c# 2022-01-23 <RC, 2022-01-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# bug-fix from 24th didn't change anything
 
 File: D/Documentation
 #!/usr/bin/env perl6
@@ -3714,6 +3717,14 @@ File: E/Esthetic_numbers
 #u# http://rosettacode.org/wiki/Esthetic_numbers
 #c# 2020-03-17 <RC
 #m# MOAR: OK
+#j# JVM:  BROKEN
+#n# OEIS:A033075
+
+File: E/Esthetic_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Esthetic_numbers
+#c# 2020-03-17 <RC
+#m# MOAR: OK
 #j# JVM:  OK
 
 File: E/Ethiopian_multiplication
@@ -3963,6 +3974,7 @@ File: E/Extra_primes
 #c# 2020-12-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A062088
 
 File: E/Extract_file_extension
 #!/usr/bin/env perl6
@@ -6123,6 +6135,14 @@ File: I/Iterated_digits_squaring.1
 #    20161123: 1186.824u 4.596s 19:55.32 99.6% (combined)
 #    20170123:  854.808u 2.839s 14:23.53 99.3%      "
 
+File: I/Iterators
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Iterators
+#c# 2022-01-24 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+#n# by the nature of the task, only portions are readily testable
+
 File: J/JSON
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/JSON
@@ -6204,7 +6224,7 @@ File: J/Juggler_sequence
 #u# http://rosettacode.org/wiki/Juggler_sequence
 #c# 2021-08-18 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# 2022-01-12 fixed warning on ternary 
 #n# OEIS:A007320 Number of steps needed for Juggler sequence started at n to reach 1
 #n# OEIS:A094716 Largest value in the Juggler sequence started at n
@@ -7367,6 +7387,13 @@ File: M/Magic_constant
 #j# JVM:  BROKEN
 #n# OEIS:A006003 is a similar sequence, though it includes terms for <0 1 2>
 
+File: M/Magic_constant.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Magic_constant
+#c# 2021-11-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: M/Magic_squares_Perl_6
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Magic_squares/Perl_6
@@ -7412,6 +7439,7 @@ File: M/Magnanimous_numbers
 #c# 2020-03-19 <RC, 2020-10-03 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A252996
 
 File: M/Main_step_of_GOST_28147-89
 #!/usr/bin/env perl6
@@ -7714,7 +7742,7 @@ File: M/Mertens_function
 #c# 2020-01-25 <RC, 2020-01-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# methinks someone has been nipping at the cooking brandy...
+#n# OEIS:A002321
 
 File: M/Mertens_function.1
 #!/usr/bin/env perl6
@@ -7843,6 +7871,7 @@ File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 #j# JVM:  OK
 #n# brute force version: (not testing separately because it's embedded in use of $iter, below)
 #n# say $_ , ': ', (1..*).map( *.base(2) ).first: * %% $_ for flat 1..10, 95..105; # etc.
+#n# OEIS:A004290
 
 File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 #!/usr/bin/env perl6
@@ -7850,6 +7879,7 @@ File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 #c# 2020-03-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A004290
 
 File: M/Minimum_primes
 #!/usr/bin/env raku
@@ -8003,6 +8033,13 @@ File: M/Motzkin_numbers-2
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A001006 
+
+File: M/Motzkin_numbers-2.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Motzkin_numbers
+#c# 2021-08-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: M/Mouse_position
 #!/usr/bin/env perl6
@@ -8342,6 +8379,13 @@ File: N/Nested_templated_data
 #j# JVM:  OK
 
 File: N/Next_highest_int_from_digits
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Next_highest_int_from_digits
+#c# 2020-02-22 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: N/Next_highest_int_from_digits.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Next_highest_int_from_digits
 #c# 2020-02-22 <RC
@@ -9004,6 +9048,7 @@ File: P/Palindromic_gapful_numbers
 #n#  * the same code runs fine on Ubuntu (no matter how memory/CPU stressed the system is)
 #n#  * no error when generating only one block of values, which implicates the nested hypers?
 #n#  * same error seen even when outer/display .hyper is removed (or converted to plain 'for' loop)
+#n# OEIS:A108343
 
 File: P/Palindromic_primes
 #!/usr/bin/env raku
@@ -9042,6 +9087,7 @@ File: P/Pancake_numbers
 #c# 2020-11-10 <RC, 2021-02-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A058986
 
 File: P/Pandigital_prime
 #!/usr/bin/env raku
@@ -10834,6 +10880,24 @@ File: R/Repunit_primes
 #c# 2022-01-23 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A000043 - Mersenne exponents: primes p such that 2^p - 1 is prime. Then 2^p - 1 is called a Mersenne prime (base 2)
+#n# OEIS:A028491 - Numbers k such that (3^k - 1)/2 is prime (base 3)
+#n# OEIS:A004061 - Numbers n such that (5^n - 1)/4 is prime (base 5)
+#n# OEIS:A004062 - Numbers n such that (6^n - 1)/5 is prime (base 6)
+#n# OEIS:A004063 - Numbers k such that (7^k - 1)/6 is prime (base 7)
+#n# OEIS:A004023 - Indices of prime repunits: numbers n such that 11...111 (with n 1's) = (10^n - 1)/9 is prime (base 10)
+#n# OEIS:A005808 - Numbers k such that (11^k - 1)/10 is prime (base 11)
+#n# OEIS:A004064 - Numbers n such that (12^n - 1)/11 is prime (base 12)
+#n# OEIS:A016054 - Numbers n such that (13^n - 1)/12 is prime (base 13)
+#n# OEIS:A006032 - Numbers k such that (14^k - 1)/13 is prime (base 14)
+#n# OEIS:A006033 - Numbers n such that (15^n - 1)/14 is prime (base 15)
+
+File: R/Repunit_primes.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Repunit_primes
+#c# 2022-01-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: R/Resistance_Calculator
 #!/usr/bin/env perl6
@@ -11439,6 +11503,7 @@ File: S/Sequence:_nth_number_with_exactly_n_divisors
 #c# 2019-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A073916
 
 File: S/Sequence:_nth_number_with_exactly_n_divisors.jvm
 #!/usr/bin/env perl6
@@ -13986,6 +14051,7 @@ File: T/Twin_Primes
 #j# JVM:  BROKEN
 #n# as should be, same as Perl for 10**12: 718.55s user 5.25s system 711% cpu 1:41.68 total
 #n# 2020-11-08 renamed from 'Twin_Prime_Conjecture'
+#n# OEIS:A001097
 
 File: T/Two_Sum-1
 #!/usr/bin/env perl6
@@ -14079,6 +14145,7 @@ File: U/Ulam_numbers
 #c# 2020-12-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002858
 
 File: U/Ulam_numbers-2
 #!/usr/bin/env raku
@@ -14087,6 +14154,7 @@ File: U/Ulam_numbers-2
 #n# https://github.polettix.it/ETOOBUSY/2021/12/23/pwc144-ulam-sequence/
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002858
 
 File: U/Ulam_spiral_for_primes
 #!/usr/bin/env perl6
@@ -14878,6 +14946,7 @@ File: Y/Yellowstone_sequence
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: yellowstone-sequence.svg
+#n# OEIS:A098550
 
 File: Y/Yin_and_yang
 #!/usr/bin/env perl6
