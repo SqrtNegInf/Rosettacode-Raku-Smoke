@@ -39,6 +39,7 @@ sub say-it ($message, @array) {
     my $max;
     @array.map: {$max max= max $_».&rat-or-int.comb(/\S+/)».chars};
     @res.push: "\n$message";
+    #@res.push: @array.map: {$_».&rat-or-int.fmt(" %{$max}s") ~ "\n"}; # close, extra parens sub-optimal
     @res.push: $_».&rat-or-int.fmt(" %{$max}s") for @array;
 }
 
@@ -64,7 +65,7 @@ for @tests -> @matrix {
     @res.push: '-' x 40;
 }
 
-.say for @res;
+.say for @res; exit;
 
 my $ref = q:to/END/;
 
