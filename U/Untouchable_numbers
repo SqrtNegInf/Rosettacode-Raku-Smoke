@@ -52,7 +52,7 @@ BREAK: for @untouchable -> \n {
    $count++;
    if (n > $p) {
       @res.push: sprintf "%6d untouchable numbers were found  ≤ %7d", $count-1, $p;
-      last BREAK if 1e5 == ($p *= 10)
+      last BREAK if 1e5 == ($p ×= 10)
    }
 }
 @res.push: sprintf "%6d untouchable numbers were found  ≤ %7d\n", +@untouchable, limit;
