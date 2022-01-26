@@ -2904,6 +2904,7 @@ File: D/De_Bruijn_sequences
 #c# 2019-09-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A166315 is similar, but no OEIS entry exactly matches task
 
 File: D/Deal_cards_for_FreeCell
 #!/usr/bin/env perl6
@@ -4179,6 +4180,8 @@ File: F/Fermat_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# thundergnat: I gave up on factoring F₉ after about 20 minutes.
+#n# OEIS:A000215 Fermat numbers
+#n# OEIS:A019434 Fermat primes
 
 File: F/Fermat_numbers.jvm
 #!/usr/bin/env perl6
@@ -4983,6 +4986,7 @@ File: G/Gapful_numbers
 #c# 2019-11-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A108343
 
 File: G/Gauss-Jordan_matrix_inversion
 #!/usr/bin/env raku
@@ -5348,6 +5352,7 @@ File: H/Hamming_numbers-1
 #c# 2015-11-04 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A051037
 
 File: H/Hamming_numbers-2
 #!/usr/bin/env perl6
@@ -5355,6 +5360,7 @@ File: H/Hamming_numbers-2
 #c# 2019-04-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A051037
 
 File: H/Handle_a_signal
 #!/usr/bin/env perl6
@@ -5756,6 +5762,7 @@ File: H/Humble_numbers
 #c# 2019-08-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002473
 
 File: H/Hunt_the_Wumpus
 #!/usr/bin/env perl6
@@ -6139,8 +6146,8 @@ File: I/Iterators
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Iterators
 #c# 2022-01-24 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#m# MOAR: OK
+#j# JVM:  OK
 #n# by the nature of the task, only portions are readily testable
 
 File: J/JSON
@@ -7758,6 +7765,15 @@ File: M/Metallic_ratios
 #c# 2019-10-31 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A001622 golden
+#n# OEIS:A014176 silver
+#n# OEIS:A098316 bronze
+#n# OEIS:A098317 copper
+#n# OEIS:A098318 nickel
+#n# OEIS:A176398 aluminum
+#n# OEIS:A176439 iron
+#n# OEIS:A176458 tin
+#n# OEIS:A176522 lead
 
 File: M/Metaprogramming
 #!/usr/bin/env perl6
@@ -8253,6 +8269,15 @@ File: N/N-smooth_numbers
 #c# 2019-08-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000079    2-smooth numbers non-negative powers of two
+#n# OEIS:A003586    3-smooth numbers
+#n# OEIS:A051037    5-smooth numbers Hamming numbers
+#n# OEIS:A002473    7-smooth numbers humble numbers
+#n# OEIS:A051038   11-smooth numbers
+#n# OEIS:A080197   13-smooth numbers
+#n# OEIS:A080681   17-smooth numbers
+#n# OEIS:A080682   19-smooth numbers
+#n# OEIS:A080683   23-smooth numbers
 
 File: N/NYSIIS
 #!/usr/bin/env perl6
@@ -9695,6 +9720,8 @@ File: P/Pierpont_primes-1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# dropped calc of 1000th
+#n# OEIS:A005109 class 1 -, Pierpont primes
+#n# OEIS:A005105 class 1 +, Pierpont primes of the second kind
 
 File: P/Pierpont_primes-1.jvm
 #!/usr/bin/env perl6
@@ -9710,6 +9737,7 @@ File: P/Pierpont_primes-2
 #c# 2019-08-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# see OEIS citations in body of code
 
 File: P/Pig_the_dice_game
 #!/usr/bin/env perl6
@@ -10622,6 +10650,8 @@ File: R/Rare_numbers
 #j# JVM:  BROKEN
 #n# Do .race and Perl5 call conflict? [seem to: same result in 'Cuban_primes' mash-up of .1 and 1.1 versions]
 #n# key to decent runtime is adding more filtering tricks...
+#n# OEIS:A035519 even rare numbers
+#n# OEIS:A059755  odd rare numbers
 
 File: R/Rare_numbers.jvm
 #!/usr/bin/env perl6
@@ -13248,6 +13278,7 @@ File: S/Super-d_numbers-1
 #n# 2..6 : 17.679u   0.469s  0:25.69 70.5%
 #n# 2..8 : 648.901u 12.444s 17:32.68 62.8%
 #n# */×: replacing '* * **' with '* × **' is clarifying (for humans)
+#n# OEIS:A014569
 
 File: S/Super-d_numbers-2
 #!/usr/bin/env perl6
@@ -13256,6 +13287,7 @@ File: S/Super-d_numbers-2
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# now with concurrency, as fast as my version (Super-d_numbers-3)
+#n# OEIS:A014569
 
 File: S/Super-d_numbers-2.jvm
 #!/usr/bin/env perl6
@@ -13278,6 +13310,7 @@ File: S/Super-d_numbers-3
 #n# Due to overhead, concurrency makes little sense for d < 6, but code does return correct results for all d
 #n# $chunk, $max-plus are tunable parameters, that scale with $d; depending how these are set there's the danger 
 #n# of missing a value in the 'first N' series, but maybe I can have just a little bit of peril?
+#n# OEIS:A014569
 
 File: S/Super-d_numbers-3.0
 #!/usr/bin/env perl6
@@ -15041,6 +15074,8 @@ File: Z/Zumkeller_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# */×: replacing '* * 2' with '* × 2' is clarifying (for humans)
+#n# OEIS:A083207 Zumkeller numbers
+#n# OEIS:A174865 Odd Zumkeller numbers
 
 File: Z/Zumkeller_numbers.jvm
 #!/usr/bin/env perl6
