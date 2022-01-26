@@ -16,11 +16,11 @@ sub UnequalDivider (\L,\H,\N where N > 2) {
    my @primes = ((2..*).grep:{.is-prime})[^N] ;                 # for randomness
    my @base = @primes[0..N/2-1] and my @roof = @primes[N/2..*]; # add .pick(*) 
 
-   my ($bTotal,$rTotal) <<[+]=<< [ @base, @roof ] ;
-   my ($bPartial,$rPartial) = [ @base, @roof ]>>.shift ;
-   my @vertices = (0,H), (0,0), (($rPartial/$rTotal)×L,H), ;
+   my ($bTotal,$rTotal) <<[+]=<< [ @base, @roof ] ;             # >> vim kludge
+   my ($bPartial,$rPartial) = [ @base, @roof ]>>.shift; 
+   my @vertices = (0,H), (0,0), (($rPartial/$rTotal)×L,H);
 
-   for ^+@base {
+   for ^@base {
       @vertices.push: ( ($bPartial/$bTotal)×L , 0 );
       if +@base == 1 { # last segment, the rest just by hand
          return N %% 2 ?? @vertices.append: (L,H) , (L,0) 
