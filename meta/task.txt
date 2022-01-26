@@ -1,10 +1,10 @@
-Welcome to Rakudo™ v2021.12-147-g2ee3a46e3.
+Welcome to Rakudo™ v2021.12-153-g522155d56.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.12-81-gf1101b95d.
 updating from RC…
-+--------------> Moar: Good/Bad [1406/28]
-|+-------------> JVM: Good/Bad [1225/294]
-||+------------> Smoke testing [1363]
++--------------> Moar: Good/Bad [1402/27]
+|+-------------> JVM: Good/Bad [1226/293]
+||+------------> Smoke testing [1364]
 |||+-----------> sKipping validation [142]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [364]
@@ -330,7 +330,7 @@ GGS..T....... Date_format
 GGS..T....... Date_manipulation
 GBS......D... Dating_agency
 GGS.......... Day_of_the_week
-GGS....R.D... Day_of_the_week_of_Christmas_and_New_Year
+!GS....R.D... Day_of_the_week_of_Christmas_and_New_Year
 GGS......D... Days_between_dates
 GGS.......... De_Bruijn_sequences
 GGS..T.R..... Deal_cards_for_FreeCell
@@ -438,7 +438,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -564,7 +564,7 @@ GGS....R..... Generate_Chess960_starting_position-2
 GGS.......... Generate_lower_case_ASCII_alphabet
 !GS....R..... Generate_random_chess_position
 !GS....R.D... Generate_random_numbers_without_repeating_a_value
-GBS....R..... Generate_random_numbers_without_repeating_a_value-2
+!BS....R..... Generate_random_numbers_without_repeating_a_value-2
 GGS..T....... Generator_Exponential
 GGS.......... Generic_swap
 .........D... Geohash
@@ -678,7 +678,7 @@ GG.K......... Inverted_syntax
 GGS.......... Isqrt_integer_square_root_of_X
 GG.K..c...... Iterated_digits_squaring
 GGS.......... Iterated_digits_squaring-1
-BB.......D... Iterators
+GGS......D... Iterators
 GGS.......... JSON
 GGS......D... Jaccard_index
 GGS.......... Jacobi_symbol
@@ -771,7 +771,7 @@ BB.......D... Logistic_curve_fitting_in_epidemiology
 ..........XVU Long_literals,_with_continuations
 GGS..T....... Long_multiplication
 !BS...C...... Long_primes
-GGS....R.D... Long_stairs
+!GS....R.D... Long_stairs
 GGS..T....... Long_year
 GGS..T...D... Longest_common_prefix
 GGS.......... Longest_common_subsequence
@@ -1070,7 +1070,7 @@ GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GBS......D... Polynomial_derivative
 GGS..T....... Polynomial_long_division
-GBS.......... Polynomial_regression
+!BS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
@@ -1081,7 +1081,7 @@ GGS......D... Powerful_numbers
 GBS...C..D... Practical_numbers
 GG.K......... Pragmatic_directives
 GGS.......... Price_fraction
-GGS....R.D... Price_list_behind_API
+!GS....R.D... Price_list_behind_API
 GBS..TC...... Primality_by_Wilson%27s_theorem
 GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
@@ -1266,7 +1266,7 @@ GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
 !GS..T.R..... Set_puzzle
 GGS.........U Set_right-adjacent_bits
-GGS....R..... Seven-sided_dice_from_five-sided_dice
+!GS....R..... Seven-sided_dice_from_five-sided_dice
 !BS.......... Sexy_primes
 GBS.......... Shell_one-liner
 GGS......D... Shift_list_elements_to_left_by_3
