@@ -1,0 +1,9 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/4734
+#c# 2022-01-23 by Xliff, added my comment on 25th
+#n# my bug source: T/The_ISAAC_Cipher
+#n# Welcome to Rakudo™ v2021.12-147-g2ee3a46e3.  Built on MoarVM version 2021.12-81-gf1101b95d.
+#n# error is: p6decontrv expects a QAST::WVal as its first child
+
+my uint $a; sub foo { $a = 0 }
