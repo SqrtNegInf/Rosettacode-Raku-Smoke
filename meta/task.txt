@@ -1,19 +1,19 @@
-Welcome to Rakudo™ v2021.12-153-g522155d56.
+Welcome to Rakudo™ v2021.12-161-g4365d9b6d.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2021.12-81-gf1101b95d.
 updating from RC…
-+--------------> Moar: Good/Bad [1402/27]
-|+-------------> JVM: Good/Bad [1226/293]
-||+------------> Smoke testing [1364]
-|||+-----------> sKipping validation [142]
++--------------> Moar: Good/Bad [1405/27]
+|+-------------> JVM: Good/Bad [1232/289]
+||+------------> Smoke testing [1365]
+|||+-----------> sKipping validation [143]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [364]
+|||||+---------> Touched (modified by me) [365]
 ||||||+--------> Concurrent/Async [90]
 |||||||+-------> Random seed [145]
 ||||||||+------> File output [100]
 |||||||||+-----> Draft [356]
 ||||||||||+----> Ignoring [38]
-|||||||||||+---> Void (no local copy) [97]
+|||||||||||+---> Void (no local copy) [96]
 ||||||||||||+--> Un-implemented/reliable [51]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -144,7 +144,7 @@ GGS.......... Binary_digits
 GGS.......... Binary_search
 GGS..T....... Binary_strings
 GGS..T...D... Bioinformatics_Global_alignment
-!GS....R..... Bioinformatics_Sequence_mutation
+GGS....R..... Bioinformatics_Sequence_mutation
 GBS....R.D... Bioinformatics_Subsequence
 GGS.......... Bioinformatics_base_count
 GGS.......... Biorhythms
@@ -248,7 +248,7 @@ GGS..T..F.... Colour_bars_Display
 GGS..T..F.... Colour_pinstripe_Display
 GBS.....F.... Colour_pinstripe_Printer
 GGS.......... Combinations-1
-GBS.......... Combinations-2
+GGS.......... Combinations-2
 GGS..T....... Combinations_and_permutations
 GGS..T....... Combinations_with_repetitions
 GGS......D... Combinations_with_repetitions_Square_digit_chain
@@ -375,7 +375,9 @@ GGS......D... Distinct_power_numbers
 GG.K......... Distributed_programming
 GGS..TC..D... Distribution_of_0_Digits_in_factorial_series
 GGS..T....... Diversity_prediction_theorem
-GGS......D... Divide_a_rectangle_into_a_number_of_unequal_triangles
+.........D... Divide_a_rectangle_into_a_number_of_unequal_triangles
+GGS.......... Divide_a_rectangle_into_a_number_of_unequal_triangles-1
+GGS.......... Divide_a_rectangle_into_a_number_of_unequal_triangles-2
 GGS.......... Documentation
 .........D.VU Dominoes
 .........D.V. Doomsday_rule
@@ -419,7 +421,7 @@ GGS..T....... Entropy_Narcissist
 GGS..T....... Enumerations
 GGS.......... Environment_variables
 GGS..T....... Equilibrium_index
-.........D.VU Erdos-Woods_numbers
+GB.K.T...D..U Erdos-Woods_numbers
 GBS......D... Erdos-primes
 GBS.......... Esthetic_numbers
 GGS.......... Ethiopian_multiplication
@@ -487,7 +489,7 @@ GGS..T....... Find_Chess960_starting_position_identifier
 GGS......D... Find_URI_in_text
 GBS......D... Find_adjacent_primes_which_differ_by_a_square_integer
 GGS..T....... Find_common_directory_path
-!BS..T....... Find_duplicate_files
+GBS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
 GGS......D... Find_first_missing_positive
 GGS.......... Find_if_a_point_is_within_a_triangle
@@ -644,7 +646,7 @@ BB.KI....D..U IPC_via_named_pipe
 GGS.......... ISBN13_check_digit
 GGS.......... ISBN13_check_digit-2
 GGS.......... I_before_E_except_after_C-1
-GBS.......... I_before_E_except_after_C-2
+GGS.......... I_before_E_except_after_C-2
 GGS.......... Identity_matrix
 GBS.......... Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols
 GGS.......... Idiomatically_determine_all_the_lowercase_and_uppercase_letters
@@ -698,7 +700,7 @@ GGS......D... Just_in_time_processing_on_a_character_stream
 GGS......D... Kahan_summation
 GGS.......... Kaprekar_numbers-1
 GGS..TC...... Kaprekar_numbers-2
-GBS.......... Kaprekar_numbers-3
+GGS.......... Kaprekar_numbers-3
 GGS.......... Kernighans_large_earthquake_problem
 GB.KI........ Keyboard_input_Flush_the_keyboard_buffer
 GB.KI........ Keyboard_input_Keypress_check
@@ -708,7 +710,7 @@ GGS.......... Knapsack_problem_0_1-1
 GGS.......... Knapsack_problem_0_1-2
 GGS.......... Knapsack_problem_Bounded-1
 GGS..T....... Knapsack_problem_Bounded-2
-GBS.......... Knapsack_problem_Continuous
+GGS.......... Knapsack_problem_Continuous
 GGS..T....... Knapsack_problem_Unbounded
 !GS....R..... Knight%27s_tour
 !GS....R..... Knuth%27s_algorithm_S
@@ -1085,7 +1087,7 @@ GGS.......... Price_fraction
 GBS..TC...... Primality_by_Wilson%27s_theorem
 GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
-GBS..TC...... Prime_decomposition
+!BS..TC...... Prime_decomposition
 GBS.......... Prime_decomposition-1
 .........DXV. Prime_numbers_p_which_sum_of_prime_numbers_less_or_equal_to_p_is_prime
 GGS......D... Prime_numbers_which_contain_123
@@ -1133,7 +1135,7 @@ GGS..T....... RIPEMD-160
 !GS....R..... RPG_attributes_generator
 GGS..T....... RSA_code
 GBS..T...D... Railway_circuit
-GBS..T....... Ramanujan%27s_constant-1
+!BS..T....... Ramanujan%27s_constant-1
 GGS..T....... Ramanujan%27s_constant-2
 GBS......D... Ramanujan_primes
 GBS.......... Ramanujan_primes-2
@@ -1489,7 +1491,7 @@ GGS.......... Text_processing_2
 GGS.......... Text_processing_Max_licenses_in_use
 BB...T...D... Text_to_HTML
 GGS.......... Textonyms
-!GS...C...... The_ISAAC_Cipher
+GGS...C...... The_ISAAC_Cipher
 GGS.......... The_Name_Game
 GGS.....F.... The_Twelve_Days_of_Christmas
 GGS.......... The_sieve_of_Sundaram
@@ -1611,7 +1613,7 @@ GBS...C...... Wilson_primes_of_order_n-2
 GB.KI........ Window_creation
 GB.KI........ Window_creation_X11
 GB.KI........ Window_management
-GBS.......... Wireworld
+GGS.......... Wireworld
 GGS......D... Word_break_problem
 GGS..Tc...... Word_frequency
 GGS.......... Word_ladder
