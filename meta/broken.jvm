@@ -1,15 +1,22 @@
+
+>>>>>>>>>>>>>>>> » GLORY BE! « <<<<<<<<<<<<<<<<<
+Tasks that now work with JVM 2021.12
+C/Combinations-2
+I/I_before_E_except_after_C-2
+K/Kaprekar_numbers-3
+K/Knapsack_problem_Continuous
+M/MD5_Implementation
+W/Wireworld
+
 >>>>>>>>>>>>>>>> » KLUDGES « <<<<<<<<<<<<<<<<<
 
 # 'constant' fails, use plain variable instead
-# P/Perlin_noise  [2020-12-13 no change with jvm-2020.11]
-
-# uint64 instead of uint32
-# M/MD5_Implementation
+# P/Perlin_noise  [no change with jvm-2021.12]
 
 # avoid 'use Crypt::Random' for JVM (and reliable testing)
 # O/One-time_pad  
 
-# these work after downgrading U/Unicode names to ASCII [2020-12-13 no change with jvm-2020.11]
+# these work after downgrading U/Unicode names to ASCII [no change with jvm-2021.12]
 # A/Ackermann_function
 # B/Box_the_compass
 # C/Cipolla%27s_algorithm
@@ -34,7 +41,7 @@
 # New errors for 2018-08
 # S/Sorting_algorithms_Sleep_sort # 2018-10-11 working again
 # U/Unicode_variable_names # 2018-12-08 working again
-# B/Burrows-Wheeler_transform [2020-12-13 still needs non-Unicode delimiter, keep .jvm version]
+# B/Burrows-Wheeler_transform [JVM 2021.12 still needs non-Unicode delimiter, keep .jvm version]
 
 # some are msb/lsb, but not all:
 # bench/jvm/Date_manipulation.out:Cannot assign to an immutable value # 2018-12-08 working again
@@ -76,21 +83,14 @@ S/Substring_Top_and_tail
 # W/Welch%27s_t-test # Type check failed in binding to parameter 'nu'; expected Int but got Rat (1732.5) # DH works 2018-05-17
 
 # pg StackOverflowError bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
-# C/Count_the_coins # partial fix: smaller piles work
-I/I_before_E_except_after_C-2 # 2020-12-13 jvm-2020.11 fails in the same way as Moar does now?
 L/Lychrel_numbers
 M/Man_or_boy_test
 
 # org.perl6.nqp.runtime.U/UnwindException
 # pg UnwindException bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
-C/Combinations-2
 C/Count_in_factors-1
-# Factors_of_a_Mersenne_number (kludged)
-K/Kaprekar_numbers-3
-K/Knapsack_problem_Continuous
+C/Count_the_coins
 I/Intersecting_Number_Wheels
-M/Multiplicative_order
-W/Wireworld
 
 # 'use NativeCall' (direct, or in module)
 15_Puzzle_Game                          # use Term::termios
@@ -163,8 +163,8 @@ P/Parallel_calculations-2
 S/Super-d_numbers-3
 
 # misc problems
+M/Multiplicative_order  # use Prime::Factor
 G/Get_system_command_output
-S/Sequence:_nth_number_with_exactly_n_divisors.jvm
 
 ===================================================================
 
