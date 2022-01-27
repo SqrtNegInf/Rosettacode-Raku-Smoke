@@ -3,8 +3,9 @@
 #c# 2016-04-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# not random after all?
 
-srand 123456;
+#srand 123456;
 
 #Translation of: Perl 5
 #We avoid taking square roots in the slow method because the squares are just as comparable.
@@ -23,7 +24,7 @@ use Test;
 is $df, $ds;
 }
 
-# sub dist-squared (@a,@b) { [+] (@a Z- @b) X** 2 }  # DH cute but slow
+sub dist-squared-slow (@a,@b) { [+] (@a Z- @b) X** 2 }  # DH cute but slow, by a factor of 7x
 
 sub dist-squared($a,$b) {
     ($a[0] - $b[0]) ** 2 +
