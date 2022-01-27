@@ -3,7 +3,7 @@
 #c# 2016-01-06 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# not using supplied fast/clever prime tester, as it crashes JVM
+#n# not using supplied clever prime tester, as it crashes JVM
 
 my @primes = 2, 3, -> $n is copy {
     repeat { $n += 2 } until $n %% none do for @primes -> $p {
