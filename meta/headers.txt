@@ -346,6 +346,7 @@ File: A/Abundant_odd_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# takes well over 5 seconds to complete (on my really-truly-not-very-fast system)
+#n# OEIS:A005231 Odd abundant numbers (odd numbers n whose sum of divisors exceeds 2n)
 
 File: A/Abundant_odd_numbers.jvm
 #!/usr/bin/env perl6
@@ -910,6 +911,7 @@ File: A/Attractive_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# as of 2019-08-12 a speedier version via Perl/ntheory library
+#n#  OEIS:A063989: Numbers with a prime number of prime divisors
 
 File: A/Attractive_numbers.1
 #!/usr/bin/env perl6
@@ -1159,6 +1161,8 @@ File: B/Bell_numbers-1
 #c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000110 Bell or exponential numbers
+#n# OEIS:A011971 Aitken's array
 
 File: B/Bell_numbers-2
 #!/usr/bin/env perl6
@@ -1166,6 +1170,7 @@ File: B/Bell_numbers-2
 #c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000110 Bell or exponential numbers
 
 File: B/Bell_numbers-3
 #!/usr/bin/env perl6
@@ -1173,6 +1178,7 @@ File: B/Bell_numbers-3
 #c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000110 Bell or exponential numbers
 
 File: B/Benford%27s_law
 #!/usr/bin/env perl6
@@ -1242,6 +1248,7 @@ File: B/Bioinformatics_Sequence_mutation
 #c# 2019-11-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-01-26 as a test, fixed 'srand' output, see how long it lasts
 
 File: B/Bioinformatics_Subsequence
 #!/usr/bin/env raku
@@ -1501,6 +1508,9 @@ File: B/Brazilian_numbers
 #c# 2019-08-12 <RC, 2019-08-14 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A125134 Brazilian numbers
+#n# OEIS:A257521 Odd Brazilian numbers
+#n# OEIS:A085104 Prime Brazilian numbers
 
 File: B/Brazilian_numbers.jvm
 #!/usr/bin/env perl6
@@ -1941,6 +1951,7 @@ File: C/Chernick%27s_Carmichael_numbers
 #c# 2019-06-08 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# OEIS:A318646 The least Chernick's "universal form" Carmichael number with n prime factors
 
 File: C/Chernick%27s_Carmichael_numbers.jvm
 #!/usr/bin/env perl6
@@ -2071,6 +2082,7 @@ File: C/Closest-pair_problem
 #c# 2016-04-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# not random after all?
 
 File: C/Closures_Value_capture
 #!/usr/bin/env perl6
@@ -2196,7 +2208,8 @@ File: C/Combinations-2
 #u# http://rosettacode.org/wiki/Combinations
 #c# 2015-10-12 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN UnwindException
+#j#  JVM: OK
+#n# with JVM 2021.12, now works
 
 File: C/Combinations-2.0
 #!/usr/bin/env perl6
@@ -3182,8 +3195,10 @@ File: D/Dinesman%27s_multiple-dwelling_problem-1
 #c# 2015-11-14 <>RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# for JVM: $expr not set, grammar fails
-#n# .EVAL syntax doesn't work here?
+#n# 2022-01-26 for JVM 2021.12:
+#n# Use of uninitialized value element of type Any in string context.
+#n# Methods .^name, .raku, .gist, or .say can be used to stringify it to something meaningful.
+#n# in sub parse_and_solve at D/Dinesman%27s_multiple-dwelling_problem-1 line 42
 
 File: D/Dinesman%27s_multiple-dwelling_problem-1.1
 #!/usr/bin/env perl6
@@ -3289,13 +3304,20 @@ File: D/Diversity_prediction_theorem
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: D/Divide_a_rectangle_into_a_number_of_unequal_triangles
+File: D/Divide_a_rectangle_into_a_number_of_unequal_triangles-1
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Divide_a_rectangle_into_a_number_of_unequal_triangles
 #c# 2022-01-23 <RC, 2022-01-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# bug-fix from 24th didn't change anything
+
+File: D/Divide_a_rectangle_into_a_number_of_unequal_triangles-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Divide_a_rectangle_into_a_number_of_unequal_triangles
+#c# 2022-01-26 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: D/Documentation
 #!/usr/bin/env perl6
@@ -3699,6 +3721,18 @@ File: E/Equilibrium_index
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: E/Erdos-Woods_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Erdős–Woods_numbers
+#t# inprogress
+#c# 2022-01-xx >RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# OEIS:A059756 Erdős–Woods numbers
+#n# OEIS:A059757 smallest values of a for a given E-W number k
+#n# OEIS:A111042 odd terms of sequence (not calculated here)
+#n# any way to keep this from being intolerably slow?
+
 File: E/Erdos-primes
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Erdős-primes
@@ -4048,6 +4082,8 @@ File: F/Factorions
 #n# 2020-?     tune .race to match # of bases
 #n# 2021-08-25 .race starts causing failure
 #n# 2021-09-10 pre-allocating @result, making @factorial non-lazy does not help
+#n# OEIS:A014080 Factorions in base 10
+#n# OEIS:A193163 Factorions in base n
 
 File: F/Factorions.0
 #!/usr/bin/env perl6
@@ -4081,7 +4117,7 @@ File: F/Factors_of_a_Mersenne_number
 #c# 2016-01-06 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# not using supplied fast/clever prime tester, as it crashes JVM
+#n# not using supplied clever prime tester, as it crashes JVM
 
 File: F/Factors_of_an_integer
 #!/usr/bin/env perl6
@@ -4597,6 +4633,7 @@ File: F/First_perfect_square_in_base_N_with_N_unique_digits
 #n#     7.919u  0.204s
 #n#   487.887u  7.866s .1
 #n#  1264.211u 17.279s .2
+#n# OEIS A260182: smallest square that is pandigital in base n
 
 File: F/First_perfect_square_in_base_N_with_N_unique_digits.1
 #!/usr/bin/env perl6
@@ -5838,8 +5875,8 @@ File: I/I_before_E_except_after_C-2
 #u# http://rosettacode.org/wiki/I_before_E_except_after_C
 #c# 2015-12-11 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
-#n# java.lang.StackOverflowError
+#j#  JVM: OK
+#n# with JVM 2021.12, now works
 #n# 2020-11-15 FIXED: thundergnat++, the necessary coercion is '+$<freq>'
 #n#            error was: Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
 #n# 2022-01-12 fixed warning on ternary
@@ -6145,7 +6182,7 @@ File: I/Iterated_digits_squaring.1
 File: I/Iterators
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Iterators
-#c# 2022-01-24 <RC
+#c# 2022-01-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# by the nature of the task, only portions are readily testable
@@ -6341,7 +6378,8 @@ File: K/Kaprekar_numbers-3
 #u# http://rosettacode.org/wiki/Kaprekar_numbers
 #c# 2015-12-05 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN UnwindException
+#j#  JVM: OK
+#n# with JVM 2021.12, now works
 
 File: K/Kernighans_large_earthquake_problem
 #!/usr/bin/env perl6
@@ -6422,8 +6460,8 @@ File: K/Knapsack_problem_Continuous
 #u# http://rosettacode.org/wiki/Knapsack_problem/Continuous
 #c# 2015-11-04 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
-#   Type check failed in binding to nu; expected Int but got Str ("3.8")
+#j#  JVM: OK
+#n# with JVM 2021.12, now works
 
 File: K/Knapsack_problem_Unbounded
 #!/usr/bin/env perl6
@@ -6560,6 +6598,9 @@ File: L/Lah_numbers
 #c# 2019-08-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A105278 Unsigned Lah numbers
+#n# OEIS:A008297 Signed Lah numbers
+my @res;
 
 File: L/Langton%27s_ant
 #!/usr/bin/env perl6
@@ -6737,6 +6778,7 @@ File: L/Latin_Squares_in_reduced_form
 #c# 2020-01-08 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A002860 Number of Latin squares of a given order
 
 File: L/Latin_Squares_in_reduced_form.0
 #!/usr/bin/env perl6
@@ -7367,8 +7409,7 @@ File: M/MD5_Implementation
 #c# 2015-12-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# kludge for JVM: uint64 instead of uint32
-#n# 2019-10-26 kludge still needed
+#n# 2022-01-26 as of today, JVM works with uint32 or uint64, but Moar only works with uinit64
 
 File: M/Mad_Libs
 #!/usr/bin/env perl6
@@ -10487,7 +10528,8 @@ File: R/Ramanujan%27s_constant-1
 #n# calculate Ramanujan's constant as per http://oeis.org/wiki/Ramanujan%27s_constant
 #n# cobbled together from other RC tasks (calculation of 𝑒 and π) and a custom ** operator
 #n# show 'almost integer' of Heegner-number series (19 43 67 163), make table of deltas
-#n# OEIS:A003173, https://en.wikipedia.org/wiki/Heegner_number
+#n# https://oeis.org/wiki/Ramanujan%27s_constant
+#n# OEIS:A003173 Heegner number (see also https://en.wikipedia.org/wiki/Heegner_number)
 
 File: R/Ramanujan%27s_constant-1.jvm
 #!/usr/bin/env perl6
@@ -10509,6 +10551,8 @@ File: R/Ramanujan%27s_constant-2
 #n# slower, but gets the job done
 #n# LHS commenting messes up on RC, but too bad, I like it
 #n# formulas from: https://en.wikipedia.org/wiki/Generalized_continued_fraction
+#n# https://oeis.org/wiki/Ramanujan%27s_constant
+#n# OEIS:A003173 Heegner number (see also https://en.wikipedia.org/wiki/Heegner_number)
 
 File: R/Ramanujan_primes
 #!/usr/bin/env raku
@@ -10565,6 +10609,7 @@ File: R/Random_Latin_Squares
 #c# 2019-06-09 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002860
 
 File: R/Random_number_generator_device
 #!/usr/bin/env perl6
@@ -11551,6 +11596,7 @@ File: S/Sequence:_smallest_number_greater_than_previous_term_with_exactly_n_divi
 #c# 2019-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A069654
 
 File: S/Sequence:_smallest_number_with_exactly_n_divisors
 #!/usr/bin/env perl6
@@ -11558,6 +11604,7 @@ File: S/Sequence:_smallest_number_with_exactly_n_divisors
 #c# 2019-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A005179
 
 File: S/Sequence_of_non-squares
 #!/usr/bin/env perl6
@@ -12039,6 +12086,7 @@ File: S/Smarandache_prime-digital_sequence
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# added back calculation of 100K-th
+#n# OEIS:A019546 Primes whose digits are primes
 
 File: S/Smarandache_prime-digital_sequence.jvm
 #!/usr/bin/env perl6
@@ -12728,6 +12776,8 @@ File: S/Stirling_numbers_of_the_first_kind
 #c# 2019-08-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A008275 Signed Stirling numbers of the first kind
+#n# OEIS:A130534 Unsigned Stirling numbers of the first kind
 
 File: S/Stirling_numbers_of_the_second_kind
 #!/usr/bin/env perl6
@@ -12735,6 +12785,7 @@ File: S/Stirling_numbers_of_the_second_kind
 #c# 2019-08-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A008277 Stirling numbers of the second kind
 
 File: S/Straddling_checkerboard
 #!/usr/bin/env perl6
@@ -14428,6 +14479,7 @@ File: V/Van_Eck_sequence
 #c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A181391
 
 File: V/Van_der_Corput_sequence
 #!/usr/bin/env perl6
@@ -14753,7 +14805,8 @@ File: W/Wireworld
 #u# http://rosettacode.org/wiki/Wireworld
 #c# 2018-02-15 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN  UnwindException
+#j# JVM:  OK
+#n# with JVM 2021.12, now works
 
 File: W/Word_break_problem
 #!/usr/bin/env perl6
