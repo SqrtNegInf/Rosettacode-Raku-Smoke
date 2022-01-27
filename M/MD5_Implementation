@@ -3,8 +3,7 @@
 #c# 2015-12-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# kludge for JVM: uint64 instead of uint32
-#n# 2019-10-26 kludge still needed
+#n# 2022-01-26 as of today, JVM works with uint32 or uint64, but Moar only works with uinit64
 
 sub infix:<⊞>(uint64 $a, uint64 $b --> uint64) { ($a + $b) +& 0xffffffff }
 sub infix:«<<<»(uint64 $a, UInt $n --> uint64) { ($a +< $n) +& 0xffffffff +| ($a +> (32-$n)) }
