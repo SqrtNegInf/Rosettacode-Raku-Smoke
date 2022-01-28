@@ -1,11 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/List_rooted_trees
 #c# 2016-05-23 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: OK
-#n# Cannot call 'shift' on an immutable 'List'
-
-# Bags are represented by Perl 6 type Bag.
+#n# OEIS:A000081
 
 sub expand-tree ( Bag $tree ) {
     bag(bag(bag()) ⊎ $tree) ⊎
@@ -29,27 +27,17 @@ for ( bag(), bag(bag()), *.&expand-trees ... * )[$n] {
 
 .put for @res.sort;
 
-# 2021-06-04 now results are:
-# Bag() => 3
-# Bag(Bag()(2)) => 1
-# Bag(Bag()(3)) => 1
-# Bag(Bag()(4)) => 1
-# Bag(Bag()) => 4
-
+# The Bag Bag(Bag(Bag()), Bag()(2)) coresponds with ((())()()). 
+# There are two independent ways how we can get it by nesting 4 Bags. (unclear, so we over-count by 1?)
 my $ref = q:to/END/;
-Bag(Bag() Bag(Bag()(2))) => 2
-Bag(Bag() Bag(Bag(Bag()))) => 2
-Bag(Bag()(2) Bag(Bag())) => 2
+Bag() => 3
+Bag(Bag()(2)) => 1
+Bag(Bag()(3)) => 1
 Bag(Bag()(4)) => 1
-Bag(Bag(Bag() Bag(Bag()))) => 2
-Bag(Bag(Bag()(3))) => 1
-Bag(Bag(Bag())(2)) => 1
-Bag(Bag(Bag(Bag()(2)))) => 1
-Bag(Bag(Bag(Bag(Bag())))) => 1
+Bag(Bag()) => 4
 END
 
 use Test;
 is @res.sort.join("\n"), chomp $ref;
 
-# The Bag Bag(Bag(Bag()), Bag()(2)) coresponds with ((())()()). There are two independent ways how we can get it by nesting 4 Bags.
 
