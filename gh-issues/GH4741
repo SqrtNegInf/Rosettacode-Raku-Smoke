@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/4741
+#c# 2022-01-28 open
+#n# bug source: G/Geometric_algebra (plus anything that uses 'Clifford' module)
+#n# Welcome to Rakudo™ v2021.12-161-g4365d9b6d Built on MoarVM version 2021.12-81-gf1101b95d.
+
+# source: http://rosettacode.org/wiki/Geometric_algebra (whose code is a subset of the 'Clifford' module)
+# This highly mangled/golf'ed code segfaults when creating even the simplest possible MultiVector
+# Everything works fine when 'UInt' is replaced by 'Int'
+
+unit class MultiVector;
+subset UIntHash of MixHash where .keys.all ~~ UInt;
+has UIntHash $.blades;
+
+multi method new(UIntHash $blades) returns MultiVector { self.new: :$blades }
+multi method new(Str $ where /^^e(\d+)$$/) { self.new: (1 +< (2×$0)    ).MixHash }
+
+MultiVector.new: "e1";
