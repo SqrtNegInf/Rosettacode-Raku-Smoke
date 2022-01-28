@@ -687,6 +687,7 @@ File: A/Anti-primes
 #c# 2018-12-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002182
 #n# 2018-12-10: confirmed that there is a race condition if .hyper is used, 
 #n# manifests itself more or less easily on different OS's:  macOS 'El Capitan' always fails, 
 #n# but under high CPU/memory load same seen on any macOS, and Linux, Windows
@@ -2003,6 +2004,7 @@ File: C/Chowla_numbers
 #c# 2019-03-12 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A48050 Chowla's function.
 #n# Well, I thought the variables names were pretty funny...
 
 File: C/Chowla_numbers.jvm
@@ -2706,6 +2708,7 @@ File: C/Cuban_primes-1
 #c# 2019-02-02 <RC, 2019-06-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002407
 #n  now down to about a minute...
 #n# full run very slow: 2853.709u 31.184s 8:08.71 590.3%
 
@@ -2723,6 +2726,7 @@ File: C/Cuban_primes-2
 #c# 2019-02-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A002407
 #n# .hyper just slows things down?
 
 File: C/Cuban_primes-3
@@ -2731,6 +2735,7 @@ File: C/Cuban_primes-3
 #c# 2019-02-03 <RC, 2019-02-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002407
 #n# concurrency doesn't really help here; turn off for JVM's sake
 
 File: C/Cubic_Special_Primes
@@ -3304,6 +3309,13 @@ File: D/Diversity_prediction_theorem
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: D/Divide_a_rectangle_into_a_number_of_unequal_triangles
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Divide_a_rectangle_into_a_number_of_unequal_triangles
+#c# 2022-01-27 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: D/Divide_a_rectangle_into_a_number_of_unequal_triangles-1
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Divide_a_rectangle_into_a_number_of_unequal_triangles
@@ -3510,6 +3522,7 @@ File: E/Eban_numbers
 #c# 2019-02-18 <RC, 2019-02-22 <RC, 2019-03-20 <RC, 2019-03-26 <RC, 2019-06-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A006933
 
 File: E/Eban_numbers.1
 #!/usr/bin/env perl6
@@ -4845,6 +4858,7 @@ File: F/Four_is_the_number_of_letters_in_the_...
 #c# 2017-10-04 <RC, 2019-06-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A72425
 #n# full run: 6469.673u 124.008s 2:12:20.72 83.0%
 
 File: F/Fractal_tree
@@ -4957,6 +4971,7 @@ File: F/Fusc_sequence
 #c# 2019-02-22 <RC, 2020-07-19 >RC, 2021-03-15 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002487
 
 File: F/Fusc_sequence-2
 #!/usr/bin/env perl6
@@ -7049,6 +7064,7 @@ File: L/Long_primes
 #c# 2018-08-04 <RC, 2018-10-13 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A001913
 #n# full calculation: 1100.497u 83.821s 3:25.17 577.2%
 #n# the '.base-repeating' approach in the .jvm version is substantially slower
 
@@ -7782,7 +7798,9 @@ File: M/Mersenne_primes
 #c# 2018-01-27 <RC
 #m# MOAR: BROKEN
 #j# JVM:  BROKEN
-#n# network connection failure (since before 'new-disp')
+#n# OEIS:A000043
+#n# network connection failure (since before 'new-disp') 
+#n# Oh well, not like it's changing from day-to-day anyhow
 
 File: M/Mertens_function
 #!/usr/bin/env perl6
@@ -7843,6 +7861,7 @@ File: M/Mian-Chowla_sequence
 #c# 2019-03-12 <RC, 2019-03-22 <RC, 2019-06-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A005282 Mian-Chowla sequence
 #n# changes make this twice as fast
 
 File: M/Mian-Chowla_sequence.1
@@ -9401,6 +9420,7 @@ File: P/Peaceful_chess_queen_armies
 #c# 2019-11-18 >RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A250000 
 #n# d'oh stop at first solution (was previously proceeding to the last before showing result)
 #n#  1017.844u   4.788s   17:15.32 98.7%  7 x 7 got answer, but still slow
 #n# 16407.682u 140.503s 5:10:29.21 88.8%  6 x 6 killed before done (board has no soln so needs to interate through all possibilities)
@@ -9601,6 +9621,7 @@ File: P/Perfect_totient_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# see .jvm for previous method of calculation
+#n# OEIS:A082897
 
 File: P/Perfect_totient_numbers.jvm
 #!/usr/bin/env perl6
@@ -11424,6 +11445,8 @@ File: S/Safe_primes_and_unsafe_primes
 #c# 2018-09-28 <RC, 2018-10-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN, and the EVAL trick not working...
+#n# OEIS:A005385 safe
+#n# OEIS:A059456 unsafe
 
 File: S/Safe_primes_and_unsafe_primes.jvm
 #!/usr/bin/env perl6
@@ -11696,6 +11719,15 @@ File: S/Sexy_primes
 #c# 2018-09-27 <RC, 2018-10-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A023201 pairs, lower
+#n# OEIS:A046117 pairs, upper
+#n# OEIS:A046118 triples, lower
+#n# OEIS:A046119 triples, middle
+#n# OEIS:A046120 triples, upper
+#n# OEIS:A023271 quads, lower
+#n# OEIS:A046122 quads, 2nd
+#n# OEIS:A046123 quads, 3rd
+#n# OEIS:A046124 quads, upper
 #n# for JVM: module, and the EVAL trick not working...
 #n# CANNOT substitute 'classify' for 'categorize', error is:
 #n#    mapper on classify-list computed to an item with different number of elements in it than previous items, 
@@ -12950,6 +12982,8 @@ File: S/Strong_and_weak_primes
 #c# 2018-12-03 <RC, 2019-01-31 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A051634 strong primes
+#n# OEIS:A051635   weak primes
 
 File: S/Strong_and_weak_primes.1
 #!/usr/bin/env perl6
@@ -13980,6 +14014,7 @@ File: T/Totient_function
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# see JVM for previous method of calculation
+#n# OEIS:A000010
 #n# 2022-01-12 fixed warning on ternary
 
 File: T/Totient_function.jvm
@@ -14733,6 +14768,7 @@ File: W/Weird_numbers
 #c# 2019-03-16 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A006037 weird numbers
 
 File: W/Welch%27s_t-test-1
 #!/usr/bin/env perl6
