@@ -3,6 +3,7 @@
 #c# 2015-12-11 <>RC, 2017-03-29 <RC, 2021-03-15 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A002487
 
 constant @Stern-Brocot = 1, 1, { |(@_[$_ - 1] + @_[$_], @_[$_]) given ++$ } ... *;
 
