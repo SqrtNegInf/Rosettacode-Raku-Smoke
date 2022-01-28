@@ -7,9 +7,12 @@
 #n# glory be, */× swap worked even here
 #n# 2020-02-27 why does AST still show '*' in use as multiplication?
 #n# 2022-01-12 fixed warning on ternary
+#n# 2022-01-28 work-around avoids crash, but fails at runtime:
+#n# Type check failed in assignment to $!blades; expected MixHash[UInt] but got MixHash ((0=>0.79).MixHash)
 
 unit class MultiVector;
-subset UIntHash of MixHash where .keys.all ~~ UInt;
+#subset UIntHash of MixHash where .keys.all ~~ UInt;
+constant UIntHash = MixHash[UInt]; # work-around proposed by Liz
 has UIntHash $.blades;
 method narrow { $!blades.keys.any > 0 ?? self !!  ($!blades{0} // 0) }
 
