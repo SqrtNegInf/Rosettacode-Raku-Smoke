@@ -1,7 +1,7 @@
 2022-01-27
 A few more JVM tasks run, but not that many really (given the update interval of a year+). But most are faster, that's nice.
 
-All tasks with 'use Clifford':
+All tasks that use 'Clifford':
 sh: line 1: 57467 Segmentation fault: 11  /usr/local/bin/perl6 --ll-exception -c Multiple_regression 2>&1 > /dev/null
 sh: line 1: 57720 Segmentation fault: 11  /usr/local/bin/perl6 --ll-exception -c Orbital_elements 2>&1 > /dev/null
 sh: line 1: 58128 Segmentation fault: 11  /usr/local/bin/perl6 --ll-exception -c Polynomial_regression 2>&1 > /dev/null
@@ -10,6 +10,9 @@ Triggered by this line in lib/BasisBlade.pm6:
 multi method new('no') { ::?CLASS.bless: :bit-encoding(0b01) }
 Which is called from Clifford.pm6:
 our constant no is export = MultiVector::BitEncoded::Optimized.new("no");
+
+Also getting segfault with 'Geometric_algebra', which fortunately is just a subset of the MultiVector class code, so will
+use that for raising a 'Rakudo' issue.
 
 2022-01-26
 'srand' drift srikes again, errors from yesterday's run:
