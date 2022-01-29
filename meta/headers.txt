@@ -330,6 +330,9 @@ File: A/Abundant,_deficient_and_perfect_number_classifications
 #c# 2016-01-02 <>RC, 2019-02-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A005100 deficient  
+#n# OEIS:A000396 perfect    
+#n# OEIS:A005101 abundant   
 
 File: A/Abundant,_deficient_and_perfect_number_classifications.1
 #!/usr/bin/env perl6
@@ -1196,6 +1199,8 @@ File: B/Bernoulli_numbers
 #c# 2016-04-07 <>RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A027641   numerator of Bernoulli number B_n
+#n# OEIS:A027642 denominator of Bernoulli number B_n 
 #n# 2018-04-18 thundergnat adds 'code to make runnable block', similar to my changes
 
 File: B/Best_shuffle
@@ -3327,7 +3332,7 @@ File: D/Divide_a_rectangle_into_a_number_of_unequal_triangles-1
 File: D/Divide_a_rectangle_into_a_number_of_unequal_triangles-2
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Divide_a_rectangle_into_a_number_of_unequal_triangles
-#c# 2022-01-26 <RC
+#c# 2022-01-26 <RC, 2022-01-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -4152,6 +4157,9 @@ File: F/Farey_sequence
 #c# 2016-05-21 <RC, 2018-11-10 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A006842 numerators of Farey series of order 1, 2, ···
+#n# OEIS:A006843 denominators of Farey series of order 1, 2, ···
+#n# OEIS:A005728 number of fractions in Farey series of order n
 
 File: F/Farey_sequence.jvm
 #!/usr/bin/env perl6
@@ -5180,6 +5188,8 @@ File: G/Geometric_algebra
 #n# glory be, */× swap worked even here
 #n# 2020-02-27 why does AST still show '*' in use as multiplication?
 #n# 2022-01-12 fixed warning on ternary
+#n# 2022-01-28 work-around avoids crash, but fails at runtime:
+#n# Type check failed in assignment to $!blades; expected MixHash[UInt] but got MixHash ((0=>0.79).MixHash)
 
 File: G/Get_system_command_output
 #!/usr/bin/env perl6
@@ -6668,7 +6678,8 @@ File: L/Largest_number_divisible_by_its_digits
 #c# 2017-09-02 <RC, 2018-10-13 >RC, 2020-07-19 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# better than 5-folder improvement with .race  and better tests
+#n# OEIS:A115569 Lynch-Bell numbers
+#n# better than 5-folder improvement with .race
 #n# align with version on RC
 
 File: L/Largest_number_divisible_by_its_digits.1
@@ -6881,6 +6892,7 @@ File: L/Left_factorials
 #c# 2015-11-07 <>RC, 2019-03-05 <RC, 2019-03-14 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A003422
 
 File: L/Left_factorials.1
 #!/usr/bin/env perl6
@@ -6934,6 +6946,7 @@ File: L/Leonardo_numbers
 #c# 2017-05-20 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A001595
 #n# for JVM: downgraded Unicode names to ASCII
 
 File: L/Letter_frequency
@@ -7000,9 +7013,9 @@ File: L/List_rooted_trees
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/List_rooted_trees
 #c# 2016-05-23 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: OK
-#n# Cannot call 'shift' on an immutable 'List'
+#n# OEIS:A000081
 
 File: L/Literals_Floating_point
 #!/usr/bin/env perl6
@@ -8246,6 +8259,7 @@ File: M/Munchausen_numbers
 #c# 2016-09-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A046253
 
 File: M/Munching_squares-1
 #!/usr/bin/env perl6
@@ -8490,6 +8504,7 @@ File: N/Nice_primes
 #c# 2021-03-14 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A78403 primes such that digital root is prime
 
 File: N/Nice_primes-2
 #!/usr/bin/env raku
@@ -10233,6 +10248,7 @@ File: P/Primorial_numbers
 #c# 2016-01-04 <RC, 2018-10-09 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A002110
 #n# but adding 10e5 is slow:     443.190u 11.120s 8:01.77 94.3%
 #n# but adding 10e6 is glacial:  (never ran it long enough to get timing info.)
 #n# this instance of .EVAL use does not appear on RC site
@@ -12134,6 +12150,7 @@ File: S/Smith_numbers
 #c# 2016-04-17 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A6753
 #n# error gone after switching 'factors' algorithm (cf Count_in_factors')
 
 File: S/Snake.0
@@ -12792,6 +12809,7 @@ File: S/Stern-Brocot_sequence
 #c# 2015-12-11 <>RC, 2017-03-29 <RC, 2021-03-15 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A002487
 
 File: S/Stern-Brocot_sequence.1
 #!/usr/bin/env perl6
@@ -13421,6 +13439,8 @@ File: S/Superpermutation_minimisation
 #c# 2018-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A180632 Minimum length of a string over the alphabet A = {1,2,...,n}
+#n# OEIS:A007489 a(n) = Sum_{k=1..n} k!
 
 File: S/Sutherland-Hodgman_polygon_clipping
 #!/usr/bin/env perl6
@@ -13532,16 +13552,18 @@ File: T/Taxicab_numbers
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: taxicab_numbers.txt
-#n# writing results to file as cannot get '@res.push:' to work right
+#n# OEIS:A001235
+#n# writing results to file as cannot get '@res.push:' to work right [ DH remove this file when clear this works ]
 
 File: T/Taxicab_numbers.1
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Taxicab_numbers
-#c# 2016-01-23 <RC
+#c# 2016-01-23 <RC, 2018-10-11 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
 #f# RC file: taxicab_numbers.txt
+#n# OEIS:A001235
+#n# writing results to file as cannot get '@res.push:' to work right
 
 File: T/Teacup_rim_text
 #!/usr/bin/env perl6
