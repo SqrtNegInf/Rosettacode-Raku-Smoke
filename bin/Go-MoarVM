@@ -24,7 +24,7 @@ bin/rakudobrew rehash
 #bin/rakudobrew build zef
 
 cd $HOME/perl6/Rosetta-Code
-bin/rc-jvm-cleanup
+#bin/rc-jvm-cleanup
 
 # but only as long as 'rc-moar-srand' is being run in the early-morning hours
 #rm -f bench/moar/*
@@ -46,6 +46,7 @@ bin/rc-stats 10 > meta/stats.txt
 #bin/rc-stats 2
 rc-stats | head -3 
 echo ' '
+ccho 'Comparison of last two runs:'
 rc-stats 2 | grep -v 2021 - | pcregrep -v '^\s*$' | sortcnt | pcregrep -v '^\s+2'
 
 # keep tabs on status
@@ -62,12 +63,16 @@ echo ' '
 bin/rc-timings | sort -r -n > meta/timings.txt
 head -10 meta/timings.txt
 
+echo ' '
+ccho 'Excessive line count in timings (indicates severse error in running task)'
+wc -l bench/moar/*err | grep -v '^       [34]' | grep -v total
+
 # combine task headers for easy grep
 /usr/local/pbin/grep-paragraph -H '#u# http' [0-Z]/* | /usr/local/pbin/grep-paragraph -v ReadMe.md - > meta/headers.txt
 
 # leaderboard
 echo ' '
-head -17 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out
+head -20 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | /usr/local/pbin/drop -4
 
 # not a race, not a race, ...
 echo ' '
@@ -75,7 +80,7 @@ mv meta/horse-race.txt meta/horse-race.txt~
 bin/rc-horse-race | sort -r > meta/horse-race.txt
 diff meta/horse-race.txt~ meta/horse-race.txt
 
-# non-ascii
+# non-ascii usage
 echo ' '
 mv meta/non-ascii.txt meta/non-ascii.txt~
 bin/rc-non-ascii [0A-Z]/* > meta/non-ascii.txt
@@ -85,10 +90,13 @@ diff meta/non-ascii.txt~ meta/non-ascii.txt
 #echo ' '
 #/usr/local/pbin/grep-paragraph Summary $HOME/.rakudobrew/versions/out.mtest
 
-# latest revisions
+# latest Rakudo commits 
 echo ' '
 cd $HOME/.rakudobrew/versions/moar-blead
 git log | head -100
 
 # push changes to github
+echo ' '
+echo 'boring stuff...'
+echo ' '
 $HOME/perl6/Rosetta-Code/bin/Task-git
