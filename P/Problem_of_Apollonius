@@ -3,24 +3,7 @@
 #c# 2015-11-02 <RC, 2018-09-20 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# JVM fails on '\' of Unicode char, but after removing all those, it works
-
-#`{
-This program is written mostly in the "sigilless" style for several
-reasons. First, sigils tend to imply variables, and these sigilless symbols
-are not variables, but readonly bindings to values that are calculated only
-once, so leaving off the sigil emphasizes the fact that they are not
-variables, but merely named intermediate results.  Second, it looks more
-like the original mathematical formulas to do it this way Third, together with the
-use of Unicode, we are emphasizing the social contract between the writer
-and the reader, which has a clause in it that indicates code is read much
-more often than it is written, therefore the writer is obligated to undergo
-vicarious suffering on behalf of the reader to make things clear. If the
-reader doesn't understand, it's the writer's fault, in other words. Or in
-other other words, figure out how to type those Unicode characters, even if
-it's hard. And you should type them whenever it makes things clearer to the
-reader.  Finally, writing in an SSA style tends to help the optimizer.
-}
+#n# JVM fails on '\' of Unicode char, but after removing all those, it works (see: .jvm version)
 
 class Circle {
    has $.x;
