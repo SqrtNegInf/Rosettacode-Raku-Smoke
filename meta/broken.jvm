@@ -1,12 +1,20 @@
+NB: 'commented' work (albeit sometime just with a workaround and/or a down-grade)
+
+2022-01-29 Notes on JVM run
+Digit_fifth_powers needs .jvm version, no 'race'
+Distribution_of_0_Digits_in_Factorial_Series needs .jvm version, no 'race'
+Fairshare_between_two_and_more needs .jvm version, no 'hyper'
+HTTPS hung?
+JSON?
 
 >>>>>>>>>>>>>>>> » GLORY BE! « <<<<<<<<<<<<<<<<<
 Tasks that now work with JVM 2021.12
-C/Combinations-2
-I/I_before_E_except_after_C-2
-K/Kaprekar_numbers-3
-K/Knapsack_problem_Continuous
-M/MD5_Implementation
-W/Wireworld
+# C/Combinations-2
+# I/I_before_E_except_after_C-2
+# K/Kaprekar_numbers-3
+# K/Knapsack_problem_Continuous
+# M/MD5_Implementation
+# W/Wireworld
 
 >>>>>>>>>>>>>>>> » KLUDGES « <<<<<<<<<<<<<<<<<
 
@@ -88,8 +96,8 @@ M/Man_or_boy_test
 
 # org.perl6.nqp.runtime.U/UnwindException
 # pg UnwindException bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
-C/Count_in_factors-1
-C/Count_the_coins
+C/Count_in_factors-1                    # 2022-01-26 presumably, got tired of waiting for it to crash
+C/Count_the_coins                       # 2022-01-26 still partially working, but larger values croak
 I/Intersecting_Number_Wheels
 
 # 'use NativeCall' (direct, or in module)
@@ -148,6 +156,7 @@ F/Find_URI_in_text      # use IETF::RFC_Grammar::URI
 F/FTP                   # use Net::FTP
 H/HTTP                  # use LWP::Simple
 M/Multiple_regression   # use Clifford
+M/Multiplicative_order  # use Prime::Factor
 O/Orbital_elements      # use Clifford
 P/Polynomial_regression # use Clifford
 P/Parallel_Brute_Force  # use Digest::SHA
@@ -163,7 +172,6 @@ P/Parallel_calculations-2
 S/Super-d_numbers-3
 
 # misc problems
-M/Multiplicative_order  # use Prime::Factor
 G/Get_system_command_output
 
 ===================================================================
