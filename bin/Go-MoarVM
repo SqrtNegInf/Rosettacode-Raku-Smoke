@@ -43,11 +43,14 @@ bin/rc-moar-single [0-Z]/*
 perl6 -v | head -1            >> bench/rakudo-builds.txt
 bin/rc-stats 10 > meta/stats.txt
 
-#bin/rc-stats 2
-rc-stats | head -3 
 echo ' '
-ccho 'Comparison of last two runs:'
-rc-stats 2 | grep -v 2021 - | pcregrep -v '^\s*$' | sortcnt | pcregrep -v '^\s+2'
+echo 'Comparison of recent runs:'
+rc-stats 4 | grep 2022 - | grep -v Welcome | grep -v 'j Secs'
+
+# this will be goofy until -j is out of the way
+#echo ' '
+#echo 'Task success/failure change over last two runs:'
+#rc-stats 2 | grep -v 2022 - | pcregrep -v '^\s*$' | sortcnt | pcregrep -v '^\s+2'
 
 # keep tabs on status
 echo ' '
@@ -64,7 +67,7 @@ bin/rc-timings | sort -r -n > meta/timings.txt
 head -10 meta/timings.txt
 
 echo ' '
-ccho 'Excessive line count in timings (indicates severse error in running task)'
+echo 'Excessive line count in timings (indicates severse error in running task)'
 wc -l bench/moar/*err | grep -v '^       [34]' | grep -v total
 
 # combine task headers for easy grep
