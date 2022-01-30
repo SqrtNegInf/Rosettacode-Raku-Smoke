@@ -3,6 +3,9 @@
 #c# 2015-11-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A000120 aka binary/Hamming weight
+#n# OEIS:A000069 odd population count
+#n# OEIS:A001969 even population count
 
 sub population-count1(Int $n where * >= 0) { 
     [+] $n.base(2).comb 
