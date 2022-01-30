@@ -3,8 +3,8 @@
 #c# 2015-12-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-#Here is a straightforward, naive implementation. It works but takes ages.
+#n# OEIS:A005188
+#n# naive implementation, it works but takes ages.
 
 sub is-narcissistic(Int $n) { $n == [+] $n.comb »**» $n.chars }
 my $nar;
