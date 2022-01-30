@@ -1,8 +1,12 @@
 #!/bin/sh
 ## sometimes need to reinstall all modules…
-# to find modules in use:
+#  2022-01-28 needed less frequently in the past year, but don't declare victory just yet...
+#             additionally: some module install quirks and gotcha's documented here
+
+# to find modules in use: (gr=grep-raku pf='perl -npe' pg=pcregrep)
 # gr '^\s*use .*;$' | pf 's/^.*?:\d+://;s/^\s+//' | pg -v '^use (v6|nqp|lib)' | pg -v '(MONKEY|experimental|Binary|:from)' | sortcnt
-#
+
+# 2022-01-28 switch away from this to Digest::SHA256::Native
 # for Digest::xxHash (and some similar dodges for other libraries, forget which ones):
 # ( cd /usr/local/lib; ln -s /opt/local/lib/libxxhash.0.8.0.dylib . )
 
