@@ -3,6 +3,7 @@
 ##c# 2019-10-29 <RC, 2019-10-31 <RC, 2019-11-02 <RC, 2020-09-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# With JVM 2021.12, result agree exactly with Moar
 
 sub steepestDescent(@x, $alpha is copy, $h) {
 
@@ -42,14 +43,7 @@ steepestDescent(@x, $alpha, $tolerance);
 say "Testing steepest descent method:";
 say my $result = "The minimum is at x[0] = "~ @x[0]~ ", x[1] = "~ @x[1];
 
-my $moar = q:to/END/;
-The minimum is at x[0] = 0.10762682432947938, x[1] = -1.2232596548816097
-END
-
-my $jvm = q:to/END/;
-The minimum is at x[0] = 0.10743450794656964, x[1] = -1.2233956711774543
-END
+my $ref = 'The minimum is at x[0] = 0.10762682432947938, x[1] = -1.2232596548816097';
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is $result, chomp $ref;
