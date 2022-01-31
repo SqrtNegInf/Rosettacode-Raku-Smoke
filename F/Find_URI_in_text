@@ -4,10 +4,9 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# updated module, 1st 'stop' entry improved
-
-#BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
-
-# Works with: Rakudo version 2018.03
+#n# 2022-01-30
+#n#   with JVM 2021.12, no longer matches '_(camera_designer).'
+#n#   is this module defunct?
 
 use IETF::RFC_Grammar::URI;
 
@@ -30,9 +29,26 @@ my @res.push: q:to/EOF/.match(/ <IETF::RFC_Grammar::URI::absolute-URI> /, :g).li
 
 #Like most of the solutions here it does not comply to IRI but only to URI:
 
-my $ref = qq:to/END/;
+my $moar = qq:to/END/;
 stop:
 http://en.wikipedia.org/wiki/Erich_Kästner_(camera_designer).
+http://mediawiki.org/).
+parser:
+http://en.wikipedia.org/wiki/-)
+ftp://domain.name/path(balanced_brackets)/foo.html
+ftp://domain.name/path(balanced_brackets)/ending.in.dot.
+ftp://domain.name/path(unbalanced_brackets/ending.in.dot.
+ftp://domain.name/path/embedded
+ftp://domain.name/dangling_close_paren)
+｢ftp://domain.name/dangling_close_paren)｣
+ IETF::RFC_Grammar::URI::absolute-URI => ｢ftp://domain.name/dangling_close_paren)｣
+  scheme => ｢ftp｣
+We matched ftp://domain.name/dangling_close_paren), which is a Match at position 554 to 593
+END
+
+my $jvm = qq:to/END/;
+stop:
+http://en.wikipedia.org/wiki/Erich_K
 http://mediawiki.org/).
 parser:
 http://en.wikipedia.org/wiki/-)
@@ -52,4 +68,5 @@ END
 #their match position in the text.
 
 use Test;
-is @res.join("\n"), chomp $ref;
+#is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
