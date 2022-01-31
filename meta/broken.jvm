@@ -1,11 +1,10 @@
 NB: 'commented' work (albeit sometime just with a workaround and/or a down-grade)
 
 2022-01-29 Notes on JVM run
-Digit_fifth_powers needs .jvm version, no 'race'
-Distribution_of_0_Digits_in_Factorial_Series needs .jvm version, no 'race'
-Fairshare_between_two_and_more needs .jvm version, no 'hyper'
-HTTPS hung?
-JSON?
+L/Largest_five_adjacent_number syntax OK (how could it not be?) but run-time error, will open an issue
+G/Geometric_algebra - Moar also broken
+P/Pig_the_dice_game_Player - same result every run?
+C/Cistercian_numerals - need moar/jvm-specific output files
 
 >>>>>>>>>>>>>>>> » GLORY BE! « <<<<<<<<<<<<<<<<<
 Tasks that now work with JVM 2021.12
@@ -66,6 +65,7 @@ D/Dinesman%27s_multiple-dwelling_problem-1 # grammar{...}.parse fails to return 
 D/Dining_philosophers # java.lang.NullPointerException
 I/Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols # unival NYI
 R/Reflection_Get_source # NYI?
+F/Find_words_which_contains_more_than_3_e_vowels # samemark not yet implemented. Sorry.
 
 # pg 'PatternSyntaxException' bench/jvm/*out | pf 's#^.*-j.##;s#.out:.*##'
 P/Parse_an_IP_Address # PatternSyntaxException / hexdigit
@@ -179,6 +179,8 @@ G/Get_system_command_output
 # check for external modules:
 # g '^use [^a-z]' [0A-Z]/* | pg -v 'use (Test|MONKEY)' | pg -v '\.\d:' | pg -v '\.pl' | pf 's/^.*:u/u/' | sortcnt
 
-# task failures not categorized above (some can be fixed, chipping away at the list...)
+===================================================================
 
-2019-10-22-j Secs: 104289 RC: 976 Tasks: 1025  OK: 1528  Err: 69 !OK: 11  Top: 5858 3442 2138 1543 1312 1203 1115
+This is not a terribly meaningful comparison, for various reasons:
+2019-10-22-j Secs: 104289 RC:  976 Tasks: 1025  OK: 1528  Err: 69 !OK: 11  Top: 5858 3442 2138 1543 1312 1203 1115
+2022-01-29-j Secs: 164472 RC: 1094 Tasks: 1160  OK: 1681  Err:  3 !OK:  1  Top: 6290 6131 4090 3767 3407 2480 2018
