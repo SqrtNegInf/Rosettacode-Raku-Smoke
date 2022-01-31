@@ -3,6 +3,7 @@
 #c# 2019-01-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# JVM 2021.12: XOR values differ, but decrypt fine
 
 my @res;
 
@@ -122,12 +123,21 @@ multi MAIN () {
 
 .say for @res;
 
-my $ref = q:to/END/;
+my $xef = q:to/END/;
 Message : a Top Secret secret
 Key     : this is my secret key
 XOR     : 25160123554074143940543A4E231509154205
 XOR dcr : a Top Secret secret
 MOD     : 586A4035423F4A2B313E4F4E3F7E5A31477261
+MOD dcr : a Top Secret secret
+END
+
+my $ref = q:to/END/;
+Message : a Top Secret secret
+Key     : this is my secret key
+XOR     : 1C0636313D0408590F141C347D0B580A3D2022
+XOR dcr : a Top Secret secret
+MOD     : 76447A5F4D4C76455A7B7D776E366339362146
 MOD dcr : a Top Secret secret
 END
 
