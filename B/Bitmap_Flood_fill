@@ -2,9 +2,9 @@
 #u# http://rosettacode.org/wiki/Bitmap/Flood_fill
 #c# 2019-12-11 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 #f# RC file: flood-fill.ppm
-#n# JVM gripes (java.lang.StackOverflowError) but works
+#n# for JVM: java.lang.StackOverflowError
 
 class Pixel { has Int ($.R, $.G, $.B) }
 class Bitmap {
