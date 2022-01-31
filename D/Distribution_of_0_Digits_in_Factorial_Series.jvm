@@ -1,0 +1,29 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Distribution_of_0_Digits_in_Factorial_Series
+#c# 2021-06-19 <RC, 2021-06-20 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub postfix:<!> (Int $n) { ( constant factorial = 1, 1, |[\×] 2..* )[$n] }
+sink 10000!; # prime the iterator to allow multithreading
+
+sub zs ($n) { ( constant zero-share = (^Inf).map: { (.!.comb.Bag){'0'} / .!.chars } )[$n+1] }
+
+@res.push: $_ for (
+      100
+    ,1000
+#  ,10000
+).map:  -> \n { "{n}: {([+] (^n).map: *.&zs) / n}" }
+
+.say for @res;
+
+my $ref = q:to/END/;
+100: 0.24675318616743216
+1000: 0.20354455110316458
+END
+#10000: 0.17300384824186605
+
+use Test;
+is @res.join("\n"), chomp $ref;
