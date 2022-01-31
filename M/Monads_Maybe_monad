@@ -3,6 +3,7 @@
 #c# 2019-12-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# with JVM 2021.12: doesn't handle the last (Unicode) value, but at least doesn't crash
 
 my @res;
 
@@ -52,9 +53,8 @@ sub center ($s) {
   for -2, -1, -0.5, 0, exp(-1), 1, 2, exp(1), 3, 4, 5, 'WAT', ፴ × ⅐;
 
 .say for @res; 
-#exit;
 
-my $ref = q:to/END/;
+my $moar = q:to/END/;
       "Number"             Reciprocal            Square root           Natural log            Composed       
          -2                   -0.5          0+1.4142135623730951i        Nothing               Nothing       
          -1                    -1                   0+1i                 Nothing               Nothing       
@@ -71,5 +71,22 @@ my $ref = q:to/END/;
       4.285714              0.233333         2.0701966780270626     1.455287232606842    -0.727643616303421  
 END
 
+my $jvm = q:to/END/;
+      "Number"             Reciprocal            Square root           Natural log            Composed       
+         -2                   -0.5          0+1.4142135623730951i        Nothing               Nothing       
+         -1                    -1                   0+1i                 Nothing               Nothing       
+        -0.5                   -2           0+0.7071067811865476i        Nothing               Nothing       
+          0                  Nothing                  0                  Nothing               Nothing       
+ 0.36787944117144233    2.718281828459045    0.6065306597126334            -1                    0.5         
+          1                     1                     1                     0                     0          
+          2                    0.5           1.4142135623730951    0.6931471805599453    -0.3465735902799726 
+  2.718281828459045    0.36787944117144233   1.6487212707001282             1                   -0.5         
+          3                 0.333333         1.7320508075688772    1.0986122886681098    -0.5493061443340549 
+          4                   0.25                    2            1.3862943611198906    -0.6931471805599453 
+          5                    0.2            2.23606797749979     1.6094379124341003    -0.8047189562170503 
+         WAT                 Nothing               Nothing               Nothing               Nothing       
+          0                  Nothing                  0                  Nothing               Nothing       
+END
+
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
