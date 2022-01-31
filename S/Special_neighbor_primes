@@ -7,7 +7,7 @@
 my @res;
 
 for (grep {.is-prime}, 3..*).rotor(2 => -1) -> (\P1,\P2) {
-   last if P2 ≥ Ⅽ;
+   last if P2 ≥ 100; # Ⅽ JVM doesn't like
    ($_ = P1+P2-1).is-prime and @res.push: sprintf "%2d, %2d => %3d", P1, P2, $_
 }
 
