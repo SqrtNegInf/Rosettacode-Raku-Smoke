@@ -2,7 +2,7 @@
 #u# http://rosettacode.org/wiki/Data_Encryption_Standard
 #c# 2019-03-22 <RC, 2020-02-28 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 #n# 2020-02-28 still not getting the '\r\n' to round-trip
 #n# 2019-10-25 for JVM: 4th encryption fails (but decrypt on proper string OK)
 #n# as much fun as that would be to debug, I'm just going to comment it out
@@ -176,7 +176,7 @@ sub des(Str \key, Str $msg is copy, Bool \DECODE --> Str) { # return hexdecimal
 
 .say for @res;
 
-my $ref = q:to/END/;
+my $moar = q:to/END/;
 Encryption examples:
 85E813540F0AB405FDF2E174492922F8
 0000000000000000A913F4CB0BD30F97
@@ -189,5 +189,18 @@ Your lips are smoother than vaseline
 BMP: こんにちは ; Astral plane: 𝒳𝒴𝒵
 END
 
+my $jvm = q:to/END/;
+Encryption examples:
+85E813540F0AB405FDF2E174492922F8
+0000000000000000A913F4CB0BD30F97
+C0999FDDE378D7ED727DA00BCA5A84EE47F269A4D6438190D9D52F78F535849980A2E7453703513E
+C040FB6A6E72D7C36D60CA9B9A35EB38D3194468AD808103C28E33AEF0B268D0EB51C3240E2299E5F2BAF5C7534240B2
+Decryption examples:
+0123456789ABCDEF
+8787878787878787
+Your lips are smoother than vaseline
+BMP: こんにちは ; Astral plane: 𝒳𝒴𝒵
+END
+
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
