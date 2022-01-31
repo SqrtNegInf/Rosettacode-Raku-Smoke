@@ -2,13 +2,13 @@
 #u# http://rosettacode.org/wiki/HTTPS
 #c# 2018-04-25 <RC, 2018-05-17 <RC
 #m# MOAR: OK
-#j# JVM:  OK
-
-# Works with: Rakudo version 2017.09
-
-# There are several modules that provide HTTPS capability. WWW and HTTP::UserAgent are probably the most popular right now, but others exist.
+#j# JVM:  BROKEN
+#n# with JVM 2021.12, not find module (need to put use 'lib' into 'lib/HTTP/UserAgent.pm6'?)
+#n#   Please install IO::Socket::SSL in order to fetch https sites
+#n#   in method get-connection at /Users/dhoekman/perl6/Rosetta-Code/lib/HTTP/UserAgent.pm6 (HTTP::UserAgent) line 362
 
 use WWW;
+
 my $result1 = get 'https://google.com/';
 
 use HTTP::UserAgent;
