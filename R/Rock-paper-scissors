@@ -4,7 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: ro\nro\nro\nro\nq
-#n# answer changed, srand drift?
+#n# answer changed, srand drift? [DH: check that current Moar answer works in cronjob, failing interactive]
+#n# srand drift for JVM fixed
 
 srand 123456;
 
@@ -56,8 +57,8 @@ while my $player = (prompt "Round {++$round}: " ~ $prompt).lc {
 print "\n";
 
 use Test;
-is @stats.join(' '), '2 1 1';
-#is @stats.join(' '), $*VM ~~ /jvm/ ?? '1 1 2' !! '2 1 1';
+#is @stats.join(' '), '2 1 1';
+is @stats.join(' '), $*VM ~~ /jvm/ ?? '1 1 2' !! '2 1 1';
 
 #`{{
 # Here is example output from the same code only with a different %vs data structure implementing Rock-Paper-Scissors-Lizard-Spock.
