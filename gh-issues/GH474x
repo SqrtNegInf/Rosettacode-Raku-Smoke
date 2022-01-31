@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6-j
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/47xx
+#c# 2022-01-30 open
+#n# bug source: L/L/Largest_five_adjacent_number
+#n# JVM 2021.12 (Moar is fine)
+
+say     (0, 1, 2) xx 2;                 # OK
+say     (0, 1, 2) xx 2 if 1==1;         # OK
+my $a = (0, 1, 2) xx 2;         say $a; # OK
+my $b = (0, 1, 2) xx 2 if 1==1; say $b; # no
+
+=finish 
+
+((0 1 2) (0 1 2))
+((0 1 2) (0 1 2))
+((0 1 2) (0 1 2))
+The iterator of this Seq is already in use/consumed by another Seq (you
+might solve this by adding .cache on usages of the Seq, or by assigning
+the Seq into an array)
+  in block <unit> at exp/JVM-regression line 7
