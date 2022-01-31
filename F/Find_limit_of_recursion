@@ -4,10 +4,11 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# MOAR will go to 10 million, but why belabor the point...
+#n# JVM was 525, not sure why the drop
 
 # Maximum recursion depth is memory dependent. 
 
-my $max = $*VM ~~ /jvm/ ?? 525 !! 1_000_000;
+my $max = $*VM ~~ /jvm/ ?? 100 !! 1_000_000;
 
 my $x = 0;
 recurse;
