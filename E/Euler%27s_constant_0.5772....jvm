@@ -1,0 +1,31 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Euler%27s_constant_0.5772...
+#c# 2021-11-26 <RC, 2021-11-27 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# very slow with FatRat
+
+sub gamma (\N) {
+
+   # my $sum =  (1/2 - 1/3).FatRat;    # for arbitrary precision 
+   my $sum =  (1/2 - 1/3);
+
+   return $sum + [+] (2..N).map: -> \n {
+      my $power = 2**n;
+      my $sign = -1;
+
+      # my FatRat $term;               # for arbitrary precision
+      # for ($power..^2×$power) { $term += (1 / (($sign ×= -1)×$_)).FatRat }
+
+      my $term;
+     #for ($power..^2×$power) { $term += 1 / (($sign ×= -1)×$_) }
+      for ($power..^2×$power) { $term += ($sign = -$sign) / $_ }
+
+      n×$term 
+   } 
+}
+
+say my $result = gamma 23;
+
+use Test;
+is $result, 0.5772149198434515;
