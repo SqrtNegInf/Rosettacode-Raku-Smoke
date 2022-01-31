@@ -29,10 +29,10 @@ printf "e  ≈%.9f\n", my $e2 = continued-fraction1((2, |(1 .. *)),          (1,
 printf "π  ≈%.9f\n", my $p2 = continued-fraction1((3, |(6 xx *)), ((1, 3, 5 ... *) X** 2))[100];
 
 use Test;
-plan 6;
+plan 4;
 is-approx $r1, 2**0.5, '√2';
-is-approx $e1, 𝑒,      '𝑒';  # Unicode (not for JVM)
-is-approx $p1, π,      'π';  #          "
+#is-approx $e1, 𝑒,      '𝑒';  # Unicode (not for JVM)
+#is-approx $p1, π,      'π';  #          "
 is-approx $r2, sqrt(2),'√2';
 is-approx $e2, e,      'e';
 is-approx $p2, pi,     'pi';
