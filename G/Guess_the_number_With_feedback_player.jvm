@@ -1,11 +1,12 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Guess_the_number/With_feedback_(player)
+#t# skiptest
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #=# RC pipe: l\nh\nh\nl\nh\nl\ne # for JVM
 #n# 42 is the target number
-#n# JVM is glacially slow?
+#n# fine when run from command-line, but glacially slow (or just hangs) otherwise?
 
 srand 123456;
 
