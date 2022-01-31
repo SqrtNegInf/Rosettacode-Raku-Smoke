@@ -42,7 +42,7 @@ for (
 
 .say for @res;
 
-my $ref = q:to/END/;
+my $moar = q:to/END/;
 List: [1, 8, 2, -3, 0, 1, 1, -2.3, 0, 5.5, 8, 6, 2, 9, 11, 10, 3]
   Maximum distance between list elements: 7 @ elements ((1 8) (2 9) (10 3))
 Minimumum distance between list elements: 0 @ elements ((1 1))
@@ -75,6 +75,39 @@ Minimumum distance between list elements: 0
 
 END
 
+my $jvm = q:to/END/;
+List: [1, 8, 2, -3, 0, 1, 1, -2.3, 0, 5.5, 8, 6, 2, 9, 11, 10, 3]
+  Maximum distance between list elements: 7 @ elements ((1 8) (2 9) (10 3))
+Minimumum distance between list elements: 0 @ elements ((1 1))
+  Average distance between list elements: 3.658824
+
+List: [413219.2266296165e0, 990414.373129817e0, 252255.44079393047e0, 705663.6259919212e0, 73438.42024000635e0, 536064.5079196139e0]
+  Maximum distance between list elements: 738158.9323358865 @ elements ((990414.373129817 252255.44079393047))
+Minimumum distance between list elements: 453408.18519799074 @ elements ((252255.44079393047 705663.6259919212))
+  Average distance between list elements: 495175.9324508175
+
+List: [2.718281828459045e0, <0+1i>, 6.283185307179586e0, 3.141592653589793e0, Inf]
+  Maximum distance between list elements: Inf @ elements ((3.141592653589793 Inf))
+Minimumum distance between list elements: 2.896386731590008 @ elements ((2.718281828459045 0+1i))
+  Average distance between list elements: Inf+0.2i
+
+List: [<1.9+3.7i>, <2.07-13.2i>, <0.2-2.2i>, <4.6+0i>]
+  Maximum distance between list elements: 16.900855007957436 @ elements ((1.9+3.7i 2.07-13.2i))
+Minimumum distance between list elements: 4.919349550499537 @ elements ((0.2-2.2i 4.6+0i))
+  Average distance between list elements: 2.1925-2.925i
+
+List: [6]
+  Maximum distance between list elements: 0
+Minimumum distance between list elements: 0
+  Average distance between list elements: 0
+
+List: []
+  Maximum distance between list elements: 0
+Minimumum distance between list elements: 0
+  Average distance between list elements: 0
+
+END
+
 #List: ["One", "Two", "Three"]
 #Cannot convert string to number: base-10 number must begin with valid digits or '.' in '⏏Two' (indicated by ⏏)
 #  in sub max-diff at listdiff.p6 line 3
@@ -82,4 +115,4 @@ END
 #  in block <unit> at listdiff.p6 line 20
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
