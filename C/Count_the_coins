@@ -47,7 +47,6 @@ sub change-i(\n, @coins) {
 @res.push: change-r 1000_00, [1,5,10,25] if $*VM !~~ /jvm/; # DH JVM fails
 
 .say for @res;
-exit;
 
 my $moar = q:to/END/;
 242
