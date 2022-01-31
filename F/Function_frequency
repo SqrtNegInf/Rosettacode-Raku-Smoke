@@ -8,7 +8,9 @@
 
 #Here we just examine the ast of the Perl 6 compiler (which is written in Perl 6) to look for function calls.
 
-my $cmd = run 'raku', '--target=ast', 'S/Sorting_algorithms_Quicksort', :out, :err;
+my $binary = $*VM ~~ /jvm/ ?? 'perl6-j' !! 'raku';  # this is just a local quirk, right?
+my $cmd = run $binary, '--target=ast', 'S/Sorting_algorithms_Quicksort', :out, :err;
+#my $cmd = run 'raku', '--target=ast', 'S/Sorting_algorithms_Quicksort', :out, :err;
 my $text = $cmd.out.slurp;
 my $err  = $cmd.err.slurp;
 
