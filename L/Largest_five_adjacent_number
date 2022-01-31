@@ -2,15 +2,23 @@
 #u# http://rosettacode.org/wiki/Largest_five_adjacent_number
 #c# 2021-09-27 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
+#n# JVM 2021.12: this doesn't seem right, opened as issue GH474x
+#The iterator of this Seq is already in use/consumed by another Seq (you
+#might solve this by adding .cache on usages of the Seq, or by assigning
+#the Seq into an array)
 #n# new-disp 'srand' shift
 
 srand 123456;
 
 #say my $result = (^10).roll(1000).rotor(5 => -4)».join.max;
 
-say my $result = (^௰).roll(௲).rotor(5 => -4)».join.minmax.bounds xx 5;
+my $result;
+if ($*VM ~~ /jvm/)  { $result = (^10).roll(1000).rotor(5 => -4)».join.minmax.bounds xx 5 }
+else                { $result = (^௰ ).roll(   ௲).rotor(5 => -4)».join.minmax.bounds xx 5 }
+say $result;
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? 99988 !! 99978;
-is $result, '00058 99978 00085 99964 00111 99823 00142 99994 00268 99905';
+if ($*VM ~~ /jvm/) { is $result, '00051 99988 00557 99916 00205 99989 00050 99897 00217 99930' }
+else               { is $result, '00058 99978 00196 99964 00111 99823 00142 99994 00268 99905' }
+#else               { is $result, '00058 99978 00085 99964 00111 99823 00142 99994 00268 99905' } # cronjob?
