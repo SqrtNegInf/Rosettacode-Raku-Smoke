@@ -13,5 +13,4 @@ repeat {} until prompt("Guess a number: ") == $number;
 say "Guessed right!";
 
 use Test;
-if  ($*VM ~~ /jvm/) { is $number, 8 }
-else                { is $number, 3 }
+is $number, 3;
