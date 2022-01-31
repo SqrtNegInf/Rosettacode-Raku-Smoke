@@ -76,9 +76,19 @@ LSLSFSF: %55.60
   LLSFF: %49.11
 END
 
+my $jvm = q:to/END/;
+LSLSFSF: %55.99
+ LSLSFF: %58.25
+ LLSFSF: %55.43
+  LLSFF: %50.33
+END
+
 use Test;
-is @res.join("\n"), chomp $*IN.t ?? $moar-terminal !! $moar-cronjob;
-#is @res.join("\n"), chomp $ref;
+if $*VM ~~ /jvm/ {
+    is @res.join("\n"), chomp $jvm
+} else {
+    is @res.join("\n"), chomp $*IN.t ?? $moar-terminal !! $moar-cronjob;
+}
 
 #`{
 # Though if you go and look at the  Wikipedia article for the 1895 Nagant revolver mentioned in the task reference section, you'll see it is actually a 7 shot revolver... so, run again with 7 chambers:
