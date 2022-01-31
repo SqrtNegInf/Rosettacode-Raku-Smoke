@@ -3,10 +3,10 @@
 #c# 2021-12-16 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# JVM doesn't like 'Ⅿ'
+say my $result1 = ({$++²}…^*>1000).grep: (*+1).is-prime;
 
-say my $result1 = ({$++²}…^*>Ⅿ).grep: (*+1).is-prime;
-
-say my $result2 = (^Ⅿ).grep(*.is-prime).map(*-1).batch(20)».fmt("%3d").join: "\n";
+say my $result2 = (^1000).grep(*.is-prime).map(*-1).batch(20)».fmt("%3d").join: "\n";
 
 my $ref1 = '1 4 16 36 100 196 256 400 576 676';
 my $ref2 = qq:to/END/;
