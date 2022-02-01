@@ -24,7 +24,7 @@ bin/rakudobrew rehash
 #bin/rakudobrew build zef
 
 cd $HOME/perl6/Rosetta-Code
-#bin/rc-jvm-cleanup
+bin/rc-jvm-cleanup
 
 # but only as long as 'rc-moar-srand' is being run in the early-morning hours
 #rm -f bench/moar/*
@@ -47,10 +47,9 @@ echo ' '
 echo 'Comparison of recent runs:'
 rc-stats 4 | grep 2022 - | grep -v Welcome | grep -v 'j Secs'
 
-# this will be goofy until -j is out of the way
-#echo ' '
-#echo 'Task success/failure change over last two runs:'
-#rc-stats 2 | grep -v 2022 - | pcregrep -v '^\s*$' | sortcnt | pcregrep -v '^\s+2'
+echo ' '
+echo 'Task success/failure change over last two runs:'
+rc-stats 2 | grep -v 2022 - | pcregrep -v '^\s*$' | sortcnt | pcregrep -v '^\s+2'
 
 # keep tabs on status
 echo ' '
