@@ -66,8 +66,10 @@ bin/rc-timings | sort -r -n > meta/timings.txt
 head -10 meta/timings.txt
 
 echo ' '
-echo 'Excessive line count in timings (indicates severse error in running task)'
+echo '--'
+echo 'Excessive line count in timings (if any)'
 wc -l bench/moar/*err | grep -v '^       [34]' | grep -v total
+echo '--'
 
 # combine task headers for easy grep
 /usr/local/pbin/grep-paragraph -H '#u# http' [0-Z]/* | /usr/local/pbin/grep-paragraph -v ReadMe.md - > meta/headers.txt
