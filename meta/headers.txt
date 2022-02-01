@@ -1325,7 +1325,7 @@ File: B/Bitcoin_public_point_to_address
 #j#  JVM: BROKEN
 
 File: B/Bitcoin_public_point_to_address.jvm
-#!/usr/bin/env perl6
+#!/usr/bin/env perl6 # do-not-check
 #u# http://rosettacode.org/wiki/Bitcoin/public_point_to_address
 #c# 2016-05-10 <>RC
 #m# MOAR: OK
@@ -4353,6 +4353,7 @@ File: F/Fibonacci_sequence
 #c# 2016-08-28 <RC, 2018-05-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A000045
 #n# removed 'cached' feature, no speed-up
 
 File: F/Fibonacci_sequence.1
@@ -5252,14 +5253,13 @@ File: G/Geometric_algebra
 #u# http://rosettacode.org/wiki/Geometric_algebra
 #c# 2016-07-10 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
 #n# 2018-05-21 all previous errors (in tests 26, 27) are gone, wa-hoo…
 #n# glory be, */× swap worked even here
 #n# 2020-02-27 why does AST still show '*' in use as multiplication?
 #n# 2022-01-12 fixed warning on ternary
 #n# 2022-01-28 work-around avoids crash, but fails at runtime:
 #n#             Type check failed in assignment to $!blades; expected MixHash[UInt] but got MixHash ((0=>0.79).MixHash)
-#n# 2022-01-30 the Moar fix is coming soon, the JVM fix might be longer...
 
 File: G/Get_system_command_output
 #!/usr/bin/env perl6
@@ -5466,6 +5466,7 @@ File: H/Hailstone_sequence
 #c# 2016-09-04 <RC, 2018-10-17 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# A008884
 
 File: H/Hailstone_sequence.jvm
 #!/usr/bin/env perl6
@@ -5513,7 +5514,8 @@ File: H/Happy_numbers-1
 #c# 2015-12-03 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# for JVM: 'state %seen' fails in 'loop' or 'while' construct, but OK if bogus 'for' used
+#n# OEIS:A007770
+#n# for JVM: see .jvm version with work-around
 
 File: H/Happy_numbers-1.jvm
 #!/usr/bin/env perl6
@@ -5521,7 +5523,9 @@ File: H/Happy_numbers-1.jvm
 #c# 2015-12-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A007770
 #n# for JVM: 'state %seen' fails in 'loop' or 'while' construct, but OK if bogus 'for' used
+#n# ==> appears that %seen is not lexical to the loop
 
 File: H/Happy_numbers-2
 #!/usr/bin/env perl6
@@ -5529,6 +5533,7 @@ File: H/Happy_numbers-2
 #c# 2015-12-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A007770
 
 File: H/Harmonic_series
 #!/usr/bin/env raku
@@ -8447,6 +8452,8 @@ File: N/N-queens_problem
 #c# 2015-11-29 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A000170
+#n# Neither pretty nor efficient, a simple backtracking solution
 
 File: N/N-smooth_numbers
 #!/usr/bin/env perl6
@@ -12050,6 +12057,7 @@ File: S/Sierpinski_triangle
 #c# 2016-09-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A001317
 
 File: S/Sierpinski_triangle_Graphical
 #!/usr/bin/env perl6
@@ -12059,6 +12067,7 @@ File: S/Sierpinski_triangle_Graphical
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: sierpinski_triangle.svg
+#n# OEIS:A001317
 
 File: S/Sieve_of_Eratosthenes
 #!/usr/bin/env perl6
