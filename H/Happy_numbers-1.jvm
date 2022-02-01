@@ -3,14 +3,12 @@
 #c# 2015-12-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A007770
 #n# for JVM: 'state %seen' fails in 'loop' or 'while' construct, but OK if bogus 'for' used
-
-#die "JVM so borked, not worth running" if $*VM ~~ /jvm/;
-
-# Works with: rakudo version 2015-09-13
+#n# ==> appears that %seen is not lexical to the loop
 
 sub happy (Int $n is copy --> Bool) {
- for ^1_000_000 -> $i { # DH - work-around for JVM bug
+for ^Inf -> $i { # DH - work-around for JVM bug
 #  loop {
       state %seen;
       $n = [+] $n.comb.map: { $_ ** 2 }
