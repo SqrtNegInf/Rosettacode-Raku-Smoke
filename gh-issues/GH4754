@@ -1,13 +1,11 @@
 #!/usr/bin/env perl6
 #t# skiptest
-#u# https://github.com/rakudo/rakudo/issues/475x
-#c# 2022-01-31 open
+#u# https://github.com/rakudo/rakudo/issues/4754
+#c# 2022-02-01 open
 #n# bug source: http://rosettacode.org/wiki/Happy_numbers (1st version; locally: H/Happy_numbers-1)
 #n# JVM 2021.12 (Moar is fine)
-#n# state variable persists past it's lexical scope in 'loop'
+#n# state variable persists outside it's lexical scope of 'loop'
 #n# The problem is not seen if 'if' or 'while' is used instead.
-
-
 
 sub foo ($n) {
   say "n = $n";
