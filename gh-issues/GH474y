@@ -1,0 +1,40 @@
+#!/usr/bin/env perl6
+#t# skiptest
+#u# https://github.com/rakudo/rakudo/issues/475x
+#c# 2022-01-31 open
+#n# bug source: http://rosettacode.org/wiki/Happy_numbers (1st version; locally: H/Happy_numbers-1)
+#n# JVM 2021.12 (Moar is fine)
+#n# state variable persists past it's lexical scope in 'loop'
+#n# The problem is not seen if 'if' or 'while' is used instead.
+
+
+
+sub foo ($n) {
+  say "n = $n";
+  loop {
+      state %seen;
+      %seen.say if %seen;
+      return if %seen{$n}++;
+  }
+}
+
+.&foo for <1 2 1>;
+
+=finish
+
+Switching to moar-blead
+n = 1
+{1 => 1}
+n = 2
+{2 => 1}
+n = 1
+{1 => 1}
+
+Switching to jvm-2021.12
+n = 1
+{1 => 1}
+n = 2
+{1 => 2}
+{1 => 2, 2 => 1}
+n = 1
+{1 => 2, 2 => 2}
