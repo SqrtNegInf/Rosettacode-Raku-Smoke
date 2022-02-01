@@ -3,6 +3,7 @@
 #c# 2016-09-04 <RC, 2018-10-17 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# A008884
 
 #sub hailstone($n) { $n, { ($_ % 2 == 0) ?? $_ div 2 !! $_ × 3 + 1 } ... 1 }  # someone on RC thought this was faster? not really
 sub hailstone($n) { $n, { $_ %% 2 ?? $_ div 2 !! $_ × 3 + 1 } ... 1 }
