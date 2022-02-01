@@ -2,14 +2,13 @@
 #u# http://rosettacode.org/wiki/Geometric_algebra
 #c# 2016-07-10 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
 #n# 2018-05-21 all previous errors (in tests 26, 27) are gone, wa-hoo…
 #n# glory be, */× swap worked even here
 #n# 2020-02-27 why does AST still show '*' in use as multiplication?
 #n# 2022-01-12 fixed warning on ternary
 #n# 2022-01-28 work-around avoids crash, but fails at runtime:
 #n#             Type check failed in assignment to $!blades; expected MixHash[UInt] but got MixHash ((0=>0.79).MixHash)
-#n# 2022-01-30 the Moar fix is coming soon, the JVM fix might be longer...
 
 unit class MultiVector;
 subset UIntHash of MixHash where .keys.all ~~ UInt;
