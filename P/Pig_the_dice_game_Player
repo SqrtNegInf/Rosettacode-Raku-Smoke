@@ -2,12 +2,11 @@
 #u# http://rosettacode.org/wiki/Pig_the_dice_game/Player
 #c# 2016-06-11 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
 #f# RC file: pig_dice_player.BEND
 #n# new-disp 'srand' shift
-#n# JVM: all games the same?
 
-#srand 123456;
+srand 123456;
 
 my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
 my $out = open("run/pig_dice_player.$ext", :w);
@@ -65,9 +64,9 @@ my @players;
 my @wins = 0 xx @players;
 
 for ^ $games {
-srand 1;
+#srand 1;
 say my @x = DIE.roll xx 10;
-srand 123456;
+#srand 123456;
     my $player = -1;
     repeat {
         $player++;
