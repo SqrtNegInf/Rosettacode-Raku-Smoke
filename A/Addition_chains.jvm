@@ -104,7 +104,7 @@ sub find-Non-Brauer($num, $len, $brauer --> Int) {
 }
 
 say "Searching for Brauer chains up to a minimum length of 12:";
-find-Brauer $_, 12, 79 for 7; #, 14, 21, 29, 32, 42, 64 #`{, 47, 79, 191, 382, 379, 379, 12509 } ;
+find-Brauer $_, 12, 79 for 7, 14; #, 21, 29, 32, 42, 64 #`{, 47, 79, 191, 382, 379, 379, 12509 } ;
 
 .say for @res; 
 
@@ -116,15 +116,15 @@ Minimum length of chains : L(7) = 4
 Number of minimum length Brauer chains : 5
 Brauer example : 1 2 3 4 7
 Number of minimum length non-Brauer chains : 0
-END
-
-my $and-all-the-rest = q:to/END/;
 
 N = 14
 Minimum length of chains : L(14) = 5
 Number of minimum length Brauer chains : 14
 Brauer example : 1 2 3 4 7 14
 Number of minimum length non-Brauer chains : 0
+END
+
+my $and-all-the-rest = q:to/END/;
 
 N = 21
 Minimum length of chains : L(21) = 6
