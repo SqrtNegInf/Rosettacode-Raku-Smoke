@@ -2,9 +2,8 @@
 #u# http://rosettacode.org/wiki/Cistercian_numerals
 #c# 2020-11-08 <RC, 2020-11-24 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# JVM is actually fine, but randomly selected numbers to display differ from Moar so test fails
-#f# RC file: cistercian.svg
+#j# JVM:  OK
+#f# RC file: cistercian.BEND.svg
 #n# 2021-10-04 ordering of random selection wasn't stable, so have to sort?
 
 srand 123456;
@@ -21,7 +20,8 @@ my @components = map {@line-segments[$_]}, |((0, 5, 10, 15).map: -> $m {
     |((0,), (1,), (2,), (3,), (4,), (1,4), (5,), (1,5), (2,5), (1,2,5)).map: {$_ »+» $m}
 });
 
-my $out = 'run/cistercian.svg'.IO.open(:w);
+my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
+my $out = "run/cistercian.$ext.svg".IO.open(:w);
 
 $out.say: # insert header
 q|<svg  width="875" height="470" style="stroke:black;" version="1.1" xmlns="http://www.w3.org/2000/svg">
