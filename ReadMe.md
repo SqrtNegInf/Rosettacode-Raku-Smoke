@@ -43,11 +43,11 @@ code was broken the day before he was off to a conference
 where he wanted to demonstrate it. Oops. *Someone* had to do *something*.
 
 Daily testing results have been saved since 2016-09-01, at which point just under 600
-tasks were in the system.  The task count now exceeds 1300.  For each
+tasks were in the system.  The task count now approaches 1400.  For each
 task the `stdout` (and any `stderr`) are saved and tested against expected output 
 
 Both MoarVM and JVM backends are being tested.  MoarVM is sync'd to `moar-blead` daily, JVM much 
-less often.  Fewer tasks work with JVM.  A couple dozen crash, and it's hard to get JVM to 
+less often (pretty much just once a year).  Fewer tasks work with JVM.  A couple dozen crash, and it's hard to get JVM to 
 work with modules (in particular, tasks that produce image output are affected by this).
 
 Real Soon Now I will put up a pretty front-end, but for now you can view
