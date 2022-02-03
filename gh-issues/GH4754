@@ -14,6 +14,7 @@ sub foo ($n) {
       %seen.say if %seen;
       return if %seen{$n}++;
   }
+  # say 'Boo' if %seen; # predictably, both MoarVM and JVM complain: Variable '%seen' is not declared
 }
 
 .&foo for <1 2 1>;
