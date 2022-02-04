@@ -211,6 +211,14 @@ grep -h QAST::Op ast/* | perl -npe 's/\Q+{QAST::SpecialArg}//;s/^\s+.*::Op\((.*?
 https://andrewshitov.com/2020/09/17/the-pearls-of-raku-issue-10-the-rw-things/
 (substr|take|return)-rw
 
+# 2022-02-03/4 IRC
+# elcaro ... slurping all previous vals: say (0, 1, -> *@a { [~] @a } ... *).head(5)
+# Util    BTW, my example of -> *@a on a Seq:
+locally:
+B/Bell_numbers-2:                       my @bell = 1, -> *@s { 
+C/Chinese_remainder_theorem:                          -> *@a {
+P/Parallel_calculations.4:constant @primes = 2, 3, 5, -> *@p {
+
 == Gotchas
 
 Method 'clone' is called implicitly in most code (i.e. shows up in .ast, but not in .raku source)
