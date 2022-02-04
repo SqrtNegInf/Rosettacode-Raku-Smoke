@@ -3,10 +3,10 @@
 #c# 2021-09-27 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# JVM 2021.12: this doesn't seem right, opened as issue GH474x
-#The iterator of this Seq is already in use/consumed by another Seq (you
-#might solve this by adding .cache on usages of the Seq, or by assigning
-#the Seq into an array)
+#n# JVM 2021.12: this doesn't seem right, opened as issue GH4753
+#    The iterator of this Seq is already in use/consumed by another Seq (you
+#        might solve this by adding .cache on usages of the Seq, or by assigning
+#        the Seq into an array)
 #n# new-disp 'srand' shift
 
 srand 123456;
@@ -19,6 +19,7 @@ else                { $result = (^௰ ).roll(   ௲).rotor(5 => -4)».join.minma
 say $result;
 
 use Test;
-if ($*VM ~~ /jvm/) { is $result, '00051 99988 00557 99916 00205 99989 00050 99897 00217 99930' }
-else               { is $result, '00058 99978 00196 99964 00111 99823 00142 99994 00268 99905' }
-#else               { is $result, '00058 99978 00085 99964 00111 99823 00142 99994 00268 99905' } # cronjob?
+if ($*VM ~~ /jvm/)  { is $result, '00051 99988 00557 99916 00205 99989 00050 99897 00217 99930' }
+#else               { is $result, '00058 99978 00196 99964 00111 99823 00142 99994 00268 99905' }
+ else               { is $result, '00058 99978 00085 99964 00111 99823 00142 99994 00268 99905' }
+#                                              ^^^^^ flapping?
