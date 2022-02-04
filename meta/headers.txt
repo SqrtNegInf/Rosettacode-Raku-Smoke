@@ -6763,10 +6763,10 @@ File: L/Largest_five_adjacent_number
 #c# 2021-09-27 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# JVM 2021.12: this doesn't seem right, opened as issue GH474x
-#The iterator of this Seq is already in use/consumed by another Seq (you
-#might solve this by adding .cache on usages of the Seq, or by assigning
-#the Seq into an array)
+#n# JVM 2021.12: this doesn't seem right, opened as issue GH4753
+#    The iterator of this Seq is already in use/consumed by another Seq (you
+#        might solve this by adding .cache on usages of the Seq, or by assigning
+#        the Seq into an array)
 #n# new-disp 'srand' shift
 
 File: L/Largest_int_from_concatenated_ints
