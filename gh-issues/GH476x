@@ -1,0 +1,26 @@
+#!/usr/bin/env raku
+#t# skiptest
+#c# 2022-02-xx open
+#n# bug source: PWC 148 #2 Bruce Gray, Raku [JVM]
+#n# JVM as a special case handles one form of Unicode superscripts for exponentiation properly, which gets your hopes up, 
+#n#   but mostly silently treats Unicode 'numbers' as zero values, thus dashing them.
+#n# See also: GH4291
+
+say 2²;     # 4 - OK
+say 2**²;   # 1 - no
+say ²;      # 0 - no
+say ⅓;      # 0 - no
+say 3 * ⅓;  # 0 - no
+
+=finish
+
+MoarVM does what you'd expect with all of the above.
+
+This is perhaps more LTA / caveat emptor than a straight bug, but...
+Any chance of a warning? ("That number does not mean what you think it means...")
+
+Or possibly more practical, something analagous to the compile-time warning you get with non-ASCII variable names
+
+Name must begin with alphabetic character
+------>     my $⏏𝑣
+
