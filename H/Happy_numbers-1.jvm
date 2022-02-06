@@ -4,17 +4,17 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A007770
-#n# for JVM: 'state %seen' fails in 'loop' or 'while' construct, but OK if bogus 'for' used
-#n# ==> appears that %seen is not lexical to the loop
+#n# GH4754: state variable '%seen' persists outside lexical scope of 'loop' and 'while', but behaves like MoarVM if 'for' used
 
 sub happy (Int $n is copy --> Bool) {
-for ^Inf -> $i { # DH - work-around for JVM bug
-#  loop {
-      state %seen;
-      $n = [+] $n.comb.map: { $_ ** 2 }
-      return True  if $n == 1;
-      return False if %seen{$n}++;
-  }
+    #while (True) {  # nope
+    #loop {          # nope
+    for ^Inf -> $i { # DH - work-around for JVM bug
+        state %seen;
+        $n = [+] $n.comb.map: { $_ ** 2 }
+        return True  if $n == 1;
+        return False if %seen{$n}++;
+    }
 }
 
 say my $result = join ' ', grep(&happy, 1 .. *)[^8];
