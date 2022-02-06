@@ -5534,10 +5534,17 @@ File: H/Happy_numbers-1.jvm
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A007770
-#n# for JVM: 'state %seen' fails in 'loop' or 'while' construct, but OK if bogus 'for' used
-#n# ==> appears that %seen is not lexical to the loop
+#n# GH4754: state variable '%seen' persists outside lexical scope of 'loop' and 'while', but behaves like MoarVM if 'for' used
 
 File: H/Happy_numbers-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Happy_numbers
+#c# 2015-12-03 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# OEIS:A007770
+
+File: H/Happy_numbers-3
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Happy_numbers
 #c# 2015-12-03 <RC
@@ -6763,7 +6770,8 @@ File: L/Largest_five_adjacent_number
 #u# http://rosettacode.org/wiki/Largest_five_adjacent_number
 #c# 2021-09-27 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
+#n# 2022-02-05 work-around of binding suggested by usev6++
 #n# JVM 2021.12: this doesn't seem right, opened as issue GH4753
 #    The iterator of this Seq is already in use/consumed by another Seq (you
 #        might solve this by adding .cache on usages of the Seq, or by assigning
