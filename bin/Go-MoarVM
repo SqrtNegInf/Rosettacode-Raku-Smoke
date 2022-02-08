@@ -34,8 +34,8 @@ echo 'MOAR'
 $HOME/.rakudobrew/bin/rakudobrew switch moar-blead
 #zef --force-install install Clifford
 perl6 -v
-#bin/rc-moar-parallel [0-Z]/*
-bin/rc-moar-single [0-Z]/*
+bin/rc-moar-parallel [0-Z]/*
+#bin/rc-moar-single [0-Z]/*
 
 # track stats
 /bin/echo -n `date +%Y-%m-%d` >> bench/rakudo-builds.txt
