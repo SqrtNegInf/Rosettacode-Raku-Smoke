@@ -134,7 +134,7 @@ for my $prog (@P_one_at_a_time) {
 }
 
 # run remainder in parallel 
-my $pm = Parallel::ForkManager->new(6);
+my $pm = Parallel::ForkManager->new(8);
 RUN:
 for my $prog (@Programs) {
     $pm->start and next RUN;
