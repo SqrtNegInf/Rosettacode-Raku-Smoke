@@ -3,14 +3,13 @@
 #c# 2016-12-13 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-01-12 fixed warning on ternary
 
 sub zig_zag ($n is copy) {
     my $max = $n**2;
     my $number = 0;
     my @m;
     for (0 .. --$n) -> $j {
-        for ( ($j%2) ?? 0 .. $j !! reverse 0 .. $j) -> $i {
+        for ( $j%2 ?? 0 .. $j !! reverse 0 .. $j) -> $i {
             @m[   $i;     $j-$i ] = $number++;
             @m[$n-$i; $n-($j-$i)] = $max - $number;
         }
