@@ -3,16 +3,15 @@
 #c# 2020-10-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-01-12 fixed warning on ternary
 
 my @res;
 
 sub integral   (Str $in) { # prepend '0' if length is odd
-   given $in { (.chars mod 2) ?? ('0'~$_).comb(2) !! .comb(2) }
+   given $in { .chars mod 2 ?? ('0'~$_).comb(2) !! .comb(2) }
 }
 
 sub fractional (Str $in) { # append  '0' if length is odd
-   given $in { (.chars mod 2) ?? ($_~'0').comb(2) !! .comb(2) }
+   given $in { .chars mod 2 ?? ($_~'0').comb(2) !! .comb(2) }
 }
 
 sub SpigotSqrt ($in) {
