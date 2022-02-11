@@ -2973,6 +2973,20 @@ File: D/Death_Star.jvm
 #j#  JVM: OK
 #f# RC file: deathstar-perl6.pgm
 
+File: D/Deceptive_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Deceptive_numbers
+#c# 2022-02-10 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: D/Deceptive_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Deceptive_numbers
+#c# 2022-02-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: D/Decimal_-_Hexadecimal_numbers
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Decimal_-_Hexadecimal_numbers
@@ -3997,7 +4011,6 @@ File: E/Execute_HQ9%2B
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: hq9.txt
-#n# 2022-01-12 fixed warning on ternary
 
 File: E/Execute_SNUSP
 #!/usr/bin/env perl6
@@ -5267,7 +5280,7 @@ File: G/Geometric_algebra
 #n# 2018-05-21 all previous errors (in tests 26, 27) are gone, wa-hoo…
 #n# glory be, */× swap worked even here
 #n# 2020-02-27 why does AST still show '*' in use as multiplication?
-#n# 2022-01-12 fixed warning on ternary
+#n# 2022-01-12 fixed warning on ternary [2022-02-10 leave ternary alone here, may be needed in future]
 #n# 2022-01-28 work-around avoids crash, but fails at runtime:
 #n#             Type check failed in assignment to $!blades; expected MixHash[UInt] but got MixHash ((0=>0.79).MixHash)
 
@@ -5991,7 +6004,6 @@ File: I/I_before_E_except_after_C-1
 #c# 2015-12-11 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-01-12 fixed warning on ternary
 
 File: I/I_before_E_except_after_C-2
 #!/usr/bin/env perl6
@@ -6002,7 +6014,6 @@ File: I/I_before_E_except_after_C-2
 #n# with JVM 2021.12, now works
 #n# 2020-11-15 FIXED: thundergnat++, the necessary coercion is '+$<freq>'
 #n#            error was: Impossible coercion from 'CollectWords' into 'Num:D': method Num returned an instance of BOOTNum
-#n# 2022-01-12 fixed warning on ternary
 
 File: I/Identity_matrix
 #!/usr/bin/env perl6
@@ -6399,7 +6410,7 @@ File: J/Juggler_sequence
 #c# 2021-08-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-01-12 fixed warning on ternary 
+#n# 2022-01-12 fixed warning on ternary [2022-02-10 leave ternary alone here, may be needed in future]
 #n# OEIS:A007320 Number of steps needed for Juggler sequence started at n to reach 1
 #n# OEIS:A094716 Largest value in the Juggler sequence started at n
 
@@ -9052,7 +9063,7 @@ File: O/Orbital_elements
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'Clifford' module
-#n# 2022-01-12 fixed warning on ternary (in 'Clifford' module at 'lib/MultiVector.pm6' lines 36 and 37)
+#n# 2022-01-20 ternary now fixed, but for future: was in 'Clifford' module at 'lib/MultiVector.pm6' lines 36 and 37)
 #n# 2022-01-20 from cron uses 'system' version of Clifford, force local lib (until ternary issue fixed)
 
 File: O/Order_by_pair_comparisons
@@ -9835,7 +9846,7 @@ File: P/Perlin_noise
 #n# kludge for JVM: 'my' instead of 'constant' for @p (java.lang.IllegalArgumentException: bad parameter count 259)
 #n# 2019-10-26 kludge still needed...
 #n# 2020-01-30 for this particular input permutation doesn't need to doubled
-#n# 2022-01-12 fixed warning on ternary
+#n# 2022-01-12 fixed warning on ternary [2022-02-10 leave ternary alone here, may be needed in future]
 
 File: P/Permutation_test
 #!/usr/bin/env perl6
@@ -10208,7 +10219,6 @@ File: P/Powerful_numbers
 #c# 2020-02-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-01-12 fixed warning on ternary
 
 File: P/Powerful_numbers.1
 #!/usr/bin/env perl6
@@ -11303,6 +11313,19 @@ File: R/Rhonda_numbers
 #c# 2022-02-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# full run works, but slow, so limit to 5 for testing
+#n# OEIS:A100968 - Integers n that are Rhonda numbers to base 4
+#n# OEIS:A100969 - Integers n that are Rhonda numbers to base 6
+#n# OEIS:A100970 - Integers n that are Rhonda numbers to base 8
+#n# OEIS:A100973 - Integers n that are Rhonda numbers to base 9
+#n# OEIS:A099542 - Rhonda numbers to base 10
+#n# OEIS:A100971 - Integers n that are Rhonda numbers to base 12
+#n# OEIS:A100972 - Integers n that are Rhonda numbers to base 14
+#n# OEIS:A100974 - Integers n that are Rhonda numbers to base 15
+#n# OEIS:A100975 - Integers n that are Rhonda numbers to base 16
+#n# OEIS:A255735 - Integers n that are Rhonda numbers to base 18
+#n# OEIS:A255732 - Rhonda numbers in vigesimal number system (base 20)
+#n# OEIS:A255736 - Integers n that are Rhonda numbers to base 30
 
 File: R/Rhonda_numbers.jvm
 #!/usr/bin/env raku
@@ -11769,7 +11792,6 @@ File: S/Self_numbers
 #j# JVM:  OK
 #n# faster than the literal-minded Perl translation; hard-coding '50' sub-optimal
 #n# OEIS:A003052
-#n# 2022-01-12 fixed warning on ternary
 
 File: S/Semiprime-1
 #!/usr/bin/env perl6
@@ -12911,7 +12933,6 @@ File: S/Square_Root_by_Hand
 #c# 2020-10-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-01-12 fixed warning on ternary
 
 File: S/Square_but_not_cube
 #!/usr/bin/env perl6
@@ -14247,7 +14268,6 @@ File: T/Totient_function
 #j# JVM:  BROKEN
 #n# see JVM for previous method of calculation
 #n# OEIS:A000010
-#n# 2022-01-12 fixed warning on ternary
 
 File: T/Totient_function.jvm
 #!/usr/bin/env perl6
@@ -15411,7 +15431,6 @@ File: Z/Zig-zag_matrix-2
 #c# 2016-12-13 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-01-12 fixed warning on ternary
 
 File: Z/Zumkeller_numbers
 #!/usr/bin/env perl6
