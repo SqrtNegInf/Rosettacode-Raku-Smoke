@@ -1,0 +1,14 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Deceptive_numbers
+#c# 2022-02-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+say my $result = (2..∞).grep( {$_ % 2 && !.is-prime} ).grep( { (1 x ($_ - 1)) %% $_ } )[^25];
+
+my $ref = '91 259 451 481 703 1729 2821 2981 3367 4141 4187 5461 6533 6541 6601 7471 7777 8149 8401 8911 10001 11111 12403 13981 14701';
+
+use Test;
+is $result, $ref;
