@@ -3,6 +3,19 @@
 #c# 2022-02-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# full run works, but slow, so limit to 5 for testing
+#n# OEIS:A100968 - Integers n that are Rhonda numbers to base 4
+#n# OEIS:A100969 - Integers n that are Rhonda numbers to base 6
+#n# OEIS:A100970 - Integers n that are Rhonda numbers to base 8
+#n# OEIS:A100973 - Integers n that are Rhonda numbers to base 9
+#n# OEIS:A099542 - Rhonda numbers to base 10
+#n# OEIS:A100971 - Integers n that are Rhonda numbers to base 12
+#n# OEIS:A100972 - Integers n that are Rhonda numbers to base 14
+#n# OEIS:A100974 - Integers n that are Rhonda numbers to base 15
+#n# OEIS:A100975 - Integers n that are Rhonda numbers to base 16
+#n# OEIS:A255735 - Integers n that are Rhonda numbers to base 18
+#n# OEIS:A255732 - Rhonda numbers in vigesimal number system (base 20)
+#n# OEIS:A255736 - Integers n that are Rhonda numbers to base 30
 
 my @res;
 
@@ -13,12 +26,14 @@ my @factor-sum;
 @factor-sum[1000000] = 42; # Sink a large index to make access thread safe 
 
 sub rhonda ($base) {
-    (1..∞).hyper.map: { $_ if $base * (@factor-sum[$_] //= .&prime-factors.sum) == [×] .polymod($base xx *) }
+    (1..∞).hyper.map: { $_ if $base × (@factor-sum[$_] //= .&prime-factors.sum) == [×] .polymod($base xx *) }
 }
 
-for (flat 2..16, 17..36).grep: { !.&is-prime }  -> $b {
-    @res.push: "\nFirst 15 Rhonda numbers to base $b:";
-    my @rhonda = rhonda($b)[^15];
+#for (flat 2..16, 17..36).grep: { !.&is-prime } -> $b { # why split??
+my $c = 5; # not 15
+for (2..36).grep: { !.&is-prime } -> $b {
+    @res.push: "\nFirst $c Rhonda numbers to base $b:";
+    my @rhonda = rhonda($b)[^$c];
     my $ch = @rhonda[*-1].chars max @rhonda[*-1].base($b).chars;
     @res.push: "In base 10: " ~ @rhonda».fmt("%{$ch}s").join: ', ';
     @res.push: $b.fmt("In base %2d: ") ~ @rhonda».base($b)».fmt("%{$ch}s").join: ', ';
@@ -27,6 +42,105 @@ for (flat 2..16, 17..36).grep: { !.&is-prime }  -> $b {
 .say for @res;
 
 my $ref = q:to/END/;
+
+First 5 Rhonda numbers to base 4:
+In base 10:    10206,    11935,    12150,    16031,    45030
+In base  4:  2133132,  2322133,  2331312,  3322133, 22333212
+
+First 5 Rhonda numbers to base 6:
+In base 10:   855,  1029,  3813,  5577,  7040
+In base  6:  3543,  4433, 25353, 41453, 52332
+
+First 5 Rhonda numbers to base 8:
+In base 10:  1836,  6318,  6622, 10530, 14500
+In base  8:  3454, 14256, 14736, 24442, 34244
+
+First 5 Rhonda numbers to base 9:
+In base 10: 15540, 21054, 25331, 44360, 44660
+In base  9: 23276, 31783, 37665, 66758, 67232
+
+First 5 Rhonda numbers to base 10:
+In base 10: 1568, 2835, 4752, 5265, 5439
+In base 10: 1568, 2835, 4752, 5265, 5439
+
+First 5 Rhonda numbers to base 12:
+In base 10:  560,  800, 3993, 4425, 4602
+In base 12:  3A8,  568, 2389, 2689, 27B6
+
+First 5 Rhonda numbers to base 14:
+In base 10: 11475, 18655, 20565, 29631, 31725
+In base 14:  4279,  6B27,  76CD,  AB27,  B7C1
+
+First 5 Rhonda numbers to base 15:
+In base 10:  2392,  2472, 11468, 15873, 17424
+In base 15:   A97,   AEC,  35E8,  4A83,  5269
+
+First 5 Rhonda numbers to base 16:
+In base 10:  1000,  1134,  6776, 15912, 19624
+In base 16:   3E8,   46E,  1A78,  3E28,  4CA8
+
+First 5 Rhonda numbers to base 18:
+In base 10:  1470,  3000,  8918, 17025, 19402
+In base 18:   49C,   94C,  1998,  2G9F,  35FG
+
+First 5 Rhonda numbers to base 20:
+In base 10:  1815, 11050, 15295, 21165, 22165
+In base 20:   4AF,  17CA,  1I4F,  2CI5,  2F85
+
+First 5 Rhonda numbers to base 21:
+In base 10:  1632,  5390,  8512, 12992, 15678
+In base 21:   3EF,   C4E,   J67,  189E,  1EBC
+
+First 5 Rhonda numbers to base 22:
+In base 10:  2695,  4128,  7865, 28800, 31710
+In base 22:   5CB,   8BE,   G5B,  2FB2,  2LB8
+
+First 5 Rhonda numbers to base 24:
+In base 10: 2080, 2709, 3976, 5628, 5656
+In base 24:  3EG,  4GL,  6LG,  9IC,  9JG
+
+First 5 Rhonda numbers to base 25:
+In base 10:  6764,  9633, 13260, 22022, 53382
+In base 25:   AKE,   FA8,   L5A,  1A5M,  3AA7
+
+First 5 Rhonda numbers to base 26:
+In base 10:  7788,  9322,  9374, 11160, 22165
+In base 26:   BDE,   DKE,   DME,   GD6,  16KD
+
+First 5 Rhonda numbers to base 27:
+In base 10:  4797, 11844, 12078, 13200, 14841
+In base 27:   6FI,   G6I,   GF9,   I2O,   K9I
+
+First 5 Rhonda numbers to base 28:
+In base 10:  3094,  5808,  5832,  7462, 11160
+In base 28:   3QE,   7BC,   7C8,   9EE,   E6G
+
+First 5 Rhonda numbers to base 30:
+In base 10: 3024, 3168, 5115, 5346, 5950
+In base 30:  3AO,  3FI,  5KF,  5S6,  6IA
+
+First 5 Rhonda numbers to base 32:
+In base 10:  1944,  3600, 13520, 15876, 16732
+In base 32:   1SO,   3GG,   D6G,   FG4,   GAS
+
+First 5 Rhonda numbers to base 33:
+In base 10:   756,  7040,  7568, 13826, 24930
+In base 33:    MU,   6FB,   6VB,   CMW,   MTF
+
+First 5 Rhonda numbers to base 34:
+In base 10:  5661, 14161, 15620, 16473, 22185
+In base 34:   4UH,   C8H,   DHE,   E8H,   J6H
+
+First 5 Rhonda numbers to base 35:
+In base 10:  8232,  9476,  9633, 18634, 30954
+In base 35:   6P7,   7PQ,   7U8,   F7E,   P9E
+
+First 5 Rhonda numbers to base 36:
+In base 10:  1000,  4800,  5670,  8190, 10998
+In base 36:    RS,   3PC,   4DI,   6BI,   8HI
+END
+
+my $ref-full = q:to/END/;
 
 First 15 Rhonda numbers to base 4:
 In base 10:      10206,      11935,      12150,      16031,      45030,      94185,     113022,     114415,     191149,     244713,     259753,     374782,     392121,     503773,     649902
