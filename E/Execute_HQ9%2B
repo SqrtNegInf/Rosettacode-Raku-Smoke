@@ -4,7 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: hq9.txt
-#n# 2022-01-12 fixed warning on ternary
 
 # Works with: rakudo version 2015-09-10
 # The spec is kind of vague about how to do error handling... and whether white space is significant... and how the accumulator should be accessed... and pretty much everything else too.
@@ -33,7 +32,7 @@ class HQ9Interpreter {
         }
     }
     sub bob ($beer is copy) {
-        sub what  { "{$beer ?? $beer !! 'No more'} bottle{($beer-1) ?? 's' !! ''} of beer" };
+        sub what  { "{$beer ?? $beer !! 'No more'} bottle{ $beer-1 ?? 's' !! ''} of beer" };
         sub where { 'on the wall' };
         sub drink { $beer--; "Take one down, pass it around," }
         while $beer {
