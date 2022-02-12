@@ -1,17 +1,18 @@
-Welcome to Rakudo™ v2021.12-210-ga1a7168d2.
+Welcome to Rakudo™ v2022.02-1-g0b11a143f.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2021.12-138-g280c709ce.
-+--------------> Moar: Good/Bad [1427/26]
-|+-------------> JVM: Good/Bad [1216/309]
-||+------------> Smoke testing [1370]
+Built on MoarVM version 2022.02-1-g0539ead63.
+updating from RC…
++--------------> Moar: Good/Bad [1426/26]
+|+-------------> JVM: Good/Bad [1216/310]
+||+------------> Smoke testing [1371]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [365]
 ||||||+--------> Concurrent/Async [91]
 |||||||+-------> Random seed [145]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [357]
-||||||||||+----> Ignoring [39]
+|||||||||+-----> Draft [358]
+||||||||||+----> Ignoring [40]
 |||||||||||+---> Void (no local copy) [95]
 ||||||||||||+--> Un-implemented/reliable [49]
 |||||||||||||
@@ -143,7 +144,7 @@ GGS.......... Binary_digits
 GGS.......... Binary_search
 GGS..T....... Binary_strings
 GGS..T...D... Bioinformatics_Global_alignment
-GGS....R..... Bioinformatics_Sequence_mutation
+!GS....R..... Bioinformatics_Sequence_mutation
 GBS....R.D... Bioinformatics_Subsequence
 GGS.......... Bioinformatics_base_count
 GGS.......... Biorhythms
@@ -334,6 +335,7 @@ GGS......D... Days_between_dates
 GGS.......... De_Bruijn_sequences
 GGS..T.R..... Deal_cards_for_FreeCell
 GGS..TC.F.... Death_Star
+GBS...c..D... Deceptive_numbers
 GGS......D... Decimal_floating_point_number_to_binary
 GGS......D... Decision_tables
 GGS..T....... Deconvolution_1D
@@ -543,7 +545,7 @@ GGS.......... French_Republican_calendar
 GGS......D... Frobenius_numbers
 GGS..T....... Function_composition
 GGS.......... Function_definition
-GGS..T....... Function_frequency
+!GS..T....... Function_frequency
 GGS.......... Function_prototype
 GGS..T....... Functional_coverage_tree-1
 GG.K.T....... Functional_coverage_tree-2
@@ -1240,7 +1242,7 @@ GGS......D... Safe_and_Sophie_Germain_primes
 GBS.......... Safe_primes_and_unsafe_primes
 GGS.......... Sailors,_coconuts_and_a_monkey_problem
 GGS.......... Same_fringe
-.........D.V. Sanitize_user_input
+.........DXV. Sanitize_user_input
 GGS......D... Sattolo_cycle
 GGS.......... Scope_Function_names_and_labels
 GG.K......... Scope_modifiers
