@@ -1,12 +1,18 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Deceptive_numbers
-#c# 2022-02-10 <RC
+#c# 2022-02-10 <RC, 2022-02-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# now a dup of main task, but keep for timing info:
+#n# real    577.288 user    380.195 sys     16.946
+#n# real     59.221 user     88.549 sys      5.56
 
 my @res;
 
-say my $result = (2..∞).grep( {$_ % 2 && !.is-prime} ).grep( { (1 x ($_ - 1)) %% $_ } )[^25];
+#say my $result = (2..∞).grep( {$_ % 2 && !.is-prime} ).grep( { (1 x ($_ - 1)) %% $_ } )[^25];
+
+my @R = [\+] 1, 10, 100 … *;
+say my $result = (2..∞).grep( {$_ % 2 && $_ % 3 && !.is-prime} ).grep( { @R[$_-2] %% $_  } )[^25];
 
 my $ref = '91 259 451 481 703 1729 2821 2981 3367 4141 4187 5461 6533 6541 6601 7471 7777 8149 8401 8911 10001 11111 12403 13981 14701';
 
