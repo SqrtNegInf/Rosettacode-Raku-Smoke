@@ -5,7 +5,7 @@
 #j#  JVM: OK
 #n# can be confused by certain input, e.g. <-1 -1a -3>
 
-srand 123456;
+#srand 123456;
 
 # The given algorithm can be simplified in several ways. There's no need to compute the midpoint, since the hi/lo will end up there. The extra swap conditional can be eliminated by incrementing hi at the correct moment inside the loop. There's no need to
 # pass accumulated swaps down the call stack.
