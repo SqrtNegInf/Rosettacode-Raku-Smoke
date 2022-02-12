@@ -1,13 +1,18 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Deceptive_numbers
-#c# 2022-02-10 <RC
+#c# 2022-02-10 <RC, 2022-02-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A000864
+#n# 61.88s user 1.14s system 374% cpu 16.842 total
+#n#  3.49s user 0.38s system 100% cpu  3.861 total
 
 my @res;
 
-say my $result = (2..∞).hyper.grep( {$_ % 2 && !.is-prime} ).grep( { (1 x ($_ - 1)) %% $_ } )[^25];
+#say my $result = (2..∞).hyper.grep( {$_ % 2 && !.is-prime} ).grep( { (1 x ($_ - 1)) %% $_ } )[^25];
+ 
+my \R = [\+] 1, 10, 100 … *;
+say my $result = (2..∞).grep( {$_ % 2 && $_ % 3 && !.is-prime} ).grep( { R[$_-2] %% $_  } )[^25];
 
 my $ref = '91 259 451 481 703 1729 2821 2981 3367 4141 4187 5461 6533 6541 6601 7471 7777 8149 8401 8911 10001 11111 12403 13981 14701';
 
