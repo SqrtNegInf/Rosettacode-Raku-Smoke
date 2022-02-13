@@ -2976,12 +2976,14 @@ File: D/Death_Star.jvm
 File: D/Deceptive_numbers
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Deceptive_numbers
-#c# 2022-02-10 <RC, 2022-02-11 <RC
+#c# 2022-02-10 <RC, 2022-02-11 <RC, 2022-02-12 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A000864
-#n# 61.88s user 1.14s system 374% cpu 16.842 total
-#n#  3.49s user 0.38s system 100% cpu  3.861 total
+#n# 61.88s user 1.14s system 374% cpu 16.842 total # 1st release
+#n#  7.42s user 0.36s system 106% cpu  7.337 total # DH - shorter (but slower)
+#n#  3.49s user 0.38s system 100% cpu  3.861 total # penultimate
+#n#  2.86s user 0.32s system 115% cpu  2.753 total # current RC
 
 File: D/Deceptive_numbers.jvm
 #!/usr/bin/env raku
@@ -2990,8 +2992,8 @@ File: D/Deceptive_numbers.jvm
 #m# MOAR: OK
 #j# JVM:  OK
 #n# now a dup of main task, but keep for timing info:
-#n# real    577.288 user    380.195 sys     16.946
-#n# real     59.221 user     88.549 sys      5.56
+#n# real    577.288 user    380.195 sys     16.946  # initial version
+#n# real     44.043 user     85.443 sys      4.57   # current
 
 File: D/Decimal_-_Hexadecimal_numbers
 #!/usr/bin/env raku
@@ -3291,6 +3293,15 @@ File: D/Dining_philosophers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# Died with the exception: java.lang.NullPointerException
+
+File: D/Disarium_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Disarium_numbers
+#c# 2022-02-12 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# Not an efficient algorithm. First 18 in less than 1/4 second. 19th in around 45 seconds. Pretty much unusable for the 20th.
+#n# locally: 624.27s user 202.78s system 486% cpu 2:50.12 total
 
 File: D/Discordian_date
 #!/usr/bin/env perl6
