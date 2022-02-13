@@ -1,0 +1,24 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Disarium_numbers
+#c# 2022-02-12 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# Not an efficient algorithm. First 18 in less than 1/4 second. 19th in around 45 seconds. Pretty much unusable for the 20th.
+#n# locally: 624.27s user 202.78s system 486% cpu 2:50.12 total
+
+my @res;
+
+my $disarium = (^∞).hyper.map: { $_ if $_ == sum .polymod(10 xx *).reverse Z** 1..* };
+
+@res.push: $disarium[^18];
+#@res.push: $disarium[18];
+
+.say for @res;
+
+my $ref = q:to/END/;
+0 1 2 3 4 5 6 7 8 9 89 135 175 518 598 1306 1676 2427
+END
+#2646798
+
+use Test;
+is @res.join("\n"), chomp $ref;
