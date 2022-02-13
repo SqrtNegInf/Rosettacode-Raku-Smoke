@@ -1,18 +1,22 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Deceptive_numbers
-#c# 2022-02-10 <RC, 2022-02-11 <RC
+#c# 2022-02-10 <RC, 2022-02-11 <RC, 2022-02-12 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A000864
-#n# 61.88s user 1.14s system 374% cpu 16.842 total
-#n#  3.49s user 0.38s system 100% cpu  3.861 total
+#n# 61.88s user 1.14s system 374% cpu 16.842 total # 1st release
+#n#  7.42s user 0.36s system 106% cpu  7.337 total # DH - shorter (but slower)
+#n#  3.49s user 0.38s system 100% cpu  3.861 total # penultimate
+#n#  2.86s user 0.32s system 115% cpu  2.753 total # current RC
 
 my @res;
 
-#say my $result = (2..∞).hyper.grep( {$_ % 2 && !.is-prime} ).grep( { (1 x ($_ - 1)) %% $_ } )[^25];
+#say my $result = (2..∞).hyper.grep( {$_ % 2 && !.is-prime} ).grep( { (1 x ($_ - 1)) %% $_ } )[^25];    # 1st release
  
 my \R = [\+] 1, 10, 100 … *;
-say my $result = (2..∞).grep( {$_ % 2 && $_ % 3 && !.is-prime} ).grep( { R[$_-2] %% $_  } )[^25];
+#say my $result = (2..∞).grep( {$_%2 && $_%3 && !.is-prime} ).grep( { R[$_-2] %% $_  } )[^25];          # penultimate
+ say my $result = (2..∞).grep( {$_%2 && $_%3 && $_%5 && !.is-prime} ).grep( { R[$_-2] %% $_  } )[^25];  # current RC
+#say my $result = (2..∞).grep( { $_%2|3|5 && !.is-prime } ).grep( { R[$_-2] %% $_  } )[^25];            # DH - shorter (but slower)
 
 my $ref = '91 259 451 481 703 1729 2821 2981 3367 4141 4187 5461 6533 6541 6601 7471 7777 8149 8401 8911 10001 11111 12403 13981 14701';
 
