@@ -139,7 +139,7 @@ my($task,$header,@concur,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
     }
 
     $srand = `grep srand $task`;
-    $P{$p}{'R'} = $srand =~ /\bsrand \d/         ? 'R' : '.';
+    $P{$p}{'R'} = $srand =~ /^srand \d/         ? 'R' : '.';
 
     return 1; # to increment counter
 }
