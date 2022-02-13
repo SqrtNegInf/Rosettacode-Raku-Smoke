@@ -24,7 +24,6 @@ my @res.push: .kv for %fun.invert.sort.reverse[^10];
 
 my $ref = qq:to/END/;
 4 quicksort
-2 srand
 2 put
 2 is
 2 infix:</>
@@ -36,4 +35,4 @@ my $ref = qq:to/END/;
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), $ref;
