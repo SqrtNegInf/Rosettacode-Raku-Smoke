@@ -3,9 +3,7 @@
 #c# 2016-05-06 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-#srand 123456;
-#   different than other sorts, in-place
+#n#  different than other sorts, in-place
 
 sub heap_sort ( @list ) {
     for ( 0 ..^ +@list div 2 ).reverse -> $start {
