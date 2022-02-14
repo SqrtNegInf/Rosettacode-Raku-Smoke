@@ -4,8 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#srand 123456;
-
 sub counting-sort (@ints) {
     my $off = @ints.min;
     (my @counts)[$_ - $off]++ for @ints;
