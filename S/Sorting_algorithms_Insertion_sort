@@ -4,8 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#srand 123456;
-
 sub insertion_sort ( @a is copy ) {
     for 1 .. @a.end -> $i {
         my $value = @a[$i];
