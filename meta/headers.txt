@@ -2809,6 +2809,13 @@ File: C/Curzon_numbers
 #u# http://rosettacode.org/wiki/Curzon_numbers
 #c# 2022-02-13 <RC
 #m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: C/Curzon_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Curzon_numbers
+#c# 2022-02-13 <RC
+#m# MOAR: OK
 #j# JVM:  OK
 
 File: C/Cut_a_rectangle
@@ -2854,8 +2861,9 @@ File: C/Cyclotomic_Polynomial
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cyclotomic_Polynomial
 #c# 2020-01-30 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2022-02-14 Working now? Do daily testing to see...
 #n# new-disp 'srand' shift
 #`{{
 No such method 'DESTROY' for invocant of type 'Math::Polynomial'.  Did
@@ -2887,6 +2895,7 @@ File: D/Data_Encryption_Standard
 #c# 2019-03-22 <RC, 2020-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2022-02-13 intermittently fails unless MVM_SPESH_DISABLE=1
 #n# 2020-02-28 still not getting the '\r\n' to round-trip
 #n# 2019-10-25 for JVM: 4th encryption fails (but decrypt on proper string OK)
 #n# as much fun as that would be to debug, I'm just going to comment it out
