@@ -37,10 +37,10 @@ use Parallel::ForkManager;
 #'S/Square-free_integers' => 1,
 #);
 
-# with new rakudobrew, simpler switching
+# with new rakubrew, simpler switching
 $mode = $0 =~ /moar/i ? 'moar' : 'jvm';
 my $shim = $mode eq 'moar' ?  '-blead' : '-2021.12';
-system "rakudobrew switch $mode${shim}";
+system "rakubrew switch $mode${shim}";
 
 chdir "$ENV{HOME}/raku/Rosetta-Code" || die;
 
