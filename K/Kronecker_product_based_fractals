@@ -33,7 +33,7 @@ for  'vicsek', @vicsek, 4,
      'six',    @six,    3
   -> $name,    @shape,  $order {
     my @img = kronecker-fractal( @shape, $order );
-    my $png = Image::PNG::Portable.new: :width(@img[0].elems), :height(@img.elems);
+    my $png = Image::PNG::Portable.new: :width(@img[0].elems), :height(@img.elems), :alpha(False);
 #    (^@img[0] X ^@img).race.map: -> ($x, $y) {
     (^@img[0]).race(:12batch).map: -> $x {
         for ^@img -> $y {
