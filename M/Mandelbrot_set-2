@@ -11,7 +11,7 @@
 use Image::PNG::Portable;
  
 my ($w, $h) = 800, 800;
-my $out = Image::PNG::Portable.new: :width($w), :height($h);
+my $out = Image::PNG::Portable.new: :width($w), :height($h), :alpha(False);
  
 my $maxIter = 150;
  
