@@ -3,4 +3,4 @@
 #    2021-03-20
 
 exit unless 'bench/jvm'.IO ~~ :e;
-shell "rakudobrew switch moar-blead; cd bench; mv jvm/* jlast; rmdir {Date.today}-j; rm jvm";
+shell "rakubrew switch moar-blead; cd bench; mv jvm/* jlast; rmdir {Date.today}-j; rm jvm";
