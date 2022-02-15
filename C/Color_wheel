@@ -11,7 +11,7 @@ use Image::PNG::Portable;
 
 my ($w, $h) = 300, 300;
 
-my $out = Image::PNG::Portable.new: :width($w), :height($h);
+my $out = Image::PNG::Portable.new: :width($w), :height($h), :alpha(False);
 
 my $center = $w/2 + $h/2×i;
 
