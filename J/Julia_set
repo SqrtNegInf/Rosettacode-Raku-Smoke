@@ -23,7 +23,7 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 use Image::PNG::Portable;
 
 my ($w, $h) = 800, 600;
-my $out = Image::PNG::Portable.new: :width($w), :height($h);
+my $out = Image::PNG::Portable.new: :width($w), :height($h), :alpha(False);
 
 my $maxIter = 255;
 my $c = -0.7 + 0.27015i;
