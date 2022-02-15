@@ -1,6 +1,5 @@
 #!/bin/sh
 ## update MoarVM backend
-#  NB: 'rakudobrew' bootstrapped with:  git clone https://github.com/tadzik/rakudobrew ~/.rakudobrew
 
 # prereq. for fresh Ubuntu VMware image (config with 2Gb)
 #  sudo apt upgrade
@@ -12,16 +11,16 @@ source $HOME/.profile
 rm -rf $HOME/.raku/precomp # new bug, old solution?
 rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
 
-cd $HOME/.rakudobrew
+cd $HOME/.rakubrew
 
 # update Rakudo/MoarVM
-#bin/rakudobrew self-upgrade > out.rb    2> err.rb
+#bin/rakubrew self-upgrade > out.rb    2> err.rb
 (cd versions; rm -rf moar-yesterday; cp -pr moar-blead moar-yesterday)
-bin/rakudobrew build moar-blead >    out.moar  2>    err.moar
-bin/rakudobrew rehash
+bin/rakubrew build moar-blead >    out.moar  2>    err.moar
+bin/rakubrew rehash
 #(cd versions/moar-blead; make spectest   > ../out.mtest 2> ../err.mtest )
-#bin/rakudobrew switch moar-blead >> out.moar 2>> err.moar
-#bin/rakudobrew build zef
+#bin/rakubrew switch moar-blead >> out.moar 2>> err.moar
+#bin/rakubrew build zef
 
 cd $HOME/perl6/Rosetta-Code
 bin/rc-jvm-cleanup
@@ -31,7 +30,7 @@ bin/rc-jvm-cleanup
 
 # smoking
 echo 'MOAR'
-$HOME/.rakudobrew/bin/rakudobrew switch moar-blead
+$HOME/.rakubrew/bin/rakubrew switch moar-blead
 #zef --force-install install Clifford
 perl6 -v
 #bin/rc-moar-parallel [0-Z]/*
@@ -92,11 +91,11 @@ diff meta/non-ascii.txt~ meta/non-ascii.txt
 
 # how did the spectest go?
 #echo ' '
-#/usr/local/pbin/grep-paragraph Summary $HOME/.rakudobrew/versions/out.mtest
+#/usr/local/pbin/grep-paragraph Summary $HOME/.rakubrew/versions/out.mtest
 
 # latest Rakudo commits 
 echo ' '
-cd $HOME/.rakudobrew/versions/moar-blead
+cd $HOME/.rakubrew/versions/moar-blead
 git log | head -100
 
 # push changes to github
