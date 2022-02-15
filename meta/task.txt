@@ -1,10 +1,10 @@
-Welcome to Rakudo™ v2022.02-27-gfafcca315.
+Welcome to Rakudo™ v2022.02-31-g65507b89d.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.02-1-g0539ead63.
 updating from RC…
-+--------------> Moar: Good/Bad [1428/26]
-|+-------------> JVM: Good/Bad [1217/311]
-||+------------> Smoke testing [1373]
++--------------> Moar: Good/Bad [1424/23]
+|+-------------> JVM: Good/Bad [1216/312]
+||+------------> Smoke testing [1374]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [365]
@@ -51,7 +51,7 @@ GBS..TC...... Abundant_odd_numbers
 GGS.......... Accumulator_factory
 GGS.......... Ackermann_function
 GB.K......... Active_Directory_Connect
-BB........... Active_Directory_Search_for_a_user
+!B........... Active_Directory_Search_for_a_user
 GG.K......... Active_object
 GGS.......... Add_a_variable_to_a_class_instance_at_runtime
 .........D.VU Addition-chain_exponentiation
@@ -319,14 +319,14 @@ GGS.......... Cumulative_standard_deviation
 GGS.......... Currency
 GGS.......... Currying
 GBS......D... Curve_that_touches_three_points
-GGS...C..D... Curzon_numbers
+GBS...C..D... Curzon_numbers
 GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
 GBS...C..D... Cyclops_numbers
-BB........... Cyclotomic_polynomial
+GBS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
-!BS......D... Data_Encryption_Standard
+GBS......D... Data_Encryption_Standard
 GGS..T....... Date_format
 GGS..T....... Date_manipulation
 GBS......D... Dating_agency
@@ -443,7 +443,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -492,7 +492,7 @@ GGS..T....... Find_Chess960_starting_position_identifier
 GGS......D... Find_URI_in_text
 GBS......D... Find_adjacent_primes_which_differ_by_a_square_integer
 GGS..T....... Find_common_directory_path
-GBS..T....... Find_duplicate_files
+!BS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
 GGS......D... Find_first_missing_positive
 GGS.......... Find_if_a_point_is_within_a_triangle
@@ -663,7 +663,7 @@ GG.K......... Include_a_file
 GGS.......... Increasing_gaps_between_consecutive_Niven_numbers
 GGS.......... Increment_a_numerical_string
 GGS..T.R..... Index_finite_lists_of_positive_integers-1
-GGS....R..... Index_finite_lists_of_positive_integers-2
+!GS....R..... Index_finite_lists_of_positive_integers-2
 GGS..T....... Infinity
 GGS.......... Inheritance_Multiple
 GGS.......... Inheritance_Single
@@ -1400,7 +1400,7 @@ GGS..T....... Straddling_checkerboard
 GGS..T...D... Strange_numbers
 GGS...c..D... Strange_plus_numbers
 GGS......D... Strange_unique_prime_triplets
-BB.K......... Strassen%27s_algorithm
+!B.K......... Strassen%27s_algorithm
 GGS..T....... Stream_merge
 GGS.......... String_append
 GGS..T....... String_case
@@ -1544,7 +1544,7 @@ GGS.......... UPC
 GBS.......... URL_decoding
 GGS.......... URL_encoding
 GGS.......... URL_parser
-GB.K.....D... URL_shortener
+!B.K.....D... URL_shortener
 GGS.......... UTF-8_encode_and_decode
 ...........VU Ukkonens_suffix_tree_construction
 GGS......D... Ulam_numbers
@@ -1600,7 +1600,7 @@ GGS..T....... Vogel%27s_approximation_method
 GBS..TCRF.... Voronoi_diagram
 GGS.......... Walk_a_directory_Non-recursively
 GGS.......... Walk_a_directory_Recursively
-GB.K......... War_card_game
+!B.K......... War_card_game
 GGS.......... Water_collected_between_towers
 GBS..T...D... Waveform_analysis_Doh_ray_me
 .........D.VU Waveform_analysis_Top_and_tail
@@ -1621,7 +1621,7 @@ GB.KI........ Window_management
 GGS.......... Wireworld
 GGS......D... Word_break_problem
 GGS..Tc...... Word_frequency
-GGS.......... Word_ladder
+!GS.......... Word_ladder
 !GS....R..... Word_search
 GGS.......... Word_wheel-1
 GBS.......... Word_wheel-2
