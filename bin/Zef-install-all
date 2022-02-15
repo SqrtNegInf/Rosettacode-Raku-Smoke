@@ -10,18 +10,23 @@
 # for Digest::xxHash (and some similar dodges for other libraries, forget which ones):
 # ( cd /usr/local/lib; ln -s /opt/local/lib/libxxhash.0.8.0.dylib . )
 
-zef install p6doc;
+zef install rakudoc
+#zef install p6doc
 
 # needs to be done from git archive? (or it tries to use non-existant perl5.30.0 library)
 # zef --force-test --force-install install https://github.com/niner/Inline-Perl5.git
 #X zef --/test install Inline::Perl5
 #X  or: zef --exclude=perl install Inline::Perl5
 
+# 2022-02-14 worked?
+zef --exclude=perl install Inline::Perl5
+
 zef --/test install ArrayHash
 zef --/test install Audio::PortAudio
 zef --/test install Audio::Sndfile
 zef --/test install Digest::xxHash
 zef --/test install https://github.com/raku-community-modules/raku-GD.git
+zef --/test install GD::Raw
 zef --/test install Gumbo
 zef --/test install GTK::Simple
 zef --/test install HTTP::UserAgent
@@ -44,6 +49,7 @@ zef --/test install Pod::To::Markdown
 
 #zef install Crypt::Random
 
+zef install Acme::Text::UpsideDown
 zef install Base::Any
 zef install Bench
 zef install BigRoot
@@ -65,7 +71,6 @@ zef install File::Find
 zef install File::Which
 zef install File::Temp
 #zef install GD
-zef install GD::Raw
 zef install Geo::Hash
 zef install Gumbo
 zef install IO::Socket::SSL
@@ -76,7 +81,9 @@ zef install JSON::Tiny
 zef install LibXML
 zef install Linenoise
 zef install Lingua::EN::Numbers
+zef install Lingua::EN::Sentence
 zef install Log::Syslog::Native
+zef install MagickWand
 zef install Migration::RTtoGithub
 zef install NCurses
 zef install P5pack
@@ -88,14 +95,17 @@ zef install SDL2::Raw
 zef install Shell::Command
 zef install SVG
 zef install Sort::Naturally
+zef install String::Splice
 zef install Term::ReadKey
 zef install Term::termios
 zef install Terminal::ANSIColor
-zef install use Terminal::Boxer
+zef install Terminal::Boxer
 zef install Terminal::Caca;
 zef install Test::Output
-zef install use Text::Center;
+zef install Text::Center;
+zef install Text::Sorensen
 zef install Text::CSV
+zef install Text::Levenshtein
 zef install Text::Levenshtein::Damerau
 zef install TrigPi
 zef install URI
