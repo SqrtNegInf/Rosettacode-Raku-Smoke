@@ -1,13 +1,16 @@
+2022-02-15
+Not getting JVM installed with 'rakubrew'...
+(Moar had precomp issues, but a few 'kill -9' dealt with that)
+
 2022-02-14
 Replacing 'rakudobrew' with 'rakubrew', easy peasy, what could possibly wrong?
-Modules failed to install:
-    'rakudoc' 
-    default for Image::PNG::Portable changed, requiring explicit setting of 'alpha'
-    GD::Raw, so switch to '--/test' install
+    GD::Raw module failed to install, but a switch to '--/test' install is a work-around
+    'rakudoc': Failed test 'IO::MiddleMan' at t/04-compunit.t line 32
+    default for Image::PNG::Portable changed, requiring explicit setting of ':alpha(False)'
 
 2022-02-13
 Drifting further and further from RC in capitalization of tasks, oh well.
-'Data_Encryption_Standard' intermittently fails unless MVM_SPESH_DISABLE=1
+'Data_Encryption_Standard' intermittently fails unless MVM_SPESH_DISABLE=1 [p.s. appears to have resolved]
 
 2022-02-11
 Removed 'srand' setting from Sorting* tasks where the exact random content was not important 
