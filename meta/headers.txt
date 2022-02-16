@@ -2810,6 +2810,8 @@ File: C/Curzon_numbers
 #c# 2022-02-13 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A224486 main entry
+#n# OEIS:A230076 with base 4
 
 File: C/Curzon_numbers.jvm
 #!/usr/bin/env raku
@@ -2895,7 +2897,7 @@ File: D/Data_Encryption_Standard
 #c# 2019-03-22 <RC, 2020-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# 2022-02-13 intermittently fails unless MVM_SPESH_DISABLE=1
+#n# 2022-02-13 intermittently fails unless MVM_SPESH_DISABLE=1 [p.s. seems to be fixed by next day]
 #n# 2020-02-28 still not getting the '\r\n' to round-trip
 #n# 2019-10-25 for JVM: 4th encryption fails (but decrypt on proper string OK)
 #n# as much fun as that would be to debug, I'm just going to comment it out
