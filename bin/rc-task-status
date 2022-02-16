@@ -1,6 +1,7 @@
 #!/usr/local/bin/perl
 ## RC task status
 #c# 2018-03-12 ... 2020-08-16  oops, updating RC reports via 'curl' again
+#c# 2022-02-14 compile check was slowing things down (and 'Code-health' does the same job)
 
 use utf8;
 use warnings;
@@ -112,11 +113,12 @@ my($task,$header,@concur,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
     $header = `grep '^#[mjcft]#' $task`;
 
     $P{$p}{'M'} = $header =~ /MOAR:\s*OK/ ? 'G' : 'B';
-    $compiles = `$ENV{HOME}/.rakubrew/shims/raku -c $task 2>&1 1>/dev/null`;
+#   $compiles = `$ENV{HOME}/.rakubrew/shims/raku -c $task 2>&1 1>/dev/null`;
     $mout = "../bench/moar/$p.out";
     $P{$p}{'S'} = -e $mout ? 'S' : '.';
     $merr = (-e $mout) ? `grep STDERR $mout` : undef;
-    $P{$p}{'M'} = '!' if $compiles =~ /SORRY/ || ($P{$p}{'M'} eq 'G' && $merr);
+    $P{$p}{'M'} = '!' if                         ($P{$p}{'M'} eq 'G' && $merr);
+#   $P{$p}{'M'} = '!' if $compiles =~ /SORRY/ || ($P{$p}{'M'} eq 'G' && $merr);
 
     $P{$p}{'J'} = $header =~ /JVM:\s*OK/ ? 'G' : 'B';
     $jout = "../bench/jvm/$p.out";
