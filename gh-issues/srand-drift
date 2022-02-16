@@ -1,8 +1,17 @@
-raku -e 'srand 123456; say <A B C D>.roll(100).join'
-       CAACBCACDBBDBDDABAD 2021.10 drops 1
-      DCAACBCACDBBDBDDABAD 2021.04 drops 6
-DDABCCDCAACBCACDBBDBDDABAD 2020.12 completely different than before
-CCDABABCCDCBBCDABDDA       2020.11 baseline
+raku -e 'srand 123456; say <A B C D>.roll(102).join' # shift 71 steps between 2020.08 and 2021.10:
+CACCCACCACDABDCABAABADDBDDBDACCCBCAACACABDABACCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB    2020.08 baseline
+                                        BDABACCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.10 drops 40
+                                             CCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.11 drops  5
+                                                              DDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.12 drops 17
+                                                                    DCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2021.04 drops  6
+                                                                     CAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2021.10 drops  1
+
+
+raku -e 'srand 42; say <A B C D>.roll(200).join' # similar: 69 steps, then back in alignment:
+BCDACACDBADCABACBADCACADBACBABDCBBDCDACCDCADCAACCBAADCCDDABCDBAACDDDCAACCDACABDBDCCADABCBDAABBCADDC... 2020.08
+                                                                     AACCDACABDBDCCADABCBDAABBCADDC... 2020.10
+
+===============
 
 2022-02-03
 srand drift hit 'Bioinformatics_Sequence_mutation' just a week after output was 'fixed'
