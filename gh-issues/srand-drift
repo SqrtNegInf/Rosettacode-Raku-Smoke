@@ -1,3 +1,9 @@
+raku -e 'srand 123456; say <A B C D>.roll(100).join'
+       CAACBCACDBBDBDDABAD 2021.10 drops 1
+      DCAACBCACDBBDBDDABAD 2021.04 drops 6
+DDABCCDCAACBCACDBBDBDDABAD 2020.12 completely different than before
+CCDABABCCDCBBCDABDDA       2020.11 baseline
+
 2022-02-03
 srand drift hit 'Bioinformatics_Sequence_mutation' just a week after output was 'fixed'
 
