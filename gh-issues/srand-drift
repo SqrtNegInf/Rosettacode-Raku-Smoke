@@ -1,15 +1,15 @@
-raku -e 'srand 123456; say <A B C D>.roll(102).join' # shift 71 steps between 2020.08 and 2021.10:
-CACCCACCACDABDCABAABADDBDDBDACCCBCAACACABDABACCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB    2020.08 baseline
-                                        BDABACCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.10 drops 40
-                                             CCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.11 drops  5
-                                                              DDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.12 drops 17
-                                                                    DCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2021.04 drops  6
-                                                                     CAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2021.10 drops  1
+raku -e 'srand 123456; say <A B C D>.roll(200).join' # shifts 69 steps between 2020.08 and 2021.10:
+CACCCACCACDABDCABAABADDBDDBDACCCBCAACACABDABACCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.08 baseline
+                                        BDABACCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.10 shifts 40
+                                             CCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.11 shifts  5
+                                                              DDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.12 shifts 17
+                                                                    DCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2021.04 shifts  6
+                                                                     CAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2021.10 shifts  1
 
 
-raku -e 'srand 42; say <A B C D>.roll(200).join' # similar: 69 steps, then back in alignment:
-BCDACACDBADCABACBADCACADBACBABDCBBDCDACCDCADCAACCBAADCCDDABCDBAACDDDCAACCDACABDBDCCADABCBDAABBCADDC... 2020.08
-                                                                     AACCDACABDBDCCADABCBDAABBCADDC... 2020.10
+raku -e 'srand 42; say <A B C D>.roll(200).join' # likewise, shifts 69 steps over the same span of releases:
+BCDACACDBADCABACBADCACADBACBABDCBBDCDACCDCADCAACCBAADCCDDABCDBAACDDDCAACCDACABDBDCCADABCBDAABBCADDCBDB... 2020.08
+                                                                     AACCDACABDBDCCADABCBDAABBCADDCBDB... 2021.10
 
 ===============
 
@@ -32,7 +32,7 @@ Likely srand drift on 'Long_stairs' results, updated again.
 'srand' drift for 'Long_stairs', changed output to match
 
 2021-11-10
-'srand' variability, these tasks sometimes work, sometomes don't
+'srand' variability, these tasks sometimes work, sometimes don't
 Rock-paper-scissors
 Dutch_national_flag_problem
 
