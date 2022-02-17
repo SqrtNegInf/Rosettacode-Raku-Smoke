@@ -1,9 +1,9 @@
-Welcome to Rakudo™ v2022.02-37-g2ed885238.
+Welcome to Rakudo™ v2022.02-62-g5caf7aafa.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.02-1-g0539ead63.
 updating from RC…
-+--------------> Moar: Good/Bad [1429/25]
-|+-------------> JVM: Good/Bad [1216/312]
++--------------> Moar: Good/Bad [1430/25]
+|+-------------> JVM: Good/Bad [1217/312]
 ||+------------> Smoke testing [1374]
 |||+-----------> sKipping validation [143]
 ||||+----------> Interactive [65]
@@ -11,10 +11,10 @@ updating from RC…
 ||||||+--------> Concurrent/Async [93]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [361]
-||||||||||+----> Ignoring [40]
+|||||||||+-----> Draft [362]
+||||||||||+----> Ignoring [41]
 |||||||||||+---> Void (no local copy) [96]
-||||||||||||+--> Un-implemented/reliable [50]
+||||||||||||+--> Un-implemented/reliable [49]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -1250,6 +1250,8 @@ GGS.......... Scope_Function_names_and_labels
 GG.K......... Scope_modifiers
 GGS.......... Search_a_list
 GGS..T....... Search_a_list_of_records
+..........X.. Search_in_paragraph
+.........D.V. Search_in_paragraph%27s_text
 GGS.......... Secure_temporary_file
 .........DXV. Segmentation_fault_protection
 GGS......D... Selective_file_copy
@@ -1627,7 +1629,7 @@ GGS.......... Word_wheel-1
 GBS.......... Word_wheel-2
 GGS.......... Word_wrap
 GBS...C...... Wordiff
-.........D.VU Wordle_comparison
+GG.......D... Wordle_comparison
 GGS......D... Words_containing_%22the%22_substring
 GGS......D... Words_from_neighbour_ones
 GGS..T....... World_Cup_group_stage
