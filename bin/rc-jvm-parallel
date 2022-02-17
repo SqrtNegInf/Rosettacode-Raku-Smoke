@@ -42,7 +42,7 @@ $mode = $0 =~ /moar/i ? 'moar' : 'jvm';
 my $shim = $mode eq 'moar' ?  '-blead' : '-2021.12';
 system "rakubrew switch $mode${shim}";
 
-chdir "$ENV{HOME}/raku/Rosetta-Code" || die;
+chdir "$ENV{HOME}/perl6/Rosetta-Code" || die;
 
 $dir = `date '+%Y-%m-%d'`; chomp $dir;
 $dir .= $mode eq 'jvm' ? '-j' : '-m';
