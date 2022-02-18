@@ -1,0 +1,35 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Matrix_with_two_diagonals
+#c# 2022-02-17 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub dual-diagonal($n) { ([1, |(0 xx $n-1)], *.rotate(-1) … *[*-1]).map: { [$_ Z|| .reverse] } }
+
+@res.push: $_ for dual-diagonal(6);
+@res.push: '';
+@res.push: $_ for dual-diagonal(7);
+
+.say for @res;
+
+my $ref = q:to/END/;
+1 0 0 0 0 1
+0 1 0 0 1 0
+0 0 1 1 0 0
+0 0 1 1 0 0
+0 1 0 0 1 0
+1 0 0 0 0 1
+
+1 0 0 0 0 0 1
+0 1 0 0 0 1 0
+0 0 1 0 1 0 0
+0 0 0 1 0 0 0
+0 0 1 0 1 0 0
+0 1 0 0 0 1 0
+1 0 0 0 0 0 1
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
