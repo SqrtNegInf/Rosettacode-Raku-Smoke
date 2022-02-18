@@ -4,16 +4,16 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: rakudo version 2015-09-15
 sub identity-matrix($n) {
     my @id;
     for flat ^$n X ^$n -> $i, $j {
-        @id[$i][$j] = +($i == $j);
+        #@id[$i][$j] = +($i == $j); # on RC
+        @id[$i][$j] += $i == $j;
     }
     @id;
 }
 
-.say for identity-matrix(5);
+#.say for identity-matrix(5);
 
 my @res1.push: $_ for identity-matrix(5);
 .say for @res1;
