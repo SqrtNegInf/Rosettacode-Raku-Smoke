@@ -1,34 +1,31 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Wordle_comparison
-#c# 2022-02-16 <RC
+#c# 2022-02-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 my @res;
 
-sub wordle ($answer,$guess where [==] ($answer,$guess)>>.chars ) {
-   my %answer = $answer.comb.pairs;
-   my %guess  = $guess.comb.pairs;
-   my @return;
+sub wordle (\answer,\guess where [==] (answer,guess)».chars ) {
  
-   for %guess -> \trial { # pair 
-      if %answer{trial.key} eq trial.value {
-         @return[trial.key] = 'green';
-         given trial.key { %answer{$_}:delete; %guess{$_}:delete }
-      }
+   my ($aSet, $gSet, @return) = (answer,guess)».&{ (set .comb.pairs).SetHash };
+ 
+   for ($aSet ∩ $gSet).keys -> \common { # pair 
+      @return[common.key] = 'green';
+      ($aSet,$gSet)».&{ .{common}:delete }
    }
  
-   for %guess.keys.sort -> \trial { # numeric pos 
-      @return[trial] = 'grey';
-      for %answer -> \actual { # pair
-         if %guess{trial} eq actual.value {
-            @return[trial] = 'yellow';
-            %answer{actual.key}:delete;  
-            last;
+   for $gSet.keys.sort -> \trial { # pair 
+      @return[trial.key] = 'grey';
+      for $aSet.keys -> \actual { # pair
+         if [eq] (trial,actual)».value {
+            @return[trial.key] = 'yellow'; 
+            $aSet{actual}:delete;
+            last
          }
       }
    }
-   @return;
+   @return
 }
 
 @res.push: .[0] ~ ' vs ' ~ .[1] ~ ' ' ~ wordle .[0],.[1] 
