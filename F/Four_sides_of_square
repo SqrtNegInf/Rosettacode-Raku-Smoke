@@ -1,0 +1,40 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Four_sides_of_square
+#c# 2022-02-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub hollow ($n) { [1 xx $n], |(0 ^..^ $n).map( { [flat 1, 0 xx $n - 2, 1] } ), [1 xx $n] }
+
+@res.push: $_ for hollow 7;
+@res.push: '';
+@res.push: $_ for hollow 10;
+
+.say for @res;
+my $ref = q:to/END/;
+1 1 1 1 1 1 1
+1 0 0 0 0 0 1
+1 0 0 0 0 0 1
+1 0 0 0 0 0 1
+1 0 0 0 0 0 1
+1 0 0 0 0 0 1
+1 0 0 0 0 0 1
+1 1 1 1 1 1 1
+
+1 1 1 1 1 1 1 1 1 1
+1 0 0 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 0 1
+1 1 1 1 1 1 1 1 1 1
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
