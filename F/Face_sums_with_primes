@@ -8,22 +8,36 @@
 
 my @primes = (^100).grep(*.is-prime).skip(1);
 
-my @faces = (0, 1, 2, 3), (0, 3, 7, 4), (0, 4, 5, 1), (1, 2, 6, 5), (2, 3, 7, 6), (6, 7, 4, 5);
-say my $vertices = 1 + [max] @faces.map:{ .max };
+my @faces = (0, 1, 2, 3), (0, 3, 7, 4), (0, 4, 5, 1), (1, 2, 6, 5), (2, 3, 7, 6), (4, 5, 6, 7);
+my $vertices = 1 + [max] @faces.map:{ .max };
 #say my $vertices = 1 + [max] gather @faces.deepmap: { take max @$_ };
 
 my @perms = (^$vertices).permutations;
 
-for ($vertices..∞) {
-    @primes[0..$_].combinations($vertices).race(:1batch).map: -> @candidates {
-        face-sums @candidates;
+my %seen;
+for $vertices..$vertices+2 { # #∞) {
+    @primes[^$_].combinations($vertices).race(:8degree, :1batch).map: -> @candidates {
+        face-sums @candidates unless %seen{ @candidates.sort.join(' ') }++;
     }
 }
+
+# .&face-sums for @primes[^$vertices+2].combinations($vertices); # no concurrency
 
 sub face-sums (@primes-to-test) {
     #for (^$vertices).permutations -> @p  { # little slower
     for @perms -> @p  {
         next unless [==] map { [+] (@primes-to-test[@p])[@$_] }, @faces;
-        die "WOO! " ~ @p Z @primes-to-test[@p];
+        say ([+] (@primes-to-test[@p])[|@faces[0]]) ~ ': ' ~ join ' ', @primes-to-test[@p];
+        #say @$_.join(':') ~ ' with ' ~ join '+', (@primes-to-test[@p])[@$_] for @faces; say ' ';
+        return;
     }
 }
+
+=finish
+
+491.07s user 14.83s system 358% cpu 2:21.17 total 
+485.84s user 13.79s system 321% cpu 2:35.52 total
+
+514.08s user 14.33s system 343% cpu 2:33.70 total
+
+367.83s user 8.80s system   88% cpu 7:07.31 total
