@@ -15,8 +15,8 @@ my $vertices = 1 + [max] @faces.map:{ .max };
 my @perms = (^$vertices).permutations;
 
 my %seen;
-for $vertices..$vertices+2 { # #∞) {
-    @primes[^$_].combinations($vertices).race(:8degree, :1batch).map: -> @candidates {
+for $vertices..∞ {
+    @primes[^$_].combinations($vertices).race(:7degree, :1batch).map: -> @candidates {
         face-sums @candidates unless %seen{ @candidates.sort.join(' ') }++;
     }
 }
