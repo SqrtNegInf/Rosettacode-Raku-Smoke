@@ -1,6 +1,6 @@
-Welcome to Rakudo™ v2022.02-76-g451ad0ea6.
+Welcome to Rakudo™ v2022.02-78-gd53b3ee83.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2022.02-3-g420b68f06.
+Built on MoarVM version 2022.02-5-gec9fcaae2.
 updating from RC…
 +--------------> Moar: Good/Bad [1433/26]
 |+-------------> JVM: Good/Bad [1220/313]
@@ -11,9 +11,9 @@ updating from RC…
 ||||||+--------> Concurrent/Async [93]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [364]
+|||||||||+-----> Draft [366]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [95]
+|||||||||||+---> Void (no local copy) [97]
 ||||||||||||+--> Un-implemented/reliable [49]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -173,6 +173,7 @@ GGS..T....... Brace_expansion
 GBS......D... Brace_expansion_using_ranges
 GBS..TC...... Brazilian_numbers
 GGS.......... Break_OO_privacy
+.........D.V. Brilliant_numbers
 GG.K.T.RF.... Brownian_tree
 GGS....R..... Bulls_and_cows
 GGS..T.R..... Bulls_and_cows_Player
@@ -244,6 +245,7 @@ GB.KIT....... Color_of_a_screen_pixel
 BB........... Color_of_a_screen_pixel-2
 GBS.......... Color_quantization
 GBS...C.F.... Color_wheel
+.........D.V. Colorful_numbers
 GGS..T..F.... Colour_bars_Display
 GGS..T..F.... Colour_pinstripe_Display
 GBS.....F.... Colour_pinstripe_Printer
@@ -933,7 +935,7 @@ GGS......D... Next_special_primes
 GGS..T...D... Nice_primes
 GGS.......... Nice_primes-2
 GGS.......... Nim_game
-GGS.......... Nimber_arithmetic
+GGS......D... Nimber_arithmetic
 GGS..T....... Non-continuous_subsequences
 GGS.......... Non-decimal_radices_Convert
 GGS.......... Non-decimal_radices_Input
@@ -1253,7 +1255,7 @@ GGS.......... Scope_Function_names_and_labels
 GG.K......... Scope_modifiers
 GGS.......... Search_a_list
 GGS..T....... Search_a_list_of_records
-BB.K.....D... Search_in_paragraph%27s_text
+BB.K......... Search_in_paragraph%27s_text
 GGS.......... Secure_temporary_file
 .........DXV. Segmentation_fault_protection
 GGS......D... Selective_file_copy
