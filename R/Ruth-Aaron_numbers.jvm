@@ -1,0 +1,48 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Ruth-Aaron_numbers
+#c# 2022-01-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A006145 - Ruth-Aaron numbers (1): sum of prime divisors of n = sum of prime divisors of n+1
+#n# OEIS:A039752 - Ruth-Aaron numbers (2): sum of prime divisors of n = sum of prime divisors of n+1 (both taken with multiplicity)
+
+my @res;
+
+use Prime::Factor;
+
+my @pf  = lazy (^∞).map: *.&prime-factors.sum;
+my @upf = lazy (^∞).map: *.&prime-factors.unique.sum;
+
+# Task: < 1 second
+@res.push: "First 10 Ruth-Aaron numbers (Factors):\n" ~
+(1..∞).grep( { @pf[$_] == @pf[$_ + 1] } )[^10];
+
+@res.push: "\nFirst 10 Ruth-Aaron numbers (Divisors):\n" ~
+(1..∞).grep( { @upf[$_] == @upf[$_ + 1] } )[^10];
+
+# Stretch: ~ 5 seconds
+@res.push: "\nFirst Ruth-Aaron triple (Factors):\n" ~
+(1..∞).first: { @pf[$_] == @pf[$_ + 1] == @pf[$_ + 2] }
+
+# Really, really, _really_ slow. Gave up on it after 30 minutes
+#put "\nFirst Ruth-Aaron triple (Divisors):\n" ~
+#(1..∞).first: { @upf[$_] == @upf[$_ + 1] == @upf[$_ + 2] }
+
+.say for @res;
+
+my $ref = q:to/END/;
+First 10 Ruth-Aaron numbers (Factors):
+5 8 15 77 125 714 948 1330 1520 1862
+
+First 10 Ruth-Aaron numbers (Divisors):
+5 24 49 77 104 153 369 492 714 1682
+
+First Ruth-Aaron triple (Factors):
+417162
+END
+
+#First Ruth-Aaron triple (Divisors):
+#89460294
+
+use Test;
+is @res.join("\n"), chomp $ref;
