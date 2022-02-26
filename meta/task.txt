@@ -2,18 +2,18 @@ Welcome to Rakudo™ v2022.02-80-g68a43f9dc.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.02-5-gec9fcaae2.
 updating from RC…
-+--------------> Moar: Good/Bad [1433/26]
-|+-------------> JVM: Good/Bad [1220/313]
-||+------------> Smoke testing [1378]
++--------------> Moar: Good/Bad [1437/26]
+|+-------------> JVM: Good/Bad [1232/305]
+||+------------> Smoke testing [1382]
 |||+-----------> sKipping validation [144]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [365]
-||||||+--------> Concurrent/Async [93]
+||||||+--------> Concurrent/Async [98]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [367]
+|||||||||+-----> Draft [368]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [98]
+|||||||||||+---> Void (no local copy) [95]
 ||||||||||||+--> Un-implemented/reliable [49]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -49,6 +49,7 @@ GGS.......... Abstract_type
 GGS..T....... Abundant,_deficient_and_perfect_number_classifications
 GBS..TC...... Abundant_odd_numbers
 GGS.......... Accumulator_factory
+GBS...C..D... Achilles_numbers
 GGS.......... Ackermann_function
 GB.K......... Active_Directory_Connect
 BB........... Active_Directory_Search_for_a_user
@@ -173,7 +174,7 @@ GGS..T....... Brace_expansion
 GBS......D... Brace_expansion_using_ranges
 GBS..TC...... Brazilian_numbers
 GGS.......... Break_OO_privacy
-.........D.V. Brilliant_numbers
+GBS...C..D... Brilliant_numbers
 GG.K.T.RF.... Brownian_tree
 GGS....R..... Bulls_and_cows
 GGS..T.R..... Bulls_and_cows_Player
@@ -245,7 +246,7 @@ GB.KIT....... Color_of_a_screen_pixel
 BB........... Color_of_a_screen_pixel-2
 GBS.......... Color_quantization
 GBS...C.F.... Color_wheel
-.........D.V. Colorful_numbers
+GBS...C..D... Colorful_numbers
 GGS..T..F.... Colour_bars_Display
 GGS..T..F.... Colour_pinstripe_Display
 GBS.....F.... Colour_pinstripe_Printer
@@ -400,7 +401,7 @@ GB.KIT....... Draw_a_rotating_cube
 GGS..TC.F.... Draw_a_sphere-1
 GBS.....F.... Draw_a_sphere-2
 GB.KI....D... Draw_pixel_2
-.........D.V. Duffinian_numbers
+GBS...C..D... Duffinian_numbers
 !GS..T.R..... Dutch_national_flag_problem
 GGS.......... Dynamic_variable_names
 GGS.......... EKG_sequence_convergence
@@ -432,7 +433,7 @@ GBS......D... Erdos-primes
 GBS.......... Esthetic_numbers
 GGS.......... Ethiopian_multiplication
 .........D... Euclid-Mullin_sequence
-GBS.......... Euclid-Mullin_sequence-1
+GGS.......... Euclid-Mullin_sequence-1
 BB........... Euclid-Mullin_sequence-2
 GBS...C...... Euler%27s_constant_0.5772...
 GGS.......... Euler%27s_identity
@@ -634,7 +635,7 @@ GGS..Tc...... Hofstadter-Conway_10,000_sequence
 GGS.......... Hofstadter_Figure-Figure_sequences
 GGS..T....... Hofstadter_Q_sequence
 GGS.......... Holidays_related_to_Easter
-GBS......D... Home_primes
+GGS......D... Home_primes
 ...........VU Honeycombs
 GGS.......... Horizontal_sundial_calculations
 GGS.......... Horner%27s_rule_for_polynomial_evaluation
@@ -741,16 +742,16 @@ GGS....R.D... Largest_five_adjacent_number
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
 .........D... Largest_palindrome_product
-GBS.......... Largest_palindrome_product-1
-GBS...c...... Largest_palindrome_product-2
+GGS.......... Largest_palindrome_product-1
+GGS...c...... Largest_palindrome_product-2
 GBS.......... Largest_palindrome_product-3
 .........D... Largest_prime_factor
-GBS.......... Largest_prime_factor-1
+GGS.......... Largest_prime_factor-1
 GBS.......... Largest_prime_factor-2
 GGS.......... Largest_prime_factor-3
 GGS......D... Largest_product_in_a_grid
 GGS.......... Largest_product_in_a_grid-2
-GBS...c...... Largest_proper_divisor_of_n
+GBS...C...... Largest_proper_divisor_of_n
 GGS.......... Last_Friday_of_each_month
 GG.K.T.R..... Last_letter-first_letter
 GGS......D... Last_list_item
@@ -903,7 +904,7 @@ GGS......D... Multiline_shebang
 GGS.......... Multiple_distinct_objects
 GB.K......... Multiple_regression
 GGS.......... Multiplication_tables
-GBS..T....... Multiplicative_order
+GGS..T....... Multiplicative_order
 GGS..T....... Multisplit
 GBS......D... Multiton
 GGS.......... Munchausen_numbers
@@ -1118,7 +1119,7 @@ GGS.......... Priority_queue
 !GS....R..... Probabilistic_choice
 GBS..T....... Problem_of_Apollonius
 GB.K....FD... Process_SMIL_directives_in_XML_data
-GBS......D... Product_of_divisors
+GGS......D... Product_of_divisors
 GGS..T....... Program_name
 GG.K......... Program_termination
 .........D.V. Proof
@@ -1314,7 +1315,7 @@ GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
 !BS....R..... Sleeping_Beauty_problem
 GGS..T...D... Smallest_enclosing_circle_problem
-GBS......D... Smallest_multiple
+GGS......D... Smallest_multiple
 GBS...C..D... Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k
 GGS......D... Smallest_numbers
 GGS......D... Smallest_power_of_6_whose_decimal_expansion_contains_n
@@ -1373,7 +1374,7 @@ GGS..T....... Sorting_algorithms_Strand_sort
 GGS.......... Soundex
 GGS.......... Sparkline_in_unicode
 GG.K......... Special_characters
-GBS......D... Special_divisors
+GGS......D... Special_divisors
 GGS......D... Special_factorials
 GGS......D... Special_neighbor_primes
 GGS......D... Special_pythagorean_triplet
@@ -1442,7 +1443,7 @@ GGS......D... Sum_data_type
 GGS.......... Sum_digits_of_an_integer
 GGS.......... Sum_multiples_of_3_and_5
 GGS..T....... Sum_of_a_series
-GBS......D... Sum_of_divisors
+GGS......D... Sum_of_divisors
 GGS.......... Sum_of_elements_below_main_diagonal_of_matrix
 GGS......D... Sum_of_first_n_cubes
 GGS..T...D... Sum_of_primes_in_odd_positions_is_prime
@@ -1472,8 +1473,8 @@ GB.K......... Table_creation_Postal_addresses
 GGS.....F.... Take_notes_on_the_command_line
 .........D.VU Tamagotchi_emulator
 GGS.......... Tarjan
-GBS.......... Tau_function
-GBS.......... Tau_number
+GGS.......... Tau_function
+GGS.......... Tau_number
 GGS.....F.... Taxicab_numbers
 GGS.......... Teacup_rim_text
 GGS.......... Temperature_conversion
