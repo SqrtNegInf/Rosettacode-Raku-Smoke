@@ -371,6 +371,21 @@ File: A/Accumulator_factory
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: A/Achilles_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Achilles_numbers
+#c# 2022-02-25 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: A/Achilles_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Achilles_numbers
+#c# 2022-02-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# drop Unicode variable name
+
 File: A/Ackermann_function
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Ackermann_function
@@ -1548,6 +1563,20 @@ File: B/Break_OO_privacy
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: B/Brilliant_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Brilliant_numbers
+#c# 2022-02-24 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: B/Brilliant_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Brilliant_numbers
+#c# 2022-02-24 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: B/Brownian_tree
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brownian_tree
@@ -2193,6 +2222,23 @@ File: C/Color_wheel.2
 #j#  JVM: OK
 #f# RC file: color-wheel-perl6.png
 
+File: C/Colorful_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Colorful_numbers
+#c# 2022-02-24 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: C/Colorful_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Colorful_numbers
+#c# 2022-02-24 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# fixable?
+#n# Method 'rep' not found for invocant of class 'Range'
+#n#  in block <unit> at C/Colorful_numbers.jvm line 22
+
 File: C/Colour_bars_Display
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Colour_bars/Display
@@ -2425,6 +2471,14 @@ File: C/Composite_numbers_k_with_no_single_digit_factors_whose_factors_are_all_s
 #c# 2022-01-19 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# works fine, but limit testing as a bit slow...
+
+File: C/Composite_numbers_k_with_no_single_digit_factors_whose_factors_are_all_substrings_of_k.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Composite_numbers_k_with_no_single_digit_factors_whose_factors_are_all_substrings_of_k
+#c# 2022-01-19 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 #n# works fine, but limit testing as a bit slow...
 
 File: C/Compound_data_type
@@ -3565,6 +3619,23 @@ File: D/Draw_pixel_2
 #j# JVM:  BROKEN
 #n# sort-of works, draws on 2nd screen, top of window cut off
 
+File: D/Duffinian_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Duffinian_numbers
+#c# 2022-02-24 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# OEIS:A003624
+
+File: D/Duffinian_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Duffinian_numbers
+#c# 2022-02-24 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A003624
+#n# reduced testing on account of woefull speed...
+
 File: D/Dutch_national_flag_problem
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Dutch_national_flag_problem
@@ -3885,7 +3956,7 @@ File: E/Euclid-Mullin_sequence-1
 #u# http://rosettacode.org/wiki/Euclid-Mullin_sequence
 #c# 2021-10-28 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN OK
+#j# JVM:  OK
 #n# for 16:   2.21s user 0.20s system 116% cpu    2.08 total
 #n# for 17: 261.60s user 7.07s system  99% cpu 4:28.85 total
 #n# OEIS:A000945 
@@ -5890,7 +5961,7 @@ File: H/Home_primes
 #u# http://rosettacode.org/wiki/Home_primes
 #c# 2021-05-24 <RC, 2021-05-28 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# not testing HP49, removed timing code
 #n# OEIS:A037274 - Home primes for n >= 2
 
@@ -6879,14 +6950,14 @@ File: L/Largest_palindrome_product-1
 #u# http://rosettacode.org/wiki/Largest_palindrome_product
 #c# 2021-11-03 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: L/Largest_palindrome_product-2
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Largest_palindrome_product
 #c# 2021-11-03 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: L/Largest_palindrome_product-3
 #!/usr/bin/env raku
@@ -6901,7 +6972,7 @@ File: L/Largest_prime_factor-1
 #u# http://rosettacode.org/wiki/Largest_prime_factor
 #c# 2021-11-02 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# native version (not partcularly fast)
 
 File: L/Largest_prime_factor-2
@@ -6942,8 +7013,15 @@ File: L/Largest_proper_divisor_of_n
 #c# 2021-06-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# 2021-10-01 new-disp concurrency problem? MoarVM oops: MVM_str_hash_lvalue_fetch_nocheck called concurrently on the same hash
-#n#            test without concurrency
+#n# 2021-10-01 new-disp concurrency problem? MoarVM oops: MVM_str_hash_lvalue_fetch_nocheck called concurrently on the same hash [resolved]
+#n# OEIS:A032742 
+
+File: L/Largest_proper_divisor_of_n.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Largest_proper_divisor_of_n
+#c# 2021-06-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 #n# OEIS:A032742 
 
 File: L/Last_Friday_of_each_month
@@ -8440,7 +8518,7 @@ File: M/Multiplicative_order
 #u# http://rosettacode.org/wiki/Multiplicative_order
 #c# 2016-02-17 <>RC, 2018-03-14 <RC, 2021-05-30 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: M/Multiplicative_order.1
 #!/usr/bin/env perl6
@@ -8907,7 +8985,7 @@ File: N/Numbers_which_count_of_divisors_is_prime
 #u# http://rosettacode.org/wiki/Numbers_which_count_of_divisors_is_prime
 #c# 2021-07-12 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: N/Numbers_with_prime_digits_whose_sum_is_13
 #!/usr/bin/env raku
@@ -10123,7 +10201,7 @@ File: P/Piprimes
 File: P/Pisano_period
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pisano_period
-#c# 2020-03-03 <RC, 2020-03-06
+#c# 2020-03-03 <RC, 2020-03-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -10310,6 +10388,15 @@ File: P/Practical_numbers
 #n# for some inputs with many factors, glacial... (but doesn't hog memory)
 #n# OEIS:A005153
 
+File: P/Practical_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Practical_numbers
+#c# 2021-03-30 <RC, 2021-03-31 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# for some inputs with many factors, glacial... (but doesn't hog memory)
+#n# OEIS:A005153
+
 File: P/Pragmatic_directives
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pragmatic_directives
@@ -10387,7 +10474,6 @@ File: P/Prime_decomposition
 #c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC, 2018-11-15 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# for JVM: use .1 version
 #n# 2018-11-15 thundergnat++ ekes out a little boost with race(:1batch)
 #n# 2018-11-03 no benefit with 'race' here
 #n# 2018-08-22 Inline::Perl5 version works fine (and fast) but clobbers JVM
@@ -10399,14 +10485,6 @@ File: P/Prime_decomposition-1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-File: P/Prime_decomposition.1
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Prime_decomposition
-#c# 2016-06-28 <RC
-#m# MOAR: OK
-#j#  JVM: OK
-
 File: P/Prime_decomposition.2
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
@@ -10414,6 +10492,13 @@ File: P/Prime_decomposition.2
 #c# 2015-11-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: P/Prime_decomposition.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Prime_decomposition
+#c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: P/Prime_numbers_which_contain_123
 #!/usr/bin/env raku
@@ -10597,7 +10682,7 @@ File: P/Product_of_divisors
 #u# http://rosettacode.org/wiki/Product_of_divisors
 #c# 2020-12-20 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# OEIS:A000005
 
 File: P/Program_name
@@ -11660,6 +11745,15 @@ File: R/Ruth-Aaron_numbers
 #n# OEIS:A006145 - Ruth-Aaron numbers (1): sum of prime divisors of n = sum of prime divisors of n+1
 #n# OEIS:A039752 - Ruth-Aaron numbers (2): sum of prime divisors of n = sum of prime divisors of n+1 (both taken with multiplicity)
 
+File: R/Ruth-Aaron_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Ruth-Aaron_numbers
+#c# 2022-01-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A006145 - Ruth-Aaron numbers (1): sum of prime divisors of n = sum of prime divisors of n+1
+#n# OEIS:A039752 - Ruth-Aaron numbers (2): sum of prime divisors of n = sum of prime divisors of n+1 (both taken with multiplicity)
+
 File: S/S-Expressions
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/S-Expressions
@@ -12382,8 +12476,7 @@ File: S/Smallest_multiple
 #u# http://rosettacode.org/wiki/Smallest_multiple
 #c# 2021-10-21 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# JVM works with built-in of course...
+#j# JVM:  OK
 
 File: S/Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k
 #!/usr/bin/env raku
@@ -12831,7 +12924,7 @@ File: S/Special_Divisors
 #u# http://rosettacode.org/wiki/Special_Divisors
 #c# 2021-03-30 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: S/Special_Pythagorean_Triplet
 #!/usr/bin/env raku
@@ -13543,7 +13636,7 @@ File: S/Sum_of_divisors
 #u# http://rosettacode.org/wiki/Product_of_divisors
 #c# 2020-12-20 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# OEIS:A000005
 
 File: S/Sum_of_elements_below_main_diagonal_of_matrix
@@ -13834,7 +13927,7 @@ File: T/Tau_function
 #u# http://rosettacode.org/wiki/Product_of_divisors
 #c# 2020-12-20 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# OEIS:A000005
 
 File: T/Tau_number
@@ -13845,7 +13938,7 @@ File: T/Tau_number
 #u# http://rosettacode.org/wiki/Product_of_divisors
 #c# 2020-12-20 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# OEIS:A000005
 
 File: T/Taxicab_numbers
@@ -15261,6 +15354,7 @@ File: W/Wordle_comparison
 #c# 2022-02-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-02-25 not bothering with Unicode look-a-like issues
 
 File: W/Words_containing_%22the%22_substring
 #!/usr/bin/env raku
