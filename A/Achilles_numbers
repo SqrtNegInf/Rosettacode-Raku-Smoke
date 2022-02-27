@@ -3,47 +3,21 @@
 #c# 2022-02-25 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2022-02-26: extra digits predictably slow
+#n# OEIS:A052486 Achilles numbers - powerful but imperfect numbers
+#n# OEIS:A194085 Strong Achilles numbers: Achilles numbers m such that phi(m) is also an Achilles number
 
 my @res;
 
-=pod
-An Achilles number is a number that is powerful but imperfect. Named after Achilles, a hero of the Trojan war, who was also powerful but imperfect.
-.
-A positive integer n is a powerful number if, for every prime factor p of n, p2 is also a divisor.
-In other words, every prime factor appears at least squared in the factorization.
-All Achilles numbers are powerful. However, not all powerful numbers are Achilles numbers: only those that cannot be represented as mk, where m and k are positive integers greater than 1.
-.
-A strong Achilles number is an Achilles number whose Euler totient (𝜑) is also an Achilles number.
-.
-E.G.
-108 is a powerful number. Its prime factorization is 22 × 33, and thus its prime factors are 2 and 3. Both 22 = 4 and 32 = 9 are divisors of 108. However, 108 cannot be represented as mk, where m and k are positive integers greater than 1, so 108 is an Achilles number.
-360 is not an Achilles number because it is not powerful. One of its prime factors is 5 but 360 is not divisible by 52 = 25.
-Finally, 784 is not an Achilles number. It is a powerful number, because not only are 2 and 7 its only prime factors, but also 22 = 4 and 72 = 49 are divisors of it. Nonetheless, it is a perfect power; its square root is an even integer, so it is not an Achilles number.
-.
-500 = 22 × 53 is a strong Achilles number as its Euler totient, 𝜑(500), is 200 = 23 × 52 which is also an Achilles number.
-.
-Task
- Find and show the first 50 Achilles numbers.
- Find and show at least the first 20 strong Achilles numbers.
- For at least 2 through 5, show the count of Achilles numbers with that many digits.
-.
-See also
- Wikipedia: Achilles number
- OEIS:A052486 - Achilles numbers - powerful but imperfect numbers
- OEIS:A194085 - Strong Achilles numbers: Achilles numbers m such that phi(m) is also an Achilles number
- Related task: Powerful numbers
- Related task: Totient function
-=done
-
 use Prime::Factor;
 use Math::Root;
-
+ 
 sub is-square-free (Int \n) {
     constant @p = ^100 .map: { next unless .is-prime; .² };
     for @p -> \p { return False if n %% p }
     True
 }
-
+ 
 sub powerful (\n, \k = 2) {
     my @p;
     p(1, 2×k - 1);
@@ -59,29 +33,24 @@ sub powerful (\n, \k = 2) {
     }
     @p
 }
-
-my @achilles = powerful(10**5).sort.hyper.grep: {
-    my $f = .&prime-factors.Bag;
-    (+$f.keys > 1) && (1 == [gcd] $f.values) && (.sqrt.Int² !== $_)
-};
-
-my \𝜑 = 0, |(1..*).hyper.map: -> \t { t × [×] t.&prime-factors.squish.map: { 1 - 1/$_ } }
-
-my %ps = Set.new: @achilles;
-
-my @strong = @achilles.grep: { ?%ps{𝜑[$_]} };
-
-@res.push: "First 50 Achilles numbers:";
-@res.push: @achilles[^50].batch(10)».fmt("%4d").join("\n");
-
-@res.push: "\nFirst 30 strong Achilles numbers:";
-@res.push:   @strong[^30].batch(10)».fmt("%5d").join("\n");
-
+ 
 my $achilles = powerful(10**9).hyper(:500batch).grep( {
     my $f = .&prime-factors.Bag;
     (+$f.keys > 1) && (1 == [gcd] $f.values) && (.sqrt.Int² !== $_)
 } ).classify: { .chars }
-
+ 
+my \𝜑 = 0, |(1..*).hyper.map: -> \t { t × [×] t.&prime-factors.squish.map: { 1 - 1/$_ } }
+ 
+my %as = Set.new: flat $achilles.values».list;
+ 
+my $strong = lazy (flat $achilles.sort».value».list».sort).grep: { ?%as{𝜑[$_]} };
+ 
+@res.push: "First 50 Achilles numbers:";
+@res.push: (flat $achilles.sort».value».list».sort)[^50].batch(10)».fmt("%4d").join("\n");
+ 
+@res.push: "\nFirst 30 strong Achilles numbers:";
+@res.push:   $strong[^30].batch(10)».fmt("%5d").join("\n");
+ 
 @res.push: "\nNumber of Achilles numbers with:";
 @res.push: "$_ digits: " ~ +$achilles{$_} // 0 for 2..9;
 
