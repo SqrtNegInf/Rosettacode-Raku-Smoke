@@ -3,22 +3,23 @@
 #c# 2022-02-25 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# drop Unicode variable name
+#n# OEIS:A052486 Achilles numbers - powerful but imperfect numbers
+#n# OEIS:A194085 Strong Achilles numbers: Achilles numbers m such that phi(m) is also an Achilles number
 
 my @res;
 
 use Prime::Factor;
 use Math::Root;
-
+ 
 sub is-square-free (Int \n) {
     constant @p = ^100 .map: { next unless .is-prime; .² };
     for @p -> \p { return False if n %% p }
     True
 }
-
+ 
 sub powerful (\n, \k = 2) {
     my @p;
-    p(1, 2*k - 1);
+    p(1, 2×k - 1);
     sub p (\m, \r) {
         @p.push(m) and return if r < k;
         for 1 .. (n / m).&root(r) -> \v {
@@ -26,45 +27,40 @@ sub powerful (\n, \k = 2) {
                 next unless is-square-free(v);
                 next unless m gcd v == 1;
             }
-            p(m * v ** r, r - 1)
+            p(m × v ** r, r - 1)
         }
     }
     @p
 }
-
-my @achilles = powerful(10**5).sort.grep: {
-    my $f = .&prime-factors.Bag;
-    (+$f.keys > 1) && (1 == [gcd] $f.values) && (.sqrt.Int ** 2 !== $_)
-};
-
-my \PHI = 0, |(1..*).map: -> \t { t * [*] t.&prime-factors.squish.map: { 1 - 1/$_ } }
-
-my %ps = Set.new: @achilles;
-
-my @strong = @achilles.grep: { ?%ps{PHI[$_]} };
-
-@res.push: "First 20 Achilles numbers:";
-@res.push: @achilles[^20].batch(10)».fmt("%4d").join("\n");
-
-@res.push: "\nFirst 10 strong Achilles numbers:";
-@res.push:   @strong[^10].batch(10)».fmt("%5d").join("\n");
-
+ 
 my $achilles = powerful(10**9).grep( {
     my $f = .&prime-factors.Bag;
-    (+$f.keys > 1) && (1 == [gcd] $f.values) && (.sqrt.Int ** 2 !== $_)
+    (+$f.keys > 1) && (1 == [gcd] $f.values) && (.sqrt.Int² !== $_)
 } ).classify: { .chars }
-
+ 
+my \PHI = 0, |(1..*).map: -> \t { t × [×] t.&prime-factors.squish.map: { 1 - 1/$_ } }
+ 
+my %as = Set.new: flat $achilles.values».list;
+ 
+my $strong = lazy (flat $achilles.sort».value».list».sort).grep: { ?%as{PHI[$_]} };
+ 
+@res.push: "First 20 Achilles numbers:";
+@res.push: (flat $achilles.sort».value».list».sort)[^20].batch(10)».fmt("%4d").join("\n");
+ 
+@res.push: "\nFirst 10 strong Achilles numbers:";
+@res.push:   $strong[^10].batch(10)».fmt("%5d").join("\n");
+ 
 @res.push: "\nNumber of Achilles numbers with:";
 @res.push: "$_ digits: " ~ +$achilles{$_} // 0 for 2..6;
 
 .say for @res;
 
 my $ref = q:to/END/;
-First 50 Achilles numbers:
+First 20 Achilles numbers:
   72  108  200  288  392  432  500  648  675  800
  864  968  972 1125 1152 1323 1352 1372 1568 1800
 
-First 30 strong Achilles numbers:
+First 10 strong Achilles numbers:
   500   864  1944  2000  2592  3456  5000 10125 10368 12348
 
 Number of Achilles numbers with:
