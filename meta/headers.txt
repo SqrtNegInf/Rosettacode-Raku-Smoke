@@ -377,6 +377,16 @@ File: A/Achilles_numbers
 #c# 2022-02-25 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2022-02-26: extra digits predictably slow
+#n# OEIS:A052486 Achilles numbers - powerful but imperfect numbers
+#n# OEIS:A194085 Strong Achilles numbers: Achilles numbers m such that phi(m) is also an Achilles number
+
+File: A/Achilles_numbers.1
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Achilles_numbers
+#c# 2022-02-25 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
 
 File: A/Achilles_numbers.jvm
 #!/usr/bin/env raku
@@ -384,7 +394,8 @@ File: A/Achilles_numbers.jvm
 #c# 2022-02-25 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# drop Unicode variable name
+#n# OEIS:A052486 Achilles numbers - powerful but imperfect numbers
+#n# OEIS:A194085 Strong Achilles numbers: Achilles numbers m such that phi(m) is also an Achilles number
 
 File: A/Ackermann_function
 #!/usr/bin/env perl6
@@ -2234,10 +2245,8 @@ File: C/Colorful_numbers.jvm
 #u# http://rosettacode.org/wiki/Colorful_numbers
 #c# 2022-02-24 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# fixable?
-#n# Method 'rep' not found for invocant of class 'Range'
-#n#  in block <unit> at C/Colorful_numbers.jvm line 22
+#j# JVM:  OK
+#n# reduced testing because slow...
 
 File: C/Colour_bars_Display
 #!/usr/bin/env perl6
@@ -6472,6 +6481,17 @@ File: J/Jacobi_symbol
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: J/Jacobsthal_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Jacobsthal_numbers
+#c# 2022-02-26 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A001045 - Jacobsthal sequence (or Jacobsthal numbers)
+#n# OEIS:A014551 - Jacobsthal-Lucas numbers.
+#n# OEIS:A084175 - Jacobsthal oblong numbers
+#n# OEIS:A049883 - Primes in the Jacobsthal sequence
+
 File: J/Jaro-Winkler_Distance
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Jaro-Winkler_Distance
@@ -10363,6 +10383,13 @@ File: P/Powerful_numbers
 #c# 2020-02-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A001694 2-powerful numbers
+#n# OEIS:A036966 3-powerful numbers
+#n# OEIS:A036967 4-powerful numbers
+#n# OEIS:A069492 5-powerful numbers
+#n# OEIS:A069493 6-powerful numbers
+#n# OEIS:A062762 number of powerful numbers <= 2^n
+#n# OEIS:A118896 number of powerful numbers <= 10^n
 
 File: P/Powerful_numbers.1
 #!/usr/bin/env perl6
