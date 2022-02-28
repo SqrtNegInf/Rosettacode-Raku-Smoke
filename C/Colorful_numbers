@@ -32,7 +32,7 @@ my ($start, $total) = 23456789, 10;
 for 2..8 {
    @res.push: "$_ digit colorful number count: ",
    my $c = +(flat $start.comb.combinations($_).map: {.permutations».join».Int}).race.grep( &is-colorful ),
-   " - {($c / (exp($_,10) - exp($_-1,10) ) * 100).round(.001)}%";
+   " - {($c / (exp($_,10) - exp($_-1,10) ) × 100).round(.001)}%";
    $total += $c;
 }
 
