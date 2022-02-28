@@ -3,16 +3,20 @@
 #c# 2022-01-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002064 Cullen 
+#n# OEIS:A003261 Woodall
+#n# OEIS:A005849 Cullen primes
+#n# OEIS:A002234 Woodall primes
 
 my @res;
 
 my @cullen  = ^∞ .map: { $_ × 1 +< $_ + 1 };
 my @woodall = ^∞ .map: { $_ × 1 +< $_ - 1 };
 
-@res.push: "First 20 Cullen numbers: ( n × 2**n + 1)\n"~     @cullen[1..20]; # OEIS:A002064
-@res.push: "\nFirst 20 Woodall numbers: ( n × 2**n - 1)\n"~ @woodall[1..20]; # OEIS:A003261
-#@res.push: "\nFirst 5 Cullen primes: (in terms of n)\n"~     @cullen.grep( &is-prime, :k )[^5];  # OEIS:A005849 - so slow...
-@res.push: "\nFirst 12 Woodall primes:  (in terms of n)\n"~ @woodall.grep( &is-prime, :k )[^12]; # OEIS:A002234
+@res.push: "First 20 Cullen numbers: ( n × 2**n + 1)\n"~     @cullen[1..20];
+@res.push: "\nFirst 20 Woodall numbers: ( n × 2**n - 1)\n"~ @woodall[1..20];
+#@res.push: "\nFirst 5 Cullen primes: (in terms of n)\n"~     @cullen.grep( &is-prime, :k )[^5];
+@res.push: "\nFirst 12 Woodall primes:  (in terms of n)\n"~ @woodall.grep( &is-prime, :k )[^12];
 
 .say for @res;
 

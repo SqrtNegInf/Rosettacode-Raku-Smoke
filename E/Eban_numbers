@@ -3,28 +3,18 @@
 #c# 2019-02-18 <RC, 2019-02-22 <RC, 2019-03-20 <RC, 2019-03-26 <RC, 2019-06-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A006933
+#n# OEIS:A006933 Numbers without e: Eban
+#n# OEIS:A008521 Numbers without o: Oban
+#n# OEIS:A008523 Numbers without t: Tban
+#n# OEIS:A072954 Numbers without a, i, l, t: TALIban
+#n# OEIS:A072955 Numbers without b, r, s, u: SUBURban
+#n# OEIS:A072956 Numbers without r, t, u: TURban
+#n# OEIS:A072957 Numbers without r, u: URban
+#n# OEIS:A072958 Numbers without a, c, i, l: CALIban
+#n# OEIS:A089589 Numbers without i: Iban
+#n# OEIS:A089590 Numbers without u: Uban
 
 my @res;
-
-#`{
-Modular approach, very little is hard coded. Change the $upto order-of-magnitude limit to adjust the search/display ranges. Change the letter(s) given to the nban sub to modify which letter(s) to disallow.
-Will handle multi-character 'bans'. Demonstrate for e-ban, t-ban and subur-ban.
-Directly find :
-
- OEIS:A006933 Numbers without e: Eban
- OEIS:A008521 Numbers without o: Oban
- OEIS:A008523 Numbers without t: Tban
- OEIS:A072954 Numbers without a, i, l, t: TALIban
- OEIS:A072955 Numbers without b, r, s, u: SUBURban
- OEIS:A072956 Numbers without r, t, u: TURban
- OEIS:A072957 Numbers without r, u: URban
- OEIS:A072958 Numbers without a, c, i, l: CALIban
- OEIS:A089589 Numbers without i: Iban
- OEIS:A089590 Numbers without u: Uban
- and so on...
-Considering numbers up to 1021, as the task directions suggest.
-}
 
 use Lingua::EN::Numbers;
 

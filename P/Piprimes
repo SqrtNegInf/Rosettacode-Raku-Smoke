@@ -3,7 +3,7 @@
 #c# 2021-04-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A0000720
+#n# OEIS:A000720
 
 my @pi = (1..*).map: { state $pi = 0; $pi += .is-prime };
 
