@@ -26,7 +26,7 @@ sub UnequalDivider (\L,\H,\N where N > 2) {
    my \part = $ = 0;
 
    (  [ (0,0), (L,H), (L,0) ],  ).Array.append: @sequence.map: -> \chunk {
-      [ (0,0), (L*part/sum,H), (L*(part+=chunk)/sum,H) ] ;
+      [ (0,0), (L×part/sum,H), (L×(part+=chunk)/sum,H) ] ;
    } 
 }
 
