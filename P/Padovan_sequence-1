@@ -1,0 +1,23 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Padovan_sequence
+#c# 2021-02-27 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# https://gfldex.wordpress.com/2022/03/01/pushing/ (prompted by PWC 154/2)
+
+my @res;
+
+my \padovan = 1, 1, 1, * + * + 0 * * … ∞;
+my \padovan-prime = padovan.grep(*.is-prime).unique;
+
+#@res.push: padovan[^20];
+@res.push: padovan-prime[^12];
+
+.say for @res;
+
+my $ref = q:to/END/;
+2 3 5 7 37 151 3329 23833 13091204281 3093215881333057 1363005552434666078217421284621279933627102780881053358473 1558877695141608507751098941899265975115403618621811951868598809164180630185566719
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
