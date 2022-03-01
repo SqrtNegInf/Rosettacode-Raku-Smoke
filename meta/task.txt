@@ -1,19 +1,19 @@
-Welcome to Rakudo™ v2022.02-82-g8fb0a66dc.
+Welcome to Rakudo™ v2022.02-83-g028828ac8.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.02-5-gec9fcaae2.
 updating from RC…
-+--------------> Moar: Good/Bad [1438/26]
-|+-------------> JVM: Good/Bad [1233/305]
-||+------------> Smoke testing [1383]
++--------------> Moar: Good/Bad [1440/26]
+|+-------------> JVM: Good/Bad [1236/305]
+||+------------> Smoke testing [1386]
 |||+-----------> sKipping validation [144]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [365]
 ||||||+--------> Concurrent/Async [98]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [369]
+|||||||||+-----> Draft [370]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [95]
+|||||||||||+---> Void (no local copy) [94]
 ||||||||||||+--> Un-implemented/reliable [49]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -427,6 +427,7 @@ GGS.......... Entropy
 GGS..T....... Entropy_Narcissist
 GGS..T....... Enumerations
 GGS.......... Environment_variables
+GGS......D... Equal_prime_and_composite_sums
 GGS..T....... Equilibrium_index
 GB.K.T...D..U Erdos-Woods_numbers
 GBS......D... Erdos-primes
@@ -515,7 +516,7 @@ GGS.......... Find_the_missing_permutation
 .........D.V. Find_words_which_contain_the_most_consonants
 GGS......D... Find_words_which_contains_all_the_vowels
 GBS......D... Find_words_which_contains_more_than_3_e_vowels
-.........D.V. Find_words_whose_first_and_last_three_letters_are_equal
+GGS......D... Find_words_whose_first_and_last_three_letters_are_equal
 GGS......D... Find_words_with_alternating_vowels_and_consonants
 GBS......D... Finite_state_machine
 GGS.......... First-class_functions
@@ -1002,6 +1003,7 @@ BB........... P-Adic_numbers,_basic
 GGS..T....... P-value_correction
 GGS.......... Padovan_n-step_number_sequences
 GGS.......... Padovan_sequence
+GGS.......... Padovan_sequence-1
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
 GBS...C...... Palindromic_gapful_numbers
@@ -1099,7 +1101,7 @@ GGS.......... Price_fraction
 GBS..TC...... Primality_by_Wilson%27s_theorem
 GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
-GBS..TC...... Prime_decomposition
+!BS..TC...... Prime_decomposition
 GBS.......... Prime_decomposition-1
 .........DXV. Prime_numbers_p_which_sum_of_prime_numbers_less_or_equal_to_p_is_prime
 GGS......D... Prime_numbers_which_contain_123
