@@ -3,6 +3,9 @@
 #c# 2022-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A007504 Sum of the first n primes
+#n# OEIS:A053767 Sum of first n composite numbers
+#n# OEIS:A294174 Numbers that can be expressed both as the sum of first primes and as the sum of first composites
 
 my @res;
 
@@ -13,7 +16,7 @@ my $composite-sum = [\+] (2..*).grep: !*.is-prime;
 
 my $c-index = 0;
 
-for ^118_880 -> $p-index {
+for ^118_800 -> $p-index {
     next if $prime-sum[$p-index] < $composite-sum[$c-index];
     @res.push: sprintf( "%20s - %11s prime sum, %12s composite sum"; #   %5.2f seconds\n",
       $prime-sum[$p-index].&comma, ordinal-digit($p-index + 1, :u, :c),
