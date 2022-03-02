@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A078972 semiprimes whose prime factors have the same number of decimal digits
+#n# TIMTOWTDI: push @res:
 #n# 1 through 7 are fast. 8 and 9 take a bit longer.
 
 my @res;
@@ -19,12 +20,12 @@ my @brilliant = lazy flat (1..*).map: -> $digits {
 };
 
 # The task
-@res.push: "First 100 brilliant numbers:\n" ~ @brilliant[^100].batch(10)».fmt("%4d").join("\n") ~ "\n" ;
+push @res: "First 100 brilliant numbers:\n" ~ @brilliant[^100].batch(10)».fmt("%4d").join("\n") ~ "\n" ;
 
 for 1 .. 7 -> $oom {
     my $threshold = exp $oom, 10;
     my $key = @brilliant.first: :k, * >= $threshold;
-    @res.push: sprintf "First >= %13s is %9s in the series: %13s", comma($threshold), ordinal-digit(1 + $key, :u), comma @brilliant[$key];
+    push @res: sprintf "First >= %13s is %9s in the series: %13s", comma($threshold), ordinal-digit(1 + $key, :u), comma @brilliant[$key];
 }
 
 .say for @res;
