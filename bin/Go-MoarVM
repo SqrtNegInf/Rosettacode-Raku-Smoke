@@ -89,6 +89,9 @@ mv meta/non-ascii.txt meta/non-ascii.txt~
 bin/rc-non-ascii [0A-Z]/* > meta/non-ascii.txt
 diff meta/non-ascii.txt~ meta/non-ascii.txt
 
+# extract list of citations
+bin/rc-oeis > meta/OEIS.txt
+
 # how did the spectest go?
 #echo ' '
 #/usr/local/pbin/grep-paragraph Summary $HOME/.rakubrew/versions/out.mtest
