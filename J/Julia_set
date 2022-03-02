@@ -9,6 +9,7 @@
 #n# 2020-03-12 caching more than halves wall-clock time
 #n# 2021-09-29 new-disp concurrency problem:? MoarVM oops: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
 #n#            test without concurrency, now reasonably fast (<1min) without
+#n# 2022-03-02 test WITH concurrency again, (errors were relating to caching, so drop that)
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -33,8 +34,7 @@ julia($out);
 $out.write: 'run/julia-set-perl6.png';
 
 sub julia ( $png ) {
-    #^$w .race.map: -> $x {
-    ^$w .map: -> $x {
+    ^$w .race.map: -> $x {
         for ^$h -> $y {
             my $z = Complex.new(($x - $w / 2) / $w × 3, ($y - $h / 2) / $h × 2);
             my $i = $maxIter;
@@ -47,18 +47,15 @@ sub julia ( $png ) {
 }
 
 sub hsv2rgb ( $h, $s, $v ){
-    state %cache;
-    %cache{"$h|$s|$v"} //= do {
-        my $c = $v × $s;
-        my $x = $c × (1 - abs( (($h×6) % 2) - 1 ) );
-        my $m = $v - $c;
-        [(do given $h {
-            when   0..^1/6 { $c, $x, 0 }
-            when 1/6..^1/3 { $x, $c, 0 }
-            when 1/3..^1/2 { 0, $c, $x }
-            when 1/2..^2/3 { 0, $x, $c }
-            when 2/3..^5/6 { $x, 0, $c }
-            when 5/6..1    { $c, 0, $x }
-        } ).map: ((*+$m) × 255).Int]
-    }
+    my $c = $v * $s;
+    my $x = $c * (1 - abs( (($h*6) % 2) - 1 ) );
+    my $m = $v - $c;
+    [(do given $h {
+        when   0..^1/6 { $c, $x, 0 }
+        when 1/6..^1/3 { $x, $c, 0 }
+        when 1/3..^1/2 { 0, $c, $x }
+        when 1/2..^2/3 { 0, $x, $c }
+        when 2/3..^5/6 { $x, 0, $c }
+        when 5/6..1    { $c, 0, $x }
+    } ).map: ((*+$m) * 255).Int]
 }
