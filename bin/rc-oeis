@@ -1,10 +1,31 @@
 #!/usr/bin/env perl6
 ## display OEIS citations
-#    2022-02-28
+#    2022-03-02
 #  cross-check via OEIS module?
 
-# code here!
+my @code;
+my @dirs.push: .IO.absolute.IO for 'A' .. 'Z';
 
+while @dirs {
+    my @files = @dirs.pop;
+    while @files {
+        for @files.pop.dir -> $path {
+            next if $path.f and $path  ~~ rx{ '.jvm' };
+            next if $path.f and $path  ~~ rx{ '.' \d };
+            push @code: $path if $path.f;
+            push @dirs: $path if $path.d and $path.r;
+        }
+    }
+}
+
+for @code.sort -> $f {
+    my $fn = IO::Spec::Unix.splitpath($f)[*-1];
+    next unless my @oeis = $f.IO.slurp.lines.grep: { $_ ~~ /^^ '#n# OEIS:' / };
+    say $fn.substr(0,1) ~ '/' ~ $fn;
+    say @oeis».subst('#n# OEIS:', '').join("\n"); say '';
+}
+
+=finish
 use OEIS;
 dd OEIS::lookup(280498);
 # https://modules.raku.org/dist/OEIS:cpan:TOBS/t/02-attributes.t
