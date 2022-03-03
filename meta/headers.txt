@@ -1579,6 +1579,7 @@ File: B/Brilliant_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A078972 semiprimes whose prime factors have the same number of decimal digits
+#n# TIMTOWTDI: push @res:
 #n# 1 through 7 are fast. 8 and 9 take a bit longer.
 
 File: B/Brilliant_numbers.jvm
@@ -2727,8 +2728,10 @@ File: C/Cousin_primes
 #c# 2021-03-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A094343
-#n# OEIS:A023200
+#n# OEIS:A094343 List of pairs of primes (p, q) with q - p = 4.
+#n# OEIS:A023200 Primes p such that p + 4 is also prime.
+#n# OEIS:A046132 Larger member p+4 of cousin primes (p, p+4).
+#n# A094343 == A023200 ∪ A046132 
 
 File: C/Cramer%27s_rule
 #!/usr/bin/env perl6
@@ -3916,6 +3919,9 @@ File: E/Equal_prime_and_composite_sums
 #c# 2022-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A007504 Sum of the first n primes
+#n# OEIS:A053767 Sum of first n composite numbers
+#n# OEIS:A294174 Numbers that can be expressed both as the sum of first primes and as the sum of first composites
 
 File: E/Equilibrium_index
 #!/usr/bin/env perl6
@@ -6581,6 +6587,7 @@ File: J/Julia_set
 #n# 2020-03-12 caching more than halves wall-clock time
 #n# 2021-09-29 new-disp concurrency problem:? MoarVM oops: MVM_str_hash_fetch_nocheck called with a stale hashtable pointer
 #n#            test without concurrency, now reasonably fast (<1min) without
+#n# 2022-03-02 test WITH concurrency again, (errors were relating to caching, so drop that)
 
 File: J/Julia_set.1
 #!/usr/bin/env perl6
