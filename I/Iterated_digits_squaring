@@ -1,25 +1,23 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Iterated_digits_squaring
 #c# 2016-05-10 <RC, 2017-05-01 <RC
-#t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
+#n# removed from the 'slow' list (running 1E6, via the slower method, so not comparable to the NQP version which is doing 1E8)
 
-# 'slower' method for 1 million
-#    20161123:  488.091u 3.883s 9:32.62 85.9% 
-#    20170123:  346.000u 1.076s 5:48.55 99.5%
-#    20170123: 1575.136u 9.628s 24:57.94 105.7 [for JVM]
-#    20180814:  193.769u 1.137s 3:14.83 100.0%
-#    20181004:  179.995u 1.058s 3:00.72 100.1%
-#    20181005:  622.302u 663.345s 7:32.78 283.9% (much worse with .race, likewise for other method)
-#    20201012:  135.45u   0.71s 2:16.26 99%
-#    _NEXT_
+# 'slower' method for 1 million (worse with 'race')
+#    20161123: 488u 3.88s 9:32  86% 
+#    20170123: 346u 1.08s 5:48  99%
+#    20181004: 179u 1.06s 3:00 100%
+#    20201012: 135u 0.71s 2:16 100%
+#    20220304:  38s 0.44s 0:38 100%
 
 # 'faster' method for 100 million, compare with *-nqp
-#    20170613:  769.361u 2.068s 12:54.36 99.6% 
-#    20180814:  409.173u 0.882s  6:50.60 99.8%
-#    20181004:  359.537u 0.832s  6:00.49 99.9%
-#    20201012:  463.720u 0.78s   7:44.32  100%  slower?? 
+#    20170613:  769u 2.07s 12:54 100% 
+#    20181004:  359u 0.83s  6:00 100%
+#    20201012:  463u 0.78s  7:44 100% slower?? 
+#    20220304:  252u 1.48s  4:14 100%
+#    _NEXT_
 
 #This fairly abstract version does caching and filtering to reduce the number of values it needs to check 
 # and moves calculations out of the hot loop, but is still fairly slow... even for just up to 1,000,000.
@@ -32,7 +30,7 @@ sub Euler92($n) {
     (state %){$n} //= Euler92( [+] @sq[$n.comb] )
 }
 
-if (False) {
+if (True) {
 for 1 .. 1_000_000 -> $n {
    my $i = +$n.comb.sort.join;
    ++$cnt if Euler92($i) == 89;
