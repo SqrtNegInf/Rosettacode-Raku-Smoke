@@ -65,7 +65,8 @@ File: 0/15_puzzle_solver
 #m# MOAR: OK
 #j# JVM:  OK
 #n# changes not on RC
-#n# 1490.73s user 20.51s system 100% cpu 25:01.55 total
+#n# 2021-06-17 1490.73s user 20.51s system 100% cpu 25:01.55
+#n# 2022-03-04 1195.72s user 22.10s system  98% cpu 20:35.64
 
 File: 0/16_puzzle_game
 #!/usr/bin/env raku
@@ -6425,9 +6426,9 @@ File: I/Iterated_digits_squaring
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Iterated_digits_squaring
 #c# 2016-05-10 <RC, 2017-05-01 <RC
-#t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
+#n# removed from the 'slow' list (running 1E6, via the slower method, so not comparable to the NQP version which is doing 1E8)
 
 File: I/Iterated_digits_squaring-1
 #!/usr/bin/env perl6
@@ -6440,13 +6441,14 @@ File: I/Iterated_digits_squaring-nqp
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Iterated_digits_squaring
 #c# 2016-05-10 <RC
-#t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
-#   20161123: 185.736u 0.326s  3:06.32 99.8%
-#   20180314: 183.113u 0.450s  3:03.85 99.8%
-#   20180814: 163.367u 0.447s  2:44.22 99.7%
-#   20181004: 141.835u 0.425s  2:22.25 100.0%
+#n# removed from the 'slow' list
+#   20161123: 185.73u 0.32s 3:06 99%
+#   20180314: 183.11u 0.45s 3:03 99%
+#   20180814: 163.36u 0.44s 2:44 99%
+#   20181004: 141.83u 0.42s 2:22 99%
+#   20220304:  73.67u 0.55s 1:14 99%
 
 File: I/Iterated_digits_squaring.1
 #!/usr/bin/env perl6
@@ -6748,9 +6750,10 @@ File: K/Knapsack_problem_Bounded-1
 #m# MOAR: OK
 #j#  JVM: OK
 #n# investigate why this is so much slower than -2 alternative?
-#   20170212: 976.037u 6.201s 17:46.31 92.1%
-#   20171027: 928.568u 3.373s 15:33.07 99.8%
-#   20181004: 882.382u 4.265s 14:47.06 99.9%
+#   20170212: 976.03u 6.20s 17:46 92.1%
+#   20171027: 928.56u 3.37s 15:33 99.8%
+#   20181004: 882.38u 4.26s 14:47 99.9%
+#   20220304: 370.79u 5.50s  6:17 99.9%
 #    _NEXT_
 
 File: K/Knapsack_problem_Bounded-2
@@ -7077,11 +7080,15 @@ File: L/Last_letter-first_letter
 #t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
-#    20161123: 2914.695u 163.591s 51:25.62 99.7%
-#    20170123: 2416.003u  89.999s 41:49.43 99.8%
-#    20171027: 1661.927u  13.988s 27:12.90 102.6%
-#    20181004: 1151.774u  27.752s 19:28.70 100.9
+#    20161123: 2914u 163.6s 51:25 100%
+#    20170123: 2416u  90.0s 41:49 100%
+#    20171027: 1661u  14.0s 27:12 102%
+#    20181004: 1151u  27.7s 19:28 100%
+#    20220304: 1042u  19.3s 17:49  99%
 #    _NEXT_
+#n# probably srand drift:
+#n# not ok 2 - # Failed test at L/Last_letter-first_letter line 100
+#      got: 'machamp pinsir relicanth haxorus simisear rufflet trapinch heatmor registeel landorus seaking girafarig gabite emboar remoraid darmanitan nosepass snivy yamask kricketune exeggcute emolga audino'
 
 File: L/Last_list_item
 #!/usr/bin/env raku
@@ -8496,8 +8503,9 @@ File: M/Multi-base_primes-2
 #u# http://rosettacode.org/wiki/Multi-base_primes
 #t# toodamnslow
 #c# 2021-07-08 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+#n# No such method 'value' for invocant of type 'Num'.  Did you mean 'values'?  in block <unit> at M/Multi-base_primes-2 line 30
 
 File: M/Multi-dimensional_array
 #!/usr/bin/env perl6
@@ -9054,8 +9062,9 @@ File: N/Numerical_Integration-1
 #t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
-#   20161123: 18213.707u 129.950s 5:11:41.81 98.0%
-#   20181004: 12358.237u  77.530s 3:33:55.73 96.8%
+#   20161123: 18213u 129.950s 5:11:41.81 98%
+#   20181004: 12358u  77.530s 3:33:55.73 96%
+#   20220304: 12698u 110.17s  3:36:05.82 99%
 #   _NEXT_
 
 File: N/Numerical_Integration-2
@@ -13614,13 +13623,13 @@ File: S/Sudoku-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sudoku
 #c# 2016-11-25 <RC, 2020-08-26 >RC, 2021-02-11 >RC
-#t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
-#    20161123: 1652.994u 7.216s 27:43.58 99.7%
-#    20170123: 1396.398u 9.995s 27:13.82 86.0%
-#    20181004:  887.363u 2.652s 14:49.91 100.0%
-#    _NEXT_
+#n# removed from the 'slow' list
+#    20161123: 1652u 7.2s 27:44 100%
+#    20170123: 1396u 9.9s 27:14  86%
+#    20181004:  887u 2.6s 14:50 100%
+#    20220304:  138u 1.1s  2:18 100% 
 
 File: S/Sudoku.1
 #!/usr/bin/env perl6
