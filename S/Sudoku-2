@@ -1,13 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sudoku
 #c# 2016-11-25 <RC, 2020-08-26 >RC, 2021-02-11 >RC
-#t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: OK
-#    20161123: 1652.994u 7.216s 27:43.58 99.7%
-#    20170123: 1396.398u 9.995s 27:13.82 86.0%
-#    20181004:  887.363u 2.652s 14:49.91 100.0%
-#    _NEXT_
+#n# removed from the 'slow' list
+#    20161123: 1652u 7.2s 27:44 100%
+#    20170123: 1396u 9.9s 27:14  86%
+#    20181004:  887u 2.6s 14:50 100%
+#    20220304:  138u 1.1s  2:18 100% 
 
 # In this code, a sudoku puzzle is represented as a two-dimentional
 # array. The cells that are not yet solved are represented by yet
