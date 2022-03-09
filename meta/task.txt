@@ -1,17 +1,17 @@
-Welcome to Rakudo™ v2022.02-93-g26e77d987.
+Welcome to Rakudo™ v2022.02-98-g3bde138cb.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2022.02-34-geb4480d88.
+Built on MoarVM version 2022.02-38-g588e00d60.
 updating from RC…
-+--------------> Moar: Good/Bad [1441/26]
-|+-------------> JVM: Good/Bad [1238/304]
-||+------------> Smoke testing [1390]
++--------------> Moar: Good/Bad [1443/26]
+|+-------------> JVM: Good/Bad [1238/305]
+||+------------> Smoke testing [1391]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [100]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [371]
+|||||||||+-----> Draft [372]
 ||||||||||+----> Ignoring [40]
 |||||||||||+---> Void (no local copy) [94]
 ||||||||||||+--> Un-implemented/reliable [48]
@@ -99,6 +99,7 @@ GGS..T....... Arithmetic_evaluation
 GGS.......... Array_concatenation
 GGS.......... Array_length
 GGS.......... Arrays
+GGS......D... Ascending_primes
 ..........X.. Aspect_Oriented_Programming
 .........D.V. Aspect_oriented_programming
 GGS.......... Assertions
@@ -429,7 +430,7 @@ GGS..T....... Enumerations
 GGS.......... Environment_variables
 GGS......D... Equal_prime_and_composite_sums
 GGS..T....... Equilibrium_index
-GGS...C..D... Erdos-Woods_numbers
+GBS...C..D... Erdos-Woods_numbers
 GBS......D... Erdos-primes
 GBS.......... Esthetic_numbers
 GGS.......... Ethiopian_multiplication
@@ -448,7 +449,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
