@@ -902,6 +902,13 @@ File: A/Arrays
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: A/Ascending_primes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Ascending_primes
+#c# 2022-03-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: A/Assertions
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Assertions
@@ -3936,10 +3943,18 @@ File: E/Erdos-Woods_numbers
 #u# http://rosettacode.org/wiki/Erdős–Woods_numbers
 #c# 2022-03-07 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 #n# OEIS:A059756 Erdős–Woods numbers
 #n# OEIS:A059757 smallest values of a for a given E-W number k
 #n# OEIS:A111042 odd terms of sequence (not calculated here)
+
+File: E/Erdos-Woods_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Erdős–Woods_numbers
+#c# 2022-03-07 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# this is so slow, just do a couple to prove it works
 
 File: E/Erdos-primes
 #!/usr/bin/env raku
@@ -8557,6 +8572,7 @@ File: M/Multiplication_tables
 #c# 2015-11-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# changes not on RC
 
 File: M/Multiplicative_order
 #!/usr/bin/env raku
