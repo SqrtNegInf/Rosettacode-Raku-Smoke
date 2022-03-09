@@ -4,19 +4,10 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-# Works with: Rakudo version #22 "Thousand Oaks"
-
 my $s = 'hello';
 say $s ~ ' literal';
-my $s1 = $s ~ ' literal';
-say $s1;
-
-#An example of mutating concatenation:
-
-$s ~= ' literal';
-say $s;
-
-#Note also that most concatenation in Perl is done implicitly via interpolation.
+say my $s1 = $s ~ ' literal';
+say $s ~= ' literal'; # mutating concatenation
 
 use Test;
 is $s, $s1;
