@@ -1,0 +1,104 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Erdős–Woods_numbers
+#c# 2022-03-07 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# this is so slow, just do a couple to prove it works
+
+my @res;
+
+sub invmod($n, $modulo) { # rosettacode.org/wiki/Modular_inverse#Raku
+   my ($c, $d, $uc, $vc, $ud, $vd, $q) = ($n % $modulo, $modulo, 1, 0, 0, 1);
+   while $c != 0 {
+      ($q, $c, $d) = ($d div $c, $d % $c, $c);
+      ($uc, $vc, $ud, $vd) = ($ud - $q*$uc, $vd - $q*$vc, $uc, $vc);
+   }
+   return $ud % $modulo;
+}
+
+sub ew (\n) {
+
+   my @primes = (^n).grep: *.is-prime;  
+
+   # rosettacode.org/wiki/Horner%27s_rule_for_polynomial_evaluation#Raku
+   my @divs = (^n).map: -> \p { ([o] map { p%%$_.Int + 2 * * }, @primes)(0) }
+
+   my @partitions = [ 0, 0, 2**@primes.elems - 1 ] , ;
+
+   sub ort(\x) { (@divs[x] +| @divs[n -x]).base(2).flip.index(1) } 
+
+   for ((n^...1).sort: *.&ort).reverse {
+      my \newPartitions = @ = (); 
+      my (\factors,\otherFactors) = @divs[$_, n-$_];
+
+      for @partitions -> \p {
+         my (\setA, \setB, \rPrimes) = p[0..2];
+
+         if (factors +& setA) or (otherFactors +& setB) {
+            newPartitions.push: p and next 
+         } 
+         for (factors +& rPrimes).base(2).flip.comb.kv -> \k,\v {
+            if (v == 1) {
+               my \w = 1 +< k;   
+               newPartitions.push: [ setA +^ w, setB, rPrimes +^ w ]
+            }
+         }
+         for (otherFactors +& rPrimes).base(2).flip.comb.kv -> \k,\v {
+            if (v == 1) {
+               my \w = 1 +< k; 
+               newPartitions.push: [ setA, setB +^ w, rPrimes +^ w ]
+            }
+         }
+      }
+      @partitions = newPartitions
+   }
+
+   my \result = $ = -1;
+   for @partitions -> \p {
+      my ($px,$py) = p[0,1];
+      my ($x ,$y ) = 1 xx *;
+      for @primes -> $p {
+         $px % 2 and $x *= $p;
+         $py % 2 and $y *= $p;
+         ($px,$py) >>div=>> 2
+      }
+      my \newresult = ((n * invmod($x, $y)) % $y) * $x - n;
+      result = result == -1 ?? newresult !! min(result, newresult)
+   }
+   return result 
+}
+
+@res.push: "The first X Erdős–Woods numbers and their minimum interval start values are:";
+for (16..36) { if (my $ew = ew $_) > 0 { @res.push: sprintf "%3d -> %d",$_,$ew } }
+
+.say for @res;
+
+my $ref = q:to/END/;
+The first X Erdős–Woods numbers and their minimum interval start values are:
+ 16 -> 2184
+ 22 -> 3521210
+ 34 -> 47563752566
+ 36 -> 12913165320
+END
+
+#`{
+ 46 -> 21653939146794
+ 56 -> 172481165966593120
+ 64 -> 808852298577787631376
+ 66 -> 91307018384081053554
+ 70 -> 1172783000213391981960
+ 76 -> 26214699169906862478864
+ 78 -> 27070317575988954996883440
+ 86 -> 92274830076590427944007586984
+ 88 -> 3061406404565905778785058155412
+ 92 -> 549490357654372954691289040
+ 94 -> 38646299993451631575358983576
+ 96 -> 50130345826827726114787486830
+100 -> 35631233179526020414978681410
+106 -> 200414275126007376521127533663324
+112 -> 1022681262163316216977769066573892020
+116 -> 199354011780827861571272685278371171794
+}
+
+use Test;
+is @res.join("\n"), chomp $ref;
