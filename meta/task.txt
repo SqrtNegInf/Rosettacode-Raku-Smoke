@@ -1,8 +1,8 @@
-Welcome to Rakudo™ v2022.02-98-g3bde138cb.
+Welcome to Rakudo™ v2022.02-104-g6e6ef03c8.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.02-38-g588e00d60.
 updating from RC…
-+--------------> Moar: Good/Bad [1443/26]
++--------------> Moar: Good/Bad [1439/26]
 |+-------------> JVM: Good/Bad [1238/305]
 ||+------------> Smoke testing [1391]
 |||+-----------> sKipping validation [141]
@@ -11,7 +11,7 @@ updating from RC…
 ||||||+--------> Concurrent/Async [100]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [372]
+|||||||||+-----> Draft [371]
 ||||||||||+----> Ignoring [40]
 |||||||||||+---> Void (no local copy) [94]
 ||||||||||||+--> Un-implemented/reliable [48]
@@ -99,7 +99,7 @@ GGS..T....... Arithmetic_evaluation
 GGS.......... Array_concatenation
 GGS.......... Array_length
 GGS.......... Arrays
-GGS......D... Ascending_primes
+GGS.......... Ascending_primes
 ..........X.. Aspect_Oriented_Programming
 .........D.V. Aspect_oriented_programming
 GGS.......... Assertions
@@ -458,7 +458,7 @@ GGS..T....... Execute_a_Markov_algorithm
 GGS..T....... Execute_a_system_command
 GGS.......... Exponentiation_operator
 GGS..T....... Exponentiation_order
-GGS.......... Exponentiation_with_infix_operators_in_or_operating_on_the_base
+!GS.......... Exponentiation_with_infix_operators_in_or_operating_on_the_base
 GGS..T....... Extend_your_language
 GGS.......... Extensible_prime_generator
 GBS..T...D... External_sort
@@ -481,7 +481,7 @@ GGS.......... Faulhaber%27s_triangle
 GGS.......... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
 GGS.....FD... Fibonacci_heap
-GBS..T...D... Fibonacci_matrix-exponentiation
+!BS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_n-step_number_sequences-2
 GGS..T....... Fibonacci_sequence
@@ -988,7 +988,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-GBS......D... Orbital_elements
+!BS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
@@ -1088,7 +1088,7 @@ GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GBS......D... Polynomial_derivative
 GGS..T....... Polynomial_long_division
-GBS.......... Polynomial_regression
+!BS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
