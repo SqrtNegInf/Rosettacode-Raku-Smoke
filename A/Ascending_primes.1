@@ -8,11 +8,10 @@ my @res;
 
 say my $result = (
     flat 2, 3, 5, 7, sort +*, gather {
-        (1 .. 9).map: { recurse $_ };
+        (1 .. 8).map: { recurse $_ };
         sub recurse ($str) {
-            .take for ($str X~ (1, 3, 7, 9)).grep: { .is-prime && [<] .comb };
-            my $digit = $str.substr: *-1;
-            do for $digit ^.. 9 { recurse $str ~ $_ };
+            .take for ($str X~ (3, 7, 9)).grep: { .is-prime && [<] .comb };
+            recurse $str * 10 + $_ for $str % 10 ^.. 9;
         }
     }
 ).batch(10)».fmt("%8d").join: "\n";
