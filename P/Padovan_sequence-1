@@ -7,7 +7,7 @@
 
 my @res;
 
-my \padovan = 1, 1, 1, * + * + 0 * * … ∞;
+my \padovan = 1, 1, 1, * + * + 0 × * … ∞;
 my \padovan-prime = padovan.grep(*.is-prime).unique;
 
 #@res.push: padovan[^20];
