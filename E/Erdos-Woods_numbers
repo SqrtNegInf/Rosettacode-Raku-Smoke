@@ -13,7 +13,7 @@ sub invmod($n, $modulo) { # rosettacode.org/wiki/Modular_inverse#Raku
    my ($c, $d, $uc, $vc, $ud, $vd, $q) = ($n % $modulo, $modulo, 1, 0, 0, 1);
    while $c != 0 {
       ($q, $c, $d) = ($d div $c, $d % $c, $c);
-      ($uc, $vc, $ud, $vd) = ($ud - $q*$uc, $vd - $q*$vc, $uc, $vc);
+      ($uc, $vc, $ud, $vd) = ($ud - $q×$uc, $vd - $q×$vc, $uc, $vc);
    }
    return $ud % $modulo;
 }
@@ -23,7 +23,7 @@ sub ew (\n) {
    my @primes = (^n).race.grep: *.is-prime;  
 
    # rosettacode.org/wiki/Horner%27s_rule_for_polynomial_evaluation#Raku
-   my @divs = (^n).map: -> \p { ([o] map { p%%$_.Int + 2 * * }, @primes)(0) }
+   my @divs = (^n).map: -> \p { ([o] map { p%%$_.Int + 2 × * }, @primes)(0) }
 
    my @partitions = [ 0, 0, 2**@primes.elems - 1 ] , ;
 
@@ -60,11 +60,11 @@ sub ew (\n) {
       my ($px,$py) = p[0,1];
       my ($x ,$y ) = 1 xx *;
       for @primes -> $p {
-         $px % 2 and $x *= $p;
-         $py % 2 and $y *= $p;
+         $px % 2 and $x ×= $p;
+         $py % 2 and $y ×= $p;
          ($px,$py) >>div=>> 2
       }
-      my \newresult = ((n * invmod($x, $y)) % $y) * $x - n;
+      my \newresult = ((n × invmod($x, $y)) % $y) × $x - n;
       result = result == -1 ?? newresult !! min(result, newresult)
    }
    return result 
