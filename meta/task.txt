@@ -1,6 +1,7 @@
 Welcome to Rakudo™ v2022.02-104-g6e6ef03c8.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.02-38-g588e00d60.
+updating from RC…
 +--------------> Moar: Good/Bad [1438/26]
 |+-------------> JVM: Good/Bad [1238/305]
 ||+------------> Smoke testing [1391]
@@ -10,10 +11,10 @@ Built on MoarVM version 2022.02-38-g588e00d60.
 ||||||+--------> Concurrent/Async [100]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [371]
+|||||||||+-----> Draft [373]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [94]
-||||||||||||+--> Un-implemented/reliable [48]
+|||||||||||+---> Void (no local copy) [96]
+||||||||||||+--> Un-implemented/reliable [50]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -27,6 +28,7 @@ GGS....R..... 21_game
 GGS..T.R..... 24_game
 GBS..TC...... 24_game_Solve-1
 GGS..T....... 24_game_Solve-2
+.........D.VU 3d_turtle_graphics
 GGS.......... 4-rings_or_4-squares_puzzle
 GGS.......... 99_bottles_of_beer
 GGS.......... 9_billion_names_of_God_the_integer
@@ -448,7 +450,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -489,7 +491,7 @@ GGS.......... Fibonacci_word_fractal
 GGS.......... File_extension_is_in_extensions_list
 GGS.....F.... File_input_output
 GGS.....F.... File_input_output-2
-!BS..T....... File_modification_time
+GBS..T....... File_modification_time
 GGS.......... File_size
 GGS..T....... File_size_distribution
 GGS.......... Filter
@@ -1618,6 +1620,7 @@ GBS..T...D... Waveform_analysis_Doh_ray_me
 .........D.VU Waveform_analysis_Top_and_tail
 ..........X.. Weather_Routing
 .........D.VU Weather_routing
+.........D.VU WebGL_rotating_F
 GBS..T....... Web_scraping
 GGS.......... Weird_numbers
 .........D... Welch%27s_t-test
