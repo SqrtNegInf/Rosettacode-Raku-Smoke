@@ -1,15 +1,21 @@
-#!/usr/bin/env raku
+#!/usr/local/bin/raku
 ## improve on 'rc-ast-dump', via Proc::Async timeout/kill
 #  2022-03-14
 #    needs explicit '$fh.close' or doesn't flush the print buffer, truncates AST
 #    boiler-plate from manual
 #    add timings, aid in fine-tuning 'big lists' vs 'infinite lists'
 
-for flat 0, 'A'..'C' -> $dir {
+# fgrep '&infix:<*>' ast/* | perl -npe 's/:.*//' | sort -u
+
+shell 'rm -f ast/*';
+
+for flat 0, 'A'..'Z' -> $dir {
     for run('find', $dir, :out).out.lines -> $path {
         next if 1 == $path.chars;
         my $file = $path.subst(/^.*\//, '');
         next if $file ~~ /\. ( \d+ | jvm ) $/;
+        next if $file ~~ /Left_factorials/; # rapidly consumes all memory
+        next if grep { / 'MOAR: BROKEN' / }, slurp $path;
         my $t = now;
         gen-ast $path, $file, 90;
         printf "%5.1f %s\n", now - $t, $path;
@@ -18,7 +24,7 @@ for flat 0, 'A'..'C' -> $dir {
 
 sub gen-ast ($path, $file, $time-out) {
  
-    my $proc = Proc::Async.new('raku', '--target=ast', $path);
+    my $proc = Proc::Async.new('/usr/local/bin/raku', '--target=ast', $path);
     my $fh = "ast/$file".IO.open :w;
     $proc.stdout.tap(-> $v { $fh.print: $v });
 
