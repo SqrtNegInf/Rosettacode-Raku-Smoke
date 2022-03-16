@@ -1,98 +1,108 @@
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/xx NOT ON RC
-#c# 2019-09-xx 
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Rare_numbers
+#c# 2022-03-15 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# Do .race and Perl5 call conflict? [seem to: same result in 'Cuban_primes' mash-up of .1 and 1.1 versions]
-#n# key to decent runtime is adding more filtering tricks...
-#n# OEIS:A035519 even rare numbers
-#n# OEIS:A059755  odd rare numbers
-
-#use ntheory:from<Perl5> <:all>;
-
-# with .race
-# 234.068u 239.169s 6:03.23 130.2%
-# moved .flip test to top
-# 122.653u 143.414s 2:37.09 169.3%
-# ntheory
-# 39.054u 0.393s 0:38.27 103.0%
+#j# JVM:  OK
 
 my @res;
 
-my atomicint @Rare[3];
-my atomicint $cnt;
+sub rare (\target where ( target > 1 and target ~~ Int )) {
 
-#(flat
-for (flat
-               1 .. 1000,
-         600_000 .. 700_000,
-     281_000_000 .. 281_100_000,
-) -> $n {
-#).race(:8degree).map: -> $n {
-#(1000, 1002, 1004 ... 281_089_090).race(:8degree).map: -> $n {
+   my \digit          = $ = 2;
+   my $count          = 0;
+   my @numeric_digits = 0..9 Z, 0 xx *;
+   my @diffs1         = 0,1,4,5,6;
 
-#   2_022_600_000 .. 2_023_000_000,
-# 868_591_000_000 .. 868_592_000_000,
+   # all possible digits pairs to calaculate potential diffs
+   my @pairs     = 0..9 X 0..9; 
+   my @all_diffs = -9..9;
 
-    next unless $n ~~ /^^ <[2468]> /;
-    next unless $n > my $r = $n.flip; # opposite of P5, 2x speed-up with early test (in P5, it doubles run-time)
+   # lookup table for the first diff
+   my @lookup_1 = [ [[2, 2], [8, 8]],    # Diff = 0
+                    [[8, 7], [6, 5]],    # Diff = 1
+                    [],
+                    [],
+                    [[4, 0],       ],    # Diff = 4
+                    [[8, 3],       ],    # Diff = 5
+                    [[6, 0], [8, 2]], ]; # Diff = 6
 
-    if $n > 1000 {
-#        my ($a,$b,$p,$q) = ($n ~~ /^^ (.)(.).*(.)(.) $$/)>>.Int; # slow!
-        my $q = substr $n,*-1, 1;
-        next unless    $q == none(1,4,6,9);
+   # lookup table for all the remaining diffs
+   my %lookup_n;
+   for @pairs { %lookup_n{ .[0] - .[1] }.push: $_ } 
 
-        my $a = substr $n,  0, 1;
-        next unless $a-$q ==  any(0,1,4,5,6);
+   loop {
+      my @powers = 10 <<**<< (0..digit-1); #  powers like 1, 10, 100, 1000....
 
-        my $b = substr $n,  1, 1;
-        my $p = substr $n,*-2, 1;
-        given $a {
-          when 2 { next if $q != 2 or $b != $p }
-          when 4 { next unless  $q == 0             and 0 == $b-$p }
-          when 6 { next unless ($q == 0 or $q == 5) and 0 != $b-$p }
-          when 8 { 
-                   next unless $q == any(2,3,7,8);
-                  (next unless 9 == $b+$p) if $q == 2;
-          }
-        }
-    }
+      #  for n-r (aka L) the required terms, like 9/ 99 / 999 & 90 / 99999 & 9999 & 900 etc
+      my @terms = (@powers.reverse Z- @powers).grep: * > 0 ;
 
-    #next unless 0x202021202030213 +& (1 +< (($n+$r) +& 63)) > 0; # minimal diff, if any
-    #next unless 0x202021202030213 +& (1 +< (($n-$r) +& 63)) > 0;
+      # create a cartesian product for all potetential diff numbers
+      # for the first use the very short one, for all other the complete 19 element
+      my @diff_list = do given @all_diffs xx (digit div 2 - 1) {
+                            when $_.Bool { [X] @diffs1, |$_ }
+                            default      { @diffs1          }  } 
 
-    next unless is-power($n+$r) and is-power($n-$r);
-    #next unless is_power($n+$r, 2) and is_power($n-$r, 2);
+      my @diff_list_iter = gather for @diff_list -> \k {
+         # remove invalid first diff/second diff combinations 
+         { take k ; next } if k.elems == 1 ;    
+         given (my (\a,\b) = k[0,1]) {       
+            when a == 0 && b != 0                                    { next } 
+            when a == 1 && b ∉ [ -7, -5, -3, -1,  1, 3, 5, 7       ] { next }
+            when a == 4 && b ∉ [ -8, -6, -4, -2,  0, 2, 4, 6, 8    ] { next }
+            when a == 5 && b ∉ [ -3,  7                            ] { next }
+            when a == 6 && b ∉ [ -9, -7, -5, -3, -1, 1, 3, 5, 7, 9 ] { next } 
+            default { take k }        
+         }      
+      }
 
-#say "GOT IT: $n";
-    # possibly redundant?
-    #my $dr = $n;
-    #while $dr.chars > 1 { $dr = [+] $dr.comb }
-    #next unless $dr == any(2,5,8,9);
+      for @diff_list_iter -> \diffs {
+         # calculate difference of original n and its reverse (aka L = n-r)
+         # which must be a perfect square
+         if (my \L = [+] diffs <<*>> @terms) > 0 and { $_ == $_.Int }(L.sqrt) {
+            # potential candiate, at least L is a perfect square
+            # placeholder for the digits
+            my \dig = @ = 0 xx digit;
+            # generate a cartesian product for each identified diff using the lookup tables
+            my @terms1toN = (1..(+diffs + (digit % 2 - 1))).map: -> \k        {                             
+                            k != +diffs ?? do { %lookup_n{$_} with diffs[k] }
+                                        !! do { @numeric_digits             } }
 
-    @Rare[$cnt⚛++] = $n;
+            my @c_iter = digit == 2 ?? @lookup_1[diffs[0]].map: { [ $_ ] } 
+                                    !! [X] @lookup_1[diffs[0]], |@terms1toN;
+            # check each H (n+r) by using digit combination
+            for @c_iter -> \elt {
+               for elt.kv -> \i, \pair { dig[i,digit-1-i] = pair[0,1] }
+               # for numbers with odd # digits restore the middle digit
+               # which has been overwritten at the end of the previous cycle
+               dig[(digit - 1) div 2] = elt[+elt - 1][0] if digit % 2 == 1 ;
+
+	       my \rev = ( my \num = [~] dig ).flip;
+
+               if num > rev and { $_ == $_.Int }((num+rev).sqrt) {
+                  @res.push: sprintf "%d: %12d reverse %d", $count+1, num, rev;
+        		  return if ++$count == target;
+               } 
+            }
+         }
+      }
+      digit++
+   }
 }
 
-#use experimental :cached; # no diff
-#sub is-power ($x) is cached { $_ == .floor given sqrt($x) }
-sub is-power ($x) { $_ == .floor given sqrt($x) }
+my $N = 3;
+@res.push: "The first $N rare numbers are:";
+rare $N;
 
-.say for @Rare;
-exit;
+say my $result = join "\n", @res;
 
 my $ref = q:to/END/;
-65
-621770
-281089082
+The first 3 rare numbers are:
+1:           65 reverse 56
+2:       621770 reverse 77126
+3:    281089082 reverse 280980182
 END
-
-my $refextra = q:to/END/;
-2022652202
-2042832002
-868591084757
-872546974178
-872568754178
-END
+#4:   2022652202 reverse 2022562202
+#5:   2042832002 reverse 2002382402
 
 use Test;
-is @Rare.join("\n"), chomp $ref;
+is $result, chomp $ref;
