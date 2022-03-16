@@ -2,22 +2,23 @@
 ## improve on 'rc-ast-dump', via Proc::Async timeout/kill
 #  2022-03-14
 #    needs explicit '$fh.close' or doesn't flush the print buffer, truncates AST
-#    boiler-plate from manual
-#    add timings, aid in fine-tuning 'big lists' vs 'infinite lists'
+#    concurrency/async boiler-plate from manual
+#    add timings, variable time-out, to aid in fine-tuning 'big lists' vs 'infinite lists'
 
 # fgrep '&infix:<*>' ast/* | perl -npe 's/:.*//' | sort -u
 
 shell 'rm -f ast/*';
 
-for flat 0, 'A'..'Z' -> $dir {
+#for flat 0, 'A'..'Z' -> $dir {
+(flat 0, 'A'..'Z').race: -> $dir {
     for run('find', $dir, :out).out.lines -> $path {
         next if 1 == $path.chars;
         my $file = $path.subst(/^.*\//, '');
         next if $file ~~ /\. ( \d+ | jvm ) $/;
-        next if $file ~~ /Left_factorials/; # rapidly consumes all memory
+        next if $file ~~ /Left_factorials | Fibonacci_word_fractal/; # rapidly consume all memory
         next if grep { / 'MOAR: BROKEN' / }, slurp $path;
         my $t = now;
-        gen-ast $path, $file, 90;
+        gen-ast $path, $file, 60;
         printf "%5.1f %s\n", now - $t, $path;
     }
 }
