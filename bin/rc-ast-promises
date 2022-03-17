@@ -9,8 +9,7 @@
 
 shell 'rm -f ast/*';
 
-#for flat 0, 'A'..'Z' -> $dir {
-(flat 0, 'A'..'Z').race: -> $dir {
+(flat 0, 'A'..'Z').race.map: -> $dir {
     for run('find', $dir, :out).out.lines -> $path {
         next if 1 == $path.chars;
         my $file = $path.subst(/^.*\//, '');
