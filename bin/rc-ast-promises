@@ -17,7 +17,7 @@ shell 'rm -f ast/*';
         next if $file ~~ /Left_factorials | Fibonacci_word_fractal/; # rapidly consume all memory
         next if grep { / 'MOAR: BROKEN' / }, slurp $path;
         my $t = now;
-        gen-ast $path, $file, 60;
+        gen-ast $path, $file, 90;
         printf "%5.1f %s\n", now - $t, $path;
     }
 }
