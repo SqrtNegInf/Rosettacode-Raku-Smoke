@@ -2977,16 +2977,11 @@ File: D/Damm_algorithm
 #j#  JVM: OK
 
 File: D/Data_Encryption_Standard
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Data_Encryption_Standard
-#c# 2019-03-22 <RC, 2020-02-28 <RC
+#c# 2019-03-22 <RC, 2020-02-28 <RC, 2022-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# 2022-02-13 intermittently fails unless MVM_SPESH_DISABLE=1 [p.s. seems to be fixed by next day]
-#n# 2020-02-28 still not getting the '\r\n' to round-trip
-#n# 2019-10-25 for JVM: 4th encryption fails (but decrypt on proper string OK)
-#n# as much fun as that would be to debug, I'm just going to comment it out
-#n# found/replaced Unicode my terminal/font wasn't displaying (using utility based on 'Character_codes', thundergnat++)
 
 File: D/Date_format
 #!/usr/bin/env perl6
@@ -4022,10 +4017,11 @@ File: E/Euclid-Mullin_sequence-2
 File: E/Euler%27s_constant_0.5772...
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Euler%27s_constant_0.5772...
-#c# 2021-11-26 <RC, 2021-11-27 <RC
+#c# 2021-11-26 <RC, 2021-11-27 <RC, 2022-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# very slow with FatRat
+#n# Vacca series: https://w.wiki/4ybp
+#n# *VERY* slow with FatRat
 
 File: E/Euler%27s_constant_0.5772....jvm
 #!/usr/bin/env raku
