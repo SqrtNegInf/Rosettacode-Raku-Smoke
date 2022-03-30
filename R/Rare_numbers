@@ -55,7 +55,7 @@ sub rare (\target where ( target > 0 and target ~~ Int )) {
       for @diff_list_iter -> \diffs {
          # calculate difference of original n and its reverse (aka L = n-r)
          # which must be a perfect square
-         if (my \L = [+] diffs <<*>> @terms) > 0 and { $_ == $_.Int }(L.sqrt) {
+         if (my \L = [+] diffs <<×>> @terms) > 0 and { $_ == $_.Int }(L.sqrt) {
             # potential candiate, at least L is a perfect square
             # placeholder for the digits
             my \dig = @ = 0 xx digit;
