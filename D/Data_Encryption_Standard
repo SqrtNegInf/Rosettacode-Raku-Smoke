@@ -108,9 +108,9 @@ sub ƒ (List \R, Seq \Kₙ --> List) {
    my @er = map { Kₙ[$_] +^ R[E[$_]] }, ^48;
 
    return ( flat (^8)».&{ # Sₙ(Bₙ) loop, process @er six bits at a time 
-      S[$_][ ([~] @er[$_*6   ,  $_*6+5]).parse-base(2)*16 +   # 2 bits
-             ([~] @er[$_*6+1 .. $_*6+4]).parse-base(2)      ] # 4 bits
-      .fmt('%04b').comb } # ((S[][] to binary).split)*8.flat  
+      S[$_][ ([~] @er[$_×6   ,  $_×6+5]).parse-base(2)×16 +   # 2 bits
+             ([~] @er[$_×6+1 .. $_×6+4]).parse-base(2)      ] # 4 bits
+      .fmt('%04b').comb } # ((S[][] to binary).split)×8.flat  
    )[P] 
 }
 
