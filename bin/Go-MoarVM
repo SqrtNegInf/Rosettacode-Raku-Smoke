@@ -30,7 +30,8 @@ bin/rc-jvm-cleanup
 
 # smoking
 echo 'MOAR'
-$HOME/.rakubrew/bin/rakubrew switch moar-blead
+# not running in 'shim' mode any longer
+#$HOME/.rakubrew/bin/rakubrew switch moar-blead
 #zef --force-install install Clifford
 perl6 -v
 #bin/rc-moar-parallel [0-Z]/*
