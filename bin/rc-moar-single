@@ -39,7 +39,7 @@ use Parallel::ForkManager;
 
 # with new rakubrew, simpler switching
 $mode = $0 =~ /moar/i ? 'moar' : 'jvm';
-my $shim = $mode eq 'moar' ?  '-blead' : '-2021.12'; #'-2020.11';
+#my $shim = $mode eq 'moar' ?  '-blead' : '-2022.03'; #'-2020.11';
 #system "rakubrew switch $mode${shim}";
 
 chdir "$ENV{HOME}/perl6/Rosetta-Code" || die;
