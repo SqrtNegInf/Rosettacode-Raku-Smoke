@@ -1,0 +1,107 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Nonogram_solver
+#c# 2022-04-01 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# translation of Perl
+
+my @res;
+
+for $=finish.lines.rotor(3, :partial) {
+
+   my (@rpats,@cpats) := @_[0,1]>>.&makepatterns;
+   my @rows            = ( '.' Zx~ +@cpats ) xx +@rpats ;   
+
+   loop (my $prev = ''; $prev ne ~@rows; ) {
+      $prev = ~@rows;
+      try(@rows, @rpats);
+      my @cols = (^+@cpats).map: { [~] @rows.map: { ~ s/.// } }
+      try(@cols, @cpats);
+      @rows    = (^+@rpats).map: { [~] @cols.map: { ~ s/.// } } 
+   }   
+   @res.push: '';
+   @rows ~~ /\./ ?? say "Failed" !! @res.push: TR/01/.O/ for @rows
+}
+
+sub try(@lines, @patterns) {
+   for ^+@lines -> $i { 
+      my $pos = 0;
+      while ( @lines[$i] ~~ m:g/\./ and $pos < @lines[$i].chars ) {
+         for ( 0, 1 ) -> $try {
+	    ( S:pos($pos)/\./$try/ with @lines[$i] ) ~~ /<{@patterns[$i]}>/ or
+	       substr-rw(@lines[$i],$pos,1) = 1 - $try
+         }
+	 $pos++;
+      }
+   }
+}
+
+sub makepatterns($input) {   
+   $input ==> split( ' ' ) 
+          ==>   map( *.comb )  
+	  ==>   map( *>>.&{ .ord - 64 } )  
+	  ==>   map( '<[1.]>**' <<~<< * )  
+	  ==>   map( *.join:  '<[0.]>+' ) 
+	  ==>   map( '^<[0.]>*' ~ * ~ '<[0.]>*$' )
+}
+
+
+#.say for @res;
+
+my $ref = q:to/END/;
+
+.OOO....
+OO.O....
+.OOO..OO
+..OO..OO
+..OOOOOO
+O.OOOOO.
+OOOOOO..
+....O...
+...OO...
+
+..........OOOOOO....
+........OOO.O..OOO..
+...O..OOO...O....OOO
+..OOO.OOOOOOOOOOOOOO
+...O..O............O
+..O.O.OO..........OO
+OOOOO..OO........OO.
+OOOOO...O........O..
+OOOOO..OOO.OOO.OOO..
+OOOOOOOO.OOO.OOO.OOO
+
+....................OOOOO
+..OO..............OOO..OO
+.OO..............OOOOO..O
+OO.............OOOOOOOO..
+OO....OOOOO.OOOOOOOOOOO..
+O.O..OO....O....OOOOOO...
+O..OO.....O.......OOO....
+OO........O.............O
+.OO.....OOOOOO.........OO
+..OOOOOOOOOOOOOOO....OOOO
+.....OOOOOOOOOO..OOOOOOOO
+....OO.O.OOOO.OOO..OOOOOO
+........OOOOOOOOOOOOOOOOO
+........OOOOOOOOOOOOOOOOO
+.......OOOOOOOOOOOOOOOOOO
+.......O...OOOOOOOOOOOOOO
+.......O.O.OOOOOOOOOOOOOO
+........OOOOO...OOOOOOOOO
+.................OOOOOOOO
+..................OOOOOOO
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+=finish
+C BA CB BB F AE F A B
+AB CA AE GA E C D C
+
+F CAC ACAC CN AAA AABB EBB EAA ECCC HCCC
+D D AE CD AE A DA BBB CC AAB BAA AAB DA AAB AAA BAB AAA CD BBA DA
+
+E BCB BEA BH BEK AABAF ABAC BAA BFB OD JH BADCF Q Q R AN AAN EI H G
+E CB BAB AAA AAA AC BB ACC ACCA AGB AIA AJ AJ ACE AH BAF CAG DAG FAH FJ GJ ADK ABK BL CM
