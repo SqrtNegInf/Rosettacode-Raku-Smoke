@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Nonogram_solver
-#c# 2022-04-01 <RC
+#c# 2022-04-01 <RC, 2022-04-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# translation of Perl
@@ -10,7 +10,7 @@ my @res;
 for $=finish.lines.rotor(3, :partial) {
 
    my (@rpats,@cpats) := @_[0,1]>>.&makepatterns;
-   my @rows            = ( '.' Zx~ +@cpats ) xx +@rpats ;   
+   my @rows            = ( '.' x +@cpats ) xx +@rpats ;   
 
    loop (my $prev = ''; $prev ne ~@rows; ) {
       $prev = ~@rows;
@@ -27,10 +27,15 @@ sub try(@lines, @patterns) {
    for ^+@lines -> $i { 
       my $pos = 0;
       while ( @lines[$i] ~~ m:g/\./ and $pos < @lines[$i].chars ) {
-         for ( 0, 1 ) -> $try {
-	    ( S:pos($pos)/\./$try/ with @lines[$i] ) ~~ /<{@patterns[$i]}>/ or
-	       substr-rw(@lines[$i],$pos,1) = 1 - $try
+         for 0, 1 -> $try {
+            with @lines[$i] { S:pos($pos)/\./$try/ ~~ /<{@patterns[$i]}>/ or
+                              s:pos($pos)/./{ 1 - $try }/                   }
          }
+
+      #  for ( 0, 1 ) -> $try {
+	  #  ( S:pos($pos)/\./$try/ with @lines[$i] ) ~~ /<{@patterns[$i]}>/ or
+	  #     substr-rw(@lines[$i],$pos,1) = 1 - $try
+      #  }
 	 $pos++;
       }
    }
