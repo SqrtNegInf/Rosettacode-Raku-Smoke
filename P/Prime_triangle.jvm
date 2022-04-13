@@ -1,0 +1,45 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Prime_triangle
+#c# 2022-04-12
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res;
+
+my @count = 0, 0, 1;
+my $lock = Lock.new;
+
+say '1 2';
+ 
+for 3..11 -> $n { # ..17
+    my @even = (2..^$n).grep: * %% 2;
+    my @odd  = (3..^$n).grep: so * % 2;
+    @even.permutations.map: -> @e {
+        quietly next if @e[0] == 8|14;
+        my $nope = 0;
+        for @odd.permutations -> @o {
+            quietly next unless (@e[0] + @o[0]).is-prime;
+            my @list;
+            for (@list = (flat (roundrobin(@e, @o)), $n)).rotor(2 => -1) {
+                $nope++ and last unless .sum.is-prime;
+            }
+            unless $nope {
+                say '1 ' ~ @list.join: ' ' unless @count[$n];
+                $lock.protect({ @count[$n]++ });
+            }
+            $nope = 0;
+        }
+    }
+}
+
+
+say "\n" ~ my $result = @count[2..*].join: ' ';
+
+my $ref = qq:to/END/;
+1 1 1 1 1 2 4 7 24 80
+END
+
+# 1 1 1 1 1 2 4 7 24 80 216 648 1304 3392 13808 59448
+
+use Test;
+is $result, chomp $ref;
