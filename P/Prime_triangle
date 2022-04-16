@@ -17,10 +17,10 @@ for 3..13 -> $n { # ..17
     my @even = (2..^$n).grep: * %% 2;
     my @odd  = (3..^$n).grep: so * % 2;
     @even.permutations.race.map: -> @e {
-        quietly next if @e[0] == 8|14;
+        quietly next if @e[0] == 8|14; # why 'quietly'? why '8|14'?
         my $nope = 0;
         for @odd.permutations -> @o {
-            quietly next unless (@e[0] + @o[0]).is-prime;
+            quietly next unless (@e[0] + @o[0]).is-prime; # supresses warning about use of 'Nil'
             my @list;
             for (@list = (flat (roundrobin(@e, @o)), $n)).rotor(2 => -1) {
                 $nope++ and last unless .sum.is-prime;
