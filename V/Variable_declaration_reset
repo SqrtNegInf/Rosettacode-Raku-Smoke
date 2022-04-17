@@ -1,0 +1,75 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Variable_declaration_reset
+#c# 2022-04-15 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+#`{{ skip the errors
+my @s = 1, 2, 2, 3, 4, 4, 5;
+loop (my $i = 0; $i < 7; $i += 1) {
+    my $curr = @s[$i];
+    my $prev;
+    if $i > 1 and $curr == $prev {
+        say $i;
+    }
+    $prev = $curr;
+}
+}}
+
+# no output
+my @s = 1, 2, 2, 3, 4, 4, 5;
+quietly loop (my $i1 = 0; $i1 < 7; $i1 += 1) {
+    my $curr = @s[$i1];
+    my $prev;
+    if $i1 > 1 and $curr == $prev {
+        say $i1;
+    }
+    $prev = $curr;
+}
+
+
+# 'our'
+loop (my $i2 = 0; $i2 < 7; $i2 += 1) {
+    my $curr = @s[$i2];
+    our $prev;
+    if $i2 > 1 and $curr == $prev {
+        @res.push: $i2;
+    }
+    $prev = $curr;
+}
+
+# 'state'
+loop (my $i3 = 0; $i3 < 7; $i3 += 1) {
+    my $curr = @s[$i3];
+    state $prev;
+    if $i3 > 1 and $curr == $prev {
+        @res.push: $i3;
+    }
+    $prev = $curr;
+}
+
+# No scope declarators at all. Every variable is a global. Bad idea. Do not do this casually.
+no strict;
+loop ($i4 = 0; $i4 < 7; $i4 += 1) {
+    $curr = @s[$i4];
+    if $i4 > 1 and $curr == $prev {
+        @res.push: $i4;
+    }
+    $prev = $curr;
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+2
+5
+2
+5
+2
+5
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
