@@ -13,6 +13,7 @@ source $HOME/.profile
 #rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
 
 cd $HOME/.rakubrew
+bin/rakubrew mode shim
 
 # update Rakudo/MoarVM
 #bin/rakubrew self-upgrade > out.rb    2> err.rb
@@ -108,3 +109,5 @@ echo ' '
 echo 'boring stuff...'
 echo ' '
 $HOME/perl6/Rosetta-Code/bin/Task-git
+
+bin/rakubrew mode env
