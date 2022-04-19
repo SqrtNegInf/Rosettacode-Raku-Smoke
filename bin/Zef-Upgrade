@@ -3,10 +3,10 @@
 
 source $HOME/.profile
 cd $HOME/.rakubrew
-bin/rakubrew mode shim
+#bin/rakubrew mode shim
 
 #bin/rakubrew build zef
-shims/zef upgrade > out.zef 2> err.zef
+zef upgrade > out.zef 2> err.zef
 
 echo ' '
 echo 'out.zef'
@@ -15,4 +15,4 @@ echo ' '
 echo 'err.zef'
 /usr/local/bin/pcregrep -v mirror: err.zef | sort
 
-bin/rakubrew mode env
+#bin/rakubrew mode env
