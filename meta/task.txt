@@ -1,8 +1,5 @@
-Welcome to Rakudo™ v2022.03-95-g34d281642.
-Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2022.03-4-g5d79a3ed9.
 updating from RC...
-+--------------> Moar: Good/Bad [1447/25]
++--------------> Moar: Good/Bad [1444/25]
 |+-------------> JVM: Good/Bad [1245/302]
 ||+------------> Smoke testing [1396]
 |||+-----------> sKipping validation [140]
@@ -11,10 +8,10 @@ updating from RC...
 ||||||+--------> Concurrent/Async [101]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [347]
+|||||||||+-----> Draft [348]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [97]
-||||||||||||+--> Un-implemented/reliable [48]
+|||||||||||+---> Void (no local copy) [98]
+||||||||||||+--> Un-implemented/reliable [49]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -327,6 +324,7 @@ GBS......D... Curve_that_touches_three_points
 GBS...C...... Curzon_numbers
 GGS.......... Cut_a_rectangle
 GGS......D... Cycle_detection
+.........D.VU Cycles_of_a_permutation
 GBS...C...... Cyclops_numbers
 GBS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
@@ -484,7 +482,7 @@ GGS.......... Faulhaber%27s_triangle
 GGS.......... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
 GGS.....FD... Fibonacci_heap
-GBS..T...D... Fibonacci_matrix-exponentiation
+!BS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_n-step_number_sequences-2
 GGS..T....... Fibonacci_sequence
@@ -992,7 +990,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-GBS......D... Orbital_elements
+!BS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
@@ -1093,7 +1091,7 @@ GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GBS......D... Polynomial_derivative
 GGS..T....... Polynomial_long_division
-GBS.......... Polynomial_regression
+!BS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
