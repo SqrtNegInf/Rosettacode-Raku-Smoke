@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+## JVM bug from PWC/033/1/athanasius.raku
+#    2022-04-19
+
+(.say for 
+    .comb.grep({ rx  / <[a..z]> / }).join, 
+    .comb.grep({ rx  / <[A..z]> / }).join,
+    .comb.grep({ rx:i/ <[a..z]> / }).join  # JVM gives 'abb'??
+) given 'aAbBb';
+
+=finish 
+
+MoarVM:
+abb
+aAbBb
+aAbBb
+
+JVM:
+abb
+aAbBb
+abb
