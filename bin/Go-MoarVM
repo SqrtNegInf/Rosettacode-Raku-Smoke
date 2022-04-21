@@ -35,14 +35,14 @@ echo 'MOAR'
 # not running in 'shim' mode any longer
 #$HOME/.rakubrew/bin/rakubrew switch moar-blead
 #zef --force-install install Clifford
-perl6 -v
+raku -v
 #bin/rc-moar-parallel [0-Z]/*
 bin/rc-moar-single [0-Z]/*
 
 # track stats
 /bin/echo -n `date +%Y-%m-%d` >> bench/rakudo-builds.txt
 /bin/echo -n ' '              >> bench/rakudo-builds.txt
-perl6 -v | head -1            >> bench/rakudo-builds.txt
+raku -v | head -1            >> bench/rakudo-builds.txt
 bin/rc-stats 10 > meta/stats.txt
 
 echo ' '
