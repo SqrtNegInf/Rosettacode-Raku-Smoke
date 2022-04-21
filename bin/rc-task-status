@@ -9,7 +9,8 @@ use strict 'vars';
 
 my(%P);
 
-print `$ENV{HOME}/.rakubrew/shims/raku -v`; 
+#print `$ENV{HOME}/.rakubrew/shims/raku -v`; 
+print `/usr/local/bin/raku -v`; 
 
 # update only once a day
 if (.95 < -M "Category:Programming_Tasks") {
