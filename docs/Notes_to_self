@@ -1,3 +1,14 @@
+2022-04-21
+Daily run failed, with 'perl6-m' not found being proximate cause (even after 'rakubrew rehash'?).
+Munged it through by-hand...
+
+2022-04-19
+Three more cases of 'srand drift'.
+These run fine, but warnings from 'Math::Matrix' generate STDERR, which puts them in the 'bad' column:
+   Polynomial_regression
+   Orbital_elements
+   Fibonacci_matrix-exponentiation
+
 2022-04-18
 D'oh, no moar-blead updates for 3 weeks.  Been paying more attention to PWC...
 
