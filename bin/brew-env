@@ -1,0 +1,11 @@
+#!/bin/sh
+## kludge to get 'rakubrew' back to 'env' mode
+#    2022-04-22
+
+#eval "$(/Users/dhoekman/.rakubrew/bin/rakubrew init Sh)"
+source $HOME/.profile
+
+cd $HOME/.rakubrew
+bin/rakubrew mode 
+bin/rakubrew mode env
+bin/rakubrew mode 
