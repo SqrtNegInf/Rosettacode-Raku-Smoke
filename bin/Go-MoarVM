@@ -7,7 +7,7 @@
 
 source $HOME/.profile
 
-# 2022-04-06 how about now?
+# 2022-04-06 how about now?           [Seemingly not...]
 # 2022-01-18 see if this still needed [ANSWER: YEP]
 #rm -rf $HOME/.raku/precomp # new bug, old solution?
 #rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
@@ -112,3 +112,12 @@ $HOME/perl6/Rosetta-Code/bin/Task-git
 
 #cd $HOME/.rakubrew
 #bin/rakubrew mode env
+
+echo 'Switch rakubrew mode back to env'
+#eval "$(/Users/dhoekman/.rakubrew/bin/rakubrew init Zsh)"
+cd $HOME
+which rakubrew
+rakubrew mode
+rakubrew mode env
+rakubrew mode
+
