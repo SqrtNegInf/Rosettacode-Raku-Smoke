@@ -1,11 +1,10 @@
-#!/bin/sh
+#!/opt/local/bin/zsh
 ## kludge to get 'rakubrew' back to 'env' mode
 #    2022-04-22
 
-#eval "$(/Users/dhoekman/.rakubrew/bin/rakubrew init Sh)"
-source $HOME/.profile
+eval "$(/Users/dhoekman/.rakubrew/bin/rakubrew init Zsh)"
+which rakubrew
 
-cd $HOME/.rakubrew
-bin/rakubrew mode 
-bin/rakubrew mode env
-bin/rakubrew mode 
+rakubrew mode 
+rakubrew mode env
+rakubrew mode 
