@@ -1,8 +1,8 @@
-Welcome to Rakudo™ v2022.04-5-g8140c55bf.
+Welcome to Rakudo™ v2022.04-18-g51c00fddd.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.04-1-g4e2eab056.
 updating from RC...
-+--------------> Moar: Good/Bad [1443/25]
++--------------> Moar: Good/Bad [1440/25]
 |+-------------> JVM: Good/Bad [1245/302]
 ||+------------> Smoke testing [1396]
 |||+-----------> sKipping validation [140]
@@ -360,7 +360,7 @@ GBS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -453,7 +453,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -745,7 +745,7 @@ GGS.......... Lah_numbers
 .........D... Largest_difference_between_adjacent_primes
 GGS.......... Largest_difference_between_adjacent_primes-1
 GBS.......... Largest_difference_between_adjacent_primes-2
-GGS....R.D... Largest_five_adjacent_number
+!GS....R.D... Largest_five_adjacent_number
 GGS.......... Largest_int_from_concatenated_ints
 GBS..TC...... Largest_number_divisible_by_its_digits
 .........D... Largest_palindrome_product
@@ -842,7 +842,7 @@ GGS.....F.... Mandelbrot_set
 GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
 !GS..T.R.D... Markov_chain_text_generator
-!GS....R..... Mastermind
+GGS....R..... Mastermind
 GGS..T....... Matrix-exponentiation_operator
 GGS..T....... Matrix_chain_multiplication
 GG.K......... Matrix_digital_rain
@@ -858,7 +858,7 @@ GBS.......... Mayan_numerals-2
 GG.K...R..... Maze_generation
 GG.K...R..... Maze_solving
 GGS.......... McNuggets_problem
-GBS..T..F.... Median_filter
+!BS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
@@ -1194,7 +1194,7 @@ GG.K.....D... Recursive_descent_parser_generator
 GGS.....F.... Reduced_row_echelon_form
 GGS.......... Reduced_row_echelon_form-1
 GGS.......... Reduced_row_echelon_form-2
-GBS..T....... Reflection_Get_source
+!BS..T....... Reflection_Get_source
 GGS.......... Reflection_List_methods
 GGS.......... Reflection_List_properties
 GGS.......... Regular_expressions
@@ -1399,7 +1399,7 @@ GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
 GGS.......... Spiral_matrix-2
 GBS.......... Split_a_character_string_based_on_change_of_character
-!GS..T.R.D... Spoof_game
+GGS..T.R.D... Spoof_game
 GBS..TC...... Square-free_integers
 GGS.......... Square_but_not_cube
 GBS.......... Square_form_factorization
