@@ -50,10 +50,8 @@ mkdir "bench/$dir"   if ! -e "bench/$dir";
 unlink "bench/$mode" if   -e "bench/$mode";
 system qq{cd bench; symlink $dir $mode};
 
-$exe  = '/usr/local/bin/perl6'; # don't have a 'raku-j' yet
+$exe  = 'perl6'; # don't have a 'raku-j' yet
 $exe .= $mode eq 'jvm' ? '-j -I lib ' : '-m';
-
-#print "$exe\n"; exit;
 
 system "date";
 
@@ -73,7 +71,6 @@ for my $prog (@ARGV) {
 
     @status = `head -12 $prog`;
     next unless $status[0] =~ /env (perl6|raku)/;
-$DB::single = 1;
     next if grep { /^#t#.*($skip)/ } @status;
     next if $mode eq 'moar' && grep { /^#m#.*BROKEN/i } @status;
     #next if $mode eq 'jvm'  && grep { /^#j#.*BROKEN/i } @status; # always run to see if now un-breaks
@@ -99,7 +96,6 @@ $DB::single = 1;
     $difftest =~ s/\.BEND/.moar/ if $mode ne 'jvm';
     $difftest =~ s/\.BEND/.jvm/  if $mode eq 'jvm';
     $Pfile{$prog} = $difftest if $difftest ne '';
-
 
     if ($mode eq 'jvm' and -e "$prog.jvm") { push @Programs, "$prog.jvm" }
     else                                   { push @P_one_at_a_time, $prog }   # run all 'solo' to solve precomp issues?
