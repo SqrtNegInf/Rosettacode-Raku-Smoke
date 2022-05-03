@@ -1,16 +1,17 @@
-raku -e 'srand 123456; say <A B C D>.roll(200).join' # shifts 69 steps between 2020.08 and 2021.10:
+raku -e 'srand 123456; say <A B C D>.roll(200).join' # shifts 84 steps between 2020.08 and 2022.04:
 CACCCACCACDABDCABAABADDBDDBDACCCBCAACACABDABACCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.08 baseline
                                         BDABACCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.10 shifts 40
                                              CCDABABCCDCBBCDABDDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.11 shifts  5
                                                               DDABCCDCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2020.12 shifts 17
                                                                     DCAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2021.04 shifts  6
                                                                      CAACBCACDBBDBDDABADAAADDDDCCCDBDB... 2021.10 shifts  1
+                                                                                    ABADAAADDDDCCCDBDB... 2022.04 shifts 15
 
 
-raku -e 'srand 42; say <A B C D>.roll(200).join' # likewise, shifts 69 steps over the same span of releases:
+raku -e 'srand 42; say <A B C D>.roll(200).join' # likewise, shifts 84 steps over the same span of releases:
 BCDACACDBADCABACBADCACADBACBABDCBBDCDACCDCADCAACCBAADCCDDABCDBAACDDDCAACCDACABDBDCCADABCBDAABBCADDCBDB... 2020.08
                                                                      AACCDACABDBDCCADABCBDAABBCADDCBDB... 2021.10
-
+                                                                                    DABCBDAABBCADDCBDB... 2022.04
 ===============
 
 2022-02-03
