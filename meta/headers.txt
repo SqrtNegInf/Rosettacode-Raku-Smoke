@@ -12294,6 +12294,16 @@ File: S/Set_puzzle
 File: S/Set_right-adjacent_bits
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Set_right-adjacent_bits
+#c# 2021-12-20 <RC, 2022-05-14 <RC, 2022-05-15 >RC 
+#m# MOAR: OK
+#j# JVM:  OK
+#n# 2022-05-15 fixed off-by-one error (introduced with Dec 21st revision)
+#n# marked incomplete on RC (picayune pettifoggery) so gets 'unimplemented' status in nightly task tally
+#n# (hence so doesn't count towards tasks completed in 'RC' totals?)
+
+File: S/Set_right-adjacent_bits.1
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Set_right-adjacent_bits
 #c# 2021-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -15736,6 +15746,15 @@ File: Z/Zebra_puzzle
 #c# 2018-11-22 <RC, 2018-12-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: Z/Zebra_puzzle-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Zebra_puzzle
+#c# 2022-05-15 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# minor variation 
+#n# trying this to ensure if never fails: facts can be shuffled
 
 File: Z/Zebra_puzzle.1
 #!/usr/bin/env perl6
