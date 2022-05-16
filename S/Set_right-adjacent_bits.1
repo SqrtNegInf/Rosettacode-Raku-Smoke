@@ -1,35 +1,31 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Set_right-adjacent_bits
-#c# 2021-12-20 <RC, 2022-05-14 <RC, 2022-05-15 >RC 
+#c# 2021-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-05-15 fixed off-by-one error (introduced with Dec 21st revision)
-#n# marked incomplete on RC (picayune pettifoggery) so gets 'unimplemented' status in nightly task tally
-#n# (hence so doesn't count towards tasks completed in 'RC' totals?)
 
 my @res;
 
-sub rab (Int $n, Int $b = 1) {
-    my $m = $n;
-    $m +|= ($n +> $_) for ^ $b+1;  # for clarity
-#   $m +|= ($n +> $_) for ^$b+1;   # but this works too
-#   $m +|= ($n +> $_) for ^(1+$b); # also OK
-#   $m +|= ($n +> $_) for ^1+$b;   # no
-    $m
+sub rab (Int $n is copy, Int $b = 1) {
+    for 1..$n.msb -> $i {
+        next unless $n +& (1 +< $i);
+        $n +|= exp($i - $_, 2) for 1 .. $b
+    }
+    $n
 }
 
-sub lab (Int $n, Int $b = 1) {
-    my $m = $n;
-    $m +|= ($n +< $_) for ^ $b+1;
-    $m
+sub lab (Int $n is copy, Int $b = 1) {
+    for $n.msb … 0 -> $i {
+        next unless $n +& (1 +< $i);
+        $n +|= exp($i + $_, 2) for 1 .. $b
+    }
+    $n
 }
 
-# weird zero left-padding required by task author (and why not '1' as well?)
-for 8,4,2,0 -> $integer { 
-    printf "%04d => %04d\n", $integer.&rab(0).base(2), $integer.&rab(2).base(2)
-}
+# Test with a few integers.
 
 for 8,4, 18455760086304825618,5, 5444684034376312377319904082902529876242,15 -> $integer, $bits {
+
     @res.push: "\nInteger: $integer - Right-adjacent-bits: up to $bits";
 
     @res.push: $_ for ^$bits .map: -> $b { $integer.&rab($b).base: 2 };
@@ -40,7 +36,7 @@ for 8,4, 18455760086304825618,5, 5444684034376312377319904082902529876242,15 -> 
 
 }
 
-.say for @res[^22];  # just display smaller examples
+.say for @res[^22];
 
 my $ref = q:to/END/;
 
