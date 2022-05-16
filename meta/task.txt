@@ -3,11 +3,11 @@ Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.04-3-ga9fcd5a74.
 updating from RC...
 +--------------> Moar: Good/Bad [1449/25]
-|+-------------> JVM: Good/Bad [1246/302]
-||+------------> Smoke testing [1397]
+|+-------------> JVM: Good/Bad [1247/302]
+||+------------> Smoke testing [1398]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [363]
+|||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [101]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
@@ -454,7 +454,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -1296,7 +1296,7 @@ GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
 !GS..T.R..... Set_puzzle
-GGS.........U Set_right-adjacent_bits
+GGS..T......U Set_right-adjacent_bits
 !GS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
 GBS.......... Shell_one-liner
@@ -1675,6 +1675,7 @@ GB.K......... Yahoo__search_interface
 GGS.....F.... Yellowstone_sequence
 GGS.....F.... Yin_and_yang
 GGS.......... Zebra_puzzle
+GGS.......... Zebra_puzzle-2
 GGS..T....... Zeckendorf_arithmetic
 GGS..T....... Zeckendorf_number_representation
 GGS.......... Zero_to_the_zero_power
