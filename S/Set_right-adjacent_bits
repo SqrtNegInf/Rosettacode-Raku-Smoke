@@ -1,11 +1,12 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Set_right-adjacent_bits
-#c# 2021-12-20 <RC, 2022-05-14 <RC, 2022-05-15 >RC 
+#c# 2021-12-20 <RC, 2022-05-14 <RC, 2022-05-15 >RC, 2022-05-16 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-05-16 added example, removed 'incomplete' note
 #n# 2022-05-15 fixed off-by-one error (introduced with Dec 21st revision)
-#n# marked incomplete on RC (picayune pettifoggery) so gets 'unimplemented' status in nightly task tally
-#n# (hence so doesn't count towards tasks completed in 'RC' totals?)
+#n#            marked incomplete on RC (picayune pettifoggery) so gets 'unimplemented' status in nightly task tally
+#n#            (hence so doesn't count towards tasks completed in 'RC' totals?)
 
 my @res;
 
@@ -24,10 +25,10 @@ sub lab (Int $n, Int $b = 1) {
     $m
 }
 
-# weird zero left-padding required by task author (and why not '1' as well?)
-for 8,4,2,0 -> $integer { 
-    printf "%04d => %04d\n", $integer.&rab(0).base(2), $integer.&rab(2).base(2)
-}
+# example required by task author (and why not '1' as well?)
+@res.push: "Powers of 2 ≤ 8, 0 - Right-adjacent-bits: 2";
+@res.push: .&rab(2).base(2).fmt('%04s') for 8,4,2,1,0;
+#<8 4 2 1 0>.map: *.&rab(2).base(2).fmt('%04s').say;
 
 for 8,4, 18455760086304825618,5, 5444684034376312377319904082902529876242,15 -> $integer, $bits {
     @res.push: "\nInteger: $integer - Right-adjacent-bits: up to $bits";
@@ -40,9 +41,15 @@ for 8,4, 18455760086304825618,5, 5444684034376312377319904082902529876242,15 -> 
 
 }
 
-.say for @res[^22];  # just display smaller examples
+.say for @res[^28];  # just display smaller examples
 
 my $ref = q:to/END/;
+Powers of 2 ≤ 8, 0 - Right-adjacent-bits: 2
+1110
+0111
+0011
+0001
+0000
 
 Integer: 8 - Right-adjacent-bits: up to 4
 1000
