@@ -17,7 +17,7 @@ for 3..13 -> $n { # ..17
     my @even = (2..^$n).grep: * %% 2;
     my @odd  = (3..^$n).grep: so * % 2;
     @even.permutations.race.map: -> @e {
-        quietly next if @e[0] == 8|14; # why 'quietly'? why '8|14'?
+        next if @e[0] == 8|14; # don't need 'quietly' here
         my $nope = 0;
         for @odd.permutations -> @o {
             quietly next unless (@e[0] + @o[0]).is-prime; # supresses warning about use of 'Nil'
