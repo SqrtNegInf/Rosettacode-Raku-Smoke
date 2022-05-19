@@ -1,9 +1,9 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Zebra_puzzle
-#c# 2022-05-15 <RC
+#c# 2022-05-15 <RC, 2022-05-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# minor variation 
+#n# minor variation
 #n# trying this to ensure if never fails: facts can be shuffled
 
 my @res;
@@ -45,8 +45,8 @@ sub MAIN {
     yellow    | water     | Norwegian | 1         | cats      | Dunhill  
     blue      | tea       | Dane      | 2         | horse     | Blend    
     red       | milk      | English   | 3         | birds     | Pall-Mall
-    green     | coffee    | German    | 4         | zebra     | Prince   
-    white     | beer      | Swede     | 5         | dog       | Blue-Master
+    white     | beer      | Swede     | 4         | dog       | Blue-Master
+    green     | coffee    | German    | 5         | zebra     | Prince   
     END
 
     use Test;
@@ -66,13 +66,15 @@ multi sub solve(@scenario, [ $fact, *@facts ]) {
 }
 
 #| find all possible solutions for pairs of houses with
-#| properties %a, left of a house  with properties %b
-multi sub match(@houses, :Left-Of(%b)!, *%a) {
-    for @houses {
-        my $idx = .<num> - 1;
-        if $idx > 0 && plausible(@houses[$idx-1], %a) && plausible(@houses[$idx], %b) {
-            temp @houses[$idx-1].Hash ,= %a;
-            temp @houses[$idx].Hash ,= %b;
+#| properties %b, left of a house  with properties %a
+multi sub match(@houses, :Left-Of(%a)!, *%b) {
+    for 1 ..^ @houses {
+        my %left-house  := @houses[$_-1];
+        my %right-house := @houses[$_];
+
+        if plausible(%left-house, %a) && plausible(%right-house, %b) {
+            temp %left-house  ,= %a;
+            temp %right-house ,= %b;
             take @houses;
         }
     }
@@ -86,9 +88,8 @@ multi sub match(@houses, :Next-To(%b)!, *%a ) {
 
 #| find all possible houses that match the given properties
 multi sub match(@houses, *%props) {
-    for @houses.grep({plausible($_, %props)}) -> $house {
-        my $idx = $house<num> - 1;
-        temp @houses[$idx] = %( %$house, %props );
+    for @houses.grep({plausible($_, %props)}) -> %house {
+        temp %house ,= %props;
         take @houses;
     }
 }
