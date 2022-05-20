@@ -216,7 +216,8 @@ File: A/ADFGVX_cipher
 #u# http://rosettacode.org/wiki/ADFGVX_cipher
 #c# 2021-08-16 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
+#n# 2022-05-19 MoarVM results are for batch, JVM for interactive
 
 File: A/ADFGVX_cipher.jvm
 #!/usr/bin/env raku
@@ -320,6 +321,13 @@ File: A/Abelian_sandpile_model_Identity
 #c# 2020-07-16 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+
+File: A/Abelian_sandpile_model_Identity.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Abelian_sandpile_model/Identity
+#c# 2020-07-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: A/Abstract_type
 #!/usr/bin/env perl6
@@ -562,7 +570,7 @@ File: A/Almkvist-Giullera_formula_for_pi
 #u# http://rosettacode.org/wiki/Almkvist-Giullera_formula_for_pi
 #c# 2020-10-14 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: A/Almost_prime-1
 #!/usr/bin/env perl6
@@ -2148,6 +2156,13 @@ File: C/Circular_primes
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A016114
+
+File: C/Circular_primes.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Circular_primes
+#c# 2020-04-06 <RC, 2020-04-07 <>RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: C/Cistercian_numerals
 #!/usr/bin/env raku
@@ -4269,6 +4284,15 @@ File: E/External_sort
 #c# 2019-11-20 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 2022-05-19 even with source of modules in 'lib', never populates temp files with anything
+
+File: E/External_sort.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/External_sort
+#c# 2019-11-20 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# work-around for module issue in place, but fails to read from files (gather/take issue?)
 
 File: E/Extra_primes
 #!/usr/bin/env raku
@@ -8109,8 +8133,7 @@ File: M/Mayan_numerals-2
 #u# http://rosettacode.org/wiki/Mayan_numerals
 #c# 2021-02-11 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n#  plain old text mode. Not as pretty, but still serviceable.
+#j# JVM:  OK
 
 File: M/Maze_generation
 #!/usr/bin/env perl6
@@ -15527,13 +15550,6 @@ File: W/Word_wheel-2
 #c# 2020-07-04 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-
-File: W/Word_wheel-2.jvm
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Word_wheel
-#c# 2020-07-04 <RC
-#m# MOAR: OK
-#j# JVM:  OK
 
 File: W/Word_wrap
 #!/usr/bin/env perl6
