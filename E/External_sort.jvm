@@ -1,0 +1,48 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/External_sort
+#c# 2019-11-20 >RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# work-around for module issue in place, but fails to read from files (gather/take issue?)
+
+#use File::Temp;
+
+sub merge_streams ( @streams ) {
+    my @s = @streams.map({ hash( STREAM => $_, HEAD => .get ) }).grep({ .<HEAD>.defined });
+
+    return gather while @s {
+        my $h = @s.min: +*.<HEAD>;
+        take $h<HEAD>;
+        $h<HEAD> := $h<STREAM>.get
+            orelse @s .= grep( { $_ !=== $h } );
+    }
+}
+
+my $max = 4; # records per merge file
+
+# we're going to pretend that this is a long stream of input from stdin...
+my (@chunk,@files);
+for (<43 2 45 32 15 4 3 -9 45 66 0 42 78 123 -11 76 55 87 -2 64 92 34>) {
+    @chunk.push: $_;
+    @files.push: store(@chunk) and @chunk = () if @chunk.elems == $max;
+}
+@files.push: store(@chunk) if @chunk;
+
+sub store (@values) {
+    state $cnt;
+    #my ($filename,$filehandle) = tempfile(:tempdir('./tmp'), :prefix('external-sort.'));
+    my $filename   = './tmp/external-sort-' ~  ++$cnt;
+    my $filehandle = open $filename, :w;
+    $filehandle.say: join "\n", @values.sort: +*;
+    $filename
+}
+
+dd @files;
+say my $result = join ' ', merge_streams @files».&open;
+
+my $ref = qq:to/END/;
+-11 -9 -2 0 2 3 4 15 32 34 42 43 45 45 55 64 66 76 78 87 92 123
+END
+
+use Test;
+is $result, chomp $ref;
