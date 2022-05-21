@@ -217,14 +217,7 @@ File: A/ADFGVX_cipher
 #c# 2021-08-16 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-05-19 MoarVM results are for batch, JVM for interactive
-
-File: A/ADFGVX_cipher.jvm
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/ADFGVX_cipher
-#c# 2021-08-16 <RC
-#m# MOAR: OK
-#j# JVM:  OK
+#n# 2022-05-20 on account of 'srand' issues, for MoarVM, just test round-trip
 
 File: A/AKS_test_for_primes
 #!/usr/bin/env perl6
@@ -321,13 +314,6 @@ File: A/Abelian_sandpile_model_Identity
 #c# 2020-07-16 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-
-File: A/Abelian_sandpile_model_Identity.jvm
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Abelian_sandpile_model/Identity
-#c# 2020-07-16 <RC
-#m# MOAR: OK
-#j# JVM:  OK
 
 File: A/Abstract_type
 #!/usr/bin/env perl6
@@ -1328,13 +1314,6 @@ File: B/Bioinformatics_Subsequence
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# new-disp 'srand' shift
-
-File: B/Bioinformatics_Subsequence.jvm
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Bioinformatics/Subsequence
-#c# 2021-03-22 <RC
-#m# MOAR: OK
-#j# JVM:  OK
 
 File: B/Bioinformatics_base_count
 #!/usr/bin/env perl6
@@ -2963,9 +2942,10 @@ File: C/Cyclops_numbers.1
 File: C/Cyclops_numbers.jvm
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Cyclops_numbers
-#c# 2021-06-23 <RC
+#c# 2021-06-23 <RC, 2021-06-25 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# limit testing as very slow...
 
 File: C/Cyclotomic_Polynomial
 #!/usr/bin/env perl6
@@ -3085,15 +3065,6 @@ File: D/Death_Star
 #j#  JVM: OK
 #f# RC file: deathstar-perl6.pgm
 
-File: D/Death_Star.jvm
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Death_Star
-#c# 2016-02-24 <RC, 2017-06-04 >RC
-#t# graphical
-#m# MOAR: OK
-#j#  JVM: OK
-#f# RC file: deathstar-perl6.pgm
-
 File: D/Deceptive_numbers
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Deceptive_numbers
@@ -3129,7 +3100,7 @@ File: D/Decimal_-_Hexadecimal_numbers.jvm
 #c# 2021-06-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# slow, so reduced range
+#n# less modular than MoarVM, no Unicode; also slow, so reduced testing
 
 File: D/Decimal_floating_point_number_to_binary
 #!/usr/bin/env perl6
@@ -3470,13 +3441,6 @@ File: D/Distinct_Palindromes_Within_Decimal_Numbers
 #j# JVM:  BROKEN
 #n# OEIS:A262188
 #n# OEIS:A151997
-
-File: D/Distinct_Palindromes_Within_Decimal_Numbers.jvm
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Distinct_Palindromes_Within_Decimal_Numbers
-#c# 2021-04-06 <RC
-#m# MOAR: OK
-#j# JVM:  OK
 
 File: D/Distinct_power_numbers
 #!/usr/bin/env raku
@@ -4012,13 +3976,6 @@ File: E/Erdos-primes
 #u# http://rosettacode.org/wiki/Erdős-primes
 #c# 2021-03-20 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-
-File: E/Erdos-primes.jvm
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Erdős-primes
-#c# 2021-03-20 <RC
-#m# MOAR: OK
 #j# JVM:  OK
 
 File: E/Esthetic_numbers
@@ -4026,15 +3983,8 @@ File: E/Esthetic_numbers
 #u# http://rosettacode.org/wiki/Esthetic_numbers
 #c# 2020-03-17 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# OEIS:A033075
-
-File: E/Esthetic_numbers.jvm
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Esthetic_numbers
-#c# 2020-03-17 <RC
-#m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A033075
 
 File: E/Ethiopian_multiplication
 #!/usr/bin/env perl6
@@ -4186,7 +4136,6 @@ File: E/Executable_library.jvm
 #m# MOAR: OK
 #j# JVM:  OK
 #n# uses module 'Hailstone.pm'
-#n# wouldn't need a separate JVM version except for the 'race'
 
 File: E/Execute_Brainfuck
 #!/usr/bin/env perl6
@@ -4291,8 +4240,8 @@ File: E/External_sort.jvm
 #u# http://rosettacode.org/wiki/External_sort
 #c# 2019-11-20 >RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
-#n# work-around for module issue in place, but fails to read from files (gather/take issue?)
+#j#  JVM: OK
+#n# never could get the module to work, and needed a gather/take work-around as well
 
 File: E/Extra_primes
 #!/usr/bin/env raku
@@ -4387,11 +4336,9 @@ File: F/Factorions
 #c# 2019-08-12 <RC, 2019-09-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# little slower than previous version (when doing 1.5 million iterations)
-#n# 2019-10-07 crashed, race condition?
-#n# 2020-?     tune .race to match # of bases
 #n# 2021-08-25 .race starts causing failure
 #n# 2021-09-10 pre-allocating @result, making @factorial non-lazy does not help
+#n# 2022-05-20 .race slows things down?
 #n# OEIS:A014080 Factorions in base 10
 #n# OEIS:A193163 Factorions in base n
 
@@ -4411,14 +4358,6 @@ File: F/Factorions.1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# placement of .hyper here make it a little faster than newer version (measurable when doing 1.5 million iterations)
-#n# try more bases (note results for 18)
-
-File: F/Factorions.jvm
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Factorions
-#c# 2019-08-12 <RC
-#m# MOAR: OK
-#j# JVM:  OK
 #n# try more bases (note results for 18)
 
 File: F/Factors_of_a_Mersenne_number
@@ -4463,12 +4402,9 @@ File: F/Farey_sequence
 File: F/Farey_sequence.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Farey_sequence
-#c# 2016-05-21 <RC
+#c# 2016-05-21 <RC, 2018-11-10 <RC
 #m# MOAR: OK
-#j#  JVM: OK
-#n# an example of where .race does not help: 
-#n#    in the 'farey' routine: the costs of setup/management swamp the fairly trivial calculations
-#n#    calling 'farey':        time dominated by the 1000 run (?)
+#j# JVM:  OK
 
 File: F/Fast_Fourier_transform
 #!/usr/bin/env perl6
