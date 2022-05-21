@@ -6,19 +6,14 @@
 #n# works fine, but limit testing as a bit slow...
 
 use Prime::Factor;
-#use Lingua::EN::Numbers;
+use Lingua::EN::Numbers;
 
 say my $result = (2..∞).map( {
     next if (1 < $_ gcd 210) || .is-prime || any .&prime-factors.map: -> $n { !.contains: $n };
     $_
-} )[^2];
-#} )[^20].batch(10)».&comma».fmt("%10s").join: "\n";
+} )[^3].batch(10)».&comma».fmt("%10s").join: "\n";
 
-my $ref = '15317 59177';
-#my $ref = q:to/END/;
-#    15,317     59,177     83,731    119,911    183,347    192,413  1,819,231  2,111,317  2,237,411  3,129,361
-#END
-#5,526,173 11,610,313 13,436,683 13,731,373 13,737,841 13,831,103 15,813,251 17,692,313 19,173,071 28,118,827
+my $ref = '    15,317     59,177     83,731';
 
 use Test;
 is $result, $ref;
