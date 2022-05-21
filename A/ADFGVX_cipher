@@ -3,7 +3,7 @@
 #c# 2021-08-16 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-05-19 MoarVM results are for batch, JVM for interactive
+#n# 2022-05-20 on account of 'srand' issues, for MoarVM, just test round-trip
 
 srand 123456;
 
@@ -101,5 +101,6 @@ Decoded: ATTACKAT1200AM
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+if $*VM ~~ /jvm/ { is @res.join("\n"),  chomp $jvm      }
+else             { is 'ATTACKAT1200AM', decode $encoded }
