@@ -3,17 +3,22 @@
 #c# 2021-06-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# slow, so reduced range
+#n# less modular than MoarVM, no Unicode; also slow, so reduced testing
 
-say my $result = (^10000).grep( { [eqv] ($_, .fmt: '%x').map( *.comb.Bag ) } ).batch(10)».fmt('%5d').join("\n");
+say my $result1 = (^10000).grep( { [eqv] ($_, .fmt: '%x').map( *.comb.Bag ) } ).batch(10)».fmt('%5d').join("\n");
+say my $result2 = (^10000).grep( { [eqv] ($_, .fmt: '%x').map( *.comb.Set ) } ).batch(10)».fmt('%5d').join("\n");
 
-#@res.push: (^10000).grep( { [eqv] ($_, .fmt: '%x').map( *.comb.Bag ) } ).batch(10)».fmt('%5d').join("\n");
-#@res.push: (^100000).grep( { [eqv] ($_, .fmt: '%x').map( *.comb.Set ) } ).batch(10)».fmt('%5d').join("\n");
-
-my $ref = q:to/END/;
+my $ref1 = q:to/END/;
     0     1     2     3     4     5     6     7     8     9
    53   371   913  4100  5141  5412  6182  8200  9241
 END
 
+my $ref2 = q:to/END/;
+    0     1     2     3     4     5     6     7     8     9
+   53   371   913  1040  2080  2339  4100  5141  5412  5441
+ 6182  8200  9241
+END
+
 use Test;
-is $result, chomp $ref;
+is $result1, chomp $ref1;
+is $result2, chomp $ref2;
