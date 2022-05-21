@@ -4,12 +4,9 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# uses module 'Hailstone.pm'
-#n# wouldn't need a separate JVM version except for the 'race'
 
 use lib 'lib';
 use Hailstone;
-
-#my %score; %score{hailstone($_).elems}++ for 1 .. 1000;
 
 my %score;
 (1 .. 1000).map: { %score{hailstone($_).elems}++ };
