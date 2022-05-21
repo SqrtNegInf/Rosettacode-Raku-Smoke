@@ -1,43 +1,35 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Farey_sequence
-#c# 2016-05-21 <RC
+#c# 2016-05-21 <RC, 2018-11-10 <RC
 #m# MOAR: OK
-#j#  JVM: OK
-#n# an example of where .race does not help: 
-#n#    in the 'farey' routine: the costs of setup/management swamp the fairly trivial calculations
-#n#    calling 'farey':        time dominated by the 1000 run (?)
+#j# JVM:  OK
 
-#sub farey ($order) { unique 0/1, |(1..$order).map: { |(1..$^d).map: { $^n/$d } } }
-# above croaks at 362, as there are 65703 items in list [as of 2016.05.21]
-# Too many arguments in flattening array.
-#   in sub farey at Farey_sequence line 8
-#   in block <unit> at Farey_sequence line 12
+my @res;
 
-sub farey ($order) { 
-    my @l = 0/1;
-    (1..$order).map: { push @l, |(1..$^d).map: { $^n/$d } } 
-    unique gather @l.deepmap(*.take);
+sub farey ($order) {
+    my @l = 0/1, 1/1;
+    (2..$order).map: { push @l, |(1..$^d).map: { $_/$d } }
+    unique @l
 }
 
-my @res.push: "Farey sequence order ";
-@res.push: "$_: " ~ .&farey.sort.map: *.nude.join('/') for 1..11;
-@res.push: "Farey sequence order $_ has " ~ [.&farey].elems ~ ' elements.' for 100, 200 ... 1000;
-#(100, 200 ... 1000).race.map: { @res.push: "Farey sequence order $_ has " ~ [.&farey].elems ~ ' elements.' }
+say "Farey sequence order ";
+@res.push: $_ for (1..11).map: { "$_: ", .&farey.sort.map: *.nude.join('/') };
+@res.push: $_ for (100, 200 ... 1000).map: { "Farey sequence order $_ has " ~ [.&farey].elems ~ ' elements.' }
+
 .say for @res;
 
-my $ref = qq:to/END/;
-Farey sequence order 
-1: 0/1 1/1
-2: 0/1 1/2 1/1
-3: 0/1 1/3 1/2 2/3 1/1
-4: 0/1 1/4 1/3 1/2 2/3 3/4 1/1
-5: 0/1 1/5 1/4 1/3 2/5 1/2 3/5 2/3 3/4 4/5 1/1
-6: 0/1 1/6 1/5 1/4 1/3 2/5 1/2 3/5 2/3 3/4 4/5 5/6 1/1
-7: 0/1 1/7 1/6 1/5 1/4 2/7 1/3 2/5 3/7 1/2 4/7 3/5 2/3 5/7 3/4 4/5 5/6 6/7 1/1
-8: 0/1 1/8 1/7 1/6 1/5 1/4 2/7 1/3 3/8 2/5 3/7 1/2 4/7 3/5 5/8 2/3 5/7 3/4 4/5 5/6 6/7 7/8 1/1
-9: 0/1 1/9 1/8 1/7 1/6 1/5 2/9 1/4 2/7 1/3 3/8 2/5 3/7 4/9 1/2 5/9 4/7 3/5 5/8 2/3 5/7 3/4 7/9 4/5 5/6 6/7 7/8 8/9 1/1
-10: 0/1 1/10 1/9 1/8 1/7 1/6 1/5 2/9 1/4 2/7 3/10 1/3 3/8 2/5 3/7 4/9 1/2 5/9 4/7 3/5 5/8 2/3 7/10 5/7 3/4 7/9 4/5 5/6 6/7 7/8 8/9 9/10 1/1
-11: 0/1 1/11 1/10 1/9 1/8 1/7 1/6 2/11 1/5 2/9 1/4 3/11 2/7 3/10 1/3 4/11 3/8 2/5 3/7 4/9 5/11 1/2 6/11 5/9 4/7 3/5 5/8 7/11 2/3 7/10 5/7 8/11 3/4 7/9 4/5 9/11 5/6 6/7 7/8 8/9 9/10 10/11 1/1
+my $ref = q:to/END/;
+1:  0/1 1/1
+2:  0/1 1/2 1/1
+3:  0/1 1/3 1/2 2/3 1/1
+4:  0/1 1/4 1/3 1/2 2/3 3/4 1/1
+5:  0/1 1/5 1/4 1/3 2/5 1/2 3/5 2/3 3/4 4/5 1/1
+6:  0/1 1/6 1/5 1/4 1/3 2/5 1/2 3/5 2/3 3/4 4/5 5/6 1/1
+7:  0/1 1/7 1/6 1/5 1/4 2/7 1/3 2/5 3/7 1/2 4/7 3/5 2/3 5/7 3/4 4/5 5/6 6/7 1/1
+8:  0/1 1/8 1/7 1/6 1/5 1/4 2/7 1/3 3/8 2/5 3/7 1/2 4/7 3/5 5/8 2/3 5/7 3/4 4/5 5/6 6/7 7/8 1/1
+9:  0/1 1/9 1/8 1/7 1/6 1/5 2/9 1/4 2/7 1/3 3/8 2/5 3/7 4/9 1/2 5/9 4/7 3/5 5/8 2/3 5/7 3/4 7/9 4/5 5/6 6/7 7/8 8/9 1/1
+10:  0/1 1/10 1/9 1/8 1/7 1/6 1/5 2/9 1/4 2/7 3/10 1/3 3/8 2/5 3/7 4/9 1/2 5/9 4/7 3/5 5/8 2/3 7/10 5/7 3/4 7/9 4/5 5/6 6/7 7/8 8/9 9/10 1/1
+11:  0/1 1/11 1/10 1/9 1/8 1/7 1/6 2/11 1/5 2/9 1/4 3/11 2/7 3/10 1/3 4/11 3/8 2/5 3/7 4/9 5/11 1/2 6/11 5/9 4/7 3/5 5/8 7/11 2/3 7/10 5/7 8/11 3/4 7/9 4/5 9/11 5/6 6/7 7/8 8/9 9/10 10/11 1/1
 Farey sequence order 100 has 3045 elements.
 Farey sequence order 200 has 12233 elements.
 Farey sequence order 300 has 27399 elements.
