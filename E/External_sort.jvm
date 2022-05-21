@@ -2,20 +2,22 @@
 #u# http://rosettacode.org/wiki/External_sort
 #c# 2019-11-20 >RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
-#n# work-around for module issue in place, but fails to read from files (gather/take issue?)
+#j#  JVM: OK
+#n# never could get the module to work, and needed a gather/take work-around as well
 
 #use File::Temp;
 
 sub merge_streams ( @streams ) {
     my @s = @streams.map({ hash( STREAM => $_, HEAD => .get ) }).grep({ .<HEAD>.defined });
 
-    return gather while @s {
+    my @values;
+    while @s {
         my $h = @s.min: +*.<HEAD>;
-        take $h<HEAD>;
+        push @values, $h<HEAD>;
         $h<HEAD> := $h<STREAM>.get
             orelse @s .= grep( { $_ !=== $h } );
     }
+    @values;
 }
 
 my $max = 4; # records per merge file
@@ -37,7 +39,6 @@ sub store (@values) {
     $filename
 }
 
-dd @files;
 say my $result = join ' ', merge_streams @files».&open;
 
 my $ref = qq:to/END/;
