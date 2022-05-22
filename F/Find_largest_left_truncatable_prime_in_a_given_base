@@ -4,13 +4,11 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A103443
-#n# 2020-05-14 died: emit without supply or react
-
-# Pretty fast for bases 3 .. 11. 12 is slow. 18 is glacial.
+#n# slow, limit testing
 
 my @res;
 
-for 3 .. 9 -> $base {  # DH change
+for 3 .. 9 -> $base {
     @res.push: "Starting base $base...";
     my @stems = grep { .is-prime }, ^$base;
     my $temp = '';
