@@ -37,16 +37,16 @@ multi sub thiele($x, %f, $ord) {
 ## Demo
 sub mk-inv(&fn, $d, $lim) {
   my %h;
-  for 0..$lim { %h{ &fn($_ * $d) } = $_ * $d }
+  for 0..$lim { %h{ &fn($_ × $d) } = $_ × $d }
   return %h;
 }
 
 sub MAIN($tblsz = 12) {
 
   my ($sin_pi, $cos_pi, $tan_pi);
-  my %invsin = mk-inv(&sin, 0.05, $tblsz); $sin_pi = 6 * thiele(0.5, %invsin, 0);
-  my %invcos = mk-inv(&cos, 0.05, $tblsz); $cos_pi = 3 * thiele(0.5, %invcos, 0);
-  my %invtan = mk-inv(&tan, 0.05, $tblsz); $tan_pi = 4 * thiele(1.0, %invtan, 0);
+  my %invsin = mk-inv(&sin, 0.05, $tblsz); $sin_pi = 6 × thiele(0.5, %invsin, 0);
+  my %invcos = mk-inv(&cos, 0.05, $tblsz); $cos_pi = 3 × thiele(0.5, %invcos, 0);
+  my %invtan = mk-inv(&tan, 0.05, $tblsz); $tan_pi = 4 × thiele(1.0, %invtan, 0);
 
   say "pi = {pi}";
   say "estimations using a table of $tblsz elements:";
@@ -58,7 +58,6 @@ use Test;
 if $*VM ~~ /jvm/ {
 is ($sin_pi, $cos_pi, $tan_pi), '3.1415926535896332 3.1387243219841157 3.1416331607611547';
 } else {
-#is ($sin_pi, $cos_pi, $tan_pi), '3.1415926535896332 3.1387243219840935 3.14163334892717'; # 2018-07-31 sig dig default?
 is ($sin_pi, $cos_pi, $tan_pi), '3.1415926535896332 3.138724321984095 3.14163334892717';
 }
 
