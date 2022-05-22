@@ -2,13 +2,13 @@
 #u# http://rosettacode.org/wiki/Text_Completion
 #c# 2020-07-30 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 my @res;
 
 sub sorenson ($phrase, %hash) {
     my $match = bigram $phrase;
-    %hash.map: { [(2 * +($match ∩ .value) / (+$match + .value)).round(.001), .key] }
+    %hash.map: { [(2 × +($match ∩ .value) / (+$match + .value)).round(.001), .key] }
 }
 
 sub bigram (\these) { Bag.new( flat these.fc.words.map: { .comb.rotor(2 => -1)».join } ) }
@@ -54,5 +54,4 @@ Sørenson:
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
