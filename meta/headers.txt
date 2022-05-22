@@ -4717,7 +4717,7 @@ File: F/Find_largest_left_truncatable_prime_in_a_given_base
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A103443
-#n# 2020-05-14 died: emit without supply or react
+#n# slow, limit testing
 
 File: F/Find_largest_left_truncatable_prime_in_a_given_base.1
 #!/usr/bin/env perl6
@@ -8430,7 +8430,7 @@ File: M/Monty_Hall_problem
 #c# 2015-11-23 <RC, 2018-10-14 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# with .race, output not deterministic, despite 'srand' and atomic op
+#n# with .race output not deterministic, despite 'srand' and atomic op, so test with 'like'
 
 File: M/Monty_Hall_problem.jvm
 #!/usr/bin/env perl6
@@ -11626,7 +11626,7 @@ File: R/Rhonda_numbers.jvm
 #c# 2022-02-09 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# How slow you ask? This slow: 11792.15s user 238.02s system 89% cpu 3:44:22.13 total
+#n# slow, so limit to 5 for testing
 
 File: R/Robots
 #!/usr/bin/env perl6
@@ -14295,7 +14295,7 @@ File: T/Text_Completion-2.jvm
 #u# http://rosettacode.org/wiki/Text_Completion
 #c# 2020-07-30 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: T/Text_between
 #!/usr/bin/env perl6
