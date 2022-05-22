@@ -47,35 +47,26 @@ for 3, 10 -> $doors {
         }
 say "wins: %wins{$s}";
         @res.push: "  $name wins " ~
-            (100*%wins{$s} / TRIALS).round(.1) ~
+            (100×%wins{$s} / TRIALS).round(.1) ~
             '% of the time.'
     }
 }
 
+.say for @res;
 
-.say for @res; exit;
+#wins: 3282
+#wins: 6568
+#wins: 975
+#wins: 8970
 
-my $moar = qq:to/END/;
+my $ref = qq:to/END/;
 With 3 doors:
-  Staying wins 33% of the time.
-  Switching wins 67% of the time.
+  Staying wins 32.8% of the time.
+  Switching wins 65.7% of the time.
 With 10 doors:
-  Staying wins 10% of the time.
-  Switching wins 90% of the time.
-END
-
-my $jvm = qq:to/END/;
-With 3 doors:
-  Staying wins 33% of the time.
-  Switching wins 66% of the time.
-With 10 doors:
-  Staying wins 10% of the time.
-  Switching wins 90% of the time.
+  Staying wins 9.8% of the time.
+  Switching wins 89.7% of the time.
 END
 
 use Test;
-if $*VM ~~ /jvm/ {
-is @res.join("\n"), chomp $jvm;
-} else {
-is @res.join("\n"), chomp $moar;
-}
+is @res.join("\n"), chomp $ref;
