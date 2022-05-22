@@ -16,10 +16,10 @@ sub find-factor ( Int $n, $constant = 1 ) {
     my $rho    = 1;
     my $factor = 1;
     while $factor == 1 {
-        $rho *= 2;
+        $rho ×= 2;
         my $fixed = $x;
         for ^$rho {
-            $x = ( $x * $x + $constant ) % $n;
+            $x = ( $x × $x + $constant ) % $n;
             $factor = ( $x - $fixed ) gcd $n;
             last if 1 < $factor;
         }
