@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
+my @res;
+
 sub kaprekar( Int $n, Int :$base = 10 ) {
     my $hi = $n ** 2;
     my $lo = 0;
@@ -37,8 +39,6 @@ say "\nBase 17 Kaprekar numbers < :17<100_000>";
 
 my &k17 = &kaprekar.assuming(:base(17));
 
-my @res;
-sub jvm {
 for ^:17<100_000> -> $n {
     my ($h,$l) = k17 $n;
     next unless $l;
@@ -47,21 +47,6 @@ for ^:17<100_000> -> $n {
     my $h17 = $h.base(17);
     @res.push: "$n $n17 $s17 ($h17 + $s17.substr(* - max(1,($s17.chars - $h17.chars))))";
 }
-}
-
-sub moar {
-(^:17<100_000>).hyper.map: -> $n {
-#(^:17<100_000>).race.map: -> $n {
-    my ($h,$l) = k17 $n;
-    next unless $l;
-    my $n17 = $n.base(17);
-    my $s17 = ($n × $n).base(17);
-    my $h17 = $h.base(17);
-    @res.push: "$n $n17 $s17 ($h17 + $s17.substr(* - max(1,($s17.chars - $h17.chars))))";
-}
-}
-
-$*VM ~~ /jvm/ ?? jvm() !! moar();
 
 @res .= sort: *.chars;
 .say for @res;
