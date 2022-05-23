@@ -2,7 +2,7 @@
 #u# http://rosettacode.org/wiki/Print_debugging_statement
 #c# 2019-08-29 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 #n# can only test Moar or JVM, not both, because the answers for one affect the results for the other
 
 my @res;
@@ -47,6 +47,43 @@ delta("D");                  #line 35
 .say for @res;
 
 my $ref = q:to/END/;
+$a 10
+from file: P/Print_debugging_statement, line: 42
+
+a => 13
+from file: P/Print_debugging_statement, sub: alpha, line: 33
+ from file: P/Print_debugging_statement, line: 43
+
+string
+from file: P/Print_debugging_statement, sub: alpha, line: 34
+ from file: P/Print_debugging_statement, line: 43
+
+7
+from file: P/Print_debugging_statement, sub: beta, line: 37
+ from file: P/Print_debugging_statement, sub: alpha, line: 35
+  from file: P/Print_debugging_statement, line: 43
+
+D
+from file: P/Print_debugging_statement, sub: beta, line: 37
+ from file: P/Print_debugging_statement, sub: gamma, line: 38
+  from file: P/Print_debugging_statement, sub: delta, line: 39
+   from file: P/Print_debugging_statement, line: 44
+
+0
+from file: P/Print_debugging_statement, sub: beta, line: 37
+ from file: P/Print_debugging_statement, line: 45
+
+1
+from file: P/Print_debugging_statement, sub: beta, line: 37
+ from file: P/Print_debugging_statement, line: 45
+
+2
+from file: P/Print_debugging_statement, sub: beta, line: 37
+ from file: P/Print_debugging_statement, line: 45
+
+END
+
+my $xef = q:to/END/;
 $a 10
 from file: P/Print_debugging_statement, line: 42
 
