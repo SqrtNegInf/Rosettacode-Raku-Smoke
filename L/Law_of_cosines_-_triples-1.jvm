@@ -1,65 +1,64 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
-#c# 2018-09-24 <RC
+#c# 2018-09-25 <RC, 2018-10-18 >RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#  for JVM: .race and module
-#n# Thundergnat's performant version (but with .race it sometimes gives 18383 for 'extra credit')
-#n# see main code, use @triples not %triples, atomic ops and no more problem
-
-#`{
-  best timings on a 8-core machine:
-   0 135.789u  0.456s 2:15.98 100%  (no 'race')
-   1 267.553u 47.808s 3:44.60 140%
-   2 275.978u 46.730s 2:07.59 252%
-   3 267.862u 33.182s 1:30.28 333%
-   4 271.130u 26.372s 1:12.84 408
-   5 291.629u 24.979s 1:07.66 467%
-   6 292.871u 22.689s 0:57.76 546%
-   7 260.639u 18.376s 0:50.21 555%
-   8 269.762u 19.209s 0:51.72 558%
-   9 298.927u  6.369s 0:49.68 614%
-  10 395.544u  7.085s 1:03.28 636%
-}
+#n# 'extra credit' step is very slow...
 
 my @res;
 
-sub triples ($n, $angle where any(60,90,120)) {
+multi triples (60, $n) {
     my %sq = (1..$n).map: { .² => $_ };
-    my %triples;
-    for 1..^$n -> $a {
-#    (1..^$n).race(:8degree).map: -> $a {
+    my $i = 0;
+    my @triples[2×$n];
+    (1..^$n).map: -> $a {
         for $a^..$n -> $b {
-            my $ab = $a × $a + $b × $b;
-            my $cos = $angle == 60  ?? $ab - $a × $b !!
-                      $angle == 120 ?? $ab + $a × $b !!
-                      $ab;
-            if $angle == 60 {
-                %triples{$angle}{~($a, %sq{$cos}, $b)}++ and last if %sq{$cos}:exists;
-            }
-            else {
-                %triples{$angle}{~($a, $b, %sq{$cos})}++ and last if %sq{$cos}:exists;
-            }
+            my $cos = $a × $a + $b × $b - $a × $b;
+            (@triples[$i++] = $a, %sq{$cos}, $b) if %sq{$cos}:exists;
         }
     }
-    %triples
+    @triples.grep: so *
 }
 
-use lib 'lib';
+multi triples (90, $n) {
+    my %sq = (1..$n).map: { .² => $_ };
+    my $i = 0;
+    my @triples[2×$n];
+    (1..^$n).map: -> $a {
+        for $a^..$n -> $b {
+            my $cos = $a × $a + $b × $b;
+            @triples[$i++] = $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
+        }
+    }
+    @triples.grep: so *
+}
+
+multi triples (120, $n) {
+    my %sq = (1..$n).map: { .² => $_ };
+    my $i = 0;
+    my @triples[2×$n];
+    (1..^$n).map: -> $a {
+        for $a^..$n -> $b {
+            my $cos = $a × $a + $b × $b + $a × $b;
+            @triples[$i++] = $a, $b, %sq{$cos} and last if %sq{$cos}:exists;
+        }
+    }
+    @triples.grep: so *
+}
+
 use Sort::Naturally;
 
 my $n = 13;
 @res.push: "Integer triangular triples for sides 1..$n:";
 for 120, 90, 60 -> $angle {
-    my %itt = triples($n, $angle);
-    if $angle == 60 { push %itt<60>, "$_ $_ $_" => 1 for 1..$n }
-    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +%itt{$angle}, %itt{$angle}.keys.sort(*.&naturally).join(', ');
+    my @itt = triples($angle, $n);
+    if $angle == 60 { push @itt, "$_ $_ $_" for 1..$n }
+    @res.push: sprintf "Angle %3d° has %2d solutions: %s", $angle, +@itt, @itt.sort(&naturally).join(', ');
 }
 
-my ($angle, $count) = 60, 10_000;
-@res.push: "\nExtra credit:";
-@res.push:  "Number of 60° integer triples in the range 1..$count where the sides are not all the same length: " ~
-         +triples($count, $angle){$angle};
+#my ($angle, $count) = 60, 10_000;
+#@res.push: "\nExtra credit:";
+#@res.push: "$angle° integer triples in the range 1..$count where the sides are not all the same length: "~ +triples($angle, $count);
 
 .say for @res;
 
@@ -68,10 +67,10 @@ Integer triangular triples for sides 1..13:
 Angle 120° has  2 solutions: 3 5 7, 7 8 13
 Angle  90° has  3 solutions: 3 4 5, 5 12 13, 6 8 10
 Angle  60° has 15 solutions: 1 1 1, 2 2 2, 3 3 3, 3 7 8, 4 4 4, 5 5 5, 5 7 8, 6 6 6, 7 7 7, 8 8 8, 9 9 9, 10 10 10, 11 11 11, 12 12 12, 13 13 13
-
-Extra credit:
-Number of 60° integer triples in the range 1..10000 where the sides are not all the same length: 18394
 END
+
+#Extra credit:
+#60° integer triples in the range 1..10000 where the sides are not all the same length: 18394
 
 use Test;
 is @res.join("\n"), chomp $ref;
