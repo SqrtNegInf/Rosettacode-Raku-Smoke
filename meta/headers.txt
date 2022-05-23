@@ -6509,13 +6509,6 @@ File: J/JSON
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: J/JSON.jvm
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/JSON
-#c# 2016-05-18 <RC
-#m# MOAR: OK
-#j#  JVM: OK
-
 File: J/Jaccard_index
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Jaccard_index
@@ -7012,7 +7005,7 @@ File: L/Largest_number_divisible_by_its_digits.1
 File: L/Largest_number_divisible_by_its_digits.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Largest_number_divisible_by_its_digits
-#c# 2017-09-02 <RC, 2018-10-13 >RC
+#c# 2017-09-02 <RC, 2018-10-13 >RC, 2020-07-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -7176,12 +7169,10 @@ File: L/Law_of_cosines_-_triples-1
 File: L/Law_of_cosines_-_triples-1.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Law_of_cosines_-_triples
-#c# 2018-09-24 <RC
+#c# 2018-09-25 <RC, 2018-10-18 >RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#  for JVM: .race and module
-#n# Thundergnat's performant version (but with .race it sometimes gives 18383 for 'extra credit')
-#n# see main code, use @triples not %triples, atomic ops and no more problem
+#n# 'extra credit' step is very slow...
 
 File: L/Law_of_cosines_-_triples-2
 #!/usr/bin/env perl6
@@ -7423,14 +7414,6 @@ File: L/Long_stairs
 #u# http://rosettacode.org/wiki/Long_stairs
 #c# 2021-11-15 <RC
 #m# MOAR: OK
-#j# JVM:  OK
-#n# not sure why JVM was marked as broken...
-
-File: L/Long_stairs.jvm
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Long_stairs
-#c# 2021-11-15 <RC
-#m# MOAR: BROKEN
 #j# JVM:  OK
 
 File: L/Long_year
@@ -8267,14 +8250,6 @@ File: M/Minimal_steps_down_to_1
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: M/Minimal_steps_down_to_1.jvm
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Minimal_steps_down_to_1
-#c# 2019-12-14 <RC, 2019-12-16 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-#n# for JVM: .perl not .raku (temporary)
-
 File: M/Minimum_multiple_of_m_where_digital_sum_equals_m
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Minimum_multiple_of_m_where_digital_sum_equals_m
@@ -8855,13 +8830,6 @@ File: N/Next_highest_int_from_digits
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-File: N/Next_highest_int_from_digits.jvm
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Next_highest_int_from_digits
-#c# 2020-02-22 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-
 File: N/Next_special_primes
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Next_special_primes
@@ -8951,7 +8919,7 @@ File: N/Non-transitive_dice.jvm
 #u# http://rosettacode.org/wiki/Non-transitive_dice
 #c# 2020-12-26 <RC, 2020-12-28 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: N/Nonoblock
 #!/usr/bin/env perl6
@@ -9646,9 +9614,6 @@ File: P/Parallel_Brute_Force.jvm
 #c# 2017-02-10 <RC, 2018-04-24 <RC, 2019-01-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# for JVM: module
-#n# .race/.hyper are not doing anything?
-#n# works again 2018-10-01, but no difference on .race; using 'cheat' starting point
 
 File: P/Parallel_calculations
 #!/usr/bin/env perl6
@@ -10501,13 +10466,6 @@ File: P/Powerful_numbers.1
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: P/Powerful_numbers.jvm
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Powerful_numbers
-#c# 2020-02-22 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-
 File: P/Practical_numbers
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Practical_numbers
@@ -10766,7 +10724,7 @@ File: P/Print_debugging_statement
 #u# http://rosettacode.org/wiki/Print_debugging_statement
 #c# 2019-08-29 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 #n# can only test Moar or JVM, not both, because the answers for one affect the results for the other
 
 File: P/Print_debugging_statement.jvm
