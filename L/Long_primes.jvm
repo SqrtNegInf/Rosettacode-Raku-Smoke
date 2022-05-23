@@ -5,23 +5,12 @@
 #j# JVM:  OK
 #n# drastically cut down on results calculated
 
-# Works with: Rakudo version 2018.06
-
-#Not very fast as the numbers get larger. 64000 takes a little over 15 minutes on my computer. 😕
-
-my @long-primes;
-
-if $*VM ~~ /jvm/ {
-    @long-primes = lazy (1..*).grep(*.is-prime).grep({1+(1/$_).base-repeating[1].chars == $_});
-} else {
-    @long-primes = lazy (1..*).grep(*.is-prime).hyper(:8degree, :8batch).grep({1+(1/$_).base-repeating[1].chars == $_});
-}
+my @long-primes = lazy (1..*).grep(*.is-prime).grep({1+(1/$_).base-repeating[1].chars == $_});
 
 my @res = "Long primes ≤ 500:\n"~ @long-primes[^(@long-primes.first: * > 500, :k)];
 
 @res.push: "\nNumber of long primes ≤ $_: "~ +@long-primes[^(@long-primes.first: * > $_, :k)]
   for 500, 1000, 2000, 4000;
-  #for 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000;
 
 .say for @res;
 
@@ -37,17 +26,6 @@ Number of long primes ≤ 2000: 116
 
 Number of long primes ≤ 4000: 218
 END
-
-#`{
-
-Number of long primes ≤ 8000: 390
-
-Number of long primes ≤ 16000: 716
-
-Number of long primes ≤ 32000: 1300
-
-Number of long primes ≤ 64000: 2430
-}
 
 use Test;
 is @res.join("\n"), chomp $ref;
