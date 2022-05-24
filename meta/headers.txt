@@ -7715,6 +7715,22 @@ File: L/Lychrel_numbers.1
 #    20171027: 1972.841u  6.163s 33:01.60 99.8%
 #    _NEXT_
 
+File: L/Solve_hanging_lantern_problem-1
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Lantern_Problem
+#c# 2022-05-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!*1!*2!*...*n!)
+
+File: L/Solve_hanging_lantern_problem-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Lantern_Problem
+#c# 2022-05-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!*1!*2!*...*n!)
+
 File: M/MAC_Vendor_Lookup
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/MAC_Vendor_Lookup
@@ -10724,8 +10740,9 @@ File: P/Print_debugging_statement
 #u# http://rosettacode.org/wiki/Print_debugging_statement
 #c# 2019-08-29 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# can only test Moar or JVM, not both, because the answers for one affect the results for the other
+#n# (but leave JVM marked as 'OK' for purposes of task stats)
 
 File: P/Print_debugging_statement.jvm
 #!/usr/bin/env perl6
@@ -13174,7 +13191,7 @@ File: S/Square-free_integers
 File: S/Square-free_integers.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Square-free_integers
-#c# 2018-07-02 <RC
+#c# 2018-07-05 <RC, 2018-07-09 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -13842,13 +13859,6 @@ File: S/Summarize_primes.1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
-File: S/Summarize_primes.jvm
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Summarize_primes
-#c# 2021-04-15 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-
 File: S/Summation_of_primes-1
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Summation_of_primes
@@ -14382,7 +14392,6 @@ File: T/Thue-Morse
 File: T/Tic-tac-toe
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Tic-tac-toe
-#t# skiptest
 #c# 2018-04-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -14523,7 +14532,7 @@ File: T/Topswops.jvm
 #c# 2016-09-07 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n#  not using custom permutations code (broken)
+#n# limit testing, full run takes over an hour
 
 File: T/Total_circles_area
 #!/usr/bin/env perl6
@@ -14638,7 +14647,6 @@ File: T/Triplet_of_three_numbers.jvm
 #c# 2021-05-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# no 'race' for JVM obviously...
 
 File: T/Tropical_algebra_overloading
 #!/usr/bin/env raku
@@ -14897,7 +14905,6 @@ File: U/Unprimeable_numbers.jvm
 #c# 2019-12-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# for JVM: native is-prime, no concurrency
 
 File: U/Untouchable_numbers
 #!/usr/bin/env raku
