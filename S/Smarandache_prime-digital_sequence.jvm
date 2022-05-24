@@ -8,7 +8,6 @@
 my @res;
 
 use Lingua::EN::Numbers;
-#use ntheory:from<Perl5> <:all>;
 
 # Implemented as a lazy, extendable list
 my $spds = grep { .&is-prime }, flat [2,3,5,7], [23,27,33,37,53,57,73,77], -> $p
