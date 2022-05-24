@@ -5,9 +5,6 @@
 #r# RC prep: cp ref/truncate.base run/truncate.txt
 #j#  JVM: BROKEN
 
-die 'NativeCall...' if $*VM ~~ /jvm/;
-
-# Works with: Rakudo Star version 2013-02
 use NativeCall;
 
 sub truncate(Str, int32 --> int32) is native {*}
