@@ -1,11 +1,11 @@
-Welcome to Rakudo™ v2022.04-74-g1c4680544.
+Welcome to Rakudo™ v2022.04-75-g19c3bd180.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.04-3-ga9fcd5a74.
 updating from RC...
-+--------------> Moar: Good/Bad [1448/25]
-|+-------------> JVM: Good/Bad [1251/298]
-||+------------> Smoke testing [1398]
-|||+-----------> sKipping validation [140]
++--------------> Moar: Good/Bad [1447/25]
+|+-------------> JVM: Good/Bad [1252/297]
+||+------------> Smoke testing [1399]
+|||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [364]
 ||||||+--------> Concurrent/Async [101]
@@ -13,8 +13,8 @@ updating from RC...
 ||||||||+------> File output [100]
 |||||||||+-----> Draft [348]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [101]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [102]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -269,6 +269,7 @@ GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
+...........VU Compiler_Preprocessor
 .........D.V. Compiler_Simple_file_inclusion_pre_processor
 BB.K.T...D... Compiler_Verifying_syntax
 GGS..T....... Compiler_code_generator
@@ -744,7 +745,6 @@ GGS.....F.... LU_decomposition
 GGS.......... LZW_compression
 GGS.......... Lah_numbers
 !GS....R..... Langton%27s_ant
-...........V. Lantern_Problem
 .........D... Largest_difference_between_adjacent_primes
 GGS.......... Largest_difference_between_adjacent_primes-1
 GBS.......... Largest_difference_between_adjacent_primes-2
@@ -1130,7 +1130,7 @@ GGS......D... Primes_with_digits_in_nondecreasing_order
 GGS..T....... Primorial_numbers
 GBS.......... Primorial_numbers-1
 GGS.......... Primorial_numbers-2
-GBS......D... Print_debugging_statement
+!GS......D... Print_debugging_statement
 .........D.V. Print_itself
 GGS.......... Priority_queue
 !GS....R..... Probabilistic_choice
@@ -1350,6 +1350,7 @@ GGS..T....... Solve_a_Hopido_puzzle
 GGS.......... Solve_a_Numbrix_puzzle
 .........D.VU Solve_a_Rubik%27s_Cube
 GGS......D... Solve_equations_with_substitution_method
+...........V. Solve_hanging_lantern_problem
 GGS.......... Solve_the_no_connection_puzzle
 .........D.V. Solve_triangle_solitare_puzzle
 .........DXVU Solving_coin_problems
@@ -1529,7 +1530,7 @@ GGS..T....... Thiele%27s_interpolation_formula
 !GS....R.D... Three_word_location
 GGS.......... Three_word_location-2
 GGS..T....... Thue-Morse
-GB.K...R..... Tic-tac-toe
+GBS....R..... Tic-tac-toe
 GBS......D... Time-based_one-time_password_algorithm
 GGS.......... Time_a_function
 GGS.......... Tokenize_a_string
