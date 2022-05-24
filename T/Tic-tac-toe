@@ -1,6 +1,5 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Tic-tac-toe
-#t# skiptest
 #c# 2018-04-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -36,7 +35,7 @@ sub ai-move() {
 }
 
 sub print-board() {
-    print "\e[2J";
+    #print "\e[2J"; # just for interactive
     say @board.map({ "$^a | $^b | $^c" }).join("\n--+---+--\n"), "\n";
 }
 
