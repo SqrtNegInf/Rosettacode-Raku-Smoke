@@ -7,8 +7,6 @@
 
 my @res;
 
-#use ntheory:from<Perl5> <factor>;
-
 sub factor($n is copy) {
     $n == 1 ?? 1 !!
     [gather {
