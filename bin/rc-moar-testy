@@ -1,0 +1,10 @@
+#!/bin/sh
+
+source $HOME/.profile
+cd $HOME/perl6/Rosetta-Code
+
+bin/rc-moar-single H/Hello_world_Text
+rm -f bench/moar/*
+
+bin/rc-moar-single \
+T/Tic-tac-toe
