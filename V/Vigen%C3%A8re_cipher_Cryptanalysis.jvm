@@ -31,7 +31,7 @@ sub myguess ($text) {
     }
 
     # discard very short keys, and test only the most likely remaining key lengths
-    for %freq.keys.grep(* > 3).sort({%freq{$_}}).tail(max_key_lengths) -> $keylen {
+    (%freq.keys.grep(* > 3).sort({%freq{$_}}).tail(max_key_lengths)).map: -> $keylen {
         my $key-guess = '';
         loop (my $i = 0; $i < $keylen; $i++) {
             my ($mykey, %chi-square, $best-guess);
