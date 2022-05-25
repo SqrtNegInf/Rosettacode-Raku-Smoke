@@ -4,13 +4,14 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A073916
+#n# 2022-05-24 '$iterator.first' idiom not working in JVM
 
 my @res;
 
 sub div-count (\x) {
     return 2 if x.is-prime;
-    flat (1 .. x.sqrt.floor).map: -> \d {  # DH '+' not needed?
-        unless x % d { my \y = x div d; y == d ?? y !! (y, d) }
+    flat (1 .. x.sqrt.floor).map: -> \d {
+        unless x % d { my \y = x div d; y == d ?? y !! (y, d) } # !
     }
 }
 
