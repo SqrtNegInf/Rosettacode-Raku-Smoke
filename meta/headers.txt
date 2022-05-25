@@ -509,6 +509,14 @@ File: A/Air_mass.jvm
 #j# JVM:  OK
 #n# super slow?
 
+File: A/Algebraic_data_types
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Algebraic_data_types
+#c# 2015-10-12 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2022-05-24 was 'Pattern_matching'
+
 File: A/Align_columns
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Align_columns
@@ -9823,13 +9831,6 @@ File: P/Pathological_floating_point_problems
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: P/Pattern_matching
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Pattern_matching
-#c# 2015-10-12 <>RC
-#m# MOAR: OK
-#j#  JVM: OK
-
 File: P/Peaceful_chess_queen_armies
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Peaceful_chess_queen_armies
@@ -10741,8 +10742,7 @@ File: P/Print_debugging_statement
 #c# 2019-08-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# can only test Moar or JVM, not both, because the answers for one affect the results for the other
-#n# (but leave JVM marked as 'OK' for purposes of task stats)
+#n# can only test Moar or JVM, not both (but leave JVM marked as 'OK' for purposes of task stats)
 
 File: P/Print_debugging_statement.jvm
 #!/usr/bin/env perl6
@@ -12130,16 +12130,17 @@ File: S/Sequence:_nth_number_with_exactly_n_divisors
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A073916
+#n# 2022-05-24 '$iterator.first' idiom not working in JVM
 
 File: S/Sequence:_nth_number_with_exactly_n_divisors.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sequence:_nth_number_with_exactly_n_divisors
 #c# 2019-04-11 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# 2020-12-15 JVM: A non-trivial code issue here? 
-#n# Runs, but results are not the same, due to failure to proceed through $iterator values?
-#n# note: 'div-count' works for JVM in other Sequence* tasks
+#j# JVM:  OK
+#n# 2020-12-15 A non-trivial code issue here, '$iterator' does not iterate 
+#n# 2022-05-24 Added work-around to get this running, but ugly.  The '$iterator.first' combo works, 
+#n#  in 'C/Chernick%27s_Carmichael_numbers.jvm' and 'C/Cyclops_numbers', why not here? is it the 'do' block? 
 
 File: S/Sequence:_smallest_number_greater_than_previous_term_with_exactly_n_divisors
 #!/usr/bin/env perl6
