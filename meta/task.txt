@@ -2,7 +2,7 @@ Welcome to Rakudo™ v2022.04-75-g19c3bd180.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.04-3-ga9fcd5a74.
 updating from RC...
-+--------------> Moar: Good/Bad [1447/25]
++--------------> Moar: Good/Bad [1450/25]
 |+-------------> JVM: Good/Bad [1252/297]
 ||+------------> Smoke testing [1399]
 |||+-----------> sKipping validation [139]
@@ -62,6 +62,7 @@ GGS..T....... Additive_primes-1
 GGS.......... Additive_primes-2
 GGS.......... Address_of_a_variable
 GBS...C..D... Air_mass
+!GS..T.R..... Algebraic_data_types
 GGS.......... Align_columns
 GGS..Tc...... Aliquot_sequence_classifications
 GGS.......... Almkvist-Giullera_formula_for_pi
@@ -212,7 +213,7 @@ GGS.......... Catalan_numbers_Pascal%27s_triangle
 GGS..T....... Catamorphism
 ...........VU Catmull-Clark_subdivision_surface
 GGS......D... Change_e_letters_to_i_in_words
-GBS...C..D... Changeable_words
+!BS...C..D... Changeable_words
 GGS.......... Chaocipher
 GBS...CRF.... Chaos_game
 GBS.......... Character_codes
@@ -487,7 +488,7 @@ GGS.......... Faulhaber%27s_triangle
 GGS.......... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
 GGS.....FD... Fibonacci_heap
-!BS..T...D... Fibonacci_matrix-exponentiation
+GBS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_n-step_number_sequences-2
 GGS..T....... Fibonacci_sequence
@@ -997,7 +998,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-!BS......D... Orbital_elements
+GBS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
@@ -1046,7 +1047,6 @@ GGS..T....... Pascal_matrix_generation
 GGS....R..... Password_generator
 GGS..T.R..... Password_generator-2
 GGS.......... Pathological_floating_point_problems
-!GS..T.R..... Pattern_matching
 GGS..T....... Peaceful_chess_queen_armies
 GGS.....F.... Peano_curve
 GGS.......... Pell%27s_equation
@@ -1098,7 +1098,7 @@ GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GBS......D... Polynomial_derivative
 GGS..T....... Polynomial_long_division
-!BS.......... Polynomial_regression
+GBS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
@@ -1130,7 +1130,7 @@ GGS......D... Primes_with_digits_in_nondecreasing_order
 GGS..T....... Primorial_numbers
 GBS.......... Primorial_numbers-1
 GGS.......... Primorial_numbers-2
-!GS......D... Print_debugging_statement
+GGS......D... Print_debugging_statement
 .........D.V. Print_itself
 GGS.......... Priority_queue
 !GS....R..... Probabilistic_choice
