@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Lantern_Problem
-#c# 2022-05-22 <RC
+#c# 2022-05-22 <RC, 2022-05-25 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!*1!*2!*...*n!)
@@ -17,7 +17,11 @@ my @sequences = @columns
               . map( *.join(',') )
               . unique;
 
-@res.push: "There are {+@sequences} possible takedown sequences:";
+sub postfix:<!>($n) { [*] 1..$n }
+ 
+@res.push: "Direct calculation: " ~ [+](@columns)! / [*](@columns»!);
+
+@res.push: "\nThere are {+@sequences} possible takedown sequences:";
 @res.push: "[$_]" for @sequences.head: 6;
 @res.push: '...';
 @res.push: "[$_]" for @sequences.tail: 6;
@@ -25,6 +29,8 @@ my @sequences = @columns
 .say for @res;
 
 my $ref = q:to/END/;
+Direct calculation: 60
+
 There are 60 possible takedown sequences:
 [1,2,2,3,3,3]
 [1,2,3,2,3,3]
