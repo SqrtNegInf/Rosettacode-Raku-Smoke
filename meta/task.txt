@@ -2,7 +2,7 @@ Welcome to Rakudo™ v2022.04-77-g214366a13.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.04-3-ga9fcd5a74.
 updating from RC...
-+--------------> Moar: Good/Bad [1448/25]
++--------------> Moar: Good/Bad [1450/25]
 |+-------------> JVM: Good/Bad [1252/297]
 ||+------------> Smoke testing [1399]
 |||+-----------> sKipping validation [139]
@@ -11,7 +11,7 @@ updating from RC...
 ||||||+--------> Concurrent/Async [101]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
-|||||||||+-----> Draft [348]
+|||||||||+-----> Draft [349]
 ||||||||||+----> Ignoring [40]
 |||||||||||+---> Void (no local copy) [102]
 ||||||||||||+--> Un-implemented/reliable [52]
@@ -270,7 +270,7 @@ GGS.......... Compare_a_list_of_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
-...........VU Compiler_Preprocessor
+.........D.VU Compiler_Preprocessor
 .........D.V. Compiler_Simple_file_inclusion_pre_processor
 BB.K.T...D... Compiler_Verifying_syntax
 GGS..T....... Compiler_code_generator
@@ -456,7 +456,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -488,7 +488,7 @@ GGS.......... Faulhaber%27s_triangle
 GGS.......... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
 GGS.....FD... Fibonacci_heap
-!BS..T...D... Fibonacci_matrix-exponentiation
+GBS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_n-step_number_sequences-2
 GGS..T....... Fibonacci_sequence
@@ -998,7 +998,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-!BS......D... Orbital_elements
+GBS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
@@ -1098,7 +1098,7 @@ GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GBS......D... Polynomial_derivative
 GGS..T....... Polynomial_long_division
-!BS.......... Polynomial_regression
+GBS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
