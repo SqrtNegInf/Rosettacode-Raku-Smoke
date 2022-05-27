@@ -1,0 +1,41 @@
+#!/bin/sh
+## update, test Perl 6 JVM backend 
+# 2022-05-23 transitioned 'rakudobrew' to 'rakubrew'
+
+exit # do not actually run, just a copy-it-out set of guidelines
+
+# NB JVM version placeholders: 'yy' for previous, 'xx' for new
+
+#============= 
+# installation
+
+source $HOME/.profile
+cd $HOME/.rakubrew
+rakubrew build jvm > out.jvm   2> err.jvm
+cd versions/jvm-2022.xx
+make install
+
+# if above fails due to 'could not obtain directory', try:
+cd install/share/perl6/
+rm -rf vendor site
+cp ~/.rakubrew/versions/jvm-2022.yy/share/perl6/vendor .
+cp ~/.rakubrew/versions/jvm-2022.yy/share/perl6/site   .
+
+# get rid of annoying warning
+perl -i -npe 's/.noverify//' ~/.rakubew/versions/jvm-2022.xx/install/bin/perl6*
+bin/rakudobrew rehash
+
+cd /usr/local/lib
+rm perl6-j
+ln -s ~/.rakubrew/versions/jvm-2022.xx/install/bin/perl6-j .
+
+#========
+# testing
+cd $HOME/perl6/Rosetta-Code
+rm -f run/*
+perl6-j -v
+bin/rc-jvm [0-Z]/*
+
+cd meta
+mv task.txt task.save
+../bin/rc-task-status > task.txt
