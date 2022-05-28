@@ -3951,6 +3951,11 @@ File: E/Erdos-Selfridge_categorization_of_primes
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# limited testing, for reasons of speed...
+#n# cf 'P/Pierpont_primes'
+#n# OEIS:A005105 Class 1+ primes: primes of the form 2^i*3^j - 1 with i, j >= 0
+#n# OEIS:A005106 Class 2+ primes
+#n# OEIS:A005107 Class 3+ primes
+#n# OEIS:A005108 Class 4+ primes
 
 File: E/Erdos-Selfridge_categorization_of_primes.jvm
 #!/usr/bin/env raku
@@ -7723,22 +7728,6 @@ File: L/Lychrel_numbers.1
 #    20171027: 1972.841u  6.163s 33:01.60 99.8%
 #    _NEXT_
 
-File: L/Solve_hanging_lantern_problem-1
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Lantern_Problem
-#c# 2022-05-22 <RC, 2022-05-25 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!*1!*2!*...*n!)
-
-File: L/Solve_hanging_lantern_problem-2
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Lantern_Problem
-#c# 2022-05-22 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!*1!*2!*...*n!)
-
 File: M/MAC_Vendor_Lookup
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/MAC_Vendor_Lookup
@@ -10214,6 +10203,7 @@ File: P/Pierpont_primes-1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# dropped calc of 1000th
+#n# cf 'E/Erdos-Selfridge_categorization_of_primes'
 #n# OEIS:A005109 class 1 -, Pierpont primes
 #n# OEIS:A005105 class 1 +, Pierpont primes of the second kind
 
@@ -12743,6 +12733,22 @@ File: S/Solve_equations_with_substitution_method
 #c# 2021-11-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: S/Solve_hanging_lantern_problem-1
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Lantern_Problem
+#c# 2022-05-22 <RC, 2022-05-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!*1!*2!*...*n!)
+
+File: S/Solve_hanging_lantern_problem-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Lantern_Problem
+#c# 2022-05-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!*1!*2!*...*n!)
 
 File: S/Solve_the_no_connection_puzzle
 #!/usr/bin/env perl6
