@@ -1,10 +1,10 @@
-Welcome to Rakudo™ v2022.04-77-g214366a13.
+Welcome to Rakudo™ v2022.04-80-gb15394b60.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.04-3-ga9fcd5a74.
 updating from RC...
 +--------------> Moar: Good/Bad [1450/25]
-|+-------------> JVM: Good/Bad [1252/297]
-||+------------> Smoke testing [1399]
+|+-------------> JVM: Good/Bad [1254/297]
+||+------------> Smoke testing [1401]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [364]
@@ -13,7 +13,7 @@ updating from RC...
 ||||||||+------> File output [100]
 |||||||||+-----> Draft [349]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [102]
+|||||||||||+---> Void (no local copy) [101]
 ||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -456,7 +456,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -488,7 +488,7 @@ GGS.......... Faulhaber%27s_triangle
 GGS.......... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
 GGS.....FD... Fibonacci_heap
-GBS..T...D... Fibonacci_matrix-exponentiation
+!BS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_n-step_number_sequences-2
 GGS..T....... Fibonacci_sequence
@@ -998,7 +998,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-GBS......D... Orbital_elements
+!BS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
@@ -1098,7 +1098,7 @@ GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GBS......D... Polynomial_derivative
 GGS..T....... Polynomial_long_division
-GBS.......... Polynomial_regression
+!BS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
@@ -1350,7 +1350,8 @@ GGS..T....... Solve_a_Hopido_puzzle
 GGS.......... Solve_a_Numbrix_puzzle
 .........D.VU Solve_a_Rubik%27s_Cube
 GGS......D... Solve_equations_with_substitution_method
-...........V. Solve_hanging_lantern_problem
+GGS.......... Solve_hanging_lantern_problem-1
+GGS.......... Solve_hanging_lantern_problem-2
 GGS.......... Solve_the_no_connection_puzzle
 .........D.V. Solve_triangle_solitare_puzzle
 .........DXVU Solving_coin_problems
