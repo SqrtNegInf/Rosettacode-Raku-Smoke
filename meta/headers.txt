@@ -1116,6 +1116,13 @@ File: B/Babbage_problem.1
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: B/Babylonian_spiral
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Babylonian_spiral
+#c# 2022-05-29 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: B/Bacon_cipher
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bacon_cipher
@@ -2918,9 +2925,22 @@ File: C/Curzon_numbers.jvm
 File: C/Cut_a_rectangle
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cut_a_rectangle
-#c# 2018-03-20 <RC
+#c# 2018-03-20 <RC, 2022-05-29 NOT ON RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# got rid of globals, more idiomatic syntax, no longer painfully slow (esp. with typing removed, ~1min for 1..9)
+ 
+my @res;
+
+File: C/Cut_a_rectangle.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Cut_a_rectangle
+#c# 2018-03-20 <RC, 2022-05-29 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# more idiomatic syntax, not painfully slow any more, esp. with typing removed (almost 2x speed-up)
+ 
+my @res;
 
 File: C/Cycle_detection
 #!/usr/bin/env perl6
