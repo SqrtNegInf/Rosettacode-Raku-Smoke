@@ -1,0 +1,98 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Cut_a_rectangle
+#c# 2018-03-20 <RC, 2022-05-29 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# more idiomatic syntax, not painfully slow any more, esp. with typing removed (almost 2x speed-up)
+ 
+my @res;
+
+my ($cnt, $w, $h, $len, @next, @grid);
+
+sub walk($y, $x) {
+    constant @dir = <0 -1 0 1> Z <-1 0 1 0>;
+
+    $cnt += 2 and return if not $y or $y == $h or not $x or $x == $w;
+
+    my $t = $y × ($w+1) + $x;
+    @grid[$_]++ for $t, $len-$t;
+    walk($y + @dir[$_;0], $x + @dir[$_;1]) if not @grid[$t + @next[$_]] for 0..3;
+    @grid[$_]-- for $t, $len-$t;
+}
+
+sub solve($hh, $ww, $recurse) {
+    my $t = 0;
+    ($h, $w) = $hh, $ww;
+    ($t, $w, $h) = ($w, $h, $w) if $h +& 1;
+    return False if $h +& 1;
+    return True  if $w == 1;
+    return $h    if $w == 2;
+    return $w    if $h == 2;
+
+    my ($cy, $cx) = ($h, $w) «div» 2;
+    $len = ($h + 1) × ($w + 1);
+    @grid = ();
+    @grid[$len--] = 0;
+    @next = -1, -$w-1, 1, $w+1;
+
+    $cnt = 0 if $recurse;
+    loop (my $x = $cx + 1; $x < $w; $x++) {
+        $t = $cy × ($w + 1) + $x;
+        @grid[$_] = 1 for $t, $len-$t;
+        walk($cy - 1, $x);
+    }
+    $cnt++;
+
+    if $h == $w {
+        $cnt ×= 2;
+    } elsif $recurse and not $w +& 1 {
+        solve($w, $h, False);
+    }
+
+    $cnt
+}
+
+for 1..8 -> $y {
+    for 1..$y -> $x {
+        @res.push: sprintf '%d x %d: %d', $y, $x, solve $y, $x, True unless $x +& 1 and $y +& 1;
+    }
+}
+
+.say for @res;
+
+my $ref = qq:to/END/;
+2 x 1: 1
+2 x 2: 2
+3 x 2: 3
+4 x 1: 1
+4 x 2: 4
+4 x 3: 9
+4 x 4: 22
+5 x 2: 5
+5 x 4: 39
+6 x 1: 1
+6 x 2: 6
+6 x 3: 23
+6 x 4: 90
+6 x 5: 263
+6 x 6: 1018
+7 x 2: 7
+7 x 4: 151
+7 x 6: 2947
+8 x 1: 1
+8 x 2: 8
+8 x 3: 53
+8 x 4: 340
+8 x 5: 1675
+8 x 6: 11174
+8 x 7: 55939
+8 x 8: 369050
+END
+
+#9 x 2: 9
+#9 x 4: 553
+#9 x 6: 31721
+#9 x 8: 1812667
+
+use Test;
+is @res.join("\n"), chomp $ref;
