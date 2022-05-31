@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cut_a_rectangle
-#c# 2018-03-20 <RC, 2022-05-29 NOT ON RC
+#c# 2018-03-20 <RC, 2022-05-29 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# got rid of globals, more idiomatic syntax, no longer painfully slow (esp. with typing removed, ~1min for 1..9)
@@ -19,6 +19,7 @@ sub solve($hh, $ww, $recurse) {
     return $w if $h == 2;
 
     my ($cy, $cx) = ($h, $w) «div» 2;
+    #my ($cy, $cx) = ($h, $w) X/= 2;    # this CAN work (see example at end), but not here
     my $len = ($h + 1) × ($w + 1);
     @grid[$len--] = 0;
     my @next = -1, -$w-1, 1, $w+1;
@@ -90,3 +91,10 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
+
+=finish
+
+my $a =  4;
+my $b = 14;
+my ($c,$d) = ($a,$b) X/= 2;
+say "$c $d"; # 2 7
