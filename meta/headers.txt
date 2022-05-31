@@ -2925,7 +2925,7 @@ File: C/Curzon_numbers.jvm
 File: C/Cut_a_rectangle
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cut_a_rectangle
-#c# 2018-03-20 <RC, 2022-05-29 NOT ON RC
+#c# 2018-03-20 <RC, 2022-05-29 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# got rid of globals, more idiomatic syntax, no longer painfully slow (esp. with typing removed, ~1min for 1..9)
@@ -12674,10 +12674,11 @@ File: S/Smallest_square_that_begins_with_n-2
 File: S/Smarandache_prime-digital_sequence
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Smarandache_prime-digital_sequence
-#c# 2019-06-18 <RC, 2019-07-03 <RC
+#c# 2019-06-18 <RC, 2019-07-03 <RC, 2022-05-30 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# added back calculation of 100K-th
+#n# '*' as multiplication didn't show up in 'ast'?
 #n# OEIS:A019546 Primes whose digits are primes
 
 File: S/Smarandache_prime-digital_sequence.jvm
@@ -14930,7 +14931,7 @@ File: U/Unix_ls
 File: U/Unprimeable_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Unprimeable_numbers
-#c# 2019-12-01 <RC
+#c# 2019-12-01 <RC,  2022-05-30 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A118118
@@ -15775,7 +15776,7 @@ File: Z/Zig-zag_matrix-2
 File: Z/Zumkeller_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Zumkeller_numbers
-#c# 2019-08-20 <RC
+#c# 2019-08-20 <RC, 2022-05-29 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# */×: replacing '* * 2' with '* × 2' is clarifying (for humans)
@@ -15788,5 +15789,6 @@ File: Z/Zumkeller_numbers.jvm
 #c# 2019-08-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# */×: replacing '* * 2' with '* × 2' is clarifying (for humans)
 
 
