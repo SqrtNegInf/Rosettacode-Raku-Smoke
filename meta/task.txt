@@ -2,12 +2,12 @@ Welcome to Rakudo™ v2022.04-81-gd09bde664.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.04-3-ga9fcd5a74.
 updating from RC...
-+--------------> Moar: Good/Bad [1452/25]
++--------------> Moar: Good/Bad [1454/25]
 |+-------------> JVM: Good/Bad [1256/297]
 ||+------------> Smoke testing [1403]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [364]
+|||||+---------> Touched (modified by me) [368]
 ||||||+--------> Concurrent/Async [101]
 |||||||+-------> Random seed [130]
 ||||||||+------> File output [100]
@@ -60,7 +60,7 @@ GGS.......... Add_a_variable_to_a_class_instance_at_runtime
 GBS..T...D... Addition_chains
 GGS..T....... Additive_primes-1
 GGS.......... Additive_primes-2
-GGS.......... Address_of_a_variable
+!GS.......... Address_of_a_variable
 GBS...C..D... Air_mass
 !GS..T.R..... Algebraic_data_types
 GGS.......... Align_columns
@@ -328,7 +328,7 @@ GGS.......... Currency
 GGS.......... Currying
 GBS......D... Curve_that_touches_three_points
 GBS...C...... Curzon_numbers
-GGS.......... Cut_a_rectangle
+GGS..T....... Cut_a_rectangle
 GGS......D... Cycle_detection
 .........D.VU Cycles_of_a_permutation
 GBS...C...... Cyclops_numbers
@@ -488,7 +488,7 @@ GGS.......... Faulhaber%27s_triangle
 GGS.......... Feigenbaum_constant_calculation
 GBS.......... Fermat_numbers
 GGS.....FD... Fibonacci_heap
-!BS..T...D... Fibonacci_matrix-exponentiation
+GBS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
 GGS..T....... Fibonacci_n-step_number_sequences-2
 GGS..T....... Fibonacci_sequence
@@ -998,7 +998,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-!BS......D... Orbital_elements
+GBS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
@@ -1098,7 +1098,7 @@ GGS.......... Polymorphic_copy
 GGS..T....... Polymorphism
 GBS......D... Polynomial_derivative
 GGS..T....... Polynomial_long_division
-!BS.......... Polynomial_regression
+GBS.......... Polynomial_regression
 GGS..T...D... Polynomial_synthetic_division
 GGS.....F.... Polyspiral-1
 GB.KI........ Polyspiral-2
@@ -1339,7 +1339,7 @@ GGS......D... Smallest_numbers
 GGS......D... Smallest_power_of_6_whose_decimal_expansion_contains_n
 GGS......D... Smallest_square_that_begins_with_n
 GGS.......... Smallest_square_that_begins_with_n-2
-GBS.......... Smarandache_prime-digital_sequence
+GBS..T....... Smarandache_prime-digital_sequence
 GGS.......... Smith_numbers
 ..........XV. Snake
 GGS....RFD... Snake_and_Ladder
@@ -1590,7 +1590,7 @@ GGS......D... Unique_characters_in_each_string
 GGS.......... Universal_Turing_machine
 GGS.......... Unix_ls
 .........D.VU Uno_Card_Game
-GBS...C...... Unprimeable_numbers
+GBS..TC...... Unprimeable_numbers
 GGS.......... Untouchable_numbers
 GG.K.....D... Untrusted_environment
 GGS.....F.... Update_a_configuration_file
@@ -1685,4 +1685,4 @@ GGS.......... Zero_to_the_zero_power
 GGS..T....... Zhang-Suen_thinning_algorithm
 GGS..T....... Zig-zag_matrix-1
 GGS.......... Zig-zag_matrix-2
-GBS.......... Zumkeller_numbers
+GBS..T....... Zumkeller_numbers
