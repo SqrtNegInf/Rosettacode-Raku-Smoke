@@ -3,6 +3,7 @@
 #c# 2019-08-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# */×: replacing '* * 2' with '* × 2' is clarifying (for humans)
 
 my @res;
 
@@ -10,18 +11,17 @@ use Prime::Factor;
 
 sub zumkeller ($range)  {
     $range.grep: -> $maybe {
-        next if $maybe < 3;
-        next if $maybe.&is-prime;
+        next if $maybe < 3 or $maybe.&is-prime;
         my @divisors = $maybe.&prime-factors.combinations».reduce( &[×] ).unique.reverse;
-        next unless [&&] +@divisors > 2, +@divisors %% 2, (my $sum = sum @divisors) %% 2, ($sum /= 2) >= $maybe;
+        next unless [&&] @divisors > 2, @divisors %% 2, (my $sum = sum @divisors) %% 2, ($sum /= 2) ≥ $maybe;
         my $zumkeller = False;
         if $maybe % 2 {
             $zumkeller = True
         } else {
-            TEST: loop (my $c = 1; $c < @divisors / 2; ++$c) {
+            TEST: for 1 ..^ @divisors/2 -> $c {
                 @divisors.combinations($c).map: -> $d {
                     next if (sum $d) != $sum;
-                    $zumkeller = True and last TEST;
+                    $zumkeller = True and last TEST
                 }
             }
         }
