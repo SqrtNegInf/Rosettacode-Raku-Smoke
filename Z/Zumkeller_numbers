@@ -38,10 +38,10 @@ sub zumkeller ($range)  {
     zumkeller((^Inf).map: * × 2 + 1)[^40].rotor(10)».fmt('%7d').join: "\n";
 
 # Stretch. Slow to calculate. (minutes) 
-#@res.push: "\nFirst 40 odd Zumkeller numbers not divisible by 5:\n" ~
-#    zumkeller(flat (^Inf).map: {my \p = 10 × $_; p+1, p+3, p+7, p+9} )[^40].rotor(10)».fmt('%7d').join: "\n";
+@res.push: "\nFirst 40 odd Zumkeller numbers not divisible by 5:\n" ~
+    zumkeller(flat (^Inf).map: {my \p = 10 × $_; p+1, p+3, p+7, p+9} )[^40].rotor(10)».fmt('%7d').join: "\n";
 
-.say for @res; 
+#.say for @res; 
 
 my $ref = q:to/END/;
 First 220 Zumkeller numbers:
@@ -62,13 +62,13 @@ First 40 odd Zumkeller numbers:
    6435    6615    6825    7245    7425    7875    8085    8415    8505    8925
    9135    9555    9765   10395   11655   12285   12705   12915   13545   14175
   14805   15015   15435   16065   16695   17325   17955   18585   19215   19305
-END
 
-#First 40 odd Zumkeller numbers not divisible by 5:
-#  81081  153153  171171  189189  207207  223839  243243  261261  279279  297297
-# 351351  459459  513513  567567  621621  671517  729729  742203  783783  793611
-# 812889  837837  891891  908523  960687  999999 1024947 1054053 1072071 1073709
-#1095633 1108107 1145529 1162161 1198197 1224531 1270269 1307691 1324323 1378377
+First 40 odd Zumkeller numbers not divisible by 5:
+  81081  153153  171171  189189  207207  223839  243243  261261  279279  297297
+ 351351  459459  513513  567567  621621  671517  729729  742203  783783  793611
+ 812889  837837  891891  908523  960687  999999 1024947 1054053 1072071 1073709
+1095633 1108107 1145529 1162161 1198197 1224531 1270269 1307691 1324323 1378377
+END
 
 use Test;
 is @res.join("\n"), chomp $ref;
