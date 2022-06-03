@@ -1,5 +1,6 @@
 #!/bin/sh
 ## update MoarVM backend
+## 2022-06-02 configured to run after nuking precomp directories, generate new reports
 ## 2022-04-21 finish up after by-hand run of tasks [namely: skip 'moar-blead' build and 'bin/rc-moar-single [0-Z]/*']
 
 # prereq. for fresh Ubuntu VMware image (config with 2Gb)
@@ -29,7 +30,7 @@ cd $HOME/perl6/Rosetta-Code
 #bin/rc-jvm-cleanup
 
 # but only as long as 'rc-moar-srand' is being run in the early-morning hours
-#rm -f bench/moar/*
+rm -f bench/moar/*
 
 # smoking
 echo 'MOAR'
@@ -39,12 +40,12 @@ echo 'MOAR'
 #raku -v
 perl6-m -v
 #bin/rc-moar-parallel [0-Z]/*
-#bin/rc-moar-single [0-Z]/*
+bin/rc-moar-single [0-Z]/*
 
 # track stats
-/bin/echo -n `date +%Y-%m-%d` >> bench/rakudo-builds.txt
-/bin/echo -n ' '              >> bench/rakudo-builds.txt
-raku -v | head -1            >> bench/rakudo-builds.txt
+#/bin/echo -n `date +%Y-%m-%d` >> bench/rakudo-builds.txt
+#/bin/echo -n ' '              >> bench/rakudo-builds.txt
+#raku -v | head -1            >> bench/rakudo-builds.txt
 bin/rc-stats 10 > meta/stats.txt
 
 echo ' '
