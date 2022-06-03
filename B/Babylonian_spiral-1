@@ -1,49 +1,45 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Babylonian_spiral
-#c# 2022-05-29 <RC, 2022-05-31 <>RC
+#c# 2022-05-29 <RC, 2022-05-31 <>RC, 2022-06-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# refactor global, cosmetic upgrades
+#n# 2022-05-31 refactor global, cosmetic upgrades, thundergnat++ give a more extensive reworking on following days
+#n# OEIS:A256111 squared distance to the origin of the n-th vertex on a Babylonian Spiral
+#n# OEIS:A297346 list of successive x-coordinates in the Babylonian Spiral
+#n# OEIS:A297347 list of successive y-coordinates in the Babylonian Spiral
 
-sub babylonianSpiral (\nsteps ) {
-    my @squareCache = (0..nsteps)»²;
-    my @dxys = [(0, 0), (0, 1)];
+sub babylonianSpiral (\nsteps) {
+    my @squareCache = (0..nsteps).map: *²;  # for this small test, can skip the hyper
+    my @dxys = [[0, 0], [0, 1]];
     my $dsq  = 1;
 
     for ^(nsteps-2) {
-        my (\x,\y) = @dxys[*-1];
-        my \Θ = y.atan2(x);
+        my \Θ = atan2 |@dxys[*-1][1,0];
         my @candidates;
 
-        until @candidates.Bool {
-            $dsq++; 
-	        for @squareCache.kv -> \i,\a {
-	            last if a > $dsq div 2;
-	            for ( $dsq.sqrt.floor+1 ... 0 ) -> \j {
-                    last if (a + my \b = @squareCache[j] ) < $dsq;
-                    if ((a + b) == $dsq) {
-                        #@candidates.append: [ [i, j], [-i, j], [i, -j], [-i, -j],
-                        #                      [j, i], [-j, i], [j, -i], [-j, -i] ]
-                        @candidates.push: |((i,-i)X j,-j), |((j,-j)X i,-i)            # but slower
+        until @candidates.elems {
+            $dsq++;
+	        for @squareCache.kv -> \i, \a {
+	            last if a > $dsq / 2;
+	            for reverse (0 .. $dsq.sqrt.ceiling) -> \j {
+                        last if ( a + my \b = @squareCache[j] ) < $dsq;
+                        if ((a + b) == $dsq) {
+                            @candidates.append: [ [i, j], [-i, j], [i, -j], [-i, -j],
+                                                  [j, i], [-j, i], [j, -i], [-j, -i] ]
                     }
                 }
             }
         }
+        @dxys.push: @candidates.min: { ( Θ - atan2 |.[1,0] ) % τ };
+    }
 
-        sub comparer ($in) { ( Θ - $in.[1].atan2: $in.[0] ) % τ }
-
-        @dxys.append: ( @candidates.sort: { comparer($^b) < comparer($^a) } )[0];
-   }
-
-   [\»+«] @dxys
+    [\»+«] @dxys
 }
 
-say my $result = "The first $_ Babylonian spiral points are:\n" ~
-(babylonianSpiral($_).map: { sprintf '(%3d,%4d)', @$_ }).batch(10).join("\n") given 40;
-#(babylonianSpiral($_).map: { @$_.fmt('(%3d,%4d)')}).batch(10).join("\n")               # no, because '.fmt' is restricted to 1 arg
+#say "The first $_ Babylonian spiral points are:\n",
+say my $result = (babylonianSpiral($_).map: { sprintf '(%3d,%4d)', @$_ }).batch(10).join("\n") given 40;
 
-my $ref = qq:to/END/;
-The first 40 Babylonian spiral points are:
+my $ref = q:to/END/;
 (  0,   0) (  0,   1) (  1,   2) (  3,   2) (  5,   1) (  7,  -1) (  7,  -4) (  6,  -7) (  4, -10) (  0, -10)
 ( -4,  -9) ( -7,  -6) ( -9,  -2) ( -9,   3) ( -8,   8) ( -6,  13) ( -2,  17) (  3,  20) (  9,  20) ( 15,  19)
 ( 21,  17) ( 26,  13) ( 29,   7) ( 29,   0) ( 28,  -7) ( 24, -13) ( 17, -15) ( 10, -12) (  4,  -7) (  4,   1)
