@@ -1,16 +1,16 @@
-Welcome to Rakudo™ v2022.04-82-ga6a856a4a.
+Welcome to Rakudo™ v2022.04-83-gab8ef0bfc.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.04-3-ga9fcd5a74.
 updating from RC...
-+--------------> Moar: Good/Bad [1455/25]
-|+-------------> JVM: Good/Bad [1257/297]
-||+------------> Smoke testing [1404]
++--------------> Moar: Good/Bad [1451/25]
+|+-------------> JVM: Good/Bad [1259/296]
+||+------------> Smoke testing [1405]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [369]
 ||||||+--------> Concurrent/Async [101]
 |||||||+-------> Random seed [131]
-||||||||+------> File output [100]
+||||||||+------> File output [101]
 |||||||||+-----> Draft [350]
 ||||||||||+----> Ignoring [40]
 |||||||||||+---> Void (no local copy) [100]
@@ -45,7 +45,7 @@ GGS..T....... Abbreviations,_easy
 GGS..T....... Abbreviations,_simple
 GBS.....F.... Abelian_sandpile_model
 BB.KI........ Abelian_sandpile_model-2
-GBS.......... Abelian_sandpile_model_Identity
+GGS.......... Abelian_sandpile_model_Identity
 GGS.......... Abstract_type
 GGS..T....... Abundant,_deficient_and_perfect_number_classifications
 GBS..TC...... Abundant_odd_numbers
@@ -65,7 +65,7 @@ GBS...C..D... Air_mass
 !GS..T.R..... Algebraic_data_types
 GGS.......... Align_columns
 GGS..Tc...... Aliquot_sequence_classifications
-GGS.......... Almkvist-Giullera_formula_for_pi
+!GS.......... Almkvist-Giullera_formula_for_pi
 GGS.......... Almost_prime-1
 GGS.......... Almost_prime-2
 GGS......D... Alternade_words
@@ -126,7 +126,9 @@ GGS.......... Averages_Root_mean_square
 GGS.......... Averages_Simple_moving_average
 GBS.....FD... B-spline
 GGS.......... Babbage_problem
-GGS..T...D... Babylonian_spiral
+.........D... Babylonian_spiral
+GGS..T....... Babylonian_spiral-1
+GGS.....F.... Babylonian_spiral-2
 GGS.....FD... Bacon_cipher
 GGS.......... Bacon_cipher-2
 !GS....R..... Balanced_brackets
@@ -591,7 +593,7 @@ GBS.......... Geohash-1
 GGS.......... Geohash-2
 GGS....R.D... Geometric_algebra
 GBS..T....... Get_system_command_output
-GBS......D... Getting_the_number_of_decimals
+!BS......D... Getting_the_number_of_decimals
 GGS.....F.... Globally_replace_text_in_several_files
 GG.KIT.R..... Go_Fish
 GGS.......... Goldbach%27s_comet
@@ -869,7 +871,7 @@ GGS.......... Menu
 GGS.......... Merge_and_aggregate_datasets
 BB.......D... Mersenne_primes
 GBS...C...... Mertens_function
-GGS.......... Metallic_ratios
+!GS.......... Metallic_ratios
 GGS.......... Metaprogramming
 GGS.......... Metered_concurrency
 GGS.......... Metronome
@@ -975,7 +977,7 @@ GGS......D... Numbers_with_prime_digits_whose_sum_is_13
 .........D.V. Numbers_with_same_digit_set_in_base_10_and_base_16
 GGS..T....... Numeric_error_propagation
 GGS......D... Numeric_separator_syntax
-GGS.......... Numerical_and_alphabetical_suffixes
+!GS.......... Numerical_and_alphabetical_suffixes
 GG.K......... Numerical_integration-1
 GBS.......... Numerical_integration-2
 GGS......D... Numerical_integration_Adaptive_Simpson%27s_method
@@ -998,7 +1000,7 @@ GB.KI.....X.. OpenGL
 GGS.......... OpenWebNet_password
 GG.K......... Operator_precedence
 GGS..T....... Optional_parameters
-!BS......D... Orbital_elements
+GBS......D... Orbital_elements
 GGS.......... Order_by_pair_comparisons
 GGS.......... Order_disjoint_list_items
 !GS..T.R..... Order_two_numerical_lists
@@ -1163,8 +1165,8 @@ GGS..T....... RIPEMD-160
 !GS....R..... RPG_attributes_generator
 GGS..T....... RSA_code
 GBS..T...D... Railway_circuit
-GBS..T....... Ramanujan%27s_constant-1
-GGS..T....... Ramanujan%27s_constant-2
+!BS..T....... Ramanujan%27s_constant-1
+!GS..T....... Ramanujan%27s_constant-2
 GBS......D... Ramanujan_primes
 GBS.......... Ramanujan_primes-2
 GBS...C...... Ramanujan_primes_twins
@@ -1243,7 +1245,7 @@ GBS.......... Rosetta_Code_Rank_languages_by_number_of_users
 GBS.......... Rosetta_Code_Rank_languages_by_popularity-1
 GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
-!BS......D... Rosetta_Code_Tasks_without_examples
+GBS......D... Rosetta_Code_Tasks_without_examples
 GGS.......... Rot-13
 GGS..T...D... Round-robin_tournament_schedule
 GGS.......... Run-length_encoding
@@ -1262,7 +1264,7 @@ GBS.......... SHA-256_Merkle_tree-1
 GBS.......... SHA-256_Merkle_tree-2
 GB.K......... SOAP
 ..........XV. SQL-based_authentication
-GBS.......... Safe_addition
+!BS.......... Safe_addition
 GGS......D... Safe_and_Sophie_Germain_primes
 .........D.V. Safe_mode
 GBS.......... Safe_primes_and_unsafe_primes
