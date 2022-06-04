@@ -7,10 +7,11 @@
 
 source $HOME/.profile
 
+# 2022-06-03 re-revert                [and the people responsible for the sacking have been sacked...]
 # 2022-04-06 how about now?           [Seemingly not...]
 # 2022-01-18 see if this still needed [ANSWER: YEP]
-#rm -rf $HOME/.raku/precomp # new bug, old solution?
-#rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
+rm -rf $HOME/.raku/precomp # new bug, old solution?
+rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
 
 cd $HOME/.rakubrew
 bin/rakubrew mode shim
