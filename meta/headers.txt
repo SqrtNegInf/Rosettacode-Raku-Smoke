@@ -1904,6 +1904,7 @@ File: C/Casting_out_nines
 #c# 2016-03-12 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-06-04 twiddles, not worth pushing to RC
 
 File: C/Catalan_numbers
 #!/usr/bin/env perl6
@@ -1992,6 +1993,8 @@ File: C/Chebyshev_coefficients
 #c# 2016-03-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-06-04 replace '0.5' with '1/2' or '½' works, other cosmetics (not on RC)
+#n#            using 'X' a little faster, but precedence issue here: ((@pi_n».cos X× bma) X+ bpa )».&$func
 
 File: C/Check_Machin-like_formulas
 #!/usr/bin/env perl6
@@ -11522,6 +11525,14 @@ File: R/Resistance_Network_Calculator
 #j# JVM:  OK
 
 File: R/Resistor_mesh
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Resistor_mesh
+#c# 2016-01-21 <>RC, 2022-06-0x >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# better handling of 'magic' constants (use of $*TOLERANCE makes 'is-approx' test failure more interesting too)
+
+File: R/Resistor_mesh.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Resistor_mesh
 #c# 2016-01-21 <>RC
