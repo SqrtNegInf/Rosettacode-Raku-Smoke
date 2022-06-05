@@ -1,69 +1,55 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Resistor_mesh
-#c# 2016-01-21 <>RC
+#c# 2016-01-21 <>RC, 2022-06-0x >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# better handling of 'magic' constants (use of $*TOLERANCE makes 'is-approx' test failure more interesting too)
 
-# Translation of: c
+my $*TOLERANCE = 1e-12; # try 1e-8 instead
 
-my $S = 10;
+my @fixed; # global, ugh
 
-my @fixed;
+sub allocmesh (\w, \h) { [0 xx w] xx h }
 
-sub allocmesh ($w, $h) {
-    gather for ^$h {
-	take [0 xx $w];
+sub force(@v,@r1,@r2) { # better name?
+    @v[ @r1[0] ; @r1[1] ] =  1;
+    @v[ @r2[0] ; @r2[1] ] = -1;
+}
+
+sub calc_diff(@V, @d, Int \w, Int \h) {
+    my $total;
+    for (flat ^h X ^w) -> \i, \j {
+        my @neighbors = (@V[i-1;j], @V[i;j-1], @V[i+1;j], @V[i;j+1]).grep: *.defined;
+        @d[i;j] = my \v = @V[i;j] - @neighbors.sum / @neighbors;
+        $total += v × v unless @fixed[i;j];
     }
+    $total
 }
 
-sub force-fixed(@f) {
-    @f[1][1] =  1;
-    @f[6][7] = -1;
-}
+sub solve(@V, @r1, @r2, Int \w, Int \h) {
+    my $diff = ∞;             # was 1e10;
+    my @cur  = 0 xx 3;        # was 0, 0, 0;
+    my @d    = allocmesh(w,h);
 
-sub force-v(@v) {
-    @v[1][1] =  1;
-    @v[6][7] = -1;
-}
-
-sub calc_diff(@v, @d, Int $w, Int $h) {
-    my $total = 0;
-    for (flat ^$h X ^$w) -> $i, $j {
-        my @neighbors = grep *.defined, @v[$i-1][$j], @v[$i][$j-1], @v[$i+1][$j], @v[$i][$j+1];
-        my $v = [+] @neighbors;
-        @d[$i][$j] = $v = @v[$i][$j] - $v / +@neighbors;
-        $total += $v × $v unless @fixed[$i][$j];
-    }
-    return $total;
-}
-
-sub iter(@v, Int $w, Int $h) {
-    my @d = allocmesh($w, $h);
-    my $diff = 1e10;
-    my @cur = 0, 0, 0;
-
-    while $diff > 1e-12 {
-        force-v(@v);
-        $diff = calc_diff(@v, @d, $w, $h);
-        for (flat ^$h X ^$w) -> $i, $j {
-            @v[$i][$j] -= @d[$i][$j];
+    while $diff !=~= 0 {      # was > 1e-12
+        force(@V,@r1,@r2);
+        $diff = calc_diff(@V, @d, w, h);
+        for (flat ^h X ^w) -> \i, \j {
+            @V[i;j] -= @d[i;j];
         }
     }
 
-    for (flat ^$h X ^$w) -> $i, $j {
-        @cur[ @fixed[$i][$j] + 1 ]
-            += @d[$i][$j] × (?$i + ?$j + ($i < $h - 1) + ($j < $w - 1));
+    for (flat ^h X ^w) -> \i, \j {
+        @cur[ @fixed[i;j]+1 ] += @d[i;j] × (?i + ?j + (i < h-1) + (j < w-1) );
     }
-
-    return (@cur[2] - @cur[0]) / 2;
+    (@cur[2] - @cur[0]) / 2
 }
 
+my $S  = 10; my @r1 = (1,1); my @r2 = (6,7);
 my @mesh = allocmesh($S, $S);
-
-@fixed = allocmesh($S, $S);
-force-fixed(@fixed);
-
-say my $out = 2 / iter(@mesh, $S, $S);
+@fixed   = allocmesh($S, $S);
+force(@fixed,@r1,@r2);
+say my $out = 2 / solve(@mesh, @r1, @r2, $S, $S);
 
 use Test;
 is-approx $out, 1.60899124172989
