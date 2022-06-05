@@ -3,21 +3,20 @@
 #c# 2016-03-12 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-06-04 twiddles, not worth pushing to RC
 
-# Translation of: Python
-
-# Works with: Rakudo version 2015.12
-sub cast-out(\BASE = 10, \MIN = 1, \MAX = BASE**2 - 1) {
-  my \B9 = BASE - 1;
-  my @ran = ($_ if $_ % B9 == $_**2 % B9 for ^B9);
-  my $x = MIN div B9;
+sub cast-out(\base = 10, \min = 1, \max = base² - 1) {
+  my \b9 = base - 1;
+  my @ran = ($_ if $_ % b9 == $_² % b9 for ^b9);
+# my @ran.push: $_ if $_ % b9 == $_² % b9 for ^b9; # equiv to above
+  my $x = min div b9;
   gather loop {
     for @ran -> \n {
-      my \k = B9 × $x + n;
-      take k if k >= MIN;
+      my \k = b9 × $x + n;
+      take k if k >= min;
     }
     $x++;
-  } ...^ * > MAX;
+  } ...^ * > max;
 }
 
 use Test;
