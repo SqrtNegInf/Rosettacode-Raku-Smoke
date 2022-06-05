@@ -3,23 +3,24 @@
 #c# 2016-03-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-06-04 replace '0.5' with '1/2' or '½' works, other cosmetics (not on RC)
+#n#            using 'X' a little faster, but precedence issue here: ((@pi_n».cos X× bma) X+ bpa )».&$func
 
-# Works with: Rakudo version 2015.12
-#Translation of: C
+sub chebft ( Code $func, Real \a, Real \b, Int \n ) {
 
-sub chebft ( Code $func, Real $a, Real $b, Int $n ) {
+    my \bma = ½ × ( b - a );
+    my \bpa = ½ × ( b + a );
 
-    my $bma = 0.5 × ( $b - $a );
-    my $bpa = 0.5 × ( $b + $a );
+    my @pi_n = ( (^n).list »+» ½ ) »×» ( π / n );
+    my @f    = ( @pi_n».cos »×» bma »+» bpa )».&$func;        # '&' not required, but a little clearer?
+    my @sums = map { [+] @f »×« ( @pi_n »×» $_ )».cos }, ^n;
 
-    my @pi_n = ( (^$n).list »+» 0.5 ) »×» ( pi / $n );
-    my @f    = ( @pi_n».cos »×» $bma »+» $bpa )».$func;
-    my @sums = map { [+] @f »×« ( @pi_n »×» $_ )».cos }, ^$n;
-
-    return @sums »×» ( 2 / $n );
+    return @sums »×» ( 2 / n );
 }
 
 my @res.push: .fmt('%+13.7e') for chebft &cos, 0, 1, 10;
+#my @res = (.fmt('%+13.7e') for chebft &cos, 0, 1, 10);   # equiv to above
+
 .say for @res;
 
 my $moar = qq:to/END/;
@@ -63,7 +64,5 @@ $moar = qq:to/END/;
 END
 }
 
-
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
