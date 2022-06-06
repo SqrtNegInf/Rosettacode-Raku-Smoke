@@ -824,7 +824,7 @@ File: A/Arithmetic_Complex
 File: A/Arithmetic_Integer
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arithmetic/Integer
-#c# 2015-12-04 <RC
+#c# 2015-12-04 <RC,  2022-06-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -1489,11 +1489,14 @@ File: B/Bitmap_Histogram
 File: B/Bitmap_Midpoint_circle_algorithm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bitmap/Midpoint_circle_algorithm
-#c# 2016-01-07 <RC
+#c# 2016-01-07 <RC, 2022-06-05 >RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: midpoint.ppm
+#n# 2022-06-05 refactor: fix error, 'clone' not needed, emphasize parallelism
+#n#                      sigil-less helps a little to clarify what's constant, what's variable
+#n#                      also indulge in some yak shaving...
 
 File: B/Bitmap_PPM_conversion_through_a_pipe
 #!/usr/bin/env perl6
@@ -2718,7 +2721,7 @@ File: C/Count_in_factors-1
 #c# 2015-10-27 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# for JVM: UnwindException
+#n# for JVM: runs 'forever' (maybe dies with 'UnwindException' eventually?)
 
 File: C/Count_in_factors-2
 #!/usr/bin/env perl6
@@ -8994,7 +8997,7 @@ File: N/Nonogram_solver-1
 #c# 2022-04-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# translation of Go
+#n# TIL: cannot use ';' matrix notation when using sigil-less style
 
 File: N/Nonogram_solver-2
 #!/usr/bin/env raku
@@ -10397,7 +10400,7 @@ File: P/Pointers_and_references
 File: P/Poker_hand_analyser
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Poker_hand_analyser
-#c# 2016-08-03 <>RC, 2018-11-11 <RC, 2018-11-13 >RC
+#c# 2016-08-03 <>RC, 2018-11-11 <RC, 2018-11-13 >RC, 2022-06-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -11527,10 +11530,11 @@ File: R/Resistance_Network_Calculator
 File: R/Resistor_mesh
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Resistor_mesh
-#c# 2016-01-21 <>RC, 2022-06-0x >RC
+#c# 2016-01-21 <>RC, 2022-06-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# better handling of 'magic' constants (use of $*TOLERANCE makes 'is-approx' test failure more interesting too)
+#n# refactor: no globals, inlining, fewer temp variables, more readable matrix notation, DRY, etc.
+#n#           use of $*TOLERANCE makes 'is-approx' test failure more interesting too
 
 File: R/Resistor_mesh.1
 #!/usr/bin/env perl6
@@ -14927,7 +14931,7 @@ File: U/Unicode_strings
 File: U/Unicode_variable_names
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Unicode_variable_names
-#c# 2015-12-06 <RC, 2018-06-25 <RC
+#c# 2015-12-06 <RC, 2018-06-25 <RC,  2022-06-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2018-08-03 the 2nd 'sub' not working for JVM, dropping for now
