@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#Translation of: Perl
+my @res;
 
 my %he-likes =
     abe  => < abi eve cath ivy jan dee fay bea hope gay >,
@@ -32,18 +32,10 @@ my %she-likes =
     jan  => < ed hal gav abe bob jon col ian fred dan >,
 ;
 
-# problem with 'Seq has already been iterated'
-#my \guys = %he-likes.keys;
-#my \gals = %she-likes.keys;
+my (%fiancé, %fiancée, %proposed);
 
-my @res;
-
-my %fiancé;
-my %fiancée;
-my %proposed;
-
-sub she-prefers ($her, $hottie) { .index($hottie) < .index(%fiancé{$her}) given ~%she-likes{$her} }
-sub he-prefers  ($him, $hottie) { .index($hottie) < .index(%fiancée{$him}) given ~%he-likes{$him} }
+sub she-prefers ($her, $hottie) { .index($hottie) < .index(%fiancé{$her})  given ~%she-likes{$her} }
+sub  he-prefers ($him, $hottie) { .index($hottie) < .index(%fiancée{$him}) given  ~%he-likes{$him} }
 
 match'em;
 check-stability;
@@ -73,14 +65,13 @@ sub match'em {                                          #'   vim kludge
 
 sub check-stability {
     my @instabilities = gather for flat %he-likes.keys X %she-likes.keys -> $m, $w {
-	if he-prefers($m, $w) and she-prefers($w, $m) {
-	    take "\t$w prefers $m to %fiancé{$w} and $m prefers $w to %fiancée{$m}";
-	}
+	    take "\t$w prefers $m to %fiancé{$w} and $m prefers $w to %fiancée{$m}"
+	        if he-prefers($m, $w) and she-prefers($w, $m);
     }
 
     @res.push: 'Stablility:';
-    if @instabilities { @res.push: $_ for (sort @instabilities) }
-    else {              @res.push: "\t(all marriages stable)" }
+    if @instabilities { @res.append: @instabilities.sort        }
+    else {              @res.push:   "\t(all marriages stable)" }
 }
 
 sub unmatched-guy { %he-likes.keys.first: { not %fiancée{$_} } }
@@ -88,7 +79,7 @@ sub unmatched-guy { %he-likes.keys.first: { not %fiancée{$_} } }
 sub preferred-choice($guy) { %he-likes{$guy}.first: { not %proposed{"$guy $_" } } }
 
 sub engage($guy, $gal) {
-    %fiancé{$gal} = $guy;
+     %fiancé{$gal} = $guy;
     %fiancée{$guy} = $gal;
 }
 
