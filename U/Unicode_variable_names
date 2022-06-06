@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Unicode_variable_names
-#c# 2015-12-06 <RC, 2018-06-25 <RC
+#c# 2015-12-06 <RC, 2018-06-25 <RC,  2022-06-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2018-08-03 the 2nd 'sub' not working for JVM, dropping for now
@@ -8,7 +8,7 @@
 my @res;
 
 # Perl 6 is written in Unicode so, with narrow restrictions, nearly any Unicode letter can be used in identifiers.
-# See Perl 6 Synopsis 02. - http://perlcabal.org/syn/S02.html#Names
+# See the current Raku documentation on the topic here: https://docs.raku.org/language/syntax#Identifiers
 
 my $Δ = 1;
 $Δ++;
