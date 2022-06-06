@@ -1,69 +1,62 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bitmap/Midpoint_circle_algorithm
-#c# 2016-01-07 <RC
+#c# 2016-01-07 <RC, 2022-06-05 >RC
 #t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: midpoint.ppm
+#n# 2022-06-05 refactor: fix error, 'clone' not needed, emphasize parallelism
+#n#                      sigil-less helps a little to clarify what's constant, what's variable
+#n#                      also indulge in some yak shaving...
+
+use MONKEY-TYPING;
 
 class Pixel { has UInt ($.R, $.G, $.B) }
 class Bitmap {
     has UInt ($.width, $.height);
     has Pixel @!data;
 
-    method fill(Pixel $p) {
-        @!data = $p.clone xx ($!width × $!height)
+    method fill(Pixel \p) {
+        @!data = p xx ($!width × $!height)
     }
-    method pixel(
-	$i where ^$!width,
-	$j where ^$!height
-	--> Pixel
-    ) is rw { @!data[$i × $!width + $j] }
 
-    method set-pixel ($i, $j, Pixel $p) {
-	self.pixel($i, $j) = $p.clone;
+    method pixel( \i where ^$!width, \j where ^$!height --> Pixel) is rw { 
+        @!data[i × $!width + j] 
     }
-    method get-pixel ($i, $j) returns Pixel {
-	self.pixel($i, $j);
+
+    method set-pixel (\i, \j, Pixel \p) {
+	    self.pixel(i, j) = p;
+    }
+
+    method get-pixel (\i, \j) returns Pixel {
+	    self.pixel(i, j);
     }
 }
 
-# Translation of: C
-# We'll augment the Pixel and Bitmap classes.
-
-use MONKEY-TYPING;
-augment class Pixel { method Str { "$.R $.G $.B" } }
+augment class Pixel  { method Str { "$.R $.G $.B" } }
 augment class Bitmap {
     method P3 {
-        join "\n", <<P3 "$.width $.height" 255>>,
+        join "\n", «P3 "$.width $.height" 255»,
         do for ^($.width × $.height) { join ' ', @!data[$_] }
+        #do for ^$.height { join ' ', @.data[]»[$_] } # was on RC, maybe once worked? now broken
     }
-    method raster-circle ( $x0, $y0, $r, Pixel $value ) {
-        my $f = 1 - $r;
-        my $ddF_x = 0;
-        my $ddF_y = -2 × $r;
-        my ($x, $y) = 0, $r;
-        self.set-pixel($x0, $y0 + $r, $value);
-        self.set-pixel($x0, $y0 - $r, $value);
-        self.set-pixel($x0 + $r, $y0, $value);
-        self.set-pixel($x0 - $r, $y0, $value);
+
+    method raster-circle ( \x0, \y0, \r, Pixel \value ) {
+        my $ddF_x   =  0;
+        my $ddF_y   = -2 × r;
+        my $f       =  1 - r;
+        my ($x, $y) =  0,  r;
+        for flat (0 X 1,-1),(1,-1 X 0) -> \i, \j {
+            self.set-pixel(x0 + i×r, y0 + j×r, value)
+        }
+
         while $x < $y {
-            if $f >= 0 {
-                $y--;
-                $ddF_y += 2;
-                $f += $ddF_y;
+            ($y--; $f +=     ($ddF_y += 2)) if $f ≥ 0; 
+             $x++; $f += 1 + ($ddF_x += 2);
+            for flat (1,-1) X (1,-1) -> \i, \j { 
+                self.set-pixel(x0 + i×$x, y0 + j×$y, value);
+                self.set-pixel(x0 + i×$y, y0 + j×$x, value);
             }
-            $x++;
-            $ddF_x += 2;
-            $f += $ddF_x + 1;    
-            self.set-pixel($x0 + $x, $y0 + $y, $value);
-            self.set-pixel($x0 - $x, $y0 + $y, $value);
-            self.set-pixel($x0 + $x, $y0 - $y, $value);
-            self.set-pixel($x0 - $x, $y0 - $y, $value);
-            self.set-pixel($x0 + $y, $y0 + $x, $value);
-            self.set-pixel($x0 - $y, $y0 + $x, $value);
-            self.set-pixel($x0 + $y, $y0 - $x, $value);
-            self.set-pixel($x0 - $y, $y0 - $x, $value);
         }
     }
 }
@@ -73,3 +66,4 @@ $b.fill( Pixel.new( R => 0, G => 0, B => 0) );
 $b.raster-circle(16, 16, 15, Pixel.new(R=>0, G=>0, B=>100));
 my $out = open('run/midpoint.ppm', :w);
 $out.say: $b.P3;
+#'run/midpoint.ppm'.IO.spurt: $b.P3; # same, except no final "\n"
