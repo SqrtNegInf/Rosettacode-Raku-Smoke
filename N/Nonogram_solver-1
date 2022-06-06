@@ -3,7 +3,9 @@
 #c# 2022-04-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# translation of Go
+#n# TIL: cannot use ';' matrix notation when using sigil-less style
+
+# translation of Go
 
 my @res;
 
@@ -84,8 +86,8 @@ sub  newPuzzle (@data) {
    }
 
    my $out;
-   for rows -> \row {
-      for ^+cols -> \k { $out ~= row[0][k] ?? '# ' !! '. ' }
+   for rows -> @row {
+      for ^+cols -> \k { $out ~= @row[0;k] ?? '# ' !! '. ' }
       $out ~= "\n"
    }
    return $out;
