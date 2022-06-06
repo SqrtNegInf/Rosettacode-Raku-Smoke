@@ -18,7 +18,7 @@ for [X] ^3 xx 6 -> @results {
         @s[@g[1]] += scoring[2 - $r];
     }
 
-    for (@histo Z @s.sort)  -> (@h, $v) {
+    for @histo Z @s.sort -> (@h, $v) {
         @h[$v]++;
     }
 
