@@ -1,12 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Poker_hand_analyser
-#c# 2016-08-03 <>RC, 2018-11-11 <RC, 2018-11-13 >RC
+#c# 2016-08-03 <>RC, 2018-11-11 <RC, 2018-11-13 >RC, 2022-06-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 my @res;
-
-# This solution handles jokers. It has been written to use a Perl 6 grammar.
 
 grammar PokerHand {
 
@@ -41,20 +39,20 @@ grammar PokerHand {
 class PokerHand::Actions {
     method TOP($/) {
         my UInt @n    = n-of-a-kind($/);
-        my $flush     = flush($/);
-        my $straight  = straight($/);
+        my $flush     = 'flush' if flush($/);
+        my $straight  = 'straight' if straight($/);
         make rank(@n[0], @n[1], $flush, $straight);
     }
-    multi sub rank(5,$,$,$)                    { 'five-of-a-kind' }
-    multi sub rank($,$,$f,$s where {$f && $s}) { 'straight-flush' }
-    multi sub rank(4,$,$,$)                    { 'four-of-a-kind' }
-    multi sub rank($,$,$f,$ where {$f})        { 'flush' }
-    multi sub rank($,$,$,$s where {$s})        { 'straight' }
-    multi sub rank(3,2,$,$)                    { 'full-house' }
-    multi sub rank(3,$,$,$)                    { 'three-of-a-kind' }
-    multi sub rank(2,2,$,$)                    { 'two-pair' }
-    multi sub rank(2,$,$,$)                    { 'one-pair' }
-    multi sub rank($,$,$,$) is default         { 'high-card' }
+    multi sub rank(5,*@)                    { 'five-of-a-kind' }
+    multi sub rank($,$,'flush','straight')  { 'straight-flush' }
+    multi sub rank(4,*@)                    { 'four-of-a-kind' }
+    multi sub rank($,$,'flush',$)           { 'flush' }
+    multi sub rank($,$,$,'straight')        { 'straight' }
+    multi sub rank(3,2,*@)                  { 'full-house' }
+    multi sub rank(3,*@)                    { 'three-of-a-kind' }
+    multi sub rank(2,2,*@)                  { 'two-pair' }
+    multi sub rank(2,*@)                    { 'one-pair' }
+    multi sub rank(*@)                      { 'high-card' }
 
    sub n-of-a-kind($/) {
        my %faces := bag @<face-card>.map: -> $/ {~$<face>.lc};
@@ -71,7 +69,7 @@ class PokerHand::Actions {
    sub straight($/) {
        # allow both ace-low and ace-high straights
        constant @Faces = [ "a 2 3 4 5 6 7 8 9 10 j q k a".split: ' ' ];
-       constant @Possible-Straights = [ (0 .. (+@Faces - 5)).map: {  set @Faces[$_ .. $_+4] } ];
+       constant @Possible-Straights = [ (4 ..^ @Faces).map: { set @Faces[$_-4 .. $_] } ];
 
        my $faces = set @<face-card>.map: -> $/ {~$<face>.lc};
        my $non-jokers = 5 - +@<joker>;
