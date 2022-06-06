@@ -1,10 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arithmetic/Integer
-#c# 2015-12-04 <RC
+#c# 2015-12-04 <RC,  2022-06-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo version 2015.09
+# 'div' *requires* integer arguments. If you want integer division with other types, say floor($a/$b).
+
 my Int $a =  7; #get.floor;
 my Int $b = 11; #get.floor;
 
@@ -15,9 +16,6 @@ say 'integer quotient: ', $a div $b;
 say 'remainder:        ', $a % $b;
 say 'exponentiation:   ', $a**$b;
 
-#Note that div doesn't always do integer division; it performs the operation "most appropriate to the
-#operand types". Synopsis 3 guarantees that div "on built-in integer types is equivalent to taking the 
-#floor of a real division". If you want integer division with other types, say floor($a/$b).
 
 #`{
 sum:              18
