@@ -1,55 +1,47 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Resistor_mesh
-#c# 2016-01-21 <>RC, 2022-06-0x >RC
+#c# 2016-01-21 <>RC, 2022-06-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# better handling of 'magic' constants (use of $*TOLERANCE makes 'is-approx' test failure more interesting too)
+#n# refactor: no globals, inlining, fewer temp variables, more readable matrix notation, DRY, etc.
+#n#           use of $*TOLERANCE makes 'is-approx' test failure more interesting too
 
 my $*TOLERANCE = 1e-12; # try 1e-8 instead
 
-my @fixed; # global, ugh
-
-sub allocmesh (\w, \h) { [0 xx w] xx h }
-
-sub force(@v,@r1,@r2) { # better name?
-    @v[ @r1[0] ; @r1[1] ] =  1;
-    @v[ @r2[0] ; @r2[1] ] = -1;
+sub set-boundary(@mesh,@p1,@p2) {
+    @mesh[ @p1[0] ; @p1[1] ] =  1;
+    @mesh[ @p2[0] ; @p2[1] ] = -1;
 }
 
-sub calc_diff(@V, @d, Int \w, Int \h) {
-    my $total;
-    for (flat ^h X ^w) -> \i, \j {
-        my @neighbors = (@V[i-1;j], @V[i;j-1], @V[i+1;j], @V[i;j+1]).grep: *.defined;
-        @d[i;j] = my \v = @V[i;j] - @neighbors.sum / @neighbors;
-        $total += v × v unless @fixed[i;j];
-    }
-    $total
-}
+sub solve(@p1, @p2, Int \w, Int \h) {
+    my @d     = [0 xx w] xx h;
+    my @V     = [0 xx w] xx h;
+    my @fixed = [0 xx w] xx h; # could be replaced by a function?
+    set-boundary(@fixed,@p1,@p2);
 
-sub solve(@V, @r1, @r2, Int \w, Int \h) {
-    my $diff = ∞;             # was 1e10;
-    my @cur  = 0 xx 3;        # was 0, 0, 0;
-    my @d    = allocmesh(w,h);
+    loop {
+        set-boundary(@V,@p1,@p2);
+        my $diff = 0;
+        for (flat ^h X ^w) -> \i, \j {
+            my @neighbors = (@V[i-1;j], @V[i;j-1], @V[i+1;j], @V[i;j+1]).grep: *.defined;
+            @d[i;j] = my \v = @V[i;j] - @neighbors.sum / @neighbors;
+            $diff += v × v unless @fixed[i;j];
+        }
+        last if $diff =~= 0;
 
-    while $diff !=~= 0 {      # was > 1e-12
-        force(@V,@r1,@r2);
-        $diff = calc_diff(@V, @d, w, h);
         for (flat ^h X ^w) -> \i, \j {
             @V[i;j] -= @d[i;j];
         }
     }
 
+    my @current;
     for (flat ^h X ^w) -> \i, \j {
-        @cur[ @fixed[i;j]+1 ] += @d[i;j] × (?i + ?j + (i < h-1) + (j < w-1) );
+        @current[ @fixed[i;j]+1 ] += @d[i;j] × (?i + ?j + (i < h-1) + (j < w-1) );
     }
-    (@cur[2] - @cur[0]) / 2
+    (@current[2] - @current[0]) / 2
 }
 
-my $S  = 10; my @r1 = (1,1); my @r2 = (6,7);
-my @mesh = allocmesh($S, $S);
-@fixed   = allocmesh($S, $S);
-force(@fixed,@r1,@r2);
-say my $out = 2 / solve(@mesh, @r1, @r2, $S, $S);
+say my $out = 2 / solve (1,1), (6,7), 10, 10;
 
 use Test;
 is-approx $out, 1.60899124172989
