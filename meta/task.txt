@@ -1,13 +1,13 @@
-Welcome to Rakudo™ v2022.04-87-g77bc03047.
+Welcome to Rakudo™ v2022.06-3-gd4e8b671a.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2022.04-3-ga9fcd5a74.
+Built on MoarVM version 2022.06-1-ged7e1a51b.
 updating from RC...
-+--------------> Moar: Good/Bad [1453/25]
++--------------> Moar: Good/Bad [1454/25]
 |+-------------> JVM: Good/Bad [1259/296]
 ||+------------> Smoke testing [1405]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [369]
+|||||+---------> Touched (modified by me) [372]
 ||||||+--------> Concurrent/Async [101]
 |||||||+-------> Random seed [131]
 ||||||||+------> File output [101]
@@ -94,7 +94,7 @@ GBS...C.F.... Archimedean_spiral
 GGS.......... Arithmetic-geometric_mean
 GGS..T....... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
-GGS.......... Arithmetic_Integer
+GGS..T....... Arithmetic_Integer
 GBS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS..T....... Arithmetic_evaluation
@@ -164,7 +164,7 @@ GGS.....F.... Bitmap_B%C3%A9zier_curves_Quadratic
 GGS.....F.... Bitmap_Bresenham%27s_line_algorithm
 GBS.....F.... Bitmap_Flood_fill
 GGS.....F.... Bitmap_Histogram
-GGS.....F.... Bitmap_Midpoint_circle_algorithm
+GGS..T..F.... Bitmap_Midpoint_circle_algorithm
 GGS.....F.... Bitmap_PPM_conversion_through_a_pipe
 GGS.....F.... Bitmap_Read_a_PPM_file
 GBS.....F.... Bitmap_Read_an_image_through_a_pipe
@@ -458,7 +458,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -1586,7 +1586,7 @@ GGS.......... Ultra_useful_primes
 GGS.......... Undefined_values
 .........D.VU Unicode_polynomial_equation
 GGS.......... Unicode_strings
-GGS.......... Unicode_variable_names
+GGS..T....... Unicode_variable_names
 GBS......D... Unique_characters
 GGS......D... Unique_characters_in_each_string
 .........DXV. Unit_testing
