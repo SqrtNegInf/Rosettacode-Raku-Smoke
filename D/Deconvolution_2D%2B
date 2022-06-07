@@ -15,8 +15,8 @@ sub deconvolve-N ( @g, @f ) {
     my @solved = rref( @toSolve );
 
     my @h;
-    for flat coords(@hsize) Z @solved[*;*-1] -> $_, $v {
-        @h.AT-POS(|$_) = $v; 
+    for flat coords(@hsize) Z @solved[*;*-1] -> $i, $v {
+        @h.AT-POS(|$i) = $v; 
     }
     return @h;
 }
@@ -29,7 +29,7 @@ sub row ( @g, @f, @gcoord, $hsize ) {
         my @fcoord;
         for ^@hc -> $i {
             my $window = @gcoord[$i] - @hc[$i];
-            @fcoord.push($window) and next if 0 <= $window < @f.shape[$i];                   # > > vim kludge
+            @fcoord.push($window) and next if 0 ≤ $window < @f.shape[$i];                   # > > vim kludge
             last; 
         }
         @row.push: @fcoord == @hc ?? @f.AT-POS(|@fcoord) !! 0;
@@ -46,53 +46,46 @@ sub coords ( @dim ) {
 # Reduced Row Echelon Form simultaneous equation solver
 # Can handle over-specified systems (N unknowns in N + M equations)
 sub rref (@m) {
-    return unless @m;
-    my ($lead, $rows, $cols) = 0, +@m, +@m[0];
-
-    # Trim off over specified rows if they exist, for efficiency
-    if $rows >= $cols {
-        @m = trim_system(@m);
-        $rows = +@m;
-    }
-
+    @m = trim-system @m;
+    my ($lead, $rows, $cols) = 0, @m, @m[0];
     for ^$rows -> $r {
-        $lead < $cols or return @m;
+        return @m unless $lead < $cols;
         my $i = $r;
         until @m[$i;$lead] {
-            ++$i == $rows or next;
+            next unless ++$i == $rows;
             $i = $r;
-            ++$lead == $cols and return @m;
+            return @m if ++$lead == $cols;
         }
         @m[$i, $r] = @m[$r, $i] if $r != $i;
-        my $lv = @m[$r;$lead];
-        @m[$r] »/=» $lv;
+        @m[$r] »/=» $ = @m[$r;$lead];
         for ^$rows -> $n {
             next if $n == $r;
             @m[$n] »-=» @m[$r] »×» (@m[$n;$lead] // 0);
         }
         ++$lead;
     }
-    return @m;
+    @m
+ }
 
-    # Reduce a system of equations to N equations with N unknowns
-    sub trim_system ($m) {
-        my ($vars, @t) = +$m[0]-1;
-        for ^$vars -> $lead {
-            for ^$m -> $row {
-                @t.push: | $m.splice( $row, 1 ) and last if $m[$row;$lead];
-            }
+# Reduce to N equations in N unknowns, for efficiency; a no-op unless rows > cols
+sub trim-system (@m) {
+    return @m unless @m ≥ @m[0]; 
+    my (\vars, @t) = @m[0]-1;
+    for ^vars -> \lead {
+        for ^@m -> \row {
+            @t.append: @m.splice(row, 1) and last if @m[row;lead];
         }
-        while (+@t < $vars) and +$m { @t.push: $m.splice(0, 1) };
-        return @t;
     }
+    while @t < vars and @m { @t.push: shift @m }
+    @t
 }
 
 # Pretty printer for N dimensional arrays
 # Assumes if first element in level is an array, then all are
-sub pretty_print ( @array, $indent = 0 ) {
+sub pretty-print ( @array, $indent = 0 ) {
     if @array[0] ~~ Array {
         say ' ' x $indent,"[";
-        pretty_print( $_, $indent + 2 ) for @array;
+        pretty-print( $_, $indent + 2 ) for @array;
         say ' ' x $indent, "]{$indent??','!!''}";
     } else {
         say ' ' x $indent, "[{join ',', @array».fmt('%4s')} ]{$indent??','!!''}";
@@ -144,11 +137,11 @@ my @g[4;4;6] = (
 say "# {+@f.shape}D array:";
 my @h = deconvolve-N( @g, @f );
 say "h =";
-pretty_print( @h );
+pretty-print( @h );
 my @h-sh[2;3;4] = @(deconvolve-N( @g, @f ));
 my @ff = deconvolve-N( @g, @h-sh );
 say "\nff =";
-pretty_print( @ff );
+pretty-print( @ff );
 
 my $ref = qq:to/END/;
 [[[-6 -8 -5 9] [-7 9 -6 -8] [2 -7 9 8]] [[7 4 4 -6] [9 9 4 -4] [-3 7 -2 -3]]]
