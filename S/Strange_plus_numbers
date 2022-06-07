@@ -3,11 +3,12 @@
 #c# 2021-02-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# '+@$_' seems clearer than '+$_', but latter is a common idiom
 
 my @res;
 
 unit sub MAIN ($start = 100, $end = 500);
-@res = +$_ ~ " matching numbers from $start to $end:\n" ~ $_ given
+@res = +@$_ ~ " matching numbers from $start to $end:\n" ~ $_ given
   ($start .. $end).grep: { all .comb.rotor(2 => -1).map: { .sum.is-prime } };
   #($start .. $end).hyper(:256batch,:8degree).grep: { all .comb.rotor(2 => -1).map: { .sum.is-prime } };
 
