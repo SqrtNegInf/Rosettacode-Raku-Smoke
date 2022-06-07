@@ -3,7 +3,6 @@
 #c# 2018-11-04 <RC, 2019-02-13 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#i# RC cli: 1 7 3 1
 #n# new version, no EVAL
 #n# wasn't concurrency-safe (but doesn't really see a boost from it anyhow?)
 
@@ -80,6 +79,7 @@ END
 my %*SUB-MAIN-OPTS = :named-anywhere;
 
 sub MAIN (*@parameters, Int :$goal = 24) {
+#`{{
     my @numbers;
     if +@parameters == 1 {
         @numbers = @parameters[0].comb(/\d/);
@@ -95,7 +95,9 @@ sub MAIN (*@parameters, Int :$goal = 24) {
         @numbers = 3,3,8,8;
         say 'Running demonstration with: ', |@numbers, "\n";
     }
-    my @res = solve @numbers, $goal;
+}}
+
+    my @res = solve <1 7 3 1>, $goal;
     .say for @res; 
     use Test;
     is @res.join("\n"), chomp $ref;
@@ -108,7 +110,7 @@ sub solve (@numbers, $goal = 24) {
     my @order = (^(@numbers - 1)).permutations;
     my @sol;
     @sol[250]; # preallocate some stack space
-    my $batch = ceiling +@perms/4;
+    my $batch = ceiling @perms/4;
 
     my atomicint $i;
     @perms.map: -> @p {
@@ -120,15 +122,15 @@ sub solve (@numbers, $goal = 24) {
         }
     }
     @sol .= unique;
-    my $pl = +@sol == 1 ?? '' !! 's';
+    my $pl = @sol == 1 ?? '' !! 's';
     my $sg = $pl ?? '' !! 's';
-    @sol.push: +@sol~ " equation{$pl} evaluate{$sg} to $goal using: {@numbers}";
+    @sol.push: +@sol ~ " equation{$pl} evaluate{$sg} to $goal using: {@numbers}"; # '+' here not optional
     return @sol.sort;
 }
 
 sub evaluate ( @digit, @ops, @orders ) {
     my @result = @digit.map: { [ $_, $_ ] };
-    my @offset = 0 xx +@orders;
+    my @offset = 0 xx @orders;
 
     for ^@orders {
         my $this  = @orders[$_];
