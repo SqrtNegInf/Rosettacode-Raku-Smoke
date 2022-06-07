@@ -72,7 +72,7 @@ for @tests -> $t {
 
 sub detect-indent ($text) {
     my $consistent = $text.lines.map(* ~~ / ^ (\h*) /).join.comb.Set;
-    @res.push: "\nUnwilling to continue; Inconsistent indent characters." and return '' if +$consistent > 1;
+    @res.push: "\nUnwilling to continue; Inconsistent indent characters." and return '' if $consistent > 1;
     my @ws = $text.lines.map: (* ~~ / ^ (\h*) /)».Str;
     my $indent = @ws.grep( *.chars > 0 ).min.first;
     @res.push: "\nUnwilling to continue; Inconsistent indentation." and return '' unless all
@@ -85,7 +85,7 @@ sub import (Str $trees, :$level) {
     my $last = -Inf;
     for $trees.lines -> $branch {
         $branch ~~ / ($($level))* /;
-        my $this = +$0;
+        my $this = $0;
         $forest ~= do {
             given $this cmp $last {
                 when More { (?$this ?? q[ => \[ ] !! "" )~ "'{$branch.trim}'" }
