@@ -58,7 +58,7 @@ sub import (Str $trees, $level = '  ') {
 
     for $trees.lines -> $branch {
         $branch ~~ / ($($level))* /;
-        my $this = +$0;
+        my $this = $0;
         $forest ~= do {
             given $this cmp $last {
                 when More { "\['{esc $branch.trim}', " }
