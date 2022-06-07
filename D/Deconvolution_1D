@@ -1,76 +1,62 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Deconvolution/1D
-#c# 2015-11-22 <>RC, 2018-03-14 >RC
+#c# 2015-11-22 <>RC, 2018-03-14 >RC, 2022-06-06 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-# Works with: Rakudo 2015-09-07
-# Translation of Python, using a modified version of the Reduced Row Echelon Form subroutine rref() from here.
-
-sub deconvolve (@g, @f) {
-    my $h = 1 + @g - @f;
-    my @m;
-    @m[^@g;^$h] »+=» 0;
-    @m[^@g;$h] »=« @g;
-    for ^$h -> $j { for @f.kv -> $k, $v { @m[$j + $k;$j] = $v } }
-    return rref( @m )[^$h;$h];
-}
+#n# this was the odd one out, not using '@m' in rref/trim-system, which became an excuse to generally refactor
+#n# cf R/Reduced_row_echelon_form, D/Deconvolution_2D*
 
 sub convolve (@f, @h) {
     my @g = 0 xx + @f + @h - 1;
     @g[^@f X+ ^@h] »+=« (@f X× @h);
-    return @g;
+    @g
+}
+
+sub deconvolve (@g, @f) {
+    my \h = 1 + @g - @f;
+    my @m;
+    @m[^@g;^h] »+=» 0;
+    @m[^@g; h] »=«  @g;
+    for ^h -> \j { for @f.kv -> \k, \v { @m[j+k;j] = v } }
+    (rref @m)[^h;h]
 }
 
 # Reduced Row Echelon Form simultaneous equation solver.
-# Can handle over-specified systems of equations.
-# (n unknowns in n + m equations)
-sub rref ($m is copy) {
-    return unless $m;
-    my ($lead, $rows, $cols) = 0, +$m, +$m[0];
-
-    # Trim off over specified rows if they exist, for efficiency
-     if $rows >= $cols {
-         $m = trim_system($m);
-         $rows = +$m;
-     }
-
+# Can handle over-specified systems of equations (n unknowns in n + m equations)
+sub rref (@m) {
+    @m = trim-system @m;
+    my ($lead, $rows, $cols) = 0, @m, @m[0];
     for ^$rows -> $r {
-        $lead < $cols or return $m;
+        return @m unless $lead < $cols;
         my $i = $r;
-        until $m[$i;$lead] {
-            ++$i == $rows or next;
+        until @m[$i;$lead] {
+            next unless ++$i == $rows;
             $i = $r;
-            ++$lead == $cols and return $m;
+            return @m if ++$lead == $cols;
         }
-        $m[$i, $r] = $m[$r, $i] if $r != $i;
-        my $lv = $m[$r;$lead];
-        $m[$r] »/=» $lv;
+        @m[$i, $r] = @m[$r, $i] if $r != $i;
+        @m[$r] »/=» $ = @m[$r;$lead];  # dodge to eliminate temp var
+
         for ^$rows -> $n {
             next if $n == $r;
-            $m[$n] »-=» $m[$r] »×» ($m[$n;$lead]//0);
+            @m[$n] »-=» @m[$r] »×» (@m[$n;$lead] // 0);
         }
         ++$lead;
     }
-    return $m;
+    @m
+}
 
-    # Reduce a system of equations to n equations with n unknowns.
-    # Looks for an equation with a true value for each position.
-    # If it can't find one, assumes that it has already taken one
-    # and pushes in the first equation it sees. This assumtion
-    # will alway be successful except in some cases where an
-    # under-specified system has been supplied, in which case,
-    # it would not have been able to reduce the system anyway.
-    sub trim_system ($m) {
-        my ($vars, @t) = +$m[0]-1;
-        for ^$vars -> $lead {
-            for ^$m -> $row {
-                @t.push: | $m.splice( $row, 1 ) and last if $m[$row;$lead];
-            }
+# Reduce to N equations in N unknowns, for efficiency; a no-op unless rows > cols
+sub trim-system (@m) {
+    return @m unless @m ≥ @m[0]; 
+    my (\vars, @t) = @m[0]-1;
+    for ^vars -> \lead {
+        for ^@m -> \row {
+            @t.append: @m.splice( row, 1 ) and last if @m[row;lead];
         }
-        while (+@t < $vars) and +$m { @t.push: $m.splice( 0, 1 ) };
-        return @t;
     }
+    while @t < vars and @m { @t.push: shift @m }
+    @t
 }
 
 my @h = (-8,-9,-3,-1,-6,7);
@@ -79,7 +65,7 @@ my @g = (24,75,71,-34,3,22,-45,23,245,25,52,25,-67,-96,96,31,55,36,29,-43,-7);
 
 my @res;
 
-@res.push: ~convolve(@f, @h);
+@res.push:   ~convolve(@f, @h);
 @res.push: ~deconvolve(@g, @f);
 @res.push: ~deconvolve(@g, @h);
 .say for @res;
