@@ -26,7 +26,7 @@ sub addsymmetries(%infound, \turns) {
     #my @allsym.push: | .&circularsymmetries for turns, -«turns; # DRY
     #my @allsym = |(circularsymmetries turns), |circularsymmetries -«turns; # original
 
-    my @allsym.push: | .&{ (0..^+@$_).map: -> $n {rotate @$_, $n} } for turns, -«turns;
+    my @allsym.push: | .&{ (0 ..^ @$_).map: -> $n {rotate @$_, $n} } for turns, -«turns;
     %infound{$_} = True for @allsym;
     @allsym.max
 }
