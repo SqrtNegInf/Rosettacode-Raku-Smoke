@@ -4,10 +4,6 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-# Works with: Rakudo version 2018.03
-
-#Gaussian elimination results in a matrix in row echelon form. Gaussian elimination with back-substitution (also known as Gauss-Jordan elimination) results in a matrix in reduced row echelon form. That being the case, we can reuse much of the code from the Reduced row echelon form task. Perl 6 stores and does calculations on decimal numbers within its limit of precision using Rational numbers by default, meaning the calculations are exact.
-
 my @res;
 
 sub gauss-jordan-solve (@a, @b) {
@@ -17,8 +13,7 @@ sub gauss-jordan-solve (@a, @b) {
 
 # reduced row echelon form (Gauss-Jordan elimination)
 sub rref (@m) {
-    return unless @m;
-    my ($lead, $rows, $cols) = 0, +@m, +@m[0];
+    my ($lead, $rows, $cols) = 0, @m, @m[0];
 
     for ^$rows -> $r {
         $lead < $cols or return @m;
@@ -29,8 +24,7 @@ sub rref (@m) {
             ++$lead == $cols and return @m;
         }
         @m[$i, $r] = @m[$r, $i] if $r != $i;
-        my $lv = @m[$r;$lead];
-        @m[$r] »/=» $lv;
+        @m[$r] »/=» $ = @m[$r;$lead];
         for ^$rows -> $n {
             next if $n == $r;
             @m[$n] »-=» @m[$r] »×» (@m[$n;$lead] // 0);
