@@ -31,10 +31,10 @@ sub row ( @g, @f, @gcoord, $hsize ) {
         my @fcoord;
         for ^@hc -> $i {
             my $window = @gcoord[$i] - @hc[$i];
-            @fcoord.push($window) and next if 0 <= $window < @f.shape[$i];                   # > > vim kludge
+            @fcoord.push($window) and next if 0 ≤ $window < @f.shape[$i];
             last; 
         }
-        @row.push: +@fcoord == +@hc ?? @f.AT-POS(|@fcoord) !! 0;
+        @row.push: @fcoord == @hc ?? @f.AT-POS(|@fcoord) !! 0;
     }
     @row.push: @g.AT-POS(|@gcoord);
     return @row;
@@ -46,58 +46,51 @@ sub coords ( @dim ) {
 }
 
 # Reduced Row Echelon Form simultaneous equation solver
-# Can handle over-specified systems (n unknowns in n + m equations)
+# Can handle over-specified systems (N unknowns in N + M equations)
 sub rref (@m) {
-    return unless @m;
-    my ($lead, $rows, $cols) = 0, +@m, +@m[0];
-
-    # Trim off over specified rows if they exist, for efficiency
-    if $rows >= $cols {
-        @m = trim_system(@m);
-        $rows = +@m;
-    }
-
+    @m = trim-system @m;
+    my ($lead, $rows, $cols) = 0, @m, @m[0];
     for ^$rows -> $r {
-        $lead < $cols or return @m;
+        return @m unless $lead < $cols;
         my $i = $r;
         until @m[$i;$lead] {
-            ++$i == $rows or next;
+            next unless ++$i == $rows;
             $i = $r;
-            ++$lead == $cols and return @m;
+            return @m if ++$lead == $cols;
         }
         @m[$i, $r] = @m[$r, $i] if $r != $i;
-        my $lv = @m[$r;$lead];
-        @m[$r] »/=» $lv;
+        @m[$r] »/=» $ = @m[$r;$lead];
         for ^$rows -> $n {
             next if $n == $r;
             @m[$n] »-=» @m[$r] »×» (@m[$n;$lead] // 0);
         }
         ++$lead;
     }
-    return @m;
+    @m
+ }
 
-    # Reduce a system of equations to n equations with n unknowns
-    sub trim_system ($m) {
-        my ($vars, @t) = +$m[0]-1;
-        for ^$vars -> $lead {
-            for ^$m -> $row {
-                @t.push: | $m.splice( $row, 1 ) and last if $m[$row;$lead];
-            }
+# Reduce to N equations in N unknowns, for efficiency; a no-op unless rows > cols
+sub trim-system (@m) {
+    return @m unless @m ≥ @m[0]; 
+    my (\vars, @t) = @m[0]-1;
+    for ^vars -> \lead {
+        for ^@m -> \row {
+            @t.append: @m.splice(row, 1) and last if @m[row;lead];
         }
-        while (+@t < $vars) and +$m { @t.push: $m.splice(0, 1) };
-        return @t;
     }
+    while @t < vars and @m { @t.push: shift @m }
+    @t
 }
 
 # Pretty printer for N dimensional arrays
 # Assumes if first element in level is an array, then all are
-sub pretty_print ( @array, $indent = 0 ) {
+sub pretty-print ( @array, $indent = 0 ) {
     if @array[0] ~~ Array {
         say ' ' x $indent,"[";
-        pretty_print( $_, $indent + 2 ) for @array;
+        pretty-print( $_, $indent + 2 ) for @array;
         say ' ' x $indent, "]{$indent??','!!''}";
     } else {
-        say ' ' x $indent, "[{join ',', @array».fmt('%4s')} ]{$indent??','!!''}";
+        say ' ' x $indent, "[{join ',', @array».fmt('%4s')} ]{$indent ?? ',' !! ''}";
     }
 }
 
@@ -253,7 +246,7 @@ my @g[4;4;6;8] = (
 #h: [-8, 2, -9, -2, 9, -8, -2]
 my @f1[4]  = ( [ 6, -9, -7, -5] );
 my @g1[10] = ( [-48, 84, -16, 95, 125, -70, 7, 29, 54, 10] );
-pretty_print( my @res1 = deconvolve-N( @g1, @f1 ) );  # remove '@res' for RC
+pretty-print( my @res1 = deconvolve-N( @g1, @f1 ) );
 }
 
 # 2D case
@@ -275,13 +268,13 @@ my @g2[7;10] = ( [
 );
 say "# {+@f2.shape}D array:";
 say "h =";
-pretty_print( my @res2 = deconvolve-N( @g2, @f2 ) );  # remove '@res' for RC
+pretty-print( my @res2 = deconvolve-N( @g2, @f2 ) );  # remove '@res' for RC
 is @res2.gist, '[[-8 1 -7 -2 -9 4] [4 5 -5 2 7 -1] [-6 -3 -3 -6 9 5]]';
 
 # 4D case
 say "# {+@f.shape}D array:";
 say "h =";
-pretty_print( my @res = deconvolve-N( @g, @f ) );  # remove '@res' for RC
+pretty-print( my @res = deconvolve-N( @g, @f ) );  # remove '@res' for RC
 
 my $ref = qq:to/END/;
 [[[[-4 -7 1] [-5 -5 -8] [-3 -2 6] [5 -1 9]] [[2 -3 -5] [-2 9 -6] [-1 3 4] [1 -6 -8]] [[6 -8 -9] [1 -3 7] [7 4 -2] [7 -4 3]]] [[[-7 4 -9] [-9 -9 7] [-8 1 1] [-7 2 -3]] [[8 1 -7] [-1 -2 -3] [-4 5 9] [2 7 -6]] [[1 -9 -3] [7 -6 8] [3 5 -1] [-1 6 -4]]] [[[4 -2 -6] [-1 -6 -2] [5 9 2] [1 9 7]] [[9 -9 2] [-7 -6 8] [7 2 4] [-2 3 5]] [[-8 6 -5] [-8 5 5] [-8 6 -1] [-1 2 6]]]]
