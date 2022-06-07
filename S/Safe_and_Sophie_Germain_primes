@@ -3,6 +3,7 @@
 #c# 2021-12-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A005384 Sophie Germain primes p: 2p+1 is also prime
 
 say my $result = join "\n", (^∞ .grep: { .is-prime && ($_×2+1).is-prime } )[^50].batch(10)».fmt: "%4d";
 
