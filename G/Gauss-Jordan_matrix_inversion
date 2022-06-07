@@ -7,8 +7,8 @@
 my @res;
 
 sub gauss-jordan-invert (@m where &is-square) {
-    ^@m .map: { @m[$_].append: identity(+@m)[$_] };
-    @m.&rref[*]»[+@m .. *];
+    ^@m .map: { @m[$_].append: identity(@m)[$_] };
+    @m.&rref[*]»[+@m .. *];                         # '+' here not optional
 }
 
 sub is-square (@m) { so @m == all @m[*] }
@@ -17,8 +17,7 @@ sub identity ($n) { [ 1, |(0 xx $n-1) ], *.rotate(-1).Array ... *.tail }
 
 # reduced row echelon form (Gauss-Jordan elimination)
 sub rref (@m) {
-    return unless @m;
-    my ($lead, $rows, $cols) = 0, +@m, +@m[0];
+    my ($lead, $rows, $cols) = 0, @m, @m[0];
 
     for ^$rows -> $r {
         $lead < $cols or return @m;
@@ -29,8 +28,7 @@ sub rref (@m) {
             ++$lead == $cols and return @m;
         }
         @m[$i, $r] = @m[$r, $i] if $r != $i;
-        my $lv = @m[$r;$lead];
-        @m[$r] »/=» $lv;
+        @m[$r] »/=» $ = @m[$r;$lead];
         for ^$rows -> $n {
             next if $n == $r;
             @m[$n] »-=» @m[$r] »×» (@m[$n;$lead] // 0);
