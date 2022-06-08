@@ -7514,10 +7514,10 @@ File: L/Longest_common_prefix
 File: L/Longest_common_subsequence
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Longest_common_subsequence
-#c# 2015-11-30 <RC
+#c# 2015-11-30 <RC, 2022-06-07 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# because of bit-field operations, '+' is frequently used, so got rid of unary usage of '+' when not required
+#n# since '+' is used in bit-field operators, got rid of unary usage of '+' for disambiguation
 
 File: L/Longest_common_subsequence.1
 #!/usr/bin/env perl6
@@ -11358,22 +11358,25 @@ File: R/Reduced_row_echelon_form
 #c# 2018-04-05 <RC, 2022-06-06 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#f# RC file: reduced-row.txt
-#n# 2022-06-06 fiddle/twiddle: clean up 'rref', no more '_', consistent matrix notation, etc
+#f# RC file: reduced_row.txt
+#n# 2022-06-06 fiddle/twiddle: clean up 'rref', swap '-' for '_' in names, consistent matrix notation, etc
+#n#            now section #1 of RC task
 
 File: R/Reduced_row_echelon_form-1
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Reduced_row_echelon_form
-#c# 2015-12-18 <RC
+#u# http://rosettacode.org/wiki/Reduced-row_echelon_form
+#c# 2018-04-05 <RC, 2022-06-07 >RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
+#n# 2022-06-06 now section 2 of RC task
 
 File: R/Reduced_row_echelon_form-2
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Reduced_row_echelon_form
-#c# 2015-12-18 <RC
+#u# http://rosettacode.org/wiki/Reduced-row_echelon_form
+#c# 2018-04-05 <RC, 2022-06-07 >RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
+#n# 2022-06-06 RC task section 3: same logic as #2, recast into OO
 
 File: R/Reduced_row_echelon_form.1
 #!/usr/bin/env perl6
