@@ -2,12 +2,12 @@ Welcome to Rakudo™ v2022.06-3-gd4e8b671a.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-1-ged7e1a51b.
 updating from RC...
-+--------------> Moar: Good/Bad [1452/25]
++--------------> Moar: Good/Bad [1454/25]
 |+-------------> JVM: Good/Bad [1259/296]
 ||+------------> Smoke testing [1405]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [373]
+|||||+---------> Touched (modified by me) [376]
 ||||||+--------> Concurrent/Async [101]
 |||||||+-------> Random seed [131]
 ||||||||+------> File output [102]
@@ -34,7 +34,7 @@ GGS.......... 99_bottles_of_beer
 GGS.......... 9_billion_names_of_God_the_integer
 GGS.......... A%2BB
 GGS.......... ABC_problem
-!GS......D... ABC_words
+GGS......D... ABC_words
 GGS....R.D... ADFGVX_cipher
 GGS.......... AKS_test_for_primes
 !GS....R..... ASCII_art_diagram_converter
@@ -458,7 +458,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 GGS..T...D... Execute_CopyPasta_Language
 GGS.....F.... Execute_HQ9%2B
@@ -798,7 +798,7 @@ GBS...C...... Long_primes
 !GS....R.D... Long_stairs
 GGS..T....... Long_year
 GGS..T...D... Longest_common_prefix
-GGS.......... Longest_common_subsequence
+GGS..T....... Longest_common_subsequence
 GGS..T....... Longest_common_substring-1
 GGS..T....... Longest_common_substring-2
 GGS......D... Longest_common_suffix
@@ -1197,8 +1197,8 @@ GGS.......... Recaman%27s_sequence
 GB.KIT....... Record_sound
 GG.K.....D... Recursive_descent_parser_generator
 GGS..T..F.... Reduced_row_echelon_form
-GGS.......... Reduced_row_echelon_form-1
-GGS.......... Reduced_row_echelon_form-2
+GGS..T....... Reduced_row_echelon_form-1
+GGS..T....... Reduced_row_echelon_form-2
 !BS..T....... Reflection_Get_source
 GGS.......... Reflection_List_methods
 GGS.......... Reflection_List_properties
