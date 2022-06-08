@@ -1,27 +1,38 @@
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Reduced_row_echelon_form
-#c# 2015-12-18 <RC
+#u# http://rosettacode.org/wiki/Reduced-row_echelon_form
+#c# 2018-04-05 <RC, 2022-06-07 >RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
+#n# 2022-06-06 now section 2 of RC task
 
-#Re-implemented without the pseudocode, expressed as elementary matrix row operations. See
-#http://unapologetic.wordpress.com/2009/08/27/elementary-row-and-column-operations/
-#and
-#http://unapologetic.wordpress.com/2009/09/03/reduced-row-echelon-form/
-#First, a procedural version:
+my @res;
 
-# using Z+=, Z-=, X×=, and X/= to scale and shear.
+#sub    swap-rows ( @M,         \r1, \r2 ) { @M[r1, r2] = @M[r2, r1] }  # unused
 
-sub swap_rows    ( @M,         $r1, $r2 ) { @M[ $r1, $r2 ] = @M[ $r2, $r1 ] };
-sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r] »×» $scale   };
-#sub scale_row    ( @M, $scale, $r       ) { @M[$r]  =              @M[$r] »×» $scale   };
-sub shear_row    ( @M, $scale, $r1, $r2 ) { @M[$r1] = @M[$r1].list »+» ( @M[$r2] »×» $scale ) };
-sub reduce_row   ( @M,         $r,  $c  ) { scale_row( @M, 1/@M[$r][$c], $r ) };
-sub clear_column ( @M,         $r,  $c  ) {
-    for @M.keys.grep( * != $r ) -> $row_num {
-        shear_row( @M, -1×@M[$row_num][$c], $row_num, $r );
-    }
-}
+#sub    scale-row ( @M, \scale, \r       ) { @M[r]  =              @M[r]  »×» scale   }
+#sub    shear-row ( @M, \scale, \r1, \r2 ) { @M[r1] = @M[r1] »+» ( @M[r2] »×» scale ) }
+#sub   reduce-row ( @M,         \r,  \c  ) { scale-row @M, 1/@M[r;c], r }
+#sub clear-column ( @M,         \r,  \c  ) { shear-row @M, -@M[$_;c], $_, r for @M.keys.grep: * != r }
+
+# so much better!
+sub    scale-row ( @M, \r,        \scale ) { @M[r]  =              @M[r]  »×» scale   }
+sub    shear-row ( @M, \r1, \r2,  \scale ) { @M[r1] = @M[r1] »+» ( @M[r2] »×» scale ) }
+sub   reduce-row ( @M, \r,      \c       ) { scale-row @M, r, 1/@M[r;c] }
+sub clear-column ( @M, \r,      \c       ) { shear-row @M, $_, r, -@M[$_;c] for @M.keys.grep: * != r }
+
+my @M-zero = (
+    [<  0   0  0 >],
+    [<  0   0  0 >],
+);
+
+# special-case to catch all-zero matrix (removed from RC)
+#my $col-z   = 0;
+#my $count-z = @M-zero[0];
+#while all( @M-zero».[$col-z] ) == 0 {
+#    say 'Zero!' and last if ++$col-z == $count-z;
+#}
+
+say 'Zero as far as the eye can see...' unless [or] gather @M-zero.deepmap(*.take);
 
 my @M = (
     [<  1   2   -1    -4 >],
@@ -29,29 +40,24 @@ my @M = (
     [< -2   0   -3    22 >],
 );
 
-my $column_count = +@( @M[0] );
+my $column-count = @M[0];
 
-my $current_col = 0;
-while all( @M».[$current_col] ) == 0 {
-    $current_col++;
-    return if $current_col == $column_count; # Matrix was all-zeros.
+my $col = 0;
+for @M.keys -> $row {
+      reduce-row( @M, $row, $col );
+    clear-column( @M, $row, $col );
+    last if ++$col == $column-count;
 }
 
-for @M.keys -> $current_row {
-    reduce_row(   @M, $current_row, $current_col );
-    clear_column( @M, $current_row, $current_col );
-    $current_col++;
-    return if $current_col == $column_count;
-}
+@res.push: $_».fmt(' %4g') for @M;
 
-say @($_)».fmt('%4g') for @M;
+my $ref = qq:to/END/;
+    1     0     0    -8
+    0     1     0     1
+    0     0     1    -2
+END
 
-#`{
-Reduced Row Echelon Form Matrix
-     1      0      0     -8
-     0      1      0      1
-     0      0      1     -2
-}
+.say for @res;
 
 use Test;
-is @M, '1 0 0 -8 0 1 0 1 0 0 1 -2';
+is @res.join("\n"), chomp $ref;
