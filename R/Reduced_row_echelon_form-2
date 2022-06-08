@@ -1,42 +1,35 @@
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Reduced_row_echelon_form
-#c# 2015-12-18 <RC
+#u# http://rosettacode.org/wiki/Reduced-row_echelon_form
+#c# 2018-04-05 <RC, 2022-06-07 >RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
+#n# 2022-06-06 RC task section 3: same logic as #2, recast into OO
 
-# And the same code, recast into OO. Also, scale and shear are recast as unscale and unshear, 
-# which fit the problem better.
+# Note that both versions can be simplified using Z+=, Z-=, X×=, and X/= to scale and shear.
+
+my @res;
 
 class Matrix is Array {
-    method unscale_row ( @M: $scale, $row ) {
-        @M[$row] = @M[$row] »/» $scale;
-    }
-    method unshear_row ( @M: $scale, $r1, $r2 ) {
-        @M[$r1] = @M[$r1] »-» ( @M[$r2] »×» $scale );
-    }
-    method reduce_row ( @M: $row, $col ) {
-        @M.unscale_row( @M[$row][$col], $row );
-    }
-    method clear_column ( @M: $row, $col ) {
-        for @M.keys.grep( * != $row ) -> $scanning_row {
-            @M.unshear_row( @M[$scanning_row][$col], $scanning_row, $row );
-        }
-    }
-    method reduced_row_echelon_form ( @M: ) {
-        my $column_count = +@( @M[0] );
+    method  unscale-row ( @M: \scale, \row       ) { @M[row] =            @M[row] »/» scale }
+    method  unshear-row ( @M: \scale, \r1,  \r2  ) { @M[r1]  = @M[r1] »-» @M[r2]  »×» scale }
+    method   reduce-row ( @M:         \row, \col ) { @M.unscale-row( @M[row;col], row ) }
+    method clear-column ( @M:         \row, \col ) { @M.unshear-row( @M[$_;col], $_, row ) for @M.keys.grep: * != row }
 
-        my $current_col = 0;
-        # Skip past all-zero columns.
-        while all( @M».[$current_col] ) == 0 {
-            $current_col++;
-            return if $current_col == $column_count; # Matrix was all-zeros.
-        }
+    method reduced-row-echelon-form ( @M: ) {
+        my $column-count =  @M[0];
 
-        for @M.keys -> $current_row {
-            @M.reduce_row(   $current_row, $current_col );
-            @M.clear_column( $current_row, $current_col );
-            $current_col++;
-            return if $current_col == $column_count;
+        # special-case to catch all-zero matrix (removed from RC)
+        #my $current-col = 0;
+        #while all( @M».[$current-col] ) == 0 {
+        #    $current-col++;
+        #    return if $current-col == $column-count;
+        #}
+
+        my $col = 0;
+        for @M.keys -> $row {
+            @M.reduce-row(   $row, $col );
+            @M.clear-column( $row, $col );
+            return if ++$col == $column-count;
         }
     }
 }
@@ -47,17 +40,16 @@ my $M = Matrix.new(
     [< -2   0   -3    22 >],
 );
 
-$M.reduced_row_echelon_form;
+$M.reduced-row-echelon-form;
+@res.push: $_».fmt(' %4g') for @$M;
 
-say @($_)».fmt('%4g') for @($M);
+my $ref = qq:to/END/;
+    1     0     0    -8
+    0     1     0     1
+    0     0     1    -2
+END
 
-# Note that both versions can be simplified using Z+=, Z-=, X*=, and X/= to scale and shear.
+.say for @res;
 
-#`{
-Reduced Row Echelon Form Matrix
-     1      0      0     -8
-     0      1      0      1
-     0      0      1     -2
-}
 use Test;
-is @$M, '1 0 0 -8 0 1 0 1 0 0 1 -2';
+is @res.join("\n"), chomp $ref;
