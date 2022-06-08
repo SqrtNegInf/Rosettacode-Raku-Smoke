@@ -3,10 +3,11 @@
 #c# 2018-04-05 <RC, 2022-06-06 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#f# RC file: reduced-row.txt
-#n# 2022-06-06 fiddle/twiddle: clean up 'rref', no more '_', consistent matrix notation, etc
+#f# RC file: reduced_row.txt
+#n# 2022-06-06 fiddle/twiddle: clean up 'rref', swap '-' for '_' in names, consistent matrix notation, etc
+#n#            now section #1 of RC task
 
-my $out = open('run/reduced-row.txt', :w);
+my $out = open('run/reduced_row.txt', :w);
 
 sub rref (@m) {
     my ($lead, $rows, $cols) = 0, @m, @m[0];
@@ -86,102 +87,4 @@ for @M -> @matrix {
     say-it( 'Original Matrix', @matrix );
     say-it( 'Reduced Row Echelon Form Matrix', rref(@matrix) );
     $out.say: "\n";
-}
-
-#`{
-Re-implemented without the pseudocode, expressed as elementary matrix row operations. See
-http://unapologetic.wordpress.com/2009/08/27/elementary-row-and-column-operations/
-http://unapologetic.wordpress.com/2009/09/03/reduced-row-echelon-form/
-First, a procedural version:
-}
-
-#sub    swap-rows ( @M,         \r1, \r2 ) { @M[r1, r2] = @M[r2, r1] }  # unused
-sub    scale-row ( @M, \scale, \r       ) { @M[r]  =              @M[r]  »×» scale   }
-sub    shear-row ( @M, \scale, \r1, \r2 ) { @M[r1] = @M[r1] »+» ( @M[r2] »×» scale ) }
-sub   reduce-row ( @M,         \r,  \c  ) { scale-row( @M, 1/@M[r;c], r ) }
-sub clear-column ( @M,         \r,  \c  ) {
-    for @M.keys.grep( * != r ) -> \row-num {
-        shear-row( @M, -@M[row-num;c], row-num, r ); # don't need '-1×'
-    }
-}
-
-my @M1 = (
-    [<  1   2   -1    -4 >],
-    [<  2   3   -1   -11 >],
-    [< -2   0   -3    22 >],
-);
-
-my $column-count = @M1[0]; # was +@( @M1[0] );
-#my $column-count = @( @M1[0] ); # could also be written as
-
-my $current-col = 0;
-while all( @M1».[$current-col] ) == 0 {
-    return if ++$current-col == $column-count; # Matrix was all-zeros.
-}
-
-for @M1.keys -> $current-row {
-    reduce-row(   @M1, $current-row, $current-col );
-    clear-column( @M1, $current-row, $current-col );
-    return if ++$current-col == $column-count;
-}
-
-$out.say: @$_».fmt(' %4g') for @M1;
-
-=finish 
-
-# This section has been 'dead' since when?
-
-#And the same code, recast into OO. Also, scale and shear are recast as unscale and unshear, which fit the problem better.
-
-class Matrix is Array {
-    method unscale-row ( @M1: $scale, $row ) {
-        @M1[$row] = @M1[$row] »/» $scale;
-    }
-    method unshear-row ( @M1: $scale, $r1, $r2 ) {
-        @M1[$r1] = @M1[$r1] »-» ( @M1[$r2] »×» $scale );
-    }
-    method reduce-row ( @M1: $row, $col ) {
-        @M1.unscale-row( @M1[$row;$col], $row );
-    }
-    method clear-column ( @M1: $row, $col ) {
-        for @M1.keys.grep( * != $row ) -> $scanning-row {
-            @M1.unshear-row( @M1[$scanning-row;$col], $scanning-row, $row );
-        }
-    }
-    method reduced-row-echelon-form ( @M1: ) {
-        my $column-count =  @M1[0]; # was +@( @M1[0] );
-
-        my $current-col = 0;
-        # Skip past all-zero columns.
-        while all( @M1».[$current-col] ) == 0 {
-            $current-col++;
-            return if $current-col == $column-count; # Matrix was all-zeros.
-        }
-
-        for @M1.keys -> $current-row {
-            @M1.reduce-row(   $current-row, $current-col );
-            @M1.clear-column( $current-row, $current-col );
-            $current-col++;
-            return if $current-col == $column-count;
-        }
-    }
-}
-
-my $M = Matrix.new(
-    [<  1   2   -1    -4 >],
-    [<  2   3   -1   -11 >],
-    [< -2   0   -3    22 >],
-);
-
-$M.reduced-row-echelon-form;
-
-$out.say: @($_)».fmt(' %4g') for @($M);
-
-# Note that both versions can be simplified using Z+=, Z-=, X×=,
-# and X/= to scale and shear.
-
-#`{ WAY OBSOLETE
-Currently, Rakudo has a bug related to Xop= and Zop=.
-Note that the negative zeros in the output are innocuous,
-and also occur in the Perl 5 version.
 }
