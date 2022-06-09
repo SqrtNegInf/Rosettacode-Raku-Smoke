@@ -2,10 +2,10 @@
 #u# http://rosettacode.org/wiki/First_perfect_square_in_base_N_with_N_unique_digits
 #c# 2019-05-20 <RC, 2019-05-25 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# OEIS:A260182 smallest square that is pandigital in base n
 #n# as long as you have a quantum computer, this will work for bases 2 through 36
-#n# for 2..16:
+#n# for 2..16: [timings from 2019?]
 #n#     7.919u  0.204s
 #n#   487.887u  7.866s .1
 #n#  1264.211u 17.279s .2
@@ -23,7 +23,7 @@ sub first-square (Int $n) {
         my @roots = (2..$n).map(*²).map: { digital-root($_.base($n), :base($n) ) };
         if $root ∉ @roots {
             my $offset = min(@roots.grep: * > $root ) - $root;
-            @start[1+$offset] = $offset ~ @start[1+$offset];
+            @start[1+$offset] [R~]= $offset;
         }
     }
 
