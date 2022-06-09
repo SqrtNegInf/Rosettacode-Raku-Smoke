@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Deconvolution/2D%2B
-#c# 2015-11-22 <RC, 2018-03-14 >RC
+#c# 2015-11-22 <RC, 2018-03-14 >RC, 2022-06-08 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# when possible, replace arcane .AT-POS syntax for proper multi-dim array indexing
@@ -18,7 +18,7 @@ sub deconvolve-N ( @g, @f ) {
     for flat coords(@hsize) Z @solved[*;*-1] -> $i, $v {
         @h.AT-POS(|$i) = $v; 
     }
-    return @h;
+    @h
 }
 
 # Construct a row for each value in @g to be sent to the simultaneous equation solver
@@ -35,7 +35,7 @@ sub row ( @g, @f, @gcoord, $hsize ) {
         @row.push: @fcoord == @hc ?? @f.AT-POS(|@fcoord) !! 0;
     }
     @row.push: @g.AT-POS(|@gcoord);
-    return @row;
+    @row
 }
 
 # Constructs an AoA of coordinates to all elements of N dimensional array
