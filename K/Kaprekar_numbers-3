@@ -52,7 +52,7 @@ for k17-gen() ...^ *.[0] >= :17<100000> -> @r {
     my $s17 = $s.base(17);
     my $h17 = $h.base(17);
     my $l17 = $l.base(17);
-    $l17 = '0' x ($s17.chars - $h17.chars - $l17.chars) ~ $l17;
+    $l17 [R~]= '0' x ($s17.chars - $h17.chars - $l17.chars);
     @res.push: "$n $n17 $s17 ($h17 + $l17)";
 }
 
