@@ -4,16 +4,14 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#vlq_encode() returns a string of characters whose ordinals are the encoded octets. vlq_decode() takes a string and returns a decimal number.
-
 sub vlq_encode ($number is copy) {
     my $string = '';
     my $t = 0x7F +& $number;
     $number +>= 7;
-    $string = $t.chr ~ $string;
+    $string [R~]= $t.chr;
     while ($number) {
        $t = 0x7F +& $number;
-       $string = (0x80 +| $t).chr ~ $string;
+       $string [R~]= (0x80 +| $t).chr;
        $number +>= 7; 
     }
     return $string;
