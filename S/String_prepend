@@ -10,45 +10,37 @@ my @res;
 $_ = 'byte';
 $_ = 'kilo' ~ $_;
 @res.push: $_;
-.say;
 
 # interpolation as concatenation
 $_ = 'buck';
 $_ = "mega$_";
 @res.push: $_;
-.say;
 
 # lvalue substr
 $_ = 'bit';
 substr-rw($_,0,0) = 'nano';
 @res.push: $_;
-.say;
 
 # regex substitution
 $_ = 'fortnight';
 s[^] = 'micro';
 @res.push: $_;
-.say;
-
-# 2017-03-09 
-# 
-# Potential difficulties:
-#     Useless use of [R~]= in sink context
-#     at /Users/dhoekman/perl6/Rosetta-Code/String_prepend:34
 
 # reversed append assignment
-#$_ = 'cooper'; 
-#$_ [R~]= 'mini';
-#@res.push: $_;
-#.say;
+# was a bug for a while: 2017-03-09 Potential difficulties: Useless use of [R~]= in sink context
+$_ = 'cooper'; 
+$_ [R~]= 'mini';
+@res.push: $_;
+
+.say for @res;
 
 my $ref = qq:to/END/;
 kilobyte
 megabuck
 nanobit
 microfortnight
+minicooper
 END
-#minicooper
 
 use Test;
 is @res.join("\n"), chomp $ref;
