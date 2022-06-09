@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Longest_common_subsequence
-#c# 2015-11-30 <RC, 2022-06-07 >RC
+#c# 2015-11-30 <RC, 2022-06-08 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# since '+' is used in bit-field operators, got rid of unary usage of '+' for disambiguation
+#n# got rid of unary usage of '+', fiddle with sigils
 
 sub lcs(Str $xstr, Str $ystr) {
     return '' unless $xstr && $ystr;
@@ -46,7 +46,7 @@ sub lcs2(Str $xstr, Str $ystr) {
 
 
 sub lcs3(Str $xstr, Str $ystr) {
-    my (@a, @b) := $xstr.comb, $ystr.comb;
+    my (@a, @b) := ($xstr, $ystr)».comb;
     my (%positions, @Vs, $lcs);
 
     for @a.kv -> $i, $x { %positions{$x} +|= 1 +< ($i % @a) }
