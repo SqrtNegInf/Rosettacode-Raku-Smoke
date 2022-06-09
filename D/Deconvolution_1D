@@ -1,10 +1,12 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Deconvolution/1D
-#c# 2015-11-22 <>RC, 2018-03-14 >RC, 2022-06-06 >RC
+#c# 2015-11-22 <>RC, 2018-03-14 >RC, 2022-06-08 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# this was the odd one out, not using '@m' in rref/trim-system, which became an excuse to generally refactor
 #n# cf R/Reduced_row_echelon_form, D/Deconvolution_2D*
+
+my @res;
 
 sub convolve (@f, @h) {
     my @g = 0 xx + @f + @h - 1;
@@ -63,11 +65,10 @@ my @h = (-8,-9,-3,-1,-6,7);
 my @f = (-3,-6,-1,8,-6,3,-1,-9,-9,3,-2,5,2,-2,-7,-1);
 my @g = (24,75,71,-34,3,22,-45,23,245,25,52,25,-67,-96,96,31,55,36,29,-43,-7);
 
-my @res;
-
 @res.push:   ~convolve(@f, @h);
 @res.push: ~deconvolve(@g, @f);
 @res.push: ~deconvolve(@g, @h);
+
 .say for @res;
 
 my $ref = qq:to/END/;
