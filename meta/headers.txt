@@ -2930,10 +2930,18 @@ File: C/Currying
 File: C/Curve_that_touches_three_points
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Curve_that_touches_three_points
-#c# 2018-11-12 <RC
+#c# 2018-11-12 <RC, 2022-06-09 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: curve-3-points-perl6.png
+
+File: C/Curve_that_touches_three_points-1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Curve_that_touches_three_points
+#c# 2018-11-12 <RC, 2022-06-09 >RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: curve-3-points-alt.png
 
 File: C/Curzon_numbers
 #!/usr/bin/env raku
@@ -3177,7 +3185,7 @@ File: D/Decision_tables
 File: D/Deconvolution_1D
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Deconvolution/1D
-#c# 2015-11-22 <>RC, 2018-03-14 >RC, 2022-06-06 >RC
+#c# 2015-11-22 <>RC, 2018-03-14 >RC, 2022-06-08 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# this was the odd one out, not using '@m' in rref/trim-system, which became an excuse to generally refactor
@@ -3186,7 +3194,7 @@ File: D/Deconvolution_1D
 File: D/Deconvolution_2D%2B
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Deconvolution/2D%2B
-#c# 2015-11-22 <RC, 2018-03-14 >RC
+#c# 2015-11-22 <RC, 2018-03-14 >RC, 2022-06-08 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# when possible, replace arcane .AT-POS syntax for proper multi-dim array indexing
@@ -4970,10 +4978,10 @@ File: F/First_perfect_square_in_base_N_with_N_unique_digits
 #u# http://rosettacode.org/wiki/First_perfect_square_in_base_N_with_N_unique_digits
 #c# 2019-05-20 <RC, 2019-05-25 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# OEIS:A260182 smallest square that is pandigital in base n
 #n# as long as you have a quantum computer, this will work for bases 2 through 36
-#n# for 2..16:
+#n# for 2..16: [timings from 2019?]
 #n#     7.919u  0.204s
 #n#   487.887u  7.866s .1
 #n#  1264.211u 17.279s .2
@@ -5380,7 +5388,7 @@ File: G/Gapful_numbers
 File: G/Gauss-Jordan_matrix_inversion
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Gauss-Jordan_matrix_inversion
-#c# 2018-04-05 <RC, 2018-11-03 <RC, 2019-05-16 >RC, 2020-05-15 >RC, 2020-07-19 >RC, 2020-08-08 <RC
+#c# 2018-04-05 <RC, 2018-11-03 <RC, 2019-05-16 >RC, 2020-05-15 >RC, 2020-07-19 >RC, 2020-08-08 <RC, 2022-06-08 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -5395,7 +5403,7 @@ File: G/Gauss-Jordan_matrix_inversion.1
 File: G/Gaussian_elimination
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Gaussian_elimination
-#c# 2018-04-06 <RC
+#c# 2018-04-06 <RC, 2022-06-08 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -7514,10 +7522,10 @@ File: L/Longest_common_prefix
 File: L/Longest_common_subsequence
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Longest_common_subsequence
-#c# 2015-11-30 <RC, 2022-06-07 >RC
+#c# 2015-11-30 <RC, 2022-06-08 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# since '+' is used in bit-field operators, got rid of unary usage of '+' for disambiguation
+#n# got rid of unary usage of '+', fiddle with sigils
 
 File: L/Longest_common_subsequence.1
 #!/usr/bin/env perl6
