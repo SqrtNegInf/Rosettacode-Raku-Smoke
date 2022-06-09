@@ -1,23 +1,24 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Curve_that_touches_three_points
-#c# 2018-11-12 <RC
+#c# 2018-11-12 <RC, 2022-06-09 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: curve-3-points-perl6.png
 
 use Image::PNG::Portable;
 
-# Solve for a quadratic line that passes through those points
-my (\a, \b, \c) =
-  rref([[10², 10, 1, 10],[100², 100, 1, 200],[200², 200, 1, 10]])[*;*-1];
+# the 3 points of interest
+my @points = (10,10), (100,200), (200,10);
 
-# General case quadratic line equation
+# Solve for a quadratic line that passes through those points
+my (\a, \b, \c) = (rref ([.[0]², .[0], 1, .[1]] for @points) )[*;*-1];
+
+# evaluate quadratic equation
 sub f (\x) { a×x² + b×x + c }
 
-# Scale it up a bit for display
-my $scale = 2;
+my ($w, $h) = 500, 500; # image size
+my $scale   = 2;        # scaling factor
 
-my ($w, $h) = (500, 500);
 my $png = Image::PNG::Portable.new: :width($w), :height($h);
 
 my ($lastx, $lasty) = 8, f(8).round;
@@ -28,7 +29,7 @@ my ($lastx, $lasty) = 8, f(8).round;
 }
 
 # Highlight the 3 defining points
-dot(|$_, $png, 2) for (10,10,[255,0,0]), (100,200,[255,0,0]), (200,10,[255,0,0]);
+dot( | $_, $(255,0,0), $png, 2) for @points;
 
 $png.write: 'run/curve-3-points-perl6.png';
 
@@ -81,7 +82,7 @@ sub line($x0 is copy, $y0 is copy, $x1 is copy, $y1 is copy, $png, @rgb) {
             $png.set($x, $y, |@rgb);
         }
         $error += $Δerror;
-        if $error >= 0.5 {
+        if $error ≥ 0.5 {
             $y += $y-step;
             $error -= 1.0;
         }
