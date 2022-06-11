@@ -37,13 +37,14 @@ END
 use Test;
 is @res.join("\n"), chomp $ref;
 
+=finish 
 # DH: NYI read-only bind
+# 2022-06-10 still the case...
 
-#`{{
 # You can also create a read-only binding which will allow read access to the string but prevent modification except through the original variable.
 
-my $original = 'Hello.';
-my $bound-ro ::= $original;
+my $orig = 'Hello.';
+my $bound-ro := $original;
 say $bound-ro;        # prints "Hello."
 try {
   $bound-ro = 'Runtime error!';
@@ -52,6 +53,5 @@ try {
   };
 };
 say $bound-ro;        # prints "Hello."
-$original = 'Goodbye.';
+$orig = 'Goodbye.';
 say $bound-ro;        # prints "Goodbye."
-}}
