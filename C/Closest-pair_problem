@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Closest-pair-problem
-#c# 2016-04-05 <RC, 2022-06-10 >RC
+#c# 2016-04-05 <RC, 2022-06-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# always random points, just test that both methods agree
@@ -32,18 +32,16 @@ sub closest-pair(@r) {
 sub closest-pair-real(@rx, @ry) {
     return closest-pair-simple(@rx) if @rx ≤ 3;
 
-    my (@yR, @yL);
-    my (@xP, @yP) := (@rx, @ry);
-    my \N  = @xP;
+    my \N  = @rx;
     my \midx = ceiling(N/2) - 1;
-    my @PL := @xP[     0 ..  midx];
-    my @PR := @xP[midx+1 ..^ N   ];
-    my \xm  = @xP[midx;0];
-    (.[0] ≤ xm ?? @yR !! @yL).push: @$_ for @yP;
+    my @PL := @rx[     0 ..  midx];
+    my @PR := @rx[midx+1 ..^ N   ];
+    my \xm  = @rx[midx;0];
+    (.[0] ≤ xm ?? my @yR !! my @yL).push: @$_ for @ry;
     my (\al, \bl, \dL) = closest-pair-real(@PL, @yR);
     my (\ar, \br, \dR) = closest-pair-real(@PR, @yL);
     my ($w1, $w2, $closest) = dR < dL ?? (ar, br, dR) !! (al, bl, dL);
-    my @yS = @yP.grep: { (xm - .[0]).abs < $closest }
+    my @yS = @ry.grep: { (xm - .[0]).abs < $closest }
 
     for 0 ..^ @yS -> \i {
         for i+1 ..^ @yS -> \k {
@@ -56,15 +54,18 @@ sub closest-pair-real(@rx, @ry) {
 
 my @points = (^1000).map: { [rand × 20 - 10, rand × 20 - 10] }
 
-#my $start = now;
+#printf "%.8f between (%.5f, %.5f), (%.5f, %.5f)\n", $_[2], @($_[1]), @($_[0]) for
+#    closest-pair(@points), closest-pair-simple(@points);
+
+my $start = now;
 my ($af, $bf, $df) = closest-pair(@points);
 say "fast $df at [$af], [$bf]";
-#say now - $start;
+say now - $start;
 
-#$start = now;
+$start = now;
 my ($as, $bs, $ds) = closest-pair-simple(@points);
 say "slow $ds at [$as], [$bs]";
-#say now - $start;
+say now - $start;
 
 use Test;
 is $df, $ds;
