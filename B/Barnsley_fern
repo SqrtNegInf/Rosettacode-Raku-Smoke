@@ -5,21 +5,14 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: barnsley-fern.png
-#n# some warning suppressed?
-
-BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 srand 123456;
 
-# Translation of: Perl
-
 use Image::PNG::Portable;
 
-my ($w, $h) = (640, 640);
-
-my $png = Image::PNG::Portable.new: :width($w), :height($h);
-
-my ($x, $y) = (0, 0);
+my (\w, \h) = 640, 640;
+my ($x, $y) =   0,   0;
+my $png = Image::PNG::Portable.new: :width(w), :height(h);
 
 for ^2e5 {
     my $r = 100.rand;
@@ -29,7 +22,7 @@ for ^2e5 {
         when  $r <= 15 { (-0.15 × $x + 0.28 × $y,  0.26 × $x + 0.24 × $y + 0.44) }
         default        { ( 0.85 × $x + 0.04 × $y, -0.04 × $x + 0.85 × $y + 1.60) }
     };
-    $png.set(($w / 2 + $x × 60).Int, ($h - $y × 60).Int, 0, 255, 0);
+    $png.set((w / 2 + $x × 60).Int, (h - $y × 60).Int, 0, 255, 0);
 }
 
 $png.write: 'run/barnsley-fern.png';
