@@ -5,9 +5,7 @@
 #j#  JVM: OK
 #n# downgraded Unicode names to ASCII
 
-# Works with: Rakudo version 2016.10
-# Translation of: Sidef
-#  Legendre operator (n│p)
+# Legendre operator (n│p)
 sub infix:<│> (Int \n, Int \p where p.is-prime && (p != 2)) {
     given n.expmod( (p-1) div 2, p ) {
         when 0  {  0 }
@@ -19,18 +17,17 @@ sub infix:<│> (Int \n, Int \p where p.is-prime && (p != 2)) {
 # a coordinate in a Field of p elements
 class Fp {
     has Int $.x;
-    has Int $.y;
+    has Int $.y
 }
 
 sub cipolla ( Int \n, Int \p ) {
 #    note "Invalid parameters ({n}, {p})"
 #      and return Nil if (n│p) != 1;
-      return Nil if (n│p) != 1;
-    my $w2;
-    my $a = 0;
+    return Nil if (n│p) != 1;
+    my ($a, $w2) = 0;
     loop {
         last if ($w2 = ($a² - n) % p)│p < 0;
-        $a++;
+        $a++
     }
 
     # define a local multiply operator for Field coordinates
@@ -46,8 +43,7 @@ sub cipolla ( Int \n, Int \p ) {
         $r ×= $s if $_ % 2;
         $s ×= $s;
     }
-    return Nil if $r.y;
-    $r.x;
+    $r.y ?? Nil !! $r.x
 }
 
 my @tests = (
