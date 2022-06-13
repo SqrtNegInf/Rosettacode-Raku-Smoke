@@ -1,13 +1,13 @@
-Welcome to Rakudo™ v2022.06-14-g750487c6b.
+Welcome to Rakudo™ v2022.06-17-gf2546b446.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-1-ged7e1a51b.
 updating from RC...
-+--------------> Moar: Good/Bad [1454/25]
-|+-------------> JVM: Good/Bad [1260/296]
-||+------------> Smoke testing [1406]
++--------------> Moar: Good/Bad [1456/25]
+|+-------------> JVM: Good/Bad [1259/298]
+||+------------> Smoke testing [1407]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [380]
+|||||+---------> Touched (modified by me) [381]
 ||||||+--------> Concurrent/Async [101]
 |||||||+-------> Random seed [131]
 ||||||||+------> File output [103]
@@ -220,7 +220,7 @@ GGS.......... Chaocipher
 GBS...CRF.... Chaos_game
 GBS.......... Character_codes
 GG.KI........ Chat_server
-GGS......D... Chebyshev_coefficients
+GGS..T...D... Chebyshev_coefficients
 GGS..T....... Check_Machin-like_formulas
 GGS.......... Check_input_device_is_a_terminal
 GG.KI........ Check_output_device_is_a_terminal
@@ -449,7 +449,8 @@ GGS.......... Euclid-Mullin_sequence-1
 BB........... Euclid-Mullin_sequence-2
 GBS...C...... Euler%27s_constant_0.5772...
 GGS.......... Euler%27s_identity
-GGS...C...... Euler%27s_sum_of_powers_conjecture
+GBS...C...... Euler%27s_sum_of_powers_conjecture
+GBS.......... Euler%27s_sum_of_powers_conjecture-2
 GGS.......... Euler_method
 GGS.......... Evaluate_binomial_coefficients
 GGS.......... Even_or_odd
@@ -1116,7 +1117,7 @@ GGS.......... Price_fraction
 GBS..TC...... Primality_by_Wilson%27s_theorem
 GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
-!BS..TC...... Prime_decomposition
+GBS..TC...... Prime_decomposition
 GBS.......... Prime_decomposition-1
 .........D.V. Prime_numbers_p_for_which_the_sum_of_primes_less_than_or_equal_to_p_is_prime
 ..........X.. Prime_numbers_p_which_sum_of_prime_numbers_less_or_equal_to_p_is_prime
