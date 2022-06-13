@@ -12,10 +12,10 @@ sub cyclical-function (\x) { (x × x + 1) % 255 };
 my ( $l, $s ) = brent( &cyclical-function, 3 );
 
 my @res;
-@res.push: join ', ', (3, -> \x { cyclical-function(x) } ... *)[^20], '...';
+@res.push: join ', ', (3, -> \x { cyclical-function(x) } … *)[^20], '…';
 @res.push: "Cycle length $l.";
 @res.push: "Cycle start index $s.";
-@res.push: (3, -> \x { cyclical-function(x) } ... *)[$s .. $s + $l - 1];
+@res.push: (3, -> \x { cyclical-function(x) } … *)[$s .. $s + $l - 1];
 
 sub brent (&f, $x0) {
     my $power = my $λ = 1;
@@ -44,7 +44,7 @@ sub brent (&f, $x0) {
 }
 
 my $ref = q:to/END/;
-3, 10, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, ...
+3, 10, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, …
 Cycle length 6.
 Cycle start index 2.
 101 2 5 26 167 95
