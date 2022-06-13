@@ -2,10 +2,8 @@
 #u# http://rosettacode.org/wiki/Euler%27s_sum_of_powers_conjecture
 #c# 2018-11-03 <RC
 #m# MOAR: OK
-#j# JVM:  OK
-#n# alternate way of writing 'race'
-
-# Translation of: Python
+#j# JVM:  BROKEN
+#n# keep 'Int' decl. on the hashes: brings significant speed-up
 
 my $result;
 
@@ -23,15 +21,13 @@ my %sum2{Int};
 
 my @sk = %sum2.keys.sort;
 %po5.keys.sort.race.map: -> $p {
-#race for %po5.keys.sort -> $p {
     for @sk -> $s {
         next if $p <= $s;
         if %sum2{$p - $s} {
             $result = ((sort |%sum2{$s}[],|%sum2{$p-$s}[]) X~ '⁵').join(' + ') ~ " =  %po5{$p}" ~ "⁵";
-            last
+            use Test;
+            is $result, '27⁵ + 84⁵ + 110⁵ + 133⁵ =  144⁵';
+            exit
         }
     }
 }
-
-use Test;
-is $result, '27⁵ + 84⁵ + 110⁵ + 133⁵ =  144⁵';
