@@ -3,7 +3,7 @@
 #c# 2016-01-09 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   why so very very slow??
+#n# now that we exit at first opportunity, about 10x faster 
 
 constant MAX = 250;
 
@@ -17,19 +17,15 @@ for 1..MAX -> $i {
     }
 }
 
-my $result;
-my @sk = %sum2.keys.sort;
-loopy: {
+my @sum2-keys = %sum2.keys.sort;
 for %p5.keys.sort -> $p {
-    for @sk -> $s {
+    for @sum2-keys -> $s {
         next if $p <= $s;
         if %sum2{$p - $s} {
-            say $result = ((sort |%sum2{$s}[],|%sum2{$p-$s}[]) X~ '⁵').join(' + ') ~ " =  %p5{$p}" ~ "⁵";
-            last;
+            say my $result = ((|%sum2{$s},|%sum2{$p-$s}).sort X~ '⁵').join(' + ') ~ " =  {%p5{$p}}⁵";
+            use Test;
+            is $result, '27⁵ + 84⁵ + 110⁵ + 133⁵ =  144⁵';
+            exit;
         }
     }
 }
-}
-
-use Test;
-is $result, '27⁵ + 84⁵ + 110⁵ + 133⁵ =  144⁵';
