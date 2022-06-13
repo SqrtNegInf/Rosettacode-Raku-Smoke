@@ -27,20 +27,18 @@ sub change-i(\n, @coins) {
         for ^@coins -> \j {
         my \c = @coins[j];
         @table[i;j] = [+]
-            @table[i - c;j] // 0,
-            @table[i;j - 1] // 0;
+            @table[i - c; j    ] // 0,
+            @table[i    ; j - 1] // 0;
         }
     }
-    @table[*-1][*-1];
+    @table[*-1;*-1];
 }
 
-# moar: 40.481u 1.194s 0:54.75 76.1%
 #say "Iterative:";
 @res.push: change-i    1_00, [1,5,10,25];
 @res.push: change-i 1000_00, [1,5,10,25];
 @res.push: change-i 1000_00, [1,5,10,25,50,100];
 
-# moar: 56.895u 1.055s 1:17.43 74.8%
 #say "\nRecursive:";
 @res.push: change-r    1_00, [1,5,10,25];
 @res.push: change-r  100_00, [1,5,10,25] if $*VM !~~ /jvm/; # DH JVM fails 2018-12-09 worse than before
@@ -66,5 +64,4 @@ END
 
 say "Now we are going to test...";
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
