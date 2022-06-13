@@ -1121,7 +1121,7 @@ File: B/Babylonian_spiral-1
 #c# 2022-05-29 <RC, 2022-05-31 <>RC, 2022-06-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-05-31 refactor global, cosmetic upgrades, thundergnat++ give a more extensive reworking on following days
+#n# 2022-05-31 closer to original version, upgrades (refactor, cosmetic) (by DH and thunergnat)
 #n# OEIS:A256111 squared distance to the origin of the n-th vertex on a Babylonian Spiral
 #n# OEIS:A297346 list of successive x-coordinates in the Babylonian Spiral
 #n# OEIS:A297347 list of successive y-coordinates in the Babylonian Spiral
@@ -1132,18 +1132,28 @@ File: B/Babylonian_spiral-1.1
 #c# 2022-05-29 <RC, 2022-05-31 <>RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# refactor global, cosmetic upgrades
+#n# refactor global, cosmetic upgrades (DH mods only)
 
 File: B/Babylonian_spiral-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Babylonian_spiral
+#c# 2022-06-02 <RC, 2022-06-12 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: babylonian-spiral.svg
+#n# most current thundergnat++ 'independent implemenation'
+#n# OEIS:A256111 squared distance to the origin of the n-th vertex on a Babylonian Spiral
+#n# OEIS:A297346 list of successive x-coordinates in the Babylonian Spiral
+#n# OEIS:A297347 list of successive y-coordinates in the Babylonian Spiral
+
+File: B/Babylonian_spiral-2.1
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Babylonian_spiral
 #c# 2022-06-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: babylonian-spiral.svg
-#n# OEIS:A256111 squared distance to the origin of the n-th vertex on a Babylonian Spiral
-#n# OEIS:A297346 list of successive x-coordinates in the Babylonian Spiral
-#n# OEIS:A297347 list of successive y-coordinates in the Babylonian Spiral
+#n# thundergnat++ 'independent implemenation' (original)
 
 File: B/Bacon_cipher
 #!/usr/bin/env perl6
@@ -1209,7 +1219,6 @@ File: B/Barnsley_fern
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: barnsley-fern.png
-#n# some warning suppressed?
 
 File: B/Base-16_representation
 #!/usr/bin/env raku
@@ -1992,11 +2001,11 @@ File: C/Chat_server
 File: C/Chebyshev_coefficients
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Chebyshev_coefficients
-#c# 2016-03-07 <RC
+#c# 2016-03-07 <RC, 2022-06-12 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2022-06-04 replace '0.5' with '1/2' or '½' works, other cosmetics (not on RC)
-#n#            using 'X' a little faster, but precedence issue here: ((@pi_n».cos X× bma) X+ bpa )».&$func
+#n#            using 'X' a little faster, but precedence issue here: ((@pi-n».cos X× bma) X+ bpa )».&$func
 
 File: C/Check_Machin-like_formulas
 #!/usr/bin/env perl6
@@ -4125,8 +4134,16 @@ File: E/Euler%27s_sum_of_powers_conjecture
 #u# http://rosettacode.org/wiki/Euler%27s_sum_of_powers_conjecture
 #c# 2018-11-03 <RC
 #m# MOAR: OK
-#j# JVM:  OK
-#n# alternate way of writing 'race'
+#j# JVM:  BROKEN
+#n# keep 'Int' decl. on the hashes: brings significant speed-up
+
+File: E/Euler%27s_sum_of_powers_conjecture-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Euler%27s_sum_of_powers_conjecture
+#c# 2018-11-03 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# 2022-06-12 without the 'sort' on keys, we sometimes get lucky (but other times worse); nb: alternate way of writing 'race'
 
 File: E/Euler%27s_sum_of_powers_conjecture.jvm
 #!/usr/bin/env perl6
@@ -4134,7 +4151,7 @@ File: E/Euler%27s_sum_of_powers_conjecture.jvm
 #c# 2016-01-09 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   why so very very slow??
+#n# now that we exit at first opportunity, about 10x faster 
 
 File: E/Euler_method
 #!/usr/bin/env perl6
