@@ -2,19 +2,19 @@ Welcome to Rakudo™ v2022.06-17-gf2546b446.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-1-ged7e1a51b.
 updating from RC...
-+--------------> Moar: Good/Bad [1456/25]
-|+-------------> JVM: Good/Bad [1259/298]
-||+------------> Smoke testing [1407]
++--------------> Moar: Good/Bad [1458/25]
+|+-------------> JVM: Good/Bad [1260/299]
+||+------------> Smoke testing [1409]
 |||+-----------> sKipping validation [139]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [381]
-||||||+--------> Concurrent/Async [101]
-|||||||+-------> Random seed [131]
+|||||+---------> Touched (modified by me) [382]
+||||||+--------> Concurrent/Async [103]
+|||||||+-------> Random seed [132]
 ||||||||+------> File output [103]
-|||||||||+-----> Draft [349]
+|||||||||+-----> Draft [351]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [100]
-||||||||||||+--> Un-implemented/reliable [51]
+|||||||||||+---> Void (no local copy) [101]
+||||||||||||+--> Un-implemented/reliable [52]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -98,6 +98,7 @@ GGS..T....... Arithmetic_Integer
 GBS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS..T....... Arithmetic_evaluation
+GGS...C..D... Arithmetic_numbers
 GGS.......... Array_concatenation
 GGS.......... Array_length
 GGS.......... Arrays
@@ -220,7 +221,7 @@ GGS.......... Chaocipher
 GBS...CRF.... Chaos_game
 GBS.......... Character_codes
 GG.KI........ Chat_server
-GGS..T...D... Chebyshev_coefficients
+GBS..T...D... Chebyshev_coefficients
 GGS..T....... Check_Machin-like_formulas
 GGS.......... Check_input_device_is_a_terminal
 GG.KI........ Check_output_device_is_a_terminal
@@ -243,6 +244,7 @@ GBS..TC...... Circular_primes
 GGS....RF.... Cistercian_numerals
 GGS.......... Classes
 GGS..TcR..... Closest-pair_problem
+GGS..TCR..... Closest-pair_problem-2
 !GS....R..... Closures_Value_capture
 GBS......D... Code_Golf:_Code_Golf
 GG.K.....D... Code_segment_unload
@@ -1198,6 +1200,7 @@ GGS.......... Real_constants_and_functions
 GGS.......... Recaman%27s_sequence
 GB.KIT....... Record_sound
 GG.K.....D... Recursive_descent_parser_generator
+.........D.VU Red_black_tree_sort
 GGS..T..F.... Reduced_row_echelon_form
 GGS..T....... Reduced_row_echelon_form-1
 GGS..T....... Reduced_row_echelon_form-2
