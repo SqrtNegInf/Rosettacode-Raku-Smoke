@@ -2,26 +2,34 @@
 #u# http://rosettacode.org/wiki/Chebyshev_coefficients
 #c# 2016-03-07 <RC, 2022-06-12 >RC
 #m# MOAR: OK
-#j#  JVM: OK
-#n# 2022-06-04 replace '0.5' with '1/2' or '½' works, other cosmetics (not on RC)
-#n#            using 'X' a little faster, but precedence issue here: ((@pi-n».cos X× bma) X+ bpa )».&$func
+#j#  JVM: BROKEN
+#n# 2022-06-04 replace '0.5' with '1/2' or '½' works, other cosmetics
+#n# 2022-06-12 -X version (not on RC) has precedence issues, needs more parens
 
+# all hypers
 sub chebft ( Code $func, Real \a, Real \b, Int \n ) {
-
     my \bma = ½ × ( b - a );
     my \bpa = ½ × ( b + a );
-
-    my @pi-n = ( (^n).list »+» ½ ) »×» (π/n);
-    my @f    = ( @pi-n».cos »×» bma »+» bpa )».&$func;        # '&' not required, but a little clearer?
+    my @pi-n = ( ^n »+» ½ ) »×» (π/n);
+    my @f    = ( @pi-n».cos »×» bma »+» bpa )».&$func;          # '&' not required, but a little clearer?
     my @sums = (^n).map: { [+] @f »×« ( @pi-n »×» $_ )».cos };
-    #my @sums = map { [+] @f »×« ( @pi-n »×» $_ )».cos }, ^n;
-
     @sums »×» (2/n);
 }
 
-my @res = chebft(&cos, 0, 1, 10)».fmt: '%+13.7e';
+# no hypers, 'X' and 'Z', define a term
+sub chebft-X ( Code $func, Real \a, Real \b, Int \n ) {
+    my \bma = ½ × ( b - a );
+    my \bpa = ½ × ( b + a );
+    sub term:<π-n> { (^n X+ ½ ) X× (π/n) };
+    my @f    = ( ((π-n X &cos) X× bma) X+ bpa ) X &$func;
+    my @sums = (^n).map: { [+] @f Z× (( π-n X× $_ ) X &cos) };
+    @sums X× (2/n);
+}
 
-.say for @res;
+my @res1 =   chebft(&cos, 0, 1, 10)».fmt: '%+13.7e';
+my @res2 = chebft-X(&cos, 0, 1, 10)».fmt: '%+13.7e';
+
+.say for @res1;
 
 my $moar = qq:to/END/;
 +1.6471695e+00
@@ -65,4 +73,5 @@ END
 }
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res1.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res2.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
