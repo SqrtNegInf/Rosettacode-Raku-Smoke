@@ -1,0 +1,76 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Chebyshev_coefficients
+#c# 2016-03-07 <RC, 2022-06-12 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# '½' doesn't work with JVM
+
+# all hypers
+sub chebft ( Code $func, Real \a, Real \b, Int \n ) {
+    my \bma = 0.5 × ( b - a );
+    my \bpa = 0.5 × ( b + a );
+    my @pi-n = ( ^n »+» 0.5 ) »×» (π/n);
+    my @f    = ( @pi-n».cos »×» bma »+» bpa )».&$func;        # '&' not required, but a little clearer?
+    my @sums = (^n).map: { [+] @f »×« ( @pi-n »×» $_ )».cos };
+    @sums »×» (2/n);
+}
+
+# no hypers, 'X' and 'Z'
+sub chebft-X ( Code $func, Real \a, Real \b, Int \n ) {
+    my \bma = 0.5 × ( b - a );
+    my \bpa = 0.5 × ( b + a );
+    sub term:<π-n> { (^n X+ 0.5 ) X× (π/n) };
+    my @f    = ( (π-n».cos X× bma) X+ bpa ) X &$func;
+    my @sums = (^n).map: { [+] @f Z× (( π-n X× $_ ) X &cos) };
+    @sums X× (2/n);
+}
+
+my @res1 =   chebft(&cos, 0, 1, 10)».fmt: '%+13.7e';
+my @res2 = chebft-X(&cos, 0, 1, 10)».fmt: '%+13.7e';
+
+.say for @res1;
+
+my $moar = qq:to/END/;
++1.6471695e+00
+-2.3229937e-01
+-5.3715115e-02
++2.4582353e-03
++2.8211906e-04
+-7.7222292e-06
+-5.8985565e-07
++1.1521427e-08
++6.5962992e-10
+-1.0021994e-11
+END
+
+my $jvm = qq:to/END/;
++1.6471695e+00
+-2.3229937e-01
+-5.3715115e-02
++2.4582353e-03
++2.8211906e-04
+-7.7222292e-06
+-5.8985565e-07
++1.1521428e-08
++6.5962991e-10
+-1.0022017e-11
+END
+
+if ($*VM ~~ /moar/ and $*KERNEL eq 'linux') {
+$moar = qq:to/END/;
++1.6471695e+00
+-2.3229937e-01
+-5.3715115e-02
++2.4582353e-03
++2.8211906e-04
+-7.7222292e-06
+-5.8985565e-07
++1.1521428e-08
++6.5962991e-10
+-1.0022017e-11
+END
+}
+
+use Test;
+is @res1.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res2.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
