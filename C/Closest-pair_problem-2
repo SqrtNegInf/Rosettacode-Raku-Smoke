@@ -4,8 +4,13 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# always random points, just test that both methods agree
-#n# 2022-06-10 surprise! refactor made it 2x faster
-#n# 2022-06-13 concurrency gives a 10x boost (on an 8-core machine), for the faster algo.
+#n# 2022-06-10 surprise! refactor made it 2x faster (when including both the slow & fast)
+#n# 2022-06-13 concurrency gives a notable boost for the faster algo.
+
+#  for 50K
+#       slow: >2hr
+#       fast: 18.65s user 0.46s system 103% cpu 18.400 total
+# race, fast: ~2.5
 
 srand 123456;
 
@@ -55,13 +60,13 @@ sub closest-pair-real(@rx, @ry) {
 my @points = (^50000).map: { [rand × 20 - 10, rand × 20 - 10] }
 
 #printf "%.8f between (%.5f, %.5f), (%.5f, %.5f)\n", $_[2], @($_[1]), @($_[0]) for
-#    closest-pair(@points), closest-pair-simple(@points);
-exit;
+#    closest-pair-simple(@points);
+#exit;
 
 my $start = now;
-my ($af, $bf, $df) = closest-pair(@points);
-say "fast $df at [$af], [$bf]";
-say now - $start;
+#my ($af, $bf, $df) = closest-pair(@points);
+#say "fast $df at [$af], [$bf]";
+#say now - $start;
 
 say '==';
 # the optimum list is *really* short
@@ -70,12 +75,12 @@ for ^10 {
     my $n = 20;
     $start = now;
     #say "N: $n " ~ (+@points)/($n*500);
-    sink @points.sort(*.[0]).rotor( @points/($n*500) => -1, :partial).race.map: {
-    #my @foo = @points.sort(*.[0]).rotor( @points/($n*500) => -1, :partial).race.map: {
+    #sink @points.sort(*.[0]).rotor( @points/($n*500) => -1, :partial).race.map: {
+    my @foo = @points.sort(*.[0]).rotor( @points/($n*500) => -1, :partial).race.map: {
     #my @foo = @points.sort(*.[0]).rotor( @points/($n*500) => -1, :partial).race(:1batch).map: {
         closest-pair(@$_)[2] 
     }
-    #say (@foo.sort)[0];
+    say (@foo.sort)[0];
     say now - $start;
     #say '--';
 }
