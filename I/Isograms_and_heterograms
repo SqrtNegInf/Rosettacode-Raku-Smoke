@@ -1,0 +1,105 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Isograms_and_heterograms
+#c# 2022-06-17 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# skip 'race', for sake of JVM
+
+my @res;
+
+my $file = 'ref/unixdict.txt';
+
+my @words = $file.IO.slurp.words.map: { $_ => .comb.Bag };
+#my @words = $file.IO.slurp.words.race.map: { $_ => .comb.Bag };
+
+@res.push: $_ for (6...2).map: -> $n {
+    next unless my @iso = @words.grep({.value.values.all == $n})».key;
+    #next unless my @iso = @words.race.grep({.value.values.all == $n})».key;
+    "\n({+@iso}) {$n}-isograms:\n" ~ @iso.sort({[-.chars, ~$_]}).join: "\n";
+}
+
+my $minchars = 10;
+
+@res.push: "\n({+$_}) heterograms with $minchars or more characters:\n" ~
+  .sort({[-.chars, ~$_]}).join: "\n" given
+  @words.grep({.key.chars >$minchars && .value.values.max == 1})».key;
+  #@words.race.grep({.key.chars >$minchars && .value.values.max == 1})».key;
+
+#.say for @res;
+
+my $ref = q:to/END/;
+
+(2) 3-isograms:
+aaa
+iii
+
+(31) 2-isograms:
+beriberi
+bilabial
+caucasus
+couscous
+teammate
+appall
+emmett
+hannah
+murmur
+tartar
+testes
+anna
+coco
+dada
+deed
+dodo
+gogo
+isis
+juju
+lulu
+mimi
+noon
+otto
+papa
+peep
+poop
+teet
+tete
+toot
+tutu
+ii
+
+(32) heterograms with 10 or more characters:
+ambidextrous
+bluestocking
+exclusionary
+incomputable
+lexicography
+loudspeaking
+malnourished
+atmospheric
+blameworthy
+centrifugal
+christendom
+consumptive
+countervail
+countryside
+countrywide
+disturbance
+documentary
+earthmoving
+exculpatory
+geophysical
+inscrutable
+misanthrope
+problematic
+selfadjoint
+stenography
+sulfonamide
+switchblade
+switchboard
+switzerland
+thunderclap
+valedictory
+voluntarism
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
