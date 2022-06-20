@@ -1,0 +1,20 @@
+#!/usr/bin/env perl6
+## xxx
+# 2022-06-18
+# count in base 18, advance and retard as needed
+
+#say (70+34).polymod(17 xx *).flip; exit;
+
+my @io = <16 10 10>;
+
+my @cut = flat 0, (1, 2, 3) >>xx<< (3, 8, 20); dd @cut;exit;
+#my @cut = flat 0, 1 xx 3, 2 xx 8,  3 xx 20; dd @cut;exit;
+
+for 0..4 -> $a {
+    #say @io.head(@cut[$a]); exit;
+    say "a: $a ";
+    say "io0: " ~ [+] @io.head(@cut[$a]);
+    say "io1: " ~ ($a + [+] @io.head(@cut[$a]));
+    dd ($a + [+] @io.head(@cut[$a])).polymod(17 xx *).flip;
+    say '--';
+}
