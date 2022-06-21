@@ -1009,11 +1009,9 @@ File: A/Attractive_numbers.jvm
 File: A/Autogram_checker
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Autogram_checker
-#c# 2022-06-19 <RC
+#c# 2022-06-20 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# Slightly fragile, especially for non-letter characters, but good enough.
-#n# what's up with the module?
 
 File: A/Average_loop_length
 #!/usr/bin/env perl6
@@ -2256,7 +2254,7 @@ File: C/Closest-pair_problem
 
 File: C/Closest-pair_problem-2
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Closest-pair-problem
+#u# http://rosettacode.org/wiki/Closest_pair_problem
 #c# 2016-04-05 <RC, 2022-06-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -6521,6 +6519,7 @@ File: I/Integer_overflow
 #c# 2016-03-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# can of course get correct results by omitting typedef
 
 File: I/Integer_roots
 #!/usr/bin/env perl6
@@ -10189,6 +10188,14 @@ File: P/Perfect_totient_numbers.jvm
 #j# JVM:  OK
 #n# calculating fewer results here
 
+File: P/Periodic_table
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Periodic_table
+#c# 2022-06-20 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# count in base 18, advance and retard as needed
+
 File: P/Peripheral_drift_illusion
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Peripheral_drift_illusion
@@ -10237,6 +10244,7 @@ File: P/Permutations_Derangements
 #m# MOAR: OK
 #j#  JVM: OK
 #n# substantial change from the previous version
+#n# eqv instead of == so that the derangements() function also works with any set of arbitrary objects (eg. strings, lists, etc.)
 
 File: P/Permutations_Derangements.1
 #!/usr/bin/env perl6
@@ -10245,14 +10253,6 @@ File: P/Permutations_Derangements.1
 #c# 2016-08-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-File: P/Permutations_Derangements.2
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Permutations/Derangements
-#c# 2015-11-20 <RC
-#m# MOAR: BROKEN
-#j#  JVM: BROKEN
 
 File: P/Permutations_Rank_of_a_permutation
 #!/usr/bin/env perl6
@@ -14752,11 +14752,10 @@ File: T/Trabb_Pardo-Knuth_algorithm
 File: T/Transliterate_English_text_using_the_Greek_alphabet
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Transliterate_English_text_using_the_Greek_alphabet
-#c# 2022-06-18 <RC
+#c# 2022-06-18 <RC, 2022-06-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: transliterate-greek.txt
-#n# Greek translation differs between runs?
 
 File: T/Transportation_problem
 #!/usr/bin/env perl6
