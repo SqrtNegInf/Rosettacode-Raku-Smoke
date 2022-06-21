@@ -3,15 +3,12 @@
 #c# 2016-03-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-#Translation of: Perl
-
-# DH: no warnings when overflow occurs?  not doing what task is asking
-
-my int64 ($a, $b, $c) = 9223372036854775807, 5000000000000000000, 3037000500;
+#n# can of course get correct results by omitting typedef
 
 my @res;
-for -(-$a - 1), $b + $b, -$a - $a, $c × $c, (-$a - 1)/-1 -> $i { @res.push: $i; }
+
+my int64 ($a, $b, $c) = 9223372036854775807, 5000000000000000000, 3037000500;
+for -(-$a - 1), $b + $b, -$a - $a, $c × $c, (-$a - 1)/-1 -> $i { @res.push: $i }
 .say for @res;
 
 my $ref = qq:to/END/;
@@ -24,3 +21,13 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
+
+=finish
+
+Correct results:
+
+9223372036854775808
+10000000000000000000
+-18446744073709551614
+9223372037000250000
+9223372036854775808
