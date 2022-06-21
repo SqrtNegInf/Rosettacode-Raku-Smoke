@@ -1,19 +1,19 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Transliterate_English_text_using_the_Greek_alphabet
-#c# 2022-06-18 <RC
+#c# 2022-06-18 <RC, 2022-06-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: transliterate-greek.txt
-#n# Greek translation differs between runs?
 
 sub to-Greek (Str $string is copy) {
-    my %pre = :Ph<F>, :ck<k>, :ee<h>, :J<I>, :rh<r>,:oo<w>, :ph<f>, 's ' => 'Ï ';
-    my %post =
-    :ch<Ï>, :th<Î¸>, :ps<Ï>, :Ch<Î§>, :Th<Î>, :Ps<Î¨>, :kh<Ï>, :a<Î±>, :b<Î²>, :d<Î´>,
-    :e<Îµ>, :f<Ï>, :g<Î³>, :h<Î·>, :i<Î¹>, :j<Î¹>, :k<Îº>, :l<Î»>, :m<Î¼>, :n<Î½>, :o<Î¿>,
-    :p<Ï>, :q<Îº>, :r<Ï>, :s<Ï>, :t<Ï>, :u<Ï>, :v<Î²>, :w<Ï>, :x<Î¾>, :y<Ï>, :z<Î¶>,
-    :A<Î>, :B<Î>, :D<Î>, :E<Î>, :F<Î¦>, :G<Î>, :H<Î>, :I<Î>, :L<Î>, :M<Î>, :N<Î>,
-    :O<Î>, :P<Î>, :Q<Î>, :R<Î¡>, :S<Î£>, :T<Î¤>, :U<Î¥>, :W<Î©>, :X<Î>, :Z<Î>;
+    my %pre =  :Ph<F>, :ck<k>, :ee<h>, :J<I>, :rh<r>,:oo<w>, :ph<f>, :ch<χ>,
+               :th<θ>, :ps<ψ>, :Ch<Χ>, :Th<Θ>, :Ps<Ψ>, :kh<χ>, 's ' => 'ς ';
+    my %post = :a<α>, :b<β>, :d<δ>, :e<ε>, :f<φ>, :g<γ>, :h<η>, :i<ι>, :j<ι>,
+               :k<κ>, :l<λ>, :m<μ>, :n<ν>, :o<ο>, :p<π>, :q<κ>, :r<ρ>, :s<σ>,
+               :t<τ>, :u<υ>, :v<β>, :w<ω>, :x<ξ>, :y<υ>, :z<ζ>, :A<Α>, :B<Β>,
+               :D<Δ>, :E<Ε>, :F<Φ>, :G<Γ>, :H<Η>, :I<Ι>, :L<Λ>, :M<Μ>, :N<Ν>,
+               :O<Ο>, :P<Π>, :Q<Κ>, :R<Ρ>, :S<Σ>, :T<Τ>, :U<Υ>, :W<Ω>, :X<Ξ>,
+               :Z<Ζ>;
 
     $string.=subst(:g, .key, .value ) for flat %pre, %post;
     $string
@@ -36,7 +36,7 @@ my $out = open('run/transliterate-greek.txt', :w);
 
 $out.say: "English:\n\n" ~ $text ~ "\n" ~ '=' x 80;
 
-#$out.say: "\"Greek\":\n\n" ~ $text.&to-Greek ~ "\n" ~ '=' x 80;
+$out.say: "\"Greek\":\n\n" ~ $text.&to-Greek ~ "\n" ~ '=' x 80;
 
 $out.say: "Or, to named characters:\n\n$_\n" ~
   .&to-Greek.comb.map({ .match(/\W/) ?? $_ !!
