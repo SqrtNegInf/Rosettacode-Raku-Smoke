@@ -7,16 +7,16 @@
 
 my @res;
 
-
 my $b = 18;
-my @offset = (16, 10, 10, (2×$b)+1, (-2×$b)-15, (2×$b)+1, (-2×$b)-15);
-#my @offset = (16, 10, 10, (2×$b)+1, (-3×$b)+3, (2×$b)+1, (-3×$b)+3 );
+ my @offset = 16, 10, 10, (2×$b)+1, (-2×$b)-15, (2×$b)+1, (-2×$b)-15;
+#my @offset = 16, 10, 10, (2×$b)+1, (-3×$b)+ 3, (2×$b)+1, (-3×$b)+ 3;
+#my @offset = flat 16, 10, 10, 2 Rxx ((2×$b X× 1,-1) Z+ 1,-15);
 my @span   = flat ^8 Zxx <1 3 8 44 15 17 15 15>;
 
 for 1, 2, 29, 42, 56, 57, 58, 71, 72, 88, 89, 90, 103, 104, 118 -> $n {
     #@res.push: sprintf "%3d: %2d, %2d", $n, flat 1 X+ ($n-1 + [+] @offset.head(@span[$n-1])).polymod($b).reverse.flat;
-    @res.push: sprintf "%3d: %2d, %2d", $n, map {$_+1}, ($n-1 + [+] @offset.head(@span[$n-1])).polymod($b).reverse;
     #@res.push: sprintf "%3d: %2d, %2d", $n, map {$_+1}, ($n-1 + [+] @offset[0..@span[$n-1]-1]).polymod($b).reverse;
+     @res.push: sprintf "%3d: %2d, %2d", $n, map {$_+1}, ($n-1 + [+] @offset.head(@span[$n-1])).polymod($b).reverse;
 }
 
 .say for @res;
