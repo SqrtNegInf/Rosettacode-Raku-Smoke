@@ -20,7 +20,7 @@ my @words = $file.IO.slurp.words.map: { $_ => .comb.Bag };
 
 my $minchars = 10;
 
-@res.push: "\n({+$_}) heterograms with $minchars or more characters:\n" ~
+@res.push: "\n({+$_}) heterograms with more than $minchars characters:\n" ~
   .sort({[-.chars, ~$_]}).join: "\n" given
   @words.grep({.key.chars >$minchars && .value.values.max == 1})».key;
   #@words.race.grep({.key.chars >$minchars && .value.values.max == 1})».key;
@@ -66,7 +66,7 @@ toot
 tutu
 ii
 
-(32) heterograms with 10 or more characters:
+(32) heterograms with more than 10 characters:
 ambidextrous
 bluestocking
 exclusionary
