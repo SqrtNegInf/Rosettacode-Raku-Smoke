@@ -8,18 +8,18 @@
 #n# 2022-06-13 concurrency gives a notable boost for the faster algo.
 
 #  for 50K
-#       slow: >2hr
+#       slow: ~2.5 hrs
 #       fast: 18.65s user 0.46s system 103% cpu 18.400 total
-# race, fast: ~2.5
+# race, fast: ~2.5 secs
 
-srand 123456;
+#srand 123456;
 
 sub dist-squared-slow (@a, @b) { [+] (@a Z- @b) X ² }  # cute, but much slower
 
 sub dist-squared(@a, @b) { (@a[0] - @b[0])² + (@a[1] - @b[1])² }
 
 sub closest-pair-simple(@points is copy) {
-    #return ∞ if @points < 2;
+    return ∞ if @points < 2;
     my ($a, $b, $d2) = |@points[0,1], dist-squared(|@points[0,1]);
     while @points {
         my \p = pop @points;
@@ -31,6 +31,8 @@ sub closest-pair-simple(@points is copy) {
 }
 
 sub closest-pair(@r) {
+die if 1 == +@r; 
+    #closest-pair-real @r, @r.sort: *.[1]              # already sorted on .[0]? doesn't seem to make a diff
     closest-pair-real (@r.sort: *.[0]), @r.sort: *.[1]
 }
 
@@ -57,30 +59,27 @@ sub closest-pair-real(@rx, @ry) {
     $w1, $w2, $closest
 }
 
-my @points = (^50000).map: { [rand × 20 - 10, rand × 20 - 10] }
+sub MAIN ($n = 10, $p = 50000, $s = 123456) {
+    srand  $s;
+    my @points = (^$p).map: { [rand × 20 - 10, rand × 20 - 10] }
+    my $start;
 
-#printf "%.8f between (%.5f, %.5f), (%.5f, %.5f)\n", $_[2], @($_[1]), @($_[0]) for
-#    closest-pair-simple(@points);
-#exit;
-
-my $start = now;
-#my ($af, $bf, $df) = closest-pair(@points);
-#say "fast $df at [$af], [$bf]";
-#say now - $start;
-
-say '==';
-# the optimum list is *really* short
-#for 16..26 -> $n {
-for ^10 {
-    my $n = 20;
     $start = now;
-    #say "N: $n " ~ (+@points)/($n*500);
-    #sink @points.sort(*.[0]).rotor( @points/($n*500) => -1, :partial).race.map: {
-    my @foo = @points.sort(*.[0]).rotor( @points/($n*500) => -1, :partial).race.map: {
-    #my @foo = @points.sort(*.[0]).rotor( @points/($n*500) => -1, :partial).race(:1batch).map: {
-        closest-pair(@$_)[2] 
+    my @candidates = @points.sort(*.[0]).rotor( $n => -3, :partial).race.map: {
+        closest-pair(@$_); # unless 1 == +@$_
     }
-    say (@foo.sort)[0];
-    say now - $start;
-    #say '--';
+    my @foo = flat | (@candidates.sort: *.[2]).head(1); say 'd: ' ~ @foo[2];
+    my $result = (@candidates.sort: *.[2]).head(1);
+    say 't: ' ~ now - $start;
+
+    use Test;
+    is $result, '5.357253647936908 4.854172412139823 5.3571808948036335 4.853905220434942 0.00027691952902988656';
 }
+
+=finish
+my @foo[$p] = 0;
+my atomicint $cnt;
+@points.sort(*.[0]).rotor( $n => -3, :partial).race.map: {
+    @foo[$cnt⚛++] = closest-pair(@$_) unless 1 == +@$_
+}
+say (@foo.grep(*.so).sort: *.[2]).head(1);
