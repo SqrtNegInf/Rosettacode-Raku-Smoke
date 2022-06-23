@@ -1,0 +1,18 @@
+# Should I be surprised? (I don't like surprises...)
+
+#say <A B C D>.roll(10);                                # (1) varies, of course
+#srand 12345; 
+#say <A B C D>.roll(10);                               # (2) (B D B C D B D B B B)
+
+#srand 12345; say <A B C D>.roll(10)                   # (3) (A D D B A D C C A C)
+
+#srand 12345;                                          # (4) (A D D B A D C C A C)
+#sub foo($n) { say <A B C D>.roll($n) }  
+#foo(10);
+
+#xxx boo($n) { srand 12345; say <A B C D>.roll($n) }   # (5) (B D B C D B D B B B) wait, same as (2)?
+ sub boo($n) { srand 12345; say <A B C D>.roll($n) }   # (5) (A D D B A D C C A C) waint, now  same as (4)?
+ boo(10);
+
+#sub MAIN () { srand 12345; say <A B C D>.roll(10) }   # (6) (B B A C A C A B C A)
+#srand 12345; sub MAIN () { say <A B C D>.roll(10) }   # (7) (D C A A B D B B A C)
