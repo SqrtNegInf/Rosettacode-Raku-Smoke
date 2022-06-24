@@ -3,16 +3,15 @@
 #c# 2016-04-05 <RC, 2022-06-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# always random points, just test that both methods agree
 #n# 2022-06-10 surprise! refactor made it 2x faster (when including both the slow & fast)
 #n# 2022-06-13 concurrency gives a notable boost for the faster algo.
+#n#  for 50K: 
+#n#       simple: ~2.5  hrs
+#n#         real: ~20  secs
+#n# race, simple: ~2.5 secs
+#n# race,   real: ~2.5 secs
 
-#  for 50K
-#       slow: ~2.5 hrs
-#       fast: 18.65s user 0.46s system 103% cpu 18.400 total
-# race, fast: ~2.5 secs
-
-#srand 123456;
+srand 123456;
 
 sub dist-squared-slow (@a, @b) { [+] (@a Z- @b) X ² }  # cute, but much slower
 
@@ -31,7 +30,6 @@ sub closest-pair-simple(@points is copy) {
 }
 
 sub closest-pair(@r) {
-die if 1 == +@r; 
     #closest-pair-real @r, @r.sort: *.[1]              # already sorted on .[0]? doesn't seem to make a diff
     closest-pair-real (@r.sort: *.[0]), @r.sort: *.[1]
 }
@@ -59,27 +57,20 @@ sub closest-pair-real(@rx, @ry) {
     $w1, $w2, $closest
 }
 
-sub MAIN ($n = 10, $p = 50000, $s = 123456) {
-    srand  $s;
-    my @points = (^$p).map: { [rand × 20 - 10, rand × 20 - 10] }
-    my $start;
+my @points = (^50000).map: { [rand × 20 - 10, rand × 20 - 10] }
 
-    $start = now;
-    my @candidates = @points.sort(*.[0]).rotor( $n => -3, :partial).race.map: {
-        closest-pair(@$_); # unless 1 == +@$_
-    }
-    my @foo = flat | (@candidates.sort: *.[2]).head(1); say 'd: ' ~ @foo[2];
-    my $result = (@candidates.sort: *.[2]).head(1);
-    say 't: ' ~ now - $start;
+say '50000 points';
 
-    use Test;
-    is $result, '5.357253647936908 4.854172412139823 5.3571808948036335 4.853905220434942 0.00027691952902988656';
-}
+my $start = now;
+my @candidates1 = @points.sort(*.[0]).rotor( 10 => -2, :partial).race.map: { closest-pair-simple(@$_) }
+say 'simple ' ~ my $result1 = (@candidates1.sort: *.[2]).head(1).gist;
+say now - $start;
 
-=finish
-my @foo[$p] = 0;
-my atomicint $cnt;
-@points.sort(*.[0]).rotor( $n => -3, :partial).race.map: {
-    @foo[$cnt⚛++] = closest-pair(@$_) unless 1 == +@$_
-}
-say (@foo.grep(*.so).sort: *.[2]).head(1);
+$start = now;
+my @candidates2 = @points.sort(*.[0]).rotor( 10 => -2, :partial).race.map: { closest-pair(@$_) }
+say 'real ' ~ say my $result2 = (@candidates2.sort: *.[2]).head(1).gist;
+say now - $start;
+
+use Test;
+is $result1, '(([5.357253647936908 4.854172412139823] [5.3571808948036335 4.853905220434942] 0.00027691952902988656))'; # simple
+is $result2, '(([5.3571808948036335 4.853905220434942] [5.357253647936908 4.854172412139823] 0.00027691952902988656))'; # real
