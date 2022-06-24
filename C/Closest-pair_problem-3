@@ -1,0 +1,71 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Closest_pair_problem
+#t# inprogress
+#c# 2016-04-05 <RC, 2022-06-11 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# just for experimentation...
+
+sub dist-squared(@a, @b) { (@a[0] - @b[0])² + (@a[1] - @b[1])² }
+
+sub closest-pair-simple(@points is copy) {
+    return ∞ if @points < 2;
+    my ($a, $b, $d2) = |@points[0,1], dist-squared(|@points[0,1]);
+    while @points {
+        my \p = pop @points;
+        for @points -> \l {
+            ($a, $b, $d2) = p, l, $_ if $_ < $d2 given dist-squared(p, l);
+        }
+    }
+    $a, $b, $d2.sqrt
+}
+
+sub closest-pair(@r) {
+die if 1 == +@r; 
+    #closest-pair-real @r, @r.sort: *.[1]              # already sorted on .[0]? doesn't seem to make a diff
+    closest-pair-real (@r.sort: *.[0]), @r.sort: *.[1]
+}
+
+sub closest-pair-real(@rx, @ry) {
+    return closest-pair-simple(@rx) if @rx ≤ 3;
+
+    my \N  = @rx;
+    my \midx = ceiling(N/2) - 1;
+    my @PL := @rx[     0 ..  midx];
+    my @PR := @rx[midx+1 ..^ N   ];
+    my \xm  = @rx[midx;0];
+    (.[0] ≤ xm ?? my @yR !! my @yL).push: @$_ for @ry;
+    my (\al, \bl, \dL) = closest-pair-real(@PL, @yR);
+    my (\ar, \br, \dR) = closest-pair-real(@PR, @yL);
+    my ($w1, $w2, $closest) = dR < dL ?? (ar, br, dR) !! (al, bl, dL);
+    my @yS = @ry.grep: { (xm - .[0]).abs < $closest }
+
+    for 0 ..^ @yS -> \i {
+        for i+1 ..^ @yS -> \k {
+            next unless @yS[k;1] - @yS[i;1] < $closest;
+            ($w1, $w2, $closest) = |@yS[k, i], $_ if $_ < $closest given dist-squared(|@yS[k, i]).sqrt;
+        }
+    }
+    $w1, $w2, $closest
+}
+
+sub MAIN ($n = 10, $p = 50000, $s = 123456, $r = -2) {
+    srand  $s;
+    my @points = (^$p).map: { [rand × 20 - 10, rand × 20 - 10] }
+    #say "r: $r";
+
+    my $start = now;
+    my @candidates1 = @points.sort(*.[0]).rotor( $n => $r, :partial).race.map: { closest-pair-simple(@$_) }
+    my @foo1 = flat | (@candidates1.sort: *.[2]).head(1); say 'ds: ' ~ @foo1[2];
+    #my $result1 = (@candidates1.sort: *.[2]).head(1);
+    say 'ts: ' ~ now - $start;
+
+    $start = now;
+    my @candidates2 = @points.sort(*.[0]).rotor( $n => $r, :partial).race.map: { closest-pair-simple(@$_) }
+    my @foo2 = flat | (@candidates2.sort: *.[2]).head(1); say 'dr: ' ~ @foo2[2];
+    #my $result2 = (@candidates2.sort: *.[2]).head(1);
+    say 'tr: ' ~ now - $start;
+
+    #use Test;
+    #is $result, '5.357253647936908 4.854172412139823 5.3571808948036335 4.853905220434942 0.00027691952902988656';
+}
