@@ -2250,7 +2250,7 @@ File: C/Closest-pair_problem
 #j#  JVM: OK
 #n# always random points, just test that both methods agree
 #n# 2022-06-10 surprise! refactor made it 2x faster
-#n#            next step: concurrency (simple addition of .race doesn't cut it)
+#n#            next step: concurrency (see -2 version)
 
 File: C/Closest-pair_problem-2
 #!/usr/bin/env perl6
@@ -2258,9 +2258,22 @@ File: C/Closest-pair_problem-2
 #c# 2016-04-05 <RC, 2022-06-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# always random points, just test that both methods agree
 #n# 2022-06-10 surprise! refactor made it 2x faster (when including both the slow & fast)
 #n# 2022-06-13 concurrency gives a notable boost for the faster algo.
+#n#  for 50K: 
+#n#       simple: ~2.5  hrs
+#n#         real: ~20  secs
+#n# race, simple: ~2.5 secs
+#n# race,   real: ~2.5 secs
+
+File: C/Closest-pair_problem-3
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Closest_pair_problem
+#t# inprogress
+#c# 2016-04-05 <RC, 2022-06-11 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# just for experimentation...
 
 File: C/Closest-pair_problem.1
 #!/usr/bin/env perl6
