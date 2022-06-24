@@ -5,9 +5,7 @@
 #j#  JVM: OK
 #n# always random points, just test that both methods agree
 #n# 2022-06-10 surprise! refactor made it 2x faster
-#n#            next step: concurrency (simple addition of .race doesn't cut it)
-
-#srand 123456;
+#n#            next step: concurrency (see -2 version)
 
 sub dist-squared-slow (@a, @b) { [+] (@a Z- @b) X ² }  # cute, but much slower
 
@@ -57,14 +55,16 @@ my @points = (^1000).map: { [rand × 20 - 10, rand × 20 - 10] }
 #printf "%.8f between (%.5f, %.5f), (%.5f, %.5f)\n", $_[2], @($_[1]), @($_[0]) for
 #    closest-pair(@points), closest-pair-simple(@points);
 
+say '1000 points';
+
 my $start = now;
-my ($af, $bf, $df) = closest-pair(@points);
-say "fast $df at [$af], [$bf]";
+my ($as, $bs, $ds) = closest-pair-simple(@points);
+say "simple $ds at [$as], [$bs]";
 say now - $start;
 
 $start = now;
-my ($as, $bs, $ds) = closest-pair-simple(@points);
-say "slow $ds at [$as], [$bs]";
+my ($af, $bf, $df) = closest-pair(@points);
+say "real $df at [$af], [$bf]";
 say now - $start;
 
 use Test;
