@@ -68,7 +68,7 @@ say now - $start;
 
 $start = now;
 my @candidates2 = @points.sort(*.[0]).rotor( 10 => -2, :partial).race.map: { closest-pair(@$_) }
-say 'real ' ~ say my $result2 = (@candidates2.sort: *.[2]).head(1).gist;
+say 'real ' ~ my $result2 = (@candidates2.sort: *.[2]).head(1).gist;
 say now - $start;
 
 use Test;
