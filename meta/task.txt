@@ -1,8 +1,8 @@
-Welcome to Rakudo™ v2022.06-23-gd7d8e9d0f.
+Welcome to Rakudo™ v2022.06-27-g7cf264572.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-2-gcc49dcf93.
 updating from RC...
-+--------------> Moar: Good/Bad [1465/25]
++--------------> Moar: Good/Bad [1463/25]
 |+-------------> JVM: Good/Bad [1265/300]
 ||+------------> Smoke testing [1414]
 |||+-----------> sKipping validation [140]
@@ -11,10 +11,10 @@ updating from RC...
 ||||||+--------> Concurrent/Async [104]
 |||||||+-------> Random seed [131]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [355]
+|||||||||+-----> Draft [356]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [102]
-||||||||||||+--> Un-implemented/reliable [53]
+|||||||||||+---> Void (no local copy) [103]
+||||||||||||+--> Un-implemented/reliable [54]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -325,6 +325,7 @@ GGS.......... Create_a_file
 GGS..T...D... Create_an_object_Native_demonstration
 GBS.......... Create_an_object_at_a_given_address
 GBS......D... Create_your_own_text_control_codes
+.........D.VU Cross_compilation
 GGS.......... Cuban_primes-1
 GGS...c...... Cuban_primes-2
 GGS.......... Cuban_primes-3
@@ -679,7 +680,7 @@ GGS.......... I_before_E_except_after_C-2
 GGS.......... Identity_matrix
 GBS.......... Idiomatically_determine_all_the_characters_that_can_be_used_for_symbols
 GGS.......... Idiomatically_determine_all_the_lowercase_and_uppercase_letters
-GBS..T..F.... Image_convolution
+!BS..T..F.... Image_convolution
 GB.KI........ Image_noise
 GGS.......... Imaginary_base_numbers
 GBS.......... Imaginary_base_numbers-2
@@ -874,7 +875,7 @@ GGS.......... Mayan_numerals-2
 GG.K...R..... Maze_generation
 GG.K...R..... Maze_solving
 GGS.......... McNuggets_problem
-GBS..T..F.... Median_filter
+!BS..T..F.... Median_filter
 GGS.......... Memory_allocation
 GGS.......... Memory_layout_of_a_data_structure
 GGS.......... Menu
