@@ -1,5 +1,12 @@
-2022-06-23
+2022-06-26
+Upgraded to perl5.36.0, and this time it worked to just:
+zef uninstall Inline::Perl5; zef install Inline::Perl5
+
+2022-06-25
 After actually doing some testing, putting concurrent 'Closest-pair_problem' on RC, pretty amazing speed-ups.
+
+2022-06-23
+One problem with bailing on 'srand' problems in RC: not tracking further changes, now only seen in PWC.
 
 2022-06-11
 'Prime_decomposition' failed again... (but worked when run by hand after)
