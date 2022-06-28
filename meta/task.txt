@@ -2,7 +2,7 @@ Welcome to Rakudo™ v2022.06-27-g7cf264572.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-2-gcc49dcf93.
 updating from RC...
-+--------------> Moar: Good/Bad [1463/25]
++--------------> Moar: Good/Bad [1462/25]
 |+-------------> JVM: Good/Bad [1265/300]
 ||+------------> Smoke testing [1414]
 |||+-----------> sKipping validation [140]
@@ -13,8 +13,8 @@ updating from RC...
 ||||||||+------> File output [104]
 |||||||||+-----> Draft [356]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [103]
-||||||||||||+--> Un-implemented/reliable [54]
+|||||||||||+---> Void (no local copy) [104]
+||||||||||||+--> Un-implemented/reliable [55]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -466,7 +466,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 ...........VU Execute_Computer_Zero
 GGS..T...D... Execute_CopyPasta_Language
@@ -858,6 +858,7 @@ GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
 GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
+...........VU Marching_squares
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
 GGS..T....... Matrix-exponentiation_operator
