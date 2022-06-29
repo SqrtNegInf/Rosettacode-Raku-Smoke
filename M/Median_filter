@@ -1,9 +1,10 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env perl6 # do-not-check
 #u# http://rosettacode.org/wiki/Median_filter
 #c# 2019-10-12 >RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: BROKEN
 #f# RC file: plasma_median.png
+#n# busted until I can fix my v5.36 issues
 
 use PDL:from<Perl5>;
 use PDL::Image2D:from<Perl5>;
