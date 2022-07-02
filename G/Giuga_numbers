@@ -1,0 +1,37 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Giuga_numbers
+#c# 2022-07-xx >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# OEIS:A007850
+#n# hyper no help
+
+use Prime::Factor;
+
+my @giuga = lazy gather for (4..∞).grep(!*.is-prime) -> $n { take $n if $n.&prime-factors.map({($n/$_ - 1) %% $_}).all }
+#my @giuga = lazy gather for 4..∞ -> $n { take $n if $n.grep({ !.is-prime }) and $n.&prime-factors.map({($n/$_ - 1) %% $_}).all }
+
+.say for @giuga[^4];
+
+my $ref = qq:to/END/;
+30
+858
+1722
+66198
+END
+
+use Test;
+is @giuga[^4].join("\n"), chomp $ref;
+
+=finish
+my @c = ( grep { !.is-prime }, 4..1000 );
+for @c -> $n {
+    @res.push: $n if all map {($n/$_ - 1) %% $_}, $n.&prime-factors;  
+}
+
+=={{header|Raku}}==
+<lang perl6>
+</lang>
+{{out}}
+<pre>
+</pre>
