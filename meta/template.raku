@@ -1,7 +1,7 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/xx
 #t# inprogress
-#c# 2022-06-xx >RC
+#c# 2022-07-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
