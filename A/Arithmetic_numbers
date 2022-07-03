@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Arithmetic_numbers
-#c# 2022-06-13 <RC
+#c# 2022-06-13 <RC, 2022-07-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A003601 - Numbers n such that the average of the divisors of n is an integer
@@ -10,7 +10,8 @@ my @res;
 use Prime::Factor;
 use Lingua::EN::Numbers;
 
-my @arithmetic = lazy (1..∞).hyper.grep: { my @div = .&divisors; (@div.sum / +@div).narrow ~~ Int }
+#my @arithmetic = lazy (1..∞).hyper.grep: { my @div = .&divisors; (@div.sum / +@div).narrow ~~ Int }
+my @arithmetic = lazy (1..∞).hyper.grep: { my @div = .&divisors; @div.sum %% @div }
 
 @res.push: "The first { .Int.&cardinal } arithmetic numbers:", @arithmetic[^$_].batch(10)».fmt("%{.chars}d").join: "\n" given 1e2;
 
