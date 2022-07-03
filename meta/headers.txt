@@ -876,7 +876,7 @@ File: A/Arithmetic_evaluation
 File: A/Arithmetic_numbers
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Arithmetic_numbers
-#c# 2022-06-13 <RC
+#c# 2022-06-13 <RC, 2022-07-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A003601 - Numbers n such that the average of the divisors of n is an integer
@@ -3098,6 +3098,7 @@ File: C/Cyclotomic_Polynomial
 #c# 2020-01-30 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2022-07-01 Slower with v5.36? Do one less term in 2nd part...
 #n# 2022-02-14 Working now? Do daily testing to see...
 #n# new-disp 'srand' shift
 #`{{
@@ -5634,11 +5635,19 @@ File: G/Getting_the_number_of_decimals
 File: G/Giuga_numbers
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Giuga_numbers
-#c# 2022-07-xx >RC
+#c# 2022-07-xx NOT ON RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A007850
 #n# hyper no help
+
+File: G/Giuga_numbers-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Giuga_numbers
+#c# 2022-07-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A007850
 
 File: G/Globally_replace_text_in_several_files
 #!/usr/bin/env perl6
