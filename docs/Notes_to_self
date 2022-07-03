@@ -1,3 +1,6 @@
+2022-07-02
+The 'Primorial_numbers-1' segfault persists.
+
 2022-07-01
 'M/Menu' OK again? Can't be 100% sure until the batch run... [p.s. it is OK now]
 But... 'C/Cyclotomic_Polynomial' hung [but really 'from<Perl5>', so the issue is over there]
@@ -14,7 +17,7 @@ zef uninstall Inline::Perl5; zef install Inline::Perl5
 After actually doing some testing, putting concurrent 'Closest-pair_problem' on RC, pretty amazing speed-ups.
 
 2022-06-23
-One problem with bailing on 'srand' problems in RC: not tracking further changes, now only seen in PWC.
+One issue with bailing on 'srand' problems in RC: not tracking further changes, now only seen in PWC.
 
 2022-06-11
 'Prime_decomposition' failed again... (but worked when run by hand after)
