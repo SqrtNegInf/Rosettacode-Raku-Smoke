@@ -8,7 +8,13 @@
 
 use Prime::Factor;
 
-my @giuga = lazy gather for (4, 6, 8 … ∞).grep(!*.is-prime) -> $n { take $n if $n.&prime-factors.map({($n/$_ - 1) %% $_}).all }  # faster
+# thundergnat++
+my @giuga = (1..∞).map(* × 6).grep: -> $n { $n.&prime-factors.map({($n/$_ - 1) %% $_}).all } # quickest
+
+# ha! didn't need the lazy/gather/take...
+#my @giuga = (6, 12 … ∞).grep: -> $n { $n.&prime-factors.map({($n/$_ - 1) %% $_}).all }
+
+#my @giuga = lazy gather for (4, 6 … ∞).grep(!*.is-prime) -> $n { take $n if $n.&prime-factors.map({($n/$_ - 1) %% $_}).all }  # faster
 #my @giuga = lazy gather for 4…∞ -> $n { take $n if $n.grep({ !.is-prime }) and $n.&prime-factors.map({($n/$_ - 1) %% $_}).all }
 
 .say for @giuga[^4];
