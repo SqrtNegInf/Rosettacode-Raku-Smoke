@@ -3,6 +3,7 @@
 #c# 2020-01-30 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2022-07-01 Slower with v5.36? Do one less term in 2nd part...
 #n# 2022-02-14 Working now? Do daily testing to see...
 #n# new-disp 'srand' shift
 #`{{
@@ -25,7 +26,7 @@ my $iterator = cyclo_poly_iterate(1);
 @res.push: "Φ(1) has a coefficient magnitude: 1";
 
 my $index = 0;
-for 2..4 -> $coefficient {
+for 2..3 -> $coefficient {
     loop {
         $index += 5;
         my \Φ = cyclo_poly($index);
@@ -79,8 +80,8 @@ Smallest cyclotomic polynomial with |n| as a coefficient:
 Φ(1) has a coefficient magnitude: 1
 Φ(105) has a coefficient magnitude: 2
 Φ(385) has a coefficient magnitude: 3
-Φ(1365) has a coefficient magnitude: 4
 END
+#Φ(1365) has a coefficient magnitude: 4
 #Φ(1785) has a coefficient magnitude: 5
 #Φ(2805) has a coefficient magnitude: 6
 #Φ(3135) has a coefficient magnitude: 7
