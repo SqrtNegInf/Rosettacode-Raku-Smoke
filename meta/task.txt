@@ -3,18 +3,18 @@ Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-2-gcc49dcf93.
 updating from RC...
 +--------------> Moar: Good/Bad [1464/27]
-|+-------------> JVM: Good/Bad [1266/300]
-||+------------> Smoke testing [1413]
+|+-------------> JVM: Good/Bad [1267/300]
+||+------------> Smoke testing [1414]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [385]
+|||||+---------> Touched (modified by me) [384]
 ||||||+--------> Concurrent/Async [104]
 |||||||+-------> Random seed [131]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [358]
+|||||||||+-----> Draft [359]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [104]
-||||||||||||+--> Un-implemented/reliable [56]
+|||||||||||+---> Void (no local copy) [105]
+||||||||||||+--> Un-implemented/reliable [55]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -95,6 +95,7 @@ GBS...C.F.... Archimedean_spiral
 GGS.......... Arithmetic-geometric_mean
 GGS..T....... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
+.........D.V. Arithmetic_Derivative
 GGS..T....... Arithmetic_Integer
 GBS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
@@ -341,7 +342,7 @@ GGS..T....... Cut_a_rectangle
 GGS......D... Cycle_detection
 .........D.VU Cycles_of_a_permutation
 GBS...C...... Cyclops_numbers
-GBS.......... Cyclotomic_polynomial
+!BS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
 GBS......D... Data_Encryption_Standard
@@ -603,7 +604,8 @@ GGS.......... Geohash-2
 GGS....R.D... Geometric_algebra
 GBS..T....... Get_system_command_output
 GBS......D... Getting_the_number_of_decimals
-GGS..T...D..U Giuga_numbers
+GGS......D... Giuga_numbers
+GGS.......... Giuga_numbers-2
 GGS.....F.... Globally_replace_text_in_several_files
 GG.KIT.R..... Go_Fish
 GGS.......... Goldbach%27s_comet
