@@ -827,6 +827,14 @@ File: A/Arithmetic_Complex
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: A/Arithmetic_Derivative
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Arithmetic_Derivative
+#c# 2022-07-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A003415
+
 File: A/Arithmetic_Integer
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arithmetic/Integer
@@ -10893,6 +10901,7 @@ File: P/Primorial_numbers-1
 #c# 2020-01-29 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# limiting calculations because of segfault (started with Perl v5.36 update)
 
 File: P/Primorial_numbers-2
 #!/usr/bin/env perl6
