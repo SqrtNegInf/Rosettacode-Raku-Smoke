@@ -9947,14 +9947,16 @@ File: P/Partition_an_integer_X_into_N_primes
 #u# http://rosettacode.org/wiki/Partition_an_integer_X_into_N_primes
 #c# 2017-03-05 <RC, 2018-03-13 >RC, 2018-11-15 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
+#n# merge MoarVM/JVM versions (changes not on RC)
 
-File: P/Partition_an_integer_X_into_N_primes.jvm
+File: P/Partition_an_integer_X_into_N_primes.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Partition_an_integer_X_into_N_primes
-#c# 2017-03-05 <RC, 2018-03-13 >RC
+#c# 2017-03-05 <RC, 2018-03-13 >RC, 2018-11-15 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j#  JVM: BROKEN
+#n# the 'efficiency' tricks here (module, .race) don't make any difference
 
 File: P/Pascal%27s_triangle
 #!/usr/bin/env perl6
