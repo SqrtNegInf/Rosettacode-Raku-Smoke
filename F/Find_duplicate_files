@@ -3,15 +3,11 @@
 #c# 2017-06-03 <RC, 2017-07-23 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 2022-07-05 call to call for digest generation was 'backwards', need 'sha256-hex'
 #n# 2021-12-29 not getting 'Digest::SHA256::Native' to work here
-#n# (was broken since 2021-11-30 due to local library issue, using above module would be less fragile...
 
-#BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
+use Digest::SHA256::Native;
 
-use Digest::xxHash;
-#use Digest::SHA256::Native;
-
-#sub MAIN( $dir = '.', :$minsize = 5, :$recurse = True ) {
 sub MAIN( $dir = 'bin', :$minsize = 5, :$recurse = True ) {
     my %files;
     my @dirs = $dir.IO.absolute.IO;
@@ -28,10 +24,7 @@ sub MAIN( $dir = 'bin', :$minsize = 5, :$recurse = True ) {
     my @res;
     for %files.sort( +*.key ).grep( *.value.elems > 1)».kv -> ($size, @list) {
         my %dups;
-       #@list.map: { %dups{ sha256( $_.slurp :bin ) }.push: $_.Str }; # ??
-        @list.map: { %dups{ xxHash( $_.slurp :bin ) }.push: $_.Str }; # DH change: encoding no longer needed
-        #@list.map: { %dups{ xxHash( :buf-u8( $_.slurp :bin ) ) }.push: $_.Str };
-
+        @list.map: { %dups{ sha256-hex( ($_.slurp :bin).decode ) }.push: $_.Str };
         for %dups.grep( *.value.elems > 1)».value -> @dups {
             @res.push: sprintf("%9s : ", scale $size ) ~ @dups.join(', ');
         }
@@ -50,5 +43,3 @@ sub scale ($bytes) {
         default         { ($bytes / 2**30).round(.1) ~ ' GB' }
     }
 }
-
-# Example in command line switches: --minsize=0 --recurse=False /home/me/p6
