@@ -3,6 +3,7 @@
 #c# 2021-11-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-07-05 skip the random years
 #n# 2021-12-11 srand drift? Try to fix...
 
 my @res;
@@ -11,39 +12,19 @@ srand 123456;
 
 my @d-o-w = < Sunday Monday Tuesday Wednesday Thursday Friday Saturday >;
 
-@res.push: $_ for (flat 2020..2022, (1500 .. 2500).roll(7)).sort.map: {
+#@res.push: $_ for (flat 2020..2022, (1500 .. 2500).roll(7)).sort.map: {
+@res.push: $_ for <2020 2021 2022>.map: {
      "In {$_}, New Years is on a { @d-o-w[Date.new($_,  1,  1).day-of-week % 7] }, " ~
      "and Christmas on a { @d-o-w[Date.new($_, 12, 25).day-of-week % 7] }."
 }
 
 .say for @res;
 
-my $moar = q:to/END/;
-In 1543, New Years is on a Friday, and Christmas on a Saturday.
-In 1969, New Years is on a Wednesday, and Christmas on a Thursday.
+my $ref = q:to/END/;
 In 2020, New Years is on a Wednesday, and Christmas on a Friday.
 In 2021, New Years is on a Friday, and Christmas on a Saturday.
 In 2022, New Years is on a Saturday, and Christmas on a Sunday.
-In 2022, New Years is on a Saturday, and Christmas on a Sunday.
-In 2080, New Years is on a Monday, and Christmas on a Wednesday.
-In 2236, New Years is on a Friday, and Christmas on a Sunday.
-In 2254, New Years is on a Sunday, and Christmas on a Monday.
-In 2277, New Years is on a Monday, and Christmas on a Tuesday.
-END
-
-my $jvm = q:to/END/;
-In 1964, New Years is on a Wednesday, and Christmas on a Friday.
-In 2020, New Years is on a Wednesday, and Christmas on a Friday.
-In 2021, New Years is on a Friday, and Christmas on a Saturday.
-In 2022, New Years is on a Saturday, and Christmas on a Sunday.
-In 2134, New Years is on a Friday, and Christmas on a Saturday.
-In 2215, New Years is on a Sunday, and Christmas on a Monday.
-In 2228, New Years is on a Tuesday, and Christmas on a Thursday.
-In 2363, New Years is on a Tuesday, and Christmas on a Wednesday.
-In 2456, New Years is on a Saturday, and Christmas on a Monday.
-In 2459, New Years is on a Wednesday, and Christmas on a Thursday.
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
