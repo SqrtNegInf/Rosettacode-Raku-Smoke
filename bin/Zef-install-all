@@ -3,28 +3,21 @@
 #  2022-01-28 needed less frequently in the past year, but don't declare victory just yet...
 #             additionally: some module install quirks and gotcha's documented here
 
+# After nuking moar-blead, run 'rakubrew build zef' before running this.
+
 # to find modules in use: (gr=grep-raku pf='perl -npe' pg=pcregrep)
 # gr '^\s*use .*;$' | pf 's/^.*?:\d+://;s/^\s+//' | pg -v '^use (v6|nqp|lib)' | pg -v '(MONKEY|experimental|Binary|:from)' | sortcnt
 
-# 2022-01-28 switch away from this to Digest::SHA256::Native
-# for Digest::xxHash (and some similar dodges for other libraries, forget which ones):
-# ( cd /usr/local/lib; ln -s /opt/local/lib/libxxhash.0.8.0.dylib . )
+# 2022-07-05
+# ===> Extraction: Failed to find a META6.json file for Modular:ver<0.1.2> -- failure is likely
+# Type check failed for return value; expected IO::Path but got Any (Any)
 
-zef install rakudoc
-#zef install p6doc
+#zef install rakudoc  # ?
 
-# needs to be done from git archive? (or it tries to use non-existant perl5.30.0 library)
-# zef --force-test --force-install install https://github.com/niner/Inline-Perl5.git
-#X zef --/test install Inline::Perl5
-#X  or: zef --exclude=perl install Inline::Perl5
-
-# 2022-02-14 worked?
 zef --exclude=perl install Inline::Perl5
-
 zef --/test install ArrayHash
 zef --/test install Audio::PortAudio
 zef --/test install Audio::Sndfile
-zef --/test install Digest::xxHash
 zef --/test install https://github.com/raku-community-modules/raku-GD.git
 zef --/test install GD::Raw
 zef --/test install Gumbo
@@ -36,7 +29,7 @@ zef --/test install Lingua::EN::Numbers::Cardinal
 #zef --/test install Math::Matrix  # wedged: 'Cannot modify an immutable Rat (3.142857)', 'cannot find Math::Matrix::Type'
 zef --force-test --force-install install https://github.com/pierre-vigier/Perl6-Math-Matrix.git
 zef --/test install Math::Primesieve
-zef --/test install Modular
+#zef --/test install Modular  # hasn't installed properly in years, no longer in use by any RC task
 zef --/test install Net::DNS
 zef --/test install Net::FTP
 zef --/test install SOAP::Client
@@ -65,7 +58,6 @@ zef install Digest::MD5
 zef install Digest::SHA
 zef install Digest::SHA1::Native
 zef install Digest::SHA256::Native
-zef install Digest::xxHash
 zef install Email::Simple
 zef install File::Find
 zef install File::Which
@@ -108,6 +100,7 @@ zef install Text::Sorensen
 zef install Text::CSV
 zef install Text::Levenshtein
 zef install Text::Levenshtein::Damerau
+zef install Text::Wrap
 zef install TrigPi
 zef install URI
 zef install UUID
@@ -120,12 +113,12 @@ zef install YAML
 zef install Cache::LRU
 zef install Concurrent::Trie
 zef install DOM::Tiny
-zef install Date::Names
-zef install HTML::Parser::XML
-zef install HTTP::Tiny
+#zef install Date::Names
+#zef install HTML::Parser::XML # Perl
+#zef install HTTP::Tiny   # Perl
 zef install List::MoreUtils
 zef install List::UtilsBy
 zef install Slang::Roman
-#zef install Sub::Memoized
+#zef install Sub::Memoized # not currently using (in PWC)
 zef install Time::Repeat::HHMM
-zef install Tree::DAG_Node
+#zef install Tree::DAG_Node  # Perl
