@@ -1,20 +1,20 @@
 Welcome to Rakudo™ v2022.06-33-g6dc2f92c9.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2022.06-2-gcc49dcf93.
+Built on MoarVM version 2022.06-6-gc315523ab.
 updating from RC...
-+--------------> Moar: Good/Bad [1465/27]
-|+-------------> JVM: Good/Bad [1269/299]
-||+------------> Smoke testing [1415]
++--------------> Moar: Good/Bad [1464/27]
+|+-------------> JVM: Good/Bad [1272/297]
+||+------------> Smoke testing [1416]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [384]
+|||||+---------> Touched (modified by me) [385]
 ||||||+--------> Concurrent/Async [103]
 |||||||+-------> Random seed [131]
 ||||||||+------> File output [104]
 |||||||||+-----> Draft [359]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [104]
-||||||||||||+--> Un-implemented/reliable [55]
+|||||||||||+---> Void (no local copy) [103]
+||||||||||||+--> Un-implemented/reliable [54]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -118,7 +118,7 @@ GBS...C...... Attractive_numbers
 .........D.VU Audio_alarm
 .........D.VU Audio_frequency_generator
 .........D.VU Audio_overlap_loop
-GBS......D... Autogram_checker
+!GS......D... Autogram_checker
 !GS..T.R..... Average_loop_length
 GGS.......... Averages_Arithmetic_mean
 GGS.......... Averages_Mean_angle
@@ -342,7 +342,7 @@ GGS..T....... Cut_a_rectangle
 GGS......D... Cycle_detection
 .........D.VU Cycles_of_a_permutation
 GBS...C...... Cyclops_numbers
-!BS.......... Cyclotomic_polynomial
+GBS.......... Cyclotomic_polynomial
 GGS.......... DNS_query
 GGS.......... Damm_algorithm
 GBS......D... Data_Encryption_Standard
@@ -350,7 +350,7 @@ GGS..T....... Date_format
 GGS..T....... Date_manipulation
 GBS......D... Dating_agency
 GGS.......... Day_of_the_week
-!GS....R.D... Day_of_the_week_of_Christmas_and_New_Year
+GGS....R.D... Day_of_the_week_of_Christmas_and_New_Year
 GGS......D... Days_between_dates
 GGS.......... De_Bruijn_sequences
 GGS..T.R..... Deal_cards_for_FreeCell
@@ -373,7 +373,7 @@ GBS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-GGS.......... Determine_if_a_string_is_numeric
+!GS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -517,7 +517,7 @@ GGS..T....... Find_Chess960_starting_position_identifier
 GGS......D... Find_URI_in_text
 GBS......D... Find_adjacent_primes_which_differ_by_a_square_integer
 GGS..T....... Find_common_directory_path
-!BS..T....... Find_duplicate_files
+GBS..T....... Find_duplicate_files
 GGS......D... Find_first_and_last_set_bit_of_a_long_integer
 GGS......D... Find_first_missing_positive
 GGS.......... Find_if_a_point_is_within_a_triangle
@@ -904,7 +904,7 @@ GGS.......... Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 GGS......D... Minimum_primes
 GGS.......... Minkowski_question-mark_function
 !GS....R..... Modified_random_distribution
-GGS.......... Modular_arithmetic
+GGS..T....... Modular_arithmetic
 GGS.......... Modular_exponentiation
 GGS.......... Modular_inverse
 .........DXV. Modulinos
@@ -943,7 +943,7 @@ GG.K..C...... Mutex
 GGS.......... Mutual_recursion
 GGS.......... N%27th
 GGS......D... N-body_problem
-.........D.VU N-queens_minimum_and_knights_and_bishops
+GGS......D... N-queens_minimum_and_knights_and_bishops
 GGS..T....... N-queens_problem
 GGS.......... N-smooth_numbers
 GGS......D... NYSIIS
@@ -1244,7 +1244,7 @@ GGS......D... Reverse_the_gender_of_a_string
 GGS.......... Reverse_words_in_a_string
 GBS...C...... Rhonda_numbers
 GB.KI....D... Robots
-GGS..T.R..... Rock-paper-scissors
+!GS..T.R..... Rock-paper-scissors
 .........D... Rodrigues_rotation_formula
 GGS..T....... Rodrigues_rotation_formula-1
 GBS.......... Rodrigues_rotation_formula-2
@@ -1317,7 +1317,7 @@ GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
-GGS..T.R..... Set_puzzle
+!GS..T.R..... Set_puzzle
 GGS..T....... Set_right-adjacent_bits
 !GS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
@@ -1426,7 +1426,7 @@ GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
 GGS.......... Spiral_matrix-2
 GBS.......... Split_a_character_string_based_on_change_of_character
-GGS..T.R.D... Spoof_game
+!GS..T.R.D... Spoof_game
 GBS..TC...... Square-free_integers
 GGS.......... Square_but_not_cube
 GBS.......... Square_form_factorization
@@ -1553,7 +1553,7 @@ GGS..T....... Thiele%27s_interpolation_formula
 !GS....R.D... Three_word_location
 GGS.......... Three_word_location-2
 GGS..T....... Thue-Morse
-GBS....R..... Tic-tac-toe
+GGS....R..... Tic-tac-toe
 GBS......D... Time-based_one-time_password_algorithm
 GGS.......... Time_a_function
 GGS.......... Tokenize_a_string
