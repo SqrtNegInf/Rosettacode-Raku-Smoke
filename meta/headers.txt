@@ -1026,7 +1026,9 @@ File: A/Autogram_checker
 #u# http://rosettacode.org/wiki/Autogram_checker
 #c# 2022-06-20 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
+#n# with '<:ws>' JVM gives: java.util.regex.PatternSyntaxException: Unknown character property name (not even <:Ws> is a thing)
+#n# converted to <ws> (like other instances) everything is fine. Colon-preceded form acts as equivalent? Undocumented, or in error?
 
 File: A/Average_loop_length
 #!/usr/bin/env perl6
@@ -3185,6 +3187,7 @@ File: D/Day_of_the_week_of_Christmas_and_New_Year
 #c# 2021-11-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-07-05 skip the random years
 #n# 2021-12-11 srand drift? Try to fix...
 
 File: D/Days_between_dates
@@ -4847,8 +4850,8 @@ File: F/Find_duplicate_files
 #c# 2017-06-03 <RC, 2017-07-23 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 2022-07-05 call to call for digest generation was 'backwards', need 'sha256-hex'
 #n# 2021-12-29 not getting 'Digest::SHA256::Native' to work here
-#n# (was broken since 2021-11-30 due to local library issue, using above module would be less fragile...
 
 File: F/Find_duplicate_files.ubuntu
 #!/usr/bin/env perl6
@@ -4856,7 +4859,7 @@ File: F/Find_duplicate_files.ubuntu
 #c# 2017-06-03 <RC, 2017-07-23 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# specific to Ubuntu testing (could never get Digest::xxHash to work)
+#n# specific to Ubuntu testing
 
 File: F/Find_first_and_last_set_bit_of_a_long_integer
 #!/usr/bin/env perl6
@@ -8514,6 +8517,14 @@ File: M/Modified_random_distribution
 File: M/Modular_arithmetic
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Modular_arithmetic
+#c# 2015-11-22 <RC, 2022-07-05 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# module is unavailable to install, so inline the needed code
+
+File: M/Modular_arithmetic.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Modular_arithmetic
 #c# 2015-11-22 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -8868,6 +8879,16 @@ File: N/N-body_problem.0
 #m# MOAR: BROKEN
 #j#  JVM: BROKEN
 #n# as of 2017-03-07, $t not incrementing?
+
+File: N/N-queens_minimum_and_knights_and_bishops
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/N-queens_minimum_and_knights_and_bishops
+#c# 2022-07-05 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# slow, so limit testing
+#n# OEIS:A075324
+#n# OEIS:A342576
 
 File: N/N-queens_problem
 #!/usr/bin/env perl6
@@ -10375,7 +10396,8 @@ File: P/Pi
 #c# 2015-10-23 <>RC, 2018-11-22 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    RC asks for infinite stream of digits, for testing just do 1000
+#n# RC asks for infinite stream of digits, for testing just do 1000
+#n# based on http://www.mathpropress.com/stan/bibliography/spigot.pdf
 
 File: P/Pick_random_element
 #!/usr/bin/env perl6
@@ -10903,7 +10925,6 @@ File: P/Primorial_numbers-1
 #c# 2020-01-29 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# limiting calculations because of segfault (started with Perl v5.36 update)
 
 File: P/Primorial_numbers-2
 #!/usr/bin/env perl6
@@ -14622,8 +14643,9 @@ File: T/Tic-tac-toe
 #u# http://rosettacode.org/wiki/Tic-tac-toe
 #c# 2018-04-08 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#=# RC pipe: 5\n1\n9
+#j# JVM:  OK
+#=# RC pipe: 5\n7\n3
+#n# 2022-07-05 hangs again, new input needed
 #n# 2020-11-15 hangs, now try: 4\n3\n8\n1
 
 File: T/Tic-tac-toe.1
