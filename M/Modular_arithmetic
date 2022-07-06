@@ -1,12 +1,32 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Modular_arithmetic
-#c# 2015-11-22 <RC
+#c# 2015-11-22 <RC, 2022-07-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# module is unavailable to install, so inline the needed code
 
-# There is a module called Modular which works basically as Perl 5's Math::ModInt.
+class Modulo does Real {
+    has ($.residue, $.modulus);
+    multi method new($n, :$modulus) { self.new: :residue($n % $modulus), :$modulus }
+    method Bridge { $.residue }
+    multi method gist { "$.residue 「mod $.modulus」" }
+}
 
-use Modular;
+sub infix:<Mod>(Int $n, Int $modulus where * > 1) returns Modulo { 
+    Modulo.new: $n, :$modulus 
+}
+
+multi infix:<+>(Modulo $a, Int $b) { $a + ($b Mod $a.modulus) }
+multi infix:<+>(Int $a, Modulo $b) { ($a Mod $b.modulus) + $b }
+
+multi infix:<+>(Modulo $a, Modulo $b where $a.modulus ~~ $b.modulus) returns Modulo { 
+    Modulo.new: $a.Bridge + $b.Bridge, :modulus($b.modulus) 
+}
+
+multi infix:<**>(Modulo $a, Int $e) returns Modulo {
+    Modulo.new: $a.Bridge.expmod($e, $a.modulus), :modulus($a.modulus)
+}
+
 sub f(\x) { x**100 + x + 1};
 my $m-new = f( 10 Mod 13 );
 say f( 10 Mod 13 );
