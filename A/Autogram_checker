@@ -3,8 +3,8 @@
 #c# 2022-06-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# with '<:ws>' JVM gives: java.util.regex.PatternSyntaxException: Unknown character property name {In/Isws} near index 5 \p{ws}
-#n# converted to <ws> (like other instances) everything is fine...
+#n# with '<:ws>' JVM gives: java.util.regex.PatternSyntaxException: Unknown character property name (not even <:Ws> is a thing)
+#n# converted to <ws> (like other instances) everything is fine. Colon-preceded form acts as equivalent? Undocumented, or in error?
 
 my @res;
 
@@ -40,7 +40,7 @@ for @tests ->  (&filter, $text) {
     # Semi-bogus and somewhat fragile names to numbers conversion.
     my $str = $text.lc;
     for %nums.kv -> $word, $number { $str ~~ s:g/ <|w> $word <|w> /$number/ }
-    $str ~~ s:g/ (\d)<ws>['and'|'-']<ws>(\d)  /$0 $1/;
+    $str ~~ s:g/ (\d)<ws>['and'|'-']<ws>(\d) /$0 $1/;
     $str ~~ s:g/ <|w>(\d ** 2)<ws>(\d ** 2) <|w> /{ $0 × 100 + $1}/;
     $str ~~ s:g/ ( [\d+<ws>]* \d+ ) /{[+] $0.split: ' '}/;
 
