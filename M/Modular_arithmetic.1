@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Modular_arithmetic
+#c# 2015-11-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+# There is a module called Modular which works basically as Perl 5's Math::ModInt.
+
+use lib 'lib';
+use Modular;
+sub f(\x) { x**100 + x + 1};
+my $m-new = f( 10 Mod 13 );
+say f( 10 Mod 13 );
+
+use Test;
+is $m-new.raku, 'Modulo.new(residue => 1, modulus => 13)';
+is $m-new.gist, '1 「mod 13」';
+is f( 10 Mod 13), 1;
