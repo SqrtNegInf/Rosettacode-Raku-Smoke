@@ -3,7 +3,6 @@
 #c# 2020-01-29 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# limiting calculations because of segfault (started with Perl v5.36 update)
 
 my @res;
 
@@ -12,23 +11,16 @@ use ntheory:from<Perl5> <pn_primorial>;
  
 @res.push: "First ten primorials: " ~ ^10 .map( { pn_primorial($_) } ).join: ', ';
 
-if (False) {
-# say pn_primorial(16); # croaks at this point
 for 1..6 {
     #my $now = now;
     @res.push: sprintf "primorial(10^%d) has %-10s digits", $_,
         comma(pn_primorial(10**$_).Str.chars); #,
         #"Elapsed seconds: {(now - $now).round: .001}";
 }
-}
 
 .say for @res;
 
 my $ref = q:to/END/;
-First ten primorials: 1, 2, 6, 30, 210, 2310, 30030, 510510, 9699690, 223092870
-END
-
-my $refx = q:to/END/;
 First ten primorials: 1, 2, 6, 30, 210, 2310, 30030, 510510, 9699690, 223092870
 primorial(10^1) has 10         digits
 primorial(10^2) has 220        digits
