@@ -1,0 +1,55 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Anagram_generator
+#c# 2022-07-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# some tweaks for testing
+
+my %res;
+
+#unit sub MAIN ($in is copy = '', :$dict = 'ref/unixdict.txt');
+
+#say 'Enter a word or phrase to be anagramed. (Loading dictionary)' unless $in.chars;
+
+# Load the words into a word / Bag hash
+#my %words = $dict.IO.slurp.lc.words.race.map: { .comb(/\w/).join => .comb(/\w/).Bag };
+my %words = 'ref/unixdict.txt'.IO.words.grep({ .chars > 2 }).map: { .comb(/\w/).join => .comb(/\w/).Bag };
+
+my $in = 'Seattle, Washington';
+
+# Declare some globals
+my ($phrase, $count, $bag);
+
+#loop {
+    ($phrase, $count, $bag) = get-phrase;
+    find-anagram Hash.new: %words.grep: { .value ⊆ $bag };
+#}
+
+sub get-phrase {
+    my $prompt = $in.chars ?? $in !! prompt "\nword or phrase? (press Enter to quit) ";
+    $in = '';
+    exit unless $prompt;
+    $prompt,
+    +$prompt.comb(/\w/),
+    $prompt.lc.comb(/\w/).Bag;
+}
+
+sub find-anagram (%subset, $phrase is copy = '', $last = Inf) {
+    my $remain = $bag ∖ $phrase.comb(/\w/).Bag;        # Find the remaining letters
+    my %filtered = %subset.grep: { .value ⊆ $remain }; # Find words using the remaining letters
+    my $sofar = +$phrase.comb(/\w/);                   # Get the count of the letters used so far
+    for %filtered.sort: { -.key.chars, ~.key } {       # Sort by length then alphabetically then iterate
+        my $maybe = +.key.comb(/\w/);                  # Get the letter count of the maybe addition
+        next if $maybe > $last;                        # Next if it is longer than last - only consider descending length words
+        next if $maybe == 1 and $last == 1;            # Only allow one one character word
+        next if $count - $sofar - $maybe > $maybe;     # Try to balance word lengths
+        if $sofar + $maybe == $count {                 # It's an anagram
+            %res{("$phrase " ~ .key).trim}++ and next; # Display it and move on
+        } else {                                       # Not yet a full anagram, recurse
+            find-anagram %filtered, $phrase ~ ' ' ~ .key, $maybe;
+        }
+    }
+}
+
+use Test;
+ok %res{'nostalgia then stew'}.defined;
