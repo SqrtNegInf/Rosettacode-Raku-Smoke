@@ -83,7 +83,7 @@ sub placePiece(\piece, \countSoFar, \maxCount) {
             if (i == $ti && j == $tj) || attacks(piece, i, j, $ti, $tj) {
                @board[i][j] = True; 
                unless piece eq 'K' {
-	          (@diag1Lookup[@diag1[i;j]],@diag2Lookup[@diag2[i;j]])=True xx *               
+                  (@diag1Lookup[@diag1[i;j]],@diag2Lookup[@diag2[i;j]])=True xx *               
                }
                placePiece(piece, countSoFar+1, maxCount);
                @board[i][j] = False; 
@@ -91,30 +91,31 @@ sub placePiece(\piece, \countSoFar, \maxCount) {
                   (@diag1Lookup[@diag1[i;j]],@diag2Lookup[@diag2[i;j]])=False xx *
                }
             }
-	 }
+         }
       }
    }
 }
 
 for @pieces -> \piece {
-   @res.push: %names{piece}~"\n=======\n";
-   loop ($n = 1 ; ; $n++) {
-      @board = [ [ False xx $n ] xx $n ]; 
-      unless piece eq 'K' {
-	 @diag1 = ^$n .map: [ ^$n ] >>+>> * ;
-         @diag2 = ^$n .map: [ $n-1 ... 0 ] >>+>> * ;  
-	 @diag2Lookup = @diag1Lookup = [ False xx 2×$n-1 ]
-      }
-      $minCount = 2³¹ - 1; # golang: math.MaxInt32
-      my \nSQ   = $n×$n;
-      for 1..nSQ -> \maxCount {
-         placePiece(piece, 0, maxCount);
-         last if $minCount <= nSQ 
-      }
-      @res.push: sprintf("%2d x %-2d : %d", $n, $n, $minCount);
-      if $n == %limits{piece} {
-         @res.push: sprintf "\n%s on a %d x %d board:", %names{piece}, $n, $n;
-         @res.push: $layout andthen last
+    @res.push: %names{piece}~"\n=======\n";
+     loop ($n = 1 ; ; $n++) {
+        @board = [ [ False xx $n ] xx $n ]; 
+        unless piece eq 'K' {
+            #@diag1 = ^$n .map: { $_ ... $n+$_-1 } ;
+            #@diag2 = ^$n .map: { $n+$_-1 ... $_ } ;
+            @diag2 = reverse @diag1 = ^$n .map: { $_ ... $n+$_-1 };
+            @diag2Lookup = @diag1Lookup = [ False xx 2×$n-1 ]
+        }
+        $minCount = 2³¹ - 1; # golang: math.MaxInt32
+        my \nSQ   = $n×$n;
+        for 1..nSQ -> \maxCount {
+            placePiece(piece, 0, maxCount);
+            last if $minCount <= nSQ 
+        }
+        @res.push: sprintf("%2d x %-2d : %d", $n, $n, $minCount);
+        if $n == %limits{piece} {
+            @res.push: sprintf "\n%s on a %d x %d board:", %names{piece}, $n, $n;
+            @res.push: $layout andthen last
       }
    }
 }
