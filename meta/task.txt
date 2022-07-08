@@ -1,9 +1,9 @@
-Welcome to Rakudo™ v2022.06-33-g6dc2f92c9.
+Welcome to Rakudo™ v2022.06-34-gaf31b1df8.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-6-gc315523ab.
 updating from RC...
-+--------------> Moar: Good/Bad [1468/27]
-|+-------------> JVM: Good/Bad [1272/297]
++--------------> Moar: Good/Bad [1467/27]
+|+-------------> JVM: Good/Bad [1275/295]
 ||+------------> Smoke testing [1416]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
@@ -11,10 +11,10 @@ updating from RC...
 ||||||+--------> Concurrent/Async [103]
 |||||||+-------> Random seed [131]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [361]
+|||||||||+-----> Draft [362]
 ||||||||||+----> Ignoring [40]
 |||||||||||+---> Void (no local copy) [105]
-||||||||||||+--> Un-implemented/reliable [55]
+||||||||||||+--> Un-implemented/reliable [56]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -74,7 +74,7 @@ GGS....R..... Amb-2
 GGS....R..... Amb-3
 GGS..TC...... Amicable_pairs
 GGS......D... Anadromes
-.........D.V. Anagram_generator
+GGS...c..D... Anagram_generator
 GGS.......... Anagrams
 GGS.......... Anagrams_Deranged_anagrams
 GGS..T....... Angle_difference_between_two_bearings
@@ -181,7 +181,7 @@ GGS..T....... Bitwise_operations
 .........D.VU Boids
 GGS.......... Boolean_values
 GGS.......... Box_the_compass
-.........D.VU Boyer-Moore_String_Search
+.........D.VU Boyer-Moore_string_search
 GGS..T....... Brace_expansion
 GBS......D... Brace_expansion_using_ranges
 GBS..TC...... Brazilian_numbers
@@ -375,7 +375,7 @@ GBS...C...... Determinant_and_permanent
 GBS..T....... Determine_if_a_string_has_all_the_same_characters
 GBS..T....... Determine_if_a_string_has_all_unique_characters
 GGS.......... Determine_if_a_string_is_collapsible
-!GS.......... Determine_if_a_string_is_numeric
+GGS.......... Determine_if_a_string_is_numeric
 GGS.......... Determine_if_a_string_is_squeezable
 GG.K.T....... Determine_if_only_one_instance_is_running
 GGS..T....... Determine_if_two_triangles_overlap
@@ -469,7 +469,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 ...........VU Execute_Computer_Zero
 GGS..T...D... Execute_CopyPasta_Language
@@ -753,6 +753,7 @@ GGS..T....... Knapsack_problem_Unbounded
 !GS....R..... Knight%27s_tour
 !GS....R..... Knuth%27s_algorithm_S
 GGS....R..... Knuth%27s_power_tree
+.........D.VU Knuth-Morris-Pratt_string_search
 !GS....R..... Knuth_shuffle
 GGS.....F.... Koch_curve-1
 GGS.....F.... Koch_curve-2
@@ -1050,7 +1051,7 @@ GBS...CR..... Parallel_calculations-2
 GGS..T....... Parametric_polymorphism
 ..........X.. Parametrized_SQL_statement
 GGS..T..FD... Parse_EBNF
-GBS.......... Parse_an_IP_Address
+GGS.......... Parse_an_IP_Address
 GGS......D... Parse_command-line_arguments
 GGS.......... Parsing_RPN_calculator_algorithm
 GGS..T....... Parsing_RPN_to_infix_conversion
@@ -1319,7 +1320,7 @@ GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
-GGS..T.R..... Set_puzzle
+!GS..T.R..... Set_puzzle
 GGS..T....... Set_right-adjacent_bits
 !GS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
@@ -1428,7 +1429,7 @@ GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
 GGS.......... Spiral_matrix-2
 GBS.......... Split_a_character_string_based_on_change_of_character
-GGS..T.R.D... Spoof_game
+!GS..T.R.D... Spoof_game
 GBS..TC...... Square-free_integers
 GGS.......... Square_but_not_cube
 GBS.......... Square_form_factorization
@@ -1555,7 +1556,7 @@ GGS..T....... Thiele%27s_interpolation_formula
 !GS....R.D... Three_word_location
 GGS.......... Three_word_location-2
 GGS..T....... Thue-Morse
-GGS....R..... Tic-tac-toe
+GG.....R..... Tic-tac-toe
 GBS......D... Time-based_one-time_password_algorithm
 GGS.......... Time_a_function
 GGS.......... Tokenize_a_string
@@ -1593,7 +1594,7 @@ GGS.......... Two_sum-1
 GGS..T....... Two_sum-2
 GGS..T...D... Type_detection
 GGS.......... UPC
-GBS.......... URL_decoding
+GGS.......... URL_decoding
 GGS.......... URL_encoding
 GGS.......... URL_parser
 GB.K.....D... URL_shortener
