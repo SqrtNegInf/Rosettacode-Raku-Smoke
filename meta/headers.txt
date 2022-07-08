@@ -643,6 +643,14 @@ File: A/Anadromes
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: A/Anagram_generator
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Anagram_generator
+#c# 2022-07-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# some tweaks for testing
+
 File: A/Anagrams
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Anagrams
@@ -829,7 +837,7 @@ File: A/Arithmetic_Complex
 
 File: A/Arithmetic_Derivative
 #!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Arithmetic_Derivative
+#u# http://rosettacode.org/wiki/Arithmetic_derivative
 #c# 2022-07-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -9918,8 +9926,9 @@ File: P/Parse_an_IP_Address
 #u# http://rosettacode.org/wiki/Parse_an_IP_Address
 #c# 2016-05-19 <RC, 2018-11-26 <RC, 2021-05-26 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN 
+#j#  JVM: OK 
 #n# java.util.regex.PatternSyntaxException: Unknown character property name {hexdigit}
+#n# replace :hexdigit with xdigit for the sake of JVM
 
 File: P/Parse_command-line_arguments
 #!/usr/bin/env perl6
@@ -12981,7 +12990,7 @@ File: S/Solve_hanging_lantern_problem-1
 #c# 2022-05-22 <RC, 2022-05-25 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!*1!*2!*...*n!)
+#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!×1!×2!×...×n!)
 
 File: S/Solve_hanging_lantern_problem-2
 #!/usr/bin/env raku
@@ -12989,7 +12998,7 @@ File: S/Solve_hanging_lantern_problem-2
 #c# 2022-05-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!*1!*2!*...*n!)
+#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!×1!×2!×...×n!)
 
 File: S/Solve_the_no_connection_puzzle
 #!/usr/bin/env perl6
@@ -15012,9 +15021,10 @@ File: U/URL_decoding
 #u# http://rosettacode.org/wiki/URL_decoding
 #c# 2015-12-06 <RC, 2021-07-24 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
-#n# java.util.regex.PatternSyntaxException: Unknown character property name {hexdigit} near index 11
+#j#  JVM: OK
 #n# was completelly wiping previous code the best thing to do?
+#n# java.util.regex.PatternSyntaxException: Unknown character property name {hexdigit}
+#n# replace :hexdigit with xdigit for the sake of JVM
 
 File: U/URL_encoding
 #!/usr/bin/env perl6
