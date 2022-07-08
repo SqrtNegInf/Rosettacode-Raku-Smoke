@@ -3,7 +3,7 @@
 #c# 2022-05-22 <RC, 2022-05-25 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!*1!*2!*...*n!)
+#n# OEIS:A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!×1!×2!×...×n!)
 
 my @res;
 
@@ -17,9 +17,9 @@ my @sequences = @columns
               . map( *.join(',') )
               . unique;
 
-sub postfix:<!>($n) { [*] 1..$n }
+sub postfix:<!>($n) { [×] 1..$n }
  
-@res.push: "Direct calculation: " ~ [+](@columns)! / [*](@columns»!);
+@res.push: "Direct calculation: " ~ [+](@columns)! / [×](@columns»!);
 
 @res.push: "\nThere are {+@sequences} possible takedown sequences:";
 @res.push: "[$_]" for @sequences.head: 6;
