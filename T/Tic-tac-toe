@@ -3,7 +3,7 @@
 #c# 2018-04-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#=# RC pipe: 5\n7\n3
+#=# RC pipe: 5\n1\n9
 #n# 2022-07-05 hangs again, new input needed
 #n# 2020-11-15 hangs, now try: 4\n3\n8\n1
 
@@ -59,7 +59,5 @@ if get-winner() -> ($player, $across) {
 	say $result = "How boring, a draw!";
 }
 
-#exit;
-
 use Test;
-is $result, 'x wins across [7, 5, 3].';
+is $result, 'x wins across [1, 5, 9].';
