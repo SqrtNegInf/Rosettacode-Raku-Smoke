@@ -42,35 +42,35 @@ sub MAIN($DRAW = 9, $GOAL = $DRAW div 2) {
 
 my $moar = qq:to/END/;
 Drew 9 cards:
-   purple    two  squiggle    solid
+    green  three      oval  striped
+    green  three   diamond    solid
+   purple    two  squiggle     open
     green  three  squiggle  striped
-      red    one  squiggle     open
-    green    one  squiggle     open
-    green    two  squiggle    solid
+      red    one      oval  striped
+    green    one      oval  striped
+    green    two  squiggle     open
     green  three  squiggle     open
    purple    one      oval  striped
-    green    one  squiggle  striped
-   purple  three  squiggle  striped
 
 Set 1:
-   purple    two  squiggle    solid
-    green  three  squiggle  striped
-      red    one  squiggle     open
+    green  three      oval  striped
+    green  three   diamond    solid
+    green  three  squiggle     open
 
 Set 2:
-    green  three  squiggle  striped
-    green    one  squiggle     open
-    green    two  squiggle    solid
+    green  three   diamond    solid
+   purple    two  squiggle     open
+      red    one      oval  striped
 
 Set 3:
-      red    one  squiggle     open
-    green    two  squiggle    solid
-   purple  three  squiggle  striped
+    green  three   diamond    solid
+    green    one      oval  striped
+    green    two  squiggle     open
 
 Set 4:
-    green    two  squiggle    solid
-    green  three  squiggle     open
-    green    one  squiggle  striped
+      red    one      oval  striped
+    green    one      oval  striped
+   purple    one      oval  striped
 END
 
 my $jvm = qq:to/END/;
