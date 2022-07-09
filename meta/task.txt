@@ -1,17 +1,17 @@
-Welcome to Rakudo™ v2022.06-34-gaf31b1df8.
+Welcome to Rakudo™ v2022.06-35-g4fedb6f05.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-6-gc315523ab.
 updating from RC...
-+--------------> Moar: Good/Bad [1467/27]
-|+-------------> JVM: Good/Bad [1275/295]
-||+------------> Smoke testing [1416]
++--------------> Moar: Good/Bad [1471/27]
+|+-------------> JVM: Good/Bad [1276/295]
+||+------------> Smoke testing [1418]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [385]
 ||||||+--------> Concurrent/Async [103]
 |||||||+-------> Random seed [131]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [362]
+|||||||||+-----> Draft [363]
 ||||||||||+----> Ignoring [40]
 |||||||||||+---> Void (no local copy) [105]
 ||||||||||||+--> Un-implemented/reliable [56]
@@ -469,7 +469,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-!GS...C...... Executable_library
+GGS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 ...........VU Execute_Computer_Zero
 GGS..T...D... Execute_CopyPasta_Language
@@ -864,7 +864,7 @@ GBS.......... Man_or_boy_test
 GGS.....F.... Mandelbrot_set
 GBS.....F.... Mandelbrot_set-2
 GGS..T....... Map_range
-.........D.VU Marching_squares
+GGS......D... Marching_squares
 !GS..T.R.D... Markov_chain_text_generator
 GGS....R..... Mastermind
 GGS..T....... Matrix-exponentiation_operator
@@ -1320,7 +1320,7 @@ GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
-!GS..T.R..... Set_puzzle
+GGS..T.R..... Set_puzzle
 GGS..T....... Set_right-adjacent_bits
 !GS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
@@ -1429,7 +1429,7 @@ GG.K......... Spinning_rod_animation_Text
 GGS..T....... Spiral_matrix-1
 GGS.......... Spiral_matrix-2
 GBS.......... Split_a_character_string_based_on_change_of_character
-!GS..T.R.D... Spoof_game
+GGS..T.R.D... Spoof_game
 GBS..TC...... Square-free_integers
 GGS.......... Square_but_not_cube
 GBS.......... Square_form_factorization
@@ -1556,7 +1556,7 @@ GGS..T....... Thiele%27s_interpolation_formula
 !GS....R.D... Three_word_location
 GGS.......... Three_word_location-2
 GGS..T....... Thue-Morse
-GG.....R..... Tic-tac-toe
+GGS....R..... Tic-tac-toe
 GBS......D... Time-based_one-time_password_algorithm
 GGS.......... Time_a_function
 GGS.......... Tokenize_a_string
@@ -1656,6 +1656,7 @@ GGS.......... Walk_a_directory_Non-recursively
 GGS.......... Walk_a_directory_Recursively
 GB.K......... War_card_game
 GGS.......... Water_collected_between_towers
+.........D.VU Wave_Function_Collapse
 GBS..T...D... Waveform_analysis_Doh_ray_me
 .........D.VU Waveform_analysis_Top_and_tail
 .........DXVU Weather_routing
