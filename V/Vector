@@ -31,11 +31,11 @@ class Vector {
     method gist { "vec[$.x, $.y]" }
 }
 
-multi infix:<+>  (Vector $v, Vector $w) is export { $v.add: $w }
-multi infix:<->  (Vector $v, Vector $w) is export { $v.subtract: $w }
-multi prefix:<-> (Vector $v)            is export { $v.multiply: -1 }
-multi infix:<×>  (Vector $v, $n)        is export { $v.multiply: $n }
-multi infix:</>  (Vector $v, $n)        is export { $v.divide: $n }
+multi infix:<+>  (Vector $v, Vector $w) { $v.add: $w }
+multi infix:<->  (Vector $v, Vector $w) { $v.subtract: $w }
+multi prefix:<-> (Vector $v)            { $v.multiply: -1 }
+multi infix:<×>  (Vector $v, $n)        { $v.multiply: $n }
+multi infix:</>  (Vector $v, $n)        { $v.divide: $n }
 
 
 #####[ Usage example: ]#####
@@ -48,11 +48,12 @@ my $w = Vector.new(length => 1, angle => pi/4);    #: vec[0.707106781186548, 0.7
 @res.push: $u.gist;
 @res.push: $v.gist;
 @res.push: ($u.length, 5).gist;
-@res.push: ($u + $v).gist;                                           #: vec[4, 7]
-@res.push: ($u - $v).gist;                                           #: vec[2, 1]
-@res.push: (-$u).gist;                                               #: vec[-3, -4]
-@res.push: ($u × 10).gist;                                           #: vec[30, 40]
-@res.push: ($u / 2).gist;                                            #: vec[1.5, 2]
+@res.push: ($u + $v).gist;
+@res.push: ($u - $v).gist;
+@res.push: (-$u).gist;
+@res.push: ($u × 10).gist;
+@res.push: ($u / 2).gist;
+
 .say for @res;
 
 my $ref = qq:to/END/;
