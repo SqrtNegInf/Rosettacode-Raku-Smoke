@@ -81,14 +81,14 @@ sub placePiece(\piece, \countSoFar, \maxCount) {
       for ($si..^$n) X ($sj..^$n) -> (\i,\j) {
          unless isAttacked(piece, i, j) {
             if (i == $ti && j == $tj) || attacks(piece, i, j, $ti, $tj) {
-               @board[i][j] = True; 
+               @board[i;j] = True; 
                unless piece eq 'K' {
-                  (@diag1Lookup[@diag1[i;j]],@diag2Lookup[@diag2[i;j]])=True xx *               
+                  (@diag1Lookup[ @diag1[i;j] ], @diag2Lookup[ @diag2[i;j] ])= True, True # True xx *               
                }
                placePiece(piece, countSoFar+1, maxCount);
                @board[i][j] = False; 
                unless piece eq 'K' {
-                  (@diag1Lookup[@diag1[i;j]],@diag2Lookup[@diag2[i;j]])=False xx *
+                  (@diag1Lookup[ @diag1[i;j] ], @diag2Lookup[ @diag2[i;j] ])=False xx *
                }
             }
          }
