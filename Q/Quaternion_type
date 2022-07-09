@@ -4,13 +4,15 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
+my @res;
+
 class Quaternion {
     has Real ( $.r, $.i, $.j, $.k );
 
     multi method new ( Real $r, Real $i, Real $j, Real $k ) {
         self.bless: :$r, :$i, :$j, :$k;
     }
-    multi qu(*@r) is export { Quaternion.new: |@r }
+    multi qu(*@r) is export { Quaternion.new: |@r }             # 'export' not strictly needed
     sub postfix:<j>(Real $x) is export { qu 0, 0, $x, 0 }
     sub postfix:<k>(Real $x) is export { qu 0, 0, 0, $x }
 
@@ -50,7 +52,6 @@ my $q1 = 2 + 3i + 4j + 5k;
 my $q2 = 3 + 4i + 5j + 6k;
 my $r  = 7;
 
-my @res;
 @res.push: "1) q norm  = " ~ $q.norm.fmt("%.14f");
 @res.push: "2) -q      = {-$q}";
 @res.push: "3) q conj  = {$q.conj}";
@@ -59,7 +60,8 @@ my @res;
 @res.push: "6) q  × r  = {$q  × $r}";
 @res.push: "7) q1 × q2 = {$q1 × $q2}";
 @res.push: "8) q1q2 { $q1 × $q2 eqv $q2 × $q1?? '=='!! '!=' } q2q1";
-#say @res.join("\n");
+
+say @res.join("\n");
 
 my $ref = qq:to/END/;
 1) q norm  = 5.47722557505166
@@ -74,5 +76,3 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-
-
