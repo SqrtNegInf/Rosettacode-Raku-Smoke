@@ -42,7 +42,8 @@ for @tests ->  (&filter, $text) {
     my $str = $text.lc;
     for %nums.kv -> $word, $number { $str ~~ s:g/ <|w> $word <|w> /$number/ }
     $str ~~ s:g/ (\d)<ws>['and'|'-']<ws>(\d) /$0 $1/;
-    $str ~~ s:g/ <|w>(\d ** 2)<ws>(\d ** 2) <|w> /{ $0 × 100 + $1}/;
+    $str ~~ s:g/ <|w> (\d\d)<ws>(\d\d) <|w> /{ $0 × 100 + $1}/;
+    #$str ~~ s:g/ <|w>(\d ** 2)<ws>(\d ** 2) <|w> /{ $0 × 100 + $1}/;
     $str ~~ s:g/ ( [\d+<ws>]* \d+ ) /{[+] $0.split: ' '}/;
 
     # Build a hash of claimed characters.
