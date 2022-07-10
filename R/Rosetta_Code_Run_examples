@@ -6,6 +6,7 @@
 #j# JVM:  BROKEN
 #n# may be slightly out-of-date, but cf. ~/perl6/rc-run/RC-run.p6 which is at usually at HEAD, and run/tested all the time
 #n# (so FYI thundergnat++, it runs fine on macOS essentially with no changes [except 'xdg-open'])
+#n# nb: suffers from the 'network' bug as well
 
 #`{
 This is a fairly comprehensive task code runner. It is set up to work for Perl 6 by default, but has basic configurations to run Perl and Python tasks as well. It can be easily tweaked to work with other languages by adding a load-lang('whatever'){} routine similar to the Perl6, Perl and Python ones. (And ensuring that the appropriate compiler is installed and accessible.) There is so much variation to the task requirements and calling conventions that it would be problematic to make a general purpose, language agnostic code runner so some configuration is necessary to make it work with other languages.
