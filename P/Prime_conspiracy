@@ -10,7 +10,7 @@ my $sieve;
 my %conspiracy;
 my $upto = 1_000_000;
 
-if $*VM ~~ /jvm/ { @primes = lazy gather for 1 .. * { .take if $_.is-prime } }
+if $*VM ~~ /jvm/ { @primes = lazy gather for 1 .. * { .take if .is-prime } }
 else             { 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes = $sieve.n-primes($upto+1);'.EVAL }
 
 @primes[^($upto+1)].reduce: -> $a, $b {
@@ -20,7 +20,7 @@ else             { 'use Math::Primesieve; $sieve = Math::Primesieve.new; @primes
 }
 
 my @res;
-push @res, "$_\tfrequency: {($_.value/$upto×100).round(.01)} %" for %conspiracy.sort;
+push @res, "$_\tfrequency: {(.value/$upto×100).round(.01)} %" for %conspiracy.sort;
 
 .say for @res;
 
