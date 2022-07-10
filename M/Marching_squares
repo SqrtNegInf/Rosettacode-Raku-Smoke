@@ -1,10 +1,8 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Marching_squares
-#c# 2022-07-08 <RC
+#c# 2022-07-09 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-
-my @res;
 
 enum <E N W S>;
 my (@dx,@dy) := (1,0,-1,0), (0,-1,0,1);
@@ -15,41 +13,42 @@ my \example   = ((0, 0, 0, 0, 0),
                  (0, 0, 0, 1, 0),
                  (0, 0, 0, 0, 0));
 
-sub identifyPerimeter(\data) {
+sub identify-perimeter(\data) {
 
    my (\height,\width) = { .elems, .first.elems }(data);
-
+ 
    for ^width X ^height -> (\x,\y) {
-      unless data[y;x] == 0 {
-         my \directions = $ = ''; 
-         my ($cx,$cy,$direction,$previous) = x, y;
-         loop { 
-            my $mask = 0;
+      #unless data[y;x] == 0 {
+      if data[y;x] {  # DH positive logic
+         my ($cx,$cy,$directions,$previous) = x, y;
+         repeat { 
+            my $mask; # = 0;
             for (0,0,1),(1,0,2),(0,1,4),(1,1,8) -> (\dx,\dy,\b) { 
-	       my ($mx,$my) = $cx+dx,$cy+dy; 
-	       $mask += b if so all ( $mx>1, $my>1, data[$my-1;$mx-1] != 0) 
-            } 
-            $direction = do given $mask {
+               my ($mx,$my) = $cx+dx,$cy+dy; 
+               $mask += b if all $mx>1, $my>1, data[$my-1;$mx-1]; # != 0  # DH no so, no test on @data
+            }
+            given do given $mask {           # definitely a singleton
                when * ∈ ( 1,  5, 13 ) { N }
                when * ∈ ( 2,  3,  7 ) { E }
                when * ∈ ( 4, 12, 14 ) { W }
                when * ∈ ( 8, 10, 11 ) { S }
                when * ∈ (     6     ) { $previous == N ?? W !! E }
                when * ∈ (     9     ) { $previous == E ?? N !! S }
+            } { 
+               $directions ~= $previous = $_; 
+               ($cx,$cy) «+=« (@dx[.value], @dy[.value]) # DH no slip (interesting notation...)
+              #($cx,$cy) «+=« (@dx[$_],     @dy[$_])     # JVM OK
+              #($cx,$cy) Z+=  (@dx[.value], @dy[.value]) # JVM FAIL (likely related to the 'given', known rough spot for JVM)
+              # $cx, $cy Z+=   @dx[$_],     @dy[$_]      #                              "
             }
-	    given $direction { directions ~= $_ ;
-                               $previous   = $_ ;
-	                       ($cx,$cy) <<+=<< |(@dx[.value], @dy[.value]) }
-
-            last if $cx==x and $cy==y  ; 
-         } 
-         return x, -y, directions
+         } until $cx==x and $cy==y;
+         return x, -y, $directions
       }      
    }
    return -1, -1, "Not found!"
 }
 
-say my $result = sprintf("X: %d, Y: %d, Path: %s", identifyPerimeter(example));
+say my $result = sprintf("X: %d, Y: %d, Path: %s", identify-perimeter(example));
 
 use Test;
 is $result, 'X: 2, Y: -2, Path: SSESENNNWW';
