@@ -1,10 +1,10 @@
-Welcome to Rakudo™ v2022.06-35-g4fedb6f05.
+Welcome to Rakudo™ v2022.06-46-g934f9895e.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-6-gc315523ab.
 updating from RC...
-+--------------> Moar: Good/Bad [1471/27]
++--------------> Moar: Good/Bad [1464/27]
 |+-------------> JVM: Good/Bad [1276/295]
-||+------------> Smoke testing [1418]
+||+------------> Smoke testing [1416]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [385]
@@ -24,7 +24,7 @@ GB.KI..R..... 15_puzzle_game
 GG.K......... 15_puzzle_solver
 GG.KI....D... 16_puzzle_game
 GB.KI..R..... 2048
-GGS....R..... 21_game
+!GS....R..... 21_game
 GGS..T.R..... 24_game
 GBS..TC...... 24_game_Solve-1
 GGS..T....... 24_game_Solve-2
@@ -157,7 +157,7 @@ GGS.......... Binary_search
 GGS..T....... Binary_strings
 GGS..T...D... Bioinformatics_Global_alignment
 !GS....R..... Bioinformatics_Sequence_mutation
-GBS....R.D... Bioinformatics_Subsequence
+!BS....R.D... Bioinformatics_Subsequence
 GGS.......... Bioinformatics_base_count
 GGS.......... Biorhythms
 GGS..TcR.D... Birthday_problem
@@ -623,8 +623,8 @@ GGS..T..F.... Greyscale_bars_Display
 GGS....R..... Guess_the_number
 GGS....R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
-GGS..T....... HTTP
-GBS.......... HTTPS
+GG...T....... HTTP
+GB........... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -731,7 +731,7 @@ GGS..T....... Josephus_problem
 BB.K......... Joystick_position
 GGS...C...... Juggler_sequence
 GBS...C.F.... Julia_set
-GGS..T.R..... Jump_anywhere
+!GS..T.R..... Jump_anywhere
 GGS......D... Just_in_time_processing_on_a_character_stream
 !GS....R..... K-d_tree
 !GS....R..... K-means%2B%2B_clustering
@@ -750,7 +750,7 @@ GGS.......... Knapsack_problem_Bounded-1
 GGS..T....... Knapsack_problem_Bounded-2
 GGS.......... Knapsack_problem_Continuous
 GGS..T....... Knapsack_problem_Unbounded
-!GS....R..... Knight%27s_tour
+GGS....R..... Knight%27s_tour
 !GS....R..... Knuth%27s_algorithm_S
 GGS....R..... Knuth%27s_power_tree
 .........D.VU Knuth-Morris-Pratt_string_search
@@ -851,7 +851,7 @@ GGS.......... MD5
 !GS.......... MD5_Implementation
 ...........V. Machine_code
 GGS.......... Mad_Libs
-GGS....R..... Magic_8-ball
+!GS....R..... Magic_8-ball
 GBS...C...... Magic_constant
 GGS.......... Magic_squares_of_doubly_even_order
 GGS.......... Magic_squares_of_odd_order
@@ -874,7 +874,7 @@ GGS.......... Matrix_multiplication
 GGS..T....... Matrix_transposition
 GGS......D... Matrix_with_two_diagonals
 ..........X.. Max_licenses_in_use
-GGS....R.D... Maximum_difference_between_adjacent_elements_of_list
+!GS....R.D... Maximum_difference_between_adjacent_elements_of_list
 GGS..T....... Maximum_triangle_path_sum
 GGS.......... Mayan_calendar
 GGS.......... Mayan_numerals-1
@@ -1232,7 +1232,7 @@ GBS......D... Remove_vowels_from_a_string
 GGS.......... Rename_a_file
 GGS...CRF.... Rendezvous
 GBS.......... Rep-string
-GGS....R..... Repeat
+!GS....R..... Repeat
 GGS.......... Repeat_a_string
 GBS...C...... Repunit_primes
 GGS......D... Resistance_calculator
@@ -1247,7 +1247,7 @@ GGS......D... Reverse_the_gender_of_a_string
 GGS.......... Reverse_words_in_a_string
 GBS...C...... Rhonda_numbers
 GB.KI....D... Robots
-GGS..T.R..... Rock-paper-scissors
+!GS..T.R..... Rock-paper-scissors
 .........D... Rodrigues_rotation_formula
 GGS..T....... Rodrigues_rotation_formula-1
 GBS.......... Rodrigues_rotation_formula-2
@@ -1265,7 +1265,7 @@ GBS.......... Rosetta_Code_Rank_languages_by_number_of_users
 GBS.......... Rosetta_Code_Rank_languages_by_popularity-1
 GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
-!BS......D... Rosetta_Code_Tasks_without_examples
+GBS......D... Rosetta_Code_Tasks_without_examples
 GGS.......... Rot-13
 GGS..T...D... Round-robin_tournament_schedule
 GGS.......... Run-length_encoding
@@ -1300,7 +1300,7 @@ BB.K......... Search_in_paragraph%27s_text
 GGS.......... Secure_temporary_file
 .........DXV. Segmentation_fault_protection
 GGS......D... Selective_file_copy
-GGS....R..... Selectively_replace_multiple_instances_of_a_character_within_a_string
+!GS....R..... Selectively_replace_multiple_instances_of_a_character_within_a_string
 GGS.......... Self-describing_numbers
 .........DXV. Self-hosting_compiler
 GGS.......... Self_numbers
@@ -1320,7 +1320,7 @@ GGS..T....... Sequence_of_primorial_primes
 GGS.......... Set
 GGS.......... Set_consolidation
 GGS..T....... Set_of_real_numbers
-GGS..T.R..... Set_puzzle
+!GS..T.R..... Set_puzzle
 GGS..T....... Set_right-adjacent_bits
 !GS....R..... Seven-sided_dice_from_five-sided_dice
 GBS.......... Sexy_primes
@@ -1354,7 +1354,7 @@ GG.K......... Singly-linked_list_Element_insertion
 GGS......D... Singly-linked_list_Element_removal
 GGS.......... Singly-linked_list_Traversal
 GGS.......... Sleep
-!BS....R..... Sleeping_Beauty_problem
+GBS....R..... Sleeping_Beauty_problem
 GGS..T...D... Smallest_enclosing_circle_problem
 GGS......D... Smallest_multiple
 GBS...C...... Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k
@@ -1556,7 +1556,7 @@ GGS..T....... Thiele%27s_interpolation_formula
 !GS....R.D... Three_word_location
 GGS.......... Three_word_location-2
 GGS..T....... Thue-Morse
-GGS....R..... Tic-tac-toe
+!GS....R..... Tic-tac-toe
 GBS......D... Time-based_one-time_password_algorithm
 GGS.......... Time_a_function
 GGS.......... Tokenize_a_string
