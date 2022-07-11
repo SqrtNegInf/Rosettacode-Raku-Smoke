@@ -1,0 +1,13 @@
+#!/usr/bin/env raku
+#t# skiptest
+#c# 2022-07-11 open
+#n# bug source: PWC/091/2/wambash.raku
+#n# runs forever and eats memory
+
+subset Boo of Int; # where * > 0;
+
+sub foo() returns Boo { 42 }
+say foo();
+
+#sub bar($n --> Boo) { 42  }
+#say bar(1);
