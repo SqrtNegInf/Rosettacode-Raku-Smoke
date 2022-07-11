@@ -18,14 +18,13 @@ sub identify-perimeter(\data) {
    my (\height,\width) = { .elems, .first.elems }(data);
  
    for ^width X ^height -> (\x,\y) {
-      #unless data[y;x] == 0 {
-      if data[y;x] {  # DH positive logic
+      if data[y;x] {
          my ($cx,$cy,$directions,$previous) = x, y;
          repeat { 
-            my $mask; # = 0;
+            my $mask;
             for (0,0,1),(1,0,2),(0,1,4),(1,1,8) -> (\dx,\dy,\b) { 
                my ($mx,$my) = $cx+dx,$cy+dy; 
-               $mask += b if all $mx>1, $my>1, data[$my-1;$mx-1]; # != 0  # DH no so, no test on @data
+               $mask += b if all $mx>1, $my>1, data[$my-1;$mx-1];
             }
             given do given $mask {           # definitely a singleton
                when * ∈ ( 1,  5, 13 ) { N }
@@ -36,7 +35,7 @@ sub identify-perimeter(\data) {
                when * ∈ (     9     ) { $previous == E ?? N !! S }
             } { 
                $directions ~= $previous = $_; 
-               ($cx,$cy) «+=« (@dx[.value], @dy[.value]) # DH no slip (interesting notation...)
+               ($cx,$cy) «+=« (@dx[.value], @dy[.value]);
               #($cx,$cy) «+=« (@dx[$_],     @dy[$_])     # JVM OK
               #($cx,$cy) Z+=  (@dx[.value], @dy[.value]) # JVM FAIL (likely related to the 'given', known rough spot for JVM)
               # $cx, $cy Z+=   @dx[$_],     @dy[$_]      #                              "
