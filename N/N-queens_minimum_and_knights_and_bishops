@@ -3,7 +3,7 @@
 #c# 2022-07-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# slow, so limit testing
+#n# slow, so limit testing; a few minor tweaks not on RC
 #n# OEIS:A075324
 #n# OEIS:A342576
 
@@ -11,43 +11,43 @@ my @res;
 
 my (@board, @diag1, @diag2, @diag1Lookup, @diag2Lookup, $n, $minCount, $layout);
 
-my %limits   = ( my @pieces = <Q B K> ) Z=> 7,7,6; # >>=>>> 10;
+my %limits   = ( my @pieces = <Q B K> ) Z=> 7,7,6; # >>=>> 10;
 my %names    = @pieces Z=> <Queens Bishops Knights>;
 
 sub isAttacked(\piece, \row, \col) {
-   given piece {
-      when 'Q' { 
-         (^$n)>>.&{ return True if @board[$_;col] || @board[row;$_] }  
-	 return True if @diag1Lookup[@diag1[row;col]] || 
-	                @diag2Lookup[@diag2[row;col]]
-      }
-      when 'B' {
-         return True if @diag1Lookup[@diag1[row;col]] ||
-                        @diag2Lookup[@diag2[row;col]]
-      }
-      default { # 'K'
-         return True if (
-            @board[row;col] or 
-            row+2 < $n && col-1 >= 0 && @board[row+2;col-1] or
-            row-2 >= 0 && col-1 >= 0 && @board[row-2;col-1] or
-            row+2 < $n && col+1 < $n && @board[row+2;col+1] or
-            row-2 >= 0 && col+1 < $n && @board[row-2;col+1] or
-            row+1 < $n && col+2 < $n && @board[row+1;col+2] or
-            row-1 >= 0 && col+2 < $n && @board[row-1;col+2] or
-            row+1 < $n && col-2 >= 0 && @board[row+1;col-2] or
-            row-1 >= 0 && col-2 >= 0 && @board[row-1;col-2]
-	 )
-      }
+    given piece {
+        when 'Q' { 
+            (^$n)>>.&{ return True if @board[$_;col] or @board[row;$_] }  
+	        return True if @diag1Lookup[@diag1[row;col]] or 
+	                       @diag2Lookup[@diag2[row;col]]
+        }
+        when 'B' {
+            return True if @diag1Lookup[@diag1[row;col]] or
+                           @diag2Lookup[@diag2[row;col]]
+        }
+        default { # 'K'
+            return True if (
+                @board[row;col] or 
+                row+2 < $n and col-1 >= 0 and @board[row+2;col-1] or
+                row-2 >= 0 and col-1 >= 0 and @board[row-2;col-1] or
+                row+2 < $n and col+1 < $n and @board[row+2;col+1] or
+                row-2 >= 0 and col+1 < $n and @board[row-2;col+1] or
+                row+1 < $n and col+2 < $n and @board[row+1;col+2] or
+                row-1 >= 0 and col+2 < $n and @board[row-1;col+2] or
+                row+1 < $n and col-2 >= 0 and @board[row+1;col-2] or
+                row-1 >= 0 and col-2 >= 0 and @board[row-1;col-2]
+	        )
+        }
    }
-   return False
+   False
 }
 
 sub attacks(\piece, \row, \col, \trow, \tcol) {
    given piece {
-      when 'Q' { row==trow || col==tcol || abs(row - trow)==abs(col - tcol) } 
+      when 'Q' { row==trow or col==tcol or abs(row - trow)==abs(col - tcol) } 
       when 'B' { abs(row - trow) == abs(col - tcol) }
       default  { my (\rd,\cd) = ((trow - row),(tcol - col))>>.abs; # when 'K' 
-                 (rd == 1 && cd == 2) || (rd == 2 && cd == 1)               }
+                 (rd == 1 and cd == 2) or (rd == 2 and cd == 1)               }
    }
 }
 
@@ -66,12 +66,11 @@ sub placePiece(\piece, \countSoFar, \maxCount) {
       }
       last unless $allAttacked 
    }
+
    if $allAttacked {
       $minCount = countSoFar;
       storeLayout(piece);
-      return
-   }
-   if countSoFar <= maxCount {
+   } elsif countSoFar <= maxCount {
       my ($si,$sj) = $ti,$tj;
       if piece eq 'K' {
          ($si,$sj) >>-=>> 2;
@@ -80,15 +79,15 @@ sub placePiece(\piece, \countSoFar, \maxCount) {
       }
       for ($si..^$n) X ($sj..^$n) -> (\i,\j) {
          unless isAttacked(piece, i, j) {
-            if (i == $ti && j == $tj) || attacks(piece, i, j, $ti, $tj) {
+            if (i == $ti and j == $tj) or attacks(piece, i, j, $ti, $tj) {
                @board[i;j] = True; 
                unless piece eq 'K' {
-                  (@diag1Lookup[ @diag1[i;j] ], @diag2Lookup[ @diag2[i;j] ])= True, True # True xx *               
+                  (@diag1Lookup[ @diag1[i;j] ], @diag2Lookup[ @diag2[i;j] ]) = True, True # True xx *               
                }
                placePiece(piece, countSoFar+1, maxCount);
                @board[i][j] = False; 
                unless piece eq 'K' {
-                  (@diag1Lookup[ @diag1[i;j] ], @diag2Lookup[ @diag2[i;j] ])=False xx *
+                  (@diag1Lookup[ @diag1[i;j] ], @diag2Lookup[ @diag2[i;j] ]) = False xx *
                }
             }
          }
