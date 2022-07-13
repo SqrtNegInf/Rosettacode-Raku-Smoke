@@ -83,9 +83,9 @@ head -20 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | /usr/local
 
 # not a race, not a race, ...
 echo ' '
-#mv meta/horse-race.txt meta/horse-race.txt~
-#bin/rc-horse-race | sort -r > meta/horse-race.txt
-#diff meta/horse-race.txt~ meta/horse-race.txt
+mv meta/horse-race.txt meta/horse-race.txt~
+bin/rc-horse-race | sort -r > meta/horse-race.txt
+diff meta/horse-race.txt~ meta/horse-race.txt
 
 # non-ascii usage
 echo ' '
