@@ -6,7 +6,7 @@
 #  trivial - some have no tests, which is OK
 #
 #  Programs not tested are tagged:
-#  toodamnslow      extract timings embedded in programs with:
+#  toodamnslow      life is short
 #  nocode           have no runnable code
 #  skiptest         hard to test
 #  network          sometimes fails (HTTP::UserAgent, LWP, URI, WWW)
@@ -56,8 +56,8 @@ $exe .= $mode eq 'jvm' ? '-j -I lib ' : '-m';
 
 system "date";
 
-my $skip = 'network|interactive|gui|toodamnslow|skiptest|inprogress|nocode|forever|broken'; # 2022-07-10 temporarily
-#my $skip = 'interactive|gui|toodamnslow|skiptest|inprogress|nocode|forever|broken';
+#my $skip = 'network|interactive|gui|toodamnslow|skiptest|inprogress|nocode|forever|broken'; # 2022-07-10 temporarily [GH4980]
+my $skip = 'interactive|gui|toodamnslow|skiptest|inprogress|nocode|forever|broken';
 
 # find Perl6 programs
 
