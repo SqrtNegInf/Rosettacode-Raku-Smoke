@@ -6,6 +6,7 @@
 #n# OEIS:A059756 Erdős–Woods numbers
 #n# OEIS:A059757 smallest values of a for a given E-W number k
 #n# OEIS:A111042 odd terms of sequence (not calculated here)
+#n# 2022-07-13 some tweaks, not on RC
 
 my @res;
 
@@ -29,36 +30,31 @@ sub ew (\n) {
 
    sub ort(\x) { (@divs[x] +| @divs[n -x]).base(2).flip.index(1) } 
 
-   for ((n^...1).sort: *.&ort).reverse {
-      my \newPartitions = @ = (); 
-      my (\factors,\otherFactors) = @divs[$_, n-$_];
+   for ((1..^n).sort: *.&ort).reverse {
+   #for ((n^...1).sort: *.&ort).reverse  # no special reason for this
+      my @newPartitions; # = @ = (); 
+      my ($factors,$otherFactors) = @divs[$_, n-$_];
 
-      for @partitions -> \p {
-         my (\setA, \setB, \rPrimes) = p[0..2];
+      for @partitions -> @p {
+         my ($setA, $setB, $rPrimes) = @p[0..2];
 
-         if (factors +& setA) or (otherFactors +& setB) {
-            newPartitions.push: p and next 
-         } 
-         for (factors +& rPrimes).base(2).flip.comb.kv -> \k,\v {
-            if (v == 1) {
-               my \w = 1 +< k;   
-               newPartitions.push: [ setA +^ w, setB, rPrimes +^ w ]
-            }
+         @newPartitions.push: @p and next if $factors +& $setA or $otherFactors +& $setB;
+
+         for ($factors +& $rPrimes).base(2).flip.comb.kv -> $k,$v {
+            (@newPartitions.push: [ $setA +^ $_, $setB, $rPrimes +^ $_ ] given 1 +< $k) if $v == 1
          }
-         for (otherFactors +& rPrimes).base(2).flip.comb.kv -> \k,\v {
-            if (v == 1) {
-               my \w = 1 +< k; 
-               newPartitions.push: [ setA, setB +^ w, rPrimes +^ w ]
-            }
+
+         for ($otherFactors +& $rPrimes).base(2).flip.comb.kv -> $k,$v {
+            (@newPartitions.push: [ $setA, $setB +^ $_, $rPrimes +^ $_ ] given 1 +< $k) if $v == 1
          }
       }
-      @partitions = newPartitions
+      @partitions = @newPartitions
    }
 
    my \result = $ = -1;
-   for @partitions -> \p {
-      my ($px,$py) = p[0,1];
-      my ($x ,$y ) = 1 xx *;
+   for @partitions -> @p {
+      my ($px,$py)  = @p[0,1];
+      my ($x , $y ) = 1 xx *;
       for @primes -> $p {
          $px % 2 and $x ×= $p;
          $py % 2 and $y ×= $p;
