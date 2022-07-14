@@ -1,7 +1,7 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/xx
 #t# inprogress
-#c# 2022-07-xx >RC
+#c# 2022-xx-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -18,6 +18,7 @@ END
 
 use Test;
 #my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);$
 is @res.join("\n"), chomp $ref;
 
 =finish
