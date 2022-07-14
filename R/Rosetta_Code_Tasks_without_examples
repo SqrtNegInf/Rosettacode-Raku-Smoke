@@ -5,7 +5,7 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 2019-05-01 testing is pretty weak, only one task (100 doors)
-#n# 2022-01-05 trailing space in output caused trivial testing failure
+#n# 2022-01-05 trailing space in output caused trivial testing failure [2022-07-12 now handled]
 
 use HTTP::UserAgent;
 use Gumbo;
@@ -16,11 +16,11 @@ my $ua = HTTP::UserAgent.new;
 my $taskfile = 'run/RC_tasks.html';
 
 # Get list of Tasks
-#`{{
+#`{
 say "Updating Programming_Tasks list...";
 my $page   = "http://rosettacode.org/wiki/Category:Programming_Tasks";
 my $html   = $ua.get($page).content; # too many redirects???
-}}
+}
 
 my $html = slurp 'meta/Category:Programming_Tasks'; # obtained via 'curl' in 'bin/rc-task-status'
 my $xmldoc = parse-html($html, :TAG<div>, :id<mw-pages>);
@@ -68,8 +68,6 @@ sub cleanup ( $string ) {
     $string.subst( /^.+ '</div>'/, '' )
 }
 
-#say $result; exit;
-
 my $ref = q:to/END/;
 100_doors
 
@@ -90,9 +88,7 @@ As noted in this page's &#160; <a href="/wiki/Talk:100_doors" title="Talk:100 do
 however, as should be obvious, this defeats the intent of comparing implementations across programming languages.
 <br /><br />
 </p>
-
-
 END
 
 use Test;
-is $result, $ref;
+is $result.subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
