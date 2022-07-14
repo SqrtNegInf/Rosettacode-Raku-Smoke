@@ -1,0 +1,115 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Bifid_cipher
+#c# 2022-07-13 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+srand 123456;
+
+my @res;
+
+sub polybius ($text) {
+    my $n = $text.chars.sqrt.narrow;
+    $text.comb.kv.map: { $^v => ($^k % $n, $k div $n).join: ' ' }
+}
+
+sub encrypt ($message, %poly) {
+    %poly.invert.hash{(flat reverse [Z] %poly{$message.comb}».words).batch(2)».reverse».join: ' '}.join
+}
+
+sub decrypt ($message, %poly) {
+   %poly.invert.hash{reverse [Z] (reverse flat %poly{$message.comb}».words».reverse).batch($message.chars)}.join
+}
+
+for 'ABCDEFGHIKLMNOPQRSTUVWXYZ', 'ATTACKATDAWN',
+    'BGWKZQPNDSIOAXEFCLUMTHYVR', 'FLEEATONCE',
+    (flat '_', '.', 'A'..'Z', 'a'..'z', 0..9).pick(*).join, 'The invasion will start on the first of January 2023.'.subst(/' '/, '_', :g)
+ -> $polybius, $message {
+    my %polybius = polybius $polybius;
+    @res.push: "\nUsing polybius:\n\t" ~ $polybius.comb.batch($polybius.chars.sqrt.narrow).join: "\n\t";
+    @res.push: "\n  Message : $message";
+    @res.push: "Encrypted : " ~ my $encrypted = encrypt $message, %polybius;
+    @res.push: "Decrypted : " ~ decrypt $encrypted, %polybius;
+}
+
+.say for @res;
+
+my $moar = q:to/END/;
+Using polybius:
+	A B C D E
+	F G H I K
+	L M N O P
+	Q R S T U
+	V W X Y Z
+
+  Message : ATTACKATDAWN
+Encrypted : DQBDAXDQPDQH
+Decrypted : ATTACKATDAWN
+
+Using polybius:
+	B G W K Z
+	Q P N D S
+	I O A X E
+	F C L U M
+	T H Y V R
+
+  Message : FLEEATONCE
+Encrypted : UAEOLWRINS
+Decrypted : FLEEATONCE
+
+Using polybius:
+	o Q j b U H g 5
+	i N p 3 I E c Y
+	1 h r s 9 t a P
+	O 6 2 S _ C M e
+	X A 8 w D u L 0
+	k R W F Z d K B
+	n z q 4 m V y v
+	7 T G . f l x J
+
+  Message : The_invasion_will_start_on_the_first_of_January_2023.
+Encrypted : GScqhg_Y.rrsg2seprO.Gmr4_6TYX54oUOdwKtXURfXsZU0nKa8GS
+Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
+END
+
+my $jvm = q:to/END/;
+Using polybius:
+	A B C D E
+	F G H I K
+	L M N O P
+	Q R S T U
+	V W X Y Z
+
+  Message : ATTACKATDAWN
+Encrypted : DQBDAXDQPDQH
+Decrypted : ATTACKATDAWN
+
+Using polybius:
+	B G W K Z
+	Q P N D S
+	I O A X E
+	F C L U M
+	T H Y V R
+
+  Message : FLEEATONCE
+Encrypted : UAEOLWRINS
+Decrypted : FLEEATONCE
+
+Using polybius:
+	Y 8 N p C d V b
+	w j W D E 4 7 5
+	F q 2 f 9 Z h H
+	x t . s _ A G v
+	n K i M z S R J
+	g e I m L U P Q
+	k 1 6 c X T 0 a
+	r l o y u B O 3
+
+  Message : The_invasion_will_start_on_the_first_of_January_2023.
+Encrypted : 6mzG_utJysasusZ.JsvfRJayhHA1iby2CNjM58iC7E.pEfJrJpi6o
+Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
+END
+
+use Test;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
