@@ -1,17 +1,17 @@
-Welcome to Rakudo™ v2022.06-49-ge7acf4930.
+Welcome to Rakudo™ v2022.06-51-g7e300e615.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-6-gc315523ab.
 updating from RC...
 +--------------> Moar: Good/Bad [1464/27]
-|+-------------> JVM: Good/Bad [1277/295]
-||+------------> Smoke testing [1419]
+|+-------------> JVM: Good/Bad [1278/295]
+||+------------> Smoke testing [1420]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [385]
 ||||||+--------> Concurrent/Async [103]
-|||||||+-------> Random seed [131]
+|||||||+-------> Random seed [132]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [366]
+|||||||||+-----> Draft [367]
 ||||||||||+----> Ignoring [40]
 |||||||||||+---> Void (no local copy) [108]
 ||||||||||||+--> Un-implemented/reliable [58]
@@ -150,6 +150,7 @@ GGS.......... Bell_numbers-3
 GGS..T....... Benford%27s_law
 GGS..T....... Bernoulli_numbers
 !GS....R..... Best_shuffle
+!GS....R.D... Bifid_cipher
 GBS.....FD... Bilinear_interpolation
 GGS.......... Bin_given_limits
 .........D.VU Binary-Coded_Decimal
@@ -990,7 +991,7 @@ GGS.......... Number_reversal_game
 GGS......D... Numbers_divisible_by_their_individual_digits,_but_not_by_the_product_of_their_digits.
 GGS......D... Numbers_in_base-16_representation_that_cannot_be_written_with_decimal_digits
 GGS......D... Numbers_in_base_10_that_are_palindromic_in_bases_2,_4,_and_16
-GGS.......... Numbers_which_are_not_the_sum_of_distinct_squares
+!GS.......... Numbers_which_are_not_the_sum_of_distinct_squares
 GGS......D... Numbers_which_binary_and_ternary_digit_sum_are_prime
 .........D.V. Numbers_whose_count_of_divisors_is_prime
 GBS...C...... Numbers_with_equal_rises_and_falls
@@ -1268,7 +1269,7 @@ GBS.......... Rosetta_Code_Rank_languages_by_number_of_users
 GBS.......... Rosetta_Code_Rank_languages_by_popularity-1
 GGS..T....... Rosetta_Code_Rank_languages_by_popularity-2
 GB.K.....D... Rosetta_Code_Run_examples
-!BS......D... Rosetta_Code_Tasks_without_examples
+GBS......D... Rosetta_Code_Tasks_without_examples
 GGS.......... Rot-13
 GGS..T...D... Round-robin_tournament_schedule
 GGS.......... Run-length_encoding
