@@ -27,8 +27,10 @@ for 1..∞ -> $sq {          # for every combination of all squares
     my @run;
     for @sums {
         @run.push($_) and next unless @run.elems;
+print '.';
         if $_ == @run.tail + 1 { @run.push: $_ } else { last if @run.elems > @squares[$sq]; @run = () }
     }
+dd @run; say @squares[$sq];
     @res.push: grep * ∉ @sums, 1..@run.tail and last if @run.elems > @squares[$sq];
 }
 
