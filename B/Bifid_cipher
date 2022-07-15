@@ -3,6 +3,7 @@
 #c# 2022-07-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# set up separate terminal/cronjob results, but this seldom works for very long...
 
 srand 123456;
 
@@ -34,7 +35,45 @@ for 'ABCDEFGHIKLMNOPQRSTUVWXYZ', 'ATTACKATDAWN',
 
 .say for @res;
 
-my $moar = q:to/END/;
+my $moar-cronjob = q:to/END/;
+Using polybius:
+        A B C D E
+        F G H I K
+        L M N O P
+        Q R S T U
+        V W X Y Z
+
+  Message : ATTACKATDAWN
+Encrypted : DQBDAXDQPDQH
+Decrypted : ATTACKATDAWN
+
+Using polybius:
+        B G W K Z
+        Q P N D S
+        I O A X E
+        F C L U M
+        T H Y V R
+
+  Message : FLEEATONCE
+Encrypted : UAEOLWRINS
+Decrypted : FLEEATONCE
+
+Using polybius:
+        j W m P t k J F
+        f b 7 l x z 5 n
+        e R s g Y 8 _ D
+        O 4 c B U G E v
+        y Q V o r H 2 6
+        a C p I . M 9 u
+        1 i q K w A 3 X
+        d h L N S 0 Z T
+
+  Message : The_invasion_will_start_on_the_first_of_January_2023.
+Encrypted : TsiG_Q_i7e.mQeLRweY7kz.V62ufiTmlZQBqyrKZQJWV2O3Fdy39w
+Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
+END
+
+my $moar-terminal = q:to/END/;
 Using polybius:
 	A B C D E
 	F G H I K
@@ -111,5 +150,5 @@ Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
 is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
