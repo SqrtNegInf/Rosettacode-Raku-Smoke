@@ -58,6 +58,7 @@ for @tests ->  (&filter, $text) {
 
     # And compare them
     #@res.push: "\nAutogram? " ~ ($A eq $C ?? 'True' !! 'False'); # works too
+    @res.push: "\nAutogram? " ~
     quietly (so all %count.map: { .value == %claim{.key} }) && (so all %claim.map: { .value == %count{.key} });
 
     @res.push: '=' x 100;
