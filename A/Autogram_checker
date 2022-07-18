@@ -50,14 +50,14 @@ for @tests ->  (&filter, $text) {
     my %claim = flat $str.lc.match(:g, /\d+ <ws> ['comma'|'apostrophe'|'hyphen'|.]/)».split(' ')»[1,0]».pairup;
     #my %claim = flat $str.lc.match(:g, /\d+ <:ws> ['comma'|'apostrophe'|'hyphen'|.]/)».split(' ')»[1,0]».pairup; # means what? typo?
     for <comma , hyphen - apostrophe '> #`['] -> $word, $symbol { %claim{$symbol} = %claim{$word}:delete if %claim{$word} }
-    @res.push: "\nClaimed character counts:\n" ~ wrap-text :100width, %claim.sort( ~*.key ).map( { sprintf "%s\(%d)", .key, .value } ).join: ' ';
+    @res.push: "\nClaimed character counts:\n" ~ wrap-text :100width, my $C = %claim.sort( ~*.key ).map( { sprintf "%s\(%d)", .key, .value } ).join: ' ';
 
     # And of the actual character counts.
     my %count = &filter($text).lc.comb.Bag.hash;
-    @res.push: "\nActual:\n" ~ wrap-text :100width, %count.sort( ~*.key ).map( { sprintf "%s\(%d)", .key, .value } ).join: ' ';
+    @res.push: "\nActual:\n" ~ wrap-text :100width, my $A = %count.sort( ~*.key ).map( { sprintf "%s\(%d)", .key, .value } ).join: ' ';
 
     # And compare them
-    @res.push: "\nAutogram? " ~
+    #@res.push: "\nAutogram? " ~ ($A eq $C ?? 'True' !! 'False'); # works too
     quietly (so all %count.map: { .value == %claim{.key} }) && (so all %claim.map: { .value == %count{.key} });
 
     @res.push: '=' x 100;
