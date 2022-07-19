@@ -3,18 +3,15 @@
 #c# 2016-05-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# don't test with high limits, slow...
 
 srand 123456;
 
 my @res;
 
-sub rank2inv ( $rank, $n = * ) {
-    $rank.polymod( 1 ..^ $n );
-}
-
-sub inv2rank ( @inv ) {
-    [+] @inv Z× [\×] 1, 1, * + 1 ... * 
-}
+#sub rank2inv ( $rank, $n = * ) {   # not an error, but why??
+sub rank2inv ( $rank, $n ) { $rank.polymod( 1 ..^ $n ) }
+sub inv2rank ( @inv )      { [+] @inv Z× [\×] 1, 1, * + 1 … * }
 
 sub inv2perm ( @inv, @items is copy = ^@inv.elems ) {
     my @perm;
@@ -24,7 +21,7 @@ sub inv2perm ( @inv, @items is copy = ^@inv.elems ) {
     @perm;
 }
 
-sub perm2inv ( @perm ) {     #not in linear time 
+sub perm2inv ( @perm ) {            # not in linear time 
     (
         { @perm[++$ .. *].grep( * < $^cur ).elems } for @perm;  
     ).reverse;
@@ -38,8 +35,8 @@ for ^6 {
     @res.push: @row.gist;
 }
 
-my $perms =  4;      #100;
-my $n     = 12;      #144;
+my $perms =  4;
+my $n     = 12;
 
 @res.push: 'Via BigInt rank';
 for ( ( ^([×] 1 .. $n) ).pick($perms) ) {
@@ -47,12 +44,12 @@ for ( ( ^([×] 1 .. $n) ).pick($perms) ) {
 };
 
 @res.push: 'Via inversion vectors';
-for ( { my $i=0;  inv2perm (^++$i).roll xx $n } ... *  ).unique( with => &[eqv] ).[^$perms] {
+for ( { my $i=0;  inv2perm (^++$i).roll xx $n } … *  ).unique( with => &[eqv] ).[^$perms] {
     @res.push: $_.gist;
 };
 
 @res.push: 'Via Perl 6 method pick';
-for ( { [(^$n).pick(*)] } ... * ).unique( with => &[eqv] ).head($perms) {
+for ( { [(^$n).pick(*)] } … * ).unique( with => &[eqv] ).head($perms) {
     @res.push: $_.gist;
 };
 
@@ -66,20 +63,20 @@ my $moar = qq:to/END/;
 [4 (0 0 2) [2 0 1] (0 0 2) 4]
 [5 (0 1 2) [2 1 0] (0 1 2) 5]
 Via BigInt rank
-[10 8 9 4 2 5 6 0 3 1 7 11]
-[8 5 0 6 1 3 7 4 11 10 2 9]
-[10 4 11 8 2 3 7 6 0 1 5 9]
-[11 5 10 0 4 2 9 3 8 6 7 1]
+[3 6 7 0 4 1 11 5 10 8 9 2]
+[5 8 2 9 10 1 7 6 0 4 11 3]
+[5 7 11 2 9 1 0 6 4 8 10 3]
+[4 1 9 3 6 2 5 8 11 10 7 0]
 Via inversion vectors
-[7 4 5 10 2 8 3 6 9 11 1 0]
-[0 11 5 7 9 8 1 6 3 10 4 2]
-[0 9 3 1 10 6 5 2 11 8 7 4]
-[5 1 9 10 7 8 11 3 2 6 4 0]
+[3 9 1 8 5 11 4 10 0 7 2 6]
+[11 4 7 8 0 10 5 3 1 6 9 2]
+[10 7 9 11 6 5 0 4 2 8 3 1]
+[11 7 8 3 1 2 5 4 0 6 9 10]
 Via Perl 6 method pick
-[7 3 0 6 2 4 11 1 8 5 10 9]
-[3 7 2 0 1 9 10 8 5 11 6 4]
-[9 5 0 4 10 11 6 1 3 7 8 2]
-[4 0 9 1 8 10 5 6 2 3 11 7]
+[1 4 2 5 0 10 3 6 11 7 9 8]
+[7 11 4 2 10 8 0 9 6 1 3 5]
+[2 10 11 6 5 4 3 0 1 7 8 9]
+[6 4 9 0 7 11 5 2 8 3 10 1]
 END
 
 my $jvm = qq:to/END/;
@@ -107,5 +104,4 @@ Via Perl 6 method pick
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
