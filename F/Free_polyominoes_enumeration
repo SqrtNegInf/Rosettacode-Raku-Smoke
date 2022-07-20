@@ -4,123 +4,97 @@
 #c# 2022-xx-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# from sidef/ruby
 #n# OEIS:A000105
 
 my @res;
 
-my @new = "#\n";
+sub translate2origin(\poly) {
+  # Finds the min x and y coordiate of a Polyomino.
+# my $minx = poly.map(:head).min;
+# my $miny = poly.map(:tail).min;
+  my $minx = min (flat poly).map: *.[0]; # flat if multiple?
+  my $miny = min (     poly).map: *.[1]; # or not
+  #poly.map {|p| [p.head-$minx, p.tail-$miny] }.sort
+}
 
-for 2..10 -> $N {
-  @new = find( @new );
-  my %allbest;
-  %allbest{best($_)}++ for @new;
-  my @show = @new = sort keys %allbest;
-  @res.push: sprintf "rank: %2d  count: %d\n", $N, scalar @show;
-  if @show <= 12 {
-    my $fmt = join '', map({ /\n/; '%' . ($+[0] + 1) . 's' }, @show), "\n";  # Perlism
-    my $line;
-    grep {$_}, @show and $line ~= sprintf($fmt, map { s/(.*)\n// && $0}, @show) for 0 .. $N;
-    @res.push: $line;
+sub rotate90(\x,\y) { [ y, -x] }
+sub  reflect(\x,\y) { [-x,  y] }
+
+# All the plane symmetries of a rectangular region.
+sub rotations_and_reflections(\poly) {
+    gather {
+        take(poly);
+        take( rotate90(poly) ) for ^3;
+        take( reflect(poly) );
+        take( rotate90(poly) ) for ^3;
     }
 }
 
-sub bare ($p) {
-  $p ~~ s/^^ \s* \n//gm;            # Perlism
-  $p ~~ s/^^ //gm until /^#/m;          # Perlism
-  $p ~~ s/ $//gm until /#$/m;           # Perlism
-  $p;
+sub canonical(\poly) {
+  rotations_and_reflections(poly).map: -> \pl { translate2origin(pl) }
 }
 
-sub transpose {
-  local $_ = shift;     # Perlism
-  my $t = '';
-  $t ~= "\n" while s/^./ $t ~= $&; '' /gem;
-  $t;
+# All four points in Von Neumann neighborhood.
+sub contiguous(\x, \y) {
+  [[x-1, y], [x+1, y], [x, y-1], [x, y+1]]
 }
 
-sub rotate {
-  local $_ = shift;     # Perlism
-  my $t = '';
-  $t ~= "\n" while s/.$/ $t ~= $&; '' /gem;
-  $t;
+# Finds all distinct points that can be added to a Polyomino.
+sub new_points(\poly) {
+  my @points = Set();
+  #poly.each { points << contiguous(_...)... }
+  #points - poly
 }
 
-sub best ($input) {
-  my %all = ($input, 1);
-  for keys %all -> $p {
-    %all{ my $tmp = rotate $p }++;
-    %all{ rotate $tmp }++;
+sub new_polys (\polys) {
+#`{{
+  my $pattern = Set()
+  polys.map { |poly|
+    gather {
+      new_points(poly).each { |point|
+        my $pl = translate2origin(poly + [point])
+        next if $pattern.has($pl)
+        take canonical($pl).each{ $pattern << _ }.min
+      }
+    }...
   }
-  %all{ transpose $_ }++ for keys %all;
-  %all{ s/(.+)/reverse $1/ger }++ for keys %all;        # mirror
-  (sort keys %all)[*-1];
+}}
 }
 
-sub find (@before) {
-  my %new;
-  for @before -> $p {
-    local $_ = $p;          # Perlism
-    s/^^/ /gm;
-    s/\n/ \n/g;
-    my $line = s/\n.*/\n/sr =~ tr/\n/ /cr;
-    $_ = $line ~ $_ ~ $line;
-    my $n = -1 + length $line;
-    my $gap = qr/.{$n}/s;
-    $new{ bare "$`#$'" }++ while / (?=#)/g;         # Perlism
-    $new{ bare "$`#$'" }++ while / (?=$gap#)/g;         # Perlism
-    $new{ bare "$`#$'" }++ while /(?<=#) /g;            # Perlism
-    $new{ bare "$`#$'" }++ while /(?<=#$gap) /g;            # Perlism
+# Generates polyominoes of rank n recursively.
+sub rank(\n) {
+  given (n) {
+    when (0) { [[]] }
+    when (1) { [[[0,0]]] }
+    default     { new_polys(rank(n-1)) }
   }
-  keys %new;
 }
 
-.say for @res;
-exit;
+# Generates a textual representation of a Polyomino.
+sub text_representation(\poly) {
+  my %table = Hash();
+  for poly -> \x, \y { %table{[x,y]} = '#' }
+    #my $maxx = poly.map(:head).max;
+    #my $maxy = poly.map(:tail).max;
+    my $maxx = max poly.map: *.[0];
+    my $maxy = max poly.map: *.[1];
 
-my $ref = qq:to/END/;
-rank:  2  count: 1
+    #(0..$maxx).map{|x| (0..$maxy).map{|y| %table{[x,y]} \\ ' ' }.join }
+}
 
-  ##
+#say 8.of { rank(_).len }
 
-rank:  3  count: 2
+my $n = 3;
+say "\nAll free polyominoes of rank %d:", $n;
+rank($n); #.sort.each{|poly| say text_representation(poly).join("\n")+"\n" }
 
-  ##  ###
-  #      
-
-rank:  4  count: 5
-
-  ##  ##   ###  ###  ####
-  ##   ##   #   #        
-
-rank:  5  count: 12
-
-   #   ##   ##   ##   ###  ###  ###  ###  ###   ####  ####  #####
-  ###   #    ##   ##   #   #    # #  ##     ##   #    #          
-   #    ##    #   #    #   #                                     
-
-rank:  6  count: 35
-
-rank:  7  count: 108
-
-rank:  8  count: 369
-
-rank:  9  count: 1285
-
-rank: 10  count: 4655
-
-END
-
-use Test::More;
-chomp $ref;
-is ($result, $ref);
-done_testing();
-
-END
+# [1, 1, 1, 2, 5, 12, 35, 108]
 
 use Test;
 #my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 #is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);$
-is @res.join("\n"), chomp $ref;
+#is @res.join("\n"), chomp $ref;
 
 =finish
 
@@ -130,4 +104,46 @@ is @res.join("\n"), chomp $ref;
 {{out}}
 <pre style="height:20ex">
 </pre>
-[https://github.com/SqrtNegInf/Rosettacode-Raku-Smoke/blob/master/ref/xx xx]
+
+
+All free polyominoes of rank 5:
+#####
+
+####
+#   
+
+####
+ #  
+
+###
+## 
+
+###
+# #
+
+###
+#  
+#  
+
+###
+ # 
+ # 
+
+### 
+  ##
+
+## 
+ ##
+ # 
+
+## 
+ ##
+  #
+
+## 
+ # 
+ ##
+
+ # 
+###
+ # 
