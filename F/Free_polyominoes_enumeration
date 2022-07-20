@@ -1,0 +1,133 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Free_polyominoes_enumeration
+#t# inprogress
+#c# 2022-xx-xx >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# OEIS:A000105
+
+my @res;
+
+my @new = "#\n";
+
+for 2..10 -> $N {
+  @new = find( @new );
+  my %allbest;
+  %allbest{best($_)}++ for @new;
+  my @show = @new = sort keys %allbest;
+  @res.push: sprintf "rank: %2d  count: %d\n", $N, scalar @show;
+  if @show <= 12 {
+    my $fmt = join '', map({ /\n/; '%' . ($+[0] + 1) . 's' }, @show), "\n";  # Perlism
+    my $line;
+    grep {$_}, @show and $line ~= sprintf($fmt, map { s/(.*)\n// && $0}, @show) for 0 .. $N;
+    @res.push: $line;
+    }
+}
+
+sub bare ($p) {
+  $p ~~ s/^^ \s* \n//gm;            # Perlism
+  $p ~~ s/^^ //gm until /^#/m;          # Perlism
+  $p ~~ s/ $//gm until /#$/m;           # Perlism
+  $p;
+}
+
+sub transpose {
+  local $_ = shift;     # Perlism
+  my $t = '';
+  $t ~= "\n" while s/^./ $t ~= $&; '' /gem;
+  $t;
+}
+
+sub rotate {
+  local $_ = shift;     # Perlism
+  my $t = '';
+  $t ~= "\n" while s/.$/ $t ~= $&; '' /gem;
+  $t;
+}
+
+sub best ($input) {
+  my %all = ($input, 1);
+  for keys %all -> $p {
+    %all{ my $tmp = rotate $p }++;
+    %all{ rotate $tmp }++;
+  }
+  %all{ transpose $_ }++ for keys %all;
+  %all{ s/(.+)/reverse $1/ger }++ for keys %all;        # mirror
+  (sort keys %all)[*-1];
+}
+
+sub find (@before) {
+  my %new;
+  for @before -> $p {
+    local $_ = $p;          # Perlism
+    s/^^/ /gm;
+    s/\n/ \n/g;
+    my $line = s/\n.*/\n/sr =~ tr/\n/ /cr;
+    $_ = $line ~ $_ ~ $line;
+    my $n = -1 + length $line;
+    my $gap = qr/.{$n}/s;
+    $new{ bare "$`#$'" }++ while / (?=#)/g;         # Perlism
+    $new{ bare "$`#$'" }++ while / (?=$gap#)/g;         # Perlism
+    $new{ bare "$`#$'" }++ while /(?<=#) /g;            # Perlism
+    $new{ bare "$`#$'" }++ while /(?<=#$gap) /g;            # Perlism
+  }
+  keys %new;
+}
+
+.say for @res;
+exit;
+
+my $ref = qq:to/END/;
+rank:  2  count: 1
+
+  ##
+
+rank:  3  count: 2
+
+  ##  ###
+  #      
+
+rank:  4  count: 5
+
+  ##  ##   ###  ###  ####
+  ##   ##   #   #        
+
+rank:  5  count: 12
+
+   #   ##   ##   ##   ###  ###  ###  ###  ###   ####  ####  #####
+  ###   #    ##   ##   #   #    # #  ##     ##   #    #          
+   #    ##    #   #    #   #                                     
+
+rank:  6  count: 35
+
+rank:  7  count: 108
+
+rank:  8  count: 369
+
+rank:  9  count: 1285
+
+rank: 10  count: 4655
+
+END
+
+use Test::More;
+chomp $ref;
+is ($result, $ref);
+done_testing();
+
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);$
+is @res.join("\n"), chomp $ref;
+
+=finish
+
+=={{header|Raku}}==
+<lang perl6>
+</lang>
+{{out}}
+<pre style="height:20ex">
+</pre>
+[https://github.com/SqrtNegInf/Rosettacode-Raku-Smoke/blob/master/ref/xx xx]
