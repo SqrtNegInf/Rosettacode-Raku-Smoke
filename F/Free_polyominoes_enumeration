@@ -9,19 +9,17 @@
 
 my @res;
 
+# subtract min x/y coordiates of polyomino
 sub translate2origin(\poly) {
-  # Finds the min x and y coordiate of a Polyomino.
-# my $minx = poly.map(:head).min;
-# my $miny = poly.map(:tail).min;
-  my $minx = min (flat poly).map: *.[0]; # flat if multiple?
-  my $miny = min (     poly).map: *.[1]; # or not
-  #poly.map {|p| [p.head-$minx, p.tail-$miny] }.sort
+  my $minx = min poly>>.[0];      # 
+  my $miny = min poly.map: *.[1]; # or 
+  poly.map: -> \p { [p[0]-$minx, p[1]-$miny] }.sort
 }
 
 sub rotate90(\x,\y) { [ y, -x] }
 sub  reflect(\x,\y) { [-x,  y] }
 
-# All the plane symmetries of a rectangular region.
+# all the plane symmetries of a rectangular region
 sub rotations_and_reflections(\poly) {
     gather {
         take(poly);
@@ -35,12 +33,12 @@ sub canonical(\poly) {
   rotations_and_reflections(poly).map: -> \pl { translate2origin(pl) }
 }
 
-# All four points in Von Neumann neighborhood.
+# all four points in Von Neumann neighborhood
 sub contiguous(\x, \y) {
   [[x-1, y], [x+1, y], [x, y-1], [x, y+1]]
 }
 
-# Finds all distinct points that can be added to a Polyomino.
+# finds all distinct points that can be added to a polyomino
 sub new_points(\poly) {
   my @points = Set();
   #poly.each { points << contiguous(_...)... }
@@ -48,37 +46,35 @@ sub new_points(\poly) {
 }
 
 sub new_polys (\polys) {
-#`{{
-  my $pattern = Set()
-  polys.map { |poly|
+  my $pattern = Set();
+  for polys -> \poly {
     gather {
-      new_points(poly).each { |point|
-        my $pl = translate2origin(poly + [point])
-        next if $pattern.has($pl)
-        take canonical($pl).each{ $pattern << _ }.min
+      for new_points(poly) -> \point {
+        my $pl = translate2origin(poly + [point]);
+        next if $pl ∈ $pattern;
+        take min $pattern>>.&canonical($pl); #.each $pattern << _ .min
       }
-    }...
+    }
   }
-}}
 }
 
-# Generates polyominoes of rank n recursively.
+# generate polyominoes of rank n recursively
 sub rank(\n) {
   given (n) {
     when (0) { [[]] }
     when (1) { [[[0,0]]] }
-    default     { new_polys(rank(n-1)) }
+    default  { new_polys(rank(n-1)) }
   }
 }
 
-# Generates a textual representation of a Polyomino.
+# generate a textual representation of a polyomino
 sub text_representation(\poly) {
   my %table = Hash();
   for poly -> \x, \y { %table{[x,y]} = '#' }
     #my $maxx = poly.map(:head).max;
     #my $maxy = poly.map(:tail).max;
-    my $maxx = max poly.map: *.[0];
-    my $maxy = max poly.map: *.[1];
+    my $maxx = max poly>>.[0];
+    my $maxy = max poly>>.[1];
 
     #(0..$maxx).map{|x| (0..$maxy).map{|y| %table{[x,y]} \\ ' ' }.join }
 }
