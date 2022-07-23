@@ -1,8 +1,10 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Wasteful,_equidigital_and_frugal_numbers
-#c# 2022-07-16 <RC
+#c# 2022-07-16 <RC, 2022-07-22 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# using lower limits than on RC (for these cache provides limited, if any, benefit)
+#n# full run with 10e4/10e6 limits > 5 min
 #n# OEIS:A046760 Wasteful numbers
 #n# OEIS:A046758 Equidigital numbers
 #n# OEIS:A046759 Frugal numbers
@@ -11,33 +13,39 @@ my @res;
 
 use Prime::Factor;
 use Lingua::EN::Numbers;
-
-sub frugal      ($n, $base = 10) { ($n >  1) && $n.base($base).chars >  sum $n.&prime-factors.Bag.map: { .key.base($base).chars + (.value > 1 ?? .value.base($base).chars !! 0) } }
-sub equidigital ($n, $base = 10) { ($n == 1) || $n.base($base).chars == sum $n.&prime-factors.Bag.map: { .key.base($base).chars + (.value > 1 ?? .value.base($base).chars !! 0) } }
-sub wasteful    ($n, $base = 10) {              $n.base($base).chars <  sum $n.&prime-factors.Bag.map: { .key.base($base).chars + (.value > 1 ?? .value.base($base).chars !! 0) } }
-
+ 
+my %cache;
+ 
+sub factor-char-sum ($n, $base = 10) { sum $n.&prime-factors.Bag.map: { .key.base($base).chars + (.value > 1 ?? .value.base($base).chars !! 0) } }
+ 
+sub economical  ($n, $base = 10) { ($n >  1) && $n.base($base).chars >  (%cache{$base}[$n] //= factor-char-sum $n, $base) }
+sub equidigital ($n, $base = 10) { ($n == 1) || $n.base($base).chars == (%cache{$base}[$n] //= factor-char-sum $n, $base) }
+sub extravagant ($n, $base = 10) {              $n.base($base).chars <  (%cache{$base}[$n] //= factor-char-sum $n, $base) }
+ 
 for 10, 11 -> $base {
+    %cache{$base}[1e6] = Any; # preallocate to avoid concurrency issues
     @res.push: "\nIn Base $base:";
-    for &wasteful, &equidigital, &frugal -> &sub {
+    for &extravagant, &equidigital, &economical -> &sub {
         @res.push: "\nFirst 50 {&sub.name} numbers:";
         @res.push: (^∞).grep( {.&sub($base)} )[^50].batch(10)».&comma».fmt("%6s").join: "\n";
-        @res.push: "1,000th: " ~ (^∞).hyper(:2000batch).grep( {.&sub($base)} )[999].&comma;
+        @res.push: "1,000th: " ~ (^∞).hyper.grep( {.&sub($base)} )[999].&comma;
     }
-
+ 
     my $upto = 1e4.Int;
-    my atomicint ($Wasteful, $Equidigital, $Frugal);
+    my atomicint ($extravagant, $equidigital, $economical);
     @res.push: "\nOf the positive integers up to {$upto.&cardinal} :";
-    (1..^$upto).race.map: { .&frugal($base) ?? ++⚛$Frugal !! .&equidigital($base) ?? ++⚛$Equidigital !! ++⚛$Wasteful };
-    @res.push: "   Wasteful: {comma $Wasteful}\nEquidigital: {comma $Equidigital}\n     Frugal: {comma $Frugal}";
+    (1..^$upto).race.map: { .&extravagant($base) ?? ++⚛$extravagant !! .&equidigital($base) ?? ++⚛$equidigital !! ++⚛$economical };
+    @res.push: " Extravagant: {comma $extravagant}\n Equidigital: {comma $equidigital}\n  Economical: {comma $economical}";
+    %cache{$base} = Empty;
 }
 
-.say for @res;
+#.say for @res;
 
 my $ref = q:to/END/;
 
 In Base 10:
 
-First 50 wasteful numbers:
+First 50 extravagant numbers:
      4      6      8      9     12     18     20     22     24     26
     28     30     33     34     36     38     39     40     42     44
     45     46     48     50     51     52     54     55     56     57
@@ -53,7 +61,7 @@ First 50 equidigital numbers:
    105    106    107    109    111    112    113    115    118    119
 1,000th: 2,765
 
-First 50 frugal numbers:
+First 50 economical numbers:
    125    128    243    256    343    512    625    729  1,024  1,029
  1,215  1,250  1,280  1,331  1,369  1,458  1,536  1,681  1,701  1,715
  1,792  1,849  1,875  2,048  2,187  2,197  2,209  2,401  2,560  2,809
@@ -62,13 +70,13 @@ First 50 frugal numbers:
 1,000th: 160,801
 
 Of the positive integers up to ten thousand :
-   Wasteful: 7,709
-Equidigital: 2,236
-     Frugal: 54
+ Extravagant: 7,709
+ Equidigital: 2,236
+  Economical: 54
 
 In Base 11:
 
-First 50 wasteful numbers:
+First 50 extravagant numbers:
      4      6      8      9     10     12     18     20     22     24
     26     28     30     33     34     36     38     39     40     42
     44     45     46     48     50     51     52     54     55     56
@@ -84,7 +92,7 @@ First 50 equidigital numbers:
    109    113    121    122    123    127    129    131    133    134
 1,000th: 2,823
 
-First 50 frugal numbers:
+First 50 economical numbers:
    125    128    243    256    343    512    625    729  1,024  1,331
  1,369  1,458  1,536  1,681  1,701  1,715  1,792  1,849  1,875  2,048
  2,187  2,197  2,209  2,401  2,560  2,809  3,072  3,125  3,481  3,584
@@ -93,9 +101,9 @@ First 50 frugal numbers:
 1,000th: 222,784
 
 Of the positive integers up to ten thousand :
-   Wasteful: 7,478
-Equidigital: 2,468
-     Frugal: 53
+ Extravagant: 7,478
+ Equidigital: 2,468
+  Economical: 53
 END
 
 use Test;
