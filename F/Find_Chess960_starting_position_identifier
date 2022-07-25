@@ -1,80 +1,61 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Find_Chess960_starting_position_identifier
-#c# 2021-09-11 <RC, 2021-09-14 >RC, 2022-07-23 >RC
+#c# 2021-09-11 <RC, 2021-09-14 >RC, 2022-07-24 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# avoid sub-scripting
 
 my @res;
 
-#my @a = <K Q> X=> 1;
-#my @b = <B N R> X=> 2;
-#say @a;
-#say @b;
-
-my @c = flat (<K Q> X, 1), (<B N R> X, 2);
-say @c;
-
-#my @d = <K 1 Q 1 B 2 N 2 R 2>;
-#say @d;
-#=finish
-
 # derive a chess960 position's SP-ID
-sub MAIN($array = '♖♘♗♕♔♗♘♖') {
+sub c960-spid($array = '♖♘♗♕♔♗♘♖') {
 
-# standardsze on letters for easier processing
-my $ascii = $array.trans('♜♞♝♛♚♖♘♗♕♔' => 'RNBQKRNBQK');
+    # standardize on letters for easier processing
+    my $ascii = $array.trans('♜♞♝♛♚♖♘♗♕♔' => 'RNBQK');
 
-# error-checking
-my %Names = <Q Queen K King R Rook N Knight B Bishop>;
-#for <K 1 Q 1 B 2 N 2 R 2> -> $piece, $count {
-for (flat (<K Q> X, 1), (<B N R> X, 2)) -> $piece, $count {
-    die "Illegal position: should have exactly $count %Names{$piece}\(s\)\n" unless $count == $ascii.indices($piece)
+    # error-checking
+    my %Names = <Q Queen K King R Rook N Knight B Bishop>;
+    #for <K 1 Q 1 B 2 N 2 R 2> -> $piece, $count 
+    for (flat (<K Q> X, 1), (<B N R> X, 2)) -> $piece, $count {
+        return "Illegal position: should have exactly $count %Names{$piece}\(s\)\n" unless $count == $ascii.indices($piece)
+    }
+    return 'Illegal position: should have exactly eight pieces' unless 8 == $ascii.chars;
+    return 'Illegal position: Bishops not on opposite colors.'  unless 1 == sum $ascii.indices('B').map(* % 2);
+    return 'Illegal position: King not between rooks.'          unless $ascii ~~ /'R' .* 'K' .* 'R'/;
+    #die 'Illegal position: Bishops not on opposite colors.'    if [+]($ascii.indices('B').map(* % 2)) != 1;
+
+    # Work backwards through the placement rules.
+    # King and rooks are forced during placement, so ignore them. 
+
+    # 1. Figure out which knight combination was used:
+    my @knights = $ascii.subst(/<[QB]>/, '', :g).indices('N');
+
+    #my $knight = combinations(5,2).kv.grep( -> $i,@c { @c eq @knights } )[0][0]; 
+    my $knight = combinations(5,2).kv.grep( -> $i, @c { @c eq @knights } ).flat.first;
+
+    # 2. Then which queen position:
+    my $queen = $ascii.subst('B', '', :g).index('Q');
+
+    # 3. Finally the two bishops:
+    my @bishops = $ascii.indices('B');
+    #my $dark  = @bishops.grep({     $_ %% 2 })[0] div 2;
+    #my $light = @bishops.grep({ not $_ %% 2 })[0] div 2;
+    my ($dark,$light) = (@bishops.first %% 2 ?? @bishops !! @bishops.reverse) Xdiv 2; # or .rotate
+
+    join ' ', $ascii.trans('RNBQK' => '♖♘♗♕♔'), 4 × (4 × (6 × $knight + $queen) + $dark) + $light;
+    #$ascii.trans('RNBQK' => '♖♘♗♕♔') ~ ' ' ~ 4 × (4 × (6 × $knight + $queen) + $dark) + $light;
 }
-die 'Illegal position: should have exactly eight pieces' unless 8 == $ascii.chars;
-die 'Illegal position: Bishops not on opposite colors.'  unless 1 == sum $ascii.indices('B').map(* % 2);
-die 'Illegal position: King not between rooks.'          unless $ascii ~~ /'R' .* 'K' .* 'R'/;
-#die 'Illegal position: Bishops not on opposite colors.'    if [+]($ascii.indices('B').map(* % 2)) != 1;
 
-# Work backwards through the placement rules.
-# King and rooks are forced during placement, so ignore them. 
-
-# 1. Figure out which knight combination was used:
-my @knights = $ascii.subst(/<[QB]>/, '', :g).indices('N');
-
-#my $knight = combinations(5,2).kv.grep( -> $i,@c { @c eq @knights } )[0][0]; 
-my $knight = combinations(5,2).kv.grep( -> $i, @c { @c eq @knights } ).flat.first;
-
-# 2. Then which queen position:
-my $queen = $ascii.subst(/<[B]>/, '', :g).index('Q');
-
-# 3. Finally the two bishops:
-my @bishops = $ascii.indices('B');
-#my $dark  = @bishops.grep({     $_ %% 2 })[0] div 2;
-#my $light = @bishops.grep({ not $_ %% 2 })[0] div 2;
-my ($dark,$light) = (@bishops.first %% 2 ?? @bishops !! @bishops.reverse) Xdiv 2; # or .rotate
-
-my $sp-id = 4 × (4 × (6 × $knight + $queen) + $dark) + $light;
-
-$ascii.trans('RNBQK' => '♖♘♗♕♔') ~ " $sp-id"
-}
-
-#@res.push: MAIN('QNBRBNKR'); # test error-checking
-
-@res.push: MAIN('♕♘♖♗♗♘♔♖');
-@res.push: MAIN('QNRBBNKR');
-@res.push: MAIN('RQNBBKRN');
-@res.push: MAIN('RNQBBKRN');
-@res.push: MAIN();
+@res.push: .&c960-spid for <♖♘♗♕♔♗♘♖ ♛♞♜♝♝♞♚♜ RQNBBKRN RNQBBKRN QNBRBNKR>;
 
 .say for @res;
 
 my $ref = q:to/END/;
-♕♘♖♗♗♘♔♖ 105
+♖♘♗♕♔♗♘♖ 518
 ♕♘♖♗♗♘♔♖ 105
 ♖♕♘♗♗♔♖♘ 601
 ♖♘♕♗♗♔♖♘ 617
-♖♘♗♕♔♗♘♖ 518
+Illegal position: Bishops not on opposite colors.
 END
 
 use Test;
