@@ -1,19 +1,19 @@
-Welcome to Rakudo™ v2022.06-60-ga7e9b1938.
+Welcome to Rakudo™ v2022.06-62-g31779f470.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-6-gc315523ab.
 updating from RC...
-+--------------> Moar: Good/Bad [1468/27]
-|+-------------> JVM: Good/Bad [1279/296]
-||+------------> Smoke testing [1421]
++--------------> Moar: Good/Bad [1468/28]
+|+-------------> JVM: Good/Bad [1279/298]
+||+------------> Smoke testing [1422]
 |||+-----------> sKipping validation [141]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [386]
 ||||||+--------> Concurrent/Async [104]
 |||||||+-------> Random seed [132]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [368]
+|||||||||+-----> Draft [369]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [108]
+|||||||||||+---> Void (no local copy) [107]
 ||||||||||||+--> Un-implemented/reliable [58]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -472,7 +472,7 @@ GGS......D... Exactly_three_adjacent_3_in_lists
 GGS.......... Exceptions-1
 GGS.......... Exceptions-2
 GGS.......... Exceptions_Catch_an_exception_thrown_in_a_nested_call
-GGS...C...... Executable_library
+!GS...C...... Executable_library
 GGS.......... Execute_Brainfuck
 ...........VU Execute_Computer_Zero
 GGS..T...D... Execute_CopyPasta_Language
@@ -592,6 +592,7 @@ GGS.......... Gamma_function
 GGS.......... Gapful_numbers
 GGS..T....... Gauss-Jordan_matrix_inversion
 GGS..T....... Gaussian_elimination
+GBS......D... Gaussian_primes
 GGS.......... General_FizzBuzz
 GGS..T...D... Generalised_floating_point_addition
 .........DXVU Generalised_floating_point_multiplication
@@ -1593,7 +1594,7 @@ GBS..T....... Truncate_a_file
 GGS..T....... Truth_table
 GGS..T....... Twelve_statements
 GBS.......... Twin_primes
-...........V. Two%27s_complement
+BB........... Two%27s_complement
 !GS....R..... Two_bullet_roulette
 GGS......D... Two_identical_strings
 .........D... Two_sum
