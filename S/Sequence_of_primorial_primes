@@ -8,7 +8,8 @@ constant @primes     = |grep *.is-prime, 2..*;
 constant @primorials = [\*] 1, @primes;
 
 my @pp_indexes := |@primorials.pairs.map: {
-    .key if ( .value + any(1, -1) ).is-prime
+    .key if ( .value X+ (1, -1) ).any.is-prime  # TIL in-line method-chain junction
+   #.key if ( .value + any(1, -1) ).is-prime
 };
 
 say my @pp_copy = ~ @pp_indexes[ 0 ^.. 20 ]; # Skipping bogus first element.
