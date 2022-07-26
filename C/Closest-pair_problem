@@ -4,10 +4,10 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# always random points, just test that both methods agree
-#n# 2022-06-10 surprise! refactor made it 2x faster
+#n# 2022-06-10 surprise! refactor made it faster (not the intent, just a side-affect)
 #n#            next step: concurrency (see -2 version)
 
-sub dist-squared-slow (@a, @b) { [+] (@a Z- @b) X ² }  # cute, but much slower
+sub dist-squared-slow (@a, @b) { [+] (@a Z- @b) X ² }  # cute, but much slower, do not use
 
 sub dist-squared(@a, @b) { (@a[0] - @b[0])² + (@a[1] - @b[1])² }
 
@@ -51,9 +51,6 @@ sub closest-pair-real(@rx, @ry) {
 }
 
 my @points = (^1000).map: { [rand × 20 - 10, rand × 20 - 10] }
-
-#printf "%.8f between (%.5f, %.5f), (%.5f, %.5f)\n", $_[2], @($_[1]), @($_[0]) for
-#    closest-pair(@points), closest-pair-simple(@points);
 
 say '1000 points';
 
