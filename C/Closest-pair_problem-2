@@ -3,13 +3,9 @@
 #c# 2016-04-05 <RC, 2022-06-11 >RC, 2022-06-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-06-10 surprise! refactor made it 2x faster (when including both the slow & fast)
-#n# 2022-06-13 concurrency gives a notable boost for the faster algo.
-#n#  for 50K: 
-#n#       simple: ~2.5  hrs
-#n#         real: ~20  secs
-#n# race, simple: ~2.5 secs
-#n# race,   real: ~2.5 secs
+#n# 2022-06-10 surprise! refactor made it faster (not the intent, just a side-affect)
+#n# 2022-07-26 concurrency gives a especially notable boost for the 'simple' routine (from glacial to rocket-powered)
+#n#            optimal 'batch' size is really small, less than a dozen; makes sense if you think about it...
 
 srand 123456;
 
@@ -30,7 +26,6 @@ sub closest-pair-simple(@points is copy) {
 }
 
 sub closest-pair(@r) {
-    #closest-pair-real @r, @r.sort: *.[1]              # already sorted on .[0]? doesn't seem to make a diff
     closest-pair-real (@r.sort: *.[0]), @r.sort: *.[1]
 }
 
@@ -59,7 +54,7 @@ sub closest-pair-real(@rx, @ry) {
 
 my @points = (^50000).map: { [rand × 20 - 10, rand × 20 - 10] }
 
-say '50000 points';
+#say '50000 points';
 
 my $start = now;
 my @candidates1 = @points.sort(*.[0]).rotor( 10 => -2, :partial).race.map: { closest-pair-simple(@$_) }
@@ -72,5 +67,7 @@ say 'real ' ~ my $result2 = (@candidates2.sort: *.[2]).head(1).gist;
 say now - $start;
 
 use Test;
+#is $result1, $result2;
 is $result1, '(([5.357253647936908 4.854172412139823] [5.3571808948036335 4.853905220434942] 0.00027691952902988656))'; # simple
-is $result2, '(([5.3571808948036335 4.853905220434942] [5.357253647936908 4.854172412139823] 0.00027691952902988656))'; # real
+is $result2, '(([5.357253647936908 4.854172412139823] [5.3571808948036335 4.853905220434942] 0.00027691952902988656))'; # real flippped?
+#is $result2, '(([5.3571808948036335 4.853905220434942] [5.357253647936908 4.854172412139823] 0.00027691952902988656))'; # real
