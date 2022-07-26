@@ -3,15 +3,12 @@
 #c# 2016-04-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# not random after all?
+#n# not random after all? [why did I say this? I forget...]
+#n# in this version, the 'simple' routine is decidedly slower: 1.2sec vs 86.5sec
 
 srand 123456;
 
-#Translation of: Perl 5
-#We avoid taking square roots in the slow method because the squares are just as comparable.
-#(This doesn't always work in the fast method because of distance assumptions in the algorithm.)
-
-sub MAIN ($N = 1000) {
+sub MAIN ($N = 5000) {
     my @points = (^$N).map: { [rand × 20 - 10, rand × 20 - 10] }
 
     my $start = now;
