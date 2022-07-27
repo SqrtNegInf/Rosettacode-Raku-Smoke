@@ -6,23 +6,18 @@
 #n# OEIS:A008284
 #n# OEIS:A000041
 #n# no time/memory issues any longer
-#n# http://rosettacode.org/mw/index.php?title=Oeis.org/A000041&action=edit&redlink=1
 
 my @res;
 
-my @todo = $[1];
+my @todo = $[1]; # or:  ([1],) 
 my @sums = 0;
 sub nextrow($n) {
-    for +@todo .. $n -> $l {
+    for @todo .. $n -> $l {
         my $r = [];
         for reverse ^$l -> $x {
             my @x := @todo[$x];
-            if @x {
-                $r.push: @sums[$x] += @x.shift;
-            }
-            else {
-                $r.push: @sums[$x];
-            }
+            if @x { $r.push: @sums[$x] += @x.shift }
+            else  { $r.push: @sums[$x]             }
         }
         @todo.push($r);
     }
