@@ -178,7 +178,6 @@ File: 0/9_billion_names_of_God_the_integer
 #n# OEIS:A008284
 #n# OEIS:A000041
 #n# no time/memory issues any longer
-#n# http://rosettacode.org/mw/index.php?title=Oeis.org/A000041&action=edit&redlink=1
 
 File: 0/9_billion_names_of_God_the_integer.1
 #!/usr/bin/env perl6
@@ -2282,7 +2281,7 @@ File: C/Closest-pair_problem
 #m# MOAR: OK
 #j#  JVM: OK
 #n# always random points, just test that both methods agree
-#n# 2022-06-10 surprise! refactor made it 2x faster
+#n# 2022-06-10 surprise! refactor made it faster (not the intent, just a side-affect)
 #n#            next step: concurrency (see -2 version)
 
 File: C/Closest-pair_problem-2
@@ -2291,22 +2290,26 @@ File: C/Closest-pair_problem-2
 #c# 2016-04-05 <RC, 2022-06-11 >RC, 2022-06-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-06-10 surprise! refactor made it 2x faster (when including both the slow & fast)
-#n# 2022-06-13 concurrency gives a notable boost for the faster algo.
-#n#  for 50K: 
-#n#       simple: ~2.5  hrs
-#n#         real: ~20  secs
-#n# race, simple: ~2.5 secs
-#n# race,   real: ~2.5 secs
+#n# 2022-06-10 surprise! refactor made it faster (not the intent, just a side-affect)
+#n# 2022-07-26 concurrency gives a especially notable boost for the 'simple' routine (from glacial to rocket-powered)
+#n#            optimal 'batch' size is really small, less than a dozen; makes sense if you think about it...
 
 File: C/Closest-pair_problem-3
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Closest_pair_problem
-#t# inprogress
+#n# inprogress
 #c# 2016-04-05 <RC, 2022-06-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# just for experimentation...
+#n# just for experiments
+
+File: C/Closest-pair_problem.0
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Closest-pair_problem
+#c# 2016-04-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# original version from RC, essentially same as .1 version
 
 File: C/Closest-pair_problem.1
 #!/usr/bin/env perl6
@@ -2314,7 +2317,8 @@ File: C/Closest-pair_problem.1
 #c# 2016-04-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# not random after all?
+#n# not random after all? [why did I say this? I forget...]
+#n# in this version, the 'simple' routine is decidedly slower: 1.2sec vs 86.5sec
 
 File: C/Closures_Value_capture
 #!/usr/bin/env perl6
@@ -2322,6 +2326,7 @@ File: C/Closures_Value_capture
 #c# 2015-12-20 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# just keep items order, cause it doesn't really matter anyhow
 
 File: C/Code_Golf:_Code_Golf
 #!/usr/bin/env raku
