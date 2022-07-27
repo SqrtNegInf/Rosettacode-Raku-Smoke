@@ -3,69 +3,40 @@
 #c# 2015-12-20 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# just keep items order, cause it doesn't really matter anyhow
 
-srand 123456;
-
-#All blocks are anonymous closures in Perl 6, and parameters are lexicals, so it's easy to generate a list of them. We'll use a gather/take generator loop, and call the closures in random order, just to keep things interesting.
+# All blocks are anonymous closures in Perl 6, and parameters are lexicals,
+# so it's easy to generate a list of them. We'll use a gather/take generator loop
 
 my @c = gather for ^10 -> $i {
     take { $i × $i }
 }
 
-my @res1.push: .() for @c.pick(*);  # call them in random order
+my @res1.push: .() for @c; #.pick(*);  # XX call them in random order XX
 .say for @res1;
 
-#Or equivalently, using a more functional notation:
+# Or equivalently, using a more functional notation:
+# my @res2.push: .() for pick *, map -> $i { -> {$i × $i} }, ^10;
+my @res2.push: .() for { map {$_ × $_}, ^10 };
 
-srand 123456;
-my @res2.push: .() for pick *, map -> $i { -> {$i × $i} }, ^10;
-#say '--'; .say for @res2; exit;
-
-my $moar1 = qq:to/END/;
-9
-4
-49
-1
-36
+my $ref1 = qq:to/END/;
 0
-81
-64
-25
+1
+4
+9
 16
+25
+36
+49
+64
+81
 END
 
-my $moar2 = qq:to/END/;
-49
-81
-25
-4
-1
-9
-16
-0
-36
-64
-END
-
-my $jvm = qq:to/END/;
-16
-64
-4
-81
-0
-49
-1
-9
-36
-25
+my $ref2 = qq:to/END/;
+0 1 4 9 16 25 36 49 64 81
 END
 
 use Test;
 
-if $*VM ~~ /jvm/ {
-is @res1.join("\n"), chomp $jvm;
-is @res2.join("\n"), chomp $jvm;
-} else {
-is @res1.join("\n"), chomp $moar1;
-is @res2.join("\n"), chomp $moar2;
-}
+is @res1.join("\n"), chomp $ref1;
+is @res2.join("\n"), chomp $ref2;
