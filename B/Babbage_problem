@@ -21,10 +21,10 @@ for 1 .. Inf -> $integer {
 
 # Alternatively, the following just may be declarative enough to allow Babbage to understand what's going on:
 
-say $_ if ($_²  % 1000000 == 269696) for 1..99737;
+#say $_ if ($_²  % 1000000 == 269696) for 1..99737; # magic constant, tsk
 
-# 25264
-# 99736
+#say $_ and exit if $_²  % 1000000 == 269696 for 1..Inf;
+ .say and last if $_²  % 1e6 == 269696 for ^∞;
 
 use Test;
 is $res, 25264;
