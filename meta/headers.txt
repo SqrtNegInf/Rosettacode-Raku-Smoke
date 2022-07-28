@@ -2293,6 +2293,7 @@ File: C/Closest-pair_problem-2
 #n# 2022-06-10 surprise! refactor made it faster (not the intent, just a side-affect)
 #n# 2022-07-26 concurrency gives a especially notable boost for the 'simple' routine (from glacial to rocket-powered)
 #n#            optimal 'batch' size is really small, less than a dozen; makes sense if you think about it...
+#n#            'real' routine results flipping back and forth, just test distance value
 
 File: C/Closest-pair_problem-3
 #!/usr/bin/env perl6
@@ -4320,7 +4321,7 @@ File: E/Executable_library
 #c# 2018-03-20 <RC, 2018-05-17 <RC, 2018-12-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# uses module 'Hailstone.pm'
+#n# uses module 'lib/Hailstone.pm'
 #n# what happened on 2018-12-20? (answer: use lib '.' ate time like crazy)
 
 File: E/Executable_library.jvm
@@ -7965,16 +7966,6 @@ File: L/Lychrel_numbers.1
 #    20171027: 1972.841u  6.163s 33:01.60 99.8%
 #    _NEXT_
 
-File: M/MAC_Vendor_Lookup
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/MAC_Vendor_Lookup
-#t# network
-#c# 2017-01-15 <RC, 2018-04-07 <RC
-#m# MOAR: OK
-#j#  JVM: BROKEN
-#n# VMArray representation does not implement bind_pos_native
-#n# ultimately has to do with SSL, which involves NativeCall
-
 File: M/MAC_Vendor_Lookup.1
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
@@ -7982,6 +7973,16 @@ File: M/MAC_Vendor_Lookup.1
 #c# 2017-01-15 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: M/MAC_vendor_lookup
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/MAC_vendor_lookup
+#t# network
+#c# 2017-01-15 <RC, 2018-04-07 <RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# VMArray representation does not implement bind_pos_native
+#n# ultimately has to do with SSL, which involves NativeCall
 
 File: M/MD4
 #!/usr/bin/env perl6
@@ -16080,6 +16081,7 @@ File: Z/Zeckendorf_number_representation
 #j#  JVM: OK
 #n# OEIS:A014417
 #n# OEIS:A003714
+#n# here must 'cache' with sigil-less form?  How is this different from 'C/Catalan_numbers'?
 
 File: Z/Zero_to_the_zero_power
 #!/usr/bin/env perl6
