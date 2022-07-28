@@ -5,16 +5,15 @@
 #j#  JVM: OK
 
 sub zig_zag ($n is copy) {
-    my $max = $n**2;
-    my $number = 0;
-    my @m;
+    my ($max, $number, @m) = $n**2;
     for (0 .. --$n) -> $j {
         for ( $j%2 ?? 0 .. $j !! reverse 0 .. $j) -> $i {
-            @m[   $i;     $j-$i ] = $number++;
-            @m[$n-$i; $n-($j-$i)] = $max - $number;
+            @m[     $i;      $j-$i ] = $number++;
+            @m[$n - $i; $n - $j+$i ] = $max - $number;
+#           @m[$n-$i; $n-($j-$i)] = $max - $number;
         }
     }
-    @m;
+    @m
 }
 
 say .fmt("%3d") for zig_zag(5);
@@ -27,5 +26,6 @@ my $ref = qq:to/END/;
   9  11  17  20  22
  10  18  19  23  24
 END
+
 use Test;
 is @res.join("\n"), chomp $ref;
