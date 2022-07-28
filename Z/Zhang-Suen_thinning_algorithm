@@ -8,7 +8,7 @@
 #Takes the original image from a file that may be based on any characters whose low bits are 0 or 1 (which conveniently includes . and #).
 
 my @lines = ([.ords X+& 1] for slurp("ref/zhang-suen.txt").lines); # The low bits Just Work.
-my \v = +@lines;
+my \v =  @lines;
 my \h = +@lines[0];
 my @black = flat @lines.map: *.values;   # Flatten to 1-dimensional.  # DH change
 
@@ -45,6 +45,7 @@ repeat while my @goners1 or my @goners2 {
 }
 
 my @res.push: @black.splice(0,h).join.trans('01' => '.#') while @black;
+
 .say for @res;
 
 my $ref = qq:to/END/;
@@ -70,9 +71,3 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-
-#`{ obsolete JVM error:
-Type check failed in binding to parameter '$pos'; expected Int but got List ($(0, 2, 6))
-  in code  at Zhang-Suen_thinning_algorithm line 34
-  in block <unit> at Zhang-Suen_thinning_algorithm line 44
-}
