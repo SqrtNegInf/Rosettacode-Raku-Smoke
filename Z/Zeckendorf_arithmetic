@@ -8,21 +8,21 @@
 my $z1 = '1'; # glyph to use for a '1'
 my $z0 = '0'; # glyph to use for a '0'
 
-sub zorder($a) { ($z0 lt $z1) ?? $a !! $a.trans([$z0, $z1] => [$z1, $z0]) };
+sub zorder($a) { ($z0 lt $z1) ?? $a !! $a.trans([$z0, $z1] => [$z1, $z0]) }
 
 ######## Zeckendorf comparison operators #########
 
 # less than
-sub infix:<ltz>($a, $b) { $a.&zorder lt $b.&zorder };
+sub infix:<ltz>($a, $b) { $a.&zorder lt $b.&zorder }
 
 # greater than
-sub infix:<gtz>($a, $b) { $a.&zorder gt $b.&zorder };
+sub infix:<gtz>($a, $b) { $a.&zorder gt $b.&zorder }
 
 # equal
-sub infix:<eqz>($a, $b) { $a eq $b };
+sub infix:<eqz>($a, $b) { $a eq $b }
 
 # not equal
-sub infix:<nez>($a, $b) { $a ne $b };
+sub infix:<nez>($a, $b) { $a ne $b }
 
 
 ######## Operators for Zeckendorf arithmetic ########
@@ -44,10 +44,10 @@ sub postfix:<--z>($a is rw) {
 }
 
 # addition
-sub infix:<+z>($a is copy, $b is copy) { $a++z; $a++z while $b--z nez $z0; $a };
+sub infix:<+z>($a is copy, $b is copy) { $a++z; $a++z while $b--z nez $z0; $a }
 
 # subtraction
-sub infix:<-z>($a is copy, $b is copy) { $a--z; $a--z while $b--z nez $z0; $a };
+sub infix:<-z>($a is copy, $b is copy) { $a--z; $a--z while $b--z nez $z0; $a }
 
 # multiplication
 sub infix:<*z>($a, $b) { 
@@ -62,7 +62,7 @@ sub infix:<*z>($a, $b) {
          $d++z;
     } until $d eqz $b;
     $c
-};
+}
 
 # division  (really more of a div mod)
 sub infix:</z>($a is copy, $b is copy) {
@@ -77,13 +77,13 @@ sub infix:</z>($a is copy, $b is copy) {
     } until $a ltz $b;
     $c ~= " remainder $a" if $a nez $z0;
     $c
-};
+}
 
 
 ###################### Testing ######################
 
 # helper sub to translate constants into the particular glyphs you used
-sub z($a) { $a.trans([<1 0>] => [$z1, $z0]) };
+sub z($a) { $a.trans([<1 0>] => [$z1, $z0]) }
 
 say "Using the glyph '$z1' for 1 and '$z0' for 0\n";
 
@@ -93,13 +93,13 @@ my $zeck = $z1;
 
 my @res;
 @res.push: sprintf( $fmt, "$zeck++z", $zeck++z, '# increment' ) for 1 .. 10;
-@res.push: sprintf $fmt, "$zeck +z {z('1010')}", $zeck +z= z('1010'), '# addition';
-@res.push: sprintf $fmt, "$zeck -z {z('100')}", $zeck -z= z('100'), '# subtraction';
-@res.push: sprintf $fmt, "$zeck *z {z('100101')}", $zeck *z= z('100101'), '# multiplication';
-@res.push: sprintf $fmt, "$zeck /z {z('100')}", $zeck /z= z('100'), '# division';
+@res.push: sprintf  $fmt, "$zeck +z {z('1010')}", $zeck +z= z('1010'),      '# addition';
+@res.push: sprintf  $fmt, "$zeck -z {z('100')}", $zeck -z= z('100'),        '# subtraction';
+@res.push: sprintf  $fmt, "$zeck *z {z('100101')}", $zeck *z= z('100101'),  '# multiplication';
+@res.push: sprintf  $fmt, "$zeck /z {z('100')}", $zeck /z= z('100'),        '# division';
 @res.push: sprintf( $fmt, "$zeck--z", $zeck--z, '# decrement' ) for 1 .. 5;
-@res.push: sprintf $fmt, "$zeck *z {z('101001')}", $zeck *z= z('101001'), '# multiplication';
-@res.push: sprintf $fmt, "$zeck /z {z('100')}", $zeck /z= z('100'), '# division';
+@res.push: sprintf  $fmt, "$zeck *z {z('101001')}", $zeck *z= z('101001'),  '# multiplication';
+@res.push: sprintf  $fmt, "$zeck /z {z('100')}", $zeck /z= z('100'),        '# division';
 
 .say for @res; 
 
