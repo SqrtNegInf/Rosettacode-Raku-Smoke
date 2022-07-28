@@ -5,19 +5,27 @@
 #j#  JVM: OK
 #n# OEIS:A014417
 #n# OEIS:A003714
+#n# here must 'cache' with sigil-less form?  How is this different from 'C/Catalan_numbers'?
 
-printf "%2d:%8s\n", $_, zeckendorf($_) for 0 .. 20;
+#use v6.e.PREVIEW; # for 'snip'
+
+#constant @FIBS = (1,2, *+* ... *);
+ constant  FIBS = (1,2, *+* ... *).cache; 
 
 multi zeckendorf(0) { '0' }
+
 multi zeckendorf($n is copy) {
-    constant FIBS = (1,2, *+* ... *).cache;
     [~] map {
-        $n -= $_ if my $digit = $n >= $_;
+        $n -= $_ if my $digit = $n ≥ $_;
         +$digit;
+   #}, reverse (@FIBS ...^ * > $n); # OK
+   #}, reverse snip * < $n, @FIBS;  # no, not on infinite lists
     }, reverse FIBS ...^ * > $n;
 }
 
-my @res.push: sprintf "%2d:%9s", $_, zeckendorf($_) for 0 .. 20;
+my @res.push: sprintf "%2d:%9s", $_, .&zeckendorf for ^21;
+
+.say for @res;
 
 my $ref = qq:to/END/;
  0:        0
