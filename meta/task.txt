@@ -1,20 +1,20 @@
-Welcome to Rakudo™ v2022.06-67-g621d69e0e.
+Welcome to Rakudo™ v2022.06-69-g99bafe65d.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.06-6-gc315523ab.
 updating from RC...
-+--------------> Moar: Good/Bad [1470/28]
-|+-------------> JVM: Good/Bad [1279/298]
-||+------------> Smoke testing [1423]
++--------------> Moar: Good/Bad [1472/28]
+|+-------------> JVM: Good/Bad [1281/298]
+||+------------> Smoke testing [1426]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [386]
 ||||||+--------> Concurrent/Async [103]
-|||||||+-------> Random seed [132]
+|||||||+-------> Random seed [133]
 ||||||||+------> File output [104]
 |||||||||+-----> Draft [369]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [107]
-||||||||||||+--> Un-implemented/reliable [58]
+|||||||||||+---> Void (no local copy) [105]
+||||||||||||+--> Un-implemented/reliable [57]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -278,7 +278,7 @@ GGS.......... Comments
 GGS......D... Common_list_elements
 GGS......D... Common_sorted_list
 GGS.......... Compare_a_list_of_strings
-...........V. Compare_length_of_two_strings
+GGS.......... Compare_length_of_two_strings
 ...........VU Compare_sorting_algorithms%27_performance
 GGS.......... Compile-time_calculation
 ...........VU Compiler_AST_interpreter
@@ -1594,7 +1594,7 @@ GBS..T....... Truncate_a_file
 GGS..T....... Truth_table
 GGS..T....... Twelve_statements
 GBS.......... Twin_primes
-BB........... Two%27s_complement
+GGS.......... Two%27s_complement
 !GS....R..... Two_bullet_roulette
 GGS......D... Two_identical_strings
 .........D... Two_sum
@@ -1665,7 +1665,7 @@ GGS.......... Walk_a_directory_Recursively
 GB.K......... War_card_game
 GBS...C..D... Wasteful,_equidigital_and_frugal_numbers
 GGS.......... Water_collected_between_towers
-.........D.VU Wave_function_collapse
+BBS....R.D... Wave_function_collapse
 GBS..T...D... Waveform_analysis_Doh_ray_me
 .........D.VU Waveform_analysis_Top_and_tail
 .........DXVU Weather_routing
