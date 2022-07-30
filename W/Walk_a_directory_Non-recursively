@@ -4,10 +4,13 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 'slurp-rest' deprecated, plain 'slurp' works fine
+#n# here the testing is equally instructive (since it has to be a distinct way of doing the same task)
 
 # The dir function takes the directory to traverse, and optionally a named parameter test, which is smart-matched against the basename of each file (so for example we can use a regex):
 
-.say for my @res = dir ".", :test(/txt$/);
+.say for my @res1 = dir '.',   :test(/txt$/);    # static, 1 file
+         my @res2 = dir 'tmp', :test(/^20\d\d/); # a moving target
 
 use Test;
-is +@res, +(run('ls', '-1', :out).out.slurp).split("\n").grep(/txt$/);
+is +@res1, +(run('ls', '-1',        :out).out.slurp).split("\n").grep(/txt$/);
+is +@res2, +(run('ls', '-1', 'tmp', :out).out.slurp).split("\n").grep(/^ 20\d\d /);
