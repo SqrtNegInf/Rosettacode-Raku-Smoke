@@ -15,7 +15,7 @@ my @files = ('ref/sample.txt', 'ref/sample1.txt', 'ref/sample2.txt');
     do for @files -> $file {
         %norm.push: $file X=> slurp($file).lc.words;
     }
-    (my %inv).push: %norm.invert.unique;
+    my %inv.push: %norm.invert.unique;      # '(my %inv)' - parens are not needed
 
     #while prompt("Search terms: ").words -> @words {
     my @words = ('glorp', 'zizzer');
