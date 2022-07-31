@@ -4,11 +4,9 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: sync_concur.txt
-#    reads *.base, writes *.txt, 'Run-MOAR' compares to *.txt~
 
 my $out = open('run/sync_concur.txt', :w);
 
-# Works with: rakudo version 2013-02-27
 sub MAIN ($infile = "ref/sync_concur.base") {
     $infile.IO.lines ==> printer() ==> my $count;
     $out.say: "printed $count lines";
