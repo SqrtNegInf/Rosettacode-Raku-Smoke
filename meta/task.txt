@@ -1,19 +1,19 @@
-Welcome to Rakudo™ v2022.06-70-g75fa35e40.
+Welcome to Rakudo™ v2022.06-71-gb9c90bc79.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2022.06-6-gc315523ab.
+Built on MoarVM version 2022.06-9-gced366862.
 updating from RC...
-+--------------> Moar: Good/Bad [1471/28]
-|+-------------> JVM: Good/Bad [1281/298]
-||+------------> Smoke testing [1426]
++--------------> Moar: Good/Bad [1473/28]
+|+-------------> JVM: Good/Bad [1282/298]
+||+------------> Smoke testing [1427]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [386]
+|||||+---------> Touched (modified by me) [387]
 ||||||+--------> Concurrent/Async [103]
 |||||||+-------> Random seed [133]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [369]
+|||||||||+-----> Draft [370]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [105]
+|||||||||||+---> Void (no local copy) [106]
 ||||||||||||+--> Un-implemented/reliable [57]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -1046,6 +1046,7 @@ GGS.......... Palindrome_detection
 GBS...C...... Palindromic_gapful_numbers
 GGS......D... Palindromic_primes
 GGS......D... Palindromic_primes_in_base_16
+.........D.V. Pan_base_non-primes
 GGS.......... Pancake_numbers
 GGS......D... Pandigital_prime
 GGS.......... Pangram_checker
@@ -1593,6 +1594,7 @@ GGS.......... Truncatable_primes
 GBS..T....... Truncate_a_file
 GGS..T....... Truth_table
 GGS..T....... Twelve_statements
+GGS.......... Twelve_statements-2
 GBS.......... Twin_primes
 GGS.......... Two%27s_complement
 !GS....R..... Two_bullet_roulette
@@ -1610,7 +1612,7 @@ GGS.......... UTF-8_encode_and_decode
 ...........VU Ukkonens_suffix_tree_construction
 GGS......D... Ulam_numbers
 GGS.......... Ulam_numbers-2
-GGS.....F.... Ulam_spiral_for_primes
+GGS..T..F.... Ulam_spiral_for_primes
 GGS.......... Ultra_useful_primes
 !GS..T.R..... Unbias_a_random_generator
 GGS.......... Undefined_values
@@ -1657,7 +1659,7 @@ GG.KI........ Video_display_modes
 GB.KI....D... Vidir
 GGS..T....... Vigen%C3%A8re_cipher
 GGS..TC...... Vigen%C3%A8re_cipher_Cryptanalysis
-!GS.......... Visualize_a_tree
+GGS.......... Visualize_a_tree
 GGS..T....... Vogel%27s_approximation_method
 GBS..TCRF.... Voronoi_diagram
 GGS.......... Walk_a_directory_Non-recursively
