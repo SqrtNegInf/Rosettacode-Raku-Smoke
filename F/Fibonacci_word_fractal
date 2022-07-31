@@ -3,10 +3,12 @@
 #c# 2016-03-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# see also 'U/Ulam_spiral_for_primes' which has modified Braille-graphics code
+
+my @res;
 
 constant @fib-word = '1', '0', { $^b ~ $^a } ... *;
 
-my @res;
 MAINly();
 
 sub MAINly($m = 17, $scale = 3) {
@@ -33,7 +35,7 @@ sub MAINly($m = 17, $scale = 3) {
         }
     }
 
-    sub turn-left  { $dir ×= i; }
+    sub turn-left  { $dir ×=  i; }
     sub turn-right { $dir ×= -i; }
 
 }
@@ -41,27 +43,27 @@ sub MAINly($m = 17, $scale = 3) {
 sub braille-graphics (%a) {
     my ($ylo, $yhi, $xlo, $xhi);
     for %a.keys -> $y {
-    $ylo min= +$y; $yhi max= +$y;
-    for %a{$y}.keys -> $x {
-        $xlo min= +$x; $xhi max= +$x;
-    }
+        $ylo min= +$y; $yhi max= +$y;
+        for %a{$y}.keys -> $x {
+            $xlo min= +$x; $xhi max= +$x;
+        }
     }
 
     for $ylo, $ylo + 4 ...^ * > $yhi -> \y {
-    my $line = '';
-    for $xlo, $xlo + 2 ...^ * > $xhi -> \x {
-        my $cell = 0x2800;
-        $cell += 1   if %a{y + 0}{x + 0};
-        $cell += 2   if %a{y + 1}{x + 0};
-        $cell += 4   if %a{y + 2}{x + 0};
-        $cell += 8   if %a{y + 0}{x + 1};
-        $cell += 16  if %a{y + 1}{x + 1};
-        $cell += 32  if %a{y + 2}{x + 1};
-        $cell += 64  if %a{y + 3}{x + 0};
-        $cell += 128 if %a{y + 3}{x + 1};
-        $line ~= chr($cell);
-    }
-    @res.push: $line;
+        my $line;
+        for $xlo, $xlo + 2 ...^ * > $xhi -> \x {
+            my $cell = 0x2800;
+            $cell +=   1 if %a{y + 0}{x + 0};
+            $cell +=   2 if %a{y + 1}{x + 0};
+            $cell +=   4 if %a{y + 2}{x + 0};
+            $cell +=   8 if %a{y + 0}{x + 1};
+            $cell +=  16 if %a{y + 1}{x + 1};
+            $cell +=  32 if %a{y + 2}{x + 1};
+            $cell +=  64 if %a{y + 3}{x + 0};
+            $cell += 128 if %a{y + 3}{x + 1};
+            $line ~= chr($cell);
+        }
+        @res.push: $line;
     }
 }
 
