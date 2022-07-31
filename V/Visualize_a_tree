@@ -17,9 +17,9 @@ sub visualize-tree($tree, &label, &children,
             my @children = children($node); # so ':=' wasn't doing anything special
             my $e = @children.end;
             for @children.kv -> $_, $child {
-                #when    $e { take visit($child, (@pre[1] X~ @end)) }
-                #default    { take visit($child, (@pre[1] X~ @mid)) }
-                take visit($child, (@pre[1] X~ ($e.so ?? @end !! @mid) )) # doesn't work?
+                when    $e { take visit($child, (@pre[1] X~ @end)) }
+                default    { take visit($child, (@pre[1] X~ @mid)) }
+                #take visit($child, (@pre[1] X~ ($e.so ?? @end !! @mid) )) # doesn't work?
             }
         }
     }
