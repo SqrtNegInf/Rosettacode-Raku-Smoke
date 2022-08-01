@@ -1,0 +1,85 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Find_the_last_Sunday_of_each_month
+#c# 2022-07-30 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# https://gfldex.wordpress.com/2022/07/30/swarming-sundays (not really from RC)
+
+my @res;
+
+for 2022 -> $year {
+    for 1..12 -> $month {
+        my $last-day-in-month = Date.new($year, $month, *);
+        my $Δsunday1 = $last-day-in-month.day-of-week % 7;
+        @res.push: $last-day-in-month.earlier(:days($Δsunday1));
+    }
+}
+
+@res.push: '=====';
+
+sub swarm(::Type, @sig is copy, Range $range) {
+    my $var;
+    my $marker-index = @sig.first([], :k);
+    @sig[$marker-index] := $var;
+    gather for @$range {
+        $var = $_;
+        take Type.new: |@sig;
+    }
+}
+
+my @months2 = swarm(Date, (2022, @, *), 1..12);
+my @Δsunday2 = @months2».day-of-week »%» 7;
+@res.push: $_ for @months2.map({ .earlier(:days(@Δsunday2.shift)) });
+
+@res.push: '=====';
+
+use eigenstates;
+my @months3 = Date.new(2022, (1..12).any, *).&eigenstates;
+my @Δsunday3 = @months3».day-of-week »%» 7;
+@res.push: $_ for @months3.map({ .earlier(:days(@Δsunday3.shift)) });
+
+#.say for @res;
+
+my $ref = qq:to/END/;
+2022-01-30
+2022-02-27
+2022-03-27
+2022-04-24
+2022-05-29
+2022-06-26
+2022-07-31
+2022-08-28
+2022-09-25
+2022-10-30
+2022-11-27
+2022-12-25
+=====
+2022-01-30
+2022-02-27
+2022-03-27
+2022-04-24
+2022-05-29
+2022-06-26
+2022-07-31
+2022-08-28
+2022-09-25
+2022-10-30
+2022-11-27
+2022-12-25
+=====
+2022-01-30
+2022-02-27
+2022-03-27
+2022-04-24
+2022-05-29
+2022-06-26
+2022-07-31
+2022-08-28
+2022-09-25
+2022-10-30
+2022-11-27
+2022-12-25
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
