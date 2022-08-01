@@ -4,16 +4,14 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#Works with: rakudo version 2016.08
-
 my @res;
-#sub MAIN ($year = Date.today.year) {
+
 my $year = 2018;
 for 1..12 -> $month {
     my $month-end = Date.new($year, $month, Date.new($year,$month,1).days-in-month);
     @res.push: $month-end - $month-end.day-of-week % 7;
 }
-#}
+
 .say for @res;
 
 my $ref = qq:to/END/;
