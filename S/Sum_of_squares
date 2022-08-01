@@ -1,20 +1,20 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sum_of_squares
-#c# 2015-12-06 <RC
+#c# 2015-12-06 <RC, 2022-07-31 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo version #21 "Seattle"
-say [+] map * ** 2, 3, 1, 4, 1, 5, 9;
+say [+] map * ** 2, (3, 1, 4, 1, 5, 9);  # parens not required, but add clarity
 
 # If this expression seems puzzling, note that * ** 2 is equivalent to {$^x ** 2}— the leftmost asterisk 
 # is not the multiplication operator but the Whatever star, which specifies currying behavior.
 # Another convenient way to distribute the exponentiation is via the cross metaoperator, which
 # as a list infix is looser than comma in precedence but tighter than the reduction list operator:
 
-say [+] 3,1,4,1,5,9 X** 2;
+say [+] <3 1 4 1 5 9> X** 2;             # enclose list differently
 
 use Test;
 is ([+] map * ** 2, 3, 1, 4, 1, 5, 9), 133;
 is ([+] 3,1,4,1,5,9 X** 2), 133;
-is ([+] <3 1 4 1 5 9> «**» 2), 133; # not on RC
+is ('314159'.comb «**» 2).sum, 133; # not on RC
+is ('314159'.comb »**» 2).sum, 133; # not on RC
