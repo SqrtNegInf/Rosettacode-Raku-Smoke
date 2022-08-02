@@ -31,13 +31,9 @@ solveboard q:to/END/;
     END
 
 sub solveboard($board) {
-    my $max = +$board.comb(/\w+/);
+    my $max   = +$board.comb(/\w+/);
     my $width = $max.chars;
-
-    my @grid;
-    my @known;
-    my @neigh;
-    my @degree;
+    my (@grid, @known, @neigh, @degree);
 
     @grid = $board.lines.map: -> $line {
         [ $line.words.map: { /^_/ ?? 0 !! /^\./ ?? Rat !! $_ } ]
