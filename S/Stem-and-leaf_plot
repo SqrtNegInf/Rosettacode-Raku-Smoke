@@ -3,9 +3,7 @@
 #c# 2015-12-17 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-#Translation of: Perl
-#Handles negative stems properly.
+#n# handles negative stems properly
 
 my @data = <
      12 127  28  42  39 113  42  18  44 118  44
@@ -25,13 +23,15 @@ my Int $stem_unit = 10;
 my %h = @data.classify: * div $stem_unit;
 
 my $range = [minmax] %h.keys».Int;
-my $stem_format =  "%{$range.min.chars max $range.max.chars}d";
+my $stem_format =  "%{$range.min.chars max $range.max.chars}d";  # negative values could be more chars, e.g. -5..5
 
 my @res;
 for $range.list -> $stem {
     my $leafs = %h{$stem} // [];
     @res.push: ($stem.fmt($stem_format), '|', ~$leafs.map: * % $stem_unit);
 }
+
+.say for @res; exit;
 
 my $ref = qq:to/END/;
  0 | 7 7
