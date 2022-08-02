@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-multi patience(*@deck) {
+multi patience(@deck) {
     my @stacks;
     for @deck -> $card {
         with @stacks.first: $card before *[*-1] -> $stack {
@@ -20,13 +20,10 @@ multi patience(*@deck) {
     }
 }
 
-#say ~patience ^10 . pick(*);
-
 say patience ^10 . pick(*);
 
-use Test;
-is (patience ^10 . pick(*)), qw<0 1 2 3 4 5 6 7 8 9>, 'Zero to nine.';
-
 my @weights = (^50).map: { 100 + ( 1000.rand.Int / 10 ) };
-say @weights.sort.Str eq @weights.&patience.Str ?? 'ok' !! 'not ok';
 
+use Test;
+is (patience ^10 . pick(*)), ^10;
+is @weights.sort, @weights.&patience;
