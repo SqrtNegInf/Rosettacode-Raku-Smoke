@@ -4,12 +4,19 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#The recursive formulas are easily written into a constant array, either:
+#`{
+For Catalan1:
+...-1 yields: infinite sequence
+... 0 yields: infinite sequence
+... 1 yields: 1
+... 2 yields: 1, 1, 2
+... 3 yields: infinite sequence
+
+Catalan2 increases just by one result at-a-time
+}
 
 constant Catalan1 = 1, { [+] @_ Z× @_.reverse } ... *;
 constant Catalan2 = 1, |[\×] (2, 6 ... *) Z/ 2 .. *;
-
-#In both cases, the sixteen first values can be seen with:
 
 my @res1 = Catalan1[^16];
 my @res2 = Catalan2[^16];
@@ -37,4 +44,4 @@ END
 
 use Test;
 is @res1.join("\n"), chomp $ref;
-is @res2.join("\n"), chomp $ref;
+is @res1, @res2;
