@@ -3,16 +3,7 @@
 #c# 2015-11-04 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# Unicode problem
-#`{ java.nio.charset.MalformedInputException: Input length = 1
-  in method print at gen/jvm/CORE.setting line 35089
-  in sub say at gen/jvm/CORE.setting line 35924
-  in block <unit> at Substring_Top_and_tail line 36
-}
-
-#Perl6 provides both functional and method forms of substr. Note that, unlike in Perl5, offsets from the end do not use negative numbers, but instead require a function expressing the negative offset relative to the length parameter, which is supplied by the operator. The form *-1 is just a simple way to write such a function.
-
-#We use musical sharps and flats to illustrate that Perl is comfortable with characters from any Unicode plane.
+#n# as of JVM v2022.06, no longer crashes, but also doesn't work correctly
 
 my $s = '𝄪♯♮♭𝄫';
 
