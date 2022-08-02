@@ -5652,6 +5652,7 @@ File: G/Generate_random_numbers_without_repeating_a_value-2
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# illustrate use of enhanced 'pick'
+#n# and illustrate another 'srand' fragility...
 
 File: G/Generator_Exponential
 #!/usr/bin/env perl6
@@ -13668,6 +13669,7 @@ File: S/Stem-and-leaf_plot
 #c# 2015-12-17 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# handles negative stems properly
 
 File: S/Stern-Brocot_sequence
 #!/usr/bin/env perl6
@@ -13942,12 +13944,7 @@ File: S/Substring_Top_and_tail
 #c# 2015-11-04 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# Unicode problem
-#`{ java.nio.charset.MalformedInputException: Input length = 1
-  in method print at gen/jvm/CORE.setting line 35089
-  in sub say at gen/jvm/CORE.setting line 35924
-  in block <unit> at Substring_Top_and_tail line 36
-}
+#n# as of JVM v2022.06, no longer crashes, but also doesn't work correctly
 
 File: S/Substring_primes
 #!/usr/bin/env raku
