@@ -13,8 +13,9 @@ say [+] map * ** 2, (3, 1, 4, 1, 5, 9);  # parens not required, but add clarity
 
 say [+] <3 1 4 1 5 9> X** 2;             # enclose list differently
 
+
 use Test;
 is ([+] map * ** 2, 3, 1, 4, 1, 5, 9), 133;
 is ([+] 3,1,4,1,5,9 X** 2), 133;
-is ('314159'.comb «**» 2).sum, 133; # not on RC
-is ('314159'.comb »**» 2).sum, 133; # not on RC
+is ('314159'.comb «**» 2).sum, 133; # or: »**» (not on RC)
+is (() X** 2).sum, 0;                 # to satisfy task requirement
