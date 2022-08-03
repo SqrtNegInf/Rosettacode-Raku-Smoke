@@ -1,19 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Run-length_encoding
-#c# 2015-12-10 <RC
+#c# 2015-12-10 <RC, 2016-03-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-# DH-20161206  This comment gone from RC, maybe obsolete?
-#This currently depend on a workaround to pass the match object into the replacement closure
-#as an explicit argument. This is supposed to happen automatically.
-
-#Note also that Perl 6 regexes don't care about unquoted whitespace, and that backrefs
-#count from 0, not from 1.
-
-sub encode($str) { $str.subst(/(.) $0*/, -> $/ { $/.chars ~ $0 ~ ' ' }, :g); }
-
-sub decode($str) { $str.subst(/(\d+) (.) ' '/, -> $/ {$1 x $0}, :g); }
+sub encode($str) { $str.subst(/(.) $0*/, { $/.chars ~ $0 }, :g) }
+sub decode($str) { $str.subst(/(\d+) (.)/, { $1 x $0 }, :g) }
 
 my $str = 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWBWWWWWWWWWWWWWW';
 my $e = encode($str);
@@ -21,5 +13,5 @@ say $e;
 say decode($e);
 
 use Test;
-is $e, '12W 1B 12W 3B 24W 1B 14W ';
+is $e, '12W1B12W3B24W1B14W';
 is decode($e), $str;
