@@ -4,13 +4,25 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-sub roots-of-unity (Int \n where 1..*) {
-    map { exp 2i × pi/n × $_ }, ^n;
+my (@res1,@res2);
+
+# original version
+sub roots-of-unity-a (Int \n where 1..*) {
+    map { exp 2i × π/n × $_ }, ^n;
 }
 
-printf "%+.5f%+.5fi\n", .reals for roots-of-unity 10;
-my @res;
-push @res, sprintf "%+.5f%+.5fi", .reals for roots-of-unity 10;
+# this version on RC
+# 'cis' returns a unitary complex number given its phase.
+sub roots-of-unity-b (Int \n where 1..*) {
+    for ^n -> \k {
+        push @res2, sprintf "%+.5f%+.5fi", cis(k×τ/n).reals;
+    }
+}
+
+push @res1, sprintf "%+.5f%+.5fi", .reals for roots-of-unity-a 10;
+roots-of-unity-b 10;
+
+.say for @res1;
 
 my $ref = qq:to/END/;
 +1.00000+0.00000i
@@ -26,4 +38,5 @@ my $ref = qq:to/END/;
 END
 
 use Test;
-is (join "\n", @res), chomp $ref;
+is (join "\n", @res1), chomp $ref;
+is (join "\n", @res2), chomp $ref;
