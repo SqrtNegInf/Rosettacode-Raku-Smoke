@@ -4,10 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#The following implementation takes all data as input. Ideally, input should be given lazily or something.
-
-my $out = sha256 "Rosetta code";
-
 sub init(&f) {
     map { my $f = $^p.&f; (($f - $f.Int)×2**32).Int },
     state @ = grep *.is-prime, 2 .. *;
@@ -17,14 +13,16 @@ sub infix:<m+> { ($^a + $^b) % 2**32 }
 sub rotr($n, $b) { $n +> $b +| $n +< (32 - $b) }
 
 proto sha256($) returns Blob {*}
+
 multi sha256(Str $str where all($str.ords) < 128) {
     sha256 $str.encode: 'ascii'
 }
+
 multi sha256(Blob $data) {
     constant K = init(* **(1/3))[^64];
     my @b = flat $data.list, 0x80;
     push @b, 0 until (8 × @b - 448) %% 512;
-    push @b, slip reverse (8 × $data).polymod(256 xx 7);
+    push @b, | reverse (8 × $data).polymod(256 xx 7);  # 7 is required here
     my @word = :256[@b.shift xx 4] xx @b/4;
 
     my @H = init(&sqrt)[^8];
@@ -32,7 +30,7 @@ multi sha256(Blob $data) {
     loop (my $i = 0; $i < @word; $i += 16) {
         my @h = @H;
         for ^64 -> $j {
-            @w[$j] = $j < 16 ?? @word[$j + $i] // 0 !!
+            @w[$j] = $j < 16 ?? @word[$j + $i] // 0 !!  # runs 6 lines, better as if/else?
             [m+]
             rotr(@w[$j-15], 7) +^ rotr(@w[$j-15], 18) +^ @w[$j-15] +> 3,
             @w[$j-7],
@@ -48,8 +46,10 @@ multi sha256(Blob $data) {
         }
         @H [Z[m+]]= @h;
     }
-    return Blob.new: map { |reverse .polymod(256 xx 3) }, @H;
+    return Blob.new: map { |reverse .polymod(256 xx *) }, @H; # '*' can replace '3' in general?
 }
+
+say my $out = sha256 "Rosetta code";
 
 use Test;
 is $out.gist, 'Blob:0x<76 4F AF 5C 61 AC 31 5F 14 97 F9 DF A5 42 71 39 65 B7 85 E5 CC 2F 70 7D 64 68 D7 D1 12 4C DF CF>';
