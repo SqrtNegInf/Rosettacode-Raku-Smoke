@@ -18,7 +18,7 @@ END
 
 use Test;
 #my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);$
+#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
 is @res.join("\n"), chomp $ref;
 
 =finish
