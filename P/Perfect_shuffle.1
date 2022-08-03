@@ -1,0 +1,37 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Perfect_shuffle
+#c# 2015-10-25 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# passive speed-up of 2x since 2016, but full results still take 60s [ 2022-08-03 now < 20s ]
+
+my %results;
+
+sub perfect-shuffle (@deck) {
+    my $mid = @deck / 2;
+    flat @deck[0 ..^ $mid] Z @deck[$mid .. *];
+    #flat @deck[0 ..^ $mid] Z @deck[$mid ..^ @deck]; # actually slower
+}
+
+for 8, 24, 52, 100, 1024 -> $size {
+#for 8, 24, 52, 100, 1020, 1024, 10000 -> $size {
+    my @deck = ^$size;
+    my $n = 1;
+    $n++ until [<] @deck .= &perfect-shuffle;
+    #$n++ until [<] @deck = perfect-shuffle @deck;
+
+#    my $n;
+#    repeat until [<] @deck {
+#        $n++;
+#        @deck = perfect-shuffle @deck;
+#    }
+
+    printf "%5d cards:%4d\n", $size, $n;
+    %results{$size} = $n;
+}
+
+my %ref = ("100" => 30, "1024" => 10, "24" => 11, "52" => 8, "8" => 3);
+#my %ref = ("100" => 30, "1024" => 10, "24" => 11, "52" => 8, "8" => 3, "1020" => 1018, "10000" => 300);
+
+use Test;
+ok %results eqv %ref;
