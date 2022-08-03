@@ -4,36 +4,16 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
+my @res;
+
 constant ε = 0.0001;
-
-sub ray-hits-seg([\Px,\Py], [[\Ax,\Ay], [\Bx,\By]] --> Bool) {
-    Py += ε if Py == Ay | By;
-
-    if Py < Ay or Py > By or Px > (Ax max Bx) {
-	False;
-    }
-    elsif Px < (Ax min Bx) {
-	True;
-    }
-    else {
-	my \red  = Ax == Bx ?? Inf !! (By - Ay) / (Bx - Ax);
-	my \blue = Ax == Px ?? Inf !! (Py - Ay) / (Px - Ax);
-	blue >= red;
-    }
-}
-
-sub point-in-poly(@point, @polygon --> Bool) {
-    so 2 R% [+] gather for @polygon -> @side {
-	take ray-hits-seg @point, @side.sort(*.[1]);
-    }
-}
 
 my %poly =
     squared => 
-	 [[[ 0.0,  0.0], [10.0,  0.0]],
-	  [[10.0,  0.0], [10.0, 10.0]],
-	  [[10.0, 10.0], [ 0.0, 10.0]],
-	  [[ 0.0, 10.0], [ 0.0,  0.0]]],
+	 ((( 0.0,  0.0), (10.0,  0.0)),  # doesn't matter () vs [] since read-only values
+	  ((10.0,  0.0), (10.0, 10.0)),
+	  ((10.0, 10.0), ( 0.0, 10.0)),
+	  (( 0.0, 10.0), ( 0.0,  0.0))),
     squaredhole =>
 	 [[[ 0.0,  0.0], [10.0,  0.0]],
 	  [[10.0,  0.0], [10.0, 10.0]],
@@ -44,41 +24,60 @@ my %poly =
 	  [[ 7.5,  7.5], [ 2.5,  7.5]],
 	  [[ 2.5,  7.5], [ 2.5,  2.5]]],
     strange =>
-	 [[[ 0.0,  0.0], [ 2.5,  2.5]],
-	  [[ 2.5,  2.5], [ 0.0, 10.0]],
-	  [[ 0.0, 10.0], [ 2.5,  7.5]],
-	  [[ 2.5,  7.5], [ 7.5,  7.5]],
-	  [[ 7.5,  7.5], [10.0, 10.0]],
+	 ([( 0.0,  0.0), ( 2.5,  2.5)],
+	  ([ 2.5,  2.5], [ 0.0, 10.0]),
+	  (( 0.0, 10.0), ( 2.5,  7.5)),
+	  [[ 2.5,  7.5], ( 7.5,  7.5)],
+	  [( 7.5,  7.5), [10.0, 10.0]],
 	  [[10.0, 10.0], [10.0,  0.0]],
 	  [[10.0,  0.0], [ 2.5,  2.5]],
-	  [[ 2.5,  2.5], [ 0.0,  0.0]]],  # conjecturally close polygon
+	  [[ 2.5,  2.5], [ 0.0,  0.0]]),  # conjecturally close polygon
     exagon =>
-	 [[[ 3.0,  0.0], [ 7.0,  0.0]],
-	  [[ 7.0,  0.0], [10.0,  5.0]],
-	  [[10.0,  5.0], [ 7.0, 10.0]],
-	  [[ 7.0, 10.0], [ 3.0, 10.0]],
-	  [[ 3.0, 10.0], [ 0.0,  5.0]],
-	  [[ 0.0,  5.0], [ 3.0,  0.0]]];
+	 ([( 3.0,  0.0), ( 7.0,  0.0)],
+	  [( 7.0,  0.0), (10.0,  5.0)],
+	  [(10.0,  5.0), ( 7.0, 10.0)],
+	  [( 7.0, 10.0), ( 3.0, 10.0)],
+	  [( 3.0, 10.0), ( 0.0,  5.0)],
+	  [( 0.0,  5.0), ( 3.0,  0.0)]);
 
-my @test-points =
-	  [  5.0,  5.0],
-	  [  5.0,  8.0],
-	  [-10.0,  5.0],
-	  [  0.0,  5.0],
-	  [ 10.0,  5.0],
-	  [  8.0,  5.0],
-	  [ 10.0, 10.0];
+sub ray-hits-seg([\Px,\Py], [[\Ax,\Ay], [\Bx,\By]] --> Bool) {
+    Py += ε if Py == Ay | By;
 
-my @res;
-for <squared squaredhole strange exagon> -> $polywanna {
-    say my $temp = "$polywanna";
-    @res.push: $temp;
-    my @poly = %poly{$polywanna}[];
-    for @test-points -> @point {
-	say my $temp = "\t(@point.fmt('%.1f',','))\t{ point-in-poly(@point, @poly)?? 'IN'!! 'OUT' }";
-    @res.push: $temp;
+    if Py < Ay or Py > By or Px > (Ax max Bx) {
+	    False
+    } elsif Px < (Ax min Bx) {
+	    True
+    } else {
+	    my \red  = Ax == Bx ?? ∞ !! (By - Ay) / (Bx - Ax);
+	    my \blue = Ax == Px ?? ∞ !! (Py - Ay) / (Px - Ax);
+	    blue >= red;
     }
 }
+
+sub point-in-poly(@point is copy, @polygon --> Bool) {  # don't modify input
+    so 2 R% [+] gather for @polygon -> @side {
+	    take ray-hits-seg @point, @side.sort(*.[1]);
+    }
+}
+
+my @test-points =    # make this immutable
+	  (  5.0,  5.0),
+	  (  5.0,  8.0),
+	  (-10.0,  5.0),
+	  (  0.0,  5.0),
+	  ( 10.0,  5.0),
+	  (  8.0,  5.0),
+	  ( 10.0, 10.0);
+
+for <squared squaredhole strange exagon> -> $polywanna {
+    @res.push: "$polywanna";
+    my @poly = %poly{$polywanna}[];
+    for @test-points -> @point {
+        @res.push: "\t(@point.fmt('%.1f',','))\t{ point-in-poly(@point, @poly)?? 'IN'!! 'OUT' }";
+    }
+}
+
+.say for @res;
 
 my $ref = qq:to/END/;
 squared
