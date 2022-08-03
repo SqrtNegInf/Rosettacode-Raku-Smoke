@@ -5,21 +5,19 @@
 #j#  JVM: OK
 
 sub range-extraction (*@ints) {
-    my $prev = NaN;
+    my $prev = ∞; # was NaN;
     my @ranges;
 
     for @ints -> $int {
         if $int == $prev + 1 {
-            @ranges[*-1].push: $int;
+            @ranges[*-1].push: $int
+        } else {
+            @ranges.push: [$int]
         }
-        else {
-            @ranges.push: [$int];
-        }
-        $prev = $int;
+        $prev = $int
     }
     join ',', @ranges.map: -> @r { @r > 2 ?? "@r[0]-@r[*-1]" !! @r }
 }
-
 
 my @range1 = qw<-6 -3 -2 -1 0 1 3 4 5 7 8 9 10 11 14 15 17 18 19 20>;
 say range-extraction @range1;
@@ -30,7 +28,6 @@ say range-extraction(@range2);
 my $ref1 = '-6,-3-1,3-5,7-11,14,15,17-20';
 my $ref2 = '0-2,4,6-8,11,12,14-25,27-33,35-39';
 
-
 use Test;
-is (range-extraction @range1), $ref1, 'Goody';
-is (range-extraction @range2), $ref2, 'Gum-drops';
+is (range-extraction @range1), $ref1;
+is (range-extraction @range2), $ref2;
