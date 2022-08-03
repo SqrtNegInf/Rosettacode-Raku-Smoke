@@ -5,8 +5,6 @@
 #j#  JVM: OK
 #n# difference between MOAR/JVM is just 'e-06' vs 'E-6'
 
-# Perl 6 has complex number handling built in.
-
 my @sets = [1, 2, 1],
            [1, 2, 3],
            [1, -2, 1],
@@ -51,5 +49,4 @@ Roots for 1, -1000000, 1  => (999999.999999, 1.00000761449337E-6)
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n").lc, chomp $ref.lc;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
