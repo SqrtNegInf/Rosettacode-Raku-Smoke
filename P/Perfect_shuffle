@@ -1,36 +1,23 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Perfect_shuffle
-#c# 2015-10-25 <RC
+#c# 2015-10-25 <RC, 2022-08-03 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# passive speed-up of 2x since 2016, but full results still take 60s
+#n# passive speed-up of 2x since 2016, but full results still take 60s 
+#n# 2022-08-03 switch to full run, as about ~10s with changes (all variations about same speed)
 
 my %results;
 
-sub perfect-shuffle (@deck) {
-    my $mid = @deck / 2;
-    #flat @deck[0 ..^ $mid] Z @deck[$mid .. *];
-    flat @deck[0 ..^ $mid] Z @deck[$mid ..^ @deck]; # barely faster
-}
-
-for 8, 24, 52, 100, 1024 -> $size {
-#for 8, 24, 52, 100, 1020, 1024, 10000 -> $size {
-    my @deck = ^$size;
-    my $n = 1;
-    $n++ until [<] @deck = perfect-shuffle @deck;
-
-#    my $n;
-#    repeat until [<] @deck {
-#        $n++;
-#        @deck = perfect-shuffle @deck;
-#    }
-
-    printf "%5d cards:%4d\n", $size, $n;
+for 8, 24, 52, 100, 1020, 1024, 10000 -> $size {
+    my ($n, @deck) = 1, |^$size;
+     $n++ until [<] @deck = flat [Z] @deck.rotor: @deck/2;
+    #$n++ until [<] @deck .= &{ flat [Z] @deck.rotor: @deck/2 };   # maybe slower by a whisker?
+    #$n++ until [<] @deck = @deck.rotor(@deck/2).&infix:<Z>.flat;
+     printf "%5d cards:%4d\n", $size, $n;
     %results{$size} = $n;
 }
 
-my %ref = ("100" => 30, "1024" => 10, "24" => 11, "52" => 8, "8" => 3);
-#my %ref = ("100" => 30, "1024" => 10, "24" => 11, "52" => 8, "8" => 3, "1020" => 1018, "10000" => 300);
+my %ref = "100" => 30, "1024" => 10, "24" => 11, "52" => 8, "8" => 3, "1020" => 1018, "10000" => 300;
 
 use Test;
 ok %results eqv %ref;
