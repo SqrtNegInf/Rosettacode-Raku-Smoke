@@ -22,7 +22,7 @@ sub population-count2(Int $n is copy where * >= 0) {
 # basic way
 say my $pop  = map &population-count1, 3 «**« ^30;
 
-# 'fast' way
+# 'fast' way--scare quotes appropriate as for large inputs this is distinctly slower (maybe different back in the day)
 say my $pop1 = map &population-count2, (3 ** **)(^30); # double '*' notation is hyper-whatever, see AST
 
 say 'Evil: ',   my $evil   = (grep { population-count1($_) %% 2 }, 0 .. *)[^30];
