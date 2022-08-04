@@ -9862,7 +9862,8 @@ File: P/Pan_base_non-primes
 #c# 2022-07-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# slow, limit testing (in which case also drop .hyper
+#n# slow, limit testing (in which case also drop .hyper)
+#n# OEIS:A121719
 
 File: P/Pancake_numbers
 #!/usr/bin/env raku
@@ -10324,10 +10325,19 @@ File: P/Perfect_numbers-2
 File: P/Perfect_shuffle
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Perfect_shuffle
+#c# 2015-10-25 <RC, 2022-08-03 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# passive speed-up of 2x since 2016, but full results still take 60s 
+#n# 2022-08-03 switch to full run, as about ~10s with changes (all variations about same speed)
+
+File: P/Perfect_shuffle.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Perfect_shuffle
 #c# 2015-10-25 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# passive speed-up of 2x since 2016, but full results still take 60s
+#n# passive speed-up of 2x since 2016, but full results still take 60s [ 2022-08-03 now < 20s ]
 
 File: P/Perfect_totient_numbers
 #!/usr/bin/env perl6
@@ -10612,6 +10622,7 @@ File: P/Playfair_cipher
 #c# 2015-11-02 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# originally 'return anon sub', but 'anon' no longer needed
 
 File: P/Playing_cards
 #!/usr/bin/env perl6
