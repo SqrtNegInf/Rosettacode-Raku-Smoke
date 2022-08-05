@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-my @out;
+my @res;
 
 my %prec =
     '^' => 4,
@@ -24,35 +24,35 @@ my %assoc =
 sub shunting-yard ($prog) {
     my @inp = $prog.words;
     my @ops;
-    my @res;
+    my @results;
 
-    sub report($op) { @out.push: sprintf "%25s   %-7s%10s%s", ~@res, ~@ops, $op, ~@inp }
-    sub shift($t)  { report( "shift $t"); @ops.push: $t }
-    sub reduce($t) { report("reduce $t"); @res.push: $t }
+    sub report($op) { @res.push: sprintf "%25s   %-7s%10s%s", ~@results, ~@ops, $op, ~@inp }
+    sub shift($t)  { report( "shift $t");     @ops.push: $t }
+    sub reduce($t) { report("reduce $t"); @results.push: $t }
 
     while @inp {
-	given @inp.shift {
+	  given @inp.shift {
 	    when /\d/ { reduce $_ };
-	    when '(' { shift $_ }
-	    when ')' { while @ops and (my $x = @ops.pop and $x ne '(') { reduce $x } }
-	    default {
-		my $newprec = %prec{$_};
-		while @ops {
-		    my $oldprec = %prec{@ops[*-1]};
-		    last if $newprec > $oldprec;
-		    last if $newprec == $oldprec and %assoc{$_} eq 'right';
-		    reduce @ops.pop;
-		}
-		shift $_;
+	    when '('  {  shift $_ }
+	    when ')'  { while @ops and (my $x = @ops.pop and $x ne '(') { reduce $x } }
+	    default   {
+		    my $newprec = %prec{$_};
+		    while @ops {
+		        my $oldprec = %prec{@ops[*-1]};
+		        last if $newprec > $oldprec;
+		         last if $newprec == $oldprec and %assoc{$_} eq 'right';
+		        reduce @ops.pop;
+		    }
+		    shift $_;
 	    }
-	}
+	  }
     }
     reduce @ops.pop while @ops;
-    @res;
+    @results;
 }
 
-@out.push: shunting-yard '3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3';
-say @out.join("\n");
+@res.push: shunting-yard '3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3';
+say @res.join("\n");
 
 my $ref = qq:to/END/;
                                      reduce 3+ 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3
@@ -79,4 +79,4 @@ my $ref = qq:to/END/;
 END
 
 use Test;
-is @out.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
