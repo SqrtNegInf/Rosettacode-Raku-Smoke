@@ -3,6 +3,7 @@
 #c# 2015-11-15 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# remove note about Parrot (!) 
 
 # Sort groups of digits in number order. Sort by order of magnitude then lexically.
 sub naturally ($a) { $a.lc.subst(/(\d+)/, -> $/ {0~$0.chars.chr~$0},:g) ~"\x0"~$a }
@@ -17,19 +18,26 @@ sub normalize ($a) { $a.subst( / ( \s ) /, ' ', :g ) }
 sub title ($a) { $a.subst( / :i ^ ( a | an | the ) >> \s* /, '' ) }
 
 # Decompose ISO-Latin1 glyphs to their base character.
-sub latin1_decompose ($a) {
-    my %tr = < 
+sub latin1_decompose_1 ($a) {
+    my %tr = <
        Æ AE æ ae Þ TH þ th Ð TH ð th ß ss À A Á A Â A Ã A Ä A Å A à a á a
         â a ã a ä a å a Ç C ç c È E É E Ê E Ë E è e é e ê e ë e Ì I Í I Î
         I Ï I ì i í i î i ï i Ò O Ó O Ô O Õ O Ö O Ø O ò o ó o ô o õ o ö o
-        ø o Ñ N ñ n Ù U Ú U Û U Ü U ù u ú u û u ü u Ý Y ÿ y ý y
+        ø o Ñ N ñ n Ù U Ú U Û U Ü U ù u ú u û u ü u Ý Y ÿ y
     >;
+  # ý y - messed with syntax high-lighting
 
-# Would probably be better implemented as
     $a.trans( [%tr.keys] => [%tr.values] );
-# but the underlying Parrot VM leaks through in current Rakudo.
-#    my $re = '<[' ~ %tr.keys.join('|') ~ ']>';
-#    $a.subst(/ (<$re>) /, -> $/ { %tr{$0} }, :g)
+}
+
+# this version on RC, sorts 'aether' ahead of (ae) ligatures?
+sub latin1_decompose_2 ($a) {
+    $a.trans: <
+       Æ AE æ ae Þ TH þ th Ð TH ð th ß ss À A Á A Â A Ã A Ä A Å A à a á a
+        â a ã a ä a å a Ç C ç c È E É E Ê E Ë E è e é e ê e ë e Ì I Í I Î
+        I Ï I ì i í i î i ï i Ò O Ó O Ô O Õ O Ö O Ø O ò o ó o ô o õ o ö o
+        ø o Ñ N ñ n Ù U Ú U Û U Ü U ù u ú u û u ü u Ý Y ÿ y
+    >.hash;
 }
 
 my @tests = (
@@ -93,7 +101,7 @@ my @tests = (
           <apple Ball bald car Card above Æon æon aether
             niño nina e-mail Évian evoke außen autumn>
         ],
-        {.&latin1_decompose.&naturally}
+        {.&latin1_decompose_1.&naturally}
     ]
 );
 
