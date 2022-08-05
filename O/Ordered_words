@@ -4,10 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-my $result = 'ref/unixdict.txt'.IO.lines.grep({ [le] .comb }).classify(*.chars).max(*.key).value;
-say $result;
-
-my $ref = 'abbott accent accept access accost almost bellow billow biopsy chilly choosy choppy effort floppy glossy knotty';
+say my $result = 'ref/unixdict.txt'.IO.lines.grep({ [le] .comb }).classify(*.chars).max(*.key).value;
 
 use Test;
-is $result, $ref;
+is $result, 'abbott accent accept access accost almost bellow billow biopsy chilly choosy choppy effort floppy glossy knotty';
