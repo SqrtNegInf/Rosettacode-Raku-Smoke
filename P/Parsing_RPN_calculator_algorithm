@@ -21,15 +21,9 @@ class RPN is Array {
             when '^'  { self.binop: &[**] }
             default   { die "$_ is bogus" }
         }
-        #say self;
         return self;
     }
 }
-
-#say RPN.new.run($proggie);
-
-my $ref = qq:to/END/;
-END
 
 use Test;
 is RPN.new.run($proggie), '3.000122';
