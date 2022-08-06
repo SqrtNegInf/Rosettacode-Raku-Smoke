@@ -5383,10 +5383,10 @@ File: F/Free_polyominoes_enumeration
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Free_polyominoes_enumeration
 #t# inprogress
-#c# 2022-xx-xx >RC
+#c# 2022-08-06 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# from sidef/ruby
+#n# from Sidef/Ruby
 #n# OEIS:A000105
 
 File: F/Free_polyominoes_enumeration.0
@@ -8847,10 +8847,9 @@ File: M/Multiple_regression
 File: M/Multiplication_tables
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Multiplication_tables
-#c# 2015-11-23 <RC
+#c# 2015-11-23 <RC, 2022-08-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# changes not on RC
 
 File: M/Multiplicative_order
 #!/usr/bin/env raku
@@ -8869,7 +8868,7 @@ File: M/Multiplicative_order.1
 File: M/Multisplit
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Multisplit
-#c# 2015-12-01 <>RC
+#c# 2015-12-01 <>RC, 2022-08-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -9033,14 +9032,23 @@ File: N/Naming_conventions
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: N/Narcissistic_decimal_number
+File: N/Narcissistic_decimal_number-1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Narcissistic_decimal_number
+#c# 2015-12-19 <RC, 2022-08-05 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# OEIS:A005188
+#n# takes ~4min for full run of 25
+
+File: N/Narcissistic_decimal_number-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Narcissistic_decimal_number
 #c# 2015-12-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A005188
-#n# naive implementation, it works but takes ages.
+#n# purportedly 'faster' version now overtaken by concurrency (see -1 version)
 
 File: N/Natural_sorting
 #!/usr/bin/env perl6
