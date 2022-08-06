@@ -1,30 +1,30 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Multisplit
-#c# 2015-12-01 <>RC
+#c# 2015-12-01 <>RC, 2022-08-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-sub multisplit($str, @seps) { $str.split(/ (||@seps) /, :v) }
+sub multisplit($str, @seps) { $str.split: / (||@seps) /, :v }
 
-my @chunks = multisplit( 'a!===b=!=c==d', < == != = > );
+my @chunks = multisplit 'a!===b=!=c==d', < == != = >;
 
 # Print the strings.
-my @res.push: @chunks».Str.raku;
+my @res.push: @chunks».Str.raku; # this way the empty fields are clearly seen in output
 
 # Print the positions of the separators.
 for grep Match, @chunks -> $s {
-    @res.push: "  $s   from $s.from() to $s.to()";
+    @res.push: "{$s.fmt: '%2s'} from {$s.from.fmt: '%2d'} to {$s.to.fmt: '%2d'}";
 }
 
 .say for @res;
 
 my $ref = qq:to/END/;
 ["a", "!=", "", "==", "b", "=", "", "!=", "c", "==", "d"]
-  !=   from 1 to 3
-  ==   from 3 to 5
-  =   from 6 to 7
-  !=   from 7 to 9
-  ==   from 10 to 12
+!= from  1 to  3
+== from  3 to  5
+ = from  6 to  7
+!= from  7 to  9
+== from 10 to 12
 END
 
 use Test;
