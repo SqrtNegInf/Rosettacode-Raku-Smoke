@@ -1,17 +1,15 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Multiplication_tables
-#c# 2015-11-23 <RC
+#c# 2015-11-23 <RC, 2022-08-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# changes not on RC
 
 my @res;
 
-my $width = ((my $max = 12)**2).chars;
-my $f = "%{$width}s";
+(my $f = "%{$_}s" given my $width = ($_**2).chars ) given my $max = 12;  # so sue me ;-)
 
 @res.push: '×'.fmt($f)  ~ ' ┃ ' ~ (1..$max).fmt($f);
-@res.push: '━' x $width ~ '━╋'  ~ '━' x $max×(1+$width);
+@res.push: '━' x $width ~ '━╋'  ~ '━' x $max × (1+$width);
 
 for 1..$max -> $i {
     @res.push: $i.fmt($f) ~ ' ┃ ' ~ ( $i ≤ $_ ?? $i×$_ !! '' for 1..$max ).fmt($f);
