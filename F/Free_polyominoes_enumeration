@@ -1,10 +1,10 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Free_polyominoes_enumeration
 #t# inprogress
-#c# 2022-xx-xx >RC
+#c# 2022-08-06 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# from sidef/ruby
+#n# from Sidef/Ruby
 #n# OEIS:A000105
 
 my @res;
@@ -82,8 +82,8 @@ sub text_representation(\poly) {
 #say 8.of { rank(_).len }
 
 my $n = 3;
-say "\nAll free polyominoes of rank %d:", $n;
-rank($n); #.sort.each{|poly| say text_representation(poly).join("\n")+"\n" }
+printf "\nAll free polyominoes of rank %d:\n", $n;
+say rank($n); #.sort.each{|poly| say text_representation(poly).join("\n")+"\n" }
 
 # [1, 1, 1, 2, 5, 12, 35, 108]
 
@@ -95,6 +95,7 @@ use Test;
 =finish
 
 =={{header|Raku}}==
+{{trans|Sidef}}
 <lang perl6>
 </lang>
 {{out}}
