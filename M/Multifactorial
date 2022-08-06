@@ -5,9 +5,11 @@
 #j#  JVM: OK
 
 my @res;
+my @rez;
 for 1 .. 5 -> $degree {
+    @rez.push: "$degree: " ~ map { [×] $_, *-$degree ...^ * <= 0 }, 1..10;
     sub mfact($n) { [×] $n, *-$degree ...^ * <= 0 };
-    @res.push: "$degree: " ~ map &mfact, 1..10
+    @res.push: "$degree: " ~ map &mfact, 1..10;       # by default topic var. passed to sub (not via '.&')
 }
 .say for @res;
 
@@ -21,3 +23,4 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
+is @rez.join("\n"), chomp $ref;
