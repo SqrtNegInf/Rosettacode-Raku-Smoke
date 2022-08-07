@@ -3,8 +3,11 @@
 #c# 2015-11-23 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN StackOverflowError
+#n# memory requirements ramp up slowly with larger values of k (compare to Perl)
 
 # This solution avoids creating the closure B if $k <= 0 (that is, nearly every time).
+
+my @res;
 
 sub A($k is copy, &x1, &x2, &x3, &x4, &x5) {
     $k <= 0
@@ -12,7 +15,21 @@ sub A($k is copy, &x1, &x2, &x3, &x4, &x5) {
         !! (my &B = { A(--$k, &B, &x1, &x2, &x3, &x4) })();
 };
 
-say my $out = A(10, {1}, {-1}, {-1}, {1}, {0});
+@res.push: "k = $_: " ~ A($_, {1}, {-1}, {-1}, {1}, {0}) for 10..18;
+
+.say for @res;
+
+my $ref = qq:to/END/;
+k = 10: -67
+k = 11: -138
+k = 12: -291
+k = 13: -642
+k = 14: -1446
+k = 15: -3250
+k = 16: -7244
+k = 17: -16065
+k = 18: -35601
+END
 
 use Test;
-is $out, -67, 'Manly Perl 6!';
+is @res.join("\n"), chomp $ref;
