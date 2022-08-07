@@ -8,10 +8,15 @@ sub maxnum(*@x) {
     [~] @x.sort: -> $a, $b { $b ~ $a leg $a ~ $b }
 }
 
+sub maxalt(@x) {
+    join '', @x.sort: -> $a, $b { $b ~ $a >= $a ~ $b }
+}
+
 say my $m1 = maxnum <1 34 3 98 9 76 45 4>;
 say my $m2 = maxnum <54 546 548 60>;
-
+say my $a1 = maxalt <1 34 3 98 9 76 45 4>;
+say my $a2 = maxalt <54 546 548 60>;
 
 use Test;
-is $m1, 998764543431, 'silly answer 1';
-is $m2, 6054854654, 'silly answer 2';
+is $m1, 998764543431;
+is $m2, 6054854654;
