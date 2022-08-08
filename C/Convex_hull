@@ -20,24 +20,24 @@ sub tangent (Point $a, Point $b) {
     $adj != 0 ?? $opp / $adj !! Inf
 }
 
-sub graham-scan (**@coords) {
+sub graham-scan (**@coords) {                   # '**' usually seen for ranges, but here because why?
     # sort points by y, secondary sort on x
     my @sp = @coords.map( { Point.new( :x($_[0]), :y($_[1]) ) } )
                     .sort: {.y, .x};
 
     # need at least 3 points to make a hull
-    return @sp if +@sp < 3;
+    return @sp if @sp < 3;
 
     # first point on hull is minimum y point
-    my @h  = @sp.shift;
+    my @h = @sp.shift;
 
     # re-sort the points by angle, secondary on x
-    @sp    = @sp.map( { $++ => [tangent(@h[0], $_), $_.x] } )
-                .sort( {-$_.value[0], $_.value[1] } )
-                .map: { @sp[$_.key] };
+    @sp = @sp.map( { $++ => [tangent(@h[0], $_), .x] } )
+             .sort( {-.value[0], .value[1] } )
+             .map: { @sp[.key] };
 
     # first point of re-sorted list is guaranteed to be on hull
-    @h.push:  @sp.shift;
+    @h.push: @sp.shift;
 
     # check through the remaining list making sure that
     # there is always a positive angle
@@ -46,7 +46,7 @@ sub graham-scan (**@coords) {
             @h.push: $point;
         } else {
             @h.pop;
-            @h.push: $point and next if +@h < 2;
+            @h.push: $point and next if @h < 2;
             redo;
         }
     }
