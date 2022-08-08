@@ -4,8 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A006886
-
-# String version (slow)
+#n# String version is slowest of the three, don't attempt base-17
 
 sub kaprekar( Int $n ) {
     my $sq = $n ** 2;
@@ -17,10 +16,7 @@ sub kaprekar( Int $n ) {
     False;
 }
 
-#print 1;
-my $out ~= " $_" if .&kaprekar for ^10000;
-#print "\n";
-say $out;
+say my $out ~= " $_" if .&kaprekar for ^10_000;
 
 my $ref = ' 9 45 55 99 297 703 999 2223 2728 4879 4950 5050 5292 7272 7777 9999';
 
