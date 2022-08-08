@@ -4,20 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A006886
-#n# 2018-10-05 added '.race', over 2x speed-up 
-#n#  including base 10 & base 17:
-#n#  20161123: 12946.216u 383.841s 3:44:04.17 99.1%  (with 10:1e5/17:1e6)
-#n#  20170123: 11099.346u 213.517s 3:22:29.73 93.1%  ( " )
-#n#  20171027:  8394.155u  80.415s 2:21:35.74 99.7%  ( " )
-#n#  20181004:  8869.908u  62.636s 2:29:16.12 99.7%  ( " )
-#n#  20181005    599.969u  80.040s    2:37.84 430.8% (with 10:1e5/17:1e5)
-#n#  20181005    748.930u  21.489s    3:23.42 378.7% (with 10:1e6/17:1e5) ! doing more
-#n#  20181006  10899.558u 259.860s   50:13.82 370.2% (with 10:1e6/17:1e6) ! doing much more
-#n#  _NEXT_
-#n# 2021-03-20 split from JVM version, added back base-17 calculations
-#n# 2021-03-22 dropped base-17 again, race-condition in testing
-#n# 2021-12-29 with .race, should always have been using 'atomicint $n'
-#n# 2022-01-02 dropped the re-added base-17 code again, same race-condition in testing 
 
 sub kaprekar( Int $n, Int :$base = 10 ) {
     my $hi = $n ** 2;
@@ -27,16 +13,14 @@ sub kaprekar( Int $n, Int :$base = 10 ) {
         $hi div= $base;
         return $hi,$lo if $lo + $hi == $n and $lo;
     }
-    ();
 }
 
-my $out ~= " $_" if .&kaprekar for ^10_000;
-say $out;
+say my $result ~= " $_" if .&kaprekar for ^10_000;
 
 my $ref1 = ' 1 9 45 55 99 297 703 999 2223 2728 4879 4950 5050 5292 7272 7777 9999';
 
 use Test;
-is $out, $ref1;
+is $result, $ref1;
 
 my atomicint $n;
 (^100_000).race.map: { $n++ if kaprekar $_ }
@@ -54,8 +38,6 @@ my &k17 = &kaprekar.assuming(:base(17));
 my @res;
 
 (^:17<100_000>).map: -> $n { # 7 min
-#(^:17<100_000>).hyper.map: -> $n {
-#(^:17<100_000>).race.map: -> $n {
     my ($h,$l) = k17 $n;
     next unless $l;
     my $n17 = $n.base(17);
@@ -100,3 +82,20 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref2;
+
+=finish
+
+#n# 2018-10-05 added '.race', over 2x speed-up 
+#n#  including base 10 & base 17:
+#n#  20161123: 12946.216u 383.841s 3:44:04.17 99.1%  (with 10:1e5/17:1e6)
+#n#  20170123: 11099.346u 213.517s 3:22:29.73 93.1%  ( " )
+#n#  20171027:  8394.155u  80.415s 2:21:35.74 99.7%  ( " )
+#n#  20181004:  8869.908u  62.636s 2:29:16.12 99.7%  ( " )
+#n#  20181005    599.969u  80.040s    2:37.84 430.8% (with 10:1e5/17:1e5)
+#n#  20181005    748.930u  21.489s    3:23.42 378.7% (with 10:1e6/17:1e5) ! doing more
+#n#  20181006  10899.558u 259.860s   50:13.82 370.2% (with 10:1e6/17:1e6) ! doing much more
+#n#  _NEXT_
+#n# 2021-03-20 split from JVM version, added back base-17 calculations
+#n# 2021-03-22 dropped base-17 again, race-condition in testing
+#n# 2021-12-29 with .race, should always have been using 'atomicint $n'
+#n# 2022-01-02 dropped the re-added base-17 code again, same race-condition in testing 
