@@ -26,7 +26,7 @@ for -6 .. 6 -> $hour {
     my $sun_deg  = $hour × 15 + $offset;
     my $line_deg = atan2( ( sin($sun_deg°) × $lat_sin ), cos($sun_deg°) )®;
     @res.push: sprintf "%2d %s     %8.3f            %8.3f\n",
-    ($hour + 12) % 12 || 12, ($hour < 0 ?? 'AM' !! 'PM'), $sun_deg, $line_deg;
+    (($hour + 12) % 12 or 12), ($hour < 0 ?? 'AM' !! 'PM'), $sun_deg, $line_deg;
 }
 
 #`{ Example output:
