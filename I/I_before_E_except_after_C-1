@@ -1,31 +1,17 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/I_before_E_except_after_C
-#c# 2015-12-11 <RC
+#c# 2015-12-11 <RC, 2016-12-18 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-#This solution uses grammars and actions to parse the given file, the Bag for tallying up occurrences of each possible thing we're looking for ("ie", "ei", "cie", and "cei"), and junctions to determine the plausibility of a phrase from the subphrases. Note that a version of rakudo newer than the January 2014 compiler or Star releases is needed, as this code relies on a recent bugfix to the make function.
+# This solution uses grammars and actions to parse the given file, the Bag for tallying up occurrences of each possible thing we're looking for ("ie", "ei", "cie", and "cei"), and junctions to determine the plausibility of a phrase from the subphrases.
 
 grammar CollectWords {
-    token TOP {
-        [^^ <word> $$ \n?]+
-    }
-
-    token word {
-        [ <with_c> | <no_c> | \N ]+
-    }
-
-    token with_c {
-        c <ie_part>
-    }
-
-    token no_c {
-        <ie_part>
-    }
-
-    token ie_part {
-        ie | ei | eie # a couple words in the list have "eie"
-    }
+    token TOP     { [^^ <word> $$ \n?]+ }
+    token word    { [ <with_c> | <no_c> | \N ]+ }
+    token with_c  { c <ie_part> }
+    token   no_c  {   <ie_part> }
+    token ie_part { ie | ei | eie } # a couple words in the list have 'eie'
 }
 
 class CollectWords::Actions {
