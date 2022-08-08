@@ -6,10 +6,6 @@
 #n# OEIS:A006886
 #n# with JVM 2021.12, now works
 
-use Test;
-
-# Casting out 9's, fast?
-
 sub kaprekar-generator( :$base = 10 ) {
     my $base-m1 = $base - 1;
     gather loop (my $place = 1; ; ++$place) {
@@ -31,8 +27,9 @@ sub kaprekar-generator( :$base = 10 ) {
     }
 }
 
-my $result1 ~= " $_[0]" for kaprekar-generator() ...^ *.[0] >= 10_000;
-say $result1;
+say my $result1 ~= " $_[0]" for kaprekar-generator() ...^ *.[0] >= 10_000;
+
+use Test;
 is $result1, ' 1 9 45 55 99 297 703 999 2223 2728 4879 4950 5050 5292 7272 7777 9999';
 
 my $result2 = +(kaprekar-generator() ...^ *.[0] >= 100_000);
