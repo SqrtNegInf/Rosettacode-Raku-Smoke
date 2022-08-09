@@ -3,10 +3,10 @@
 #c# 2015-11-22 <>RC, 2016-04-23 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# more testing
 
-my @Q;
-#my constant @Q = 1, 1, -> $a, $b {
-@Q = 1, 1, -> $a, $b {
+#constant @Q = 1, 1, -> $a, $b {
+my @Q = 1, 1, -> $a, $b {
     (state $n = 1)++;
     @Q[$n - $a] + @Q[$n - $b]
 } ... *;
@@ -23,7 +23,6 @@ is @Q[^10], '1 1 2 3 3 4 5 5 6 6', '1st 10 terms';
 is @Q[999], 502, '1000th term';
 
 # OO solution
-# Works with: Rakudo/JVM version 2013-10-19
 # Similar concept as the perl5 solution, except that the cache is only filled on demand.
 
 class Hofstadter {
@@ -35,8 +34,6 @@ class Hofstadter {
   }
 }
 
-# Testing:
-
 my Hofstadter $Q1 .= new();
 
 say "first ten: $Q1[^10]";
@@ -45,10 +42,8 @@ say "1000th: $Q1[999]";
 is $Q1[^10], '1 1 2 3 3 4 5 5 6 6', '1st 10 terms';
 is $Q1[999], 502, '1000th term';
 
-#my $count = 0;
-#$count++ if $Q[$_ +1 ] < $Q[$_] for  ^99_999;
-#say "In the first 100_000 terms, $count terms are less than their preceding terms";
+my $count = 0;
+$count++ if $Q1[$_ +1 ] < $Q1[$_] for  ^99_999;
+say "In the first 100_000 terms, $count terms are less than their preceding terms";
 
-# first ten: 1 1 2 3 3 4 5 5 6 6
-# 1000th: 502
-# In the first 100_000 terms, 49798 terms are less than their preceding terms
+is $count, 49798;
