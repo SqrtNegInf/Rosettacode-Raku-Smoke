@@ -49,7 +49,7 @@ sub pivotize (@m) {
                 $row = $j;
             };
         }
-        if $row != $i { @id[$row, $i] = @id[$i, $row] }
+        @id[$row, $i] = @id[$i, $row] if $row != $i;
     }
     @id
 }
