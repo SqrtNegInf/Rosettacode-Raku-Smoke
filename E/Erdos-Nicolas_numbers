@@ -1,0 +1,44 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Erd%C5%91s-Nicolas_numbers
+#c# 2022-08-11 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# rc-get Erdd%C5%91s-Nicolas_numbers; rename to 'Erdos*'
+#n# slow, limit testing
+
+use Prime::Factor;
+
+my $ref = q:to/END/;
+      24 == sum of its first   6 divisors
+    2016 == sum of its first  31 divisors
+    8190 == sum of its first  43 divisors
+   42336 == sum of its first  66 divisors
+   45864 == sum of its first  66 divisors
+END
+#  392448 == sum of its first  68 divisors
+#  714240 == sum of its first 113 divisors
+# 1571328 == sum of its first 115 divisors
+
+sub is-Erdős-Nicolas ($n) {
+    my @divisors = $n.&proper-divisors: :s;
+    ((@divisors.sum > $n) && (my $key = ([\+] @divisors).first: $n, :k)) ?? 1 + $key !! False
+}
+
+my $count;
+#my atomicint $count;
+
+my @res[46000] = '' xx 46000;
+
+(1..*).hyper(:2000batch).map( * × 2 ).map: {
+    if my $key = .&is-Erdős-Nicolas {
+        @res[$_] = sprintf "%8d == sum of its first %3d divisors", $_, $key;
+        if ++$count >= 5 {
+        #if $count⚛++ > 5 {
+            say 'Done';
+            is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
+            exit;
+        }
+    }
+}
+
+use Test;
