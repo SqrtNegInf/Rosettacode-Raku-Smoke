@@ -4125,6 +4125,24 @@ File: E/Equilibrium_index
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: E/Erdos-Nicolas_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Erd%C5%91s-Nicolas_numbers
+#c# 2022-08-11 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# rc-get Erdd%C5%91s-Nicolas_numbers; rename to 'Erdos*'
+#n# slow, limit testing
+
+File: E/Erdos-Nicolas_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Erd%C5%91s-Nicolas_numbers
+#c# 2022-08-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# rc-get Erdd%C5%91s-Nicolas_numbers; rename to 'Erdos*'
+#n# slow, limit testing
+
 File: E/Erdos-Selfridge_categorization_of_primes
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Erdös-Selfridge_categorization_of_primes
@@ -4530,6 +4548,13 @@ File: F/Factorial_base_numbers_indexing_permutations_of_a_collection
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Factorial_base_numbers_indexing_permutations_of_a_collection
 #c# 2018-12-08 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: F/Factorial_primes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Factorial_primes
+#c# 2022-08-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -7079,6 +7104,21 @@ File: K/Knuth%27s_power_tree
 #m# MOAR: OK
 #j#  JVM: OK
 #n# JVM more accurate than MOAR for 1.1 ** 81? (see end)
+
+File: K/Knuth-Morris-Pratt_string_search
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Knuth-Morris-Pratt_string_search
+#c# 2022-08-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: K/Knuth-Morris-Pratt_string_search.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Knuth-Morris-Pratt_string_search
+#c# 2022-08-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# not 100%, handling 'text4' incorrectly
 
 File: K/Knuth_shuffle
 #!/usr/bin/env perl6
