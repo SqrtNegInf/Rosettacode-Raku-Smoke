@@ -21,6 +21,6 @@ my @b;
 for flat @a Z @op -> $v, &op { say 42.&op($v); push @b, 42.&op($v)}
 
 use Test;
-for (.(.5) for A Z∘ B) -> $result { is-approx $result, 0.5 }
+for (.(.5) for A Z∘ B) -> $result { say $result; is-approx $result, 0.5 }
 #is (.(.5) for A Z∘ B), '0.5 0.5 0.5';
 is @b, '43 40 126';
