@@ -5,12 +5,10 @@
 #j#  JVM: OK
 
 grammar FASTA {
-
     rule TOP    { <entry>+ }
     rule entry  { \> <title> <sequence> }
     token title { <.alnum>+ }
     token sequence { ( <.alnum>+ )+ % \n { make $0.join } }
-
 }
 
 FASTA.parse: q:to /§/;
@@ -22,17 +20,15 @@ LINESBUTTHEYALLMUST
 BECONCATENATED
 §
 
-my $out = ~gather {
+my $result = ~gather {
 for $/<entry>[] {
     take ~.<title>, " : ", .<sequence>.made;
 }
 }
 
-
 my $ref =  q:to /§/;
 Rosetta_Example_1  :  THERECANBENOSPACE Rosetta_Example_2  :  THERECANBESEVERALLINESBUTTHEYALLMUSTBECONCATENATED
 §
-$ref ~~ s/\n//;
 
 use Test;
-is $out, $ref, 'Masta of FASTA';
+is $result, chomp $ref;
