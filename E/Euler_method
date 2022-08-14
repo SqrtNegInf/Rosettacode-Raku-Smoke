@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Euler_method
-#c# 2015-12-31 <RC
+#c# 2015-12-31 <RC, 2022-08-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -11,7 +11,7 @@ sub euler ( &f, $y0, $a, $b, $h ) {
         @t_y[$t] = $y;
         $y += $h × f( $t, $y );
     }
-    return @t_y;
+    @t_y
 }
 
 constant COOLING_RATE = 0.07;
@@ -20,9 +20,7 @@ constant INITIAL_TEMP =  100;
 constant INITIAL_TIME =    0;
 constant FINAL_TIME   =  100;
 
-sub f ( $time, $temp ) {
-    return -COOLING_RATE × ( $temp - AMBIENT_TEMP );
-}
+sub f ( $time, $temp ) { -COOLING_RATE × ( $temp - AMBIENT_TEMP ) }
 
 my @res;
 
@@ -36,12 +34,13 @@ for INITIAL_TIME, * + 10 ... * >= FINAL_TIME -> $t {
     my $exact = AMBIENT_TEMP + (INITIAL_TEMP - AMBIENT_TEMP)
                               × (-COOLING_RATE × $t).exp;
 
-    my $err = sub { @^a.map: { 100 × abs( $_ - $exact ) / $exact } }
+    my $err = sub { @^a.map: { 100 × ($_ - $exact).abs / $exact } }
 
     my ( $a, $b, $c ) = map { @e[$_][$t] }, 2, 5, 10;
 
-    @res.push: $t.fmt('%4d ') ~ ( $exact, $a, $b, $c )».fmt('%7.3f') ~
-                           $err.([$a, $b, $c])».fmt('%7.3f%%'); # DH '.' can be omitted
+    @res.push: $t.fmt('%4d ') ~ ($exact, $a, $b, $c )».fmt('%7.3f'  ) ~
+                                   $err([$a, $b, $c])».fmt('%7.3f%%')      # DH '.' after 'err' can (should?) be omitted
+                                       #[$a, $b, $c].$err».fmt('%7.3f%%')  # also works
 }
 
 .say for @res;
