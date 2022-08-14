@@ -6,13 +6,15 @@
 
 my @l = [[1], 2, [[3,4], 5], [[[]]], [[[6]]], 7, 8, []];
 
-.say given gather @l.deepmap(*.take); # lazy recursive version
+# lazy recursive
+say my $result1 = gather @l.deepmap(*.take);
 
-# Another way to do it is with a recursive function 
+# recursive function 
 # (here actually a Block calling itself with the &?BLOCK dynamic variable):
-say my $result = { |(@$_ > 1 ?? map(&?BLOCK, @$_) !! $_) }(@l);
+say my $result2 = { |(@$_ > 1 ?? map(&?BLOCK, @$_) !! $_) }(@l);
+
+my $ref = '1 2 3 4 5 6 7 8';
 
 use Test;
-is (1, 2, 3, 4, 5, 6, 7, 8), (gather @l.deepmap(*.take)), 'Numbers 1 to 8';
-is (1, 2, 3, 4, 5, 6, 7, 8), $result;
-
+is $result1, $ref;
+is $result2, $ref;
