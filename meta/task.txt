@@ -2,16 +2,16 @@ Welcome to Rakudo™ v2022.07-13-g10feda116.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.07-1-g984a6f5fd.
 updating from RC...
-+--------------> Moar: Good/Bad [1463/28]
-|+-------------> JVM: Good/Bad [1287/299]
-||+------------> Smoke testing [1433]
++--------------> Moar: Good/Bad [1465/28]
+|+-------------> JVM: Good/Bad [1289/299]
+||+------------> Smoke testing [1435]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [394]
+|||||+---------> Touched (modified by me) [395]
 ||||||+--------> Concurrent/Async [106]
 |||||||+-------> Random seed [133]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [372]
+|||||||||+-----> Draft [373]
 ||||||||||+----> Ignoring [40]
 |||||||||||+---> Void (no local copy) [104]
 ||||||||||||+--> Un-implemented/reliable [56]
@@ -464,7 +464,7 @@ GBS...C...... Euler%27s_constant_0.5772...
 GGS.......... Euler%27s_identity
 GBS...C...... Euler%27s_sum_of_powers_conjecture
 GBS.......... Euler%27s_sum_of_powers_conjecture-2
-GGS.......... Euler_method
+GGS..T....... Euler_method
 GGS.......... Evaluate_binomial_coefficients
 GGS.......... Even_or_odd
 GGS.......... Events
@@ -626,6 +626,7 @@ GGS..T..F.... Grayscale_image
 GGS..T....... Greatest_common_divisor
 !GS....R..... Greatest_element_of_a_list
 GGS.......... Greatest_subsequential_sum
+GGS.......... Greatest_subsequential_sum-2
 GG.KI..R.D... Greed
 GGS..T..F.... Greyscale_bars_Display
 GGS....R..... Guess_the_number
@@ -1162,6 +1163,7 @@ GGS......D... Primes_with_digits_in_nondecreasing_order
 GGS..T....... Primorial_numbers
 !BS.......... Primorial_numbers-1
 GGS.......... Primorial_numbers-2
+GGS......D... Primorial_primes
 GGS......D... Print_debugging_statement
 .........D.V. Print_itself
 GGS.......... Priority_queue
