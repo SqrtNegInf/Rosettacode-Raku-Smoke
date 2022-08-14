@@ -1,34 +1,30 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/First_class_environments
-#c# 2015-12-17 <>RC
+#c# 2015-12-17 <>RC, 2022-08-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-#Fairly straightforward. Set up an array of hashes containing the current values and iteration counts then pass each hash in turn with a code reference to a routine to calculate the next iteration.
-
 my $calculator = sub ($n is rw) {
-    return ($n == 1) ?? 1 !! $n %% 2 ?? $n div 2 !! $n × 3 + 1
-};
+    $n == 1 ?? 1 !! $n %% 2 ?? $n div 2 !! $n × 3 + 1
+}
 
 sub next (%this, &get_next) {
     return %this if %this.<value> == 1;
     %this.<value> .= &get_next;
     %this.<count>++;
-    return %this;
-};
+    %this;
+}
 
 my @hailstones = map { %(value => $_, count => 0) }, 1 .. 12;
 
 while not all( map { $_.<value> }, @hailstones ) == 1 {
-    say [~] map { $_.<value>.fmt("%4s") }, @hailstones;
+    say [~] map { $_.<value>.fmt: '%4s' }, @hailstones;
     @hailstones[$_] .= &next($calculator) for ^@hailstones;
 }
 
-say 'Counts';
-say my $cnt = [~] map { $_.<count>.fmt("%4s") }, @hailstones;
+say my $counts = [~] map { $_.<count>.fmt('%4s') }, @hailstones;
 
 #`{
-
    1   2   3   4   5   6   7   8   9  10  11  12
    1   1  10   2  16   3  22   4  28   5  34   6
    1   1   5   1   8  10  11   2  14  16  17   3
@@ -54,4 +50,4 @@ Counts
 
 my $ref = '   0   1   7   2   5   8  16   3  19   6  14   9';
 use Test;
-is $cnt, $ref;
+is $counts, $ref;
