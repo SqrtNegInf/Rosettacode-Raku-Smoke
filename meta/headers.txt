@@ -4278,7 +4278,7 @@ File: E/Euler%27s_sum_of_powers_conjecture.jvm
 File: E/Euler_method
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Euler_method
-#c# 2015-12-31 <RC
+#c# 2015-12-31 <RC, 2022-08-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -5134,7 +5134,7 @@ File: F/First_9_Prime_Fibonacci_Number
 File: F/First_class_environments
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/First_class_environments
-#c# 2015-12-17 <>RC
+#c# 2015-12-17 <>RC, 2022-08-13 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -5856,6 +5856,13 @@ File: G/Greatest_subsequential_sum
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: G/Greatest_subsequential_sum-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Greatest_subsequential_sum
+#c# 2015-12-06 <RC, 2017-01-04 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
 File: G/Greed
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Greed
@@ -6001,7 +6008,7 @@ File: H/Happy_numbers-1
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# OEIS:A007770
-#n# for JVM: see .jvm version with work-around
+#n# MoarVM/JVM differ in their handling of state variable scope, see .jvm version with work-around
 
 File: H/Happy_numbers-1.jvm
 #!/usr/bin/env perl6
@@ -11072,6 +11079,13 @@ File: P/Primorial_numbers-2
 #n# caching version
 #n# speed-up techniques allow code to do a bit more, in the same time as before
 #n# but memory requirements explode (from saving all the intermediate primorials...)
+
+File: P/Primorial_primes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Primorial_primes
+#c# 2022-08-13 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: P/Print_debugging_statement
 #!/usr/bin/env perl6
