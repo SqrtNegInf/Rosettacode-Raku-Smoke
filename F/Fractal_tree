@@ -6,13 +6,20 @@
 #j#  JVM: OK
 #f# RC file: fractal_tree.svg
 
-# Image is created in SVG format.
+my ($width, $height) = (1000,1000); # image dimension
+my $scale = 6/10;                   # branch scale relative to trunk
+my $length = 400;                   # trunk size
 
 my $out = open('run/fractal_tree.svg', :w);
 
-my ($width, $height) = (1000,1000); # image dimension
-my $scale = 6/10; # branch scale relative to trunk
-my $length = 400; # trunk size
+multi tree($, $, $length where { $length < 1}, $) {}
+multi tree($x, $y, $length, $angle)
+{
+	my ($x2, $y2) = ( $x + $length × $angle.cos, $y + $length × $angle.sin);
+	$out.say: sprintf "<line x1='%.3f' y1='%.3f' x2='%.3f' y2='%.3f' style='stroke:rgb(0,0,0);stroke-width:1'/>", $x, $y, $x2, $y2;
+	tree($x2, $y2, $length×$scale, $angle + pi/5);
+	tree($x2, $y2, $length×$scale, $angle - pi/5);
+}
 
 $out.say: "<?xml version='1.0' encoding='utf-8' standalone='no'?>
 <!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 
@@ -23,16 +30,4 @@ xmlns='http://www.w3.org/2000/svg'>";
 tree($width/2, $height, $length, 3×pi/2);
 
 $out.say: "</svg>";
-
 $out.close;
-
-multi tree($, $, $length where { $length < 1}, $) {}
-multi tree($x, $y, $length, $angle)
-{
-	my ($x2, $y2) = ( $x + $length × $angle.cos, $y + $length × $angle.sin);
-	$out.say: sprintf "<line x1='%.3f' y1='%.3f' x2='%.3f' y2='%.3f' style='stroke:rgb(0,0,0);stroke-width:1'/>", $x, $y, $x2, $y2;
-	#$out.say: "<line x1='$x' y1='$y' x2='$x2' y2='$y2' style='stroke:rgb(0,0,0);stroke-width:1'/>";
-	tree($x2, $y2, $length×$scale, $angle + pi/5);
-	tree($x2, $y2, $length×$scale, $angle - pi/5);
-}
-
