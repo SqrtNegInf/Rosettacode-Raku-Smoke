@@ -16,8 +16,8 @@ multi gcd2 (Int $a, 0)      { abs $a }
 multi gcd2 (Int $a, Int $b) { gcd2 $b, $a % $b }
 
 # Concise
-#my &gcd = { ( abs $^a, abs $^b, * % * ... 0)[*-2] } # doesn't work
-my &gcd = { ($^a.abs, $^b.abs, * % * ... 0)[*-2] }
+#my &gcd = { (abs($^a), abs($^b), * % * ... 0)[*-2] }
+ my &gcd = { ( $^a.abs,  $^b.abs, * % * ... 0)[*-2] }
 
 #Actually, it's a built-in infix
 my $gcd = 6 gcd 27;
