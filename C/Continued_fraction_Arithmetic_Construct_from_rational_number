@@ -4,7 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#Straightforward implementation:
 sub r2cf(Rat $x is copy) {
     gather loop {
 	$x -= take $x.floor;
@@ -13,9 +12,14 @@ sub r2cf(Rat $x is copy) {
     }
 }
 
-say r2cf(.Rat) for <1/2 3 23/8 13/11 22/7 1.41 1.4142136>;
+my @res.push: r2cf(.Rat) for <1/2 3 23/8 13/11 22/7 1.41 1.4142136>;
 
-#`<
+say my $result = @res.join("\n");
+
+sub r2cf1(Rat $x is copy) { gather $x [R/]= 1 while ($x -= take $x.floor) > 0 }
+#say r2cf1(.Rat) for <1/2 3 23/8 13/11 22/7 1.41 1.4142136>;
+
+my $ref = qq:to/END/;
 0 2
 3
 2 1 7
@@ -23,12 +27,9 @@ say r2cf(.Rat) for <1/2 3 23/8 13/11 22/7 1.41 1.4142136>;
 3 7
 1 2 2 3 1 1 2
 1 2 2 2 2 2 2 2 2 2 6 1 2 4 1 1 2
->
-
-#As a silly one-liner:
-sub r2cf1(Rat $x is copy) { gather $x [R/]= 1 while ($x -= take $x.floor) > 0 }
-#say r2cf1(.Rat) for <1/2 3 23/8 13/11 22/7 1.41 1.4142136>;
+END
 
 use Test;
+is $result, chomp $ref;
 is r2cf(1.4142136.Rat),  '1 2 2 2 2 2 2 2 2 2 6 1 2 4 1 1 2', 'simple sub works for sqrt(2)';
 is r2cf1(1.4142136.Rat), '1 2 2 2 2 2 2 2 2 2 6 1 2 4 1 1 2', 'one-liner also works for sqrt(2)';
