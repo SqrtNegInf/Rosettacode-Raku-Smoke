@@ -3,7 +3,7 @@
 #c# 2015-10-27 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# for JVM: runs 'forever' (maybe dies with 'UnwindException' eventually?)
+#n# for JVM: runs 'forever' (maybe dies with 'UnwindException' eventually?), likely a gather/take issue
 
 constant @primes = 2, |(3, 5, 7 ... *).grep: *.is-prime;
 
