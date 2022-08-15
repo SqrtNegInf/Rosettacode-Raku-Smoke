@@ -2840,7 +2840,7 @@ File: C/Count_in_factors-1
 #c# 2015-10-27 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# for JVM: runs 'forever' (maybe dies with 'UnwindException' eventually?)
+#n# for JVM: runs 'forever' (maybe dies with 'UnwindException' eventually?), likely a gather/take issue
 
 File: C/Count_in_factors-2
 #!/usr/bin/env perl6
@@ -11080,13 +11080,6 @@ File: P/Primorial_numbers-2
 #n# speed-up techniques allow code to do a bit more, in the same time as before
 #n# but memory requirements explode (from saving all the intermediate primorials...)
 
-File: P/Primorial_primes
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Primorial_primes
-#c# 2022-08-13 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-
 File: P/Print_debugging_statement
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Print_debugging_statement
@@ -12574,6 +12567,17 @@ File: S/Sequence_of_primorial_primes
 #c# 2016-05-10 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# this version show indices, not that values themselves
+#n# OEIS:A088411
+
+File: S/Sequence_of_primorial_primes-2
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Sequence_of_primorial_primes
+#c# 2022-08-13 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# moved from deleted/dup task, show the primes themselves (cf main version)
+#n# OEIS:A088411
 
 File: S/Set
 #!/usr/bin/env perl6
