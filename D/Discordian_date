@@ -7,8 +7,9 @@
 my @seasons = « Chaos Discord Confusion Bureaucracy 'The Aftermath' »;
 my @days    = « Sweetmorn Boomtime Pungenday Prickle-Prickle 'Setting Orange' »;
 
-sub ordinal ( Int $n ) { $n ~ ( $n % 100 == 11|12|13
-    ?? 'th' !! < th st nd rd th th th th th th >[$n % 10] ) }
+sub ordinal ( Int $n ) { 
+    $n ~ ( $n % 100 == 11|12|13 ?? 'th' !! < th st nd rd th th th th th th >[$n % 10] ) 
+}
 
 sub ddate ( Str $ymd ) {
     my $d = DateTime.new: "{$ymd}T00:00:00Z" or die;
@@ -22,9 +23,9 @@ sub ddate ( Str $ymd ) {
         $day_of_year0-- if $day_of_year0 >= 60; # Compensate for St. Tib's Day
     }
 
-    my $weekday    = @days[    $day_of_year0 mod  5     ];
+    my $weekday    =    @days[ $day_of_year0 mod  5     ];
     my $season     = @seasons[ $day_of_year0 div 73     ];
-    my $season_day = ordinal(  $day_of_year0 mod 73 + 1 );
+    my $season_day =  ordinal( $day_of_year0 mod 73 + 1 );
 
     return "$weekday, the $season_day day of $season $yold";
 }
@@ -32,8 +33,7 @@ sub ddate ( Str $ymd ) {
 say "$_ is {.&ddate}" for < 2010-07-22 2012-02-28 2012-02-29 2012-03-01 >;
 
 use Test;
-is ddate('2010-07-22'), 'Pungenday, the 57th day of Confusion in the YOLD 3176', '2010-07-22';
-is ddate('2012-02-28'), 'Prickle-Prickle, the 59th day of Chaos in the YOLD 3178', '2012-08-28';
-is ddate('2012-02-29'), 'St. Tib\'s Day, in the YOLD 3178', '2012-02-2';
-is ddate('2012-03-01'), 'Setting Orange, the 60th day of Chaos in the YOLD 3178', '2012-03-01';
-
+is ddate('2010-07-22'), 'Pungenday, the 57th day of Confusion in the YOLD 3176';
+is ddate('2012-02-28'), 'Prickle-Prickle, the 59th day of Chaos in the YOLD 3178';
+is ddate('2012-02-29'), 'St. Tib\'s Day, in the YOLD 3178';
+is ddate('2012-03-01'), 'Setting Orange, the 60th day of Chaos in the YOLD 3178';
