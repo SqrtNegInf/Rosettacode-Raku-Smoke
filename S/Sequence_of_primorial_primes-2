@@ -8,7 +8,7 @@
 
 my @res;
 
-my @primorials = 1, |[\*] (2..*).grep: &is-prime;
+my @primorials = 1, |[\×] (2..*).grep: &is-prime;
 sub abr ($_) { .chars < 41 ?? $_ !! .substr(0,20) ~ '..' ~ .substr(*-20) ~ " ({.chars} digits)" }
 
 my $limit;
