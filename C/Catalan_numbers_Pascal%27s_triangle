@@ -39,5 +39,4 @@ my $ref = qq:to/END/;
 END
 
 use Test;
-#is @catalan[10], 58786, '10th element good';
 is @res.join("\n"), chomp $ref;
