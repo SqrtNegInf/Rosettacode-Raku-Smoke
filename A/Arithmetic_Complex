@@ -9,11 +9,10 @@ my $b = pi + 1.25i;
 
 .say for $a + $b, $a × $b, -$a, 1 / $a, $a.conj;
 .say for $a.abs, $a.sqrt, $a.re, $a.im;
-
-use Test;
-
 say '$a = 1 + i';
 say '$b = pi + 1.25i';
+
+use Test;
 is-approx ($a+$b), 4.14159265358979+2.25i, '$a + $b';
 is-approx ($a×$b), 1.89159265358979+4.39159265358979i, '$a × $b';
 is        (-$a), -1-1i, '-$a';
