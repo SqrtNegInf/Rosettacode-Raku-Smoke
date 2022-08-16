@@ -4,7 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo version 2015.10-11
 multi mean([]) { Failure.new('mean on empty list is not defined') }; # Failure-objects are lazy exceptions
 multi mean (@a) { ([+] @a) / @a }
 
