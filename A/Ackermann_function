@@ -11,15 +11,15 @@ sub A0(Int $m, Int $n) {
     else          { A0($m - 1, A0($m, $n - 1)) }
 }
 
-#An implementation using multiple dispatch:
-multi sub A1(0,      Int $n) { $n + 1                   }
-multi sub A1(Int $m, 0     ) { A1($m - 1, 1)             }
+# An implementation using multiple dispatch:
+multi sub A1(0,      Int $n) { $n + 1                     }
+multi sub A1(Int $m, 0     ) { A1($m - 1, 1)              }
 multi sub A1(Int $m, Int $n) { A1($m - 1, A1($m, $n - 1)) }
 
-#Note that in either case, Int is defined to be arbitrary precision in Perl6.
-#Here's a caching version of that, written in the sigilless style, with liberal use of Unicode, and the extra optimizing terms to make A(4,2) possible:
 
-proto A(Int \m, Int \n) { (state @)[m;n] //= {*} }
+# Caching version, in sigilless style, with liberal use of Unicode, and the extra optimizing terms to make A(4,2) possible:
+
+#proto A(Int \m, Int \n) { (state @)[m;n] //= {*} }  # optional 
 
 multi A(0,      Int \n) { n + 1 }
 multi A(1,      Int \n) { n + 2 }
