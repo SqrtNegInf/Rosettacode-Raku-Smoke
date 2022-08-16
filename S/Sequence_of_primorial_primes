@@ -7,7 +7,7 @@
 #n# OEIS:A088411
 
 constant @primes     = |grep *.is-prime, 2..*;
-constant @primorials = [\*] 1, @primes;
+constant @primorials = [\×] 1, @primes;
 
 my @pp_indexes := |@primorials.pairs.map: {
     .key if ( .value X+ (1, -1) ).any.is-prime  # TIL in-line method-chain junction
