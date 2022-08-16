@@ -4,8 +4,9 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: rakudo version 2012-01-27
-#We may call into the MOP (Meta-Object Protocol) via the .^ operator, and the MOP knows all about the object, including any supposedly private bits. We ask for its attributes, find the correct one, and get its value.
+# We may call into the MOP (Meta-Object Protocol) via the .^ operator, and
+# the MOP knows all about the object, including any supposedly private bits.
+# We ask for its attributes, find the correct one, and get its value.
 
 class Foo {
     has $!shyguy = 42;
