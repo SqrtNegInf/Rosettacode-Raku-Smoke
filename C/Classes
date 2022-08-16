@@ -12,18 +12,14 @@ say $c.humps;  # Automatically generated accessor method.
 my Camel $d .= new: humps => 2;
 say $d.humps;
 
-
-#A more complex example:
-
 class Butterfly {
     has Int $!age;   # With the! twigil, no public accessor method is generated
     has Str $.name;
     has Str $.color;
     has Bool $.wings;
 
+    # BUILD is called by bless. Its primary use is to to control object initialization. [except no 'bless' here?]
     submethod BUILD(:$!name = 'Camelia', :$!age = 2, :$!color = 'pink') {
-        # BUILD is called by bless. Its primary use is to to control
-        # object initialization.
         $!wings = $!age > 1;
     }
 
@@ -42,5 +38,6 @@ say my $t2 = "Name: {$b.name}, Color: {$b.color}";
 $b.flap;
 
 use Test;
+is $d.humps, 2;
 is $t1, 'Name: Camelia, Color: pink';
 is $t2, 'Name: Osgood, Color: pink';
