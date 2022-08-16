@@ -5,9 +5,10 @@
 #j# JVM:  OK
 #n# re-write 'pascal4' to get results returned, not printed on-the-fly
 
-# Works with: rakudo version 2015-10-03
-#using a lazy sequence generator[edit]
-#The following routine returns a lazy list of lines using the sequence operator (...). With a lazy result you need not tell the routine how many you want; you can just use a slice subscript to get the first N lines:
+# 1. lazy sequence generator
+# The following routine returns a lazy list of lines using the sequence
+# operator (...). With a lazy result you need not tell the routine how many
+# you want; you can just use a slice subscript to get the first N lines:
 
 sub pascal1 {
     [1], { [0, |$_ Z+ |$_, 0] } ... *
@@ -15,15 +16,19 @@ sub pascal1 {
 
 my @res1 = pascal1[^10];
 
-#One problem with the routine above is that it might recalculate the sequence each time you call it. Slightly more idiomatic would be to define the sequence as a lazy constant. Here we use the @ sigil to indicate that the sequence should cache its values for reuse, and use an explicit parameter $prev for variety:
+# 2. lazy constant
+# One problem with the routine above is that it might recalculate the sequence each time you call it. 
+# Slightly more idiomatic would be to define the sequence as a lazy
+# constant. Here we use the @ sigil to indicate that the sequence should
+# cache its values for reuse, and use an explicit parameter $prev for variety:
 
 constant @pascal2 = [1], -> $prev { [0, |$prev Z+ |$prev, 0] } ... *;
 
 my @res2 = @pascal2[^10];
 #Since we use ordinary subscripting, non-positive inputs throw an index-out-of-bounds error.
 
-#recursive[edit]
-#Translation of: Haskell
+# 3 recursive
+
 multi sub pascal3 (1) { $[1] }
 multi sub pascal3 (Int $n where 2..*) {
     my @rows = pascal3 $n - 1;
@@ -31,10 +36,8 @@ multi sub pascal3 (Int $n where 2..*) {
 }
 
 my @res3 = pascal3 10;
-#Non-positive inputs throw a multiple-dispatch error.
 
-#iterative[edit]
-#Translation of: Perl
+# 4 iterative
 sub pascal4 ($n where $n >= 1) {
    my @out.push: [ my @last = 1 ];
    for 1 .. $n - 1 -> $row {
@@ -44,7 +47,6 @@ sub pascal4 ($n where $n >= 1) {
 }
 
 my @res4 = pascal4 10;
-#Non-positive inputs throw a type check error.
 
 my $ref = q:to/END/;
 1
