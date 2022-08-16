@@ -42,6 +42,7 @@ multi prefix:<-> (BT $x) { $x.neg }
 
 multi infix:<+> (BT $x, BT $y) {
     my ($b,$a) = sort +*.coeff, ($x, $y); # DH b7c6e73 group x/y explicitly; 'flat' also works
+   #my ($b,$a) = ($x, $y).sort: +*.coeff; # or this
     BT.new: coeff => carry ($a.coeff Z+ |$b.coeff, |(0 xx $a.coeff - $b.coeff)); # DH GLR change
 }
 
