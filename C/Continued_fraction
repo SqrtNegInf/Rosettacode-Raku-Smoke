@@ -21,7 +21,7 @@ printf "π  ≈%.9f\n", my $p1 = continued-fraction(:a(3, |(6 xx *)), :b(Nil,   
 # with this particular task).
 
 sub continued-fraction1(@a, @b) {
-    map { .(Inf) }, [\o] map { @a[$_] + @b[$_] / * }, ^Inf
+    map { .(∞) }, [\o] map { @a[$_] + @b[$_] / * }, ^∞
 }
 
 printf "√2 ≈%.9f\n", my $r2 = continued-fraction1((1, |(2 xx *)),                (1 xx *))[10];
