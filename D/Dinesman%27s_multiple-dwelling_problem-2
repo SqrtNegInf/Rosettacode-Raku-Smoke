@@ -4,10 +4,12 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
+my $result;
+
 # Contains only five floors: 5! = 120 permutations.
 
 for (flat (1..5).permutations) -> $b, $c, $f, $m, $s {
-    say my $result = "Baker=$b Cooper=$c Fletcher=$f Miller=$m Smith=$s"
+    say $result = "Baker=$b Cooper=$c Fletcher=$f Miller=$m Smith=$s"
         if  $b != 5         # Baker    !live  on top floor.
         and $c != 1         # Cooper   !live  on bottom floor.
         and $f != 1|5       # Fletcher !live  on top or the bottom floor.
