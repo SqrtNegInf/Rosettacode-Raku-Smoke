@@ -4130,6 +4130,7 @@ File: E/Erdos-Nicolas_numbers
 #j# JVM:  BROKEN
 #n# rc-get Erdd%C5%91s-Nicolas_numbers; rename to 'Erdos*'
 #n# slow, limit testing
+#n# OEIS:A194472 Erdős–Nicolas numbers
 
 File: E/Erdos-Nicolas_numbers.jvm
 #!/usr/bin/env raku
@@ -4554,6 +4555,7 @@ File: F/Factorial_primes
 #c# 2022-08-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A088054 - Factorial primes
 
 File: F/Factorions
 #!/usr/bin/env perl6
@@ -4707,6 +4709,40 @@ File: F/Fermat_numbers.jvm
 #m# MOAR: OK
 #j# JVM:  OK
 #n# must wrap the 'gather' in brackets to get array return (or suffix with .Array)
+
+File: F/Fermat_pseudoprimes
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Fermat_pseudoprimes
+#c# 2022-08-16 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# OEIS:A002808 - Composite numbers
+#n# OEIS:A001567 - Fermat pseudoprimes to base 2
+#n# OEIS:A005935 - Fermat pseudoprimes to base 3
+#n# OEIS:A020136 - Fermat pseudoprimes to base 4
+#n# OEIS:A005936 - Fermat pseudoprimes to base 5
+#n# OEIS:A005937 - Fermat pseudoprimes to base 6
+#n# OEIS:A005938 - Fermat pseudoprimes to base 7
+#n# OEIS:A020137 - Fermat pseudoprimes to base 8
+#n# OEIS:A020138 - Fermat pseudoprimes to base 9
+#n# OEIS:A005939 - Fermat pseudoprimes to base 10
+#n# OEIS:A020139 - Fermat pseudoprimes to base 11
+#n# OEIS:A020140 - Fermat pseudoprimes to base 12
+#n# OEIS:A020141 - Fermat pseudoprimes to base 13
+#n# OEIS:A020142 - Fermat pseudoprimes to base 14
+#n# OEIS:A020143 - Fermat pseudoprimes to base 15
+#n# OEIS:A020144 - Fermat pseudoprimes to base 16
+#n# OEIS:A020145 - Fermat pseudoprimes to base 17
+#n# OEIS:A020146 - Fermat pseudoprimes to base 18
+#n# OEIS:A020147 - Fermat pseudoprimes to base 19
+#n# OEIS:A020148 - Fermat pseudoprimes to base 20
+
+File: F/Fermat_pseudoprimes.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Fermat_pseudoprimes
+#c# 2022-08-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: F/Fibonacci_heap
 #!/usr/bin/env raku
@@ -9905,7 +9941,7 @@ File: P/Pan_base_non-primes
 #m# MOAR: OK
 #j# JVM:  OK
 #n# slow, limit testing (in which case also drop .hyper)
-#n# OEIS:A121719
+#n# OEIS:A121719 Strings of digits which are composite regardless of the base in which they are interpreted.
 
 File: P/Pancake_numbers
 #!/usr/bin/env raku
@@ -11144,7 +11180,8 @@ File: P/Product_of_divisors
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000005
+#n# OEIS:A000005 Tau function
+#n# all listed tasks are hard-linked
 
 File: P/Program_name
 #!/usr/bin/env perl6
@@ -14176,7 +14213,8 @@ File: S/Sum_of_divisors
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000005
+#n# OEIS:A000005 Tau function
+#n# all listed tasks are hard-linked
 
 File: S/Sum_of_elements_below_main_diagonal_of_matrix
 #!/usr/bin/env raku
@@ -14460,7 +14498,8 @@ File: T/Tau_function
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000005
+#n# OEIS:A000005 Tau function
+#n# all listed tasks are hard-linked
 
 File: T/Tau_number
 #!/usr/bin/env raku
@@ -14471,7 +14510,8 @@ File: T/Tau_number
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000005
+#n# OEIS:A000005 Tau function
+#n# all listed tasks are hard-linked
 
 File: T/Taxicab_numbers
 #!/usr/bin/env perl6
@@ -15493,15 +15533,15 @@ File: V/Van_Eck_sequence
 #c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A181391
-#n# OEIS:A171911
-#n# OEIS:A171912
-#n# OEIS:A171913
-#n# OEIS:A171914
-#n# OEIS:A171915
-#n# OEIS:A171916
-#n# OEIS:A171917
-#n# OEIS:A171918
+#n# OEIS:A181391 Van Eck sequence with the first term: 0
+#n# OEIS:A171911 Van Eck sequence with the first term: 1
+#n# OEIS:A171912 Van Eck sequence with the first term: 2
+#n# OEIS:A171913 Van Eck sequence with the first term: 3
+#n# OEIS:A171914 Van Eck sequence with the first term: 4
+#n# OEIS:A171915 Van Eck sequence with the first term: 5
+#n# OEIS:A171916 Van Eck sequence with the first term: 6
+#n# OEIS:A171917 Van Eck sequence with the first term: 7
+#n# OEIS:A171918 Van Eck sequence with the first term: 8
 
 File: V/Van_der_Corput_sequence
 #!/usr/bin/env perl6
