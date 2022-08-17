@@ -2,18 +2,18 @@ Welcome to Rakudo™ v2022.07-17-g6c948e006.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.07-1-g984a6f5fd.
 updating from RC...
-+--------------> Moar: Good/Bad [1463/28]
-|+-------------> JVM: Good/Bad [1289/299]
-||+------------> Smoke testing [1435]
++--------------> Moar: Good/Bad [1466/28]
+|+-------------> JVM: Good/Bad [1289/300]
+||+------------> Smoke testing [1436]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [395]
-||||||+--------> Concurrent/Async [106]
+||||||+--------> Concurrent/Async [107]
 |||||||+-------> Random seed [133]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [372]
+|||||||||+-----> Draft [374]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [104]
+|||||||||||+---> Void (no local copy) [105]
 ||||||||||||+--> Un-implemented/reliable [56]
 |||||||||||||
 GGS......D... 10001th_prime
@@ -506,6 +506,7 @@ GGS..T....... Faulhaber%27s_formula
 GGS.......... Faulhaber%27s_triangle
 GGS.......... Feigenbaum_constant_calculation
 !BS.......... Fermat_numbers
+GBS...C..D... Fermat_pseudoprimes
 GGS.....FD... Fibonacci_heap
 !BS..T...D... Fibonacci_matrix-exponentiation
 GGS..T....... Fibonacci_n-step_number_sequences
@@ -633,7 +634,7 @@ GGS....R..... Guess_the_number
 GGS....R..... Guess_the_number_With_feedback
 GGS....R..... Guess_the_number_With_feedback_player
 GGS..T....... HTTP
-!BS.......... HTTPS
+GBS.......... HTTPS
 GG.K......... HTTPS_Authenticated
 GBS.......... HTTPS_Client-authenticated
 GGS..TC...... Hailstone_sequence
@@ -1146,7 +1147,7 @@ GGS.......... Price_fraction
 GBS..TC...... Primality_by_Wilson%27s_theorem
 GGS.......... Primality_by_trial_division
 GGS..T....... Prime_conspiracy
-!BS..TC...... Prime_decomposition
+GBS..TC...... Prime_decomposition
 !BS.......... Prime_decomposition-1
 .........D.V. Prime_numbers_p_for_which_the_sum_of_primes_less_than_or_equal_to_p_is_prime
 ..........X.. Prime_numbers_p_which_sum_of_prime_numbers_less_or_equal_to_p_is_prime
@@ -1516,6 +1517,7 @@ GGS.......... Summarize_primes
 GGS.......... Summation_of_primes-1
 GBS.......... Summation_of_primes-2
 GGS.....FD... Sunflower_fractal
+.........D.V. Super-Poulet_numbers
 GBS...C...... Super-d_numbers-1
 GBS...C...... Super-d_numbers-2
 GBS..TC...... Super-d_numbers-3
