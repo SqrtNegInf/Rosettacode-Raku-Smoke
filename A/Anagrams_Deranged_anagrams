@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo version 2016.08
+use Test;
 
 my @anagrams = 'ref/unixdict.txt'.IO.words
     .map(*.comb.cache)             # explode words into lists of characters
@@ -12,7 +12,6 @@ my @anagrams = 'ref/unixdict.txt'.IO.words
     .grep(* > 1)                   # only take groups with more than one word
     .sort(-*[0])                   # sort by length of the first word
 ;
-use Test;
 
 for @anagrams -> @group {
     for @group.combinations(2) -> [@a, @b] {
@@ -23,4 +22,3 @@ for @anagrams -> @group {
         }
     }
 }
-
