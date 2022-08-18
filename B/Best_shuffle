@@ -1,26 +1,21 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Best_shuffle
-#c# 2016-04-17 <RC
+#c# 2016-04-17 <RC, 2022-08-18 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
 srand 123456;
 
-my @res.push: sprintf "%s, %s, (%d)", $_, best-shuffle $_
-    for <abracadabra seesaw elk grrrrrr up a>;
+my @res.push: sprintf "%s, %s, (%d)", $_, best-shuffle $_ for <abracadabra seesaw elk grrrrrr up a>;
 .say for @res;
 
 sub best-shuffle(Str $orig) {
-
     my @s = $orig.comb;
     my @t = @s.pick: *;
 
-    for ^@s -> $i {
-        for ^@s -> $j {
-            if $i != $j and @t[$i] ne @s[$j] and @t[$j] ne @s[$i] {
-                @t[$i, $j] = @t[$j, $i];
-                last;
-            }
+    for flat ^@s X ^@s -> \i,\j {
+        if i != j and @t[i] ne @s[j] and @t[j] ne @s[i] {
+            @t[i,j] = @t[j,i] and last
         }
     }
 
@@ -29,14 +24,14 @@ sub best-shuffle(Str $orig) {
         ++$count if $v eq @s[$k]
     }
 
-    return (@t.join, $count);
+    @t.join, $count;
 }
 
 my $moar = qq:to/END/;
-abracadabra, baaracadabr, (0)
-seesaw, assewe, (0)
+abracadabra, barbaardcaa, (3)
+seesaw, eswase, (0)
 elk, kel, (0)
-grrrrrr, rrrgrrr, (5)
+grrrrrr, rrrrgrr, (5)
 up, pu, (0)
 a, a, (1)
 END
