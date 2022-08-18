@@ -3,7 +3,9 @@
 #c# 2016-03-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    this might not be correct math...
+#n# this might not be correct math?
+
+my @res;
 
 sub sma(Int \P where * > 0) returns Sub {
     sub ($x) {
@@ -14,20 +16,17 @@ sub sma(Int \P where * > 0) returns Sub {
 }
 
 my $sma = sma(3);
-my @res;
-for <1 2 3 2 7>  {
-    push @res, $sma($_);
-    printf  "append $_ --> sma = %.2f  (with period 3)\n", @res[*-1];
-    #printf  "append $_ --> sma = %.2f  (with period 3)\n", $sma($_);
-}
+@res.push: sprintf  "append $_ --> sma = %.2f  (with period 3)", $sma($_) for <1 2 3 2 7>;
 
-#`{
-append 1 --> sma = 1.00  (with period 3)
-append 2 --> sma = 1.50  (with period 3)
+.say for @res;
+
+my $ref = qq:to/END/;
+append 1 --> sma = 0.33  (with period 3)
+append 2 --> sma = 1.00  (with period 3)
 append 3 --> sma = 2.00  (with period 3)
 append 2 --> sma = 2.33  (with period 3)
 append 7 --> sma = 4.00  (with period 3)
-}
+END
 
 use Test;
-is @res.join(" "), '0.333333 1 2 2.333333 4';
+is @res.join("\n"), chomp $ref;
