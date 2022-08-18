@@ -4,21 +4,11 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo version 2016.08
-
 sub median {
   my @a = sort @_;
   return (@a[(*-1) div 2] + @a[* div 2]) / 2;
 }
 
-#`{
-Notes:
-
- The div operator does integer division. The / operator (rational number division) would work too, since the array subscript automatically coerces to Int, but using div is more explicit (i.e. clearer to readers) as well as faster, and thus recommended in cases like this.
- The * inside the subscript stands for the array's length (see documentation).
-}
-
-#In a slightly more compact way:
 sub median1 { @_.sort[(*-1)/2, */2].sum / 2 }
 
 use Test;
