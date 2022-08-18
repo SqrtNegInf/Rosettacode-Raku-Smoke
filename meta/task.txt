@@ -2,16 +2,16 @@ Welcome to Rakudo™ v2022.07-17-g6c948e006.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.07-1-g984a6f5fd.
 updating from RC...
-+--------------> Moar: Good/Bad [1466/28]
-|+-------------> JVM: Good/Bad [1289/300]
-||+------------> Smoke testing [1436]
++--------------> Moar: Good/Bad [1467/28]
+|+-------------> JVM: Good/Bad [1291/300]
+||+------------> Smoke testing [1438]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [395]
-||||||+--------> Concurrent/Async [107]
+|||||+---------> Touched (modified by me) [397]
+||||||+--------> Concurrent/Async [108]
 |||||||+-------> Random seed [133]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [374]
+|||||||||+-----> Draft [376]
 ||||||||||+----> Ignoring [40]
 |||||||||||+---> Void (no local copy) [105]
 ||||||||||||+--> Un-implemented/reliable [56]
@@ -130,7 +130,7 @@ GGS.......... Averages_Pythagorean_means
 GGS.......... Averages_Root_mean_square
 GGS.......... Averages_Simple_moving_average
 GBS.....FD... B-spline
-GGS.......... Babbage_problem
+GGS..T....... Babbage_problem
 .........D... Babylonian_spiral
 GGS..T....... Babylonian_spiral-1
 GGS.....F.... Babylonian_spiral-2
@@ -149,13 +149,13 @@ GGS.......... Bell_numbers-2
 GGS.......... Bell_numbers-3
 GGS..T....... Benford%27s_law
 GGS..T....... Bernoulli_numbers
-!GS....R..... Best_shuffle
+!GS..T.R..... Best_shuffle
 GGS....R.D... Bifid_cipher
 GBS.....FD... Bilinear_interpolation
 GGS.......... Bin_given_limits
 .........D.VU Binary_coded_decimal
 GGS.......... Binary_digits
-GGS.......... Binary_search
+!GS.......... Binary_search
 GGS..T....... Binary_strings
 GGS..T...D... Bioinformatics_Global_alignment
 !GS....R..... Bioinformatics_Sequence_mutation
@@ -445,6 +445,7 @@ GGS.......... Empty_directory
 GGS..T....... Empty_program
 GGS.......... Empty_string
 GGS..T.R..... Enforced_immutability
+GGS......D... Engel_expansion
 GGS.......... Entropy
 GGS..T....... Entropy_Narcissist
 GGS..T....... Enumerations
@@ -754,6 +755,7 @@ GB.KI........ Keyboard_input_Flush_the_keyboard_buffer
 GB.KI........ Keyboard_input_Keypress_check
 GG.KI........ Keyboard_input_Obtain_a_Y_or_N_response
 GG.KI........ Keyboard_macros
+.........D.V. Klarner-Rado_sequence
 GGS.......... Knapsack_problem_0_1-1
 GGS.......... Knapsack_problem_0_1-2
 GGS.......... Knapsack_problem_Bounded-1
@@ -1517,7 +1519,7 @@ GGS.......... Summarize_primes
 GGS.......... Summation_of_primes-1
 GBS.......... Summation_of_primes-2
 GGS.....FD... Sunflower_fractal
-.........D.V. Super-Poulet_numbers
+GGS...C..D... Super-Poulet_numbers
 GBS...C...... Super-d_numbers-1
 GBS...C...... Super-d_numbers-2
 GBS..TC...... Super-d_numbers-3
