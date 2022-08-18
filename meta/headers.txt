@@ -998,7 +998,7 @@ File: A/Atomic_updates
 #c# 2016-08-10 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#   Don't test output, just run or die
+#n# Don't test output, just run or die
 
 File: A/Attractive_numbers
 #!/usr/bin/env perl6
@@ -1134,7 +1134,7 @@ File: A/Averages_Simple_moving_average
 #c# 2016-03-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    this might not be correct math...
+#n# this might not be correct math?
 
 File: B/B-spline
 #!/usr/bin/env raku
@@ -1147,7 +1147,7 @@ File: B/B-spline
 File: B/Babbage_problem
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Babbage_problem
-#c# 2016-08-29 <RC
+#c# 2016-08-29 <RC, 2022-07-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -1346,7 +1346,7 @@ File: B/Bernoulli_numbers
 File: B/Best_shuffle
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Best_shuffle
-#c# 2016-04-17 <RC
+#c# 2016-04-17 <RC, 2022-08-18 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -1387,6 +1387,12 @@ File: B/Binary_search
 #c# 2016-01-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+sub search (@a, $x --> Int) {
+    binary_search  { $x cmp @a[$^i] }, 0, @a.end
+}
+sub searchx (@a, $x --> Int) {
+    binary_searchx { $x cmp @a[$^i] }, 0, @a.end
+}
 
 File: B/Binary_strings
 #!/usr/bin/env perl6
@@ -4075,6 +4081,16 @@ File: E/Enforced_immutability
 #m# MOAR: OK
 #j#  JVM: OK
 #n# testing not very thorough
+
+File: E/Engel_expansion
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Engel_expansion
+#c# 2022-08-17 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A006784 Engel expansion of Pi
+#n# OEIS:A028310 Engel expansion of 𝑒
+#n# OEIS:A028254 Engel expansion of sqrt(2)
 
 File: E/Entropy
 #!/usr/bin/env perl6
@@ -14336,6 +14352,22 @@ File: S/Sunflower_fractal
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: sunflower.svg
+
+File: S/Super-Poulet_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Super-Poulet_numbers
+#c# 2022-08-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A050217 Super-Poulet numbers
+
+File: S/Super-Poulet_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Super-Poulet_numbers
+#c# 2022-08-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A050217 Super-Poulet numbers
 
 File: S/Super-d_numbers-1
 #!/usr/bin/env perl6
