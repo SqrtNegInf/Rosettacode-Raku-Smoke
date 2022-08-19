@@ -1,0 +1,92 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Boyer-Moore_string_search
+#c# 2022-08-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub suffixes (@pat,\m) {
+   loop (my ($i,$f,$g,@suff)=m-2, 0, m-1, |flat 0 xx m-1,m; $i >= 0; --$i) {
+      if $i > $g and @suff[$i + m - 1 - $f] < $i - $g {
+         @suff[$i] = @suff[$i + m - 1 - $f]
+      } else {
+	 $g = $i if $i < $g;
+         $f = $i;
+	 while $g >= 0 and @pat[$g] eq @pat[$g + m - 1 - $f] { $g-- }
+         @suff[$i] = $f - $g
+      }
+   }
+   return @suff;
+}
+
+sub preBmGs (@pat,\m) {
+   my (@suff, @bmGs) := suffixes(@pat,m), [m xx m]; 
+
+   for m-1 ... 0 -> \k {
+      if @suff[k] == k + 1 {
+         loop (my $j=0; $j < m-1-k; $j++) { @bmGs[k]=m-1-k if @bmGs[$j] == m }
+      }
+   }
+   for ^(m-1) { @bmGs[m - 1 - @suff[$_]] = m - 1 - $_ }
+   return @bmGs;
+}
+
+sub BM (@txt,@pat) {
+   my (\m, \n, $j)    = +@pat, +@txt, 0;
+   my (@bmGs, %bmBc) := preBmGs(@pat,m), hash @pat Z=> ( m-1 ... 1 );
+
+   return gather while $j <= n - m {
+      loop (my $i = m - 1; $i >= 0 and @pat[$i] eq @txt[$i + $j]; ) { $i-- }
+      if $i < 0 {
+	 take $j;
+         $j += @bmGs[0]
+      } else {
+         $j += max @bmGs[$i], (%bmBc{@txt[$i + $j]} // m)-m+$i
+      }
+   }
+}
+
+my @texts = [
+   "GCTAGCTCTACGAGTCTA",
+   "GGCTATAATGCGTA",
+   "there would have been a time for such a word",
+   "needle need noodle needle",
+   "BharôtভাৰতBharôtভারতIndiaBhāratભારતBhāratभारतBhārataಭಾರತBhāratभारतBhāratamഭാരതംBhāratभारतBhāratभारतBharôtôଭାରତBhāratਭਾਰਤBhāratamभारतम्Bārataபாரதம்BhāratamഭാരതംBhāratadēsamభారతదేశం",
+   "InhisbookseriesTheArtofComputerProgrammingpublishedbyAddisonWesleyDKnuthusesanimaginarycomputertheMIXanditsassociatedmachinecodeandassemblylanguagestoillustratetheconceptsandalgorithmsastheyarepresented",
+   "Nearby farms grew a half acre of alfalfa on the dairy's behalf, with bales of all that alfalfa exchanged for milk.",
+];
+
+my @pats = [ "TCTA", "TAATAAA", "word", "needle", "ഭാരതം", "put", "and", "alfalfa"];
+
+@res.push: "text$_ = @texts[$_]" for @texts.keys ;
+@res.push: '';
+
+for @pats.keys {
+   my \j = $_ < 6 ?? $_ !! $_-1 ; # for searching text5 twice
+   @res.push: "Found '@pats[$_]' in 'text{j}' at indices " ~ BM @texts[j].comb, @pats[$_].comb
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+text0 = GCTAGCTCTACGAGTCTA
+text1 = GGCTATAATGCGTA
+text2 = there would have been a time for such a word
+text3 = needle need noodle needle
+text4 = BharôtভাৰতBharôtভারতIndiaBhāratભારતBhāratभारतBhārataಭಾರತBhāratभारतBhāratamഭാരതംBhāratभारतBhāratभारतBharôtôଭାରତBhāratਭਾਰਤBhāratamभारतम्Bārataபாரதம்BhāratamഭാരതംBhāratadēsamభారతదేశం
+text5 = InhisbookseriesTheArtofComputerProgrammingpublishedbyAddisonWesleyDKnuthusesanimaginarycomputertheMIXanditsassociatedmachinecodeandassemblylanguagestoillustratetheconceptsandalgorithmsastheyarepresented
+text6 = Nearby farms grew a half acre of alfalfa on the dairy's behalf, with bales of all that alfalfa exchanged for milk.
+
+Found 'TCTA' in 'text0' at indices 6 14
+Found 'TAATAAA' in 'text1' at indices
+Found 'word' in 'text2' at indices 40
+Found 'needle' in 'text3' at indices 0 19
+Found 'ഭാരതം' in 'text4' at indices 74 154
+Found 'put' in 'text5' at indices 26 90
+Found 'and' in 'text5' at indices 101 128 171
+Found 'alfalfa' in 'text6' at indices 33 87
+END
+
+use Test;
+is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
