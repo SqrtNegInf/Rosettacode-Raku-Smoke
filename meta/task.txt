@@ -2,19 +2,19 @@ Welcome to Rakudo™ v2022.07-17-g6c948e006.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.07-1-g984a6f5fd.
 updating from RC...
-+--------------> Moar: Good/Bad [1467/28]
-|+-------------> JVM: Good/Bad [1291/300]
-||+------------> Smoke testing [1438]
++--------------> Moar: Good/Bad [1471/28]
+|+-------------> JVM: Good/Bad [1291/303]
+||+------------> Smoke testing [1441]
 |||+-----------> sKipping validation [140]
 ||||+----------> Interactive [65]
-|||||+---------> Touched (modified by me) [397]
-||||||+--------> Concurrent/Async [108]
+|||||+---------> Touched (modified by me) [398]
+||||||+--------> Concurrent/Async [109]
 |||||||+-------> Random seed [133]
 ||||||||+------> File output [104]
-|||||||||+-----> Draft [376]
+|||||||||+-----> Draft [378]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [105]
-||||||||||||+--> Un-implemented/reliable [56]
+|||||||||||+---> Void (no local copy) [104]
+||||||||||||+--> Un-implemented/reliable [55]
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
@@ -155,7 +155,7 @@ GBS.....FD... Bilinear_interpolation
 GGS.......... Bin_given_limits
 .........D.VU Binary_coded_decimal
 GGS.......... Binary_digits
-!GS.......... Binary_search
+GGS.......... Binary_search
 GGS..T....... Binary_strings
 GGS..T...D... Bioinformatics_Global_alignment
 !GS....R..... Bioinformatics_Sequence_mutation
@@ -183,7 +183,7 @@ GGS..T....... Bitwise_operations
 .........D.VU Boids
 GGS.......... Boolean_values
 GGS.......... Box_the_compass
-.........D.VU Boyer-Moore_string_search
+GBS......D... Boyer-Moore_string_search
 GGS..T....... Brace_expansion
 GBS......D... Brace_expansion_using_ranges
 GBS..TC...... Brazilian_numbers
@@ -241,7 +241,7 @@ GGS.......... Cheryl%27s_birthday
 .........D.VU Chess_player
 GGS.......... Chinese_remainder_theorem
 GGS.......... Chinese_zodiac
-GGS.......... Cholesky_decomposition
+GGS..T....... Cholesky_decomposition
 GBS...C...... Chowla_numbers
 GGS.......... Church_numerals-1
 GGS.......... Church_numerals-2
@@ -755,7 +755,7 @@ GB.KI........ Keyboard_input_Flush_the_keyboard_buffer
 GB.KI........ Keyboard_input_Keypress_check
 GG.KI........ Keyboard_input_Obtain_a_Y_or_N_response
 GG.KI........ Keyboard_macros
-.........D.V. Klarner-Rado_sequence
+GGS......D... Klarner-Rado_sequence
 GGS.......... Knapsack_problem_0_1-1
 GGS.......... Knapsack_problem_0_1-2
 GGS.......... Knapsack_problem_Bounded-1
@@ -765,7 +765,7 @@ GGS..T....... Knapsack_problem_Unbounded
 !GS..T.R..... Knight%27s_tour
 !GS....R..... Knuth%27s_algorithm_S
 GGS....R..... Knuth%27s_power_tree
-GGS......D... Knuth-Morris-Pratt_string_search
+GBS......D... Knuth-Morris-Pratt_string_search
 !GS....R..... Knuth_shuffle
 GGS.....F.... Koch_curve-1
 GGS.....F.... Koch_curve-2
@@ -1049,6 +1049,7 @@ GGS..T....... P-value_correction
 GGS.......... Padovan_n-step_number_sequences
 GGS.......... Padovan_sequence
 GGS.......... Padovan_sequence-1
+GBS...C..D... Pairs_with_common_factors
 GGS.......... Palindrome_dates
 GGS.......... Palindrome_detection
 GBS...C...... Palindromic_gapful_numbers
@@ -1261,6 +1262,7 @@ GGS......D... Reverse_the_gender_of_a_string
 .........D.V. Reverse_the_order_of_lines_in_a_text_file_while_preserving_the_contents_of_each_line
 GGS.......... Reverse_words_in_a_string
 GBS...C...... Rhonda_numbers
+.........D.V. Riordan_numbers
 GB.KI....D... Robots
 !GS..T.R..... Rock-paper-scissors
 .........D... Rodrigues_rotation_formula
