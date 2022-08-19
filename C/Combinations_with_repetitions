@@ -10,9 +10,7 @@ my $k = 2;
 my @res1.push: $_ for [X](@S xx $k).unique(as => *.sort.cache, with => &[eqv]);
 .put for @res1;
 
-# Alternatively, a recursive solution:
-# Translation of: Haskell
-
+# recursive solution:
 proto combs_with_rep (UInt, @) {*}
 
 multi combs_with_rep (0,  @)  { () }
@@ -30,16 +28,6 @@ sub postfix:<!> { [×] 1..$^n }
 sub combs_with_rep_count ($k, $n) { ($n + $k - 1)! / $k! / ($n - 1)! }
 
 say my $cnt = combs_with_rep_count( 3, 10 );
-
-#`{
-(iced iced)
-(iced jam)
-(iced plain)
-(jam jam)
-(jam plain)
-(plain plain)
-220
-}
 
 my $ref = qq:to/END/;
 iced iced
