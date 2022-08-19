@@ -3,12 +3,10 @@
 #c# 2016-01-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-sub search (@a, $x --> Int) {
-    binary_search  { $x cmp @a[$^i] }, 0, @a.end
-}
-sub searchx (@a, $x --> Int) {
-    binary_searchx { $x cmp @a[$^i] }, 0, @a.end
-}
+
+sub search  (@a, $x --> Int) { binary_search  { $x cmp @a[$^i] }, 0, @a.end }
+
+sub searchx (@a, $x --> Int) { binary_searchx { $x cmp @a[$^i] }, 0, @a.end }
 
 # Iterative
 sub binary_search (&p, Int $lo is copy, Int $hi is copy --> Int) {
@@ -20,13 +18,13 @@ sub binary_search (&p, Int $lo is copy, Int $hi is copy --> Int) {
             default { return $mid    }
         }
     }
-    False;
+    fail;
 }
 
 # Recursive
 # Translation of: Haskell
 sub binary_searchx (&p, Int $lo, Int $hi --> Int) {
-    $lo <= $hi or False;
+    $lo <= $hi or fail;
     my Int $mid = ($lo + $hi) div 2;
     given p $mid {
         when -1 { binary_searchx &p, $lo,      $mid - 1 } 
@@ -39,5 +37,5 @@ my @data = ('aa'..'zz');
 say search(@data, 'qq');
 
 use Test;
-is search(@data, 'qq'), 432, 'qq is 423 (iterative)';
+is  search(@data, 'qq'), 432, 'qq is 423 (iterative)';
 is searchx(@data, 'qq'), 432, 'qq is 423 (recursive)';
