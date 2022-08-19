@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-my @results;
+my @res;
 
 for (2..67).grep: *.is-prime -> \Prime1 {
     for 1 ^..^ Prime1 -> \h3 {
@@ -16,12 +16,13 @@ for (2..67).grep: *.is-prime -> \Prime1 {
                 my \Prime3 = floor 1 + Prime1 × Prime2 / h3;
                 next unless Prime3.is-prime;
                 next unless (Prime2 × Prime3) % (Prime1 - 1) == 1;
-                say "{Prime1} × {Prime2} × {Prime3} == {Prime1 × Prime2 × Prime3}";
-                push @results, "{Prime1} × {Prime2} × {Prime3} == {Prime1 × Prime2 × Prime3}";
+                push @res, "{Prime1} × {Prime2} × {Prime3} == {Prime1 × Prime2 × Prime3}";
             }
         }
     }
 }
+
+.say for @res;
 
 my $ref = qq:to/END/;
 3 × 11 × 17 == 561
@@ -99,4 +100,4 @@ my $ref = qq:to/END/;
 END
 
 use Test;
-is @results.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
