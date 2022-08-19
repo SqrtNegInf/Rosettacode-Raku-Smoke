@@ -14,7 +14,7 @@ sub mul-inv($a is copy, $b is copy) {
 	    @x[0]
     ) while $a > 1;
     @x[1] += $b0 if @x[1] < 0;
-    return @x[1];
+    @x[1]
 }
 
 sub chinese-remainder(*@n) {
@@ -27,7 +27,10 @@ sub chinese-remainder(*@n) {
     }
 }
 
-say chinese-remainder(3, 5, 7)(2, 3, 2);  # fragile
+say chinese-remainder(3, 5, 7)(2, 3, 2);
+
+my &CR = chinese-remainder(3, 5, 7); 
+say CR(2, 3, 2);
 
 use Test;
 is chinese-remainder(3, 5, 7)(2, 3, 2), 23;
