@@ -1387,12 +1387,6 @@ File: B/Binary_search
 #c# 2016-01-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-sub search (@a, $x --> Int) {
-    binary_search  { $x cmp @a[$^i] }, 0, @a.end
-}
-sub searchx (@a, $x --> Int) {
-    binary_searchx { $x cmp @a[$^i] }, 0, @a.end
-}
 
 File: B/Binary_strings
 #!/usr/bin/env perl6
@@ -1648,6 +1642,20 @@ File: B/Box_the_compass
 #m# MOAR: OK
 #j#  JVM: OK
 #n# downgraded Unicode names to ASCII
+
+File: B/Boyer-Moore_string_search
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Boyer-Moore_string_search
+#c# 2022-08-18 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: B/Boyer-Moore_string_search.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Boyer-Moore_string_search
+#c# 2022-08-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: B/Brace_expansion
 #!/usr/bin/env perl6
@@ -1944,7 +1952,7 @@ File: C/Card_shuffles
 #c# 2016-05-22 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# srand drift for JVM fixed
+#n# 2022-01-29 srand drift for JVM fixed, upon upgrade to 2021.12
 
 File: C/Carmichael_3_strong_pseudoprimes
 #!/usr/bin/env perl6
@@ -2186,7 +2194,7 @@ File: C/Chinese_zodiac.1
 File: C/Cholesky_decomposition
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cholesky_decomposition
-#c# 2016-01-26 <RC
+#c# 2016-01-26 <RC, 2022-08-18 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -7088,6 +7096,13 @@ File: K/Keyboard_macros
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: K/Klarner-Rado_sequence
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Klarner-Rado_sequence
+#c# 2022-08-17 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: K/Knapsack_problem_0_1-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Knapsack_problem/0-1
@@ -7166,7 +7181,7 @@ File: K/Knuth-Morris-Pratt_string_search
 #u# http://rosettacode.org/wiki/Knuth-Morris-Pratt_string_search
 #c# 2022-08-11 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 
 File: K/Knuth-Morris-Pratt_string_search.jvm
 #!/usr/bin/env raku
@@ -9822,6 +9837,22 @@ File: P/Padovan_sequence-1
 #m# MOAR: OK
 #j# JVM:  OK
 #n# https://gfldex.wordpress.com/2022/03/01/pushing/ (prompted by PWC 154/2)
+
+File: P/Pairs_with_common_factors
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Pairs_with_common_factors
+#c# 2022-08-18 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# full run slow-ish (~2min), limit testing
+#n# OEIS:A185670 Number of pairs (x,y) with 1 <= x < y <= n with at least one common factor
+
+File: P/Pairs_with_common_factors.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Pairs_with_common_factors
+#c# 2022-08-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: P/Palindrome_dates
 #!/usr/bin/env perl6
