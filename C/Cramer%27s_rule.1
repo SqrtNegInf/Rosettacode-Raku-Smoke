@@ -3,23 +3,25 @@
 #c# 2016-01-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# version before Trizen++ added 'generic' routine for determinant; keep around to document bug
 
 sub det(@A) {
-    [+] gather for ^@A -> $i {
+    [+] gather for ^@A -> \i {
         my ($p1, $p2) = (1, 1);
-        for ^@A[$i] -> $j {
-            $p1 ×= @A[($j+$i)%@A][$j];
-            $p2 ×= @A[($j+$i)%@A][*-$j-1];
+        for ^@A[i] -> \j {
+            $p1 ×= @A[(j+i)%@A;j];
+           #$p2 ×= @A[(j+i)%@A;*-j+1];    # 2022-08-19 bug: '*' doesn't work here with ';' notation for array
+            $p2 ×= @A[(j+i)%@A;@A-(j+1)]; # work-around
         }
         take $p1-$p2;
     }
 }
 
 sub cramers_rule(@A, @terms) {
-    gather for ^@A -> $i {
+    gather for ^@A -> \i {
         my @Ai = @A.map: { [|$_] };
-        for ^@terms -> $j {
-            @Ai[$j][$i] = @terms[$j];
+        for ^@terms -> \j {
+            @Ai[j;i] = @terms[j];
         }
         take det(@Ai);
     } »/» det(@A);
@@ -32,11 +34,9 @@ my @matrix = (
 );
 
 my @free_terms = (4, -6, 5);
-my ($x, $y, $z) = |cramers_rule(@matrix, @free_terms);
+my ($x, $y, $z) = cramers_rule(@matrix, @free_terms);
 
-say "x = $x";
-say "y = $y";
-say "z = $z";
+("x = $x", "y = $y", "z = $z").join("\n").say;
 
 use Test;
 is "$x $y $z", '2 1 3';
