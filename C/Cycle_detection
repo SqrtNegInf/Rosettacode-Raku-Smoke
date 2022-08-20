@@ -4,9 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo version 2016-01
-#Pretty much a line for line translation of the Python code on the Wikipedia page.
-
 sub cyclical-function (\x) { (x × x + 1) % 255 };
 
 my ( $l, $s ) = brent( &cyclical-function, 3 );
@@ -20,27 +17,27 @@ my @res;
 sub brent (&f, $x0) {
     my $power = my $λ = 1;
     my $tortoise = $x0;
-    my $hare = f($x0);
+    my $hare = f $x0;
     while ($tortoise != $hare) {
         if $power == $λ {
             $tortoise = $hare;
             $power ×= 2;
             $λ = 0;
         }
-        $hare = f($hare);
+        $hare = f $hare;
         $λ += 1;
     }
 
     my $μ = 0;
     $tortoise = $hare = $x0;
-    $hare = f($hare) for ^$λ;
+    $hare = f $hare for ^$λ;
 
-    while ($tortoise != $hare) {
-        $tortoise = f($tortoise);
-        $hare = f($hare);
+    while $tortoise != $hare {
+        $tortoise = f $tortoise;
+        $hare     = f $hare;
         $μ += 1;
     }
-    return $λ, $μ;
+    $λ, $μ
 }
 
 my $ref = q:to/END/;
