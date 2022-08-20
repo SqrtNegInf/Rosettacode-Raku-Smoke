@@ -4,10 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo version 2010.07
-
-# As Perl 5, except DateTime is built-in, so you don't need to download a module of that name:
-
 say my $result = join ' ', grep { Date.new($_, 12, 25).day-of-week == 7 }, 2008 .. 2121;
 
 use Test;
