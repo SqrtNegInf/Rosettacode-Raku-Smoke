@@ -4,30 +4,15 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#`{{
-Scott E. Page introduced the diversity prediction theorem: "The squared
-error of the collective prediction equals the average squared error minus
-the predictive diversity". Therefore, when the diversity in a group is
-large, the error of the crowd is small.
-
-- Average Individual Error: Average of the individual squared errors
-- Collective Error: Squared error of the collective prediction
-- Prediction Diversity: Average squared distance from the individual predictions to the collective prediction
-
-The Diversity Prediction Theorem: Given a crowd of predictive models:
-Collective Error = Average Individual Error - Prediction Diversity 
-}}
-
 sub diversity-calc($truth, @pred) {
     my $ae = avg-error($truth, @pred); # average individual error
     my $cp = ([+] @pred)/+@pred;       # collective prediction
-    my $ce = ($cp - $truth)**2;        # collective error
+    my $ce = ($cp - $truth)²;          # collective error
     my $pd = avg-error($cp, @pred);    # prediction diversity
     <average-error crowd-error diversity> Z=> return $ae, $ce, $pd;
 }
 
 sub avg-error ($m, @v) { ([+] (@v X- $m) X**2) / +@v }
-#sub avg-error ($m, @v) { +@v R/ [+] (@v X- $m) X**2 } # saves 1 char!
 
 sub diversity-format (@stats) { 
 gather {
