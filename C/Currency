@@ -4,10 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo version 2016.01
-#No need for a special type in Perl 6, since the Rat type is used for normal fractions.
-#(In order to achieve imprecision, you have to explicitly use scientific notation,
-#or use the Num type, or calculate a result that requires a denominator in excess of 2 ** 64. (There's no limit on the numerator.))
+# make up for lack of a Rat fixed-point printf format
+sub fix2($x) { ($x + 0.001).subst(/ <?after \.\d\d> .* $ /, '') }
 
 my @check = q:to/END/.lines.map: { [.split(/\s+/)] };
     Hamburger   5.50    4000000000000000
@@ -16,10 +14,9 @@ my @check = q:to/END/.lines.map: { [.split(/\s+/)] };
 
 my $tax-rate = 0.0765;
 
-my $fmt = "%-10s %8s %18s %22s\n";
+my $fmt = '%-10s %8s %18s %22s';
 
-my @res;
-@res.push: sprintf $fmt, <Item Price Quantity Extension>;
+my @res.push: sprintf $fmt, <Item Price Quantity Extension>;
 
 my $subtotal = [+] @check.map: -> [$item,$price,$quant] {
     my $extension = $price × $quant;
@@ -35,10 +32,8 @@ my $tax = ($subtotal × $tax-rate).round(0.01);
 
 my $total = $subtotal + $tax;
 @res.push: sprintf $fmt, '', '', 'Total ', $total;
-put @res;
 
-# make up for lack of a Rat fixed-point printf format
-sub fix2($x) { ($x + 0.001).subst(/ <?after \.\d\d> .* $ /, '') }
+say my $result = @res.join("\n");
 
 my $ref = qq:to/END/;
 Item          Price           Quantity              Extension
@@ -51,4 +46,4 @@ Milkshake      2.86                  2                   5.72
 END
 
 use Test;
-is @res.join, $ref;
+is $result, chomp $ref;
