@@ -2925,11 +2925,19 @@ File: C/Cousin_primes
 #n# A094343 == A023200 ∪ A046132 
 
 File: C/Cramer%27s_rule
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Cramer%27s_rule
+#c# 2022-08-19 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: C/Cramer%27s_rule.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Cramer's_rule
 #c# 2016-01-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# version before Trizen++ added 'generic' routine for determinant; keep around to document bug
 
 File: C/Create_a_file
 #!/usr/bin/env perl6
@@ -3540,6 +3548,7 @@ File: D/Digital_root_Multiplicative_digital_root
 #c# 2016-05-15 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 'cache' is optional, providing no particular benefit as used here
 
 File: D/Dijkstra%27s_algorithm
 #!/usr/bin/env raku
@@ -12048,6 +12057,13 @@ File: R/Rhonda_numbers.jvm
 #m# MOAR: OK
 #j# JVM:  OK
 #n# slow, so limit to 5 for testing
+
+File: R/Riordan_numbers
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Riordan_numbers
+#c# 2022-08-19 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: R/Robots
 #!/usr/bin/env perl6
