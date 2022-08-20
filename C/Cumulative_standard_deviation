@@ -4,12 +4,10 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo Star version 2010.08
-
 # Using a closure:
 sub sd (@a) {
     my $mean = @a R/ [+] @a;
-    sqrt @a R/ [+] map (* - $mean)**2, @a;
+    sqrt @a R/ [+] map (* - $mean)², @a;
 }
 
 sub sdaccum {
@@ -19,19 +17,21 @@ sub sdaccum {
 
 my &f = sdaccum;
 my @r1;
-push @r1, (f $_).round(.000000000000001) for 2, 4, 4, 4, 5, 5, 7, 9;
+#push @r1, (f $_).round(.000000000000001) for 2, 4, 4, 4, 5, 5, 7, 9;
+push @r1, .&f.round(.000000000000001) for 2, 4, 4, 4, 5, 5, 7, 9;
 
 # Using a state variable:
 # remember that <(x-<x>)²> = <x²> - <x>²
 sub stddev($x) {
     sqrt
-        (.[2] += $x**2) / ++.[0] -
-        ((.[1] += $x) / .[0])**2
+        (.[2] += $x²) / ++.[0] -
+        ((.[1] += $x) / .[0])²
     given state @;
 }
 
 my @r2;
-push @r2, (stddev $_).round(.000000000000001) for <2 4 4 4 5 5 7 9>;
+#push @r2, (stddev $_).round(.000000000000001) for <2 4 4 4 5 5 7 9>;
+push @r2, .&stddev.round(.000000000000001) for <2 4 4 4 5 5 7 9>;
 
 my @ref = <
 0
