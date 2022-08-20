@@ -6,19 +6,20 @@
 
 role Egyptian {
     method gist {
-	join ' + ',
-        ("[{self.floor}]" if self.abs >= 1),  # change
+	    join ' + ',
+        ("[{self.floor}]" if self.abs >= 1),
 	    map {"1/$_"}, self.denominators;
     }
+
     method denominators {
-	my ($x, $y) = self.nude;
-	$x %= $y;
-	my @denom = gather ($x, $y) = -$y % $x, $y × take ($y / $x).ceiling # change
-	    while $x;
+	    my ($x, $y) = self.nude;
+	    $x %= $y;
+	    my @denom = gather ($x, $y) = -$y % $x, $y × take ($y / $x).ceiling while $x;
     }
 }
 
 my @res.push: flat .nude.join('/'), "=", ($_ but Egyptian).gist for 43/48, 5/121, 2014/59;
+
 .say for @res;
 
 my $ref1 = qq:to/END/;
@@ -45,7 +46,6 @@ say my $max2 = .key.nude.join("/")~
     .value.elems
         given max :by(*.value.elems), @sample;
 
-
 is $max1, '8/97 has max denominator, namely 579504587067542801713103191859918608251030291952195423583529357653899418686342360361798689053273749372615043661810228371898539583862011424993909789665';
 is $max2, '8/97 has max number of denominators, namely 8';
 
@@ -55,16 +55,15 @@ role Egyptian1 {
     method gist { 
         join ' + ', map {"1/$_"}, self.list; # change
     }
+
     method list {
-	my $sum = 0;
-	gather for 2 .. * {
-	    last if $sum == self;
-	    $sum += 1 / .take unless $sum + 1 / $_ > self;
-	}
+	    my $sum = 0;
+	    gather for 2 .. * {
+	        last if $sum == self;
+	        $sum += 1 / .take unless $sum + 1 / $_ > self;
+	    }
     }
 }
 
 say 5/4 but Egyptian1;
 is (5/4 but Egyptian1).gist, '1/2 + 1/3 + 1/4 + 1/6';
-
-# The list of terms grows exponentially with the value of the fraction, though.
