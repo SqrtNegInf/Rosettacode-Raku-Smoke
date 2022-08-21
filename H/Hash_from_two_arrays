@@ -6,25 +6,27 @@
 
 use Test;
 
-# Using the "zipwith" meta-operator on the => pair composer:
+my $ref = '{a => 0, b => 1, c => 2, d => 3, e => 4}';
 
 my @keys = <a b c d e>;
 my @values = ^5;
 
+# 1. Using the "zipwith" meta-operator on the => pair composer:
 my %hash1 = @keys Z=> @values;
 say %hash1; 
-
-my $ref = '{a => 0, b => 1, c => 2, d => 3, e => 4}';
-use Test;
 is %hash1.gist, $ref;
 
-# Alternatively, by assigning to a hash slice:
+# 2. By assigning to a hash slice:
 my %hash2;
 %hash2{@keys} = @values;
 is %hash2.gist, $ref;
 
-# Or to create an anonymous hash:
+# 3. To create an anonymous hash:
 is %( @keys Z=> @values ).gist, $ref;
 
-# All of these zip forms trim the result to the length of the shorter of their two input lists. If you wish to enforce equal lengths, you can use a strict hyperoperator instead:
-#{ @keys »=>« @values }  # Will fail if the lists differ in length
+# 4. Enforce equal lengths with hyperoperator instead: 
+#   (fails if the lists differ in length)
+is %(@keys »=>« @values).gist, $ref;
+is %(@keys «=>» @values).gist, $ref;
+is %(@keys »=>» @values).gist, $ref;
+is %(@keys «=>« @values).gist, $ref;
