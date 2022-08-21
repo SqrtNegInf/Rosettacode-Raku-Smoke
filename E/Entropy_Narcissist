@@ -3,12 +3,10 @@
 #c# 2016-05-16 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# output depends on exact text of program!
 
 say my $out = log(2) R/ [+] map -> \p { p × -log p }, $_.comb.Bag.values »/» +$_
     given slurp($*PROGRAM-NAME).comb;
 
-# NB: output depends on exact text of program!
-# 4.87860476249679
-
 use Test;
-is-approx $out.round(.05), 4.95, 'Approx good';
+is-approx $out.round(.05), 4.85;
