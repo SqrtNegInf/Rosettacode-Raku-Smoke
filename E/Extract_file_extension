@@ -1,7 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Extract_file_extension
 #c# 2016-01-06 <RC
-#t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -13,7 +12,7 @@ sub extension ( Str $filename --> Str ) {
     }
 }
 
-say "$_ -> ", extension($_) for (
+my @res.push: "$_ -> "~ extension($_) for (
     'mywebsite.com/picture/image.png',
     'http://mywebsite.com/picture/image.png',
     'myuniquefile.longextension',
@@ -22,10 +21,16 @@ say "$_ -> ", extension($_) for (
     'file.odd_one',
 );
 
+.say for @res;
+
+my $ref = qq:to/END/;
+mywebsite.com/picture/image.png -> .png
+http://mywebsite.com/picture/image.png -> .png
+myuniquefile.longextension -> .longextension
+IAmAFileWithoutExtension ->
+/path/to.my/file ->
+file.odd_one ->
+END
+
 use Test;
-is extension('mywebsite.com/picture/image.png'), '.png';
-is extension('http://mywebsite.com/picture/image.png'), '.png';
-is extension('myuniquefile.longextension'), '.longextension';
-is extension('IAmAFileWithoutExtension'), '';
-is extension('/path/to.my/file'), '';
-is extension('file.odd_one'), '';
+is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
