@@ -5,9 +5,8 @@
 #j#  JVM: OK
 #r# RC prep: cp ref/replace.base run/replace1.txt; cp ref/replace.base run/replace2.txt; cp ref/replace.base run/replace3.txt
 #f# RC file: replace3.txt
-#    just checking on 3rd modified file
-
-# Current Perl 6 implementations do not yet support the -i flag for editing files in place, so we roll our own (rather unsafe) version:
+#n#  just checking on 3rd modified file
+#n# Unlike Perl, Rake has no '-i' flag in-place editing, so we roll our own (rather unsafe) version:
 
 slurp($_).subst('Goodbye London!', 'Hello New York!', :g) ==> spurt($_)
     for <run/replace1.txt run/replace2.txt run/replace3.txt>;
