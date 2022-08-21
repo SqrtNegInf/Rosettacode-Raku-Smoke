@@ -5,7 +5,7 @@
 #j#  JVM: OK
 #n# sigil-less is nicer...
 
-# Translation of: zkl
+my @res;
 
 sub intersection (Real \ax, Real \ay, Real \bx, Real \by,
                   Real \cx, Real \cy, Real \dx, Real \dy ) {
@@ -29,11 +29,10 @@ sub intersection (Real \ax, Real \ay, Real \bx, Real \by,
 
 sub determinate ( Real \a, Real \b, Real \c, Real \d ) { a × d - b × c }
 
-# TESTING
-my @res;
 @res.push: 'Intersection point: '~ intersection( 4,0, 6,10, 0,3, 10,7 );
 @res.push: 'Intersection point: '~ intersection( 4,0, 6,10, 0,3, 10,7.1 );
 @res.push: 'Intersection point: '~ intersection( 0,0, 1,1, 1,2, 4,5 );
+
 .say for @res;
 
 my $ref = qq:to/END/;
