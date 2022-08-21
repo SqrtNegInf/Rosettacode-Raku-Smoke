@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n#  runs a fixed 3x3 game, in 3 turns
-#n# oops, testing was bogus (now fixed)
+#n# 2021-03-08 oops, testing was bogus
 
 srand 123456;
 
@@ -65,6 +65,6 @@ sub build (%hash) {
 
 sub scramble(%hash) {
     my @keys = sort keys %hash;                 # 'sort' for stability in testing
-    @keys.push: | sort keys %hash{'1'};         # 'sort' for stability in testing
+    @keys.push: | sort keys %hash{'1'};         #               "
     flip $_,  %hash for @keys.pick( @keys/2 );
 }
