@@ -3,15 +3,16 @@
 #c# 2016-08-14 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# *[0] and *[1] could have been hard-coded, but what's the fun in that?
 
 # The .classify method returns a multimap represented as a Hash whose values are Arrays.
 
-# Works with: Rakudo version 2016.07
 sub hash-join(@a, &a, @b, &b) {
-    my %hash := @b.classify(&b);
+    my %hash = @b.classify(&b);     # := was not necessary
 
     @a.map: -> $a {
-        |(%hash{a $a} // next).map: -> $b { [$a, $b] }
+       #|(%hash{a $a}  // next).map: -> $b { [$a, $b] } # bare 'a' is a bit obscure
+        |(%hash{$a.&a} // next).map: -> $b { [$a, $b] }
     }
 }
 
@@ -31,7 +32,8 @@ my @B =
     ["Glory", "Buffy"],
 ;
 
-my @res.push: $_ for hash-join @A, *[1], @B, *[0];
+my @res.push: $_ for hash-join @A, *[1], @B, *[0];  # TIL bare code snippets passed to sub
+
 .say for @res;
 
 my $ref = qq:to/END/;
@@ -46,4 +48,3 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-
