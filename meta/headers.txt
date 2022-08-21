@@ -4122,6 +4122,7 @@ File: E/Entropy_Narcissist
 #c# 2016-05-16 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# output depends on exact text of program!
 
 File: E/Enumerations
 #!/usr/bin/env perl6
@@ -4136,7 +4137,6 @@ File: E/Environment_variables
 #c# 2016-05-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    'OSTYPE' fails in batch unless variable used?
 
 File: E/Equal_prime_and_composite_sums
 #!/usr/bin/env raku
@@ -4507,7 +4507,6 @@ File: E/Extract_file_extension
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Extract_file_extension
 #c# 2016-01-06 <RC
-#t# graphical
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -4851,7 +4850,7 @@ File: F/Fibonacci_word
 #c# 2016-02-20 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# oops, been failing due to tiny FP changes [hidden in the growing mass of errors]
+#n# 2022-01-30 oops, been failing due to tiny FP changes [hidden in the growing mass of 'srand'  errors]
 
 File: F/Fibonacci_word_fractal
 #!/usr/bin/env perl6
@@ -5305,7 +5304,7 @@ File: F/Flipping_bits_game
 #m# MOAR: OK
 #j#  JVM: OK
 #n#  runs a fixed 3x3 game, in 3 turns
-#n# oops, testing was bogus (now fixed)
+#n# 2021-03-08 oops, testing was bogus
 
 File: F/Flow-control_structures
 #!/usr/bin/env perl6
@@ -5405,7 +5404,6 @@ File: F/Forward_difference
 #c# 2016-04-22 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    not perfect...
 
 File: F/Four_bit_adder
 #!/usr/bin/env perl6
@@ -5826,7 +5824,8 @@ File: G/Globally_replace_text_in_several_files
 #j#  JVM: OK
 #r# RC prep: cp ref/replace.base run/replace1.txt; cp ref/replace.base run/replace2.txt; cp ref/replace.base run/replace3.txt
 #f# RC file: replace3.txt
-#    just checking on 3rd modified file
+#n#  just checking on 3rd modified file
+#n# Unlike Perl, Rake has no '-i' flag in-place editing, so we roll our own (rather unsafe) version:
 
 File: G/Go_Fish
 #!/usr/bin/env perl6
@@ -6152,6 +6151,7 @@ File: H/Hash_join
 #c# 2016-08-14 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# *[0] and *[1] could have been hard-coded, but what's the fun in that?
 
 File: H/Hash_join.1
 #!/usr/bin/env perl6
@@ -10329,6 +10329,22 @@ File: P/Penrose_tiling
 #j# JVM:  OK
 #f# RC file: penrose_tiling.svg
 
+File: P/Penta-power_prime_seeds
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Penta-power_prime_seeds
+#c# 2022-08-19 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# slow-ish, limit testing
+
+File: P/Penta-power_prime_seeds.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Penta-power_prime_seeds
+#c# 2022-08-19 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# slow-ish, limit testing
+
 File: P/Pentagram
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Pentagram
@@ -11360,6 +11376,24 @@ File: Q/QR_decomposition
 #n# don't re-use $sum, 3 local vars instead
 #n# explicit typing required only for Array variables (Real/Int dropped)
 
+File: Q/Quad-power_prime_seeds
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Quad-power_prime_seeds
+#c# 2022-08-19 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# slow-ish, limit testing
+#n# OEIS:A219117 Numbers n such that n^1+n+1, n^2+n+1, n^3+n+1 and n^4+n+1 are all prime
+
+File: Q/Quad-power_prime_seeds.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Quad-power_prime_seeds
+#c# 2022-08-19 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# slow-ish, limit testing
+#n# OEIS:A219117 Numbers n such that n^1+n+1, n^2+n+1, n^3+n+1 and n^4+n+1 are all prime
+
 File: Q/Quadrat_Special_Primes
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Quadrat_Special_Primes
@@ -12064,6 +12098,7 @@ File: R/Riordan_numbers
 #c# 2022-08-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A005043 Riordan numbers
 
 File: R/Robots
 #!/usr/bin/env perl6
