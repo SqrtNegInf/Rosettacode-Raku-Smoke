@@ -9,36 +9,33 @@ my @res;
 
 constant @fib-word = '1', '0', { $^b ~ $^a } ... *;
 
-MAINly();
+my ($m, $scale) = 17, 3;
 
-sub MAINly($m = 17, $scale = 3) {
-    (my %world){0}{0} = 1;
-    my $loc = 0+0i;
-    my $dir = i;
-    my $n = 1;
+(my %world){0}{0} = 1;
+my $loc = 0+0i;
+my $dir = i;
+my $n = 1;
 
-    for @fib-word[$m].comb {
-        when '0' {
-            step;
-            if $n %% 2 { turn-left }
-            else { turn-right; }
-        }
-        $n++;
+for @fib-word[$m].comb {
+    when '0' {
+        step;
+        if $n %% 2 { turn-left }
+        else { turn-right; }
     }
-
-    braille-graphics %world;
-
-    sub step {
-        for ^$scale {
-            $loc += $dir;
-            %world{$loc.im}{$loc.re} = 1;
-        }
-    }
-
-    sub turn-left  { $dir ×=  i; }
-    sub turn-right { $dir ×= -i; }
-
+    $n++;
 }
+
+braille-graphics %world;
+
+sub step {
+    for ^$scale {
+        $loc += $dir;
+        %world{$loc.im}{$loc.re} = 1;
+    }
+}
+
+sub turn-left  { $dir ×=  i; }
+sub turn-right { $dir ×= -i; }
 
 sub braille-graphics (%a) {
     my ($ylo, $yhi, $xlo, $xhi);
@@ -49,7 +46,7 @@ sub braille-graphics (%a) {
         }
     }
 
-    for $ylo, $ylo + 4 ...^ * > $yhi -> \y {
+    for $ylo, $ylo + 4 ...^ * > $yhi -> \y {                       # } }  vim kludge
         my $line;
         for $xlo, $xlo + 2 ...^ * > $xhi -> \x {
             my $cell = 0x2800;
@@ -67,7 +64,7 @@ sub braille-graphics (%a) {
     }
 }
 
-.say for @res;
+#.say for @res;
 
 my $ref = qq:to/END/;
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
