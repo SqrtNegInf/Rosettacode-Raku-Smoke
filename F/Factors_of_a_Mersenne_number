@@ -5,6 +5,8 @@
 #j#  JVM: OK
 #n# not using supplied clever prime tester, as it crashes JVM
 
+my $result;
+
 my @primes = 2, 3, -> $n is copy {
     repeat { $n += 2 } until $n %% none do for @primes -> $p {
         last if $p > sqrt($n);
@@ -22,7 +24,7 @@ multi factors(Int $remainder is copy) {
     }
     while $remainder %% $factor {
         take $factor;
-        last if ($remainder div= $factor) === 1;
+        last if 1 == $remainder div= $factor;
     }
   }
 }
@@ -38,28 +40,25 @@ sub mtest($bits, $p) {
     $sq == 1;
 }
 
-my $out;
-
 for flat 2 .. 60, 929 -> $m {
     next unless $m.is-prime;
-    #next unless is_prime($m);
     my $f = 0;
     my $x = 2**$m - 1;
     my $q;
     for 1..* -> $k {
 	$q = 2 × $k × $m + 1;
 	next unless $q % 8 == 1|7 or $q.is-prime;
-	#next unless $q % 8 == 1|7 or is_prime($q);
 	last if $q × $q > $x or $f = mtest($m, $q);
     }
 
     say $f ?? "M$m = $x\n\t= $q × { $x div $q }"
            !! "M$m = $x is prime";
-    $out ~= $f ?? "M$m = $x\n\t= $q × { $x div $q }\n"
+    $result ~= $f ?? "M$m = $x\n\t= $q × { $x div $q }\n"
            !! "M$m = $x is prime\n";
 }
 
-my $ref = Q{M2 = 3 is prime
+my $ref = qq:to/END/;
+M2 = 3 is prime
 M3 = 7 is prime
 M5 = 31 is prime
 M7 = 127 is prime
@@ -87,7 +86,7 @@ M59 = 576460752303423487
 	= 179951 × 3203431780337
 M929 = 4538015467766671944574165338592225830478699345884382504442663144885072806275648112625635725391102144133907238129251016389326737199538896813326509341743147661691195191795226666084858428449394948944821764472508048114220424520501343042471615418544488778723282182172070046459244838911
 	= 13007 × 348890248924938259750454781163390930305120269538278042934009621348894657205785201247454118966026150852149399410259938217062100192168747352450719561908445272675574320888385228421992652298715687625495638077382028762529439880103124705348782610789919949159935587158612289264184273
-};
+END
 
 use Test;
-is $out, $ref;
+is $result, $ref;
