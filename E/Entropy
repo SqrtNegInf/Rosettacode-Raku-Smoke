@@ -4,8 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: rakudo version 2015-09-09
-
 sub entropy(@a) {
     [+] map -> \p { p × -log p }, bag(@a).values »/» +@a;
 }
