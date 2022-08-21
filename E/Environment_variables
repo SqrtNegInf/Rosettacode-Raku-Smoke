@@ -3,37 +3,11 @@
 #c# 2016-05-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    'OSTYPE' fails in batch unless variable used?
 
-# Works with: Rakudo version #24 "Seoul"
-#The %*ENV hash maps environment variables to their values:
-
-#`{{
-In batch:
-dd %*ENV;
-
-Gives:
-:HOME("/Users/dhoekman"),
-:HOSTNAME("MacPro4,1-SqrtNegInf"),
-:LOGNAME("dhoekman"),
-:PATH("/usr/bin:/bin"),
-:PWD("/Users/dhoekman"),
-:SHELL("/bin/sh"),
-:SHLVL(IntStr.new(1, "1")),
-:USER("dhoekman"),
-:VERSIONER_PERL_PREFER_32_BIT("no"),
-:VERSIONER_PERL_VERSION(RatStr.new(5.18, "5.18")),
-:_("/usr/local/bin/perl6"),
-:__CF_USER_TEXT_ENCODING("0x1F6:0x0:0x0")
-
-}}
+# dd %*ENV;
 
 say %*ENV<HOME>;
 say %*ENV<SHELL>;
-say %*ENV<OSTYPE>;
-
-my $host = 'HOST';
-say %*ENV{$host};
 
 use Test;
 my $home-path = $*KERNEL eq 'darwin' ?? '/Users/dhoekman' !! '/home/osboxes';
