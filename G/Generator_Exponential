@@ -9,7 +9,8 @@
 my @squares = powers(2);
 my @cubes   = powers(3);
 
-sub powers($m) { $m XR** 0..* }
+sub powers($m) { 0..* X** $m }
+#sub powers($m) { $m XR** 0..* } # no need for reversed args here
 
 sub infix:<with-out> (@orig, @veto) {
     gather for @veto -> $veto { 
