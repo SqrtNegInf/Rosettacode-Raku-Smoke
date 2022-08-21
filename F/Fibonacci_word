@@ -3,9 +3,9 @@
 #c# 2016-02-20 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# oops, been failing due to tiny FP changes [hidden in the growing mass of errors]
+#n# 2022-01-30 oops, been failing due to tiny FP changes [hidden in the growing mass of 'srand'  errors]
 
-constant @fib-wrd = 1, 0, { $^b ~ $^a } ... *;
+constant @fib-word = '1', '0', { $^b ~ $^a } ... *; # used by both versions
 
 sub entropy-slow {
     -log(2) R/
@@ -13,14 +13,12 @@ sub entropy-slow {
             $^string.comb.Bag.values »/» $string.chars
 }
 
-#for @fib-wrd[^37] {
-#    printf "%5d\t%10d\t%.8e\t%s\n",
-#    (state $n)++, .chars, .&entropy-slow, $n > 10 ?? '' !! $_;
-#}
+# terribly slow due to all the string processing and bag creation, just to count 0's and 1's. 
+for @fib-word[^10] {
+    printf "%5d\t%10d\t%.8e\t%s\n",
+    (state $n)++, .chars, .&entropy-slow, $n > 10 ?? '' !! $_;
+}
 
-#That works, but is terribly slow due to all the string processing and bag creation, just to count 0's and 1's. By contrast, the following prints the table up to 100 almost instantly by tracking the values to calculate entropy in parallel with the actual strings. This works in Perl 6 because lazy lists are calculated on demand, so if we don't actually ask for the larger string forms, we don't calculate them. Which would be relatively difficult for a string containing 573147844013817084101 characters, unless you happen to have a computer with a zettabyte or so of memory sitting in your garage.
-
-constant @fib-word = '1', '0', { $^b ~ $^a } ... *;
 constant @fib-ones = 1, 0, * + * ... *;
 constant @fib-chrs = 1, 1, * + * ... *;
 
@@ -41,7 +39,7 @@ for 0..100 -> $n {
 	    $n, @fib-chrs[$n], entropy($n), $n > 9 ?? '' !! @fib-word[$n];
 }
 
-.say for @res;
+#.say for @res;
 
 my $ref = qq:to/END/;
     0	                    1	0.000000000000000e+00	1
