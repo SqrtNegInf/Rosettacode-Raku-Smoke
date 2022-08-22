@@ -5,7 +5,17 @@
 #j#  JVM: OK
 #n# 2022-01-12 cannot fix warning on ternary as written, so start fresh, be more idiomatic (and lose an intermediate variable and loop)
 
-#Perl 6 already implements this and other metaoperators as higher-order functions (cross, zip, reduce, triangle, etc.) that are usually accessed through a meta-operator syntactic sugar that is productive over all appropriate operators, including user-defined ones. In this case, a dwimmy element-wise operator (generically known as a "hyper") is indicated by surrounding the operator with double angle quotes. Hypers dwim on the pointy end with cyclic APL semantics as necessary. You can turn the quote the other way to suppress dwimmery on that end. In this case we could have used »op» instead of «op» since the short side is always on the right.
+#`{
+ Raku already implements this and other metaoperators as higher-order
+functions (cross, zip, reduce, triangle, etc.) that are usually accessed
+through a meta-operator syntactic sugar that is productive over all
+appropriate operators, including user-defined ones. In this case, a dwimmy
+element-wise operator (generically known as a "hyper") is indicated by
+surrounding the operator with double angle quotes. Hypers dwim on the
+pointy end with cyclic APL semantics as necessary. You can turn the quote
+the other way to suppress dwimmery on that end. In this case we could have
+used »op» instead of «op» since the short side is always on the right.
+}
 
 my @res;
 
@@ -20,7 +30,6 @@ sub msay(@x) {
 }
 
 sub msay-for-RC(@x) {
-    #.map( { ($_%1) ?? $_.nude.join('/') !! $_ } ).join(' ').say for @x; # looks a bit odd but works
     say .map( { $_%1 ?? $_.nude.join('/') !! $_ } ).join(' ') for @x;
     say '';
 }
@@ -57,7 +66,7 @@ msay @a M+ @a;
 msay @a M+ [1,2,3];
 msay @a M+ 2;
 
-.say for @res;
+#.say for @res;
 
 my $ref = qq:to/END/;
 2 4 6
