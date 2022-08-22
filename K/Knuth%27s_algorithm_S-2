@@ -1,0 +1,33 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Knuth's_algorithm_S
+#c# 2016-01-05 <RC,  2022-08-21 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# this version on RC; here not worrying about maintaining old results
+
+srand 123456;
+
+sub s_of_n_creator($n) {
+    my (@sample, $i);
+    -> $item {
+        if    ++$i      <= $n { @sample.push:      $item } # .append gives different result?
+        elsif   $i.rand <  $n { @sample[$n.rand] = $item }
+        @sample
+    }
+}
+
+my @bin;
+
+for ^100000 {
+    my &s_of_n = s_of_n_creator 3;
+    sink .&s_of_n for ^9;
+    @bin[$_]++ for s_of_n 9;
+}
+
+say @bin.join: ' ';
+
+my $moar = '29763 29792 30107 30243 29898 29909 29864 29885 30384 30155';
+my $jvm  = '30155 30207 30016 30169 30044 29973 29725 29932 30041 29738';
+
+use Test;
+is @bin.join(' '), $*VM ~~ /jvm/ ?? $jvm !! $moar;
