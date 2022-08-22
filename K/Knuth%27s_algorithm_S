@@ -3,41 +3,43 @@
 #c# 2016-01-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# cf -2 version
 
 srand 123456;
 
 sub s_of_n_creator($n) {
-    my @sample;
-    my $i = 0;
+    my (@sample, $i);
     -> $item {
-        if ++$i <= $n {
-            push @sample, $item;
-        }
-        elsif $i.rand < $n {
-            @sample[$n.rand] = $item;
-        }
-        @sample;
+        if    ++$i      <= $n { push @sample, $item      }
+        elsif   $i.rand <  $n { @sample[$n.rand] = $item }
+        @sample
     }
 }
 
-my @items = 0..9;
+# for MoarVM, needs to be defined even if not used, doesn't matter what content it has as long as it's a numeric range,
+# otherwise results change slightly. I blame 'srand'...
+#my @items = 'a'..'z';  # no
+#my @items = -10..10;   # ok
+my @items  =   0.. 0;   # ok
+
 my @bin;
 
 for ^100000 {
     my &s_of_n = s_of_n_creator(3);
     my @sample;
-    for @items -> $item {
-        @sample = s_of_n($item);
-    }
-    for @sample -> $s {
-        @bin[$s]++;
-    }
+    #for @items -> $item {
+        @sample = .&s_of_n for ^10;
+    #}
+    @bin[$_]++ for @sample;
+    #for @sample -> $s {
+    #    @bin[$s]++;
+    #}
 }
 
-say @bin.join(" ");
+say @bin.join: ' ';
 
-my $moar = '29759 29795 30111 30238 29902 29917 29863 29889 30381 30145';
+my $moar = '29762 29795 30108 30243 29900 29908 29865 29886 30380 30153';
 my $jvm  = '30155 30207 30016 30169 30044 29973 29725 29932 30041 29738';
 
 use Test;
-is @bin.join(" "), $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @bin.join(' '), $*VM ~~ /jvm/ ?? $jvm !! $moar;
