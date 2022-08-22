@@ -10,7 +10,11 @@ use lib 'libtest'; # DH work-around for problems with JVM and Test::Output
 use Test;
 use Test::Output;
 
-#Perl 6 comes with phasers, that are called when certain conditions in the life of a program, routine or block are met. CATCH is one of them and works nicely together with LEAVE that is called even if an exception would force the current block to be left immediately. It's a nice place to put your cleanup code.
+# Raku comes with phasers, that are called when certain conditions in the
+# life of a program, routine or block are met. CATCH is one of them and works
+# nicely together with LEAVE that is called even if an exception would force
+# the current block to be left immediately. It's a nice place to put your
+# cleanup code.
 
 my &testcode = sub {
 
