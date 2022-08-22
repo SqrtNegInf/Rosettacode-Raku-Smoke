@@ -3,11 +3,10 @@
 #c# 2016-04-17 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# JVM hangs when values returned from 'expand' are out of order (bigger first, then smaller)
+#n# 2018-09-07 JVM hangs when values returned from 'expand' are out of order (bigger first, then smaller)
+#n# testing round-trip, so no need to set random seed
 
-#srand 123456;
-
-# Here is a bijective solution that does not use string operations.
+# bijective solution that does not use string operations
 
 multi infix:<rad> ()       { 0 }
 multi infix:<rad> ($a)     { $a }
@@ -42,7 +41,7 @@ multi compress(@n is copy) {
 sub rank(@n) { compress (compress(@n), @n - 1)}
 sub unrank(Int $n) { 
     my ($a, $b) = expand $n, 2; 
-    ($b, $a) = ($a, $b) if $a < $b; # DH 2018-09-07 provisional fix for JVM
+    ($b, $a) = ($a, $b) if $a < $b; # work-around for JVM bug
     expand $a, $b + 1 
 }
 
