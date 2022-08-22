@@ -4,7 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-my @res0;
+my (@res0,@res1,@res2);
+
 sub MAIN0 (Int $year = Date.today.year) {
     my @fri;
     for Date.new("$year-01-01") .. Date.new("$year-12-31") {
@@ -13,21 +14,18 @@ sub MAIN0 (Int $year = Date.today.year) {
     @res0.push: $_ for @fri[1..12];
 }
 
-# A solution without a result array to store things in:
-
-my @res1;
+# Here, classify sorts the dates into one bin per month (but preserves the
+# order in each bin). We then take the list inside each bin (.value) and find
+# the last (.reverse.first) date which is a Friday.
 sub MAIN1 (Int $year = Date.today.year) {
     @res1.push: ~.value.reverse.first: *.day-of-week == 5
         for classify *.month, Date.new("$year-01-01") .. Date.new("$year-12-31");
 }
-# Here, classify sorts the dates into one bin per month (but preserves the order in each bin). We then take the list inside each bin (.value) and find the last (.reverse.first) date which is a Friday.
 
-# Another variation where the data flow can be read left to right using feed operators:
-
-my @res2;
+# data flow can be read left to right using feed operators
 sub MAIN2 (Int $year = Date.today.year) {
-    @res2.push: $_ for Date.new("$year-01-01") .. Date.new("$year-12-31") ==> classify *.month ==>
-             map *.value.reverse.first: *.day-of-week == 5
+    @res2.push: $_ for Date.new("$year-01-01") .. Date.new("$year-12-31") 
+            ==> classify *.month ==> map *.value.reverse.first: *.day-of-week == 5
 }
 
 MAIN0(2038); say @res0.join("\n");
@@ -50,6 +48,6 @@ my $ref = qq:to/END/;
 END
 
 use Test;
-is @res0.join("\n"), chomp $ref;
+is       @res0.join("\n"),  chomp $ref;
 is (sort @res1).join("\n"), chomp $ref;
 is (sort @res2).join("\n"), chomp $ref;
