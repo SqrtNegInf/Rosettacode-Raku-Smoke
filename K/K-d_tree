@@ -3,14 +3,11 @@
 #c# 2016-06-04 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# much faster generation time: 1.4519163s (vs 67+) [when/why?]
-#n# stable now?
+#n# at some point got *much* faster generation time: 1.5s vs 60s+ (not sure why)
 
 srand 123456;
 
 my @res;
-
-# Translation of: Python
 
 class Kd_node {
     has $.d;
@@ -125,20 +122,15 @@ sub show_nearest($k, $heading, $kd, @p) {
 sub random_point($k) { [rand xx $k] }
 sub random_points($k, $n) { [random_point($k) xx $n] }
 
-#sub MAIN {
-    my $kd1 = Kd_tree.new([[2, 3],[5, 4],[9, 6],[4, 7],[8, 1],[7, 2]],
-                  Orthotope.new(:min([0, 0]), :max([10, 10])));
-    show_nearest(2, "Wikipedia example data", $kd1, [9, 2]);
+my $kd1 = Kd_tree.new([[2, 3],[5, 4],[9, 6],[4, 7],[8, 1],[7, 2]],
+                      Orthotope.new(:min([0, 0]), :max([10, 10])));
+show_nearest(2, "Wikipedia example data", $kd1, [9, 2]);
 
-    my $N = 1000;
-    my $t0 = now;
-    my $kd2 = Kd_tree.new(random_points(3, $N), Orthotope.new(:min([0,0,0]), :max([1,1,1])));
-    my $t1 = now;
-    show_nearest(2,
-        "k-d tree with $N random 3D points",
-        #"k-d tree with $N random 3D points (generation time: {$t1 - $t0}s)",
-         $kd2, random_point(3));
-#}
+my $N = 1000;
+my $t0 = now;
+my $kd2 = Kd_tree.new(random_points(3, $N), Orthotope.new(:min([0,0,0]), :max([1,1,1])));
+my $t1 = now;
+show_nearest(2, "k-d tree with $N random 3D points", $kd2, random_point(3));
 
 .say for @res;
 
@@ -152,11 +144,11 @@ Nodes visited:    3
 
 
 k-d tree with 1000 random 3D points:
-Point:            [0.19097232021078703,0.8349393434527702,0.5077497960011742]
+Point:            [0.9631700926831084,0.48840441805535106,0.6071969526675843]
 
-Nearest neighbor: [0.21738582965803788,0.8177928694104734,0.5251823597419449]
-Distance:         0.03599401800270712
-Nodes visited:    22
+Nearest neighbor: [0.9776790968402022,0.5018322191970067,0.5964847583501637]
+Distance:         0.02248484272181134
+Nodes visited:    20
 
 
 END
