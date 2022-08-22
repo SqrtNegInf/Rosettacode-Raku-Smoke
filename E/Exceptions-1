@@ -6,8 +6,12 @@
 
 use lib 'libtest'; # DH work-around for problems with JVM and Test::Output
 
-# Works with: rakudo version 2015-09-10
-#The Perl 6 equivalent to Perl 5's eval {...} is try {...}. A try block by default has a CATCH block that handles all fatal exceptions by ignoring them. If you define a CATCH block within the try, it replaces the default CATCH. It also makes the try keyword redundant, because any block can function as a try block if you put a CATCH block within it. The inside of a CATCH functions as a switch statement on the current exception.
+# The Raku equivalent to Perl 5's eval {...} is try {...}. A try block by
+# default has a CATCH block that handles all fatal exceptions by ignoring
+# them. If you define a CATCH block within the try, it replaces the default
+# CATCH. It also makes the try keyword redundant, because any block can
+# function as a try block if you put a CATCH block within it. The inside of a
+# CATCH functions as a switch statement on the current exception.
 
 my &testcode = sub {
 
