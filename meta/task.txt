@@ -1,11 +1,11 @@
-Welcome to Rakudo™ v2022.07-19-gd059921b7.
+Welcome to Rakudo™ v2022.07-20-g4f519c2ea.
 Implementing the Raku® Programming Language v6.d.
-Built on MoarVM version 2022.07-1-g984a6f5fd.
+Built on MoarVM version 2022.07-3-g9bc1beed7.
 updating from RC...
-+--------------> Moar: Good/Bad [1476/28]
++--------------> Moar: Good/Bad [1476/29]
 |+-------------> JVM: Good/Bad [1293/305]
-||+------------> Smoke testing [1445]
-|||+-----------> sKipping validation [140]
+||+------------> Smoke testing [1441]
+|||+-----------> sKipping validation [143]
 ||||+----------> Interactive [65]
 |||||+---------> Touched (modified by me) [399]
 ||||||+--------> Concurrent/Async [111]
@@ -854,21 +854,21 @@ GGS.......... Loops_With_multiple_ranges-1
 GGS..T....... Loops_With_multiple_ranges-2
 GGS.......... Loops_Wrong_ranges
 GBS...C...... Lucas-Lehmer_test
-GGS..T....... Lucky_and_even_lucky_numbers
+!GS..T....... Lucky_and_even_lucky_numbers
 GGS.......... Ludic_numbers
 GGS.......... Luhn_test_of_credit_card_numbers
 GBS...c...... Lychrel_numbers
 GBS.......... MAC_vendor_lookup
 GGS..T....... MD4
 GGS.......... MD5
-!GS.......... MD5_Implementation
+BG........... MD5_Implementation
 ...........V. Machine_code
 GGS.......... Mad_Libs
 !GS....R..... Magic_8-ball
 GBS...C...... Magic_constant
-GGS.......... Magic_squares_of_doubly_even_order
-GGS.......... Magic_squares_of_odd_order
-GGS.......... Magic_squares_of_singly_even_order
+GG.K......... Magic_squares_of_doubly_even_order
+GG.K......... Magic_squares_of_odd_order
+GG.K......... Magic_squares_of_singly_even_order
 GBS.......... Magnanimous_numbers
 GGS..T....... Main_step_of_GOST_28147-89
 GGS.....FD... Make_a_backup_file
@@ -928,7 +928,7 @@ GBS...C...... Moebius_function
 GGS..T....... Monads_List_monad
 GGS.......... Monads_Maybe_monad
 GGS.......... Monads_Writer_monad
-!GS....R..... Monte_Carlo_methods
+GGS....R..... Monte_Carlo_methods
 GGS......D... Montgomery_reduction
 GBS..TCR..... Monty_Hall_problem
 .........D.VU Morpion_solitaire
