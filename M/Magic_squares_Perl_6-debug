@@ -1,6 +1,5 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Magic_squares/Perl_6
-#t# skiptest
 #n# cf ~/perl5/Rosetta-Code/M/Magic_squares_Perl-debug
 #n# https://stackoverflow.com/questions/55994128/
 
@@ -8,7 +7,7 @@
 # correct
 my @sq1; my $n = 3; my $i = 1; my $x = $n/2; my $y = 0;
 @sq1[($i % $n ?? $y-- !! $y++) % $n][($i % $n ?? $x++ !! $x) % $n] = $i++ for 0.. $n**2 - 1;
-say join ' ', $_ for @sq1; say '';
+.join(' ').say for @sq1;
 
 # correct
 my @sq2; $n = 3; $i = 1; $x = $n/2; $y = 0;
@@ -18,4 +17,8 @@ for 0 .. $n**2 - 1 {
     $x++ if $i % $n;
     $i++;
 }
-say join ' ', $_ for @sq2;
+#say '';
+#say join ' ', $_ for @sq2;
+
+use Test;
+is @sq1, @sq2;
