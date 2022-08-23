@@ -4,8 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: rakudo version 2015-09-24
-
 #Here we use the user as the audio device.
 #Just read the output, leaving extra pauses where indicated
 #by either whitespace or underscore.
@@ -74,7 +72,7 @@ my %m = ' ', '_ _ ',
 }
 
 #say prompt("Gimme a string: ").uc.comb.map: { %m{$_} // "<scratch> " }
-say my $result = 'What hath God wrought?'.uc.comb.map: { %m{$_} // "<scratch> " }
+say my $result = 'What hath God wrought?'.uc.comb.map: { %m{$_} }
 
 my $ref = 'dot dash dash _ dot dot dot dot _ dot dash _ dash _ _ _  dot dot dot dot _ dot dash _ dash _ dot dot dot dot _ _ _  dash dash dot _ dash dash dash _ dash dot dot _ _ _  dot dash dash _ dot dash dot _ dash dash dash _ dot dot dash _ dash dash dot _ dot dot dot dot _ dash _ dot dot dash dash dot dot _';
 
