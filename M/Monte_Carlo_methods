@@ -4,10 +4,12 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# different results when initiated from command line vs cron
+#n# different results for rand**2' vs 'rand²' (doesn't matter for JVM)
 
 srand 123456;
 
 my @random_distances = ([+] rand**2 xx 2) xx *;
+#my @random_distances = ([+] rand² xx 2) xx *;
 
 sub approximate_pi(Int $n) {
     4 × @random_distances[^$n].grep(* < 1) / $n
@@ -18,22 +20,30 @@ my @res.push: "$_ iterations:  " ~ approximate_pi $_
     for 100, 1_000, 10_000;
 
 my @pi = ([\+] 4 × (1 > [+] rand**2 xx 2) xx *) Z/ 1 .. *;
+#my @pi = ([\+] 4 × (1 > [+] rand² xx 2) xx *) Z/ 1 .. *;
 @res.push: @pi[10, 1000, 10_000];
 
 .say for @res;
 
 my $moar-cronjob = qq:to/END/;
-100 iterations:  3.12
-1000 iterations:  3.132
-10000 iterations:  3.1264
-2.181818 3.096903 3.143686
+100 iterations:  2.8
+1000 iterations:  3.156
+10000 iterations:  3.1348
+3.636364 3.112887 3.146085
 END
 
 my $moar-terminal = qq:to/END/;
-100 iterations:  3.12
-1000 iterations:  3.128
-10000 iterations:  3.1264
-2.545455 3.092907 3.143686
+100 iterations:  2.84
+1000 iterations:  3.16
+10000 iterations:  3.1352
+3.272727 3.120879 3.146885
+END
+
+my $moar-terminal-super = qq:to/END/;
+100 iterations:  3
+1000 iterations:  3.172
+10000 iterations:  3.1324
+3.272727 3.144855 3.132487
 END
 
 my $jvm = qq:to/END/;
