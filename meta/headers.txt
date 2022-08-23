@@ -8137,9 +8137,10 @@ File: M/MD5_Implementation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/MD5/Implementation
 #c# 2015-12-05 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: OK
 #n# 2022-01-26 as of today, JVM works with uint32 or uint64, but Moar only works with uinit64
+#n# 2022-08-22 hmmm, hasn't passed tests since 2022-01-20, so the previous comment is wrong about MoarVM
 
 File: M/Mad_Libs
 #!/usr/bin/env perl6
@@ -8178,18 +8179,17 @@ File: M/Magic_squares_Perl_6
 #c# 2016-03-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    pass in '2' on command line to have results 2 .. 12 validated
 
 File: M/Magic_squares_Perl_6-debug
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Magic_squares/Perl_6
-#t# skiptest
 #n# cf ~/perl5/Rosetta-Code/M/Magic_squares_Perl-debug
 #n# https://stackoverflow.com/questions/55994128/
 
 File: M/Magic_squares_of_doubly_even_order
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Magic_squares_of_doubly_even_order
+#t# nocode
 #c# 2016-06-04 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -8198,6 +8198,7 @@ File: M/Magic_squares_of_doubly_even_order
 File: M/Magic_squares_of_odd_order
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Magic_squares_of_odd_order
+#t# nocode
 #c# 2016-06-04 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -8206,6 +8207,7 @@ File: M/Magic_squares_of_odd_order
 File: M/Magic_squares_of_singly_even_order
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Magic_squares_of_singly_even_order
+#t# nocode
 #c# 2016-06-04 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -8796,6 +8798,7 @@ File: M/Monte_Carlo_methods
 #m# MOAR: OK
 #j#  JVM: OK
 #n# different results when initiated from command line vs cron
+#n# different results for rand**2' vs 'rand²' (doesn't matter for JVM)
 
 File: M/Montgomery_reduction
 #!/usr/bin/env perl6
