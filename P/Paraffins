@@ -5,8 +5,7 @@
 #j#  JVM: OK
 #n# OEIS:A000602 number of n-node unrooted quartic trees; number of n-carbon alkanes C(n)H(2n+2) ignoring stereoisomers.
 
-#Counting only, same algorithm as the C solution with some refactorings.
-#Note how lexical scoping &#8212; rather than global variables or repeated arguments &#8212; is used to pass down information to subroutines.
+# lexical scoping, rather than global variables or repeated arguments, is used to pass down information to subroutines
 
 sub count-unrooted-trees(Int $max-branches, Int $max-weight) {
     my @rooted   = flat 1,1, 0 xx $max-weight - 1;
@@ -33,10 +32,10 @@ sub count-unrooted-trees(Int $max-branches, Int $max-weight) {
         add-branches($max-branches, $radius, 1, 1);
     }
 
-    sub count-trees-with-bicentroid(Int $weight) {
-        if $weight %% 2 {
-            my \halfs = @rooted[$weight div 2];
-            @unrooted[$weight] += (halfs × (halfs + 1)) div 2;
+    sub count-trees-with-bicentroid(Int \weight) {
+        if weight %% 2 {
+            my \halfs = @rooted[weight div 2];
+            @unrooted[weight] += (halfs × (halfs + 1)) div 2;
         }
     }
 
@@ -50,7 +49,7 @@ sub count-unrooted-trees(Int $max-branches, Int $max-weight) {
     }
 }
 
-my constant N = 100;
+my \N = 100;
 my @paraffins = count-unrooted-trees(4, N);
 my @res.push: (.fmt('%3d'), ':', @paraffins[$_]) for flat 1 .. 20, N;
 .say for @res;
