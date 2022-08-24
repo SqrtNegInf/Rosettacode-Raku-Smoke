@@ -5,12 +5,15 @@
 #j#  JVM: OK
 #n# can be confused by certain input, e.g. <-1 -1a -3>
 
-# The given algorithm can be simplified in several ways. There's no need to compute the midpoint, since the hi/lo will end up there. The extra swap conditional can be eliminated by incrementing hi at the correct moment inside the loop. There's no need to
-# pass accumulated swaps down the call stack.
-# This does generic comparisons, so it works on any ordered type, including numbers or strings.
+# The given algorithm can be simplified in several ways. There's no need to
+# compute the midpoint, since the hi/lo will end up there. The extra swap
+# conditional can be eliminated by incrementing hi at the correct moment
+# inside the loop. There's no need to pass accumulated swaps down the call
+# stack.  This does generic comparisons, so it works on any ordered type,
+# including numbers or strings.
 
 sub circlesort (@x, $beg, $end) {
-    my $swaps = 0;
+    my $swaps;
     if $beg < $end {
         my ($lo, $hi) = $beg, $end;
         repeat {
@@ -23,10 +26,9 @@ sub circlesort (@x, $beg, $end) {
         $swaps += circlesort(@x, $beg, $hi);
         $swaps += circlesort(@x, $lo, $end);
     }
-    $swaps;
+    $swaps // 0
 }
 
-#say my @x = (-100..100).roll(20);
 my @res1;
 my @x = <16 35 -64 -29 46 36 -1 -99 20 100 59 26 76 -78 39 85 -7 -81 25 88>;
 while circlesort(@x, 0, @x.end) { say @x; push @res1, @x } 
