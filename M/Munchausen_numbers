@@ -6,11 +6,12 @@
 #n# OEIS:A046253
 
 sub is_munchausen ( Int $n ) {
-    constant @powers = 0, |map { $_ ** $_ }, 1..9;
+    constant @powers = 0, |(1..9) »**» (1..9);
+   #constant @powers = 0, |map { $_ ** $_ }, 1..9;
     $n == @powers[$n.comb].sum;
 }
 
 say my $result = $_ if .&is_munchausen for 2..5000;
 
 use Test;
-is $result, '3435';
+is $result, 3435;
