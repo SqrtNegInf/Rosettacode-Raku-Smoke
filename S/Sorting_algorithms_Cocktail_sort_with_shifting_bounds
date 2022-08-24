@@ -22,7 +22,7 @@ sub cocktail_sort ( @a ) {
         last if not $swapped_forward;
         $max -= 1;
 
-        my $swapped_backward = 0;
+        my $swapped_backward; # = 0;
         for ($min .. $max).reverse -> $i {
             given @a[$i] cmp @a[$i+1] {
                 when More {
