@@ -4,7 +4,8 @@
 #m# MOAR: BROKEN
 #j#  JVM: OK
 #n# 2022-01-26 as of today, JVM works with uint32 or uint64, but Moar only works with uinit64
-#n# 2022-08-22 hmmm, hasn't passed tests since 2022-01-20, so the previous comment is wrong about MoarVM
+#n# 2022-08-22 hmmm, hasn't passed tests since 2022-01-20, so previous comment is wrong about MoarVM (definitely OK with 2021.12)
+#n#            Cannot unbox negative bigint into native unsigned integer in sub infix:<⊞> at M/MD5_Implementation line 9
 
 sub infix:<⊞>(uint64 $a, uint64 $b --> uint64) { ($a + $b) +& 0xffffffff }
 sub infix:«<<<»(uint64 $a, UInt $n --> uint64) { ($a +< $n) +& 0xffffffff +| ($a +> (32-$n)) }
@@ -15,40 +16,37 @@ constant FGHI = { ($^a +& $^b) +| (+^$a +& $^c) },
                 { $^b +^ ($^a +| +^$^c)         };
 
 constant _S = flat (7, 12, 17, 22) xx 4,
-                  (5,  9, 14, 20) xx 4,
-                  (4, 11, 16, 23) xx 4,
-                  (6, 10, 15, 21) xx 4;
+                   (5,  9, 14, 20) xx 4,
+                   (4, 11, 16, 23) xx 4,
+                   (6, 10, 15, 21) xx 4;
 
-constant T = (floor(abs(sin($_ + 1)) * 2**32) for ^64);
+constant T = (floor(abs(sin($_ + 1)) × 2**32) for ^64);
 
 constant k = flat (   $_           for ^16),
-                  ((5*$_ + 1) % 16 for ^16),
-                  ((3*$_ + 5) % 16 for ^16),
-                  ((7*$_    ) % 16 for ^16);
+                  ((5×$_ + 1) % 16 for ^16),
+                  ((3×$_ + 5) % 16 for ^16),
+                  ((7×$_    ) % 16 for ^16);
 
 sub little-endian($w, $n, *@v) {
-    my \step1 = $w X* ^$n;    # DH change -- .eager removed
-    my \step2 = @v X+> step1; # DH change -- removed superstitious parens
-    step2 X% 2 ** $w;         #  "
-    # 2**$w R[X%] (@v X+> (|$w X* ^$n)); # condensing it all works too
+    #my \step1 = $w X× ^$n;    # DH change -- .eager removed
+    #my \step2 = @v X+> step1; # DH change -- removed superstitious parens
+    #step2 X% 2 ** $w;         #  "
+    2**$w R[X%] (@v X+> (|$w X× ^$n)); # condensing it all works too
 }
 
-sub md5-pad(Blob $msg)
-{
-    my $bits = 8 * $msg.elems;
+sub md5-pad(Blob $msg) {
+    my $bits = 8 × $msg.elems;
     my @padded = flat $msg.list, 0x80, 0x00 xx -($bits div 8 + 1 + 8) % 64; # DH change -- removed superstitious parens
     flat @padded.map({ :256[$^d,$^c,$^b,$^a] }), little-endian(32, 2, $bits);
 }
 
-sub md5-block(@H, @X)
-{
+sub md5-block(@H, @X) {
     my uint64 ($A, $B, $C, $D) = @H;
     ($A, $B, $C, $D) = ($D, $B ⊞ (($A ⊞ FGHI[$_ div 16]($B, $C, $D) ⊞ T[$_] ⊞ @X[k[$_]]) <<< _S[$_]), $B, $C) for ^64;
     @H «⊞=» ($A, $B, $C, $D);
 }
 
-sub md5(Blob $msg --> Blob)
-{
+sub md5(Blob $msg --> Blob) {
     my uint64 @M = md5-pad($msg);
     my uint64 @H = 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476;
     md5-block(@H, @M[$_ .. $_+15]) for 0, 16 ...^ +@M;
