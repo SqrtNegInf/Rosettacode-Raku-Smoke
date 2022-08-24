@@ -5,7 +5,8 @@
 #j#  JVM: OK
 #n# downgraded Unicode names to ASCII
 
-multi F(0) { 1 }; multi M(0) { 0 }
+multi F(0) { 1 }
+multi M(0) { 0 }
 multi F(\n) { n - M(F(n - 1)) }
 multi M(\n) { n - F(M(n - 1)) }
 
