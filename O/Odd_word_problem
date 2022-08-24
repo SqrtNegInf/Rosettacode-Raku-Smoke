@@ -6,10 +6,6 @@
 
 use lib 'libtest'; # DH work-around for problems with JVM and Test::Output
 
-# echo 'we are not in Kansas anymore' | Odd_word_problem
-
-# A recursive solution, with the added feature that it treats each line separately.
-
 my &testcode = sub {
 
 my $fh = open "ref/odd-word.txt", :r;
@@ -20,11 +16,11 @@ loop {
     ow(in).print;
 }
 
-multi ew ($_ where /\w/) { .print; ew(in); }
-multi ew ($_)            { .print; next when "\n"; }
+multi ew ($_ where /\w/) { .print; ew(in) }
+multi ew ($_)            { .print; next when "\n" }
 
-multi ow ($_ where /\w/) { ow(in) x .print; }
-multi ow ($_)            { $_; }
+multi ow ($_ where /\w/) { ow(in) x .print}          # see note below
+multi ow ($_)            { $_ }
 
 }
 
@@ -33,14 +29,7 @@ use Test::Output;
 print my $result = output-from(&testcode);
 is $result, "we era not ni Kansas eromyna\n";
 
-#`{
-$ ./oddword
-we,are;not,in,kansas;any,more.
-we,era;not,ni,kansas;yna,more.
-what,is,the;meaning,of:life.
-what,si,the;gninaem,of:efil.
-
-Note how the even/oddness is reset on the line boundary; if not, the second line might have started out in an odd state and reversed "what" instead of "is". The call to next prevents that by sending the loop back to its initial state.
-There is one clever trick here with the x operator; it evaluates both its arguments in order, but in this case only returns the left argument because the right one is always 1 (True). You can think of it as a reversed C-style comma operator.
-
-}
+# clever trick [too much so?] here with the x operator:
+# it evaluates both its arguments in order, but in this case only returns
+# the left argument because the right one is always 1 (True). You can think
+# of it as a reversed C-style comma operator.
