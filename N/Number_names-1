@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
+my @res;
+
 # Apart from the $m++ this can be viewed as a purely functional program; we use nested gather/take constructs to avoid accumulators.
 
 constant @I = <zero one    two    three    four     five    six     seven     eight    nine
@@ -17,9 +19,10 @@ constant @M = (<0 thousand>,
     'cent').flat X~ 'illion')).flat;
 
 sub int-name ($num) {
-    if $num.substr(0,1) eq '-' { return "negative {int-name($num.substr(1))}" }
-    if $num eq '0' { return @I[0] }
-    my $m = 0;
+    return "negative {int-name($num.substr(1))}" if $num.substr(0,1) eq '-';
+    return @I[0] if $num eq '0'; 
+
+    my $m; # = 0;
     return join ', ', reverse gather for $num.flip.comb(/\d ** 1..3/) {
         my ($i,$x,$c) = .comb».Int;
         if $i or $x or $c {
@@ -37,16 +40,12 @@ sub int-name ($num) {
     }
 }
 
-#while '' ne (my $n = prompt("Number: ")) {
-#    say int-name($n);
-#}
-
 my $superbig = 1001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001001;
 
-my @res;
 for (|<0 -0 17 42006 999999999 -1,234,567,890 198_723_483_017_417>, $superbig) {
     @res.push: int-name($_);
 }
+
 .say for @res;
 
 my $ref = qq:to/END/;
