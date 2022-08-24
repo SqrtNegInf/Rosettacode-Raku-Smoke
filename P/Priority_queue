@@ -5,8 +5,14 @@
 #j#  JVM: OK
 #n# java.lang.NullPointerException
 
-# This is a rather simple implementation. It requires the priority to be a positive integer value, with lower values being higher priority. There isn't a hard limit on how many priority levels you can have, though more than a few dozen is probably not practical. 
-# The tasks are stored internally as an array of FIFO buffers, so multiple tasks of the same priority level will be returned in the order they were stored.
+my @res;
+
+# This is a rather simple implementation. It requires the priority to be a
+# positive integer value, with lower values being higher priority. There
+# isn't a hard limit on how many priority levels you can have, though more
+# than a few dozen is probably not practical.  The tasks are stored
+# internally as an array of FIFO buffers, so multiple tasks of the same
+# priority level will be returned in the order they were stored.
 
 class PriorityQueue {
     has @!tasks;
@@ -35,11 +41,11 @@ for (
     $pq.insert( $priority, $task );
 }
 
-my @res;
 until $pq.is-empty {
-    say my $temp = $pq.get;
-    @res.push: $temp;
+    @res.push: $pq.get
 }
+
+.say for @res;
 
 my $ref = qq:to/END/;
 Solve RC tasks
