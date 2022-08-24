@@ -11,14 +11,16 @@ my @res;
 
 sub repeat (&f, $n) { f() xx $n };
 
-sub example { say my $temp = rand; @res.push: $temp }
+sub example { @res.push: rand }
 
 repeat(&example, 3);
 
+.say for @res;
+
 my $moar = qq:to/END/;
-0.6764574829055268
-0.13120312510004706
-0.7001106474654547
+0.7193778801363785
+0.3786428527412976
+0.05908300058517646
 END
 
 my $jvm = qq:to/END/;
@@ -35,12 +37,20 @@ is @res.join("\n"), chomp $ref;
 Of course, we could have just written example() xx 3; or even (say rand) xx 3; directly; 
 the custom repeat subroutine is just here to satisfy the task description.
 
-Notes on the xx operator:
-Unlike other operators, it evaluates its left-hand-side argument lazily - that's why we can simply call f() there rather than passing it as a function object.
-The operator has a return value: A list consisting of the return values of the left-hand-side (and building lists is in fact what xx is usually used for).
+Notes on the 'xx' operator:
+Unlike other operators, it evaluates its left-hand-side argument lazily -
+that's why we can simply call f() there rather than passing it as a
+function object.  The operator has a return value: A list consisting of the
+return values of the left-hand-side (and building lists is in fact what xx
+is usually used for).
 
 General notes:
-The & sigil in the repeat subroutine signature restricts that parameter to types that implement the Callable role, and makes it available inside the repeat subroutine body as if it were a lexically scoped sub.
-The parentheses in the last line are necessary to disambiguate it as a call to our custom subroutine, rather than an attempt to use the built-in repeat { ... } while ... construct.
+
+The & sigil in the repeat subroutine signature restricts that parameter to
+types that implement the Callable role, and makes it available inside the
+repeat subroutine body as if it were a lexically scoped sub.  The
+parentheses in the last line are necessary to disambiguate it as a call to
+our custom subroutine, rather than an attempt to use the built-in repeat {
+... } while ... construct.
 
 }
