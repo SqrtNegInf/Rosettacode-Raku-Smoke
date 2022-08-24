@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Rep-string
+#c# 2016-01-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# no Unicode for JVM
+
+my @res1;
+for <1001110011 1110111011 0010010010 1010101010 1111111111 0100101101 0100100 101 11 00 1> {
+    if /^ (.+) $0+: (.*$) <?{ $0.substr(0,$1.chars) eq $1 }> / {
+	my $rep = $0.chars;
+	@res1.push: (.substr(0,$rep), .substr($rep,$rep).trans('01' => 'OI'), .substr($rep×2));
+    }
+    else {
+	@res1.push: "$_ (no repeat)";
+    }
+}
+.say for @res1;
+
+#Here's a technique that relies on the fact that XORing the shifted binary number
+#should set all the lower bits to 0 if there are repeats.
+#(The cool thing is that shift will automatically
+#throw away the bits on the right that you want thrown away.)
+#This produces the same output as above.
+
+sub repstr(Str $s) {
+    my $bits = :2($s);
+    for reverse 1 .. $s.chars div 2 -> $left {
+	my $right = $s.chars - $left;
+	return $left if $bits +^ ($bits +> $left) == $bits +> $right +< $right;
+    }
+}
+
+my @res2;
+for '1001110011 1110111011 0010010010 1010101010 1111111111 0100101101 0100100 101 11 00 1'.words {
+    if repstr $_ -> $rep {
+	@res2.push: (.substr(0,$rep), .substr($rep,$rep).trans('01' => 'OI'), .substr($rep×2));
+    }
+    else {
+	@res2.push: "$_ (no repeat)";
+    }
+}
+
+my $ref = qq:to/END/;
+10011 IOOII 
+1110 IIIO 11
+001 OOI 0010
+1010 IOIO 10
+11111 IIIII 
+0100101101 (no repeat)
+010 OIO 0
+101 (no repeat)
+1 I 
+0 O 
+1 (no repeat)
+END
+
+use Test;
+is @res1.join("\n"), chomp $ref;
+is @res2.join("\n"), chomp $ref;
