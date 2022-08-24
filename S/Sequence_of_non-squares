@@ -7,8 +7,7 @@
 
 sub nth_term (Int $n) { $n + round sqrt $n }
 
-my @res;
-@res.push: nth_term($_) for 1 .. 22;
+my @res.push: nth_term($_) for 1 .. 22;
 
 use Test;
 is @res.join(' '), '2 3 5 6 7 8 10 11 12 13 14 15 17 18 19 20 21 22 23 24 26 27';
