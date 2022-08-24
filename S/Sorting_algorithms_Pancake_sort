@@ -26,6 +26,7 @@ say 'input  = ' ~ @data;
 say 'output = ' ~ @data.&pancake_sort;
 
 # algorithm is flawed: croaks if the two lowest values are identical
+# (so don't test random values...)
 #`{{
 for (1..100000) {
 my @weights = (^50).map: { 100 + ( 1000.rand.Int / 10 ) };
