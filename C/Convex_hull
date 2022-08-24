@@ -16,11 +16,11 @@ sub ccw (Point $a, Point $b, Point $c) {
 
 sub tangent (Point $a, Point $b) {
     my $opp = $b.x - $a.x;
-    my $adj = $b.y - $a.y;
+    my $adj = $b.y - $a.y;                                          # - vim kludge
     $adj != 0 ?? $opp / $adj !! Inf
 }
 
-sub graham-scan (**@coords) {                   # '**' usually seen for ranges, but here because why?
+sub graham-scan (**@coords) {                   # '**' often seen for ranges, here because pairs need to be preserved?
     # sort points by y, secondary sort on x
     my @sp = @coords.map( { Point.new( :x($_[0]), :y($_[1]) ) } )
                     .sort: {.y, .x};
@@ -53,22 +53,22 @@ sub graham-scan (**@coords) {                   # '**' usually seen for ranges, 
     @h
 }
 
-my @hull1 = graham-scan(
+my @hull_1 = graham-scan( # can't use '@hull-1'
     (16, 3), (12,17), ( 0, 6), (-4,-6), (16, 6), (16,-7), (16,-3),
     (17,-4), ( 5,19), (19,-8), ( 3,16), (12,13), ( 3,-4), (17, 5),
     (-3,15), (-3,-9), ( 0,11), (-9,-3), (-4,-2), (12,10)
   );
 
-say "Convex Hull ({+@hull1} points): ", @hull1;
+say "Convex Hull ({+@hull_1} points): ", @hull_1;
 
-my @hull2 = graham-scan(
+my @hull_2 = graham-scan(
     (16, 3), (12,17), ( 0, 6), (-4,-6), (16, 6), (16,-7), (16,-3),
     (17,-4), ( 5,19), (19,-8), ( 3,16), (12,13), ( 3,-4), (17, 5),
     (-3,15), (-3,-9), ( 0,11), (-9,-3), (-4,-2), (12,10), (20,-9), (1,-9)
   );
 
-say "Convex Hull ({+@hull2} points): ", @hull2;
+say "Convex Hull ({+@hull_2} points): ", @hull_2;
 
 use Test;
-is @hull1.gist, '[(-3, -9) (19, -8) (17, 5) (12, 17) (5, 19) (-3, 15) (-9, -3)]';
-is @hull2.gist, '[(-3, -9) (20, -9) (17, 5) (12, 17) (5, 19) (-3, 15) (-9, -3)]';
+is @hull_1.gist, '[(-3, -9) (19, -8) (17, 5) (12, 17) (5, 19) (-3, 15) (-9, -3)]';
+is @hull_2.gist, '[(-3, -9) (20, -9) (17, 5) (12, 17) (5, 19) (-3, 15) (-9, -3)]';
