@@ -5,7 +5,7 @@
 #j#  JVM: OK
 
 sub cycle_sort ( @nums ) {
-    my $writes = 0;
+    my $writes; # = 0;
 
     # Loop through the array to find cycles to rotate.
     for @nums.kv -> $cycle_start, $item is copy {
