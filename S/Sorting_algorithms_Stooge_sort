@@ -15,11 +15,15 @@ sub stoogesort( @L, $i = 0, $j = @L.end ) {
          stoogesort( @L, $i+$t, $j    );
          stoogesort( @L, $i   , $j-$t );
     }
-    return @L;
+    @L
 }
 
 my @L = 1, 4, 5, 3, -6, 3, 7, 10, -2, -5;
 put stoogesort(@L);
 
+# above just for show, testing random values:
+my @weights = (^50).map: { 100 + ( 1000.rand.Int / 10 ) };
+
 use Test;
-is stoogesort(@L), @L.sort;
+my @foo = @weights.&stoogesort; # why?  Not an 'is copy' issue...
+is @weights.sort, @foo;
