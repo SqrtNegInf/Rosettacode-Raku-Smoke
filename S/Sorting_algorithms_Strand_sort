@@ -44,6 +44,8 @@ say "Before {@c}";
 @c = strand_sort(@c);
 say "After  {@c}";
 
+# above just for show, testing random values:
+my @weights = (^50).map: { 100 + ( 1000.rand.Int / 10 ) };
+
 use Test;
-is (sort @n), strand_sort(@n);
-is (sort @c), strand_sort(@c);
+is @weights.sort, @weights.&strand_sort;
