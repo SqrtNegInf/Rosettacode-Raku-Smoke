@@ -4,15 +4,15 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
+my @res;
 
-# Works with: rakudo version 2014-05-13
 sub order-disjoint-list-items(\M, \N) {
     my \bag = N.BagHash;
     M.map: { bag{$_}-- ?? N.shift !! $_ }
 }
 
-my @res;
-for q:to/---/.comb(/ [\S+]+ % ' ' /).map({[.words]})
+# it's clever, it works, but a bit confusing to in-line the data here...
+for q:to/EOD/.comb(/ [\S+]+ % ' ' /).map({[.words]})
     the cat sat on the mat      mat cat
     the cat sat on the mat      cat mat
     A B C A B C A B C           C A C A
@@ -22,8 +22,11 @@ for q:to/---/.comb(/ [\S+]+ % ' ' /).map({[.words]})
     A B B A                     B A
     X X Y                       X
     A X                         Y A
-    ---
-->  $m, $n { @res.push: "\n$m ==> $n"; @res.push: order-disjoint-list-items($m, $n) }
+    EOD
+ -> $m, $n {
+    @res.push: "\n$m ==> $n\n" ~ order-disjoint-list-items($m, $n) 
+}
+
 .say for @res;
 
 my $ref = qq:to/END/;
