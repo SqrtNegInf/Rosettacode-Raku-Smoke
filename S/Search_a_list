@@ -4,7 +4,10 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo Star version 2010.08
+# The ~~ operator does smart matching based on the type of the matcher; in
+# the general case, you can pass any predicate you like to force the
+# semantics one way or another.
+
 sub find ($matcher, $container) {
     for $container.kv -> $k, $v {
         $v ~~ $matcher and return $k;
@@ -25,7 +28,6 @@ for <Washingston Bush> -> $needle {
         @res.push: "'$needle' not in haystack";
     }
 }
-#The ~~ operator does smart matching based on the type of the matcher; in the general case, you can pass any predicate you like to force the semantics one way or another.
 
 my $ref = qq:to/END/;
 'Washingston' not in haystack
