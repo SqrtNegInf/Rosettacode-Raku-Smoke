@@ -8140,7 +8140,8 @@ File: M/MD5_Implementation
 #m# MOAR: BROKEN
 #j#  JVM: OK
 #n# 2022-01-26 as of today, JVM works with uint32 or uint64, but Moar only works with uinit64
-#n# 2022-08-22 hmmm, hasn't passed tests since 2022-01-20, so the previous comment is wrong about MoarVM
+#n# 2022-08-22 hmmm, hasn't passed tests since 2022-01-20, so previous comment is wrong about MoarVM (definitely OK with 2021.12)
+#n#            Cannot unbox negative bigint into native unsigned integer in sub infix:<⊞> at M/MD5_Implementation line 9
 
 File: M/Mad_Libs
 #!/usr/bin/env perl6
