@@ -6,13 +6,13 @@
 
 # Translation of: Haskell
 
-# borrowed from List::Utils (which won't install currently)
+# borrowed from List::Utils (which won't install currently) [2022-08-24 still!]
 sub transpose(@list is copy) {
     gather {
         while @list {
             my @heads;
             if @list[0] !~~ Positional { @heads = @list.shift; }
-            else { @heads = @list.map({$_.shift unless $_ ~~ []}); }
+            else { @heads = @list.map({ .shift unless $_ ~~ []}); }
             @list = @list.map({$_ unless $_ ~~ []});
             take [@heads];
         }
@@ -24,7 +24,7 @@ sub beadsort(@l) {
 }
 
 my @list = 2,1,3,5;
-say beadsort(@list); #.raku;
+say beadsort(@list);
 
 # Here we simulate the dropping beads by using the push method.
 sub beadsort1(*@list) {
