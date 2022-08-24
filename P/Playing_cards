@@ -5,7 +5,7 @@
 #j#  JVM: OK
 #   made some new methods...
 
-srand 314159;
+srand 123456;
 
 enum Pip <A 2 3 4 5 6 7 8 9 10 J Q K>;
 enum Suit<♦ ♣ ♥ ♠>;
@@ -52,12 +52,12 @@ my $bottom = $d.cheat;
 .say for @res;
 
 my $moar = qq:to/END/;
-Deck: J♦ 9♠ A♠ A♦ 4♠ 10♦ K♥ 8♠ Q♦ K♦ Q♠ Q♣ 9♦ 4♣ 7♣ 2♣ 3♣ 9♣ 8♦ 6♠ J♠ 2♦ 6♦ Q♥ 2♥ 7♠ J♥ 10♥ 3♦ J♣ K♠ 10♠ 7♥ 5♣ A♥ 4♦ 8♣ 9♥ 6♣ A♣ 2♠ 5♠ 10♣ 7♦ 3♠ 5♥ K♣ 3♥ 6♥ 4♥ 5♦ 8♥
-Deal top card: J♦
-Deck, re-shuffled: 4♣ 4♥ 3♣ Q♣ 3♦ 7♦ 8♣ 6♥ 4♦ A♣ 6♠ 8♦ J♥ 6♣ K♣ 5♠ A♥ K♦ K♥ 9♦ 7♣ Q♦ 7♠ 10♠ K♠ 8♠ 3♥ 6♦ 9♣ 2♠ A♠ 2♣ 5♦ J♠ J♣ 8♥ 2♥ 5♣ 4♠ A♦ 9♥ Q♠ 7♥ 5♥ 10♦ 10♣ 2♦ Q♥ 10♥ 3♠ 9♠
-Peek at top card: 4♣
-Bottom of deck card: 9♠
-Deck state now: 4♣ 4♥ 3♣ Q♣ 3♦ 7♦ 8♣ 6♥ 4♦ A♣ 6♠ 8♦ J♥ 6♣ K♣ 5♠ A♥ K♦ K♥ 9♦ 7♣ Q♦ 7♠ 10♠ K♠ 8♠ 3♥ 6♦ 9♣ 2♠ A♠ 2♣ 5♦ J♠ J♣ 8♥ 2♥ 5♣ 4♠ A♦ 9♥ Q♠ 7♥ 5♥ 10♦ 10♣ 2♦ Q♥ 10♥ 3♠
+Deck: 10♣ A♣ J♠ Q♠ 7♠ 8♣ A♦ 3♠ J♣ 4♦ 3♦ 2♠ 10♦ 6♣ J♥ 9♣ 10♥ 2♦ 4♣ Q♥ 7♣ Q♦ K♠ 3♣ A♥ J♦ A♠ 9♥ 5♥ 6♥ 9♠ 6♠ 2♥ 5♣ 4♥ 6♦ 5♦ K♣ 2♣ 7♥ 3♥ 7♦ K♥ 9♦ K♦ 8♥ Q♣ 10♠ 8♠ 4♠ 8♦ 5♠
+Deal top card: 10♣
+Deck, re-shuffled: 2♦ 4♦ 3♥ 4♥ 2♣ 7♦ 7♣ 5♣ J♠ 9♥ K♥ Q♦ 2♠ 6♦ K♦ A♣ J♥ 6♣ 4♣ Q♠ 6♥ J♣ K♣ A♦ 8♥ 9♣ 8♠ 8♦ 5♥ 2♥ 10♠ 10♦ 9♦ A♠ 8♣ 3♦ 10♥ 6♠ Q♣ 7♥ 9♠ A♥ 4♠ J♦ 5♠ Q♥ 5♦ K♠ 3♠ 7♠ 3♣
+Peek at top card: 2♦
+Bottom of deck card: 3♣
+Deck state now: 2♦ 4♦ 3♥ 4♥ 2♣ 7♦ 7♣ 5♣ J♠ 9♥ K♥ Q♦ 2♠ 6♦ K♦ A♣ J♥ 6♣ 4♣ Q♠ 6♥ J♣ K♣ A♦ 8♥ 9♣ 8♠ 8♦ 5♥ 2♥ 10♠ 10♦ 9♦ A♠ 8♣ 3♦ 10♥ 6♠ Q♣ 7♥ 9♠ A♥ 4♠ J♦ 5♠ Q♥ 5♦ K♠ 3♠ 7♠
 END
 
 my $jvm = qq:to/END/;
@@ -70,8 +70,4 @@ Deck state now: A♠ 9♥ J♥ 3♠ 6♦ 9♠ K♦ 4♥ 2♣ 5♥ 8♥ 6♣ 3♦
 END
 
 use Test;
-if $*VM ~~ /jvm/ {
-is @res.join("\n"), chomp $jvm;
-} else {
-is @res.join("\n"), chomp $moar;
-}
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
