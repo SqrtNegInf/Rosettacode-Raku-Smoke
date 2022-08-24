@@ -8,7 +8,12 @@ my @res;
 
 srand 123456;
 
-# The trick here is to allocate three different bits for each enum, with the result that the cards of a matching set OR together to produce a 4-digit octal number that contains only the digits 1, 2, 4, or 7. This OR is done by funny looking [+|], which is the reduction form of +|, which is the numeric bitwise OR. (Because Raku stole the bare | operator for composing junctions instead.)
+# The trick here is to allocate three different bits for each enum, with
+# the result that the cards of a matching set OR together to produce a
+# 4-digit octal number that contains only the digits 1, 2, 4, or 7. This OR
+# is done by funny looking [+|], which is the reduction form of +|, which is
+# the numeric bitwise OR. (Because Raku stole the bare | operator for
+# composing junctions instead.)
 
 enum Color (red => 0o1000, green =>  0o2000, purple => 0o4000);
 enum Count (one =>  0o100, two =>     0o200, three =>   0o400);
@@ -39,7 +44,7 @@ for @sets.kv -> $i, @cards {
     show-cards @cards;
 }
 
-#.say for @res; exit;
+.say for @res;
 
 my $moar = qq:to/END/;
 Drew 9 cards:
@@ -108,21 +113,24 @@ Set 4:
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
 
 =finish
 
-2022-07-13 So far in 2022 distribution of the 1st card dealt:
+grep -A 1 'got:' bench/2022*-m/Set_puzzle.out | grep -v got: | grep bench | pf 's/^.*#//' | sortcnt
 
-  74       red    one  squiggle    solid
-  26       red    one   diamond    solid
-  24     green  three      oval    solid
-  19     green    one  squiggle  striped
-  13     green  three      oval  striped
-   9    purple  three   diamond     open
-   9     green    one   diamond     open
-   6       red  three      oval     open
-   4    purple    one      oval  striped
-   3    purple    two  squiggle    solid
-   2       red    two      oval    solid
+2022-08-24 
+So far in 2022, distribution of the 1st card dealt:
+
+  74        red    one  squiggle    solid
+  42     purple  three   diamond    solid
+  26        red    one   diamond    solid
+  24      green  three      oval    solid
+  19      green    one  squiggle  striped
+   9     purple  three   diamond     open
+   9      green    one   diamond     open
+   6        red  three      oval     open
+   4     purple    one      oval  striped
+   2     purple    two  squiggle    solid
+   2        red    two      oval    solid
+   1      green  three      oval  striped
