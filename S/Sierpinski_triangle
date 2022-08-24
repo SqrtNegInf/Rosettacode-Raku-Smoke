@@ -5,8 +5,6 @@
 #j#  JVM: OK
 #n# OEIS:A001317
 
-my @res;
-
 sub sierpinski ($n) {
     my @down  = '*';
     my $space = ' ';
@@ -17,7 +15,8 @@ sub sierpinski ($n) {
     @down;
 }
 
-@res.push: $_ for sierpinski 4;
+my @res.push: $_ for sierpinski 4;
+
 .say for @res;
 
 my $ref = qq:to/END/;
