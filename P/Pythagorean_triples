@@ -5,12 +5,12 @@
 #j#  JVM: OK 
 #n# both backends are slow, limiting extent of runs
 
-# Works with: rakudo version 2015-10-20
-#Here is a straight-forward, naive brute force implementation:
+my (@res1, @res2, @res3);
+
+# 1. straight-forward, naive brute force implementation:
 
 my $limit = 100;
 
-my @res1;
 for [X] [^$limit] xx 3 -> (\a, \b, \c) {
     @res1.push: [a, b, c] if a < b < c and a**2 + b**2 == c**2
 }
@@ -72,7 +72,8 @@ END
 use Test; 
 is @res1.join("\n"), chomp $ref1;
 
-#Here is a slightly less naive brute force implementation that is not really practical for large perimeter limits. It's pretty zippy up to about 10000 though.
+# 2. slightly less naive brute force implementation that is not really practical for large perimeter limits. 
+# It's pretty zippy up to about 10000 though.
 
 $limit = 10000;
 my atomicint $i = 0;
@@ -94,10 +95,11 @@ of which 703 are primitive.
 END
 
 is $result, chomp $ref;
+
 # DH 2018-05-20 next two now work for JVM, so keep going
 #exit if $*VM ~~ /jvm/; # DH - for JVM, stop here  
 
-# Here's a much faster version (at least in theory). 
+# 3. much faster version (at least in theory). 
 # "oyako" is Japanese for "parent/child". :-)
 sub triples($limit) {
     my $primitive = 0;
@@ -116,7 +118,6 @@ sub triples($limit) {
     "$limit => ($primitive $civilized)";
 }
 
-my @res2;
 #for 10,100,1000 ... * -> $limit {
 for 10,100,1000 ... 10000000 -> $limit {
     @res2.push: triples $limit;
@@ -137,13 +138,17 @@ END
 
 is @res2.join("\n"), chomp $ref2;
 
-#exit; # DH - just stop already
-
 #`{
-The geometric sequence of limits will continue on forever, so eventually when you get tired of waiting (about a billion on my computer), you can just stop it. Another efficiency trick of note: we avoid passing the limit in as a parameter to the inner helper routine, but instead supply the limit via the lexical scope. Likewise, the accumulators are referenced lexically, so only the triples themselves need to be passed downward, and nothing needs to be returned.
-Here is an alternate version that avoids naming any scalars that can be handled by vector processing instead:
+The geometric sequence of limits will continue on forever, so eventually
+when you get tired of waiting (about a billion on my computer), you can
+just stop it. Another efficiency trick of note: we avoid passing the limit
+in as a parameter to the inner helper routine, but instead supply the limit
+via the lexical scope. Likewise, the accumulators are referenced lexically,
+so only the triples themselves need to be passed downward, and nothing
+needs to be returned.
 }
 
+# 4. version that avoids naming any scalars that can be handled by vector processing instead:
 constant @coeff = [[+1, -2, +2], [+2, -1, +2], [+2, -2, +3]],
                   [[+1, +2, +2], [+2, +1, +2], [+2, +2, +3]],
                   [[-1, +2, +2], [-2, +1, +2], [-2, +2, +3]];
@@ -164,7 +169,6 @@ sub triples1($limit) {
     "$limit => ({$complex.re, $complex.im})";
 }
 
-my @res3;
 for 10,100,1000 ... 100000 -> $limit {
     @res3.push: triples1 $limit;
 }
@@ -180,7 +184,13 @@ END
 
 is @res3.join("\n"), chomp $ref3;
 
-# Using vectorized ops allows a bit more potential for parallelization, though this is probably not as big a win in this case, especially since we do a certain amount of multiplying by 1 that the scalar version doesn't need to do.
-# Note the cute trick of adding complex numbers to add two numbers in parallel.
-# The use of gather/take allows the summation to run in a different thread than the helper function, at least in theory...
-# In practice, this solution runs considerably slower than the previous one, due primarily to passing gather/take values up many levels of dynamic scope. Eventually this may be optimized.
+=finish
+Using vectorized ops allows a bit more potential for parallelization,
+though this is probably not as big a win in this case, especially since we
+do a certain amount of multiplying by 1 that the scalar version doesn't
+need to do.  Note the cute trick of adding complex numbers to add two
+numbers in parallel.  The use of gather/take allows the summation to run in
+a different thread than the helper function, at least in theory...  In
+practice, this solution runs considerably slower than the previous one, due
+primarily to passing gather/take values up many levels of dynamic scope.
+Eventually this may be optimized.
