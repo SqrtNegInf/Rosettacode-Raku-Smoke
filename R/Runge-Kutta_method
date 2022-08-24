@@ -23,7 +23,7 @@ loop (
     my ($t, $y) = (0, 1);
     $t <= 10;
     ($t, $y) »+=« (δt, δy($t, $y, δt))
-   #$t, $y Z[+=] δt, δy($t, $y, δt)  # fails, see also: N/N-body_problem.0
+    #$t, $y  Z[+=] δt, δy($t, $y, δt) # fails, cf: N/N-body_problem.0 (also fails), S/Smallest_enclosing_circle_problem (works)
 ) {
     printf "y(%2d) =%12f ±%e\n", $t, $y, abs($y - ($t² + 4)² / 4²)
     if $t.narrow ~~ Int;
