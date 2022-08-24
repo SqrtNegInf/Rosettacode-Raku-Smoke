@@ -9,7 +9,7 @@ srand 123456;
 
 my @res;
 
-#sub rank2inv ( $rank, $n = * ) {   # not an error, but why??
+#sub rank2inv ( $rank, $n = * ) { $rank.polymod( 1 ..^ $n ) }  # what exactly is the point of 'n = *'? 
 sub rank2inv ( $rank, $n ) { $rank.polymod( 1 ..^ $n ) }
 sub inv2rank ( @inv )      { [+] @inv Z× [\×] 1, 1, * + 1 … * }
 
@@ -17,6 +17,7 @@ sub inv2perm ( @inv, @items is copy = ^@inv.elems ) {
     my @perm;
     for @inv.reverse -> $i {
         @perm.append: @items.splice: $i, 1;
+       #@perm.push:   @items.splice: $i, 1;    # why different results with '.push'? (cf. K/Knuth%27s_algorithm_S-2)
     }
     @perm;
 }
