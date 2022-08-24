@@ -4,24 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#`{{
-# Perl 6's support for optional parameters is much like Python's. Consider this declaration:
-
-sub funkshun ($a, $b?, $c = 15, :$d, *@e, *%f) {
-   ...
-}
-
- In the above signature:
-
- $a is a mandatory parameter accepted by position (funkshun 15, ...) or by name (funkshun a => 15, ...).
- $b is an optional parameter that can be passed by position or by name. By default, it's undefined.
- $c is an optional parameter that can be passed by position or by name. Its default value is 15.
- $d is an optional parameter that can only be passed by name. By default, it's undefined.
- @e is a slurpy array: it receives any leftover positional arguments.
- %f is a slurpy hash: it receives any leftover named arguments.
-
-}}
-
 my @res;
 
 #So, if we defined the function like this:
