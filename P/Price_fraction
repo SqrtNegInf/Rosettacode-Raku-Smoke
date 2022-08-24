@@ -4,7 +4,9 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: rakudo version 2015-10-20
+my @res;
+
+# 1. First approach is to filter
 
 my $table = q:to/END/;
 >=  0.00  <  0.06  :=  0.10
@@ -31,7 +33,7 @@ END
 
 my $value = 0.44;
 
-say ~price($value);
+@res.push: ~price($value);
 
 sub price($value)
 {
@@ -42,9 +44,11 @@ sub price($value)
 	fail "Out of range";
 }
 
-#Perhaps a better approach is just to build an array of 101 entries.
-#Memory is cheap, and array lookup is blazing fast, especially important if used in a loop as below.
-#Moreover, in Perl6 we don't have to worry about floating point misrepresentations of decimals because decimal fractions are stored as rationals.
+# 2. Perhaps a better approach is just to build an array of 101 entries.
+# Memory is cheap, and array lookup is blazing fast, especially important if
+# used in a loop as below.  Moreover, in Perl6 we don't have to worry about
+# floating point misrepresentations of decimals because decimal fractions are
+# stored as rationals.
 
 my @price = map *.value, flat
     ( 0 ..^ 6  X=> 0.10),
@@ -69,12 +73,9 @@ my @price = map *.value, flat
     (96 ..^101 X=> 1.00),
 ;
 
-#while prompt("value: ") -> $value {
-#    say @price[ $value × 100 ] // note "Out of range";
-#}
-say @price[ $value × 100 ] // note "Out of range";
+@res.push: @price[ $value × 100 ] // note "Out of range";
 
-# Yet another approach is to use the conditional operator to encode the table.
+# 3. Yet another approach is to use the conditional operator to encode the table.
 # This allows each endpoint to be written once, avoiding duplication. The Rat()
 # type in the signature coerces any numeric type to a rational.
 
@@ -102,13 +103,9 @@ sub price_fraction ( Rat() $n where { $^n >= 0 and $^n <= 1 } ) {
     ;
 }
 
-#while prompt("value: ") -> $value {
-#    last if $value ~~ /exit|quit/;
-    say price_fraction(+$value);
-#}
+@res.push: price_fraction(+$value);
 
+.say for @res;
 
 use Test;
-is ~price($value),          '0.58';
-is @price[ $value × 100 ] , '0.58';
-is price_fraction(+$value), '0.58';
+is @res.join(' '), '0.58 0.58 0.58'
