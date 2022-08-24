@@ -68,5 +68,5 @@ sub uri-query-string (*%fields) {
 }
 
 use Test;
-@res.join("\n") ~~ m/'with ' (\d+) \s+ 'users:  Perl 6'/;
+@res.join("\n") ~~ m/'with ' (\d+) \s+ 'users:  Raku'/;
 ok 26 ≤ +$0;  # this value may go up or down... [down, since I moved my listing to 'Raku']

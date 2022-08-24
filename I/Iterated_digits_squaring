@@ -42,7 +42,7 @@ is $cnt, 856929, 'Slower method';
 exit;
 }
 
-#All is not lost, however. Through the use of gradual typing, Perl 6 scales down as well as up, so this jit-friendly version is performant enough to brute force the larger calculation:
+#All is not lost, however. Through the use of gradual typing, Raku scales down as well as up, so this jit-friendly version is performant enough to brute force the larger calculation:
 
 my @cache;
 @cache[1] = 1;

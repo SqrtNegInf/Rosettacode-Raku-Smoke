@@ -9,8 +9,8 @@
 #n# nb: suffers from the 'network' bug as well
 
 #`{
-This is a fairly comprehensive task code runner. It is set up to work for Perl 6 by default, but has basic configurations to run Perl and Python tasks as well. It can be easily tweaked to work with other languages by adding a load-lang('whatever'){} routine similar to the Perl6, Perl and Python ones. (And ensuring that the appropriate compiler is installed and accessible.) There is so much variation to the task requirements and calling conventions that it would be problematic to make a general purpose, language agnostic code runner so some configuration is necessary to make it work with other languages.
-By default, this will download the Perl 6 section of any (every) task that has a Perl 6 example, extract the code blocks and attempt to run them. Many tasks require files or user interaction to proceed, others are not complete runnable code blocks (example code fragments), some tasks run forever. To try to deal with and compensate for this, this implementation can load a %resource hash that will: supply input files where necessary, skip unrunnable code fragments, limit long and/or infinite running blocks, supply user interaction code where possible, and skip blocks where user interaction is unavoidable.
+This is a fairly comprehensive task code runner. It is set up to work for Raku by default, but has basic configurations to run Perl and Python tasks as well. It can be easily tweaked to work with other languages by adding a load-lang('whatever'){} routine similar to the Raku, Perl and Python ones. (And ensuring that the appropriate compiler is installed and accessible.) There is so much variation to the task requirements and calling conventions that it would be problematic to make a general purpose, language agnostic code runner so some configuration is necessary to make it work with other languages.
+By default, this will download the Raku section of any (every) task that has a Raku example, extract the code blocks and attempt to run them. Many tasks require files or user interaction to proceed, others are not complete runnable code blocks (example code fragments), some tasks run forever. To try to deal with and compensate for this, this implementation can load a %resource hash that will: supply input files where necessary, skip unrunnable code fragments, limit long and/or infinite running blocks, supply user interaction code where possible, and skip blocks where user interaction is unavoidable.
 There are several command line options to control its actions. See the README in the repository for details.
 The complete implementation is too large and cumbersome to post in it's entirety here, only the main task retrieval and execution code is included.
 For the whole ball of wax see the rc-run github repository.
@@ -269,7 +269,7 @@ multi load-lang ('perl6') { ( # Language specific variables. Adjust to suit.
     exe      => 'perl6',  # executable name to run perl6 in a shell
     ext      => '.p6',    # file extension for perl6 code
     dir      => 'perl6',  # directory to save tasks to
-    header   => 'Perl 6', # header text
+    header   => 'Raku', # header text
     # tags marking blocks of code - spaced out to placate wiki formatter
     # and to avoid getting tripped up when trying to run _this_ task
     tag => rx/<?after '<lang ' 'perl6' '>' > .*? <?before '</' 'lang>'>/,

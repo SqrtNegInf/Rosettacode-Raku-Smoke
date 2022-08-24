@@ -5,7 +5,7 @@
 #j# JVM:  BROKEN
 #n# 'unival' NYI
 
-#Any Unicode character or combination of characters can be used for symbols in Perl 6. Here's some counting rods and some cuneiform:
+#Any Unicode character or combination of characters can be used for symbols in Raku. Here's some counting rods and some cuneiform:
 
 sub postfix:<𒋦>($n) { return "$n trilobites" }
 
@@ -53,7 +53,7 @@ my $ref = qq:to/END/;
 END
 
 # We enforce the whitespace restriction to prevent insanity in the readers of programs.
-# That being said, even the whitespace restriction is arbitrary, and can be bypassed by deriving a new grammar and switching to it. We view all other languages as dialects of Perl 6, even the insane ones. :-)
+# That being said, even the whitespace restriction is arbitrary, and can be bypassed by deriving a new grammar and switching to it. We view all other languages as dialects of Raku, even the insane ones. :-)
 
 use Test;
 is $out1, '8 trilobites';

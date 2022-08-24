@@ -6,7 +6,7 @@
 #n#  needs periodic updates as codgen evolves?
 #n# 'slurp-rest' deprecated, plain 'slurp' works fine
 
-#Here we just examine the ast of the Perl 6 compiler (which is written in Perl 6) to look for function calls.
+#Here we just examine the ast of the Raku compiler (which is written in Raku) to look for function calls.
 
 my $binary = $*VM ~~ /jvm/ ?? 'perl6-j' !! 'raku';  # this is just a local quirk, right?
 my $cmd = run $binary, '--target=ast', 'S/Sorting_algorithms_Quicksort', :out, :err;

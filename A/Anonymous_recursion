@@ -18,7 +18,7 @@ sub fib($n) {
 
 say fib(10);
 
-#However, using any of these methods is insane, when Perl 6 provides a sort of inside-out combinator that lets you define lazy infinite constants, where the demand for a particular value is divorced from dependencies on more primitive values. This operator, known as the sequence operator, does in a sense provide anonymous recursion to a closure that refers to more primitive values.
+#However, using any of these methods is insane, when Raku provides a sort of inside-out combinator that lets you define lazy infinite constants, where the demand for a particular value is divorced from dependencies on more primitive values. This operator, known as the sequence operator, does in a sense provide anonymous recursion to a closure that refers to more primitive values.
 
 constant @fib = 0, 1, *+* ... *;
 say @fib[10];

@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#A pure Perl 6 implementation that closely follows the description of SHA-1 in FIPS 180-1. Slow.
+#A pure Raku implementation that closely follows the description of SHA-1 in FIPS 180-1. Slow.
 
 sub postfix:<mod2³²> { $^x % 2**32 }
 sub infix:<⊕>        { ($^x + $^y)mod2³² }

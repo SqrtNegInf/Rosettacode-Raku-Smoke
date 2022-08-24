@@ -18,7 +18,7 @@ sub foo {
 
 foo 1, 2, command => 'buckle my shoe', 3, 4, order => 'knock at the door';
 
-#Perl 6 also supports slurpy arrays and hashes, which are formal parameters that consume extra positional and keyword arguments like @_ and %_. You can make a parameter slurpy with the * twigil. This implementation of &foo works just like the last:
+#Raku also supports slurpy arrays and hashes, which are formal parameters that consume extra positional and keyword arguments like @_ and %_. You can make a parameter slurpy with the * twigil. This implementation of &foo works just like the last:
 
 my @res2;
 sub foo1 (*@positional, *%named) {

@@ -55,7 +55,7 @@ Typical output:
 736717 => [64921987050997300559 71774104902986066597 83448083465633593921 87001033462961102237 89538854889623608177 98421229882942378967]
 Run time: 0.2893774
 Beside HyperSeq and its (allowed to be) out-of-order equivalent RaceSeq, Rakudo supports primitive threads, locks and highlevel promises. Using channels and supplies values can be move thread-safely from one thread to another. A react-block can be used as a central hub for message passing.
-In Perl 6 most errors are bottled up Exceptions inside Failure objects that remember where they are created and thrown when used. This is useful to pass errors from one thread to another without losing file and line number of the source file that caused the error.
+In Raku most errors are bottled up Exceptions inside Failure objects that remember where they are created and thrown when used. This is useful to pass errors from one thread to another without losing file and line number of the source file that caused the error.
 In the future hyper operators, junctions and feeds will be candidates for autothreading.
 }
 

@@ -32,7 +32,7 @@ sleep .25;
 if $w {
     $xdo.activate-window($w);
     say "Window name: ", $xdo.get-window-name( $w );
-    $xdo.type($w, 'Perl 6');
+    $xdo.type($w, 'Raku');
     sleep .25;
     $xdo.send-sequence($w, 'Tab');
     sleep .5;

@@ -10,10 +10,10 @@ my @collection = (2, 4, 8);
 # Works with: Rakudo version 2015.10-40
 
 say $_ for @collection;
-#Perl 6 leaves off the each from foreach, leaving us with for instead. The variable $_ refers to the current element, unless you assign a name to it using ->.
+#Raku leaves off the each from foreach, leaving us with for instead. The variable $_ refers to the current element, unless you assign a name to it using ->.
 
 for @collection -> $currentElement { say $currentElement; }
-#Perl 6 will do it's best to put the topic at the right spot.
+#Raku will do it's best to put the topic at the right spot.
 
 .say for @collection;
 for @collection { .say };

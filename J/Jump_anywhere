@@ -109,7 +109,7 @@ my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
 
 # Continuation-based execution
-# Continuations in Perl 6 are currently limited to use in generators via the gather/take model:
+# Continuations in Raku are currently limited to use in generators via the gather/take model:
 
     my @list = lazy gather for ^100 -> $i {
         if $i.is-prime {
@@ -128,7 +128,7 @@ exit; # skip further testing
 # Notice that no further execution of the loop occurs. If we then asked for the element at index 20, we would expect to see 15 more lines of "Taking prime..." followed by the result: 73.
 
 # Failures and exceptions
-# Exceptions are fairly typical in Perl6:
+# Exceptions are fairly typical in Raku:
 
     die "This is a generic, untyped exception";
 # Will walk up the stack until either some `CATCH` block intercepts the specific exception type or we exit the program.

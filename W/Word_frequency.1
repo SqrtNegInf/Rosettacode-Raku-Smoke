@@ -37,7 +37,7 @@ is @res.join("\n"), chomp $ref;
 #`{{
 Or, as a one-liner at the command prompt:
 
-perl6 -e 'lines.lc.comb( /[<[\w]-[_]>]+/ ).Bag.sort(-*.value)[^10].join("\n").say' < ./word-count.txt
+raku -e 'lines.lc.comb( /[<[\w]-[_]>]+/ ).Bag.sort(-*.value)[^10].join("\n").say' < ./word-count.txt
 
 Same output.
 

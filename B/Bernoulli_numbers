@@ -28,7 +28,7 @@ my $form = "B(%2d) = \%{$width}d/%d";
 my @res1.push: sprintf $form, .key, .value.nude for @bpairs;
 .say for @res1;
 
-# Here is a much faster way, following the Perl solution that avoids recalculating previous values each time through the function. We do this in Perl 6 by not defining it as a function at all, but by defining it as an infinite sequence that we can read however many values we like from (52, in this case, to get up to B(100)). In this solution we've also avoided subscripting operations; rather we use a sequence operator (...) iterated over the list of the previous solution to find the next solution. We reverse the array in this case to make reference to the previous value in the list more natural, which means we take the last value of the list rather than the first value, and do so conditionally to avoid 0 values.
+# Here is a much faster way, following the Perl solution that avoids recalculating previous values each time through the function. We do this in Raku by not defining it as a function at all, but by defining it as an infinite sequence that we can read however many values we like from (52, in this case, to get up to B(100)). In this solution we've also avoided subscripting operations; rather we use a sequence operator (...) iterated over the list of the previous solution to find the next solution. We reverse the array in this case to make reference to the previous value in the list more natural, which means we take the last value of the list rather than the first value, and do so conditionally to avoid 0 values.
 
 # Works with: Rakudo version 2015.12
 

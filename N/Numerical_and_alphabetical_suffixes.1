@@ -7,7 +7,7 @@
 
 my @res;
 
-# Scientific notation, while supported in Perl 6, is limited to IEE-754 64bit accuracy so there is some rounding on values using it. It would certainly be possible to implement a custom high accuracy conversion routine but I can't really see the point since unfortunately, this routine is of limited use for practical everyday purposes. It focuses on handling excessively large and archaic units (googol, greatgross) and completely ignores or makes unusable (due to forcing case insensitivity) many common current ones: c(centi), m(milli), μ(micro). Ah well.
+# Scientific notation, while supported in Raku, is limited to IEE-754 64bit accuracy so there is some rounding on values using it. It would certainly be possible to implement a custom high accuracy conversion routine but I can't really see the point since unfortunately, this routine is of limited use for practical everyday purposes. It focuses on handling excessively large and archaic units (googol, greatgross) and completely ignores or makes unusable (due to forcing case insensitivity) many common current ones: c(centi), m(milli), μ(micro). Ah well.
 
 <PAIRs 2 SCOres 20 DOZens 12 GRoss 144  GREATGRoss 1728
 GOOGOLs 1e100> ~~ m:g/ ((<.:Lu>+) <.:Ll>*) \s+ (\S+) /;

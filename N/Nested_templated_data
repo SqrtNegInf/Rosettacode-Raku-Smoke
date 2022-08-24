@@ -5,7 +5,7 @@
 #j# JVM:  OK
 #n# with JVM 2021.12, output agrees with Moar exactly
 
-# Explicitly not using strings, using one data structure to fill in another. Since it isn't a string, the output format removes the newlines from the template; line feeds aren't particularly significant in Perl 6 data structures. It does preserve the nesting though. In the second example, payload "buckets" that don't exist result in an undefined value being inserted; by default: Any.
+# Explicitly not using strings, using one data structure to fill in another. Since it isn't a string, the output format removes the newlines from the template; line feeds aren't particularly significant in Raku data structures. It does preserve the nesting though. In the second example, payload "buckets" that don't exist result in an undefined value being inserted; by default: Any.
 
 say join "\n  ", '##PAYLOADS:', |my @payloads = 'Payload#' X~ ^7;
 

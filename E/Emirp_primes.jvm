@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#Build a lazy list using Perl 6's builtin &is-prime, then display results based on parameters passed in.The default is to display an array slice starting and stopping at the given indicies. Alternately, ask for all values between two endpoints.
+#Build a lazy list using Raku's builtin &is-prime, then display results based on parameters passed in.The default is to display an array slice starting and stopping at the given indicies. Alternately, ask for all values between two endpoints.
 
 sub MAIN-as-sub ($start, $stop = Nil, $display = <slice>) {
     my $end = $stop // $start; 

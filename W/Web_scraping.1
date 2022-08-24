@@ -22,4 +22,4 @@ say 'ok 1' if $result ~~ /:s<[A..Z]><[a..z]>**2 '.' <[0..9]>**1..2 ',' <[0..9]>*
 #HTTP::Client.new.get($site).content.match(/'<BR>'( .+? <ws> UTC )/)[0].say;
 
 #Note that the string between '<' and '>' refers to regex tokens, so to match a literal '<BR>' you need to quote it, while <ws> refers to the built-in token whitespace.
-#Also, whitespace is ignored by default in Perl 6 regexes.
+#Also, whitespace is ignored by default in Raku regexes.

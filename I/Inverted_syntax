@@ -6,7 +6,7 @@
 #j# JVM:  OK
 
 #`{
-Like all Perls, Perl 6 has statement modifiers:
+Like all Perls, Raku has statement modifiers:
 
 if $guess == 6 { say "Wow! Lucky Guess!" }          # Traditional
 say 'Wow! Lucky Guess!' if $guess == 6;             # Inverted
@@ -24,7 +24,7 @@ $x++ until $x > 10;
 
 for 1..10 { .say if $_ %% 2 }
 .say if $_ %% 2 for 1..10;  # list comprehension
-#Perl 6 has a system of metaoperators that modify the characteristics of normal operators. Among these is the R metaoperator, which is able to reverse the arguments of most infix operators (including user-defined ones).
+#Raku has a system of metaoperators that modify the characteristics of normal operators. Among these is the R metaoperator, which is able to reverse the arguments of most infix operators (including user-defined ones).
 #So a reversed assignment is easy to write:
 
 42 R= $_; say $_;   # prints 42

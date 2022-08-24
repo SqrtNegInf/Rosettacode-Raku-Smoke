@@ -4,8 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Perl 6 has a built in method .getc to get a single character from an open file handle. File handles default to UTF-8, so they will handle multi-byte characters correctly.
-# To read a single character at a time from the Standard Input terminal; $*IN in Perl 6:
+# Raku has a built in method .getc to get a single character from an open file handle. File handles default to UTF-8, so they will handle multi-byte characters correctly.
+# To read a single character at a time from the Standard Input terminal; $*IN in Raku:
 
 #.say while defined $_ = $*IN.getc;
 

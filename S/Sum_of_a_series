@@ -22,12 +22,12 @@ say my $r3 = [+] 1 X/ (1..1000 X** 2);
 # With list comprehensions, you can write:
 say my $r4 = [+] (1 / $_**2 for 1..1000);
 
-# That's fine for a single result, but if you're going to be evaluating the sequence multiple times, you don't want to be recalculating the sum each time, so it's more efficient to define the sequence as a constant to let the run-time automatically cache those values already calculated. In a lazy language like Perl 6, it's generally considered a stronger abstraction to write the correct infinite sequence, and then take the part of it you're interested in.
+# That's fine for a single result, but if you're going to be evaluating the sequence multiple times, you don't want to be recalculating the sum each time, so it's more efficient to define the sequence as a constant to let the run-time automatically cache those values already calculated. In a lazy language like Raku, it's generally considered a stronger abstraction to write the correct infinite sequence, and then take the part of it you're interested in.
 # Here we define an infinite sequence of partial sums (by adding a backslash into the reduction to make it look "triangular"), then take the 1000th term of that:
 constant @x = [\+] 0, { 1 / ++(state $n) ** 2 } ... *;
 say my $r5 = @x[1000];
 
-# Note that infinite constant sequences can be lazily generated in Perl 6, or this wouldn't work so well...
+# Note that infinite constant sequences can be lazily generated in Raku, or this wouldn't work so well...
 # A cleaner style is to combine these approaches with a more FP look:
 #constant ζ-ish = [\+] map -> \𝑖 { 1 / 𝑖**2 }, 1..*; # JVM has Unicode problem with sigil-less variables
 constant ζ-ish = [\+] map -> \i { 1 / i**2 }, 1..*;

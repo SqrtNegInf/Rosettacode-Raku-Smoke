@@ -6,7 +6,7 @@
 
 my @res;
 
-# Is approximately equal to is a built-in operator in Perl 6. Unicode ≅, or the ASCII equivalent: =~=. By default it uses a tolerance of 1e-15 times the order of magnitude of the larger comparand, though that is adjustable by setting the dynamic variable $*TOLERANCE to the desired value. Probably a good idea to localize the changed $*TOLERANCE as it will affect all comparisons within its scope.
+# Is approximately equal to is a built-in operator in Raku. Unicode ≅, or the ASCII equivalent: =~=. By default it uses a tolerance of 1e-15 times the order of magnitude of the larger comparand, though that is adjustable by setting the dynamic variable $*TOLERANCE to the desired value. Probably a good idea to localize the changed $*TOLERANCE as it will affect all comparisons within its scope.
 
 for
     100000000000000.01, 100000000000000.011,

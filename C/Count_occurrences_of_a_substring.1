@@ -11,7 +11,7 @@ say count-substring("the three truths","th");
 say count-substring("ababababab","abab");
 say count-substring(123123123,12);
 
-# The ~ prefix operator converts $little to a Str if it isn't already, and .comb when given a Str as an argument returns instances of that substring. You can think of it as if the argument was a regex that matched the string literally /$little/. Also, prefix + forces numeric context in Perl 6 (it's a no-op in Perl 5). For the built in listy types that is the same as calling .elems method. One other style point: we now tend to prefer hyphenated names over camelCase.
+# The ~ prefix operator converts $little to a Str if it isn't already, and .comb when given a Str as an argument returns instances of that substring. You can think of it as if the argument was a regex that matched the string literally /$little/. Also, prefix + forces numeric context in Raku (it's a no-op in Perl 5). For the built in listy types that is the same as calling .elems method. One other style point: we now tend to prefer hyphenated names over camelCase.
 
 use Test;
 is count-substring("the three truths","th"), 3;

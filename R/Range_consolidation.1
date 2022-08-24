@@ -7,8 +7,8 @@
 
 my @res;
 
-# In Perl 6, a Range is a first class object with its own specialized notation. Perl 6 Ranges allow for exclusion of the boundary numbers. This example doesn't allow for excluded boundaries since that wasn't a requirement in this task. Much of the logic is lifted from Set_of_real_numbers with simplified logic for the much simpler requirements.
-# Note: the output is in standard Perl 6 notation for Ranges.
+# In Raku, a Range is a first class object with its own specialized notation. Raku Ranges allow for exclusion of the boundary numbers. This example doesn't allow for excluded boundaries since that wasn't a requirement in this task. Much of the logic is lifted from Set_of_real_numbers with simplified logic for the much simpler requirements.
+# Note: the output is in standard Raku notation for Ranges.
 
 # Union
 sub infix:<∪> (Range $a, Range $b) { Range.new( min($a.min,$b.min), max($a.max,$b.max) ) }

@@ -45,7 +45,7 @@ sub find-factor ( Int $n, $constant = 1 ) {
 #`{
 The second line takes the list of numbers and converts then to a RaceSeq that is stored in a raw variable. Any RaceSeq overloads map and grep to convert and pick values in worker threads. The runtime will pick the number of OS-level threads and assign worker threads to them while avoiding stalling in any part of the program. A RaceSeq is lazy, so the computation of values will happen in chunks as they are requested in the third line.
 Beside RaceSeq and its in order equivalent HyperSeq, Rakudo supports primitive threads, locks and highlevel promises. Using channels and supplies values can be move threadsafe from one thread to another. A react-block can be used as a central hub for message passing.
-In Perl 6 most errors are bottled up Exceptions inside Failure objects that remember where they are created and thrown when used. This is useful to pass errors from one thread to another without losing file and linennumber of the source file that caused the error.
+In Raku most errors are bottled up Exceptions inside Failure objects that remember where they are created and thrown when used. This is useful to pass errors from one thread to another without losing file and linennumber of the source file that caused the error.
 In the future hyper operators, junctions and feeds will be candidates for autothreading.
 }
 

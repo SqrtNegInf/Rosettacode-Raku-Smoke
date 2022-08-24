@@ -5,7 +5,7 @@
 #j#  JVM: OK
 #n# OEIS:A052294
 
-#Straightforward implementation using Perl 6's is-prime built-in subroutine.
+#Straightforward implementation using Raku's is-prime built-in subroutine.
 sub is-pernicious(Int $n --> Bool) {
     is-prime [+] $n.base(2).comb;
 }

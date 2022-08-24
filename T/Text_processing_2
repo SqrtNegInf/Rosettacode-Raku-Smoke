@@ -34,7 +34,7 @@ my @res1;
 
 .say for @res1;
 
-#The first version demonstrates that you can program Perl 6 almost like Perl 5. Here's a more idiomatic Perl 6 version that runs several times faster:
+#The first version demonstrates that you can program Raku almost like Perl 5. Here's a more idiomatic Raku version that runs several times faster:
 
 #my $good-records;
 my $line;
@@ -63,13 +63,13 @@ for slurp("ref/text-proc.txt").lines {
 .say for @res2;
 
 #`{
-Note how this version does validation with a single Perl 6 regex that is much more readable than the typical regex, and arguably expresses the data structure more straightforwardly.
+Note how this version does validation with a single Raku regex that is much more readable than the typical regex, and arguably expresses the data structure more straightforwardly.
 Here we use normal quotes for literals, and \h for horizontal whitespace.
-Variables like $good-record that are going to be autoincremented do not need to be initialized. (Perl 6 allows hyphens in variable names, as you can see.)
+Variables like $good-record that are going to be autoincremented do not need to be initialized. (Raku allows hyphens in variable names, as you can see.)
 The .push method on a hash is magical and loses no information; if a duplicate key is found in the pushed pair, an array of values is automatically created of the old value and the new value pushed. Hence we can easily track all the lines that a particular duplicate occurred at.
 The .all method does "junctional" logic: it autothreads through comparators as any English speaker would expect. Junctions can also short-circuit as soon as they find a value that doesn't match, and the evaluation order is up to the computer, so it can be optimized or parallelized.
 The final line simply greps out the pairs from the hash whose value is an array with more than 1 element. (Those values that are not arrays nevertheless have a .elems method that always reports 1.) The .pairs is merely there for clarity; grepping a hash directly has the same effect.
-Note that we sort the pairs after we've grepped them, not before; this works fine in Perl 6, sorting on the key and value as primary and secondary keys. Finally, pairs and arrays provide a default print format that is sufficient without additional formatting in this case.
+Note that we sort the pairs after we've grepped them, not before; this works fine in Raku, sorting on the key and value as primary and secondary keys. Finally, pairs and arrays provide a default print format that is sufficient without additional formatting in this case.
 }
 
 my $ref1 = qq:to/END/;

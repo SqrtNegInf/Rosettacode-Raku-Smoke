@@ -6,7 +6,7 @@
 #j#  JVM: OK
 
 # Works with: Rakudo version 2016.11
-# Perl 6 provides built-in methods / routines base and parse-base to convert to and from bases 2 through 36. We'll just shadow the core routines with versions that accept negative bases.
+# Raku provides built-in methods / routines base and parse-base to convert to and from bases 2 through 36. We'll just shadow the core routines with versions that accept negative bases.
 # As a stretch goal, rather than implement something that can "Spell the name of the language with correct capitalization" (which is silly, trivial, and has absolutely nothing to do with negative base numbers,) we'll implement routines that correctly work with any Real number, not just integers.
 # The Real candidate has a 'precision' parameter, default -15, (15 places after the decimal point,) to limit the length of the fractional portion of the converted value. Change it if you need or want different precision. The Integer only routine is kept here as a multi-dispatch candidate since it is potentially much faster than the Real capable routine. The dispatcher will automatically use the most appropriate (fastest) routine.
 # Note that the parse-base routine will handle 'illegal' negative negative-base values without blowing up.

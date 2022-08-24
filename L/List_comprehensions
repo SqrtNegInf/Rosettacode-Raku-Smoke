@@ -6,7 +6,7 @@
 
 # Raku has single-dimensional list comprehensions that fall out naturally
 # from nested modifiers; multidimensional comprehensions are also supported
-# via the cross operator; however, Perl 6 does not (yet) support
+# via the cross operator; however, Raku does not (yet) support
 # multi-dimensional list comprehensions with dependencies between the lists,
 # so the most straightforward way is currently:
 
@@ -22,7 +22,7 @@ say my @res = gather for 1..$n -> $x {
 
 # Note that gather/take is the primitive in Raku  corresponding to
 # generators or co-routines in other languages. It is not, however, tied to
-# function call syntax in Perl 6. We can get away with that because lists are
+# function call syntax in Raku. We can get away with that because lists are
 # lazy, and the demand for more of the list is implicit; it does not need to
 # be driven by function calls.
 

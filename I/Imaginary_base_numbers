@@ -14,7 +14,7 @@ in practice, they are limited to integer bases from -6i to -2i and 2i to
 supported. Bases larger than 6i (or -6i) require digits outside of base 36
 to express them, so aren't as standardized, are implementation dependent
 and are not supported here. Note that imaginary number coefficients are
-stored as floating point numbers in Perl 6 so some rounding error may creep
+stored as floating point numbers in Raku so some rounding error may creep
 in during calculations. The precision these conversion routines use is
 configurable; we are using 8 <strike>decimal</strike>, um... radicimal(?)
 places of precision here.

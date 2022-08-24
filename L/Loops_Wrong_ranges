@@ -7,8 +7,8 @@
 my @res;
 
 # Works with: Rakudo version 2018.08
-# It would be odd to call ANY of these sequences "wrong" in Perl 6. Perl 6 specifically has built in capability of working with infinite sequences. Just because a sequence is infinite, doesn't mean you can't define it, work with it or use values from it. Sure, if you try to reify the whole thing you may be waiting a while, but there is nothing preventing you from using a portion of it.
-# Perl 6 sequence definitions specifically allow "ending points" that may never occur in the sequence. Since that is the case, you don't even really need to specify a stop value. You can just say stop at "whatever". Whatever is spelled "*" in Perl 6.
+# It would be odd to call ANY of these sequences "wrong" in Raku. Raku specifically has built in capability of working with infinite sequences. Just because a sequence is infinite, doesn't mean you can't define it, work with it or use values from it. Sure, if you try to reify the whole thing you may be waiting a while, but there is nothing preventing you from using a portion of it.
+# Raku sequence definitions specifically allow "ending points" that may never occur in the sequence. Since that is the case, you don't even really need to specify a stop value. You can just say stop at "whatever". Whatever is spelled "*" in Raku.
 # There is additional syntax you can add to stop at the nearest value, last value previous or first value successor to the "stop value" (Note I didn't say less than or greater than the stop value since the sequence can be ascending, descending or non-monotonic).
 # Also note: The iterator function for the sequence is literally a function. It is any expression that produces a value. These sequences all use simple arithmatic increments but that is not a limitation of the sequence operator.
 

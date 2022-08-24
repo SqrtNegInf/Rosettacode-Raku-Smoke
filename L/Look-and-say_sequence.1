@@ -6,7 +6,7 @@
 #j#  JVM: OK
 
 # Works with: rakudo version 2015-09-17
-# In Perl 6 it is natural to avoid explicit loops; rather we use the sequence operator to define a lazy sequence. 
+# In Raku it is natural to avoid explicit loops; rather we use the sequence operator to define a lazy sequence. 
 # We print all values until we interrupt with Ctrl-C.
 
 #.say for '1', *.subst(/(.)$0*/, { .chars ~ .[0] }, :g) ... *;

@@ -11,7 +11,7 @@ sub horner1 ( @coeffs, $x ) {
 
 say horner1( [ -19, 7, -4, 6 ], 3 );
 
-#A recursive version would spare us the need for reversing the list of coefficients. However, special care must be taken in order to write it, because the way Perl 6 implements lists is not optimized for this kind of treatment. Lisp-style lists are, and fortunately it is possible to emulate them with Pairs and the reduction meta-operator:
+#A recursive version would spare us the need for reversing the list of coefficients. However, special care must be taken in order to write it, because the way Raku implements lists is not optimized for this kind of treatment. Lisp-style lists are, and fortunately it is possible to emulate them with Pairs and the reduction meta-operator:
 
 multi horner2(Numeric $c, $) { $c }
 multi horner2(Pair $c, $x) {

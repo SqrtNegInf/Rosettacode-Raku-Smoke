@@ -10,8 +10,8 @@ die 'ecosystem...' if $*VM ~~ /jvm/;  # wait for zef-j
 
 # Works with: Rakudo version 2018.03
 #`{{
-This is a fairly comprehensive task code runner. It is set up to work for Perl 6 only at this point, but could be easily tweaked to work with other languages. There is so much variation to the task requirements and calling conventions that it would be problematic to make a general purpose, language agnostic code runner. (Heck, a single language one is hard enough.)
-By default, this will download the Perl 6 section of any (every) task that has a Perl 6 example, extract the code blocks and attempt to run them. Many tasks require files or user interaction to proceed, others are not complete runnable code blocks (example code fragments), some tasks run forever. To try to deal with and compensate for this, this implementation can load a %resource hash that will: supply input files where necessary, skip unrunnable code fragments, limit long and/or infinite running blocks, supply user interaction code where possible, and skip blocks where user interaction is unavoidable.
+This is a fairly comprehensive task code runner. It is set up to work for Raku only at this point, but could be easily tweaked to work with other languages. There is so much variation to the task requirements and calling conventions that it would be problematic to make a general purpose, language agnostic code runner. (Heck, a single language one is hard enough.)
+By default, this will download the Raku section of any (every) task that has a Raku example, extract the code blocks and attempt to run them. Many tasks require files or user interaction to proceed, others are not complete runnable code blocks (example code fragments), some tasks run forever. To try to deal with and compensate for this, this implementation can load a %resource hash that will: supply input files where necessary, skip unrunnable code fragments, limit long and/or infinite running blocks, supply user interaction code where possible, and skip blocks where user interaction is unavoidable.
 The complete implementation is too large and cumbersome to post in it's entirety here, only the main task retrieval and execution code is included.
 For the whole ball of wax see the rc-run github repository.
 Run with no parameters to run every implemented task on Rosetta Code. Feed it a task name to only download / run that task.
@@ -28,7 +28,7 @@ my $url      = 'http://rosettacode.org/mw';
 
 # Language specific variables
 my $language = 'Perl_6'; # language
-my $header   = 'Perl 6'; # header text
+my $header   = 'Raku'; # header text
 my $exe      = 'perl6';  # executable to run perl6 in a shell
 my $ext      = '.p6';    # file extension for perl6 code
 

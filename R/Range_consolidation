@@ -6,8 +6,8 @@
 #n# scofflaw 'extra' tests no longer on RC as of 2019-03-31 (anything explicitly permitted is absolutely forbidden!)
 
 my @res;
-# In Perl 6, a Range is a first class object with its own specialized notation. Perl 6 Ranges allow for exclusion of the boundary numbers. This example doesn't since it isn't a requirement in this task. Much of the logic is lifted from the Set_of_real_numbers task with simplified logic for the much simpler requirements.
-# Note: the output is in standard Perl 6 notation for Ranges.
+# In Raku, a Range is a first class object with its own specialized notation. Raku Ranges allow for exclusion of the boundary numbers. This example doesn't since it isn't a requirement in this task. Much of the logic is lifted from the Set_of_real_numbers task with simplified logic for the much simpler requirements.
+# Note: the output is in standard Raku notation for Ranges.
 
 # Union
 sub infix:<∪> (Range $a, Range $b) { Range.new($a.min,max($a.max,$b.max)) }

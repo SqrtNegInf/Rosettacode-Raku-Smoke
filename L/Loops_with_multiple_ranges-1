@@ -5,9 +5,9 @@
 #j# JVM:  OK
 #n# I have to 'cache' the 1st 'j' sequence because of '@res.push:'
 
-# This task is really conflating two separate things, (at least in Perl 6). Sequences and loops are two different concepts and may be considered / implemented separately from each other.
+# This task is really conflating two separate things, (at least in Raku). Sequences and loops are two different concepts and may be considered / implemented separately from each other.
 # Yes, you can generate a sequence with a loop, and a loop can use a sequence for an iteration value, but the two are somewhat orthogonal and don't necessarily overlap.
-# Sequences are first class objects in Perl 6. You can (and typically do) generate a sequence using the (appropriately enough) sequence operator and can assign it to a variable and/or pass it as a parameter; the entire sequence, not just it's individual values. It may be used in a looping construct, but it is not necessary to do so.
+# Sequences are first class objects in Raku. You can (and typically do) generate a sequence using the (appropriately enough) sequence operator and can assign it to a variable and/or pass it as a parameter; the entire sequence, not just it's individual values. It may be used in a looping construct, but it is not necessary to do so.
 # Various looping constructs often do use sequences as their iterator but not exclusively, possibly not even in the majority.
 
 my @res;

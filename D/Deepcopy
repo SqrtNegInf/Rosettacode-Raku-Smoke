@@ -7,7 +7,7 @@
 my @res;
 
 #`{{
-Perl 6 doesn't currently provide a proper mechanism for deep copies, but depending on your requirements you could use one of these work-arounds:
+Raku doesn't currently provide a proper mechanism for deep copies, but depending on your requirements you could use one of these work-arounds:
 
 
 1) Use .deepmap(*.clone):
@@ -27,7 +27,7 @@ my %y1 = %x1.deepmap(*.clone);
 
 #`{{
 2) Use .raku.EVAL:
-.raku serializes the data structure to Perl 6 code, and .EVAL deserializes it. Limitations:
+.raku serializes the data structure to Raku code, and .EVAL deserializes it. Limitations:
 
  Doesn't work correctly if the data structure contains elements that can't be properly serialized, such as closures or file handles.
 }}

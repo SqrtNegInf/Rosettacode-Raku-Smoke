@@ -24,7 +24,7 @@ use Test;
 is @res.join("\n"), chomp $ref;
 
 #`{
- Notable Perl 6 innovations that make this different from the equivalent #Perl solution:
+ Notable Raku innovations that make this different from the equivalent #Perl solution:
 
  string variables can be safely interpolated into regexes without having to 'quotemeta' them
  regexes matches return a nested Match object which allows retrieving all results for a given capture group (rather than just the last thing that it matched), thus getting rid of the need for repeated global matching

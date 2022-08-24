@@ -10,12 +10,12 @@ my @res;
 #`[
 Set srand to set the encode / decode "key".
 Need to use the same "key" and same implementation
-of Perl 6 to encode / decode. Gain "security" by
+of Raku to encode / decode. Gain "security" by
 exchanging "keys" by a second channel. Default
-"key" is "Perl 6"
+"key" is "Raku"
 ]
 
-unit sub MAIN ($key = 'Perl 6');
+unit sub MAIN ($key = 'Raku');
 
 srand $key.comb(/<.alnum>/).join.parse-base(36) % 2**63;
 

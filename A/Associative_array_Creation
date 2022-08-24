@@ -13,7 +13,7 @@ my @a = 1..5;
 my @b = 'a'..'e';
 my %h = @a Z=> @b;
 
-# Hash elements and hash slices now use the same sigil as the whole hash. This is construed as a feature. Curly braces no longer auto-quote, but Perl 6's qw (shortcut < ... >) now auto-subscripts.
+# Hash elements and hash slices now use the same sigil as the whole hash. This is construed as a feature. Curly braces no longer auto-quote, but Raku's qw (shortcut < ... >) now auto-subscripts.
 %h1<key1> = 'val1';
 %h1<key1 three> = 'val1', -238.83;
 

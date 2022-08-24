@@ -6,7 +6,7 @@
 #j#  JVM: OK
 
 #`{{
-Unlike most languages that hardwire their quoting mechanisms, the quote mechanism in Perl 6 is extensible, and all normal-looking quotes actually derive from a parent quoting language called Q via grammatical mixins, applied via standard Perl 6 adverbial syntax.
+Unlike most languages that hardwire their quoting mechanisms, the quote mechanism in Raku is extensible, and all normal-looking quotes actually derive from a parent quoting language called Q via grammatical mixins, applied via standard Raku adverbial syntax.
 The available quote mixins, straight from current spec S02, are:
 
 Short       Long            Meaning
@@ -48,7 +48,7 @@ qq/.../ Q:qq /.../
 /.../   Q:regex /.../
 quasi {...} Q:code {...}
 The :qq-derived languages all give normal Perlish interpolation, but individual interpolations may be chosen or suppressed with extra adverbs.
-Unlike in Perl 5, we don't use backticks as shorthand for what is now expressed as qqx// in Perl 6.
+Unlike in Perl 5, we don't use backticks as shorthand for what is now expressed as qqx// in Raku.
 (Backticks are now reserved for user-defined syntax.)
 Heredocs now have no special << syntax,
 but fall out of the :to adverb:
@@ -74,7 +74,7 @@ Backslash sequences recognized by :b (and hence :qq) include:
 "\c8"       # BACKSPACE
 "\c[13,10]" # CRLF
 "\c[LATIN CAPITAL LETTER A, COMBINING RING ABOVE]"
-Leading 0 specifically does not mean octal in Perl 6;
+Leading 0 specifically does not mean octal in Raku;
 you must use \o instead.
 
 }}

@@ -7,11 +7,11 @@
 
 #`{{
 
-Technically speaking, all characters are special in Perl 6, since
+Technically speaking, all characters are special in Raku, since
 they're all just the result of particular mixes of parse rules.
 Nevertheless, some characters may appear to be more special than
 others. (However, we will not document any operators here, which
-contain plenty of odd characters in Perl 6.)
+contain plenty of odd characters in Raku.)
 Sigils:
 
     $   Item
@@ -85,6 +85,6 @@ Escapes within regexes include most of the double-quote escapes, plus:
     ^^	Line start
     $	String end
     $$	Line end
-Note that all non-alphanumeric characters are reserved for escapes and operators in Perl 6 regexes.
+Note that all non-alphanumeric characters are reserved for escapes and operators in Raku regexes.
 Any lowercase backslash escape in a regex may be uppercased to negate it, hence \N matches anything that is not a newline.
 }}

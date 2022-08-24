@@ -6,7 +6,7 @@
 #n# replace 1st integer root routine
 #n# worked for this task, but fundamentally buggy (e.g. for n=7055, goes into infinite loop)
 
-#There is not yet a FixDecimal type module in Perl 6, and using FatRat all along would be too slow and would be coerced to Num when computing the square root anyway, so we'll use a custom definition of the square root for Int and FatRat, with a limitation to the number of decimals. We'll show all the intermediate results.
+#There is not yet a FixDecimal type module in Raku, and using FatRat all along would be too slow and would be coerced to Num when computing the square root anyway, so we'll use a custom definition of the square root for Int and FatRat, with a limitation to the number of decimals. We'll show all the intermediate results.
 
 constant number-of-decimals = 100;
 

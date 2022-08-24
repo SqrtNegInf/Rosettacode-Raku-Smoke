@@ -10,7 +10,7 @@ sub fac (&f) { sub ($n) { $n < 2 ?? 1 !! $n × f($n - 1) } }
 sub fib (&f) { sub ($n) { $n < 2 ?? $n !! f($n - 1) + f($n - 2) } }
 say map Y($_), ^10 for &fac, &fib;
 
-# Note that Perl 6 doesn't actually need a Y combinator because you can name anonymous functions from the inside:
+# Note that Raku doesn't actually need a Y combinator because you can name anonymous functions from the inside:
 # say .(10) given sub (Int $x) { $x < 2 ?? 1 !! $x × &?ROUTINE($x - 1); }
 say gather { for ^10 -> $i { take .($i) given sub (Int $x) { $x < 2 ?? 1 !! $x × &?ROUTINE($x - 1); } } } 
 

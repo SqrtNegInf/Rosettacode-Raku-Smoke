@@ -5,11 +5,11 @@
 #j#  JVM: OK
 #n# infix:<cmp> obsolete?: Rakudo version 2018.03-143-g111f67a4b built on MoarVM version 2018.03-59-gfc1bb3126
 
-# Perl 6 is perfectly fine with NUL *characters* in strings:
+# Raku is perfectly fine with NUL *characters* in strings:
 my Str $s = 'nema' ~ 0.chr ~ 'problema!';
 my @res.push: $s;
 
-# However, Perl 6 makes a clear distinction between strings
+# However, Raku makes a clear distinction between strings
 # (i.e. sequences of characters), like your name, or …
 my Str $str = "My God, it's full of chars!";
 # … and sequences of bytes (called Bufs), for example a PNG image, or …

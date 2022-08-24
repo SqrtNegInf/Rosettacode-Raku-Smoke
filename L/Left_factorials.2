@@ -5,7 +5,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Perl 6 doesn't have a built in factorial function, so the first two lines
+# Raku doesn't have a built in factorial function, so the first two lines
 # implement postfix! factorial.  The newly implemented factorial function is
 # used to implement left factorial using a prefix! in the next two lines.
 # Note that this redefines the core prefix! (not) function.  The last two
@@ -67,7 +67,7 @@ While the code above seems like a pretty decent "mathematical" way to write
 this, it's far from efficient, since it's recalculating every factorial
 many times for each individual left factorial, not to mention for each
 subsequent left factorial, so it's something like an O(N^3) algorithm, not
-even counting the sizes of the numbers as one of the dimensions.  In Perl6,
+even counting the sizes of the numbers as one of the dimensions.  In Raku,
 a more idiomatic way is to write these functions as constant "triangular
 reduction" sequences; this works in O(N)-ish time because the sequences
 never have to recalculate a prior result:

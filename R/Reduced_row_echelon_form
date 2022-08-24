@@ -37,7 +37,7 @@ sub rat-or-int ($num) {
     $num.nude.join: '/';
 }
 
-# Perl 6 handles rational numbers internally as a ratio of two integers to maintain precision.
+# Raku handles rational numbers internally as a ratio of two integers to maintain precision.
 # For some situations it is useful to return the ratio rather than the floating point result.
 sub say-it ($message, @array) {
     $out.say: "\n$message";

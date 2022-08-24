@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# As in previous versions of Perl, in Perl6 the topic variable is $_. In addition to a direct affectation, it can also be set with the 'given' keyword. A method can be called from it with an implicit call:
+# As in previous versions of Perl, in Raku the topic variable is $_. In addition to a direct affectation, it can also be set with the 'given' keyword. A method can be called from it with an implicit call:
 
 my @res;
 
@@ -22,4 +22,4 @@ END
 use Test;
 is @res.join("\n"), chomp $ref;
 
-# The scope of the $_ variable is always lexical in Perl 6, though a function can access its caller's topic if it asks for it specially via CALLER::<$_>.
+# The scope of the $_ variable is always lexical in Raku, though a function can access its caller's topic if it asks for it specially via CALLER::<$_>.
