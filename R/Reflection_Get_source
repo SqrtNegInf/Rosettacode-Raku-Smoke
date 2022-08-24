@@ -3,18 +3,16 @@
 #c# 2016-08-01 <>RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# Too many positionals passed; expected 1 arguments but got 2)
+#n# precompilation hash needs to be updated fairly often...
 
-# A full path is provided for built-in routines/methods. However for routines exported by pre-compiled modules a precompilation hash is returned, not a proper file path. 
+# A full path is provided for built-in routines/methods. 
+# However for routines exported by pre-compiled modules a precompilation hash is returned, not a proper file path. 
 
 say &sum.file;
 say Date.^find_method("day-of-week").file;
 
 use Test;
-# still a precompilation hash?
-#is &is.file, 'perl#sources/C712FE6969F786C9380D643DF17E85D06868219E (Test)';
-#is &is.file, 'perl#sources/2D4A7CA10695CD2B374573413D261A660E282E2A (Test)';
-is &is.file, 'core#sources/2D4A7CA10695CD2B374573413D261A660E282E2A (Test)';
+is &is.file, 'core#sources/D55DEABCAF666EAC0C9B5E84B924308E3268B15A (Test)';
 
 is &sum.file, 'SETTING::src/core.c/Any.pm6';
 is Date.^find_method("day-of-week").file, 'SETTING::src/core.c/Dateish.pm6';
