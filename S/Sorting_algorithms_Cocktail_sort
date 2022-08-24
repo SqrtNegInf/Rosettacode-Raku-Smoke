@@ -7,7 +7,7 @@
 sub cocktail_sort ( @a ) {
     my $range = 0 ..^ @a.end;
     loop {
-        my $swapped_forward = 0;
+        my $swapped_forward; # = 0;
         for $range.list -> $i {
             if @a[$i] > @a[$i+1] {
                 @a[ $i, $i+1 ] .= reverse;
@@ -16,7 +16,7 @@ sub cocktail_sort ( @a ) {
         }
         last if not $swapped_forward;
 
-        my $swapped_backward = 0;
+        my $swapped_backward; # = 0;
         for $range.reverse -> $i {
             if @a[$i] > @a[$i+1] {
                 @a[ $i, $i+1 ] .= reverse;
