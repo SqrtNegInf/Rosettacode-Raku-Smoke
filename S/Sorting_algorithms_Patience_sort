@@ -22,6 +22,7 @@ multi patience(@deck) {
 
 say patience ^10 . pick(*);
 
+# above just for show, testing random values:
 my @weights = (^50).map: { 100 + ( 1000.rand.Int / 10 ) };
 
 use Test;
