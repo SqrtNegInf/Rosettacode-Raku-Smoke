@@ -9914,7 +9914,7 @@ File: P/Palindromic_dates.0
 #j# JVM:  BROKEN
 #n# you snooze, you lose... this is overkill for Steenslag's task, so giving it a miss
 #n#
-#n# Fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
+#n# Fundamentally simple task used to show off how nice Raku makes life for a programmer, 
 #n#   copiously annotated for the beginning programmer (Hi Oscar!)
 #n#
 #n# Further notes:
@@ -9932,7 +9932,7 @@ File: P/Palindromic_dates.jvm
 #c# 2019-10-xx >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# Fundamentally simple task used to show off how nice Perl 6 makes life for a programmer, 
+#n# Fundamentally simple task used to show off how nice Raku makes life for a programmer, 
 #n#   copiously annotated for the beginning programmer (Hi Oscar!)
 #n#
 #n# Further notes:
@@ -11848,7 +11848,7 @@ File: R/Reflection_Get_source
 #c# 2016-08-01 <>RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# Too many positionals passed; expected 1 arguments but got 2)
+#n# precompilation hash needs to be updated fairly often...
 
 File: R/Reflection_List_methods
 #!/usr/bin/env perl6
@@ -11917,7 +11917,6 @@ File: R/Rendezvous
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: rendezvous.txt
-#n# is there actually anything that 'srand' can control?
 
 File: R/Rep-string
 #!/usr/bin/env perl6
@@ -11925,7 +11924,14 @@ File: R/Rep-string
 #c# 2016-01-05 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# Unicode problem, compiles/runs, produces incorrect results
+
+File: R/Rep-string.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Rep-string
+#c# 2016-01-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# no Unicode for JVM
 
 File: R/Repeat
 #!/usr/bin/env perl6
@@ -13932,7 +13938,7 @@ File: S/Straddling_checkerboard.0
 #c# 2018-04-08 <RC
 #m# MOAR: BROKEN OK
 #j# JVM:  BROKEN OK
-#  {{Works with|rakudo|2018.04}} or {{broken|Perl 6}}  
+#  {{Works with|rakudo|2018.04}} or {{broken|Raku}}  
 
 File: S/Strange_numbers
 #!/usr/bin/env raku
