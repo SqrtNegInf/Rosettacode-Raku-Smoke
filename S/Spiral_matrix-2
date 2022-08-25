@@ -12,11 +12,11 @@ sub spiral_matrix ( $n ) {
         my $j = $i +  1;
         my $e = $n - $j;
 
-        @sm[$i     ][$i + $_] = $pos++ for         ^  $len; # Top
-        @sm[$j + $_][$e     ] = $pos++ for         ^--$len; # Right
-        @sm[$e     ][$i + $_] = $pos++ for reverse ^  $len; # Bottom
-        @sm[$j + $_][$i     ] = $pos++ for reverse ^--$len; # Left
-#       @sm[$j + $_][$i     ] = $pos++ for (^--$len).reverse; # need parens here
+        @sm[$i     ;$i + $_] = $pos++ for         ^  $len; # Top
+        @sm[$j + $_;$e     ] = $pos++ for         ^--$len; # Right
+        @sm[$e     ;$i + $_] = $pos++ for reverse ^  $len; # Bottom
+        @sm[$j + $_;$i     ] = $pos++ for reverse ^--$len; # Left
+#       @sm[$j + $_;$i     ] = $pos++ for (^--$len).reverse; # need parens here
     }
 
     @sm
