@@ -28,7 +28,7 @@ system "mv $f $f.1"
 
 $w =~ s/'/\\'/g;
 
-my $raku = `curl -s -o - 'http://rosettacode.org/wiki/$w' | tee _download.html | perl -0 -npe 's/^.*id="Raku".(.*?)<h2>.*/\$1/s; s/&#160;/ /sg;s#<br */>#<br/>\\n#sg' | strip-html - `;
+my $raku = `curl -s -o - 'https://rosettacode.org/wiki/$w' | tee _download.html | perl -0 -npe 's/^.*id="Raku".(.*?)<h2>.*/\$1/s; s/&#160;/ /sg;s#<br */>#<br/>\\n#sg' | strip-html - `;
 die "No text!" if $raku =~ /currently no text/i;
 
 $raku =~ s/^Raku\[edit\]//;
@@ -44,7 +44,7 @@ my $ym  = `date +%Y.%m`; chomp $ym;
 open F, ">$f";
 print F <<EOP;
 #!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/$w
+#u# https://rosettacode.org/wiki/$w
 #c# $ymd <RC
 #m# MOAR: BROKEN OK
 #j# JVM:  BROKEN OK
