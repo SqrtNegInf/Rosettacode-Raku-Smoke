@@ -5,7 +5,7 @@
 
 use strict;
 
-open RC, qq{/opt/local/bin/curl --netrc -s 'http://rosettacode.org/mw/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' |};
+open RC, qq{/opt/local/bin/curl --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' |};
 
 my $cnt = 0;
 my $new = 'N';
@@ -15,6 +15,7 @@ my $not_these_users = 'Petelomax|Chunes|Robbie|CraigD|Chunes|Gerard|Cwt1078|Obje
 
 my($day,$mon);
 while (<RC>) {
+    print  "$_\n---\n";
     ($day,$mon) = m#<h4>(\d+)\s+(\S+)\s+20\d\d</h4># if m/<h4>/; 
     $day =~ s/^(\d)$/0$1/;
 
@@ -29,7 +30,7 @@ while (<RC>) {
     my($user)  = m#:Contributions/(.*?)"#;
     next if $user =~ /$not_these_users/i;
 
-    my($title) = /mw-changeslist-title/ ? /mw-changeslist-title">(.*?)</ : /index.php.title=(.*?)&/;
+    my($title) = /mw-changeslist-title/ ? /mw-changeslist-title"> title="(.*?)"/ : /index.php.title=(.*?)&/;
     $title =~ s/_/ /g;
     my($time)  = m/[;>](\d\d:\d\d)[&<]/;
     my $line = sprintf "%9s %2d %5s  %-18s %s\n", $mon, $day, $time, $user, $title; # the slug
