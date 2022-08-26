@@ -43,7 +43,7 @@ die 'You can select local or remote, but not both...' if $local && $remote;
 ## INITIALIZATION
 
 my $client   = HTTP::UserAgent.new;
-my $url      = 'http://rosettacode.org/mw';
+my $url      = 'https://rosettacode.org/w';
 
 my %c = ( # text colors
     code  => "\e[0;92m", # green
@@ -113,7 +113,7 @@ for @tasks -> $title {
         my $page = $client.get("{ $url }/index.php?title={ uri-escape $title }&action=raw").content;
 
         uh-oh("Whoops, can't find page: $url/$title :check spelling.") and next if $page.elems == 0;
-        say "Getting code from: http://rosettacode.org/wiki/{ $title.subst(' ', '_', :g) }#%l<language>";
+        say "Getting code from: https://rosettacode.org/wiki/{ $title.subst(' ', '_', :g) }#%l<language>";
 
         $entry = $page.comb(/'=={{header|' $(%l<header>) '}}==' .+? [<?before \n'=='<-[={]>*'{{header'> || $] /).Str //
           uh-oh("No code found\nMay be bad markup");
@@ -296,72 +296,3 @@ multi load-lang ('python') { (
 multi load-lang ($unknown) { die "Sorry, don't know how to handle $unknown language." };
 
 multi load-resources ($unknown) { () };
-
-#`{{
-Output with command line: perl6 RC-run.p6 -q "Determine if a string is numeric"
-
-Retrieving tasks
-1 Determine if a string is numeric
-Getting code from: http://rosettacode.org/wiki/Determine_if_a_string_is_numeric#Perl_6
-
-Testing Determine_if_a_string_is_numeric
-
-Command line: perl6 Determine_if_a_string_is_numeric.p6
-               Coerce     Don't coerce
-    String   whitespace    whitespace
-       <1>      True         True
-     <1.2>      True         True
-   <1.2.3>     False        False
-      <-6>      True         True
-     <1/2>      True         True
-     <12e>     False        False
-     <B17>     False        False
- <1.3e+12>      True         True
-  <1.3e12>      True         True
- <-2.6e-3>      True         True
-    <zero>     False        False
-      <0x>     False        False
-   <0xA10>      True         True
-  <0b1001>      True         True
-    <0o16>      True         True
-    <0o18>     False        False
-    <2+5i>      True         True
-   <1 1 1>     False        False
-        <>      True        False
-       < >      True        False
-
-Done Determine_if_a_string_is_numeric
-===============================================================================
-Or, if the full %resource hash is loaded it will automatically feed input parameters to tasks that require them:
-
-perl6 RC-run.p6 Lucky_and_even_lucky_numbers -q
-
-Retrieving tasks
-1 Lucky_and_even_lucky_numbers
-Getting code from: http://rosettacode.org/wiki/Lucky_and_even_lucky_numbers#Perl_6
-
-Testing Lucky_and_even_lucky_numbers
-
-Command line: perl6 Lucky_and_even_lucky_numbers.p6 20 , lucky
-
-79
-
-Command line: perl6 Lucky_and_even_lucky_numbers.p6 1 20
-
-(1 3 7 9 13 15 21 25 31 33 37 43 49 51 63 67 69 73 75 79)
-
-Command line: perl6 Lucky_and_even_lucky_numbers.p6 1 20 evenlucky
-
-(2 4 6 10 12 18 20 22 26 34 36 42 44 50 52 54 58 68 70 76)
-
-Command line: perl6 Lucky_and_even_lucky_numbers.p6 6000 -6100
-
-(6009 6019 6031 6049 6055 6061 6079 6093)
-
-Command line: perl6 Lucky_and_even_lucky_numbers.p6 6000 -6100 evenlucky
-
-(6018 6020 6022 6026 6036 6038 6050 6058 6074 6090 6092)
-
-Done Lucky_and_even_lucky_numbers
-===============================================================================
-}}
