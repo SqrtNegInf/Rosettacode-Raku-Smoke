@@ -2,17 +2,19 @@
 #u# http://rosettacode.org/wiki/Rosetta_Code/Rank_languages_by_popularity
 #t# network
 #c# 2017-01-16 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: BROKEN
-#n# 2020-03-14 I for one welcome our new Raku overlords
+#n# SSL lib issue even without 'https' URL?
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use HTTP::UserAgent;
 use JSON::Tiny;
 
+#my $api = MediaWiki::API->new( { api_url => 'https://rosettacode.org/w/api.php' } );
+
 my @res.push: $_ for
-    mediawiki-query('http://rosettacode.org/mw', 'pages',
+    mediawiki-query('https://rosettacode.org/w', 'pages',
                     generator => 'categorymembers',
                     gcmtitle  => "Category:Programming Languages",
                     prop      => 'categoryinfo')\
