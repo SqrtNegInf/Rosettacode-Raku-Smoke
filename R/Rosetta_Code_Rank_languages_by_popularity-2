@@ -2,11 +2,12 @@
 #u# http://www.rosettacode.org/wiki/Rosetta_Code/Rank_languages_by_popularity
 #t# network
 #c# 2016-05-21 <RC, 2018-10-28 >RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: OK
 
+# both out-of-date
 my $languages =  qx{curl -s -o - 'http://rosettacode.org/wiki/Category:Programming_Languages'};
-my $categories = qx{curl -s -o - 'http://www.rosettacode.org/mw/index.php?title=Special:Categories&limit=5000'};
+my $categories = qx{curl -s -o - 'http://www.rosettacode.org/w/index.php?title=Special:Categories&limit=5000'};
 
 my @lines = $languages.lines;
 shift @lines until @lines[0] ~~ / '<h2>Subcategories</h2>' /;
