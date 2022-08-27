@@ -7,19 +7,20 @@
 # This will handle input numbers in any base from 2 to 36.
 # The results are in base 10.
 
-say Σ $_ for <1 1234 1020304 fe f0e DEADBEEF>;
+my @res.push: Σ $_ for <1 1234 1020304 fe f0e DEADBEEF>;
 
 sub Σ { [+] $^n.comb.map: { :36($_) } }
 
-#`{ Output:
+.say for @res;
+
+my $ref = qq:to/END/;
 1
 10
 10
 29
 29
 104
-} 
+END
 
 use Test;
-is (Σ 1234), 10;
-is (Σ 'DEADBEEF'), 104;
+is @res.join("\n"), chomp $ref;
