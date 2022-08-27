@@ -5,10 +5,6 @@
 #j#  JVM: OK
 
 srand 123456;
-use Test;
-
-# Works with: Rakudo version 2015-11-20
-#Feed it an action (encode, decode) and a file name at the command line and it will spit out the (en|de)coded file to STDOUT. Redirect into a file to save it. If no parameters are passed in, does the demo encode/decode.
 
 my $chr = (' ' .. '}').join;
 my $key = $chr.comb.pick(*).join;
@@ -47,3 +43,5 @@ sub MAIN ($action = 'encode', $file = '') {
 sub encode ($text) { $text.trans($chr => $key) }
 
 sub decode ($text) { $text.trans($key => $chr) }
+
+use Test;
