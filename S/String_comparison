@@ -4,8 +4,17 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-#Raku uses strong typing dynamically (and gradual typing statically), but normal string and numeric comparisons are coercive. (You may use generic comparison operators if you want polymorphic comparison—but usually you don't.:)
-#String comparisons never do case folding because that's a very complicated subject in the modern world of Unicode. (You can explicitly apply an appropriate case-folding function to the arguments before doing the comparison, or for "equality" testing you can do matching with a case-insensitive regex, assuming Unicode's language-neutral case-folding rules are okay.)
+#`{
+ Raku uses strong typing dynamically (and gradual typing statically), but
+normal string and numeric comparisons are coercive. (You may use generic
+comparison operators if you want polymorphic comparison—but usually you
+don't.:) #String comparisons never do case folding because that's a very
+complicated subject in the modern world of Unicode. (You can explicitly
+apply an appropriate case-folding function to the arguments before doing
+the comparison, or for "equality" testing you can do matching with a
+case-insensitive regex, assuming Unicode's language-neutral case-folding
+rules are okay.)
+}
 
 my @res;
 
