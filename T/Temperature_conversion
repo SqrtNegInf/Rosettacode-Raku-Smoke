@@ -3,8 +3,9 @@
 #c# 2016-07-30 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-08-27 oops, added testing
 
-# Translation of: Perl
+my @res;
 
 my %scale =
     Celcius    => { factor => 1  , offset => -273.15 },
@@ -17,15 +18,7 @@ my $kelvin = 21;
 die "No such temperature!" if $kelvin < 0;
 
 for %scale.sort {
-    printf "%12s: %7.2f\n", .key, $kelvin × .value<factor> + .value<offset>;
-}
-
-#`{
-
-Enter a temperature in Kelvin: 21
-     Celcius: -252.15
-  Fahrenheit: -421.87
-     Rankine:   37.80
+    @res.push: sprintf "%12s: %7.2f", .key, $kelvin × .value<factor> + .value<offset>;
 }
 
 # Alternative version that accepts the input in any of the four scales:
@@ -39,33 +32,23 @@ my $answer = 0;
         when s/:i K $// { $_ }
         default         { $_ }
     }
-    say "  { $k }K";
-    say "  { $k - 273.15 }℃";
-    say "  { $k × 1.8 - 459.67 }℉";
-    say "  { $k × 1.8 }R";
+    @res.push: "  { $k }K";
+    @res.push: "  { $k - 273.15 }℃";
+    @res.push: "  { $k × 1.8 - 459.67 }℉";
+    @res.push: "  { $k × 1.8 }R";
 #}
 
-#`{
-Temperature: 0
+.say for @res;
+
+my $ref = qq:to/END/;
+     Celcius: -252.15
+  Fahrenheit: -421.87
+     Rankine:   37.80
   0K
   -273.15℃
   -459.67℉
   0R
-Temperature: 0c
-  273.15K
-  0℃
-  32℉
-  491.67R
-Temperature: 212f
-  373.15K
-  100℃
-  212℉
-  671.67R
-Temperature: -40c
-  233.15K
-  -40℃
-  -40℉
-  419.67R
-} 
+END
 
 use Test;
+is @res.join("\n"), chomp $ref;
