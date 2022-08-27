@@ -4,8 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Translation of: Python
-
 sub grep-unique (&by, @list) { @list.classify(&by).values.grep(* == 1).map(*[0]) }
 sub sums        ($n)         { ($_, $n - $_ for 2 .. $n div 2) }
 sub sum         ([$x, $y])   { $x + $y }
@@ -24,8 +22,6 @@ my @p-pairs = grep-unique &product, @s-pairs;
 my @final-pairs = grep-unique &sum, @p-pairs;
 
 printf "X = %d, Y = %d\n", |$_ for @final-pairs;
-
-# X = 4, Y = 13
 
 use Test;
 is @final-pairs, '4 13';
