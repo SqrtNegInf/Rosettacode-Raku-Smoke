@@ -476,10 +476,9 @@ File: A/Additive_primes-2
 File: A/Address_of_a_variable
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Address_of_a_variable
-#c# 2018-03-21 <RC, 2018-05-17 <RC
+#c# 2018-03-21 <RC, 2018-05-17 <RC, 2022-08-27 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# now at least testing something…
 
 File: A/Air_mass
 #!/usr/bin/env raku
@@ -1756,6 +1755,7 @@ File: B/Burrows-Wheeler_transform.jvm
 #c# 2018-08-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# same output as main version, but different value for 'STX'
 
 File: C/CRC-32
 #!/usr/bin/env perl6
@@ -4391,7 +4391,7 @@ File: E/Executable_library.jvm
 
 File: E/Execute_Brainfuck
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Execute_Brain****/Perl_6
+#u# http://rosettacode.org/wiki/Execute_Brain****/Raku
 #c# 2018-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -5829,7 +5829,7 @@ File: G/Globally_replace_text_in_several_files
 
 File: G/Go_Fish
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Go_Fish/Perl_6
+#u# http://rosettacode.org/wiki/Go_Fish/Raku
 #c# 2017-04-03 <RC, 2019-05-16 >RC
 #t# interactive
 #m# MOAR: OK
@@ -7327,7 +7327,7 @@ File: L/Langton%27s_ant
 File: L/Langton%27s_ant.1
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Langton's_ant#Perl_6 
+#u# http://rosettacode.org/wiki/Langton's_ant
 #c# 2016-01-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -8174,17 +8174,17 @@ File: M/Magic_constant.jvm
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: M/Magic_squares_Perl_6
+File: M/Magic_squares_Raku
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Magic_squares/Perl_6
+#u# http://rosettacode.org/wiki/Magic_squares/Raku
 #c# 2016-03-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: M/Magic_squares_Perl_6-debug
+File: M/Magic_squares_Raku-debug
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Magic_squares/Perl_6
-#n# cf ~/perl5/Rosetta-Code/M/Magic_squares_Perl-debug
+#u# http://rosettacode.org/wiki/Magic_squares/Raku
+#n# cf ~/perl5/Rosetta-Code/M/Magic_squares_Raku-debug
 #n# https://stackoverflow.com/questions/55994128/
 
 File: M/Magic_squares_of_doubly_even_order
@@ -11459,9 +11459,9 @@ File: Q/Quoting_constructs
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: R/RCRPG_Perl_6
+File: R/RCRPG_Raku
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/RCRPG/Perl_6
+#u# http://rosettacode.org/wiki/RCRPG/Raku
 #c# 2018-04-03 <RC
 #t# interactive
 #m# MOAR: OK
@@ -14694,6 +14694,7 @@ File: T/Temperature_conversion
 #c# 2016-07-30 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-08-27 oops, added testing
 
 File: T/Terminal_control_Clear_the_screen
 #!/usr/bin/env perl6
@@ -15104,6 +15105,7 @@ File: T/Topological_sort
 #c# 2016-02-23 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-08-27 oops, added testing
 
 File: T/Topological_sort_Extracted_top_item
 #!/usr/bin/env perl6
@@ -15398,7 +15400,6 @@ File: U/URL_encoding
 File: U/URL_parser
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/URL_parser
-#t# network
 #c# 2016-01-26 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -15760,7 +15761,7 @@ File: V/Verify_distribution_uniformity_Naive
 #c# 2016-06-12 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2020-10-07 different answers when run from interactive shell vs cron-launch?
+#n# 2020-10-07 different answers when run from interactive shell vs cron-launch? [known 'srand' issue]
 
 File: V/Vibrating_rectangles-1
 #!/usr/bin/env perl6
@@ -15959,7 +15960,7 @@ File: W/Web_scraping
 #u# http://rosettacode.org/wiki/Web_scraping
 #t# network
 #c# 2016-05-12 <>RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: BROKEN
 #n# for JVM: VMArray representation does not implement bind_pos_native
 #n# ultimately has to do with SSL, which involves NativeCall
