@@ -1,9 +1,8 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Address_of_a_variable
-#c# 2018-03-21 <RC, 2018-05-17 <RC
+#c# 2018-03-21 <RC, 2018-05-17 <RC, 2022-08-27 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# now at least testing something…
 
 my $x;
 say $x.WHERE;
@@ -19,4 +18,9 @@ use Test;
 is $y, 42;
 ok $x.WHERE == $y.WHERE;
 
-# How you set the address of a variable (or any other object) is outside the purview of the Raku language, but Raku supports pluggable object representations, and any given representation scheme could conceivably allow an existing address to be treated as an object candidate where that makes sense. Memory-mapped structs are not unreasonable and are likely to be supported on VMs that allow it.
+# How you set the address of a variable (or any other object) is outside
+# the purview of the Raku language, but Raku supports pluggable object
+# representations, and any given representation scheme could conceivably
+# allow an existing address to be treated as an object candidate where that
+# makes sense. Memory-mapped structs are not unreasonable and are likely to
+# be supported on VMs that allow it.
