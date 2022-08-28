@@ -3,8 +3,9 @@
 #c# 2016-02-23 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-08-27 oops, added testing
 
-# Translation of: Perl
+my @res;
 
 sub print_topo_sort ( %deps ) {
     my %ba;
@@ -16,12 +17,12 @@ sub print_topo_sort ( %deps ) {
     }
 
     while %ba.grep( not *.value )».key -> @afters {
-        say ~@afters.sort;
+        @res.push: ~@afters.sort;
         %ba{@afters}:delete;
         for %ba.values { .{@afters}:delete }
     }
 
-    say %ba ?? "Cycle found! {%ba.keys.sort}" !! '---';
+    @res.push: %ba ?? "Cycle found! {%ba.keys.sort}" !! '---';
 }
 
 my %deps =
@@ -44,7 +45,9 @@ print_topo_sort(%deps);
 %deps<dw01> = <ieee dw01 dware gtech dw04>; # Add unresolvable dependency
 print_topo_sort(%deps);
 
-#`{
+.say for @res; 
+
+my $ref = qq:to/END/;
 ieee std synopsys
 dware gtech ramlib std_cell_lib
 dw01 dw02 dw05 dw06 dw07
@@ -54,11 +57,7 @@ ieee std synopsys
 dware gtech ramlib std_cell_lib
 dw02 dw05 dw06 dw07
 Cycle found! des_system_lib dw01 dw03 dw04
-
-Some differences from the Perl 5 version include use of
-formal parameters; use of » as a "hyper" operator, that is, a parallelizable implicit loop; and use of normal lambda-like notation to bind loop parameters, so we can have multiple loop parameters bound on each iteration. Also,
-Since => is now a real pair composer rather than a synonym for comma, the data can be represented with real pair notation that points to quoted word lists delimited by angle brackets rather than [qw(...)].
-
-}
+END
 
 use Test;
+is @res.join("\n"), chomp $ref;
