@@ -16,9 +16,8 @@ multi zeckendorf($n is copy) {
     [~] map {
         $n -= $_ if my $digit = $n ≥ $_;
         +$digit;
-   #}, reverse (@FIBS ...^ * > $n); # OK
-   #}, reverse snip * < $n, @FIBS;  # no, not on infinite lists
     }, reverse FIBS ...^ * > $n;
+   #}, reverse snip * < $n, @FIBS;  # no, not on infinite lists
 }
 
 my @res.push: sprintf "%2d:%9s", $_, .&zeckendorf for ^21;
