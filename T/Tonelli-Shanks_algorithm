@@ -5,11 +5,6 @@
 #j#  JVM: OK
 #n# downgraded Unicode names to ASCII
 
-# MOAR kludge: not working for very large values (Cannot unbox 164 bit wide bigint into native integer)
-
-# Works with: Rakudo version 2016.10
-# Translation of the Wikipedia pseudocode, heavily influenced by Sidef and Python.
-
 #  Legendre operator (n│p)
 sub infix:<│> (Int \n, Int \p where p.is-prime && (p != 2)) {
     given n.expmod( (p-1) div 2, p ) {
