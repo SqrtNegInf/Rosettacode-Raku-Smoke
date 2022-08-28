@@ -4,13 +4,12 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-# Works with: Rakudo version 2017.04
 # This implementation does not necessarily find every combination, it returns the one with the longest matching tokens.
 
 my @words = <a bc abc cd b>;
 my $regex = @words.join('|');
 
-my @res.push: "$_: " ~ word-break($_) for <abcd abbc abcbcd acdbc abcdd>;
+my @res.push: "$_: " ~ .&word-break for <abcd abbc abcbcd acdbc abcdd>;
 .say for @res;
 
 sub word-break (Str $word) { ($word ~~ / ^ (<$regex>)+ $ /)[0] // "Not possible" }
