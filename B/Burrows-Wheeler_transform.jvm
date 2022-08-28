@@ -3,6 +3,7 @@
 #c# 2018-08-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# same output as main version, but different value for 'STX'
 
 my @res;
 
@@ -57,5 +58,4 @@ Inverse transformed: TO BE OR NOT TO BE OR WANT TO BE OR NOT?
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
