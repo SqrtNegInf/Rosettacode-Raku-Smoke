@@ -2,10 +2,12 @@
 ## recent Raku updates on RosettaCode
 #c# 2016-02-07 initial
 #c# 2020-08-22 clean up, target 'Raku', not 'Perl6'
+#c# 2022-08-29 upgrades for new RC hosting site  (to-do: should base 'new' flag on 'data-mw-revid')
 
 use strict;
 
-open RC, qq{/opt/local/bin/curl --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' |};
+open RC, qq{/opt/local/bin/curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' |};
+#open RC, '<', 'recent.html'; # test with local copy
 
 my $cnt = 0;
 my $new = 'N';
@@ -13,27 +15,28 @@ my $new = 'N';
 # skip users not known to be adding Raku code
 my $not_these_users = 'Petelomax|Chunes|Robbie|CraigD|Chunes|Gerard|Cwt1078|Objeck|Nigel|Palaing|Paddy3118|Bellenuit';  
 
-my($day,$mon);
-while (<RC>) {
-    print  "$_\n---\n";
-    ($day,$mon) = m#<h4>(\d+)\s+(\S+)\s+20\d\d</h4># if m/<h4>/; 
-    $day =~ s/^(\d)$/0$1/;
+#<div><table data-mw-revid="328877" data-mw-ts="20220829172945"
 
-    next unless m#\bRaku|:Contributions/(SqrtNegInf|Thundergnat|Hkdtam)#i; # catches Raku, any of mine, other habitual Raku offenders
-    next if m#Perl\b#;                                                     # but not my Perl entries
-    next if m#full.list#i;                                                 # get needed info via smoke tools
+while ($_ = <RC>) {
+    next unless /table data-mw-revid/;
+
+    next unless m#\bRaku|:Contributions/(SqrtNegInf|Thundergnat|Hkdtam)#i; # passes Raku, any of mine, other habitual Raku offenders
+    next if m#Perl\b# and not m#Perl.6#;                                   # but not my Perl entries
+    next if m#full.list#i;                                                 # skip thundergnat++ weekly site summaries
 
     # two ways to catch maintainance
     next if /highlighting/;
-    next if /Thundergnat/ and not /Raku|Perl/;
+    next if /Thundergnat/ and not /Raku/;
 
     my($user)  = m#:Contributions/(.*?)"#;
     next if $user =~ /$not_these_users/i;
 
-    my($title) = /mw-changeslist-title/ ? /mw-changeslist-title"> title="(.*?)"/ : /index.php.title=(.*?)&/;
+    my($title,$comment) = /autocomment.*?title="(.*?)".*?span>\s*(.*?)<.span>/; # kludgey way to extract
     $title =~ s/_/ /g;
-    my($time)  = m/[;>](\d\d:\d\d)[&<]/;
-    my $line = sprintf "%9s %2d %5s  %-18s %s\n", $mon, $day, $time, $user, $title; # the slug
+    $comment =~ s/&#039;/'/g;
+    $comment =~ s/\-&gt;/->/g;
+    my($mon,$day,$hr,$min) = m#data-mw-ts="20\d\d(\d\d)(\d\d)(\d\d)(\d\d)#;
+    my $line = sprintf "%02d-%d %d:%d  %-18s %s (%s)\n", $mon, $day, $hr, $min, $user, $title, $comment; # the slug
 
     my $checkpt;
     if (0 == $cnt) {
