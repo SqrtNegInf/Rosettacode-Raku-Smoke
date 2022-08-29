@@ -32,9 +32,10 @@ my $raku = `curl -s -o - 'https://rosettacode.org/wiki/$w' | tee _download.html 
 die "No text!" if $raku =~ /currently no text/i;
 
 $raku =~ s/^Raku\[edit\]//;
+$raku =~ s/^.formerly Perl 6.\n//msg;
 $raku =~ s/\xA0//g;
 $raku =~ s/’//g;
-$raku =~ s/PerlÂ/Perl /g;
+#$raku =~ s/PerlÂ/Perl /g;
 $raku =~ s/\n\s+\n/\n\n/msg;
 
 my $ymd = `date +%Y-%m-%d`; chomp $ymd;
