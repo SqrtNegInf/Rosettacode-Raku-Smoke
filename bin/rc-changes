@@ -4,7 +4,7 @@
 #c# 2020-08-22 clean up, target 'Raku', not 'Perl6'
 #c# 2022-08-29 upgrades for new RC hosting site  (to-do: should base 'new' flag on 'data-mw-revid')
 
-use strict;
+use v5.36;
 
 open RC, qq{/opt/local/bin/curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' |};
 #open RC, '<', 'recent.html'; # test with local copy
