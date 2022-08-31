@@ -28,7 +28,7 @@ sub aliquotidian ($x) {
     my @seq = $x, &propdivsum ... *;
     for 0..16 -> $to {
         my $this = @seq[$to] or return "$x\tterminating\t[@seq[^$to]]";
-        last if $this > 140737488355328;
+        last if $this > 2**47; # 140737488355328;
         if %seen{$this}:exists {
             my $from = %seen{$this};
             return "$x\t&quality($from, $to-$from)\t[@seq[^$to]]";
