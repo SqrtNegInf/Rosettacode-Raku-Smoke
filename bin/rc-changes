@@ -25,20 +25,21 @@ while ($_ = <RC>) {
     next if m#full.list#i;                                                 # skip thundergnat++ weekly site summaries
 
     # two ways to catch maintainance
-    next if /highlighting/;
+    next if /highlight/;
     next if /Thundergnat/ and not /Raku/;
 
     my($user)  = m#:Contributions/(.*?)"#;
     next if $user =~ /$not_these_users/i;
 
     my($title,$comment) = /autocomment.*?title="(.*?)".*?span>\s*(.*?)<.span>/; # kludgey way to extract
-    $title =~ s/_/ /g;
+    $title   =~ s/_/ /g;
+    $title   =~ s/&#039;/'/g;
     $comment =~ s/&#039;/'/g;
     $comment =~ s/\-&gt;/->/g;
     my($mon,$day,$hr,$min) = m#data-mw-ts="20\d\d(\d\d)(\d\d)(\d\d)(\d\d)#;
     my $line = sprintf "%02d-%d %d:%d  %-18s %s (%s)\n", $mon, $day, $hr, $min, $user, $title, $comment; # the slug
 
-    my $checkpt;
+    my $checkpt = '';
     if (0 == $cnt) {
         my $file = "$ENV{HOME}/perl6/Rosetta-Code/meta/RC-recent.txt";
         open F, "<$file"; $checkpt = <F>; close F;  # read old check-point
@@ -46,13 +47,13 @@ while ($_ = <RC>) {
         open F, ">$file"; print F $line; close F;   # save new check-point
     } 
 
-    our $prev;
+    our $prev = '';
     $new = ' ' if $line eq $checkpt;    # stop marking as 'new'
-    my $ooo = out_of_order();
+    my $ooo = ' ';# out_of_order();
     print "$new $ooo $line";
-    last if 60 < $cnt++;                # just show recent updates
+    last if 30 < $cnt++;                # just show recent updates
     $prev = $line;
 
     # RC groups multiple edits, which leads items to be out of sequence chronologically
-    sub out_of_order { $prev ne '' && $prev lt $line ? '^' : ' ' } 
+    #sub out_of_order { $prev ne '' && $prev lt $line ? '^' : ' ' } 
 }
