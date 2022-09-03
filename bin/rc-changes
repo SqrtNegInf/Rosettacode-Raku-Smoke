@@ -1,13 +1,13 @@
 #!/usr/local/bin/perl
 ## recent Raku updates on RosettaCode
-#c# 2016-02-07 initial
-#c# 2020-08-22 clean up, target 'Raku', not 'Perl6'
-#c# 2022-08-29 upgrades for new RC hosting site  (to-do: should base 'new' flag on 'data-mw-revid')
+#n# 2016-02-07 initial
+#n# 2020-08-22 clean up, target 'Raku', not 'Perl6'
+#n# 2022-08-29 upgrades for new RC hosting site  (to-do: should base 'new' flag on 'data-mw-revid')
 
 use v5.36;
 
 open RC, qq{/opt/local/bin/curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' |};
-#open RC, '<', 'recent.html'; # test with local copy
+#open RC, '<', 'abc'; # test with local copy
 
 my $cnt = 0;
 my $new = 'N';
@@ -18,15 +18,15 @@ my $not_these_users = 'Petelomax|Chunes|Robbie|CraigD|Chunes|Gerard|Cwt1078|Obje
 #<div><table data-mw-revid="328877" data-mw-ts="20220829172945"
 
 while ($_ = <RC>) {
-    next unless /table data-mw-revid/;
+    next unless /table data-mw-revid|data-target-page/;
 
     next unless m#\bRaku|:Contributions/(SqrtNegInf|Thundergnat|Hkdtam)#i; # passes Raku, any of mine, other habitual Raku offenders
     next if m#Perl\b# and not m#Perl.6#;                                   # but not my Perl entries
     next if m#full.list#i;                                                 # skip thundergnat++ weekly site summaries
 
     # two ways to catch maintainance
-    next if /highlight/;
-    next if /Thundergnat/ and not /Raku/;
+    #next if /highlight/;
+    #next if /Thundergnat/ and not /Raku/;
 
     my($user)  = m#:Contributions/(.*?)"#;
     next if $user =~ /$not_these_users/i;
@@ -44,7 +44,7 @@ while ($_ = <RC>) {
         my $file = "$ENV{HOME}/perl6/Rosetta-Code/meta/RC-recent.txt";
         open F, "<$file"; $checkpt = <F>; close F;  # read old check-point
         exit if $line eq $checkpt;                  # no changes, bail
-        open F, ">$file"; print F $line; close F;   # save new check-point
+        #open F, ">$file"; print F $line; close F;   # save new check-point
     } 
 
     our $prev = '';
