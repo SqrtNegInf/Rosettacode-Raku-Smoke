@@ -1,0 +1,13 @@
+#!/bin/zsh
+## temporary, hopefully
+#    2022-09-02
+
+curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' > recent.html; 
+pcregrep 'data-mw-revid.*data-target-page' recent.html | \
+strip-html - | \
+pcregrep 'Thunder|Raku|SqrtNeg|Perl' | \
+pcregrep -v 'markup|highlight|bizarre' | \
+perl -npe 's/\Q‎\E.*?\Q‎\E//' | \
+perl -npe 's/\Q→‎\E{{header.(.*?)}}/$1/' | \
+perl -npe 's/talk contribs//' | 
+perl -npe "s/&#039;/'/g" 
