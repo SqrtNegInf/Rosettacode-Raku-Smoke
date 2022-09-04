@@ -24,9 +24,11 @@ is @res.join("\n"), chomp $ref;
 =finish
 
 =={{header|Raku}}==
-<lang perl6>
-</lang>
+<syntaxhighlighting lang="perl6" line>
+</syntaxhighlighting>
 {{out}}
 <pre style="height:20ex">
 </pre>
+[[File:xx|300px|thumb|right]]
+# or
 [https://github.com/SqrtNegInf/Rosettacode-Raku-Smoke/blob/master/ref/xx xx]
