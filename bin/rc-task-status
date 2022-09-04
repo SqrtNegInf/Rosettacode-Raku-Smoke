@@ -1,13 +1,16 @@
 #!/usr/local/bin/perl
 ## RC task status
-#c# 2018-03-12 ... 2020-08-16  oops, updating RC reports via 'curl' again
-#c# 2022-02-14 compile check was slowing things down (and 'Code-health' does the same job)
+#n# 2018-03-12 ... 
+#n# 2020-08-16 oops, updating RC reports via 'curl' again
+#n# 2022-02-14 compile check was slowing things down (and 'Code-health' does the same job)
 
 use utf8;
 use warnings;
 use strict 'vars';
 
 my(%P);
+
+chdir "$ENV{HOME}/perl6/Rosetta-Code/meta";
 
 #print `$ENV{HOME}/.rakubrew/shims/raku -v`; 
 print `/usr/local/bin/raku -v`; 
@@ -16,7 +19,7 @@ print `/usr/local/bin/raku -v`;
 if (.95 < -M "Category:Programming_Tasks") {
     print "updating from RC...\n";
     system <<~'END';
-        bin/Rosetta_Code_Find_unimplemented_tasks_raku > Reports:Tasks_not_implemented_in_Raku
+        ../bin/Rosetta_Code_Find_unimplemented_tasks_raku | sort > Reports:Tasks_not_implemented_in_Raku
         END
 }
         #mv Category:Programming_Tasks Category:Programming_Tasks~
