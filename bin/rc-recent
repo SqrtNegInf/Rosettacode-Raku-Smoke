@@ -6,7 +6,7 @@ curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges
 pcregrep 'data-mw-revid.*data-target-page' recent.html | \
 strip-html - | \
 pcregrep 'Thunder|Raku|SqrtNeg|Perl' | \
-pcregrep -v 'markup|highlight|bizarre' | \
+pcregrep -v 'markup|highlight|bizarre|full.list' | \
 perl -npe 's/\Q‎\E.*?\Q‎\E//' | \
 perl -npe 's/\Q→‎\E{{header.(.*?)}}/$1/' | \
 perl -npe 's/talk contribs//' | 
