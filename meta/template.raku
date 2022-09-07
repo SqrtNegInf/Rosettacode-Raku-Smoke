@@ -24,8 +24,8 @@ is @res.join("\n"), chomp $ref;
 =finish
 
 =={{header|Raku}}==
-<syntaxhighlighting lang="perl6" line>
-</syntaxhighlighting>
+<syntaxhighlight lang="perl6" line>
+</syntaxhighlight>
 {{out}}
 <pre style="height:20ex">
 </pre>
