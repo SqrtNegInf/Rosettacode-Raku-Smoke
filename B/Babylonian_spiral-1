@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Babylonian_spiral
-#c# 2022-05-29 <RC, 2022-05-31 <>RC, 2022-06-02 <RC
+#c# 2022-05-29 <RC, 2022-05-31 <>RC, 2022-06-02 <RC, 2022-09-11 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2022-05-31 closer to original version, upgrades (refactor, cosmetic) (by DH and thunergnat)
@@ -10,7 +10,7 @@
 
 sub babylonianSpiral (\nsteps) {
     my @squareCache = (0..nsteps).map: *²;  # for this small test, can skip the hyper
-    my @dxys = ([0, 0], [0, 1]);
+    my @dxys = [0, 0], [0, 1];
     my $dsq  = 1;
 
     for ^(nsteps-2) {
@@ -20,13 +20,12 @@ sub babylonianSpiral (\nsteps) {
         until @candidates.elems {
             $dsq++;
             for @squareCache.kv -> \i, \a {
-                last if a > $dsq / 2;
+                last if a > $dsq/2;
                 for reverse 0 .. $dsq.sqrt.ceiling -> \j {
-                    last if ( a + my \b = @squareCache[j] ) < $dsq;
-                    if a + b == $dsq {
-                        @candidates.append: [i, j], [-i, j], [i, -j], [-i, -j],
-                                            [j, i], [-j, i], [j, -i], [-j, -i]
-                    }
+                    last if $dsq > a + (my \b = @squareCache[j]);
+                    next if $dsq !=a + b;
+                    @candidates.append: [i, j], [-i, j], [i, -j], [-i, -j],
+                                        [j, i], [-j, i], [j, -i], [-j, -i]
                 }
             }
         }
