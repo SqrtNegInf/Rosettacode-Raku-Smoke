@@ -42,7 +42,7 @@ multi sha256(blob8 $data) {
           @$data,
           0x80,
           0 xx (-($data + 1 + 8) mod 64),
-          (8*$data).polymod(256 xx 7).reverse
+          (8×$data).polymod(256 xx 7).reverse
           ).rotor(4)
         .map: { :256[@$_] }
         ).rotor(16)
