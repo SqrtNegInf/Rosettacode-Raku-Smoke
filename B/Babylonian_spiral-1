@@ -10,7 +10,7 @@
 
 sub babylonianSpiral (\nsteps) {
     my @squareCache = (0..nsteps).map: *²;  # for this small test, can skip the hyper
-    my @dxys = [[0, 0], [0, 1]];
+    my @dxys = ([0, 0], [0, 1]);
     my $dsq  = 1;
 
     for ^(nsteps-2) {
@@ -19,20 +19,19 @@ sub babylonianSpiral (\nsteps) {
 
         until @candidates.elems {
             $dsq++;
-	        for @squareCache.kv -> \i, \a {
-	            last if a > $dsq / 2;
-	            for reverse (0 .. $dsq.sqrt.ceiling) -> \j {
-                        last if ( a + my \b = @squareCache[j] ) < $dsq;
-                        if ((a + b) == $dsq) {
-                            @candidates.append: [ [i, j], [-i, j], [i, -j], [-i, -j],
-                                                  [j, i], [-j, i], [j, -i], [-j, -i] ]
+            for @squareCache.kv -> \i, \a {
+                last if a > $dsq / 2;
+                for reverse 0 .. $dsq.sqrt.ceiling -> \j {
+                    last if ( a + my \b = @squareCache[j] ) < $dsq;
+                    if a + b == $dsq {
+                        @candidates.append: [i, j], [-i, j], [i, -j], [-i, -j],
+                                            [j, i], [-j, i], [j, -i], [-j, -i]
                     }
                 }
             }
         }
         @dxys.push: @candidates.min: { ( Θ - atan2 |.[1,0] ) % τ };
     }
-
     [\»+«] @dxys
 }
 
