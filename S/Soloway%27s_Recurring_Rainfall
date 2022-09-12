@@ -1,66 +1,41 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Soloway%27s_Recurring_Rainfall
-#c# 2022-09-10 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#c# 2022-09-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 my @res;
 
 my ($periods, $accumulation, $rainfall) = 0, 0;
 
+my @inputs = <a 1.1 2.0 .3e1 999999>;
+
+sub say-it { @res.push: sprintf "Average rainfall %.2f units over %d time periods.", ($accumulation / $periods) || 0, $periods }
+
 loop {
     loop {
-        $rainfall = prompt 'Integer units of rainfall in this time period? (999999 to finalize and exit)>: ';
+        #$rainfall = prompt 'Integer units of rainfall in this time period? (999999 to finalize and exit)>: ';
+        $rainfall = shift @inputs;
         last if $rainfall.chars and $rainfall.Numeric !~~ Failure and $rainfall.narrow ~~ Int and $rainfall ≥ 0;
-        say 'Invalid input, try again.';
+        @res.push: 'Invalid input, try again.';
     }
     last if $rainfall == 999999;
     ++$periods;
     $accumulation += $rainfall;
-    printf "Average rainfall %.2f units over %d time periods.\n", $accumulation / $periods, $periods;
+    say-it;
 }
 
-#`{{
-# Normal operation
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: 0
-Average rainfall 0.00 units over 1 time periods.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: 2
-Average rainfall 1.00 units over 2 time periods.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: 4
-Average rainfall 2.00 units over 3 time periods.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: 6
-Average rainfall 3.00 units over 4 time periods.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: 8
-Average rainfall 4.00 units over 5 time periods.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: 999999
-Average rainfall 4.00 units over 5 time periods.
-
-# Invalid entries and valid but not traditional "Integer" entries demonstrated  
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: a
-Invalid input, try again.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: 1.1
-Invalid input, try again.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>:
-Invalid input, try again.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: 2.0
-Average rainfall 2.00 units over 1 time periods.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: .3e1
-Average rainfall 2.50 units over 2 time periods.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: 999999
-Average rainfall 2.50 units over 2 time periods.
-
-# Valid summary with no entries demonstrated.
-Integer units of rainfall in this time period? (999999 to finalize and exit)>: 999999
-Average rainfall 0.00 units over 0 time periods.
-
-
-END
+say-it;
 
 .say for @res;
+
 my $ref = q:to/END/;
+Invalid input, try again.
+Invalid input, try again.
+Average rainfall 2.00 units over 1 time periods.
+Average rainfall 2.50 units over 2 time periods.
+Average rainfall 2.50 units over 2 time periods.
+END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
-#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
-}}
+is @res.join("\n"), chomp $ref;
