@@ -4,7 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-
 our proto sha256($) returns blob8 {*}
 
 multi sha256(Str $str) { samewith $str.encode }
@@ -12,7 +11,7 @@ multi sha256(blob8 $data) {
   constant @primes = grep *.is-prime, 2 .. *;
 
   sub rotr($n, $b) { $n +> $b +| $n +< (32 - $b) }
-  sub init(&f) { map { (($_ - .Int)*2**32).Int }, map &f, @primes }
+  sub init(&f) { map { (($_ - .Int)×2**32).Int }, map &f, @primes }
   sub  Ch { $^x +& $^y +^ +^$x +& $^z }
   sub Maj { $^x +& $^y +^ $x +& $^z +^ $y +& $z }
   sub Σ0 { rotr($^x,  2) +^ rotr($x, 13) +^ rotr($x, 22) }
