@@ -3,7 +3,8 @@
 #    2022-09-02
 
 curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' > recent.html; 
-pcregrep 'data-mw-revid.*data-target-page' recent.html | \
+pcregrep -v --buffer-size=22K footer recent.html  | \
+pcregrep 'data-mw-revid.*data-target-page' | \
 strip-html - | \
 pcregrep 'Thunder|Raku|SqrtNeg|Perl' | \
 pcregrep -v 'markup|highlight|bizarre|full.list' | \
