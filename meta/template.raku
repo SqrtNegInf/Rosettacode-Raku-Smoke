@@ -1,7 +1,7 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/xx
 #t# inprogress
-#c# 2022-xx-xx >RC
+#c# 2022-09-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -30,5 +30,4 @@ is @res.join("\n"), chomp $ref;
 <pre style="height:20ex">
 </pre>
 [[File:xx|300px|thumb|right]]
-# or
 [https://github.com/SqrtNegInf/Rosettacode-Raku-Smoke/blob/master/ref/xx xx]
