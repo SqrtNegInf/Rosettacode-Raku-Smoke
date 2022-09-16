@@ -2,7 +2,7 @@
 ## temporary, hopefully
 #    2022-09-02
 
-curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=500&namespace=0' > recent.html; 
+curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=750&namespace=0' > recent.html; 
 pcregrep -v --buffer-size=22K footer recent.html  | \
 pcregrep 'data-mw-revid.*data-target-page' | \
 strip-html - | \
