@@ -4,9 +4,8 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-# Works with: Rakudo version 2015.12
-
 sub tod2rad($_) { [+](.comb(/\d+/) Z× 3600,60,1) × τ / 86400 }
+#sub tod2rad($_) { (.comb(/\d+/) Z× 3600,60,1).sum × τ / 86400 }
 
 sub rad2tod ($r) {
     my $x = $r × 86400 / τ;
