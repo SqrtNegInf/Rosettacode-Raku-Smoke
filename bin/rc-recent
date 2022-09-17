@@ -2,12 +2,13 @@
 ## temporary, hopefully
 #    2022-09-02
 
+cd ~/perl6/Rosetta-Code;
 curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=750&namespace=0' > recent.html; 
 pcregrep -v --buffer-size=22K footer recent.html  | \
 pcregrep 'data-mw-revid.*data-target-page' | \
 strip-html - | \
-pcregrep 'Thunder|Raku|SqrtNeg|Perl' | \
-pcregrep -v 'markup|highlight|bizarre|full.list' | \
+pcregrep 'Thunder|Raku|SqrtNegInf|Perl' | \
+pcregrep -v 'markup|bizarre|full.list' | \
 perl -npe 's/\Q‎\E.*?\Q‎\E//' | \
 perl -npe 's/\Q→‎\E{{header.(.*?)}}/$1/' | \
 perl -npe 's/talk contribs//' | 
