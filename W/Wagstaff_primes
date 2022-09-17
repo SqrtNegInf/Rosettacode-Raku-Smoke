@@ -3,6 +3,7 @@
 #c# 2022-09-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000978 Wagstaff numbers
 #n# OEIS:A000979 Wagstaff primes
 
 my @wagstaff = (^∞).grep: { .is-prime && ((1 + 1 +< $_)/3).is-prime };
