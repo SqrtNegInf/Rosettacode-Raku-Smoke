@@ -5,6 +5,7 @@
 #j# JVM:  OK
 #n# OEIS:A000978 Wagstaff numbers
 #n# OEIS:A000979 Wagstaff primes
+#n# single-threaded nearly half the speed of Perl, and with .hyper, easily beats
 
 my @wagstaff = (^∞).grep: { .is-prime && ((1 + 1 +< $_)/3).is-prime };
 
