@@ -11,9 +11,9 @@ sub suffixes (@pat,\m) {
       if $i > $g and @suff[$i + m - 1 - $f] < $i - $g {
          @suff[$i] = @suff[$i + m - 1 - $f]
       } else {
-	 $g = $i if $i < $g;
+         $g = $i if $i < $g;
          $f = $i;
-	 while $g >= 0 and @pat[$g] eq @pat[$g + m - 1 - $f] { $g-- }
+         while $g >= 0 and @pat[$g] eq @pat[$g + m - 1 - $f] { $g-- }
          @suff[$i] = $f - $g
       }
    }
@@ -38,8 +38,8 @@ sub BM (@txt,@pat) {
 
    return gather while $j <= n - m {
       loop (my $i = m - 1; $i >= 0 and @pat[$i] eq @txt[$i + $j]; ) { $i-- }
-      if $i < 0 {
-	 take $j;
+      if $i < 0 {   # works, but why is $i defined here, outside scope of loop?
+         take $j;
          $j += @bmGs[0]
       } else {
          $j += max @bmGs[$i], (%bmBc{@txt[$i + $j]} // m)-m+$i
