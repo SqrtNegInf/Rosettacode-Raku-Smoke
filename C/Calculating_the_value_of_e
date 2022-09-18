@@ -8,7 +8,7 @@
 #n# see also: E/Engel_expansion
 #n# Grondilu replaced earlier implementation (not cool) which thundergnat++ says gave wrong result (but did it?)
 
-my $result1 = ([\+] 1.FatRat X/ 1, |[\×] 1..500)[499].comb(80).join: "\n"; # Grondilu
+my $result1 = ([\+] 1.FatRat X/ 1, |[\×] 1..499)[*-1].comb(80).join: "\n"; # Grondilu
 
 sub postfix:<!> (Int $n) { (constant f = 1, |[\×] 1..*)[$n] }
 sub e (Int $terms) { sum map { FatRat.new(1,.!) }, ^$terms }
