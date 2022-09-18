@@ -1,30 +1,24 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Calculating_the_value_of_e
-#c# 2018-04-21 <RC, 2018-05-08 <RC
+#c# 2018-04-21 <RC, 2018-05-08 <RC, 2022-09-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# D.Conway: http://blogs.perl.org/users/damian_conway/2019/09/to-compute-a-constant-of-calculusa-treatise-on-multiple-ways.html
 #n#  1 + Σ(1, ∞, 1∕*!) @ https://www.reddit.com/r/perl6/comments/cwk07i/perl_or_math_why_choose_defining_e_in_more/
+#n# see also: E/Engel_expansion
+#n# Grondilu replaced earlier implementation (not cool) which thundergnat++ says gave wrong result (but did it?)
 
-# If you need high precision: Sum of a Taylor series method.
-# Adjust the terms parameter to suit. Theoretically the
-# terms could be ∞. Practically, calculating an infinite
-# series takes an awfully long time so limit to 500.
+my $result1 = ([\+] 1.FatRat X/ 1, |[\×] 1..500)[499].comb(80).join: "\n"; # Grondilu
 
 sub postfix:<!> (Int $n) { (constant f = 1, |[\×] 1..*)[$n] }
 sub e (Int $terms) { sum map { FatRat.new(1,.!) }, ^$terms }
 #sub 𝑒 (Int $terms) { sum map { FatRat.new(1,.!) }, ^$terms } # durn that JVM...
 
-say my $result = e(500).comb(80).join: "\n";
+say my $result2 = e(500).comb(80).join: "\n";
 #say my $result = 𝑒(500).comb(80).join: "\n";
 
-say '';
-
-# Or, if you don't need high precision, it's a built-in.
-
-say e;
-
-# 2.71828182845905
+# if you don't need high precision, it's a built-in.
+say ''; say e;
 
 my $ref = qq:to/END/;
 2.718281828459045235360287471352662497757247093699959574966967627724076630353547
@@ -45,4 +39,5 @@ my $ref = qq:to/END/;
 END
 
 use Test;
-is $result.join("\n"), chomp $ref;
+is $result1.join("\n"), chomp $ref;
+is $result2.join("\n"), chomp $ref;
