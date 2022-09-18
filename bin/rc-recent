@@ -7,7 +7,7 @@ curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges
 pcregrep -v --buffer-size=22K footer recent.html  | \
 pcregrep 'data-mw-revid.*data-target-page' | \
 strip-html - | \
-pcregrep 'Thunder|Raku|SqrtNegInf|Perl' | \
+pcregrep 'Thunder|SqrtNegInf|Grondilu|Raku|Perl' | \
 pcregrep -v 'markup|bizarre|full.list' | \
 perl -npe 's/\Q‎\E.*?\Q‎\E//' | \
 perl -npe 's/\Q→‎\E{{header.(.*?)}}/$1/' | \
