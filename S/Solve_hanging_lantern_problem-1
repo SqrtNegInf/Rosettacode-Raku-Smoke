@@ -19,7 +19,9 @@ my @sequences = @columns
 
 sub postfix:<!>($n) { [×] 1..$n }
  
-@res.push: "Direct calculation: " ~ [+](@columns)! / [×](@columns»!);
+# no space after '[+]' (aka 'sum'), but like [+]/[×] pairing so don't replace with 'sum'
+# OTOH [×] needs either parens or a space
+@res.push: "Direct calculation: " ~ [+](@columns)! / [×] @columns»!;  # or:: [×](@columns»!);  
 
 @res.push: "\nThere are {+@sequences} possible takedown sequences:";
 @res.push: "[$_]" for @sequences.head: 6;
