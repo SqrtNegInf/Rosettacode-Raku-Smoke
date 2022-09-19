@@ -19,16 +19,16 @@ sub tiers (@s) { @s.classify(*.value).pairs.sort.reverse.map: { .value».key } }
 sub standard (@s) {
     my $rank = 1;
     gather for tiers @s -> @players {
-	take $rank => @players;
-	$rank += @players;
+        take $rank => @players;
+        $rank += @players;
     }
 }
 
 sub modified (@s) {
     my $rank = 0;
     gather for tiers @s -> @players {
-	$rank += @players;
-	take $rank => @players;
+        $rank += @players;
+        take $rank => @players;
     }
 }
 
@@ -39,9 +39,10 @@ sub ordinal (@s) { @s.map: ++$_ => *.key }
 sub fractional (@s) {
     my $rank = 1;
     gather for tiers @s -> @players {
-	my $beg = $rank;
-	my $end = $rank += @players;
-	take [+]($beg ..^ $end) / @players => @players;
+    my $beg = $rank;
+    my $end = $rank += @players;
+   #take [+]($beg ..^ $end) / @players => @players;
+    take sum($beg ..^ $end) / @players => @players;
     }
 }
 
