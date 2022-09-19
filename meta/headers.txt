@@ -1634,6 +1634,19 @@ File: B/Boolean_values
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: B/Boustrophedon_transform
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Boustrophedon_transform
+#c# 2022-09-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A000111 - Euler, or up/down numbers
+#n# OEIS:A000667 - Boustrophedon transform of all-1's sequence
+#n# OEIS:A062162 - Boustrophedon transform of (-1)^n
+#n# OEIS:A000747 - Boustrophedon transform of primes
+#n# OEIS:A000744 - Boustrophedon transform of Fibonacci numbers
+#n# OEIS:A230960 - Boustrophedon transform of factorials
+
 File: B/Box_the_compass
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Box_the_compass
@@ -1819,11 +1832,13 @@ File: C/Caesar_cipher
 File: C/Calculating_the_value_of_e
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Calculating_the_value_of_e
-#c# 2018-04-21 <RC, 2018-05-08 <RC
+#c# 2018-04-21 <RC, 2018-05-08 <RC, 2022-09-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# D.Conway: http://blogs.perl.org/users/damian_conway/2019/09/to-compute-a-constant-of-calculusa-treatise-on-multiple-ways.html
 #n#  1 + Σ(1, ∞, 1∕*!) @ https://www.reddit.com/r/perl6/comments/cwk07i/perl_or_math_why_choose_defining_e_in_more/
+#n# see also: E/Engel_expansion
+#n# Grondilu replaced earlier implementation (not cool) which thundergnat++ says gave wrong result (but did it?)
 
 File: C/Calculating_the_value_of_e.1
 #!/usr/bin/env perl6
@@ -4108,6 +4123,7 @@ File: E/Engel_expansion
 #n# OEIS:A006784 Engel expansion of Pi
 #n# OEIS:A028310 Engel expansion of 𝑒
 #n# OEIS:A028254 Engel expansion of sqrt(2)
+#n# with regard to 𝑒, see also: C/Calculating_the_value_of_e
 
 File: E/Entropy
 #!/usr/bin/env perl6
