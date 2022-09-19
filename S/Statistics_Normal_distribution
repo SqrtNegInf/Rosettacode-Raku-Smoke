@@ -19,10 +19,12 @@ my @res1;
 my @res2;
     my @dataset = normdist($mean,$stddev) xx $size;
 
-    my $m = [+](@dataset) / $size;
+   #my $m = [+](@dataset) / $size;
+    my $m = sum(@dataset) / $size;
     @res1.push: (:$m);
 
-    my $σ = sqrt [+](@dataset X** 2) / $size - $m**2;
+   #my $σ = sqrt [+](@dataset X** 2) / $size - $m**2;
+    my $σ = sqrt sum(@dataset X** 2) / $size - $m**2;
     @res1.push: (:$σ);
 
     (my %hash){.round}++ for @dataset;
@@ -126,7 +128,7 @@ if $*VM ~~ /jvm/ {
 is @res1.join("\n"), "m	49.99285096001682\nσ	4.009831520915964";
 is @res2.join("\n"), chomp $jvm;
 } else {
-is @res1.join("\n"), "m	49.99800615469169\nσ	4.0053278475171314";
+is @res1.join("\n"), "m	49.988620627830315\nσ	4.012923478395113";
 #is @res2.join("\n"), chomp $moar;
 }
 }
