@@ -8,8 +8,6 @@
 
 srand 123456;
 
-# Works with: rakudo version 2015.09
-
 #my ($major,$minor) = prompt("Dimensions? ").comb(/\d+/);
 my ($major,$minor) = <3 5>.comb(/\d+/);
 my @array = [ '@' xx $minor ] xx $major;
@@ -27,13 +25,14 @@ my @a[$major;$minor] = (7 xx $minor ) xx $major;
 @a[$major div 2;$minor div 2] = 42;
 #@a[($major/2).floor;($minor/2).floor] = 42;
 
-say @a;
+say @array.gist; 
+say @a.gist;
 
 use Test;
-is @a.gist, "[[7 7 7 7 7]\n [7 7 42 7 7]\n [7 7 7 7 7]]";
 if $*VM ~~ /jvm/ {
 is @array.gist, '[[@ @ @ @ @] [@ @ @ @  ] [@ @ @ @ @]]';
 } else {
-is @array.gist, '[[@ @ @ @ @] [@ @ @ @ @] [@ @ @ @  ]]';
+is @a.gist, "[[7 7 7 7 7]\n [7 7 42 7 7]\n [7 7 7 7 7]]";
+is @array.gist, '[[@ @ @ @ @] [@ @   @ @] [@ @ @ @ @]]';
 }
 
