@@ -16,13 +16,13 @@ ENTER srand 123456;
 
 use Image::PNG::Portable;
 
-my ($w, $h) = (640, 640);
+my ($w, $h) = 640, 640;
 
 my $png = Image::PNG::Portable.new: :width($w), :height($h), :alpha(False);
 
 my @vertex = [0, 0], [$w, 0], [$w/2, $h];
 
-my ($x, $y) = (0, 0);
+my ($x, $y) = 0, 0;
 
 for ^1e5 {
     ($x, $y) = do given @vertex[3.rand] -> @v { ((($x, $y) »+« @v) »/» 2)».Int };
@@ -34,7 +34,7 @@ $png.write: 'run/chaos-game-perl6.png';
 #`{{
 # 3x faster, but output non-deterministic, so cannot test
 
-my ($w, $h) = (640, 640);
+my ($w, $h) = 640, 640;
 
 my $png = Image::PNG::Portable.new: :width($w), :height($h);
 
