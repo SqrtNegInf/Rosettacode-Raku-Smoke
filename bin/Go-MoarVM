@@ -46,6 +46,10 @@ bin/rc-moar-single [0-Z]/*
 raku -v | head -1            >> bench/rakudo-builds.txt
 bin/rc-stats 10 > meta/stats.txt
 
+# track 'srand' drift
+tail -1 bench/rakudo-builds.txt >> meta/srand-drift.txt
+raku -e 'srand 123456; say <A B C D E F G>.roll(1000).join' >> meta/srand-drift.txt
+
 echo ' '
 echo 'Comparison of recent runs:'
 rc-stats 4 | grep 2022 - | grep -v Welcome | grep -v 'j Secs'
