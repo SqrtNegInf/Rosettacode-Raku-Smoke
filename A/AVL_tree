@@ -107,13 +107,13 @@ class AVL-Tree {
     #| show a list of all nodes by key
     method show-keys {
         self!show-keys: $.root;
-        say()
+        #say()
     }
 
     #| show a list of all nodes' balances (not normally needed)
     method show-balances {
         self!show-balances: $.root;
-        say()
+        #say()
     }
 
     #=====================================================
@@ -319,10 +319,10 @@ $tree.show-balances; $result ~= "\n";
 say $result;
 
 my $moar = q:to/END/;
- 2 4 8 10 11 14 16 25 32 39 42 45 47 52 59 66 76 77 78 79 85 89 93 98 99
- 1 0 0 1 0 0 0 -1 -1 0 1 1 0 0 0 0 0 1 0 -1 1 1 0 -1 0
- 0 1 2 3 4 5 6 7 8 9 10 11 14 16 25 32 39 52 59 66 76 77 78 79 85 89 93 98 99
- 1 0 1 0 1 0 0 0 -1 0 0 0 0 0 0 0 0 1 0 -1 0 1 0 -1 1 1 0 -1 0
+ 3 8 12 18 26 27 29 32 41 43 46 50 60 64 66 73 76 79 85 87 89 93 94 98 99
+ 0 0 0 0 0 -1 1 0 1 0 -1 -1 0 0 0 -1 0 1 1 0 0 1 0 -1 0
+ 0 1 2 3 4 5 6 7 8 9 10 12 18 26 27 29 32 60 64 66 73 76 79 85 87 89 93 94 98 99
+ 0 0 0 1 0 1 1 0 0 0 0 0 0 0 -1 0 1 0 -1 0 -1 0 1 1 0 0 1 0 -1 0
 
 END
 
