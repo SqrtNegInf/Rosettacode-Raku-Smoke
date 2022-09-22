@@ -34,8 +34,8 @@ loop {
 }
 
 sub win ($player,$total) {
-    say "$player wins.";
-    ok ($player eq 'Computer' and $total == 23); # test
+    say "$player wins with total $total."; 
+    ok ($player eq 'Computer' and $total == 21); # test
     exit;
 }
 
