@@ -4,8 +4,8 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# don't use .race, otherwise testing is only approximate
-#n# cronjob and terminal results the same now?
-#n# 2021-10-07 went south quickly enough...
+#n# 2021-10-xx cronjob and terminal results the same now?
+#n# 2022-09-22 cron and terminal results no longer the same
 
 my @res;
 
@@ -74,19 +74,19 @@ sub optimal ($n) {
 my $moar-cronjob = q:to/END/;
  Simulation count: 10000
  Random play wins: 0.000% of simulations
-Optimal play wins: 31.000% of simulations
+Optimal play wins: 31.200% of simulations
  Simulation count: 100000
  Random play wins: 0.103% of simulations
-Optimal play wins: 35.304% of simulations
+Optimal play wins: 35.387% of simulations
 END
 
 my $moar-terminal = q:to/END/;
  Simulation count: 10000
  Random play wins: 0.000% of simulations
-Optimal play wins: 31.000% of simulations
+Optimal play wins: 31.120% of simulations
  Simulation count: 100000
  Random play wins: 0.103% of simulations
-Optimal play wins: 35.304% of simulations
+Optimal play wins: 35.546% of simulations
 END
 
 # results with 'MAIN'
@@ -112,5 +112,3 @@ END
 
 use Test;
 is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join("\n"), chomp $ref;
