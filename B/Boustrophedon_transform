@@ -10,9 +10,13 @@
 #n# OEIS:A000744 - Boustrophedon transform of Fibonacci numbers
 #n# OEIS:A230960 - Boustrophedon transform of factorials
 
+#use v6.e.PREVIEW;
+#sub boustrophedon-transform (@seq) { map *.tail, (@seq[0], {[[\+] flat @seq[++$ ], .reverse.snitch]}…*) }
+
 my @res;
 
-sub boustrophedon-transform (@seq) { map *.tail, ([@seq[0]], {[[\+] flat @seq[++$ ], .reverse]}…*) }
+sub boustrophedon-transform (@seq) { map *.tail, (@seq[0], {[[\+] flat @seq[++$ ], .reverse]}…*) }
+#sub boustrophedon-transform (@seq) { map *.tail, ([@seq[0]], {[[\+] flat @seq[++$ ], .reverse]}…*) }
 
 sub abbr ($_) { .chars < 41 ?? $_ !! .substr(0,20) ~ '…' ~ .substr(*-20) ~ " ({.chars} digits)" }
 
