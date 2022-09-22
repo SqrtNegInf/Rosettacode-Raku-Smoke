@@ -6,8 +6,6 @@
 
 srand 123456;
 
-# This is certainly not the only or best way to generate HTML tables using Raku; just an example of one possible method.
-
 my @header =  <&nbsp; X Y Z>;
 my $rows = 5;
 
@@ -22,15 +20,9 @@ for 1 .. $rows -> $row {
 
 say my $result = tag('table', $table, 'cellspacing=4 style="text-align:right; border: 1px solid;"');
 
-my $moar= '<table cellspacing=4 style="text-align:right; border: 1px solid;"><tr><th>&nbsp;</th> <th>X</th> <th>Y</th> <th>Z</th></tr><tr><td align="right">1</td><td align="right">7321</td> <td align="right">6192</td> <td align="right">6541</td></tr><tr><td align="right">2</td><td align="right">5284</td> <td align="right">7723</td> <td align="right">9465</td></tr><tr><td align="right">3</td><td align="right">8799</td> <td align="right">1185</td> <td align="right">623</td></tr><tr><td align="right">4</td><td align="right">7365</td> <td align="right">1233</td> <td align="right">8749</td></tr><tr><td align="right">5</td><td align="right">2714</td> <td align="right">1771</td> <td align="right">3340</td></tr></table>';
-
-my $moar-old = '<table cellspacing=4 style="text-align:right; border: 1px solid;"><tr><th>&nbsp;</th> <th>X</th> <th>Y</th> <th>Z</th></tr><tr><td align="right">1</td><td align="right">7711</td> <td align="right">5073</td> <td align="right">7117</td></tr><tr><td align="right">2</td><td align="right">434</td> <td align="right">9948</td> <td align="right">6051</td></tr><tr><td align="right">3</td><td align="right">5674</td> <td align="right">6849</td> <td align="right">7882</td></tr><tr><td align="right">4</td><td align="right">3343</td> <td align="right">5086</td> <td align="right">7270</td></tr><tr><td align="right">5</td><td align="right">6562</td> <td align="right">2204</td> <td align="right">6229</td></tr></table>';
+my $moar= '<table cellspacing=4 style="text-align:right; border: 1px solid;"><tr><th>&nbsp;</th> <th>X</th> <th>Y</th> <th>Z</th></tr><tr><td align="right">1</td><td align="right">3118</td> <td align="right">961</td> <td align="right">3229</td></tr><tr><td align="right">2</td><td align="right">7804</td> <td align="right">3730</td> <td align="right">1115</td></tr><tr><td align="right">3</td><td align="right">1760</td> <td align="right">3679</td> <td align="right">4667</td></tr><tr><td align="right">4</td><td align="right">2515</td> <td align="right">3230</td> <td align="right">4178</td></tr><tr><td align="right">5</td><td align="right">594</td> <td align="right">9071</td> <td align="right">5864</td></tr></table>';
 
 my $jvm = '<table cellspacing=4 style="text-align:right; border: 1px solid;"><tr><th>&nbsp;</th> <th>X</th> <th>Y</th> <th>Z</th></tr><tr><td align="right">1</td><td align="right">5835</td> <td align="right">2776</td> <td align="right">3536</td></tr><tr><td align="right">2</td><td align="right">4959</td> <td align="right">452</td> <td align="right">8640</td></tr><tr><td align="right">3</td><td align="right">7050</td> <td align="right">4358</td> <td align="right">8827</td></tr><tr><td align="right">4</td><td align="right">6763</td> <td align="right">8544</td> <td align="right">4875</td></tr><tr><td align="right">5</td><td align="right">9582</td> <td align="right">2178</td> <td align="right">1499</td></tr></table>';
 
 use Test;
-if $*VM ~~ /jvm/ {
-is $result, $jvm;
-} else {
-is $result, $moar;
-}
+is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
