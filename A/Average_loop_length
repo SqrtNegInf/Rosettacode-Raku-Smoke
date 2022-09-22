@@ -52,7 +52,7 @@ sub random-mapping ($n) {
 
 sub random-mapping-orig { hash .list Z=> .roll(^$^size) given (^$^size) }
 
-sub find-loop { 0, | %^mapping{*} ...^ { (%){$_}++ } }
+sub find-loop { 0, | %^mapping{*} ...^ { (%){$_}++ } }  # here's the problem
 
 my $moar-terminal = qq:to/END/;
   1     1.0000        1.0000    (0.00%)
