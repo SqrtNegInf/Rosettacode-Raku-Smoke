@@ -15,8 +15,8 @@
 
 my @res;
 
-sub boustrophedon-transform (@seq) { map *.tail, (@seq[0], {[[\+] flat @seq[++$ ], .reverse]}…*) }
-#sub boustrophedon-transform (@seq) { map *.tail, ([@seq[0]], {[[\+] flat @seq[++$ ], .reverse]}…*) }
+ sub boustrophedon-transform (@seq) { map *.tail, (  @seq[0], {[[\+] flat @seq[++$ ], .reverse]}…*) }
+#sub boustrophedon-transform (@seq) { map *.tail, ([@seq[0]], {[[\+] flat @seq[++$ ], .reverse]}…*) } # jeez, so verbose...
 
 sub abbr ($_) { .chars < 41 ?? $_ !! .substr(0,20) ~ '…' ~ .substr(*-20) ~ " ({.chars} digits)" }
 
