@@ -36,8 +36,8 @@ File: 0/100_prisoners
 #m# MOAR: OK
 #j# JVM:  OK
 #n# don't use .race, otherwise testing is only approximate
-#n# cronjob and terminal results the same now?
-#n# 2021-10-07 went south quickly enough...
+#n# 2021-10-xx cronjob and terminal results the same now?
+#n# 2022-09-22 cron and terminal results no longer the same
 
 File: 0/15_Puzzle_Game
 #!/usr/bin/env perl6
@@ -1045,6 +1045,7 @@ File: A/Average_loop_length
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch? [update: now they've re-converged]
 #n# 2021-03-01 still unstable when cron-launched
 #n# 2021-03-10 problem mostly in #2, 1.33% (98+%), or 0.67%, and very rarely 0.00% (then #3-6 are different too)
+#n# 2022-09-22 code is fixed, but results still completely unstable (MoarVM and JVM)
 
 File: A/Average_loop_length-t
 #!/usr/bin/env perl6
@@ -1409,7 +1410,7 @@ File: B/Bioinformatics_Subsequence
 #u# http://rosettacode.org/wiki/Bioinformatics/Subsequence
 #c# 2021-03-22 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 #n# new-disp 'srand' shift
 
 File: B/Bioinformatics_base_count
@@ -8343,10 +8344,11 @@ File: M/Markov_chain_text_generator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Markov_chain_text_generator
 #c# 2016-11-11 <RC, 2017-01-31 >RC, 2017-02-05 <>RC, 2018-05-07 <RC
-#m# MOAR: OK
-#j#  JVM: OK
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
 #n#  key order of hashes no longer stable (but ArrayHash provides a work-around)
 #n# 2021-03-03 yesterday's "good" answer no longer works, updated again...
+#n# 2022-09-22 cf Average_loop_length, same problem with ArrayHash binding
 
 File: M/Markov_chain_text_generator.1
 #!/usr/bin/env perl6
