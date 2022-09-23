@@ -1,10 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Markov_chain_text_generator
 #c# 2016-11-11 <RC, 2017-01-31 >RC, 2017-02-05 <>RC, 2018-05-07 <RC
-#m# MOAR: OK
-#j#  JVM: OK
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
 #n#  key order of hashes no longer stable (but ArrayHash provides a work-around)
 #n# 2021-03-03 yesterday's "good" answer no longer works, updated again...
+#n# 2022-09-22 cf Average_loop_length, same problem with ArrayHash binding
 
 use lib 'lib';
 use lib '../lib';
@@ -45,6 +46,7 @@ if $*VM ~~ /jvm/ {
    %dict = add-to-dict $text, :$n;
 } else {
     my %dictx = add-to-dict $text, :$n;
+   #%dict = array-hash();                 # fixes the compile-time error, but then doesn't work properly
     %dict := array-hash();
     %dict{$_} = %dictx{$_} for sort %dictx.keys;
 }
