@@ -9,13 +9,14 @@
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch? [update: now they've re-converged]
 #n# 2021-03-01 still unstable when cron-launched
 #n# 2021-03-10 problem mostly in #2, 1.33% (98+%), or 0.67%, and very rarely 0.00% (then #3-6 are different too)
+#n# 2022-09-22 code is fixed, but results still completely unstable (MoarVM and JVM)
+
+#srand 1; rand; # 2020-12-11 even head fake doesn't work here 100%
+srand 123456;
 
 use lib 'lib';
 use lib '../lib';
 use ArrayHash;
-
-#srand 1; rand; # 2020-12-11 even head fake doesn't work here 100%
-srand 123456;
 
 # unstable output even with tiny limits
 #constant MAX_N  = 3;
@@ -34,47 +35,48 @@ for 1 .. MAX_N -> $N {
 
     FIRST say " N    empiric      theoric      (error)";
     FIRST say "===  =========  ============  =========";
-    #FIRST srand 123456; # trick doesn't work here
+   #FIRST srand 123456; # trick doesn't work here
 
     @res.push: sprintf "%3d  %9.4f  %12.4f    (%4.2f%%)",
             $N,  $empiric,
                         $theoric, 100 × abs($theoric - $empiric) / $theoric;
 }
+
 .say for @res;
-#exit;
+exit;
 
 sub random-mapping ($n) {
     my %temp = random-mapping-orig($n);
-    my %pair := array-hash();
+    my %pair = array-hash();              # 2022-09-22 problem was here, don't bind with ':=', just assign
     %pair{$_} = %temp{$_} for sort %temp.keys;
     return %pair;
 }
 
 sub random-mapping-orig { hash .list Z=> .roll(^$^size) given (^$^size) }
 
-sub find-loop { 0, | %^mapping{*} ...^ { (%){$_}++ } }  # here's the problem
+sub find-loop { 0, | %^mapping{*} ...^ { (%){$_}++ } }
 
 my $moar-terminal = qq:to/END/;
   1     1.0000        1.0000    (0.00%)
-  2     1.5200        1.5000    (1.33%)
-  3     1.8000        1.8889    (4.71%)
-  4     2.2600        2.2188    (1.86%)
-  5     2.5300        2.5104    (0.78%)
-  6     2.7100        2.7747    (2.33%)
-  7     3.0300        3.0181    (0.39%)
-  8     3.2600        3.2450    (0.46%)
-  9     3.3000        3.4583    (4.58%)
- 10     3.6300        3.6602    (0.83%)
- 11     3.6800        3.8524    (4.47%)
- 12     3.9900        4.0361    (1.14%)
- 13     4.1200        4.2123    (2.19%)
- 14     4.2300        4.3820    (3.47%)
- 15     4.5200        4.5458    (0.57%)
- 16     4.9400        4.7043    (5.01%)
- 17     4.9900        4.8579    (2.72%)
- 18     5.0800        5.0071    (1.46%)
- 19     5.5600        5.1522    (7.92%)
- 20     5.3000        5.2936    (0.12%)
+  2     1.4200        1.5000    (5.33%)
+  3     1.9000        1.8889    (0.59%)
+  4     2.1600        2.2188    (2.65%)
+  5     2.6100        2.5104    (3.97%)
+  6     2.4600        2.7747    (11.34%)
+  7     2.9300        3.0181    (2.92%)
+  8     3.3700        3.2450    (3.85%)
+  9     3.5300        3.4583    (2.07%)
+ 10     3.8600        3.6602    (5.46%)
+ 11     4.1000        3.8524    (6.43%)
+ 12     4.1300        4.0361    (2.33%)
+ 13     4.1900        4.2123    (0.53%)
+ 14     4.7100        4.3820    (7.48%)
+ 15     4.8800        4.5458    (7.35%)
+ 16     4.9700        4.7043    (5.65%)
+ 17     4.9000        4.8579    (0.87%)
+ 18     5.2400        5.0071    (4.65%)
+ 19     5.2200        5.1522    (1.32%)
+ 20     5.3200        5.2936    (0.50%)
 END
 
 # 2021-03-12 same as termlinal again?
