@@ -70,7 +70,7 @@ $s = '[][]';
 
 .say for @res;
 
-my $moar = qq:to/END/;
+my $moar-terminal = qq:to/END/;
 ]][]][][[[ is not well-balanced (depth counter)
 []][[][]][ is not well-balanced (depth counter)
 [][] is well-balanced (depth counter)
@@ -81,6 +81,21 @@ my $moar = qq:to/END/;
 [][][][][][] is  well-balanced (string munging)
 [][] is well-balanced (string munging)
 ]][[][[][] is not well-balanced (parsing with a grammar)
+[]][ is not well-balanced (parsing with a grammar)
+[][] is not well-balanced (parsing with a grammar)
+END
+
+my $moar-cronjob = qq:to/END/;
+[][[][]][] is well-balanced (depth counter)
+[]]]]][[[[ is not well-balanced (depth counter)
+[][] is well-balanced (depth counter)
+]][]][ is not well-balanced (FP oriented)
+[]][[][[[[[[ is not well-balanced (FP oriented)
+[][] is well-balanced (FP oriented)
+]]]]]][[][ is  not well-balanced (string munging)
+[][][][][][] is  well-balanced (string munging)
+[][] is well-balanced (string munging)
+[]][]]][[[ is not well-balanced (parsing with a grammar)
 []][ is not well-balanced (parsing with a grammar)
 [][] is not well-balanced (parsing with a grammar)
 END
@@ -101,5 +116,4 @@ my $jvm = qq:to/END/;
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
