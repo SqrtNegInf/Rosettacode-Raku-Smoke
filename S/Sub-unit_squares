@@ -1,0 +1,40 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Sub-unit_squares
+#c# 2022-09-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my @upper = 1,|(1 .. *).map((* × 2)²);
+my @lower = (^∞).map: *²;
+my \R = [\+] 0, 1, 10, 100 … *;
+
+my $l = 0;
+
+@res.push: $_ for (gather {
+    (^∞).map: -> $u {
+        next if @upper[$u].contains: 0;
+        my $chars = @upper[$u].chars;
+        loop {
+            $l++ and next if @upper[$u] - @lower[$l] > R[$chars];
+            take @upper[$u] if (@upper[$u] - @lower[$l] == R[$chars]);
+            last;
+        }
+    }
+})[^7];
+
+.say for @res;
+
+my $ref = q:to/END/;
+1
+36
+3136
+24336
+5973136
+71526293136
+318723477136
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
