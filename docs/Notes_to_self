@@ -1,3 +1,10 @@
+2022-09-23
+Nope, yesterday's problem was actually the cronjob vs terminal issue: The terminal's sequence
+starts with 'DGEDGC', the cronjob drops those.  So, among other fixes, restored images suitable for cron-based testing:
+    modified:   ref/barnsley-fern.png
+    modified:   ref/chaos-game-perl6.png
+    modified:   ref/cistercian.moar.svg
+
 2022-09-22
 Lucky to notice that 'Average_loop_length' code itself (not just 'srand' output) is broken 
 (since build of 20th, 2 days back).  Precisely why having zero testing failures is needed.
