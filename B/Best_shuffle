@@ -27,11 +27,20 @@ sub best-shuffle(Str $orig) {
     @t.join, $count;
 }
 
-my $moar = qq:to/END/;
+my $moar-terminal = qq:to/END/;
 abracadabra, barbaardcaa, (3)
 seesaw, eswase, (0)
 elk, kel, (0)
 grrrrrr, rrrrgrr, (5)
+up, pu, (0)
+a, a, (1)
+END
+
+my $moar-cronjob = qq:to/END/;
+abracadabra, baaarbdraac, (2)
+seesaw, awsees, (0)
+elk, kel, (0)
+grrrrrr, rgrrrrr, (5)
 up, pu, (0)
 a, a, (1)
 END
@@ -46,5 +55,4 @@ a, a, (1)
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
