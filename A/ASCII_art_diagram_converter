@@ -69,7 +69,42 @@ my $buf = Buf.new((^0xFF .roll) xx 12);
 
 .say for @res;
 
-my $moar = qq:to/END/;
+my $moar-cronjob = qq:to/END/;
+Line width: 16 bits
+Name:      ID, bit count: 16, bit  0 to bit 15
+Name:      QR, bit count:  1, bit 16 to bit 16
+Name:  Opcode, bit count:  4, bit 17 to bit 20
+Name:      AA, bit count:  1, bit 21 to bit 21
+Name:      TC, bit count:  1, bit 22 to bit 22
+Name:      RD, bit count:  1, bit 23 to bit 23
+Name:      RA, bit count:  1, bit 24 to bit 24
+Name:       Z, bit count:  3, bit 25 to bit 27
+Name:   RCODE, bit count:  4, bit 28 to bit 31
+Name: QDCOUNT, bit count: 16, bit 32 to bit 47
+Name: ANCOUNT, bit count: 16, bit 48 to bit 63
+Name: NSCOUNT, bit count: 16, bit 64 to bit 79
+Name: ARCOUNT, bit count: 16, bit 80 to bit 95
+
+Show it converted to a bit string
+110001110001000000101110011100001100010000100010101000101111101010010110101001100011011001010001
+
+And unpack it
+     ID, 16 bits: 1100011100010000
+     QR, 01 bits: 0
+ Opcode, 04 bits: 0101
+     AA, 01 bits: 1
+     TC, 01 bits: 1
+     RD, 01 bits: 0
+     RA, 01 bits: 0
+      Z, 03 bits: 111
+  RCODE, 04 bits: 0000
+QDCOUNT, 16 bits: 1100010000100010
+ANCOUNT, 16 bits: 1010001011111010
+NSCOUNT, 16 bits: 1001011010100110
+ARCOUNT, 16 bits: 0011011001010001
+END
+
+my $moar-terminal = qq:to/END/;
 Line width: 16 bits
 Name:      ID, bit count: 16, bit  0 to bit 15
 Name:      QR, bit count:  1, bit 16 to bit 16
@@ -140,5 +175,4 @@ ARCOUNT, 16 bits: 0011011101111101
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
