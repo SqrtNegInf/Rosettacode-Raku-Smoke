@@ -25,11 +25,15 @@ for @match.reverse {
     $disp .= &splice(.[0] + .[0] div $line, "\e[31m");
 }
 
-my $moar1 = q:to/END/;
+my $moar1-terminal = q:to/END/;
 Needle: ATAA
 From: 497 to 501
 From: 557 to 561
 From: 609 to 613
+END
+
+my $moar1-cronjob = q:to/END/;
+xxx
 END
 
 my $jvm1 = q:to/END/;
@@ -60,6 +64,7 @@ if $*VM ~~ /jvm/ {
     is @res.join("\n"), chomp $jvm1;
     is $disp, chomp $jvm2;
 } else {
-    is @res.join("\n"), chomp $moar1;
+    #is @res.join("\n"), chomp $moar1;
+    is @res.join("\n"), chomp $*IN.t ?? $moar1-terminal !! $moar1-cronjob;
    #is $disp, chomp $moar2;
 }
