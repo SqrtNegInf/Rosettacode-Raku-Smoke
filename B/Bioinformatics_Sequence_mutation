@@ -78,10 +78,10 @@ ORIGINAL DNA STRAND:
      150: GGAACTTAGAATGGTTGCCGGACGATTACCGTCAGTAGATGTGTACGAGA
 
 Total bases: 200
-A       49
-C       46
-G       50
-T       55
+A	49
+C	46
+G	50
+T	55
 
 MUTATED DNA STRAND:
        0: CgGTACTTACGGTGAAGCGAGTCCTCTTACATcAATTTTGGGTCTCCTAG
@@ -90,10 +90,10 @@ MUTATED DNA STRAND:
      150: GGAACTTAGAATGGTTGCCGGACGATTACCGTCAGTAaATGTGTACGAGA
 
 Total bases: 200
-A       49
-C       44
-G       55
-T       52
+A	49
+C	44
+G	55
+T	52
 END
 
 my $jvm = q:to/END/;
@@ -123,4 +123,6 @@ T	44
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+#is @res.join("\n"), 
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
