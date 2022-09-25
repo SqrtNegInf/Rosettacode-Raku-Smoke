@@ -19,10 +19,16 @@ my @list = flat(0..9,'A'..'H').roll((^60).pick).rotor(4,:partial)».join.words;
 
 .say for @res;
 
-my $moar = q:to/END/;
+my $moar-terminal = q:to/END/;
 11
 zero
-53F4 A5H9 C99H 1184 C0D1 2GFE F537 BA1H 5GD2: F537
+H5GD 203H 2C32 A186 G: H5GD
+END
+
+my $moar-cronjob = q:to/END/;
+11
+zero
+3H2C 32A1 86G2 2CE5 CFFE FD69 020: FD69
 END
 
 my $jvm = q:to/END/;
@@ -32,5 +38,4 @@ B85H 5B43 2A0H B5BH GF45 00FC 60H5 645H 7A15 8: GF45
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
