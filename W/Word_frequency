@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Word_frequency
-#c# 2017-09-02 <RC, 2020-08-26 >RC
+#c# 2017-09-02 <RC, 2020-08-26 >RC, 2022-09-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# .race provides no benefit here
@@ -23,15 +23,18 @@ sub MAIN ($filename = 'ref/word-count.txt', $top = 10) {
         rx/ <[a..z]>+ /,    # simple 7-bit ASCII
         rx/ \w+ /,          # word characters with underscore
         rx/ <[\w]-[_]>+ /,  # word characters without underscore
-        rx/ <[\w]-[_]>+[["'"|'-'|"'-"]<[\w]-[_]>+]* /   # word characters without underscore but with hyphens and contractions
+       #rx/ <[\w]-[_]>+[["'"|'-'|"'-"]<[\w]-[_]>+]* /   # word characters without underscore but with hyphens and contractions
+        rx/ [<[\w]-[_]>+]+ % < ' - '- > /
     );
 
-my @res;
+    my @res;
     for @matcher -> $reg {
         @res.push: "\nTop $top using regex: ", $reg.raku;
-        @res.push: $_ for $file.comb( $reg ).Bag.sort(-*.value)[^$top];
-        #say "\nTop $top using regex: ", $reg.raku;
-        #.put for $file.comb( $reg ).Bag.sort(-*.value)[^$top];
+       #@res.push: $_ for $file.comb( $reg ).Bag.sort(-*.value)[^$top];
+        my @words = $file.comb($reg).Bag.sort(-*.value)[^$top];
+        my $length = max @words».key».chars;
+        @res.push: sprintf "%-{$length}s %d", .key, .value for @words;
+
     }
 
 .say for @res;
@@ -40,55 +43,55 @@ my $ref = q:to/END/;
 
 Top 10 using regex: 
 rx/ <[a..z]>+ /
-the	41089
-of	19949
-and	14942
-a	14608
-to	13951
-in	11214
-he	9648
-was	8621
-that	7924
-it	6661
+the  41089
+of   19949
+and  14942
+a    14608
+to   13951
+in   11214
+he   9648
+was  8621
+that 7924
+it   6661
 
 Top 10 using regex: 
 rx/ \w+ /
-the	41035
-of	19946
-and	14940
-a	14577
-to	13939
-in	11204
-he	9645
-was	8619
-that	7922
-it	6659
+the  41035
+of   19946
+and  14940
+a    14577
+to   13939
+in   11204
+he   9645
+was  8619
+that 7922
+it   6659
 
 Top 10 using regex: 
 rx/ <[\w]-[_]>+ /
-the	41088
-of	19949
-and	14942
-a	14596
-to	13951
-in	11214
-he	9648
-was	8621
-that	7924
-it	6661
+the  41088
+of   19949
+and  14942
+a    14596
+to   13951
+in   11214
+he   9648
+was  8621
+that 7924
+it   6661
 
 Top 10 using regex: 
-rx/ <[\w]-[_]>+[["'"|'-'|"'-"]<[\w]-[_]>+]* /
-the	41081
-of	19930
-and	14934
-a	14587
-to	13735
-in	11204
-he	9607
-was	8620
-that	7825
-it	6535
+rx/ [<[\w]-[_]>+]+ % < ' - '- > /
+the  41081
+of   19930
+and  14934
+a    14587
+to   13735
+in   11204
+he   9607
+was  8620
+that 7825
+it   6535
 END
 
 use Test;
