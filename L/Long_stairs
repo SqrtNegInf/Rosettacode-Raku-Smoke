@@ -36,19 +36,34 @@ for ^$trials {
 
 .say for @res;
 
-my $moar = q:to/END/;
+my $moar-terminal = q:to/END/;
 Seconds  steps behind  steps ahead
-  600        2306         794
-  601        2311         794
-  602        2315         795
-  603        2321         794
-  604        2326         794
-  605        2331         794
-  606        2336         794
-  607        2340         795
-  608        2345         795
-  609        2350         795
-Average seconds: 2807.55,  Average steps: 14132.75
+  600        2275         825
+  601        2280         825
+  602        2284         826
+  603        2290         825
+  604        2294         826
+  605        2299         826
+  606        2301         829
+  607        2304         831
+  608        2310         830
+  609        2315         830
+Average seconds: 2840.88,  Average steps: 14299.4
+END
+
+my $moar-cronjob = q:to/END/;
+Seconds  steps behind  steps ahead
+  600        2143         957
+  601        2148         957
+  602        2153         957
+  603        2157         958
+  604        2162         958
+  605        2166         959
+  606        2171         959
+  607        2177         958
+  608        2183         957
+  609        2188         957
+Average seconds: 2914.58,  Average steps: 14667.9
 END
 
 my $jvm = q:to/END/;
@@ -67,5 +82,4 @@ Average seconds: 2851,  Average steps: 14350
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
