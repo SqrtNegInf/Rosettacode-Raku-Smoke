@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
+my @res;
+
 srand 123456;
 
 sub shuffle (@a is copy) {
@@ -14,17 +16,27 @@ sub shuffle (@a is copy) {
     @a
 }
 my @cards = <H1 H2 H3 D1 D2 D3 S1 S2 S3 C1 C2 C3>;
-put my @res1 = shuffle @cards;
+@res.push: shuffle @cards;
 
 #The shuffle is also built into the pick method on lists when you pass it a "whatever" for the number to pick:
-put my @res2 = @cards.pick(*);
+@res.push: @cards.pick(*);
+
+.say for @res;
+
+my $moar-cronjob  = qq:to/END/;
+D2 S2 S3 C3 H3 D1 S1 H1 C1 D3 H2 C2
+D1 C3 D2 S2 H2 S3 S1 H3 C1 H1 C2 D3
+END
+
+my $moar-terminal = qq:to/END/;
+D1 D2 S1 S3 H2 C2 C1 H1 C3 H3 S2 D3
+H1 C3 C1 S1 S2 D3 H3 D2 C2 H2 S3 D1
+END
+
+my $jvm  = qq:to/END/;
+S2 C3 C1 S1 H3 D2 H1 D1 D3 H2 C2 S3
+H2 C3 S1 H3 H1 C2 D3 D1 S3 C1 D2 S2
+END
 
 use Test;
-if $*VM ~~ /jvm/ {
-is @res1.join(' '), 'S2 C3 C1 S1 H3 D2 H1 D1 D3 H2 C2 S3';
-is @res2.join(' '), 'H2 C3 S1 H3 H1 C2 D3 D1 S3 C1 D2 S2';
-} else {
-is @res1.join(' '), 'S1 H1 C2 C3 S3 H2 S2 D2 C1 D1 H3 D3';
-is @res2.join(' '), 'S3 S1 C3 H1 C1 S2 D2 D1 H3 D3 H2 C2';
-}
-
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
