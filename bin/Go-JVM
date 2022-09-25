@@ -23,7 +23,7 @@ cp ~/.rakubrew/versions/jvm-2022.yy/share/perl6/site   .
 
 # get rid of annoying warning
 perl -i -npe 's/.noverify//' ~/.rakubrew/versions/jvm-2022.xx/install/bin/perl6*
-bin/rakudobrew rehash
+#bin/rakubrew rehash # only in 'shim' mode
 
 cd /usr/local/lib
 rm perl6-j
