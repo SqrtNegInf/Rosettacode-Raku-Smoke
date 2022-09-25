@@ -63,9 +63,9 @@ sub chess960(Pos960 $position = (^960).pick) {
 
 say my $result = chess960;
 
-my $moar = '♝ ♛ ♞ ♝ ♜ ♚ ♞ ♜';
+my $moar-terminal = '♞ ♞ ♜ ♝ ♚ ♜ ♝ ♛';
+my $moar-cronjob = '♜ ♞ ♛ ♝ ♝ ♚ ♜ ♞';
 my $jvm  = '♜ ♝ ♚ ♜ ♞ ♞ ♝ ♛';
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is $result, chomp $ref;
+is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
