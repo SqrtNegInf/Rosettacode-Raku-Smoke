@@ -39,10 +39,16 @@ my @res.push: $_ for 3-means++ @data;
 
 .say for @res.sort;
 
-my $moar = qq:to/END/;
-0.008781335867117358-0.007719039429911513i
-3.0130654486279984+1.9819442727396068i
-5.01190522137073-0.008602707583117642i
+my $moar-terminal = qq:to/END/;
+-0.0026349054761782864-0.008309285394333501i
+2.9853752659424644+2.01153451531051i
+5.001443289484471-0.021524184866334305i
+END
+
+my $moar-cronjob = qq:to/END/;
+-0.45760046104172114-0.36590748600950473i
+2.5866946389740137+1.7797492481303565i
+4.778983074769103+0.48792198286344757i
 END
 
 my $jvm = qq:to/END/;
@@ -52,5 +58,4 @@ my $jvm = qq:to/END/;
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.sort.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
