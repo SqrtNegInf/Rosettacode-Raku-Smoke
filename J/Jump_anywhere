@@ -26,24 +26,18 @@ my @res;
 .say for @res;
 
 # Produces random output, but here's a representative run:
-my $moar = qq:to/END/;
+# 2022-09-24 currently same for MoarVM, JVM (but that could change)
+
+my $moar-terminal = qq:to/END/;
 Entered outer loop block
 Entered inner loop block
 Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
+Leaving outer loop block
+Ending outer loop
+END
+
+my $moar-cronjob = qq:to/END/;
+Entered outer loop block
 Entered inner loop block
 Leaving inner loop block
 Leaving outer loop block
@@ -105,8 +99,7 @@ Ending outer loop
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
 
 # Continuation-based execution
 # Continuations in Raku are currently limited to use in generators via the gather/take model:
