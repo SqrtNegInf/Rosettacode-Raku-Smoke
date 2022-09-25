@@ -3,6 +3,7 @@
 #c# 2022-09-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A061844 - Squares that remain squares if you decrease every digit by 1
 
 my @res;
 
@@ -17,8 +18,8 @@ my $l = 0;
         next if @upper[$u].contains: 0;
         my $chars = @upper[$u].chars;
         loop {
-            $l++ and next if @upper[$u] - @lower[$l] > R[$chars];
-            take @upper[$u] if (@upper[$u] - @lower[$l] == R[$chars]);
+            $l++ and next   if @upper[$u] - @lower[$l]  > R[$chars];
+            take @upper[$u] if @upper[$u] - @lower[$l] == R[$chars];
             last;
         }
     }
