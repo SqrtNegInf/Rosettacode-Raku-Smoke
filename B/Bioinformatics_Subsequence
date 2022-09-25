@@ -4,8 +4,10 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# new-disp 'srand' shift
+#n# nb: output has tabs, so when updating don't copy/paste, pull from file output
+#n# twiddling with srand value otherwise end up with no matches to report
 
-srand 123;
+srand $*VM ~~ /jvm/ ?? 123 !! 123456;
 
 my @res;
 
@@ -25,15 +27,21 @@ for @match.reverse {
     $disp .= &splice(.[0] + .[0] div $line, "\e[31m");
 }
 
-my $moar1-terminal = q:to/END/;
+my $moar1-terminal = q:to/END/; # for srand 123456
+Needle: GTAA
+From: 364 to 368
+END
+
+my $xoar1-terminal = q:to/END/; # for srand 123
 Needle: ATAA
 From: 497 to 501
 From: 557 to 561
 From: 609 to 613
 END
 
-my $moar1-cronjob = q:to/END/;
-xxx
+my $moar1-cronjob = q:to/END/; # for srand 123456
+Needle: GTAA
+From: 364 to 368
 END
 
 my $jvm1 = q:to/END/;
