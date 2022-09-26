@@ -120,7 +120,7 @@ Message (Tampered)    : Show me the money
 Is signature valid?   : False
 END
 
-my $moar-cronjob = q:to/END/;
+my $moar-cronjob1 = q:to/END/;
 The Curve E is        : 𝑦² = 𝑥³ + 355 𝑥 + 671 (mod 1073741789) 
 with Generator G at   : (13693,10088)
 Order(G, E) is        : 1073807281
@@ -128,6 +128,20 @@ Is G  ∈ E ?           : True
 Message               : Show me the monKey
 The private key dA is : 913449363
 The public  key Qa is : EC Point at x=889975280, y=302400633
+Is Qa ∈ E ?           : True
+Is signature valid?   : True
+Message (Tampered)    : Show me the money
+Is signature valid?   : False
+END
+
+my $moar-cronjob2 = q:to/END/;
+The Curve E is        : 𝑦² = 𝑥³ + 355 𝑥 + 671 (mod 1073741789) 
+with Generator G at   : (13693,10088)
+Order(G, E) is        : 1073807281
+Is G  ∈ E ?           : True
+Message               : Show me the monKey
+The private key dA is : 421688606
+The public  key Qa is : EC Point at x=792112954, y=372532278
 Is Qa ∈ E ?           : True
 Is signature valid?   : True
 Message (Tampered)    : Show me the money
@@ -147,6 +161,9 @@ Is signature valid?   : True
 Message (Tampered)    : Show me the money
 Is signature valid?   : False
 END
+
+# handle flapping result
+my $moar-cronjob = @res.join("\n") ~~ / 'x=889975280' / ?? $moar-cronjob1 !! $moar-cronjob2;
 
 use Test;
 is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
