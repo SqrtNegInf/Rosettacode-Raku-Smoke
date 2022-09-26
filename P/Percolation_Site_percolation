@@ -3,7 +3,7 @@
 #c# 2017-03-06 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# unstable results for 100 trials
+#n# unstable results for 100 trials [only for JVM?]
 
 srand 123456;
 
@@ -81,36 +81,34 @@ sub percolate ( $prob  = .6 ) {
     }
 }
 
-
 my $graph-moar = qq:to/END/;
-++++
-++▒+ ▒▒  ▒▒ ▒▒
-+▒▒+ ▒▒  ▒  ▒ ▒
-▒▒▒++ ▒▒▒▒▒▒▒▒▒
-   ▒+++++▒▒ ▒ ▒
-  ▒ ▒▒▒▒+ ▒   ▒
-▒  ▒ ▒▒ +▒  ▒
-▒   ▒   +▒  ▒▒
-▒▒  ▒   +▒  ▒▒
-   ▒  ▒▒+▒   ▒▒
-  ▒▒▒  ▒++++
-▒      ▒▒+▒++▒▒
-▒▒ ▒     ▒ ▒+▒
-    ▒       +
-    ▒   ▒   +▒
-       ▒▒  ▒+ ▒
-            +
-
++              
++   ▒▒ ▒  ▒    
+++ ▒ ▒     ▒▒ ▒
+▒+▒  ▒    ▒ ▒ ▒
+▒++++▒    ▒▒▒  
+ ▒▒▒+▒  ▒▒▒    
+   ▒++▒    ▒▒ ▒
+ ▒  ▒+▒    ▒▒  
+    ++ ▒   ▒▒▒ 
+  ▒++▒▒▒ ▒ ▒   
+▒ ▒+▒   ▒      
+  ▒++  ▒ ▒     
+  ▒▒+▒   ▒   ▒ 
+▒▒ ++     ▒ ▒  
+  ▒+▒▒   ▒ ▒▒  
+   +▒▒ ▒▒  ▒  ▒
+   +           
 END
 
 my $ref-moar = qq:to/END/;
 p = 0.1: 0.000
 p = 0.2: 0.000
 p = 0.3: 0.000
-p = 0.4: 0.010
-p = 0.5: 0.100
-p = 0.6: 0.570
-p = 0.7: 0.970
+p = 0.4: 0.000
+p = 0.5: 0.080
+p = 0.6: 0.590
+p = 0.7: 0.920
 p = 0.8: 1.000
 p = 0.9: 1.000
 p = 1.0: 1.000
@@ -155,5 +153,5 @@ is @drip.join("\n"), chomp $graph-jvm;
 #is @res.join("\n"), chomp $ref-jvm;
 } else {
 is @drip.join("\n"), chomp $graph-moar;
-#is @res.join("\n"), chomp $ref-moar;
-} 
+is @res.join("\n"), chomp $ref-moar;
+}
