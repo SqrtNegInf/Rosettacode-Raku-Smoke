@@ -31,15 +31,26 @@ for @dist.kv -> $i, $v {
 
 .say for @res;
 
-my $moar = qq:to/END/;
+my $moar-terminal = qq:to/END/;
 Expect 14285.714
 1 14376 +0.63%
-2 14313 +0.19%
-3 14297 +0.08%
-4 14330 +0.31%
-5 14408 +0.86%
+2 14311 +0.18%
+3 14295 +0.07%
+4 14325 +0.28%
+5 14412 +0.88%
 6 14084 -1.41%
-7 14192 -0.66%
+7 14197 -0.62%
+END
+
+my $moar-cronjob = qq:to/END/;
+Expect 14285.714
+1 14376 +0.63%
+2 14311 +0.18%
+3 14296 +0.07%
+4 14325 +0.28%
+5 14409 +0.86%
+6 14084 -1.41%
+7 14199 -0.61%
 END
 
 my $jvm = qq:to/END/;
@@ -54,5 +65,4 @@ Expect 14285.714
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
