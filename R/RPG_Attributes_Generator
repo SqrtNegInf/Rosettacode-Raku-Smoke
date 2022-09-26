@@ -25,9 +25,14 @@ my @res = (@attr-names Z=> @attr).gist;
 
 .say for @res;
 
-my $moar = qq:to/END/;
-(Str => 16 Int => 12 Wis => 13 Dex => 17 Con => 9 Cha => 16)
-Sum: 83, with 3 attributes >= 15
+my $moar-terminal = qq:to/END/;
+(Str => 15 Int => 8 Wis => 10 Dex => 17 Con => 11 Cha => 15)
+Sum: 76, with 3 attributes >= 15
+END
+
+my $moar-cronjob = qq:to/END/;
+(Str => 15 Int => 13 Wis => 17 Dex => 9 Con => 16 Cha => 12)
+Sum: 82, with 3 attributes >= 15
 END
 
 my $jvm = qq:to/END/;
@@ -36,5 +41,4 @@ Sum: 76, with 2 attributes >= 15
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
