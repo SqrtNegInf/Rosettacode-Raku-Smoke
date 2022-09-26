@@ -21,9 +21,14 @@ sub mangle ($str is copy) {
 
 .say for @res;
 
-my $moar = q:to/END/;
+my $moar-terminal = q:to/END/;
 abracadabra -> AErBcadCbFD
-arrcbabdaaa -> ArFcEBbdaCD
+dbacbarraaa -> dEAcbBrFaCD
+END
+
+my $moar-cronjob = q:to/END/;
+abracadabra -> AErBcadCbFD
+abdcraaraba -> AEdcrBaFCbD
 END
 
 my $jvm = q:to/END/;
@@ -32,4 +37,4 @@ crraaabaabd -> crFABaECDbd
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
