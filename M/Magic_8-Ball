@@ -7,8 +7,6 @@
 
 srand 123456;
 
-# Works with: Rakudo version 2018.03
-
 put 'Please enter your question or a blank line to quit.';
 
 my @res.push:
@@ -22,11 +20,13 @@ my @res.push:
 print "\n";
 .say for @res;
 
-my $moar = qq:to/END/;
-As I see it, yes
-Outlook not so good
-It is decidedly so
-Most likely
+# no $moar-terminal, isn't run interactively
+
+my $moar-cronjob = qq:to/END/;
+Better not tell you now
+Outlook good
+Concentrate and ask again
+Reply hazy, try again
 END
 
 my $jvm = qq:to/END/;
@@ -37,5 +37,4 @@ Concentrate and ask again
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? '' !! $moar-cronjob;
