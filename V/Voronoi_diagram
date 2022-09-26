@@ -5,19 +5,14 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: voronoi-Euclidean-perl6.png
+#n# (not testing Taxicab/Minkowski images, probably out-of-date in 'ref')
 #n# no speed diff with .race applied to x/y together or just x
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 srand 123456;
 
-# Works with: Rakudo version 2017.09
-# Translation of: Python
-# Perhaps "Inspired by Python" would be more accurate.
-# Generates a Euclidean, a Taxicab and a Minkowski Voronoi diagram using the same set of domain points and colors.
-
 use Image::PNG::Portable;
-
 
 my %type = ( # Voronoi diagram type distance calculation
 #    'Taxicab'   => sub ($px, $py, $x, $y) { ($px - $x).abs  + ($py - $y).abs  },
@@ -70,5 +65,3 @@ sub dot (%h, $png, $radius = 3) {
             $png.set($x, $y, 0, 0, 0) if ( %h<x> - $x + (%h<y> - $y) × i ).abs <= $radius;
     }
 }
-
-#See Euclidean, Taxicab & Minkowski Voronoi diagram example images.
