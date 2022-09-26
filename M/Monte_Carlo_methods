@@ -29,14 +29,14 @@ my $moar-cronjob = qq:to/END/;
 100 iterations:  2.8
 1000 iterations:  3.156
 10000 iterations:  3.1348
-3.636364 3.112887 3.146085
+3.636364 3.108891 3.146085
 END
 
 my $moar-terminal = qq:to/END/;
 100 iterations:  2.84
 1000 iterations:  3.16
 10000 iterations:  3.1352
-3.272727 3.120879 3.146885
+4 3.124875 3.147685
 END
 
 my $moar-terminal-super = qq:to/END/;
@@ -54,5 +54,4 @@ my $jvm = qq:to/END/;
 END
 
 use Test;
-#is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
