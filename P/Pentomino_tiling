@@ -134,15 +134,26 @@ for ^4 {
 
 PrintResult() if solve 0,0;
 
-my $moar = q:to/END/;
-F  I  I  I  I  I  L  N  
-F  F  F  L  L  L  L  N  
-Y  F  U  U  X  Ⓡ  N  N  
-Y  Y  U  X  X  X  N  W  
-Y  Ⓐ  U  U  X  Ⓚ  W  W  
-Y  Z  Z  P  T  W  W  V  
-Ⓤ  Z  P  P  T  T  T  V  
-Z  Z  P  P  T  V  V  V  
+my $moar-terminal = q:to/END/;
+F  F  W  W  Ⓡ  U  U  U
+V  F  F  W  W  U  N  U
+V  F  Z  Z  W  X  N  N
+V  V  V  Z  X  X  X  N
+L  L  Ⓐ  Z  Z  X  Ⓚ  N
+L  T  I  I  I  I  I  Ⓤ
+L  T  T  T  Y  P  P  P
+L  T  Y  Y  Y  Y  P  P
+END
+
+my $moar-cronjob = q:to/END/;
+F  Y  Y  Y  Y  Ⓡ  Z  I
+F  F  F  Y  Z  Z  Z  I
+N  F  X  Ⓐ  Z  W  W  I
+N  X  X  X  W  W  L  I
+N  N  X  U  W  U  L  I
+T  N  Ⓚ  U  U  U  L  V
+T  T  T  P  P  L  L  V
+T  Ⓤ  P  P  P  V  V  V
 END
 
 my $jvm = q:to/END/;
@@ -157,5 +168,5 @@ U  Ⓚ  U  N  N  N  Ⓤ  Y
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is $result, $ref;
+my $ref = chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is $result.subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
