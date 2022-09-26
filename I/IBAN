@@ -1,12 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/IBAN
-#c# 2015-12-06 <RC
+#c# 2015-12-06 <RC, 2022-09-25 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
 subset IBAN of Str where sub ($_ is copy) {
     s:g/\s//;
-    return False if m/<-[ 0..9 A..Z a..z ]>/ or .chars != <
+   #return False if m/<-[ 0..9 A..Z a..z ]>/ or .chars != <
+    return False if m/<-alnum>/ or .chars != <
         AD 24 AE 23 AL 28 AT 20 AZ 28 BA 20 BE 16 BG 22 BH 22 BR 29 CH 21
         CR 21 CY 28 CZ 24 DE 22 DK 18 DO 28 EE 20 ES 24 FI 18 FO 18 FR 27
         GB 22 GE 22 GI 23 GL 18 GR 27 GT 28 HR 21 HU 28 IE 22 IL 23 IS 26
