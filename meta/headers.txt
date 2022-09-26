@@ -6543,7 +6543,7 @@ File: I/I.Q._Puzzle
 File: I/IBAN
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/IBAN
-#c# 2015-12-06 <RC
+#c# 2015-12-06 <RC, 2022-09-25 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -6609,6 +6609,21 @@ File: I/Idiomatically_determine_all_the_lowercase_and_uppercase_letters
 #c# 2016-02-29 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: I/Idoneal_numbers
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Idoneal_numbers
+#c# 2022-09-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A000926 - Euler's "numerus idoneus" (or "numeri idonei", or suitable/convenient)
+
+File: I/Idoneal_numbers.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Idoneal_numbers
+#c# 2022-09-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: I/Image_convolution
 #!/usr/bin/env perl6 # do-not-check
@@ -8458,6 +8473,7 @@ File: M/Maximum_difference_between_adjacent_elements_of_list
 #c# 2021-07-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# drop the random entry, just a hassle with 'srand'
 
 File: M/Maximum_triangle_path_sum
 #!/usr/bin/env perl6
@@ -10491,7 +10507,7 @@ File: P/Percolation_Site_percolation
 #c# 2017-03-06 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# unstable results for 100 trials
+#n# unstable results for 100 trials [only for JVM?]
 
 File: P/Percolation_Site_percolation.1
 #!/usr/bin/env perl6
