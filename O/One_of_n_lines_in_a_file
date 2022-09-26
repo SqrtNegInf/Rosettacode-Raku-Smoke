@@ -20,9 +20,9 @@ sub one_of_n_test($n = 10, $trials = 10_000) {
 
 put my $result = one_of_n_test();
 
-my $moar = '991 999 994 1010 1002 968 1074 960 997 1005';
-my $jvm  = '1017 971 994 988 978 1059 950 960 1043 1040';
+my $moar-terminal = '1021 1006 1019 966 1027 1020 1002 1021 948 970';
+my $moar-cronjob  = '990 998 994 1011 1002 966 1074 962 999 1004';
+my $jvm           = '1017 971 994 988 978 1059 950 960 1043 1040';
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is $result, chomp $ref;
+is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
