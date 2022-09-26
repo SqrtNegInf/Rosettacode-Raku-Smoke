@@ -30,36 +30,36 @@ for 1..10 {
 
 .say for @res;
 
-my $moar = qq:to/END/;
+my $moar-terminal = qq:to/END/;
 1 2 4 before 1 2 4 = False
 1 2 4 before 1 2 = False
 1 2 before 1 2 4 = True
-27 57 44 before 57 67 = True
-94 71 64 before 94 71 64 = False
-40 33 before 40 1 22 = False
-32 59 2 before 32 2 = False
-40 60 64 before 22 78 43 = False
-4 26 before 4 71 60 = True
-76 21 66 before 76 84 75 66 = True
-73 73 22 before 73 54 30 48 = False
-15 87 59 before 15 87 87 4 = True
-81 66 before 66 = False
-END
-
-my $moarx = qq:to/END/;
-1 2 4 before 1 2 4 = False
-1 2 4 before 1 2 = False
-1 2 before 1 2 4 = True
-84 70 67 before 98 44 70 67 = True
-15 60 79 before 94 79 = True
-70 54 93 before 85 93 37 = True
-59 2 before 59 = False
-6 40 before 88 65 22 = True
+85 98 44 before 64 13 98 44 = False
+93 70 40 before 85 93 37 40 = False
+2 65 62 before 2 65 62 = False
+60 64 before 22 = False
 43 40 50 before 43 40 50 = False
 71 60 85 before 71 60 85 = False
 18 99 before 18 = False
 22 36 80 before 30 36 36 = True
 87 59 before 87 59 = False
+4 88 before 4 = False
+END
+
+my $moar-cronjob = qq:to/END/;
+1 2 4 before 1 2 4 = False
+1 2 4 before 1 2 = False
+1 2 before 1 2 4 = True
+4 30 15 before 4 30 15 = False
+33 8 29 before 22 8 29 = False
+2 65 62 before 2 65 62 = False
+60 64 before 22 = False
+43 40 50 before 43 40 50 = False
+71 60 85 before 71 60 85 = False
+18 99 before 18 = False
+22 36 80 before 30 36 36 = True
+87 59 before 87 59 = False
+4 88 before 4 = False
 END
 
 my $jvm = qq:to/END/;
@@ -79,8 +79,4 @@ my $jvm = qq:to/END/;
 END
 
 use Test;
-if $*VM ~~ /jvm/ {
-is @res.join("\n"), chomp $jvm;
-} else {
-is @res.join("\n"), chomp $moar;
-}
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
