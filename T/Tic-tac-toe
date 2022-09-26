@@ -4,8 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #=# RC pipe: 5\n1\n9
-#n# 2022-07-05 hangs again, new input needed
-#n# 2020-11-15 hangs, now try: 4\n3\n8\n1
+#n# 2022-09-26 only testing is via cronjob
 
 srand 123456;
 
@@ -60,4 +59,4 @@ if get-winner() -> ($player, $across) {
 }
 
 use Test;
-is $result, 'x wins across [1, 5, 9].';
+is $result, 'o wins across [2, 5, 8].';
