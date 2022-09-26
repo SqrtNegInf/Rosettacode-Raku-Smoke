@@ -58,29 +58,55 @@ for @results -> @row {
 
 .say for @res;
 
-my $moar = q:to/END/;
-Using 9984 items with prices from 0 to 9985:
+my $moar-terminal = q:to/END/;
+Using 10027 items with prices from 0 to 10028:
+Split into 21 bins of approx 500 elements:
+  From      0 to    516 with  500 items
+  From    517 to    999 with  499 items
+  From   1000 to   1520 with  500 items
+  From   1521 to   2009 with  501 items
+  From   2010 to   2528 with  500 items
+  From   2529 to   3025 with  500 items
+  From   3026 to   3549 with  500 items
+  From   3550 to   4088 with  500 items
+  From   4089 to   4589 with  501 items
+  From   4590 to   5069 with  499 items
+  From   5070 to   5571 with  500 items
+  From   5572 to   6060 with  500 items
+  From   6061 to   6543 with  500 items
+  From   6544 to   7089 with  501 items
+  From   7090 to   7572 with  500 items
+  From   7573 to   8048 with  500 items
+  From   8049 to   8559 with  500 items
+  From   8560 to   9052 with  497 items
+  From   9053 to   9550 with  500 items
+  From   9551 to  10025 with  501 items
+  From  10026 to  10028 with    4 items
+END
+
+my $moar-cronjob = q:to/END/;
+Using 9996 items with prices from 0 to 9995:
 Split into 20 bins of approx 500 elements:
-  From      0 to    477 with  500 items
-  From    478 to   1005 with  501 items
-  From   1006 to   1482 with  502 items
-  From   1483 to   2007 with  500 items
-  From   2008 to   2451 with  499 items
-  From   2452 to   2957 with  500 items
-  From   2958 to   3435 with  500 items
-  From   3436 to   3925 with  500 items
-  From   3926 to   4461 with  501 items
-  From   4462 to   4936 with  500 items
-  From   4937 to   5448 with  499 items
-  From   5449 to   5959 with  500 items
-  From   5960 to   6476 with  499 items
-  From   6477 to   7025 with  500 items
-  From   7026 to   7528 with  500 items
-  From   7529 to   8027 with  500 items
-  From   8028 to   8532 with  500 items
-  From   8533 to   9026 with  500 items
-  From   9027 to   9528 with  500 items
-  From   9529 to   9985 with  456 items
+  From      0 to    491 with  502 items
+  From    492 to    956 with  499 items
+  From    957 to   1439 with  500 items
+  From   1440 to   1942 with  500 items
+  From   1943 to   2454 with  500 items
+  From   2455 to   2973 with  501 items
+  From   2974 to   3450 with  500 items
+  From   3451 to   3941 with  500 items
+  From   3942 to   4429 with  501 items
+  From   4430 to   4922 with  500 items
+  From   4923 to   5437 with  499 items
+  From   5438 to   5945 with  500 items
+  From   5946 to   6482 with  502 items
+  From   6483 to   6958 with  500 items
+  From   6959 to   7461 with  499 items
+  From   7462 to   7957 with  500 items
+  From   7958 to   8471 with  500 items
+  From   8472 to   9001 with  500 items
+  From   9002 to   9553 with  500 items
+  From   9554 to   9995 with  464 items
 END
 
 my $jvm = q:to/END/;
@@ -109,5 +135,4 @@ Split into 20 bins of approx 500 elements:
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
