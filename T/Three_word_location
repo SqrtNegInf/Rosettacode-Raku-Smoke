@@ -47,46 +47,91 @@ for 51.4337,  -0.2141, # Wimbledon
 
 .say for @res;
 
-my $moar = q:to/END/;
+my $moar-terminal = q:to/END/;
 Coordinates: 51.4337, -0.2141
    To Index: 22099 365 12003
-  To 3-word: tapesi hirawu rupoza
+  To 3-word: zofobe muposu dejepu
 From 3-word: 51.4337, -0.2141
  From Index: 51.4337, -0.2141
 
 Coordinates: 21.2596, -157.8117
    To Index: 17384 5133 8891
-  To 3-word: suwiti fozoye lififo
+  To 3-word: nijemo pufemu fupawu
 From 3-word: 21.2596, -157.8117
  From Index: 21.2596, -157.8117
 
 Coordinates: -55.9652, -67.2256
    To Index: 5317 15428 13632
-  To 3-word: kihayo huzufi komuwo
+  To 3-word: sizeza zidura ramiso
 From 3-word: -55.9652, -67.2256
  From Index: -55.9652, -67.2256
 
 Coordinates: 59.3586, 24.7447
    To Index: 23337 4732 15831
-  To 3-word: hewema pudemo nibida
+  To 3-word: labefo zamayu jabuha
 From 3-word: 59.3586, 24.7447
  From Index: 59.3586, 24.7447
 
 Coordinates: 29.2021, 81.5324
    To Index: 18625 5535 10268
-  To 3-word: saresi fuboyo sosowe
+  To 3-word: dijule puhene bepoko
 From 3-word: 29.2021, 81.5324
  From Index: 29.2021, 81.5324
 
 Coordinates: -7.1662, 53.947
    To Index: 12942 12942 12942
-  To 3-word: deloko rutaru koleho
+  To 3-word: zesonu hahena pazini
 From 3-word: -7.1662, 53.947
  From Index: -7.1662, 53.947
 
 Coordinates: 28.3852, -81.5638
    To Index: 18497 11324 1322
-  To 3-word: zipizu hukiwo bupodo
+  To 3-word: saradu meyufi ponowo
+From 3-word: 28.3852, -81.5638
+ From Index: 28.3852, -81.5638
+
+END
+
+my $moar-cronjob = q:to/END/;
+Coordinates: 51.4337, -0.2141
+   To Index: 22099 365 12003
+  To 3-word: diwiwa mahifo witoro
+From 3-word: 51.4337, -0.2141
+ From Index: 51.4337, -0.2141
+
+Coordinates: 21.2596, -157.8117
+   To Index: 17384 5133 8891
+  To 3-word: miwuyi pufemu sonepu
+From 3-word: 21.2596, -157.8117
+ From Index: 21.2596, -157.8117
+
+Coordinates: -55.9652, -67.2256
+   To Index: 5317 15428 13632
+  To 3-word: wetadi zidura pedefi
+From 3-word: -55.9652, -67.2256
+ From Index: -55.9652, -67.2256
+
+Coordinates: 59.3586, 24.7447
+   To Index: 23337 4732 15831
+  To 3-word: wafote hokame wolene
+From 3-word: 59.3586, 24.7447
+ From Index: 59.3586, 24.7447
+
+Coordinates: 29.2021, 81.5324
+   To Index: 18625 5535 10268
+  To 3-word: yohobe mebeto futode
+From 3-word: 29.2021, 81.5324
+ From Index: 29.2021, 81.5324
+
+Coordinates: -7.1662, 53.947
+   To Index: 12942 12942 12942
+  To 3-word: hupode fatuyu fatuyu
+From 3-word: -7.1662, 53.947
+ From Index: -7.1662, 53.947
+
+Coordinates: 28.3852, -81.5638
+   To Index: 18497 11324 1322
+  To 3-word: tabesa meyufi wefafi
 From 3-word: 28.3852, -81.5638
  From Index: 28.3852, -81.5638
 
@@ -138,5 +183,4 @@ From 3-word: 28.3852, -81.5638
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
