@@ -15,5 +15,9 @@ say $str.subst(/<:Cc>/,     '', :g); # unicode property: control character
 say '----';
 say my $result = $str.subst(/<-[ \ ..~ ]>/, '', :g);
 
+my $moar-terminal = 'PHGJh 2)G[yrlJnq3hY^:=';
+my $moar-cronjob  = 'Yh 2)G[yrlJnq3hY^:=a';
+my $jvm           = q[zk{k)ug_%S!Yj'mp#?0$i];
+
 use Test;
-is $result, $*VM ~~ /jvm/ ?? q[zk{k)ug_%S!Yj'mp#?0$i] !! '1"PHGJh 2)G[yrlJnq3hY^:=';
+is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
