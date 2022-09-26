@@ -7,8 +7,7 @@
 
 srand 123456;
 
-my $result1;
-my $result2;
+my @res;
 
 enum Coin <Heads Tails>;
 enum Yay <Yay Good Super Hah Ooh Yipee Sweet Cool Yes Haha>;
@@ -38,74 +37,108 @@ sub your-choice($p is copy) {
 
 #repeat until prompt("Wanna play again? ").lc ~~ /^n/ {
     my $mefirst = Coin.roll;
-    print tc "$mefirst I start, {Coin(+!$mefirst).lc} you start, flipping...\n\t";
-    flipping;
-    say my $flip = Coin.roll;
+    #print tc "$mefirst I start, {Coin(+!$mefirst).lc} you start, flipping...\n";
+    #flipping;
+    @res.push: my $flip = Coin.roll;
 
     my @yours;
     my @mine;
 
     if $flip == $mefirst {
-        print "{Yay.pick}! I get to choose first, and I choose: "; sleep 0; say @mine = |Coin.roll(3);
+        #print "{Yay.pick}! I get to choose first, and I choose: "; sleep 0; 
+        @res.push: (@mine = |Coin.roll(3)).join(' ');
         @yours = your-choice("Now you gotta choose: ");
         while @yours eqv @mine {
-            say "{Bozo.pick}! We'd both win at the same time if you pick that!";
+            @res.push: "{Bozo.pick}! We'd both win at the same time if you pick that!";
             @yours = your-choice("Pick something different from me: ");
         }
-        say "So, you'll win if we see: ", @yours;
+        @res.push: "So, you'll win if we see: "~ @yours;
     }
     else {
         @yours = your-choice("{Boo.pick}! First you choose: ");
-        say "OK, you'll win if we see: ", @yours;
-        print "In that case, I'll just randomly choose: "; sleep 0; say @mine = Coin(+!@yours[1]), |@yours[0,1];
+        @res.push: "OK, you'll win if we see: "~ @yours.join(' ');
+        #print "In that case, I'll just randomly choose: "; sleep 0; 
+        @res.push: (@mine = Coin(+!@yours[1])~ |@yours[0,1]).join(' ');
     }
 
     sub check($a,$b,$c) {
         given [$a,$b,$c] {
-            when @mine  { say $result2 = "\n{Yay.pick}, I win, and you lose!"; Nil }
-            when @yours { say $result2 = "\n{Boo.pick}, you win, but I'll beat you next time!"; Nil }
+            when @mine  { @res.push: "\n{Yay.pick}, I win, and you lose!"; Nil }
+            when @yours { @res.push: "\n{Boo.pick}, you win, but I'll beat you next time!"; Nil }
             default     { Coin.roll }
         }
     }
 
     #sleep 1;
-    say < OK! Ready? Right... So... Yo!>.pick;
+    @res.push: < OK! Ready? Right... So... Yo!>.pick;
     #sleep .5;
-    say ("Pay attention now!",
+    @res.push: ("Pay attention now!",
         "Watch closely!",
         "Let's do it...",
         "You feeling lucky?",
         "No way you gonna win this...",
         "Can I borrow that coin again?").pick;
     #sleep 1;
-    print "Here we go!\n\t";
+    #print "Here we go!\n    ";
     for |Coin.roll(3), &check ...^ :!defined {
-        flipping;
-        print "$_ ";
-        $result1 ~= "$_ ";    
+        #flipping;
+        #print "$_ ";
+        @res.push: "$_ ";    
     }
 #}
 
-#Note: the actual run displays a little coin-flipping animation, but that won't show up here:
+.say for @res;
 
-# this is what you should see
-my $ref = qq:to/END/;
-Tails I start, heads you start, flipping...
-    Heads
-OK, you'll win if we see: [Heads Tails Heads]
-In that case, I'll just randomly choose: [Heads Heads Tails]
-Yo!
-No way you gonna win this...
-Here we go!
-    Tails Heads Tails Tails Heads Tails Heads
-Oops, you win, but I'll beat you next time!
+my $moar-terminal = qq:to/END/;
+Tails
+Tails Tails Tails
+So, you'll win if we see: Heads Tails Heads
+Ready?
+Pay attention now!
+Tails
+Heads
+Heads
+Tails
+Heads
+
+Bah, you win, but I'll beat you next time!
+END
+
+my $moar-cronjob = qq:to/END/;
+Tails
+Tails Tails Tails
+So, you'll win if we see: Heads Tails Heads
+Ready?
+Pay attention now!
+Tails
+Heads
+Heads
+Tails
+Heads
+
+Bah, you win, but I'll beat you next time!
+END
+
+my $jvm = qq:to/END/;
+Tails
+OK, you'll win if we see: Heads Tails Heads
+HeadsHeads Tails
+So...
+Pay attention now!
+Tails
+Heads
+Tails
+Tails
+Tails
+Heads
+Heads
+Heads
+Tails
+Heads
+
+Drat, you win, but I'll beat you next time!
 END
 
 use Test;
-if $*VM ~~ /jvm/ {
-is $result1, 'Tails Heads Tails Tails Tails Heads Heads Heads Tails ';
-is $result2, "\nHah, I win, and you lose!";
-} else {
-is $result1, 'Tails Heads Heads Heads Heads Heads Heads Heads Tails ';
-is $result2, "\nYay, I win, and you lose!";
-}
+my $ref = chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
