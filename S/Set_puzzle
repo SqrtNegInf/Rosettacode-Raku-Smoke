@@ -46,37 +46,70 @@ for @sets.kv -> $i, @cards {
 
 .say for @res;
 
-my $moar = qq:to/END/;
+my $moar-terminal = qq:to/END/;
 Drew 9 cards:
+   purple  three   diamond    solid
+   purple    one   diamond  striped
     green    one  squiggle  striped
-      red    one      oval  striped
-      red    two   diamond     open
-   purple  three      oval    solid
-    green    one      oval  striped
-      red    two  squiggle     open
-   purple  three   diamond     open
-      red    two      oval    solid
-   purple  three  squiggle    solid
+   purple  three  squiggle  striped
+      red    two      oval     open
+   purple  three   diamond  striped
+      red    two      oval  striped
+    green  three  squiggle  striped
+      red  three  squiggle  striped
 
 Set 1:
+   purple  three   diamond    solid
     green    one  squiggle  striped
-      red    two   diamond     open
-   purple  three      oval    solid
+      red    two      oval     open
 
 Set 2:
-    green    one  squiggle  striped
-      red    two  squiggle     open
-   purple  three  squiggle    solid
+   purple    one   diamond  striped
+      red    two      oval  striped
+    green  three  squiggle  striped
 
 Set 3:
     green    one  squiggle  striped
-   purple  three   diamond     open
-      red    two      oval    solid
+   purple  three   diamond  striped
+      red    two      oval  striped
 
 Set 4:
-      red    two   diamond     open
-    green    one      oval  striped
-   purple  three  squiggle    solid
+   purple  three  squiggle  striped
+    green  three  squiggle  striped
+      red  three  squiggle  striped
+END
+
+my $moar-cronjob = qq:to/END/;
+Drew 9 cards:
+    green    one   diamond     open
+    green    two      oval    solid
+   purple    one      oval  striped
+    green  three      oval  striped
+    green  three   diamond     open
+   purple  three  squiggle     open
+      red  three      oval     open
+   purple  three      oval    solid
+   purple    two      oval     open
+
+Set 1:
+    green    two      oval    solid
+   purple    one      oval  striped
+      red  three      oval     open
+
+Set 2:
+   purple    one      oval  striped
+   purple  three      oval    solid
+   purple    two      oval     open
+
+Set 3:
+    green  three      oval  striped
+      red  three      oval     open
+   purple  three      oval    solid
+
+Set 4:
+    green  three   diamond     open
+   purple  three  squiggle     open
+      red  three      oval     open
 END
 
 my $jvm = qq:to/END/;
@@ -113,7 +146,7 @@ Set 4:
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
 
 =finish
 
