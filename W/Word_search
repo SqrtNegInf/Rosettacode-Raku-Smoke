@@ -141,98 +141,100 @@ sub compare (@s, @w) {
 
 .put for @res;
 
-my $moar-cronjob = q:to/END/;
+my $moar-terminal = q:to/END/;
      A B C D E F G H I J
-   0 o p e c k R g a w e
-   1 y t o c s a O d i n
-   2 e x t i n c t S a d
-   3 n c a r c h a e E b
-   4 T h u r l e y m c T
-   5 a A n j a b r y e d
-   6 i n C p m a l r l g
-   7 d i a O g n o l a e
-   8 a n r u D h u r t p
-   9 w e s u s E c n e w
+   0 e i r e y R w o w n
+   1 e y e a v e O h o b
+   2 b u l c t e l S o m
+   3 d u g s h k p l E m
+   4 T s s e o n t a a T
+   5 n A p u r a w e b m
+   6 e i C a n y c r n u
+   7 c a a O y k t a o o
+   8 i u s r D y r d j n
+   9 q k u g b E l t d g
 
   Words used:
-    ache  F 1 ↓  
-     aid  C 7 ←  
-    alec  I 7 ↑  
-     ana  A 5 ↘  
-  archae  C 3 →  
-     bad  J 3 ↖  
-     car  B 3 →  
-     cot  D 1 ←  
-    crag  G 9 ↗  
-     dey  J 5 ←  
-     din  H 1 →  
-     end  J 0 ↓  
- extinct  A 2 →  
-  hurley  B 4 →  
-    hurt  F 8 →  
-     jab  D 5 →  
-    lamp  G 6 ←  
-    long  H 7 ←  
-     new  H 9 →  
-    nine  B 6 ↓  
-     nrc  C 5 ↗  
-    opec  A 0 →  
-    peck  B 0 →  
-     peg  J 8 ↑  
-     rna  C 8 ←  
-    scam  E 1 ↘  
-   shore  E 9 ↗  
-   sugar  C 9 ↗  
-     use  D 9 ←  
-    wadi  A 9 ↑  
-     wag  I 0 ←  
-     yen  A 1 ↓  
+  alley  I 4 ↖  
+    ape  H 4 ↖  
+    auk  B 7 ↓  
+    ave  D 1 →  
+   bolt  J 1 ↙  
+  brain  E 9 ↖  
+   club  D 2 ←  
+    dry  H 8 ←  
+    dug  A 3 →  
+   epic  D 4 ↙  
+   erie  D 0 ←  
+    eye  A 1 →  
+    gsa  D 9 ↖  
+    ice  A 8 ↑  
+    jon  I 8 ↑  
+    ltd  G 9 →  
+    moo  J 2 ↖  
+  muong  J 5 ↓  
+    nrc  I 6 ←  
+    own  H 0 →  
+    qua  A 9 ↗  
+   spay  B 4 ↘  
+   stew  D 3 ↗  
+   sunk  C 4 ↘  
+    tao  G 7 →  
+ thorny  E 2 ↓  
+    usa  C 9 ↑  
+    web  G 5 →  
+   whom  G 0 ↘  
+ yankee  F 6 ↑  
 
 
 END
 
-my $moar-terminal = q:to/END/;
+my $moar-cronjob = q:to/END/;
      A B C D E F G H I J
-   0 t o n a l R r i m p
-   1 z t h t z n O a i m
-   2 a c o l o n y S t u
-   3 g u g w r r l c E j
-   4 T y t o n r o h t T
-   5 h A t o r s p i y t
-   6 e e C n o d m a d a
-   7 l c r O u g i e a w
-   8 i u a c D o r a n s
-   9 x r s e a E b e n o
+   0 e e w o n R i n g w
+   1 s e t r p r O l i o
+   2 p n u t a t e S r h
+   3 w b n q z b k c E c
+   4 T i d w y e r i n T
+   5 d A r s g o t a n i
+   6 i t C e m i t r a w
+   7 d t l O o o c b n f
+   8 l a o c D t n e h g
+   9 a n d p e E t h e n
 
   Words used:
-      ace  C 8 ↖  
-     acre  E 9 ↖  
-      ada  H 6 →  
-      aim  H 1 →  
-      ann  I 7 ↓  
-     auto  A 2 ↘  
-   bounty  G 9 ↖  
-   colony  B 2 →  
-      cur  B 7 ↓  
-  gordian  C 3 ↘  
-    helix  A 5 ↓  
-      hog  C 1 ↓  
-     jump  J 3 ↑  
-      lop  G 3 ↓  
-      nyc  F 1 ↘  
-     ogre  E 6 ↘  
-      one  J 9 ←  
-      rim  G 0 →  
-      sea  C 9 →  
-     swat  J 8 ↑  
-    thorn  I 4 ←  
-      tim  I 2 ↑  
-    tonal  A 0 →  
-   toroid  D 1 ↘  
- townsmen  B 1 ↘  
-      yip  I 5 ←  
-      zag  A 1 ↓  
-     zorn  E 1 ↓  
+     bel  F 3 ↗  
+    burn  B 3 ↗  
+    chow  J 3 ↑  
+    coal  D 8 ←  
+     coo  G 7 ←  
+     did  A 7 ↑  
+     dna  C 9 ←  
+   dwyer  C 4 →  
+     etc  E 9 ↗  
+     faa  J 7 ↖  
+   ghent  J 8 ←  
+ hebraic  H 9 ↑  
+     inc  J 5 ↖  
+    iraq  G 0 ↙  
+     keg  G 3 ↙  
+     ltd  C 7 ←  
+     nan  I 5 ↓  
+     nih  H 0 ↘  
+     nut  C 3 ↑  
+  nutate  B 2 →  
+     opt  D 0 ↘  
+     pew  A 2 ↗  
+     pot  D 9 ↖  
+     rig  I 2 ↑  
+     set  A 1 →  
+    then  G 9 →  
+    togs  G 5 ←  
+     trw  B 6 ↗  
+ wartime  J 6 ←  
+     wee  C 0 ←  
+    wire  A 3 ↘  
+     zap  E 3 ↑  
 
 
 END
