@@ -10,7 +10,7 @@ use MONKEY-SEE-NO-EVAL;
 my @res;
 
 sub infix:<↑> is looser(&prefix:<->) { $^a ** $^b }
-sub infix:<^> is looser(&infix:<->)  { $^a ** $^b }
+sub infix:<∧> is looser(&infix:<->)  { $^a ** $^b } # use of ASCII caret '^' conflicts, see error message at end
 
 for 'Default precedence: infix exponentiation is tighter (higher) precedence than unary negation.',
     ('1 + -$x**$p', '1 + (-$x)**$p', '1 + (-($x)**$p)', '(1 + -$x)**$p', '1 + -($x**$p)'),
@@ -19,7 +19,7 @@ for 'Default precedence: infix exponentiation is tighter (higher) precedence tha
     ('1 + -$x↑$p ', '1 + (-$x)↑$p ', '1 + (-($x)↑$p) ', '(1 + -$x)↑$p ', '1 + -($x↑$p) '),
 
     "\nEven moreso: custom looser infix exponentiation is looser (lower) precedence than infix subtraction.",
-    ('1 + -$x^$p ', '1 + (-$x)^$p ', '1 + (-($x)^$p) ', '(1 + -$x)^$p ', '1 + -($x^$p) ')
+    ('1 + -$x∧$p ', '1 + (-$x)∧$p ', '1 + (-($x)∧$p) ', '(1 + -$x)∧$p ', '1 + -($x∧$p) ')
     -> $message, $ops {
     @res.push: $message;
     for -5, 5 X 2, 3 -> ($x, $p) {
@@ -47,11 +47,19 @@ x =  5  p = 2 │ 1 + -$x↑$p  =   26 │ 1 + (-$x)↑$p  =   26 │ 1 + (-($x)
 x =  5  p = 3 │ 1 + -$x↑$p  = -124 │ 1 + (-$x)↑$p  = -124 │ 1 + (-($x)↑$p)  = -124 │ (1 + -$x)↑$p  =  -64 │ 1 + -($x↑$p)  = -124
 
 Even moreso: custom looser infix exponentiation is looser (lower) precedence than infix subtraction.
-x = -5  p = 2 │ 1 + -$x^$p  =   36 │ 1 + (-$x)^$p  =   36 │ 1 + (-($x)^$p)  =   26 │ (1 + -$x)^$p  =   36 │ 1 + -($x^$p)  =  -24
-x = -5  p = 3 │ 1 + -$x^$p  =  216 │ 1 + (-$x)^$p  =  216 │ 1 + (-($x)^$p)  =  126 │ (1 + -$x)^$p  =  216 │ 1 + -($x^$p)  =  126
-x =  5  p = 2 │ 1 + -$x^$p  =   16 │ 1 + (-$x)^$p  =   16 │ 1 + (-($x)^$p)  =   26 │ (1 + -$x)^$p  =   16 │ 1 + -($x^$p)  =  -24
-x =  5  p = 3 │ 1 + -$x^$p  =  -64 │ 1 + (-$x)^$p  =  -64 │ 1 + (-($x)^$p)  = -124 │ (1 + -$x)^$p  =  -64 │ 1 + -($x^$p)  = -124
+x = -5  p = 2 │ 1 + -$x∧$p  =   36 │ 1 + (-$x)∧$p  =   36 │ 1 + (-($x)∧$p)  =   26 │ (1 + -$x)∧$p  =   36 │ 1 + -($x∧$p)  =  -24
+x = -5  p = 3 │ 1 + -$x∧$p  =  216 │ 1 + (-$x)∧$p  =  216 │ 1 + (-($x)∧$p)  =  126 │ (1 + -$x)∧$p  =  216 │ 1 + -($x∧$p)  =  126
+x =  5  p = 2 │ 1 + -$x∧$p  =   16 │ 1 + (-$x)∧$p  =   16 │ 1 + (-($x)∧$p)  =   26 │ (1 + -$x)∧$p  =   16 │ 1 + -($x∧$p)  =  -24
+x =  5  p = 3 │ 1 + -$x∧$p  =  -64 │ 1 + (-$x)∧$p  =  -64 │ 1 + (-($x)∧$p)  = -124 │ (1 + -$x)∧$p  =  -64 │ 1 + -($x∧$p)  = -124
 END
 
 use Test;
 is @res.join("\n"), chomp $ref;
+
+=finish 
+
+Potential difficulties:
+    Use of uninitialized value of type Any in string context.
+    Methods .^name, .raku, .gist, or .say can be used to stringify it to something meaningful.
+    at /Users/dhoekman/perl6/Rosetta-Code/E/Exponentiation_with_infix_operators_in_or_operating_on_the_base:13
+    ------> sub infix:<^> ($a,$b) ⏏is looser(&infix:<->)  { $a ** $b }
