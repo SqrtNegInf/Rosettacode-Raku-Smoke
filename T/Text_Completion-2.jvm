@@ -3,10 +3,11 @@
 #c# 2020-07-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-09-28 corrected spelling to  'sorensen' (cf 'S/Sorensen–Dice_coefficient')
 
 my @res;
 
-sub sorenson ($phrase, %hash) {
+sub sorensen ($phrase, %hash) {
     my $match = bigram $phrase;
     %hash.map: { [(2 × +($match ∩ .value) / (+$match + .value)).round(.001), .key] }
 }
@@ -19,7 +20,7 @@ my %hash = 'ref/unixdict.txt'.IO.slurp.words.map: { $_ => .&bigram };
 # Testing
 for <complition inconsqual Sørenson> -> $w {
     @res.push: "\n$w:";
-    @res.push: $_ for sorenson($w, %hash).grep(*.[0] >= .55).sort({-.[0],~.[1]}).head(10);
+    @res.push: $_ for sorensen($w, %hash).grep(*.[0] >= .55).sort({-.[0],~.[1]}).head(10);
 }
 
 .say for @res;
