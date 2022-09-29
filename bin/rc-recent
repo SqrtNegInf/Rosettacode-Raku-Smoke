@@ -2,8 +2,9 @@
 ## temporary, hopefully
 #    2022-09-02
 
-cd ~/perl6/Rosetta-Code;
-curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=750&namespace=0' > recent.html; 
+cd ~/perl6/Rosetta-Code
+curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=750&namespace=0' > recent.html
+
 pcregrep -v --buffer-size=22K footer recent.html  | \
 pcregrep 'data-mw-revid.*data-target-page' | \
 strip-html - | \
@@ -13,3 +14,11 @@ perl -npe 's/\Q‎\E.*?\Q‎\E//' | \
 perl -npe 's/\Q→‎\E{{header.(.*?)}}/$1/' | \
 perl -npe 's/talk contribs//' | 
 perl -npe "s/&#039;/'/g" 
+
+echo ' '
+
+pcregrep 'mw-enhanced-rc-nested" data-target-page' recent.html | \
+pcregrep 'Thunder|SqrtNegInf|Grondilu|Raku|Perl' | \
+cut -c 1-100 - | \
+perl -npe 's/^.*?data-target-page="(.*?)".*$/$1/' | \
+sort -u
