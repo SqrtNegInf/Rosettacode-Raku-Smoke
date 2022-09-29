@@ -3,6 +3,7 @@
 #c# 2022-09-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A072843 - O'Halloran numbers: even integers which cannot be the surface area of a cuboid with integer-length sides
 
 my @res;
 
@@ -12,7 +13,7 @@ my $threshold = 1000; # a little overboard to make sure we get them all
 
 for 1..$threshold -> $x {
     for 1..$x -> $y {
-        last if $x * $y > $threshold;
+        last if $x × $y > $threshold;
         for 1..$y -> $z {
            push @Area[my $area = ($x × $y + $y × $z + $z × $x) × 2], "$x,$y,$z";
            last if $area > $threshold;
