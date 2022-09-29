@@ -3272,6 +3272,20 @@ File: D/De_Bruijn_sequences
 #j# JVM:  OK
 #n# OEIS:A166315 is similar, but no OEIS entry exactly matches task
 
+File: D/De_Polignac_numbers
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/De_Polignac_numbers
+#c# 2022-09-28 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: D/De_Polignac_numbers.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/De_Polignac_numbers
+#c# 2022-09-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: D/Deal_cards_for_FreeCell
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Deal_cards_for_FreeCell
@@ -6676,6 +6690,21 @@ File: I/Include_a_file
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: I/Inconsummate_numbers_in_base_10
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Inconsummate_numbers_in_base_10
+#c# 2022-09-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A003635 - Inconsummate numbers in base 10
+
+File: I/Inconsummate_numbers_in_base_10.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Inconsummate_numbers_in_base_10
+#c# 2022-09-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: I/Increasing_gaps_between_consecutive_Niven_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Increasing_gaps_between_consecutive_Niven_numbers
@@ -9617,6 +9646,13 @@ File: N/Numerical_integration_Gauss-Legendre_Quadrature
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: O/O%27Halloran_numbers
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/O%27Halloran_numbers
+#c# 2022-09-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: O/Object_serialization
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Object_serialization
@@ -10209,11 +10245,11 @@ File: P/Parse_EBNF.jvm
 File: P/Parse_an_IP_Address
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parse_an_IP_Address
-#c# 2016-05-19 <RC, 2018-11-26 <RC, 2021-05-26 <RC
+#c# 2016-05-19 <RC, 2018-11-26 <RC, 2021-05-26 <RC, 2022-07-07 >RC
 #m# MOAR: OK
 #j#  JVM: OK 
 #n# java.util.regex.PatternSyntaxException: Unknown character property name {hexdigit}
-#n# replace :hexdigit with xdigit for the sake of JVM
+#n# 2022-07-07 replace :hexdigit with xdigit for the sake of JVM
 
 File: P/Parse_command-line_arguments
 #!/usr/bin/env perl6
@@ -13414,6 +13450,14 @@ File: S/Solve_the_no_connection_puzzle
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: S/Sorensen–Dice_coefficient
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Sorensen–Dice_coefficient
+#c# 2022-09-28 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n3 for JVM: the module has 'race'
+
 File: S/Sort_a_list_of_object_identifiers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Sort_a_list_of_object_identifiers
@@ -14953,6 +14997,7 @@ File: T/Text_Completion-2
 #m# MOAR: OK
 #j# JVM:  OK
 #n# reduced size of 'sorenson' by over 1%! (neither '+' in ratio was needed)
+#n# 2022-09-28 corrected spelling in code to 'sorensen' (cf 'S/Sorensen–Dice_coefficient') but not data
 
 File: T/Text_Completion-2.jvm
 #!/usr/bin/env perl6
@@ -14960,6 +15005,7 @@ File: T/Text_Completion-2.jvm
 #c# 2020-07-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2022-09-28 corrected spelling to  'sorensen' (cf 'S/Sorensen–Dice_coefficient')
 
 File: T/Text_between
 #!/usr/bin/env perl6
