@@ -1,14 +1,14 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Markov_chain_text_generator
 #c# 2016-11-11 <RC, 2017-01-31 >RC, 2017-02-05 <>RC, 2018-05-07 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #n#  key order of hashes no longer stable (but ArrayHash provides a work-around)
 #n# 2021-03-03 yesterday's "good" answer no longer works, updated again...
 #n# 2022-09-22 cf Average_loop_length, same problem with ArrayHash binding
 
-use lib 'lib';
-use lib '../lib';
+#use lib 'lib';
+#use lib '../lib';
 use ArrayHash;
 
 srand 123456;
@@ -58,8 +58,12 @@ my @generated-text = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.pick } ...
 my @res = @generated-text.head: $words;
 say @res.join(' ');
 
-my $moar  = qq:to/END/;
-the White Rabbit with pink eyes ran close by her. There was nothing else to do, so Alice ventured to taste it, and fortunately was just in time to see it written up somewhere.' Down, down, down. There was nothing else to do, so Alice soon began talking again. 'Dinah'll miss me very much out of its waistcoat-pocket, and looked at the thought that she was now the right distance-but then I wonder what I should be like then?' And she tried her best to climb up one of the house!' (Which was very deep, or she fell very slowly,
+my $moar-terminal  = qq:to/END/;
+was beginning to get rather sleepy, and went on saying to herself, 'after such a thing. After a while, finding that nothing more happened, she decided on going into the garden at once; but, alas for poor Alice! when she turned the corner, but the wise little Alice was beginning to get out again. The rabbit-hole went straight on like a telescope.' And so it was empty: she did not like to drop the jar for fear of killing somebody, so managed to put it into one of the house!' (Which was very deep, or she fell past it. 'Well!'
+END
+
+my $moar-cronjob  = qq:to/END/;
+up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her. There was nothing on it in large letters. It was all very well to say 'Drink me,' but the Rabbit was still in sight, hurrying down it. There was nothing so very much to-night, I should be like then?' And she tried her best to climb up one of the cupboards as she passed; it was all dark overhead; before her was another long passage, and the White Rabbit with pink eyes ran close by her. There was nothing so very remarkable in
 END
 
 my $jvm = qq:to/END/;
@@ -67,5 +71,4 @@ and went on saying to herself, 'in my going out altogether, like a tunnel for so
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join(' '), chomp $ref;
+is @res.join(' '), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
