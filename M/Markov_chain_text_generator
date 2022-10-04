@@ -2,13 +2,12 @@
 #u# http://rosettacode.org/wiki/Markov_chain_text_generator
 #c# 2016-11-11 <RC, 2017-01-31 >RC, 2017-02-05 <>RC, 2018-05-07 <RC
 #m# MOAR: OK
-#j#  JVM: BROKEN
+#j#  JVM: OK
 #n#  key order of hashes no longer stable (but ArrayHash provides a work-around)
 #n# 2021-03-03 yesterday's "good" answer no longer works, updated again...
 #n# 2022-09-22 cf Average_loop_length, same problem with ArrayHash binding
+#n# 2022-10-02 d'oh, was using out-of-date module, not new/precompiled version
 
-#use lib 'lib';
-#use lib '../lib';
 use ArrayHash;
 
 srand 123456;
@@ -21,6 +20,7 @@ sub add-to-dict ( $text, :$n=2, ) {
 
 # DH 2017-01-31 4x slower than .rotor version
 # DH 2018-10-04 now comparable in speed
+# DH 2022-10-03 nb: this branch gives different results than the one being tested
 if (False) {
     my @prefix-suffix;
     for ^(@words-$n) -> $i {
@@ -46,7 +46,6 @@ if $*VM ~~ /jvm/ {
    %dict = add-to-dict $text, :$n;
 } else {
     my %dictx = add-to-dict $text, :$n;
-   #%dict = array-hash();                 # fixes the compile-time error, but then doesn't work properly
     %dict := array-hash();
     %dict{$_} = %dictx{$_} for sort %dictx.keys;
 }
