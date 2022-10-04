@@ -17,16 +17,16 @@ multi md5(Blob $msg) {
                     {  $^b +^ ($^a +| +^$^c)        };
 
     constant @S = flat < 7 12 17 22 5 9 14 20 4 11 16 23 6 10 15 21 >.rotor(4) X[xx] 4;
-    constant @T = ^64 .map: { floor(abs(sin($_ + 1)) * 2**32) }
+    constant @T = ^64 .map: { floor(abs(sin($_ + 1)) × 2**32) }
     constant @k = flat (   $_           for ^16),
-                     ((5*$_ + 1) % 16 for ^16),
-                     ((3*$_ + 5) % 16 for ^16),
-                     ((7*$_    ) % 16 for ^16);
+                     ((5×$_ + 1) % 16 for ^16),
+                     ((3×$_ + 5) % 16 for ^16),
+                     ((7×$_    ) % 16 for ^16);
 
-    sub little-endian($w, $n, *@v) { (@v X+> flat ($w X* ^$n)) X% (2 ** $w) }
+    sub little-endian($w, $n, *@v) { (@v X+> flat ($w X× ^$n)) X% (2 ** $w) }
 
     sub md5-pad(blob8 $msg) {
-        my $bits = 8 * $msg.elems;
+        my $bits = 8 × $msg.elems;
         (
             (flat $msg.list, 0x80, 0x00 xx -($bits div 8 + 1 + 8) % 64)
             .map({ :256[$^d,$^c,$^b,$^a] }),
