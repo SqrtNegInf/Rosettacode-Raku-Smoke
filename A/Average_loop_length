@@ -10,17 +10,11 @@
 #n# 2021-03-01 still unstable when cron-launched
 #n# 2021-03-10 problem mostly in #2, 1.33% (98+%), or 0.67%, and very rarely 0.00% (then #3-6 are different too)
 #n# 2022-09-22 code is fixed, but results still completely unstable (MoarVM and JVM)
+#n# 2022-10-02 d'oh, was using out-of-date module, not new/precompiled version
 
-#srand 1; rand; # 2020-12-11 even head fake doesn't work here 100%
 srand 123456;
 
-#use lib 'lib';
-#use lib '../lib';
 use ArrayHash;
-
-# unstable output even with tiny limits
-#constant MAX_N  = 3;
-#constant TRIALS = 1;
 
 constant MAX_N  = 20;
 constant TRIALS = 100;
@@ -28,14 +22,11 @@ constant TRIALS = 100;
 my @res;
 
 for 1 .. MAX_N -> $N {
-    #dd my @glorp = find-loop(random-mapping($N)).elems xx TRIALS;
-    #my $empiric = TRIALS R/ [+] @glorp;
     my $empiric = TRIALS R/ [+] find-loop(random-mapping($N)).elems xx TRIALS;
     my $theoric = [+] map -> $k { $N ** ($k + 1) R/ [×] flat $k**2, $N - $k + 1 .. $N }, 1 .. $N;
 
     FIRST say " N    empiric      theoric      (error)";
     FIRST say "===  =========  ============  =========";
-   #FIRST srand 123456; # trick doesn't work here
 
     @res.push: sprintf "%3d  %9.4f  %12.4f    (%4.2f%%)",
             $N,  $empiric,
@@ -43,11 +34,10 @@ for 1 .. MAX_N -> $N {
 }
 
 .say for @res;
-#exit;
 
 sub random-mapping ($n) {
     my %temp = random-mapping-orig($n);
-    my %pair := array-hash();              # 2022-09-22 problem was here, don't bind with ':=', just assign
+    my %pair := array-hash();
     %pair{$_} = %temp{$_} for sort %temp.keys;
     return %pair;
 }
