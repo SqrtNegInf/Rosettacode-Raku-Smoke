@@ -10530,7 +10530,7 @@ File: P/Perceptron
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: perceptron.png
-#n# before 'zef install': (cd /usr/local/lib; ls -l /opt/local/lib/libMagickWand-6.Q16.dylib libMagickWand-7.Q16HDRI.dylib)
+#n# before 'zef install': (cd /usr/local/lib; ln -s /opt/local/lib/libMagickWand-6.Q16.dylib libMagickWand-7.Q16HDRI.dylib)
 
 File: P/Percolation_Bond_percolation
 #!/usr/bin/env perl6
@@ -14833,9 +14833,7 @@ File: T/Taxicab_numbers
 #c# 2016-01-23 <RC, 2018-10-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#f# RC file: taxicab_numbers.txt
 #n# OEIS:A001235
-#n# writing results to file as cannot get '@res.push:' to work right [ DH remove this file when clear this works ]
 
 File: T/Taxicab_numbers.1
 #!/usr/bin/env perl6
