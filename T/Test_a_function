@@ -1,10 +1,15 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Test_a_function
-#c# 2016-02-11 <>RC, 2018-04-08 <RC
+#c# 2016-02-11 <>RC, 2018-04-08 <RC, 2022-10-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# switch to testing with 'subset', just to be different
 
 use Test;
+
+subset Palindrom of Str where {
+    .flip eq $_ given .comb(/\w+/).join.lc
+}
 
 sub palin( Str $string) { so $string.lc.comb(/\w/) eq  $string.flip.lc.comb(/\w/) }
 
@@ -19,15 +24,13 @@ my %tests =
 
 plan %tests.elems;
 
-subset Palindrom of Str where {
-    .flip eq $_ given .comb(/\w+/).join.lc
-}
-
 for %tests.kv -> $test, $expected-result {
-    is $test ~~ palin($test), $expected-result,
-    #is $test ~~ Palindrom, $expected-result,
+    #is $test ~~ palin($test), $expected-result,
+    is $test ~~ Palindrom, $expected-result,
         "\"$test\" is {$expected-result??''!!'not '}a palindrome.";
 }
+
+done-testing;
 
 #`{
 1..6
