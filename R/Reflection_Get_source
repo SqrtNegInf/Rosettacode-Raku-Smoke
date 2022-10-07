@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# precompilation hash needs to be updated fairly often...
+#n# 2022-10-06 recent fixes on precomp/CURI causing series of updates here?
 
 # A full path is provided for built-in routines/methods. 
 # However for routines exported by pre-compiled modules a precompilation hash is returned, not a proper file path. 
@@ -12,7 +13,7 @@ say &sum.file;
 say Date.^find_method("day-of-week").file;
 
 use Test;
-is &is.file, 'core#sources/5E971AFC65A00E981B30D22A7B046FC21628DF4A (Test)';
+is &is.file, 'core#sources/52AE1754BA48B1BC74553776DBB08F18EE3D4B7E (Test)';
 
 is &sum.file, 'SETTING::src/core.c/Any.pm6';
 is Date.^find_method("day-of-week").file, 'SETTING::src/core.c/Dateish.pm6';
