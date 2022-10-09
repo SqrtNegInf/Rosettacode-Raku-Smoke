@@ -1,0 +1,20 @@
+2022-10-06
+Other than noted below, most tasks now run. 'srand' status is the last thing to work on.
+To fix the 'loading libcrypto in an unsafe way' warning:
+ln -s /opt/local/lib/libssl.dylib /usr/local/lib
+
+2022-10-05
+XQuartz/xterm runs fine, but RC tasks complain that no '$DISPLAY environment variable' is defined
+rc-ast-dump > ast.out 2> ast.err; fgrep '&infix:<*>' ast/* | perl -npe 's/:.*//' | sort -u > ast.txt
+
+2022-10-04
+Bailing on Gtk3 tasks.
+Math::GSL not installing.
+All tasks with HTTP::UserAgent abort: perl6 is loading libcrypto in an unsafe way
+
+2022-10-03
+Geo::Hash won't 'make' the needed library, so can't install.
+Putting more extensive notes on the setup process in with the main iMac migration doc.
+
+2022-10-01
+Started work on getting smoke-testing on new iMac/Monterey.
