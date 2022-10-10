@@ -77,7 +77,7 @@ wc -l bench/moar/*err | grep -v '^       [34]' | grep -v total
 echo '--'
 
 # combine task headers for easy grep
-/usr/local/pbin/grep-paragraph -H '#u# http' [0-Z]/* | /usr/local/pbin/grep-paragraph -v ReadMe.md - > meta/headers.txt
+~/bin/grep-paragraph -H '#u# http' [0-Z]/* | ~/bin/grep-paragraph -v ReadMe.md - > meta/headers.txt
 
 # leaderboard
 echo ' '
@@ -100,7 +100,7 @@ bin/rc-oeis > meta/OEIS.txt
 
 # how did the spectest go?
 #echo ' '
-#/usr/local/pbin/grep-paragraph Summary $HOME/.rakubrew/versions/out.mtest
+#~/bin/grep-paragraph Summary $HOME/.rakubrew/versions/out.mtest
 
 # latest Rakudo commits 
 echo ' '
