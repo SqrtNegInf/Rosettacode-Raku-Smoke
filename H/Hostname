@@ -8,5 +8,7 @@ my $host = qx[/bin/hostname];
 say $host;
 
 use Test;
-my $ref = $*KERNEL eq 'darwin' ??  'Mac-Pro.local' !! 'osboxes';
+#my $ref = $*KERNEL eq 'darwin' ??  'Mac-Pro.local' !! 'osboxes';
+my $ref = $*DISTRO ~~ /'macosx'/ ??  'Mac-Pro.local' !! 'iMac.home';
+#my $ref = $*DISTRO.starts-with:('macosx') ??  'Mac-Pro.local' !! 'iMac.home'; # ??
 is (chomp $host), $ref;
