@@ -22,7 +22,7 @@ class utimbuf is repr('CStruct') {
 
 sub sysutime(Str, utimbuf --> int32) is native is symbol('utime') {*} # DH change, from 'int'
 
-sub MAIN (Str $file = 'README') {
+sub MAIN (Str $file = 'run/mod-time.txt') {
     my $mtime = $file.IO.modified  orelse .die;
 
     my $ubuff = utimbuf.new(:atime(time),:mtime($mtime));
