@@ -3,6 +3,10 @@
 #c# 2021-11-21 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# on iMac: Primesieve::iterator.new isn't working
+#n# (see also: E/Earliest_difference_between_prime_gaps)
+
+die 'BROKEN on iMac, Math::Primesieve::iterator.new is not working' if qx/uname -a/ ~~ /'iMac'/;
 
 my @res;
 
