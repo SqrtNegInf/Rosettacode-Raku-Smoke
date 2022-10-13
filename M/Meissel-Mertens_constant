@@ -1,0 +1,17 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Meissel–Mertens_constant
+#c# 2022-10-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+#loop ($_=2,my $s;;.++) { .is-prime and $s += log(1-1/$_)+1/$_; $result = $s+.57721566490153286 and last if $_ > 1e7 }
+
+my $s;
+.is-prime and $s += log(1-1/$_)+1/$_ for 2 .. 10**7;
+say my $result = $s + .57721566490153286;
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is $result, chomp '0.2614972467355019';  # 1e6
+is  $result, chomp '0.26149721577764656'; # 1e7
+#is $result, chomp '0.26149721310571383'; # 1e8
