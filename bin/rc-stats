@@ -8,7 +8,7 @@ use feature 'say';
 
 chdir "$ENV{HOME}/perl6/Rosetta-Code" || die;
 
-my $pcre = '/usr/local/bin/pcregrep';
+my $pcre = "$ENV{HOME}/bin/pcregrep";
 
 my $days = $ARGV[0] || 1; # if just digits, show 'd' days, otherwise match directory names
 
