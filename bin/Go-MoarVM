@@ -62,7 +62,7 @@ rc-stats 2 | grep -v 2022 - | pcregrep -v '^\s*$' | sortcnt | pcregrep -v '^\s+2
 echo ' '
 cd meta
 cp -p task.txt task.txt~
-/usr/local/pbin/rotate_log -d logs -b -r -f task.txt
+$HOME/bin/rotate_log -d logs -b -r -f task.txt
 ../bin/rc-task-status > task.txt
 diff task.txt~ task.txt
 cd ..
@@ -79,11 +79,11 @@ wc -l bench/moar/*err | grep -v '^       [34]' | grep -v total
 echo '--'
 
 # combine task headers for easy grep
-~/bin/grep-paragraph -H '#u# http' [0-Z]/* | ~/bin/grep-paragraph -v ReadMe.md - > meta/headers.txt
+$HOME/bin/grep-paragraph -H '#u# http' [0-Z]/* | $HOME/bin/grep-paragraph -v ReadMe.md - > meta/headers.txt
 
 # leaderboard
 echo ' '
-head -20 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | /usr/local/pbin/drop -4
+head -20 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | $HOME/bin/drop -4
 
 # not a race, not a race, ...
 echo ' '
@@ -102,7 +102,7 @@ bin/rc-oeis > meta/OEIS.txt
 
 # how did the spectest go?
 #echo ' '
-#~/bin/grep-paragraph Summary $HOME/.rakubrew/versions/out.mtest
+#$HOME/bin/grep-paragraph Summary $HOME/.rakubrew/versions/out.mtest
 
 # latest Rakudo commits 
 echo ' '
