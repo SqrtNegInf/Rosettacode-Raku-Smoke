@@ -137,7 +137,7 @@ my($task,$header,@concur,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
     $P{$p}{'I'} = $header =~ /#t#.*(inter|gui)/i ? 'I' : '.';
 
     my $rh = '(race|hyper|Promise)|Lock.*new';
-    @concur = `/usr/local/bin/pcregrep '\\.$rh' $task`;
+    @concur = `~/bin/pcregrep '\\.$rh' $task`;
     if (@concur) {
         my $active = grep { /^[^#\n]+$rh/ } @concur;
         $P{$p}{'C'} = $active > 0                ? 'C' : 'c';
