@@ -1,6 +1,7 @@
 #!/bin/sh
 # results for: v2022.07-63-g82d4c17c0
 # note that invoking as shell script gives different results than running each snippet on command-line
+# (cf 'srand-at-start')
 
 # A: varies, of course
 raku -e 'my $x = <A B C D>; say "varies " ~ $x.roll(10);'
