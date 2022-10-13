@@ -3,7 +3,8 @@
 #c# 2022-10-13 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# need module for JVM
+#n# for JVM, using code from Tux's own distribution, but get this error:
+#n# Two terms in a row at /Users/dhoekman/perl6/Rosetta-Code/lib/IO/String.pm6 (IO::String):13
 
 my @res;
 
@@ -11,10 +12,10 @@ use Text::CSV;
 
 constant $EARTH_RADIUS_IN_NAUTICAL_MILES = 6372.8 / 1.852;
 
-sub degrees   ( Real $rad ) { $rad / tau * 360 }
-sub radians   ( Real $deg ) { $deg * tau / 360 }
+sub degrees   ( Real $rad ) { $rad / tau × 360 }
+sub radians   ( Real $deg ) { $deg × tau / 360 }
 sub haversine ( Real $x   ) { ($x / 2).sin.²   }
-sub arc_haver ( Real $x   ) { $x.sqrt.asin * 2 }
+sub arc_haver ( Real $x   ) { $x.sqrt.asin × 2 }
 
 sub great_circle_distance ( \φ1, \λ1, \φ2, \λ2 ) {
     # https://en.wikipedia.org/wiki/Haversine_formula
@@ -22,13 +23,13 @@ sub great_circle_distance ( \φ1, \λ1, \φ2, \λ2 ) {
     #   hav(θ) = hav(φ₂ − φ₁) + cos(φ₁) cos(φ₂) hav(λ₂ − λ₁)
     arc_haver(
         haversine(φ2 - φ1)
-      + haversine(λ2 - λ1) * cos(φ1) * cos(φ2)
+      + haversine(λ2 - λ1) × cos(φ1) × cos(φ2)
     );
 }
 
 sub great_circle_bearing ( \φ1, \λ1, \φ2, \λ2 ) {
-    atan2(                          φ2.cos * (λ2 - λ1).sin,
-        φ1.cos * φ2.sin - φ1.sin * φ2.cos * (λ2 - λ1).cos,
+    atan2(                          φ2.cos × (λ2 - λ1).sin,
+        φ1.cos × φ2.sin - φ1.sin × φ2.cos × (λ2 - λ1).cos,
     );
 }
 
@@ -38,7 +39,7 @@ sub distance_and_bearing ( $lat1, $lon1, $lat2, $lon2 ) {
     my $dist  = great_circle_distance(|@ll);
     my $theta = great_circle_bearing( |@ll);
 
-    return  $dist * $EARTH_RADIUS_IN_NAUTICAL_MILES,
+    return  $dist × $EARTH_RADIUS_IN_NAUTICAL_MILES,
             degrees( $theta + (tau if $theta < 0) )
 }
 
