@@ -3,14 +3,9 @@
 #c# 2019-10-13 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#x# xx file: frog-16.png
-#n# fake-run, results are from Ubuntu 18
-#n# need ver. 7 of ImageMagick
-#n# my OS too old to 'zef install MagickWand', '_clock_gettime' missing from /usr/lib/libSystem.B.dylib
+#x# RC file: frog-16.png
+#n# this works after all?  Woo-Hoo
 
-sleep 1;
-
-#`{{
 use MagickWand;
 use MagickWand::Enums;
 
@@ -18,4 +13,3 @@ my $frog = MagickWand.new;
 $frog.read("ref/frog.png");
 $frog.quantize(16, RGBColorspace, 0, True, False);
 $frog.write('./frog-16.png');
-}}
