@@ -5,6 +5,7 @@
 #j# JVM:  BROKEN
 #f# RC file: perceptron.png
 #n# before 'zef install': (cd /usr/local/lib; ln -s /opt/local/lib/libMagickWand-6.Q16.dylib libMagickWand-7.Q16HDRI.dylib)
+#n# on iMac: ref/run files not identical, so use similarity testing
 
 srand 123456;
 
@@ -58,4 +59,9 @@ my $perc = Perceptron.new: n => 3, w => $w, h => $h;
 my $o = MagickWand.new or die; 
 $o.create( $w, $h, "white" );
 $perc.draw($o);
-$o.write('run/perceptron.png') or die
+$o.write('run/perceptron.png') or die;
+
+say my $result = qqx!/opt/local/bin/compare -metric MAE ref/perceptron.png run/perceptron.png null: 2>&1!;
+
+use Test;
+is $result, '0 (0)';
