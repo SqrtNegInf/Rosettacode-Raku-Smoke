@@ -2421,6 +2421,15 @@ File: C/Color_quantization
 #c# 2019-10-13 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# this works after all?  Woo-Hoo
+#n# macos 'diff' says they differ, so use 'ImageMagick' tool to test
+
+File: C/Color_quantization.0
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Color_quantization
+#c# 2019-10-13 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
 #x# xx file: frog-16.png
 #n# fake-run, results are from Ubuntu 18
 #n# need ver. 7 of ImageMagick
@@ -3684,6 +3693,15 @@ File: D/Display_an_outline_as_a_nested_table
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: D/Distance_and_Bearing
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Distance_and_Bearing
+#c# 2022-10-13 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for JVM, using code from Tux's own distribution, but get this error:
+#n# Two terms in a row at /Users/dhoekman/perl6/Rosetta-Code/lib/IO/String.pm6 (IO::String):13
+
 File: D/Distinct_Palindromes_Within_Decimal_Numbers
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Distinct_Palindromes_Within_Decimal_Numbers
@@ -3956,6 +3974,8 @@ File: E/Earliest_difference_between_prime_gaps
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 1e1 through 1e7 are pretty speedy, up to 1e9 is very slow
+#n# on iMac: Primesieve::iterator.new isn't working
+#n# (see also: F/Find_adjacent_primes_which_differ_by_a_square_integer)
 
 File: E/Eban_numbers
 #!/usr/bin/env perl6
@@ -5001,6 +5021,8 @@ File: F/Find_adjacent_primes_which_differ_by_a_square_integer
 #c# 2021-11-21 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# on iMac: Primesieve::iterator.new isn't working
+#n# (see also: E/Earliest_difference_between_prime_gaps)
 
 File: F/Find_common_directory_path
 #!/usr/bin/env perl6
@@ -6056,6 +6078,7 @@ File: H/HTTPS
 #n#   in method get-connection at /Users/dhoekman/perl6/Rosetta-Code/lib/HTTP/UserAgent.pm6 (HTTP::UserAgent) line 362
 #n# 2022-10-06 recent commit explains this, module needs update?
 #n# Type check failed in assignment to $chunk; expected Buf but got Blob[uint8] (Blob[uint8].new(53,9...)
+#n# 2022-10-12 commit was reverted and problem went away
 
 File: H/HTTPS_Authenticated
 #!/usr/bin/env perl6
@@ -8599,7 +8622,7 @@ File: M/Median_filter
 File: M/Meissel-Mertens_constant
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Meissel–Mertens_constant
-#c# 2022-10-11 <RC
+#c# 2022-10-11 <RC, 2022-10-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -16440,13 +16463,14 @@ File: X/XML_Validation
 #n# 2020-10-12 Pod::To::Markdown fails tests, Zef-install-all uses 'force-install'
 
 File: X/XML_XPath
-#!/usr/bin/env perl6 do-not-check
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/XML/XPath
 #c# 2018-03-11 <RC
 #m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #n# JVM runs forever, so leave BEGIN/die in
 #n# 2020-10-04 runs forever, what changed?
+#n# 2022-10-13 seems to run fine now, who knows...
 
 File: X/XXXX_redacted
 #!/usr/bin/env raku
