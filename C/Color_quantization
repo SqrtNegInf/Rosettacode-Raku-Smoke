@@ -3,7 +3,6 @@
 #c# 2019-10-13 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#x# RC file: frog-16.png
 #n# this works after all?  Woo-Hoo
 #n# macos 'diff' says they differ, so use 'ImageMagick' tool to test
 
@@ -18,4 +17,4 @@ $frog.write('run/frog-16.png');
 say my $result = qqx!/opt/local/bin/compare -metric MAE ref/frog-16.png run/frog-16.png null: 2>&1!;
 
 use Test;
-is chomp($result), '0 (0)';
+is $result, '0 (0)';
