@@ -2,11 +2,13 @@
 #u# http://rosettacode.org/wiki/Web_scraping
 #t# network
 #c# 2016-05-12 <>RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #n# for JVM: VMArray representation does not implement bind_pos_native
 #n# ultimately has to do with SSL, which involves NativeCall
 #n# old Naval time server was failing...
+
+die 'BROKEN on Mac-Pro, OK in iMac' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 #use HTTP::Client; # install fails on Mac OS X / El Capitan due to lack of 'whirlpool'?
 

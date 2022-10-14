@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
+die 'BROKEN on iMac, Geohash .c library won't "make"' if qx/uname -a/ ~~ /'iMac'/;
+
 my @res;
 
 use Geo::Hash;

@@ -10,9 +10,9 @@ raku ~/.rakubrew/versions/moar-blead/install/share/perl6/site/bin/zef upgrade > 
 
 echo ' '
 echo 'out.zef'
-/usr/local/bin/pcregrep 'FAIL|OK' out.zef | sort
+~/bin/pcregrep 'FAIL|OK' out.zef | sort
 echo ' '
 echo 'err.zef'
-/usr/local/bin/pcregrep -v mirror: err.zef | sort
+~/bin/pcregrep -v mirror: err.zef | sort
 
 #bin/rakubrew mode env
