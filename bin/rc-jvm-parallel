@@ -48,7 +48,7 @@ $dir = `date '+%Y-%m-%d'`; chomp $dir;
 $dir .= $mode eq 'jvm' ? '-j' : '-m';
 mkdir "bench/$dir"   if ! -e "bench/$dir";
 unlink "bench/$mode" if   -e "bench/$mode";
-system qq{cd bench; symlink $dir $mode};
+system qq{cd bench; ln -s $dir $mode};
 
 $exe  = 'perl6'; # don't have a 'raku-j' yet
 $exe .= $mode eq 'jvm' ? '-j -I lib ' : '-m';
