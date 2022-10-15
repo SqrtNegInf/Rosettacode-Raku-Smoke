@@ -1,14 +1,14 @@
-Welcome to Rakudo™ v2022.07-65-gfeb04dbe9.
+Welcome to Rakudo™ v2022.07-66-g4cdb55850.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2022.07-16-g3ae8a31c1.
 updating from RC...
-+--------------> Moar: Good/Bad [379/10]
++--------------> Moar: Good/Bad [378/10]
 |+-------------> JVM: Good/Bad [312/78]
 ||+------------> Smoke testing [357]
 |||+-----------> sKipping validation [27]
 ||||+----------> Interactive [13]
 |||||+---------> Touched (modified by me) [80]
-||||||+--------> Concurrent/Async []
+||||||+--------> Concurrent/Async [26]
 |||||||+-------> Random seed [38]
 ||||||||+------> File output [31]
 |||||||||+-----> Draft [199]
@@ -18,7 +18,7 @@ updating from RC...
 |||||||||||||
 GGS......D... 10001th_prime
 GGS.......... 100_doors
-GGS....R..... 100_prisoners
+GGS...cR..... 100_prisoners
 GB.KI..R..... 15_puzzle_game
 .........D.V. 15_puzzle_game_in_3D
 GG.K......... 15_puzzle_solver
@@ -26,7 +26,7 @@ GG.KI....D... 16_puzzle_game
 GB.KI..R..... 2048
 GGS....R..... 21_game
 GGS..T.R..... 24_game
-GBS..T....... 24_game_Solve-1
+GBS..TC...... 24_game_Solve-1
 GGS..T....... 24_game_Solve-2
 .........D.V. 3d_turtle_graphics
 GGS.......... 4-rings_or_4-squares_puzzle
@@ -48,9 +48,9 @@ BB.KI........ Abelian_sandpile_model-2
 GGS.......... Abelian_sandpile_model_Identity
 GGS.......... Abstract_type
 GGS..T....... Abundant,_deficient_and_perfect_number_classifications
-GBS..T....... Abundant_odd_numbers
+GBS..TC...... Abundant_odd_numbers
 GGS.......... Accumulator_factory
-GBS.......... Achilles_numbers
+GBS...C...... Achilles_numbers
 GGS.......... Ackermann_function
 GB.K......... Active_Directory_Connect
 BB........... Active_Directory_Search_for_a_user
@@ -61,10 +61,10 @@ GBS..T...D... Addition_chains
 GGS..T....... Additive_primes-1
 GGS.......... Additive_primes-2
 GGS..T....... Address_of_a_variable
-GBS......D... Air_mass
+GBS...C..D... Air_mass
 GGS..T.R..... Algebraic_data_types
 GGS.......... Align_columns
-GGS..T....... Aliquot_sequence_classifications
+GGS..Tc...... Aliquot_sequence_classifications
 GGS.......... Almkvist-Giullera_formula_for_pi
 GGS.......... Almost_prime-1
 GGS.......... Almost_prime-2
@@ -72,9 +72,9 @@ GGS......D... Alternade_words
 GGS.......... Amb-1
 GGS....R..... Amb-2
 GGS....R..... Amb-3
-GGS..T....... Amicable_pairs
+GGS..TC...... Amicable_pairs
 GGS......D... Anadromes
-GGS......D... Anagram_generator
+GGS...c..D... Anagram_generator
 GGS.......... Anagrams
 GGS.......... Anagrams_Deranged_anagrams
 GGS..T....... Angle_difference_between_two_bearings
@@ -84,24 +84,24 @@ GGS.......... Angles_geometric,_normalization_and_conversion-2
 GB.KI........ Animate_a_pendulum
 GB.KI........ Animation
 GGS.......... Anonymous_recursion
-GGS.......... Anti-primes
+GGS...c...... Anti-primes
 GGS.......... Append_a_record_to_the_end_of_a_text_file
 GGS......D... Append_numbers_at_same_position_in_strings
 GGS.......... Apply_a_callback_to_an_array
 GGS.......... Apply_a_digital_filter_direct_form_II_transposed
 GGS.......... Approximate_equality
 GGS.......... Arbitrary-precision_integers_included
-GBS.....F.... Archimedean_spiral
+GBS...C.F.... Archimedean_spiral
 ..........XV. Arena_storage_pool
 GGS.......... Arithmetic-geometric_mean
 GGS..T....... Arithmetic-geometric_mean_Calculate_Pi
 GGS.......... Arithmetic_Complex
 GGS..T....... Arithmetic_Integer
-GBS..T....... Arithmetic_Rational
+GBS..TC...... Arithmetic_Rational
 GGS......D... Arithmetic_coding_As_a_generalized_change_of_radix
 GGS......D... Arithmetic_derivative
 GGS..T....... Arithmetic_evaluation
-GGS.......... Arithmetic_numbers
+GGS...C...... Arithmetic_numbers
 GGS.......... Array_concatenation
 GGS.......... Array_length
 GGS.......... Arrays
@@ -113,8 +113,8 @@ GGS......D... Assertions_in_design_by_contract
 GGS.......... Associative_array_Creation
 GGS.......... Associative_array_Iteration
 GGS.......... Associative_array_Merging
-GGS....R..... Atomic_updates
-GBS.......... Attractive_numbers
+GGS...CR..... Atomic_updates
+GBS...C...... Attractive_numbers
 ..........X.. AudioAlarm
 .........D.V. Audio_alarm
 .........D.V. Audio_frequency_generator
@@ -162,7 +162,7 @@ GGS....R..... Bioinformatics_Sequence_mutation
 GGS....R.D... Bioinformatics_Subsequence
 GGS.......... Bioinformatics_base_count
 GGS.......... Biorhythms
-GGS..T.R.D... Birthday_problem
+GGS..TcR.D... Birthday_problem
 GGS.......... Bitcoin_address_validation
 GGS.......... Bitcoin_public_point_to_address
 GGS.......... Bitmap
@@ -186,9 +186,9 @@ GGS.......... Box_the_compass
 GBS......D... Boyer-Moore_string_search
 GGS..T....... Brace_expansion
 GBS......D... Brace_expansion_using_ranges
-GBS..T....... Brazilian_numbers
+GBS..TC...... Brazilian_numbers
 GGS.......... Break_OO_privacy
-GBS.......... Brilliant_numbers
+GBS...C...... Brilliant_numbers
 GG.K.T.RF.... Brownian_tree
 GGS....R..... Bulls_and_cows
 GGS..T.R..... Bulls_and_cows_Player
@@ -219,9 +219,9 @@ GGS.......... Catalan_numbers_Pascal%27s_triangle
 GGS..T....... Catamorphism
 ...........V. Catmull-Clark_subdivision_surface
 GGS......D... Change_e_letters_to_i_in_words
-GBS......D... Changeable_words
+GBS...C..D... Changeable_words
 GGS.......... Chaocipher
-GBS....RF.... Chaos_game
+GBS...CRF.... Chaos_game
 GBS.......... Character_codes
 GG.KI........ Chat_server
 GBS..T...D... Chebyshev_coefficients
@@ -229,7 +229,7 @@ GGS..T....... Check_Machin-like_formulas
 GGS.......... Check_input_device_is_a_terminal
 GG.KI........ Check_output_device_is_a_terminal
 GGS..T....... Check_that_file_exists
-GGS.......... Checkpoint_synchronization
+GGS...C...... Checkpoint_synchronization
 GGS.....FD... Checksumcolor
 GGS..T...D... Chemical_calculator
 GBS.......... Chernick%27s_Carmichael_numbers
@@ -238,17 +238,17 @@ GGS.......... Cheryl%27s_birthday
 GGS.......... Chinese_remainder_theorem
 GGS.......... Chinese_zodiac
 GGS..T....... Cholesky_decomposition
-GBS.......... Chowla_numbers
+GBS...C...... Chowla_numbers
 GGS.......... Church_numerals-1
 GGS.......... Church_numerals-2
 GGS......D... Cipolla%27s_algorithm
 GGS..T....... Circles_of_given_radius_through_two_points
-GBS..T....... Circular_primes
+GBS..TC...... Circular_primes
 GGS....RF.... Cistercian_numerals
 GGS.......... Classes
 GGS..T....... Closest-pair_problem
-GGS..T.R..... Closest-pair_problem-2
-GGS..T.R..... Closest-pair_problem-3
+GGS..TCR..... Closest-pair_problem-2
+GGS..TCR..... Closest-pair_problem-3
 GGS.......... Closures_Value_capture
 GBS......D... Code_Golf:_Code_Golf
 GG.K.....D... Code_segment_unload
@@ -257,8 +257,8 @@ GGS.......... Collections
 GB.KIT....... Color_of_a_screen_pixel
 BB........... Color_of_a_screen_pixel-2
 GBS.......... Color_quantization
-GBS.....F.... Color_wheel
-GBS.......... Colorful_numbers
+GBS...C.F.... Color_wheel
+GBS...C...... Colorful_numbers
 GGS..T..F.... Colour_bars_Display
 GGS..T..F.... Colour_pinstripe_Display
 GBS.....F.... Colour_pinstripe_Printer
@@ -286,10 +286,10 @@ GGS.......... Compiler_lexical_analyzer
 ...........V. Compiler_syntax_analyzer
 GGS..T....... Compiler_virtual_machine_interpreter
 BB........... Compiler_virtual_machine_interpreter-2
-GBS.......... Composite_numbers_k_with_no_single_digit_factors_whose_factors_are_all_substrings_of_k
+GBS...C...... Composite_numbers_k_with_no_single_digit_factors_whose_factors_are_all_substrings_of_k
 GGS.......... Compound_data_type
 GGS......D... Concatenate_two_primes_is_also_prime
-GB.K.T....... Concurrent_computing
+GB.K.TC...... Concurrent_computing
 GG.K......... Conditional_structures
 GGS......D... Conjugate_a_Latin_verb
 GGS.....F.... Conjugate_transpose
@@ -323,7 +323,7 @@ GGS....R.D... Day_of_the_week_of_Christmas_and_New_Year
 GGS......D... Days_between_dates
 GGS......D... Decimal_floating_point_number_to_binary
 GGS......D... Decision_tables
-GBS......D... Digit_fifth_powers
+GBS...c..D... Digit_fifth_powers
 .........D.V. Diophantine_linear_system_solving
 GGS......D... Discrete_Fourier_transform
 GBS......D... Distinct_palindromes_within_decimal_numbers
@@ -337,8 +337,8 @@ GGS.......... Divide_a_rectangle_into_a_number_of_unequal_triangles-2
 GB.KI....D... Draw_pixel_2
 .........D.V. Elevator_simulation
 GGS......D... Engel_expansion
-GBS......D... Erdos-Nicolas_numbers
-GBS......D... Erdos-Woods_numbers
+GBS...C..D... Erdos-Nicolas_numbers
+GBS...C..D... Erdos-Woods_numbers
 GGS......D... Erdos-primes
 .........D... Euclid-Mullin_sequence
 GGS.......... Euclid-Mullin_sequence-1
@@ -349,7 +349,7 @@ GBS..T...D... External_sort
 GGS......D... Extra_primes
 GGS......D... Extract_file_extension
 GGS......D... Factorial_primes
-GBS......D... Fermat_pseudoprimes
+GBS...C..D... Fermat_pseudoprimes
 GGS.....FD... Fibonacci_heap
 !BS..T...D... Fibonacci_matrix-exponentiation
 GGS......D... Find_URI_in_text
@@ -377,7 +377,7 @@ GGS..T...D... Generalised_floating_point_addition
 GGS....R.D... Generate_random_numbers_without_repeating_a_value
 GBS....R..... Generate_random_numbers_without_repeating_a_value-2
 .........D... Geohash
-GBS.......... Geohash-1
+!BS.......... Geohash-1
 GGS.......... Geohash-2
 GGS....R.D... Geometric_algebra
 GBS......D... Getting_the_number_of_decimals
@@ -399,7 +399,7 @@ GGS..T...D... Integer_long_division
 GGS..T...D... Integer_roots
 GG.K.....D... Interactive_help
 ..........X.. Interactive_programming
-GGS......D... Isograms_and_heterograms
+GGS...c..D... Isograms_and_heterograms
 GGS......D... Iterators
 GGS......D... Jaccard_index
 ..........X.. JortSort
@@ -413,7 +413,7 @@ GBS.......... Largest_difference_between_adjacent_primes-2
 GGS....R.D... Largest_five_adjacent_number
 .........D... Largest_palindrome_product
 GGS.......... Largest_palindrome_product-1
-GGS.......... Largest_palindrome_product-2
+GGS...c...... Largest_palindrome_product-2
 GBS.......... Largest_palindrome_product-3
 .........D... Largest_prime_factor
 GGS.......... Largest_prime_factor-1
