@@ -3,9 +3,9 @@
 #c# 2020-11-15 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#f# RC file: perceptron.png
+#x# xx file: perceptron.png
 #n# before 'zef install': (cd /usr/local/lib; ln -s /opt/local/lib/libMagickWand-6.Q16.dylib libMagickWand-7.Q16HDRI.dylib)
-#n# on iMac: ref/run files not identical, so use similarity testing
+#n# srand issues ref/run files will not stay in sync, so use similarity testing
 
 srand 123456;
 
@@ -63,5 +63,7 @@ $o.write('run/perceptron.png') or die;
 
 say my $result = qqx!/opt/local/bin/compare -metric MAE ref/perceptron.png run/perceptron.png null: 2>&1!;
 
+# allow for exact equivalence or close similarity
 use Test;
-is $result, '0 (0)';
+my ($mae,$percent)  = $result.split(' ');
+ok $result eq '0 (0)' || $mae < 2000 and $percent.starts-with('(0.');
