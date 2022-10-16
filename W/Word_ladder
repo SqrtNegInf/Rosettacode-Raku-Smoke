@@ -3,10 +3,12 @@
 #c# 2021-06-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# full path with %*ENV<HOME> makes nightly syntax checker happier? (an upgrade to 'Perl-sym_checker' would help here)
 
 my @res;
 
-constant %dict = 'ref/unixdict.txt'.IO.lines
+#constant %dict = 'ref/unixdict.txt'.IO.lines
+constant %dict = "%*ENV<HOME>/perl6/Rosetta-Code/ref/unixdict.txt".IO.lines
                                .classify(*.chars)
                                .map({ .key => .value.Set });
 
