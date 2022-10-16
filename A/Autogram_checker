@@ -6,12 +6,66 @@
 #n# with '<:ws>' JVM gives: java.util.regex.PatternSyntaxException: Unknown character property name (not even <:Ws> is a thing)
 #n# converted to <ws> (like other instances) everything is fine. Colon-preceded form acts as equivalent? Undocumented, or in error?
 #n# 2022-10-15 have to use full-module path to call 'wrap-text', isn't properly exported?
-#n#            p.s..
+#n#            p.s. 1st call still a problem?
+#n# 2022-10-16 in-lining the Text::Wrap code
 
 my @res;
 
-use lib 'lib';
-use Text::Wrap;
+#use lib 'lib'; # still need?
+#use Text::Wrap;
+
+#module Text::Wrap {
+  sub wrap-text(
+    Str $text,
+    Int :$width is copy where * > 0 = 80,
+    Regex :$paragraph = rx/\n ** 2..*/,
+    Bool :$hard-wrap = False,
+    Str :$prefix = '',
+    Str :$postfix = ''
+  ) is export {
+    my $result = '';
+
+    $width -= $prefix.chars;
+
+    my @paragraphs = $paragraph.defined ?? $text.split($paragraph) !! [$text];
+
+    while @paragraphs {
+      my $p = @paragraphs.shift;
+      my $line = '';
+
+      for $p.words -> $word {
+        if $line.chars + 1 + $word.chars <= $width || (!$line.chars && $word.chars <= $width) {
+            $line ~= $line ?? ' ' ~ $word !! $word;
+        }
+        else {
+          $result ~= $prefix ~ $line ~ $postfix ~ "\n";
+
+          if $hard-wrap {
+            my $copy = $word;
+
+            while $copy.chars > $width {
+              $result ~= $prefix ~ $copy.substr(0, $width) ~ $postfix ~ "\n";
+              $copy.=substr($width);
+            }
+
+            $line = $copy;
+          }
+          else {
+            $line = $word;
+          }
+        }
+      }
+
+      $result ~= $prefix ~ $line ~ $postfix if $line;
+      $result ~= "\n" ~ $prefix ~ "\n" if @paragraphs;
+    }
+
+    $result ~~ s/$postfix$//; # Trailing postfix useless
+    $result ~~ s/^$prefix\n+//;
+
+    return $result;
+  }
+#}
 
 my %nums = :0zero, :1one, :2two, :3three, :4four, :5five, :6six, :7seven, :8eight, :9nine, :10ten, :11eleven,
     :12twelve, :13thirteen, :14fourteen, :15fifteen, :16sixteen, :17seventeen, :18eighteen, :19nineteen,
@@ -36,7 +90,7 @@ my @tests =
 for @tests ->  (&filter, $text) {
 
     # Original
-    @res.push: Text::Wrap::wrap-text :100width, $text;
+    @res.push: wrap-text :100width, $text;
 
     @res.push: "\nFiltering out " ~ &filter.name ~ ':';
 
@@ -52,11 +106,11 @@ for @tests ->  (&filter, $text) {
     my %claim = flat $str.lc.match(:g, /\d+ <ws> ['comma'|'apostrophe'|'hyphen'|.]/)».split(' ')»[1,0]».pairup;
     #my %claim = flat $str.lc.match(:g, /\d+ <:ws> ['comma'|'apostrophe'|'hyphen'|.]/)».split(' ')»[1,0]».pairup; # means what? typo?
     for <comma , hyphen - apostrophe '> #`['] -> $word, $symbol { %claim{$symbol} = %claim{$word}:delete if %claim{$word} }
-    @res.push: "\nClaimed character counts:\n" ~ Text::Wrap::wrap-text :100width, my $C = %claim.sort( ~*.key ).map( { sprintf "%s\(%d)", .key, .value } ).join: ' ';
+    @res.push: "\nClaimed character counts:\n" ~ wrap-text :100width, my $C = %claim.sort( ~*.key ).map( { sprintf "%s\(%d)", .key, .value } ).join: ' ';
 
     # And of the actual character counts.
     my %count = &filter($text).lc.comb.Bag.hash;
-    @res.push: "\nActual:\n" ~ Text::Wrap::wrap-text :100width, my $A = %count.sort( ~*.key ).map( { sprintf "%s\(%d)", .key, .value } ).join: ' ';
+    @res.push: "\nActual:\n" ~ wrap-text :100width, my $A = %count.sort( ~*.key ).map( { sprintf "%s\(%d)", .key, .value } ).join: ' ';
 
     # And compare them
     #@res.push: "\nAutogram? " ~ ($A eq $C ?? 'True' !! 'False'); # works too
