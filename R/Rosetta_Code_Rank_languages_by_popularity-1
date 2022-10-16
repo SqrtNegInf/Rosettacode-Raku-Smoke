@@ -2,9 +2,11 @@
 #u# http://rosettacode.org/wiki/Rosetta_Code/Rank_languages_by_popularity
 #t# network
 #c# 2017-01-16 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #n# SSL lib issue even without 'https' URL?
+
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
