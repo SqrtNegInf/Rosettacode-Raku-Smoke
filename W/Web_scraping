@@ -8,7 +8,7 @@
 #n# ultimately has to do with SSL, which involves NativeCall
 #n# old Naval time server was failing...
 
-die 'BROKEN on Mac-Pro, OK in iMac' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 #use HTTP::Client; # install fails on Mac OS X / El Capitan due to lack of 'whirlpool'?
 
