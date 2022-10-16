@@ -2,12 +2,13 @@
 #u# http://rosettacode.org/wiki/Rosetta_Code/Find_unimplemented_tasks
 #t# network
 #c# 2018-04-30 <RC, 2020-07-19 >RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
+
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-# Works with: Rakudo version 2018.04.1
 use HTTP::UserAgent;
 use URI::Escape;
 use JSON::Fast;
