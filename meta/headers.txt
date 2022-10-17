@@ -1033,7 +1033,8 @@ File: A/Autogram_checker
 #n# with '<:ws>' JVM gives: java.util.regex.PatternSyntaxException: Unknown character property name (not even <:Ws> is a thing)
 #n# converted to <ws> (like other instances) everything is fine. Colon-preceded form acts as equivalent? Undocumented, or in error?
 #n# 2022-10-15 have to use full-module path to call 'wrap-text', isn't properly exported?
-#n#            p.s..
+#n#            p.s. 1st call still a problem?
+#n# 2022-10-16 in-lining the Text::Wrap code
 
 File: A/Average_loop_length
 #!/usr/bin/env perl6
@@ -12403,7 +12404,7 @@ File: R/Rosetta_Code_Find_unimplemented_tasks
 #u# http://rosettacode.org/wiki/Rosetta_Code/Find_unimplemented_tasks
 #t# network
 #c# 2018-04-30 <RC, 2020-07-19 >RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 
 File: R/Rosetta_Code_Fix_code_tags
@@ -12436,7 +12437,7 @@ File: R/Rosetta_Code_Rank_languages_by_number_of_users
 #u# http://rosettacode.org/wiki/Rosetta_Code/Rank_languages_by_number_of_users
 #t# network
 #c# 2018-05-19 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 
 File: R/Rosetta_Code_Rank_languages_by_popularity-1
@@ -12444,7 +12445,7 @@ File: R/Rosetta_Code_Rank_languages_by_popularity-1
 #u# http://rosettacode.org/wiki/Rosetta_Code/Rank_languages_by_popularity
 #t# network
 #c# 2017-01-16 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #n# SSL lib issue even without 'https' URL?
 
@@ -12454,7 +12455,8 @@ File: R/Rosetta_Code_Rank_languages_by_popularity-2
 #t# network
 #c# 2016-05-21 <RC, 2018-10-28 >RC
 #m# MOAR: BROKEN
-#j#  JVM: OK
+#j#  JVM: BROKEN
+#n# after RC site upgrade, the source files no longer present, use -1 version only
 
 File: R/Rosetta_Code_Run_examples
 #!/usr/bin/env perl6
@@ -12495,6 +12497,7 @@ File: R/Rosetta_Code_Tasks_without_examples
 #j# JVM:  BROKEN
 #n# 2019-05-01 testing is pretty weak, only one task (100 doors)
 #n# 2022-01-05 trailing space in output caused trivial testing failure [2022-07-12 now handled]
+#n# 2022-10-16 after RC site upgrade, the source files no longer present?
 
 File: R/Rot-13
 #!/usr/bin/env perl6
