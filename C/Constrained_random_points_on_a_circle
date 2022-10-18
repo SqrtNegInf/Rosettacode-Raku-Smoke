@@ -5,8 +5,9 @@
 #j#  JVM: OK
 #f# RC file: constrained_random_points.BEND
 #n# unstable, depending on placement of 'srand'? [NB: 'ENTER srand 123456' solves that]
+#n# 2022-10-18 skip 'random' points, just work with statically defined set
 
-srand 123456;
+#srand 123456;
 
 my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
 my $out = open("run/constrained_random_points.$ext", :w);
@@ -16,19 +17,12 @@ my @range = -15..16;
 my @points = gather for @range X @range -> ($x, $y) {
     take [$x,$y] if 10 <= sqrt($x×$x+$y×$y) <= 15
 }
-my @samples = @points.roll(100); # or .pick(100) to get distinct points
+
+#my @samples = @points.roll(100); # or .pick(100) to get distinct points
+my @rand = <377 22 272 180 395 24 205 310 231 402 123 114 271 337 172 73 167 198 176 282 250 123 403 43 153 176 11 32 10 339 92 282 115 77 16 138 160 295 134 75 183 99 323 91 284 128 130 66 322 282 325 355 177 295 9 253 265 208 106 363 355 9 157 148 212 33 365 106 239 83 294 220 199 137 95 36 264 228 22 323 100 250 260 285 363 345 266 357 384 384 243 88 26 296 52 87 373 257 276 382>;
+my @samples = @points[@rand];
 
 my %matrix;
 for @range X @range -> ($x, $y) { %matrix{$y}{$x} = ' ' }
 %matrix{.[1]}{.[0]} = '*' for @samples;
 $out.say: %matrix{$_}{@range}.join(' ') for @range;
-
-#Turning that program completely inside-out and reducing to a single statement with a single non-parameter variable, we get this version, which also works:
-
-($out.say: ~.map: { $_ // ' ' } for my @matrix) given do
-    -> [$x, $y] { @matrix[$x][$y] = '*' } for pick 100, do
-        for ^32 X ^32 -> ($x, $y) {
-            [$x,$y] when 100..225 given [+] ($x,$y X- 15) X**2;
-        }
-
-$out.close;
