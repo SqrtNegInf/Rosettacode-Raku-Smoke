@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Calculating_the_value_of_e
-#c# 2018-04-21 <RC, 2018-05-08 <RC, 2022-09-18 <RC
+#c# 2018-04-21 <RC, 2018-05-08 <RC, 2022-09-18 <RC, 2022-10-16 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# D.Conway: http://blogs.perl.org/users/damian_conway/2019/09/to-compute-a-constant-of-calculusa-treatise-on-multiple-ways.html
@@ -16,6 +16,10 @@ sub e (Int $terms) { sum map { FatRat.new(1,.!) }, ^$terms }
 
 say my $result2 = e(500).comb(80).join: "\n";
 #say my $result = 𝑒(500).comb(80).join: "\n";
+
+# slightly different again:
+constant 𝑒-alt = [\+] 1.FatRat X/ 1, |[\×] 1..*;
+my $result3 = 𝑒-alt[499].comb(80).join: "\n";
 
 # if you don't need high precision, it's a built-in.
 say ''; say e;
@@ -41,3 +45,4 @@ END
 use Test;
 is $result1.join("\n"), chomp $ref;
 is $result2.join("\n"), chomp $ref;
+is $result3.join("\n"), chomp $ref;
