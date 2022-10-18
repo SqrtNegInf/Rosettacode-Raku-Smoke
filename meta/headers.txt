@@ -1848,7 +1848,7 @@ File: C/Caesar_cipher
 File: C/Calculating_the_value_of_e
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Calculating_the_value_of_e
-#c# 2018-04-21 <RC, 2018-05-08 <RC, 2022-09-18 <RC
+#c# 2018-04-21 <RC, 2018-05-08 <RC, 2022-09-18 <RC, 2022-10-16 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# D.Conway: http://blogs.perl.org/users/damian_conway/2019/09/to-compute-a-constant-of-calculusa-treatise-on-multiple-ways.html
@@ -4407,6 +4407,15 @@ File: E/Evolutionary_algorithm
 #c# 2015-11-14 <RC, 2017-05-11 <RC, 2019-06-25 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: E/Evolutionary_algorithm-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Evolutionary_algorithm
+#t# interactive
+#c# 2022-10-16 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# took nearly 10K interations the one time I ran it
 
 File: E/Exactly_three_adjacent_3_in_lists
 #!/usr/bin/env raku
@@ -10888,6 +10897,7 @@ File: P/Pig_the_dice_game.jvm
 
 File: P/Pig_the_dice_game_Player
 #!/usr/bin/env perl6
+# /usr/bin/env -v MVM_SPESH_DISABLE=1 raku
 #u# http://rosettacode.org/wiki/Pig_the_dice_game/Player
 #c# 2016-06-11 <RC
 #m# MOAR: OK
