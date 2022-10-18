@@ -1,0 +1,21 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Evolutionary_algorithm
+#t# interactive
+#c# 2022-10-16 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# took nearly 10K interations the one time I ran it
+
+srand 123456;
+
+constant target = "METHINKS IT IS LIKE A WEASEL";
+constant mutate_chance = .001;
+constant @alphabet = flat 'A'..'Z',' ';
+constant C = 10;
+
+sub mutate { [~] (rand < mutate_chance ?? @alphabet.pick !! $_ for $^string.comb) }
+sub fitness { [+] $^string.comb Zeq target.comb }
+
+printf "\r%6d: '%s'", $++, $_ for
+  @alphabet.roll(target.chars).join,
+  { max :by(&fitness), mutate($_) xx C } ... target;
