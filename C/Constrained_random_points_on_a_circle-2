@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Constrained_random_points_on_a_circle
+#c# 2016-01-09 <RC, 2018-12-03 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: constrained_random_points2.BEND
+#n# 2022-10-18 how to replace 'pick 100' to get long-term stable output?
+
+# Turning that program completely inside-out and reducing to a single statement with a single non-parameter variable
+# (compare with main version)
+
+ENTER srand 123456;
+
+my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
+my $out = open("run/constrained_random_points2.$ext", :w);
+
+my @range = -15..16;
+
+my @points = gather for @range X @range -> ($x, $y) {
+    take [$x,$y] if 10 <= sqrt($x×$x+$y×$y) <= 15
+}
+
+($out.say: ~.map: { $_ // ' ' } for my @matrix) given do
+    -> [$x, $y] { @matrix[$x][$y] = '*' } for pick 100, do
+        for ^32 X ^32 -> ($x, $y) {
+            [$x,$y] when 100..225 given [+] ($x,$y X- 15) X**2;
+        }
+
+$out.close;
