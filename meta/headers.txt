@@ -2308,6 +2308,7 @@ File: C/Cistercian_numerals
 #j# JVM:  OK
 #f# RC file: cistercian.BEND.svg
 #n# 2021-10-04 ordering of random selection wasn't stable, so have to sort?
+#n# 2022-10-18 skip the random numbers, just add 4 more to make two complete rows in image
 
 File: C/Classes
 #!/usr/bin/env perl6
@@ -2790,6 +2791,16 @@ File: C/Constrained_random_points_on_a_circle
 #j#  JVM: OK
 #f# RC file: constrained_random_points.BEND
 #n# unstable, depending on placement of 'srand'? [NB: 'ENTER srand 123456' solves that]
+#n# 2022-10-18 skip 'random' points, just work with statically defined set
+
+File: C/Constrained_random_points_on_a_circle-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Constrained_random_points_on_a_circle
+#c# 2016-01-09 <RC, 2018-12-03 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: constrained_random_points2.BEND
+#n# 2022-10-18 how to replace 'pick 100' to get long-term stable output?
 
 File: C/Continued_fraction
 #!/usr/bin/env perl6
