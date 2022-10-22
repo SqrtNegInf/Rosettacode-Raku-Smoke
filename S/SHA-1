@@ -7,7 +7,7 @@
 #A pure Raku implementation that closely follows the description of SHA-1 in FIPS 180-1. Slow.
 
 sub postfix:<mod2³²> { $^x % 2**32 }
-sub infix:<⊕>        { ($^x + $^y)mod2³² }
+sub infix:<⊕>        { ($^x + $^yy)mod2³² }
 sub S                { ($^x +< $^n)mod2³² +| ($x +> (32-$n)) }
 
 my \f = -> \B,\C,\D { (B +& C) +| ((+^B)mod2³² +& D)   },
