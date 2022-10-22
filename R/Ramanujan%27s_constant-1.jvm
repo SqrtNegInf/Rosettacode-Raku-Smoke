@@ -74,7 +74,7 @@ multi sqrt(FatRat $r --> FatRat) {
 multi sqrt(Int $n) {
     my $guess = 10**($n.chars div 2);
     my $iterator = { ( $^x   +   $n div ($^x) ) div 2 };
-    my $endpoint = { $^x == $^y|$^z };
+    my $endpoint = { $^x == $^yy|$^z };
     min ($guess, $iterator … $endpoint)[*-1, *-2];
 }
 
