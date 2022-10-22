@@ -17,7 +17,7 @@ sub runge-kutta(&yp) {
 }
 
 constant δt = .1;
-my &δy = runge-kutta { $^t × sqrt($^y) };
+my &δy = runge-kutta { $^t × sqrt($^yy) };
 
 loop (
     my ($t, $y) = (0, 1);
