@@ -12,8 +12,8 @@ multi sha256(blob8 $data) {
 
   sub rotr($n, $b) { $n +> $b +| $n +< (32 - $b) }
   sub init(&f) { map { (($_ - .Int)×2**32).Int }, map &f, @primes }
-  sub  Ch { $^x +& $^y +^ +^$x +& $^z }
-  sub Maj { $^x +& $^y +^ $x +& $^z +^ $y +& $z }
+  sub  Ch { $^x +& $^yy +^ +^$x +& $^z }
+  sub Maj { $^x +& $^yy +^ $x +& $^z +^ $yy +& $z }
   sub Σ0 { rotr($^x,  2) +^ rotr($x, 13) +^ rotr($x, 22) }
   sub Σ1 { rotr($^x,  6) +^ rotr($x, 11) +^ rotr($x, 25) }
   sub σ0 { rotr($^x,  7) +^ rotr($x, 18) +^ $x +>  3 }
