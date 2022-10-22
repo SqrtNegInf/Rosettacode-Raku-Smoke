@@ -1,30 +1,28 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arithmetic-geometric_mean/Calculate_Pi
-#c# 2016-01-29 <RC, 2019-04-19 >RC, 2019-05-16 >RC
+#c# 2016-01-29 <RC, 2019-04-19 >RC, 2019-05-16 >RC, 2022-10-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# replace 1st integer root routine
-#n# worked for this task, but fundamentally buggy (e.g. for n=7055, goes into infinite loop)
+#n# replaced original (very compact) integer root routine
+#n# while it worked for this task, is fundamentally buggy (e.g. for n=7055, goes into infinite loop)
 
 #There is not yet a FixDecimal type module in Raku, and using FatRat all along would be too slow and would be coerced to Num when computing the square root anyway, so we'll use a custom definition of the square root for Int and FatRat, with a limitation to the number of decimals. We'll show all the intermediate results.
 
 constant number-of-decimals = 100;
 
-#multi sqrt(Int $n) {
-#    .[*-1] given
-#    1, { ($_ + $n div $_) div 2 } ... * == *
-#}
+#multi sqrt(Int $n) { .[*-1] given 1, { ($_ + $n div $_) div 2 } ... * == * }               # buggy
+#multi sqrt(Int $n) { ( 10**($n.chars div 2), { ($_ + $n div $_) div 2 } ... * == *).tail } # Grondilu variation
 
 multi sqrt(Int $n) {
     my $guess = 10**($n.chars div 2);
-    my $iterator = { ( $^x   +   $n div ($^x) ) div 2 };
-    my $endpoint = { $^x == $^y|$^z };
+    my $iterator = { ( $^x + $n div ($^x) ) div 2 };
+    my $endpoint = { $^x == $^yy|$^z };
     return min (+$guess, $iterator … $endpoint)[*-1, *-2];
 }
 
 multi sqrt(FatRat $r --> FatRat) {
     return FatRat.new:
-    sqrt($r.nude[0] × 10**(number-of-decimals×2) div $r.nude[1]),
+    sqrt($r.numerator × 10**(number-of-decimals×2) div $r.denominator),
     10**number-of-decimals;
 }
 
