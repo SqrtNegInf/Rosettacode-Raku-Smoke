@@ -39,7 +39,7 @@ sub braille-graphics (%a) {
         }
     }
 
-    for $y-lo, $y-lo + 4 ...^ $y-hi -> \y {                     # } } }
+    for $y-lo, $y-lo + 4 ...^ $y-hi -> \y {                     # } } }    "
       for $x-lo, $x-lo + 2 ...^ $x-hi -> \x {
         my $cell = 0x2800;
         $cell += 2⁰ if %a{y + 0}{x + 0};
