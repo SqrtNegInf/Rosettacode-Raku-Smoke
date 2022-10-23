@@ -817,7 +817,7 @@ File: A/Arithmetic-geometric_mean
 File: A/Arithmetic-geometric_mean_Calculate_Pi
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arithmetic-geometric_mean/Calculate_Pi
-#c# 2016-01-29 <RC, 2019-04-19 >RC, 2019-05-16 >RC, 2022-10-21 <RC
+#c# 2016-01-29 <RC, 2019-04-19 >RC, 2019-05-16 >RC, 2022-10-22 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# replaced original (very compact) integer root routine
@@ -2964,6 +2964,13 @@ File: C/Count_the_coins_0-1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
+File: C/Countdown
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Countdown
+#c# 2022-10-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: C/Cousin_primes
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Cousin_primes
@@ -4422,11 +4429,10 @@ File: E/Evolutionary_algorithm
 File: E/Evolutionary_algorithm-2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Evolutionary_algorithm
-#t# interactive
-#c# 2022-10-16 <RC
+#c# 2022-10-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# took nearly 10K interations the one time I ran it
+#n# takes over 11K interations
 
 File: E/Exactly_three_adjacent_3_in_lists
 #!/usr/bin/env raku
@@ -6883,6 +6889,14 @@ File: I/Integer_roots
 #c# 2016-05-16 <RC, 2019-04-19 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: I/Integer_roots-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Integer_roots
+#c# 2022-10-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# does not fail with 7055 (cf 'A/Arithmetic-geometric_mean_Calculate_Pi')
 
 File: I/Integer_sequence
 #!/usr/bin/env perl6
@@ -12624,7 +12638,7 @@ File: S/SHA-1-2
 File: S/SHA-256
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/SHA-256
-#c# 2015-12-21 <RC
+#c# 2015-12-21 <RC, 2022-10-22 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
