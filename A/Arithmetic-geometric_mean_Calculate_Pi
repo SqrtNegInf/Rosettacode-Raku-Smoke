@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arithmetic-geometric_mean/Calculate_Pi
-#c# 2016-01-29 <RC, 2019-04-19 >RC, 2019-05-16 >RC, 2022-10-22 <RC
+#c# 2016-01-29 <RC, 2019-04-19 >RC, 2019-05-16 >RC, 2022-10-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# replaced original (very compact) integer root routine
@@ -10,12 +10,12 @@
 
 constant number-of-decimals = 100;
 
-#multi sqrt(Int $n) { .[*-1] given 1, { ($_ + $n div $_) div 2 } ... * == * }            # buggy
-#multi sqrt(Int $n) { ( exp($n.log/2).Int, { ($_ + $n div $_) div 2 } ... * == *).tail } # Grondilu variation, still buggy
+#multi sqrt(Int $n) { .[*-1] given 1, { ($_ + $n div $_) div 2 } ... * == * }              # buggy
+#multi sqrt(Int $n) { (10**($n.chars div 2), { ($_ + $n div $_) div 2 } ... * == *).tail } # Grondilu variation, still buggy
 
 multi sqrt(Int $n) {
-   #my $guess = 10**($n.chars div 2);
-    my $guess = exp($n.log/2).Int;      # Grondilu
+    my $guess = 10**($n.chars div 2);
+   #my $guess = exp($n.log/2).Int;      # Grondilu, doesn't scale well
     my $iterator = { ( $^x + $n div ($^x) ) div 2 };
     my $endpoint = { $^x == $^yy|$^z };
     return min (+$guess, $iterator … $endpoint)[*-1, *-2];
