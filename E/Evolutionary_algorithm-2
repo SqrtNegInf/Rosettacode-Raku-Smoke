@@ -3,7 +3,7 @@
 #c# 2022-10-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# takes over 11K interations
+#n# widely varying iteration counts for Moar (terminal vs cronjob) vs JVM
 
 srand 123456;
 
@@ -25,4 +25,3 @@ $iter++ for
 use Test;
 say 'Iterations: ' ~ $iter;
 is $iter, $*VM ~~ /jvm/ ?? 14560 !! $*IN.t ?? 11047 !! 6843;
-#ok ($iter == 11047 or $iter == 6843);
