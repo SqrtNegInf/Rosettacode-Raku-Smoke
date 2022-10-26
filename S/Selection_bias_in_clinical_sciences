@@ -4,7 +4,6 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# MoarVM terminal/cron output currently the same, but that might change
-#n# JVM output is buggy, why?  Need a code fix...
 
 srand 123456;
 
@@ -15,7 +14,8 @@ my \DOSE_FOR_REGULAR = 100;
 my ($nSubjects,$duration,$interval) = 10000, 180, 30;
 my (@dosage,@category,@hadcovid) := (0,UNTREATED,False)>>.&{($_ xx $nSubjects).Array};
 
-sub update($pCovid=1e-3, $pStartTreatment=5e-3, $pRedose=¼, @dRange=<3 6 9>) {
+#sub update($pCovid=1e-3, $pStartTreatment=5e-3, $pRedose=¼, @dRange=<3 6 9>) { # newer JVM might handle this
+sub update($pCovid=1e-3, $pStartTreatment=5e-3, $pRedose=1/4, @dRange=<3 6 9>) {
    for 0 ..^ @dosage.elems -> \i { 
       unless @hadcovid[i] { 
          if rand < $pCovid { 
@@ -39,8 +39,8 @@ sub kruskal (@sets) {
 
    for @sets.kv -> \i,@set { for @set -> $b { @sr[i] += $b ?? $art !! $arf } } 
 
-   my $H = [+] gather for @sr.kv -> \i,\s { take s*s/@sets[i].elems }
-   return 12/($n*($n+1)) * $H - 3 * ($n + 1)
+   my $H = [+] gather for @sr.kv -> \i,\s { take s×s/@sets[i].elems }
+   return 12/($n×($n+1)) × $H - 3 × ($n + 1)
 }
 
 $result ~= "Total subjects: $nSubjects\n";
@@ -65,9 +65,9 @@ for 1 .. $duration -> \day {
    if day == $midpoint | $duration { 
       my $stage = day == $midpoint ?? 'midpoint' !! 'study end';
       $result ~= sprintf "At $stage, Infection case percentages are:\n";
-      $result ~= sprintf "  Untreated : %f\n",  100*$hunt/$unt;
-      $result ~= sprintf "  Irregulars: %f\n",  100*$hirr/$irr;
-      $result ~= sprintf "  Regulars  : %f\n\n",100*$hreg/$reg
+      $result ~= sprintf "  Untreated : %f\n",  100×$hunt/$unt;
+      $result ~= sprintf "  Irregulars: %f\n",  100×$hirr/$irr;
+      $result ~= sprintf "  Regulars  : %f\n\n",100×$hreg/$reg
    }    
 }
 
@@ -170,46 +170,46 @@ END
 my $jvm = q:to/END/;
 Total subjects: 10000
 Day 30:
-Untreated:     N = 8611, with infection =  271
-Irregular Use: N = 1389, with infection =   16
+Untreated:     N = 8611, with infection =  285
+Irregular Use: N = 1389, with infection =   25
 Regular Use:   N =    0, with infection =    0
 
 Day 60:
-Untreated:     N = 7450, with infection =  469
-Irregular Use: N = 2550, with infection =   81
-Regular Use:   N =    0, with infection =    0
+Untreated:     N = 7442, with infection =  504
+Irregular Use: N = 2386, with infection =   81
+Regular Use:   N =  172, with infection =    1
 
 Day 90:
-Untreated:     N = 6508, with infection =  672
-Irregular Use: N = 3492, with infection =  176
-Regular Use:   N =    0, with infection =    0
+Untreated:     N = 6489, with infection =  688
+Irregular Use: N = 2434, with infection =  138
+Regular Use:   N = 1077, with infection =   20
 
 At midpoint, Infection case percentages are:
-  Untreated : 10.325753
-  Irregulars: 5.040092
-  Regulars  : NaN
+  Untreated : 10.602558
+  Irregulars: 5.669680
+  Regulars  : 1.857010
 
 Day 120:
-Untreated:     N = 5651, with infection =  842
-Irregular Use: N = 4349, with infection =  280
-Regular Use:   N =    0, with infection =    0
+Untreated:     N = 5686, with infection =  856
+Irregular Use: N = 2136, with infection =  206
+Regular Use:   N = 2178, with infection =   69
 
 Day 150:
-Untreated:     N = 4987, with infection =  985
-Irregular Use: N = 5013, with infection =  392
-Regular Use:   N =    0, with infection =    0
+Untreated:     N = 5046, with infection = 1001
+Irregular Use: N = 1812, with infection =  259
+Regular Use:   N = 3142, with infection =  139
 
 Day 180:
-Untreated:     N = 4452, with infection = 1097
-Irregular Use: N = 5548, with infection =  538
-Regular Use:   N =    0, with infection =    0
+Untreated:     N = 4526, with infection = 1117
+Irregular Use: N = 1583, with infection =  308
+Regular Use:   N = 3891, with infection =  237
 
 At study end, Infection case percentages are:
-  Untreated : 24.640611
-  Irregulars: 9.697188
-  Regulars  : NaN
+  Untreated : 24.679629
+  Irregulars: 19.456728
+  Regulars  : 6.090979
 
-Final statistics: H = NaN
+Final statistics: H = 221.406047
 
 END
 
