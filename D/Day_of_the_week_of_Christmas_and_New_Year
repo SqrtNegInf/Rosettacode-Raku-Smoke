@@ -8,12 +8,10 @@
 
 my @res;
 
-srand 123456;
-
 my @d-o-w = < Sunday Monday Tuesday Wednesday Thursday Friday Saturday >;
 
 #@res.push: $_ for (flat 2020..2022, (1500 .. 2500).roll(7)).sort.map: {
-@res.push: $_ for <2020 2021 2022>.map: {
+@res.push: $_ for <2020 2021 2022 1578 1651 2024 2198 2328 2387 2444>.map: {
      "In {$_}, New Years is on a { @d-o-w[Date.new($_,  1,  1).day-of-week % 7] }, " ~
      "and Christmas on a { @d-o-w[Date.new($_, 12, 25).day-of-week % 7] }."
 }
@@ -24,6 +22,13 @@ my $ref = q:to/END/;
 In 2020, New Years is on a Wednesday, and Christmas on a Friday.
 In 2021, New Years is on a Friday, and Christmas on a Saturday.
 In 2022, New Years is on a Saturday, and Christmas on a Sunday.
+In 1578, New Years is on a Sunday, and Christmas on a Monday.
+In 1651, New Years is on a Sunday, and Christmas on a Monday.
+In 2024, New Years is on a Monday, and Christmas on a Wednesday.
+In 2198, New Years is on a Monday, and Christmas on a Tuesday.
+In 2328, New Years is on a Sunday, and Christmas on a Tuesday.
+In 2387, New Years is on a Thursday, and Christmas on a Friday.
+In 2444, New Years is on a Friday, and Christmas on a Sunday.
 END
 
 use Test;
