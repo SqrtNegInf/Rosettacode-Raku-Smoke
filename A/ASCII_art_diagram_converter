@@ -3,8 +3,6 @@
 #c# 2018-06-17 <RC, 2018-06-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n#  2021-03-31 Raku v2021.03-56-g18c4c5d4e
-#n#  unpack giving different results? have to investigate tomorrow...
 
 srand 123456;
 
@@ -59,8 +57,11 @@ my %structure = interpret($diagram);
 my @res;
 @res.push: 'Line width: '~ %structure<line-width>~ ' bits';
 @res.push: sprintf("Name: %7s, bit count: %2d, bit %2d to bit %2d", .<ID>, .<bits>, .<from>, .<to>) for @(%structure<fields>);
+
 #@res.push: "\nGenerate a random 12 byte \"header\"";
-my $buf = Buf.new((^0xFF .roll) xx 12);
+#my $buf = Buf.new((^0xFF .roll) xx 12); 
+my $buf = Buf.new(<99 41 113 201 24 212 230 250 215 233 6 196>); # skip random, use fixed value, based on current output of 'roll'
+
 @res.push: "\nShow it converted to a bit string";
 @res.push: my $bitstr = $buf.unpack('C*')».fmt("%08b").join;
 @res.push: "\nAnd unpack it";
