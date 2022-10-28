@@ -12,10 +12,9 @@ sub integer_root ( Int $p where * >= 2, Int $n --> Int ) {
     (
       10**($n.chars div $p),
       { ( $d × $^x   +   $n div ($x ** $d) ) div $p } ...
-      { $_**$p ≤ $n < ($_+1)**$p }
+      { $_**$p ≤ $n < ($_+1)**$p }                          # 2022-10-27 with '* == *' here, fails for 7055
     ).tail
 }
-
 
 @res.push: integer_root( 2, 8);
 @res.push: integer_root( 2, 9);
