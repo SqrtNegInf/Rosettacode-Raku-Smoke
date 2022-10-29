@@ -28,13 +28,8 @@ multi insert( $x, $s ) {
 }
 
 my $t = Any;
-$t = insert($_, $t) for (1..10).pick(*);
+$t = insert($_, $t) for <6 4 1 10 5 2 9 3 8 7>; # (1..10).pick(*); # remove random
 say $t.gist; 
 
 use Test;
-if $*VM ~~ /jvm/ {
-is $t.gist, '[B [B [B [R (Any) 1 (Any)] 2 (Any)] 3 [B (Any) 4 (Any)]] 5 [B [B (Any) 6 (Any)] 7 [B [R (Any) 8 (Any)] 9 [R (Any) 10 (Any)]]]]';
-} else {
-is $t.gist, '[B [B [B (Any) 1 [R (Any) 2 (Any)]] 3 [B (Any) 4 (Any)]] 5 [B [B (Any) 6 (Any)] 7 [B [R (Any) 8 (Any)] 9 [R (Any) 10 (Any)]]]]';
-}
-
+is $t.gist, '[B [B [R [B (Any) 1 (Any)] 2 [B (Any) 3 (Any)]] 4 [B [R (Any) 5 (Any)] 6 (Any)]] 7 [B [B (Any) 8 (Any)] 9 [B (Any) 10 (Any)]]]';
