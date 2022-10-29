@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Selection_bias_in_clinical_sciences
-#c# 2022-10-25 <RC
+#c# 2022-10-25 <RC, 2022-10-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# MoarVM terminal/cron output currently the same, but that might change
@@ -39,7 +39,8 @@ sub kruskal (@sets) {
 
    for @sets.kv -> \i,@set { for @set -> $b { @sr[i] += $b ?? $art !! $arf } } 
 
-   my $H = [+] gather for @sr.kv -> \i,\s { take s×s/@sets[i].elems }
+  #my $H = [+] gather for @sr.kv -> \i,\s { take s×s/@sets[i].elems }
+   my $H = [+] @sr.kv.map: -> \i,\s { s*s/@sets[i].elems }
    return 12/($n×($n+1)) × $H - 3 × ($n + 1)
 }
 
@@ -55,6 +56,7 @@ for 1 .. $duration -> \day {
       @sreg = @hadcovid[ @category.grep: REGULAR,  :k ]; 
       ($unt,$irr,$reg)    = (@sunt,@sirr,@sreg).map: *.elems;
       ($hunt,$hirr,$hreg) = (@sunt,@sirr,@sreg).map: *.sum;
+     #($unt,$hunt,$irr,$hirr,$reg,$hreg)=(@sunt,@sirr,@sreg).map:{|(.elems,.sum)} # works fine, but messes with 'srand'
    } 
    if day %% $interval {
       $result ~= sprintf "Day %d:\n",day;
