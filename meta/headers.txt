@@ -4662,6 +4662,14 @@ File: F/Faces_from_a_mesh
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: F/Factor-perfect_numbers
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Factor-perfect_numbers
+#c# 2022-10-29 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A163272 Numbers k such that k = A074206(k), the number of ordered factorizations of k
+
 File: F/Factorial
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Factorial
@@ -12796,7 +12804,7 @@ File: S/Secure_temporary_file
 File: S/Selection_bias_in_clinical_sciences
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Selection_bias_in_clinical_sciences
-#c# 2022-10-25 <RC
+#c# 2022-10-25 <RC, 2022-10-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# MoarVM terminal/cron output currently the same, but that might change
@@ -16476,6 +16484,7 @@ File: W/Write_language_name_in_3D_ASCII
 #c# 2018-03-21 <RC, 2018-03-22 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# less likely to fail due to 'srand' issues?
 
 File: W/Write_to_Windows_event_log
 #!/usr/bin/env perl6
