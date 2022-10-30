@@ -14,8 +14,12 @@ my (\w, \h) = 640, 640;
 my ($x, $y) =   0,   0;
 my $png = Image::PNG::Portable.new: :width(w), :height(h);
 
+# pseudo-random numbers, middle-square method, simulate built-in 'rand' (with no args)
+sub msq { state $seed = 675248; $seed = $seed² div 1000 mod 1000000; $seed/100_000 }
+
 for ^2e5 {
-    my $r = 100.rand;
+    my $r = 100 × msq();
+   #my $r = 100.rand; # same as 100×rand;
     ($x, $y) = do given $r {
         when  $r <=  1 { (                     0,              0.16 × $y       ) }
         when  $r <=  8 { ( 0.20 × $x - 0.26 × $y,  0.23 × $x + 0.22 × $y + 1.60) }
