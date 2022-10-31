@@ -1264,6 +1264,7 @@ File: B/Barnsley_fern
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: barnsley-fern.png
+#n# 2022-10-30 hmmm, using 'msq' reduced the image to a ghost of it's former self
 
 File: B/Base-16_representation
 #!/usr/bin/env raku
@@ -5470,6 +5471,16 @@ File: F/Forest_fire.1
 #t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: F/Forest_fire_exp
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Forest_fire
+#c# 2015-11-11 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: forest_fire_exp.BEND
+#n# run 'Forest_fire.1' to see interactive output
+#n# 2022-10-30 use PRNG 'splitmix64' instead of built-in 'rand' for output stability
 
 File: F/Fork
 #!/usr/bin/env perl6
@@ -11536,6 +11547,7 @@ File: P/Pseudo-random_numbers_Middle-square_method
 #m# MOAR: OK
 #j# JVM:  OK
 #n# terrible algorithm, many seeds lead to cycles or hit a fixed value
+#n# pick a (very slightly) better seed, only good for a couple hundred values
 
 File: P/Pseudo-random_numbers_PCG32
 #!/usr/bin/env raku
