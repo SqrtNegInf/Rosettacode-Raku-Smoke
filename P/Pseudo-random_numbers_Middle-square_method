@@ -4,13 +4,17 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# terrible algorithm, many seeds lead to cycles or hit a fixed value
+#n# pick a (very slightly) better seed, only good for a couple hundred values
+
+# one-liner to mimic 'rand' with no args
+# sub prng { state $seed = 675241; $seed = $seed² div 1000 mod 1000000; $seed/1000000 }
 
 sub msq {
-    state $seed = 675248;
+    state $seed = 675241;
     $seed = $seed² div 1000 mod 1000000;
 }
 
 say my $result = msq() xx 5;
 
 use Test;
-is $result, '959861 333139 981593 524817 432883';
+is $result, '950408 275366 826433 991503 78199';
