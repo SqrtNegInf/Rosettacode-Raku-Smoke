@@ -1,0 +1,62 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Statistics/Chi-squared_distribution
+#c# 2022-11-01 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# either:
+#n#   brew install plplot; (cd /usr/local/lib; ln -s libplplot.dylib libplplotd.so)
+#n# or:
+#n#   sudo port install plplot; (cd /usr/local/lib; ln -s /opt/local/lib/libplplot.dylib ./libplplotd.so)
+
+my @res;
+
+use Graphics::PLplot;
+
+sub Γ(\z) { # https://rosettacode.org/wiki/Gamma_function#Raku
+    constant g = 9;
+    z < .5 ?? π/ sin(π * z) / Γ(1 - z) 
+           !! sqrt(2*π) * (z + g - 1/2)**(z - 1/2) * exp(-(z + g - 1/2)) *
+              [+] < 1.000000000000000174663        5716.400188274341379136
+                    -14815.30426768413909044       14291.49277657478554025
+                    -6348.160217641458813289       1301.608286058321874105
+                    -108.1767053514369634679       2.605696505611755827729
+                    -0.7423452510201416151527e-2   0.5384136432509564062961e-7
+                    -0.4023533141268236372067e-8 > Z* 1, |map 1/(z + *), 0..*
+}
+
+sub χ2(\x,\k) {x>0 && k>0 ?? (x**(k/2 - 1)*exp(-x/2)/(2**(k/2)*Γ(k / 2))) !! 0}
+
+sub Γ_cdf(\k,\x) { x**k * exp(-x) * sum( ^101 .map: { x** $_ / Γ(k+$_+1) } ) }
+
+sub cdf_χ2(\x,\k) { (x <= 0 or k <= 0) ?? 0.0 !!  Γ_cdf(k / 2, x / 2) }
+
+say 'x           χ² ', [~] (1..5)».&{ "k = $_" ~ ' ' x 13 };
+say '-' x my \width = 93;
+for 0..10 -> \x {
+   say x.fmt('%2d'), [~] (1…5)».&{χ2(x, $_).fmt: "  %-.{((width-2) div 5)-4}f"}
+}
+
+say "\nχ² x     cdf for χ²   P value (df=3)\n", '-' x 36;
+for 2 «**« 0…5 -> \p {
+   my $cdf = cdf_χ2(p, 3).fmt: '%-.10f';
+   say p.fmt('%2d'), "     $cdf   ", (1-$cdf).fmt: '%-.10f'
+}
+
+my \airport   = [ <77 23>, <88 12>, <79 21>, <81 19> ];
+my \expected  = [ <81.25 18.75> xx 4 ];
+my \dtotal    = ( (airport »-« expected)»² »/» expected )».List.flat.sum;
+
+say "\nFor the airport data, diff total is ",dtotal,", χ² is ", χ2(dtotal, 3), ", p value ", cdf_χ2(dtotal, 3);
+
+given Graphics::PLplot.new( device => 'png', file-name => 'run/chi-squared.png' ) {
+   .begin;
+   .pen-width: 3 ;
+   .environment: x-range => [-1.0, 10.0], y-range => [-0.1, 0.5], just => 0 ;
+   .label: x-axis => '', y-axis => '', title => 'Chi-squared distribution' ;
+   for 0..3 -> \k {  
+      .color-index0: 1+2*k;
+      .line: (0, .1 … 10).map: { ( $_, χ2($_, k) )».Num };
+      .text-viewport: side=>'t', disp=>-k-2, pos=>.5, just=>.5, text=>'k = '~k 
+   } # plplot.sourceforge.net/docbook-manual/plplot-html-5.15.0/plmtex.html
+   .end 
+}
