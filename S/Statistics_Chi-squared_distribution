@@ -7,6 +7,7 @@
 #n#   brew install plplot; (cd /usr/local/lib; ln -s libplplot.dylib libplplotd.so)
 #n# or:
 #n#   sudo port install plplot; (cd /usr/local/lib; ln -s /opt/local/lib/libplplot.dylib ./libplplotd.so)
+#n# MPro/iMac images have very slight differences, so can't use exact-match file testing
 
 my @res;
 
@@ -60,3 +61,11 @@ given Graphics::PLplot.new( device => 'png', file-name => 'run/chi-squared.png' 
    } # plplot.sourceforge.net/docbook-manual/plplot-html-5.15.0/plmtex.html
    .end 
 }
+
+
+say my $result = qqx!/opt/local/bin/compare -metric MAE ref/chi-squared.png run/chi-squared.png null: 2>&1!;
+
+# allow for exact equivalence or close similarity
+use Test;
+my ($mae,$percent)  = $result.split(' ');
+ok $result eq '0 (0)' || $mae < 100 and $percent.starts-with('(0.00');
