@@ -1,13 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arbitrary-precision_integers_(included)
-#c# 2015-11-23 <RC, 2018-03-21 <RC
+#c# 2015-11-23 <RC, 2018-03-21 <RC, 2022-11-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-my $result;
-given ~[**] 5, 4, 3, 2 {
-   say $result = "5**4**3**2 = {.substr: 0,20}...{.substr: *-20} and has {.chars} digits";
-}
+say my $result = "5**4**3**2 = {.substr: 0,20}...{.substr: *-20} and has {.chars} digits"
+    given ~[**] 5, 4, 3, 2;
+
+# ok ~([**] 5, 4, 3, 2) ~~ /^ '62060698786608744707' <digit>* '92256259918212890625' $/; # Grondilu
 
 my $ref = '5**4**3**2 = 62060698786608744707...92256259918212890625 and has 183231 digits';
 
