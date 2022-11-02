@@ -34,7 +34,7 @@ my @vertex = [0, 0], [$w, 0], [$w/2, $h];
 my ($x, $y) = 0, 0;
 
 for ^1e5 {
-    ($x, $y) = do given @vertex[3*$rng.next-rat] -> @v { ((($x, $y) »+« @v) »/» 2)».Int };
+    ($x, $y) = do given @vertex[3×$rng.next-rat] -> @v { ((($x, $y) »+« @v) »/» 2)».Int };
     $png.set: $x, $y, 0, 255, 0;
 }
 
