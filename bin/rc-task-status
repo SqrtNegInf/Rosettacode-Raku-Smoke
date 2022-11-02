@@ -145,7 +145,7 @@ my($task,$header,@concur,$compiles,$mout,$merr,$jout,$jerr,$skip,$srand);
         $P{$p}{'C'} =                                    '.';
     }
 
-    $srand = `grep srand $task`;
+    $srand = `grep 'srand|splitmix64' $task`;                   # account for built-in and alternate PRNG
     $P{$p}{'R'} = $srand =~ /srand \d/         ? 'R' : '.';
 
     return 1; # to increment counter
