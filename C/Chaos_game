@@ -5,16 +5,25 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #f# RC file: chaos-game-perl6.png
-#n# see '.race' version below
-#n# 2020-09-07 answer changed since yesterday?
-#n# 2021-03-02 using 'ENTER srand'
-#n# 2021-03-03 ref/run difference, very small (not visible in images) but not identical like before
+#n# generates Sierpinski Triangle, more or less
+#n# 2022-11-02 replace call to built-in 'rand' for output stability
+
+use Image::PNG::Portable;
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-ENTER srand 123456;
-
-use Image::PNG::Portable;
+class splitmix64 {
+    has $!state;
+    submethod BUILD ( Int :$seed where * >= 0 = 1 ) { $!state = $seed }
+    method next-int {
+        my $next = $!state = ($!state + 0x9e3779b97f4a7c15) +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 30)) × 0xbf58476d1ce4e5b9 +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 27)) × 0x94d049bb133111eb +& (2⁶⁴ - 1);
+        ($next +^ ($next +> 31)) +& (2⁶⁴ - 1);
+    }
+    method next-rat { self.next-int / 2⁶⁴ }
+}
+my $rng = splitmix64.new( :seed(123456) );
 
 my ($w, $h) = 640, 640;
 
@@ -25,7 +34,7 @@ my @vertex = [0, 0], [$w, 0], [$w/2, $h];
 my ($x, $y) = 0, 0;
 
 for ^1e5 {
-    ($x, $y) = do given @vertex[3.rand] -> @v { ((($x, $y) »+« @v) »/» 2)».Int };
+    ($x, $y) = do given @vertex[3*$rng.next-rat] -> @v { ((($x, $y) »+« @v) »/» 2)».Int };
     $png.set: $x, $y, 0, 255, 0;
 }
 
