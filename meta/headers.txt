@@ -3014,7 +3014,6 @@ File: C/Create_a_two-dimensional_array_at_runtime
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-05-13 output format changed
-#n# new-disp 'srand' shift
 
 File: C/Create_an_HTML_table
 #!/usr/bin/env perl6
@@ -14152,8 +14151,31 @@ File: S/Statistics_Basic
 #j#  JVM: OK
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch?
 #n# 2021-03-04 yes to above, and that has not changed
+#n# 2022-11-01 replace call to built-in 'rand' for output stability
+
+File: S/Statistics_Chi-squared_distribution
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Statistics/Chi-squared_distribution
+#c# 2022-11-01 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# either:
+#n#   brew install plplot; (cd /usr/local/lib; ln -s libplplot.dylib libplplotd.so)
+#n# or:
+#n#   sudo port install plplot; (cd /usr/local/lib; ln -s /opt/local/lib/libplplot.dylib ./libplplotd.so)
+#n# MPro/iMac images have very slight differences, so can't use exact-match file testing
 
 File: S/Statistics_Normal_distribution
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Statistics/Normal_distribution
+#c# 2016-03-19 <RC, 2018-03-27 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2020-10-07 now stable?
+#n# 2021-03-04 not bothering to test the graph until 'srand' issues fixed
+#n# 2022-11-01 replace call to built-in 'rand' for output stability
+
+File: S/Statistics_Normal_distribution.0
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Statistics/Normal_distribution
 #c# 2016-03-19 <RC, 2018-03-27 <RC
