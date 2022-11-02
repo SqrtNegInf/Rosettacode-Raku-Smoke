@@ -15,19 +15,19 @@ use Graphics::PLplot;
 
 sub Γ(\z) { # https://rosettacode.org/wiki/Gamma_function#Raku
     constant g = 9;
-    z < .5 ?? π/ sin(π * z) / Γ(1 - z) 
-           !! sqrt(2*π) * (z + g - 1/2)**(z - 1/2) * exp(-(z + g - 1/2)) *
+    z < .5 ?? π/ sin(π × z) / Γ(1 - z) 
+           !! sqrt(2×π) × (z + g - 1/2)**(z - 1/2) × exp(-(z + g - 1/2)) ×
               [+] < 1.000000000000000174663        5716.400188274341379136
                     -14815.30426768413909044       14291.49277657478554025
                     -6348.160217641458813289       1301.608286058321874105
                     -108.1767053514369634679       2.605696505611755827729
                     -0.7423452510201416151527e-2   0.5384136432509564062961e-7
-                    -0.4023533141268236372067e-8 > Z* 1, |map 1/(z + *), 0..*
+                    -0.4023533141268236372067e-8 > Z× 1, |map 1/(z + *), 0..*
 }
 
-sub χ2(\x,\k) {x>0 && k>0 ?? (x**(k/2 - 1)*exp(-x/2)/(2**(k/2)*Γ(k / 2))) !! 0}
+sub χ2(\x,\k) {x>0 && k>0 ?? (x**(k/2 - 1)×exp(-x/2)/(2**(k/2)×Γ(k / 2))) !! 0}
 
-sub Γ_cdf(\k,\x) { x**k * exp(-x) * sum( ^101 .map: { x** $_ / Γ(k+$_+1) } ) }
+sub Γ_cdf(\k,\x) { x**k × exp(-x) × sum( ^101 .map: { x** $_ / Γ(k+$_+1) } ) }
 
 sub cdf_χ2(\x,\k) { (x <= 0 or k <= 0) ?? 0.0 !!  Γ_cdf(k / 2, x / 2) }
 
@@ -47,7 +47,7 @@ my \airport   = [ <77 23>, <88 12>, <79 21>, <81 19> ];
 my \expected  = [ <81.25 18.75> xx 4 ];
 my \dtotal    = ( (airport »-« expected)»² »/» expected )».List.flat.sum;
 
-say "\nFor the airport data, diff total is ",dtotal,", χ² is ", χ2(dtotal, 3), ", p value ", cdf_χ2(dtotal, 3);
+say my $result = "\nFor the airport data, diff total is "~dtotal~", χ² is "~ χ2(dtotal, 3)~ ", p value "~ cdf_χ2(dtotal, 3);
 
 given Graphics::PLplot.new( device => 'png', file-name => 'run/chi-squared.png' ) {
    .begin;
@@ -55,17 +55,19 @@ given Graphics::PLplot.new( device => 'png', file-name => 'run/chi-squared.png' 
    .environment: x-range => [-1.0, 10.0], y-range => [-0.1, 0.5], just => 0 ;
    .label: x-axis => '', y-axis => '', title => 'Chi-squared distribution' ;
    for 0..3 -> \k {  
-      .color-index0: 1+2*k;
+      .color-index0: 1+2×k;
       .line: (0, .1 … 10).map: { ( $_, χ2($_, k) )».Num };
       .text-viewport: side=>'t', disp=>-k-2, pos=>.5, just=>.5, text=>'k = '~k 
    } # plplot.sourceforge.net/docbook-manual/plplot-html-5.15.0/plmtex.html
    .end 
 }
 
+say my $pcent-diff = qqx!/opt/local/bin/compare -metric MAE ref/chi-squared.png run/chi-squared.png null: 2>&1!;
+my ($mae,$percent)  = $pcent-diff.split(' ');
 
-say my $result = qqx!/opt/local/bin/compare -metric MAE ref/chi-squared.png run/chi-squared.png null: 2>&1!;
+my $ref = "\nFor the airport data, diff total is 4.512821, χ² is 0.08875392598443506, p value 0.7888504263193072";
 
 # allow for exact equivalence or close similarity
 use Test;
-my ($mae,$percent)  = $result.split(' ');
-ok $result eq '0 (0)' || $mae < 100 and $percent.starts-with('(0.00');
+is $result, chomp $ref;
+ok $pcent-diff eq '0 (0)' || $mae < 100 and $percent.starts-with('(0.00');
