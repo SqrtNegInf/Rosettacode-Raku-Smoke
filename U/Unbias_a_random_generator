@@ -20,7 +20,7 @@ class splitmix64 {
 my $rng = splitmix64.new( :seed(123456) );
 
 sub randN ( $n where 3..6 ) {
-    return ( $n*$rng.next-rat / ($n - 1) ).Int;
+    return ( $n×$rng.next-rat / ($n - 1) ).Int;
 }
 
 sub unbiased ( $n where 3..6 ) {
