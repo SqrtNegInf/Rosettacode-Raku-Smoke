@@ -1,15 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/SOAP
-#t# skiptest
 #c# 2018-12-17 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# 501 Protocol scheme 'https' is only supported if IO::Socket::SSL is installed <URL:https://www.w3schools.com/xml/tempconvert.asmx?WSDL>
-#n# New error:
-#n# err code: 336032814
-#n# error:1407742E:SSL routines:SSL23_GET_SERVER_HELLO:tlsv1 alert protocol version
-
 my @res;
+
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 # Reference:
 # https://github.com/retupmoca/P6-SOAP
