@@ -9,7 +9,7 @@ our proto sha256($) returns blob8 {*}
 multi sha256(Str $str) { samewith $str.encode }
 multi sha256(blob8 $data) {
   sub rotr { $^a +> $^b +| $a +< (32 - $b) }
-  sub init { ^Inf .grep(&is-prime).map: { (($_ - .Int)*2**32).Int } o &^f } 
+  sub init { ^Inf .grep(&is-prime).map: { (($_ - .Int)×2**32).Int } o &^f } 
   sub   Ch { $^x +& $^y +^ +^$x +& $^z }
   sub  Maj { $^x +& $^y +^ $x +& $^z +^ $y +& $z }
   sub   Σ0 { rotr($^x,  2) +^ rotr($x, 13) +^ rotr($x, 22) }
@@ -39,7 +39,7 @@ multi sha256(blob8 $data) {
 	      @$data,
 	      0x80,
 	      0 xx (-($data + 1 + 8) mod 64),
-	      (8*$data).polymod(256 xx 7).reverse
+	      (8×$data).polymod(256 xx 7).reverse
 	      ).rotor(4)
 	    .map: { :256[@$_] }
 	  ).rotor(16)
