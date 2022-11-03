@@ -5,8 +5,6 @@
 #j#  JVM: OK
 #n# testing not very thorough
 
-srand 123456;
-
 #You can create constants in Raku with constant:
 
 constant $pi = 3.14159;
@@ -18,7 +16,7 @@ constant @arr = (1, 2, 3, 4, 5);
 constant fibonacci = 0, 1, *+* ... *;
 
 #Variables are considered mutable by default, but may be marked as readonly after initialization:
-my $pie := 3 + rand;
+my $pie := 3;
 
 #Unlike variables, formal parameters are considered readonly by default even if bound to a mutable container.
 sub sum (Num $x, Num $y) {
