@@ -1,23 +1,29 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Brownian_tree
 #c# 2016-01-23 <RC, 2018-04-24 >RC
-#t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
-#f# RC file: brownian_tree.BEND
-#n# 2020-10-07 still varies
-#n# 2021-03-02 cannot get stable output
+#f# RC file: brownian_tree.txt
+#n# revise randomness tests to get output stability
 
-#srand 1; rand; # 2020-11-10 head fake to produce stability?
-#ENTER srand 123456;
-srand 123456;
+class splitmix64 {
+    has $!state;
+    submethod BUILD ( Int :$seed where * >= 0 = 1 ) { $!state = $seed }
+    method next-int {
+        my $next = $!state = ($!state + 0x9e3779b97f4a7c15) +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 30)) × 0xbf58476d1ce4e5b9 +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 27)) × 0x94d049bb133111eb +& (2⁶⁴ - 1);
+        ($next +^ ($next +> 31)) +& (2⁶⁴ - 1);
+    }
+    method next-rat { self.next-int / 2⁶⁴ }
+}
 
-my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
-my $fh = open("run/brownian_tree.$ext", :w) || die;
+my $rng = splitmix64.new( :seed(987654321) );
 
-#This solution spawns new Particles at a growing square border and displays the Tree every 50 particles and at the end using unicode UPPER/LOWER HALF BLOCK and FULL BLOCK.
+my $fh = open("run/brownian_tree.txt", :w) || die;
 
-# Works with: Rakudo version 2015.12
+# This solution spawns new Particles at a growing square border and displays the Tree every 50 particles 
+# and at the end using unicode UPPER/LOWER HALF BLOCK and FULL BLOCK.
 
 constant size = 100;
 constant particlenum = 1_000;
@@ -60,16 +66,23 @@ for ^particlenum -> $progress {
     my Int $y;
     my &reset = {
         repeat {
-            ($x, $y) = (mid - $spawnradius..mid + $spawnradius).pick, (mid - $spawnradius, mid + $spawnradius).pick;
-            ($x, $y) = ($y, $x) if (True, False).pick();
+           #($x, $y) = (mid-$spawnradius .. mid+$spawnradius).pick, (mid - $spawnradius, mid + $spawnradius).pick;
+           #($x, $y) = ($y, $x) if (True, False).pick();
+            my @foo = mid-$spawnradius .. mid+$spawnradius;
+            $x = @foo[floor @foo × $rng.next-rat];
+            $y = $rng.next-rat < 0.5 ?? mid - $spawnradius !! mid + $spawnradius;
+            ($x, $y) = ($y, $x) if $rng.next-rat < 0.5;
         } while get($x,$y);
     }
     reset;
 
     while not get($x-1|$x|$x+1, $y-1|$y|$y+1) {
-        $x = ($x-1, $x, $x+1).pick;
-        $y = ($y-1, $y, $y+1).pick;
-        if (False xx 3, True).pick {
+       #$x = ($x-1, $x, $x+1).pick;
+       #$y = ($y-1, $y, $y+1).pick;
+       #if (False xx 3, True).pick {
+        $x = ($x-1, $x, $x+1)[floor 3 × $rng.next-rat];
+        $y = ($y-1, $y, $y+1)[floor 3 × $rng.next-rat];
+        if $rng.next-rat < 0.25 {
             $x = $x >= mid ?? $x - 1 !! $x + 1;
             $y = $y >= mid ?? $y - 1 !! $y + 1;
         }
