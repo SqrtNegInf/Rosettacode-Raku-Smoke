@@ -780,7 +780,7 @@ File: A/Approximate_Equality
 File: A/Arbitrary-precision_integers_included
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arbitrary-precision_integers_(included)
-#c# 2015-11-23 <RC, 2018-03-21 <RC
+#c# 2015-11-23 <RC, 2018-03-21 <RC, 2022-11-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -2062,10 +2062,8 @@ File: C/Chaos_game
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #f# RC file: chaos-game-perl6.png
-#n# see '.race' version below
-#n# 2020-09-07 answer changed since yesterday?
-#n# 2021-03-02 using 'ENTER srand'
-#n# 2021-03-03 ref/run difference, very small (not visible in images) but not identical like before
+#n# generates Sierpinski Triangle, more or less
+#n# 2022-11-02 replace call to built-in 'rand' for output stability
 
 File: C/Character_codes
 #!/usr/bin/env perl6
@@ -15766,6 +15764,7 @@ File: U/Unbias_a_random_generator
 #c# 2016-01-06 <RC, 2020-08-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-11-02 replace call to built-in 'rand' for output stability
 
 File: U/Undefined_values
 #!/usr/bin/env perl6
