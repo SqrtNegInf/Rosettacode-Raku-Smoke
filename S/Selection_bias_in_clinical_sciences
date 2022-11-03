@@ -40,7 +40,7 @@ sub kruskal (@sets) {
    for @sets.kv -> \i,@set { for @set -> $b { @sr[i] += $b ?? $art !! $arf } } 
 
   #my $H = [+] gather for @sr.kv -> \i,\s { take s×s/@sets[i].elems }
-   my $H = [+] @sr.kv.map: -> \i,\s { s*s/@sets[i].elems }
+   my $H = [+] @sr.kv.map: -> \i,\s { s×s/@sets[i].elems }
    return 12/($n×($n+1)) × $H - 3 × ($n + 1)
 }
 
