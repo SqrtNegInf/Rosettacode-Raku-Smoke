@@ -18,9 +18,9 @@ sub countdown ($target, @numbers) {
                @res.push: "$res = ",n1v,' + ',n0v andthen return True
             }
 	        if n0v != 1 {
-               (my @numsNew = @nums2).append: my $res = n1v * n0v;	
+               (my @numsNew = @nums2).append: my $res = n1v × n0v;	
 	           if ($res == $target or countdown($target, @numsNew)) {
-                  @res.push: "$res = ",n1v,' * ',n0v andthen return True
+                  @res.push: "$res = ",n1v,' × ',n0v andthen return True
 	           }
             }
             if n1v != n0v {
@@ -70,7 +70,7 @@ Target:
 50
 23850 = 
 225
- * 
+ × 
 106
 106 = 
 100
@@ -78,7 +78,7 @@ Target:
 6
 225 = 
 75
- * 
+ × 
 3
 
 Using : 
@@ -95,11 +95,11 @@ Target:
 50
 23850 = 
 7950
- * 
+ × 
 3
 7950 = 
 106
- * 
+ × 
 75
 106 = 
 100
@@ -112,7 +112,7 @@ Target:
 594
 594 = 
 66
- * 
+ × 
 9
 66 = 
 64
@@ -120,7 +120,7 @@ Target:
 2
 64 = 
 16
- * 
+ × 
 4
 2 = 
 6
