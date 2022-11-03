@@ -5,8 +5,6 @@
 #j#  JVM: OK
 #n# rendered non-interactive for testing
 
-srand 123456;
-
 my @res;
 
 sub query_for_integer ($prompt) { loop { ($_ = prompt "$prompt ") ~~ /^ \d+ $/ ?? return $_ !! say '(need an integer)'; } }
@@ -18,8 +16,8 @@ sub spoof_for_2 {
     for 1 .. $ngames {
 
         repeat {
-            $mypot   = 1 + 3.rand.Int;
-            $myguess = 1 + 6.rand.Int;
+            $mypot   = 1 + 0; #3.rand.Int; # remove random
+            $myguess = 1 + 4; #6.rand.Int; # remove random
         } until $mypot+3 < $myguess;
         say 'I have set my pot and guess.';
 
@@ -43,18 +41,11 @@ spoof_for_2();
 
 say my $result = join "\n", @res;
 
-my $moar = qq:to/END/;
+my $ref = qq:to/END/;
 My pot is: 1
 My guess is: 5
 You won!
 END
 
-my $jvm = qq:to/END/;
-My pot is: 2
-My guess is: 6
-No winner!
-END
-
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
