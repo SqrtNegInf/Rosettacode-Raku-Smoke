@@ -1,24 +1,37 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Dining_philosophers
-#t# skiptest
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# Died with the exception: java.lang.NullPointerException
+#n# for JVM: Died with the exception: java.lang.NullPointerException
 
-srand 123456;
+my @res;
+my $i = 1; #0.25;
 
-# Works with: rakudo version 2015-09-09
+class splitmix64 {
+    has $!state;
+    submethod BUILD ( Int :$seed where * >= 0 = 1 ) { $!state = $seed }
+    method next-int {
+        my $next = $!state = ($!state + 0x9e3779b97f4a7c15) +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 30)) × 0xbf58476d1ce4e5b9 +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 27)) × 0x94d049bb133111eb +& (2⁶⁴ - 1);
+        ($next +^ ($next +> 31)) +& (2⁶⁴ - 1);
+    }
+    method next-rat { self.next-int / 2⁶⁴ }
+}
+
+my $rng = splitmix64.new( :seed(123456) );
+
 # We use locking mutexes for the forks, and a lollipop to keep the last person who finished eating from getting hungry until the next person finishes eating, which prevents a cycle of dependency from forming. The algorithm should scale to many philosophers, and no philosopher need be singled out to be left-handed, so it's fair in that sense.
 
 class Fork {
     has $!lock = Lock.new;
     method grab($who, $which) {
-	say "$who grabbing $which fork";
+	@res.push: "$who grabbing $which fork";
 	$!lock.lock;
     }
     method drop($who, $which) {
-	say "$who dropping $which fork";
+	@res.push: "$who dropping $which fork";
 	$!lock.unlock;
     }
 }
@@ -29,55 +42,70 @@ class Lollipop {
     method yours { $!channel.receive }
 }
 
-sub dally($sec) { sleep 0.01 + rand × $sec }
+sub dally($sec) { sleep 0.01 + $rng.next-rat × $sec }
 
-sub MAIN(*@names) {
-    @names ||= <Aristotle Kant Spinoza Marx Russell>;
+my @names = <Aristotle Kant Spinoza Marx Russell>;
 
-    my @lfork = Fork.new xx @names;
-    my @rfork = @lfork.rotate;
+my @lfork = Fork.new xx @names;
+my @rfork = @lfork.rotate;
 
-    my $lollipop = Lollipop.new;
-    start { $lollipop.yours; }
+my $lollipop = Lollipop.new;
+start { $lollipop.yours; }
 
-    my $cnt = 0;
-    my @philosophers = do for flat @names Z @lfork Z @rfork -> $n, $l, $r {
-	start { 
-	    sleep 1 + rand×4;
+my @philosophers = do for flat @names Z @lfork Z @rfork -> $n, $l, $r {
+    start { 
+	    sleep $i + $rng.next-rat × 4;
 	    loop {
-		$l.grab($n,'left');
-		dally 1;  # give opportunity for deadlock
-		$r.grab($n,'right');
-		say "$n eating";
-		dally 10;
-		$l.drop($n,'left');
-		$r.drop($n,'right');
+            done() if @res > 20;
+		    $l.grab($n,'left');
+		    dally 1;  # give opportunity for deadlock
+		    $r.grab($n,'right');
+		    @res.push: "$n eating";
+		    dally 10;
+		    $l.drop($n,'left');
+		    $r.drop($n,'right');
 
-		$lollipop.mine($n);
-		sleep 1;  # lick at least once
-		say "$n lost lollipop to $lollipop.yours(), now digesting";
+		    $lollipop.mine($n);
+		    sleep $i;  # lick at least once
+		    @res.push: "$n lost lollipop to $lollipop.yours(), now digesting";
 
-		dally 20;
+		    dally 20;
 	    }
-	}
     }
-    sink await @philosophers;
 }
 
-#`{
+sub done {
+say my $result = @res.join("\n");
+
+my $ref = qq:to/END/;
 Aristotle grabbing left fork
 Kant grabbing left fork
 Kant grabbing right fork
 Kant eating
 Aristotle grabbing right fork
-Marx grabbing left fork
-Marx grabbing right fork
-Marx eating
 Russell grabbing left fork
 Spinoza grabbing left fork
+Russell grabbing right fork
+Marx grabbing left fork
+Marx grabbing right fork
 Kant dropping left fork
-Kant dropping right fork
 Aristotle eating
+Kant dropping right fork
 Spinoza grabbing right fork
-^C
+Aristotle dropping left fork
+Aristotle dropping right fork
+Russell eating
+Kant lost lollipop to Aristotle, now digesting
+Russell dropping left fork
+Russell dropping right fork
+Marx eating
+Aristotle lost lollipop to Russell, now digesting
+END
+
+use Test;
+#is $result, chomp $ref; # can't use exact, as order of some steps can flip due to timing (race condition?)
+is @res[*-1], 'Aristotle lost lollipop to Russell, now digesting';
+exit;
 }
+
+sink await @philosophers;
