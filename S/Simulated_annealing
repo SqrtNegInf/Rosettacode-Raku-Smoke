@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch?
+#n# 2022-11-04 replace call to built-in 'rand' for output stability (slower this way, so reduce iterations)
 #n#
 #n# Notes on revisions (see .1 for original version as uploaded by Hkdtam++)
 #n#
@@ -20,14 +21,34 @@
 #n# single/double quote style: former for static strings, latter for ones needing interpolation
 #n# eliminated 'sa' as routine (to eliminate need for globals could have packed *everything* into it, but 6-of-one, 1/2-dozen...)
 
-#srand 123456;
-srand 1234; # more dramatic stats
-
 my @res;
+
+class splitmix64 {
+    has $!state;
+    submethod BUILD ( Int :$seed where * >= 0 = 1 ) { $!state = $seed }
+    method next-int {
+        my $next = $!state = ($!state + 0x9e3779b97f4a7c15) +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 30)) × 0xbf58476d1ce4e5b9 +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 27)) × 0x94d049bb133111eb +& (2⁶⁴ - 1);
+        ($next +^ ($next +> 31)) +& (2⁶⁴ - 1);
+    }
+    method next-rat { self.next-int / 2⁶⁴ }
+}
+
+my $rng = splitmix64.new( :seed(987654321) );
+
+# Knuth shuffle
+sub shuffle (@a is copy) {
+    for 1 ..^ @a -> $n {
+        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
 
 # simulation setup
 my \cities = 100;  # number of cities
-my \kmax   = 1e6;  # iterations to run
+my \kmax   = 1e5;  # iterations to run
 my \kT     = 1;    # initial 'temperature'
 
 die 'City count must be a perfect square.' if cities.sqrt != cities.sqrt.Int;
@@ -58,7 +79,8 @@ sub delta-E(\s, \u, \v) {
 }
 
 # E(s0), initial state
-my \s = @ = flat 0, (1 ..^ cities).pick(*), 0;  # use anonymous array container to create sigil-less variable
+my \s = @ = flat 0, shuffle(1 ..^ cities), 0;
+#my \s = @ = flat 0, (1 ..^ cities).pick(*), 0;  # use anonymous array container to create sigil-less variable
 my \E-min-global = my \E-min = $ = Es(s);       # likewise, with scalar
 
 # redundant -- 1st row of progress table shows the same information
@@ -70,12 +92,12 @@ for 0 ..^ kmax -> \k {
         if k % (kmax/10) == 0;
 
     # valid candidate cities (exist, adjacent)
-    my \cv = neighbors[(^8).roll] + s[ my \u = 1 + (^(cities-1)).roll ];
+    my \cv = neighbors[8×$rng.next-rat] + s[ my \u = 1 + floor((cities-1)×$rng.next-rat)];
     next if cv ≤ 0 or cv ≥ cities or D[s[u];cv] > sqrt(2);
 
     my \v  = s[cv];
     my \ΔE = delta-E(s, u, v);
-    if ΔE < 0 or P(ΔE, k, kmax, kT) ≥ rand { # always move if negative
+    if ΔE < 0 or P(ΔE, k, kmax, kT) ≥ $rng.next-rat { # always move if negative
         (s[u], s[v]) = (s[v], s[u]);
         E-min += ΔE;
         E-min-global = E-min if E-min < E-min-global;
@@ -85,73 +107,29 @@ for 0 ..^ kmax -> \k {
 @res.push: "\nE(s_final): " ~ E-min-global.fmt('%.1f');
 @res.push: "Path:\n" ~ s».fmt('%2d').rotor(20,:partial).join: "\n";
 
-say my $result = join "\n" , @res;
+say my $result = @res.join("\n");
 
-my $moar-terminal = q:to/END/;
-k:       0  T: 1.0  Es: 536.0
-k:  100000  T: 0.9  Es: 198.2
-k:  200000  T: 0.8  Es: 158.3
-k:  300000  T: 0.7  Es: 157.6
-k:  400000  T: 0.6  Es: 160.6
-k:  500000  T: 0.5  Es: 137.6
-k:  600000  T: 0.4  Es: 132.1
-k:  700000  T: 0.3  Es: 121.6
-k:  800000  T: 0.2  Es: 118.1
-k:  900000  T: 0.1  Es: 117.8
+my $ref = q:to/END/;
+k:       0  T: 1.0  Es: 504.1
+k:   10000  T: 0.9  Es: 216.9
+k:   20000  T: 0.8  Es: 202.9
+k:   30000  T: 0.7  Es: 185.8
+k:   40000  T: 0.6  Es: 161.9
+k:   50000  T: 0.5  Es: 154.4
+k:   60000  T: 0.4  Es: 144.4
+k:   70000  T: 0.3  Es: 141.8
+k:   80000  T: 0.2  Es: 132.3
+k:   90000  T: 0.1  Es: 132.3
 
-E(s_final): 118.0
+E(s_final): 131.9
 Path:
- 0 10  1 11 21 20 30 31 32 22 12  2  3  4 13 23 33 34 43 42
-52 53 44 45 35 36 26 25 24 14 15 16  5  6  7 17 18 19 29 39
- 9  8 28 27 37 38 48 58 57 47 46 56 49 59 69 68 67 78 79 89
-99 98 77 66 76 75 65 55 54 64 63 73 83 94 84 74 85 86 87 88
-97 96 95 93 92 91 90 80 60 51 41 61 62 72 82 81 71 70 50 40
- 0
-END
-
-my $moar-cronjob = q:to/END/;
-k:       0  T: 1.0  Es: 524.9
-k:  100000  T: 0.9  Es: 174.9
-k:  200000  T: 0.8  Es: 176.4
-k:  300000  T: 0.7  Es: 153.8
-k:  400000  T: 0.6  Es: 156.9
-k:  500000  T: 0.5  Es: 134.9
-k:  600000  T: 0.4  Es: 131.5
-k:  700000  T: 0.3  Es: 122.1
-k:  800000  T: 0.2  Es: 113.2
-k:  900000  T: 0.1  Es: 113.2
-
-E(s_final): 113.2
-Path:
- 0 10 21 20 30 31 41 32 22 12 11  1  2  3 13 23 33 34 24 14
- 4  5 15 16 26 25 35 36 37 38 27 17  6  7  8  9 19 18 28 29
-39 48 47 57 56 55 66 67 68 58 49 59 69 78 79 89 99 98 88 97
-87 77 46 45 54 44 43 42 53 62 72 82 81 80 90 91 92 93 73 83
-84 75 76 86 96 95 94 85 74 65 64 63 52 51 61 71 70 60 50 40
- 0
-END
-
-my $jvm = q:to/END/;
-k:       0  T: 1.0  Es: 521.4
-k:  100000  T: 0.9  Es: 194.9
-k:  200000  T: 0.8  Es: 182.8
-k:  300000  T: 0.7  Es: 161.2
-k:  400000  T: 0.6  Es: 151.7
-k:  500000  T: 0.5  Es: 136.3
-k:  600000  T: 0.4  Es: 132.8
-k:  700000  T: 0.3  Es: 112.7
-k:  800000  T: 0.2  Es: 113.5
-k:  900000  T: 0.1  Es: 110.3
-
-E(s_final): 110.3
-Path:
- 0  1 11 21 20 31 41 32 22 12  2  3 14 24 34 44 43 53 54 55
-64 63 62 52 61 51 42 33 23 13  4  5 16 17 27 36 37 47 57 48
-49 39 38 28 29 19  9 18  8  7  6 15 25 26 35 45 46 56 65 74
-84 95 96 97 87 86 76 77 78 88 98 99 89 79 69 59 58 68 67 66
-75 85 94 93 92 91 90 70 80 81 82 83 73 72 71 60 50 40 30 10
+ 0 11 10 20 51 65 67 69 59 58 47 66 77 78 88 97 96 95 94 86
+87 79 89 99 98 85 84 83 93 92 91 81 90 80 70 71 72 82 62 73
+63 64 74 75 76 68 57 56 55 54 53 43 44 48 49 39 38 37 46 45
+52 61 60 50 40 21 12  2  3 13 22 32 31 30 41 42 33 34 35 36
+28 29 19  9 17 16 15 14  4  5  6  7  8 18 27 26 25 24 23  1
  0
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
