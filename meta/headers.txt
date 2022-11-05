@@ -3671,11 +3671,10 @@ File: D/Dinesman%27s_multiple-dwelling_problem-2
 File: D/Dining_philosophers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Dining_philosophers
-#t# skiptest
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# Died with the exception: java.lang.NullPointerException
+#n# for JVM: Died with the exception: java.lang.NullPointerException
 
 File: D/Disarium_numbers
 #!/usr/bin/env raku
@@ -13316,6 +13315,7 @@ File: S/Simulated_annealing
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch?
+#n# 2022-11-04 replace call to built-in 'rand' for output stability (slower this way, so reduce iterations)
 #n#
 #n# Notes on revisions (see .1 for original version as uploaded by Hkdtam++)
 #n#
