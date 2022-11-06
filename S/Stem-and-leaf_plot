@@ -31,7 +31,7 @@ for $range.list -> $stem {
     @res.push: ($stem.fmt($stem_format), '|', ~$leafs.map: * % $stem_unit);
 }
 
-.say for @res; exit;
+.say for @res;
 
 my $ref = qq:to/END/;
  0 | 7 7
