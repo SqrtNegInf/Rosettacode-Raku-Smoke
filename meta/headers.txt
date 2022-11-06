@@ -990,10 +990,10 @@ File: A/Associative_array_Merging
 File: A/Atomic_updates
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Atomic_updates
+#t# testok
 #c# 2016-08-10 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# Don't test output, just run or die
 
 File: A/Attractive_numbers
 #!/usr/bin/env perl6
@@ -1369,7 +1369,7 @@ File: B/Bilinear_interpolation
 #c# 2018-12-15 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#f# RC File: Lenna100-larger.jpg
+#f# RC file: Lenna100-larger.jpg
 
 File: B/Bin_given_limits
 #!/usr/bin/env raku
@@ -1754,18 +1754,21 @@ File: B/Brownian_tree
 File: B/Bulls_and_cows
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bulls_and_cows
+#t# testok
 #c# 2016-05-10 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: 1234\n7234\n7254
+#=# RC pipe: 1234\n7234\n7254\n
+#n# remove random, for output stability
 
 File: B/Bulls_and_cows_Player
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bulls_and_cows/Player
+#t# testok
 #c# 2016-05-10 <RC, 2018-03-23 >RC, 2019-01-19 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: 2 1\n2 1\n2 1
+#=# RC pipe: 2 2\n1 3\n1 3\n0 4
 
 File: B/Burrows-Wheeler_transform
 #!/usr/bin/env perl6
@@ -2337,7 +2340,7 @@ File: C/Closest-pair_problem-2
 File: C/Closest-pair_problem-3
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Closest_pair_problem
-#n# inprogress
+#t# inprogress
 #c# 2016-04-05 <RC, 2022-06-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -2369,6 +2372,13 @@ File: C/Closures_Value_capture
 #n# just keep items order, cause it doesn't really matter anyhow
 
 File: C/Code_Golf:_Code_Golf
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Code_Golf:_Code_Golf
+#c# 2021-12-10 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: C/Code_Golf:_Code_Golf.jvm
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Code_Golf:_Code_Golf
 #c# 2021-12-10 <RC
@@ -3391,10 +3401,12 @@ File: D/Decimal_floating_point_number_to_binary
 File: D/Decision_tables
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Decision_tables
+#t# testok
 #c# 2016-05-01 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: y\nn\nn\n
+#n# doesn't play well with 'use Test'
 
 File: D/Deconvolution_1D
 #!/usr/bin/env perl6
@@ -4163,6 +4175,7 @@ File: E/Empty_directory
 File: E/Empty_program
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Empty_program
+#t# nocode
 #c# 2016-08-07 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -6343,6 +6356,7 @@ File: H/Hello_world_Standard_error
 File: H/Hello_world_Text
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Hello_world/Text
+#t# nocode
 #c# 2018-03-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -8694,6 +8708,7 @@ File: M/Meissel-Mertens_constant
 File: M/Memory_allocation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Memory_allocation
+#t# nocode
 #c# 2018-03-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -9142,10 +9157,11 @@ File: M/Multifactorial
 File: M/Multiline_shebang
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Multiline_shebang
+#t# testok
 #c# 2018-06-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# runs and does nothing (with no args)
+#n# kinda pointless [runs and does nothing (with no args)] and not really tested
 
 File: M/Multiple_distinct_objects
 #!/usr/bin/env perl6
@@ -9240,6 +9256,7 @@ File: M/Musical_scale
 File: M/Mutex
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Mutex
+#t# nocode
 #c# 2020-01-11 <RC, 2022-08-29 >RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -13139,7 +13156,7 @@ File: S/Show_Ascii_table-2
 #c# 2018-09-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#f# RC File: ASCII_wiki.txt
+#f# RC file: ASCII_wiki.txt
 #n# wiki-table output (this is current on RC)
 
 File: S/Show_the_decimal_value_of_a_number_of_1s_appended_with_a_3,_then_squared
