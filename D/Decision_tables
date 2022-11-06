@@ -1,9 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Decision_tables
+#t# testok
 #c# 2016-05-01 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: y\nn\nn\n
+#n# doesn't play well with 'use Test'
 
 sub decide (@q, @s) {
     my $bit = 2 ** [+] (1,2,4...*) Z× reverse @q.map: {
