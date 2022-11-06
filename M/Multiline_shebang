@@ -6,9 +6,9 @@
 #j# JVM:  OK
 #n# kinda pointless [runs and does nothing (with no args)] and not really tested
 
-#!/usr/local/bin/perl6
-use MONKEY; EVAL '(exit $?0)' && EVAL 'exec perl6 $0 ${1+"$@"}'
-& EVAL 'exec perl6 $0 $argv:q'
+#!/usr/bin/env raku
+use MONKEY; EVAL '(exit $?0)' && EVAL 'exec raku $0 ${1+"$@"}'
+& EVAL 'exec raku $0 $argv:q'
         if 0;
 
 print "ok 1\n";
