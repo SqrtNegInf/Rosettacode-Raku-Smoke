@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Empty_program
-#t# nocode
 #c# 2016-08-07 <>RC
+#t# testok
 #m# MOAR: OK
 #j#  JVM: OK
 #    produes no output of course...
@@ -18,3 +18,5 @@ v6.z; # but no error?
 
 #or even: #DH no longer!
 #6;
+
+say 'ok 1'; # if we get here, and no STDERR show up, then success
