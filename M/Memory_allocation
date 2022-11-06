@@ -1,9 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Memory_allocation
+#t# nocode
 #c# 2018-03-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-# Like Perl 5, Raku is intended to run largely stackless, so all allocations are really on the heap, including activation records. Allocations are managed automatically. It is easy enough to allocate a memory buffer of a particular size however, if you really need it:
+# Like Perl 5, Raku is intended to run largely stackless, so all
+# allocations are really on the heap, including activation records.
+# Allocations are managed automatically. It is easy enough to allocate a
+# memory buffer of a particular size however, if you really need it:
 
 my $buffer = Buf.new(0 xx 1024);
