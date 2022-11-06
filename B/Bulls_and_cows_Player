@@ -1,14 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bulls_and_cows/Player
+#t# testok
 #c# 2016-05-10 <RC, 2018-03-23 >RC, 2019-01-19 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: 2 1\n2 1\n2 1
+#=# RC pipe: 2 2\n1 3\n1 3\n0 4
 
 srand 123456;
 
-# Works with: Rakudo version 2012.10
-# Translation of: Perl
 # we use the [] reduction meta operator along with the Cartesian Product
 # operator X to create the Cartesian Product of four times [1..9] and then get
 # all the elements where the number of unique digits is four.
@@ -16,6 +15,7 @@ srand 123456;
 my @candidates = ([X] [1..5] xx 4).grep: *.unique == 4; #DH change
 
 repeat {
+#say 'candidates: ' ~  join ' ', @candidates;
 	my $guess = @candidates.pick;
 	my ($bulls, $cows) = read-score;
 	@candidates .= grep: &score-correct;
