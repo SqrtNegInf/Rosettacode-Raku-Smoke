@@ -5,15 +5,10 @@
 #j#  JVM: OK
 #n# tests as 'ok' when run from batch
 
-# Works with: Rakudo version 2015.12
 say my $result = $*IN.t ?? "Input comes from tty." !! "Input doesn't come from tty.";
 
-#`{
-$ perl6 istty.p6
-Input comes from tty.
-$ true | perl6 istty.p6
-Input doesn't come from tty.
-}
+#        raku C/Check_input_device_is_a_terminal # prints: Input comes from tty.
+# true | raku C/Check_input_device_is_a_terminal # prints: Input doesn't come from tty.
 
 use Test;
 is $result, q[Input doesn't come from tty.];
