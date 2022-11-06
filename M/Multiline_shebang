@@ -1,9 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Multiline_shebang
+#t# testok
 #c# 2018-06-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# runs and does nothing (with no args)
+#n# kinda pointless [runs and does nothing (with no args)] and not really tested
 
 #!/usr/local/bin/perl6
 use MONKEY; EVAL '(exit $?0)' && EVAL 'exec perl6 $0 ${1+"$@"}'
