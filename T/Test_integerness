@@ -30,7 +30,7 @@ for 25.000000, 24.999999, 25.000100, -2.1e120, -5e-2, Inf, NaN, 5.0+0.0i, 5-5i {
         is-int($_, :tolerance<0.00001>);
 }
 
-.say for @res; exit;
+.say for @res;
 
 my $ref = qq:to/END/;
 Rat      25         True   True 
