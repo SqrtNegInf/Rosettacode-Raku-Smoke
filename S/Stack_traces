@@ -3,21 +3,19 @@
 #c# 2016-05-04 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-# passing test depends on keeping same line numbering...
+#n# passing test depends on keeping same line numbering...
+#n# MoarVM/JVM now the same (but might change, so keep both)
 
 my $moar = qq:to/END/;
-  in sub g at Stack_traces line 26
-  in sub f at Stack_traces line 30
-  in sub MAIN at Stack_traces line 31
+  in sub g at S/Stack_traces line 24
+  in sub f at S/Stack_traces line 28
+  in sub MAIN at S/Stack_traces line 29
 END
 
 my $jvm = qq:to/END/;
-  in method new at gen/jvm/CORE.setting line 29490
-  in sub g at Stack_traces line 25
-  in sub f at Stack_traces line 29
-  in sub MAIN at Stack_traces line 30
-  in sub MAIN_HELPER at gen/jvm/CORE.setting line 36617
+  in sub g at S/Stack_traces line 24
+  in sub f at S/Stack_traces line 28
+  in sub MAIN at S/Stack_traces line 29
 END
 
 my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
@@ -25,7 +23,7 @@ my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 sub g { 
     say my $result = Backtrace.new.concise;
     use Test;
-    #is $result, $ref;
+    is $result, $ref;
 }
 sub f { g }
 sub MAIN { f }
