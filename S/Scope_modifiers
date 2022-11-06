@@ -1,9 +1,18 @@
 #!/usr/bin/env perl6
-#t# nocode
 #u# http://rosettacode.org/wiki/Scope_modifiers
 #c# 2019-09-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+sub a { my $*dyn = 'a'; c() }
+sub b { my $*dyn = 'b'; c() }
+sub c { $*dyn }
+
+say my $res1 = a();  # says a
+say my $res2 = b();  # says b
+
+use Test;
+ok $res1 eq 'a' and $res2 eq 'b';
 
 #`{{
 
