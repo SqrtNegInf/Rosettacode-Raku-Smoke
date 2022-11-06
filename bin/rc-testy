@@ -7,13 +7,12 @@
 
 for my $f (@ARGV) {
     next unless $f =~ /^[1-Z].*$/;
-    next if $f eq 'Empty_program';
     next if $f =~ /\.[0-9]$/;
 
     $text = `cat $f`;
     next unless $text =~ /MOAR: OK/ms;
-    next if $text =~ /RC file:/ms;
-    next if $text =~ /#t#[^\n]+(interactive|gui|output varies|graphical|trivial|toodamnslow|skiptest)/ms;
+    next if $text =~ /RC file:/ims;
+    next if $text =~ /#t#[^\n]+(inprogress|interactive|gui|nocode|graphical|toodamnslow|skiptest|testok)/ms;
     next if $text =~ /\n\s*use Test;/ms;
     print "$f\n" 
 }
