@@ -415,7 +415,6 @@ File: A/Active_Directory_Search_for_a_user
 File: A/Active_object
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Active_object
-#t# skiptest
 #c# 2019-02-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -1769,6 +1768,7 @@ File: B/Bulls_and_cows_Player
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: 2 2\n1 3\n1 3\n0 4
+#n# 2022-11-05 actually completing a test now
 
 File: B/Burrows-Wheeler_transform
 #!/usr/bin/env perl6
@@ -2580,11 +2580,11 @@ File: C/Comma_quibbling
 
 File: C/Command-line_arguments
 #!/usr/bin/env perl6
-#t# nocode
 #u# http://rosettacode.org/wiki/Command-line_arguments
 #c# 2019-09-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#i# RC cli: 3 5
 
 File: C/Commatizing_numbers
 #!/usr/bin/env perl6
@@ -4184,8 +4184,8 @@ File: E/Empty_directory
 File: E/Empty_program
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Empty_program
-#t# nocode
 #c# 2016-08-07 <>RC
+#t# testok
 #m# MOAR: OK
 #j#  JVM: OK
 #    produes no output of course...
@@ -12017,7 +12017,6 @@ File: R/Read_a_file_line_by_line
 File: R/Read_a_specific_line_from_a_file
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Read_a_specific_line_from_a_file
-#t# skiptest
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -12806,7 +12805,6 @@ File: S/Scope_Function_names_and_labels
 
 File: S/Scope_modifiers
 #!/usr/bin/env perl6
-#t# nocode
 #u# http://rosettacode.org/wiki/Scope_modifiers
 #c# 2019-09-21 <RC
 #m# MOAR: OK
@@ -14131,12 +14129,13 @@ File: S/Stack_traces
 #c# 2016-05-04 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# passing test depends on keeping same line numbering...
+#n# MoarVM/JVM now the same (but might change, so keep both)
 
 File: S/Start_from_a_main_routine
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Start_from_a_main_routine
 #c# 2016-05-15 <RC
-#t# nocode
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -15364,6 +15363,7 @@ File: T/Time-based_One-time_Password_Algorithm
 File: T/Time_a_function
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Time_a_function
+#t# testok
 #c# 2016-03-12 <RC, 2018-05-17 <RC
 #m# MOAR: OK
 #j#  JVM: OK
