@@ -12,7 +12,7 @@ say my $res1 = a();  # says a
 say my $res2 = b();  # says b
 
 use Test;
-ok $res1 eq 'a' and $res2 eq 'b';
+ok ($res1 eq 'a' && $res2 eq 'b');
 
 #`{{
 
