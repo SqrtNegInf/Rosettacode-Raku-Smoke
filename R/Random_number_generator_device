@@ -3,25 +3,41 @@
 #c# 2016-06-12 <>RC, 2018-11-17 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#    weak tests
+#n# 2022-11-07 somewhat better testing
 
 use experimental :pack;
 
 my $UR = open("/dev/urandom", :bin) orelse .die;
 
 # fixed list size
-my $n = 20;
+my $n = 10;
 my @res1.push: $_ for $UR.read(4×$n).unpack("L*")[^$n];
-.say for @res1;
+print "$_ " for @res1;
+my @res0 = @res1;
 
-say '--';
+my ($max,$eps) = 2**14, .05;
 
 # lazy list 
-#my @random-spigot = $UR.read(1024).unpack("L*")[1..*]; # also works
-my @random-spigot = $UR.read(1024).unpack("L*") ... *;
-my @res2.push: $_ for @random-spigot[^20];
-.say for @res2;
+my @random-spigot = $UR.read(4*$max).unpack("L*")[1..*]; # also works
+#my @random-spigot = $UR.read(1024).unpack("L*") ... *;
+my @res2 = @random-spigot[^ (-1 + $max)];
+
+my ($lastA,$lastB,$A,$B,$c_mid);
+$A = @res0.shift.substr(*-1, 1);
+repeat { $B = @res0.shift.substr(*-1, 1) } until $A ne $B;
+
+for @res2 -> $rn {
+    $c_mid++ if 4294967295/2 < $rn;
+    $lastA++ if $A eq $rn.substr(*-1, 1);
+    $lastB++ if $B eq $rn.substr(*-1, 1);
+}
+
+say "\n";
+say abs($c_mid/($max/2)) ~ ' half/half';
+say "$A:$lastA vs $B:$lastB final digits";
+say 1-abs($lastA/$lastB) ~ " final digit ratio";
 
 use Test;
-is +@res1, 20;
-is +@res2, 20;
+is +@res1, 10; # just verify we got something
+ok (1-abs($c_mid/($max/2))) <   $eps;
+ok (1-abs($lastA/$lastB))   < 5*$eps;
