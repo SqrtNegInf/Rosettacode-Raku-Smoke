@@ -3,15 +3,12 @@
 #c# 2021-10-02 <RC, 2021-10-03 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# fairly often no results?
 
 srand  123456;
 
 my @res[10];
 
-# 20211001 Raku programming solution 
-
-enum MultitonType < Gold Silver Bronze >;
+enum MultitonType <Gold Silver Bronze>;
 
 class Multiton { 
 
@@ -25,7 +22,7 @@ class Multiton {
 race for ^10 -> $i {
    Thread.start(
       sub {
-#         sleep roll(^2);
+        #sleep roll(^2);
          my $obj = Multiton.new: type => MultitonType.roll;
          @res[$i] = "Thread $i has got " ~ $obj.type;
       }
@@ -34,7 +31,6 @@ race for ^10 -> $i {
 
 .say for @res;
 
-# results vary
 my $ref = q:to/END/;
 Thread 5 has got Bronze
 Thread 9 has got Gold
@@ -49,5 +45,4 @@ Thread 6 has got Nothing
 END
 
 use Test;
-say my $result = @res.join(' ');
-say 'ok 1 -' if [and] ($result.contains: $_ for <Gold Silver Bronze>);
+ok [and] (@res.join(' ').contains: $_ for <Gold Silver Bronze>);
