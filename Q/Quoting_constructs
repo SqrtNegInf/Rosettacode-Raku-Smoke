@@ -1,16 +1,138 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Quoting_constructs
-#t# nocode
 #c# 2020-03-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
-#`{{
+my @res;
 
-The Perl philosophy, which Raku thoroughly embraces, is that "There Is More Than One Way To Do It" (often abbreviated to TIMTOWDI). Quoting constructs is an area where this is enthusiastically espoused.
-Raku has a whole quoting specific sub-language built in called Q. Q changes the parsing rules inside the quoting structure and allows extremely fine control over how the enclosed data is parsed. Every quoting construct in Raku is some form of a Q syntactic structure, using adverbs to fine tune the desired behavior, though many of the most commonly used have some form of "shortcut" syntax for quick and easy use. Usually, when using an adverbial form, you may omit the Q: and just use the adverb.
-In general, any and all quoting structures have theoretically unlimited length, in practice, are limited by memory size, practically, it is probably better to limit them to less than a gigabyte or so, though they can be read as a supply, not needing to hold the whole thing in memory at once. They can hold multiple lines of data. How the new-line characters are treated depends entirely on any white-space adverb applied. The Q forms use some bracketing character to delimit the quoted data. Usually some Unicode bracket ( [], {}, <>, ⟪⟫, whatever,) that has an "open" and "close" bracketing character, but they may use any non-indentifier character as both opener and closer. ||, //, ??, the list goes on. The universal escape character for constructs that allow escaping is backslash "\".
-The following exposition barely scratches the surface. For much more detail see the Raku documentation for quoting constructs for a comprehensive list of adverbs and examples.
+# Q[ ], common shortcut: ｢ ｣
+@res.push: Q[Ze backslash characters!\ \Zay do NUSSING!! \];
+@res.push:  ｢Ze backslash characters!\ \Zay do NUSSING!! \｣;
+
+# "Single quote" quoting. - Q:q[ ], adverbial: q[ ], common shortcut: ' '
+@res.push: Q:q[Don't panic!];
+@res.push:   q⟪Don't panic!⟫;
+@res.push:    'Don\'t panic!';
+
+# "Double quote" quoting. - Q:qq[ ], adverbial: qq[ ], common shortcut: " "
+my $name = 'Dave';
+@res.push: Q:qq[Hello $name\nanswer is: {21*2} \c[grinning face]];
+@res.push:   qq[Hello $name\nanswer is: {14*3} \c[grinning face]];
+@res.push:     "Hello $name\nanswer is: {7*6} \c[grinning face]";
+@res.push:     "The answer is \"42\", but what is the question?";
+
+# "Quote words" - Q:qw[ ], adverbial: qw[ ], common shortcut: < >
+@res.push:  Q:w[ a β 3 Б 🇩🇪 ][*-1];
+@res.push:  +qw[ a β 3 Б 🇩🇪 ];
+@res.push:     < a β 3 Б 🇩🇪 >[*-1];
+@res.push:    +< a β 3 Б 🇩🇪 >;
+
+# "Quote words with white space protection" - Q:qww[ ], adverbial: qww[ ]
+@res.push: Q:ww[ a β '3 Б' 🇩🇪 ][2];
+@res.push:  qww[ a β '3 Б' 🇩🇪 ][2]; # single
+@res.push:  qww[ a β ‘3 Б’ 🇩🇪 ][2]; # single/angle
+@res.push:  qww[ a β "3 Б" 🇩🇪 ][2]; # double
+@res.push:  qww[ a β “3 Б” 🇩🇪 ][2]; # double/angle
+
+# "Double quote words" quoting. - Q:qqw[ ], adverbial: qqw[ ], common shortcut: << >> or « »
+my $string = 'zizzer zazzer zuzz';
+@res.push: Q:qq:w[$string][1];
+@res.push:    qqw[$string][1];
+@res.push:      («$string»)[1];
+@res.push:    +@(«$string»);
+
+# "Double quoted words with white space protection" - Q:qqww[ ], adverbial: qqww[ ]
+# Same as qqw[ ] but retains quoted white space.
+my ($w,$h) = 60, 30;
+@res.push: Q:qq:ww[P3 "$w $h" 255][1];
+@res.push:  Q:q:ww[P3 "$w $h" 255][1];
+@res.push:    Q:ww[P3 "$w $h" 255][1];
+@res.push:    qqww[P3 "$w $h" 255][1];
+@res.push:        «P3 “$w $h” 255».raku;  # angled
+@res.push:     +@(«P3 "$w $h" 255»);
+
+######
+#`{{
+from L/Literals_String
+q/.../  Q:q /.../
+qq/.../ Q:qq /.../
+'...'   Q:q /.../
+"..."   Q:qq /.../
+<...>   Q:q:w:v /.../
+«...»   Q:qq:ww:v /.../
+/.../   Q:regex /.../
+}}
+
+.say for @res;
+#exit;
+
+my $ref = Q:to/END/;
+Ze backslash characters!\ \Zay do NUSSING!! \
+Ze backslash characters!\ \Zay do NUSSING!! \
+Don't panic!
+Don't panic!
+Don't panic!
+Hello Dave
+answer is: 42 😀
+Hello Dave
+answer is: 42 😀
+Hello Dave
+answer is: 42 😀
+The answer is "42", but what is the question?
+🇩🇪
+5
+🇩🇪
+5
+3 Б
+3 Б
+3 Б
+3 Б
+3 Б
+zazzer
+zazzer
+zazzer
+3
+60 30
+60 30
+60 30
+60 30
+("P3", "60 30", IntStr.new(255, "255"))
+3
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+=finish
+
+The Perl philosophy, which Raku thoroughly embraces, is that "There Is More
+Than One Way To Do It" (often abbreviated to TIMTOWDI). Quoting constructs
+is an area where this is enthusiastically espoused.
+
+Raku has a whole quoting specific sub-language built in called Q. Q changes
+the parsing rules inside the quoting structure and allows extremely fine
+control over how the enclosed data is parsed. Every quoting construct in
+Raku is some form of a Q syntactic structure, using adverbs to fine tune
+the desired behavior, though many of the most commonly used have some form
+of "shortcut" syntax for quick and easy use. Usually, when using an
+adverbial form, you may omit the Q: and just use the adverb.
+
+In general, any and all quoting structures have theoretically unlimited
+length, in practice, are limited by memory size, practically, it is
+probably better to limit them to less than a gigabyte or so, though they
+can be read as a supply, not needing to hold the whole thing in memory at
+once. They can hold multiple lines of data. How the new-line characters are
+treated depends entirely on any white-space adverb applied. The Q forms use
+some bracketing character to delimit the quoted data. Usually some Unicode
+bracket ( [], {}, <>, ⟪⟫, whatever,) that has an "open" and "close"
+bracketing character, but they may use any non-indentifier character as
+both opener and closer. ||, //, ??, the list goes on. The universal escape
+character for constructs that allow escaping is backslash "\".
+
+The following exposition barely scratches the surface. For much more detail
+see the Raku documentation for quoting constructs for a comprehensive list
+of adverbs and examples.
 
 The most commonly used
 
@@ -54,5 +176,3 @@ Every adverbial form has both a q and a qq variant to give the 'single quote' or
  "Here doc format" - Q:q:to/END/ END, adverbial: q:to/END/; END
  Return structured text between two textual delimiters. Depending on the adverb, may or may not interpolate (same rules as other adverbial forms.) Will return the text with the same indent as the indent of the final delimiter. The text delimiter is user chosen (and is typically, though not necessarily uppercase) as is the delimiter bracket character.
 There are other adverbs to give precise control what interpolates or doesn't, that may be applied to any of the above constructs. See the doc page for details. There is another whole sub-genre dedicated to quoting regexes.
-
-}}
