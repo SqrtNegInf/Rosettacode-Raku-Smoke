@@ -3,26 +3,41 @@
 #c# 2016-01-09 <RC, 2018-12-03 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#f# RC file: constrained_random_points2.BEND
-#n# 2022-10-18 how to replace 'pick 100' to get long-term stable output?
+#f# RC file: constrained_random_points2.dat
+#n# 2022-11-04 replace call to built-in 'rand' for output stability
 
 # Turning that program completely inside-out and reducing to a single statement with a single non-parameter variable
 # (compare with main version)
 
-ENTER srand 123456;
-
-my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
-my $out = open("run/constrained_random_points2.$ext", :w);
-
-my @range = -15..16;
-
-my @points = gather for @range X @range -> ($x, $y) {
-    take [$x,$y] if 10 <= sqrt($x×$x+$y×$y) <= 15
+class splitmix64 {
+    has $!state;
+    submethod BUILD ( Int :$seed where * >= 0 = 1 ) { $!state = $seed }
+    method next-int {
+        my $next = $!state = ($!state + 0x9e3779b97f4a7c15) +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 30)) × 0xbf58476d1ce4e5b9 +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 27)) × 0x94d049bb133111eb +& (2⁶⁴ - 1);
+        ($next +^ ($next +> 31)) +& (2⁶⁴ - 1);
+    }
+    method next-rat { self.next-int / 2⁶⁴ }
 }
 
+my $rng = splitmix64.new( :seed(987654321) );
+
+# Knuth shuffle
+sub shuffle (@a is copy) {
+    for 1 ..^ @a -> $n {
+        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
+
+my $out = open("run/constrained_random_points2.dat", :w);
+
 ($out.say: ~.map: { $_ // ' ' } for my @matrix) given do
-    -> [$x, $y] { @matrix[$x][$y] = '*' } for pick 100, do
-        for ^32 X ^32 -> ($x, $y) {
+   #-> [$x, $y] { @matrix[$x][$y] = '*' } for pick 100, do
+    -> [$x, $y] { @matrix[$x][$y] = '*' } for head 100, do
+        for shuffle(^32 X ^32) -> ($x, $y) {
             [$x,$y] when 100..225 given [+] ($x,$y X- 15) X**2;
         }
 
