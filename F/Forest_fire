@@ -3,11 +3,9 @@
 #c# 2015-11-11 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#f# RC file: forest_fire.BEND
+#f# RC file: forest_fire_exp.BEND
 #n# run 'Forest_fire.1' to see interactive output
-#n# srand in two places to keep output stable?  ==> YES
-
-srand 123456;
+#n# 2022-10-30 use PRNG 'splitmix64' instead of built-in 'rand' for output stability
 
 #This version saves a lot of looking around by using four states instead of three; the Heating state does a lookahead to track trees that are being heated up by burning trees, so we only ever have to traverse the neighbors of burning trees, not all trees.  Also, by only checking the list of burning trees, we can avoid copying the entire forest each iteration, since real forests are mutable.
 
@@ -19,6 +17,18 @@ my $CLEAR = "\e[0m";
 enum Cell-State <Empty Tree Heating Burning>;
 my @pix = '  ', $GREEN ~ '木', $YELLOW ~ '木', $RED ~ '木';
 
+class splitmix64 {
+    has $!state;
+    submethod BUILD ( Int :$seed where * >= 0 = 1 ) { $!state = $seed }
+    method next-int {
+        my $next = $!state = ($!state + 0x9e3779b97f4a7c15) +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 30)) × 0xbf58476d1ce4e5b9 +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 27)) × 0x94d049bb133111eb +& (2⁶⁴ - 1);
+        ($next +^ ($next +> 31)) +& (2⁶⁴ - 1);
+    }
+    method next-rat { self.next-int / 2⁶⁴ }
+}
+
 class Forest {
     has Int $.height;
     has Int $.width;
@@ -29,8 +39,11 @@ class Forest {
     has @!neighbors;
 
     method BUILD (Int :$!height, Int :$!width) {
+
+    my $rng1 = splitmix64.new( :seed(987654321) );
+
 	@!coords = ^$!height X ^$!width;
-	@!spot = [ (Bool.pick ?? Tree !! Empty) xx $!width ] xx $!height;
+	@!spot = [ ($rng1.next-rat < .5 ?? Tree !! Empty) xx $!width ] xx $!height;
         self!init-neighbors;
     }
 
@@ -47,11 +60,12 @@ class Forest {
     }
 
     method step {
+    my $rng2 = splitmix64.new( :seed(12345678) );
 	my @heat;
         for @!coords -> ($i, $j) {
             given @!spot[$i][$j] {
-                when Empty   { $_ = Tree if rand < $!p }
-                when Tree    { $_ = Heating if rand < $!f }
+                when Empty   { $_ = Tree    if $rng2.next-rat < $!p }
+                when Tree    { $_ = Heating if $rng2.next-rat < $!f }
                 when Heating { $_ = Burning; push @heat, ($i, $j); }
                 when Burning { $_ = Empty }
             }
@@ -73,10 +87,9 @@ my $ROWS = 41 ; my $COLS = 122; # DH hard-coding
 
 sub MAIN (Int $height = $ROWS - 2, Int $width = $COLS div 2 - 1) {
     my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
-    my $fh = open("run/forest_fire.$ext", :w);
+    my $fh = open("run/forest_fire_exp.$ext", :w);
     my Forest $forest .= new(:$height, :$width);
     #print "\e[2J";      # ANSI clear screen
-    srand 1;
     loop {
 	#print "\e[H";   # ANSI home
 	#say $++;
