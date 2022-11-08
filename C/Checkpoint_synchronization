@@ -1,12 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Checkpoint_synchronization
 #c# 2018-12-20 <RC
+#t# testok
 #m# MOAR: OK
 #j# JVM:  OK
 
 my @res;
-
-use Test;
 
 my $TotalWorkers = 2;
 my $BatchToRun = 3;
@@ -43,7 +42,7 @@ sub assembly_line ($ID) {
          };
        };
 
-       { say 'ok 1 -'; exit } if @res[0] and @res[1] and @res[2];
+       { say 'ok 1 -'; exit } if [and] @res; #@res[0] and @res[1] and @res[2];
        @batch_lock[$ID].acquire; # for next batch
    }
 }
