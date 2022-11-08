@@ -3,11 +3,10 @@
 #c# 2016-01-09 <RC, 2018-12-03 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#f# RC file: constrained_random_points.BEND
+#f# RC file: constrained_random_points.dat
 #n# 2022-10-18 skip 'random' points, just work with statically defined set
 
-my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
-my $out = open("run/constrained_random_points.$ext", :w);
+my $out = open("run/constrained_random_points.dat", :w);
 
 my @range = -15..16;
 
