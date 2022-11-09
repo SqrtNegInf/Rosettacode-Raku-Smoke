@@ -8,7 +8,7 @@
 $prefix = '/tmp/rc-capture.std';
 $out = "$prefix.out.$$";
 $err = "$prefix.err.$$";
-$err_raw = "$prefix.raw.$$";
+#$err_raw = "$prefix.raw.$$";
 
 # usage
 exec "pod2text $0" unless @ARGV;
@@ -20,14 +20,18 @@ if ($#ARGV == 0 && $ARGV[0] =~ /[\s>]/) {
 }
 
 system "$cmd $args > $out 2> $err";
-#system "$cmd $args > $out 2> $err_raw; grep -v 'JIT ERROR' $err_raw > $err";
+#system "$cmd $args > $out 2> $err_raw; grep -v 'JIT ERROR' $err_raw > $err";  # not been a problem for years now
 
 print "::CMD::\n$cmd $args\n\n";
 print "::STDOUT::\n" . `cat $out` . "\n" unless -z $out;
-print "::STDERR::\n" . `cat $err` . "\n" unless -z $err or $cmd =~ /Determine_if_a_string_is_numeric/;
+print "::STDERR::\n" . `cat $err` . "\n" unless -z $err  #or $cmd =~ /Determine_if_a_string_is_numeric/; # maybe obsolete?
+    or $err =~ /Potential difficulties/;
+#   above line deals with spurious warnings from:
+#       F/Fibonacci_matrix-exponentiation 
+#       O/Orbital_elements 
+#       P/Polynomial_regression
 
-unlink $out, $err;
-#unlink $out, $err, $err_raw;
+unlink $out, $err; # $err_raw;
 
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
