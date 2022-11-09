@@ -29,8 +29,11 @@ sub MAIN (Str $file = 'run/mod-time.txt') {
 
     sysutime($file, $ubuff);
 
+    say now - $file.IO.accessed;
+    say $file.IO.modified;
+
     use Test;
-    ok now - $file.IO.accessed < 1;
+    ok now - $file.IO.accessed < 1.5;
     ok       $file.IO.modified < 100;
 }
 
