@@ -5,7 +5,7 @@
 #j# JVM:  OK
 #n# answers vary, just test that we got something, didn't crash on undefined value
 
-my @res;
+our @res;
 
 unit sub MAIN ($timey = 42, $wimey = 'Tardis');
 
@@ -81,7 +81,17 @@ say-what $*PID            ; # system process id
 say-what $*TZ             ; # Local time zone
 say-what $*USER           ; # system user id
 
-.say for @res;
+#.say for @res;
 
 use Test;
 ok @res > 1;
+
+=finish
+
+.say provokes:
+
+::STDERR::
+Failed to write 1 bytes to filehandle: Bad file descriptor
+  in sub MAIN at S/Special_variables line 84
+  in block <unit> at S/Special_variables line 8
+
