@@ -3,7 +3,7 @@
 #c# 2015-11-11 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#f# RC file: forest_fire_exp.BEND
+#f# RC file: forest_fire.dat
 #n# run 'Forest_fire.1' to see interactive output
 #n# 2022-10-30 use PRNG 'splitmix64' instead of built-in 'rand' for output stability
 
@@ -86,8 +86,7 @@ class Forest {
 my $ROWS = 41 ; my $COLS = 122; # DH hard-coding
 
 sub MAIN (Int $height = $ROWS - 2, Int $width = $COLS div 2 - 1) {
-    my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
-    my $fh = open("run/forest_fire_exp.$ext", :w);
+    my $fh = open("run/forest_fire.dat", :w);
     my Forest $forest .= new(:$height, :$width);
     #print "\e[2J";      # ANSI clear screen
     loop {
