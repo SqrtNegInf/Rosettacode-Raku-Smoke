@@ -25,8 +25,8 @@ system "$cmd $args > $out 2> $err";
 print "::CMD::\n$cmd $args\n\n";
 print "::STDOUT::\n" . `cat $out` . "\n" unless -z $out;
 print "::STDERR::\n" . `cat $err` . "\n" unless -z $err  #or $cmd =~ /Determine_if_a_string_is_numeric/; # maybe obsolete?
-    or $err =~ /Potential difficulties/;
-#   above line deals with spurious warnings from:
+    or $err =~ /Potential difficulties/ms;
+#   above line deals with spurious warnings from Clifford/Math::Matrix:
 #       F/Fibonacci_matrix-exponentiation 
 #       O/Orbital_elements 
 #       P/Polynomial_regression
