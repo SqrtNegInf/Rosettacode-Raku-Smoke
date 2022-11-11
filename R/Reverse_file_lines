@@ -1,9 +1,27 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Reverse_file_lines
-#t# nocode
 #c# 2021-08-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+my @res.push: $_ for 'ref/test/sample.txt'.IO.lines.reverse;
+
+.say for @res;
+
+my $ref = qq:to/END/;
+snorp glorp yorp 
+
+index can be in memory.
+returns a list of files that contain the query term / terms. The search
+Also create a user interface to do a search using that inverted index which
+Given a set of text files, implement a program to create an inverted index.
+
+This is done entirely in memory.
+An inverted index is a data structure used to create full text search.
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
 
 #`{{
 
