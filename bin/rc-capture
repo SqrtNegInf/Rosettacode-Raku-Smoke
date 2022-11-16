@@ -1,14 +1,14 @@
 #!/usr/local/bin/perl
 ## capture the command-line, stdout and stderr
-#  2020-02-25 kludge for 'unhandled Failure detected in DESTROY' flapper
+#  2022-11-16 still trying to reliably remove 'Potential difficulties' warnings...
+#  2020-02-25 kludge for 'unhandled Failure detected in DESTROY' flapper [now obsolete]
 #  2020-01-15 maybe that JIT thing is fixed? Let's see...
-#  2018-10-02 filter out out 'JIT ERROR' 
+#  2018-10-02 filter out out 'JIT ERROR' [now obsolete]
 
 # default temp file names
 $prefix = '/tmp/rc-capture.std';
-$out = "$prefix.out.$$";
-$err = "$prefix.err.$$";
-#$err_raw = "$prefix.raw.$$";
+$out    = "$prefix.out.$$";
+$err    = "$prefix.err.$$";
 
 # usage
 exec "pod2text $0" unless @ARGV;
@@ -20,18 +20,16 @@ if ($#ARGV == 0 && $ARGV[0] =~ /[\s>]/) {
 }
 
 system "$cmd $args > $out 2> $err";
-#system "$cmd $args > $out 2> $err_raw; grep -v 'JIT ERROR' $err_raw > $err";  # not been a problem for years now
 
 print "::CMD::\n$cmd $args\n\n";
 print "::STDOUT::\n" . `cat $out` . "\n" unless -z $out;
-#print "::STDERR::\n" . `cat $err` . "\n" unless -z $err  #or $cmd =~ /Determine_if_a_string_is_numeric/; # maybe obsolete?
-print "::STDERR::\n" . `cat $err` . "\n" if -s $err and $err !~ /Potential difficulties/ms;
-#   above line deals with spurious warnings from Clifford/Math::Matrix:
+print "::STDERR::\n" . `cat $err` . "\n" if -s $err and not $err =~ /Potential difficulties/ms;
+#   above line deals with spurious warnings from Clifford and Math::Matrix:
 #       F/Fibonacci_matrix-exponentiation 
 #       O/Orbital_elements 
 #       P/Polynomial_regression
 
-unlink $out, $err; # $err_raw;
+unlink $out, $err;
 
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
