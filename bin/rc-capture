@@ -23,7 +23,7 @@ system "$cmd $args > $out 2> $err";
 
 print "::CMD::\n$cmd $args\n\n";
 print "::STDOUT::\n" . `cat $out` . "\n" unless -z $out;
-print "::STDERR::\n" . `cat $err` . "\n" if -s $err and not $err =~ /Potential difficulties/ms;
+print "::STDERR::\n" . `cat $err` . "\n" if -s $err and not `cat $err` =~ /Potential difficulties/ms;
 #   above line deals with spurious warnings from Clifford and Math::Matrix:
 #       F/Fibonacci_matrix-exponentiation 
 #       O/Orbital_elements 
