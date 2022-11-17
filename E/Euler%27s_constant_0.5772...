@@ -3,7 +3,8 @@
 #c# 2021-11-26 <RC, 2021-11-27 <RC, 2022-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# Vacca series: https://w.wiki/4ybp
+#n# OEIS:A001620 Euler's constant (or the Euler-Mascheroni constant), gamma.
+#n# Vacca series: https://w.wiki/4ybp (see also: 'M/Meissel–Mertens_constant')
 #n# *VERY* slow with FatRat
 
 sub gamma (\N where N > 1) { 
@@ -30,3 +31,4 @@ say my $result = gamma 23;
 
 use Test;
 is $result, 0.5772149198434515;
+#           0.57721566490153286
