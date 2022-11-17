@@ -1,5 +1,5 @@
 #!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/xx
+#u# https://rosettacode.org/wiki/xx
 #t# inprogress
 #c# 2022-09-xx >RC
 #m# MOAR: OK
