@@ -3565,12 +3565,12 @@ File: D/Determine_if_a_string_is_numeric
 #c# 2020-02-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 20200225 flapping errors? Happen about half the time.
-#n# very old GC issue, cf. https://github.com/rakudo/rakudo/issues/1515
-#n# so looks to be a low-priority bug, put a work-around in 'rc-capture' and ignore for now
+#n# 2022-11-16 GC issue appears to have been resolved, add back 'Inf' and 'NaN'
+#n# 2020-02-25 flapping errors? Happen about half the time.
+#n#            very old GC issue, cf. https://github.com/rakudo/rakudo/issues/1515
+#n#            so looks to be a low-priority bug, put a work-around in 'rc-capture' and ignore for now
 #n# 2020-04-10 'quietly' does not help
-#n# WARNING: unhandled Failure detected in DESTROY. 
-#n# If you meant to ignore it, you can mark it as handled by calling .Bool, .so, .not, or .defined
+#n#            WARNING: unhandled Failure detected in DESTROY. 
 
 File: D/Determine_if_a_string_is_numeric.1
 #!/usr/bin/env perl6
