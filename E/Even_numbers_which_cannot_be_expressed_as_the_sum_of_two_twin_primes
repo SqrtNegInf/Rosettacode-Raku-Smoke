@@ -15,7 +15,7 @@ my @sums;
 map {@sums[$_]++}, (@twins X+ @twins);
 display 'Non twin prime sums:', @sums;
 
-map {++@sums[$_]}, flat 2, (1 X+ @twins);
+map {@sums[$_]++}, flat 2, (1 X+ @twins);
 display "\nNon twin prime sums (including 1):", @sums;
 
 sub display ($msg, @p) {

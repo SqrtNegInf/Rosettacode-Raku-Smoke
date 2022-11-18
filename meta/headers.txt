@@ -3354,6 +3354,8 @@ File: D/De_Polignac_numbers
 #c# 2022-09-28 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A006285 Odd numbers not of form p + 2^k
+#n# 2022-11-17 remove 'hyper', causing failures
 
 File: D/De_Polignac_numbers.jvm
 #!/usr/bin/env raku
@@ -4386,7 +4388,8 @@ File: E/Euler%27s_constant_0.5772...
 #c# 2021-11-26 <RC, 2021-11-27 <RC, 2022-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# Vacca series: https://w.wiki/4ybp
+#n# OEIS:A001620 Euler's constant (or the Euler-Mascheroni constant), gamma.
+#n# Vacca series: https://w.wiki/4ybp (see also: 'M/Meissel–Mertens_constant')
 #n# *VERY* slow with FatRat
 
 File: E/Euler%27s_constant_0.5772....jvm
@@ -8712,6 +8715,8 @@ File: M/Meissel-Mertens_constant
 #c# 2022-10-11 <RC, 2022-10-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A077761 
+#n# see also: 'E/Euler%27s_constant_0.5772...'
 
 File: M/Memory_allocation
 #!/usr/bin/env perl6
