@@ -3,7 +3,7 @@
 #c# 2016-09-16 <RC, 2017-02-18 >RC, 2019-01-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# the third 'modulus' version (commented out below) marked as error on RC, so this task marked as 'Bad' in 'task.txt'
+#n# the third 'modulus' version (see '-2' version) marked as error on RC, so this task marked as 'Bad' in 'task.txt'
 
 sub sieve( Int $limit ) {
     my @is-prime = False, False, slip True xx $limit - 1;
@@ -18,7 +18,7 @@ sub sieve( Int $limit ) {
     }
 }
 
-(sieve 100).join(",").say;
+sieve(100).join(",").say;
 
 # A set-based approach
 # More or less the same as the first Python example:
@@ -36,34 +36,8 @@ sub eratsieve($n) {
 
 put flat eratsieve(100);
 
-#`{{ removed: modulus not sieve...
-# Using a chain of filters[edit]
-sub primes ( UInt $n ) {
-    gather {
-        # create an iterator from 2 to $n (inclusive)
-        my $iterator := (2..$n).iterator;
-
-        loop {
-            # If it passed all of the filters it must be prime
-            my $prime := $iterator.pull-one;
-            # unless it is actually the end of the sequence
-            last if $prime =:= IterationEnd;
-
-            take $prime; # add the prime to the `gather` sequence
-
-            # filter out the factors of the current prime
-            $iterator := Seq.new($iterator).grep(* % $prime).iterator;
-            # (2..*).grep(* % 2).grep(* % 3).grep(* % 5).grep(* % 7)…
-        }
-    }
-}
-
-put primes( 100 );
-}}
-
 my $ref = '2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97';
 
 use Test;
-is ((sieve 100).join(' ')), chomp $ref;
-is (flat eratsieve(100)), chomp $ref;
-#is (primes(100)), chomp $ref;
+is sieve(100).join(' '), $ref;
+is eratsieve(100).flat,  $ref;
