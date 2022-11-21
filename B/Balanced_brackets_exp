@@ -1,0 +1,111 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Balanced_brackets
+#c# 2015-11-29 <RC, 2018-04-28 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# https://irclog.perlgeek.de/perl6/2018-05-11  - Masak finds bug in 'parsing with a grammar'
+
+class splitmix64 {
+    has $!state;
+    submethod BUILD ( Int :$seed where * >= 0 = 1 ) { $!state = $seed }
+    method next-int {
+        my $next = $!state = ($!state + 0x9e3779b97f4a7c15) +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 30)) × 0xbf58476d1ce4e5b9 +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 27)) × 0x94d049bb133111eb +& (2⁶⁴ - 1);
+        ($next +^ ($next +> 31)) +& (2⁶⁴ - 1);
+    }
+    method next-rat { self.next-int / 2⁶⁴ }
+}
+my $rng = splitmix64.new( :seed(123456) );
+
+# Knuth shuffle
+sub shuffle (@a is copy) {
+    for 1 ..^ @a -> $n {
+        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
+
+my @res;
+my $s;
+
+my $tag = 'depth counter';
+sub balanced($s) {
+    my $l = 0;
+    for $s.comb {
+        when "]" {
+            --$l;
+            return False if $l < 0;
+        }
+        when "[" {
+            ++$l;
+        }
+    }
+    return $l == 0;
+}
+
+$s = (<[ ]> xx 5).flat.&shuffle.join;
+@res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
+$s = (<[ ]> xx 5).flat.&shuffle.join;
+@res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
+$s = '[][]';
+@res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
+
+$tag = 'FP oriented';
+sub balanced1($s) {
+    .none < 0 and .[*-1] == 0                       # >   vim kludge
+        given [\+] '\\' «leg« $s.comb.cache; # does .cache make any difference? [so .Seq not consumed]
+}
+
+$s = ''; $s ~= ('[]'.comb)[2×$rng.next-rat] for ^6;
+@res.push: "$s { balanced($s) ?? "is" !! "is not" } well-balanced ($tag)";
+$s = ''; $s ~= ('[]'.comb)[2×$rng.next-rat] for ^12;
+@res.push: "$s { balanced($s) ?? "is" !! "is not" } well-balanced ($tag)";
+$s = '[][]';
+@res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
+
+$tag = 'string munging';
+sub balanced2($_ is copy) {
+    Nil while s:g/'[]'//;
+    $_ eq '';
+}
+
+$s = ''; $s ~= ('[]'.comb)[2×$rng.next-rat] for ^10;
+@res.push: "$s is {' not' x not balanced($s)} well-balanced ($tag)";
+$s = ''; $s ~= ('[]'.comb)[2×$rng.next-rat] for ^6;
+@res.push: "$s is {' not' x not balanced($s)} well-balanced ($tag)";
+$s = '[][]';
+@res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
+
+$tag = 'parsing with a grammar';
+grammar BalBrack { token TOP { '[' <TOP>* ']' } }
+
+$s = ('[' xx 5, ']' xx 5).flat.&shuffle.join;
+@res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)";
+$s = ('[' xx 2, ']' xx 2).flat.&shuffle.join;
+@res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)";
+$s = '[][]';
+@res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)"; # DH - bug to say not balanced
+
+.say for @res;
+#exit;
+
+my $ref = qq:to/END/;
+[[]]][]][[ is not well-balanced (depth counter)
+][][[[]]][ is not well-balanced (depth counter)
+[][] is well-balanced (depth counter)
+]][[][ is not well-balanced (FP oriented)
+[][[]]]][[]] is not well-balanced (FP oriented)
+[][] is well-balanced (FP oriented)
+[[][]][[[] is  not well-balanced (string munging)
+[[][[] is  not well-balanced (string munging)
+[][] is well-balanced (string munging)
+[[][]]][[] is not well-balanced (parsing with a grammar)
+[[]] is well-balanced (parsing with a grammar)
+[][] is not well-balanced (parsing with a grammar)
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
