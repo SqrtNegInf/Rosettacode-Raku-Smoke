@@ -35,6 +35,15 @@ File: 0/100_prisoners
 #c# 2019-11-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# don't use .race, otherwise testing is only approximate (update to splitmix64/shuffle also makes this slower)
+#n# 2022-11-02 replace call to built-in 'rand' for output stability
+
+File: 0/100_prisoners.0
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/100_prisoners
+#c# 2019-11-05 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 #n# don't use .race, otherwise testing is only approximate
 #n# 2021-10-xx cronjob and terminal results the same now?
 #n# 2022-09-22 cron and terminal results no longer the same
@@ -1240,6 +1249,15 @@ File: B/Balanced_brackets.1
 #c# 2015-11-29 <RC, 2018-04-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: B/Balanced_brackets_exp
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Balanced_brackets
+#c# 2015-11-29 <RC, 2018-04-28 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# https://irclog.perlgeek.de/perl6/2018-05-11  - Masak finds bug in 'parsing with a grammar'
+#n# 2022-11-20 replace call to built-in 'rand' for output stability
 
 File: B/Balanced_ternary
 #!/usr/bin/env perl6
@@ -13264,7 +13282,15 @@ File: S/Sieve_of_Eratosthenes
 #c# 2016-09-16 <RC, 2017-02-18 >RC, 2019-01-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# the third 'modulus' version (commented out below) marked as error on RC, so this task marked as 'Bad' in 'task.txt'
+#n# the third 'modulus' version (see '-2' version) marked as error on RC, so this task marked as 'Bad' in 'task.txt'
+
+File: S/Sieve_of_Eratosthenes-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sieve_of_Eratosthenes
+#c# 2016-09-16 <RC, 2017-02-18 >RC, 2019-01-19 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# this version marked as error on RC (modulus not sieve...); using a chain of filters
 
 File: S/Sieve_of_Eratosthenes.1
 #!/usr/bin/env perl6
