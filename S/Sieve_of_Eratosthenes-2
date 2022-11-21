@@ -1,0 +1,34 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sieve_of_Eratosthenes
+#c# 2016-09-16 <RC, 2017-02-18 >RC, 2019-01-19 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# this version marked as error on RC (modulus not sieve...); using a chain of filters
+
+sub primes ( UInt $n ) {
+    gather {
+        # create an iterator from 2 to $n (inclusive)
+        my $iterator := (2..$n).iterator;
+
+        loop {
+            # If it passed all of the filters it must be prime
+            my $prime := $iterator.pull-one;
+
+            # unless it is actually the end of the sequence
+            last if $prime =:= IterationEnd;
+
+            take $prime; # add the prime to the `gather` sequence
+
+            # filter out the factors of the current prime
+            $iterator := Seq.new($iterator).grep(* % $prime).iterator;
+            # (2..*).grep(* % 2).grep(* % 3).grep(* % 5).grep(* % 7)…
+        }
+    }
+}
+
+put primes 100;
+
+my $ref = '2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97';
+
+use Test;
+is primes(100), $ref;
