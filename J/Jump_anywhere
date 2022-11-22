@@ -3,8 +3,21 @@
 #c# 2016-09-16 <RC, 2020-08-25 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-11-21 replace call to built-in 'rand' for output stability
 
-srand 123456;
+class splitmix64 {
+    has $!state;
+    submethod BUILD ( Int :$seed where * >= 0 = 1 ) { $!state = $seed }
+    method next-int {
+        my $next = $!state = ($!state + 0x9e3779b97f4a7c15) +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 30)) × 0xbf58476d1ce4e5b9 +& (2⁶⁴ - 1);
+        $next = ($next +^ ($next +> 27)) × 0x94d049bb133111eb +& (2⁶⁴ - 1);
+        ($next +^ ($next +> 31)) +& (2⁶⁴ - 1);
+    }
+    method next-rat { self.next-int / 2⁶⁴ }
+}
+
+my $rng = splitmix64.new( :seed(123456789) );
 
 my @res;
 
@@ -12,9 +25,9 @@ my @res;
     outer-loop: loop {
         inner-loop: loop {
             # NYI # goto inner-loop if rand > 0.5; # Hard goto
-            next inner-loop if rand > 0.5; # Next loop iteration
-            redo inner-loop if rand > 0.5; # Re-execute block
-            last outer-loop if rand > 0.5; # Exit the loop
+            next inner-loop if $rng.next-rat > 0.5; # Next loop iteration
+            redo inner-loop if $rng.next-rat > 0.5; # Re-execute block
+            last outer-loop if $rng.next-rat > 0.5; # Exit the loop
             ENTER { @res.push: "Entered inner loop block" }
             LEAVE { @res.push: "Leaving inner loop block" }
         }
@@ -28,48 +41,8 @@ my @res;
 # Produces random output, but here's a representative run:
 # 2022-09-24 currently same for MoarVM, JVM (but that could change)
 
-my $moar-terminal = qq:to/END/;
+my $ref = qq:to/END/;
 Entered outer loop block
-Entered inner loop block
-Leaving inner loop block
-Leaving outer loop block
-Ending outer loop
-END
-
-my $moar-cronjob = qq:to/END/;
-Entered outer loop block
-Entered inner loop block
-Leaving inner loop block
-Leaving outer loop block
-Ending outer loop
-END
-
-my $jvm = qq:to/END/;
-Entered outer loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
 Entered inner loop block
 Leaving inner loop block
 Entered inner loop block
@@ -99,7 +72,7 @@ Ending outer loop
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
 
 # Continuation-based execution
 # Continuations in Raku are currently limited to use in generators via the gather/take model:
