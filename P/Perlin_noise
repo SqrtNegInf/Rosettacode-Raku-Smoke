@@ -22,9 +22,6 @@ my @p = map { :36($_) }, flat <
 46 72 3U 6K 5P 2L 66 36 1V  T  O 20 6R 3X 3K 5F 26 1U 5Z 1P 4C 50
 > xx 2;
 
-#say @p».fmt("%2s").rotor(26, :partial).join: "\n"; exit;
-#say @p».fmt("%3d").rotor(21, :partial).join: "\n"; exit;
-
 sub fade($_) { $_ × $_ × $_ × ($_ × ($_ × 6 - 15) + 10) }
 
 sub lerp($t, $a, $b) { $a + $t × ($b - $a) }
