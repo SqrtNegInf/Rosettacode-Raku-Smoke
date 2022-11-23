@@ -8728,7 +8728,7 @@ File: M/Median_filter
 #f# RC file: plasma_median.png
 #n# busted until I can fix my v5.36 issues
 
-File: M/Meissel-Mertens_constant
+File: M/Meissel–Mertens_constant
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Meissel–Mertens_constant
 #c# 2022-10-11 <RC, 2022-10-12 <RC
@@ -10821,6 +10821,16 @@ File: P/Perlin_noise
 #n# 2019-10-26 kludge still needed...
 #n# 2020-01-30 for this particular input permutation doesn't need to doubled
 #n# 2022-01-12 fixed warning on ternary [2022-02-10 leave ternary alone here, may be needed in future]
+
+File: P/Perlin_noise-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Perlin_noise
+#c# 2016-01-18 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# kludge for JVM: 'my' instead of 'constant' for @p (java.lang.IllegalArgumentException: bad parameter count 259)
+#n# 2022-11-22 Grondilu - use emojis to encode the permutation
+#n#            unlike main version, here JVM gives a different answer
 
 File: P/Permutation_test
 #!/usr/bin/env perl6
@@ -15908,8 +15918,8 @@ File: U/Untouchable_numbers
 #c# 2021-02-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# slow, ~35m, so limited the number of values calculated (even with Perl/ntheory functions)
-#n# need to update RC with future-proofed version [ which means what? ]
+#n# full results slow, ~26m, so limit the number of values calculated
+#n# need to update RC with future-proofed version [ question to self: which means what? ]
 #n# 2022-01-23 added back in 'total found' results
 #n# OEIS:A005114
 
