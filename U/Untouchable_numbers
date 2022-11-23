@@ -3,12 +3,12 @@
 #c# 2021-02-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# slow, ~35m, so limited the number of values calculated (even with Perl/ntheory functions)
-#n# need to update RC with future-proofed version [ which means what? ]
+#n# full results slow, ~26m, so limit the number of values calculated
+#n# need to update RC with future-proofed version [ question to self: which means what? ]
 #n# 2022-01-23 added back in 'total found' results
 #n# OEIS:A005114
 
-my @res;
+my (@res1, @res2);
 
 sub propdiv (\x) {
    my @l = 1 if x > 1;
@@ -35,31 +35,41 @@ loop ( my \n = $ = 6 ; n ≤ limit ; n += 2 ) {
    @untouchable.append(n) if !%s{n} and %c{n-1} and %c{n-3}
 }
 
-# a bit convoluted, and breaks with release v2021.02.1-28-gceac52170
-#my ($c, $last) = 0, False;  
-#for @untouchable.rotor(10) { 
-#   #@res.push: [~] @_».&{$c++ ; $_ > 625 ?? ( $last = True and last ) !! .fmt: "%6d "}
-#   #$c-- and last if $last
-#}
-
 my $max = 625;
+
+# a bit convoluted, <<XXX and breaks with release v2021.02.1-28-gceac52170 XXX>> 
+#                   but un-breaks with some later release (cf 'M/Monads_List_monad')
+my ($c, $last) = 0, False;  
+for @untouchable.rotor(10) { 
+    @res1.push: [~] @_».&{$c++ ; $_ > $max ?? ( $last = True and last ) !! .fmt: "%6d "}
+    $c-- and last if $last
+}
+
 my @list = @untouchable.grep: * < $max;
-@res.push: "Count of untouchable numbers ≤ $max: {+@list}\n";
-@res.push: @list.batch(10)».fmt("%6d").join: "\n";
+@res2.push: "Count of untouchable numbers ≤ $max: {+@list}\n";
+@res2.push: @list.batch(10)».fmt("%6d").join: "\n";
 
 my ($p, $count) = 10,0;
 BREAK: for @untouchable -> \n {
    $count++;
    if (n > $p) {
-      @res.push: sprintf "%6d untouchable numbers were found  ≤ %7d", $count-1, $p;
+      @res2.push: sprintf "%6d untouchable numbers were found  ≤ %7d", $count-1, $p;
       last BREAK if 1e5 == ($p ×= 10)
    }
 }
-@res.push: sprintf "%6d untouchable numbers were found  ≤ %7d\n", +@untouchable, limit;
+@res2.push: sprintf "%6d untouchable numbers were found  ≤ %7d\n", +@untouchable, limit;
 
-.say for @res;
+.say for @res2;
 
-my $ref = q:to/END/;
+my $ref1 = q:to/END/;
+     2      5     52     88     96    120    124    146    162    188 
+   206    210    216    238    246    248    262    268    276    288 
+   290    292    304    306    322    324    326    336    342    372 
+   406    408    426    430    448    472    474    498    516    518 
+   520    530    540    552    556    562    576    584    612    624 
+END
+
+my $ref2 = q:to/END/;
 Count of untouchable numbers ≤ 625: 50
 
      2      5     52     88     96    120    124    146    162    188
@@ -95,7 +105,6 @@ Count of untouchable numbers ≤ 2000 : 196
   1806   1816   1820   1822   1830   1838   1840   1842   1844   1852
   1860   1866   1884   1888   1894   1896   1920   1922   1944   1956
   1958   1960   1962   1972   1986   1992
-
      2 untouchable numbers were found  ≤      10
      5 untouchable numbers were found  ≤     100
     89 untouchable numbers were found  ≤    1000
@@ -104,4 +113,5 @@ Count of untouchable numbers ≤ 2000 : 196
 END
 
 use Test;
-is @res.join("\n"), $ref;
+is @res1.join("\n"), $ref1;
+is @res2.join("\n"), $ref2;
