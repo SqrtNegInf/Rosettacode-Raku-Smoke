@@ -3,14 +3,17 @@
 #c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC, 2018-11-15 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# 2018-11-15 thundergnat++ ekes out a little boost with race(:1batch)
-#n# 2018-11-03 no benefit with 'race' here
 #n# 2018-08-22 Inline::Perl5 version works fine (and fast) but clobbers JVM
+#n# 2018-11-15 thundergnat++ ekes out a little boost with race(:1batch)
+#n# 2022-11-25 remove .hyper, small/no benefit, messes up results once-in-a-while
 
 my @res;
 
-# Pure Raku[edit]
-# This is a pure perl 6 version that uses no outside libraries. It uses a variant of Pollard's rho factoring algorithm and is fairly performent when factoring numbers < 2⁸⁰; typically taking well under a second on an i7. It starts to slow down with larger numbers, but really bogs down factoring numbers that have more than 1 factor larger than about 2⁴⁰.
+# This is a pure perl 6 version that uses no outside libraries. It uses a
+# variant of Pollard's rho factoring algorithm and is fairly performent when
+# factoring numbers < 2⁸⁰; typically taking well under a second on an i7. It
+# starts to slow down with larger numbers, but really bogs down factoring
+# numbers that have more than 1 factor larger than about 2⁴⁰.
 
 sub prime-factors ( Int $n where * > 0 ) {
     return $n if $n.is-prime;
@@ -45,7 +48,8 @@ sub find-factor ( Int $n, $constant = 1 ) {
 
 (2²⁹-1, 2⁴¹-1, 2⁵⁹-1, 2⁷¹-1, 2⁷⁹-1, 2⁹⁷-1, 2¹¹⁷-1, 2²⁴¹-1,
 5465610891074107968111136514192945634873647594456118359804135903459867604844945580205745718497)\
-.hyper(:1batch).map: -> $n {
+#.hyper(:1batch).map: -> $n {
+.map: -> $n {
     my $start = now;
     @res.push: "factors of $n: "~ prime-factors($n).join(' × ');
     say @res[*-1] ~ " \t in "~ (now - $start).fmt("%0.3f")~ " sec."
