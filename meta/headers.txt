@@ -11328,9 +11328,9 @@ File: P/Prime_decomposition
 #c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC, 2018-11-15 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# 2018-11-15 thundergnat++ ekes out a little boost with race(:1batch)
-#n# 2018-11-03 no benefit with 'race' here
 #n# 2018-08-22 Inline::Perl5 version works fine (and fast) but clobbers JVM
+#n# 2018-11-15 thundergnat++ ekes out a little boost with race(:1batch)
+#n# 2022-11-25 remove .hyper, small/no benefit, messes up results once-in-a-while
 
 File: P/Prime_decomposition-1
 #!/usr/bin/env perl6
@@ -11773,6 +11773,14 @@ File: R/RCRPG_Raku
 #j# JVM:  OK
 
 File: R/RIPEMD-160
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/RIPEMD-160
+#c# 2016-06-11 <RC, 2017-08-20 >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# https://github.com/grondilu/libdigest-raku/blob/master/lib/Digest/RIPEMD.rakumod
+
+File: R/RIPEMD-160.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/RIPEMD-160
 #c# 2016-06-11 <RC, 2017-08-20 >RC
