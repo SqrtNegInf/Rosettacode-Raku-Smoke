@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Perlin_noise
-#c# 2016-01-18 <>RC, 2022-11-25 <RC
+#c# 2016-01-18 <>RC, 2022-11-27 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# kludge for JVM: 'my' instead of 'constant' for @p (java.lang.IllegalArgumentException: bad parameter count 259)
@@ -31,8 +31,7 @@ sub grad($h is copy, $x, $y, $z) {
 }
 
 sub noise($x is copy, $y is copy, $z is copy) {
-    my ($X, $Y, $Z) = ($x, $y, $z)».floor »+&» 255;
-    my ($u, $v, $w) = map &fade, $x -= $X, $y -= $Y, $z -= $Z;
+    my ($u, $v, $w) = map &fade, ($x, $y, $z) »-=« my ($X, $Y, $Z) = ($x, $y, $z)».floor »+&» 255;
     my ($AA, $AB) = @p[$_] + $Z, @p[$_ + 1] + $Z given @p[$X] + $Y;
     my ($BA, $BB) = @p[$_] + $Z, @p[$_ + 1] + $Z given @p[$X + 1] + $Y;
     lerp($w, lerp($v, lerp($u, grad(@p[$AA    ], $x    , $y    , $z     ),  
