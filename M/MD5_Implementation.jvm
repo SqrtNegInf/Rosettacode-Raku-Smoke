@@ -1,0 +1,71 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/MD5/Implementation
+#c# 2015-12-05 <RC, 2022-09-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+proto md5($ --> blob8) {*}
+
+multi md5(Str $str) { samewith $str.encode }
+
+multi md5(Blob $msg) {
+    sub rotl(uint32 $a, UInt $n --> uint32) { ($a +< $n) +| ($a +> (32-$n)) }
+
+    constant FGHI = { ($^a +& $^b) +| (+^$a +& $^c) },
+                    { ($^a +& $^c) +| ($^b +& +^$c) },
+                    {  $^a +^ $^b +^ $^c            },
+                    {  $^b +^ ($^a +| +^$^c)        };
+
+    constant @S = flat < 7 12 17 22 5 9 14 20 4 11 16 23 6 10 15 21 >.rotor(4) X[xx] 4;
+    constant @T = ^64 .map: { floor(abs(sin($_ + 1)) × 2**32) }
+    constant @k = flat (   $_           for ^16),
+                     ((5×$_ + 1) % 16 for ^16),
+                     ((3×$_ + 5) % 16 for ^16),
+                     ((7×$_    ) % 16 for ^16);
+
+    sub little-endian($w, $n, *@v) { (@v X+> flat ($w X× ^$n)) X% (2 ** $w) }
+
+    sub md5-pad(blob8 $msg) {
+        my $bits = 8 × $msg.elems;
+        (
+            (flat $msg.list, 0x80, 0x00 xx -($bits div 8 + 1 + 8) % 64)
+            .map({ :256[$^d,$^c,$^b,$^a] }),
+            little-endian(32, 2, $bits)
+        ).flat
+        .rotor(16)
+        .map({ blob32.new: @$_ })
+    }
+
+    sub md5-block(blob32 $H where 4, blob32 $X where 16) {
+        blob32.new: $H[] Z+
+        reduce -> blob32 $b, $i {
+            blob32.new:
+            $b[3],
+            ($b[1] + rotl($b[0] + FGHI[$i div 16](|$b[1,2,3]) + @T[$i] + $X[@k[$i]], @S[$i])),
+            $b[1],
+            $b[2]
+        }, $H, |^64;
+    }
+
+    blob8.new: little-endian 8, 4, |
+        reduce &md5-block,
+        (constant $ = blob32.new: 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476),
+        |md5-pad $msg;
+}
+
+CHECK {
+    use Test;
+    plan 7;
+
+    for '5fc9cacad0ae178fbc3e24eab9293618', '',
+        '049d1165f9875b342ca8da5f564652d7', 'a',
+        '141481de23aeadc12830eebbb663cc90', 'abc',
+        '62025a62e9b6d20450a6cb8556a6f31d', 'message digest',
+        '49c8c8197d8c6f126fda7a20c80316c7', 'abcdefghijklmnopqrstuvwxyz',
+        'ec7adcf8c7822295dcc711dc02f99155', 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+        '66c8cf561d9ac07822a7d3b89d554b30', '12345678901234567890123456789012345678901234567890123456789012345678901234567890'
+        -> $expected, $msg {
+          my $digest = md5($msg).list».fmt('%02x').join;
+          is($digest, $expected, "$digest is MD5 digest of '$msg'");
+        }
+}
