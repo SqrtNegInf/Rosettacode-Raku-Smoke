@@ -4,10 +4,10 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-my @res;
-
 proto md5($ --> blob8) {*}
+
 multi md5(Str $str) { samewith $str.encode }
+
 multi md5(Blob $msg) {
     sub rotl(uint32 $a, UInt $n --> uint32) { ($a +< $n) +| ($a +> (32-$n)) }
 
