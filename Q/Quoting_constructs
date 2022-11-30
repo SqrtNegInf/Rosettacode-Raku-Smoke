@@ -17,9 +17,9 @@ my @res;
 
 # "Double quote" quoting. - Q:qq[ ], adverbial: qq[ ], common shortcut: " "
 my $name = 'Dave';
-@res.push: Q:qq[Hello $name\nanswer is: {21*2} \c[grinning face]];
-@res.push:   qq[Hello $name\nanswer is: {14*3} \c[grinning face]];
-@res.push:     "Hello $name\nanswer is: {7*6} \c[grinning face]";
+@res.push: Q:qq[Hello $name\nanswer is: {21×2} \c[grinning face]];
+@res.push:   qq[Hello $name\nanswer is: {14×3} \c[grinning face]];
+@res.push:     "Hello $name\nanswer is: {7×6} \c[grinning face]";
 @res.push:     "The answer is \"42\", but what is the question?";
 
 # "Quote words" - Q:qw[ ], adverbial: qw[ ], common shortcut: < >
