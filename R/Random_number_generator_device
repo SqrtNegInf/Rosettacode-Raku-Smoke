@@ -18,7 +18,7 @@ my @res0 = @res1;
 my ($max,$eps) = 2**14, .05;
 
 # lazy list 
-my @random-spigot = $UR.read(4*$max).unpack("L*")[1..*]; # also works
+my @random-spigot = $UR.read(4×$max).unpack("L*")[1..*]; # also works
 #my @random-spigot = $UR.read(1024).unpack("L*") ... *;
 my @res2 = @random-spigot[^ (-1 + $max)];
 
@@ -40,4 +40,4 @@ say 1-abs($lastA/$lastB) ~ " final digit ratio";
 use Test;
 is +@res1, 10; # just verify we got something
 ok (1-abs($c_mid/($max/2))) <   $eps;
-ok (1-abs($lastA/$lastB))   < 5*$eps;
+ok (1-abs($lastA/$lastB))   < 5×$eps;
