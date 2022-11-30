@@ -66,5 +66,5 @@ for <ones presorted randomized> Z (@allones,@sequential,@randomized) -> ($t,@d) 
 
 use Test;
 #ok    0.20 <= @res-i[1]/@res-i[0] <= 2.75; # too variable, don't test
-ok 10*@res-i[0] < @res-i[2];
-ok 10*@res-q[2] < @res-q[0] && 10*@res-q[2] < @res-q[1];
+ok 10×@res-i[0] < @res-i[2];
+ok 10×@res-q[2] < @res-q[0] && 10×@res-q[2] < @res-q[1];
