@@ -53,7 +53,7 @@ multi md5(Blob $msg) {
         |md5-pad $msg;
 }
 
-CHECK {
+#CHECK {
     use Test;
     plan 7;
 
@@ -68,4 +68,4 @@ CHECK {
           my $digest = md5($msg).list».fmt('%02x').join;
           is($digest, $expected, "$digest is MD5 digest of '$msg'");
         }
-}
+#}
