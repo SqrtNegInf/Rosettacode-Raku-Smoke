@@ -1,10 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Roots_of_unity
-#c# 2015-11-28 <RC
+#c# 2015-11-28 <RC, 2022-11-30 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
-my (@res1,@res2);
+my (@res1,@res2,@res3);
 
 # original version
 sub roots-of-unity-a (Int \n where 1..*) {
@@ -21,6 +21,8 @@ sub roots-of-unity-b (Int \n where 1..*) {
 
 push @res1, sprintf "%+.5f%+.5fi", .reals for roots-of-unity-a 10;
 roots-of-unity-b 10;
+
+push @res3, sprintf "%+.5f%+.5fi", .reals for 1.roots(10);
 
 .say for @res1;
 
@@ -40,3 +42,4 @@ END
 use Test;
 is (join "\n", @res1), chomp $ref;
 is (join "\n", @res2), chomp $ref;
+is (join "\n", @res3), chomp $ref;
