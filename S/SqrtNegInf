@@ -1,0 +1,61 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/xx
+#c# 2021-03-24 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# fun math tricks with infinity, initially from 2015-10-20
+
+my @res;
+
+# not right
+@res.push: -Inf**.5;
+@res.push: -∞**.5;
+@res.push: (-Inf)**.5;
+@res.push: (-∞)**.5;
+
+# these work
+@res.push: (-Inf).Complex**.5;
+@res.push: (-Inf+0i)**.5;
+@res.push: (-∞+0i)**.5;
+@res.push: (-∞+0i)**½;
+
+# inversely… [2021-03-24: when did this change?]
+@res.push: (Inf+Inf\i)**2; # previously: Inf+Inf\i  now: NaN+NaN\i
+@res.push: (Inf+Inf\i)**3; #                  "
+
+# 1st OK, others bad
+@res.push: sqrt(∞);
+@res.push: sqrt(-∞);
+@res.push: sqrt(-∞+0i);
+
+# handle floating point display
+@res.push: my $x = (-16).Complex**.5;
+@res.push: my $r = $x.reals.fmt('%.15f'); # with 16 see FP noise
+$r ~~ s/\s/+/; 
+$r ~~ s/$/i/; 
+$r = +$r;
+@res.push: $r;
+
+.say for @res;
+
+my $ref = q:to/END/;
+-Inf
+-Inf
+Inf
+Inf
+Inf+Inf\i
+Inf+Inf\i
+Inf+Inf\i
+Inf+Inf\i
+NaN+NaN\i
+NaN+NaN\i
+Inf
+NaN
+NaN+Inf\i
+2.4492935982947064e-16+4i
+0.000000000000000 4.000000000000000
+0+4i
+END
+
+use Test;
+is @res.join("\n").lc, chomp $ref.lc;
