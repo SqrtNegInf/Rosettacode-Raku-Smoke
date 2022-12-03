@@ -47,6 +47,8 @@ my \airport   = [ <77 23>, <88 12>, <79 21>, <81 19> ];
 my \expected  = [ <81.25 18.75> xx 4 ];
 my \dtotal    = ( (airport »-« expected)»² »/» expected )».List.flat.sum;
 
+dd dtotal;  exit;
+
 say my $result = "\nFor the airport data, diff total is "~dtotal~", χ² is "~ χ2(dtotal, 3)~ ", p value "~ cdf_χ2(dtotal, 3);
 
 given Graphics::PLplot.new( device => 'png', file-name => 'run/chi-squared.png' ) {
