@@ -2,20 +2,19 @@
 #u# http://rosettacode.org/wiki/Calculating_the_value_of_e
 #c# 2018-04-21 <RC, 2018-05-08 <RC, 2022-09-18 <RC, 2022-10-16 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 #n# D.Conway: http://blogs.perl.org/users/damian_conway/2019/09/to-compute-a-constant-of-calculusa-treatise-on-multiple-ways.html
 #n#  1 + Σ(1, ∞, 1∕*!) @ https://www.reddit.com/r/perl6/comments/cwk07i/perl_or_math_why_choose_defining_e_in_more/
 #n# see also: E/Engel_expansion
 #n# Grondilu replaced earlier implementation (not cool) which thundergnat++ says gave wrong result (but did it?)
+#n# 2022-12-02 GH5113 adds more precision in FatRat --> .Str conversion
 
 my $result1 = ([\+] 1.FatRat X/ 1, |[\×] 1..499)[*-1].comb(80).join: "\n"; # Grondilu
 
 sub postfix:<!> (Int $n) { (constant f = 1, |[\×] 1..*)[$n] }
-sub e (Int $terms) { sum map { FatRat.new(1,.!) }, ^$terms }
-#sub 𝑒 (Int $terms) { sum map { FatRat.new(1,.!) }, ^$terms } # durn that JVM...
+sub 𝑒 (Int $terms) { sum map { FatRat.new(1,.!) }, ^$terms }
 
-say my $result2 = e(500).comb(80).join: "\n";
-#say my $result = 𝑒(500).comb(80).join: "\n";
+say my $result2 = 𝑒(500).comb(80).join: "\n";
 
 # slightly different again:
 constant 𝑒-alt = [\+] 1.FatRat X/ 1, |[\×] 1..*;
@@ -39,8 +38,10 @@ my $ref = qq:to/END/;
 31520961836908887070167683964243781405927145635490613031072085103837505101157477
 04171898610687396965521267154688957035035402123407849819334321068170121005627880
 23519303322474501585390473041995777709350366041699732972508868769664035557071622
-684471625608
+68447162560798818
 END
+#was: 625608
+#best:62560798826518
 
 use Test;
 is $result1.join("\n"), chomp $ref;
