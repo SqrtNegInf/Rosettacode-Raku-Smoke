@@ -3,6 +3,7 @@
 #c# 2016-02-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-12-02 GH5113 adds more precision in FatRat --> .Str conversion
 
 my @res;
 
@@ -24,7 +25,28 @@ sub f (\a, \b) { 333.75×b⁶ + a²×( 11×a²×b² - b⁶ - 121×b⁴ - 2) + 5.
 
 .say for @res;
 
-my $ref = q:to/END/;
+my $moar = q:to/END/;
+1st: Convergent series
+n =   3 18.5
+n =   4 9.378378
+n =   5 7.801153
+n =   6 7.154414
+n =   7 6.806785
+n =   8 6.592632768704
+n =  20 6.043552110189268867777
+n =  30 6.00678609303120575853055404795
+n =  50 6.000175846627187188945614020747195469523735177
+n = 100 6.00000001931947792910408680340358571502435067543695245807259275085652176723026634123
+
+2nd: Chaotic banking society
+Starting balance, $(e-1): $1.718281828459045235360287471352662497757247093699928953
+After year 25, you will have $0.03993872967323021 in your account.
+
+3rd: Rump's example: f(77617.0, 33096.0) = 
+-0.8273960599468214
+END
+
+my $jvm = q:to/END/;
 1st: Convergent series
 n =   3 18.5
 n =   4 9.378378
@@ -46,4 +68,4 @@ After year 25, you will have $0.03993872967323021 in your account.
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
