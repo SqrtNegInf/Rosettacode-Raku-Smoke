@@ -3,6 +3,7 @@
 #c# 2016-02-06 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-12-02 GH5113 adds more precision in FatRat --> .Str conversion
 
 # Raku was designed with a specific goal of maximizing the principle of
 # DWIM (Do What I Mean) while simultaneously minimizing the principle of
@@ -105,7 +106,7 @@ $line ~= $v.WHAT.raku;
 @res.push: $line;
 }
 
-my $ref = qq:to/END/;
+my $moar = qq:to/END/;
 1234 Int
 12.34 Rat
 12.34 Num
@@ -130,9 +131,38 @@ NaN Num
 0.000000000629 Rat
 6.285714285714286e-20 Num
 6.285714 FatRat
+0.00000000062857143 FatRat
+0.000000000000000000062857143 FatRat
+END
+
+my $jvm = qq:to/END/;
+1234 Int
+12.34 Rat
+12.34 Num
+1234+1i Complex
+1234 Str
+1 2 3 4 List
+1 2 3 4 Array
+1 2 3 4 Range
+1	2 Pair
+1	2 Hash
+True Bool
+1234 Int
+49 50 51 52 Seq
+202 Int
+14.212670403551895 Num
+14 Int
+14beef Str
+1359599 Int
+NaN Num
+0+1i Complex
+6.285714 Rat
+0.000000000629 Rat
+6.285714285714286E-20 Num
+6.285714 FatRat
 0.0000000006286 FatRat
 0.00000000000000000006286 FatRat
 END
 
 use Test;
-is @res.join("\n").lc, chomp $ref.lc;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
