@@ -1877,11 +1877,12 @@ File: C/Calculating_the_value_of_e
 #u# http://rosettacode.org/wiki/Calculating_the_value_of_e
 #c# 2018-04-21 <RC, 2018-05-08 <RC, 2022-09-18 <RC, 2022-10-16 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 #n# D.Conway: http://blogs.perl.org/users/damian_conway/2019/09/to-compute-a-constant-of-calculusa-treatise-on-multiple-ways.html
 #n#  1 + Σ(1, ∞, 1∕*!) @ https://www.reddit.com/r/perl6/comments/cwk07i/perl_or_math_why_choose_defining_e_in_more/
 #n# see also: E/Engel_expansion
 #n# Grondilu replaced earlier implementation (not cool) which thundergnat++ says gave wrong result (but did it?)
+#n# 2022-12-02 GH5113 adds more precision in FatRat --> .Str conversion
 
 File: C/Calculating_the_value_of_e.1
 #!/usr/bin/env perl6
@@ -1891,6 +1892,19 @@ File: C/Calculating_the_value_of_e.1
 #m# MOAR: OK
 #j# JVM:  OK
 #n# downgraded Unicode variable name for JVM
+
+File: C/Calculating_the_value_of_e.jvm
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Calculating_the_value_of_e
+#c# 2018-04-21 <RC, 2018-05-08 <RC, 2022-09-18 <RC, 2022-10-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# 2022-02-03 JVM can't use '𝑒' in routine names, and precision of results differs
+#n# D.Conway: http://blogs.perl.org/users/damian_conway/2019/09/to-compute-a-constant-of-calculusa-treatise-on-multiple-ways.html
+#n#  1 + Σ(1, ∞, 1∕*!) @ https://www.reddit.com/r/perl6/comments/cwk07i/perl_or_math_why_choose_defining_e_in_more/
+#n# see also: E/Engel_expansion
+#n# Grondilu replaced earlier implementation (not cool) which thundergnat++ says gave wrong result (but did it?)
+#n# 2022-12-02 GH5113 adds more precision in FatRat --> .Str conversion
 
 File: C/Calendar
 #!/usr/bin/env raku
@@ -6823,6 +6837,7 @@ File: I/Implicit_type_conversion
 #c# 2016-02-06 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-12-02 GH5113 adds more precision in FatRat --> .Str conversion
 
 File: I/Include_a_file
 #!/usr/bin/env perl6
@@ -10560,6 +10575,7 @@ File: P/Pathological_floating_point_problems
 #c# 2016-02-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-12-02 GH5113 adds more precision in FatRat --> .Str conversion
 
 File: P/Peaceful_chess_queen_armies
 #!/usr/bin/env perl6
@@ -12809,8 +12825,8 @@ File: S/Safe_addition
 #u# http://rosettacode.org/wiki/Safe_addition
 #c# 2019-02-03 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# the only 'difference' MOAR/JVM output was the case (e/E) in the 'scientific' notation of 'Error'
+#j# JVM:  OK
+#n# 2022-12-02 GH5113 adds more precision in FatRat --> .Str conversion
 
 File: S/Safe_and_Sophie_Germain_primes
 #!/usr/bin/env raku
@@ -14272,6 +14288,14 @@ File: S/Statistics_Chi-squared_distribution
 #n#   sudo port install plplot; (cd /usr/local/lib; ln -s /opt/local/lib/libplplot.dylib ./libplplotd.so)
 #n# MPro/iMac images have very slight differences, so can't use exact-match file testing
 
+File: S/Statistics_Chi-squared_distribution.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Statistics/Chi-squared_distribution
+#c# 2022-11-01 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# skip plotting
+
 File: S/Statistics_Normal_distribution
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Statistics/Normal_distribution
@@ -14976,6 +15000,14 @@ File: S/Sutherland-Hodgman_polygon_clipping
 ### xx file: polygon-clipping.svg
 
 File: S/Sylvester%27s_sequence
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Sylvester%27s_sequence
+#c# 2021-05-30 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A000058
+
+File: S/Sylvester%27s_sequence.jvm
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Sylvester%27s_sequence
 #c# 2021-05-30 <RC
