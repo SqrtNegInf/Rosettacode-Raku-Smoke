@@ -8727,20 +8727,20 @@ File: M/Mayan_numerals-2
 File: M/Maze_generation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Maze_generation
-#t# skiptest
 #c# 2015-12-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2021-03-01 still unstable ('ENTER' does not help)
+#n# 2022-12-04 replace call to built-in 'rand' for output stability
 
 File: M/Maze_solving
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Maze_solving
-#t# skiptest
 #c# 2015-12-21 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2021-03-01 still unstable
+#n# 2022-12-04 replace call to built-in 'rand' for output stability
 
 File: M/McNuggets_Problem
 #!/usr/bin/env perl6
@@ -14279,7 +14279,7 @@ File: S/Statistics_Basic
 File: S/Statistics_Chi-squared_distribution
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Statistics/Chi-squared_distribution
-#c# 2022-11-01 <RC
+#c# 2022-11-01 <RC, 2022-12-04 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# either:
@@ -15000,14 +15000,6 @@ File: S/Sutherland-Hodgman_polygon_clipping
 ### xx file: polygon-clipping.svg
 
 File: S/Sylvester%27s_sequence
-#!/usr/bin/env raku
-#u# http://rosettacode.org/wiki/Sylvester%27s_sequence
-#c# 2021-05-30 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-#n# OEIS:A000058
-
-File: S/Sylvester%27s_sequence.jvm
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Sylvester%27s_sequence
 #c# 2021-05-30 <RC
