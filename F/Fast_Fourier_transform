@@ -15,7 +15,17 @@ sub fft {
 my @res1.push: $_ for fft <1 1 1 1 0 0 0 0>;
 .say for @res1;  
 
-my $ref = qq:to/END/;
+# For the fun of it, here is a purely functional version:
+sub fft-f {
+    @_ == 1 ?? @_ !!
+    fft-f(@_[0,2...*]) «+«
+    fft-f(@_[1,3...*]) «×« map &cis, (0,-τ/@_...^-τ)
+}
+
+my @res2.push: $_ for fft-f <1 1 1 1 0 0 0 0>;
+.say for @res2; 
+
+my $ref1 = qq:to/END/;
 4+0i
 1-2.414213562373095i
 0+0i
@@ -48,31 +58,9 @@ my $jvm2 = qq:to/END/;
 0.9999999999999993+2.414213562373095i
 END
 
-# For the fun of it, here is a purely functional version:
-
-sub fft-f {
-    @_ == 1 ?? @_ !!
-    fft-f(@_[0,2...*]) «+«
-    fft-f(@_[1,3...*]) «×« map &cis, (0,-τ/@_...^-τ)
-}
-
-#`{{
-# This particular version is numerically inaccurate though, because of the pi approximation. It is possible to fix it with the 'cisPi' function available in the TrigPi module:
-
-sub fft1 {
-    use TrigPi;
-    @_ == 1 ?? @_ !!
-    fft1(@_[0,2...*]) «+«
-    fft1(@_[1,3...*]) «×« map &cisPi, (0,-2/@_...^-2)
-}
-}}
-
-my @res2.push: $_ for fft-f <1 1 1 1 0 0 0 0>;
-.say for @res2; 
-
 my $ref2 = $*VM ~~ /jvm/ ?? $jvm2 !! $moar2;
 
 use Test;
-is @res1.join("\n"), chomp $ref;
+is @res1.join("\n"), chomp $ref1;
 exit if $*KERNEL eq 'linux';
 is @res2.join("\n"), chomp $ref2;
