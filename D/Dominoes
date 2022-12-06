@@ -1,0 +1,54 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Dominoes
+#t# inprogress
+#c# 2022-09-xx >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# just extra credit combinatorics
+#n# repeated operations with cos values accumulates errors, even with 'cosPi'
+
+my @res;
+
+use TrigPi;
+
+sub comma { $^i.flip.comb(3).join(',').flip }
+
+my ($m,$n)= 7, 8;
+my $arrangements = 1;
+my $arrangements2 = 1;
+for 1 .. $m/2 -> $j {
+  for 1 .. $n/2  -> $k {
+    $arrangements ×= 4×cos(π×$j/($m+1))² + 4×cos(π×$k/($n+1))²;
+    $arrangements2×= 4×cosPi($j/($m+1))² + 4×cosPi($k/($n+1))²;
+  }
+}
+
+say $arrangements2;
+
+say comma $arrangements.round(1);
+
+say comma my $permutations = [×] 2..28;
+say comma my $flips = 2**28; # 2²⁸ also works
+
+say comma sprintf "%d", $flips × $permutations × $arrangements.round(1);
+
+.say for @res;
+
+my $ref = qq:to/END/;
+END
+
+use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
+#is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
+
+=finish
+
+=={{header|Raku}}==
+<syntaxhighlight lang="perl6" line>
+</syntaxhighlight>
+{{out}}
+<pre>
+</pre>
