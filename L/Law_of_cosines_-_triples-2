@@ -11,7 +11,7 @@
 my @res;
 
 sub triples ($n, @angles) {
-    my $sq-as-set = set my @squares = 1..$n X**2; # (1..$n) >>**>> 2
+    my $sq-as-set = set my @squares = 1..$n X**2; # or: (1..$n) >>**>> 2  or: (1..$n)»²
     my %triples; my %c2;
     for flat (@squares X @squares).grep: {.[0] <= .[1]} -> $a2, $b2 {
         (my $a, my $b) = ($a2,$b2)».sqrt».floor; 
