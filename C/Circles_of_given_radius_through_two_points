@@ -9,10 +9,10 @@ multi sub circles (@A, @B where ([and] @A Z== @B), $)   { 'Infinitely many share
 multi sub circles (@A, @B, $radius) {
     my @middle = (@A Z+ @B) X/ 2;
     my @diff = @A Z- @B;
-    my $q = sqrt [+] @diff X**2;
+    my $q = sqrt [+] @diff»²;
     return 'Too far apart' if $q > $radius × 2;
 
-    my @orth = -@diff[0], @diff[1] X× sqrt($radius**2 - ($q / 2)**2) / $q;
+    my @orth = -@diff[0], @diff[1] X× sqrt($radius² - ($q/2)²) / $q;
     return (@middle Z+ @orth), (@middle Z- @orth);
 }
 
@@ -24,10 +24,7 @@ my @input =
     ([0.1234, 0.9876],  [0.1234, 0.9876],   0.0),
     ;
 
-my @res1;
-for @input {
-    @res1.push: (.list.raku, ': ', circles(|$_).join(' and '));
-}
+my @res1.push: (.list.raku, ': ', circles(|$_).join: ' and ') for @input;
 .say for @res1; 
 
 my $ref1 = qq:to/END/;
@@ -48,7 +45,7 @@ multi sub circles ($a, $b where $a == $b, 0.0) { 'Degenerate point' }
 multi sub circles ($a, $b where $a == $b, $)   { 'Infinitely many share a point' }
 multi sub circles ($a, $b, $r) {
     my $h = ($b - $a) / 2;
-    my $l = sqrt($r**2 - $h.abs**2);
+    my $l = sqrt($r² - $h.abs²); # **2);
     return 'Too far apart' if $l.isNaN;
     return map { $a + $h + $l × $_ × $h / $h.abs }, i, -i;
 }
@@ -61,10 +58,7 @@ multi sub circles ($a, $b, $r) {
     (0.1234 + 0.9876i,  0.1234 + 0.9876i,   0.0),
     ;
 
-my @res2;
-for @input {
-    @res2.push: (.join(', '), ': ', circles(|$_).join(' and '));
-}
+my @res2.push: (.join(', '), ': ', circles(|$_).join: ' and ') for @input;
 .say for @res2; 
 
 my $ref2 = qq:to/END/;
