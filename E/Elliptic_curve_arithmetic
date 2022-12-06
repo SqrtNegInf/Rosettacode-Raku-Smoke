@@ -1,58 +1,60 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Elliptic_curve_arithmetic
-#c# 2016-04-03 <>RC, 2020-02-05 <RC
+#c# 2016-04-03 <>RC, 2020-02-05 <RC, 2022-12-06 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# for JVM 2021.12: now matches Moar output exactly
-#n# note: '⨯' [VECTOR OR CROSS PRODUCT] used for custom product, '×' [MULTIPLICATION SIGN] for regular product
+#n# using Unicode for custom math operations disambiguates, but are regular symbols better? (like Perl example 'overload')
+#n# 2022-12-06 for clarity, eliminate all uses of '*', replace with more expressive Unicode (see .1 regarding dead code)
 
 unit module EC;
-our ($A, $B) = (0, 7);
+our ($A, $B) = 0, 7;
 
 role Horizon { method gist { 'EC Point at horizon' } }
+
 class Point {
     has ($.x, $.y);
     multi method new(
-        $x, $y where $y**2 ~~ $x**3 + $A×$x + $B
+        $x, $y where $y² ~~ $x³ + $A×$x + $B
     ) { self.bless(:$x, :$y) }
     multi method new(Horizon $) { self.bless but Horizon }
     method gist { "EC Point at x=$.x, y=$.y" }
 }
 
-multi prefix:<->(Point $p) { Point.new: x => $p.x, y => -$p.y }
-multi prefix:<->(Horizon $) { Horizon }
-multi infix:<->(Point $a, Point $b) { $a + -$b }
+multi prefix:<—> (Point $p)            { Point.new: x => $p.x, y => -$p.y }
+multi  infix:<—> (Point $a, Point $b)  { $a + —$b }
+multi prefix:<—> (Horizon $)           { Horizon  }
 
-multi infix:<+>(Horizon $, Point $p) { $p }
-multi infix:<+>(Point $p, Horizon) { $p }
+multi  infix:<+> (Horizon $, Point $p) { $p }
+multi  infix:<+> ( Point $p,  Horizon) { $p }
 
-multi infix:<⨯>(Point $u, Int $n) { $n × $u }
-multi infix:<⨯>(Int $n, Horizon) { Horizon }
-multi infix:<⨯>(0, Point) { Horizon }
-multi infix:<⨯>(1, Point $p) { $p }
-multi infix:<⨯>(2, Point $p) {
-    my $l = (3⨯$p.x**2 + $A) / (2 ⨯ $p.y);
-    my $y = $l ⨯ ($p.x - my $x = $l**2 - 2⨯$p.x) - $p.y;
+multi  infix:<⨯> (Point $u, Int $n)    { $n × $u }
+multi  infix:<⨯> (Int $n, Horizon)     { Horizon }
+multi  infix:<⨯> (0, Point)            { Horizon }
+multi  infix:<⨯> (1, Point $p)         { $p }
+multi  infix:<⨯> (2, Point $p) {
+    my $l = (3⨯$p.x² + $A) / (2 ⨯ $p.y);
+    my $y = $l ⨯ ($p.x — my $x = $l² — 2⨯$p.x) — $p.y;
     $p.bless(:$x, :$y);
 }
-multi infix:<⨯>(Int $n where $n > 2, Point $p) {
+multi  infix:<⨯> (Int $n where $n > 2, Point $p) {
     2 × ($n div 2 × $p) + $n % 2 × $p;
 }
 
-multi infix:<+>(Point $p, Point $q) {
+multi  infix:<⊕> (Point $p, Point $q) {
     if $p.x ~~ $q.x {
         return $p.y ~~ $q.y ?? 2 × $p !! Horizon;
     }
     else {
         my $slope = ($q.y - $p.y) / ($q.x - $p.x);
-        my $y = $slope×($p.x - my $x = $slope**2 - $p.x - $q.x) - $p.y;
+        my $y = $slope×($p.x - my $x = $slope² - $p.x - $q.x) - $p.y;
         return $p.new(:$x, :$y);
     }
 }
 
-say my $p = Point.new: x => $_, y => sqrt(abs($_**3 + $A*$_ + $B)) given 1;
-say my $q = Point.new: x => $_, y => sqrt(abs($_**3 + $A*$_ + $B)) given 2;
-say my $s = $p + $q;
+say my $p = Point.new: x => $_, y => sqrt(abs($_³ + $A×$_ + $B)) given 1;
+say my $q = Point.new: x => $_, y => sqrt(abs($_³ + $A×$_ + $B)) given 2;
+say my $s = $p ⊕ $q;
 
 say my $a = "checking alignment:  " ~ abs ($p.x - $q.x)×(-$s.y - $q.y) - ($p.y - $q.y)×($s.x - $q.x);
 
@@ -63,13 +65,5 @@ EC Point at x=-1.9089023002066448, y=0.21008487055753378
 checking alignment:  0
 END
 
-my $xvm = qq:to/END/;
-EC Point at x=1, y=2.6457513110645907
-EC Point at x=2, y=3.7416573867739413
-EC Point at x=-1.7989898732233311, y=0.42167869684980275
-checking alignment:  8.881784197001252E-16
-END
-
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is ($p.gist, $q.gist, $s.gist, $a).join("\n"), chomp $ref;
