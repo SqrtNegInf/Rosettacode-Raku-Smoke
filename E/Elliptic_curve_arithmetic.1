@@ -1,0 +1,68 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Elliptic_curve_arithmetic
+#c# 2016-04-03 <>RC, 2020-02-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2022-12-06 turns out to be mostly dead code (at least for the supplied example) 
+#n#            (runs substantially faster without all the overhead of the multi's being defined)
+
+unit module EC;
+our ($A, $B) = 0, 7;
+
+role Horizon { method gist { 'EC Point at horizon' } }
+
+class Point {
+    has ($.x, $.y);
+    multi method new(
+        $x, $y where $y² ~~ $x³ + $A×$x + $B
+    ) { self.bless(:$x, :$y) }
+    multi method new(Horizon $) { self.bless but Horizon }
+    method gist { "EC Point at x=$.x, y=$.y" }
+}
+
+#multi prefix:<—> (Point $p)            { Point.new: x => $p.x, y => -$p.y }
+#multi  infix:<—> (Point $a, Point $b)  { $a + —$b }
+#multi prefix:<—> (Horizon $)           { Horizon } # not needed?
+
+#multi  infix:<+> (Horizon $, Point $p) { $p }
+#multi  infix:<+> ( Point $p,  Horizon) { $p }
+
+#multi  infix:<⨯> (Point $u, Int $n)    { $n × $u }
+#multi  infix:<⨯> (Int $n, Horizon)     { Horizon }
+#multi  infix:<⨯> (0, Point)            { Horizon }
+#multi  infix:<⨯> (1, Point $p)         { $p }
+#multi  infix:<⨯> (2, Point $p) {
+#    my $l = (3⨯$p.x² + $A) / (2 ⨯ $p.y);
+#    my $y = $l ⨯ ($p.x — my $x = $l² — 2⨯$p.x) — $p.y;
+#    $p.bless(:$x, :$y);
+#}
+#multi  infix:<⨯> (Int $n where $n > 2, Point $p) {
+#    2 × ($n div 2 × $p) + $n % 2 × $p;
+#}
+
+multi  infix:<⊕> (Point $p, Point $q) {
+    if $p.x ~~ $q.x {
+        return $p.y ~~ $q.y ?? 2 × $p !! Horizon;
+    }
+    else {
+        my $slope = ($q.y - $p.y) / ($q.x - $p.x);
+        my $y = $slope×($p.x - my $x = $slope² - $p.x - $q.x) - $p.y;
+        return $p.new(:$x, :$y);
+    }
+}
+
+say my $p = Point.new: x => $_, y => sqrt(abs($_³ + $A×$_ + $B)) given 1;
+say my $q = Point.new: x => $_, y => sqrt(abs($_³ + $A×$_ + $B)) given 2;
+say my $s = $p ⊕ $q;
+
+say my $a = "checking alignment:  " ~ abs ($p.x - $q.x)×(-$s.y - $q.y) - ($p.y - $q.y)×($s.x - $q.x);
+
+my $ref = qq:to/END/;
+EC Point at x=1, y=2.8284271247461903
+EC Point at x=2, y=3.872983346207417
+EC Point at x=-1.9089023002066448, y=0.21008487055753378
+checking alignment:  0
+END
+
+use Test;
+is ($p.gist, $q.gist, $s.gist, $a).join("\n"), chomp $ref;
