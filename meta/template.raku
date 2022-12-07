@@ -18,7 +18,7 @@ END
 
 use Test;
 #my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
+#is @res.join('').lc.subst(/<ws>/, '', :g), $ref.lc.subst(/<ws>/, '', :g);
 #is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
 #is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
 is @res.join("\n"), chomp $ref;
