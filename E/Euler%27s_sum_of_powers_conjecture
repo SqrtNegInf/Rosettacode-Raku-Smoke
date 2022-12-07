@@ -1,30 +1,30 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Euler%27s_sum_of_powers_conjecture
-#c# 2018-11-03 <RC
+#c# 2018-11-03 <RC,  2022-12-06 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# keep 'Int' decl. on the hashes: brings significant speed-up
+#n# 2022-12-06 use superscript '⁵' consistently, various other changes for clarity
 
 my $result;
 
 constant MAX = 250;
 
-my %po5{Int};
+my  %po5{Int};
 my %sum2{Int};
 
-(1..MAX).map: -> $i {
-    %po5{$i**5} = $i;
-    for 1..MAX -> $j {
-        %sum2{$i**5 + $j**5} = ($i, $j);
+(1..MAX).map: -> \i {
+    %po5{i⁵} = i;
+    for 1..MAX -> \j {
+        %sum2{i⁵ + j⁵} = i, j;
     }
 }
 
-my @sk = %sum2.keys.sort;
-%po5.keys.sort.race.map: -> $p {
-    for @sk -> $s {
-        next if $p <= $s;
-        if %sum2{$p - $s} {
-            $result = ((sort |%sum2{$s}[],|%sum2{$p-$s}[]) X~ '⁵').join(' + ') ~ " =  %po5{$p}" ~ "⁵";
+%po5.keys.sort.race.map: -> \p {
+    for %sum2.keys.sort -> \s {
+        next if p <= s;
+        if %sum2{p - s} {
+            say $result = ((sort |%sum2{s},|%sum2{p - s}) X~ '⁵').join(' + ') ~ " =  %po5{p}" ~ '⁵';
             use Test;
             is $result, '27⁵ + 84⁵ + 110⁵ + 133⁵ =  144⁵';
             exit
