@@ -3879,11 +3879,10 @@ File: D/Documentation
 File: D/Dominoes
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Dominoes
-#t# inprogress
-#c# 2022-09-xx >RC
+#c# 2022-12-05 NOT ON RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# just extra credit combinatorics
+#n# just extra credit combinatorics, to demonstrate numeric issue
 #n# repeated operations with cos values accumulates errors, even with 'cosPi'
 
 File: D/Dot_product
@@ -4205,11 +4204,12 @@ File: E/Elliptic_Curve_Digital_Signature_Algorithm.1
 File: E/Elliptic_curve_arithmetic
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Elliptic_curve_arithmetic
-#c# 2016-04-03 <>RC, 2020-02-05 <RC
+#c# 2016-04-03 <>RC, 2020-02-05 <RC, 2022-12-06 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# for JVM 2021.12: now matches Moar output exactly
-#n# note: '⨯' [VECTOR OR CROSS PRODUCT] used for custom product, '×' [MULTIPLICATION SIGN] for regular product
+#n# using Unicode for custom math operations disambiguates, but are regular symbols better? (like Perl example 'overload')
+#n# 2022-12-06 for clarity, eliminate all uses of '*', replace with more expressive Unicode (see .1 regarding dead code)
 
 File: E/Elliptic_curve_arithmetic.0
 #!/usr/bin/env perl6
@@ -4218,6 +4218,15 @@ File: E/Elliptic_curve_arithmetic.0
 #m# MOAR: OK
 #j#  JVM: OK
 #n# note: '⨯' [VECTOR OR CROSS PRODUCT] used for custom product, '×' [MULTIPLICATION SIGN] for regular product
+
+File: E/Elliptic_curve_arithmetic.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Elliptic_curve_arithmetic
+#c# 2016-04-03 <>RC, 2020-02-05 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2022-12-06 turns out to be mostly dead code (at least for the supplied example) 
+#n#            (runs substantially faster without all the overhead of the multi's being defined)
 
 File: E/Emirp_primes
 #!/usr/bin/env perl6
@@ -4453,10 +4462,11 @@ File: E/Euler%27s_identity
 File: E/Euler%27s_sum_of_powers_conjecture
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Euler%27s_sum_of_powers_conjecture
-#c# 2018-11-03 <RC
+#c# 2018-11-03 <RC,  2022-12-06 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# keep 'Int' decl. on the hashes: brings significant speed-up
+#n# 2022-12-06 use superscript '⁵' consistently, various other changes for clarity
 
 File: E/Euler%27s_sum_of_powers_conjecture-2
 #!/usr/bin/env perl6
