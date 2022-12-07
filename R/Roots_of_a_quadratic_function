@@ -9,7 +9,7 @@ my @sets = [1, 2, 1],
            [1, 2, 3],
            [1, -2, 1],
            [1, 0, -4],
-           [1, -10**6, 1];
+           [1, -10⁶, 1];
 
 my @res;
 for @sets -> @coefficients {
@@ -22,7 +22,7 @@ multi sub quadroots ($a, $b, $c) {
     ( -$b + $_ ) / (2 × $a),
     ( -$b - $_ ) / (2 × $a) 
     given
-    ($b ** 2 - 4 × $a × $c).Complex.sqrt.narrow
+    ($b² - 4 × $a × $c).Complex.sqrt.narrow
 }
 
 multi sub quadroots (@a) {
