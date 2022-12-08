@@ -28,13 +28,14 @@ sub powerful (\n, \k = 2) {
                 next unless is-square-free(v);
                 next unless m gcd v == 1;
             }
-            p(m × v ** r, r - 1)
+            p(m × exp(r,v), r - 1)
+            #p(m × v ** r, r - 1)
         }
     }
     @p
 }
  
-my $achilles = powerful(10**9).hyper(:500batch).grep( {
+my $achilles = powerful(10⁹).hyper(:500batch).grep( {
     my $f = .&prime-factors.Bag;
     (+$f.keys > 1) && (1 == [gcd] $f.values) && (.sqrt.Int² !== $_)
 } ).classify: { .chars }
