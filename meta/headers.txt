@@ -4462,10 +4462,10 @@ File: E/Euler%27s_identity
 File: E/Euler%27s_sum_of_powers_conjecture
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Euler%27s_sum_of_powers_conjecture
-#c# 2018-11-03 <RC,  2022-12-06 >RC
+#c# 2016-01-09 <>RC, 2018-11-03 <RC,  2022-12-06 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# keep 'Int' decl. on the hashes: brings significant speed-up
+#n# keep 'Int' decl. on the hashes: brings significant speed-up (~6x)
 #n# 2022-12-06 use superscript '⁵' consistently, various other changes for clarity
 
 File: E/Euler%27s_sum_of_powers_conjecture-2
@@ -4478,11 +4478,12 @@ File: E/Euler%27s_sum_of_powers_conjecture-2
 
 File: E/Euler%27s_sum_of_powers_conjecture.jvm
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Euler's_sum_of_powers_conjecture
-#c# 2016-01-09 <>RC
+#u# http://rosettacode.org/wiki/Euler%27s_sum_of_powers_conjecture
+#c# 2016-01-09 <>RC, 2018-11-03 <RC,  2022-12-06 >RC
 #m# MOAR: OK
-#j#  JVM: OK
-#n# now that we exit at first opportunity, about 10x faster 
+#j# JVM:  OK
+#n# keep 'Int' decl. on the hashes: brings significant speed-up (~6x)
+#n# 2022-12-06 use superscript '⁵' consistently, various other changes for clarity
 
 File: E/Euler_method
 #!/usr/bin/env perl6
