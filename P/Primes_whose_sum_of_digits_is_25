@@ -6,24 +6,19 @@
 
 unit sub MAIN ($limit = 5000);
 
-say my $result = "{+$_} primes < $limit with digital sum 25:\n{$_».fmt("%" ~ $limit.chars ~ "d").batch(10).join("\n")}",
+say my $result = "{+$_} primes < $limit with digital sum 25:\n{$_».fmt("%" ~ $limit.chars ~ "d").batch(10).join(' ')}",
     with ^$limit .grep: { .is-prime and .comb.sum == 25 }
 
 my $ref = q:to/END/;
 17 primes < 5000 with digital sum 25:
- 997 1699 1789 1879 1987 2689 2797 2887 3499 3697
-3769 3877 3967 4597 4759 4957 4993
+ 997 1699 1789 1879 1987 2689 2797 2887 3499 3697 3769 3877 3967 4597 4759 4957 4993
 END
+
+use Math::Primesieve;
+my $sieve = Math::Primesieve.new;
+my @p = $sieve.primes(5000);
+my @p25 = @p.hyper(:8degree).grep: { .comb ∌ '0' and .comb.sum == 25 };
 
 use Test;
 is $result, chomp $ref;
-
-#`{{
-# slow...
-use Math::Primesieve;
-my $sieve = Math::Primesieve.new;
-my @p = $sieve.primes(10**9);
-my @p25 = @p.hyper(:8degree).grep: { .comb ∌ '0' and .comb.sum == 25 };
-say @p25[*-1];
-say +@p25;
-}}
+is @p25.join(' '), chomp '997 1699 1789 1879 1987 2689 2797 2887 3499 3697 3769 3877 3967 4597 4759 4957 4993';
