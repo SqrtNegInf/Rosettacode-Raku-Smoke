@@ -1,31 +1,37 @@
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Euler's_sum_of_powers_conjecture
-#c# 2016-01-09 <>RC
+#u# http://rosettacode.org/wiki/Euler%27s_sum_of_powers_conjecture
+#c# 2016-01-09 <>RC, 2018-11-03 <RC,  2022-12-06 >RC
 #m# MOAR: OK
-#j#  JVM: OK
-#n# now that we exit at first opportunity, about 10x faster 
+#j# JVM:  OK
+#n# keep 'Int' decl. on the hashes: brings significant speed-up (~6x)
+#n# 2022-12-06 use superscript '⁵' consistently, various other changes for clarity
+
+my $result;
 
 constant MAX = 250;
 
-my %p5{Int};
+my  %po5{Int};
 my %sum2{Int};
 
-for 1..MAX -> $i {
-    %p5{$i**5} = $i;
-    for 1..MAX -> $j {
-        %sum2{$i**5 + $j**5} = ($i, $j);
+for 1..MAX -> \i {
+    %po5{i⁵} = i;
+    for 1..MAX -> \j {
+        %sum2{i⁵ + j⁵} = i, j;
     }
 }
 
-my @sum2-keys = %sum2.keys.sort;
-for %p5.keys.sort -> $p {
-    for @sum2-keys -> $s {
-        next if $p <= $s;
-        if %sum2{$p - $s} {
-            say my $result = ((|%sum2{$s},|%sum2{$p-$s}).sort X~ '⁵').join(' + ') ~ " =  {%p5{$p}}⁵";
+# X is always a bit slower
+#for             1..MAX  ->  \i      {  %po5{i⁵}      = i    }
+#for (1..MAX) X (1..MAX) -> (\i, \j) { %sum2{i⁵ + j⁵} = i, j }
+
+%po5.keys.sort.map: -> \p {
+    for %sum2.keys.sort -> \s {
+        next if p <= s;
+        if %sum2{p - s} {
+            say $result = ((sort |%sum2{s},|%sum2{p - s}) X~ '⁵').join(' + ') ~ " =  %po5{p}" ~ '⁵';
             use Test;
             is $result, '27⁵ + 84⁵ + 110⁵ + 133⁵ =  144⁵';
-            exit;
+            exit
         }
     }
 }
