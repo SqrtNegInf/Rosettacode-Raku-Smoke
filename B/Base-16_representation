@@ -62,11 +62,7 @@ END
 is $result2, chomp $ref2;
 
 my @res3;
-for 500
-   ,10**8
-   ,10**25
-   ,10**35
-   -> $threshold {
+for 500, 10⁸, 10²⁵, 10³⁵ -> $threshold {
     my $limit = $threshold.base(16);
     my $i  = $limit.index: ['A'..'F'];
     quietly $limit = $limit.substr(0, $i) ~ ('9' x ($limit.chars - $i)) if $i.Str;
