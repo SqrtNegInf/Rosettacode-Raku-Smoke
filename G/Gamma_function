@@ -6,8 +6,8 @@
 
 sub Γ(\z) {
     constant g = 9;
-    z < .5 ?? pi/ sin(pi × z) / Γ(1 - z) !!
-    sqrt(2×pi) ×
+    z < .5 ?? π/ sin(π × z) / Γ(1 - z) !!
+    sqrt(2×π) ×
     (z + g - 1/2)**(z - 1/2) ×
     exp(-(z + g - 1/2)) ×
     [+] <
