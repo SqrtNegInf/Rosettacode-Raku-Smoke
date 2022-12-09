@@ -24,13 +24,13 @@ multi legendre-prime(    0 , $ ) { 0 }
 multi legendre-prime(    1 , $ ) { 1 }
 multi legendre-prime(Int $n, $x) {
     my ($m0, $m1) = legendre-pair($n, $x);
-    ($m1 - $x × $m0) × $n / (1 - $x**2);
+    ($m1 - $x × $m0) × $n / (1 - $x²);
 }
 
 sub approximate-legendre-root(Int $n, Int $k) {
     # Approximation due to Francesco Tricomi
     my \t = (4×$k - 1) / (4×$n + 2);
-    (1 - ($n - 1) / (8 × $n**3)) × cos(pi × t);
+    (1 - ($n - 1) / (8 × $n³)) × cos(π × t);
 }
 
 sub newton-raphson(&f, &f-prime, $r is copy, :$eps = 2e-16) {
@@ -45,7 +45,7 @@ sub legendre-root(Int $n, Int $k) {
                    approximate-legendre-root($n, $k));
 }
 
-sub weight(Int $n, $r) { 2 / ((1 - $r**2) × legendre-prime($n, $r)**2) }
+sub weight(Int $n, $r) { 2 / ((1 - $r²) × legendre-prime($n, $r)²) } # works on value returned by subroutine
 
 sub nodes(Int $n) {
     flat gather {
