@@ -4,8 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-sub postfix:<°> ($a) { $a × pi / 180 } # degrees to radians
-sub postfix:<®> ($a) { $a × 180 / pi } # radians to degrees
+sub postfix:<°> ($a) { $a ×   π / 180 } # degrees to radians
+sub postfix:<®> ($a) { $a × 180 /   π } # radians to degrees
 
 #my $latitude  = prompt 'Enter latitude       => ';
 #my $longitude = prompt 'Enter longitude      => ';
