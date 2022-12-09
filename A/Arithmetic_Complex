@@ -5,12 +5,12 @@
 #j#  JVM: OK
 
 my $a = 1 + i;
-my $b = pi + 1.25i;
+my $b = π + 1.25i;
 
 .say for $a + $b, $a × $b, -$a, 1 / $a, $a.conj;
 .say for $a.abs, $a.sqrt, $a.re, $a.im;
 say '$a = 1 + i';
-say '$b = pi + 1.25i';
+say '$b = π + 1.25i';
 
 use Test;
 is-approx ($a+$b), 4.14159265358979+2.25i, '$a + $b';
