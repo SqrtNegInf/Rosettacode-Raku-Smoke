@@ -1,33 +1,28 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Roots_of_a_quadratic_function
-#c# 2015-12-19 <RC
+#c# 2015-12-19 <RC, 2022-12-08 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# difference between MOAR/JVM is just 'e-06' vs 'E-6'
 
-my @sets = [1, 2, 1],
-           [1, 2, 3],
-           [1, -2, 1],
-           [1, 0, -4],
-           [1, -10⁶, 1];
-
 my @res;
-for @sets -> @coefficients {
-    @res.push: 
-    ("Roots for @coefficients.join(', ').fmt("%-16s")"~
-        "=> (&quadroots( @coefficients ).join(', '))");
+
+for
+[1, 2, 1],
+[1, 2, 3],
+[1, -2, 1],
+[1, 0, -4],
+[1, -10⁶, 1]
+-> @coefficients {
+    @res.push: sprintf "Roots for %d, %d, %d\t=> (%s, %s)",
+    |@coefficients, |quadroots(@coefficients);
 }
 
-multi sub quadroots ($a, $b, $c) {
+sub quadroots (*[$a, $b, $c]) {
     ( -$b + $_ ) / (2 × $a),
     ( -$b - $_ ) / (2 × $a) 
     given
-    ($b² - 4 × $a × $c).Complex.sqrt.narrow
-}
-
-multi sub quadroots (@a) {
-    @a == 3 or die "Expected three elements, got {+@a}";
-    quadroots |@a;
+    ($b² - 4 × $a × $c ).Complex.sqrt.narrow
 }
 
 .say for @res;
@@ -49,4 +44,5 @@ Roots for 1, -1000000, 1  => (999999.999999, 1.00000761449337E-6)
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+my $ref = chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
