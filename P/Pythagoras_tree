@@ -21,12 +21,12 @@ class Square {
     method left-child {
 	self.new:
 	position => $!position + i×$!edge,
-	edge => sqrt(2)/2×cis(pi/4)×$!edge;
+	edge => sqrt(2)/2×cis(π/4)×$!edge;
     }
     method right-child {
 	self.new:
 	position => $!position + i×$!edge + self.left-child.edge,
-	edge => sqrt(2)/2×cis(-pi/4)×$!edge;
+	edge => sqrt(2)/2×cis(-π/4)×$!edge;
     }
 }
 
