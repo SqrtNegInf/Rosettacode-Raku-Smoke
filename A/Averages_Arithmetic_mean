@@ -8,4 +8,4 @@ multi mean([]) { Failure.new('mean on empty list is not defined') }; # Failure-o
 multi mean (@a) { ([+] @a) / @a }
 
 use Test;
-is-approx mean([1, 2, pi]), 2.0471975511966, 'average of: 1, 2, pi';
+is-approx mean([1, 2, π]), 2.0471975511966, 'average of: 1, 2, pi';
