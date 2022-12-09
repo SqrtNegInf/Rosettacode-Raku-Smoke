@@ -18,10 +18,10 @@ my $sierpinski = 'F--XF--F--XF' but Lindenmayer( { X => 'XF+G+XF--F--XF+G+X' } )
 
 $sierpinski++ xx 5;
 
-my $dim = 640;
-my $scale = 8;
-my $dir = pi/4;
-my @points = (316, -108);
+my $dim    = 640;
+my $scale  = 8;
+my $dir    = π/4;
+my @points = 316, -108;
 
 for $sierpinski.comb {
     state ($x, $y) = @points[0,1];
