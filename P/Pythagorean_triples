@@ -12,7 +12,7 @@ my (@res1, @res2, @res3);
 my $limit = 100;
 
 for [X] [^$limit] xx 3 -> (\a, \b, \c) {
-    @res1.push: [a, b, c] if a < b < c and a**2 + b**2 == c**2
+    @res1.push: [a, b, c] if a < b < c and a² + b² == c²
 }
 .say for @res1;
 
