@@ -48,7 +48,7 @@ sub MAIN($tblsz = 12) {
   my $p3 = Promise.start( { my %invtan = mk-inv(&tan, 0.05, $tblsz); $tan_pi = 4 × thiele(1.0, %invtan, 0) } );
   await $p1, $p2, $p3;
 
-  say "pi = {pi}";
+  say "pi = {π}";
   say "estimations using a table of $tblsz elements:";
   say "sin interpolation: $sin_pi";
   say "cos interpolation: $cos_pi";
