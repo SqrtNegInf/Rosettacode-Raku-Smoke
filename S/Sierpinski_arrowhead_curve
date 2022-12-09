@@ -21,9 +21,9 @@ $arrow++ xx 7;
 my $w = 800;
 my $h = ($w × 3**.5 / 2).round(1);
 
-my $scale = 6;
-my @points = (400, 15);
-my $dir = pi/3;
+my $scale  = 6;
+my @points = 400, 15;
+my $dir    = π/3;
 
 for $arrow.comb {
     state ($x, $y) = @points[0,1];
