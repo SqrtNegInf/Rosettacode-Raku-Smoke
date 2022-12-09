@@ -18,8 +18,8 @@ sub incomplete-γ-series($s, $z) {
 sub postfix:<!>(Int $n) { [×] 2..$n }
 
 sub Γ-of-half(Int $n where * > 0) {
-    ($n %% 2) ?? (($_-1)!                            given  $n    div 2)
-              !! ((2×$_)! / (4**$_ × $_!) × sqrt(pi) given ($n-1) div 2); # DH - this line is never reached
+    ($n %% 2) ?? (($_-1)!                          given  $n    div 2)
+              !! ((2×$_)! / (4**$_ × $_!) × sqrt π given ($n-1) div 2); # DH - this line is never reached
 }
 
 # degrees of freedom constrained due to numerical limitations
