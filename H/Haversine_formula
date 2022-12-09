@@ -9,7 +9,7 @@ class EarthPoint {
         has $.lon; # longitude
 
         has $earth_radius = 6371; # mean earth radius
-        has $radian_ratio = pi / 180;
+        has $radian_ratio = π / 180;
 
         # accessors for radians
         method latR { $.lat × $radian_ratio }
