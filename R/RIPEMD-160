@@ -1,15 +1,9 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/RIPEMD-160
-#c# 2016-06-11 <RC, 2017-08-20 >RC
+#c# 2016-06-11 <RC, 2017-08-20 >RC, 2022-11-26 <RC, 2022-12-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# https://github.com/grondilu/libdigest-raku/blob/master/lib/Digest/RIPEMD.rakumod
-
-=begin CREDITS
-Crypto-JS v2.0.0
-http:#code.google.com/p/crypto-js/
-Copyright (c) 2009, Jeff Mott. All rights reserved.
-=end CREDITS
 
 proto rmd160($) returns Blob {*}
 multi rmd160(Str $str) { samewith $str.encode }
@@ -53,17 +47,16 @@ multi rmd160(Blob $data) {
     $b.push: 0 until (8×@$b-448) %% 512;
     $b.push: |(8 × $data).polymod: 256 xx 7;
 
-    my blob32 $word .= new: $b.rotor(4).map: { :256[@^x.reverse] };
-    my buf32 $h .= new: 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0;
-    loop (my $i = 0; $i < @$word; $i += 16) {
-        my buf32 ($X, $Y) = $h.clone xx 2;
-        for ^80 -> $j {
-            $X[] = [$X[4], rotl(($X[0] + @F[    $j  div 16](|$X[1..3]) + ($word[$i+r1[$j]] // 0) + @K1[$j]) mod 2**32, s1[$j]) + $X[4], $X[1], rotl($X[2], 10), $X[3]];
-            $Y[] = [$Y[4], rotl(($Y[0] + @F[(79-$j) div 16](|$Y[1..3]) + ($word[$i+r2[$j]] // 0) + @K2[$j]) mod 2**32, s2[$j]) + $Y[4], $Y[1], rotl($Y[2], 10), $Y[3]];
-        }
-        $h[] = [$h[1,2,3,4,0] Z+ $X[2,3,4,0,1] Z+ $Y[3,4,0,1,2]];
-    }
-    return blob8.new: $h.map: |*.polymod: 256 xx 3;
+    blob8.new: (
+      reduce
+        -> blob32 $h, @words {
+	      blob32.new: $h[1,2,3,4,0]
+	        Z+ start { reduce -> $X, $j { blob32.new($X[4], rotl(($X[0] + @F[    $j  div 16](|$X[1..3]) + @words[r1[$j]] + @K1[$j]) mod 2**32, s1[$j]) + $X[4], $X[1], rotl($X[2], 10), $X[3]); }, $h.clone, |^80; }.result[2,3,4,0,1] 
+	        Z+ start { reduce -> $Y, $j { blob32.new($Y[4], rotl(($Y[0] + @F[(79-$j) div 16](|$Y[1..3]) + @words[r2[$j]] + @K2[$j]) mod 2**32, s2[$j]) + $Y[4], $Y[1], rotl($Y[2], 10), $Y[3]); }, $h.clone, |^80; }.result[3,4,0,1,2];
+	    },
+	    (BEGIN blob32.new(0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0)),
+	    |blob32.new($b.rotor(4).map: { :256[@^x.reverse] }).rotor(16);
+    ).map: |*.polymod(256 xx 3);
 }
 
 say my $result = rmd160 "Rosetta Code";
