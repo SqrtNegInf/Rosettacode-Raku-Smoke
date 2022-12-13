@@ -11842,12 +11842,21 @@ File: R/RCRPG_Raku
 File: R/RIPEMD-160
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/RIPEMD-160
-#c# 2016-06-11 <RC, 2017-08-20 >RC
+#c# 2016-06-11 <RC, 2017-08-20 >RC, 2022-11-26 <RC, 2022-12-12 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# https://github.com/grondilu/libdigest-raku/blob/master/lib/Digest/RIPEMD.rakumod
+#n# issue with BEGIN: maybe needed because of implicit 'Promise' implied by '.result'?
+
+File: R/RIPEMD-160.1
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/RIPEMD-160
+#c# 2016-06-11 <RC, 2017-08-20 >RC, 2022-11-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# https://github.com/grondilu/libdigest-raku/blob/master/lib/Digest/RIPEMD.rakumod
 
-File: R/RIPEMD-160.1
+File: R/RIPEMD-160.2
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/RIPEMD-160
 #c# 2016-06-11 <RC, 2017-08-20 >RC
