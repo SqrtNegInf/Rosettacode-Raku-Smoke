@@ -8,29 +8,17 @@
 #n# generates Sierpinski Triangle, more or less
 #n# 2022-11-02 replace call to built-in 'rand' for output stability
 
-use Image::PNG::Portable;
-
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-class splitmix64 {
-    has $!state;
-    submethod BUILD ( Int :$seed where * >= 0 = 1 ) { $!state = $seed }
-    method next-int {
-        my $next = $!state = ($!state + 0x9e3779b97f4a7c15) +& (2⁶⁴ - 1);
-        $next = ($next +^ ($next +> 30)) × 0xbf58476d1ce4e5b9 +& (2⁶⁴ - 1);
-        $next = ($next +^ ($next +> 27)) × 0x94d049bb133111eb +& (2⁶⁴ - 1);
-        ($next +^ ($next +> 31)) +& (2⁶⁴ - 1);
-    }
-    method next-rat { self.next-int / 2⁶⁴ }
-}
-my $rng = splitmix64.new( :seed(123456) );
+use Image::PNG::Portable;
+
+use lib 'lib';
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 my ($w, $h) = 640, 640;
-
 my $png = Image::PNG::Portable.new: :width($w), :height($h), :alpha(False);
-
 my @vertex = [0, 0], [$w, 0], [$w/2, $h];
-
 my ($x, $y) = 0, 0;
 
 for ^1e5 {
