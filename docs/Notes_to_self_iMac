@@ -1,3 +1,7 @@
+2022-12-15
+Keep 'lib' files in sync while ignoring some as appropriate:
+    rsync -n --exclude=lib/.precomp -avC mpro:$PWD/lib .
+
 2022-11-25
 'C/Changeable_words' fails 5x more often on iMac!?
 
