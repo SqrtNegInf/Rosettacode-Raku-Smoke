@@ -3,10 +3,11 @@
 #c# 2018-09-23 >RC
 #m# MOAR: OK
 #j#  JVM: OK 
-#n# for JVM: module
 #n# 'elegant' version (no longer on RC)
 #n# NB: three different uses of 'X' meta-op
 #n# no extra-credit, lesson learned: 'X' operator is expensive
+
+use Sort::Naturally;
 
 my @res;
 
@@ -21,9 +22,6 @@ sub triples ($n, @angles) {
     }
     %triples;
 }
-
-use lib 'lib';
-use Sort::Naturally;
 
 my $n = 13;
 say "Integer triangular triples for sides 1..$n:";
