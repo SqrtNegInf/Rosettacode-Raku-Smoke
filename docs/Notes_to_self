@@ -1,5 +1,11 @@
+2022-12-15
+Yesterday's failures:
+M/Markov_chain_text_generator - failure was a one-off, but migrate to new PRNG
+C/Constrained_random_points_on_a_circle-2 - new PRNG giving different answer, update testing
+
 2022-12-14
-Move PRNG code (work-around for flakey 'srand') into library 'myRNG'.
+Move PRNG code (work-around for flakey 'srand') into library 'myRNG' (it's just the splitmix64 code from RC task).
+p.s. Kludge 'Code-health' to include the specific 'lib' where it resides.
 
 2022-12-13
 Those BEGIN's in RIPEMD-160-2 don't seem to be needed?  No failures after many runs...
