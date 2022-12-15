@@ -1,5 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Markov_chain_text_generator
+#t# inprogress
 #c# 2016-11-11 <RC, 2017-01-31 >RC, 2017-02-05 <>RC, 2018-05-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -7,10 +8,13 @@
 #n# 2021-03-03 yesterday's "good" answer no longer works, updated again...
 #n# 2022-09-22 cf Average_loop_length, same problem with ArrayHash binding
 #n# 2022-10-02 d'oh, was using out-of-date module, not new/precompiled version
+#n# 2022-12-15 replace call to built-in 'rand' for output stability
 
 use ArrayHash;
 
-srand 123456;
+use lib 'lib';
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 #unit sub MAIN ( :$file='ref/alice_oz.txt', :$n=2, :$words=100, );
 unit sub MAIN ( :$file='ref/alice-10K.txt', :$n=2, :$words=100, );
@@ -51,23 +55,21 @@ if $*VM ~~ /jvm/ {
 }
 # end kludge
 
-my @start-words = %dict.keys.pick.words;
-my @generated-text = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.pick } ...^ !*.defined;
+#my @start-words = %dict.keys.pick.words;
+#my @generated-text = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.pick } ...^ !*.defined;
 
-my @res = @generated-text.head: $words;
+my @keys = %dict.keys;
+my @start-words = @keys[@keys × $rng.next-rat].words;  
+my @generated-text = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.tail } ...^ !*.defined; # not random
+#my @generated-text = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.tail } ...^ !*.defined; # not random
+
+my @res = @generated-text.head(4): $words;
 say @res.join(' ');
+exit;
 
-my $moar-terminal  = qq:to/END/;
-was beginning to get rather sleepy, and went on saying to herself, 'after such a thing. After a while, finding that nothing more happened, she decided on going into the garden at once; but, alas for poor Alice! when she turned the corner, but the wise little Alice was beginning to get out again. The rabbit-hole went straight on like a telescope.' And so it was empty: she did not like to drop the jar for fear of killing somebody, so managed to put it into one of the house!' (Which was very deep, or she fell past it. 'Well!'
-END
-
-my $moar-cronjob  = qq:to/END/;
-up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her. There was nothing on it in large letters. It was all very well to say 'Drink me,' but the Rabbit was still in sight, hurrying down it. There was nothing so very much to-night, I should be like then?' And she tried her best to climb up one of the cupboards as she passed; it was all dark overhead; before her was another long passage, and the White Rabbit with pink eyes ran close by her. There was nothing so very remarkable in
-END
-
-my $jvm = qq:to/END/;
-and went on saying to herself, 'in my going out altogether, like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not noticed before, and behind it when she got to the table for it, she found a little bottle on it, ('which certainly was not marked 'poison,' so Alice soon began talking again. 'Dinah'll miss me very much to-night, I should think!' (Dinah was the cat.) 'I hope they'll remember her saucer of milk at tea-time. Dinah my dear! I wish you were down here with me! There are no mice in the
+my $ref = qq:to/END/;
+centre of the table, but it was too slippery; and when she had tired herself out with trying, the poor little thing sat down and cried. 'Come, there's no use in crying like that!' said Alice to herself, rather sharply; 'I advise you to leave off this minute!' She generally gave herself very good advice, (though she very seldom followed it), and sometimes she scolded herself so severely as to bring tears into her eyes; and once she remembered trying to box her own ears for having cheated
 END
 
 use Test;
-is @res.join(' '), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join(' '), chomp $ref;
