@@ -11,23 +11,13 @@
 
 use lib 'lib';
 use myRNG;
-my $rng = myRNG.new( :seed(123456) );
-
-# Knuth shuffle
-sub shuffle (@a is copy) {
-    for 1 ..^ @a -> $n {
-        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
-        $k == $n or @a[$k, $n] = @a[$n, $k];
-    }
-    @a
-}
 
 my $out = open("run/constrained_random_points2.dat", :w);
 
 ($out.say: ~.map: { $_ // ' ' } for my @matrix) given do
    #-> [$x, $y] { @matrix[$x][$y] = '*' } for pick 100, do
     -> [$x, $y] { @matrix[$x][$y] = '*' } for head 100, do
-        for shuffle(^32 X ^32) -> ($x, $y) {
+        for pickall(^32 X ^32) -> ($x, $y) {
             [$x,$y] when 100..225 given [+] ($x,$y X- 15) X**2;
         }
 
