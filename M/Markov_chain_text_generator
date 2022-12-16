@@ -60,16 +60,23 @@ if $*VM ~~ /jvm/ {
 
 my @keys = %dict.keys;
 my @start-words = @keys[@keys × $rng.next-rat].words;  
-my @generated-text = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.tail } ...^ !*.defined; # not random
-#my @generated-text = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.tail } ...^ !*.defined; # not random
+my @generated-text1 = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.head } ...^ !*.defined; # not random
+my @generated-text2 = lazy |@start-words, { %dict{ "@_[ *-$n .. * ]" }.tail } ...^ !*.defined; # not random
 
-my @res = @generated-text.head(4): $words;
-say @res.join(' ');
-exit;
+my @res1 = @generated-text1.head: $words;
+my @res2 = @generated-text2.head: $words;
+say @res1.join(' ');
+say '--';
+say @res2.join(' ');
 
-my $ref = qq:to/END/;
+my $ref1 = qq:to/END/;                                                          # : vim kludge
+centre of the way to hear the Rabbit say to itself, 'Oh dear! Oh dear! I shall be late!' (when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit say to itself, 'Oh dear! Oh dear! I shall be late!' (when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit say to itself, 'Oh dear! Oh dear! I
+END
+
+my $ref2 = qq:to/END/;
 centre of the table, but it was too slippery; and when she had tired herself out with trying, the poor little thing sat down and cried. 'Come, there's no use in crying like that!' said Alice to herself, rather sharply; 'I advise you to leave off this minute!' She generally gave herself very good advice, (though she very seldom followed it), and sometimes she scolded herself so severely as to bring tears into her eyes; and once she remembered trying to box her own ears for having cheated
 END
 
 use Test;
-is @res.join(' '), chomp $ref;
+is @res1.join(' '), chomp $ref1;
+is @res2.join(' '), chomp $ref2;
