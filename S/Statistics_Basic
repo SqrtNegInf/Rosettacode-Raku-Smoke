@@ -7,21 +7,11 @@
 #n# 2021-03-04 yes to above, and that has not changed
 #n# 2022-11-01 replace call to built-in 'rand' for output stability
 
-class splitmix64 {
-    has $!state;
-    submethod BUILD ( Int :$seed where * >= 0 = 1 ) { $!state = $seed }
-    method next-int {
-        my $next = $!state = ($!state + 0x9e3779b97f4a7c15) +& (2⁶⁴ - 1);
-        $next = ($next +^ ($next +> 30)) × 0xbf58476d1ce4e5b9 +& (2⁶⁴ - 1);
-        $next = ($next +^ ($next +> 27)) × 0x94d049bb133111eb +& (2⁶⁴ - 1);
-        ($next +^ ($next +> 31)) +& (2⁶⁴ - 1);
-    }
-    method next-rat { self.next-int / 2⁶⁴ }
-}
-
-my $rng = splitmix64.new( :seed(123456) );
-
 my @res;
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
+
 for 100, 1_000, 10_000 -> $N {
     @res.push: "size: $N";
     my @data = $rng.next-rat xx $N;
