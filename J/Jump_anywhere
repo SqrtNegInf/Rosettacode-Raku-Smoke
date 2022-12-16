@@ -7,7 +7,7 @@
 
 my @res;
 
-use lib 'lib';
+#use lib 'lib';
 use myRNG;
 my $rng = myRNG.new( :seed(123456) );
 
@@ -33,28 +33,6 @@ my $rng = myRNG.new( :seed(123456) );
 
 my $ref = qq:to/END/;
 Entered outer loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
-Entered inner loop block
-Leaving inner loop block
 Entered inner loop block
 Leaving inner loop block
 Leaving outer loop block
