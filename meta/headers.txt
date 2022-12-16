@@ -35,7 +35,7 @@ File: 0/100_prisoners
 #c# 2019-11-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# don't use .race, otherwise testing is only approximate (update to splitmix64/shuffle also makes this slower)
+#n# don't use .race, otherwise testing is only approximate (update to myRNG/shuffle also makes this slower)
 #n# 2022-11-02 replace call to built-in 'rand' for output stability
 
 File: 0/100_prisoners.0
@@ -5560,7 +5560,7 @@ File: F/Forest_fire
 #j#  JVM: OK
 #f# RC file: forest_fire.dat
 #n# run 'Forest_fire.1' to see interactive output
-#n# 2022-10-30 use PRNG 'splitmix64' instead of built-in 'rand' for output stability
+#n# 2022-10-30 replace call to built-in 'rand' for output stability
 
 File: F/Forest_fire-2
 #!/usr/bin/env perl6
@@ -7837,7 +7837,6 @@ File: L/Law_of_cosines_-_triples-2
 #c# 2018-09-23 >RC
 #m# MOAR: OK
 #j#  JVM: OK 
-#n# for JVM: module
 #n# 'elegant' version (no longer on RC)
 #n# NB: three different uses of 'X' meta-op
 #n# no extra-credit, lesson learned: 'X' operator is expensive
@@ -8600,6 +8599,7 @@ File: M/Marching_squares
 File: M/Markov_chain_text_generator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Markov_chain_text_generator
+#t# inprogress
 #c# 2016-11-11 <RC, 2017-01-31 >RC, 2017-02-05 <>RC, 2018-05-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -8607,15 +8607,18 @@ File: M/Markov_chain_text_generator
 #n# 2021-03-03 yesterday's "good" answer no longer works, updated again...
 #n# 2022-09-22 cf Average_loop_length, same problem with ArrayHash binding
 #n# 2022-10-02 d'oh, was using out-of-date module, not new/precompiled version
+#n# 2022-12-15 replace call to built-in 'rand' for output stability
 
 File: M/Markov_chain_text_generator.1
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Markov_chain_text_generator
 #c# 2016-11-11 <RC, 2017-01-31 >RC, 2017-02-05 <>RC, 2018-05-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n#  key order of hashes no longer stable (but ArrayHash provides a work-around)
+#n# 2021-03-03 yesterday's "good" answer no longer works, updated again...
+#n# 2022-09-22 cf Average_loop_length, same problem with ArrayHash binding
+#n# 2022-10-02 d'oh, was using out-of-date module, not new/precompiled version
 
 File: M/Mastermind
 #!/usr/bin/env perl6
