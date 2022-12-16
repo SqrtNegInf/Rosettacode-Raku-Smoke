@@ -10,15 +10,6 @@ use lib 'lib';
 use myRNG;
 my $rng = myRNG.new( :seed(123456) );
 
-# Knuth shuffle
-sub shuffle (@a is copy) {
-    for 1 ..^ @a -> $n {
-        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
-        $k == $n or @a[$k, $n] = @a[$n, $k];
-    }
-    @a
-}
-
 my @res;
 my $s;
 
@@ -37,9 +28,9 @@ sub balanced($s) {
     return $l == 0;
 }
 
-$s = (<[ ]> xx 5).flat.&shuffle.join;
+$s = (<[ ]> xx 5).flat.&pickall.join;
 @res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
-$s = (<[ ]> xx 5).flat.&shuffle.join;
+$s = (<[ ]> xx 5).flat.&pickall.join;
 @res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
 $s = '[][]';
 @res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
@@ -73,31 +64,29 @@ $s = '[][]';
 $tag = 'parsing with a grammar';
 grammar BalBrack { token TOP { '[' <TOP>* ']' } }
 
-$s = ('[' xx 5, ']' xx 5).flat.&shuffle.join;
+$s = ('[' xx 5, ']' xx 5).flat.&pickall.join;
 @res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)";
-$s = ('[' xx 2, ']' xx 2).flat.&shuffle.join;
+$s = ('[' xx 2, ']' xx 2).flat.&pickall.join;
 @res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)";
 $s = '[][]';
 @res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)"; # DH - bug to say not balanced
 
 .say for @res;
-#exit;
 
 my $ref = qq:to/END/;
 [[]]][]][[ is not well-balanced (depth counter)
-][][[[]]][ is not well-balanced (depth counter)
+[[]]][]][[ is not well-balanced (depth counter)
 [][] is well-balanced (depth counter)
-]][[][ is not well-balanced (FP oriented)
-[][[]]]][[]] is not well-balanced (FP oriented)
+[[]][] is well-balanced (FP oriented)
+[]]]][[[]][[ is not well-balanced (FP oriented)
 [][] is well-balanced (FP oriented)
-[[][]][[[] is  not well-balanced (string munging)
-[[][[] is  not well-balanced (string munging)
+]][[][[][[ is  not well-balanced (string munging)
+]]]][[ is  not well-balanced (string munging)
 [][] is well-balanced (string munging)
-[[][]]][[] is not well-balanced (parsing with a grammar)
-[[]] is well-balanced (parsing with a grammar)
+[[]][][]][ is not well-balanced (parsing with a grammar)
+][][ is not well-balanced (parsing with a grammar)
 [][] is not well-balanced (parsing with a grammar)
 END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
