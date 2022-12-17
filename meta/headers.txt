@@ -8599,7 +8599,6 @@ File: M/Marching_squares
 File: M/Markov_chain_text_generator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Markov_chain_text_generator
-#t# inprogress
 #c# 2016-11-11 <RC, 2017-01-31 >RC, 2017-02-05 <>RC, 2018-05-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
@@ -13491,6 +13490,7 @@ File: S/Simulated_annealing
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch?
 #n# 2022-11-04 replace call to built-in 'rand' for output stability (slower this way, so reduce iterations)
 #n#
+#n#
 #n# Notes on revisions (see .1 for original version as uploaded by Hkdtam++)
 #n#
 #n# more flexible on input grid (but must be perfect square), 'magic' numbers keyed to 10x10 grid go away
@@ -16255,6 +16255,7 @@ File: V/Verify_distribution_uniformity_Naive
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch? [known 'srand' issue]
+#n# 2022-12-16 replace call to built-in 'rand' for output stability (slower, so reduce scope of testing)
 
 File: V/Vibrating_rectangles-1
 #!/usr/bin/env perl6
