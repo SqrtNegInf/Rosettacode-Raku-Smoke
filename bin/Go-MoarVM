@@ -22,7 +22,7 @@ bin/rakubrew mode shim
 bin/rakubrew build moar-blead >    out.moar  2>    err.moar
 bin/rakubrew rehash
 #(cd versions/moar-blead; make spectest   > ../out.mtest 2> ../err.mtest )
-#bin/rakubrew switch moar-blead >> out.moar 2>> err.moar
+bin/rakubrew switch moar-blead
 #bin/rakubrew build zef
 
 cd $HOME/perl6/Rosetta-Code
