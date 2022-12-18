@@ -3,7 +3,7 @@ As a work-around, 'rakubrew triple' correctly builds 'moar-HEAD-HEAD-HEAD'
 But have to run 'Zef-install-all' again, which leads to:
     * the script hangs waiting for input when installing 'ReadLine' (should do by-hand from now on)
     * 'Digest::SHA' gone (as is plain 'Digest') so update tasks for that
-    * 'Digest::HMAC' fails to install, depends on non-existent 'Digest' (in-line the code in 'T/Time-based_One-time_Password_Algorithm')
+    * 'Digest::HMAC' fails to install, depends on non-existent 'Digest' (in-line the code into 'T/Time-based_One-time_Password_Algorithm')
 'rc-non-ascii' giving a segfault?
 
 2022-12-17
