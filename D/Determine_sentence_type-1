@@ -14,7 +14,7 @@ the washing machine 9001. You have been nominated to win
 one of these! Just make sure you don't break it
 PARAGRAPH
 
-say my $result = join '|', $paragraph.&get_sentences.map: {
+say my $result = join '|', $paragraph.&sentences.map: {
     /(<:punct>)$/;
     given $0 {
         when '!' { 'E' };
