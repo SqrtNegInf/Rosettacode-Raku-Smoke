@@ -14,7 +14,7 @@ my $rng = myRNG.new( :seed(123456) );
 
 #my $d7 = 1..7;
 #sub roll7 { $d7.roll };
-sub roll7 { (1..7)[7*$rng.next-rat] };
+sub roll7 { (1..7)[7×$rng.next-rat] };
 
 my $threshold = 3;
 
