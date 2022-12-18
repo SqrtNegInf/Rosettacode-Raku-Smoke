@@ -7,7 +7,8 @@
 
 #BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-use Digest;
+#use Digest;      # gone
+use Digest::MD5;
 
 #sub MAIN( $dir = '.', :$minsize = 5, :$recurse = True ) {
 sub MAIN( $dir = 'bin', :$minsize = 5, :$recurse = True ) {
