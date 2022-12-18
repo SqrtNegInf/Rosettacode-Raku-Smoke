@@ -1,16 +1,9 @@
 2022-12-18
 As a work-around, 'rakubrew triple' correctly builds 'moar-HEAD-HEAD-HEAD' 
 But have to run 'Zef-install-all' again, which leads to:
-
-1. The script hangs waiting for input when installiing 'ReadLine' (should do by-hand from now on)
-
-2. When installed 'Digest::SHA': (doesn't look right)
-===> Testing: Digest:ver<0.17.1>
-===> Testing [OK] for Digest:ver<0.17.1>
-===> Installing: Digest:ver<0.17.1>
-
-3.  And then installing 'Digest::HMAC' fails:
-Please note that a 'META6.json' file was found in '.', of which the 'provides' section was used to determine if a dependency is available or not.  Perhaps you need to add 'Digest' in the <provides> section of that file?  Or need to specify a directory that does *not* have a 'META6.json' file?
+    * the script hangs waiting for input when installing 'ReadLine' (should do by-hand from now on)
+    * 'Digest::SHA' gone (as is plain 'Digest') so update tasks for that
+    * 'Digest::HMAC' fails to install, depends on non-existent 'Digest' (in-line the code in 'T/Time-based_One-time_Password_Algorithm')
 
 2022-12-17
 Trying to update from 'master' branch to 'main'; 'rakubrew' updated, but while rakudo 2022.12 built, now cannot build 'moar-blead':
