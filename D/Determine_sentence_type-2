@@ -16,7 +16,7 @@ present, it doesn't necessarily mean you have reached the end of a sentence,
 does it Mr. Magoo? The syntax highlighting here for Raku isn't the best.
 PARAGRAPH
 
-say my $result = join "\n\n", $paragraph.&get_sentences.map: {
+say my $result = join "\n\n", $paragraph.&sentences.map: {
     /(<:punct>)$/;
     $_ ~ ' | ' ~ do
     given $0 {
