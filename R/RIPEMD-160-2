@@ -64,7 +64,7 @@ multi rmd160(Blob $data) {
           $data.list,
           0x80,
           0 xx (-($data.elems + 1 + 8) % 64),
-          |(8 * $data).polymod: 256 xx 7
+          |(8 × $data).polymod: 256 xx 7
         ).rotor(4).map: { :256[@^x.reverse] }
       ).rotor(16);
 }
