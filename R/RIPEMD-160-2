@@ -23,7 +23,8 @@ multi rmd160(Blob $data) {
               reduce -> $A, $j {
                 $A[4],
                 rotl(
-                  ($A[0] + (BEGIN [
+                  #($A[0] + (BEGIN [
+                  ($A[0] + ([
                     * +^ * +^ *,
                     { $^x +& $^y +| +^$x +& $^z },
                     (* +| +^*) +^ *,
@@ -39,7 +40,8 @@ multi rmd160(Blob $data) {
               }, $h, |^80
             }
           },
-          BEGIN Array.new:
+          #BEGIN Array.new:
+          Array.new:
             map -> [ &a,$b,@c,$d ] {
               [&a,.($b),(flat @c »xx» 16),.($d)] given *.comb».parse-base(16)
             },
@@ -55,7 +57,8 @@ multi rmd160(Blob $data) {
             )
           ; 
       },
-      (BEGIN blob32.new: 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0),
+      #(BEGIN blob32.new: 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0),
+      (blob32.new: 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0),
       |blob32.new(
         blob8.new(
           $data.list,
