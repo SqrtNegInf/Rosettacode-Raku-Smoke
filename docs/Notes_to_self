@@ -1,10 +1,17 @@
+2022-12-19
+Lots of clean-up needed with new release, bugs and breakage...
+    * grep / excess data bug (GHXXXX)
+    * some (not all) EVAL's are failing
+    * 'srand' tasks failing (of course)
+    * module failures sink some tasks (e.g. MD5 / Digest::MD5) 
+
 2022-12-18
 As a work-around, 'rakubrew triple' correctly builds 'moar-HEAD-HEAD-HEAD' 
 But have to run 'Zef-install-all' again, which leads to:
     * the script hangs waiting for input when installing 'ReadLine' (should do by-hand from now on)
     * 'Digest::SHA' gone (as is plain 'Digest') so update tasks for that
     * 'Digest::HMAC' fails to install, depends on non-existent 'Digest' (in-line the code into 'T/Time-based_One-time_Password_Algorithm')
-'rc-non-ascii' giving a segfault?
+'rc-non-ascii' giving a segfault? (p.s. grep/excess data bug GHxxxx)
 
 2022-12-17
 Trying to update from 'master' branch to 'main'; 'rakubrew' updated, but while rakudo 2022.12 built, now cannot build 'moar-blead':
