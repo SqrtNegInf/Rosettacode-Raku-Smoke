@@ -3643,14 +3643,14 @@ File: D/Determine_sentence_type-1
 #u# http://rosettacode.org/wiki/Determine_sentence_type
 #c# 2021-11-07 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: D/Determine_sentence_type-2
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Determine_sentence_type
 #c# 2021-11-07 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
+#j# JVM:  OK
 
 File: D/Dice_game_probabilities
 #!/usr/bin/env perl6
@@ -4657,9 +4657,10 @@ File: E/Exponentiation_with_infix_operators_in_or_operating_on_the_base
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Exponentiation_with_infix_operators_in_(or_operating_on)_the_base
 #c# 2020-11-05 <RC,  2022-09-27 >RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  OK
 #n# Unicode symbol '↑' is what sinks use of .EVAL syntax.
+#n# 2022-12-19 disabled: does not work with blead as of 2022-12-18
 
 File: E/Extend_your_language
 #!/usr/bin/env perl6
@@ -8404,6 +8405,16 @@ File: M/MD5
 #c# 2016-06-04 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# module broken in blead (2022-12-18) so in-line code to keep it working 
+#n# (module seemingly abandon-ware, so this will be a permanent kludge)
+
+File: M/MD5.0
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/MD5
+#c# 2016-06-04 <RC
+#m# MOAR: BROKEN
+#j#  JVM: OK
+#n# MoarVM disabled: does not work with blead as of 2022-12-18 (JVM uses code in 'lib', so OK)
 
 File: M/MD5_Implementation
 #!/usr/bin/env raku
