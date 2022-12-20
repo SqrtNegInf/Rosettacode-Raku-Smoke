@@ -10,9 +10,15 @@
 #    4.214u 0.284s 0:04.05 110.8% just .ord (but then miss some combining chars)
 
 for @*ARGS -> $f {
-    next unless $f.IO ~~ :f and my %codes = $f.IO.slurp.comb.grep(*.ords.sort.tail > 127).Bag;
+   #next unless $f.IO ~~ :f and my %codes = $f.IO.slurp.comb.grep(*.ords.sort.tail > 127).Bag;
     # 'Bag' replaces idiom '%codes{$_}++ for'
 
+    # inefficient kludge for now
+    next unless $f.IO ~~ :f;
+    my %codes;
+    for $f.IO.slurp.comb { %codes{$_}++ if .ords.tail > 127; }
+
+    next unless keys %codes;
     say "\n$f";
     printf "%1s: %5d %s\n", $_, %codes{$_}, .uninames.join(', ') for %codes.keys.sort;
 
