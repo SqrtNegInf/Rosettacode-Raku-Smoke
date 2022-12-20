@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Code_Golf:_Code_Golf
-#c# 2021-12-10 <RC
+#c# 2021-12-10 <RC, 2022-12-19 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -8,9 +8,12 @@ my @res;
 
 # print <Code Golf>
 
+@res.push: chrs 37,9,2,3,70,33,9,10,0 X+^102;
 @res.push: chrs (-32,12,1,2,-67,-28,12,9,3) »+»99;
 @res.push: chrs (-3,㊶,㉚,㉛,-㊳,1,㊶,㊳,㉜) »+»㉎ ;
 @res.push: <Dpef!Hpmg>.ords».pred.chrs;
 
+say join "\n", @res;
+
 use Test;
-is @res.join(' '), 'Code Golf Code Golf Code Golf';
+is @res.join(' '), 'Code Golf Code Golf Code Golf Code Golf';
