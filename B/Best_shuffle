@@ -3,15 +3,14 @@
 #c# 2016-04-17 <RC, 2022-08-18 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-12-19 replace call to built-in 'rand' for output stability
 
-srand 123456;
-
-my @res.push: sprintf "%s, %s, (%d)", $_, best-shuffle $_ for <abracadabra seesaw elk grrrrrr up a>;
-.say for @res;
+use lib 'lib';
+use myRNG;
 
 sub best-shuffle(Str $orig) {
     my @s = $orig.comb;
-    my @t = @s.pick: *;
+    my @t = pickall @s;
 
     for flat ^@s X ^@s -> \i,\j {
         if i != j and @t[i] ne @s[j] and @t[j] ne @s[i] {
@@ -27,32 +26,17 @@ sub best-shuffle(Str $orig) {
     @t.join, $count;
 }
 
-my $moar-terminal = qq:to/END/;
-abracadabra, barbaardcaa, (3)
-seesaw, eswase, (0)
-elk, kel, (0)
-grrrrrr, rrrrgrr, (5)
-up, pu, (0)
-a, a, (1)
-END
+my @res.push: sprintf "%s, %s, (%d)", $_, best-shuffle $_ for <abracadabra seesaw elk grrrrrr up a>;
+.say for @res;
 
-my $moar-cronjob = qq:to/END/;
-abracadabra, baaarbdraac, (2)
-seesaw, awsees, (0)
+my $ref = qq:to/END/;
+abracadabra, baaardaracb, (1)
+seesaw, aswees, (0)
 elk, kel, (0)
 grrrrrr, rgrrrrr, (5)
 up, pu, (0)
 a, a, (1)
 END
 
-my $jvm = qq:to/END/;
-abracadabra, daaracarabb, (0)
-seesaw, eswesa, (0)
-elk, lke, (0)
-grrrrrr, rrrgrrr, (5)
-up, pu, (0)
-a, a, (1)
-END
-
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
