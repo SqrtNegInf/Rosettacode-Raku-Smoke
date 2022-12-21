@@ -4,8 +4,11 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# https://irclog.perlgeek.de/perl6/2018-05-11  - Masak finds bug in 'parsing with a grammar'
+#n# 2022-11-20 replace call to built-in 'rand' for output stability
 
-srand 123456;
+use lib 'lib';
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 my @res;
 my $s;
@@ -25,9 +28,9 @@ sub balanced($s) {
     return $l == 0;
 }
 
-$s = (<[ ]> xx 5).flat.pick(*).join;
+$s = (<[ ]> xx 5).flat.&pickall.join;
 @res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
-$s = (<[ ]> xx 5).flat.pick(*).join;
+$s = (<[ ]> xx 5).flat.&pickall.join;
 @res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
 $s = '[][]';
 @res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
@@ -38,9 +41,9 @@ sub balanced1($s) {
         given [\+] '\\' «leg« $s.comb.cache; # does .cache make any difference? [so .Seq not consumed]
 }
 
-$s = <[ ]>.roll(3×2).join;
+$s = ''; $s ~= ('[]'.comb)[2×$rng.next-rat] for ^6;
 @res.push: "$s { balanced($s) ?? "is" !! "is not" } well-balanced ($tag)";
-$s = <[ ]>.roll(6×2).join;
+$s = ''; $s ~= ('[]'.comb)[2×$rng.next-rat] for ^12;
 @res.push: "$s { balanced($s) ?? "is" !! "is not" } well-balanced ($tag)";
 $s = '[][]';
 @res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
@@ -51,9 +54,9 @@ sub balanced2($_ is copy) {
     $_ eq '';
 }
 
-$s = <[ ]>.roll(5×2).join;
+$s = ''; $s ~= ('[]'.comb)[2×$rng.next-rat] for ^10;
 @res.push: "$s is {' not' x not balanced($s)} well-balanced ($tag)";
-$s = < []>.roll(3×2).join;
+$s = ''; $s ~= ('[]'.comb)[2×$rng.next-rat] for ^6;
 @res.push: "$s is {' not' x not balanced($s)} well-balanced ($tag)";
 $s = '[][]';
 @res.push: "$s {balanced($s) ?? "is" !! "is not"} well-balanced ($tag)";
@@ -61,59 +64,29 @@ $s = '[][]';
 $tag = 'parsing with a grammar';
 grammar BalBrack { token TOP { '[' <TOP>* ']' } }
 
-$s = ('[' xx 5, ']' xx 5).flat.pick(*).join;
+$s = ('[' xx 5, ']' xx 5).flat.&pickall.join;
 @res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)";
-$s = ('[' xx 2, ']' xx 2).flat.pick(*).join;
+$s = ('[' xx 2, ']' xx 2).flat.&pickall.join;
 @res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)";
 $s = '[][]';
 @res.push: "$s { BalBrack.parse($s) ?? "is" !! "is not" } well-balanced ($tag)"; # DH - bug to say not balanced
 
 .say for @res;
 
-my $moar-terminal = qq:to/END/;
-]][]][][[[ is not well-balanced (depth counter)
-[]][[][]][ is not well-balanced (depth counter)
+my $ref = qq:to/END/;
+[[]]][]][[ is not well-balanced (depth counter)
+[[]]][]][[ is not well-balanced (depth counter)
 [][] is well-balanced (depth counter)
-]][][[ is not well-balanced (FP oriented)
-]][]][[]][[] is not well-balanced (FP oriented)
+[[]][] is well-balanced (FP oriented)
+[]]]][[[]][[ is not well-balanced (FP oriented)
 [][] is well-balanced (FP oriented)
-[[[[[[]]]] is  not well-balanced (string munging)
-[][][][][][] is  well-balanced (string munging)
+]][[][[][[ is  not well-balanced (string munging)
+]]]][[ is  not well-balanced (string munging)
 [][] is well-balanced (string munging)
-]][[][[][] is not well-balanced (parsing with a grammar)
-[]][ is not well-balanced (parsing with a grammar)
-[][] is not well-balanced (parsing with a grammar)
-END
-
-my $moar-cronjob = qq:to/END/;
-[][[][]][] is well-balanced (depth counter)
-[]]]]][[[[ is not well-balanced (depth counter)
-[][] is well-balanced (depth counter)
-]][]][ is not well-balanced (FP oriented)
-[]][[][[[[[[ is not well-balanced (FP oriented)
-[][] is well-balanced (FP oriented)
-]]]]]][[][ is  not well-balanced (string munging)
-[][][][][][] is  well-balanced (string munging)
-[][] is well-balanced (string munging)
-[]][]]][[[ is not well-balanced (parsing with a grammar)
-[]][ is not well-balanced (parsing with a grammar)
-[][] is not well-balanced (parsing with a grammar)
-END
-
-my $jvm = qq:to/END/;
-[[[][]]][] is well-balanced (depth counter)
-[][]][[[]] is not well-balanced (depth counter)
-[][] is well-balanced (depth counter)
-]]][[[ is not well-balanced (FP oriented)
-[][[[[[[[]]] is not well-balanced (FP oriented)
-[][] is well-balanced (FP oriented)
-][[][[]]]] is  not well-balanced (string munging)
-[][][][][][] is  well-balanced (string munging)
-[][] is well-balanced (string munging)
-[[]]]][[][ is not well-balanced (parsing with a grammar)
-]][[ is not well-balanced (parsing with a grammar)
+[[]][][]][ is not well-balanced (parsing with a grammar)
+][][ is not well-balanced (parsing with a grammar)
 [][] is not well-balanced (parsing with a grammar)
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
