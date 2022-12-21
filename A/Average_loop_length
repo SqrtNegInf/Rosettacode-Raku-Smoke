@@ -14,7 +14,6 @@
 #n# 2022-10-06 dare I hope this is now working and stable?  Been the single most troublesome Raku task on RC...
 #n# 2022-11-03 ignore all above! Replace call to built-in 'rand' for output stability (but see .1 version for what's on RC)
 
-use lib 'lib';
 use myRNG;
 my $rng = myRNG.new( :seed(123456) );
 
