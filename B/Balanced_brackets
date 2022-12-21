@@ -6,7 +6,6 @@
 #n# https://irclog.perlgeek.de/perl6/2018-05-11  - Masak finds bug in 'parsing with a grammar'
 #n# 2022-11-20 replace call to built-in 'rand' for output stability
 
-use lib 'lib';
 use myRNG;
 my $rng = myRNG.new( :seed(123456) );
 
