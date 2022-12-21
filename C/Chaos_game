@@ -12,7 +12,6 @@ BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 use Image::PNG::Portable;
 
-use lib 'lib';
 use myRNG;
 my $rng = myRNG.new( :seed(123456) );
 
