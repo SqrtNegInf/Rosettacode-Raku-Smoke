@@ -1241,6 +1241,15 @@ File: B/Balanced_brackets
 #m# MOAR: OK
 #j#  JVM: OK
 #n# https://irclog.perlgeek.de/perl6/2018-05-11  - Masak finds bug in 'parsing with a grammar'
+#n# 2022-11-20 replace call to built-in 'rand' for output stability
+
+File: B/Balanced_brackets.0
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Balanced_brackets
+#c# 2015-11-29 <RC, 2018-04-28 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# https://irclog.perlgeek.de/perl6/2018-05-11  - Masak finds bug in 'parsing with a grammar'
 
 File: B/Balanced_brackets.1
 #!/usr/bin/env perl6
@@ -1249,15 +1258,6 @@ File: B/Balanced_brackets.1
 #c# 2015-11-29 <RC, 2018-04-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-File: B/Balanced_brackets_exp
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Balanced_brackets
-#c# 2015-11-29 <RC, 2018-04-28 <RC
-#m# MOAR: OK
-#j#  JVM: OK
-#n# https://irclog.perlgeek.de/perl6/2018-05-11  - Masak finds bug in 'parsing with a grammar'
-#n# 2022-11-20 replace call to built-in 'rand' for output stability
 
 File: B/Balanced_ternary
 #!/usr/bin/env perl6
@@ -1379,6 +1379,7 @@ File: B/Best_shuffle
 #c# 2016-04-17 <RC, 2022-08-18 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2022-12-19 replace call to built-in 'rand' for output stability
 
 File: B/Bifid_cipher
 #!/usr/bin/env raku
@@ -4569,7 +4570,7 @@ File: E/Exceptions_Catch_an_exception_thrown_in_a_nested_call
 #j#  JVM: OK
 
 File: E/Executable_library
-#!/usr/bin/env perl6 do-not-check
+#!/usr/bin/env perl6 # do-not-check
 #u# http://rosettacode.org/wiki/Executable_library
 #c# 2018-03-20 <RC, 2018-05-17 <RC, 2018-12-23 <RC
 #m# MOAR: OK
