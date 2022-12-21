@@ -19,7 +19,6 @@ sub position(
     Real :$argument-of-periapsis,
     Real :$true-anomaly
 ) {
-    use lib 'lib'; # DH temp
     use Clifford;
     my ($i, $j, $k) = @e[^3];
 
