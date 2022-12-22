@@ -7,11 +7,11 @@
 #n# segfaults more when too much data in pipeline, except when, annoyingly, refuses to die, and works fine (about 50% of the time)
 #n# (in contrast, 'bin/rc-non-ascii' reliably croaks, very nearly 100% of the time)
 
- say ('a'...'z').words.grep({ .ords.all.is-prime });        # OK
- say ('aa'...'gg').words.grep({ .ords.all.is-prime });      # probably
- say ('aa'...'zz').words.grep({ .ords.all.is-prime });      # maybe not
- say ('aaa'...'zzz').words.grep({ .ords.all.is-prime });    # usually not
- say ('aaaa'...'zzzz').words.grep({ .ords.all.is-prime });  # no, almost always
+say ('a'...'z').words.grep({ .ords.all.is-prime });        # OK
+say ('aa'...'gg').words.grep({ .ords.all.is-prime });      # probably
+say ('aa'...'zz').words.grep({ .ords.all.is-prime });      # maybe not   [most commonly dies here, or completes without error]
+say ('aaa'...'zzz').words.grep({ .ords.all.is-prime });    # usually not
+say ('aaaa'...'zzzz').words.grep({ .ords.all.is-prime });  # rarely
 
 #likewise:
 #say ('a'...'z').words.grep({ .ords.sort.head > 120 });
