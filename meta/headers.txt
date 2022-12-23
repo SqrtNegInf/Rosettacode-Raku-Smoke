@@ -12038,7 +12038,7 @@ File: R/Random_sentence_from_book
 #c# 2021-09-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# for MOAR: 'sort' trick not working, 'srand' bug bites?
+#n# 2022-12-22 replace call to built-in 'rand' for output stability
 
 File: R/Range_consolidation
 #!/usr/bin/env perl6
@@ -13695,6 +13695,15 @@ File: S/Snake.0
 #n# Cannot locate native library 'libcairo.2.dylib': dlopen(libcairo.2.dylib, 1): image not found
 
 File: S/Snake_And_Ladder
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Snake_And_Ladder
+#c# 2017-02-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: snake_and_ladder.dat
+#n# 2022-12-22 replace call to built-in 'rand' for output stability
+
+File: S/Snake_And_Ladder.0
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Snake_And_Ladder
 #c# 2017-02-15 <RC
@@ -15508,7 +15517,7 @@ File: T/Tic-tac-toe
 #m# MOAR: OK
 #j# JVM:  OK
 #=# RC pipe: 5\n1\n9
-#n# 2022-09-26 only testing is via cronjob
+#n# 2022-12-22 replace call to built-in 'rand' for output stability
 
 File: T/Tic-tac-toe.1
 #!/usr/bin/env perl6
