@@ -4,15 +4,15 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #=# RC pipe: 5\n1\n9
-#n# 2022-09-26 only testing is via cronjob
+#n# 2022-12-22 replace call to built-in 'rand' for output stability
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 my $result;
 
 my @board = 1..9;
-my @winning-positions = [0..2], [3..5], [6..8], [0,3,6], [1,4,7], [2,5,8],
-	[0,4,8], [6,4,2];
+my @winning-positions = [0..2], [3..5], [6..8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [6,4,2];
 
 sub get-winner() {
 	for @winning-positions {
@@ -25,7 +25,9 @@ sub free-indexes() {
 }
 
 sub ai-move() {
-	given free-indexes.pick {
+	#given free-indexes.pick {
+    my @foo = free-indexes;
+	given @foo[@foo.elems × $rng.next-rat] {
 		@board[$_] = 'o';
 		say "I go at: { $_ + 1 }\n";
 	}
@@ -59,4 +61,4 @@ if get-winner() -> ($player, $across) {
 }
 
 use Test;
-is $result, 'o wins across [2, 5, 8].';
+is $result, 'x wins across [1, 5, 9].';
