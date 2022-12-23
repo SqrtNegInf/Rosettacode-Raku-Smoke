@@ -3,11 +3,12 @@
 #c# 2021-09-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# for MOAR: 'sort' trick not working, 'srand' bug bites?
-
-srand 123456;
+#n# 2022-12-22 replace call to built-in 'rand' for output stability
 
 my @res;
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 my $text = 'ref/waroftheworlds.txt'.IO.slurp.subst(/.+ '*** START OF THIS' .+? \n (.*?) 'End of the Project Gutenberg EBook' .*/, {$0} );
 
@@ -23,11 +24,13 @@ for $text.comb(/[\w+(\’\w+)?]','?|<punct>/).rotor(3 => -2) {
     %one{.[0]}{.[1]}++;
 }
 
-sub weightedpick (%hash) { %hash.keys.map( { $_ xx %hash{$_} } ).sort.pick }
-#sub weightedpick (%hash) { %hash.keys.map( { $_ xx %hash{$_} } ).pick }
+sub weightedpick (%hash) { my @foo = %hash.keys.map( { $_ xx %hash{$_} } ).sort; @foo[@foo.elems × $rng.next-rat] }
+#sub weightedpick (%hash) { %hash.keys.map( { $_ xx %hash{$_} } ).&pickall.head } # doesn't actually shuffle?
+#sub weightedpick (%hash) { %hash.keys.map( { $_ xx %hash{$_} } ).pick }  # and could just as well be .roll
 
 sub sentence {
-    my @sentence = <. ! ?>.roll;
+    my @sentence = <. ! ?>[3 × $rng.next-rat];
+   #my @sentence = <. ! ?>.roll;  # which is not really different than .pick here
     @sentence.push: weightedpick( %one{ @sentence[0] } );
     @sentence.push: weightedpick( %two{ @sentence[*-2] }{ @sentence[*-1] } // %('.' => 1) )[0]
       until @sentence[*-1] ∈ <. ! ?>;
@@ -41,28 +44,16 @@ sub sentence {
 
 .say for @res;
 
-my $moar = q:to/END/;
-Are we such apostles of mercy as to complain if the nebular hypothesis has any truth, older than our world and long before this earth ceased to be quite silent and abandoned as I went down again in the Londoner’s mind, and startling intelligence so much as they could read without any provocation, as a seated figure in soot smudged shirt sleeves, and with an extraordinary pitch, but nothing to tell me of the whole of London and the thunder burst like a poisoned dart, was this cylinder.
+my $ref = q:to/END/;
+Were the powder from the country forthwith.
 
-No, sir, and the machine to the waterline.
+Forty millions of miles of void.
 
-Five of the interruption of telegraphic communication.
+Cried a boatman, and Shut up, you fool!
 
-Or did they give the artillery man.
-
-END
-
-my $jvm = q:to/END/;
-His voice and face were eager.
-
-Man has bought his birthright of the Thunder Child could be felt.
-
-Or did they give the artillery the ghost of a battering ram might have thought a house.
-
-His voice and face were eager.
+What’s going on as it began, leaving the evening papers had contained only a reprieve.
 
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
