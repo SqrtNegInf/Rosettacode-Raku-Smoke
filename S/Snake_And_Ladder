@@ -3,12 +3,13 @@
 #c# 2017-02-15 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#f# RC file: snake_and_ladder.BEND
+#f# RC file: snake_and_ladder.dat
+#n# 2022-12-22 replace call to built-in 'rand' for output stability
 
-my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
-my $fh = open("run/snake_and_ladder.$ext", :w);
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
-srand 123456;
+my $fh = open("run/snake_and_ladder.dat", :w);
 
         # board layout
 my %snl =  4, 14,  9, 31, 17,  7, 20, 38, 28, 84, 40, 59, 51, 67, 54, 34,
@@ -28,7 +29,7 @@ sub turn ($square is rw, $player) {
     if $player == $human {
         #prompt "You are on square $square. Hit enter to roll the die.";
     }
-    my $roll = (1..6).roll;
+    my $roll = (1..6)[6 × $rng.next-rat];
     my $turn = $square + $roll;
     $fh.printf: "Player $player on square %2d rolls a $roll", $square;
     if $turn > 100 {
