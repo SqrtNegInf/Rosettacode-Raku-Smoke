@@ -42,13 +42,13 @@ raku -v
 bin/rc-moar-single [0-Z]/*
 
 # track stats
-/bin/echo -n `date +%Y-%m-%d` >> bench/rakudo-builds.txt
-/bin/echo -n ' '              >> bench/rakudo-builds.txt
-raku -v | head -1            >> bench/rakudo-builds.txt
+/bin/echo -n `date +%Y-%m-%d` >> meta/rakudo-builds.txt
+/bin/echo -n ' '              >> meta/rakudo-builds.txt
+raku -v | head -1            >> meta/rakudo-builds.txt
 bin/rc-stats 10 > meta/stats.txt
 
 # track 'srand' drift
-tail -1 bench/rakudo-builds.txt >> meta/srand-drift.txt
+tail -1 meta/rakudo-builds.txt >> meta/srand-drift.txt
 raku -e 'srand 123456; say <A B C D E F G>.roll(1000).join' >> meta/srand-drift.txt
 
 echo ' '
