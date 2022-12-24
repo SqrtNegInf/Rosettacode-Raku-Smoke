@@ -1,5 +1,7 @@
 2022-12-23
 Build v2022.12-813-g02043da92 yields segfaults and compilation errors on many tasks, removing precomp fixes.
+'rakubrew' fix is as simple as master->main on line 2666:
+   configure => "$PERL5 Configure.pl --backends=moar --gen-moar=main --gen-nqp=main --make-install",
 
 2022-12-22
 Bit slow on the uptake here, finally tried this and it worked fine: (solves final issue with 'use lib')
