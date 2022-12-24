@@ -46,9 +46,9 @@ perl6-m -v
 bin/rc-moar-single [0-Z]/*
 
 # track stats
-/bin/echo -n `date +%Y-%m-%d` >> bench/rakudo-builds.txt
-/bin/echo -n ' '              >> bench/rakudo-builds.txt
-raku -v | head -1            >> bench/rakudo-builds.txt
+/bin/echo -n `date +%Y-%m-%d` >> meta/rakudo-builds.txt
+/bin/echo -n ' '              >> meta/rakudo-builds.txt
+raku -v | head -1            >> meta/rakudo-builds.txt
 bin/rc-stats 10 > meta/stats.txt
 
 echo ' '
