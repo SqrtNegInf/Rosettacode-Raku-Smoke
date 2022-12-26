@@ -11,29 +11,26 @@ source $HOME/.profile
 
 # 2022-04-06 how about now?
 # 2022-01-18 see if this still needed [ANSWER: YEP]
-# 2022-12-23 still need to do this once-in-a-while
 #rm -rf $HOME/.raku/precomp # new bug, old solution?
 #rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
 
-cd $HOME/.rakubrew
-bin/rakubrew mode shim
+#cd $HOME/.rakubrew
+#bin/rakubrew mode shim
 
 # update Rakudo/MoarVM
 #bin/rakubrew self-upgrade > out.rb    2> err.rb
 #(cd versions; rm -rf moar-yesterday; cp -pr moar-blead moar-yesterday)
 #bin/rakubrew build moar-blead >    out.moar  2>    err.moar
-bin/rakubrew triple > out.triple 2> err.triple
-bin/rakubrew rehash
+#bin/rakubrew rehash
 #(cd versions/moar-blead; make spectest   > ../out.mtest 2> ../err.mtest )
 #bin/rakubrew switch moar-blead >> out.moar 2>> err.moar
-bin/rakubrew switch moar-HEAD-HEAD-HEAD
 #bin/rakubrew build zef
 
 cd $HOME/perl6/Rosetta-Code
-bin/rc-jvm-cleanup
+#bin/rc-jvm-cleanup
 
 # but only as long as 'rc-moar-srand' is being run in the early-morning hours
-#rm -f bench/moar/*
+rm -f bench/moar/*
 
 # smoking
 echo 'MOAR'
@@ -46,9 +43,9 @@ perl6-m -v
 bin/rc-moar-single [0-Z]/*
 
 # track stats
-/bin/echo -n `date +%Y-%m-%d` >> meta/rakudo-builds.txt
-/bin/echo -n ' '              >> meta/rakudo-builds.txt
-raku -v | head -1            >> meta/rakudo-builds.txt
+#/bin/echo -n `date +%Y-%m-%d` >> bench/rakudo-builds.txt
+#/bin/echo -n ' '              >> bench/rakudo-builds.txt
+#raku -v | head -1            >> bench/rakudo-builds.txt
 bin/rc-stats 10 > meta/stats.txt
 
 echo ' '
@@ -93,7 +90,7 @@ bin/rc-horse-race | sort -r > meta/horse-race.txt
 diff meta/horse-race.txt~ meta/horse-race.txt
 
 # non-ascii usage
-#echo ' '
+echo ' '
 mv meta/non-ascii.txt meta/non-ascii.txt~
 bin/rc-non-ascii [0A-Z]/* > meta/non-ascii.txt
 diff meta/non-ascii.txt~ meta/non-ascii.txt
@@ -107,7 +104,7 @@ bin/rc-oeis > meta/OEIS.txt
 
 # latest Rakudo commits 
 echo ' '
-cd $HOME/.rakubrew/versions/moar-HEAD-HEAD-HEAD
+cd $HOME/.rakubrew/versions/moar-blead
 git log | head -100
 
 # push changes to github
