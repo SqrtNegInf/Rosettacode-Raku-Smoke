@@ -2,7 +2,7 @@
 #t# skiptest
 #c# 2022-12-19
 #n# bug sources: P/Prime_words, bin/rc-non-ascii, PWC/019/1/fjwhittle.raku
-#n# seen to fail under both MoarVM 2022.12 and blead (well, moar-HEAD-HEAD-HEAD) 
+#n# seen to fail under both MoarVM 2022.12 and moar-blead
 #n# problem NOT seen in v2022.12-1-gd52342eb0 (last blead version from before master->main switch)
 #n# segfaults more when too much data in pipeline, except when, annoyingly, refuses to die, and works fine (about 50% of the time)
 #n# (in contrast, 'bin/rc-non-ascii' reliably croaks, very nearly 100% of the time)
