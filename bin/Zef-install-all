@@ -1,9 +1,8 @@
 #!/bin/sh
 ## sometimes need to reinstall all modules…
-#  2022-01-28 needed less frequently in the past year, but don't declare victory just yet...
-#             additionally: some module install quirks and gotcha's documented here
-
-# After nuking moar-blead, run 'rakubrew build zef' before running this.
+#  Needed less frequently in the past years, but don't declare victory just yet...
+#  Additionally: some module install quirks and gotcha's documented here
+#  After nuking moar-blead, run 'rakubrew build zef' before running this.
 
 # to find modules in use: (gr=grep-raku pf='perl -npe' pg=pcregrep)
 # gr '^\s*use .*;$' | pf 's/^.*?:\d+://;s/^\s+//' | pg -v '^use (v6|nqp|lib)' | pg -v '(MONKEY|experimental|Binary|:from)' | sortcnt
@@ -11,6 +10,8 @@
 # 2022-07-05
 # ===> Extraction: Failed to find a META6.json file for Modular:ver<0.1.2> -- failure is likely
 # Type check failed for return value; expected IO::Path but got Any (Any)
+
+# 2022-12-26 updated to reflect RC and PWC needs, various quirks, purged of obsolete
 
 #zef install rakudoc  # ?
 
@@ -118,15 +119,14 @@ zef install XML::XPath;
 zef install YAML
 
 # PWC
-#zef install immutable          # currently fails due to non-working dependencies 
+zef --force-test install ValueMap
+zef install immutable
 zef install Adverb::Eject
 zef install Cache::LRU
 zef install Concurrent::Trie
 zef install Colorizable
 zef install DOM::Tiny
 zef install Date::Names
-#zef install HTML::Parser::XML # Perl
-#zef install HTTP::Tiny   # Perl
 zef install List::MoreUtils
 zef install List::UtilsBy
 zef install Memoize
@@ -135,12 +135,11 @@ zef install Statistics
 #zef install Sub::Memoized # not currently using (in PWC)
 zef install Text::MiscUtils
 zef install Time::Repeat::HHMM
-#zef install Tree::DAG_Node  # Perl
 zef install Tree::Binary
 zef install StrictClass
 zef install Stats
 zef install Trie
-#zef install Readline # do by hand
+zef install Readline # do by hand (or not?)
 zef install Tuple
 zef install Heap
 
