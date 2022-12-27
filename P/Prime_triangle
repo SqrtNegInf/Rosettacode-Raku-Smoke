@@ -22,7 +22,8 @@ for 3..13 -> $n { # ..17
         for @odd.permutations -> @o {
             quietly next unless (@e[0] + @o[0]).is-prime; # supresses warning about use of 'Nil'
             my @list;
-            for (@list = (flat (roundrobin(@e, @o)), $n)).rotor(2 => -1) {
+           #for (@list = (flat (roundrobin(@e, @o)), $n)).rotor(2 => -1) {
+            for (@list = (| roundrobin(@e, @o, :slip), $n)).rotor(2 => -1) {  # new feature 
                 $nope++ and last unless .sum.is-prime;
             }
             unless $nope {
