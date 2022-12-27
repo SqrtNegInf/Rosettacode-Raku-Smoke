@@ -39,8 +39,9 @@ my @perms;
 (unique @digits.permutations).race.map: -> @p {
     for @ops -> @o {
         for @formats -> $format {
-            my $string = sprintf $format, flat roundrobin(|@p; |@o);
-            my $result = $string.EVAL;
+           #my $string = sprintf $format, flat roundrobin(|@p; |@o);  # what is that ';' doing?
+           #my $string = sprintf $format, roundrobin(@p,@o, :slip);   # new feature
+            my $result = .EVAL given my $string = sprintf $format, roundrobin(@p,@o, :slip);
             @perms.push: "$string = 24" and last if $result and $result == 24;
         }
     }
