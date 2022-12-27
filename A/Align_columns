@@ -43,7 +43,7 @@ my @res2;
     my $file = 'ref/align_columns.txt';
     my $alignment = 'left';
     my @lines1 := $file.IO.lines.map(*.split('$').cache).cache;
-       @widths = roundrobin(|@lines1).map(*».chars.max);
+       @widths = roundrobin(@lines1).map(*».chars.max);          # '|' was just superstitious
     my $align  = {left=>'-', right=>''}{$alignment};
     my $format = @widths.map( '%' ~ ++$ ~ '$' ~ $align ~ * ~ 's' ).join(' '); # ~ "\n";
     @res2.push: sprintf $format, |$_ for @lines1;
