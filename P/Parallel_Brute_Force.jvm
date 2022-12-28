@@ -1,10 +1,12 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parallel_Brute_Force
 #c# 2017-02-10 <RC, 2018-04-24 <RC, 2019-01-09 <RC
-#m# MOAR: OK
-#j#  JVM: OK
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
+#n# need a replacement SHA256
 
-use Digest::SHA;
+use Digest::SHA; # defunct
+
 constant @alpha2 = <ap  mm  zy>;
 constant @alpha3 = <ple mmm zzx>;
 
