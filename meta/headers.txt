@@ -1387,7 +1387,7 @@ File: B/Bifid_cipher
 #c# 2022-07-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# set up separate terminal/cronjob results, but this seldom works for very long...
+#n# 2022-12-27 replace call to built-in 'rand' for output stability
 
 File: B/Bilinear_interpolation
 #!/usr/bin/env perl6
@@ -6129,6 +6129,7 @@ File: G/Greatest_element_of_a_list
 #c# 2015-10-23 <RC, 2018-10-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# simplify, remove random results
 
 File: G/Greatest_element_of_a_list.1
 #!/usr/bin/env perl6
@@ -10413,8 +10414,9 @@ File: P/Parallel_Brute_Force.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Parallel_Brute_Force
 #c# 2017-02-10 <RC, 2018-04-24 <RC, 2019-01-09 <RC
-#m# MOAR: OK
-#j#  JVM: OK
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
+#n# need a replacement SHA256
 
 File: P/Parallel_calculations
 #!/usr/bin/env perl6
