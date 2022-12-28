@@ -5,7 +5,8 @@
 #j#  JVM: BROKEN
 #n# need a replacement SHA256
 
-use Digest::SHA; # defunct
+#use Digest::SHA; # defunct
+use Digest::SHA256::Native; # which doesn't run of course, but silences compile-check warnings
 
 constant @alpha2 = <ap  mm  zy>;
 constant @alpha3 = <ple mmm zzx>;
