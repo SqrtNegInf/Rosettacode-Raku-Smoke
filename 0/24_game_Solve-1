@@ -15,44 +15,35 @@
 #}
 
 sub brute-force(@input) {
-# Throw away any extras
-my $amount = 4;
-my @digits = @input[^$amount];
+    # Throw away any extras
+    my $amount = 4;
+    my @digits = @input[^$amount];
 
-# Generate combinations of operators
-my @ops = [X,] <+ - × /> xx 3;
+    # Generate combinations of operators
+    my @ops = [X,] <+ - × /> xx 3;
 
-# Enough sprintf formats to cover most precedence orderings
-my @formats = (
-    '%d %s %d %s %d %s %d',
-    '(%d %s %d) %s %d %s %d',
-    '(%d %s %d %s %d) %s %d',
-    '((%d %s %d) %s %d) %s %d',
-    '(%d %s %d) %s (%d %s %d)',
-    '%d %s (%d %s %d %s %d)',
-    '%d %s (%d %s (%d %s %d))',
-);
+    # Enough sprintf formats to cover most precedence orderings
+    my @formats = (
+        '%d %s %d %s %d %s %d',
+        '(%d %s %d) %s %d %s %d',
+        '(%d %s %d %s %d) %s %d',
+        '((%d %s %d) %s %d) %s %d',
+        '(%d %s %d) %s (%d %s %d)',
+        '%d %s (%d %s %d %s %d)',
+        '%d %s (%d %s (%d %s %d))',
+    );
 
-# Brute force test the different permutations
-my @perms;
-#for unique @digits.permutations -> @p {
-(unique @digits.permutations).race.map: -> @p {
-    for @ops -> @o {
-        for @formats -> $format {
-           #my $string = sprintf $format, flat roundrobin(|@p; |@o);                            # what is that ';' doing?
-           #my $result = EVAL($string);
-            my $result = .EVAL given my $string = sprintf $format, roundrobin(@p,@o, :slip);
-            @perms.push: "$string = 24" and last if $result and $result == 24;
+    # Brute force test the different permutations
+    my @perms;
+    @digits.permutations».join.unique».comb.race.map: -> @p {
+        for @ops -> @o {
+            for @formats -> $format {
+                my $result = .EVAL given my $string = sprintf $format, roundrobin(@p,@o, :slip);
+                @perms.push: "$string = 24" and last if $result and $result == 24;
+            }
         }
     }
-}
-return @perms;
-}
-
-# Only return unique sub-arrays
-sub unique (@array) {
-    my %h = map { $_.Str => $_ }, @array;
-    %h.values;
+    @perms;
 }
 
 my $ref = qq:to/END/;
