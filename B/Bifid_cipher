@@ -3,11 +3,12 @@
 #c# 2022-07-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# set up separate terminal/cronjob results, but this seldom works for very long...
-
-srand 123456;
+#n# 2022-12-27 replace call to built-in 'rand' for output stability
 
 my @res;
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 sub polybius ($text) {
     my $n = $text.chars.sqrt.narrow;
@@ -24,7 +25,8 @@ sub decrypt ($message, %poly) {
 
 for 'ABCDEFGHIKLMNOPQRSTUVWXYZ', 'ATTACKATDAWN',
     'BGWKZQPNDSIOAXEFCLUMTHYVR', 'FLEEATONCE',
-    (flat '_', '.', 'A'..'Z', 'a'..'z', 0..9).pick(*).join, 'The invasion will start on the first of January 2023.'.subst(/' '/, '_', :g)
+    (flat '_', '.', 'A'..'Z', 'a'..'z', 0..9).&pickall.join, 'The invasion will start on the first of January 2023.'.subst(/' '/, '_', :g)
+   #(flat '_', '.', 'A'..'Z', 'a'..'z', 0..9).pick(*).join, 'The invasion will start on the first of January 2023.'.subst(/' '/, '_', :g)
  -> $polybius, $message {
     my %polybius = polybius $polybius;
     @res.push: "\nUsing polybius:\n\t" ~ $polybius.comb.batch($polybius.chars.sqrt.narrow).join: "\n\t";
@@ -35,45 +37,8 @@ for 'ABCDEFGHIKLMNOPQRSTUVWXYZ', 'ATTACKATDAWN',
 
 .say for @res;
 
-my $moar-cronjob = q:to/END/;
-Using polybius:
-        A B C D E
-        F G H I K
-        L M N O P
-        Q R S T U
-        V W X Y Z
+my $ref = q:to/END/;
 
-  Message : ATTACKATDAWN
-Encrypted : DQBDAXDQPDQH
-Decrypted : ATTACKATDAWN
-
-Using polybius:
-        B G W K Z
-        Q P N D S
-        I O A X E
-        F C L U M
-        T H Y V R
-
-  Message : FLEEATONCE
-Encrypted : UAEOLWRINS
-Decrypted : FLEEATONCE
-
-Using polybius:
-        j W m P t k J F
-        f b 7 l x z 5 n
-        e R s g Y 8 _ D
-        O 4 c B U G E v
-        y Q V o r H 2 6
-        a C p I . M 9 u
-        1 i q K w A 3 X
-        d h L N S 0 Z T
-
-  Message : The_invasion_will_start_on_the_first_of_January_2023.
-Encrypted : TsiG_Q_i7e.mQeLRweY7kz.V62ufiTmlZQBqyrKZQJWV2O3Fdy39w
-Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
-END
-
-my $moar-terminal = q:to/END/;
 Using polybius:
 	A B C D E
 	F G H I K
@@ -97,58 +62,19 @@ Encrypted : UAEOLWRINS
 Decrypted : FLEEATONCE
 
 Using polybius:
-	o Q j b U H g 5
-	i N p 3 I E c Y
-	1 h r s 9 t a P
-	O 6 2 S _ C M e
-	X A 8 w D u L 0
-	k R W F Z d K B
-	n z q 4 m V y v
-	7 T G . f l x J
+	T _ a t z 1 B H
+	I U p C r 8 0 b
+	j 5 u L l 2 J x
+	M h K d e G 6 W
+	P o 7 . y s X i
+	S V D N m v F Z
+	9 f 4 Y n k g Q
+	w E c q A R O 3
 
   Message : The_invasion_will_start_on_the_first_of_January_2023.
-Encrypted : GScqhg_Y.rrsg2seprO.Gmr4_6TYX54oUOdwKtXURfXsZU0nKa8GS
-Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
-END
-
-my $jvm = q:to/END/;
-Using polybius:
-	A B C D E
-	F G H I K
-	L M N O P
-	Q R S T U
-	V W X Y Z
-
-  Message : ATTACKATDAWN
-Encrypted : DQBDAXDQPDQH
-Decrypted : ATTACKATDAWN
-
-Using polybius:
-	B G W K Z
-	Q P N D S
-	I O A X E
-	F C L U M
-	T H Y V R
-
-  Message : FLEEATONCE
-Encrypted : UAEOLWRINS
-Decrypted : FLEEATONCE
-
-Using polybius:
-	Y 8 N p C d V b
-	w j W D E 4 7 5
-	F q 2 f 9 Z h H
-	x t . s _ A G v
-	n K i M z S R J
-	g e I m L U P Q
-	k 1 6 c X T 0 a
-	r l o y u B O 3
-
-  Message : The_invasion_will_start_on_the_first_of_January_2023.
-Encrypted : 6mzG_utJysasusZ.JsvfRJayhHA1iby2CNjM58iC7E.pEfJrJpi6o
+Encrypted : tMXSyXH7jP_TXTdBoPz9j4_P5xPrbs2EoHy8K.UohobshU0luy8kq
 Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
 is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
