@@ -3,8 +3,9 @@
 #c# 2015-10-23 <RC, 2018-10-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# simplify, remove random results
 
-srand 1234567;
+#srand 1234567;
 
 my @res;
 
@@ -14,28 +15,15 @@ my @res;
 @res.push: max <zero one two three four five six seven eight nine>;
 
 # Even when the values and number of values aren't known until runtime
-my @list = flat(0..9,'A'..'H').roll((^60).pick).rotor(4,:partial)».join.words;
-@res.push: @list ~ ': ' ~ max @list;
+#my @list = flat(0..9,'A'..'H').roll((^60).pick).rotor(4,:partial)».join.words;
+#@res.push: @list ~ ': ' ~ max @list;
 
 .say for @res;
 
-my $moar-terminal = q:to/END/;
+my $ref = qq:to/END/;
 11
 zero
-H5GD 203H 2C32 A186 G: H5GD
-END
-
-my $moar-cronjob = q:to/END/;
-11
-zero
-3H2C 32A1 86G2 2CE5 CFFE FD69 020: FD69
-END
-
-my $jvm = q:to/END/;
-11
-zero
-B85H 5B43 2A0H B5BH GF45 00FC 60H5 645H 7A15 8: GF45
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
