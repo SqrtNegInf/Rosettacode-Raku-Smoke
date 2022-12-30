@@ -1,0 +1,41 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Find_the_intersection_of_a_line_with_a_plane
+#c# 2022-12-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# Grondilu++
+
+my @res;
+
+use Clifford;
+
+# We pick a projective basis and we compute
+# the pseudo-scalar along with its square
+my $I = [∧] my ($i, $j, $k, $l) = @e;
+my $I2 = ($I**2).narrow;
+
+my $direction = -$j - $k;
+$direction /= sqrt($direction**2);
+
+# Homogeneous coordinates of (X, Y, Z) are (X, Y, Z, 1)
+my $point = 10*$k + $l;
+
+# A line is a bivector
+my $line = $direction ∧ $point;
+
+# A plane is a trivector
+my $plane = (5*$k + $l) ∧ ($i∧$j);
+
+# The intersection is the meet, and
+# according to the De Morgan Law,
+# the meet is the dual of the join of the duals.
+my $LINE = $line*$I/$I2;
+my $PLANE = $plane*$I/$I2;
+my $M = $LINE∧$PLANE;
+my $m = $M*$I/$I2;
+
+# Affine coordinates of (X, Y, Z, W) are (X/W, Y/W, Z/W)
+say my $result = ($m/($m·$l).narrow X· ($i, $j, $k)).gist;
+
+use Test;
+is $result, '(0 -5 5)';
