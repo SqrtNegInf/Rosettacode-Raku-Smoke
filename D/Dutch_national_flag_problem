@@ -3,10 +3,7 @@
 #c# 2016-04-22 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-01-30 srand drift for JVM fixed
-#n# 2020-11-08 answer changed (for Moar)
-
-srand 123456;
+#n# 2022-12-31 just eliminate randonmess, so compelling reason for it
 
 #Here are five ways to do it, all one liners (apart from the test apparatus).
 
@@ -20,7 +17,8 @@ sub how'bout (&this-way) {
         @res.push: "Ordered: " ~ [<=] @colors;
     }
 
-    @colors = NL.roll(20);
+   #@colors = NL.roll(6);
+    @colors = [NL::white, NL::white, NL::blue, NL::white, NL::white, NL::red];
     show;
     this-way;
     show;
@@ -43,61 +41,33 @@ how'bout { @colors = flat (.grep(red), .grep(white), .grep(blue) given @colors) 
 
 .put for @res;
 
-my $moar = q:to/END/;
+my $ref = q:to/END/;
 Using functional sort
-red red red red red white white white white white white white white blue blue blue blue blue blue blue
+red white white white white blue
 Ordered: False
-red red red red red white white white white white white white white blue blue blue blue blue blue blue
+red white white white white blue
 Ordered: True
 Using in-place sort
-red red red red red white white white white white white white white blue blue blue blue blue blue blue
+red white white white white blue
 Ordered: False
-red red red red red white white white white white white white white blue blue blue blue blue blue blue
+red white white white white blue
 Ordered: True
 Using a Bag
-red red red red red white white white white white white white white blue blue blue blue blue blue blue
+red white white white white blue
 Ordered: False
-red red red red red white white white white white white white white blue blue blue blue blue blue blue
+red white white white white blue
 Ordered: True
 Using the classify method
-red red red red red white white white white white white white white blue blue blue blue blue blue blue
+red white white white white blue
 Ordered: False
-red red red red red white white white white white white white white blue blue blue blue blue blue blue
+red white white white white blue
 Ordered: True
 Using multiple greps
-red red red red red white white white white white white white white blue blue blue blue blue blue blue
+red white white white white blue
 Ordered: False
-red red red red red white white white white white white white white blue blue blue blue blue blue blue
-Ordered: True
-END
-
-my $jvm = q:to/END/;
-Using functional sort
-red red red red red red white white white white white white white white white blue blue blue blue blue
-Ordered: False
-red red red red red red white white white white white white white white white blue blue blue blue blue
-Ordered: True
-Using in-place sort
-red red red red red red white white white white white white white white white blue blue blue blue blue
-Ordered: False
-red red red red red red white white white white white white white white white blue blue blue blue blue
-Ordered: True
-Using a Bag
-red red red red red red white white white white white white white white white blue blue blue blue blue
-Ordered: False
-red red red red red red white white white white white white white white white blue blue blue blue blue
-Ordered: True
-Using the classify method
-red red red red red red white white white white white white white white white blue blue blue blue blue
-Ordered: False
-red red red red red red white white white white white white white white white blue blue blue blue blue
-Ordered: True
-Using multiple greps
-red red red red red red white white white white white white white white white blue blue blue blue blue
-Ordered: False
-red red red red red red white white white white white white white white white blue blue blue blue blue
+red white white white white blue
 Ordered: True
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $ref;
