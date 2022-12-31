@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game/Solve
-#c# 2016-05-10 <RC
+#c# 2016-05-10 <RC,  2022-12-29 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -40,7 +40,8 @@ my @perms;
 for unique @digits.permutations -> @p {
     for @ops -> @o {
         for @formats -> $format {
-            my $string = sprintf $format, flat roundrobin(|@p; |@o);
+           #my $string = sprintf $format, flat roundrobin(|@p; |@o);
+            my $string = sprintf $format, roundrobin(@p,@o, :slip);
             my $result = EVAL($string);
             @perms.push: "$string = 24" and last if $result and $result == 24;
         }
