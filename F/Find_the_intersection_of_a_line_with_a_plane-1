@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Find_the_intersection_of_a_line_with_a_plane
-#c# 2022-12-29 <RC
+#c# 2022-12-30 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# Grondilu++
@@ -24,7 +24,8 @@ my $point = 10*$k + $l;
 my $line = $direction ∧ $point;
 
 # A plane is a trivector
-my $plane = (5*$k + $l) ∧ ($i∧$j);
+#my $plane = (5*$k + $l) ∧ ($i∧$j);
+my $plane = (5*$k + $l) ∧ ($k*-($i∧$j∧$k));
 
 # The intersection is the meet, and
 # according to the De Morgan Law,
