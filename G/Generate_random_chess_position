@@ -3,17 +3,17 @@
 #c# 2016-01-27 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2020-11-03 results changed with: Rakudo(tm) v2020.10-51-g53b558fe0
-#n# 2020-11-07 but once in a while flips back to old result apparently... (v2020.10-55-g2fe6420e8)
+#n# 2023-01-01 replace call to built-in 'rand' for output stability
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 sub pick-FEN {
     # First we chose how many pieces to place
-    my $n = (2..32).pick;
+    my $n = (2..32)[31×$rng.next-rat];
 
     # Then we pick $n squares
-    my @n = (^64).pick($n);
+    my @n = (^64).&pickall.head($n);
 
     # We try to find suitable king positions on non-adjacent squares.
     # If we could not find any, we return recursively
@@ -23,19 +23,19 @@ sub pick-FEN {
     }, (@n X @n);
 
     # We make a list of pieces we can pick (apart from the kings)
-    my @pieces = <p P n N b B r R q Q>;
+    my @pieces = <p P n N b B r R q Q>;                                             # Q  vim kludge
 
     # We make a list of two king symbols to pick randomly a black or white king
-    my @k = <K k>.pick(*);
+    my @k = 0.5 < $rng.next-rat ?? <K k> !! <k K>;
 
     return (gather for ^64 -> $sq {
         if $sq == @kings.any { take @k.shift }
         elsif $sq == @n.any {
             my $row = 7 - $sq div 8;
             take
-            $row == 7 ?? @pieces.grep(none('P')).pick !!
-            $row == 0 ?? @pieces.grep(none('p')).pick !!
-            @pieces.pick;
+            $row == 7 ?? @pieces.grep(none('P')).head !!  # could use .&pickall for .pick, but...
+            $row == 0 ?? @pieces.grep(none('p')).head !!  # in the end there's no variation anyway
+            @pieces[@pieces.elems×$rng.next-rat];
         }
         else { take 'ø' }
     }).rotor(8)».join».subst(/ø+/,{ .chars }, :g).join('/') ~ ' w - - 0 1';
@@ -44,7 +44,5 @@ sub pick-FEN {
 say my $result = pick-FEN();
 
 use Test;
-my $moar-cronjob  = '8/5K2/2p2q2/8/8/8/8/3k4 w - - 0 1';
-my $moar-terminal = '7R/P2BK1r1/NkB1Nq2/3RRB2/6R1/2N5/3b3p/b2Pr3 w - - 0 1';
-my $jvm           = '8/5k2/1Q1K4/2qn4/1P6/8/7p/q5B1 w - - 0 1';
-is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+my $ref = 'k2p4/1BR5/5K2/4b3/8/7R/5N1q/8 w - - 0 1';
+is $result, chomp $ref;
