@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2023-01-01 half-replace call to built-in 'rand' for output stability, see how it goes
+#n#            also need to split Mac-Pro/iMac results
 
 my @res;
 
@@ -156,7 +157,7 @@ sub compare (@s, @w) {
 
 .put for @res;
 
-my $ref = q:to/END/;
+my $mac-pro = q:to/END/;
      A B C D E F G H I J
    0 y h e m y R f r o b
    1 a y e o l r O d a r
@@ -202,5 +203,57 @@ my $ref = q:to/END/;
 
 END
 
+my $imac = q:to/END/;
+     A B C D E F G H I J
+   0 t w f b o R r w o k
+   1 w h e a f o O a l a
+   2 a s i i r m b S g l
+   3 p a r n a r i r E f
+   4 T d g i j i m o g T
+   5 k A p t w f p c u p
+   6 c g C e h n o k j l
+   7 e w d O o i s s o t
+   8 p e r d D u e k a w
+   9 y n o b r E i x a m
+
+  Words used:
+     ala  H 1 →  
+ bainite  D 0 ↓  
+    bony  D 9 ←  
+     boo  G 2 ↖  
+    dash  B 4 ↑  
+     dew  C 7 ↗  
+     don  D 8 ↗  
+     fir  E 1 ↙  
+    flak  J 3 ↑  
+     gar  I 2 ↖  
+   grief  C 4 ↑  
+    gwen  B 6 ↓  
+  impose  G 3 ↓  
+  infirm  F 7 ↑  
+     jar  E 4 ↑  
+     jug  I 6 ↑  
+    loki  J 6 ↙  
+     max  J 9 ←  
+     pdp  C 5 ↖  
+    peck  A 8 ↑  
+     puc  J 5 ←  
+     rep  C 8 ←  
+    rock  H 3 ↓  
+    rusk  E 9 ↗  
+    toss  J 7 ←  
+     twa  A 0 ↓  
+    wake  J 8 ←  
+     wei  B 0 ↘  
+     who  E 5 ↓  
+     wok  H 0 →  
+
+
+END
+
 use Test;
-is @res.join("\n"), chomp $ref;
+if qx/uname -a/ ~~ /'Mac-Pro'/ {
+    is @res.join("\n"), chomp $mac-pro
+} else {
+    is @res.join("\n"), chomp $imac
+}
