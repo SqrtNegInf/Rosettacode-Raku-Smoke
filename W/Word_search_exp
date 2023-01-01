@@ -1,0 +1,206 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Word_search
+#c# 2020-02-07 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# 2023-01-01 half-replace call to built-in 'rand' for output stability, see how it goes
+
+my @res;
+
+srand 123456;
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
+
+# Knuth shuffle
+sub pick-all (@a is copy) is export {
+    for 1 ..^ @a -> $n {
+        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
+
+my $rows = 10;
+my $cols = 10;
+
+my $message = q:to/END/;                                                 # q:  vim kludge
+    .....R....
+    ......O...
+    .......S..
+    ........E.
+    T........T
+    .A........
+    ..C.......
+    ...O......
+    ....D.....
+    .....E....
+    END
+
+my %dir =
+    '→' => (1,0),
+    '↘' => (1,1),
+    '↓' => (0,1),
+    '↙' => (-1,1),
+    '←' => (-1,0),
+    '↖' => (-1,-1),
+    '↑' => (0,-1),
+    '↗' => (1,-1)
+;
+
+my @ws = $message.comb(/<print>/);
+
+my $path = './ref/unixdict.txt';
+
+my @words = $path.IO.slurp.words.grep( { $_ !~~ /<-[a..z]>/ and 2 < .chars < 11 } ).&pick-all;
+my %index;
+my %used;
+
+while @ws.first( * eq '.') {
+
+    # find an unfilled cell
+    #my $i = @ws.grep( * eq '.', :k ).pick;
+    my @foo = @ws.grep( * eq '.', :k );
+    my $i = @foo[@foo.elems×$rng.next-rat];
+
+    # translate the index to x / y coordinates
+    my ($x, $y) = $i % $cols, floor($i / $rows);
+
+    # find a word that fits
+    my $word = find($x, $y);
+
+    # Meh, reached an impasse, easier to just throw it all
+    # away and start over rather than trying to backtrack.
+    restart, next unless $word;
+
+    %used{"$word"}++;
+
+    # Keeps trying to place an already used word, choices
+    # must be limited, start over
+    restart, next if %used{$word} > 15;
+
+    # Already used this word, try again
+    next if %index{$word.key};
+
+    # Add word to used word index
+    %index ,= $word;
+
+    # place the word into the grid
+    place($x, $y, $word);
+
+}
+
+display();
+
+sub display {
+    @res.push: flat "    ", 'ABCDEFGHIJ'.comb;
+    @res.push: $_ for (^10).map: { ($_).fmt("  %2d"), @ws[$_ × $cols .. ($_ + 1) × $cols - 1] }
+    @res.push: "\n  Words used:";
+    my $max = 1 + %index.keys.max( *.chars ).chars;
+    for %index.sort {
+        @res.push: sprintf "%{$max}s %4s %s  ", .key, .value.key, .value.value;
+        #print "\n" if $++ % 2;
+    }
+    @res.push: "\n"
+}
+
+sub restart {
+    @ws = $message.comb(/<print>/);
+    %index = ();
+    %used = ();
+}
+
+sub place ($x is copy, $y is copy, $w) {
+    my @word = $w.key.comb;
+    my $dir  = %dir{$w.value.value};
+    @ws[$y × $rows + $x] = @word.shift;
+    while @word {
+        ($x, $y) »+=« $dir;
+        @ws[$y × $rows + $x] = @word.shift;
+    }
+ }
+
+sub find ($x, $y) {
+    my @trials = %dir.keys.sort.map: -> $dir { # DH this sort is used just to get stable results for testing
+            my $space = '.';
+            my ($c, $r) = $x, $y;
+            loop {
+                ($c, $r) »+=« %dir{$dir};
+                last if 9 < $r|$c;
+                last if 0 > $r|$c;
+                my $l = @ws[$r × $rows + $c];
+                last if $l ~~ /<:Lu>/;
+                $space ~= $l;
+            }
+            next if $space.chars < 3;
+            [$space.trans( '.' => ' ' ),
+            ("{'ABCDEFGHIJ'.comb[$x]} {$y}" => $dir)]
+        };
+
+#   for @words.&pick-all -> $word { # this is very slow
+    for @words.pick(*) -> $word {
+        for @trials -> $space {
+            next if $word.chars > $space[0].chars;
+            return ($word => $space[1]) if compare($space[0].comb, $word.comb)
+        }
+    }
+}
+
+sub compare (@s, @w) {
+    for ^@w {
+        next if @s[$_] eq ' ';
+        return False if @s[$_] ne @w[$_]
+    }
+    True
+}
+
+.put for @res;
+
+my $ref = q:to/END/;
+     A B C D E F G H I J
+   0 y h e m y R f r o b
+   1 a y e o l r O d a r
+   2 m c n r p e j S d a
+   3 s i k s o i m a E o
+   4 T i m e n s y g b T
+   5 g A g l a s t l a b
+   6 a u C m p o h e r u
+   7 z a p O a d d a t p
+   8 e l y k D b o n k a
+   9 m a r i o E d w e j
+
+  Words used:
+     ala  B 7 ↓  
+     ate  J 8 ↖  
+    bart  I 4 ↓  
+     dar  H 1 →  
+     day  I 2 ↙  
+     dod  G 7 ↓  
+ dossier  F 7 ↑  
+     fro  G 0 →  
+   glean  H 4 ↓  
+    hero  B 0 ↘  
+     icy  B 3 ↑  
+     jab  G 2 ↘  
+     jew  J 9 ←  
+    knee  C 3 ↑  
+    knob  I 8 ←  
+    kyle  D 8 ←  
+   mario  A 9 →  
+     men  C 4 →  
+  morsel  D 0 ↓  
+    myth  G 3 ↓  
+     oar  J 3 ↑  
+ panoply  E 6 ↑  
+     pub  J 7 ↑  
+     pug  C 7 ↖  
+     rob  H 0 →  
+   sigma  A 3 ↘  
+     yam  A 0 ↓  
+     zag  A 7 ↑  
+
+
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
