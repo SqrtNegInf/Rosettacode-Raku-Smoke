@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2020-10-07 different answers when run from interactive shell vs cron-launch
+#n# 2023-01-01 fixed for now (see also '_exp' version)
 
 srand 123456;
 
@@ -143,98 +144,91 @@ sub compare (@s, @w) {
 
 my $moar-terminal = q:to/END/;
      A B C D E F G H I J
-   0 e i r e y R w o w n
-   1 e y e a v e O h o b
-   2 b u l c t e l S o m
-   3 d u g s h k p l E m
-   4 T s s e o n t a a T
-   5 n A p u r a w e b m
-   6 e i C a n y c r n u
-   7 c a a O y k t a o o
-   8 i u s r D y r d j n
-   9 q k u g b E l t d g
+   0 l o s p g R e n a m
+   1 d l e i f a O k o u
+   2 n e t n a e t S r j
+   3 a g a g e n t i E i
+   4 T e r i f d l i w T
+   5 n A p w h e t a n t
+   6 o r C p i s t o l l
+   7 p a e O t a e b l i
+   8 e j t t D g n o b s
+   9 w t e n o E b e y e
 
   Words used:
-  alley  I 4 ↖  
-    ape  H 4 ↖  
-    auk  B 7 ↓  
-    ave  D 1 →  
-   bolt  J 1 ↙  
-  brain  E 9 ↖  
-   club  D 2 ←  
-    dry  H 8 ←  
-    dug  A 3 →  
-   epic  D 4 ↙  
-   erie  D 0 ←  
-    eye  A 1 →  
-    gsa  D 9 ↖  
-    ice  A 8 ↑  
-    jon  I 8 ↑  
-    ltd  G 9 →  
-    moo  J 2 ↖  
-  muong  J 5 ↓  
-    nrc  I 6 ←  
-    own  H 0 →  
-    qua  A 9 ↗  
-   spay  B 4 ↘  
-   stew  D 3 ↗  
-   sunk  C 4 ↘  
-    tao  G 7 →  
- thorny  E 2 ↓  
-    usa  C 9 ↑  
-    web  G 5 →  
-   whom  G 0 ↘  
- yankee  F 6 ↑  
+   afield  F 1 ←  
+    agent  C 3 →  
+      ant  H 5 →  
+     ante  E 2 ←  
+     beat  H 7 ←  
+     bong  I 8 ←  
+      end  F 2 ↓  
+      eye  H 9 →  
+      gel  B 3 ↑  
+      irk  J 3 ↖  
+      jar  B 8 ↑  
+      jon  J 2 ↖  
+     lise  J 6 ↓  
+      lob  I 7 ↙  
+     mane  J 0 ←  
+      net  A 2 →  
+      one  E 9 ←  
+      pea  C 5 ↖  
+      pew  A 7 ↓  
+     ping  D 0 ↓  
+   pistol  D 6 →  
+      sol  C 0 ←  
+      tag  G 2 ↖  
+      tao  C 8 ↖  
+      ten  B 9 →  
+     tern  D 8 ↖  
+      uri  J 1 ↙  
+     whet  D 5 →  
+ wildfire  I 4 ←  
 
 
 END
 
 my $moar-cronjob = q:to/END/;
      A B C D E F G H I J
-   0 e e w o n R i n g w
-   1 s e t r p r O l i o
-   2 p n u t a t e S r h
-   3 w b n q z b k c E c
-   4 T i d w y e r i n T
-   5 d A r s g o t a n i
-   6 i t C e m i t r a w
-   7 d t l O o o c b n f
-   8 l a o c D t n e h g
-   9 a n d p e E t h e n
+   0 e g d e l R o a h c
+   1 y f i t o n O a a f
+   2 p o s s u m v S w s
+   3 s t r a b i e s E n
+   4 T b e c a m e x a T
+   5 l A a a o c o s e t
+   6 a v C x s y t t i w
+   7 s g e O i e l o s d
+   8 u n i t D s p u m e
+   9 y e k r o E b u o y
 
   Words used:
-     bel  F 3 ↗  
-    burn  B 3 ↗  
-    chow  J 3 ↑  
-    coal  D 8 ←  
-     coo  G 7 ←  
-     did  A 7 ↑  
-     dna  C 9 ←  
-   dwyer  C 4 →  
-     etc  E 9 ↗  
-     faa  J 7 ↖  
-   ghent  J 8 ←  
- hebraic  H 9 ↑  
-     inc  J 5 ↖  
-    iraq  G 0 ↙  
-     keg  G 3 ↙  
-     ltd  C 7 ←  
-     nan  I 5 ↓  
-     nih  H 0 ↘  
-     nut  C 3 ↑  
-  nutate  B 2 →  
-     opt  D 0 ↘  
-     pew  A 2 ↗  
-     pot  D 9 ↖  
-     rig  I 2 ↑  
-     set  A 1 →  
-    then  G 9 →  
-    togs  G 5 ←  
-     trw  B 6 ↗  
- wartime  J 6 ←  
-     wee  C 0 ←  
-    wire  A 3 ↘  
-     zap  E 3 ↑  
+    awn  H 1 ↘  
+    axe  I 4 ←  
+   axis  C 5 ↘  
+ became  B 4 →  
+   buoy  G 9 →  
+   chao  J 0 ←  
+  coset  F 5 →  
+    dis  J 7 ↖  
+    key  C 9 ←  
+  ledge  E 0 ←  
+ notify  F 1 ←  
+    nsf  J 3 ↑  
+   oxen  E 5 ↙  
+ possum  A 2 →  
+ rabies  C 3 →  
+    rig  D 9 ↖  
+    sal  A 7 ↑  
+    sol  I 7 ←  
+  spume  F 8 →  
+    spy  A 3 ↑  
+  tease  B 3 ↘  
+   unit  A 8 →  
+   veto  B 6 ↘  
+    via  G 2 ↙  
+    wah  I 2 ↑  
+  witty  J 6 ←  
 
 
 END
