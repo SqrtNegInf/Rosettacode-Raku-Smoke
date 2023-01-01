@@ -116,14 +116,14 @@ File: 0/24_game
 File: 0/24_game_Solve-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game/Solve
-#c# 2016-05-10 <RC, 2018-11-03 >RC
+#c# 2016-05-10 <RC, 2018-11-03 >RC, 2022-12-29 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
 
 File: 0/24_game_Solve-1.jvm
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/24_game/Solve
-#c# 2016-05-10 <RC
+#c# 2016-05-10 <RC,  2022-12-29 >RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -1440,9 +1440,7 @@ File: B/Bioinformatics_Sequence_mutation
 #c# 2019-11-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-02-03 until now! so just a week (and did not revert to old answer, now gives a 3rd distinct answer)
-#n# 2022-01-26 as a test, fixed 'srand' output, see how long it lasts
-#n# 2022-10-09 not so long... 
+#n# 2022-12-31 replace call to built-in 'rand' for output stability
 
 File: B/Bioinformatics_Subsequence
 #!/usr/bin/env raku
@@ -2025,7 +2023,15 @@ File: C/Card_shuffles
 #c# 2016-05-22 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-01-29 srand drift for JVM fixed, upon upgrade to 2021.12
+#n# 2022-12-31 replace call to built-in 'rand' for output stability
+
+File: C/Card_shuffles.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Card_shuffles
+#c# 2016-05-22 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2022-12-31 replace call to built-in 'rand' for output stability
 
 File: C/Carmichael_3_strong_pseudoprimes
 #!/usr/bin/env perl6
@@ -3089,6 +3095,7 @@ File: C/Create_an_HTML_table
 #c# 2016-05-15 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# just eliminate randomness, no point really
 
 File: C/Create_an_object_Native_demonstration
 #!/usr/bin/env perl6
@@ -4036,8 +4043,7 @@ File: D/Dutch_national_flag_problem
 #c# 2016-04-22 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-01-30 srand drift for JVM fixed
-#n# 2020-11-08 answer changed (for Moar)
+#n# 2022-12-31 just eliminate randonmess, so compelling reason for it
 
 File: D/Dynamic_variable_names
 #!/usr/bin/env perl6
@@ -5974,6 +5980,7 @@ File: G/Generate_random_numbers_without_repeating_a_value
 #c# 2021-08-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# replace call to built-in 'rand' for output stability
 
 File: G/Generate_random_numbers_without_repeating_a_value-2
 #!/usr/bin/env raku
@@ -5983,6 +5990,13 @@ File: G/Generate_random_numbers_without_repeating_a_value-2
 #j# JVM:  BROKEN
 #n# illustrate use of enhanced 'pick'
 #n# and illustrate another 'srand' fragility...
+
+File: G/Generate_random_numbers_without_repeating_a_value.1
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Generate_random_numbers_without_repeating_a_value
+#c# 2021-08-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: G/Generator_Exponential
 #!/usr/bin/env perl6
@@ -13616,8 +13630,8 @@ File: S/Sleeping_Beauty_problem
 #u# http://rosettacode.org/wiki/Sleeping_Beauty_problem
 #c# 2021-05-09 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN OK
-#n# new-disp 'srand' shift
+#j# JVM:  OK
+#n# 2022-12-31 replace call to built-in 'rand' for output stability (and reduce trials, due to consequent slowdown)
 
 File: S/Smallest_enclosing_circle_problem
 #!/usr/bin/env raku
