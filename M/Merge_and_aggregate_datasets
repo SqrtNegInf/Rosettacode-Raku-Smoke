@@ -4,6 +4,8 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
+use v6.e.PREVIEW;
+
 my @res;
 
 my @names = map { ( <PATIENT_ID LASTNAME> Z=> .list ).hash },
@@ -29,7 +31,8 @@ my %v = @visits.classify: *.<PATIENT_ID>;
 my @result = gather for @names -> %n {
     my @p = %v{ %n.<PATIENT_ID> }<>;
 
-    my @dates  = @p».<VISIT_DATE>.grep: *.defined;
+    my @dates  = @p».<VISIT_DATE>.grep: //*;
+   #my @dates  = @p».<VISIT_DATE>.grep: *.defined;
     my @scores = @p».<     SCORE>.grep: *.defined;
 
     take {
