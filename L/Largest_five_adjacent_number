@@ -10,13 +10,16 @@
 #        the Seq into an array)
 #n# new-disp 'srand' shift
 
+use v6.e.PREVIEW;
+
 srand 123456;
 
 #say my $result := (^10).roll(1000).rotor(5 => -4)».join.max;
 
 my $result;
 if ($*VM ~~ /jvm/) { $result := (^10).roll(1000).rotor(5 => -4)».join.minmax.bounds xx 5 }
-else               { $result  = (^௰ ).roll(   ௲).rotor(5 => -4)».join.minmax.bounds xx 5 }
+#else               { $result  = (^௰ ).roll(   ௲).rotor(5 => -4)».join.minmax.bounds xx 5 }
+else               { $result  =     ௰.roll(   ௲).rotor(5 => -4)».join.minmax.bounds xx 5 }
 say $result;
 
 use Test;
