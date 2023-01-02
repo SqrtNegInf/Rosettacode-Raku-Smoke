@@ -5971,8 +5971,7 @@ File: G/Generate_random_chess_position
 #c# 2016-01-27 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2020-11-03 results changed with: Rakudo(tm) v2020.10-51-g53b558fe0
-#n# 2020-11-07 but once in a while flips back to old result apparently... (v2020.10-55-g2fe6420e8)
+#n# 2023-01-01 replace call to built-in 'rand' for output stability
 
 File: G/Generate_random_numbers_without_repeating_a_value
 #!/usr/bin/env raku
@@ -16674,7 +16673,16 @@ File: W/Word_search
 #c# 2020-02-07 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2020-10-07 different answers when run from interactive shell vs cron-launch
+#n# 2023-01-01 output fixed for now (see also '_exp' version), but also need to split Mac-Pro/iMac results
+
+File: W/Word_search_exp
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Word_search
+#c# 2020-02-07 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# 2023-01-01 half-replace call to built-in 'rand' for output stability, see how it goes
+#n#            also need to split Mac-Pro/iMac results
 
 File: W/Word_wheel-1
 #!/usr/bin/env raku
