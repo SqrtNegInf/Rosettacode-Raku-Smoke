@@ -1,0 +1,32 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/String_comparison
+#c# 2023-01-03 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# warnings about common trap for string handling
+#n# NB: MoarVM and JVM currently diametrically opposite results currently, keep an eye on this
+
+#`{
+Beware that Raku applies normalization (Unicode NFC form (Normalization Form Canonical)) by default 
+to all input and output except for file names[1]. Shortly put your Unicode string will rarely be what 
+you expect when you include characters outside the ASCII range.
+}
+
+my $kelvin = "\c[KELVIN SIGN]";
+my $k = "\c[LATIN CAPITAL LETTER K]";
+
+say $kelvin;
+say $k;
+
+use Test;
+if $*VM ~~ /jvm/ {
+is False, [or]
+    ($kelvin eq $k),   # True, lexically equal
+    ($kelvin eqv $k),  # True, generically equal
+    ($kelvin === $k);  # True, identical objects
+} else {
+is True, [and]
+    ($kelvin eq $k),   # True, lexically equal
+    ($kelvin eqv $k),  # True, generically equal
+    ($kelvin === $k);  # True, identical objects
+}
