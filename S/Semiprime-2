@@ -3,7 +3,7 @@
 #c# 2017-03-14 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A001358
+#n# OEIS:A001358 Semiprimes (or biprimes): products of two primes. 
 
 sub is-semiprime ( Int $n where * > 0 ) {
     return False if $n.is-prime;
@@ -29,7 +29,7 @@ sub find-factor ( Int $n, $constant = 1 ) {
     $factor;
 }
 
-INIT my $start = now;
+#INIT my $start = now;
 
 # Infinite list of semiprimes
 constant @semiprimes = 4, 6, 9, -> $p { ($p + 1 ... &is-semiprime).tail } ... *;
