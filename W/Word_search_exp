@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2023-01-01 half-replace call to built-in 'rand' for output stability, see how it goes
-#n#            also need to split Mac-Pro/iMac results
+#n#            also need to split Mac-Pro/iMac results (NB: results here are just for cronjob, not interactive)
 
 my @res;
 
@@ -159,46 +159,49 @@ sub compare (@s, @w) {
 
 my $mac-pro = q:to/END/;
      A B C D E F G H I J
-   0 y h e m y R f r o b
-   1 a y e o l r O d a r
-   2 m c n r p e j S d a
-   3 s i k s o i m a E o
-   4 T i m e n s y g b T
-   5 g A g l a s t l a b
-   6 a u C m p o h e r u
-   7 z a p O a d d a t p
-   8 e l y k D b o n k a
-   9 m a r i o E d w e j
+   0 g t d y r R k o l d
+   1 n e i e e e O t w f
+   2 a e e u g a v S i t
+   3 g f d s i m a e E c
+   4 T n u a n a n l p T
+   5 k A b m a n a y m m
+   6 o s C s l i j k o t
+   7 p a e O d t o p p s
+   8 e w a d D a r f d a
+   9 l l o m g E t o r t
 
   Words used:
-     ala  B 7 ↓  
-     ate  J 8 ↖  
-    bart  I 4 ↓  
-     dar  H 1 →  
-     day  I 2 ↙  
-     dod  G 7 ↓  
- dossier  F 7 ↑  
-     fro  G 0 →  
-   glean  H 4 ↓  
-    hero  B 0 ↘  
-     icy  B 3 ↑  
-     jab  G 2 ↘  
-     jew  J 9 ←  
-    knee  C 3 ↑  
-    knob  I 8 ←  
-    kyle  D 8 ←  
-   mario  A 9 →  
-     men  C 4 →  
-  morsel  D 0 ↓  
-    myth  G 3 ↓  
-     oar  J 3 ↑  
- panoply  E 6 ↑  
-     pub  J 7 ↑  
-     pug  C 7 ↖  
-     rob  H 0 →  
-   sigma  A 3 ↘  
-     yam  A 0 ↓  
-     zag  A 7 ↑  
+  amanita  F 2 ↓  
+      ami  G 3 ←  
+      ana  D 4 →  
+     astm  J 8 ↑  
+      awe  C 8 ←  
+      awl  B 7 ↓  
+      bud  C 5 ↑  
+     desk  D 8 ↖  
+     died  C 0 ↓  
+      eve  F 1 ↘  
+      fda  H 8 →  
+     feet  B 3 ↑  
+      ftc  J 1 ↓  
+     gang  A 3 ↑  
+      gao  E 9 ↗  
+      keg  G 0 ↙  
+     kyle  H 6 ↑  
+      man  D 5 →  
+     moll  D 9 ←  
+      nbs  B 4 ↘  
+      old  H 0 →  
+     opel  A 6 ↓  
+     pomp  I 7 ↑  
+      pot  H 7 ←  
+ reginald  E 0 ↓  
+      rot  I 9 ←  
+     suey  D 3 ↑  
+      tic  H 1 ↘  
+   trojan  G 9 ↑  
+     trot  J 9 ←  
+      two  J 2 ↖  
 
 
 END
@@ -252,8 +255,4 @@ my $imac = q:to/END/;
 END
 
 use Test;
-if qx/uname -a/ ~~ /'Mac-Pro'/ {
-    is @res.join("\n"), chomp $mac-pro
-} else {
-    is @res.join("\n"), chomp $imac
-}
+is @res.join("\n"), chomp qx/uname -a/ ~~ /'Mac-Pro'/ ?? $mac-pro !! $imac;
