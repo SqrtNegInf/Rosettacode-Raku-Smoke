@@ -33,7 +33,7 @@ my $cd = $CD*$I/$I2;
 my $M = ($ab ∧ $cd)*$I/$I2;
 
 # Affine coordinates are (X/Z, Y/Z)
-say my $result = (($M / ($M·$k).narrow) X· $i, $j).gist;
+say my $result = (($M / ($M·$k).narrow) X· $i, $j).gist;   # keeping 'narrow' despite change on RC, fails here without it
 
 use Test;
 is $result, '(5 5)';
