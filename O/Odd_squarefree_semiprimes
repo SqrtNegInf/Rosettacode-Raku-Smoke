@@ -3,6 +3,7 @@
 #c# 2021-04-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A046388 Odd numbers of the form p*q where p and q are distinct primes.
 
 say my $result = (3..333).grep(*.is-prime).combinations(2)».map( * × * ).flat\
     .grep( * < 1000 ).sort.batch(20)».fmt('%3d').join: "\n";
