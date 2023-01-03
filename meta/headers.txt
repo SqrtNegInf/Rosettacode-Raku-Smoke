@@ -5987,8 +5987,7 @@ File: G/Generate_random_numbers_without_repeating_a_value-2
 #c# 2021-08-28 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# illustrate use of enhanced 'pick'
-#n# and illustrate another 'srand' fragility...
+#n# illustrate use of enhanced 'pick' (and illustrate another 'srand' fragility...)
 
 File: G/Generate_random_numbers_without_repeating_a_value.1
 #!/usr/bin/env raku
@@ -6315,6 +6314,15 @@ File: H/Hamming_numbers-2
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A051037
+
+File: H/Hamming_numbers-3
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Hamming_numbers
+#c# 2023-01-02 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# OEIS:A051037
+#n# just demo use of the module in this context
 
 File: H/Handle_a_signal
 #!/usr/bin/env perl6
