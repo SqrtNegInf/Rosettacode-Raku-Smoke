@@ -55,11 +55,11 @@ raku -e 'srand 123456; say <A B C D E F G>.roll(1000).join' >> meta/srand-drift.
 
 echo ' '
 echo 'Comparison of recent runs:'
-rc-stats 4 | grep 2022 - | grep -v Welcome | grep -v 'j Secs'
+rc-stats 4 | grep 2023 - | grep -v Welcome | grep -v 'j Secs'
 
 echo ' '
 echo 'Task success/failure change over last two runs:'
-rc-stats 2 | grep -v 2022 - | pcregrep -v '^\s*$' | sortcnt | pcregrep -v '^\s+2'
+rc-stats 2 | grep -v 2023 - | pcregrep -v '^\s*$' | sortcnt | pcregrep -v '^\s+2'
 
 # keep tabs on status
 echo ' '
