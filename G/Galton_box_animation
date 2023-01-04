@@ -3,14 +3,17 @@
 #c# 2016-02-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#f# RC file: galton_box.BEND
+#f# RC file: galton_box.dat
 #n# minor idiomatification
 #n# RC x-cli-x: 10 4 (this wasn't working for JVM?)
+#n# 2023-01-04 replace call to built-in 'rand' for output stability
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 # UPPER HALF BLOCK and LOWER HALF BLOCK alternate to give a somewhat smooth animation.
 
-my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
-my $fh = open("run/galton_box.$ext", :w) || die;
+my $fh = open("run/galton_box.dat", :w) || die;
 
 my $row-count = 6;
 
@@ -121,7 +124,8 @@ sub simulate($coins is copy) {
             } elsif hits-peg($coinpos, $line) {
                 # when a coin from above hits a peg, it will bounce to either side.
                 $alive = True;
-                ($coinpos - 1, $coinpos + 1).pick;
+               #($coinpos - 1, $coinpos + 1).pick;
+                $rng.next-rat < 0.5 ?? $coinpos - 1 !! $coinpos + 1;
             } else {
                 # if there was a coin above, it will fall to this position.
                 $alive = True;
@@ -150,9 +154,6 @@ sub simulate($coins is copy) {
 
 #sub MAIN($coins =250, $peg-lines = 13) {
 sub MAIN($coins =10, $peg-lines = 4) {
-
-    srand 1; rand; # head fake helps?
-    srand 123456;
 
     $row-count = $peg-lines;
     simulate($coins);
