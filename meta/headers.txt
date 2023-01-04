@@ -9965,6 +9965,7 @@ File: O/Odd_squarefree_semiprimes
 #c# 2021-04-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A046388 Odd numbers of the form p*q where p and q are distinct primes.
 
 File: O/Odd_word_problem
 #!/usr/bin/env perl6
@@ -13096,7 +13097,7 @@ File: S/Semiprime-1
 #c# 2015-12-29 <RC, 2018-03-15 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A001358
+#n# OEIS:A001358 Semiprimes (or biprimes): products of two primes. 
 
 File: S/Semiprime-2
 #!/usr/bin/env perl6
@@ -13104,7 +13105,7 @@ File: S/Semiprime-2
 #c# 2017-03-14 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A001358
+#n# OEIS:A001358 Semiprimes (or biprimes): products of two primes. 
 
 File: S/Semordnilap
 #!/usr/bin/env perl6
@@ -14560,6 +14561,15 @@ File: S/String_comparison
 #c# 2015-11-24 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: S/String_comparison-2
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/String_comparison
+#c# 2023-01-03 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# warnings about common trap for string handling
+#n# NB: MoarVM and JVM currently diametrically opposite results currently, keep an eye on this
 
 File: S/String_concatenation
 #!/usr/bin/env perl6
@@ -16690,7 +16700,7 @@ File: W/Word_search_exp
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2023-01-01 half-replace call to built-in 'rand' for output stability, see how it goes
-#n#            also need to split Mac-Pro/iMac results
+#n#            also need to split Mac-Pro/iMac results (NB: results here are just for cronjob, not interactive)
 
 File: W/Word_wheel-1
 #!/usr/bin/env raku
