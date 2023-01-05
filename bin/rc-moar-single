@@ -74,7 +74,7 @@ for my $prog (@ARGV) {
     @status = `head -15 $prog`;
     next unless $status[0] =~ /env (perl6|raku)/;
     next if grep { /^#t#.*($skip)/ } @status;
-   #next if $mode eq 'moar' && grep { /^#m#.*BROKEN/i      } @status;
+    next if $mode eq 'moar' && grep { /^#m#.*BROKEN/i      } @status;
     my $hostname = `uname -a`;
     next if $mode eq 'moar' && $hostname =~ /'Mac-Pro'/ && grep { /BROKEN on Mac-Pro/i } @status;
     next if $mode eq 'moar' && $hostname =~ /'iMac'/    && grep { /BROKEN on iMac/i    } @status;
