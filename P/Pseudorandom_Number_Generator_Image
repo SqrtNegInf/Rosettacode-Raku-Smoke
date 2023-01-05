@@ -1,25 +1,30 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Pseudorandom_Number_Generator_Image
 #c# 2020-08-18 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#f# RC file: PNG-image500.png
+#f# RC file: PRNG-image100.png
 #n# original note: about 40% slower if @pixel split to ($x,$y) or (\x,\y)
 #n# my fancy-pants version over 5x slower
-#n# srand bug knocks this out for now
+#n# 2023-01-04 replace call to built-in 'rand' for output stability
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
+
 
 use Image::PNG::Portable;
  
 srand 2⁶³ - 25; # greatest prime smaller than 2⁶³ and the max my system can take
  
 #my @data = < 250 500 1000 1500 >;
-my @data = < 500 >;
+my @data = < 100 >;
  
 @data.map: {
    my $o = Image::PNG::Portable.new: :width($_), :height($_);
    for ^$_ X ^$_ -> @pixel { 
-      $o.set: @pixel[0], @pixel[1], 256.rand.Int, 256.rand.Int, 256.rand.Int
-      #$o.set: | @pixel, | (256 xx 3)».rand».Int
+      $o.set: @pixel[0], @pixel[1], (256*$rng.next-rat).floor, (256*$rng.next-rat).floor, (256*$rng.next-rat).floor;
+     #$o.set: @pixel[0], @pixel[1], 256.rand.Int, 256.rand.Int, 256.rand.Int
+     #$o.set: | @pixel, | (256 xx 3)».rand».Int
    }
-   $o.write: "run/PNG-image$_.png" or die;
+   $o.write: "run/PRNG-image$_.png" or die;
 }
