@@ -5851,9 +5851,10 @@ File: G/Galton_box_animation
 #c# 2016-02-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#f# RC file: galton_box.BEND
+#f# RC file: galton_box.dat
 #n# minor idiomatification
 #n# RC x-cli-x: 10 4 (this wasn't working for JVM?)
+#n# 2023-01-04 replace call to built-in 'rand' for output stability
 
 File: G/Gamma_function
 #!/usr/bin/env perl6
@@ -8070,9 +8071,8 @@ File: L/Logistic_Curve_Fitting_in_Epidemiology
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Logistic_Curve_Fitting_in_Epidemiology
 #c# 2020-05-11 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
-#  {{Works with|rakudo|2020.05}} or {{broken|Raku}}  
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: L/Long_literals,_with_continuations.0
 #!/usr/bin/env raku
@@ -11520,8 +11520,9 @@ File: P/Prime_words
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Prime_words
 #c# 2020-12-06 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
+#n# 2022-12-20 segfaults, issue GH51XX
 
 File: P/Primes:_n*2^m+1
 #!/usr/bin/env raku
@@ -11769,12 +11770,12 @@ File: P/Pseudorandom_Number_Generator_Image
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Pseudorandom_Number_Generator_Image
 #c# 2020-08-18 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#f# RC file: PNG-image500.png
+#f# RC file: PRNG-image100.png
 #n# original note: about 40% slower if @pixel split to ($x,$y) or (\x,\y)
 #n# my fancy-pants version over 5x slower
-#n# srand bug knocks this out for now
+#n# 2023-01-04 replace call to built-in 'rand' for output stability
 
 File: P/Pythagoras_tree
 #!/usr/bin/env perl6
