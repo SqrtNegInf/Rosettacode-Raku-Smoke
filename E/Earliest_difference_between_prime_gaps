@@ -4,13 +4,10 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 1e1 through 1e7 are pretty speedy, up to 1e9 is very slow
-#n# on iMac: Primesieve::iterator.new isn't working
 #n# (see also: F/Find_adjacent_primes_which_differ_by_a_square_integer)
-
+die 'BROKEN on iMac, Math::Primesieve::iterator.new is not working' if qx/uname -a/ ~~ /'iMac'/;
 
 my @res;
-
-die 'BROKEN on iMac, Math::Primesieve::iterator.new is not working' if qx/uname -a/ ~~ /'iMac'/;
 
 use Math::Primesieve;
 use Lingua::EN::Numbers;
