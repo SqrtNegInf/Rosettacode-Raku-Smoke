@@ -1,0 +1,134 @@
+#!/bin/sh
+## update MoarVM backend 
+#  This version specifically for iMac (original one is for Mac-Pro)
+
+# prereq. for fresh Ubuntu VMware image (config with 2Gb)
+#  sudo apt upgrade
+#  sudo apt install build-essential default-jdk vim git
+
+source $HOME/.profile
+
+# 2022-06-03 re-revert                [and the people responsible for the sacking have been sacked...]
+# 2022-04-06 how about now?           [Seemingly not...]
+# 2022-01-18 see if this still needed [ANSWER: YEP]
+rm -rf $HOME/.raku/precomp # new bug, old solution?
+rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
+
+cd $HOME/.rakubrew
+bin/rakubrew mode shim
+
+# update Rakudo/MoarVM
+#bin/rakubrew self-upgrade > out.rb    2> err.rb
+#(cd versions; rm -rf moar-yesterday; cp -pr moar-blead moar-yesterday)
+#bin/rakubrew build moar-blead >    out.moar  2>    err.moar
+bin/rakubrew rehash
+#(cd versions/moar-blead; make spectest   > ../out.mtest 2> ../err.mtest )
+#bin/rakubrew switch moar-blead >> out.moar 2>> err.moar
+#bin/rakubrew build zef
+
+cd $HOME/perl6/Rosetta-Code
+#bin/rc-jvm-cleanup
+rm -f run/*
+
+# but only as long as 'rc-moar-srand' is being run in the early-morning hours
+#rm -f bench/moar/*
+
+# smoking
+echo 'MOAR'
+# not running in 'shim' mode any longer
+#$HOME/.rakubrew/bin/rakubrew switch moar-blead
+#zef --force-install install Clifford
+raku -v
+#bin/rc-moar-parallel [0-Z]/*
+bin/rc-moar-single [0-Z]/*
+
+# track stats
+/bin/echo -n `date +%Y-%m-%d` >> bench/rakudo-builds.txt
+/bin/echo -n ' '              >> bench/rakudo-builds.txt
+raku -v | head -1            >> bench/rakudo-builds.txt
+bin/rc-stats 10 > meta-i/stats.txt
+
+# track 'srand' drift
+tail -1 bench/rakudo-builds.txt >> meta-i/srand-drift.txt
+raku -e 'srand 123456; say <A B C D E F G>.roll(1000).join' >> meta-i/srand-drift.txt
+grep -v '^20' meta*/srand-drift.txt | sortcnt | cut -c1-80
+
+echo ' '
+echo 'Comparison of recent runs:'
+rc-stats 4 | grep '^20' - | grep -v Welcome | grep -v 'j Secs'
+
+echo ' '
+echo 'Task success/failure change over last two runs:'
+rc-stats 2 | grep -v '^20' - | pcregrep -v '^\s*$' | grep -v '==' | sortcnt | pcregrep -v '^\s+2'
+
+# keep tabs on status
+echo ' '
+cd meta-i
+cp -p task.txt task.txt~
+$HOME/bin/rotate_log -d logs -b -r -f task.txt
+../bin/rc-task-status > task.txt
+diff task.txt~ task.txt
+cd ..
+
+# see how slow the usual suspects are
+echo ' '
+bin/rc-timings | sort -r -n > meta-i/timings.txt
+head -10 meta-i/timings.txt
+
+echo ' '
+echo '--'
+echo 'Excessive line count in timings (if any)'
+wc -l bench/moar/*err | grep -v '^       [34]' | grep -v total
+echo '--'
+
+# combine task headers for easy grep
+$HOME/bin/grep-paragraph -H '#u# http' [0-Z]/* | $HOME/bin/grep-paragraph -v ReadMe.md - > meta-i/headers.txt
+
+# leaderboard
+echo ' '
+head -20 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | $HOME/bin/drop -4
+
+# not a race, not a race, ...
+#echo ' '
+#mv meta-i/horse-race.txt meta-i/horse-race.txt~
+#bin/rc-horse-race | sort -r > meta-i/horse-race.txt
+#diff meta-i/horse-race.txt~ meta-i/horse-race.txt
+
+# non-ascii usage
+echo ' '
+mv meta-i/non-ascii.txt meta-i/non-ascii.txt~
+bin/rc-non-ascii [0A-Z]/* > meta-i/non-ascii.txt
+diff meta-i/non-ascii.txt~ meta-i/non-ascii.txt
+
+# extract list of citations
+bin/rc-oeis > meta-i/OEIS.txt
+
+# see any further 'srand drift'? (compare meta and meta-i versions; this is not on Mac-Pro)
+echo ' '
+git pull
+grep -v '^20' meta*/srand-drift.txt | $HOME/bin/sortcnt | cut -c1-75
+
+# how did the spectest go?
+#echo ' '
+#$HOME/bin/grep-paragraph Summary $HOME/.rakubrew/versions/out.mtest
+
+#XXX skip next to sections on iMac, see Mac-Pro instead XXX#
+
+# latest Rakudo commits 
+#echo ' '
+#cd $HOME/.rakubrew/versions/moar-blead
+#git log | head -100
+
+# push changes to github
+#echo ' '
+#echo 'boring stuff...'
+#echo ' '
+#$HOME/perl6/Rosetta-Code/bin/Task-git
+
+#cd $HOME/.rakubrew
+#bin/rakubrew mode env
+
+echo 'Switch rakubrew mode back to env'
+cd $HOME
+rakubrew mode env
+rakubrew mode
