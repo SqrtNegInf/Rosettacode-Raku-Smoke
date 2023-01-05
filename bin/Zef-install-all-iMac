@@ -1,0 +1,148 @@
+#!/bin/sh
+## sometimes need to reinstall all modules…
+
+# 2022-10-14
+# mangled from Mac-Pro version during setup of iMac, nothing organized or explained...
+
+#  2022-01-28 needed less frequently in the past year, but don't declare victory just yet...
+#             additionally: some module install quirks and gotcha's documented here
+
+# After nuking moar-blead, run 'rakubrew build zef' before running this.
+
+# to find modules in use: (gr=grep-raku pf='perl -npe' pg=pcregrep)
+# gr '^\s*use .*;$' | pf 's/^.*?:\d+://;s/^\s+//' | pg -v '^use (v6|nqp|lib)' | pg -v '(MONKEY|experimental|Binary|:from)' | sortcnt
+
+# 2022-07-05
+# ===> Extraction: Failed to find a META6.json file for Modular:ver<0.1.2> -- failure is likely
+# Type check failed for return value; expected IO::Path but got Any (Any)
+
+#zef install rakudoc  # ?
+
+# iMac mods
+
+zef --exclude=perl install Inline::Perl5
+zef --/test install ArrayHash
+#zef --/test install Audio::PortAudio
+#zef --/test install Audio::Sndfile
+zef --force-test install Digest::SHA
+zef --/test install https://github.com/raku-community-modules/raku-GD.git
+zef --/test install GD::Raw
+#zef --/test install Gumbo
+#zef --/test install GTK::Simple
+zef --/test install HTTP::UserAgent
+zef --/test install IO::Socket::Async::SSL
+zef --/test install Lingua::EN::Numbers::Cardinal
+zef --/test install Lingua::EN::Sentence
+zef --/test install LWP::Simple
+#zef --/test install Math::Matrix  # wedged: 'Cannot modify an immutable Rat (3.142857)', 'cannot find Math::Matrix::Type'
+zef --force-test --force-install install https://github.com/pierre-vigier/Perl6-Math-Matrix.git
+zef --/test install Math::Primesieve
+#zef --/test install Modular  # hasn't installed properly in years, no longer in use by any RC task
+zef --/test install Net::DNS
+zef --/test install Net::FTP
+zef --/test install SOAP::Client
+#zef --/test install SSL
+zef --/test install SVG::Plot
+zef --/test install Text::CSV
+zef --/test install UNIX::Daemonize
+#zef --/test install X11::libxdo
+zef --/test install Pod::To::Markdown
+
+#zef install Crypt::Random
+
+zef install Acme::Text::UpsideDown
+zef install Base::Any
+zef install Bench
+zef install BigRoot
+zef install Cairo
+zef install Clifford
+zef install Cro::HTTP
+zef install Cro::HTTP::Router
+#zef install DBIish
+zef install DateTime::Format
+zef install Debugger::UI::CommandLine
+#zef install Digest::HMAC
+zef install Digest::MD5
+zef install Digest::SHA1::Native
+zef install Digest::SHA256::Native
+zef install eigenstates
+zef install Email::Simple
+zef install File::Find
+zef install File::Which
+zef install File::Temp
+zef install FixedInt
+#zef install GD       # see above
+zef install Geo::Hash
+#zef install Gumbo
+zef install IO::Socket::SSL
+zef install Image::PNG::Portable
+#zef install Imlib2
+zef install JSON::Fast
+zef install JSON::Tiny
+#zef install use Math::Libgsl::Constants;
+#zef install use Math::Libgsl::Matrix;
+#zef install use Math::Libgsl::BLAS;
+zef install LibXML
+zef install Linenoise
+zef install Lingua::EN::Numbers
+zef install List::Divvy
+zef install Log::Syslog::Native
+zef install MagickWand
+zef install Math::Root
+zef install Migration::RTtoGithub
+zef install NCurses
+zef install P5pack
+zef install PerlStore::FileStore
+zef install Pod::To::HTML
+zef install Prime::Factor
+zef install Rat::Precise
+#zef install SDL2::Raw
+zef install Shell::Command
+zef install SVG
+zef install Sort::Naturally
+zef install String::Splice
+zef install Term::ReadKey
+zef install Term::termios
+zef install Terminal::ANSI
+zef install Terminal::ANSIColor
+zef install Terminal::Boxer
+zef install Terminal::Caca;
+zef install Test::Output
+zef install Text::Center;
+zef install Text::Sorensen
+zef install Text::CSV
+zef install Text::Levenshtein
+zef install Text::Levenshtein::Damerau
+zef install Text::Wrap
+zef install TrigPi
+zef install URI
+zef install UUID
+zef install WWW
+zef install XML
+zef install XML::XPath;
+zef install YAML
+
+# PWC
+zef install Cache::LRU
+zef install Concurrent::Trie
+zef install DOM::Tiny
+zef install Date::Names
+#zef install HTML::Parser::XML # Perl
+#zef install HTTP::Tiny   # Perl
+zef install List::MoreUtils
+zef install List::UtilsBy
+zef install Slang::Roman
+zef install Statistics
+#zef install Sub::Memoized # not currently using (in PWC)
+zef install Time::Repeat::HHMM
+#zef install Tree::DAG_Node  # Perl
+zef install Memoize
+zef install Tree::Binary
+zef install StrictClass
+zef install Trie
+#zef install Readline  # not being used for testing
+zef install Tuple
+zef install Heap
+
+cd ~/perl6/Rosetta-Code/lib
+./myRNG/install-me.raku
