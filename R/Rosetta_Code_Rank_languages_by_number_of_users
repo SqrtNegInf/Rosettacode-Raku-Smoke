@@ -4,7 +4,6 @@
 #c# 2018-05-19 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-
 die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
