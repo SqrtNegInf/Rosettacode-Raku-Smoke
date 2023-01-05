@@ -5,6 +5,8 @@
 #j# JVM:  OK
 #n# some tweaks for testing
 
+use v6.e.PREVIEW;
+
 my %res;
 
 #unit sub MAIN ($in is copy = '', :$dict = 'ref/unixdict.txt');
@@ -52,4 +54,5 @@ sub find-anagram (%subset, $phrase is copy = '', $last = Inf) {
 }
 
 use Test;
-ok %res{'nostalgia then stew'}.defined;
+ok //%res{'nostalgia then stew'};
+#ok %res{'nostalgia then stew'}.defined;
