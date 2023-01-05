@@ -1,9 +1,8 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Logistic_Curve_Fitting_in_Epidemiology
 #c# 2020-05-11 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
-#  {{Works with|rakudo|2020.05}} or {{broken|Raku}}  
+#m# MOAR: OK
+#j# JVM:  OK
 
 my @res;
 
@@ -80,8 +79,8 @@ for @Apr05, 'Dec 31 - Apr 5',
     my $rate = solve(&logistic-func, 0.5, 0, @y);
     my $R0   = exp(12 × $rate);
     @res.push: "\nFor period: $period";
-    @res.push: "Instantaneous rate of growth: r = " , $rate.fmt('%08f');
-    @res.push: "Reproductive rate: R0 = ", $R0.fmt('%08f');
+    @res.push: "Instantaneous rate of growth: r = " ~ $rate.fmt('%08f');
+    @res.push: "Reproductive rate: R0 = " ~ $R0.fmt('%08f');
 }
 
 .say for @res;
