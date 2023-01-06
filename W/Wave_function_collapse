@@ -3,8 +3,10 @@
 #c# 2022-07-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# replace call to built-in 'rand' for output stability
 
-srand 12345678;  # some seed values lead to early exit
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 my @Blocks = ( [ <0 0 0>, <0 0 0>, <0 0 0> ],
                [ <0 0 0>, <1 1 1>, <0 1 0> ],
@@ -80,10 +82,12 @@ sub wfc(@blocks, @bdim, @tdim) {
 
       my $d = 0;
       for ^$c { @indices[$d++] = $_ if $min == @entropy[$_] }
-      my \ind = bd0 × my \ndx = @indices[ ^$d .roll ];
+     #my \ind = bd0 × my \ndx = @indices[ my $foo = ^$d .roll ];
+      my \ind = bd0 × my \ndx = @indices[ $d × $rng.next-rat ];
       $d = 0;
       for ^bd0 { @possible[$d++] = $_ if @wave[ind+$_]  }
-      @R[@todo[ndx]] = @possible[ ^$d .roll ];
+     #@R[@todo[ndx]] = @possible[ ^$d .roll ];
+      @R[@todo[ndx]] = @possible[ $d × $rng.next-rat ];
    }
 
    die "DOES NOT COMPUTE" unless @R.Bool;
@@ -102,66 +106,25 @@ my @res.push: .join.trans( [ '0', '1' ] => [ '  ', '# ' ] ) for @tile.rotor(17);
 
 .say for @res;
 
-my $moar-terminal = qq:to/END/;
-                  #       #       
-# # # # # # # # # #       # # # # 
-  #   #   #   #   #       #   #   
-# # # # # # # # # #       # # # # 
-                  #       #       
-# # # # # # # # # #       # # # # 
-  #   #   #   #   #       #   #   
-# # # # # # # # # #       # # # # 
-                  #       #       
-                  # # # # #       
-                  #   #   #       
-                  # # # # #       
-                  #       #       
-                  # # # # #       
-                  #   #   #       
-                  # # # # #       
-                  #       #       
-END
-
-my $moar-cronjob = qq:to/END/;
-  #       #   #       #   #   #   
-# #       # # #       # # #   # # 
-  #       #   #       #   #   #   
-# #       # # #       # # # # # # 
-  #       #   #       #           
-# # # # # # # #       # # # # # # 
+my $ref = qq:to/END/;
+  #   #   #       #       #       
+  # # # # #       # # # # #       
+  #       #       #   #   #       
+# # # # # # # # # # # #   # # # # 
       #       #       #   #   #   
       # # # # #       # # # # #   
       #   #   #       #       #   
-      # # # # #       # # # # #   
-      #       #       #   #   #   
-# # # # # # # #       # # #   # # 
-  #       #   #       #   #   #   
-  # # # # # # #       # # # # #   
-  #   #       #       #       #   
-  # # # # # # #       # # # # #   
-  #       #   #       #   #   #   
-END
-
-my $jvm = qq:to/END/;
-  #   #   #   #       #       #   
-# # # #   # # #       # # # # # # 
-      #   #   #       #   #       
-      # # # # #       # # #       
-      #       #       #   #       
-      # # # # # # # # # # #       
-      #   #       #       #       
-# # # # # #       # # # # # # # # 
-  #       #       #   #       #   
-# #       # # # # # # #       # # 
-  #       #   #       #       #   
-# #       # # #       # # # # # # 
-  #       #   #       #   #       
-  # # # # # # #       # # #       
-  #   #       #       #   #       
-# #   # # # # #       # # # # # # 
-  #   #   #   #       #       #   
+      # # #   # # # # # # # # #   
+      #   #   #   #       #   #   
+      # # #   # # # # # # # # #   
+      #   #   #       #       #   
+# # # #   # # # # # # # # # # # # 
+  #   #   #       #       #       
+# #   # # #       # # # # # # # # 
+  #   #   #       #   #       #   
+# #   # # #       # # # # # # # # 
+  #   #   #       #       #       
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
-#is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
