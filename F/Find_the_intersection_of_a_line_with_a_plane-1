@@ -1,42 +1,59 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Find_the_intersection_of_a_line_with_a_plane
-#c# 2022-12-30 <RC
+#c# 2016-12-21 <RC, 2023-01-06 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# Grondilu++
+#n# Unicode variable name issues, replaced with plain ASCII
 
-my @res;
+use Clifford:ver<6.2.1>;
 
-use Clifford;
+class Line {
+    has $.P0; # point
+    has $.u;  # ray
+}
+class Plane {
+    has $.V0; # point
+    has $.n;  # normal
+}
 
-# We pick a projective basis and we compute
-# the pseudo-scalar along with its square
+sub infix:<dot> ( @a, @b where +@a == +@b ) { [+] @a «*» @b } # dot product
+
+sub line-plane-intersection ($L, $P) {
+    my $cos = $P.n dot $L.u; # cosine between normal & ray
+    return 'Vectors are orthogonal; no intersection or line within plane'
+      if $cos == 0;
+    my $W = $L.P0 «-» $P.V0;      # difference between P0 and V0
+    my $SI = -($P.n dot $W) / $cos;  # line segment where it intersects the plane
+    $W «+» $SI «*» $L.u «+» $P.V0; # point where line intersects the plane
+ }
+
+say 'Intersection at point: ', line-plane-intersection(
+     Line.new( :P0(0,0,10), :u(0,-1,-1) ),
+    Plane.new( :V0(0,0, 5), :n(0, 0, 1) )
+  );
+
+# We pick a (non-degenerate) projective basis and
+# we define the dual and meet operators.
 my $I = [∧] my ($i, $j, $k, $l) = @e;
-my $I2 = ($I**2).narrow;
+sub prefix:<∗>($M) { $M/$I }
+sub infix:<∨>($A, $B) { ∗((∗$B)∧(∗$A)) }
 
 my $direction = -$j - $k;
-$direction /= sqrt($direction**2);
 
 # Homogeneous coordinates of (X, Y, Z) are (X, Y, Z, 1)
 my $point = 10*$k + $l;
 
-# A line is a bivector
+# A projective line is a bivector
 my $line = $direction ∧ $point;
 
-# A plane is a trivector
-#my $plane = (5*$k + $l) ∧ ($i∧$j);
-my $plane = (5*$k + $l) ∧ ($k*-($i∧$j∧$k));
+# A projective plane is a trivector
+my $plane = (5*$k + $l) ∧ ($k*-$i∧$j∧$k);
 
-# The intersection is the meet, and
-# according to the De Morgan Law,
-# the meet is the dual of the join of the duals.
-my $LINE = $line*$I/$I2;
-my $PLANE = $plane*$I/$I2;
-my $M = $LINE∧$PLANE;
-my $m = $M*$I/$I2;
+# The intersection is the meet
+my $m = $line ∨ $plane;
 
 # Affine coordinates of (X, Y, Z, W) are (X/W, Y/W, Z/W)
-say my $result = ($m/($m·$l).narrow X· ($i, $j, $k)).gist;
+say my $ref = ($m/($m·$l) X· ($i, $j, $k)).gist;
 
 use Test;
-is $result, '(0 -5 5)';
+is '(0 -5 5)', $ref;
