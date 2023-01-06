@@ -1,20 +1,19 @@
 #!/usr/bin/env raku
 #t# skiptest
 #c# 2022-12-19
-#n# segfaults more when too much data in pipeline; works reliably when MVM_SPESH_DISABLE=1
+#n# Segfaults more when more data is in the pipeline?  Works reliably when either MVM_SPESH_DISABLE or MVM_JIT_DISABLE is in force.
 #n# bug sources: P/Prime_words, bin/rc-non-ascii, PWC/019/1/fjwhittle.raku
 #n# fails on moar-blead after master->main switch
 #n# problem NOT seen in v2022.12-1-gd52342eb0 (last version prior to that)
+#n# odd: sometimes prints results, and segfaults
 
 # out of 1000 runs:
 #say (   'a'...   'z').words.grep({ .ords.all.is-prime });  # 100 % OK
 #say (  'aa'...  'gg').words.grep({ .ords.all.is-prime });  # 100 % OK
-#say (  'aa'...  'zz').words.grep({ .ords.all.is-prime });  #  44 % failure (but only 14% out of 100?)
-#say ( 'aaa'... 'fff').words.grep({ .ords.all.is-prime });  #   1 % failure (!?)
- say ( 'aaa'... 'kkk').words.grep({ .ords.all.is-prime });  # 100 % failure
-#say ( 'aaa'... 'mmm').words.grep({ .ords.all.is-prime });  #  99+% failure
+ say (  'aa'...  'zz').words.grep({ .ords.all.is-prime });  #  44 % failure (but: 14% out of 100, 82% out of 200)
+#say ( 'aaa'... 'fff').words.grep({ .ords.all.is-prime });  #   0 % failure (!?)
+#say ( 'aaa'... 'kkk').words.grep({ .ords.all.is-prime });  #  99+% failure
 #say ( 'aaa'... 'zzz').words.grep({ .ords.all.is-prime });  # 100 % failure
-#say ('aaaa'...'zzzz').words.grep({ .ords.all.is-prime });  # 100 % failure
 
 #likewise:
 #say ('a'...'z').words.grep({ .ords.sort.head > 120 });
