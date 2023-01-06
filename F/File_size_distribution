@@ -37,7 +37,7 @@ sub histogram ($max, $value, $width = 60) {
 
 .say for @res;
 
-my $ref = qq:to/END/;
+my $mac-pro = qq:to/END/;
 File size distribution in bytes for directory: bench/2023-01-02-m
 
 # Files @     0b        0: 
@@ -47,6 +47,16 @@ File size distribution in bytes for directory: bench/2023-01-02-m
 3030 total files.
 END
 
+my $imac = qq:to/END/;
+File size distribution in bytes for directory: bench/2023-01-02-m
+
+# Files @     0b        0: 
+# Files @  10e0b     1778: ████████████████████████████████████████████████████████████████████████████████
+# Files @  10e1b     1058: ████████████████████████████████████████▉
+# Files @  10e2b      194: ████████
+3030 total files.
+END
+
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp qx/uname -a/ ~~ /'iMac'/ ?? $imac !! $mac-pro;
 }
