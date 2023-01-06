@@ -11,7 +11,6 @@
 use myRNG;
 my $rng = myRNG.new( :seed(123456) );
 
-
 use Image::PNG::Portable;
  
 srand 2⁶³ - 25; # greatest prime smaller than 2⁶³ and the max my system can take
@@ -22,7 +21,7 @@ my @data = < 100 >;
 @data.map: {
    my $o = Image::PNG::Portable.new: :width($_), :height($_);
    for ^$_ X ^$_ -> @pixel { 
-      $o.set: @pixel[0], @pixel[1], (256*$rng.next-rat).floor, (256*$rng.next-rat).floor, (256*$rng.next-rat).floor;
+      $o.set: @pixel[0], @pixel[1], (256×$rng.next-rat).floor, (256×$rng.next-rat).floor, (256×$rng.next-rat).floor;
      #$o.set: @pixel[0], @pixel[1], 256.rand.Int, 256.rand.Int, 256.rand.Int
      #$o.set: | @pixel, | (256 xx 3)».rand».Int
    }
