@@ -2458,12 +2458,13 @@ File: C/Collections
 File: C/Color_of_a_screen_pixel
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Color_of_a_screen_pixel
-#t# gui
+#t# interactive
 #c# 2019-11-23 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# for MacOS...
+#n# specific for MacOS, has varying output on iMac (where it at least works in general)
 #n# 'screencapture' sporadically fails here (seeing same in P5 verion)
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: C/Color_of_a_screen_pixel-2
 #!/usr/bin/env perl6
@@ -4083,8 +4084,8 @@ File: E/Earliest_difference_between_prime_gaps
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 1e1 through 1e7 are pretty speedy, up to 1e9 is very slow
-#n# on iMac: Primesieve::iterator.new isn't working
 #n# (see also: F/Find_adjacent_primes_which_differ_by_a_square_integer)
+die 'BROKEN on iMac, Math::Primesieve::iterator.new is not working' if qx/uname -a/ ~~ /'iMac'/;
 
 File: E/Eban_numbers
 #!/usr/bin/env perl6
@@ -4663,11 +4664,12 @@ File: E/Exponentiation_order.1
 File: E/Exponentiation_with_infix_operators_in_or_operating_on_the_base
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Exponentiation_with_infix_operators_in_(or_operating_on)_the_base
-#c# 2020-11-05 <RC,  2022-09-27 >RC
+#c# 2020-11-05 <RC, 2022-09-27 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# Unicode symbol '↑' is what sinks use of .EVAL syntax.
 #n# 2022-12-19 disabled: does not work with blead as of 2022-12-18
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: E/Extend_your_language
 #!/usr/bin/env perl6
@@ -5133,8 +5135,7 @@ File: F/File_size_distribution
 #c# 2017-05-31 <RC, 2018-05-17 <RC, 2018-09-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# should update this once a year
-#n# 2022-04-13 duly updated (after fiddling with log files)
+#n# should update this once a year (before previous year logs are archived)
 
 File: F/Filter
 #!/usr/bin/env perl6
@@ -5177,8 +5178,8 @@ File: F/Find_adjacent_primes_which_differ_by_a_square_integer
 #c# 2021-11-21 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# on iMac: Primesieve::iterator.new isn't working
 #n# (see also: E/Earliest_difference_between_prime_gaps)
+die 'BROKEN on iMac, Math::Primesieve::iterator.new is not working' if qx/uname -a/ ~~ /'iMac'/;
 
 File: F/Find_common_directory_path
 #!/usr/bin/env perl6
@@ -6017,6 +6018,7 @@ File: G/Geohash-1
 #c# 2020-06-15 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+die 'BROKEN on iMac, Geohash .c library will not "make"' if qx/uname -a/ ~~ /'iMac'/;
 
 File: G/Geohash-2
 #!/usr/bin/env raku
@@ -12692,6 +12694,7 @@ File: R/Rosetta_Code_Find_unimplemented_tasks
 #c# 2018-04-30 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: R/Rosetta_Code_Fix_code_tags
 #!/usr/bin/env perl6
@@ -12725,6 +12728,7 @@ File: R/Rosetta_Code_Rank_languages_by_number_of_users
 #c# 2018-05-19 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: R/Rosetta_Code_Rank_languages_by_popularity-1
 #!/usr/bin/env perl6
@@ -12734,6 +12738,7 @@ File: R/Rosetta_Code_Rank_languages_by_popularity-1
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# SSL lib issue even without 'https' URL?
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: R/Rosetta_Code_Rank_languages_by_popularity-2
 #!/usr/bin/env perl6
@@ -12929,7 +12934,7 @@ File: S/SOAP
 #c# 2018-12-17 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-my @res;
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: S/Safe_addition
 #!/usr/bin/env perl6
@@ -16527,6 +16532,7 @@ File: W/Wave_function_collapse
 #c# 2022-07-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# replace call to built-in 'rand' for output stability
 
 File: W/Waveform_analysis_Doh_ray_me
 #!/usr/bin/env raku
@@ -16546,6 +16552,7 @@ File: W/Web_scraping
 #n# for JVM: VMArray representation does not implement bind_pos_native
 #n# ultimately has to do with SSL, which involves NativeCall
 #n# old Naval time server was failing...
+die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: W/Web_scraping.0
 #!/usr/bin/env raku
