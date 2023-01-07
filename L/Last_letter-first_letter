@@ -9,12 +9,11 @@
 #    20171027: 1661u  14.0s 27:12 102%
 #    20181004: 1151u  27.7s 19:28 100%
 #    20220304: 1042u  19.3s 17:49  99%
-#    _NEXT_
-#n# probably srand drift:
-#n# not ok 2 - # Failed test at L/Last_letter-first_letter line 100
-#      got: 'machamp pinsir relicanth haxorus simisear rufflet trapinch heatmor registeel landorus seaking girafarig gabite emboar remoraid darmanitan nosepass snivy yamask kricketune exeggcute emolga audino'
+#    20230106:  837u  11.5s 14:02 100% (only 5min on iMac)
 
 srand 123456;
+
+my @res;
 
 #A breadth-first search that uses disk files to avoid memory exhaustion. Each candidate sequence is encoded at one character per name, so to avoid reuse of names we merely have to make sure there are no repeat characters in our encoded string. (The encoding starts at ASCII space for the first name, so newline is not among the encoded characters.)
 
@@ -43,7 +42,7 @@ my $new = +@names;
 my $len = 1;
 
 while $new {
-    say "Length { $len++ }: $new candidates";
+    @res.push: "Length { $len++ }: $new candidates";
     shell 'mv run/llfl.new run/llfl.known';
     my $IN = open "run/llfl.known" orelse .die;
     my $OUT = open "run/llfl.new", :w orelse .die;
@@ -65,9 +64,9 @@ while $new {
 my $IN = open "run/llfl.known" orelse .die;
 my $eg = $IN.lines.pick;
 say "Length of longest: ", $eg.chars;
-say my $result = join ' ', $eg.ords.reverse.map: { @names[$_ - 32] }
+say join ' ', $eg.ords.reverse.map: { @names[$_ - 32] }
 
-#`{
+my $ref = qq:to/END/;
 Length 1: 70 candidates
 Length 2: 172 candidates
 Length 3: 494 candidates
@@ -91,14 +90,14 @@ Length 20: 119908 candidates
 Length 21: 40296 candidates
 Length 22: 10112 candidates
 Length 23: 1248 candidates
-Length of longest: 23
-}
+END
+#Length of longest: 23
 
-#my $ref = 'machamp pinsir remoraid darmanitan nosepass seaking girafarig gabite emboar relicanth heatmor rufflet trapinch haxorus simisear registeel landorus scrafty yamask kricketune exeggcute emolga audino';
+say my $result = join "\n", @res;
 
-# same words, re-arranged
-my $ref = 'machamp pinsir remoraid darmanitan nosepass simisear rufflet trapinch haxorus scrafty yamask kricketune exeggcute emboar relicanth heatmor registeel landorus seaking girafarig gabite emolga audino';
+# same words, re-arranged [this ordering is not stable, even across back-to-back runs]
+#my $ref = 'machamp pinsir relicanth heatmor remoraid darmanitan nosepass simisear rufflet trapinch haxorus seaking girafarig gabite emboar registeel landorus starly yamask kricketune exeggcute emolga audino';
 
 use Test;
 is $eg.chars, '23';
-is $result, $ref;
+is $result, chomp $ref;
