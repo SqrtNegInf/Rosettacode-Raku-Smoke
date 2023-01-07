@@ -5315,10 +5315,10 @@ File: F/Find_the_intersection_of_a_line_with_a_plane
 File: F/Find_the_intersection_of_a_line_with_a_plane-1
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Find_the_intersection_of_a_line_with_a_plane
-#c# 2022-12-30 <RC
+#c# 2016-12-21 <RC, 2023-01-06 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# Grondilu++
+#n# Unicode variable name issues, replaced with plain ASCII
 
 File: F/Find_the_intersection_of_a_line_with_a_plane.1
 #!/usr/bin/env perl6
@@ -7808,10 +7808,7 @@ File: L/Last_letter-first_letter
 #    20171027: 1661u  14.0s 27:12 102%
 #    20181004: 1151u  27.7s 19:28 100%
 #    20220304: 1042u  19.3s 17:49  99%
-#    _NEXT_
-#n# probably srand drift:
-#n# not ok 2 - # Failed test at L/Last_letter-first_letter line 100
-#      got: 'machamp pinsir relicanth haxorus simisear rufflet trapinch heatmor registeel landorus seaking girafarig gabite emboar remoraid darmanitan nosepass snivy yamask kricketune exeggcute emolga audino'
+#    20230106:  837u  11.5s 14:02 100% (only 5min on iMac)
 
 File: L/Last_list_item
 #!/usr/bin/env raku
@@ -9281,9 +9278,9 @@ File: M/Multi-base_primes-2
 #u# http://rosettacode.org/wiki/Multi-base_primes
 #t# toodamnslow
 #c# 2021-07-08 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#n# No such method 'value' for invocant of type 'Num'.  Did you mean 'values'?  in block <unit> at M/Multi-base_primes-2 line 30
+#n# Mac-Pro: ~21min, iMac: ~6min
 
 File: M/Multi-dimensional_array
 #!/usr/bin/env perl6
@@ -9328,10 +9325,10 @@ File: M/Multiple_regression
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Multiple_regression
 #c# 2016-05-01 <RC
-#t# toodamnslow
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# cannot use '×' at all here
+#n# remove too-damn-slow designation, try it for a while
 
 File: M/Multiplication_tables
 #!/usr/bin/env perl6
@@ -9881,6 +9878,7 @@ File: N/Numerical_Integration-1
 #   20181004: 12358u  77.530s 3:33:55.73 96%
 #   20220304: 12698u 110.17s  3:36:05.82 99%
 #   _NEXT_
+# 2023-01-06 takes about 1 hour on iMac
 
 File: N/Numerical_Integration-2
 #!/usr/bin/env perl6
@@ -9890,6 +9888,7 @@ File: N/Numerical_Integration-2
 #j# JVM:  BROKEN
 #n# <RC: "Move some calculations out of hot loops, more efficient looping constructs, arguably less idiomatic, but less horribly slow"
 #n# roughly 10x faster, but still just testing the first two examples
+#n# 2023-01-06 full calculations: Mac-Pro: 8min, iMac: 2-1/2min
 
 File: N/Numerical_Integration-2.1
 #!/usr/bin/env perl6
@@ -16853,7 +16852,7 @@ File: X/XML_XPath
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/XML/XPath
 #c# 2018-03-11 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# JVM runs forever, so leave BEGIN/die in
 #n# 2020-10-04 runs forever, what changed?
