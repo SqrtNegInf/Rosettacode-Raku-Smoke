@@ -4,10 +4,12 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# ends up a little different than RC version
+#n# 2023-01-07 replace call to built-in 'rand' for output stability
 
 my @res;
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 unit sub MAIN ($shots = 6);
 
@@ -19,9 +21,10 @@ sub load () {
     @cyl.=rotate(-1);
 }
 
-sub spin () { @cyl.=rotate: (^@cyl).pick }
 
-sub fire () { @cyl.=rotate; @cyl[0] }
+#sub spin () { @cyl .= rotate: (^@cyl).pick }
+sub spin () { @cyl .= rotate: floor @cyl.elems × $rng.next-rat }
+sub fire () { @cyl .= rotate; @cyl[0] }
 
 sub LSLSFSF {
     @cyl = 0 xx $shots;
@@ -62,29 +65,15 @@ for &LSLSFSF, &LSLSFF, &LLSFSF, &LLSFF -> $ref {
 
 .say for @res;
 
-my $moar-cronjob = q:to/END/;
-LSLSFSF: %55.55
- LSLSFF: %57.81
- LLSFSF: %54.78
-  LLSFF: %49.24
-END
-
-my $moar-terminal = q:to/END/;
-LSLSFSF: %55.56
- LSLSFF: %57.80
- LLSFSF: %54.81
-  LLSFF: %49.23
-END
-
-my $jvm = q:to/END/;
-LSLSFSF: %55.99
- LSLSFF: %58.25
- LLSFSF: %55.43
-  LLSFF: %50.33
+my $ref = q:to/END/;
+LSLSFSF: %54.96
+ LSLSFF: %58.56
+ LLSFSF: %55.70
+  LLSFF: %50.07
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
 
 #`{
 # Though if you go and look at the  Wikipedia article for the 1895 Nagant revolver mentioned in the task reference section, you'll see it is actually a 7 shot revolver... so, run again with 7 chambers:
