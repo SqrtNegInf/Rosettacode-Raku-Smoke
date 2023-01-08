@@ -3,17 +3,20 @@
 #c# 2020-07-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-07 replace call to built-in 'rand' for output stability
 
 my @res;
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 # SYNTHETICS HANDLING
 my @synth = flat < b d f h j k l m n p r s t w y z > X~ < a e i o u >;
 my %htnys = @synth.antipairs;
 my $exp   = @synth.elems;
 
-sub synth (Int $v) { @synth[($v + (^18).pick × 28126).polymod($exp xx *).reverse || 0].join }
+#sub synth (Int $v) { @synth[($v + (^18).pick × 28126).polymod($exp xx *).reverse || 0].join }
+sub synth (Int $v) { @synth[($v + floor(18×$rng.next-rat) × 28126).polymod($exp xx *).reverse || 0].join }
 
 sub thnys (Str $v) { (sum %htnys{$v.comb(2).reverse} Z× 1, $exp, $exp**2) % 28126 }
 
@@ -47,140 +50,50 @@ for 51.4337,  -0.2141, # Wimbledon
 
 .say for @res;
 
-my $moar-terminal = q:to/END/;
+my $ref = q:to/END/;
 Coordinates: 51.4337, -0.2141
    To Index: 22099 365 12003
-  To 3-word: zofobe muposu dejepu
+  To 3-word: jebino hirawu pawato
 From 3-word: 51.4337, -0.2141
  From Index: 51.4337, -0.2141
 
 Coordinates: 21.2596, -157.8117
    To Index: 17384 5133 8891
-  To 3-word: nijemo pufemu fupawu
+  To 3-word: suwiti lepaha tiyoha
 From 3-word: 21.2596, -157.8117
  From Index: 21.2596, -157.8117
 
 Coordinates: -55.9652, -67.2256
    To Index: 5317 15428 13632
-  To 3-word: sizeza zidura ramiso
+  To 3-word: kihayo yisobu sujaya
 From 3-word: -55.9652, -67.2256
  From Index: -55.9652, -67.2256
 
 Coordinates: 59.3586, 24.7447
    To Index: 23337 4732 15831
-  To 3-word: labefo zamayu jabuha
+  To 3-word: tatiha tijehe haripu
 From 3-word: 59.3586, 24.7447
  From Index: 59.3586, 24.7447
 
 Coordinates: 29.2021, 81.5324
    To Index: 18625 5535 10268
-  To 3-word: dijule puhene bepoko
+  To 3-word: jamudu homamu puzaru
 From 3-word: 29.2021, 81.5324
  From Index: 29.2021, 81.5324
 
 Coordinates: -7.1662, 53.947
    To Index: 12942 12942 12942
-  To 3-word: zesonu hahena pazini
+  To 3-word: tonowe fatuyu jozuri
 From 3-word: -7.1662, 53.947
  From Index: -7.1662, 53.947
 
 Coordinates: 28.3852, -81.5638
    To Index: 18497 11324 1322
-  To 3-word: saradu meyufi ponowo
-From 3-word: 28.3852, -81.5638
- From Index: 28.3852, -81.5638
-
-END
-
-my $moar-cronjob = q:to/END/;
-Coordinates: 51.4337, -0.2141
-   To Index: 22099 365 12003
-  To 3-word: diwiwa mahifo witoro
-From 3-word: 51.4337, -0.2141
- From Index: 51.4337, -0.2141
-
-Coordinates: 21.2596, -157.8117
-   To Index: 17384 5133 8891
-  To 3-word: miwuyi pufemu sonepu
-From 3-word: 21.2596, -157.8117
- From Index: 21.2596, -157.8117
-
-Coordinates: -55.9652, -67.2256
-   To Index: 5317 15428 13632
-  To 3-word: wetadi zidura pedefi
-From 3-word: -55.9652, -67.2256
- From Index: -55.9652, -67.2256
-
-Coordinates: 59.3586, 24.7447
-   To Index: 23337 4732 15831
-  To 3-word: wafote hokame wolene
-From 3-word: 59.3586, 24.7447
- From Index: 59.3586, 24.7447
-
-Coordinates: 29.2021, 81.5324
-   To Index: 18625 5535 10268
-  To 3-word: yohobe mebeto futode
-From 3-word: 29.2021, 81.5324
- From Index: 29.2021, 81.5324
-
-Coordinates: -7.1662, 53.947
-   To Index: 12942 12942 12942
-  To 3-word: hupode fatuyu fatuyu
-From 3-word: -7.1662, 53.947
- From Index: -7.1662, 53.947
-
-Coordinates: 28.3852, -81.5638
-   To Index: 18497 11324 1322
-  To 3-word: tabesa meyufi wefafi
-From 3-word: 28.3852, -81.5638
- From Index: 28.3852, -81.5638
-
-END
-
-my $jvm = q:to/END/;
-Coordinates: 51.4337, -0.2141
-   To Index: 22099 365 12003
-  To 3-word: luhije tepepu pawato
-From 3-word: 51.4337, -0.2141
- From Index: 51.4337, -0.2141
-
-Coordinates: 21.2596, -157.8117
-   To Index: 17384 5133 8891
-  To 3-word: suwiti dahasu datisi
-From 3-word: 21.2596, -157.8117
- From Index: 21.2596, -157.8117
-
-Coordinates: -55.9652, -67.2256
-   To Index: 5317 15428 13632
-  To 3-word: nalare yisobu zewifu
-From 3-word: -55.9652, -67.2256
- From Index: -55.9652, -67.2256
-
-Coordinates: 59.3586, 24.7447
-   To Index: 23337 4732 15831
-  To 3-word: filuwu dafaso jumate
-From 3-word: 59.3586, 24.7447
- From Index: 59.3586, 24.7447
-
-Coordinates: 29.2021, 81.5324
-   To Index: 18625 5535 10268
-  To 3-word: modalo jiwida rukija
-From 3-word: 29.2021, 81.5324
- From Index: 29.2021, 81.5324
-
-Coordinates: -7.1662, 53.947
-   To Index: 12942 12942 12942
-  To 3-word: fatuyu deloko hupode
-From 3-word: -7.1662, 53.947
- From Index: -7.1662, 53.947
-
-Coordinates: 28.3852, -81.5638
-   To Index: 18497 11324 1322
-  To 3-word: feruku pasiju bupodo
+  To 3-word: tabesa tojopo heni
 From 3-word: 28.3852, -81.5638
  From Index: 28.3852, -81.5638
 
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
