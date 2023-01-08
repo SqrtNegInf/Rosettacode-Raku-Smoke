@@ -3,29 +3,35 @@
 #c# 2021-11-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-07 replace call to built-in 'rand' for output stability (and made changes to speed it up)
 
 my @res;
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
-my ($trials, $t-total, $s-total) = 100;
+#my ($trials, $t-total, $s-total) = l00;
+my ($trials, $t-total, $s-total) = 50;
 
 @res.push: 'Seconds  steps behind  steps ahead';
 
 for ^$trials {
-    my $stairs   = 100;
-    my $location = 0;
-    my $seconds  = 0;
+   #my $stairs   = 100;
+    my $stairs   =  50;
+    my $location =   0;
+    my $seconds  =   0;
 
     loop {
         ++$seconds;
         ++$location;
         last if $location > $stairs;
-        for (1..$stairs).roll(5) {
+       #for (1..$stairs).roll(5) {
+        for 1+floor($stairs × $rng.next-rat) xx 5 {
             ++$location if $_ <= $location;
             ++$stairs;
         }
-        @res.push: "  $seconds        $location         {$stairs-$location}" if !$_ && (599 < $seconds < 610);
+       #@res.push: "  $seconds        $location         {$stairs-$location}" if !$_ && (599 < $seconds < 610);
+        @res.push: "  $seconds        $location         {$stairs-$location}" if !$_ && (299 < $seconds < 310);
     }
 
     $t-total += $seconds;
@@ -36,50 +42,20 @@ for ^$trials {
 
 .say for @res;
 
-my $moar-terminal = q:to/END/;
+my $ref = q:to/END/;
 Seconds  steps behind  steps ahead
-  600        2275         825
-  601        2280         825
-  602        2284         826
-  603        2290         825
-  604        2294         826
-  605        2299         826
-  606        2301         829
-  607        2304         831
-  608        2310         830
-  609        2315         830
-Average seconds: 2840.88,  Average steps: 14299.4
-END
-
-my $moar-cronjob = q:to/END/;
-Seconds  steps behind  steps ahead
-  600        2143         957
-  601        2148         957
-  602        2153         957
-  603        2157         958
-  604        2162         958
-  605        2166         959
-  606        2171         959
-  607        2177         958
-  608        2183         957
-  609        2188         957
-Average seconds: 2914.58,  Average steps: 14667.9
-END
-
-my $jvm = q:to/END/;
-Seconds  steps behind  steps ahead
-  600        2215         885
-  601        2218         887
-  602        2221         889
-  603        2226         889
-  604        2229         891
-  605        2234         891
-  606        2239         891
-  607        2243         892
-  608        2245         895
-  609        2249         896
-Average seconds: 2851,  Average steps: 14350
+  300        1110         440
+  301        1115         440
+  302        1121         439
+  303        1126         439
+  304        1132         438
+  305        1136         439
+  306        1141         439
+  307        1147         438
+  308        1149         441
+  309        1152         443
+Average seconds: 1429.38,  Average steps: 7191.9
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
