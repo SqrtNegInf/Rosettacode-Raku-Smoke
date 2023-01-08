@@ -7531,6 +7531,8 @@ File: K/Knuth_shuffle
 #c# 2015-11-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2023-01-07 replace call to built-in 'rand' for output stability 
+#n# cf lib/myRNG/myRNG.rakumod, where this is used as 'pickall'
 
 File: K/Koch_curve-1
 #!/usr/bin/env perl6
@@ -8112,6 +8114,7 @@ File: L/Long_stairs
 #c# 2021-11-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-07 replace call to built-in 'rand' for output stability (and made changes to speed it up)
 
 File: L/Long_year
 #!/usr/bin/env perl6
@@ -10027,6 +10030,7 @@ File: O/One_of_n_lines_in_a_file
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-07 replace call to built-in 'rand' for output stability
 
 File: O/OpenGL
 #!/usr/bin/env perl6
@@ -11076,6 +11080,7 @@ File: P/Pick_random_element
 #c# 2015-12-07 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# since this is a demo of rand/roll/pick, not moving to myRNG, just keeping updating results...
 
 File: P/Pierpont_primes-1
 #!/usr/bin/env perl6
@@ -15550,6 +15555,7 @@ File: T/Three_word_location
 #c# 2020-07-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-07 replace call to built-in 'rand' for output stability
 
 File: T/Three_word_location-2
 #!/usr/bin/env raku
@@ -15929,6 +15935,7 @@ File: T/Two_bullet_roulette
 #m# MOAR: OK
 #j# JVM:  OK
 #n# ends up a little different than RC version
+#n# 2023-01-07 replace call to built-in 'rand' for output stability
 
 File: T/Two_identical_strings
 #!/usr/bin/env raku
@@ -16431,6 +16438,7 @@ File: V/Voronoi_diagram
 #f# RC file: voronoi-Euclidean-perl6.png
 #n# (not testing Taxicab/Minkowski images, probably out-of-date in 'ref')
 #n# no speed diff with .race applied to x/y together or just x
+#n# 2023-01-07 replace call to built-in 'rand' for output stability
 
 File: V/Voronoi_diagram.0
 #!/usr/bin/env perl6
