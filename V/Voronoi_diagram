@@ -7,10 +7,10 @@
 #f# RC file: voronoi-Euclidean-perl6.png
 #n# (not testing Taxicab/Minkowski images, probably out-of-date in 'ref')
 #n# no speed diff with .race applied to x/y together or just x
+#n# 2023-01-07 replace call to built-in 'rand' for output stability
 
-BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
-
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 use Image::PNG::Portable;
 
@@ -25,9 +25,12 @@ my $height = 400;
 my $dots   = 30;
 
 my @domains = map { Hash.new(
-    'x' => (5..$width-5).roll,
-    'y' => (5..$height-5).roll,
-    'rgb' => [(64..255).roll xx 3]
+   #'x' => (5..$width-5).roll,
+   #'y' => (5..$height-5).roll,
+   #'rgb' => [(64..255).roll xx 3]
+    'x'   => floor($width  × $rng.next-rat),
+    'y'   => floor($height × $rng.next-rat),
+    'rgb' => [ floor((255-64)×$rng.next-rat) xx 3 ]
 ) }, ^$dots;
 
 for %type.keys -> $type {
