@@ -3,14 +3,18 @@
 #c# 2015-11-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2023-01-07 replace call to built-in 'rand' for output stability 
+#n# cf lib/myRNG/myRNG.rakumod, where this is used as 'pickall'
 
 my @res;
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 sub shuffle (@a is copy) {
     for 1 ..^ @a -> $n {
-        my $k = (0 .. $n).pick;
+       #my $k = (0 .. $n).pick;
+        my $k = floor $n × $rng.next-rat;
         $k == $n or @a[$k, $n] = @a[$n, $k];
     }
     @a
@@ -19,24 +23,15 @@ my @cards = <H1 H2 H3 D1 D2 D3 S1 S2 S3 C1 C2 C3>;
 @res.push: shuffle @cards;
 
 #The shuffle is also built into the pick method on lists when you pass it a "whatever" for the number to pick:
-@res.push: @cards.pick(*);
+@res.push: @cards.&pickall;
+#@res.push: @cards.pick(*);
 
 .say for @res;
 
-my $moar-cronjob  = qq:to/END/;
-D2 S2 S3 C3 H3 D1 S1 H1 C1 D3 H2 C2
-D1 C3 D2 S2 H2 S3 S1 H3 C1 H1 C2 D3
-END
-
-my $moar-terminal = qq:to/END/;
-D1 D2 S1 S3 H2 C2 C1 H1 C3 H3 S2 D3
-H1 C3 C1 S1 S2 D3 H3 D2 C2 H2 S3 D1
-END
-
-my $jvm  = qq:to/END/;
-S2 C3 C1 S1 H3 D2 H1 D1 D3 H2 C2 S3
-H2 C3 S1 H3 H1 C2 D3 D1 S3 C1 D2 S2
+my $ref = qq:to/END/;
+H3 D1 S2 H1 S1 D2 C1 C2 C3 H2 S3 D3
+H3 H1 D3 S2 H2 S1 D1 C1 C2 C3 S3 D2
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
