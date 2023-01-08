@@ -3,12 +3,14 @@
 #c# 2018-03-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-07 replace call to built-in 'rand' for output stability
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 sub one_of_n($n) {
     my $choice;
-    $choice = $_ if .rand < 1 for 1 .. $n;
+    $choice = $_ if $_×$rng.next-rat < 1 for 1 .. $n;
     $choice - 1;
 }
 
@@ -20,9 +22,6 @@ sub one_of_n_test($n = 10, $trials = 10_000) {
 
 put my $result = one_of_n_test();
 
-my $moar-terminal = '1021 1006 1019 966 1027 1020 1002 1021 948 970';
-my $moar-cronjob  = '990 998 994 1011 1002 966 1074 962 999 1004';
-my $jvm           = '1017 971 994 988 978 1059 950 960 1043 1040';
 
 use Test;
-is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is $result, '960 995 1009 917 1073 1027 1011 1013 966 1029';
