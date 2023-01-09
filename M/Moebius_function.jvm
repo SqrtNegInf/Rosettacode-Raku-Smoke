@@ -15,7 +15,7 @@ sub μ (Int \n) {
     #+@p == +@p.unique ?? +@p %% 2 ?? 1 !! -1 !! 0
 }
  
-my @möbius = lazy flat '', 1, (2..*).map: -> \n { μ(n) };
+my @möbius = lazy flat '', 1, (2..*).map: &μ;
  
 say my $result = "Möbius sequence - First 199 terms:\n" ~
     @möbius[^200]».fmt('%3s').batch(20).join: "\n";         # WAT?!
