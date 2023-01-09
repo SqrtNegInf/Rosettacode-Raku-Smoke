@@ -9111,7 +9111,7 @@ File: M/Modular_inverse
 File: M/Moebius_function
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Möbius_function
-#c# 2020-01-26 <RC, 2020-01-30 <RC
+#c# 2020-01-26 <RC, 2020-01-30 <RC, 2023-01-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# junctions slower?
@@ -12596,8 +12596,7 @@ File: R/Rock-paper-scissors
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: ro\nro\nro\nro\nq
-#n# answer changed, srand drift? [DH: check that current Moar answer works in cronjob, failing interactive]
-#n# srand drift for JVM fixed
+#n# just eliminate randomness, not of great import here...
 
 File: R/Rodrigues_rotation_formula-1
 #!/usr/bin/env raku
@@ -13050,7 +13049,7 @@ File: S/Selection_bias_in_clinical_sciences
 #c# 2022-10-25 <RC, 2022-10-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# MoarVM terminal/cron output currently the same, but that might change
+#n# 2023-01-08 replace call to built-in 'rand' for output stability (really slows down, fewer trials)
 
 File: S/Selective_File_Copy
 #!/usr/bin/env perl6
@@ -13259,6 +13258,7 @@ File: S/Set_puzzle
 #c# 2016-01-19 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2023-01-08 replace call to built-in 'rand' for output stability (in-line shuffle code, need results to vary)
 
 File: S/Set_right-adjacent_bits
 #!/usr/bin/env raku
@@ -13635,6 +13635,14 @@ File: S/Singly-linked_list_Traversal
 #c# 2015-12-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+
+File: S/Singular_value_decomposition
+#!/usr/bin/env raku do-not-check
+#u# https://rosettacode.org/wiki/Singular_value_decomposition
+#t# inprogress
+#c# 2023-01-08 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
 
 File: S/Sleep
 #!/usr/bin/env perl6
