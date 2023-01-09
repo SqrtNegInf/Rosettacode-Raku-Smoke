@@ -3,27 +3,28 @@
 #c# 2022-10-25 <RC, 2022-10-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# MoarVM terminal/cron output currently the same, but that might change
-
-srand 123456;
+#n# 2023-01-08 replace call to built-in 'rand' for output stability (really slows down, fewer trials)
 
 my $result;
 
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
+
 enum <UNTREATED REGULAR IRREGULAR>;
 my \DOSE_FOR_REGULAR = 100;
-my ($nSubjects,$duration,$interval) = 10000, 180, 30;
+my ($nSubjects,$duration,$interval) = 2500, 180, 30;
 my (@dosage,@category,@hadcovid) := (0,UNTREATED,False)>>.&{($_ xx $nSubjects).Array};
 
 #sub update($pCovid=1e-3, $pStartTreatment=5e-3, $pRedose=¼, @dRange=<3 6 9>) { # newer JVM might handle this
 sub update($pCovid=1e-3, $pStartTreatment=5e-3, $pRedose=1/4, @dRange=<3 6 9>) {
    for 0 ..^ @dosage.elems -> \i { 
       unless @hadcovid[i] { 
-         if rand < $pCovid { 
+         if $rng.next-rat < $pCovid { 
             @hadcovid[i] = True
          } else {
             my $dose = @dosage[i];
-            if $dose==0 && rand < $pStartTreatment or $dose > 0 && rand < $pRedose {               
-	           @dosage[i]   = $dose += @dRange.roll;
+            if $dose==0 && $rng.next-rat < $pStartTreatment or $dose > 0 && $rng.next-rat < $pRedose {               
+	           @dosage[i]   = $dose += @dRange[@dRange.elems × $rng.next-rat];
                @category[i] = ($dose > DOSE_FOR_REGULAR) ?? REGULAR !! IRREGULAR
             } 
          } 
@@ -39,8 +40,8 @@ sub kruskal (@sets) {
 
    for @sets.kv -> \i,@set { for @set -> $b { @sr[i] += $b ?? $art !! $arf } } 
 
-  #my $H = [+] gather for @sr.kv -> \i,\s { take s×s/@sets[i].elems }
    my $H = [+] @sr.kv.map: -> \i,\s { s×s/@sets[i].elems }
+  #my $H = [+] gather for @sr.kv -> \i,\s { take s×s/@sets[i].elems } # OK (but slower?)
    return 12/($n×($n+1)) × $H - 3 × ($n + 1)
 }
 
@@ -54,9 +55,9 @@ for 1 .. $duration -> \day {
       @sunt = @hadcovid[ @category.grep: UNTREATED,:k ];
       @sirr = @hadcovid[ @category.grep: IRREGULAR,:k ]; 
       @sreg = @hadcovid[ @category.grep: REGULAR,  :k ]; 
-      ($unt,$irr,$reg)    = (@sunt,@sirr,@sreg).map: *.elems;
-      ($hunt,$hirr,$hreg) = (@sunt,@sirr,@sreg).map: *.sum;
-     #($unt,$hunt,$irr,$hirr,$reg,$hreg)=(@sunt,@sirr,@sreg).map:{|(.elems,.sum)} # works fine, but messes with 'srand'
+     #($unt,$irr,$reg)    = (@sunt,@sirr,@sreg).map: *.elems;
+     #($hunt,$hirr,$hreg) = (@sunt,@sirr,@sreg).map: *.sum;
+      ($unt,$hunt,$irr,$hirr,$reg,$hreg)=(@sunt,@sirr,@sreg).map:{|(.elems,.sum)} # works fine, but messes with 'srand'
    } 
    if day %% $interval {
       $result ~= sprintf "Day %d:\n",day;
@@ -77,144 +78,51 @@ $result ~= sprintf "Final statistics: H = %f\n", kruskal ( @sunt, @sirr, @sreg )
 
 say $result;
 
-my $moar-terminal = q:to/END/;
-Total subjects: 10000
+my $ref = q:to/END/;
+Total subjects: 2500
 Day 30:
-Untreated:     N = 8684, with infection =  252
-Irregular Use: N = 1316, with infection =   16
+Untreated:     N = 2166, with infection =   74
+Irregular Use: N =  334, with infection =    6
 Regular Use:   N =    0, with infection =    0
 
 Day 60:
-Untreated:     N = 7599, with infection =  481
-Irregular Use: N = 2249, with infection =   65
-Regular Use:   N =  152, with infection =    1
+Untreated:     N = 1868, with infection =  141
+Irregular Use: N =  600, with infection =   19
+Regular Use:   N =   32, with infection =    0
 
 Day 90:
-Untreated:     N = 6616, with infection =  658
-Irregular Use: N = 2333, with infection =  141
-Regular Use:   N = 1051, with infection =   16
+Untreated:     N = 1615, with infection =  194
+Irregular Use: N =  628, with infection =   33
+Regular Use:   N =  257, with infection =    1
 
 At midpoint, Infection case percentages are:
-  Untreated : 9.945586
-  Irregulars: 6.043721
-  Regulars  : 1.522360
+  Untreated : 12.012384
+  Irregulars: 5.254777
+  Regulars  : 0.389105
 
 Day 120:
-Untreated:     N = 5765, with infection =  811
-Irregular Use: N = 2176, with infection =  187
-Regular Use:   N = 2059, with infection =   60
+Untreated:     N = 1427, with infection =  237
+Irregular Use: N =  534, with infection =   48
+Regular Use:   N =  539, with infection =   14
 
 Day 150:
-Untreated:     N = 5067, with infection =  956
-Irregular Use: N = 1901, with infection =  245
-Regular Use:   N = 3032, with infection =  128
+Untreated:     N = 1258, with infection =  269
+Irregular Use: N =  465, with infection =   58
+Regular Use:   N =  777, with infection =   27
 
 Day 180:
-Untreated:     N = 4505, with infection = 1068
-Irregular Use: N = 1654, with infection =  308
-Regular Use:   N = 3841, with infection =  210
+Untreated:     N = 1126, with infection =  288
+Irregular Use: N =  390, with infection =   69
+Regular Use:   N =  984, with infection =   60
 
 At study end, Infection case percentages are:
-  Untreated : 23.706992
-  Irregulars: 18.621524
-  Regulars  : 5.467326
+  Untreated : 25.577265
+  Irregulars: 17.692308
+  Regulars  : 6.097561
 
-Final statistics: H = 211.439120
-
-END
-
-my $moar-cronjob = q:to/END/;
-Total subjects: 10000
-Day 30:
-Untreated:     N = 8653, with infection =  266
-Irregular Use: N = 1347, with infection =   22
-Regular Use:   N =    0, with infection =    0
-
-Day 60:
-Untreated:     N = 7577, with infection =  480
-Irregular Use: N = 2276, with infection =   82
-Regular Use:   N =  147, with infection =    0
-
-Day 90:
-Untreated:     N = 6596, with infection =  680
-Irregular Use: N = 2350, with infection =  153
-Regular Use:   N = 1054, with infection =   16
-
-At midpoint, Infection case percentages are:
-  Untreated : 10.309278
-  Irregulars: 6.510638
-  Regulars  : 1.518027
-
-Day 120:
-Untreated:     N = 5795, with infection =  836
-Irregular Use: N = 2134, with infection =  201
-Regular Use:   N = 2071, with infection =   48
-
-Day 150:
-Untreated:     N = 5101, with infection =  966
-Irregular Use: N = 1897, with infection =  260
-Regular Use:   N = 3002, with infection =  118
-
-Day 180:
-Untreated:     N = 4531, with infection = 1075
-Irregular Use: N = 1650, with infection =  298
-Regular Use:   N = 3819, with infection =  222
-
-At study end, Infection case percentages are:
-  Untreated : 23.725447
-  Irregulars: 18.060606
-  Regulars  : 5.813040
-
-Final statistics: H = 202.094619
-
-END
-
-my $jvm = q:to/END/;
-Total subjects: 10000
-Day 30:
-Untreated:     N = 8611, with infection =  285
-Irregular Use: N = 1389, with infection =   25
-Regular Use:   N =    0, with infection =    0
-
-Day 60:
-Untreated:     N = 7442, with infection =  504
-Irregular Use: N = 2386, with infection =   81
-Regular Use:   N =  172, with infection =    1
-
-Day 90:
-Untreated:     N = 6489, with infection =  688
-Irregular Use: N = 2434, with infection =  138
-Regular Use:   N = 1077, with infection =   20
-
-At midpoint, Infection case percentages are:
-  Untreated : 10.602558
-  Irregulars: 5.669680
-  Regulars  : 1.857010
-
-Day 120:
-Untreated:     N = 5686, with infection =  856
-Irregular Use: N = 2136, with infection =  206
-Regular Use:   N = 2178, with infection =   69
-
-Day 150:
-Untreated:     N = 5046, with infection = 1001
-Irregular Use: N = 1812, with infection =  259
-Regular Use:   N = 3142, with infection =  139
-
-Day 180:
-Untreated:     N = 4526, with infection = 1117
-Irregular Use: N = 1583, with infection =  308
-Regular Use:   N = 3891, with infection =  237
-
-At study end, Infection case percentages are:
-  Untreated : 24.679629
-  Irregulars: 19.456728
-  Regulars  : 6.090979
-
-Final statistics: H = 221.406047
+Final statistics: H = 59.895495
 
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
 is $result.subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
