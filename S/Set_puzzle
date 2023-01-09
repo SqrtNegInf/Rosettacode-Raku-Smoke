@@ -3,10 +3,21 @@
 #c# 2016-01-19 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2023-01-08 replace call to built-in 'rand' for output stability (in-line shuffle code, need results to vary)
 
 my @res;
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
+
+# Knuth shuffle
+sub pick-all (@a is copy) is export {
+    for 1 ..^ @a -> $n {
+        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
 
 # The trick here is to allocate three different bits for each enum, with
 # the result that the cards of a matching set OR together to produce a
@@ -30,7 +41,7 @@ my @combinations = [^$DRAW].combinations(3);
 
 my @draw;
 repeat until (my @sets) == $GOAL {
-    @draw = @deck.pick($DRAW);
+    @draw = @deck.&pick-all.head($DRAW);
     my @bits = @draw.map: { [+] @^enums».value }
     @sets = gather for @combinations -> @c {
         take @draw[@c].item when /^ <[1247]>+ $/ given ( [+|] @bits[@c] ).base(8);
@@ -46,124 +57,38 @@ for @sets.kv -> $i, @cards {
 
 .say for @res;
 
-my $moar-terminal = qq:to/END/;
+my $ref = qq:to/END/;
 Drew 9 cards:
-   purple  three   diamond    solid
-   purple    one   diamond  striped
-    green    one  squiggle  striped
-   purple  three  squiggle  striped
-      red    two      oval     open
-   purple  three   diamond  striped
-      red    two      oval  striped
-    green  three  squiggle  striped
-      red  three  squiggle  striped
-
-Set 1:
-   purple  three   diamond    solid
-    green    one  squiggle  striped
-      red    two      oval     open
-
-Set 2:
-   purple    one   diamond  striped
-      red    two      oval  striped
-    green  three  squiggle  striped
-
-Set 3:
-    green    one  squiggle  striped
-   purple  three   diamond  striped
-      red    two      oval  striped
-
-Set 4:
-   purple  three  squiggle  striped
-    green  three  squiggle  striped
-      red  three  squiggle  striped
-END
-
-my $moar-cronjob = qq:to/END/;
-Drew 9 cards:
-    green    one   diamond     open
-    green    two      oval    solid
-   purple    one      oval  striped
-    green  three      oval  striped
-    green  three   diamond     open
-   purple  three  squiggle     open
-      red  three      oval     open
-   purple  three      oval    solid
+    green    one      oval     open
+    green  three      oval     open
+   purple    two  squiggle     open
+      red  three   diamond  striped
    purple    two      oval     open
+    green    two   diamond  striped
+      red  three  squiggle  striped
+    green    one  squiggle    solid
+      red    two  squiggle    solid
 
 Set 1:
-    green    two      oval    solid
-   purple    one      oval  striped
-      red  three      oval     open
+    green  three      oval     open
+    green    two   diamond  striped
+    green    one  squiggle    solid
 
 Set 2:
-   purple    one      oval  striped
-   purple  three      oval    solid
+   purple    two  squiggle     open
+      red  three  squiggle  striped
+    green    one  squiggle    solid
+
+Set 3:
+      red  three   diamond  striped
    purple    two      oval     open
-
-Set 3:
-    green  three      oval  striped
-      red  three      oval     open
-   purple  three      oval    solid
+    green    one  squiggle    solid
 
 Set 4:
-    green  three   diamond     open
-   purple  three  squiggle     open
-      red  three      oval     open
-END
-
-my $jvm = qq:to/END/;
-Drew 9 cards:
-   purple  three  squiggle     open
-    green    one   diamond  striped
-      red    two  squiggle  striped
-      red    two   diamond  striped
-      red    one  squiggle    solid
-      red  three  squiggle     open
-      red    one      oval    solid
-    green  three  squiggle     open
-    green    two      oval    solid
-
-Set 1:
-   purple  three  squiggle     open
-      red  three  squiggle     open
-    green  three  squiggle     open
-
-Set 2:
-    green    one   diamond  striped
-    green  three  squiggle     open
-    green    two      oval    solid
-
-Set 3:
-      red    two  squiggle  striped
-      red    one  squiggle    solid
-      red  three  squiggle     open
-
-Set 4:
-      red    two   diamond  striped
-      red  three  squiggle     open
-      red    one      oval    solid
+   purple    two      oval     open
+    green    two   diamond  striped
+      red    two  squiggle    solid
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
-
-=finish
-
-grep -A 1 'got:' bench/2022*-m/Set_puzzle.out | grep -v got: | grep bench | pf 's/^.*#//' | sortcnt
-
-2022-08-24 
-So far in 2022, distribution of the 1st card dealt:
-
-  74        red    one  squiggle    solid
-  42     purple  three   diamond    solid
-  26        red    one   diamond    solid
-  24      green  three      oval    solid
-  19      green    one  squiggle  striped
-   9     purple  three   diamond     open
-   9      green    one   diamond     open
-   6        red  three      oval     open
-   4     purple    one      oval  striped
-   2     purple    two  squiggle    solid
-   2        red    two      oval    solid
-   1      green  three      oval  striped
+is @res.join("\n"), chomp $ref;
