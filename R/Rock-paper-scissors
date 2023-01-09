@@ -4,12 +4,13 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #=# RC pipe: ro\nro\nro\nro\nq
-#n# answer changed, srand drift? [DH: check that current Moar answer works in cronjob, failing interactive]
-#n# srand drift for JVM fixed
+#n# just eliminate randomness, not of great import here...
 
-srand 123456;
-
-# This is slightly more complicated than it could be; it is a general case framework with input filtering. It weights the computers choices based on your previous choices. Type in at least the first two characters of your choice, or just hit enter to quit. Customize it by supplying your own %vs options/outcomes.
+# This is slightly more complicated than it could be; it is a general case
+# framework with input filtering. It weights the computers choices based on
+# your previous choices. Type in at least the first two characters of your
+# choice, or just hit enter to quit. Customize it by supplying your own %vs
+# options/outcomes.
 # Here is standard Rock-Paper-Scissors. 
 
 my %vs = (
@@ -44,7 +45,8 @@ while my $player = (prompt "Round {++$round}: " ~ $prompt).lc {
     $player .= substr(0,2);
     say 'Invalid choice, try again.' and $round-- and next
       unless $player.chars == 2 and $player ~~ /<$keys>/;
-    my $computer = (flat %weight.keys.sort.map( { $_ xx %weight{$_} } )).pick; # DH change
+   #my $computer = (flat %weight.keys.sort.map( { $_ xx %weight{$_} } )).pick; # DH change
+    my $computer = (flat %weight.keys.sort.map( { $_ xx %weight{$_} } )).head(1); # DH change
     %weight{$_.key}++ for %vs{$player}.grep( { $_.value[0] == 1 } );
     my $result = %vs{$player}{$computer}[0];
     @stats[$result]++;
@@ -57,5 +59,4 @@ while my $player = (prompt "Round {++$round}: " ~ $prompt).lc {
 print "\n";
 
 use Test;
-#is @stats.join(' '), '2 1 1';
-is @stats.join(' '), $*VM ~~ /jvm/ ?? '1 1 2' !! '0 2 2';
+is @stats.join(' '), '0 4 0';
