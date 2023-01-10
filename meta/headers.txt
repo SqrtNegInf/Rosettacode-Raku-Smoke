@@ -197,6 +197,15 @@ File: 0/9_billion_names_of_God_the_integer.1
 #j#  JVM: OK
 #n# uses about 25x as much memory as the 'main' version, in getting the 10,000 value
 
+File: 0/OEIS-A073531
+#!/usr/bin/env raku
+#u# https://oeis.org/A073531  Number of n-digit positive integers with all digits distinct.
+#c# 2023-01-09 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/195/1/bruce-gray.raku
+#n# OEIS:A073531  Number of n-digit positive integers with all digits distinct.
+
 File: A/A%2BB
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/A+B
@@ -12064,6 +12073,7 @@ File: R/Random_Latin_Squares
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A002860
+#n# 2023-01-09 replace call to built-in 'rand' for output stability
 
 File: R/Random_number_generator_device
 #!/usr/bin/env perl6
