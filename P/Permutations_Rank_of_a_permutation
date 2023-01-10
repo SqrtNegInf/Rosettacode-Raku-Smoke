@@ -4,10 +4,20 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# don't test with high limits, slow...
-
-srand 123456;
+#n# 2023-01-09 replace call to built-in 'rand' for output stability
 
 my @res;
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
+
+sub pick-all (@a is copy) {
+    for 1 ..^ @a -> $n {
+        my $k = floor $n × $rng.next-rat;
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
 
 #sub rank2inv ( $rank, $n = * ) { $rank.polymod( 1 ..^ $n ) }  # what exactly is the point of 'n = *'? 
 sub rank2inv ( $rank, $n ) { $rank.polymod( 1 ..^ $n ) }
@@ -16,8 +26,7 @@ sub inv2rank ( @inv )      { [+] @inv Z× [\×] 1, 1, * + 1 … * }
 sub inv2perm ( @inv, @items is copy = ^@inv.elems ) {
     my @perm;
     for @inv.reverse -> $i {
-        @perm.append: @items.splice: $i, 1;
-       #@perm.push:   @items.splice: $i, 1;    # why different results with '.push'? (cf. K/Knuth%27s_algorithm_S-2)
+        @perm.append: @items.splice: $i, 1
     }
     @perm;
 }
@@ -31,32 +40,33 @@ sub perm2inv ( @perm ) {            # not in linear time
 for ^6 {
     my @row.push: $^rank;
     for ( *.&rank2inv(3) , &inv2perm, &perm2inv, &inv2rank )  -> &code {
-        @row.push: code( @row[*-1] );
+        @row.push: code( @row[*-1] )
     }
     @res.push: @row.gist;
 }
 
 my $perms =  4;
-my $n     = 12;
+my $n     =  8;
 
 @res.push: 'Via BigInt rank';
-for ( ( ^([×] 1 .. $n) ).pick($perms) ) {
+#for ( ( ^([×] 1 .. $n) ).pick($perms) ) {
+for ( ( ^([×] 1 .. $n) ).&pick-all.head($perms) ) {
     @res.push: ($^rank.&rank2inv($n).&inv2perm).gist; 
 };
 
 @res.push: 'Via inversion vectors';
-for ( { my $i=0;  inv2perm (^++$i).roll xx $n } … *  ).unique( with => &[eqv] ).[^$perms] {
+for ( { my $i=0;  inv2perm floor((^++$i)×$rng.next-rat) xx $n } … *  ).unique( with => &[eqv] ).[^$perms] {
     @res.push: $_.gist;
 };
 
 @res.push: 'Via Raku method pick';
-for ( { [(^$n).pick(*)] } … * ).unique( with => &[eqv] ).head($perms) {
+for ( { [(^$n).&pick-all] } … * ).unique( with => &[eqv] ).head($perms) {
     @res.push: $_.gist;
 };
 
 .say for @res;
 
-my $moar-terminal = qq:to/END/;
+my $ref = qq:to/END/;
 [0 (0 0 0) [0 1 2] (0 0 0) 0]
 [1 (0 1 0) [0 2 1] (0 1 0) 1]
 [2 (0 0 1) [1 0 2] (0 0 1) 2]
@@ -64,69 +74,21 @@ my $moar-terminal = qq:to/END/;
 [4 (0 0 2) [2 0 1] (0 0 2) 4]
 [5 (0 1 2) [2 1 0] (0 1 2) 5]
 Via BigInt rank
-[1 10 2 0 8 9 5 3 4 7 11 6]
-[2 4 7 1 5 3 6 10 9 0 11 8]
-[1 5 10 2 6 11 4 9 8 3 0 7]
-[4 1 0 8 7 10 5 2 6 11 3 9]
+[5 4 2 3 6 0 7 1]
+[5 3 0 6 4 1 7 2]
+[4 1 3 7 6 0 2 5]
+[7 2 1 0 3 4 6 5]
 Via inversion vectors
-[0 7 9 8 11 5 10 3 6 1 2 4]
-[6 4 1 11 5 8 9 10 0 7 3 2]
-[0 7 5 11 9 1 8 10 4 3 2 6]
-[3 10 1 5 11 0 9 8 4 7 2 6]
+[4 6 5 2 1 7 3]
+[3 6 1 7 2 5 4]
+[4 1 5 6 3 7 2]
+[1 6 7 4 5 3 2]
 Via Raku method pick
-[0 6 10 7 3 1 2 11 5 9 4 8]
-[11 3 0 8 4 10 7 1 6 9 2 5]
-[7 11 6 1 2 10 9 4 0 8 3 5]
-[11 10 9 4 1 7 0 8 2 3 6 5]
-END
-
-my $moar-cronjob = qq:to/END/;
-[0 (0 0 0) [0 1 2] (0 0 0) 0]
-[1 (0 1 0) [0 2 1] (0 1 0) 1]
-[2 (0 0 1) [1 0 2] (0 0 1) 2]
-[3 (0 1 1) [1 2 0] (0 1 1) 3]
-[4 (0 0 2) [2 0 1] (0 0 2) 4]
-[5 (0 1 2) [2 1 0] (0 1 2) 5]
-Via BigInt rank
-[10 9 4 1 5 3 6 8 0 2 11 7]
-[1 11 0 8 7 10 5 9 3 4 2 6]
-[1 2 9 4 3 6 10 7 11 5 0 8]
-[2 5 6 8 0 1 4 3 11 10 9 7]
-Via inversion vectors
-[10 4 2 11 5 8 0 3 6 1 9 7]
-[5 9 7 10 2 8 0 11 3 6 4 1]
-[5 10 6 2 7 1 0 11 3 9 4 8]
-[2 3 11 6 9 10 5 4 8 0 7 1]
-Via Raku method pick
-[4 1 6 11 10 2 8 3 0 5 9 7]
-[9 4 8 2 11 3 10 5 7 1 6 0]
-[5 10 0 11 2 7 3 6 4 1 8 9]
-[0 9 6 7 4 1 2 11 8 10 5 3]
-END
-
-my $jvm = qq:to/END/;
-[0 (0 0 0) [0 1 2] (0 0 0) 0]
-[1 (0 1 0) [0 2 1] (0 1 0) 1]
-[2 (0 0 1) [1 0 2] (0 0 1) 2]
-[3 (0 1 1) [1 2 0] (0 1 1) 3]
-[4 (0 0 2) [2 0 1] (0 0 2) 4]
-[5 (0 1 2) [2 1 0] (0 1 2) 5]
-Via BigInt rank
-[3 2 9 8 6 5 1 7 10 11 4 0]
-[6 0 11 5 1 4 3 9 2 7 10 8]
-[9 6 3 11 0 7 4 8 1 10 5 2]
-[4 7 1 5 9 0 2 3 8 10 6 11]
-Via inversion vectors
-[5 3 1 4 2 0 9 7 8 11 10 6]
-[1 4 3 5 8 7 2 11 9 10 6 0]
-[8 9 11 1 3 4 10 5 0 7 6 2]
-[6 2 11 1 10 4 9 7 5 0 3 8]
-Via Raku method pick
-[5 7 8 9 10 3 0 6 4 2 1 11]
-[1 11 8 2 10 3 6 7 4 9 5 0]
-[0 9 4 8 10 1 11 6 5 2 3 7]
-[1 11 2 6 5 3 9 7 0 8 10 4]
+[2 0 7 4 5 6 1 3]
+[2 5 7 0 3 4 1 6]
+[4 6 3 5 1 7 2 0]
+[1 7 0 5 3 6 2 4]
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
