@@ -1,0 +1,35 @@
+#!/usr/bin/env raku do-not-check
+#u# https://rosettacode.org/wiki/Singular_value_decomposition
+#t# inprogress
+#c# 2023-01-08 <RC
+#m# MOAR: BROKEN
+#j# JVM:  BROKEN
+
+my @res;
+
+use Math::Libgsl::Matrix;
+use Math::Libgsl::LinearAlgebra;
+
+my @M = <3 0>, <4 5>;
+my Math::Libgsl::Matrix \M .= new: @M.elems, @M.first.elems;
+(^M.size1)>>.&{ M.set-row: $_, @M[$_;*] }
+
+my (\V,\S) = SV-decomp M;
+
+@res.push: "U factor: "        ~ (^M.size1)>>.&{ M.get-row($_)>>.fmt: '%.10g' }
+@res.push: "singular values: " ~ (^S.size )>>.&{     S.get($_)>>.fmt: '%.10g' }
+@res.push: "Vt factor: "       ~ (^V.size1)>>.&{ V.get-row($_)>>.fmt: '%.10g' }
+
+.say for @res;
+
+my $ref = q:to/END/;
+U factor: 
+([-0.316227766 -0.9486832981] [-0.9486832981 0.316227766])
+singular values: 
+((6.708203932) (2.236067977))
+Vt factor: 
+([-0.7071067812 -0.7071067812] [-0.7071067812 0.7071067812])
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
