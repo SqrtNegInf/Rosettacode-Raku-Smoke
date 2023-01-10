@@ -4,8 +4,10 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A002860
+#n# 2023-01-09 replace call to built-in 'rand' for output stability
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 my @res;
 
@@ -20,12 +22,12 @@ sub random ( @ls, :$size = 5 ) {
     }
 
     # Shuffle
-    @ls = @ls[^$size .pick(*)];
-    my @cols = ^$size .pick(*);
+    @ls = @ls[(^$size).&pickall];
+    my @cols = (^$size).&pickall;
     @ls[$_] = @ls[$_][@cols] for ^@ls;
 
     # Some random Latin glyphs
-    my @symbols = ('A' .. 'Z').pick($size);
+    my @symbols = ('A' .. 'Z').&pickall.head($size);
 
     @ls.deepmap: { $_ = @symbols[$_] };
 
@@ -46,146 +48,52 @@ display random latin-square, :size($_) for 12, 2, 1;
 
 .say for @res;
 
-my $moar-terminal = q:to/END/;
- L   N   G   X   F 
- X   L   F   G   N 
- F   G   L   N   X 
- G   X   N   F   L 
- N   F   X   L   G 
+my $ref = qq:to/END/;
+ Z   A   Y   R   V 
+ R   Z   A   V   Y 
+ V   R   Z   Y   A 
+ A   Y   V   Z   R 
+ Y   V   R   A   Z 
    
- P   C   Z   J   G 
- J   P   C   G   Z 
- C   Z   G   P   J 
- G   J   P   Z   C 
- Z   G   J   C   P 
+ Z   A   Y   R   V 
+ R   Z   A   V   Y 
+ V   R   Z   Y   A 
+ A   Y   V   Z   R 
+ Y   V   R   A   Z 
    
- Z   D   W 
- W   Z   D 
- D   W   Z 
+ R   A   V 
+ V   R   A 
+ A   V   R 
    
- P   L   S   T   A   Z   O   F   B 
- L   T   F   S   B   O   A   Z   P 
- Z   O   B   A   S   L   T   P   F 
- A   B   L   P   Z   S   F   T   O 
- B   P   T   L   O   F   Z   S   A 
- S   F   O   Z   L   B   P   A   T 
- T   S   Z   F   P   A   B   O   L 
- O   A   P   B   F   T   S   L   Z 
- F   Z   A   O   T   P   L   B   S 
+ K   A   S   Y   V   Z   J   D   R 
+ D   K   Y   A   J   R   S   Z   V 
+ R   Z   K   D   Y   J   A   V   S 
+ Z   D   A   K   S   V   Y   R   J 
+ J   V   Z   R   K   Y   D   S   A 
+ Y   S   V   J   Z   K   R   A   D 
+ V   R   D   Z   A   S   K   J   Y 
+ A   Y   J   S   R   D   V   K   Z 
+ S   J   R   V   D   A   Z   Y   K 
    
- T   A   J   K   F   Y   O   X   C   D   Q   I 
- O   D   Y   Q   K   X   I   A   J   T   C   F 
- Y   C   F   T   D   K   X   Q   I   J   O   A 
- F   O   A   J   C   D   K   T   X   I   Y   Q 
- Q   F   T   X   Y   O   C   I   D   K   A   J 
- I   T   X   C   Q   A   F   D   Y   O   J   K 
- K   I   D   Y   J   T   Q   O   A   F   X   C 
- X   J   K   O   T   Q   A   C   F   Y   I   D 
- A   Y   Q   I   O   C   D   J   K   X   F   T 
- J   Q   I   D   A   F   Y   K   O   C   T   X 
- D   X   C   F   I   J   T   Y   Q   A   K   O 
- C   K   O   A   X   I   J   F   T   Q   D   Y 
+ E   A   K   D   V   J   P   Z   Y   R   S   W 
+ W   E   D   Z   P   S   K   R   A   V   Y   J 
+ R   Z   E   W   Y   P   A   J   D   S   K   V 
+ Z   D   A   E   S   V   Y   W   K   J   P   R 
+ P   V   J   S   E   D   W   Y   R   A   Z   K 
+ Y   S   V   P   Z   E   R   K   J   D   W   A 
+ V   R   W   J   A   K   E   S   Z   Y   D   P 
+ D   K   Y   A   J   R   S   E   P   W   V   Z 
+ J   W   Z   R   K   Y   D   V   E   P   A   S 
+ K   P   S   Y   W   Z   J   A   V   E   R   D 
+ S   J   R   V   D   A   Z   P   W   K   E   Y 
+ A   Y   P   K   R   W   V   D   S   Z   J   E 
    
- S   E 
- E   S 
+ A   V 
+ V   A 
    
- N 
-   
-END
-
-my $moar-cronjob = q:to/END/;
- O   B   Y   M   V 
- B   V   O   Y   M 
- M   Y   V   B   O 
- V   M   B   O   Y 
- Y   O   M   V   B 
-   
- V   Y   C   Q   O 
- O   Q   V   C   Y 
- Q   V   Y   O   C 
- C   O   Q   Y   V 
- Y   C   O   V   Q 
-   
- X   L   S 
- L   S   X 
- S   X   L 
-   
- B   W   A   O   P   M   U   C   G 
- G   O   C   M   W   A   B   U   P 
- U   P   M   W   G   O   C   A   B 
- A   B   W   G   U   P   M   O   C 
- P   M   U   A   O   C   G   B   W 
- W   A   B   C   M   U   P   G   O 
- M   U   P   B   C   G   O   W   A 
- O   C   G   U   A   B   W   P   M 
- C   G   O   P   B   W   A   M   U 
-   
- L   C   E   J   U   I   S   T   W   X   A   P 
- U   P   T   I   J   C   L   S   A   W   E   X 
- S   I   A   U   L   J   T   E   X   P   W   C 
- J   X   S   C   I   P   U   L   E   A   T   W 
- X   T   I   A   W   E   P   C   U   L   J   S 
- I   W   L   P   C   X   J   U   T   E   S   A 
- W   S   C   E   A   T   X   P   J   U   I   L 
- C   A   U   X   P   W   I   J   S   T   L   E 
- P   E   J   W   X   A   C   I   L   S   U   T 
- T   J   W   L   S   U   E   A   P   C   X   I 
- E   U   X   S   T   L   A   W   C   I   P   J 
- A   L   P   T   E   S   W   X   I   J   C   U 
-   
- B   R 
- R   B 
-   
- S 
-   
-END
-
-my $jvm = q:to/END/;
- G   L   O   D   C 
- L   C   G   O   D 
- D   O   C   L   G 
- O   G   D   C   L 
- C   D   L   G   O 
-   
- A   V   E   B   Y 
- E   A   B   Y   V 
- Y   B   V   A   E 
- V   Y   A   E   B 
- B   E   Y   V   A 
-   
- S   R   W 
- W   S   R 
- R   W   S 
-   
- O   K   L   Q   Y   W   X   G   F 
- L   O   W   K   F   X   G   Y   Q 
- K   Q   O   F   G   L   W   X   Y 
- Y   G   F   X   L   Q   K   O   W 
- W   L   X   O   Q   G   Y   F   K 
- G   X   Y   W   O   F   Q   K   L 
- Q   F   K   Y   X   O   L   W   G 
- X   W   G   L   K   Y   F   Q   O 
- F   Y   Q   G   W   K   O   L   X 
-   
- P   K   N   X   S   G   Q   U   O   E   C   I 
- E   Q   P   N   O   U   C   S   I   K   G   X 
- G   S   C   Q   P   X   O   N   E   U   I   K 
- I   N   O   S   C   K   P   Q   G   X   E   U 
- U   O   G   C   E   N   I   P   K   S   X   Q 
- X   P   I   O   G   Q   E   C   U   N   K   S 
- K   C   E   P   I   S   G   O   X   Q   U   N 
- Q   G   K   E   X   O   U   I   N   C   S   P 
- O   X   S   U   Q   E   N   K   C   I   P   G 
- C   U   Q   K   N   I   S   X   P   G   O   E 
- S   I   U   G   K   P   X   E   Q   O   N   C 
- N   E   X   I   U   C   K   G   S   P   Q   O 
-   
- S   T 
- T   S 
-   
- M 
+ V 
    
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
