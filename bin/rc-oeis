@@ -16,7 +16,7 @@ Example of how to annotate RC page with 'see also' links:
 
 
 my @code;
-my @dirs.push: .IO.absolute.IO for 'A' .. 'Z';
+my @dirs.push: .IO.absolute.IO for flat '0', 'A' .. 'Z';
 
 while @dirs {
     my @files = @dirs.pop;
