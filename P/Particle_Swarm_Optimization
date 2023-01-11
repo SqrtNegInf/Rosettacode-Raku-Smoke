@@ -4,10 +4,12 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 🌐 didn't work well in variable names :-(
+#n# 2023-01-11 replace call to built-in 'rand' for output stability
 
 my @res;
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 sub pso-init (%y) {
     my $d = @(%y{'min'});
@@ -29,7 +31,7 @@ sub pso (&fn, %y) {
     my $d      = @(%y{'min'});
     my @bpos   = %y{'min'} xx $n;
     my $gbval  = Inf; 
-    my $rand-g = rand;
+    my $rand-g = $rng.next-rat;
     my (@pos, @vel, @v, @gbpos, @bval);
 
     for 0 ..^ $n -> \j {
@@ -51,7 +53,7 @@ sub pso (&fn, %y) {
 
     # migrate
     for 0 ..^ $n -> \j {
-        my $rand-p = rand;
+        my $rand-p = $rng.next-rat;
         my $ok = True;
         for 0 ..^ $d -> \k {
             @vel[j;k] = %p{'ω'}              × %y{'vel'}[j;k] 
@@ -61,7 +63,7 @@ sub pso (&fn, %y) {
             $ok = %y{'min'}[k] < @pos[j;k] < %y{'max'}[k] if $ok;
         }
         next if $ok;
-        @pos[j;$_] = %y{'min'}[$_] + (%y{'max'}[$_] - %y{'min'}[$_]) × rand for 0 ..^ $d;
+        @pos[j;$_] = %y{'min'}[$_] + (%y{'max'}[$_] - %y{'min'}[$_]) × $rng.next-rat for 0 ..^ $d;
     }
     return {gbpos => @gbpos, gbval => $gbval, bpos => @bpos, bval => @bval, pos => @pos, vel => @vel, 
             min => %y{'min'}, max => %y{'max'}, p=> %y{'p'}, n => $n};
@@ -112,38 +114,16 @@ report 'Michalewicz', %state;
 
 .say for @res;
 
-my $moar-terminal = q:to/END/;
+my $ref = q:to/END/;
 McCormick
-🌐  best position: -0.54736 -1.54738
+🌐  best position: -0.54638 -1.54575
 🌐  best value:    -1.91322
 
 Michalewicz
-🌐  best position: 2.20296 1.57078
-🌐  best value:    -1.80130
-
-END
-
-my $moar-cronjob = q:to/END/;
-McCormick
-🌐  best position: -0.54693 -1.54680
-🌐  best value:    -1.91322
-
-Michalewicz
-🌐  best position: 2.20288 1.57081
-🌐  best value:    -1.80130
-
-END
-
-my $jvm = q:to/END/;
-McCormick
-🌐  best position: -0.54733 -1.54756
-🌐  best value:    -1.91322
-
-Michalewicz
-🌐  best position: 2.20287 1.57084
+🌐  best position: 2.20287 1.57079
 🌐  best value:    -1.80130
 
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
