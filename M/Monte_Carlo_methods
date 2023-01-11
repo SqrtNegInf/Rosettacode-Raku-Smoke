@@ -3,40 +3,33 @@
 #c# 2016-03-31 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# different results when initiated from command line vs cron
-#n# different results for rand**2' vs 'rand²' (doesn't matter for JVM)
+#n# 2023-01-11 replace call to built-in 'rand' for output stability (**2' vs '²' now the same)
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
-my @random_distances = ([+] rand**2 xx 2) xx *;
-#my @random_distances = ([+] rand² xx 2) xx *;
+#my @random_distances = ([+] $rng.next-rat**2 xx 2) xx *;
+ my @random_distances = ([+] $rng.next-rat²   xx 2) xx *;
 
 sub approximate_pi(Int $n) {
     4 × @random_distances[^$n].grep(* < 1) / $n
 }
 
 say "Monte-Carlo π approximation:";
-my @res.push: "$_ iterations:  " ~ approximate_pi $_
-    for 100, 1_000, 10_000;
+my @res.push: "$_ iterations:  " ~ approximate_pi $_ for 100, 1_000, 10_000;
 
-my @pi = ([\+] 4 × (1 > [+] rand**2 xx 2) xx *) Z/ 1 .. *;
-#my @pi = ([\+] 4 × (1 > [+] rand² xx 2) xx *) Z/ 1 .. *;
+ my @pi = ([\+] 4 × (1 > [+] $rng.next-rat**2 xx 2) xx *) Z/ 1 .. *;
+#my @pi = ([\+] 4 × (1 > [+] $rng.next-rat²   xx 2) xx *) Z/ 1 .. *;
 @res.push: @pi[10, 1000, 10_000];
 
 .say for @res;
+#exit;
 
-my $moar-cronjob = qq:to/END/;
-100 iterations:  2.8
-1000 iterations:  3.156
-10000 iterations:  3.1348
-3.636364 3.108891 3.146085
-END
-
-my $moar-terminal = qq:to/END/;
-100 iterations:  2.84
-1000 iterations:  3.16
-10000 iterations:  3.1352
-4 3.124875 3.147685
+my $ref = qq:to/END/;
+100 iterations:  3.2
+1000 iterations:  3.192
+10000 iterations:  3.1368
+3.636364 3.156843 3.126087
 END
 
 my $moar-terminal-super = qq:to/END/;
@@ -46,12 +39,5 @@ my $moar-terminal-super = qq:to/END/;
 3.272727 3.144855 3.132487
 END
 
-my $jvm = qq:to/END/;
-100 iterations:  3.12
-1000 iterations:  3.152
-10000 iterations:  3.1256
-3.272727 3.204795 3.144086
-END
-
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
