@@ -3,7 +3,7 @@
 #c# 2016-01-05 <RC,  2022-08-21 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# this version on RC; here not worrying about maintaining old results
+#n# this version on RC; using 'srand', so will periodically have to update results  
 
 srand 123456;
 
@@ -26,8 +26,8 @@ for ^100000 {
 
 say my $result = @bin.join: ' ';
 
-my $moar-terminal = '29763 29792 30107 30243 29898 29909 29864 29885 30384 30155';
-my $moar-cronjob  = '29761 29795 30107 30243 29898 29910 29863 29887 30385 30151';
+my $moar-terminal = '29762 29796 30111 30244 29897 29908 29867 29885 30379 30151';
+my $moar-cronjob  = '29763 29793 30107 30243 29897 29908 29866 29884 30384 30155';
 my $jvm           = '30155 30207 30016 30169 30044 29973 29725 29932 30041 29738';
 
 use Test;
