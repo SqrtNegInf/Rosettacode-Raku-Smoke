@@ -7854,7 +7854,7 @@ File: L/Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Te
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# somewhat limited testing, but better than none
-#n# new-disp 'srand' shift (2021-10-22: further shift)
+#n# would be very slow with myRNG, just update results for now...
 
 File: L/Launch_rocket_with_countdown_and_acceleration_in_stdout
 #!/usr/bin/env perl6
@@ -9008,6 +9008,7 @@ File: M/Mind_boggling_card_trick
 #c# 2018-09-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-10 replace call to built-in 'rand' for output stability
 
 File: M/Minesweeper_game
 #!/usr/bin/env perl6
@@ -9085,7 +9086,7 @@ File: M/Modified_random_distribution
 #c# 2021-02-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# new-disp 'srand' shift
+#n# 2023-01-10 replace call to built-in 'rand' for output stability
 
 File: M/Modular_arithmetic
 #!/usr/bin/env perl6
@@ -11015,6 +11016,7 @@ File: P/Permutations_Rank_of_a_permutation
 #m# MOAR: OK
 #j#  JVM: OK
 #n# don't test with high limits, slow...
+#n# 2023-01-09 replace call to built-in 'rand' for output stability
 
 File: P/Permutations_by_swapping
 #!/usr/bin/env perl6
@@ -11089,7 +11091,8 @@ File: P/Pick_random_element
 #c# 2015-12-07 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# since this is a demo of rand/roll/pick, not moving to myRNG, just keeping updating results...
+#n# since this is a demo of rand/roll/pick, don't use myRNG, just keep updating results...
+#n# 2023-01-08 Mac-Pro/iMac results have diverged, for unknown reason; track separately
 
 File: P/Pierpont_primes-1
 #!/usr/bin/env perl6
