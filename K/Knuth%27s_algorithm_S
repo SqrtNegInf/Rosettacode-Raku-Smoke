@@ -4,27 +4,30 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# cf -2 version
+#n# 2023-01-11 replace call to built-in 'rand' for output stability
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 sub s_of_n_creator($n) {
     my (@sample, $i);
     -> $item {
         if    ++$i      <= $n { push @sample, $item      }
-        elsif   $i.rand <  $n { @sample[$n.rand] = $item }
+        elsif   floor($i×$rng.next-rat) <  $n { @sample[$n×$rng.next-rat] = $item }
         @sample
     }
 }
 
+# with the switch to myRNG, this fiddly-ness is obsolete
 # for MoarVM, needs to be defined even if not used, doesn't matter what content it has as long as it's a numeric range,
 # otherwise results change slightly. I blame 'srand'...
 #my @items = 'a'..'z';  # no
 #my @items = -10..10;   # ok
-my @items  =   0.. 0;   # ok
+#my @items  =   0.. 0;   # ok
 
 my @bin;
 
-for ^100000 {
+for ^10000 {
     my &s_of_n = s_of_n_creator(3);
     my @sample;
     #for @items -> $item {
@@ -38,9 +41,7 @@ for ^100000 {
 
 say my $result = @bin.join: ' ';
 
-my $moar-terminal = '29762 29795 30108 30243 29900 29908 29865 29886 30380 30153';
-my $moar-cronjob  = '29761 29794 30107 30243 29897 29910 29865 29887 30384 30152';
-my $jvm           = '30155 30207 30016 30169 30044 29973 29725 29932 30041 29738';
+my $ref = '3011 2970 3004 3016 3030 2922 3047 3031 2981 2988';
 
 use Test;
-is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is $result, chomp $ref;
