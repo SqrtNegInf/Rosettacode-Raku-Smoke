@@ -199,12 +199,30 @@ File: 0/9_billion_names_of_God_the_integer.1
 
 File: 0/OEIS-A073531
 #!/usr/bin/env raku
-#u# https://oeis.org/A073531  Number of n-digit positive integers with all digits distinct.
+#u# https://oeis.org/A073531
 #c# 2023-01-09 NOT ON RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# mirrored from ~/PWC/195/1/bruce-gray.raku
 #n# OEIS:A073531  Number of n-digit positive integers with all digits distinct.
+
+File: 0/OEIS-A230980
+#!/usr/bin/env raku
+#u# https://oeis.org/A230980
+#c# 2023-01-11 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# mirrored from ~/PWC/198/2/bruce-gray.raku
+#n# OEIS:A230980 Number of primes <= n, starting at n=0
+
+File: 0/OEIS-A320843
+#!/usr/bin/env raku
+#u# https://oeis.org/A320843
+#c# 2023-01-11 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/191/2/bruce-gray.raku
+#n# OEIS:A320843 Number of permutations sigma of {1,2,...,n} such that sigma(i) divides i or i divides sigma(i) for 1 <= i <= n
 
 File: A/A%2BB
 #!/usr/bin/env perl6
@@ -7502,6 +7520,7 @@ File: K/Knuth%27s_algorithm_S
 #m# MOAR: OK
 #j#  JVM: OK
 #n# cf -2 version
+#n# 2023-01-11 replace call to built-in 'rand' for output stability
 
 File: K/Knuth%27s_algorithm_S-2
 #!/usr/bin/env perl6
@@ -7509,7 +7528,7 @@ File: K/Knuth%27s_algorithm_S-2
 #c# 2016-01-05 <RC,  2022-08-21 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# this version on RC; here not worrying about maintaining old results
+#n# this version on RC; using 'srand', so will periodically have to update results  
 
 File: K/Knuth%27s_power_tree
 #!/usr/bin/env perl6
@@ -7855,6 +7874,7 @@ File: L/Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Te
 #j# JVM:  BROKEN
 #n# somewhat limited testing, but better than none
 #n# would be very slow with myRNG, just update results for now...
+#n# Mac-Pro/iMac results diverge, use host-specific tests
 
 File: L/Launch_rocket_with_countdown_and_acceleration_in_stdout
 #!/usr/bin/env perl6
@@ -9174,8 +9194,7 @@ File: M/Monte_Carlo_methods
 #c# 2016-03-31 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# different results when initiated from command line vs cron
-#n# different results for rand**2' vs 'rand²' (doesn't matter for JVM)
+#n# 2023-01-11 replace call to built-in 'rand' for output stability (**2' vs '²' now the same)
 
 File: M/Montgomery_reduction
 #!/usr/bin/env perl6
@@ -10602,6 +10621,7 @@ File: P/Particle_Swarm_Optimization
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 🌐 didn't work well in variable names :-(
+#n# 2023-01-11 replace call to built-in 'rand' for output stability
 
 File: P/Partition_Function_P
 #!/usr/bin/env raku
