@@ -4,10 +4,12 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# at some point got *much* faster generation time: 1.5s vs 60s+ (not sure why)
-
-srand 123456;
+#n# 2023-01-12 replace call to built-in 'rand' for output stability (but this slows it down a little)
 
 my @res;
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 class Kd_node {
     has $.d;
@@ -119,7 +121,7 @@ sub show_nearest($k, $heading, $kd, @p) {
         END
 }
 
-sub random_point($k) { [rand xx $k] }
+sub random_point($k) { [$rng.next-rat xx $k] }
 sub random_points($k, $n) { [random_point($k) xx $n] }
 
 my $kd1 = Kd_tree.new([[2, 3],[5, 4],[9, 6],[4, 7],[8, 1],[7, 2]],
@@ -134,7 +136,7 @@ show_nearest(2, "k-d tree with $N random 3D points", $kd2, random_point(3));
 
 .say for @res;
 
-my $moar = qq:to/END/;
+my $ref = qq:to/END/;
 Wikipedia example data:
 Point:            [9,2]
 
@@ -144,34 +146,13 @@ Nodes visited:    3
 
 
 k-d tree with 1000 random 3D points:
-Point:            [0.9631700926831084,0.48840441805535106,0.6071969526675843]
+Point:            [0.3568107151266513,0.3783692038470269,0.37926260878676478362]
 
-Nearest neighbor: [0.9776790968402022,0.5018322191970067,0.5964847583501637]
-Distance:         0.02248484272181134
-Nodes visited:    20
-
-
-END
-
-my $jvm = qq:to/END/;
-Wikipedia example data:
-Point:            [9,2]
-
-Nearest neighbor: [8,1]
-Distance:         1.4142135623730951
-Nodes visited:    3
-
-
-k-d tree with 1000 random 3D points:
-Point:            [0.04021814165198501,0.3851113865327379,0.3324166827000494]
-
-Nearest neighbor: [0.05791341942656436,0.4180349344284118,0.36568312998580066]
-Distance:         0.05003737979324976
-Nodes visited:    11
-
+Nearest neighbor: [0.3906195326199487,0.36119252947062924,0.33511247663607589167]
+Distance:         0.058200588071351825
+Nodes visited:    14
 
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), $ref;
