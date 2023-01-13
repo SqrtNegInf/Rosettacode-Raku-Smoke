@@ -3374,7 +3374,7 @@ File: D/Date_format.1
 File: D/Date_manipulation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Date_manipulation
-#c# 2016-04-24 <>RC
+#c# 2016-04-24 <>RC, 2023-01-12 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -4564,14 +4564,7 @@ File: E/Evolutionary_algorithm
 #m# MOAR: OK
 #j#  JVM: OK
 #n# hard to get rid of built-in random here: 'rand', 'roll' and 'pick' all present
-
-File: E/Evolutionary_algorithm-2
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Evolutionary_algorithm
-#c# 2022-10-21 <RC
-#m# MOAR: OK
-#j#  JVM: OK
-#n# widely varying iteration counts for Moar (terminal vs cronjob) vs JVM
+#n# 2023-01-12 replace call to built-in 'rand' for output stability
 
 File: E/Exactly_three_adjacent_3_in_lists
 #!/usr/bin/env raku
@@ -7358,6 +7351,7 @@ File: K/K-d_tree
 #m# MOAR: OK
 #j#  JVM: OK
 #n# at some point got *much* faster generation time: 1.5s vs 60s+ (not sure why)
+#n# 2023-01-12 replace call to built-in 'rand' for output stability (but this slows it down a little)
 
 File: K/K-means%2B%2B_clustering
 #!/usr/bin/env perl6
