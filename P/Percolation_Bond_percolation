@@ -4,20 +4,15 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2020-03-31 changes required by 2020.02.1-270-g61b5e488e [fixed by 2020-04-01 / 2020.02.1-287-gaa5154e02, no GH issue]
-#n# these no longer yield same results:
-#n# my @a; @a.append: [0 xx 3], [1 xx 3]; say @a
-#n# my @b; append @b, [0 xx 3], [1 xx 3]; say @b'
-#n# unstable results for 100 trials?
-#n# 2021-03-04 graph OK, numeric table results unstable
-#n# 2022-01-30 JVM 2021.12 all good, but good test case for Moar 'srand' issues
+#n# 2023-01-13 replace call to built-in 'rand' for output stability
 
-#srand $*VM ~~ /jvm/ ?? 1234567 !! 123456;
+my @res;
 
-srand 1; rand; # does not help
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
-# Works with: Rakudo version 2017.02
-
-# Starts "filling" from the top left. Fluid flow favours directions in Down, Left, Right, Up order. I interpreted p to be porosity, so small p mean low permeability, large p means high permeability.
+# Starts "filling" from the top left. Fluid flow favours directions in Down, Left, Right, Up order. 
+# I interpreted p to be porosity, so small p mean low permeability, large p means high permeability.
 
 my @bond;
 my $grid = 10;
@@ -25,22 +20,6 @@ my $geom = $grid - 1;
 my $water = '▒';
 
 enum Direction <DeadEnd Up Right Down Left>;
-
-say 'Sample percolation at .6';
-srand 123456;
-say 'No percolation possible.' unless percolate(.6);
-my @drip.push: .join for @bond;
-.say for @drip;
-
-my $tests = 100;
-say "Doing $tests trials at each porosity:";
-my @res;
-
-for .1, .2 ... 1 -> $p {
-    @res.push: sprintf "p = %0.1f: %0.2f", $p, (sum percolate($p) xx $tests) / $tests
-}
-.say for @res;
-#exit;
 
 sub percolate ( $prob  = .6 ) {
     generate ( $prob );
@@ -93,94 +72,63 @@ sub generate ( $prob = .5 ) {
                   [flat '├', (h(), '┴') xx $geom, h(), '┤'],
                   [flat '│', ($sp, ' ') xx $geom, $sp, '│'];
 
-    sub h () { rand < $prob ?? $sp !! '───' }
-    sub v () { rand < $prob ?? ' ' !! '│'   }
+    sub h () { $rng.next-rat < $prob ?? $sp !! '───' }
+    sub v () { $rng.next-rat < $prob ?? ' ' !! '│'   }
 }
 
-my $graph-moar = qq:to/END/;
-│▒▒▒▒▒▒▒▒▒▒▒                            │
-├───┬▒▒▒┬▒▒▒┬───┬───┬───┬   ┬   ┬   ┬   ┤
-│▒▒▒│▒▒▒│▒▒▒│   │   │   │           │   │
-├▒▒▒┼▒▒▒┼▒▒▒┼   ┼   ┼───┼───┼   ┼───┼   ┤
-│▒▒▒▒▒▒▒│▒▒▒▒▒▒▒│   │   │   │           │
-├───┼───┼▒▒▒┼▒▒▒┼   ┼   ┼───┼───┼   ┼   ┤
-│       │▒▒▒│▒▒▒▒▒▒▒        │       │   │
-├   ┼───┼───┼───┼▒▒▒┼───┼   ┼   ┼───┼   ┤
-│   │        ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒        │
-├───┼   ┼───┼▒▒▒┼▒▒▒┼───┼───┼▒▒▒┼───┼   ┤
-│            ▒▒▒ ▒▒▒        │▒▒▒▒▒▒▒│   │
-├───┼   ┼───┼▒▒▒┼▒▒▒┼───┼───┼▒▒▒┼───┼───┤
-│           │▒▒▒│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│
-├   ┼   ┼   ┼▒▒▒┼───┼───┼───┼───┼───┼───┤
-│           │▒▒▒            │           │
-├   ┼   ┼───┼▒▒▒┼───┼   ┼   ┼   ┼───┼───┤
-│   │    ▒▒▒▒▒▒▒    │           │       │
-├   ┼   ┼▒▒▒┼▒▒▒┼   ┼   ┼───┼   ┼   ┼───┤
-│   │   │▒▒▒│▒▒▒│   │       │   │   │   │
-├───┼   ┼▒▒▒┼───┼   ┼   ┼   ┼───┼───┼───┤
-│   │   │▒▒▒                    │       │
-├   ┴   ┴▒▒▒┴   ┴   ┴───┴   ┴   ┴   ┴   ┤
-│        ▒▒▒                            │
+say 'Sample percolation at .6';
+say 'No percolation possible.' unless percolate(.6);
+my @drip.push: .join for @bond;
+.say for @drip;
+
+my $tests = 100;
+say "Doing $tests trials at each porosity:";
+
+for .1, .2 ... 1 -> $p {
+    @res.push: sprintf "p = %0.1f: %0.2f", $p, (sum percolate($p) xx $tests) / $tests
+}
+
+.say for @res;
+
+my $graph = qq:to/END/;
+│▒▒▒▒▒▒▒                                │
+├▒▒▒┬▒▒▒┬   ┬───┬   ┬───┬   ┬───┬───┬───┤
+│▒▒▒│▒▒▒            │   │           │   │
+├───┼▒▒▒┼   ┼───┼   ┼   ┼───┼   ┼   ┼   ┤
+│   │▒▒▒│   │           │               │
+├   ┼▒▒▒┼───┼───┼   ┼   ┼   ┼───┼   ┼   ┤
+│   │▒▒▒▒▒▒▒▒▒▒▒│                   │   │
+├───┼▒▒▒┼▒▒▒┼▒▒▒┼   ┼───┼───┼   ┼   ┼   ┤
+│▒▒▒▒▒▒▒▒▒▒▒│▒▒▒    │   │           │   │
+├▒▒▒┼───┼▒▒▒┼▒▒▒┼   ┼   ┼───┼───┼   ┼───┤
+│▒▒▒▒▒▒▒│▒▒▒│▒▒▒▒▒▒▒▒▒▒▒                │
+├───┼───┼───┼▒▒▒┼▒▒▒┼▒▒▒┼───┼   ┼   ┼───┤
+│       │▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒    │       │
+├   ┼   ┼───┼───┼▒▒▒┼▒▒▒┼▒▒▒┼   ┼   ┼───┤
+│       │       │▒▒▒▒▒▒▒│▒▒▒        │   │
+├───┼   ┼   ┼   ┼▒▒▒┼▒▒▒┼▒▒▒┼   ┼   ┼   ┤
+│           │   │▒▒▒▒▒▒▒│▒▒▒▒▒▒▒        │
+├───┼───┼───┼───┼───┼───┼───┼▒▒▒┼   ┼───┤
+│   │                       │▒▒▒│   │   │
+├   ┼   ┼   ┼   ┼   ┼   ┼   ┼▒▒▒┼   ┼───┤
+│   │                       │▒▒▒    │   │
+├   ┴   ┴   ┴───┴   ┴   ┴   ┴▒▒▒┴   ┴   ┤
+│                            ▒▒▒        │
 END
 
-my $ref-moar = qq:to/END/;
+my $ref = qq:to/END/;
 p = 0.1: 0.00
 p = 0.2: 0.00
 p = 0.3: 0.00
 p = 0.4: 0.06
-p = 0.5: 0.45
-p = 0.6: 0.88
-p = 0.7: 0.98
-p = 0.8: 1.00
-p = 0.9: 1.00
-p = 1.0: 1.00
-END
-
-# also has note 'No percolation possible.'
-my $graph-jvm = qq:to/END/;
-│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│
-├▒▒▒┬───┬▒▒▒┬───┬▒▒▒┬▒▒▒┬▒▒▒┬▒▒▒┬───┬───┤
-│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│   │   │
-├───┼───┼───┼───┼▒▒▒┼▒▒▒┼▒▒▒┼▒▒▒┼───┼   ┤
-│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│   │   │
-├───┼▒▒▒┼▒▒▒┼───┼▒▒▒┼▒▒▒┼───┼───┼───┼───┤
-│▒▒▒▒▒▒▒▒▒▒▒│▒▒▒│▒▒▒│▒▒▒│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│
-├───┼▒▒▒┼▒▒▒┼▒▒▒┼▒▒▒┼▒▒▒┼▒▒▒┼───┼───┼▒▒▒┤
-│▒▒▒▒▒▒▒│▒▒▒▒▒▒▒│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│
-├───┼▒▒▒┼───┼▒▒▒┼▒▒▒┼▒▒▒┼───┼───┼▒▒▒┼▒▒▒┤
-│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│▒▒▒▒▒▒▒│▒▒▒▒▒▒▒│
-├───┼───┼───┼▒▒▒┼▒▒▒┼▒▒▒┼───┼▒▒▒┼───┼▒▒▒┤
-│   │   │▒▒▒│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│▒▒▒▒▒▒▒▒▒▒▒│
-├───┼───┼▒▒▒┼▒▒▒┼───┼───┼▒▒▒┼───┼▒▒▒┼▒▒▒┤
-│   │▒▒▒▒▒▒▒▒▒▒▒│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│
-├───┼───┼▒▒▒┼───┼▒▒▒┼───┼▒▒▒┼▒▒▒┼───┼───┤
-│       │▒▒▒▒▒▒▒▒▒▒▒│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│   │
-├───┼   ┼───┼▒▒▒┼───┼▒▒▒┼───┼───┼▒▒▒┼───┤
-│       │   │▒▒▒│   │▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│
-├   ┼   ┼   ┼───┼───┼───┼───┼───┼───┼───┤
-│   │   │                       │   │   │
-├   ┴───┴───┴   ┴───┴   ┴   ┴   ┴───┴───┤
-│                                       │
-END
-
-my $ref-jvm = qq:to/END/;
-p = 0.1: 0.00
-p = 0.2: 0.00
-p = 0.3: 0.00
-p = 0.4: 0.04
-p = 0.5: 0.37
-p = 0.6: 0.92
-p = 0.7: 1.00
+p = 0.5: 0.48
+p = 0.6: 0.90
+p = 0.7: 0.99
 p = 0.8: 1.00
 p = 0.9: 1.00
 p = 1.0: 1.00
 END
 
 use Test;
-if $*VM ~~ /jvm/ {
-    is @drip.join("\n"), chomp $graph-jvm;
-    is  @res.join("\n"), chomp $ref-jvm;
-} else {
-    is @drip.join("\n"), chomp $graph-moar;
-    is  @res.join("\n"), chomp $ref-moar;
-}
+is @drip.join("\n"), chomp $graph;
+is  @res.join("\n"), chomp $ref;
