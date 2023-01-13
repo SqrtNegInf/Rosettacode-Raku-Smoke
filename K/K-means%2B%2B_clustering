@@ -3,20 +3,22 @@
 #c# 2016-06-04 <RC, 2018-05-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 'sort' tweak broke JVM (but now fixed)
 #n# hash order randomization required tweak to algorithm
+#n# 2023-01-13 replace call to built-in 'rand' for output stability
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
-# We use Complex numbers to represent points in the plane. We feed the algorithm with three artificially made clouds of points so we can easily see if the output makes sense.
+# We use Complex numbers to represent points in the plane. We feed the algorithm with three 
+# artificially made clouds of points so we can easily see if the output makes sense.
 
 sub infix:«-means++»(Int $K, @data) {
-    my @means = @data.pick;
+    my @means = @data[@data.elems×$rng.next-rat]; #.pick;
     until @means == $K {
         my @cumulD2 = [\+] @data.map: -> $x {
             min @means.map: { abs($x - $_)**2 }
         }
-        my $rand = rand × @cumulD2[*-1];
+        my $rand = $rng.next-rat × @cumulD2[*-1];
         @means.push: @data[
             (^@data).first: { @cumulD2[$_] > $rand }
         ];
@@ -32,30 +34,24 @@ sub infix:«-means++»(Int $K, @data) {
 }
 
 my @centers = 0, 5, 3 + 2i;
-my @data = flat @centers.map: { ($_ + .5 - rand + (.5 - rand) × i) xx 100 }
-@data .= pick(*);
+my @data = flat @centers.map: { ($_ + .5 - $rng.next-rat + (.5 - $rng.next-rat) × i) xx 100 }
+@data .= &pickall;
 
 my @res.push: $_ for 3-means++ @data;
 
 .say for @res.sort;
 
-my $moar-terminal = qq:to/END/;
--0.0026349054761782864-0.008309285394333501i
-2.9853752659424644+2.01153451531051i
-5.001443289484471-0.021524184866334305i
-END
-
-my $moar-cronjob = qq:to/END/;
--0.45760046104172114-0.36590748600950473i
-2.5866946389740137+1.7797492481303565i
-4.778983074769103+0.48792198286344757i
+my $moar = qq:to/END/;
+-0.1115674035933214-0.38426474345204564i
+2.957137445270286+2.094498827838054i
+5.149822316506206-0.058119410156620366i
 END
 
 my $jvm = qq:to/END/;
--0.007324319785103137+0.00961466848024936i
-3.035379159691816+1.9881933944981593i
-4.974818116361712+9.982341769055136E-4i
+5.030577139561266-0.011412509918882425i
+3.013972386574372+2.040514277466034i
+0.04487162381746918-0.0028241040668678264i
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
