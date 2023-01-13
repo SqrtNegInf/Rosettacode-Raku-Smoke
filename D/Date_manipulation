@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Date_manipulation
-#c# 2016-04-24 <>RC
+#c# 2016-04-24 <>RC, 2023-01-12 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -13,8 +13,8 @@
 # or maybe just due to laziness), but that just gives us another opportunity to demonstrate the built-in grammar support.
 
 my @month = <January February March April May June July August September October November December>;
-my %month = (@month Z=> ^12);
-#my %month = (@month Z=> ^12).flat, (@month».substr(0,3) Z=> ^12).flat, 'Sept' => 8;
+my %month = (@month Z=> 1..12);
+#my %month = (@month Z=> ^12).flat, (@month».substr(0,3) Z=> ^12).flat, 'Sept' => 8; # not working
 
 grammar US-DateTime {
     rule TOP { <month> <day>','? <year>','? <time> <tz> }
@@ -64,8 +64,8 @@ my $dt = DateTime.new(:$year, :$month, :$day, :$hour, :$minute, :$timezone).in-t
 $dt = $dt.later(hours => 12);
 
 say "12 hours later, GMT: $dt";
-say "12 hours later, PST: $dt.in-timezone(-8 × 3600)";
+say "12 hours later, PDT: $dt.in-timezone(-8 × 3600)";
 
 use Test;
-is $dt, '2009-02-08T12:30:00Z';
-is $dt.in-timezone(-8 × 3600), '2009-02-08T04:30:00-08:00';
+is $dt, '2009-03-08T12:30:00Z';
+is $dt.in-timezone(-8 × 3600), '2009-03-08T04:30:00-08:00';
