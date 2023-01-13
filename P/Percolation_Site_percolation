@@ -3,9 +3,12 @@
 #c# 2017-03-06 <RC, 2021-02-11 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# unstable results for 100 trials [only for JVM?]
+#n# 2023-01-13 replace call to built-in 'rand' for output stability
 
-srand 123456;
+my @res;
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 my $block = '▒';
 my $water = '+';
@@ -15,26 +18,6 @@ my @site;
 
 enum Direction <DeadEnd Up Right Down Left>;
 
-percolate(.65);
-
-say 'Sample percolation at .65';
-my @drip.push: .join for @site;
-.say for @drip;
-
-#say 'Sample percolation at .6';
-#percolate(.6);
-#.join.say for @site;
-#say "\n";
-
-my $tests = 100;
-say "Doing $tests trials at each porosity:";
-my @res;
-for .1, .2 ... 1 -> $p {
-    @res.push: sprintf "p = %0.1f: %0.3f" , $p, (sum percolate($p) xx $tests) / $tests;
-}
-
-.say for @res;
-
 sub infix:<deq> ( $a, $b ) { $a.defined && ($a eq $b) }
 
 sub percolate ( $prob  = .6 ) {
@@ -42,7 +25,7 @@ sub percolate ( $prob  = .6 ) {
     @site[$grid + 1] = [$pore xx $grid];
 
     for ^$grid X 1..$grid -> ($x, $y) {
-        @site[$y;$x] = rand < $prob ?? $pore !! $block
+        @site[$y;$x] = $rng.next-rat < $prob ?? $pore !! $block
     }
     @site[0;0] = $water;
 
@@ -81,77 +64,58 @@ sub percolate ( $prob  = .6 ) {
     }
 }
 
-my $graph-moar = qq:to/END/;
+percolate(.65);
+
+say 'Sample percolation at .65';
+my @drip.push: .join for @site;
+.say for @drip;
+
+#say 'Sample percolation at .6';
+#percolate(.6);
+#.join.say for @site;
+#say "\n";
+
+my $tests = 100;
+say "Doing $tests trials at each porosity:";
+for .1, .2 ... 1 -> $p {
+    @res.push: sprintf "p = %0.1f: %0.3f" , $p, (sum percolate($p) xx $tests) / $tests;
+}
+
+.say for @res;
+
+my $graph = qq:to/END/;
 +              
-+   ▒▒ ▒  ▒    
-++ ▒ ▒     ▒▒ ▒
-▒+▒  ▒    ▒ ▒ ▒
-▒++++▒    ▒▒▒  
- ▒▒▒+▒  ▒▒▒    
-   ▒++▒    ▒▒ ▒
- ▒  ▒+▒    ▒▒  
-    ++ ▒   ▒▒▒ 
-  ▒++▒▒▒ ▒ ▒   
-▒ ▒+▒   ▒      
-  ▒++  ▒ ▒     
-  ▒▒+▒   ▒   ▒ 
-▒▒ ++     ▒ ▒  
-  ▒+▒▒   ▒ ▒▒  
-   +▒▒ ▒▒  ▒  ▒
-   +           
++▒▒▒ ▒         
++ ▒+++ ▒    ▒  
+++++▒+    ▒   ▒
+▒▒+▒▒+  ▒ ▒▒  ▒
+ ▒▒+++++  ▒   ▒
+▒+++++▒+  ▒▒ ▒▒
++++▒++▒+++▒  ▒ 
+▒▒++++▒▒▒+▒ ▒ ▒
+▒++++▒   +   ▒▒
+▒+++▒   ▒++ ▒  
+▒▒▒++▒   ▒++   
+  ▒▒++▒▒  ▒+  ▒
+   ▒▒▒ ▒▒ ▒+   
+     ▒  ▒▒ +▒▒ 
+▒▒    ▒    + ▒▒
+           +   
 END
 
-my $ref-moar = qq:to/END/;
+my $ref = qq:to/END/;
 p = 0.1: 0.000
 p = 0.2: 0.000
 p = 0.3: 0.000
 p = 0.4: 0.000
 p = 0.5: 0.080
-p = 0.6: 0.590
-p = 0.7: 0.920
-p = 0.8: 1.000
-p = 0.9: 1.000
-p = 1.0: 1.000
-END
-
-my $graph-jvm = q:to/END/;
-+++++++++++++++
-+++▒+++++++▒▒++
-▒++▒+▒+▒▒▒+▒▒+▒
- ▒+▒+++▒++▒+▒+▒
-▒++++▒+++▒+++▒+
-+▒++▒+++▒+▒++▒+
-++++▒+▒++++++++
-++▒▒++▒▒+▒▒++++
-+▒▒▒+▒▒ ▒▒+++++
-▒ ▒▒▒▒    ▒+▒++
-▒      ▒ ▒▒+▒+▒
-    ▒  ▒   ▒ ▒ 
-  ▒   ▒    ▒▒▒▒
- ▒ ▒     ▒ ▒▒ ▒
-      ▒ ▒ ▒▒ ▒▒
-  ▒    ▒▒ ▒▒▒▒ 
-               
-END
-
-my $ref-jvm = qq:to/END/;
-p = 0.1: 0.000
-p = 0.2: 0.000
-p = 0.3: 0.000
-p = 0.4: 0.010
-p = 0.5: 0.090
 p = 0.6: 0.540
-p = 0.7: 0.970
+p = 0.7: 0.980
 p = 0.8: 1.000
 p = 0.9: 1.000
 p = 1.0: 1.000
 END
 
 use Test;
-if $*VM ~~ /jvm/ {
-is @drip.join("\n"), chomp $graph-jvm;
-#is @res.join("\n"), chomp $ref-jvm;
-} else {
-is @drip.join("\n"), chomp $graph-moar;
-is @res.join("\n"), chomp $ref-moar;
-}
+is @drip.join("\n"), chomp $graph;
+is @res.join("\n"), chomp $ref;
