@@ -5,18 +5,30 @@
 #n# bug sources: P/Prime_words, bin/rc-non-ascii, PWC/019/1/fjwhittle.raku
 #n# fails on moar-blead after master->main switch
 #n# problem NOT seen in v2022.12-1-gd52342eb0 (last version prior to that)
-#n# odd: sometimes prints results, and segfaults
+#n# odd: sometimes both prints results and segfaults
+
+#use v6.e.PREVIEW;
+#say ('aa'...'zz').grep({ .ords.snitch.all.is-prime });  # which demonstrates the randomness of when the seqfault occurs
 
 # out of 1000 runs:
-#say (   'a'...   'z').words.grep({ .ords.all.is-prime });  # 100 % OK
-#say (  'aa'...  'gg').words.grep({ .ords.all.is-prime });  # 100 % OK
- say (  'aa'...  'zz').words.grep({ .ords.all.is-prime });  #  44 % failure (but: 14% out of 100, 82% out of 200)
-#say ( 'aaa'... 'fff').words.grep({ .ords.all.is-prime });  #   0 % failure (!?)
-#say ( 'aaa'... 'kkk').words.grep({ .ords.all.is-prime });  #  99+% failure
-#say ( 'aaa'... 'zzz').words.grep({ .ords.all.is-prime });  # 100 % failure
+#say (   'a'...   'z').grep({ .ords.all.is-prime });  # 100 % OK
+#say (  'aa'...  'gg').grep({ .ords.all.is-prime });  # 100 % OK
+ say (  'aa'...  'zz').grep({ .ords.all.is-prime });  #  44 % failure (but: 14% out of 100, 82% out of 200)
+#say ( 'aaa'... 'fff').grep({ .ords.all.is-prime });  #   0 % failure (!?)
+#say ( 'aaa'... 'kkk').grep({ .ords.all.is-prime });  #  99+% failure
+#say ( 'aaa'... 'zzz').grep({ .ords.all.is-prime });  # 100 % failure
 
-#likewise:
-#say ('a'...'z').words.grep({ .ords.sort.head > 120 });
-#say ('aa'...'zz').words.grep({ .ords.sort.head > 120 });
-#say ('aaa'...'zzz').words.grep({ .ords.sort.head > 120 });
-#etc...
+# no difference, 100% failure
+#say ( 'aaa'... 'zzz').grep( *.ords.all.is-prime );
+#say grep { .ords.all.is-prime }, ('aaa'...'zzz');
+
+# likewise fails:
+#say ('a'...'z').grep({ .ords.sort.head > 120 });
+#say ('aa'...'zz').grep({ .ords.sort.head > 120 });
+#say ('aaa'...'zzz').grep({ .ords.sort.head > 120 });
+
+# a distinct failure (not with .ords)
+#(Date.new('1900-01-01'), *.later(:1month) ... Date.new('2000-12-01')).grep({.day-of-week == 5 and .days-in-month == 31}).say;
+
+# but this always works:
+#say ('aaaa'...'zzzz').grep({ .comb.sort.join gt 'yyyy' })
