@@ -11,7 +11,7 @@ srand $*VM ~~ /jvm/ ?? 123 !! 123456;
 
 my @res;
 
-use String::Splice:ver<0.0.3>;
+use String::Splice; #:ver<0.0.3>; moar-HEAD-HEAD-HEAD didn't like 
 
 my $line = 80;
 my $haystack = [~] <A C G T>.roll($line × 8);
