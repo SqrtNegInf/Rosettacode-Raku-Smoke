@@ -3,6 +3,7 @@
 #c# 2022-02-24 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# 2023-01-15 use .hyper not .race
 
 my @res;
 
@@ -19,7 +20,7 @@ sub is-colorful (Int $n) {
     True
 }
 
-@res.push: "Colorful numbers less than 100:\n" ~ (^100).race.grep( &is-colorful).batch(10)».fmt("%2d").join: "\n";
+@res.push: "Colorful numbers less than 100:\n" ~ (^100).hyper.grep( &is-colorful).batch(10)».fmt("%2d").join: "\n";
 
 my ($start, $total) = 23456789, 10;
 
@@ -31,7 +32,7 @@ my ($start, $total) = 23456789, 10;
 
 for 2..8 {
    @res.push: "$_ digit colorful number count: ",
-   my $c = +(flat $start.comb.combinations($_).map: {.permutations».join».Int}).race.grep( &is-colorful ),
+   my $c = +(flat $start.comb.combinations($_).map: {.permutations».join».Int}).hyper.grep( &is-colorful ),
    " - {($c / (exp($_,10) - exp($_-1,10) ) × 100).round(.001)}%";
    $total += $c;
 }
