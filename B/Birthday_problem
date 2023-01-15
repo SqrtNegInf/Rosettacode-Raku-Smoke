@@ -8,6 +8,7 @@
 #n# would it be faster to build a 'population' and sample it?  code everything into bit-fields?
 #n# 2021-03-03 flips between .505 and .506
 #n# new-disp 'srand' shift (for the better, to testing 'ok')
+#n# 'myRNG' is too slow to use here (need a faster 'shuffle')
 
 srand 123456;
 
@@ -18,7 +19,7 @@ sub simulation($c) {
 my $max-trials = 250_000;
 my $min-trials =   5_000;
 
-my $n = floor 47 × ($c-1.5)**1.5; # OEIS:A050256: 16 86 185 307
+my $n = floor 47 × ($c-1.5)**1.5; # (cf '0/OEIS-A050256')
 my $N = min $max-trials, max $min-trials, 1000 × sqrt $n;
 
 say "starting with n = $n and N = $N" if $debug;
