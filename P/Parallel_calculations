@@ -3,15 +3,7 @@
 #c# 2017-10-28 <RC, 2018-06-28 <RC, 2018-07-06 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-
-
-#`{
-Takes the list of numbers and converts them to a HyperSeq that is stored in a variable and evaluated concurrently. HyperSeqs overload map and grep to convert and pick values in worker threads. The runtime will pick the number of OS-level threads and assign worker threads to them while avoiding stalling in any part of the program. A HyperSeq is lazy, so the computation of values will happen in chunks as they are requested.
-The hyper (and race) method can take two parameters that will tweak how the parallelization occurs: :degree and :batch. :degree is the number of worker threads to allocate to the job. By default it is set to the number of physical cores available. If you have a hyper threading processor, and the tasks are not cpu bound, it may be useful to raise that number but it is a reasonable default. :batch is how many sub-tasks are parceled out at a time to each worker thread. Default is 64. For small numbers of cpu intensive tasks a lower number will likely be better, but too low may make the dispatch overhead cancel out the benefit of threading. Conversely, too high will over-burden some threads and starve others. Over long-running processes of multi hundreds/thousands of sub-tasks, the scheduler will automatically adjust the batch size up or down to try to keep the pipeline filled. For small numbers of cpu intensive tasks (such as this one) it is useful to give it a smaller starting batch size.
-On my system, under the load I was running, I found a batch size of 3 to be optimal for this task. May be different for different systems and different loads.
-Also, as a relative comparison, perform the same task on the same set of 100 numbers as found in the SequenceL example, using varying numbers of threads. Pay no attention to the absolute speed numbers, they will vary greatly between systems, this is more a comparison of relative throughput. On a Core i7-4770 @ 3.40GHz with 4 cores and hyper-threading under Linux, there is a distinct pattern where more threads on physical cores give reliable increases in throughput. Adding hyperthreads may (and, in this case, does seem to) give some additional marginal benefit.
-Using the prime-factors routine as defined in the prime decomposition task.
-}
+#n# .hyper doesn't actually help with the input used here
 
 my $res;
 
@@ -21,7 +13,8 @@ my @nums = 64921987050997300559,  70251412046988563035,  71774104902986066597,
            259826672618677756753, 262872058330672763871, 267440136898665274575,
            278352769033314050117, 281398154745309057242, 292057004737291582187;
 
-my @factories = @nums.hyper(:3batch).map: &prime-factors;
+#my @factories = @nums.map: &prime-factors;
+ my @factories = @nums.hyper(:3batch).map: &prime-factors;
 printf "%21d factors: %s\n", |$_ for @nums Z @factories;
 my $gmf = {}.append(@factories»[0] »=>« @nums).max: +*.key;
 $res = "\nGreatest minimum factor: "~ $gmf.key ~ "\nfrom: { $gmf.value }\n";
@@ -49,6 +42,7 @@ say '-' x 80;
 for 1..8 -> $degree {
     my $start = now;
     my \factories = @nums.hyper(:degree($degree), :3batch).map: &prime-factors;
+   #my \factories = @nums.map: &prime-factors;
     my $gmf = {}.append(factories»[0] »=>« @nums).max: +*.key;
     say "\nFactoring {+@nums} numbers, greatest minimum factor: {$gmf.key}";
     say "Using: $degree thread{ $degree > 1 ?? 's' !! ''}";
@@ -80,67 +74,6 @@ sub find-factor ( Int $n, $constant = 1 ) {
     $factor = find-factor( $n, $constant + 1 ) if $n == $factor;
     $factor;
 }
-
-#`{
-Typical output:
- 64921987050997300559 factors: 736717 88123373087627
- 70251412046988563035 factors: 5 43 349 936248577956801
- 71774104902986066597 factors: 736717 97424255043641
- 83448083465633593921 factors: 736717 113270202079813
- 84209429893632345702 factors: 2 3 3 3 41 107880821 352564733
- 87001033462961102237 factors: 736717 118092881612561
- 87762379890959854011 factors: 3 3 3 3 331 3273372119315201
- 89538854889623608177 factors: 736717 121537652707381
- 98421229882942378967 factors: 736717 133594351539251
-259826672618677756753 factors: 7 37118096088382536679
-262872058330672763871 factors: 3 47 1864340839224629531
-267440136898665274575 factors: 3 5 5 71 50223499887073291
-278352769033314050117 factors: 7 39764681290473435731
-281398154745309057242 factors: 2 809 28571 46061 132155099
-292057004737291582187 factors: 7 151 373 2339 111323 2844911
-
-Greatest minimum factor: 736717
-from: 64921987050997300559 71774104902986066597 83448083465633593921 87001033462961102237 89538854889623608177 98421229882942378967
-
-Run time: 0.2903003
---------------------------------------------------------------------------------
-
-Factoring 100 numbers, greatest minimum factor: 782142901
-Using: 1 thread
-Run time: 0.3881785 seconds.
-
-Factoring 100 numbers, greatest minimum factor: 782142901
-Using: 2 threads
-Run time: 0.2285219 seconds.
-
-Factoring 100 numbers, greatest minimum factor: 782142901
-Using: 3 threads
-Run time: 0.1555278 seconds.
-
-Factoring 100 numbers, greatest minimum factor: 782142901
-Using: 4 threads
-Run time: 0.13021902 seconds.
-
-Factoring 100 numbers, greatest minimum factor: 782142901
-Using: 5 threads
-Run time: 0.1206574 seconds.
-
-Factoring 100 numbers, greatest minimum factor: 782142901
-Using: 6 threads
-Run time: 0.13286821 seconds.
-
-Factoring 100 numbers, greatest minimum factor: 782142901
-Using: 7 threads
-Run time: 0.1102702 seconds.
-
-Factoring 100 numbers, greatest minimum factor: 782142901
-Using: 8 threads
-Run time: 0.1066578 seconds.
-Beside HyperSeq and its (allowed to be) out-of-order equivalent RaceSeq, Rakudo supports primitive threads, locks and highlevel promises. Using channels and supplies values can be move thread-safely from one thread to another. A react-block can be used as a central hub for message passing.
-In Raku most errors are bottled up Exceptions inside Failure objects that remember where they are created and thrown when used. This is useful to pass errors from one thread to another without losing file and line number of the source file that caused the error.
-In the future hyper operators, junctions and feeds will be candidates for autothreading.
-}
-
 
 my $ref = qq:to/END/;
 
