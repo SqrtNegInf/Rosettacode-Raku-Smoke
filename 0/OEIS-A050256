@@ -1,0 +1,16 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A050256
+#c# 2023-01-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# extract from 'B/Birthday_problem
+#n# OEIS:A050256 Diaconis-Mosteller approximation to the Birthday problem function
+
+my @res;
+
+push @res: floor 47 × ($_-1.5)**1.5 for 2..20;
+
+say my $result = @res.join: ' ';
+
+use Test;
+is $result, '16 86 185 307 448 606 778 965 1164 1376 1599 1832 2077 2331 2595 2868 3150 3440 3739';
