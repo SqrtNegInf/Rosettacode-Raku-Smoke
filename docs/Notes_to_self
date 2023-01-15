@@ -1,5 +1,10 @@
 2023-01-14
-moar-blead not building, as before 'rakubrew triple' correctly builds 'moar-HEAD-HEAD-HEAD', so use that for now.
+'moar-blead' not building, and has not been sincce the 10th or 11th.
+As before 'rakubrew triple' correctly builds 'moar-HEAD-HEAD-HEAD', so use that for now.
+'srand' breakage of course, but there are some unexpected results:
+    Colorful_numbers - results vary
+    'use Clifford' is failing
+    flapping (Digit_fifth_powers, Parallel_calculations-2)
 
 2023-01-13
 All broken 'srand' tasks updated, now waiting for more to fail...
@@ -16,7 +21,7 @@ Tested the 'toodamnslow' tasks (on iMac), they all still work.
 
 2023-01-05
 Skipping the 'annual' JVM update, maybe next year...
-(but will keep up testing one-at-a-time task testing)
+(but will keep up with one-at-a-time task testing)
 
 2023-01-04
 Tasks are tagged with <die 'BROKEN on (Mac-Pro|iMac)> to stop repetitive listing of known issues.
