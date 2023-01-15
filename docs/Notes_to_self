@@ -1,10 +1,10 @@
+2023-01-15
+After bug fix (GH5156) race vs. hyper makes a difference (e.g. 'D/Digit_fifth_powers')
+
 2023-01-14
 'moar-blead' not building, and has not been sincce the 10th or 11th.
 As before 'rakubrew triple' correctly builds 'moar-HEAD-HEAD-HEAD', so use that for now.
-'srand' breakage of course, but there are some unexpected results:
-    Colorful_numbers - results vary
-    'use Clifford' is failing
-    flapping (Digit_fifth_powers, Parallel_calculations-2)
+'srand' breakage of course, but also: 'use Clifford' is failing, why?
 
 2023-01-13
 All broken 'srand' tasks updated, now waiting for more to fail...
