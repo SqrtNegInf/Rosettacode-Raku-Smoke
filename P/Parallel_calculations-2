@@ -8,6 +8,7 @@
 #n#     69.168u 0.426s 0:19.66 353.9%
 #n#     67.238u 0.228s 1:07.22 100.3%
 #n# 2020-10-07 fails to show benefit, likely due to more efficient .is-prime code that doesn't chew time...
+#n# 2023-01-15 use .hyper not .race
 
 srand 123456;
 
@@ -15,7 +16,7 @@ srand 123456;
 
 my @nums = (1_000_000 .. 100_000_000).pick: 10000;
 #my \factories = @nums.map: *.&prime-factors; # slowest way to run
-my \factories = @nums.race.map: *.&prime-factors.cache; # does .cache do anything here?
+my \factories = @nums.hyper.map: *.&prime-factors.cache; # does .cache do anything here?
 
 #say my $gmf = (max (factories»[0] »=>« @nums)).value; # same result as below
 #say my $gmf = (factories»[0] »=>« @nums).reduce(&max).value; # sometimes works? prototype handling keeps changing
