@@ -22,9 +22,11 @@ bin/rakubrew mode shim
 #bin/rakubrew self-upgrade > out.rb    2> err.rb
 #(cd versions; rm -rf moar-yesterday; cp -pr moar-blead moar-yesterday)
 #####bin/rakubrew build moar-blead >    out.moar  2>    err.moar
-#####bin/rakubrew rehash
+bin/rakubrew triple >    out.moar  2>    err.moar
+bin/rakubrew rehash
 #(cd versions/moar-blead; make spectest   > ../out.mtest 2> ../err.mtest )
 #####bin/rakubrew switch moar-blead
+bin/rakubrew switch moar-HEAD-HEAD-HEAD
 #bin/rakubrew build zef
 
 cd $HOME/perl6/Rosetta-Code
