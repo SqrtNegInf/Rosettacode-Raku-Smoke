@@ -3,13 +3,11 @@
 #c# 2016-07-07 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# the */× switch doesn't work here due to 'Clifford' module
+#n# the */× switch doesn't work here due to 'MultiVector' module
 #n# 2022-01-20 ternary now fixed, but for future: was in 'Clifford' module at 'lib/MultiVector.pm6' lines 36 and 37)
 #n# 2022-01-20 from cron uses 'system' version of Clifford, force local lib (until ternary issue fixed)
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
-
-# We'll use the Clifford geometric algebra library but only for the vector operations.
 
 sub position(
     Real :$semimajor-axis,
@@ -19,7 +17,7 @@ sub position(
     Real :$argument-of-periapsis,
     Real :$true-anomaly
 ) {
-    use Clifford;
+    use MultiVector; # was Clifford
     my ($i, $j, $k) = @e[^3];
 
     sub rotate($a is rw, $b is rw, Real \α) {
