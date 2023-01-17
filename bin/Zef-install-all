@@ -13,6 +13,10 @@
 
 # 2022-12-26 updated to reflect RC and PWC needs, various quirks, purged of obsolete
 
+echo 'Install by hand: zef install Realine'
+echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
+echo ' '
+
 #zef install rakudoc  # ?
 
 zef --exclude=perl install Inline::Perl5
@@ -140,7 +144,7 @@ zef install Tree::Binary
 zef install StrictClass
 zef install Stats
 zef install Trie
-zef install Readline # do by hand (or not?)
+#zef install Readline # do by hand (or not?)
 zef install Tuple
 zef install Heap
 
