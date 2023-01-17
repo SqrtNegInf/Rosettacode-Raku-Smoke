@@ -8,13 +8,13 @@
 
 my @res;
 
-use Clifford;
+use MultiVector; # was Clifford
 
 # We pick a projective basis,
 # and we compute its pseudo-scalar and its square.
 my ($i, $j, $k) = @e;
 my $I = $i∧$j∧$k;
-my $I2 = ($I**2).narrow;
+my $I2 = ($I**2); #.narrow not needed - worked with 'Clifford'
 
 # Homogeneous coordinates of point (X,Y) are (X,Y,1)
 my $A =  4*$i +  0*$j + $k;
