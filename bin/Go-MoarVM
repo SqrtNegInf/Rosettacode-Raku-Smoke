@@ -21,12 +21,10 @@ bin/rakubrew mode shim
 # update Rakudo/MoarVM
 #bin/rakubrew self-upgrade > out.rb    2> err.rb
 #(cd versions; rm -rf moar-yesterday; cp -pr moar-blead moar-yesterday)
-#####bin/rakubrew build moar-blead >    out.moar  2>    err.moar
-bin/rakubrew triple >    out.moar  2>    err.moar
+bin/rakubrew build moar-blead >    out.moar  2>    err.moar
 bin/rakubrew rehash
 #(cd versions/moar-blead; make spectest   > ../out.mtest 2> ../err.mtest )
-#####bin/rakubrew switch moar-blead
-bin/rakubrew switch moar-HEAD-HEAD-HEAD
+bin/rakubrew switch moar-blead
 #bin/rakubrew build zef
 
 cd $HOME/perl6/Rosetta-Code
@@ -91,7 +89,7 @@ echo ' '
 head -20 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | $HOME/bin/drop -4
 
 # not a race, not a race, ...
-#echo ' '
+echo ' '
 #mv meta/horse-race.txt meta/horse-race.txt~
 #bin/rc-horse-race | sort -r > meta/horse-race.txt
 #diff meta/horse-race.txt~ meta/horse-race.txt
@@ -111,8 +109,8 @@ bin/rc-oeis > meta/OEIS.txt
 
 # latest Rakudo commits 
 echo ' '
-#####cd $HOME/.rakubrew/versions/moar-blead
-#####git log | head -100
+cd $HOME/.rakubrew/versions/moar-blead
+git log | head -100
 
 # push changes to github
 echo ' '
