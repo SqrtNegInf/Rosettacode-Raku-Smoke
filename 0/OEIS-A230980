@@ -26,7 +26,7 @@ my @tests =
 my @subs = :&task2a, :&task2b, :&task2c;
 
 use Test;
-plan (+@tests + 1) * +@subs;
+plan (+@tests + 1) × +@subs;
 
 for @subs {
     my ( $sub_name, $sub_code ) = .kv;
