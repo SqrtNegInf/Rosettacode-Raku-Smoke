@@ -5,12 +5,9 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A050255 Diaconis-Mosteller approximation to the Birthday problem function
+#n# https://mathworld.wolfram.com/BirthdayProblem.html
 
 my @res;
-
-#   a(n) is ceiling(x), where x is the real solution to x*exp(-x/(365*n)) = (log(2)*365^(n-1)*n!*(1 - x/(365*(n+1))))^(1/n)
-
-#push @res: 
 
 sub postfix:<!> ( UInt:D $n ) is looser(&prefix:<->) { [×] 2..$n }
 
