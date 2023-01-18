@@ -6,7 +6,7 @@
 #n# mirrored from ~/PWC/195/1/bruce-gray.raku
 #n# OEIS:A073531  Number of n-digit positive integers with all digits distinct.
 
-constant @n-digits-distinct     = 0, 9, |( 9 X* [\*] (9...1) );
+constant @n-digits-distinct     = 0, 9, |( 9 X× [\×] (9...1) );
 constant @n-digits-distinct-sum = [\+] @n-digits-distinct;
 
 # See blog post for explanation.
@@ -14,8 +14,8 @@ sub task1 ( UInt $n --> UInt ) {
     constant MAX = 9_876_543_210;
     return &?ROUTINE(MAX) if $n > MAX;
 
-    # Knuth's "falling powers"; kfp(9,3) == 9*8*7
-    sub kfp ($n, $k) { [*] ( ($n-$k) ^.. $n ) }
+    # Knuth's "falling powers"; kfp(9,3) == 9×8×7
+    sub kfp ($n, $k) { [×] ( ($n-$k) ^.. $n ) }
 
     my $nc = $n.chars;
     my @totals;
@@ -33,7 +33,7 @@ sub task1 ( UInt $n --> UInt ) {
         my Set $using_for_this_digit = $space_below_digit (-) $used;
 
         push @totals, $using_for_this_digit.elems
-                    * $combinations_in_rightward_places;
+                    × $combinations_in_rightward_places;
 
         $used{$digit}++;
     }
@@ -55,7 +55,7 @@ sub task1_one_big_skip ( UInt $n --> UInt ) {
 
     push @totals, @n-digits-distinct-sum[$core];
 
-    push @totals, +combinations(9,$core) * ([*] 1..$core) * ($lead-1);
+    push @totals, +combinations(9,$core) × ([×] 1..$core) × ($lead-1);
 
     my $L3 = 0;
     for (0..9).grep(* != $lead).combinations($core) -> @comb {
@@ -84,7 +84,7 @@ my @tests =
 ;
 
 use Test;
-plan 1+2*@tests;
+plan 1+2×@tests;
 
 is (map &task1, 1..99),
    (flat (1..10,10..20,20..30,30..40,40..50,50..60,60..70,70..80,80..90,90)),
