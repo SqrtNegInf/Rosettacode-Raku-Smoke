@@ -1,4 +1,4 @@
-# re-usable one-liner utilities
+# re-usable one-liner utilities and snippets
 
 # RC docs
 
@@ -9,3 +9,8 @@
 #==== elide middle of something long
 
 sub abbr ($_) { .chars < 41 ?? $_ !! .substr(0,20) ~ '…' ~ .substr(*-20) ~ " ({.chars} digits)" }
+
+#==== host-specific
+
+if qx/uname -a/ ~~ /'Mac-Pro'/
+if qx/uname -a/ ~~ /'iMac'/
