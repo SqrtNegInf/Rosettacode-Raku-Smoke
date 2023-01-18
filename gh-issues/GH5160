@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #t# skiptest
-#c# 2022-12-19
+#c# 2022-12-19 initial, 2023-01-17 issue opened
 #n# Segfaults more when more data is in the pipeline?  Works reliably when either MVM_SPESH_DISABLE or MVM_JIT_DISABLE is in force.
 #n# bug sources: P/Prime_words, bin/rc-non-ascii, PWC/019/1/fjwhittle.raku
 #n# fails on moar-blead after master->main switch
@@ -13,14 +13,17 @@
 # out of 1000 runs:
 #say (   'a'...   'z').grep({ .ords.all.is-prime });  # 100 % OK
 #say (  'aa'...  'gg').grep({ .ords.all.is-prime });  # 100 % OK
- say (  'aa'...  'zz').grep({ .ords.all.is-prime });  #  44 % failure (but: 14% out of 100, 82% out of 200)
+#say (  'aa'...  'zz').grep({ .ords.all.is-prime });  #  44 % failure (but: 14% out of 100, 82% out of 200)
 #say ( 'aaa'... 'fff').grep({ .ords.all.is-prime });  #   0 % failure (!?)
 #say ( 'aaa'... 'kkk').grep({ .ords.all.is-prime });  #  99+% failure
 #say ( 'aaa'... 'zzz').grep({ .ords.all.is-prime });  # 100 % failure
 
-# no difference, 100% failure
-#say ( 'aaa'... 'zzz').grep( *.ords.all.is-prime );
-#say grep { .ords.all.is-prime }, ('aaa'...'zzz');
+# but fails even when you don't explicitly 'gist' it? 
+#y @b=( 'aaa'... 'zzz').grep({ .ords.all.is-prime }); # 100 % failure
+#ay @b.elems;
+
+# no difference
+#say grep { .ords.all.is-prime }, ('aaa'...'zzz');    # 100 % failure
 
 # likewise fails:
 #say ('a'...'z').grep({ .ords.sort.head > 120 });
@@ -31,4 +34,4 @@
 #(Date.new('1900-01-01'), *.later(:1month) ... Date.new('2000-12-01')).grep({.day-of-week == 5 and .days-in-month == 31}).say;
 
 # but this always works:
-#say ('aaaa'...'zzzz').grep({ .comb.sort.join gt 'yyyy' })
+ say ('aaaa'...'zzzz').grep({ .comb.sort.join gt 'yyyy' })
