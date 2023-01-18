@@ -205,6 +205,7 @@ File: 0/OEIS-A050255
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A050255 Diaconis-Mosteller approximation to the Birthday problem function
+#n# https://mathworld.wolfram.com/BirthdayProblem.html
 
 File: 0/OEIS-A050256
 #!/usr/bin/env raku
@@ -1528,9 +1529,8 @@ File: B/Birthday_problem
 #n# ouch, for 2..5: 5755.022u 5223.779s 4:53:17.36 62.3% (which is why just running 2..2 for now)
 #n# current approach is to repeatedly 'roll' out groups of birthdays (a memory hog, and too slow to be useful)
 #n# would it be faster to build a 'population' and sample it?  code everything into bit-fields?
-#n# 2021-03-03 flips between .505 and .506
-#n# new-disp 'srand' shift (for the better, to testing 'ok')
 #n# 'myRNG' is too slow to use here (need a faster 'shuffle')
+#n# 2023-01-17 reduce precision of output to stabilize results for testing
 
 File: B/Bitcoin_address_validation
 #!/usr/bin/env raku
@@ -9373,10 +9373,11 @@ File: M/Multiple_regression
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Multiple_regression
 #c# 2016-05-01 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: BROKEN
 #n# cannot use '×' at all here
 #n# remove too-damn-slow designation, try it for a while
+#n# 2023-01-17 switch to MultiVector breaks this
 
 File: M/Multiplication_tables
 #!/usr/bin/env perl6
@@ -10126,7 +10127,7 @@ File: O/Orbital_elements
 #c# 2016-07-07 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# the */× switch doesn't work here due to 'Clifford' module
+#n# the */× switch doesn't work here due to 'MultiVector' module
 #n# 2022-01-20 ternary now fixed, but for future: was in 'Clifford' module at 'lib/MultiVector.pm6' lines 36 and 37)
 #n# 2022-01-20 from cron uses 'system' version of Clifford, force local lib (until ternary issue fixed)
 
@@ -11329,9 +11330,10 @@ File: P/Polynomial_regression
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Polynomial_regression
 #c# 2016-05-03 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j#  JVM: BROKEN
-#n# the */× switch doesn't work here due to 'Clifford' module
+#n# the */× switch doesn't work here due to 'MultiVector' module
+#n# 2023-01-17 switch to MultiVector breaks this
 
 File: P/Polynomial_regression.1
 #!/usr/bin/env perl6
@@ -11570,7 +11572,7 @@ File: P/Prime_words
 #c# 2020-12-06 <RC
 #m# MOAR: BROKEN
 #j# JVM:  BROKEN
-#n# 2022-12-20 segfaults, issue GH51XX
+#n# 2022-12-20 segfaults, issue GH5160
 
 File: P/Primes:_n*2^m+1
 #!/usr/bin/env raku
@@ -14266,6 +14268,22 @@ File: S/Spelling_of_ordinal_numbers.jvm
 #m# MOAR: OK
 #j# JVM:  OK
 #n# for JVM, .unival NYI
+
+File: S/Sphenic_numbers
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Sphenic_numbers
+#c# 2023-01-17 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# OEIS:A007304 Sphenic numbers
+#n# OEIS:A165936 Sphenic triplets
+
+File: S/Sphenic_numbers.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Sphenic_numbers
+#c# 2023-01-17 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: S/Spinning_rod_animation_Text
 #!/usr/bin/env perl6
