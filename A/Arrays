@@ -1,8 +1,10 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Arrays
-#c# 2017-06-17 <RC
+#c# 2017-06-17 <RC, 2023-01-18 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# Testing is basic, because this is fundamental stuff, most RC tasks would fail if basic arrays didn't work
+#n# But drop the Unicode superscript range '⁰'..'⁹' as it doesn't behave as expected; for some fun, try: say join '', '¹'..'⁴'
 
 # At its most basic, an array in Raku is quite similar to an array in Perl 5. 
 
@@ -55,6 +57,7 @@ my @array;
    @ar[^10];   # first 10 slots (upto 10 or 0..9)
    @ar.head(5);# first 5 slots
    @ar.tail(2);# last two
+   tail 2, @ar;# subroutine form
 
 # Multi-dimensioned arrays also use postcircumfix square brackets for access. If the array is not ragged, (every sub array is the same size) you may use semicolon subscripting.
 
@@ -77,7 +80,8 @@ my @array;
    my @c2 := 1..Inf;   # natural numbers
    my @c3 := 'a'..'z'; # lowercase latin letters
 #  my @c4 := '⁰'..'⁹';  # superscript digits      
-# DH @c4 has wrong contents?
+
+# DH @c4 has 'wrong' contents? Unicode layout of these values is not contiguous
 # should be: '⁰¹²³⁴⁵⁶⁷⁸⁹'
 # instead:   ⁰:ⁱ:⁲:⁳:⁴:⁵:⁶:⁷:⁸:⁹  # when joined by ':'
 # ⁰ : 8304 : SUPERSCRIPT ZERO
