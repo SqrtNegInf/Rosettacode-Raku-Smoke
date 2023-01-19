@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Multiple_regression
 #c# 2016-05-01 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #n# cannot use '×' at all here
 #n# remove too-damn-slow designation, try it for a while
@@ -15,12 +15,14 @@
 #    20220304:  447u 7.9s  7:36 100%
 #    20230106:  338u 5.5s  5:43 100%
 
-BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
+#BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
 #We're going to solve the example on the Wikipedia article using Clifford, a geometric algebra module. Optimization for large vector space does not quite work yet, so it's going to take (a lof of) time and a fair amount of memory, but it should work.
 #Let's create four vectors containing our input data:
 
-use MultiVector; # was Clifford
+use lib 'lib'; use Clifford; # some version prior to 7.*
+#use MultiVector; # was Clifford
+
 my @height = <1.47 1.50 1.52 1.55 1.57 1.60 1.63 1.65 1.68 1.70 1.73 1.75 1.78 1.80 1.83>;
 my @weight = <52.21 53.12 54.48 55.84 57.20 58.57 59.93 61.29 63.11 64.47 66.28 68.10 69.92 72.19 74.46>;
 
