@@ -1,10 +1,10 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env perl6 # do-not-check
 #u# http://rosettacode.org/wiki/Multiple_regression
 #c# 2016-05-01 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# cannot use '×' at all here
-#n# remove too-damn-slow designation, try it for a while
+#n# the */× switch doesn't work here due to 'MultiVector' module
+#n# remove too-damn-slow designation, try it for a while [for iMac only, really is pretty slow on Mac-Pro]
 #n# 2023-01-17 switch to MultiVector breaks this
 
 #    20161123: 1898u 7.2s 31:49 100%
@@ -16,6 +16,8 @@
 #    20230106:  338u 5.5s  5:43 100%
 
 #BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
+
+die 'Really quite slow on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/
 
 #We're going to solve the example on the Wikipedia article using Clifford, a geometric algebra module. Optimization for large vector space does not quite work yet, so it's going to take (a lof of) time and a fair amount of memory, but it should work.
 #Let's create four vectors containing our input data:
