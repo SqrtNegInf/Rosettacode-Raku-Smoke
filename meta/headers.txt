@@ -9372,13 +9372,13 @@ File: M/Multiple_distinct_objects
 #j#  JVM: OK
 
 File: M/Multiple_regression
-#!/usr/bin/env perl6
+#!/usr/bin/env perl6 # do-not-check
 #u# http://rosettacode.org/wiki/Multiple_regression
 #c# 2016-05-01 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
-#n# cannot use '×' at all here
-#n# remove too-damn-slow designation, try it for a while
+#n# the */× switch doesn't work here due to 'MultiVector' module
+#n# remove too-damn-slow designation, try it for a while [for iMac only, really is pretty slow on Mac-Pro]
 #n# 2023-01-17 switch to MultiVector breaks this
 
 File: M/Multiplication_tables
@@ -11329,10 +11329,10 @@ File: P/Polynomial_long_division
 #j#  JVM: OK
 
 File: P/Polynomial_regression
-#!/usr/bin/env perl6
+#!/usr/bin/env perl6 # do-not-check
 #u# http://rosettacode.org/wiki/Polynomial_regression
 #c# 2016-05-03 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'MultiVector' module
 #n# 2023-01-17 switch to MultiVector breaks this
