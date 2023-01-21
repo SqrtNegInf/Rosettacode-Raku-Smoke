@@ -17,7 +17,7 @@
 
 #BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
-die 'Really quite slow on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/
+die 'Really quite slow on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 #We're going to solve the example on the Wikipedia article using Clifford, a geometric algebra module. Optimization for large vector space does not quite work yet, so it's going to take (a lof of) time and a fair amount of memory, but it should work.
 #Let's create four vectors containing our input data:
