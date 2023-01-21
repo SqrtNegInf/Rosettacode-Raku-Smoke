@@ -3,11 +3,14 @@
 source $HOME/.profile
 cd $HOME/perl6/Rosetta-Code
 
-#bin/rc-moar-single H/Hello_world_Text
+rakubrew switch moar-2022.12
+#rakubrew switch moar-blead
+raku -v
+
 #rm -f bench/moar/*
 
 bin/rc-moar-single \
-K/Knuth%27s_algorithm_S-2
+E/Elliptic_Curve_Digital_Signature_Algorithm \
 
 # OR...
 
