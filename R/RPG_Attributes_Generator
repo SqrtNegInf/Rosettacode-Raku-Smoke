@@ -3,10 +3,10 @@
 #c# 2018-07-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-21 replace call to built-in 'rand' for output stability
 
-srand 123456;
-
-# Works with: Rakudo Star version 2018.04.1
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 my ( $min_sum, $hero_attr_min, $hero_count_min ) = 75, 15, 2;
 my @attr-names = <Str Int Wis Dex Con Cha>;
@@ -17,7 +17,8 @@ my @attr;
 repeat until @attr.sum     >= $min_sum
          and heroic(@attr) >= $hero_count_min {
 
-    @attr = @attr-names.map: { (1..6).roll(4).sort(+*).skip(1).sum };
+    @attr = @attr-names.map: { ((1..6)[6*$rng.next-rat] xx 4).sort(+*).skip(1).sum };
+   #@attr = @attr-names.map: { (1..6).roll(4).sort(+*).skip(1).sum };
 }
 
 my @res = (@attr-names Z=> @attr).gist;
@@ -25,20 +26,10 @@ my @res = (@attr-names Z=> @attr).gist;
 
 .say for @res;
 
-my $moar-terminal = qq:to/END/;
-(Str => 15 Int => 8 Wis => 10 Dex => 17 Con => 11 Cha => 15)
-Sum: 76, with 3 attributes >= 15
-END
-
-my $moar-cronjob = qq:to/END/;
-(Str => 15 Int => 13 Wis => 17 Dex => 9 Con => 16 Cha => 12)
-Sum: 82, with 3 attributes >= 15
-END
-
-my $jvm = qq:to/END/;
-(Str => 16 Int => 13 Wis => 10 Dex => 8 Con => 15 Cha => 14)
-Sum: 76, with 2 attributes >= 15
+my $ref = qq:to/END/;
+(Str => 13 Int => 11 Wis => 18 Dex => 14 Con => 15 Cha => 7)
+Sum: 78, with 2 attributes >= 15
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
