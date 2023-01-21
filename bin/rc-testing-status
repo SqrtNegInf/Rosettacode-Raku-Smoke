@@ -3,8 +3,8 @@
 #  2021-05-31
 
 while () { 
-   #$p = `ps aux | grep perl6-m | cut -c 17-23,148- | grep '/' | grep perl6-m | head -1 | cut -c 1-6,16-`;
-    $p = `ps aux | grep perl6-m | cut -c 16-23,147- | grep 'perl6-m ./' | cut -c 1-6,16-`;
+    $p = `ps aux | grep perl6-m | cut -c 17-23,148- | grep '/' | grep perl6-m | head -1 | cut -c 1-6,16-`;
+   #$p = `ps aux | grep perl6-m | cut -c 16-23,147- | grep 'perl6-m ./' | cut -c 1-6,16-`;
     exit if length($p) > 2000;
     print $p;
     sleep 30;
