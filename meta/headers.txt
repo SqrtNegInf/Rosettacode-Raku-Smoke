@@ -9380,6 +9380,7 @@ File: M/Multiple_regression
 #n# the */× switch doesn't work here due to 'MultiVector' module
 #n# remove too-damn-slow designation, try it for a while [for iMac only, really is pretty slow on Mac-Pro]
 #n# 2023-01-17 switch to MultiVector breaks this
+die 'Really quite slow on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: M/Multiplication_tables
 #!/usr/bin/env perl6
