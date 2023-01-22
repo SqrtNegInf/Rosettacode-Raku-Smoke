@@ -15,10 +15,10 @@ rm -rf $HOME/.raku/precomp # new bug, old solution?
 rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
 
 cd $HOME/.rakubrew
-bin/rakubrew switch moar-2022.12
+rakubrew mode env
+#rakubrew switch moar-blead
+rakubrew switch moar-2022.12
 raku -v
-#bin/rakubrew mode env
-#bin/rakubrew switch moar-2022.12
 
 # update Rakudo/MoarVM
 #bin/rakubrew self-upgrade > out.rb    2> err.rb
@@ -38,8 +38,6 @@ rm -f run/*
 
 # smoking
 echo 'MOAR'
-# not running in 'shim' mode any longer
-#$HOME/.rakubrew/bin/rakubrew switch moar-blead
 #zef --force-install install Clifford
 #bin/rc-moar-parallel [0-Z]/*
 bin/rc-moar-single [0-Z]/*
@@ -127,10 +125,7 @@ grep -v '^20' meta*/srand-drift.txt | $HOME/bin/sortcnt | cut -c1-75
 #echo ' '
 #$HOME/perl6/Rosetta-Code/bin/Task-git
 
-#cd $HOME/.rakubrew
-#bin/rakubrew mode env
-
-echo 'Switch rakubrew mode back to env'
-cd $HOME
-rakubrew mode env
-rakubrew mode
+#echo 'Switch rakubrew mode back to env'
+#cd $HOME
+#rakubrew mode env
+#rakubrew mode
