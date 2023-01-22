@@ -6,11 +6,10 @@
 #  sudo apt install build-essential default-jdk vim git
 
 source $HOME/.profile
-source $HOME/.zsh_profile
 
-# 2022-06-03 re-revert                [and the people responsible for the sacking have been sacked...]
-# 2022-04-06 how about now?           [Seemingly not...]
 # 2022-01-18 see if this still needed [ANSWER: YEP]
+# 2022-04-06 how about now?           [Seemingly not...]
+# 2022-06-03 re-revert                [and the people responsible for the sacking have been sacked...]
 # 2022-12-23 Using 'Go-finish' (which doesn't do this) confirms that still sometimes needed
 rm -rf $HOME/.raku/precomp # new bug, old solution?
 rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
@@ -19,26 +18,16 @@ cd $HOME/.rakubrew
 bin/rakubrew mode shim
 
 # update Rakudo/MoarVM
-#bin/rakubrew self-upgrade > out.rb    2> err.rb
-#(cd versions; rm -rf moar-yesterday; cp -pr moar-blead moar-yesterday)
 bin/rakubrew build moar-blead >    out.moar  2>    err.moar
 bin/rakubrew rehash
-#(cd versions/moar-blead; make spectest   > ../out.mtest 2> ../err.mtest )
 bin/rakubrew switch moar-blead
-#bin/rakubrew build zef
 
 cd $HOME/perl6/Rosetta-Code
 bin/rc-jvm-cleanup
 rm -f run/*
 
-# but only as long as 'rc-moar-srand' is being run in the early-morning hours
-#rm -f bench/moar/*
-
-# smoking
+# run them all
 echo 'MOAR'
-# not running in 'shim' mode any longer
-#$HOME/.rakubrew/bin/rakubrew switch moar-blead
-#zef --force-install install Clifford
 raku -v
 #bin/rc-moar-parallel [0-Z]/*
 bin/rc-moar-single [0-Z]/*
@@ -103,10 +92,6 @@ diff meta/non-ascii.txt~ meta/non-ascii.txt
 # extract list of citations
 bin/rc-oeis > meta/OEIS.txt
 
-# how did the spectest go?
-#echo ' '
-#$HOME/bin/grep-paragraph Summary $HOME/.rakubrew/versions/out.mtest
-
 # latest Rakudo commits 
 echo ' '
 cd $HOME/.rakubrew/versions/moar-blead
@@ -117,9 +102,6 @@ echo ' '
 echo 'boring stuff...'
 echo ' '
 $HOME/perl6/Rosetta-Code/bin/Task-git
-
-#cd $HOME/.rakubrew
-#bin/rakubrew mode env
 
 echo 'Switch rakubrew mode back to env'
 cd $HOME
