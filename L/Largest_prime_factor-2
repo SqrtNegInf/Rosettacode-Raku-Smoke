@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# quick version uses P5/ntheory (particularly funny)
+die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 my @res;
 
