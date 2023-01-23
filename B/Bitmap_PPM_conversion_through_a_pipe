@@ -36,6 +36,7 @@ for flat ^$b.height X ^$b.width -> $i, $j {
     $b.pixel($i, $j) = Pixel.new: :R($i×2), :G($j×2), :B(255-$i×2);
 }
 
-my $proc = run '/opt/local/bin/convert','-','run/output_piped.jpg', :in;
+my $convert = chomp qx/which convert/;
+my $proc = run $convert,'-','run/output_piped.jpg', :in;
 $proc.in.write: $b.P6;
 $proc.in.close;
