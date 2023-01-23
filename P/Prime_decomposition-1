@@ -3,6 +3,7 @@
 #c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC, 2018-11-15 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 my @res;
 
