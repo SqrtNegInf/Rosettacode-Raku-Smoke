@@ -3,6 +3,7 @@
 #c# 2020-01-29 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 my @res;
 
