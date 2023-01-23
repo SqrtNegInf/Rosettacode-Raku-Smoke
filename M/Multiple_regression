@@ -6,7 +6,7 @@
 #n# the */× switch doesn't work here due to 'MultiVector' module
 #n# remove too-damn-slow designation, try it for a while [for iMac only, really is pretty slow on Mac-Pro]
 #n# 2023-01-17 switch to MultiVector breaks this
-die 'BROKEN (OK really not, just very slow) on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on Mac-Pro (OK really not, just very slow)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 #    20161123: 1898u 7.2s 31:49 100%
 #    20170123: 1431u 5.3s 24:04 100%
