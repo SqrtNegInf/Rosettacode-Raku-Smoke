@@ -14,3 +14,4 @@ sub abbr ($_) { .chars < 41 ?? $_ !! .substr(0,20) ~ '…' ~ .substr(*-20) ~ " (
 
 if qx/uname -a/ ~~ /'Mac-Pro'/
 if qx/uname -a/ ~~ /'iMac'/
+if qx/uname -a/ ~~ /'Ubuntu'/
