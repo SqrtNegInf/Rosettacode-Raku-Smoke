@@ -1,9 +1,15 @@
 #!/usr/local/bin/perl
 # capture output from job, along with timings
 #  David H.  2016-07-31, 2018-10-02
+#  2023-01-22 stdout/stderr now working the same way on Ubuntu
 #  only called from rc-moar/rc-jvm, to allow proper handling of 3 streams of output:
 #    $ARGV[0] names the R.C. task, and 'rc-capture' bundles the task STDOUT/STDERR into one stream, this program's STDOUT
 #    'time' prints to STDERR, becomes this program's STDERR
 
-print `bin/rc-capture time $ARGV[0]`;
-#print `Capture time $ARGV[0]`;
+if (`uname -a` =~ /Darwin/) { 
+    print `bin/rc-capture time -p $ARGV[0]`;    # Mac-Pro, iMac
+} else {
+    print `bin/rc-capture $ARGV[0]`;            # Ubuntu ('time' output not being captured as STDERR)
+}
+
+#print `Capture time -p $ARGV[0]`;

@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Generate_random_numbers_without_repeating_a_value
-#c# 2021-08-28 <RC
+#c# 2021-08-28 <RC, 2023-01-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# replace call to built-in 'rand' for output stability
@@ -17,12 +17,21 @@ all the elements in random order, just pick 'whatever'. Here we'll pick all
 from 1 to 20, 5 times using the repetition operator.
 }
 
+say 'Pick random elements with replacement';
+.put for (1..20).pick(*) xx 4;
+
+say '';
+say 'Pick random elements with replacement';
+.put for (1..20).roll(20) xx 4;
+
+# not testing above output
+
 use myRNG;
 my $rng = myRNG.new( :seed(123456) );
 
 # Knuth shuffle
 sub pick-all (@a is copy) is export {
-    for 1 ..^ @a -> $n {
+for 1 ..^ @a -> $n {
         my $k = (0 .. $n)[($n+1) × $rng.next-rat];
         $k == $n or @a[$k, $n] = @a[$n, $k];
     }

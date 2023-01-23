@@ -6022,7 +6022,7 @@ File: G/Generate_random_chess_position
 File: G/Generate_random_numbers_without_repeating_a_value
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Generate_random_numbers_without_repeating_a_value
-#c# 2021-08-28 <RC
+#c# 2021-08-28 <RC, 2023-01-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# replace call to built-in 'rand' for output stability
@@ -9380,7 +9380,7 @@ File: M/Multiple_regression
 #n# the */× switch doesn't work here due to 'MultiVector' module
 #n# remove too-damn-slow designation, try it for a while [for iMac only, really is pretty slow on Mac-Pro]
 #n# 2023-01-17 switch to MultiVector breaks this
-die 'BROKEN (OK really not, just very slow) on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on Mac-Pro (OK really not, just very slow)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: M/Multiplication_tables
 #!/usr/bin/env perl6
