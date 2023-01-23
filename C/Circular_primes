@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A016114
+die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 my @res;
 
