@@ -7,7 +7,7 @@ chdir "$ENV{HOME}/perl6/Rosetta-Code";
 # at this time, don't do automatic commits from iMac host
 exit if `uname -a` =~ /iMac/;
 
-$git      = '/opt/local/bin/git';
+$git      = `which git`; chomp $git;
 $msg_task = 'update of task';
 $msg_prog = 'update of control program';
 $msg_stat = 'daily update of task status';
