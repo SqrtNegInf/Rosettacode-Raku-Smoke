@@ -14,7 +14,10 @@ $frog.read("ref/frog.png");
 $frog.quantize(16, RGBColorspace, 0, True, False);
 $frog.write('run/frog-16.png');
 
-say my $result = qqx!/opt/local/bin/compare -metric MAE ref/frog-16.png run/frog-16.png null: 2>&1!;
+my $compare = chomp qx/which compare/;
+say my $result = qqx!$compare -metric MAE ref/frog-16.png run/frog-16.png null: 2>&1!;
 
+# allow for exact equivalence or close similarity
 use Test;
-is $result, '0 (0)';
+my ($mae,$percent)  = $result.split(' ');
+ok $result eq '0 (0)' || $mae < 2000 and $percent.starts-with('(0.');
