@@ -32,7 +32,8 @@ sub getline ( $proc ) {
 
 my $filename = 'ref/camelia.png';
 
-my $proc = run '/opt/local/bin/convert', $filename, 'ppm:-', :enc('ISO-8859-1'), :out;
+my $convert = chomp qx/which convert/; 
+my $proc = run $convert, $filename, 'ppm:-', :enc('ISO-8859-1'), :out;
 
 my $type = getline($proc);
 my ($width, $height) = getline($proc).split: ' ';
