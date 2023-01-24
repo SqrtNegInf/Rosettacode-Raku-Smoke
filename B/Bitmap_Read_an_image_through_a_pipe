@@ -32,7 +32,7 @@ sub getline ( $proc ) {
 
 my $filename = 'ref/camelia.png';
 
-my $convert = chomp qx/which convert/; 
+my $convert = chomp qx/which convert/ or die 'Required testing tool <convert> not found';
 my $proc = run $convert, $filename, 'ppm:-', :enc('ISO-8859-1'), :out;
 
 my $type = getline($proc);
