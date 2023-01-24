@@ -36,7 +36,7 @@ for flat ^$b.height X ^$b.width -> $i, $j {
     $b.pixel($i, $j) = Pixel.new: :R($i×2), :G($j×2), :B(255-$i×2);
 }
 
-my $convert = chomp qx/which convert/;
+my $convert = chomp qx/which convert/ or die 'Required testing tool <convert> not found';
 my $proc = run $convert,'-','run/output_piped.jpg', :in;
 $proc.in.write: $b.P6;
 $proc.in.close;
