@@ -2388,6 +2388,7 @@ File: C/Circular_primes
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A016114
+die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: C/Circular_primes.jvm
 #!/usr/bin/env raku
@@ -4998,6 +4999,7 @@ File: F/Fermat_numbers
 #n# thundergnat: I gave up on factoring F₉ after about 20 minutes.
 #n# OEIS:A000215 Fermat numbers
 #n# OEIS:A019434 Fermat primes
+die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: F/Fermat_numbers.jvm
 #!/usr/bin/env perl6
@@ -7795,6 +7797,7 @@ File: L/Largest_prime_factor-2
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# quick version uses P5/ntheory (particularly funny)
+die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: L/Largest_prime_factor-3
 #!/usr/bin/env raku
@@ -11514,6 +11517,7 @@ File: P/Prime_decomposition-1
 #c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC, 2018-11-15 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: P/Prime_decomposition.2
 #!/usr/bin/env perl6
@@ -11661,6 +11665,7 @@ File: P/Primorial_numbers-1
 #c# 2020-01-29 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: P/Primorial_numbers-2
 #!/usr/bin/env perl6
