@@ -7,9 +7,9 @@
 #    'time' prints to STDERR, becomes this program's STDERR
 
 if (`uname -a` =~ /Darwin/) { 
-    print `bin/rc-capture time -p $ARGV[0]`;    # Mac-Pro, iMac
+    print `bin/rc-capture time $ARGV[0]`;    # Mac-Pro, iMac
 } else {
-    print `bin/rc-capture $ARGV[0]`;            # Ubuntu ('time' output not being captured as STDERR)
+    print `bin/rc-capture time -p $ARGV[0]`; # Ubuntu ('time' output not being captured as STDERR)
 }
 
 #print `Capture time -p $ARGV[0]`;
