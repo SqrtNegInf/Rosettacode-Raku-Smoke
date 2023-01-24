@@ -14,7 +14,7 @@ $frog.read("ref/frog.png");
 $frog.quantize(16, RGBColorspace, 0, True, False);
 $frog.write('run/frog-16.png');
 
-my $compare = chomp qx/which compare/;
+my $compare = chomp qx/which compare/ or die 'Required testing tool <compare> not found';
 say my $result = qqx!$compare -metric MAE ref/frog-16.png run/frog-16.png null: 2>&1!;
 
 # allow for exact equivalence or close similarity
