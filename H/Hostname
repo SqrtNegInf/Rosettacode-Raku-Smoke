@@ -8,7 +8,14 @@ my $host = qx[/bin/hostname];
 say $host;
 
 use Test;
-#my $ref = $*KERNEL eq 'darwin' ??  'Mac-Pro.local' !! 'osboxes';
-my $ref = $*DISTRO ~~ /'macosx'/ ??  'Mac-Pro.local' !! 'iMac.home';
-#my $ref = $*DISTRO.starts-with:('macosx') ??  'Mac-Pro.local' !! 'iMac.home'; # ??
+my $ref = $*DISTRO ~~ /'ubuntu'/ ?? 'osboxes' !!
+          $*DISTRO ~~ /'macosx'/ ?? 'Mac-Pro.local' !! 'iMac.home';
+#my $ref = $*DISTRO.starts-with:('macosx') ??  'Mac-Pro.local' !! 'iMac.home';
 is (chomp $host), $ref;
+
+=finish 
+
+$*DISTRO starts:
+    'macosx' - El Capitan
+    'macos ' - Monterey
+    'ubuntu' - Ubuntu
