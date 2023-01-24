@@ -3,6 +3,7 @@
 #c# 2016-01-10 <RC, 2017-06-05 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 2023-01-24 still using a hard-coded path, but works for Darwin and Linux/Ubuntu now
 
 die 'NativeCall...' if $*VM ~~ /jvm/;
 
@@ -12,7 +13,8 @@ die 'NativeCall...' if $*VM ~~ /jvm/;
 
 use NativeCall;
 
-sub crc32(int32 $crc, Str $buf, int32 $len --> int32) is native('/usr/lib/libz.dylib') { * }
+BEGIN my $libz = $*KERNEL eq 'darwin' ?? 'libz.dylib' !! 'x86_64-linux-gnu/libz.so';    # BEGIN needed!
+sub crc32(int32 $crc, Str $buf, int32 $len --> int32) is native("/usr/lib/$libz") { * }
 
 my $buf = 'The quick brown fox jumps over the lazy dog';
 say my $out1 = crc32(0, $buf, $buf.chars).fmt('%08x');
