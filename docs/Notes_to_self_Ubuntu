@@ -1,9 +1,24 @@
 2023-01-24
 'ntheory' performance issues solved with custom Perl 5.36 installed with 'perlbrew'
+(problem was with the 'libperl-dev' installed by 'apt')
+
+Inline::Perl5 dependencies require: 
+    cpanm ntheory Math::GMP Math::AnyNum Math::Polynomial::Cyclotomic 
+
+Which have pre-requisite libraries:
+    sudo apt-get install libgmp-dev libmpfr-dev libmpc-dev
+
+Hard-coded path still sub-optimal in 'C/CRC-32' (but it works).
+
+To get graphing in 'S/Statistics_Chi-squared_distribution':
+    sudo apt install libplplot-dev
+    sudo ln -s /usr/lib/x86_64-linux-gnu/libplplot.so /usr/lib/x86_64-linux-gnu/libplplotd.so
+    zef install Graphics::PLplot
 
 2023-01-23
 Starting out with about 50 failed tests. The biggest issue is some (not all) Inline::Perl5 code 
 using 'ntheory' which is glacialy slow. These have been blocked from running for now.
+
 Hard-coded paths ('convert', 'compare') replaced with a lookup and 'die' if not found.
 
 2023-01-22
