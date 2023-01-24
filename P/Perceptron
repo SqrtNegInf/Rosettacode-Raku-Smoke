@@ -61,7 +61,8 @@ $o.create( $w, $h, "white" );
 $perc.draw($o);
 $o.write('run/perceptron.png') or die;
 
-say my $result = qqx!/opt/local/bin/compare -metric MAE ref/perceptron.png run/perceptron.png null: 2>&1!;
+my $compare = chomp qx/which compare/ or die 'Required testing tool <compare> not found';
+say my $result = qqx!$compare -metric MAE ref/perceptron.png run/perceptron.png null: 2>&1!;
 
 # allow for exact equivalence or close similarity
 use Test;
