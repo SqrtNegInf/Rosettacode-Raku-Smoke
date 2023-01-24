@@ -5,9 +5,7 @@
 chdir "$ENV{HOME}/perl6/Rosetta-Code";
 
 # at this time, allow automatic commits only from Mac-Pro
-#exit if -t and `uname -a` !~ /Mac-Pro/;
-
-print "got here";
+exit if -t and `uname -a` !~ /Mac-Pro/;
 
 $git      = `which git`; chomp $git;
 $msg_task = 'update of task';
