@@ -6,7 +6,6 @@
 #n# thundergnat: I gave up on factoring F₉ after about 20 minutes.
 #n# OEIS:A000215 Fermat numbers
 #n# OEIS:A019434 Fermat primes
-die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 my @res;
 
