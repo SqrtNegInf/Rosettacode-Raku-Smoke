@@ -1867,6 +1867,7 @@ File: C/CRC-32
 #c# 2016-01-10 <RC, 2017-06-05 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
+#n# 2023-01-24 still using a hard-coded path, but works for Darwin and Linux/Ubuntu now
 
 File: C/CRC-32.jvm
 #!/usr/bin/env perl6
@@ -2388,7 +2389,6 @@ File: C/Circular_primes
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A016114
-die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: C/Circular_primes.jvm
 #!/usr/bin/env raku
@@ -4999,7 +4999,6 @@ File: F/Fermat_numbers
 #n# thundergnat: I gave up on factoring F₉ after about 20 minutes.
 #n# OEIS:A000215 Fermat numbers
 #n# OEIS:A019434 Fermat primes
-die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: F/Fermat_numbers.jvm
 #!/usr/bin/env perl6
@@ -7797,7 +7796,6 @@ File: L/Largest_prime_factor-2
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# quick version uses P5/ntheory (particularly funny)
-die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: L/Largest_prime_factor-3
 #!/usr/bin/env raku
@@ -11517,7 +11515,6 @@ File: P/Prime_decomposition-1
 #c# 2016-06-28 <RC, 2016-09-31 <RC, 2018-04-15 <RC, 2018-11-15 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: P/Prime_decomposition.2
 #!/usr/bin/env perl6
@@ -11665,7 +11662,6 @@ File: P/Primorial_numbers-1
 #c# 2020-01-29 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-die 'BROKEN on Ubuntu (1000x slower than on Darwin)' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: P/Primorial_numbers-2
 #!/usr/bin/env perl6
@@ -14492,10 +14488,13 @@ File: S/Statistics_Chi-squared_distribution
 #c# 2022-11-01 <RC, 2022-12-04 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# either:
+#n# For Darwin either:
 #n#   brew install plplot; (cd /usr/local/lib; ln -s libplplot.dylib libplplotd.so)
 #n# or:
 #n#   sudo port install plplot; (cd /usr/local/lib; ln -s /opt/local/lib/libplplot.dylib ./libplplotd.so)
+#n# For Ubuntu:
+#n#   sudo apt install libplplot-dev
+#n#   sudo ln -s /usr/lib/x86_64-linux-gnu/libplplot.so /usr/lib/x86_64-linux-gnu/libplplotd.so
 #n# MPro/iMac images have very slight differences, so can't use exact-match file testing
 
 File: S/Statistics_Chi-squared_distribution.jvm
