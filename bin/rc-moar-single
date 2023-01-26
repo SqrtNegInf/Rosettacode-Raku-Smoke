@@ -78,6 +78,7 @@ for my $prog (@ARGV) {
     my $hostname = `uname -a`;
     next if $mode eq 'moar' && $hostname =~ /Mac-Pro/ && grep { /BROKEN on Mac-Pro/i } @status;
     next if $mode eq 'moar' && $hostname =~ /iMac/    && grep { /BROKEN on iMac/i    } @status;
+    next if $mode eq 'moar' && $hostname =~ /osboxes/ && grep { /BROKEN on Ubuntu/i  } @status;
     #next if $mode eq 'jvm'  && grep { /^#j#.*BROKEN/i } @status; # always run to see if now un-breaks
 
     $clargs = `grep 'RC.cli' $prog`; chomp $clargs; 
