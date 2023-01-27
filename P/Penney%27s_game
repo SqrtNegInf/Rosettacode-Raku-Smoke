@@ -4,15 +4,17 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# munged to avoid input, sleep times to zero
-
-srand 123456;
+#n# 2023-01-27 mangled just to get stable results
 
 my @res;
 
-enum Coin <Heads Tails>;
-enum Yay <Yay Good Super Hah Ooh Yipee Sweet Cool Yes Haha>;
-enum Boo <Drat Darn Crumb Oops Rats Bah Criminy Argh Shards>;
-enum Bozo «'Dude' 'Cha' 'Bzzt' 'Hey' 'Silly dilly' 'Say what!?' 'You numbskull'»;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
+
+#enum Coin <Heads Tails>;
+#enum Yay <Yay Good Super Hah Ooh Yipee Sweet Cool Yes Haha>;
+#enum Boo <Drat Darn Crumb Oops Rats Bah Criminy Argh Shards>;
+#enum Bozo «'Dude' 'Cha' 'Bzzt' 'Hey' 'Silly dilly' 'Say what!?' 'You numbskull'»;
 
 sub flipping {
     return;
@@ -26,61 +28,61 @@ sub flipping {
 
 sub your-choice($p is copy) {
     return ('Heads', 'Tails', 'Heads');
-    loop (my @seq; @seq != 3; $p = "{Bozo.pick}! Please pick exactly 3: ") {
+    loop (my @seq; @seq != 3; $p = "Please pick exactly 3: ") {
         @seq = prompt($p).uc.comb(/ H | T /).map: {
-            when 'H' { Heads }
-            when 'T' { Tails }
+            when 'H' { 0 }
+            when 'T' { 1 }
         }
     }
     @seq;
 }
 
 #repeat until prompt("Wanna play again? ").lc ~~ /^n/ {
-    my $mefirst = Coin.roll;
+    my $mefirst =  <Heads Tails>[$rng.next-rat < .5 ?? 0 !! 1];
     #print tc "$mefirst I start, {Coin(+!$mefirst).lc} you start, flipping...\n";
     #flipping;
-    @res.push: my $flip = Coin.roll;
+    @res.push: my $flip =  <Heads Tails>[$rng.next-rat < .5 ?? 0 !! 1];
 
     my @yours;
     my @mine;
 
-    if $flip == $mefirst {
-        #print "{Yay.pick}! I get to choose first, and I choose: "; sleep 0; 
-        @res.push: (@mine = |Coin.roll(3)).join(' ');
-        @yours = your-choice("Now you gotta choose: ");
-        while @yours eqv @mine {
-            @res.push: "{Bozo.pick}! We'd both win at the same time if you pick that!";
-            @yours = your-choice("Pick something different from me: ");
-        }
-        @res.push: "So, you'll win if we see: "~ @yours;
-    }
-    else {
-        @yours = your-choice("{Boo.pick}! First you choose: ");
+#   if $flip == $mefirst {
+#       #print "{Yay.pick}! I get to choose first, and I choose: "; sleep 0; 
+#       @res.push: (@mine = |(<Heads Tails>[$rng.next-rat < .5 ?? 0 !! 1] xx 3)).join(' ');
+#       @yours = your-choice("Now you gotta choose: ");
+#       while @yours eqv @mine {
+#           @res.push: "{Bozo.pick}! We'd both win at the same time if you pick that!";
+#           @yours = your-choice("Pick something different from me: ");
+#       }
+#       @res.push: "So, you'll win if we see: " ~ @yours;
+#   }
+#   else {
+        @yours = <Heads Heads Heads>; #your-choice("First you choose: ");
         @res.push: "OK, you'll win if we see: "~ @yours.join(' ');
         #print "In that case, I'll just randomly choose: "; sleep 0; 
-        @res.push: (@mine = Coin(+!@yours[1])~ |@yours[0,1]).join(' ');
-    }
+#        @res.push: (@mine = Coin(+!@yours[1])~ |@yours[0,1]).join(' ');
+#   }
 
     sub check($a,$b,$c) {
         given [$a,$b,$c] {
-            when @mine  { @res.push: "\n{Yay.pick}, I win, and you lose!"; Nil }
-            when @yours { @res.push: "\n{Boo.pick}, you win, but I'll beat you next time!"; Nil }
-            default     { Coin.roll }
+            when @mine  { @res.push: "\nI win, and you lose!"; Nil }
+            when @yours { @res.push: "\nyou win, but I'll beat you next time!"; Nil }
+            default     { <Heads Tails>[$rng.next-rat < .5 ?? 0 !! 1] }
         }
     }
 
-    #sleep 1;
-    @res.push: < OK! Ready? Right... So... Yo!>.pick;
-    #sleep .5;
-    @res.push: ("Pay attention now!",
-        "Watch closely!",
-        "Let's do it...",
-        "You feeling lucky?",
-        "No way you gonna win this...",
-        "Can I borrow that coin again?").pick;
-    #sleep 1;
-    #print "Here we go!\n    ";
-    for |Coin.roll(3), &check ...^ :!defined {
+   #sleep 1;
+   #@res.push: < OK! Ready? Right... So... Yo!>.pick;
+   #sleep .5;
+   #@res.push: ("Pay attention now!",
+   #    "Watch closely!",
+   #    "Let's do it...",
+   #    "You feeling lucky?",
+   #    "No way you gonna win this...",
+   #    "Can I borrow that coin again?").pick;
+   #sleep 1;
+   #print "Here we go!\n    ";
+    for |(<Heads Tails>[$rng.next-rat < .5 ?? 0 !! 1] xx 3), &check ...^ :!defined {
         #flipping;
         #print "$_ ";
         @res.push: "$_ ";    
@@ -89,56 +91,24 @@ sub your-choice($p is copy) {
 
 .say for @res;
 
-my $moar-terminal = qq:to/END/;
+my $ref = qq:to/END/;
+Heads
+OK, you'll win if we see: Heads Heads Heads
 Tails
-Tails Tails Tails
-So, you'll win if we see: Heads Tails Heads
-Ready?
-Pay attention now!
+Tails
+Heads
+Tails
+Heads
+Tails
+Tails
+Tails
 Tails
 Heads
 Heads
-Tails
 Heads
 
-Bah, you win, but I'll beat you next time!
-END
-
-my $moar-cronjob = qq:to/END/;
-Tails
-Tails Tails Tails
-So, you'll win if we see: Heads Tails Heads
-Ready?
-Pay attention now!
-Tails
-Heads
-Heads
-Tails
-Heads
-
-Bah, you win, but I'll beat you next time!
-END
-
-my $jvm = qq:to/END/;
-Tails
-OK, you'll win if we see: Heads Tails Heads
-HeadsHeads Tails
-So...
-Pay attention now!
-Tails
-Heads
-Tails
-Tails
-Tails
-Heads
-Heads
-Heads
-Tails
-Heads
-
-Drat, you win, but I'll beat you next time!
+you win, but I'll beat you next time!
 END
 
 use Test;
-my $ref = chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
 is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
