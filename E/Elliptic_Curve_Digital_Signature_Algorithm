@@ -7,10 +7,12 @@
 #n# 2020-10-19 output bi-stable, test for which version of results present
 #n# 2020-12-06 OK now? Maybe? Hopefully? We'll see...
 #n# 2021-03-02 still unstable
-
-srand 123456;
+#n# 2023-01-27 replace call to built-in 'rand' for output stability
 
 my @res;
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 use Digest::SHA256::Native;
  
@@ -72,7 +74,7 @@ class Signature {
       my \z = :16(sha256-hex msg) % $.n; # self ref: Blob.list.fmt("%02X",'')
       loop (my $k = my $s = my $r = 0 ; $s == 0 ; ) {
          loop ($r = $s = 0 ; $r == 0 ; ) {
-            $r = (( $k = (1..^$.n).roll ) ⊠ $.G).x % $.n;
+            $r = (( $k = (1..^$.n)[($.n-1) * $rng.next-rat] ) ⊠ $.G).x % $.n;
          }
          $s = ((z + $r×private_key) × mult_inv $k, :modulo($.n)) % $.n;
       }
@@ -95,7 +97,7 @@ my $ec = Signature.new: n => O, G => Point.new: x => Gx, y => Gy ;
 @res.push: "Order(G, E) is        : "~ O;
 @res.push: "Is G  ∈ E ?           : "~ $ec.G.isOn;
 @res.push: "Message               : "~ my \message = "Show me the monKey";
-@res.push: "The private key dA is : "~ my \dA = (1..^O).roll;
+@res.push: "The private key dA is : "~ my \dA = (1..^O)[(O-1) * $rng.next-rat];
 my ($r, $s, \Qa) = $ec.generate_signature(dA, message);
 @res.push: "The public  key Qa is : "~ Qa.gist;
 @res.push: "Is Qa ∈ E ?           : "~ Qa.isOn;
@@ -104,67 +106,20 @@ my ($r, $s, \Qa) = $ec.generate_signature(dA, message);
 @res.push: "Is signature valid?   : "~ $ec.verify_signature(altered, $r, $s, Qa);
 
 .say for @res;
-#exit;
 
-my $moar-terminal = q:to/END/;
+my $ref = q:to/END/;
 The Curve E is        : 𝑦² = 𝑥³ + 355 𝑥 + 671 (mod 1073741789) 
 with Generator G at   : (13693,10088)
 Order(G, E) is        : 1073807281
 Is G  ∈ E ?           : True
 Message               : Show me the monKey
-The private key dA is : 988027138
-The public  key Qa is : EC Point at x=418392123, y=903771857
+The private key dA is : 242864309
+The public  key Qa is : EC Point at x=13733044, y=206705524
 Is Qa ∈ E ?           : True
 Is signature valid?   : True
 Message (Tampered)    : Show me the money
 Is signature valid?   : False
 END
-
-my $moar-cronjob1 = q:to/END/;
-The Curve E is        : 𝑦² = 𝑥³ + 355 𝑥 + 671 (mod 1073741789) 
-with Generator G at   : (13693,10088)
-Order(G, E) is        : 1073807281
-Is G  ∈ E ?           : True
-Message               : Show me the monKey
-The private key dA is : 913449363
-The public  key Qa is : EC Point at x=889975280, y=302400633
-Is Qa ∈ E ?           : True
-Is signature valid?   : True
-Message (Tampered)    : Show me the money
-Is signature valid?   : False
-END
-
-my $moar-cronjob2 = q:to/END/;
-The Curve E is        : 𝑦² = 𝑥³ + 355 𝑥 + 671 (mod 1073741789) 
-with Generator G at   : (13693,10088)
-Order(G, E) is        : 1073807281
-Is G  ∈ E ?           : True
-Message               : Show me the monKey
-The private key dA is : 421688606
-The public  key Qa is : EC Point at x=792112954, y=372532278
-Is Qa ∈ E ?           : True
-Is signature valid?   : True
-Message (Tampered)    : Show me the money
-Is signature valid?   : False
-END
-
-my $jvm = q:to/END/;
-The Curve E is        : 𝑦² = 𝑥³ + 355 𝑥 + 671 (mod 1073741789) 
-with Generator G at   : (13693,10088)
-Order(G, E) is        : 1073807281
-Is G  ∈ E ?           : True
-Message               : Show me the monKey
-The private key dA is : 666683498
-The public  key Qa is : EC Point at x=1016062020, y=1061016630
-Is Qa ∈ E ?           : True
-Is signature valid?   : True
-Message (Tampered)    : Show me the money
-Is signature valid?   : False
-END
-
-# handle flapping result
-my $moar-cronjob = @res.join("\n") ~~ / 'x=889975280' / ?? $moar-cronjob1 !! $moar-cronjob2;
-#$moar-cronjob = $moar-cronjob3 if qx/uname -a/ ~~ /'iMac'/;
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
