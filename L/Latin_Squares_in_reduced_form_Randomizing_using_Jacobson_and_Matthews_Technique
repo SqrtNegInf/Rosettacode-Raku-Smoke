@@ -6,11 +6,13 @@
 #n# somewhat limited testing, but better than none
 #n# would be very slow with myRNG, just update results for now...
 #n# Mac-Pro/iMac results diverge, use host-specific tests
-
-srand 123456;
+#n# 2023-01-27 replace call to built-in 'rand' for output stability
 
 my @res;
 my $result;
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 sub makeCube(\from, Int \n) {  
    my @c = [[[ 0 xx n ] xx n ] xx n ]; 
@@ -24,19 +26,20 @@ sub makeCube(\from, Int \n) {
 sub shuffleCube(@c) {
    my ($rx, $ry, $rz); my \n = +@c; my Bool \proper = $ = True;
 
-   repeat { ($rx ,$ry, $rz) = (^n).roll: 3 } until @c[$rx;$ry;$rz] == 0;
+   repeat { ($rx ,$ry, $rz) = (^n)[n * $rng.next-rat] xx 3 } until @c[$rx;$ry;$rz] == 0;
+  #repeat { ($rx ,$ry, $rz) = (^n).roll: 3 } until @c[$rx;$ry;$rz] == 0;
    loop { 
       my ($ox, $oy, $oz); 
       for ^n { last if @c[ $ox = $_ ;$ry;$rz] == 1 }
-      if !proper and (^3).roll==0 { 
+      if !proper and (^3)[3 * $rng.next-rat] == 0 { 
          for $ox^…^n { last if @c[ $ox = $_ ;$ry;$rz] == 1 } 
       }
       for ^n { last if @c[$rx; $oy = $_ ;$rz] == 1 }
-      if !proper and (^3).roll==0 {
+      if !proper and (^3)[3 * $rng.next-rat] == 0 { 
          for $oy^…^n { last if @c[$rx; $oy = $_ ;$rz] == 1 }
       } 
       for ^n { last if @c[$rx;$ry;  $oz = $_ ] == 1 }
-      if !proper and (^3).roll==0 {
+      if !proper and (^3)[3 * $rng.next-rat] == 0 { 
          for $oz^…^n { last if @c[$rx;$ry; $oz = $_ ] == 1 }
       }
 
@@ -124,49 +127,17 @@ say "Generated in { now - $snapshot } seconds."
 .say for @res;
 say $result;
 
-my $ref1-terminal = q:to/END/;
-1239
-1187
-1266
-1308
+my $ref1 = q:to/END/;
+1243
+1217
+1213
+1327
 END
 
-my $ref2-terminal = q:to/END/;
- 1(  8)  2( 10)  3( 11)  4( 13)  5( 13)  6( 13)  7( 13)  8( 14)  9( 14) 10( 14) 11( 14) 12( 14) 13( 14) 14( 15) 15( 15) 16( 15) 17( 15) 18( 16) 19( 16) 20( 16) 21( 16) 22( 16) 23( 16) 24( 16) 25( 16) 26( 16) 27( 17) 28( 17) 29( 18) 30( 18) 31( 18) 32( 18) 33( 19) 34( 19) 35( 19) 36( 19) 37( 20) 38( 20) 39( 20) 40( 20) 41( 20) 42( 21) 43( 21) 44( 21) 45( 21) 46( 22) 47( 22) 48( 22) 49( 22) 50( 23) 51( 23) 52( 23) 53( 26) 54( 26) 55( 27) 56( 29) 
-END
-
-my $ref1-cronjob-imac = q:to/END/;
-1239
-1179
-1262
-1320
-END
-
-my $ref1-cronjob-mac-pro = q:to/END/;
-1235
-1175
-1273
-1317
-END
-
-my $ref2-cronjob-imac = q:to/END/;
- 1( 11)  2( 11)  3( 12)  4( 12)  5( 12)  6( 12)  7( 12)  8( 13)  9( 13) 10( 14) 11( 14) 12( 14) 13( 14) 14( 14) 15( 14) 16( 15) 17( 15) 18( 15) 19( 15) 20( 15) 21( 15) 22( 15) 23( 16) 24( 16) 25( 16) 26( 16) 27( 16) 28( 17) 29( 18) 30( 19) 31( 19) 32( 19) 33( 19) 34( 20) 35( 20) 36( 20) 37( 20) 38( 20) 39( 20) 40( 21) 41( 21) 42( 21) 43( 21) 44( 21) 45( 22) 46( 22) 47( 23) 48( 23) 49( 23) 50( 23) 51( 24) 52( 24) 53( 25) 54( 25) 55( 25) 56( 28) 
-END
-
-my $ref2-cronjob-mac-pro = q:to/END/;
- 1(  7)  2(  9)  3(  9)  4( 10)  5( 10)  6( 11)  7( 11)  8( 12)  9( 12) 10( 12) 11( 13) 12( 13) 13( 13) 14( 14) 15( 14) 16( 14) 17( 14) 18( 14) 19( 15) 20( 15) 21( 15) 22( 15) 23( 16) 24( 16) 25( 16) 26( 17) 27( 17) 28( 17) 29( 18) 30( 18) 31( 18) 32( 18) 33( 18) 34( 19) 35( 20) 36( 20) 37( 20) 38( 20) 39( 20) 40( 21) 41( 21) 42( 21) 43( 21) 44( 22) 45( 23) 46( 23) 47( 24) 48( 24) 49( 25) 50( 25) 51( 26) 52( 26) 53( 27) 54( 29) 55( 30) 56( 32) 
+my $ref2 = q:to/END/;
+ 1(  5)  2(  7)  3(  9)  4(  9)  5(  9)  6( 11)  7( 11)  8( 12)  9( 12) 10( 13) 11( 14) 12( 15) 13( 15) 14( 15) 15( 15) 16( 16) 17( 16) 18( 16) 19( 16) 20( 16) 21( 16) 22( 16) 23( 16) 24( 17) 25( 17) 26( 17) 27( 17) 28( 17) 29( 18) 30( 18) 31( 18) 32( 19) 33( 19) 34( 19) 35( 19) 36( 19) 37( 20) 38( 20) 39( 20) 40( 20) 41( 20) 42( 21) 43( 21) 44( 21) 45( 22) 46( 22) 47( 23) 48( 23) 49( 23) 50( 23) 51( 24) 52( 26) 53( 27) 54( 29) 55( 29) 56( 32) 
 END
 
 use Test;
-if $*IN.t {
-is @res.join("\n"), chomp $ref1-terminal;
-is $result, chomp $ref2-terminal;
-} else {
-if qx/uname -a/ ~~ /'Mac-Pro'/ {
-is @res.join("\n"), chomp $ref1-cronjob-mac-pro;
-is $result, chomp $ref2-cronjob-mac-pro;
-} else {
-is @res.join("\n"), chomp $ref1-cronjob-imac;
-is $result, chomp $ref2-cronjob-imac;
-}
-}
+is @res.join("\n"), chomp $ref1;
+is $result, chomp $ref2;
