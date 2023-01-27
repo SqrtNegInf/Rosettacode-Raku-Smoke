@@ -3,11 +3,9 @@
 #c# 2017-05-31 <RC, 2018-05-17 <RC, 2018-09-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# should update this once a year (before previous year logs are archived)
+#n# 2023-01-26 test own 'ref' directory (it does change somtimes though...)
 
-# By default, process the current and all readable sub-directories, or, pass in a directory path at the command line.
-
-sub MAIN($dir = 'bench/2023-01-02-m') {
+sub MAIN($dir = 'ref') {
     my @res;
     sub log10 (Int $s) { $s ?? $s.log(10).Int !! 0 }
     my %fsize;
@@ -38,25 +36,24 @@ sub histogram ($max, $value, $width = 60) {
 .say for @res;
 
 my $mac-pro = qq:to/END/;
-File size distribution in bytes for directory: bench/2023-01-02-m
+File size distribution in bytes for directory: ref
 
-# Files @     0b        0: 
-# Files @  10e0b     1775: ████████████████████████████████████████████████████████████████████████████████
-# Files @  10e1b     1051: ████████████████████████████████████████▉
-# Files @  10e2b      204: ████████▏
-3030 total files.
+# Files @     0b        1: ▏
+# Files @  10e0b       30: ████████████████████████████████████████▉
+# Files @  10e1b       31: ████████████████████████████████████████████████
+# Files @  10e2b       51: ████████████████████████████████████████████████████████████████████████████████
+# Files @  10e3b       45: ████████████████████████████████████████████████████████████████▊
+# Files @  10e4b       36: ████████████████████████████████████████████████████████
+# Files @  10e5b        6: ████████▏
+200 total files.
 END
 
 my $imac = qq:to/END/;
-File size distribution in bytes for directory: bench/2023-01-02-m
+END
 
-# Files @     0b        0: 
-# Files @  10e0b     1778: ████████████████████████████████████████████████████████████████████████████████
-# Files @  10e1b     1058: ████████████████████████████████████████▉
-# Files @  10e2b      194: ████████
-3030 total files.
+my $ubuntu = qq:to/END/;
 END
 
 use Test;
-is @res.join("\n"), chomp qx/uname -a/ ~~ /'iMac'/ ?? $imac !! $mac-pro;
+is @res.join("\n"), chomp qx/uname/ ~~ /Linux/ ?? $ubuntu !! (qx/uname -a/ ~~ /iMac/) ?? $imac !! $mac-pro;
 }
