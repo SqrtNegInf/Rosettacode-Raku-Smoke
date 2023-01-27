@@ -3,14 +3,27 @@
 source $HOME/.profile
 cd $HOME/perl6/Rosetta-Code
 
-rakubrew switch moar-2022.12
-#rakubrew switch moar-blead
+#rakubrew switch moar-2022.12
+rakubrew switch moar-blead
 raku -v
 
 #rm -f bench/moar/*
 
 bin/rc-moar-single \
-P/Pick_random_element
+F/Factorial_base_numbers_indexing_permutations_of_a_collection \
+F/Find_the_intersection_of_a_line_with_a_plane-1 \
+F/Find_the_intersection_of_two_lines-1 \
+H/Hamming_numbers-3 \
+K/Knuth%27s_algorithm_S-2 \
+L/Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Technique \
+O/Orbital_elements \
+O/Order_two_numerical_lists \
+P/Penney%27s_game \
+P/Pick_random_element \
+S/Spelling_of_ordinal_numbers \
+S/Statistics_Chi-squared_distribution \
+W/Word_search \
+W/Word_search_exp 
 
 # OR...
 
