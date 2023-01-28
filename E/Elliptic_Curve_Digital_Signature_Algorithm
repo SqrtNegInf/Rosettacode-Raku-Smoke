@@ -74,7 +74,7 @@ class Signature {
       my \z = :16(sha256-hex msg) % $.n; # self ref: Blob.list.fmt("%02X",'')
       loop (my $k = my $s = my $r = 0 ; $s == 0 ; ) {
          loop ($r = $s = 0 ; $r == 0 ; ) {
-            $r = (( $k = (1..^$.n)[($.n-1) * $rng.next-rat] ) ⊠ $.G).x % $.n;
+            $r = (( $k = (1..^$.n)[($.n-1) × $rng.next-rat] ) ⊠ $.G).x % $.n;
          }
          $s = ((z + $r×private_key) × mult_inv $k, :modulo($.n)) % $.n;
       }
@@ -97,7 +97,7 @@ my $ec = Signature.new: n => O, G => Point.new: x => Gx, y => Gy ;
 @res.push: "Order(G, E) is        : "~ O;
 @res.push: "Is G  ∈ E ?           : "~ $ec.G.isOn;
 @res.push: "Message               : "~ my \message = "Show me the monKey";
-@res.push: "The private key dA is : "~ my \dA = (1..^O)[(O-1) * $rng.next-rat];
+@res.push: "The private key dA is : "~ my \dA = (1..^O)[(O-1) × $rng.next-rat];
 my ($r, $s, \Qa) = $ec.generate_signature(dA, message);
 @res.push: "The public  key Qa is : "~ Qa.gist;
 @res.push: "Is Qa ∈ E ?           : "~ Qa.isOn;
