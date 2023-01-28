@@ -29,12 +29,19 @@ my $bytes = nativecast(CArray[uint8], CArray[uint16].new(1));
 
 .say for @res;
 
-my $ref = q:to/END/;
+my $darwin = q:to/END/;
 8
 little-endian
 LittleEndian
 darwin, 64, i386, LittleEndian
 END
 
+my $linux = q:to/END/;
+8
+little-endian
+LittleEndian
+linux, 64, x86_64, LittleEndian
+END
+
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $*KERNEL eq 'linux' ?? $linux !! $darwin;
