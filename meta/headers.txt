@@ -4252,6 +4252,7 @@ File: E/Elliptic_Curve_Digital_Signature_Algorithm
 #n# 2020-10-19 output bi-stable, test for which version of results present
 #n# 2020-12-06 OK now? Maybe? Hopefully? We'll see...
 #n# 2021-03-02 still unstable
+#n# 2023-01-27 replace call to built-in 'rand' for output stability
 
 File: E/Elliptic_Curve_Digital_Signature_Algorithm.1
 #!/usr/bin/env perl6
@@ -4839,6 +4840,7 @@ File: F/Factorial_base_numbers_indexing_permutations_of_a_collection
 #c# 2018-12-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-27 replace call to built-in 'rand' for output stability
 
 File: F/Factorial_primes
 #!/usr/bin/env raku
@@ -5166,6 +5168,7 @@ File: F/File_modification_time
 #j#  JVM: BROKEN
 #r# RC prep: cp -p ref/mod-time.txt run
 #i# RC cli: run/mod-time.txt
+#n# 2023-01-27 something not the same with Linux filesystem (vs Darwin)
 
 File: F/File_size
 #!/usr/bin/env perl6
@@ -5180,7 +5183,7 @@ File: F/File_size_distribution
 #c# 2017-05-31 <RC, 2018-05-17 <RC, 2018-09-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# should update this once a year (before previous year logs are archived)
+#n# 2023-01-26 test own 'ref' directory (it does change somtimes though...)
 
 File: F/Filter
 #!/usr/bin/env perl6
@@ -7894,6 +7897,7 @@ File: L/Latin_Squares_in_reduced_form_Randomizing_using_Jacobson_and_Matthews_Te
 #n# somewhat limited testing, but better than none
 #n# would be very slow with myRNG, just update results for now...
 #n# Mac-Pro/iMac results diverge, use host-specific tests
+#n# 2023-01-27 replace call to built-in 'rand' for output stability
 
 File: L/Launch_rocket_with_countdown_and_acceleration_in_stdout
 #!/usr/bin/env perl6
@@ -9417,6 +9421,8 @@ File: M/Multiton
 #c# 2021-10-02 <RC, 2021-10-03 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# cannot get this reliably working
+BEGIN: die 'BROKEN on Ubuntu' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 File: M/Munchausen_numbers
 #!/usr/bin/env perl6
@@ -10158,6 +10164,7 @@ File: O/Order_two_numerical_lists
 #j#  JVM: OK
 #n# 2020-10-07 now stable?
 #n# 2021-10-04 wow, been ignoring this for a year now...  Try testing new results, see what happens. (2021-10-22: shift again)
+#n# 2023-01-27 replace call to built-in 'rand' for output stability
 
 File: O/Ordered_Partitions
 #!/usr/bin/env perl6
@@ -10785,6 +10792,7 @@ File: P/Penney%27s_game
 #m# MOAR: OK
 #j# JVM:  OK
 #n# munged to avoid input, sleep times to zero
+#n# 2023-01-27 mangled just to get stable results
 
 File: P/Penrose_tiling
 #!/usr/bin/env perl6
