@@ -17,7 +17,7 @@ my @attr;
 repeat until @attr.sum     >= $min_sum
          and heroic(@attr) >= $hero_count_min {
 
-    @attr = @attr-names.map: { ((1..6)[6*$rng.next-rat] xx 4).sort(+*).skip(1).sum };
+    @attr = @attr-names.map: { ((1..6)[6×$rng.next-rat] xx 4).sort(+*).skip(1).sum };
    #@attr = @attr-names.map: { (1..6).roll(4).sort(+*).skip(1).sum };
 }
 
