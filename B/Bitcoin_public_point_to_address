@@ -3,6 +3,7 @@
 #c# 2022-04-01 <RC, 2022-04-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-28 drop the 'rmd160' as RIPEMD160 is deprecated, now/soon not available by default
 
 sub dgst(blob8 $b, Str :$dgst) returns blob8 {
   given run «openssl dgst "-$dgst" -binary», :in, :out, :bin {
@@ -12,11 +13,12 @@ sub dgst(blob8 $b, Str :$dgst) returns blob8 {
   }
 }
 sub sha256($b) { dgst $b, :dgst<sha256> }
-sub rmd160($b) { dgst $b, :dgst<rmd160> }
+#sub rmd160($b) { dgst $b, :dgst<rmd160> }
 
 sub public_point_to_address( UInt $x, UInt $y ) {
     my @bytes = flat ($y,$x).map: *.polymod( 256 xx * )[^32];
-    my $hash = rmd160 sha256 blob8.new: 4, @bytes.reverse;
+    my $hash =        sha256 blob8.new: 4, @bytes.reverse;
+   #my $hash = rmd160 sha256 blob8.new: 4, @bytes.reverse;
     my $checksum = sha256(sha256 blob8.new: 0, $hash.list).subbuf: 0, 4;
     [R~] <
         1 2 3 4 5 6 7 8 9
@@ -31,4 +33,5 @@ say my $value = public_point_to_address
   0x2CD470243453A299FA9E77237716103ABC11A1DF38855ED6F2EE187E9C582BA6;
 
 use Test;
-is $value, '6UwLL9Risc3QfPqBUvKofHmBQ7wMtjvM';
+is $value, 'jJneKD5jAvMSr2WvrPwPU8XDoqgmvTii56R1aic8Gd2Pyfs86';
+#is $value, '6UwLL9Risc3QfPqBUvKofHmBQ7wMtjvM';
