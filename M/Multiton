@@ -3,6 +3,8 @@
 #c# 2021-10-02 <RC, 2021-10-03 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# cannot get this reliably working
+BEGIN: die 'BROKEN on Ubuntu' if qx/uname -a/ ~~ /'Ubuntu'/;
 
 srand 123456; # no longer counting on any special sequence though
 
