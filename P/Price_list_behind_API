@@ -43,7 +43,7 @@ sub getAll500(@prices, \min, \max, \n) {
 
 my $numPrices = 9999; #(9900..10101).roll;
 #my \maxPrice  = 1e4;
-my @prices    = (1..$numPrices+1)[$numPrices * $rng.next-rat] xx $numPrices ;
+my @prices    = (1..$numPrices+1)[$numPrices × $rng.next-rat] xx $numPrices ;
 
 my $actualMax = getMaxPrice(@prices);
 @res.push: "Using $numPrices items with prices from 0 to $actualMax:";
