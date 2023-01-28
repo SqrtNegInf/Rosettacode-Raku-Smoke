@@ -3,8 +3,7 @@
 #  2019-04-13 static list, 2019-09-23 complete re-write, 2020-05-30 properly ID 
 #  slow, lots of (ignorable) errors
 #  NB: always run by-hand, catch any new tasks that must be skipped, as per: less -p2019-04-12 docs/Notes_to_self 
-#  check for tasks to fix (regarding */× swap) with:
-#      rc-ast-dump; fgrep '&infix:<*>' ast/* | perl -npe 's/:.*//' | sort -u
+#  STDOUT: taks that use '*' where '×' is possible instead
 
 # clear out files from last run
 shell 'rm -f ast/*'; 
@@ -25,14 +24,16 @@ Ludic_numbers
 Sequence_of_primorial_primes
 END
 
-# Clifford, Math::Matrix, Modular
+# MultiVector (nee Clifford), Math::Matrix
+#Fibonacci_matrix-exponentiation
 my %module-conflict = 1 R[X[=>]] split /\s*\n/, q:to/END/;
-Fibonacci_matrix-exponentiation
+Find_the_intersection_of_a_line_with_a_plane-1
+Find_the_intersection_of_two_lines-1
 Geometric_algebra
-Modular_arithmetic
 Multidimensional_Newton-Raphson_method
 Multiple_regression
 Orbital_elements
+Polynomial_regression
 END
 
 for flat 0, 'A'..'Z' -> $dir {
@@ -42,10 +43,9 @@ for flat 0, 'A'..'Z' -> $dir {
        #my $file = ($path ~~ /'/' (.*) $$/)».Str;
        #my $file = $0 given $path ~~ /'/' (.*) $$/;
         next if %runs-forever{$file};
-        #next if %module-conflict{$file};
-        next if $file ~~ /\. ( \d+ ) $/;
-        #next if $file ~~ /\. ( \d+ | jvm ) $/;
-        #say "======> perl6 --target=AST $path > ast/$file";
-        shell "perl6 --target=AST $path > ast/$file";
+        next if %module-conflict{$file};
+        next if $file ~~ /\. ( \d+ | jvm ) $/;
+       #say "======> perl6 --target=AST $path > ast/$file"; # for debugging
+        shell "/usr/local/bin/raku --target=AST $path > ast/$file; fgrep -l '&infix:<*>' ast/$file | cut -c5-";
     }
 }
