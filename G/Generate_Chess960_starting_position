@@ -14,7 +14,7 @@ s:2nd['♖'] = '♔';
 put .comb;
 
 use Test;
-is (.comb), $*VM ~~ /jvm/ ??  '♕ ♘ ♖ ♘ ♔ ♗ ♗ ♖' !! '♖ ♘ ♗ ♔ ♖ ♘ ♕ ♗';
+is (.comb), $*VM ~~ /jvm/ ?? '♕ ♘ ♖ ♘ ♔ ♗ ♗ ♖' !! '♖ ♘ ♗ ♔ ♖ ♘ ♕ ♗';
 
 # Here's a more "functional" solution that avoids side effects
 
