@@ -13,7 +13,8 @@ use Lingua::EN::Numbers;
 
 my @sphenic = lazy (^Inf).grep: { my @pf = .&prime-factors; +@pf == 3 and +@pf.unique == 3 };
 my @triplets = lazy (^Inf).grep( { @sphenic[$_] + 2 == @sphenic[$_ + 2] } )\
-              .map: {(@sphenic[$_],@sphenic[$_+1],@sphenic[$_+2])}
+              .map: {(@sphenic[$_,$_+1,$_+2])}
+#             .map: {(@sphenic[$_],@sphenic[$_+1],@sphenic[$_+2])}
 
 @res.push: "Sphenic numbers less than 1,000:\n" ~
     @sphenic.&upto(1e3).batch(15)».fmt("%3d").join: "\n";
