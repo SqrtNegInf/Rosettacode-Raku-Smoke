@@ -5,11 +5,8 @@
 #j# JVM:  OK
 #n# from SPID
 
-srand 123456;
-
 subset Pos960 of Int where { $_ ~~ ^960 };
-#sub chess960(Pos960 $position = (^960).pick) {
-sub chess960(Pos960 $position = 93) {
+sub chess960(Pos960 $position = 93) { # (^960).pick) {
 
   # We remember the remainder used to place first bishop in order to place the
   # second
@@ -64,9 +61,7 @@ sub chess960(Pos960 $position = 93) {
 
 say my $result = chess960;
 
-my $moar-terminal = '♞ ♞ ♜ ♝ ♚ ♜ ♝ ♛';
-my $moar-cronjob = '♜ ♞ ♛ ♝ ♝ ♚ ♜ ♞';
-my $jvm  = '♜ ♝ ♚ ♜ ♞ ♞ ♝ ♛';
+my $ref  = '♞ ♞ ♜ ♝ ♚ ♜ ♝ ♛';
 
 use Test;
-is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is $result, chomp $ref;
