@@ -8,7 +8,8 @@
 srand 123456;
 
 subset Pos960 of Int where { $_ ~~ ^960 };
-sub chess960(Pos960 $position = (^960).pick) {
+#sub chess960(Pos960 $position = (^960).pick) {
+sub chess960(Pos960 $position = 93) {
 
   # We remember the remainder used to place first bishop in order to place the
   # second
