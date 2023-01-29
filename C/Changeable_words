@@ -2,8 +2,8 @@
 #u# http://rosettacode.org/wiki/Changeable_words
 #c# 2020-12-06 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# sometimes fails, likely due to how '@sorensens' is modified inside 'hyper'
+#j# JVM:  OK
+#n# 2023-01-29 removed .hyper, led to '@sorensens' being modified inconsistently, changed results
 
 my @res;
 
@@ -16,7 +16,8 @@ my %bi-grams = @words.map: { $_ => .&bi-gram };
 
 my %skip = @words.map: { $_ => 0 };
 
-@res.push: (++$).fmt('%2d') ~ |$_ for @words.hyper.map: -> $this {
+#@res.push: (++$).fmt('%2d') ~ |$_ for @words.hyper.map: -> $this {
+@res.push: (++$).fmt('%2d') ~ |$_ for @words.map: -> $this {
     next if %skip{$this};
     my ($word, @sorensens) = sorensen($this, %bi-grams);
     next unless @sorensens.=grep: { 1 > .[0] > .8 };
@@ -38,7 +39,7 @@ my $ref = q:to/END/;
  6:   confirmation  <->   conformation
  7:  congresswoman  <->   congresswomen
  8:   councilwoman  <->   councilwomen
- 9:   draftsperson  <->   craftsperson
+ 9:   craftsperson  <->   draftsperson
 10:   eavesdropped  <->   eavesdropper
 11:   frontiersman  <->   frontiersmen
 12: handicraftsman  <->   handicraftsmen
