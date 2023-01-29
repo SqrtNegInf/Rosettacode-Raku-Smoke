@@ -4,10 +4,20 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# JVM takes nearly 10 minutes!?
-
-srand 123456;
+#n# 2023-01-29 replace call to built-in 'rand' for output stability
 
 my $result;
+
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
+
+sub pick-all (@a is copy) is export {
+    for 1 ..^ @a -> $n {
+        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
 
 my \F = [ <1 -1 1 0 1 1 2 1>,  <0 1 1 -1 1 0 2 0>,   <1 0 1 1 1 2 2 1>,
           <1 0 1 1 2 -1 2 0>,  <1 -2 1 -1 1 0 2 -1>, <0 1 1 1 1 2 2 1>,
@@ -57,7 +67,7 @@ my @grid = [ [-1 xx $nCols ] xx $nRows ];
 my @placed;
 
 sub shuffleShapes {
-   my @rand = (0 ..^+@shapes).pick(*);
+   my @rand = (0 ..^+@shapes).&pick-all;
    for (0 ..^+@shapes) -> \i {
       (@shapes[i],  @shapes[@rand[i]])  = (@shapes[@rand[i]],  @shapes[i]);
       (@symbols[i], @symbols[@rand[i]]) = (@symbols[@rand[i]], @symbols[i])
@@ -127,46 +137,25 @@ sub PrintResult {
 
 for ^4 {
    loop {
-      if @grid[my \R = (^$nRows).roll;my \C = (^$nCols).roll] != $blank
-         { @grid[R;C] = $blank and last }
+     #if @grid[my \R = (^$nRows).roll;my \C = (^$nCols).roll] != $blank
+      if @grid[my \R = (^$nRows)[$nRows * $rng.next-rat]; my \C = (^$nCols)[$nRows * $rng.next-rat]] != $blank {
+         @grid[R;C] = $blank and last 
+      }
    }
 }
 
 PrintResult() if solve 0,0;
 
-my $moar-terminal = q:to/END/;
-F  F  W  W  Ⓡ  U  U  U
-V  F  F  W  W  U  N  U
-V  F  Z  Z  W  X  N  N
-V  V  V  Z  X  X  X  N
-L  L  Ⓐ  Z  Z  X  Ⓚ  N
-L  T  I  I  I  I  I  Ⓤ
-L  T  T  T  Y  P  P  P
-L  T  Y  Y  Y  Y  P  P
-END
-
-my $moar-cronjob = q:to/END/;
-F  Y  Y  Y  Y  Ⓡ  Z  I
-F  F  F  Y  Z  Z  Z  I
-N  F  X  Ⓐ  Z  W  W  I
-N  X  X  X  W  W  L  I
-N  N  X  U  W  U  L  I
-T  N  Ⓚ  U  U  U  L  V
-T  T  T  P  P  L  L  V
-T  Ⓤ  P  P  P  V  V  V
-END
-
-my $jvm = q:to/END/;
-F  Ⓡ  I  I  I  I  I  T  
-F  F  F  P  P  T  T  T  
-V  F  Z  P  P  P  X  T  
-V  Ⓐ  Z  Z  Z  X  X  X  
-V  V  V  L  Z  W  X  Y  
-L  L  L  L  W  W  Y  Y  
-U  U  U  W  W  N  N  Y  
-U  Ⓚ  U  N  N  N  Ⓤ  Y  
+my $ref = q:to/END/;
+I  I  I  I  I  F  F  P  
+Z  Z  Ⓡ  X  F  F  P  P  
+N  Z  X  X  X  F  P  P  
+N  Z  Z  X  W  W  Ⓐ  Ⓚ  
+N  N  T  W  W  Ⓤ  L  L  
+V  N  T  W  U  U  U  L  
+V  T  T  T  U  Y  U  L  
+V  V  V  Y  Y  Y  Y  L  
 END
 
 use Test;
-my $ref = chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
 is $result.subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
