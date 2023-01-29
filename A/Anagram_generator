@@ -5,7 +5,7 @@
 #j# JVM:  OK
 #n# some tweaks for testing
 
-#use v6.e.PREVIEW; 
+use v6.e.PREVIEW; 
 
 my %res;
 
@@ -54,5 +54,9 @@ sub find-anagram (%subset, $phrase is copy = '', $last = Inf) {
 }
 
 use Test;
-#ok //%res{'nostalgia then stew'}; # 2023-01-28 broke a few days ago, low priority
+# 2023-01-28 '//' as prefix broke on moar-blead a few days ago, test as appropriate
+if $*EXECUTABLE ~~ /'moar-blead'/ {
 ok %res{'nostalgia then stew'}.defined;
+} else {
+ok //%res{'nostalgia then stew'}; 
+}
