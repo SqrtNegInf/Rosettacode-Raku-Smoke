@@ -5,7 +5,10 @@
 #j# JVM:  OK
 #n# Unicode symbol '↑' is what sinks use of .EVAL syntax.
 #n# 2022-12-19 disabled: does not work with blead as of 2022-12-18
-die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on Ubuntu (testing moar-blead)' if $*EXECUTABLE ~~ /'moar-blead'/;
+die 'BROKEN on Mac-Pro (testing moar-blead)' if $*EXECUTABLE ~~ /'moar-blead'/;
+
+#die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 use MONKEY-SEE-NO-EVAL;
 
@@ -60,8 +63,13 @@ is @res.join("\n"), chomp $ref;
 
 =finish 
 
-Potential difficulties:
-    Use of uninitialized value of type Any in string context.
-    Methods .^name, .raku, .gist, or .say can be used to stringify it to something meaningful.
-    at /Users/dhoekman/perl6/Rosetta-Code/E/Exponentiation_with_infix_operators_in_or_operating_on_the_base:13
-    ------> sub infix:<^> ($a,$b) ⏏is looser(&infix:<->)  { $a ** $b }
+Bogus postfix
+at /home/osboxes/perl6/Rosettacode-Raku-Smoke/EVAL_20:1
+------> 1 + -$x⏏↑$p 
+    expecting any of:
+        infix
+        infix stopper
+        statement end
+        statement modifier
+        statement modifier loop
+
