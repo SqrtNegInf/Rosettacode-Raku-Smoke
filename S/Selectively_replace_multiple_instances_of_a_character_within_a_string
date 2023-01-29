@@ -3,10 +3,20 @@
 #c# 2022-05-31 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-
-srand 123456;
+#n# 2023-01-29 replace call to built-in 'rand' for output stability
 
 my @res;
+
+use myRNG;
+sub pick-all (@a is copy) is export {
+    my $rng = myRNG.new( :seed(123456) );
+    for 1 ..^ @a -> $n {
+        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
+
 
 sub mangle ($str is copy) {
     $str.match(:ex, 'a')».from.map: { $str.substr-rw($_, 1) = 'ABaCD'.comb[$++] };
@@ -17,24 +27,14 @@ sub mangle ($str is copy) {
 
 @res.push: $_ ~ ' -> ' ~ .&mangle given 'abracadabra';
 
-@res.push: $_ ~ ' -> ' ~ .&mangle given 'abracadabra'.comb.pick(*).join;
+@res.push: $_ ~ ' -> ' ~ .&mangle given 'abracadabra'.comb.&pick-all.join;
 
 .say for @res;
 
-my $moar-terminal = q:to/END/;
+my $ref = q:to/END/;
 abracadabra -> AErBcadCbFD
-dbacbarraaa -> dEAcbBrFaCD
-END
-
-my $moar-cronjob = q:to/END/;
-abracadabra -> AErBcadCbFD
-abdcraaraba -> AEdcrBaFCbD
-END
-
-my $jvm = q:to/END/;
-abracadabra -> AErBcadCbFD
-crraaabaabd -> crFABaECDbd
+raaabdaracb -> rABaEdCFDcb
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
