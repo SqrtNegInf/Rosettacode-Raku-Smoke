@@ -5,10 +5,10 @@
 #j# JVM:  OK
 #n# Unicode symbol '↑' is what sinks use of .EVAL syntax.
 #n# 2022-12-19 disabled: does not work with blead as of 2022-12-18
-die 'BROKEN on Ubuntu (testing moar-blead)' if $*EXECUTABLE ~~ /'moar-blead'/;
-die 'BROKEN on Mac-Pro (testing moar-blead)' if $*EXECUTABLE ~~ /'moar-blead'/;
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on Ubuntu'  if qx/uname -a/ ~~ /'osboxes'/;
 
-#die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
+#die 'BROKEN on Ubuntu (testing moar-blead)' if $*EXECUTABLE ~~ /'moar-blead'/;
 
 use MONKEY-SEE-NO-EVAL;
 
