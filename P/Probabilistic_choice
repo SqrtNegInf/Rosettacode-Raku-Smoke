@@ -3,12 +3,12 @@
 #c# 2016-05-08 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2020-09-01 different answers when run from interactive shell vs cron-launch?
-#n# 2021-03-04 yes, and still true
+#n# 2023-01-29 replace call to built-in 'rand' for output stability
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
-constant TRIALS = 1e6;
+constant TRIALS = 1e5;
 
 constant @event = <aleph beth gimel daleth he waw zayin heth>;
 
@@ -16,7 +16,7 @@ constant @P = flat (1 X/ 5 .. 11), 1759/27720;
 constant @cP = [\+] @P;
 
 my @results;
-@results[ @cP.first: { $_ > once rand }, :k ]++ xx TRIALS;
+@results[ @cP.first: { $_ > once $rng.next-rat }, :k ]++ xx TRIALS;
 
 my @res;
 say  'Event    Occurred Expected  Difference';
@@ -31,38 +31,16 @@ for ^@results {
 
 .say for @res;
 
-my $moar-terminal = qq:to/END/;
-aleph      199687 200000.0       313.0
-beth       166192 166666.7       474.7
-gimel      143334 142857.1       476.9
-daleth     125625 125000.0       625.0
-he         110852 111111.1       259.1
-waw         99829 100000.0       171.0
-zayin       91016  90909.1       106.9
-heth        63465  63456.0         9.0
-END
-
-my $moar-cronjob = qq:to/END/;
-aleph      199687 200000.0       313.0
-beth       166190 166666.7       476.7
-gimel      143335 142857.1       477.9
-daleth     125625 125000.0       625.0
-he         110852 111111.1       259.1
-waw         99828 100000.0       172.0
-zayin       91017  90909.1       107.9
-heth        63466  63456.0        10.0
-END
-
-my $jvm = qq:to/END/;
-aleph      199748 200000.0       252.0
-beth       166170 166666.7       496.7
-gimel      143018 142857.1       160.9
-daleth     124539 125000.0       461.0
-he         111101 111111.1        10.1
-waw        100587 100000.0       587.0
-zayin       91185  90909.1       275.9
-heth        63652  63456.0       196.0
+my $ref = qq:to/END/;
+aleph       20182  20000.0       182.0
+beth        16696  16666.7        29.3
+gimel       14331  14285.7        45.3
+daleth      12516  12500.0        16.0
+he          10954  11111.1       157.1
+waw          9926  10000.0        74.0
+zayin        9048   9090.9        42.9
+heth         6347   6345.6         1.4
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
