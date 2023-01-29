@@ -1555,6 +1555,7 @@ File: B/Bitcoin_public_point_to_address
 #c# 2022-04-01 <RC, 2022-04-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-28 drop the 'rmd160' as RIPEMD160 is deprecated, now/soon not available by default
 
 File: B/Bitcoin_public_point_to_address.1
 #!/usr/bin/env perl6
@@ -1875,13 +1876,6 @@ File: C/CRC-32.jvm
 #c# 2016-01-10 <RC, 2017-06-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-File: C/CRC-32.ubuntu
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/CRC-32
-#c# 2016-01-10 <RC, 2017-06-05 >RC
-#m# MOAR: OK
-#j#  JVM: BROKEN
 
 File: C/CSV_data_manipulation
 #!/usr/bin/env perl6
@@ -3945,6 +3939,7 @@ File: D/Dominoes
 #j#  JVM: OK
 #n# just extra credit combinatorics, to demonstrate numeric issue
 #n# repeated operations with cos values accumulates errors, even with 'cosPi'
+#n# unsurprisingly, different floating point errors on Linux
 
 File: D/Dot_product
 #!/usr/bin/env perl6
@@ -11458,7 +11453,7 @@ File: P/Price_list_behind_API
 #m# MOAR: OK
 #j# JVM:  OK
 #n# reduced everything by factor of 10, now has orphan group at high end (with Moar)
-#n# new-disp 'srand' shift
+#n# 2023-01-28 replace call to built-in 'rand' for output stability
 
 File: P/Primality_by_Wilson%27s_theorem
 #!/usr/bin/env perl6
@@ -16902,6 +16897,7 @@ File: W/Write_language_name_in_3D_ASCII
 #m# MOAR: OK
 #j# JVM:  OK
 #n# less likely to fail due to 'srand' issues?
+#n# 2023-01-28 replace call to built-in 'rand' for output stability
 
 File: W/Write_to_Windows_event_log
 #!/usr/bin/env perl6
