@@ -3,13 +3,13 @@
 #c# 2015-10-26 <RC, 2018-04-08 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# could switch back to 1_000_000 iterations, fast enough now
-#n# new-disp 'srand' shift
+#n# 2023-01-29 replace call to built-in 'rand' for output stability
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
-my $d5 = 1..5;
-sub d5() { $d5.roll; }  # 1d5
+#my $d5 = 1..5;
+sub d5() { (1..5)[5 * $rng.next-rat] }  # 1d5
 
 sub d7() {
     my $flat = 21;
@@ -19,7 +19,7 @@ sub d7() {
 
 my @dist;
 my $n = 100_000;
-#my $n = 1_000_000; # results not stable (and verrrry slow for JVM)
+#my $n = 1_000_000; # slow, esp. for JVM
 my $expect = $n / 7;
 
 loop ($_ = $n; $n; --$n) { @dist[d7()]++; }
@@ -31,38 +31,16 @@ for @dist.kv -> $i, $v {
 
 .say for @res;
 
-my $moar-terminal = qq:to/END/;
+my $ref = qq:to/END/;
 Expect 14285.714
-1 14376 +0.63%
-2 14311 +0.18%
-3 14295 +0.07%
-4 14325 +0.28%
-5 14412 +0.88%
-6 14084 -1.41%
-7 14197 -0.62%
-END
-
-my $moar-cronjob = qq:to/END/;
-Expect 14285.714
-1 14376 +0.63%
-2 14311 +0.18%
-3 14296 +0.07%
-4 14325 +0.28%
-5 14409 +0.86%
-6 14084 -1.41%
-7 14199 -0.61%
-END
-
-my $jvm = qq:to/END/;
-Expect 14285.714
-1 14247 -0.27%
-2 14190 -0.67%
-3 14082 -1.43%
-4 14352 +0.46%
-5 14261 -0.17%
-6 14430 +1.01%
-7 14438 +1.07%
+1 14210 -0.53%
+2 14322 +0.25%
+3 14185 -0.71%
+4 14399 +0.79%
+5 14333 +0.33%
+6 14123 -1.14%
+7 14428 +1.00%
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join("\n"), chomp $ref;
