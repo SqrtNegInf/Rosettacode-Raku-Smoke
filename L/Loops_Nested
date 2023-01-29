@@ -33,9 +33,19 @@ my $moar-cronjob = qq:to/END/;
  6 5 9 9 12 2 13 20
 END
 
+my $linux-cronjob = qq:to/END/;
+ 15 11 3 2 2 6 13 17 19 3
+ 19 8 9 14 6 15 6 5 9 9
+ 12 2 13 20
+END
+
 my $jvm = qq:to/END/;
  8 15 11 14 20
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
+if $*KERNEL eq 'linux' {
+is @res.join("\n"), chomp $linux-cronjob
+} else {
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob
+} 
