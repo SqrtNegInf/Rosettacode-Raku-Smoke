@@ -1,4 +1,18 @@
-2023-01-24
+2023-01-28
+Slow but steady, maybe done by tomorrow.
+
+2023-01-27
+Somewhat fewer errors, piggy-backing off the updates made on iMac.
+Begin whittling down the errors, beginning with about 30.
+
+2023-01-26
+Administrivia:
+    mkdir tmp exp run meta-i meta-i/logs ref/test/dir3
+    populate .gitignore
+
+See also 'perl5/Rosetta-Code' notes.
+
+2023-01-25
 'ntheory' performance issues solved with custom Perl 5.36 installed with 'perlbrew'
 (problem was with the 'libperl-dev' installed by 'apt')
 
@@ -15,11 +29,18 @@ To get graphing in 'S/Statistics_Chi-squared_distribution':
     sudo ln -s /usr/lib/x86_64-linux-gnu/libplplot.so /usr/lib/x86_64-linux-gnu/libplplotd.so
     zef install Graphics::PLplot
 
-2023-01-23
-Starting out with about 50 failed tests. The biggest issue is some (not all) Inline::Perl5 code 
-using 'ntheory' which is glacialy slow. These have been blocked from running for now.
+2023-01-24
+Starting out with about 50 failed tests. The biggest issue is some (not all) of the Inline::Perl5 
+code using 'ntheory' is glacialy slow. These have been blocked from running for now.
 
-Hard-coded paths ('convert', 'compare') replaced with a lookup and 'die' if not found.
+Hard-coded paths ('convert', 'compare') replaced with 'qx/which <command>/ or die'
+    S/Statistics_Chi-squared_distribution # for example
+
+2023-01-23
+Start with cloning repository, building Raku, installing modules:
+    git clone git://github.com/SqrtNegInf/Rosettacode-Raku-Smoke.git
+    rakubrew build moar-blead
+    Zef-install-all
 
 2023-01-22
 This space intentionally left blank.
