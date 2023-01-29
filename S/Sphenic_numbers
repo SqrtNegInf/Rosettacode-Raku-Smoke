@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Sphenic_numbers
-#c# 2023-01-17 <RC
+#c# 2023-01-17 <RC, 2023-01-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A007304 Sphenic numbers
@@ -14,7 +14,8 @@ use Lingua::EN::Numbers;
 
 my @sphenic = lazy (^Inf).hyper(:200batch).grep: { my @pf = .&prime-factors; +@pf == 3 and +@pf.unique == 3 };
 my @triplets = lazy (^Inf).grep( { @sphenic[$_] + 2 == @sphenic[$_ + 2] } )\
-              .map: {(@sphenic[$_],@sphenic[$_+1],@sphenic[$_+2])}
+               .map: {(@sphenic[$_,$_+1,$_+2])}
+#              .map: {(@sphenic[$_],@sphenic[$_+1],@sphenic[$_+2])}
 
 @res.push: "Sphenic numbers less than 1,000:\n" ~
     @sphenic.&upto(1e3).batch(15)».fmt("%3d").join: "\n";
