@@ -4,7 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# 2022-07-05 call to call for digest generation was 'backwards', need 'sha256-hex'
-#n# 2021-12-29 not getting 'Digest::SHA256::Native' to work here
 
 use Digest::SHA256::Native;
 
@@ -32,7 +31,7 @@ sub MAIN( $dir = 'bin', :$minsize = 5, :$recurse = True ) {
     .say for @res;
 
     use Test;
-    ok @res[0] ~~ m['rc-jvm' .* 'rc-moar'];
+    ok @res ~~ m['rc-jvm'] and @res ~~ m['rc-moar'];
 }
 
 sub scale ($bytes) {

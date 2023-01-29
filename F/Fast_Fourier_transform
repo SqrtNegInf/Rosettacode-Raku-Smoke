@@ -14,6 +14,7 @@ sub fft {
 
 my @res1.push: $_ for fft <1 1 1 1 0 0 0 0>;
 .say for @res1;  
+say '';
 
 # For the fun of it, here is a purely functional version:
 sub fft-f {
@@ -25,7 +26,7 @@ sub fft-f {
 my @res2.push: $_ for fft-f <1 1 1 1 0 0 0 0>;
 .say for @res2; 
 
-my $ref1 = qq:to/END/;
+my $darwin1 = qq:to/END/;
 4+0i
 1-2.414213562373095i
 0+0i
@@ -36,7 +37,18 @@ my $ref1 = qq:to/END/;
 0.9999999999999997+2.414213562373095i
 END
 
-my $moar2 = qq:to/END/;
+my $linux1 = qq:to/END/;
+4+0i
+1-2.414213562373095i
+0+0i
+1-0.4142135623730949i
+0+0i
+0.9999999999999999+0.4142135623730949i
+0+0i
+0.9999999999999997+2.414213562373095i
+END
+
+my $darwin2 = qq:to/END/;
 4+0i
 1-2.414213562373095i
 -1.2246467991473532e-16-1.2246467991473532e-16i
@@ -45,6 +57,17 @@ my $moar2 = qq:to/END/;
 0.9999999999999998+0.41421356237309515i
 1.2246467991473532e-16-1.224646799147353e-16i
 0.9999999999999994+2.414213562373095i
+END
+
+my $linux2 = qq:to/END/;
+4+0i
+1-2.414213562373095i
+-1.2246467991473532e-16-1.2246467991473532e-16i
+1-0.4142135623730949i
+0-2.4492935982947064e-16i
+0.9999999999999998+0.41421356237309515i
+1.2246467991473532e-16-1.224646799147353e-16i
+0.9999999999999993+2.414213562373095i
 END
 
 my $jvm2 = qq:to/END/;
@@ -58,9 +81,9 @@ my $jvm2 = qq:to/END/;
 0.9999999999999993+2.414213562373095i
 END
 
-my $ref2 = $*VM ~~ /jvm/ ?? $jvm2 !! $moar2;
+my $ref1 = $*VM ~~ /jvm/ ?? $darwin1 !! $*KERNEL eq 'linux' ?? $linux1 !! $darwin1;
+my $ref2 =                              $*KERNEL eq 'linux' ?? $linux2 !! $darwin2;
 
 use Test;
 is @res1.join("\n"), chomp $ref1;
-exit if $*KERNEL eq 'linux';
 is @res2.join("\n"), chomp $ref2;
