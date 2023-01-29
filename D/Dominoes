@@ -5,6 +5,7 @@
 #j#  JVM: OK
 #n# just extra credit combinatorics, to demonstrate numeric issue
 #n# repeated operations with cos values accumulates errors, even with 'cosPi'
+#n# unsurprisingly, different floating point errors on Linux
 
 my @res;
 
@@ -41,6 +42,14 @@ my $moar = qq:to/END/;
 105,797,996,085,635,281,181,632,579,889,767,907,328,000,000
 END
 
+my $linux = qq:to/END/;
+1292697.0000000026
+1,292,697
+304,888,344,611,713,860,501,504,000,000
+268,435,456
+105,797,996,085,635,281,181,632,579,889,767,907,328,000,000
+END
+
 my $jvm = qq:to/END/;
 1292697.0000000026
 1,292,697
@@ -50,7 +59,7 @@ my $jvm = qq:to/END/;
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*KERNEL eq 'linux' ?? $linux !! $moar;
 
 =finish
 
