@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 
-use v6.e.PREVIEW;
+#use v6.e.PREVIEW;
 
 my @res;
 
@@ -31,8 +31,8 @@ my %v = @visits.classify: *.<PATIENT_ID>;
 my @result = gather for @names -> %n {
     my @p = %v{ %n.<PATIENT_ID> }<>;
 
-    my @dates  = @p».<VISIT_DATE>.grep: //*;
-   #my @dates  = @p».<VISIT_DATE>.grep: *.defined;
+   #my @dates  = @p».<VISIT_DATE>.grep: //*;        # 2023-01-28 broke a few days ago, low priority
+    my @dates  = @p».<VISIT_DATE>.grep: *.defined;
     my @scores = @p».<     SCORE>.grep: *.defined;
 
     take {
