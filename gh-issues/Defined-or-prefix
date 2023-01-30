@@ -1,0 +1,10 @@
+#!/usr/bin/env raku # do-not-check
+## preview feature regression
+#    2023-01-29
+
+use v6.e.PREVIEW;
+
+my $foo;
+say //$foo; # False   # compile-time failure: Null regex not allowed
+$foo = 42;
+say //$foo; # True
