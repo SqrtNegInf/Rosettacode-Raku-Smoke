@@ -2140,8 +2140,8 @@ File: C/Changeable_words
 #u# http://rosettacode.org/wiki/Changeable_words
 #c# 2020-12-06 <RC
 #m# MOAR: OK
-#j# JVM:  BROKEN
-#n# sometimes fails, likely due to how '@sorensens' is modified inside 'hyper'
+#j# JVM:  OK
+#n# 2023-01-29 removed .hyper, led to '@sorensens' being modified inconsistently, changed results
 
 File: C/Chaocipher
 #!/usr/bin/env perl6
@@ -3265,7 +3265,7 @@ File: C/Curve_that_touches_three_points-1
 File: C/Curzon_numbers
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Curzon_numbers
-#c# 2022-02-13 <RC
+#c# 2022-02-13 <RC, 2023-01-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A224486 main entry
@@ -4710,7 +4710,8 @@ File: E/Exponentiation_with_infix_operators_in_or_operating_on_the_base
 #j# JVM:  OK
 #n# Unicode symbol '↑' is what sinks use of .EVAL syntax.
 #n# 2022-12-19 disabled: does not work with blead as of 2022-12-18
-die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on Ubuntu'  if qx/uname -a/ ~~ /'osboxes'/;
 
 File: E/Extend_your_language
 #!/usr/bin/env perl6
@@ -5238,7 +5239,6 @@ File: F/Find_duplicate_files
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# 2022-07-05 call to call for digest generation was 'backwards', need 'sha256-hex'
-#n# 2021-12-29 not getting 'Digest::SHA256::Native' to work here
 
 File: F/Find_duplicate_files.ubuntu
 #!/usr/bin/env perl6
@@ -7029,6 +7029,13 @@ File: I/Inheritance_Single
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: I/Inner_classes
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Inner_classes
+#c# 2023-01-29 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: I/Input_Output_for_Lines_of_Text
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Input/Output_for_Lines_of_Text
@@ -7528,7 +7535,7 @@ File: K/Knight%27s_tour
 #c# 2015-11-05 <RC, 2022-08-07 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# new-disp 'srand' shift  (2022-08-07 and more shift, and more shift, etc., etc.)
+#n# hard-code starting square (no more random)
 
 File: K/Knuth%27s_algorithm_S
 #!/usr/bin/env perl6
@@ -10176,6 +10183,13 @@ File: O/Ordered_words
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: O/Ormiston_pairs
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Ormiston_pairs
+#c# 2023-01-29 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: O/Overloaded_operators
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Overloaded_operators
@@ -10849,6 +10863,7 @@ File: P/Pentomino_tiling
 #m# MOAR: OK
 #j# JVM:  OK
 #n# JVM takes nearly 10 minutes!?
+#n# 2023-01-29 replace call to built-in 'rand' for output stability
 
 File: P/Percentage_difference_between_images
 #!/usr/bin/env perl6
@@ -11706,8 +11721,7 @@ File: P/Probabilistic_choice
 #c# 2016-05-08 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2020-09-01 different answers when run from interactive shell vs cron-launch?
-#n# 2021-03-04 yes, and still true
+#n# 2023-01-29 replace call to built-in 'rand' for output stability
 
 File: P/Problem_of_Apollonius
 #!/usr/bin/env perl6
@@ -13117,6 +13131,7 @@ File: S/Selectively_replace_multiple_instances_of_a_character_within_a_string
 #c# 2022-05-31 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-01-29 replace call to built-in 'rand' for output stability
 
 File: S/Self-describing_numbers
 #!/usr/bin/env perl6
@@ -13337,8 +13352,7 @@ File: S/Seven-sided_dice_from_five-sided_dice
 #c# 2015-10-26 <RC, 2018-04-08 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# could switch back to 1_000_000 iterations, fast enough now
-#n# new-disp 'srand' shift
+#n# 2023-01-29 replace call to built-in 'rand' for output stability
 
 File: S/Sexy_primes
 #!/usr/bin/env perl6
@@ -14281,7 +14295,7 @@ File: S/Spelling_of_ordinal_numbers.jvm
 File: S/Sphenic_numbers
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Sphenic_numbers
-#c# 2023-01-17 <RC
+#c# 2023-01-17 <RC, 2023-01-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A007304 Sphenic numbers
@@ -16788,16 +16802,8 @@ File: W/Word_search
 #c# 2020-02-07 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2023-01-01 output fixed for now (see also '_exp' version), but also need to split Mac-Pro/iMac results
-
-File: W/Word_search_exp
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Word_search
-#c# 2020-02-07 <RC
-#m# MOAR: OK
-#j# JVM:  OK
-#n# 2023-01-01 half-replace call to built-in 'rand' for output stability, see how it goes
-#n#            also need to split Mac-Pro/iMac results (NB: results here are just for cronjob, not interactive)
+#n# 2023-01-29 replace call to built-in 'rand' for output stability (limit dictionary, smaller words, for speed)
+my @res;
 
 File: W/Word_wheel-1
 #!/usr/bin/env raku
