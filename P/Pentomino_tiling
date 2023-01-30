@@ -138,7 +138,7 @@ sub PrintResult {
 for ^4 {
    loop {
      #if @grid[my \R = (^$nRows).roll;my \C = (^$nCols).roll] != $blank
-      if @grid[my \R = (^$nRows)[$nRows * $rng.next-rat]; my \C = (^$nCols)[$nRows * $rng.next-rat]] != $blank {
+      if @grid[my \R = (^$nRows)[$nRows × $rng.next-rat]; my \C = (^$nCols)[$nRows × $rng.next-rat]] != $blank {
          @grid[R;C] = $blank and last 
       }
    }
