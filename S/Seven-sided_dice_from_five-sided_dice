@@ -9,7 +9,7 @@ use myRNG;
 my $rng = myRNG.new( :seed(123456) );
 
 #my $d5 = 1..5;
-sub d5() { (1..5)[5 * $rng.next-rat] }  # 1d5
+sub d5() { (1..5)[5 × $rng.next-rat] }  # 1d5
 
 sub d7() {
     my $flat = 21;
