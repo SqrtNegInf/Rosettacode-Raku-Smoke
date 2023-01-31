@@ -5,7 +5,7 @@
 for my $p (<>) { 
 
     chomp $p;
-    next if $p =~ /\.(jvm|ubuntu|[02345])$/;
+    next if $p =~ /\.(jvm|[02345])$/;
 
     my $result = `/usr/local/pbin/Capture perl6 -Msnapper $p | grep 'Initial/Final'`;
     my($b,$e) = $result =~ m#(\d+) / (\d+)#;
