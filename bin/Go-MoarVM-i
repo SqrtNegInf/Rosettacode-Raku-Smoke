@@ -6,7 +6,8 @@
 #  sudo apt upgrade
 #  sudo apt install build-essential default-jdk vim git
 
-source $HOME/.profile
+source $HOME/.zshrc
+#source $HOME/.profile
 
 git pull
 
@@ -80,7 +81,7 @@ head -10 meta-i/timings.txt
 echo ' '
 echo '--'
 echo 'Excessive line count in timings (if any)'
-wc -l bench/moar/*err | grep -v '^       [34]' | grep -v total
+wc -l bench/moar/*err | grep -v '^ *[0-4] ' | grep -v total
 echo '--'
 
 # combine task headers for easy grep
