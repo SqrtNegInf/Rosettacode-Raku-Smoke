@@ -3,6 +3,8 @@
 #  2018-10-16
 # real and user+system moving in different directions is a sign that .race/.hyper in use
 
+BEGIN exit if $*KERNEL eq 'linux';
+
 sub MAIN($dir = "%*ENV<HOME>/perl6/Rosetta-Code/bench/moar") {
 
     my $num = rx/<[\.0..9]>+/;
