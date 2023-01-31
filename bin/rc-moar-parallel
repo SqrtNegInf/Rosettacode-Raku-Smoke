@@ -60,11 +60,11 @@ my $skip = 'interactive|gui|toodamnslow|skiptest|inprogress|nocode|forever|broke
 # find Perl6 programs
 
 for my $prog (@ARGV) {
-    next if $prog =~ /\.(jvm|ubuntu|pl|[0-9])$/;
+    next if $prog =~ /\.(jvm|pl|[0-9])$/;
     next if $prog =~ /^Temp-/;
 
     if (! -e $prog) {
-        my($l) = $prog =~ m#^([0A-Z])#;
+        my($l) = $prog =~ m#^([0-Z])#;
         $prog = "$l/$prog" if $l;
         die "No such program $prog" if ! -e $prog;
     }
