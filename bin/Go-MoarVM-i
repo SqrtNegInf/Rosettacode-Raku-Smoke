@@ -100,7 +100,7 @@ head -20 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | $HOME/bin/
 # non-ascii usage
 echo ' '
 mv meta-i/non-ascii.txt meta-i/non-ascii.txt~
-bin/rc-non-ascii [0A-Z]/* > meta-i/non-ascii.txt
+bin/rc-non-ascii [0-Z]/* > meta-i/non-ascii.txt
 diff meta-i/non-ascii.txt~ meta-i/non-ascii.txt
 
 # extract list of citations
