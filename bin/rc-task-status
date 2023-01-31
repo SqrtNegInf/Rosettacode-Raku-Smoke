@@ -29,7 +29,7 @@ print `/usr/local/bin/raku -v`;
         #mv Reports:Tasks_not_implemented_in_Raku Reports:Tasks_not_implemented_in_Raku~
         #/opt/local/bin/curl -s -O https://rosettacode.org/wiki/Reports:Tasks_not_implemented_in_Raku
 
-sub path { return $_[0] =~ /^([A-Z])/ ? "$1/" : '0/' }
+sub path { return $_[0] =~ /^([0-Z])/ ? "$1/" : '0/' }
 
 ## characterize RC tasks
 
