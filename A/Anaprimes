@@ -1,0 +1,42 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Anaprimes
+#c# 2023-02-01 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+use Math::Primesieve;
+use Lingua::EN::Numbers;
+
+my $p = Math::Primesieve.new;
+
+for 3 .. 7 {
+    my $largest = $p.primes(10**($_-1), 10**$_).classify(*.comb.sort.join).max(+*.value).value;
+
+    @res.push: "\nLargest group of anaprimes before {cardinal 10 ** $_}: {+$largest} members.";
+    @res.push: 'First: ', ' Last: ' Z~ $largest[0, *-1];
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+Largest group of anaprimes before one thousand: 4 members.
+First: 179  Last: 971
+
+Largest group of anaprimes before ten thousand: 11 members.
+First: 1237  Last: 7321
+
+Largest group of anaprimes before one hundred thousand: 39 members.
+First: 13789  Last: 98731
+
+Largest group of anaprimes before one million: 148 members.
+First: 123479  Last: 974213
+
+Largest group of anaprimes before ten million: 731 members.
+First: 1235789  Last: 9875321
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
