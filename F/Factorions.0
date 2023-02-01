@@ -1,0 +1,59 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Factorions
+#c# 2019-08-13 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# now slower?
+
+my @res;
+
+constant @f = 1, |[\×] 1..*;
+
+constant $limit = 1500000;
+
+constant $bases = 9 .. 12;
+
+my @result;
+
+$bases.race(:1batch).map: -> $b {
+
+    @result[$b] = "\nFactorions in base $b:\n1 2 ";
+
+    sink (1 .. $limit div $b).map: -> $i {
+        my $sum;
+        my $prod = $i × $b;
+
+        for $i.polymod($b xx *) {
+            $sum += @f[$_];
+            last if $sum > $prod
+        }
+
+        next if $sum > $prod;
+
+        for ^$b {
+            last if (my $s = $sum + @f[$_]) > $prod + $_;
+            @result[$b] ~= "$s " and last if $s == $prod + $_
+        }
+    }
+}
+
+say @result[$bases].join("\n");
+
+my $ref = q:to/END/;
+
+Factorions in base 9:
+1 2 41282 
+
+Factorions in base 10:
+1 2 145 40585 
+
+Factorions in base 11:
+1 2 26 48 40472 
+
+Factorions in base 12:
+1 2 
+END
+
+use Test;
+is @result[$bases].join("\n"), chomp $ref;

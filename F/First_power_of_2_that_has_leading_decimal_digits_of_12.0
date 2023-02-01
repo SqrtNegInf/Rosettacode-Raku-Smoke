@@ -1,0 +1,55 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#t# skiptest
+#u# http://rosettacode.org/wiki/First_power_of_2_that_has_leading_decimal_digits_of_12
+#c# 2020-01-15 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# thundergnat took pains to hide this version, so I will too (some results dubious)
+
+use Lingua::EN::Numbers;
+
+#my $time = now;
+
+# Brute force-ish. Ok for low powers, quickly runs out of steam
+my @p1 = lazy (^Inf).hyper(:8degree).map: -> \k { floor exp(k, 2)/10**(Int(k/3.322)-3) };
+multi p1 ($prefix, Int $nth) {
+    my $index = 0;
+    my $count = 0;
+    @p1.map: {
+        ++$count if $_.starts-with($prefix);
+        last if $count == $nth;
+        ++$index;
+    }
+    $index
+}
+
+# Finesse. Takes advantage of repeating patterns to avoid heavy calculations
+my @i = (90,289,196,289,196),(485),(289,196),(289,196,485),(485,196,289,196,289,196);
+my @a = flat ('02231112223112223111223'.comb.map( { @i[$_] } ).join( " @i[4] ")).words;
+my @b = flat ('1112223112223111222311222311222311122231122231112223112223112223'
+          .comb.map( { @i[$_] } ).join( " @i[4] ")).words;
+my @p2 = lazy flat @a, @b xx *;
+multi p2 ($pre where *.chars == 3, Int $nth) { sum @p2[^$nth] }
+
+# The task
+for <12 1  12 2  123 45> -> $prefix, $nth {
+    printf "%9s power of two (2**n) that starts with %5s is at n = %s\n",
+        ordinal-digit($nth), "'$prefix'",  comma p1($prefix, $nth)
+}
+
+say '---';
+
+for <123 45  123 456  123 12345  123 678910> -> $prefix, $nth {
+    printf "%9s power of two (2**n) that starts with %5s is at n = %s\n",
+        ordinal-digit($nth), "'$prefix'",  comma p2($prefix, $nth)
+}
+
+#say "Run time seconds: ", (now - $time).round(.001);</lang>
+
+#<pre>      1st power of two (2**n) that starts with  '12' is at n = 7
+#      2nd power of two (2**n) that starts with  '12' is at n = 80
+#    45th power of two (2**n) that starts with '123' is at n = 12,710
+#    456th power of two (2**n) that starts with '123' is at n = 129,602
+#  12345th power of two (2**n) that starts with '123' is at n = 3,510,481
+# 678910th power of two (2**n) that starts with '123' is at n = 193,052,248

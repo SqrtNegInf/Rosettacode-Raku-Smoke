@@ -1,0 +1,52 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Snake_And_Ladder
+#c# 2017-02-15 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#f# RC file: snake_and_ladder.BEND
+
+my $ext = $*VM ~~ /jvm/ ?? 'jvm' !! 'moar';
+my $fh = open("run/snake_and_ladder.$ext", :w);
+
+srand 123456;
+
+        # board layout
+my %snl =  4, 14,  9, 31, 17,  7, 20, 38, 28, 84, 40, 59, 51, 67, 54, 34,
+          62, 19, 63, 81, 64, 60, 71, 91, 87, 24, 93, 73, 95, 75, 99, 78;
+
+my @players = 1, 1, 1; # three players, starting on square 1
+my $human = 1;         # player 1 is human. set to 0 for all computer players
+
+loop {
+    for ^@players -> $player {
+        turn(@players[$player], $player + 1);
+    }
+    $fh.say: '';
+}
+
+sub turn ($square is rw, $player) {
+    if $player == $human {
+        #prompt "You are on square $square. Hit enter to roll the die.";
+    }
+    my $roll = (1..6).roll;
+    my $turn = $square + $roll;
+    $fh.printf: "Player $player on square %2d rolls a $roll", $square;
+    if $turn > 100 {
+        $fh.say: " but cannot move. Next players turn.";
+        return $square;
+    }
+    if %snl{$turn} {
+        $square = %snl{$turn};
+        if $turn > $square {
+            $fh.say: ". Oops! Landed on a snake. Slither down to $square."
+        } else {
+            $fh.say: ". Yay! Landed on a ladder. Climb up to $square."
+        }
+    } else {
+        $square = $turn;
+        $fh.say: " and moves to square $square";
+    }
+    { $fh.say: "Player $player wins!" ; $fh.close; exit } if $square == 100; # DH change 2017-09-03
+    return $square;
+}

@@ -1,0 +1,51 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Peaceful_chess_queen_armies
+#t# skiptest
+#n# not a complete solution, just a comparison of ways to use regex
+
+my $m = 2;
+my $n = 3;
+
+my $empty-square = '◦•';
+my %Q = 'WBBW'.comb;
+    my $smack =
+    '(<[WB]>)' ~
+    '[' ~
+       join(' |',
+         qq/<[$empty-square]>*/,
+         map {
+           qq/ . ** {$_}[<[$empty-square]> . ** {$_}]*/
+         }, $n-1, $n, $n+1
+       ) ~
+    ']' ~
+    '<{%Q{$0}}>';
+dd $smack;
+
+use MONKEY-SEE-NO-EVAL;
+my $tora = EVAL '/' ~ $smack ~ '/';
+dd $tora;
+
+#my $vowels = 'aeiou';
+#my $xxx = /<{ "<[$vowels]>" }>/;
+
+my regex es { <{ "<[$empty-square]>" }> }; # interpolate variable into character class definition
+my $gaps = join(' |', qq/<es>*/, map { qq/ . ** {$_}[<es> . ** {$_}]*/ }, $n-1, $n, $n+1);
+my $whack = rx/(<[WB]>) [<$gaps>] <{%Q{$0}}>/;
+dd $gaps;
+dd $whack;
+
+my $attack = "rx/$smack/".EVAL;
+dd $attack;
+
+#my $board = ($empty-square x $n**2).comb.rotor($n)>>.join[^$n].join: "\n";
+say my $board = "◦B◦\n•◦•\n◦W◦";
+say '==';
+
+# tora == attack1 == whack == interpo vs. attack2 == smack
+say 'tora   '; say $board ~~ $tora; dd $/; say '--';
+say 'attack1'; say $board ~~ $attack; dd $/; say '--';
+say 'attack2'; say $board ~~ /$attack/; dd $/; say '--';
+say 'smack  '; say $board ~~ /<$smack>/; dd $/; say '--';
+say 'whack  '; say $board ~~ $whack; dd $/; say '--';
+say 'interpo'; say $board ~~ /(<[WB]>) [ <$gaps> ] <{%Q{$0}}>/; dd $/; 

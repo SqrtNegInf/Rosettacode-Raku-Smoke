@@ -1,0 +1,14 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+## use for http://www.rosettacode.org/wiki/DNS_query ??
+#c# 2016-05-04 <RC
+
+use Net::DNS;
+
+my $resolver = Net::DNS.new('192.168.100.1'); 
+#my $resolver = Net::DNS.new('8.8.8.8'); 
+my $address  = $resolver.lookup('A', 'orange.kame.net');
+say $address.Str;
+   $address  = $resolver.lookup('AAAA', 'orange.kame.net');
+say $address.Str;
+

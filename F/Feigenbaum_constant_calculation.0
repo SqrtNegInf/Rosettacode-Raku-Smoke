@@ -1,0 +1,60 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Feigenbaum_constant_calculation
+#c# 2018-04-xx >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# another FP victim...
+#n# δ = 4.6692031586047085 MOAR output with x²
+#n# δ = 4.6692053720403180 MOAR output with x*x
+#n# δ = 4.6692053720403180 JVM output does not vary
+#n# δ = 4.6692016091029906 from OEIS:A006890
+
+my $max-i = 3 + my $max-ij = 10;
+my $a1 = 1.0;
+my $a2 = 0.0;
+my $δ1 = 3.2;
+
+say 'i'.fmt("%2s"), 'δ'.fmt("%12s");
+
+my @res;
+for 2 .. $max-i -> $i {
+    my $a = $a1 + ($a1 - $a2) ÷ $δ1;
+    for 1 .. $max-ij {
+        (my $x, my $y) = 0, 0;
+        for 1 .. 2**$i {
+            $y = 1 - 2 × $y × $x;
+            #$x = $a - $x²; # DH FP values from libc: 'pow' differs from 'mult'
+            $x = $a - $x × $x;
+        }
+        $a -= $x ÷ $y;
+     }
+
+     $δ1 = ($a1 - $a2) ÷ ($a - $a1);
+     $a2 = $a1;
+     $a1 = $a;
+     @res.push: $i.fmt("%2d") ~ $δ1.fmt("%12.8f");
+     #say $i.fmt("%2d") ~ $δ1.fmt("%12.8f");
+}
+
+.say for @res;
+say "δ = $δ1";
+
+my $ref = qq:to/END/;
+ 2  3.21851142
+ 3  4.38567760
+ 4  4.60094928
+ 5  4.65513050
+ 6  4.66611195
+ 7  4.66854858
+ 8  4.66906066
+ 9  4.66917155
+10  4.66919515
+11  4.66920026
+12  4.66920098
+13  4.66920537
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+is $δ1, 4.669205372040318;

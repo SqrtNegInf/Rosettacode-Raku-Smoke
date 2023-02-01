@@ -1,0 +1,14 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/MD5
+#c# 2016-06-04 <RC
+#m# MOAR: BROKEN
+#j#  JVM: OK
+#n# MoarVM disabled: does not work with blead as of 2022-12-18 (JVM uses code in 'lib', so OK)
+
+use Digest::MD5;
+
+say my $result = Digest::MD5.md5_hex: "The quick brown fox jumped over the lazy dog's back";
+
+use Test;
+is $result, 'e38ca1d920c4b8b8d3946b2c72f01680';

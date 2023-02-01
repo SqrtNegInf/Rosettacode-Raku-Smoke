@@ -1,0 +1,30 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+#u# http://rosettacode.org/wiki/Fibonacci_n-step_number_sequences
+#c# 2016-12-06 <RC
+#m# MOAR: BROKEN
+#j#  JVM: BROKEN
+
+use MONKEY-SEE-NO-EVAL;
+
+#Lazy List with Closure[edit]
+sub fibo ($n) {
+    constant @starters = 1,1,2,4 ... *;
+    nacci @starters[^$n];
+}
+
+#my constant @fib1 = 0, 1, *+* ... *;
+
+sub nacci (*@starter) {
+#proto fun (@) {*}; 
+    my @xyz = @starter;
+#dd @xyz;
+    my &fun1 = EVAL '-> {join "+", "*" xx +@xyz}';
+#say &fun1; 
+    my &fun2  = EVAL '-> { @starter, &fun1 ... *}';
+    &fun2;
+    #@starter, { EVAL -> '{ join "+", "*" xx @starter }' } ... *;
+}
+
+for 2..4 -> $n { say fibo($n)[^10] }
+#say nacci(2,1)[^20];

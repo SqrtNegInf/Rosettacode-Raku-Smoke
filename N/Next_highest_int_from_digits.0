@@ -1,0 +1,23 @@
+#!/usr/bin/env perl6
+#n# NOT CURRENT, NOT SMOKE-TESTED
+## Next_highest_int_from_digits
+#  David H.  2020-02-21
+
+for <12453 738440 45072010 95322020> -> $n {
+    my @p = $n.comb.permutations.sort>>.join('').unique;
+    say @p[.succ] for @p.grep(* eq $n, :k);
+}
+
+
+#`{
+           0 ->            0
+           9 ->            0
+          12 ->           21
+          21 ->            0
+      12_453 ->       12_534
+     738_440 ->      740_348
+  45_072_010 ->   45_072_100
+  95_322_020 ->   95_322_200
+9_589_776_899_767_587_796_600 -> 9_589_776_899_767_587_900_667
+}
+
