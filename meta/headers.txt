@@ -1,17 +1,3 @@
-File: 0/0-high-precision-routines
-#!/usr/bin/env perl6
-#u# http://localhost/0/0-high-precision-routines
-#c# 2020-02-11 NOT ON RC
-#m# MOAR: OK
-#j#  JVM: BROKEN
-#n# NB: this is not a 'task' for any particular purpose, just a collect of useful routines high-precision FatRat math
-#n# collected from:
-#n#  A/Arithmetic-geometric_mean/Calculate_Pi
-#n#  C/Calculating_the_value_of_e
-#n#  F/Fibonacci_matrix-exponentiation
-#n#  I/Integer_roots
-#n#  R/Ramanujan%27s_constant-1
-
 File: 0/10001th_prime
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/10001th_prime
@@ -197,7 +183,30 @@ File: 0/9_billion_names_of_God_the_integer.1
 #j#  JVM: OK
 #n# uses about 25x as much memory as the 'main' version, in getting the 10,000 value
 
-File: 0/OEIS-A050255
+File: 1/High-precision-routines
+#!/usr/bin/env perl6
+#u# http://localhost/1/High-precision-routines
+#c# 2020-02-11 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: BROKEN
+#n# NB: this is not a 'task' for any particular purpose, just a collect of useful routines high-precision FatRat math
+#n# collected from:
+#n#  A/Arithmetic-geometric_mean/Calculate_Pi
+#n#  C/Calculating_the_value_of_e
+#n#  F/Fibonacci_matrix-exponentiation
+#n#  I/Integer_roots
+#n#  R/Ramanujan%27s_constant-1
+
+File: 2/OEIS-A001318
+#!/usr/bin/env raku
+#u# https://oeis.org/A001318
+#c# 2023-01-31 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# excerpted from ~/PWC/201/2/bruce-gray.raku
+#n# OEIS:A001318 Generalized pentagonal numbers: m*(3*m - 1)/2, m = 0, +-1, +-2, +-3, .... 
+
+File: 2/OEIS-A050255
 #!/usr/bin/env raku
 #u# https://oeis.org/A050255
 #t# inprogress
@@ -207,7 +216,7 @@ File: 0/OEIS-A050255
 #n# OEIS:A050255 Diaconis-Mosteller approximation to the Birthday problem function
 #n# https://mathworld.wolfram.com/BirthdayProblem.html
 
-File: 0/OEIS-A050256
+File: 2/OEIS-A050256
 #!/usr/bin/env raku
 #u# https://oeis.org/A050256
 #c# 2023-01-05 NOT ON RC
@@ -216,7 +225,7 @@ File: 0/OEIS-A050256
 #n# extract from 'B/Birthday_problem'
 #n# OEIS:A050256 Diaconis-Mosteller approximation to the Birthday problem function
 
-File: 0/OEIS-A073531
+File: 2/OEIS-A073531
 #!/usr/bin/env raku
 #u# https://oeis.org/A073531
 #c# 2023-01-09 NOT ON RC
@@ -225,7 +234,7 @@ File: 0/OEIS-A073531
 #n# mirrored from ~/PWC/195/1/bruce-gray.raku
 #n# OEIS:A073531  Number of n-digit positive integers with all digits distinct.
 
-File: 0/OEIS-A230980
+File: 2/OEIS-A230980
 #!/usr/bin/env raku
 #u# https://oeis.org/A230980
 #c# 2023-01-11 NOT ON RC
@@ -234,7 +243,7 @@ File: 0/OEIS-A230980
 #n# mirrored from ~/PWC/198/2/bruce-gray.raku
 #n# OEIS:A230980 Number of primes <= n, starting at n=0
 
-File: 0/OEIS-A320843
+File: 2/OEIS-A320843
 #!/usr/bin/env raku
 #u# https://oeis.org/A320843
 #c# 2023-01-11 NOT ON RC
@@ -10189,6 +10198,14 @@ File: O/Ormiston_pairs
 #c# 2023-01-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+
+File: O/Ormiston_pairs-2
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Ormiston_pairs
+#c# 2023-01-29 <RC, 2023-01-31 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# thundergnat: slightly more efficient, move computation out of the hot loop
 
 File: O/Overloaded_operators
 #!/usr/bin/env raku
