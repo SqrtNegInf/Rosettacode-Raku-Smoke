@@ -3,6 +3,8 @@
 #c# 2023-02-01 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# skip ' <1000' groups, as 3 candidates, any could be reported
+#n# skip '<10000' groups, as 2 candidates, either could be reported
 
 my @res;
 
@@ -11,7 +13,7 @@ use Lingua::EN::Numbers;
 
 my $p = Math::Primesieve.new;
 
-for 3 .. 7 {
+for 5 .. 7 {
     my $largest = $p.primes(10**($_-1), 10**$_).classify(*.comb.sort.join).max(+*.value).value;
 
     @res.push: "\nLargest group of anaprimes before {cardinal 10 ** $_}: {+$largest} members.";
@@ -20,13 +22,13 @@ for 3 .. 7 {
 
 .say for @res;
 
+#Largest group of anaprimes before one thousand: 4 members.
+#First: 179  Last: 971
+
+#Largest group of anaprimes before ten thousand: 11 members.
+#First: 1279  Last: 9721
+
 my $ref = q:to/END/;
-
-Largest group of anaprimes before one thousand: 4 members.
-First: 179  Last: 971
-
-Largest group of anaprimes before ten thousand: 11 members.
-First: 1237  Last: 7321
 
 Largest group of anaprimes before one hundred thousand: 39 members.
 First: 13789  Last: 98731
