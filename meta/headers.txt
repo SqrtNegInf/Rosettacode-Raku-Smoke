@@ -205,7 +205,7 @@ File: 2/OEIS-A001318
 #m# MOAR: OK
 #j#  JVM: OK
 #n# excerpted from ~/PWC/201/2/bruce-gray.raku
-#n# OEIS:A001318 Generalized pentagonal numbers: m*(3*m - 1)/2, m = 0, +-1, +-2, +-3, .... 
+#n# OEIS:A001318 Generalized pentagonal numbers: m×(3×m - 1)/2, m = 0, +-1, +-2, +-3, .... 
 
 File: 2/OEIS-A050255
 #!/usr/bin/env raku
@@ -753,6 +753,8 @@ File: A/Anaprimes
 #c# 2023-02-01 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# skip ' <1000' groups, as 3 candidates, any could be reported
+#n# skip '<10000' groups, as 2 candidates, either could be reported
 
 File: A/Angle_difference_between_two_bearings
 #!/usr/bin/env perl6
@@ -6547,8 +6549,8 @@ File: H/Hello_world_Line_printer
 File: H/Hello_world_Newbie
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Hello_world/Newbie
-##t# nocode
-##c# 2018-08-12 <RC
+#t# nocode
+#c# 2018-08-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -10257,15 +10259,32 @@ File: O/Ormiston_pairs
 #u# https://rosettacode.org/wiki/Ormiston_pairs
 #c# 2023-01-29 <RC
 #m# MOAR: OK
-#j# JVM:  OK
+#j# JVM:  BROKEN
 
 File: O/Ormiston_pairs-2
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Ormiston_pairs
 #c# 2023-01-29 <RC, 2023-01-31 <RC
 #m# MOAR: OK
+#j# JVM:  BROKEN
+#n# thundergnat: slightly more efficient, move computation out of the hot loop
+
+File: O/Ormiston_pairs-2.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Ormiston_pairs
+#c# 2023-01-29 <RC, 2023-01-31 <RC
+#m# MOAR: OK
 #j# JVM:  OK
 #n# thundergnat: slightly more efficient, move computation out of the hot loop
+
+File: O/Ormiston_triples
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Ormiston_triples
+#t# skiptest
+#c# 2023-02-02 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# slow: 1043.98s user 107.19s system 217% cpu 8:48.68 total
 
 File: O/Overloaded_operators
 #!/usr/bin/env raku
@@ -14382,7 +14401,7 @@ File: S/Spelling_of_ordinal_numbers
 #n# results cause 'malformed UTF' problems, output to file instead
 #n# 2020-05-15 https://github.com/rakudo/rakudo/issues/3694 thundergnat++
 #n# 2021-03-23 removed Allomorph '123+0i'
-#n# 2023-01-17 output changed with Unicode 15 update? [so testing host-specific for now]
+#n# 2023-01-17 output changed with Unicode 15 update? [so testing host-specific: Mac-Pro/Ubuntu vs iMac]
 
 File: S/Spelling_of_ordinal_numbers.jvm
 #!/usr/bin/env perl6
