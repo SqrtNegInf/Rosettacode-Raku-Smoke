@@ -36,9 +36,10 @@ Orbital_elements
 Polynomial_regression
 END
 
-for flat 0, 'A'..'Z' -> $dir {
+for flat '0'..'9', 'A'..'Z' -> $dir {
+    next unless $dir.IO.e;
     for run('find', $dir, :out).out.lines -> $path {
-        next if 1 == $path.chars;
+        next if 1 == $path.chars or $path ~~ rx/:i 'ReadMe'/;
         my $file = $path.subst(/^.*\//, '');
        #my $file = ($path ~~ /'/' (.*) $$/)».Str;
        #my $file = $0 given $path ~~ /'/' (.*) $$/;
