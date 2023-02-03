@@ -1,8 +1,7 @@
 #!/usr/bin/env perl6
 ## display OEIS citations
-#    2022-03-02
+#    2022-03-02 2023-02-02
 #  cross-check via OEIS module?
-#  must update if directories 3 - 9 are created, need to be checked
 
 #`{
 
@@ -18,10 +17,11 @@ Example of how to annotate RC page with 'see also' links:
 
 
 my @code;
-my @dirs.push: .IO.absolute.IO for flat '0' .. '2', 'A' .. 'Z';
+my @dirs.push: .IO.absolute.IO for flat '0'..'Z';
 
 while @dirs {
     my @files = @dirs.pop;
+    next unless @files[0].IO.e;
     while @files {
         for @files.pop.dir -> $path {
             next if $path.f and $path  ~~ rx{ '.jvm' };
