@@ -1,0 +1,44 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Ormiston_triples
+#t# skiptest
+#c# 2023-02-02 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# slow: 1043.98s user 107.19s system 217% cpu 8:48.68 total
+
+my @res;
+
+use Lingua::EN::Numbers;
+use List::Divvy;
+
+my @primes = lazy (^∞).hyper.grep( &is-prime ).map: { $_ => .comb.sort.join };
+my @Ormistons = @primes.kv.map: { ($^value.key, @primes[$^key+1].key, @primes[$^key+2].key) if
+                                    $^value.value eq @primes[$^key+1].value and
+                                    $^value.value eq @primes[$^key+2].value 
+                                };
+
+
+@res.push: "First 25 Ormiston triples:"; 
+@res.push: @Ormistons[^25].batch(3)».map( { "({.[0].fmt: "%5d"}, {.[1].fmt: "%5d"}, {.[2].fmt: "%5d"})" } ).join: "\n";
+@res.push: '';
+@res.push: +@Ormistons.&before( *[2] > $_ ) ~ " Ormiston triples before " ~ .Int.&cardinal for 1e8;#, 1e9;
+
+.say for @res;
+
+my $ref = q:to/END/;
+First 25 Ormiston triples:
+(11117123, 11117213, 11117321) (12980783, 12980837, 12980873) (14964017, 14964071, 14964107)
+(32638213, 32638231, 32638321) (32964341, 32964413, 32964431) (33539783, 33539837, 33539873)
+(35868013, 35868031, 35868103) (44058013, 44058031, 44058103) (46103237, 46103273, 46103327)
+(48015013, 48015031, 48015103) (50324237, 50324273, 50324327) (52402783, 52402837, 52402873)
+(58005239, 58005293, 58005329) (60601237, 60601273, 60601327) (61395239, 61395293, 61395329)
+(74699789, 74699879, 74699897) (76012879, 76012897, 76012987) (78163123, 78163213, 78163231)
+(80905879, 80905897, 80905987) (81966341, 81966413, 81966431) (82324237, 82324273, 82324327)
+(82523017, 82523071, 82523107) (83279783, 83279837, 83279873) (86050781, 86050817, 86050871)
+(92514341, 92514413, 92514431)
+
+25 Ormiston triples before one hundred million
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
