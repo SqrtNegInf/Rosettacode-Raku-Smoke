@@ -4,10 +4,10 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# excerpted from ~/PWC/201/2/bruce-gray.raku
-#n# OEIS:A001318 Generalized pentagonal numbers: m*(3*m - 1)/2, m = 0, +-1, +-2, +-3, .... 
+#n# OEIS:A001318 Generalized pentagonal numbers: m×(3×m - 1)/2, m = 0, +-1, +-2, +-3, .... 
 
 sub positive_and_negative ( UInt $n          ) { |( +$n, -$n ) }
-sub pentagonal            (  Int $n --> UInt ) { $n * ( 3 * $n - 1 ) div 2 }
+sub pentagonal            (  Int $n --> UInt ) { $n × ( 3 × $n - 1 ) div 2 }
 constant @A001318 = (1 .. Inf).map(&positive_and_negative).map(&pentagonal);
 
 say my $result = @A001318[^60];
