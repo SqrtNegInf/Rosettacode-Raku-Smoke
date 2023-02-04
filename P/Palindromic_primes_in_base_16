@@ -3,9 +3,12 @@
 #c# 2021-06-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A029732 Palindromic primes in base 16 (but written in base 10) [as per the OEIS]
 
-say my $result = "{+$_} matching numbers:\n{.batch(10)».fmt('%3X').join: "\n"}"
-    given (^500).grep: { .is-prime and .base(16) eq .base(16).flip };
+say my $result1 = "{+$_} matching numbers:\n{.batch(10)».fmt('%3X').join: "\n"}"
+    given my @pp = (^500).grep: { .is-prime and .base(16) eq .base(16).flip };
+
+say my $result0 = @pp;
 
 my $ref = q:to/END/;
 13 matching numbers:
@@ -14,4 +17,5 @@ my $ref = q:to/END/;
 END
 
 use Test;
-is $result, chomp $ref;
+is $result0, '2 3 5 7 11 13 17 257 337 353 401 433 449';
+is $result1, chomp $ref;
