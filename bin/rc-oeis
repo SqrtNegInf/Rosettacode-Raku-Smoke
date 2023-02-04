@@ -35,7 +35,7 @@ while @dirs {
 for @code.sort -> $f {
     my $fn = IO::Spec::Unix.splitpath($f)[*-1];
     next unless my @oeis = $f.IO.slurp.lines.grep: { $_ ~~ /^^ '#n# OEIS:' / };
-    say $fn.substr(0,1) ~ '/' ~ $fn;
+    say "{ $fn ~~ /^ 'OEIS'/ ?? '2' !! $fn.substr(0,1)}/$fn";
     say @oeis».subst('#n# OEIS:', '').join("\n"); say '';
 }
 
