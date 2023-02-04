@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Ormiston_triples
-#t# skiptest
+#t# toodamnslow
 #c# 2023-02-02 NOT ON RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -8,6 +8,7 @@
 #n# slow:    25 Ormiston triples before one hundred million/  1043.98s user  107.19s system 217% cpu    8:48.68 total
 #n# slowish:                      "                        /   310.04s user   20.85s system 181% cpu    3:01.97 total/iMac
 #n# slower: 368 Ormiston triples before one billion        / 26982.40s user 2014.68s system 117% cpu 6:49:46.36 total
+#n# calculations are just grunt-work, but the output formatting is fun
 
 my @res;
 
@@ -21,8 +22,7 @@ my @Ormistons = @primes.kv.map: { ($^value.key, @primes[$^key+1].key, @primes[$^
                                 };
 
 @res.push: "First 25 Ormiston triples:"; 
-@res.push: @Ormistons[^3].batch(3)».map( { "({.[^3]».fmt('%5d').join: ', '})" } ).join: "\n";
-#@res.push: @Ormistons[^3].batch(3)».map( { "({.[0].fmt: "%5d"}, {.[1].fmt: "%5d"}, {.[2].fmt: "%5d"})" } ).join: "\n";
+@res.push: @Ormistons[^25].batch(3)».map( { "({.[^3]».fmt('%5d').join: ', '})" } ).join: "\n";
 @res.push: '';
 @res.push: +@Ormistons.&before( *[2] > $_ ) ~ " Ormiston triples before " ~ .Int.&cardinal for 1e8; #, 1e9;
 
