@@ -1,0 +1,43 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A287298
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/149/2/athanasius.raku
+#n# OEIS:A287298 a(n) is the largest square with distinct digits in base n
+
+my UInt constant $MAX-BASE = 36;
+my Str  constant $BLANK    = ' ' x ($MAX-BASE + 10);
+my Bool constant $VERBOSE  = False;
+
+    my $base= 6;
+    my Str  $squ = '1';
+    my UInt $max = [+] (1 .. $base - 1).map: { $_ * ($base ** $_) };
+
+    if $base > 1
+    {
+        for $max.sqrt.floor ... 1 -> UInt $r
+        {
+            $squ = $r².base( $base );
+            qq[\r$BLANK\rTrying: "$squ"].print if $VERBOSE;
+            if has-no-reps( $squ )
+            {
+                "\r$BLANK\r".print             if $VERBOSE;
+                last;
+            }
+        }
+    }
+
+    say my $result = sprintf qq[f(%d) = "%s"], $base, $squ;
+    use Test;
+    is $result, 'f(6) = "452013"';
+
+sub has-no-reps( Str:D $n --> Bool:D )
+{
+    my UInt %digits;
+    for $n.split: '', :skip-empty
+    {
+        return False if ++%digits{ $_ } > 1;
+    }
+    return True;
+}
