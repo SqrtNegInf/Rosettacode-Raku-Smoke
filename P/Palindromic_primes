@@ -3,6 +3,7 @@
 #c# 2021-04-07 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002385 Palindromic primes
 
 say my $result = "{+$_} matching numbers:\n{.batch(10)».fmt('%3d').join: "\n"}"
     given (^1000).grep: { .is-prime and $_ eq .flip };
