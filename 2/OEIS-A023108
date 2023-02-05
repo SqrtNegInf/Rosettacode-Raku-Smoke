@@ -1,0 +1,36 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A023108
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/137/2/bruce-gray.raku
+#n# OEIS:A023108 Positive integers that never result in a palindrome when iterating A056964(x) = x + (x with digits reversed)
+
+sub is-Lychrel-number ( Int $n is copy --> Bool ) {
+    my $iterations;
+    loop {
+        $n += $n.flip;
+
+        return False if $n eq $n.flip;
+        return True  if $n            >= 10_000_000
+                     or $iterations++ >  500;
+    }
+}
+
+use Test;
+my @tests = 
+    # From the task description:
+     56 => False,
+     57 => False,
+     59 => False,
+
+    # Added:
+    464 => True,    # Should be False, but not shown to be False inside the 10_000_000 limit, so True.
+    196 => True,    # Famously huge
+;    
+plan +@tests;
+
+for @tests -> ( :key($input), :value($expected) ) {
+    is is-Lychrel-number($input), $expected,
+        "is-Lychrel-number {$input.fmt('%3d')} == $expected";
+}
