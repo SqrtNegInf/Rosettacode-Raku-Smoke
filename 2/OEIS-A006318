@@ -1,0 +1,40 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A006318
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# excerpted from ~/PWC/117/2/athanasius.raku
+#n# OEIS:A006318 in a triangular grid of n squares, number of subdiagonal paths from (0, 0) to (n, n)
+
+#------------------------------------------------------------------------------
+# Schröder number
+# ---------------
+# Formula:
+#             S[0] = 1
+#             S[1] = 2
+# for n >= 2: S[n] = 3.S[n - 1] + SUM( k = 1 .. (n - 2) ){ S[k].S[n - k - 1] }
+#
+# -- https://en.wikipedia.org/wiki/Schr%C3%B6der_number#Recurrence_relation
+#
+sub S( UInt:D $N --> UInt:D )
+#------------------------------------------------------------------------------
+{
+    return 1 if $N == 0;
+    return 2 if $N == 1;
+
+    my UInt $S = 3 * S( $N - 1 );
+
+    for 1 .. $N - 2 -> UInt $k
+    {
+        $S += S( $k ) * S( $N - $k - 1 );
+    }
+
+    return $S;
+}
+
+push my @res, S($_) for 0..10;
+
+say @res.join: ' ';
+
+use Test;
+is @res.join(', '), '1, 2, 6, 22, 90, 394, 1806, 8558, 41586, 206098, 1037718';
