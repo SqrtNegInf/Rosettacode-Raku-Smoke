@@ -3,15 +3,16 @@
 #c# 2018-12-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002182
+#n# OEIS:A002182 highly composite numbers, the natural numbers with more factors than any smaller than itself.
 #n# 2018-12-10: confirmed that there is a race condition if .hyper is used, 
 #n# manifests itself more or less easily on different OS's:  macOS 'El Capitan' always fails, 
 #n# but under high CPU/memory load same seen on any macOS, and Linux, Windows
 
 my @res;
 
-# At its heart, this task is almost exactly the same as Proper_Divisors, it is just asking for slightly different results. Much of this code is lifted straight from there.
-# Implemented as an auto-extending lazy list. Displaying the count of anti-primes less than 5e5 also because... why not.
+# At its heart, this task is almost exactly the same as Proper_Divisors, it is just asking for slightly different results. 
+# Much of this code is lifted straight from there.  Implemented as an auto-extending lazy list. 
+# Displaying the count of anti-primes less than 5e5 also because... why not.
 
 sub propdiv (\x) {
     my @l = 1 if x > 1;
