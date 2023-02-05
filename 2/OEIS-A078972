@@ -25,7 +25,7 @@
 constant @brilliant_numbers = gather for 1 .. Inf -> $length {
     my @primes = grep &is-prime, (10 ** ($length-1))
                              ..^ (10 **  $length   );
-    .take for (@primes X* @primes).sort.squish;
+    .take for (@primes X× @primes).sort.squish;
 }
 
 use Test;
@@ -33,4 +33,4 @@ is-deeply @brilliant_numbers.head(20), (4, 6, 9, 10, 14, 15, 21, 25, 35, 49, 121
 is @brilliant_numbers[10537 - 1], 994009;
 
 # The line below produces md5-exact match for https://oeis.org/A078972/b078972.txt , in less than 1 second.
- say .key + 1, ' ', .value for @brilliant_numbers.head(10537).pairs; say '' for ^7;
+#say .key + 1, ' ', .value for @brilliant_numbers.head(10537).pairs; say '' for ^7;
