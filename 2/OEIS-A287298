@@ -12,7 +12,7 @@ my Bool constant $VERBOSE  = False;
 
     my $base= 6;
     my Str  $squ = '1';
-    my UInt $max = [+] (1 .. $base - 1).map: { $_ * ($base ** $_) };
+    my UInt $max = [+] (1 .. $base - 1).map: { $_ × ($base ** $_) };
 
     if $base > 1
     {
