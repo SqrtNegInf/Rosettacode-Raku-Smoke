@@ -3,8 +3,7 @@
 #c# 2016-03-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-# Works with: Rakudo version 2015.09
+#n# OEIS:A024785 Left-truncatable primes: every suffix is prime and no digits are zero
 
 constant ltp = $[2, 3, 5, 7], -> @ltp {
     $[ grep { .&is-prime }, ((1..9) X~ @ltp) ]
