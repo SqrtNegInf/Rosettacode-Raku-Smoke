@@ -18,7 +18,7 @@ constant @all-esthetics = gather loop {
     .take for @last_generation;
     my @next_generation = gather for @last_generation -> $i {
         my $d = $i % 10;
-        my $n = $i * 10 + $d;
+        my $n = $i × 10 + $d;
 
         take $n - 1 if $d !== 0;
         take $n + 1 if $d !== 9;
