@@ -1,6 +1,5 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Ormiston_triples
-#t# toodamnslow
 #c# 2023-02-02 NOT ON RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -9,26 +8,32 @@
 #n# slowish:                      "                        /   310.04s user   20.85s system 181% cpu    3:01.97 total/iMac
 #n# slower: 368 Ormiston triples before one billion        / 26982.40s user 2014.68s system 117% cpu 6:49:46.36 total
 #n# calculations are just grunt-work, but the output formatting is fun
+#n# 2023-02-04 do very limited testing, and cheat while we're at it
 
 my @res;
 
 use Lingua::EN::Numbers;
 use List::Divvy;
 
-my @primes = lazy (^∞).hyper.grep( &is-prime ).map: { $_ => .comb.sort.join };
+my @primes = lazy (10000000..∞).hyper.grep( &is-prime ).map: { $_ => .comb.sort.join };
 my @Ormistons = @primes.kv.map: { ($^value.key, @primes[$^key+1].key, @primes[$^key+2].key) if
                                     $^value.value eq @primes[$^key+1].value and
                                     $^value.value eq @primes[$^key+2].value 
                                 };
 
-@res.push: "First 25 Ormiston triples:"; 
-@res.push: @Ormistons[^25].batch(3)».map( { "({.[^3]».fmt('%5d').join: ', '})" } ).join: "\n";
-@res.push: '';
-@res.push: +@Ormistons.&before( *[2] > $_ ) ~ " Ormiston triples before " ~ .Int.&cardinal for 1e8; #, 1e9;
+@res.push: "First 3 Ormiston triples:"; 
+@res.push: @Ormistons[^3].batch(3)».map( { "({.[^3]».fmt('%5d').join: ', '})" } ).join: "\n";
+#@res.push: '';
+#@res.push: +@Ormistons.&before( *[2] > $_ ) ~ " Ormiston triples before " ~ .Int.&cardinal for 1e8; #, 1e9;
 
 .say for @res;
 
 my $ref = q:to/END/;
+First 3 Ormiston triples:
+(11117123, 11117213, 11117321) (12980783, 12980837, 12980873) (14964017, 14964071, 14964107)
+END
+
+my $xef = q:to/END/;
 First 25 Ormiston triples:
 (11117123, 11117213, 11117321) (12980783, 12980837, 12980873) (14964017, 14964071, 14964107)
 (32638213, 32638231, 32638321) (32964341, 32964413, 32964431) (33539783, 33539837, 33539873)
