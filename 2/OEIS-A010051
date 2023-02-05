@@ -1,0 +1,18 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A006862
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# excerpted from ~/PWC/012/1/aaron-sherman.raku
+#n# OEIS:A006862 Euclid numbers: 1 + product of the first n primes
+
+sub primes() { (2,3,*+2...*).grep: *.is-prime }
+
+sub euclids() {
+    gather for primes() -> $p {
+        take ((state $t=1) *= $p) + 1;
+    }
+}
+
+# Show the first non-prime Euclid number.
+say euclids.grep(not *.is-prime).first;
