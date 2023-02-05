@@ -1,0 +1,36 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A000788
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/079/1/wambash.raku
+#n# OEIS:A000788 Total number of 1's in binary expansions of 0, ..., n
+
+# the short versions (found in several other PWC solutions):
+my $n = 10_000;
+is 64613, (1..$n).map(*.base(2)).join.indices(1).elems;
+is 64613, [+] (1..$n).map( *.base(2).comb ).flat;
+is 64613, (1..$n).map({ $_.fmt('%b') })>>.comb.flat.sum;
+
+multi count-set-bit ($n) {
+    1 .. $n
+    andthen .map: |*.polymod(2 xx *)
+    andthen .sum
+}
+
+multi count-set-bit ($n where * ≥ 100) {
+    count-set-bit-big( $n )
+}
+
+constant $mod=1000000007;
+sub count-set-bit-big ($n) {
+    $n
+    andthen .polymod(2 xx *)
+    andthen .grep: * == 1, :k
+    andthen .reverse
+    andthen .map: { ( ( ($_ + 2*$++) mod $mod)  *  2.expmod($_-1 ,$mod) + 1 ) mod $mod }\
+    andthen .sum mod $mod
+}
+
+use Test;
+is count-set-bit(10_000), 64613;
