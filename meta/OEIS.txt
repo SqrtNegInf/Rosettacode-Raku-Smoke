@@ -1,23 +1,62 @@
 9/9_billion_names_of_God_the_integer
-A008284
-A000041
+A008284 Triangle of partition numbers
+A000041 The number of partitions of n (the partition numbers)
 
-O/OEIS-A001318
+2/OEIS-A000058
+A000058 Sylvester's_sequence: a(n+1) = a(n)^2 - a(n) + 1, with a(0) = 2
+
+2/OEIS-A001318
 A001318 Generalized pentagonal numbers: m×(3×m - 1)/2, m = 0, +-1, +-2, +-3, .... 
 
-O/OEIS-A050255
+2/OEIS-A005231
+A005231 Odd abundant numbers (odd numbers n whose sum of divisors exceeds 2n)
+
+2/OEIS-A008683
+A008683 Möbius/Moebius function mu(n): mu(1) = 1; mu(n) = (-1)^k if n is the product of k different primes, else mu(n) = 0
+
+2/OEIS-A033075
+A033075 Esthetic numbers: Positive numbers all of whose pairs of consecutive decimal digits differ by 1
+A090994 Number of n-digit terms in A033075
+
+2/OEIS-A037274
+A037274 prime that is reached when you start with n, concatenate its prime factors (for n >= 2)
+
+2/OEIS-A046066
+A000040 Prime numbers
+A006862 Euclid numbers: 1 + product of the first n primes. 
+A035345 Smallest prime > prime(1)*prime(2)*...*prime(n)+1.
+A005235 Fortunate numbers: least m>1 such that m + prime(n)# is prime, where p# denotes the product of all primes <= p
+A046066 Fortunate primes in numerical order with duplicates removed.
+
+2/OEIS-A050255
 A050255 Diaconis-Mosteller approximation to the Birthday problem function
 
-O/OEIS-A050256
+2/OEIS-A050256
 A050256 Diaconis-Mosteller approximation to the Birthday problem function
 
-O/OEIS-A073531
+2/OEIS-A052486
+A052486 Achilles numbers - powerful but imperfect numbers
+
+2/OEIS-A073531
 A073531  Number of n-digit positive integers with all digits distinct.
 
-O/OEIS-A230980
+2/OEIS-A074788
+A001608 Perrin sequence: a(n) = a(n-2) + a(n-3)  [init: 3, 0, 2]
+A074788 Prime numbers in the Perrin sequence: b(n+1) = b(n-1) + b(n-2)  [init: 3, 0, 2]
+
+2/OEIS-A078972
+A078972 Brilliant numbers: semiprimes whose prime factors have the same number of decimal digits
+
+2/OEIS-A136098
+A136098 Prime palindromic cyclops numbers
+
+2/OEIS-A230980
 A230980 Number of primes <= n, starting at n=0
 
-O/OEIS-A320843
+2/OEIS-A287298
+A287298 a(n) is the largest square with distinct digits in base n
+
+2/OEIS-A320843
 A320843 Number of permutations sigma of {1,2,...,n} such that sigma(i) divides i or i divides sigma(i) for 1 <= i <= n
 
 A/Abundant,_deficient_and_perfect_number_classifications
@@ -114,13 +153,13 @@ A023200 Primes p such that p + 4 is also prime.
 A046132 Larger member p+4 of cousin primes (p, p+4).
 
 C/Cuban_primes-1
-A002407
+A002407 Primes which are the difference of two consecutive cubes
 
 C/Cuban_primes-2
-A002407
+A002407 Primes which are the difference of two consecutive cubes
 
 C/Cuban_primes-3
-A002407
+A002407 Primes which are the difference of two consecutive cubes
 
 C/Cullen_and_Woodall_numbers
 A002064 Cullen 
@@ -201,7 +240,7 @@ A059757 smallest values of a for a given E-W number k
 A111042 odd terms of sequence (not calculated here)
 
 E/Esthetic_numbers
-A033075
+A033075 Positive numbers all of whose pairs of consecutive decimal digits differ by 1
 
 E/Euclid-Mullin_sequence-1
 A000945 
@@ -329,7 +368,7 @@ H/Harshad_or_Niven_series
 A005349
 
 H/Home_primes
-A037274 Home primes for n >= 2
+A037274 prime that is reached when you start with n, concatenate its prime factors (for n >= 2)
 
 H/Honaker_primes
 A033548 Honaker primes
@@ -435,6 +474,9 @@ A004290
 M/Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 A004290
 
+M/Moebius_function
+A008683 Möbius/Moebius function mu(n): mu(1) = 1; mu(n) = (-1)^k if n is the product of k different primes, else mu(n) = 0
+
 M/Motzkin_numbers-1
 A001006 
 
@@ -492,6 +534,9 @@ A072274 Ormiston prime pairs
 O/Ormiston_triples
 A075093 Smallest member of Ormiston prime triple [but here all members of triple]
 
+O/Ormiston_triples-2
+A075093 Smallest member of Ormiston prime triple
+
 P/Padovan_n-step_number_sequences
 A134816 Padovan's spiral numbers
 A000930 Narayana's cows sequence
@@ -504,6 +549,12 @@ A185670 Number of pairs (x,y) with 1 <= x < y <= n with at least one common fact
 
 P/Palindromic_gapful_numbers
 A108343
+
+P/Palindromic_primes
+A002385 Palindromic primes
+
+P/Palindromic_primes_in_base_16
+A029732 Palindromic primes in base 16 (but written in base 10) [as per the OEIS]
 
 P/Pan_base_non-primes
 A121719 Strings of digits which are composite regardless of the base in which they are interpreted.
@@ -561,6 +612,9 @@ A173062
 
 P/Piprimes
 A000720
+
+P/Pisano_period
+A001175 Period of Fibonacci numbers mod n (aka 'Pisano numbers')
 
 P/Population_count
 A000120 aka binary/Hamming weight
@@ -773,7 +827,7 @@ A180632 Minimum length of a string over the alphabet A = {1,2,...,n}
 A007489 a(n) = Sum_{k=1..n} k!
 
 S/Sylvester%27s_sequence
-A000058
+A000058 Sylvester's_sequence: a(n+1) = a(n)^2 - a(n) + 1, with a(0) = 2
 
 T/Tau_function
 A000005 Tau function
