@@ -1,8 +1,9 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Penholodigital_squares
 #c# 2023-02-04 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#m# MOAR: OK
+#j# JVM:  OK
+#n# full run just too slow for testing
 
 my @res;
 
@@ -15,14 +16,16 @@ my @res;
         ($start .. $end).grep: *².base($base).comb.sort.join eq $test
 }
 
+#`{{
 (13 .. 16).hyper(:1batch).map: -> $base {
     my $test = (1 ..^ $base)».base($base).join;
     my $start = $test     .parse-base($base).sqrt.Int;
     my $end   = $test.flip.parse-base($base).sqrt.Int;
     my @penholo = ($start .. $end).grep: *².base($base).comb.sort.join eq $test;
-    say "\nThere is a total of {+@penholo} penholodigital squares in base $base:";
+    say \nThere is a total of {+@penholo} penholodigital squares in base $base:";
     say @penholo[0,*-1].map({"{.base($base)}² = {.².base($base)}"}).batch(3)».join(", ").join: "\n" if +@penholo;
 }
+}}
 
 .say for @res;
 
