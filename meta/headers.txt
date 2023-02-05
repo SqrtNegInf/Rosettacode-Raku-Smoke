@@ -171,8 +171,8 @@ File: 0/9_billion_names_of_God_the_integer
 #c# 2016-07-25 <RC, 2020-11-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A008284
-#n# OEIS:A000041
+#n# OEIS:A008284 Triangle of partition numbers
+#n# OEIS:A000041 The number of partitions of n (the partition numbers)
 #n# no time/memory issues any longer
 
 File: 0/9_billion_names_of_God_the_integer.1
@@ -198,6 +198,15 @@ File: 1/High-precision-routines
 #n#  I/Integer_roots
 #n#  R/Ramanujan%27s_constant-1
 
+File: 2/OEIS-A000058
+#!/usr/bin/env raku
+#u# https://oeis.org/A000058
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/173/2/bruce-gray.raku
+#n# OEIS:A000058 Sylvester's_sequence: a(n+1) = a(n)^2 - a(n) + 1, with a(0) = 2
+
 File: 2/OEIS-A001318
 #!/usr/bin/env raku
 #u# https://oeis.org/A001318
@@ -206,6 +215,56 @@ File: 2/OEIS-A001318
 #j#  JVM: OK
 #n# excerpted from ~/PWC/201/2/bruce-gray.raku
 #n# OEIS:A001318 Generalized pentagonal numbers: m×(3×m - 1)/2, m = 0, +-1, +-2, +-3, .... 
+
+File: 2/OEIS-A005231
+#!/usr/bin/env raku
+#u# https://oeis.org/A005231
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/171/1/bruce-gray.raku
+#n# OEIS:A005231 Odd abundant numbers (odd numbers n whose sum of divisors exceeds 2n)
+
+File: 2/OEIS-A008683
+#!/usr/bin/env raku
+#u# https://oeis.org/A008683
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/159/2/bruce-gray.raku
+#n# OEIS:A008683 Möbius/Moebius function mu(n): mu(1) = 1; mu(n) = (-1)^k if n is the product of k different primes, else mu(n) = 0
+
+File: 2/OEIS-A033075
+#!/usr/bin/env raku
+#u# https://oeis.org/A033075
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/173/1/bruce-gray.raku
+#n# OEIS:A033075 Esthetic numbers: Positive numbers all of whose pairs of consecutive decimal digits differ by 1
+#n# OEIS:A090994 Number of n-digit terms in A033075
+
+File: 2/OEIS-A037274
+#!/usr/bin/env raku
+#u# https://oeis.org/A037274
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/168/2/bruce-gray.raku
+#n# OEIS:A037274 prime that is reached when you start with n, concatenate its prime factors (for n >= 2)
+
+File: 2/OEIS-A046066
+#!/usr/bin/env raku
+#u# https://oeis.org/A046066
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/155/1/bruce-gray.raku
+#n# OEIS:A000040 Prime numbers
+#n# OEIS:A006862 Euclid numbers: 1 + product of the first n primes. 
+#n# OEIS:A035345 Smallest prime > prime(1)*prime(2)*...*prime(n)+1.
+#n# OEIS:A005235 Fortunate numbers: least m>1 such that m + prime(n)# is prime, where p# denotes the product of all primes <= p
+#n# OEIS:A046066 Fortunate primes in numerical order with duplicates removed.
 
 File: 2/OEIS-A050255
 #!/usr/bin/env raku
@@ -226,6 +285,15 @@ File: 2/OEIS-A050256
 #n# extract from 'B/Birthday_problem'
 #n# OEIS:A050256 Diaconis-Mosteller approximation to the Birthday problem function
 
+File: 2/OEIS-A052486
+#!/usr/bin/env raku
+#u# https://oeis.org/A052486
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/169/2/bruce-gray.raku
+#n# OEIS:A052486 Achilles numbers - powerful but imperfect numbers
+
 File: 2/OEIS-A073531
 #!/usr/bin/env raku
 #u# https://oeis.org/A073531
@@ -235,6 +303,34 @@ File: 2/OEIS-A073531
 #n# mirrored from ~/PWC/195/1/bruce-gray.raku
 #n# OEIS:A073531  Number of n-digit positive integers with all digits distinct.
 
+File: 2/OEIS-A074788
+#!/usr/bin/env raku
+#u# https://oeis.org/A074788
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/168/1/bruce-gray.raku
+#n# OEIS:A001608 Perrin sequence: a(n) = a(n-2) + a(n-3)  [init: 3, 0, 2]
+#n# OEIS:A074788 Prime numbers in the Perrin sequence: b(n+1) = b(n-1) + b(n-2)  [init: 3, 0, 2]
+
+File: 2/OEIS-A078972
+#!/usr/bin/env raku
+#u# https://oeis.org/A078972
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/169/2/bruce-gray.raku
+#n# OEIS:A078972 Brilliant numbers: semiprimes whose prime factors have the same number of decimal digits
+
+File: 2/OEIS-A136098
+#!/usr/bin/env raku
+#u# https://oeis.org/A001318
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/177/2/bruce-gray.raku
+#n# OEIS:A136098 Prime palindromic cyclops numbers
+
 File: 2/OEIS-A230980
 #!/usr/bin/env raku
 #u# https://oeis.org/A230980
@@ -243,6 +339,15 @@ File: 2/OEIS-A230980
 #j#  JVM: BROKEN
 #n# mirrored from ~/PWC/198/2/bruce-gray.raku
 #n# OEIS:A230980 Number of primes <= n, starting at n=0
+
+File: 2/OEIS-A287298
+#!/usr/bin/env raku
+#u# https://oeis.org/A287298
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/149/2/athanasius.raku
+#n# OEIS:A287298 a(n) is the largest square with distinct digits in base n
 
 File: 2/OEIS-A320843
 #!/usr/bin/env raku
@@ -3220,8 +3325,8 @@ File: C/Cuban_primes-1
 #c# 2019-02-02 <RC, 2019-06-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002407
-#n  now down to about a minute...
+#n# OEIS:A002407 Primes which are the difference of two consecutive cubes
+#n  now down to about 30 seconds
 #n# full run very slow: 2853.709u 31.184s 8:08.71 590.3%
 
 File: C/Cuban_primes-1.jvm
@@ -3238,7 +3343,7 @@ File: C/Cuban_primes-2
 #c# 2019-02-02 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A002407
+#n# OEIS:A002407 Primes which are the difference of two consecutive cubes
 #n# .hyper just slows things down?
 
 File: C/Cuban_primes-3
@@ -3247,7 +3352,7 @@ File: C/Cuban_primes-3
 #c# 2019-02-03 <RC, 2019-02-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002407
+#n# OEIS:A002407 Primes which are the difference of two consecutive cubes
 #n# concurrency doesn't really help here; turn off for JVM's sake
 
 File: C/Cubic_Special_Primes
@@ -3858,6 +3963,14 @@ File: D/Disarium_numbers
 #n# OEIS:A032799
 #n# Not an efficient algorithm. First 18 in less than 1/4 second. 19th in around 45 seconds. Pretty much unusable for the 20th.
 #n# locally: 624.27s user 202.78s system 486% cpu 2:50.12 total
+
+File: D/Disarium_numbers.jvm
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Disarium_numbers
+#c# 2022-02-12 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A032799
 
 File: D/Discordian_date
 #!/usr/bin/env perl6
@@ -4509,7 +4622,7 @@ File: E/Esthetic_numbers
 #c# 2020-03-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A033075
+#n# OEIS:A033075 Positive numbers all of whose pairs of consecutive decimal digits differ by 1
 
 File: E/Ethiopian_multiplication
 #!/usr/bin/env perl6
@@ -6740,8 +6853,8 @@ File: H/Home_primes
 #c# 2021-05-24 <RC, 2021-05-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A037274 prime that is reached when you start with n, concatenate its prime factors (for n >= 2)
 #n# not testing HP49, removed timing code
-#n# OEIS:A037274 Home primes for n >= 2
 
 File: H/Home_primes.1
 #!/usr/bin/env raku
@@ -9236,6 +9349,7 @@ File: M/Moebius_function
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# junctions slower?
+#n# OEIS:A008683 Möbius/Moebius function mu(n): mu(1) = 1; mu(n) = (-1)^k if n is the product of k different primes, else mu(n) = 0
 
 File: M/Moebius_function.1
 #!/usr/bin/env perl6
@@ -10282,7 +10396,6 @@ File: O/Ormiston_pairs-2.jvm
 File: O/Ormiston_triples
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Ormiston_triples
-#t# skiptest
 #c# 2023-02-02 NOT ON RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
@@ -10290,6 +10403,18 @@ File: O/Ormiston_triples
 #n# slow:    25 Ormiston triples before one hundred million/  1043.98s user  107.19s system 217% cpu    8:48.68 total
 #n# slowish:                      "                        /   310.04s user   20.85s system 181% cpu    3:01.97 total/iMac
 #n# slower: 368 Ormiston triples before one billion        / 26982.40s user 2014.68s system 117% cpu 6:49:46.36 total
+#n# calculations are just grunt-work, but the output formatting is fun
+#n# 2023-02-04 do very limited testing, and cheat while we're at it
+
+File: O/Ormiston_triples-2
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Ormiston_triples
+#t# toodamnslow
+#c# 2023-02-03 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# OEIS:A075093 Smallest member of Ormiston prime triple
+#n# this is thundergant's 'Big Sigh' version on RC
 
 File: O/Overloaded_operators
 #!/usr/bin/env raku
@@ -10540,6 +10665,7 @@ File: P/Palindromic_primes
 #c# 2021-04-07 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002385 Palindromic primes
 
 File: P/Palindromic_primes_in_base_16
 #!/usr/bin/env raku
@@ -10547,6 +10673,7 @@ File: P/Palindromic_primes_in_base_16
 #c# 2021-06-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A029732 Palindromic primes in base 16 (but written in base 10) [as per the OEIS]
 
 File: P/Palindromic_primes_with_alternating_digits
 #!/usr/bin/env raku
@@ -10898,6 +11025,14 @@ File: P/Pell_numbers
 #n# OEIS:A086383 Prime terms in the sequence of Pell numbers
 #n# OEIS:A096650 Indices of prime Pell numbers
 #n# OEIS:A002315 NSW numbers (Newman-Shank-Williams numbers)
+
+File: P/Penholodigital_squares
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Penholodigital_squares
+#c# 2023-02-04 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# full run just too slow for testing
 
 File: P/Penney%27s_game
 #!/usr/bin/env perl6
@@ -11357,6 +11492,7 @@ File: P/Pisano_period
 #c# 2020-03-03 <RC, 2020-03-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A001175 Period of Fibonacci numbers mod n (aka 'Pisano numbers')
 
 File: P/Plasma_effect
 #!/usr/bin/env perl6
@@ -15373,7 +15509,7 @@ File: S/Sylvester%27s_sequence
 #c# 2021-05-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000058
+#n# OEIS:A000058 Sylvester's_sequence: a(n+1) = a(n)^2 - a(n) + 1, with a(0) = 2
 
 File: S/Symmetric_difference
 #!/usr/bin/env perl6
