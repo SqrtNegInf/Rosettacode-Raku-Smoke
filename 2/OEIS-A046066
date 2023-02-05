@@ -16,7 +16,7 @@ sub first-prime-greater-than ( UInt $n ) { return first &is-prime, $n ^.. * }
 
 constant @primes  = grep &is-prime, ^Inf;               # https://oeis.org/A000040
 
-constant @Ek = map { $^product + 1 }, [\*] @primes;     # https://oeis.org/A006862
+constant @Ek = map { $^product + 1 }, [\×] @primes;     # https://oeis.org/A006862
 
 constant @Qk = @Ek.map: &first-prime-greater-than;      # https://oeis.org/A035345
 
