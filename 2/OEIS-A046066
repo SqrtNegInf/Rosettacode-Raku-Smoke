@@ -22,7 +22,8 @@ constant @Qk = @Ek.map: &first-prime-greater-than;      # https://oeis.org/A0353
 
 constant @Fk = (@Qk Z- @Ek) X+ 1;                       # https://oeis.org/A005235
 
-# https://oeis.org/A046066
-# Fortunate primes (A005235) in numerical order with duplicates removed. 
-my $count = first { @Fk.head($_).unique.elems >= 8 }, 1..*;
-say @Fk.head($count).sort.squish;
+my $count = first { @Fk.head($_).unique.elems >= 20 }, 1..*;
+say my $result = @Fk.head($count).sort.squish;
+
+use Test;
+is $result, '3 5 7 13 17 19 23 37 47 59 61 67 71 79 89 103 107 109 151 197';
