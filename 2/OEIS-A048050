@@ -1,0 +1,12 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A048050
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/109/1/feng-chang.raku
+#n# OEIS:A048050 Chowla's function: sum of divisors of n except for 1 and n.
+
+say my @res = (1..30).map({ (2..^$^a).grep($^a%%*).sum });
+
+use Test;;
+is @res.join(' '), '0 0 0 2 0 5 0 6 3 7 0 15 0 9 8 14 0 20 0 21 10 13 0 35 5 15 12 27 0 41';
