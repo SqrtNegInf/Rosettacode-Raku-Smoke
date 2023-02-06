@@ -4,7 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# mirrored from ~/PWC/195/1/bruce-gray.raku
-#n# OEIS:A073531  Number of n-digit positive integers with all digits distinct.
+#n# OEIS:A073531 Number of n-digit positive integers with all digits distinct.
 
 constant @n-digits-distinct     = 0, 9, |( 9 X× [\×] (9...1) );
 constant @n-digits-distinct-sum = [\+] @n-digits-distinct;
