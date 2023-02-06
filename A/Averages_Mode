@@ -8,6 +8,7 @@
 #n# https://zostay.com/archive/2019/10/03/quickly-using-a-sub-as-a-method.html
 
 sub mode1 (*@a) {
+   #my %counts := @a.Bag;           # := why?
     my %counts := @a.Bag;
     my $max = %counts.values.max;
     %counts.grep(*.value == $max).map(*.key);
