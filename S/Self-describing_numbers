@@ -3,13 +3,13 @@
 #c# 2015-10-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A046043
-#n# OEIS:A138480
+#n# OEIS:A046043 aka autobiographical numbers
+#n# OEIS:A138480 as above, but 1st digit describes # of zeros present [super-set of previous]
 #n# now mirrors what's on RC, but reduced limit to keep run-time down
 
 my @res;
 
-my @values = <1210 2020 21200 3211000 42101000 521001000 6210001000 27 115508>;
+my @values = <1210 2020 21200 3211000 42101000 521001000 6210001000 72100001000 27 115508>;
  
 for @values -> $test {
     @res.push: "$test is {sdn($test) ?? '' !! 'NOT ' }a self describing number.";
@@ -40,6 +40,7 @@ my $ref = q:to/END/;
 42101000 is a self describing number.
 521001000 is a self describing number.
 6210001000 is a self describing number.
+72100001000 is a self describing number.
 27 is NOT a self describing number.
 115508 is NOT a self describing number.
 1210
