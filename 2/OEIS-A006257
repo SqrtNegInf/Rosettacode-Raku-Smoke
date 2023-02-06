@@ -1,0 +1,32 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A006257
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/048/1/noud.raku
+#n# OEIS:A006257 Josephus problem: n-step 'survivor'
+
+# Let n be the total number of people in the circle and k be the step to the
+# next person. I.e. k - 2 people are skipped, person k is killed and person
+# k will get the sword. Let f(n, k) denote the position of the survivor. If
+# person k is killed, we're left with a circle of n - 1 and the next person who
+# gets the sword is (k mod n) + 1. The survivor person in the remaining circle
+# is f(n - 1, k) if we start counting at 1. Shifting the numbers the survivor
+# person is (f(n - 1, k) + k - 1) mod n + 1. Hence we have the recurrence
+# relation:
+#
+#   f(n, k) = (f(n - 1, k) + k - 1) mod n + 1.
+#
+# For this problem we have n = 50 and k = 2.
+
+multi sub f(1, $k) { 1; }
+multi sub f($n, $k) { (f($n - 1, $k) + $k - 1) % $n + 1; }
+
+say my $result = f(50, 2);
+
+# one-liner alternative ~/PWC/048/1/markus-holzer.raku [plus see 'rotor' solution there]
+given my @men = 1..50 { .push( .splice(0,2).first ) while .elems > 1 };
+
+use Test;
+is $result, 37;
+is @men.first, 37;
