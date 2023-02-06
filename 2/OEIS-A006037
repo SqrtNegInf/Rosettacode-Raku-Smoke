@@ -1,0 +1,20 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A006037
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# adapted from ~/PWC/156/2/luca-ferrari.raku
+#n# OEIS:A006037 Weird numbers: abundant (A005101) but not pseudoperfect (A005835)
+#n# too slow to be useful
+
+sub weird ($n) {
+    my @divisors = ( 1 .. $n - 1 ).grep( $n %% * );
+    return False if @divisors.sum <= $n || @divisors.combinations.map( *.sum ).grep( * == $n ).elems > 0;
+    True;
+}
+
+my @res = (^100).grep( *.&weird );
+#my @res = (^999).hyper.grep( *.&weird );
+
+use Test;
+is @res.join(' '), '70';
