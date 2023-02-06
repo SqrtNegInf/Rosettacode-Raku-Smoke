@@ -10,9 +10,11 @@ sub primes() { (2,3,*+2...*).grep: *.is-prime }
 
 sub euclids() {
     gather for primes() -> $p {
-        take ((state $t=1) *= $p) + 1;
+        take ((state $t=1) ×= $p) + 1;
     }
 }
 
-# Show the first non-prime Euclid number.
-say euclids.grep(not *.is-prime).first;
+say my $result = euclids.head(14);
+
+use Test;
+is $result, '3 7 31 211 2311 30031 510511 9699691 223092871 6469693231 200560490131 7420738134811 304250263527211 13082761331670031';
