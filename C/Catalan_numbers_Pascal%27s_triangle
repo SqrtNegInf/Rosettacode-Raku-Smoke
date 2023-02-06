@@ -3,12 +3,13 @@
 #c# 2015-11-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000108
+#n# OEIS:A000108 C(n) = binomial(2n,n)/(n+1) = (2n)!/(n!(n+1)!) [many, many ways to interpret]
 
 constant @pascal = [1], -> @p { [0, |@p Z+ |@p, 0] } ... *;
 
 constant @catalan = gather for 2, 4 ... * -> $ix {
-    my @row := @pascal[$ix];
+   #my @row := @pascal[$ix];      # := why?
+    my @row = @pascal[$ix];
     my $mid = +@row div 2;
     take [-] @row[$mid, $mid+1]
 }
