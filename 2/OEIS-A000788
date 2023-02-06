@@ -28,7 +28,7 @@ sub count-set-bit-big ($n) {
     andthen .polymod(2 xx *)
     andthen .grep: * == 1, :k
     andthen .reverse
-    andthen .map: { ( ( ($_ + 2*$++) mod $mod)  *  2.expmod($_-1 ,$mod) + 1 ) mod $mod }\
+    andthen .map: { ( ( ($_ + 2×$++) mod $mod) × 2.expmod($_-1 ,$mod) + 1 ) mod $mod }\
     andthen .sum mod $mod
 }
 
