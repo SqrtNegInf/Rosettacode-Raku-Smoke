@@ -13,7 +13,7 @@ sub ugly-ith ( UInt:D $n'th where * != 0 ) {
             has Int      $.N = 1;
             has Iterator $!I = $Hammings.iterator;
             method bump ( ) {
-                $!N = $.C * $!I.pull-one;
+                $!N = $.C × $!I.pull-one;
             }
         }
 
