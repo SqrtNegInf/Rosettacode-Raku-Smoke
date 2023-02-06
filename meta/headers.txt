@@ -207,6 +207,24 @@ File: 2/OEIS-A000058
 #n# mirrored from ~/PWC/173/2/bruce-gray.raku
 #n# OEIS:A000058 Sylvester's_sequence: a(n+1) = a(n)^2 - a(n) + 1, with a(0) = 2
 
+File: 2/OEIS-A000119
+#!/usr/bin/env raku
+#u# https://oeis.org/A000119
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/136/2/bruce-gray.raku
+#n# OEIS:A000119 Number of representations of n as a sum of distinct Fibonacci numbers.
+
+File: 2/OEIS-A000788
+#!/usr/bin/env raku
+#u# https://oeis.org/A000788
+#c# 2023-02-04 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/079/1/wambash.raku
+#n# OEIS:A000788 Total number of 1's in binary expansions of 0, ..., n
+
 File: 2/OEIS-A001318
 #!/usr/bin/env raku
 #u# https://oeis.org/A001318
@@ -225,6 +243,43 @@ File: 2/OEIS-A005231
 #n# mirrored from ~/PWC/171/1/bruce-gray.raku
 #n# OEIS:A005231 Odd abundant numbers (odd numbers n whose sum of divisors exceeds 2n)
 
+File: 2/OEIS-A006037
+#!/usr/bin/env raku
+#u# https://oeis.org/A006037
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# adapted from ~/PWC/156/2/luca-ferrari.raku
+#n# OEIS:A006037 Weird numbers: abundant (A005101) but not pseudoperfect (A005835)
+#n# too slow to be useful
+
+File: 2/OEIS-A006257
+#!/usr/bin/env raku
+#u# https://oeis.org/A006257
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/048/1/noud.raku
+#n# OEIS:A006257 Josephus problem: n-step 'survivor'
+
+File: 2/OEIS-A006318
+#!/usr/bin/env raku
+#u# https://oeis.org/A006318
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# excerpted from ~/PWC/117/2/athanasius.raku
+#n# OEIS:A006318 in a triangular grid of n squares, number of subdiagonal paths from (0, 0) to (n, n)
+
+File: 2/OEIS-A006862
+#!/usr/bin/env raku
+#u# https://oeis.org/A006862
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# excerpted from ~/PWC/012/1/aaron-sherman.raku
+#n# OEIS:A006862 Euclid numbers: 1 + product of the first n primes
+
 File: 2/OEIS-A008683
 #!/usr/bin/env raku
 #u# https://oeis.org/A008683
@@ -233,6 +288,34 @@ File: 2/OEIS-A008683
 #j#  JVM: OK
 #n# mirrored from ~/PWC/159/2/bruce-gray.raku
 #n# OEIS:A008683 Möbius/Moebius function mu(n): mu(1) = 1; mu(n) = (-1)^k if n is the product of k different primes, else mu(n) = 0
+
+File: 2/OEIS-A023108
+#!/usr/bin/env raku
+#u# https://oeis.org/A023108
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/137/2/bruce-gray.raku
+#n# OEIS:A023108 Positive integers that never result in a palindrome when iterating A056964(x) = x + (x with digits reversed)
+
+File: 2/OEIS-A024785
+#!/usr/bin/env raku
+#u# https://oeis.org/A024785
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/147/1/bruce-gray.raku
+#n# OEIS:A024785 Left-truncatable primes: every suffix is prime and no digits are zero
+#n# OEIS:A033664 Every suffix is prime.
+
+File: 2/OEIS-A028840
+#!/usr/bin/env raku
+#u# https://oeis.org/A028840
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/149/1/bruce-gray.raku
+#n# OEIS:A028840 Numbers k such that sum of digits of k is a Fibonacci number.
 
 File: 2/OEIS-A033075
 #!/usr/bin/env raku
@@ -253,6 +336,16 @@ File: 2/OEIS-A037274
 #n# mirrored from ~/PWC/168/2/bruce-gray.raku
 #n# OEIS:A037274 prime that is reached when you start with n, concatenate its prime factors (for n >= 2)
 
+File: 2/OEIS-A038206
+#!/usr/bin/env raku
+#u# https://oeis.org/A038206
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/138/2/bruce-gray.raku
+#n# OEIS:A038206 Can express a(n) with the digits of a(n)^2 in order, only adding plus signs.
+#n# OEIS:A104113 Numbers which when chopped into one, two or more parts, added and squared result in the same number.
+
 File: 2/OEIS-A046066
 #!/usr/bin/env raku
 #u# https://oeis.org/A046066
@@ -265,6 +358,15 @@ File: 2/OEIS-A046066
 #n# OEIS:A035345 Smallest prime > prime(1)*prime(2)*...*prime(n)+1.
 #n# OEIS:A005235 Fortunate numbers: least m>1 such that m + prime(n)# is prime, where p# denotes the product of all primes <= p
 #n# OEIS:A046066 Fortunate primes in numerical order with duplicates removed.
+
+File: 2/OEIS-A048050
+#!/usr/bin/env raku
+#u# https://oeis.org/A048050
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/109/1/feng-chang.raku
+#n# OEIS:A048050 Chowla's function: sum of divisors of n except for 1 and n.
 
 File: 2/OEIS-A050255
 #!/usr/bin/env raku
@@ -285,6 +387,15 @@ File: 2/OEIS-A050256
 #n# extract from 'B/Birthday_problem'
 #n# OEIS:A050256 Diaconis-Mosteller approximation to the Birthday problem function
 
+File: 2/OEIS-A051037
+#!/usr/bin/env raku
+#u# https://oeis.org/A051037
+#c# 2023-02-05 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/123/1/bruce-gray.raku
+#n# OEIS:A051037 5-smooth numbers, numbers whose prime divisors are all <= 5
+
 File: 2/OEIS-A052486
 #!/usr/bin/env raku
 #u# https://oeis.org/A052486
@@ -301,7 +412,7 @@ File: 2/OEIS-A073531
 #m# MOAR: OK
 #j#  JVM: OK
 #n# mirrored from ~/PWC/195/1/bruce-gray.raku
-#n# OEIS:A073531  Number of n-digit positive integers with all digits distinct.
+#n# OEIS:A073531 Number of n-digit positive integers with all digits distinct.
 
 File: 2/OEIS-A074788
 #!/usr/bin/env raku
@@ -489,9 +600,9 @@ File: A/Abundant,_deficient_and_perfect_number_classifications
 #c# 2016-01-02 <>RC, 2019-02-15 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A005100 deficient
-#n# OEIS:A000396 perfect
-#n# OEIS:A005101 abundant
+#n# OEIS:A005100 deficient - sum of divisors of k < 2×k
+#n# OEIS:A000396   perfect - k is equal to the sum of the proper divisors of k
+#n# OEIS:A005101  abundant - sum of divisors of k > 2×k
 
 File: A/Abundant,_deficient_and_perfect_number_classifications.1
 #!/usr/bin/env perl6
@@ -629,7 +740,7 @@ File: A/Additive_primes-1
 #c# 2021-03-xx >RC NOT ON RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A046704
+#n# OEIS:A046704 sum of digits is a prime
 
 File: A/Additive_primes-2
 #!/usr/bin/env raku
@@ -638,7 +749,7 @@ File: A/Additive_primes-2
 #m# MOAR: OK
 #j# JVM:  OK
 #n# thundergnat++
-#n# OEIS:A046704
+#n# OEIS:A046704 sum of digits is a prime
 
 File: A/Address_of_a_variable
 #!/usr/bin/env perl6
@@ -918,7 +1029,7 @@ File: A/Anti-primes
 #c# 2018-12-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002182
+#n# OEIS:A002182 highly composite numbers, the natural numbers with more factors than any smaller than itself.
 #n# 2018-12-10: confirmed that there is a race condition if .hyper is used, 
 #n# manifests itself more or less easily on different OS's:  macOS 'El Capitan' always fails, 
 #n# but under high CPU/memory load same seen on any macOS, and Linux, Windows
@@ -2260,7 +2371,7 @@ File: C/Catalan_numbers_Pascal%27s_triangle
 #c# 2015-11-09 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000108
+#n# OEIS:A000108 C(n) = binomial(2n,n)/(n+1) = (2n)!/(n!(n+1)!) [many, many ways to interpret]
 
 File: C/Catamorphism
 #!/usr/bin/env perl6
@@ -2468,7 +2579,7 @@ File: C/Chowla_numbers
 #c# 2019-03-12 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A048050 Chowla's function.
+#n# OEIS:A048050 sum of divisors of n except for 1 and n
 #n# Well, I thought the variables names were pretty funny...
 
 File: C/Chowla_numbers.jvm
@@ -2524,7 +2635,7 @@ File: C/Circular_primes
 #c# 2020-04-06 <RC, 2020-04-07 <>RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A016114
+#n# OEIS:A016114 Numbers that remain prime under cyclic shifts of digits
 
 File: C/Circular_primes.jvm
 #!/usr/bin/env raku
@@ -5432,7 +5543,7 @@ File: F/Find_largest_left_truncatable_prime_in_a_given_base
 #c# 2017-04-17 <RC, 2019-02-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A103443
+#n# OEIS:A103443 Largest left-truncatable prime in base n (decimal expansion)
 #n# slow, limit testing
 
 File: F/Find_largest_left_truncatable_prime_in_a_given_base.1
@@ -6015,7 +6126,8 @@ File: F/Fusc_sequence
 #c# 2019-02-22 <RC, 2020-07-19 >RC, 2021-03-15 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002487
+#n# OEIS:A002487 a(2*n) = a(n), a(2*n+1) = a(n) + a(n+1) (aka Stern's diatomic series)
+#n# cf 'S/Stern-Brocot_sequence' (same, but drops leading zero value)
 
 File: F/Fusc_sequence-2
 #!/usr/bin/env perl6
@@ -7477,6 +7589,7 @@ File: J/Josephus_problem
 #c# 2015-11-12 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A006257 every-other elimination (more generally: n-step 'survivor')
 
 File: J/Joystick_position
 #!/usr/bin/env perl6
@@ -8317,9 +8430,10 @@ File: L/Long_primes
 #c# 2018-08-04 <RC, 2018-10-13 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A001913
+#n# OEIS:A001913 Full reptend primes: primes with primitive root 10 (aka 'maximal period primes')
 #n# full calculation: 1100.497u 83.821s 3:25.17 577.2%
 #n# the '.base-repeating' approach in the .jvm version is substantially slower
+#n# slow as the numbers get larger.
 
 File: L/Long_primes.jvm
 #!/usr/bin/env perl6
@@ -8616,6 +8730,7 @@ File: L/Lychrel_numbers
 #c# 2015-10-17 <RC, 2018-04-22 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A023108 Positive integers that never result in a palindrome when iterating A056964(x) = x + (x with digits reversed)
 #n# .hyper/.race fails here
 #n# speed of language was not improving, but algorithm change brought 27x speed-up:
 #n# and memoization brought another 15x or so...  thundergnat++
@@ -11361,7 +11476,7 @@ File: P/Pernicious_numbers
 #c# 2015-11-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A052294
+#n# OEIS:A052294 numbers with a prime number of 1's in their binary expansion
 
 File: P/Phrase_reversals
 #!/usr/bin/env perl6
@@ -13392,8 +13507,8 @@ File: S/Self-describing_numbers
 #c# 2015-10-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A046043
-#n# OEIS:A138480
+#n# OEIS:A046043 aka autobiographical numbers
+#n# OEIS:A138480 as above, but 1st digit describes # of zeros present [super-set of previous]
 #n# now mirrors what's on RC, but reduced limit to keep run-time down
 
 File: S/Self-describing_numbers.0
@@ -14826,7 +14941,8 @@ File: S/Stern-Brocot_sequence
 #c# 2015-12-11 <>RC, 2017-03-29 <RC, 2021-03-15 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A002487
+#n# OEIS:A002487 a(2*n) = a(n), a(2*n+1) = a(n) + a(n+1) (aka Stern's diatomic series)
+#n# cf 'F/Fusc_sequence' (same, but leads with zero value)
 
 File: S/Stern-Brocot_sequence.1
 #!/usr/bin/env perl6
@@ -16223,6 +16339,7 @@ File: T/Truncatable_primes
 #c# 2016-03-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A024785 Left-truncatable primes: every suffix is prime and no digits are zero
 
 File: T/Truncate_a_file
 #!/usr/bin/env perl6
@@ -16955,7 +17072,7 @@ File: W/Weird_numbers
 #c# 2019-03-16 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A006037 weird numbers
+#n# OEIS:A006037 abundant (A005101) but not pseudoperfect (A005835)
 
 File: W/Welch%27s_t-test-1
 #!/usr/bin/env perl6
@@ -17342,8 +17459,8 @@ File: Z/Zeckendorf_number_representation
 #c# 2016-01-05 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A014417
-#n# OEIS:A003714
+#n# OEIS:A014417 Representation of n in base of Fibonacci numbers
+#n# OEIS:A003714 aka Fibbinary numbers, Fibbinary whose binary representation contains no two adjacent 1's
 #n# here must 'cache' with sigil-less form?  How is this different from 'C/Catalan_numbers'?
 
 File: Z/Zero_to_the_zero_power
@@ -17425,7 +17542,7 @@ File: Z/Zumkeller_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# */×: replacing '* * 2' with '* × 2' is clarifying (for humans)
-#n# OEIS:A083207 Zumkeller numbers
+#n# OEIS:A083207 integer-perfect numbers: numbers n whose divisors can be partitioned into two disjoint sets with equal sum
 #n# OEIS:A174865 Odd Zumkeller numbers
 
 File: Z/Zumkeller_numbers.jvm
