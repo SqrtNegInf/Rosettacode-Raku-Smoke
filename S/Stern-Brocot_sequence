@@ -3,7 +3,8 @@
 #c# 2015-12-11 <>RC, 2017-03-29 <RC, 2021-03-15 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A002487
+#n# OEIS:A002487 a(2*n) = a(n), a(2*n+1) = a(n) + a(n+1) (aka Stern's diatomic series)
+#n# cf 'F/Fusc_sequence' (same, but leads with zero value)
 
 constant @Stern-Brocot = 1, 1, { |(@_[$_ - 1] + @_[$_], @_[$_]) given ++$ } ... *;
 
