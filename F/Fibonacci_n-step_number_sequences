@@ -3,18 +3,18 @@
 #c# 2016-01-23 <>RC, 2020-08-30 >RC, 2021-03-25 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000045 Fibonacci
-#n# OEIS:A000073 tribonacci
-#n# OEIS:A000078 tetranacci
-#n# OEIS:A001591 pentanacci
-#n# OEIS:A000383 hexanacci
-#n# OEIS:A122189 heptanacci
-#n# OEIS:A079262 octanacci
-#n# OEIS:A104144 nonanacci
-#n# OEIS:A122265 decanacci
-#n# OEIS:A168082 11-step
-#n# OEIS:A168083 12-step
-#n# OEIS:A000032 Lucas
+#n# OEIS:A000045 Fibonacci numbers: F(n) = F(n-1) + F(n-2) with F(0) = 0 and F(1) = 1.
+#n# OEIS:A000073 Tribonacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) for n >= 3 with a(0) = a(1) = 0 and a(2) = 1.
+#n# OEIS:A000078 Tetranacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) for n >= 4 with a(0) = a(1) = a(2) = 0 and a(3) = 1.
+#n# OEIS:A001591 Pentanacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5), a(0)=a(1)=a(2)=a(3)=0, a(4)=1.
+#n# OEIS:A000383 Hexanacci numbers with a(0) = ... = a(5) = 1.
+#n# OEIS:A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0),...,a(6) = 0,0,0,0,0,0,1.
+#n# OEIS:A079262 Octanacci numbers: a(0)=a(1)=...=a(6)=0, a(7)=1; for n >= 8, a(n) = Sum_{i=1..8} a(n-i).
+#n# OEIS:A104144 Nonanacci numbers: a(n) = Sum_{k=1..9} a(n-k); a(8) = 1, a(n) = 0 for n < 8.
+#n# OEIS:A122265 Decanacci numbers: a(n+1) = a(n)+...+a(n-9) with a(0) = ... = a(8) = 0, a(9) = 1.
+#n# OEIS:A168082 Fibonacci 11-step numbers
+#n# OEIS:A168083 Fibonacci 12-step numbers
+#n# OEIS:A000032 Lucas numbers beginning at 2: L(n) = L(n-1) + L(n-2), L(0) = 2, L(1) = 1.
 
 my @res;
 
