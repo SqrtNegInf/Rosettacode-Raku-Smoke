@@ -1,3 +1,7 @@
+2023-02-06
+'Gumbo' does work fine here, prep with:
+    sudo port install gumbo-parser; zef install Gumbo
+
 2023-01-30
 'V/Vigen%C3%A8re_cipher_Cryptanalysis' failed, 'P/Pick_random_element' flapping?
 
@@ -21,8 +25,6 @@ What's also broken in 'moar-blead':
 2023-01-20
 Settle on testing moar-2022.12, and move forward with new releases as they show up.
 'moar-blead' has Math::Primesive now.
-
-2023-01-20
 The first set of results today are from the current moar-blead, all failures due to
 either missing Math::Primesive or varying 'srand' results. But basically good.
 
