@@ -2,11 +2,12 @@
 #u# http://rosettacode.org/wiki/Mersenne_primes
 #t# network
 #c# 2018-01-27 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A000043
+#n# OEIS:A000043 Mersenne exponents: primes p such that 2^p - 1 is prime. Then 2^p - 1 is called a Mersenne prime (base 2)
 #n# network connection failure (since before 'new-disp') 
 #n# Oh well, not like it's changing from day-to-day anyhow
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
@@ -24,7 +25,7 @@ my @res.push: 'M'~ ++$~ ": 2$_ - 1"
 
 .say for @res;
 
-# All known Mersenne primes as of 2020-02-29
+# All known Mersenne primes as of 2020-02-29 [2023-02-06 no change]
 my $ref = qq:to/END/;
 M1: 2² - 1
 M2: 2³ - 1
