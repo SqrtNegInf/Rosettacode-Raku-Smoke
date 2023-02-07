@@ -3,7 +3,7 @@
 #c# 2016-05-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000081
+#n# OEIS:A000081 Number of unlabeled rooted trees with n nodes (or connected functions with a fixed point).
 
 sub expand-tree ( Bag $tree ) {
     bag(bag(bag()) ⊎ $tree) ⊎
