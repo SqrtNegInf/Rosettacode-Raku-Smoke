@@ -3528,8 +3528,8 @@ File: C/Curzon_numbers
 #c# 2022-02-13 <RC, 2023-01-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A224486 main entry
-#n# OEIS:A230076 with base 4
+#n# OEIS:A224486 Numbers k such that 2*k+1 divides 2^k+1
+#n# OEIS:A230076 a(n) = (A007521(n)-1)/4 (Generalized Curzon numbers with a base 4, where A007521: Primes of the form 8k + 5
 
 File: C/Curzon_numbers.jvm
 #!/usr/bin/env raku
@@ -5339,18 +5339,18 @@ File: F/Fibonacci_n-step_number_sequences
 #c# 2016-01-23 <>RC, 2020-08-30 >RC, 2021-03-25 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000045 Fibonacci
-#n# OEIS:A000073 tribonacci
-#n# OEIS:A000078 tetranacci
-#n# OEIS:A001591 pentanacci
-#n# OEIS:A000383 hexanacci
-#n# OEIS:A122189 heptanacci
-#n# OEIS:A079262 octanacci
-#n# OEIS:A104144 nonanacci
-#n# OEIS:A122265 decanacci
-#n# OEIS:A168082 11-step
-#n# OEIS:A168083 12-step
-#n# OEIS:A000032 Lucas
+#n# OEIS:A000045 Fibonacci numbers: F(n) = F(n-1) + F(n-2) with F(0) = 0 and F(1) = 1.
+#n# OEIS:A000073 Tribonacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) for n >= 3 with a(0) = a(1) = 0 and a(2) = 1.
+#n# OEIS:A000078 Tetranacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) for n >= 4 with a(0) = a(1) = a(2) = 0 and a(3) = 1.
+#n# OEIS:A001591 Pentanacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5), a(0)=a(1)=a(2)=a(3)=0, a(4)=1.
+#n# OEIS:A000383 Hexanacci numbers with a(0) = ... = a(5) = 1.
+#n# OEIS:A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0),...,a(6) = 0,0,0,0,0,0,1.
+#n# OEIS:A079262 Octanacci numbers: a(0)=a(1)=...=a(6)=0, a(7)=1; for n >= 8, a(n) = Sum_{i=1..8} a(n-i).
+#n# OEIS:A104144 Nonanacci numbers: a(n) = Sum_{k=1..9} a(n-k); a(8) = 1, a(n) = 0 for n < 8.
+#n# OEIS:A122265 Decanacci numbers: a(n+1) = a(n)+...+a(n-9) with a(0) = ... = a(8) = 0, a(9) = 1.
+#n# OEIS:A168082 Fibonacci 11-step numbers
+#n# OEIS:A168083 Fibonacci 12-step numbers
+#n# OEIS:A000032 Lucas numbers beginning at 2: L(n) = L(n-1) + L(n-2), L(0) = 2, L(1) = 1.
 
 File: F/Fibonacci_n-step_number_sequences-2
 #!/usr/bin/env perl6
@@ -5373,7 +5373,7 @@ File: F/Fibonacci_sequence
 #c# 2016-08-28 <RC, 2018-05-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000045
+#n# OEIS:A000045 Fibonacci numbers: F(n) = F(n-1) + F(n-2) with F(0) = 0 and F(1) = 1.
 #n# removed 'cached' feature, no speed-up
 
 File: F/Fibonacci_sequence.1
@@ -6036,7 +6036,9 @@ File: F/Free_polyominoes_enumeration
 #m# MOAR: OK
 #j#  JVM: OK
 #n# from Sidef/Ruby
-#n# OEIS:A000105
+#n# OEIS:A000105 Number of free polyominoes (or square animals) with n cells.
+j
+my @res;
 
 File: F/Free_polyominoes_enumeration.0
 #!/usr/bin/env raku
@@ -8368,7 +8370,7 @@ File: L/List_rooted_trees
 #c# 2016-05-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000081
+#n# OEIS:A000081 Number of unlabeled rooted trees with n nodes (or connected functions with a fixed point).
 
 File: L/Literals_Floating_point
 #!/usr/bin/env perl6
@@ -8685,6 +8687,7 @@ File: L/Lucas-Lehmer_test
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# OEIS:A000043 (agrees with...)
+#n# not the the 'hyper' make a huge difference, bbut leave it in
 
 File: L/Lucas-Lehmer_test.jvm
 #!/usr/bin/env perl6
@@ -9242,11 +9245,12 @@ File: M/Mersenne_primes
 #u# http://rosettacode.org/wiki/Mersenne_primes
 #t# network
 #c# 2018-01-27 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A000043
+#n# OEIS:A000043 Mersenne exponents: primes p such that 2^p - 1 is prime. Then 2^p - 1 is called a Mersenne prime (base 2)
 #n# network connection failure (since before 'new-disp') 
 #n# Oh well, not like it's changing from day-to-day anyhow
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: M/Mertens_function
 #!/usr/bin/env perl6
@@ -13623,7 +13627,7 @@ File: S/Sequence_of_non-squares
 #c# 2016-03-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000037
+#n# OEIS:A000037 Numbers that are not squares
 
 File: S/Sequence_of_primes_by_Trial_Division
 #!/usr/bin/env perl6
@@ -16217,7 +16221,7 @@ File: T/Totient_function
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# see JVM for previous method of calculation
-#n# OEIS:A000010
+#n# OEIS:A000010 Euler totient function 𝜑(n): count numbers ≤ n and prime to n
 
 File: T/Totient_function.jvm
 #!/usr/bin/env perl6
@@ -17388,11 +17392,11 @@ File: Y/Y_combinator.1
 File: Y/Yahoo__search_interface
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Yahoo!_search_interface
-#t# skiptest
 #c# 2019-11-10 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 2020-02-22 stopped working a few days back (https?)
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/
 
 File: Y/Yellowstone_sequence
 #!/usr/bin/env perl6
