@@ -206,8 +206,8 @@ A005849 Cullen primes
 A002234 Woodall primes
 
 C/Curzon_numbers
-A224486 main entry
-A230076 with base 4
+A224486 Numbers k such that 2*k+1 divides 2^k+1
+A230076 a(n) = (A007521(n)-1)/4 (Generalized Curzon numbers with a base 4, where A007521: Primes of the form 8k + 5
 
 C/Cyclops_numbers
 A134808 Cyclops numbers
@@ -334,21 +334,21 @@ A020147 - Fermat pseudoprimes to base 19
 A020148 - Fermat pseudoprimes to base 20
 
 F/Fibonacci_n-step_number_sequences
-A000045 Fibonacci
-A000073 tribonacci
-A000078 tetranacci
-A001591 pentanacci
-A000383 hexanacci
-A122189 heptanacci
-A079262 octanacci
-A104144 nonanacci
-A122265 decanacci
-A168082 11-step
-A168083 12-step
-A000032 Lucas
+A000045 Fibonacci numbers: F(n) = F(n-1) + F(n-2) with F(0) = 0 and F(1) = 1.
+A000073 Tribonacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) for n >= 3 with a(0) = a(1) = 0 and a(2) = 1.
+A000078 Tetranacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) for n >= 4 with a(0) = a(1) = a(2) = 0 and a(3) = 1.
+A001591 Pentanacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5), a(0)=a(1)=a(2)=a(3)=0, a(4)=1.
+A000383 Hexanacci numbers with a(0) = ... = a(5) = 1.
+A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0),...,a(6) = 0,0,0,0,0,0,1.
+A079262 Octanacci numbers: a(0)=a(1)=...=a(6)=0, a(7)=1; for n >= 8, a(n) = Sum_{i=1..8} a(n-i).
+A104144 Nonanacci numbers: a(n) = Sum_{k=1..9} a(n-k); a(8) = 1, a(n) = 0 for n < 8.
+A122265 Decanacci numbers: a(n+1) = a(n)+...+a(n-9) with a(0) = ... = a(8) = 0, a(9) = 1.
+A168082 Fibonacci 11-step numbers
+A168083 Fibonacci 12-step numbers
+A000032 Lucas numbers beginning at 2: L(n) = L(n-1) + L(n-2), L(0) = 2, L(1) = 1.
 
 F/Fibonacci_sequence
-A000045
+A000045 Fibonacci numbers: F(n) = F(n-1) + F(n-2) with F(0) = 0 and F(1) = 1.
 
 F/Find_largest_left_truncatable_prime_in_a_given_base
 A103443 Largest left-truncatable prime in base n (decimal expansion)
@@ -367,7 +367,7 @@ F/Four_is_the_number_of_letters_in_the_...
 A072425
 
 F/Free_polyominoes_enumeration
-A000105
+A000105 Number of free polyominoes (or square animals) with n cells.
 
 F/Fusc_sequence
 A002487 a(2*n) = a(n), a(2*n+1) = a(n) + a(n+1) (aka Stern's diatomic series)
@@ -462,7 +462,7 @@ L/Leonardo_numbers
 A001595
 
 L/List_rooted_trees
-A000081
+A000081 Number of unlabeled rooted trees with n nodes (or connected functions with a fixed point).
 
 L/Long_primes
 A001913 Full reptend primes: primes with primitive root 10 (aka 'maximal period primes')
@@ -490,7 +490,7 @@ M/Meissel–Mertens_constant
 A077761 
 
 M/Mersenne_primes
-A000043
+A000043 Mersenne exponents: primes p such that 2^p - 1 is prime. Then 2^p - 1 is called a Mersenne prime (base 2)
 
 M/Mertens_function
 A002321
@@ -778,7 +778,7 @@ S/Sequence:_smallest_number_with_exactly_n_divisors
 A005179
 
 S/Sequence_of_non-squares
-A000037
+A000037 Numbers that are not squares
 
 S/Sequence_of_primorial_primes
 A088411
@@ -889,7 +889,7 @@ T/Topswops-2
 A000375
 
 T/Totient_function
-A000010
+A000010 Euler totient function 𝜑(n): count numbers ≤ n and prime to n
 
 T/Truncatable_primes
 A024785 Left-truncatable primes: every suffix is prime and no digits are zero
