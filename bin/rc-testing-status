@@ -2,10 +2,15 @@
 ## show RC task currently being run 
 #  2021-05-31
 
+use feature 'say';
+
+#my $columns = `uname -a` =~ /Mac-Pro/ ? '17-23,148-' : '16-23,149-';
+$| = 1;
+
 while () { 
-    $p = `ps aux | grep perl6-m | cut -c 17-23,148- | grep '/' | grep perl6-m | head -1 | cut -c 1-6,16-`;
-   #$p = `ps aux | grep perl6-m | cut -c 16-23,147- | grep 'perl6-m ./' | cut -c 1-6,16-`;
+    $p = `ps ax -o pid -o command | grep perl6-m | pcregrep '^ \*\\d\+ perl6-m' - | perl -naE 'say join " ", \@F[0,2]'`;
+   #$p = `ps -x -o pid -o command | grep perl6-m | pcregrep '^ \*\\d\+ perl6-m' - | perl -naE 'say join " ", \@F[0,2]'`;
     exit if length($p) > 2000;
     print $p;
-    sleep 30;
+    sleep 10;
 }
