@@ -3735,11 +3735,11 @@ File: D/Deceptive_numbers
 #c# 2022-02-10 <RC, 2022-02-11 <RC, 2022-02-12 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A000864
+#n# OEIS:A000864 Deceptive nonprimes: composite numbers k that divide the repunit R_{k-1}.
 #n# 61.88s user 1.14s system 374% cpu 16.842 total # 1st release
 #n#  7.42s user 0.36s system 106% cpu  7.337 total # DH - shorter (but slower)
 #n#  3.49s user 0.38s system 100% cpu  3.861 total # penultimate
-#n#  2.86s user 0.32s system 115% cpu  2.753 total # current RC
+#n#  2.64s user 0.25s system 115% cpu  2.506 total # current RC (2023-02-07)
 
 File: D/Deceptive_numbers.jvm
 #!/usr/bin/env raku
@@ -4750,7 +4750,7 @@ File: E/Euclid-Mullin_sequence-1
 #j# JVM:  OK
 #n# for 16:   2.21s user 0.20s system 116% cpu    2.08 total
 #n# for 17: 261.60s user 7.07s system  99% cpu 4:28.85 total
-#n# OEIS:A000945 
+#n# OEIS:A000945 Euclid-Mullin sequence: a(1) = 2, a(n+1) is smallest prime factor of 1 + Product_{k=1..n} a(k).
 
 File: E/Euclid-Mullin_sequence-2
 #!/usr/bin/env raku
@@ -4760,7 +4760,7 @@ File: E/Euclid-Mullin_sequence-2
 #j# JVM:  BROKEN
 #n# fails at @Euclid-Mullin[^10]:
 #n# Cannot unbox 91 bit wide bigint into native integer
-#n# OEIS:A000945
+#n# OEIS:A000945 Euclid-Mullin sequence: a(1) = 2, a(n+1) is smallest prime factor of 1 + Product_{k=1..n} a(k).
 
 File: E/Euler%27s_constant_0.5772...
 #!/usr/bin/env raku
@@ -6037,8 +6037,6 @@ File: F/Free_polyominoes_enumeration
 #j#  JVM: OK
 #n# from Sidef/Ruby
 #n# OEIS:A000105 Number of free polyominoes (or square animals) with n cells.
-j
-my @res;
 
 File: F/Free_polyominoes_enumeration.0
 #!/usr/bin/env raku
@@ -9820,7 +9818,7 @@ File: N/N-queens_problem
 #c# 2015-11-29 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000170
+#n# OEIS:A000170 Number of ways of placing n non-attacking queens on an n X n board.
 #n# Neither pretty nor efficient, a simple backtracking solution
 
 File: N/N-smooth_numbers
@@ -10180,7 +10178,7 @@ File: N/Numbers_which_are_not_the_sum_of_distinct_squares
 #c# 2021-11-24 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A001422
+#n# OEIS:A001422 Numbers which are not the sum of distinct squares.
 
 File: N/Numbers_which_are_the_cube_roots_of_the_product_of_their_proper_divisors
 #!/usr/bin/env raku
@@ -11293,7 +11291,7 @@ File: P/Perfect_numbers-1
 #n# nearly 4x speed-up with .hyper:
 #n#  before: 27.897u 0.231s 0:27.96 100.5%
 #n#  after:  26.412u 0.935s 0:07.13 383.4%
-#n# OEIS:A000396
+#n# OEIS:A000396 Perfect numbers k: k is equal to the sum of the proper divisors of k.
 
 File: P/Perfect_numbers-1.jvm
 #!/usr/bin/env perl6
@@ -11309,7 +11307,7 @@ File: P/Perfect_numbers-2
 #m# MOAR: OK
 #j# JVM:  OK
 #n# much, much faster version
-#n# OEIS:A000396
+#n# OEIS:A000396 Perfect numbers k: k is equal to the sum of the proper divisors of k.
 
 File: P/Perfect_shuffle
 #!/usr/bin/env perl6
@@ -11603,7 +11601,7 @@ File: P/Piprimes
 #c# 2021-04-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000720
+#n# OEIS:A000720 pi(n), the number of primes <= n. Sometimes called PrimePi(n) to distinguish it from the number 3.14159...
 
 File: P/Pisano_period
 #!/usr/bin/env perl6
@@ -13883,7 +13881,7 @@ File: S/Sierpinski_triangle
 #c# 2016-09-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A001317
+#n# OEIS:A001317 Sierpiński's triangle (Pascal's triangle mod 2) converted to decimal.
 
 File: S/Sierpinski_triangle_Graphical
 #!/usr/bin/env perl6
@@ -13893,7 +13891,7 @@ File: S/Sierpinski_triangle_Graphical
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: sierpinski_triangle.svg
-#n# OEIS:A001317
+#n# OEIS:A001317 Sierpiński's triangle (Pascal's triangle mod 2) converted to decimal.
 
 File: S/Sieve_of_Eratosthenes
 #!/usr/bin/env perl6
@@ -15725,7 +15723,7 @@ File: T/Taxicab_numbers
 #c# 2016-01-23 <RC, 2018-10-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A001235
+#n# OEIS:A001235 Taxi-cab numbers: sums of 2 cubes in more than 1 way.
 
 File: T/Taxicab_numbers.1
 #!/usr/bin/env perl6
@@ -16185,7 +16183,7 @@ File: T/Topswops
 #c# 2018-12-01 <RC, 2019-10-16 >RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A000375
+#n# OEIS:A000375 shuffle n cards, 1..n. If top card is m, reverse order of top m cards, repeat. a(n): maximal steps before top card is 1.
 #n# bumping up to 9 swaps, but 10 still too slow ( > 7 min)
 #n# 2019-10-17 concurrency is sometimes not working well?  
 #n# 2019-10-18 problem appears to be limited to older MacOS?
@@ -16393,7 +16391,7 @@ File: T/Twin_Primes
 #j# JVM:  BROKEN
 #n# as should be, same as Perl for 10**12: 718.55s user 5.25s system 711% cpu 1:41.68 total
 #n# 2020-11-08 renamed from 'Twin_Prime_Conjecture'
-#n# OEIS:A001097
+#n# OEIS:A001097 Twin primes, pairs of primes with a gap of 2.
 
 File: T/Two%27s_complement
 #!/usr/bin/env raku
@@ -17100,7 +17098,7 @@ File: W/Wieferich_primes
 #c# 2021-05-30 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A001220
+#n# OEIS:A001220 Wieferich primes: primes p such that p^2 divides 2^(p-1) - 1.
 
 File: W/Wilson_primes_of_order_n-1
 #!/usr/bin/env raku
@@ -17396,7 +17394,7 @@ File: Y/Yahoo__search_interface
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 2020-02-22 stopped working a few days back (https?)
-die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: Y/Yellowstone_sequence
 #!/usr/bin/env perl6
