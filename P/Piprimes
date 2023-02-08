@@ -3,7 +3,7 @@
 #c# 2021-04-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000720
+#n# OEIS:A000720 pi(n), the number of primes <= n. Sometimes called PrimePi(n) to distinguish it from the number 3.14159...
 
 my @pi = (1..*).map: { state $pi = 0; $pi += .is-prime };
 
