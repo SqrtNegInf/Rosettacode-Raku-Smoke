@@ -3,14 +3,9 @@
 #c# 2022-02-24 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A003624
+#n# OEIS:A003624 Duffinian numbers: composite numbers k relatively prime to sigma(k).
 
 my @res;
-
-# A Duffinian number is a composite number k that is relatively prime to its sigma sum σ.
-# The sigma sum of k is the sum of the divisors of k.
-# It is composite. (7 × 23)
-# The sigma sum 192 (1 + 7 + 23 + 161) is relatively prime to 161. 
 
 use Prime::Factor;
 
