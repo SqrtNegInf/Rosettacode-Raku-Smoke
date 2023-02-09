@@ -1124,7 +1124,7 @@ File: A/Arithmetic_Derivative
 #c# 2022-07-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A003415
+#n# OEIS:A003415 a(n) = n' = arithmetic derivative of n: a(0) = a(1) = 0, a(prime) = 1, a(mn) = m*a(n) + n*a(m).
 
 File: A/Arithmetic_Integer
 #!/usr/bin/env perl6
@@ -4345,7 +4345,7 @@ File: D/Duffinian_numbers
 #c# 2022-02-24 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A003624
+#n# OEIS:A003624 Duffinian numbers: composite numbers k relatively prime to sigma(k).
 
 File: D/Duffinian_numbers.jvm
 #!/usr/bin/env raku
@@ -7070,7 +7070,8 @@ File: H/Humble_numbers
 #c# 2019-08-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002473
+#n# OEIS:A002473 7-smooth numbers: positive numbers whose prime divisors are all <= 7.
+#n# cf N/N-smooth_numbers
 
 File: H/Hunt_the_Wumpus
 #!/usr/bin/env perl6
@@ -8156,7 +8157,7 @@ File: L/Latin_Squares_in_reduced_form
 #c# 2020-01-08 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A002860 Number of Latin squares of a given order
+#n# OEIS:A002860 Number of Latin squares of order n; or labeled quasigroups.
 
 File: L/Latin_Squares_in_reduced_form.0
 #!/usr/bin/env perl6
@@ -8244,7 +8245,7 @@ File: L/Left_factorials
 #c# 2015-11-07 <>RC, 2019-03-05 <RC, 2019-03-14 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A003422
+#n# OEIS:A003422 Left factorials: !n = Sum_{k=0..n-1} k!.
 
 File: L/Left_factorials.1
 #!/usr/bin/env perl6
@@ -8298,7 +8299,7 @@ File: L/Leonardo_numbers
 #c# 2017-05-20 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A001595
+#n# OEIS:A001595 a(n) = a(n-1) + a(n-2) + 1, with a(0) = a(1) = 1.
 #n# for JVM: downgraded Unicode names to ASCII
 
 File: L/Letter_frequency
@@ -9124,7 +9125,7 @@ File: M/Maximum_triangle_path_sum
 #c# 2015-10-26 <>RC, 2018-04-09 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002024
+#n# OEIS:A002024 k appears k times; a(n) = floor(sqrt(2n) + 1/2).
 
 File: M/Maximum_triangle_path_sum.1
 #!/usr/bin/env perl6
@@ -9256,7 +9257,8 @@ File: M/Mertens_function
 #c# 2020-01-25 <RC, 2020-01-30 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A002321
+#n# OEIS:A002321 Mertens's function: Sum_{k=1..n} mu(k), where mu is the Moebius function A008683.
+#n# cf M/Moebius_function
 
 File: M/Mertens_function.1
 #!/usr/bin/env perl6
@@ -9396,7 +9398,7 @@ File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1-1
 #j# JVM:  OK
 #n# brute force version: (not testing separately because it's embedded in use of $iter, below)
 #n# say $_ , ': ', (1..*).map( *.base(2) ).first: * %% $_ for flat 1..10, 95..105; # etc.
-#n# OEIS:A004290
+#n# OEIS:A004290 Least positive multiple of n that when written in base 10 uses only 0's and 1's.
 
 File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 #!/usr/bin/env perl6
@@ -9404,7 +9406,7 @@ File: M/Minimum_positive_multiple_in_base_10_using_only_0_and_1-2
 #c# 2020-03-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A004290
+#n# OEIS:A004290 Least positive multiple of n that when written in base 10 uses only 0's and 1's.
 
 File: M/Minimum_primes
 #!/usr/bin/env raku
@@ -9467,6 +9469,7 @@ File: M/Moebius_function
 #j# JVM:  BROKEN
 #n# junctions slower?
 #n# OEIS:A008683 Möbius/Moebius function mu(n): mu(1) = 1; mu(n) = (-1)^k if n is the product of k different primes, else mu(n) = 0
+#n# cf M/Mertens_function
 
 File: M/Moebius_function.1
 #!/usr/bin/env perl6
@@ -9829,8 +9832,8 @@ File: N/N-smooth_numbers
 #j# JVM:  OK
 #n# OEIS:A000079 2-smooth numbers non-negative powers of two
 #n# OEIS:A003586 3-smooth numbers
-#n# OEIS:A051037 5-smooth numbers Hamming numbers
-#n# OEIS:A002473 7-smooth numbers humble numbers
+#n# OEIS:A051037 5-smooth numbers Hamming numbers (cf H/Hamming_numbers)
+#n# OEIS:A002473 7-smooth numbers Humble numbers  (cf H/Humble_numbers)
 #n# OEIS:A051038 11-smooth numbers
 #n# OEIS:A080197 13-smooth numbers
 #n# OEIS:A080681 17-smooth numbers
@@ -12028,7 +12031,7 @@ File: P/Primorial_numbers
 #c# 2016-01-04 <RC, 2018-10-09 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A002110
+#n# OEIS:A002110 Primorial numbers (first definition): product of first n primes. Sometimes written prime(n)#.
 #n# but adding 10e5 is slow:     443.190u 11.120s 8:01.77 94.3%
 #n# but adding 10e6 is glacial:  (never ran it long enough to get timing info.)
 #n# this instance of .EVAL use does not appear on RC site
@@ -12491,7 +12494,7 @@ File: R/Random_Latin_Squares
 #c# 2019-06-09 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002860
+#n# OEIS:A002860 Number of Latin squares of order n; or labeled quasigroups.
 #n# 2023-01-09 replace call to built-in 'rand' for output stability
 
 File: R/Random_number_generator_device
@@ -16494,7 +16497,7 @@ File: U/Ulam_numbers
 #c# 2020-12-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002858
+#n# OEIS:A002858 Ulam numbers: a(1) = 1; a(2) = 2; for n>2, a(n) = least number > a(n-1) which is a unique sum of two distinct earlier terms.
 
 File: U/Ulam_numbers-2
 #!/usr/bin/env raku
@@ -16503,7 +16506,7 @@ File: U/Ulam_numbers-2
 #n# https://github.polettix.it/ETOOBUSY/2021/12/23/pwc144-ulam-sequence/
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002858
+#n# OEIS:A002858 Ulam numbers: a(1) = 1; a(2) = 2; for n>2, a(n) = least number > a(n-1) which is a unique sum of two distinct earlier terms.
 
 File: U/Ulam_spiral_for_primes
 #!/usr/bin/env perl6
