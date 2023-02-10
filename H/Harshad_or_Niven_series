@@ -3,7 +3,7 @@
 #c# 2016-08-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A005349
+#n# OEIS:A005349 Niven (or Harshad) numbers: numbers that are divisible by the sum of their digits.
 
 constant @harshad = grep { $_ %% .comb.sum }, 1 .. *;
 
