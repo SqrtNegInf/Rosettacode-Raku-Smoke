@@ -3,7 +3,8 @@
 #c# 2015-12-19 <RC, 2022-08-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A005188
+#n# OEIS:A005188 Narcissistic numbers: m-digit positive numbers equal to sum of the m-th powers of their digits.
+#n# also called:  Armstrong pluperfect, Plus Perfect
 #n# takes ~4min for full run of 25
 
 sub is-narcissistic(Int $n) { $n == [+] $n.comb »**» $n.chars }
