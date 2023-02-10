@@ -101,7 +101,7 @@ for my $prog (@ARGV) {
     $difftest =~ s/\s+$//;
     $difftest =~ s/\.BEND/.moar/ if $mode ne 'jvm';
     $difftest =~ s/\.BEND/.jvm/  if $mode eq 'jvm';
-    $difftest =~ s/\.HOST/.mpro/ if `uname -a` =~ /Mac-Pro/;
+    $difftest =~ s/\.HOST/.mpro/ if `uname -a` =~ /Mac-Pro|Linux/;
     $difftest =~ s/\.HOST/.imac/ if `uname -a` =~ /Mac/;
     $Pfile{$prog} = $difftest if $difftest ne '';
 
