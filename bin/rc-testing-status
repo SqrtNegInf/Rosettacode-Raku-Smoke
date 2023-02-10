@@ -6,7 +6,7 @@ $| = 1;
 use feature 'say';
 
 while () { 
-    $p = `ps ax -o pid -o command | grep perl6-m | pcregrep '^ *\\d+ perl6-m' - | perl -naE 'say join " ", \@F[0,2]'`;
+    $p = `ps ax -o pid -o command | grep perl6-m | pcregrep '^ *\\d+ perl6-m' | perl -naE 'say join " ", \@F[0,2]'`;
     exit if length($p) > 2000;
     print $p;
     sleep 30;
