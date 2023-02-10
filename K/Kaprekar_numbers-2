@@ -3,7 +3,7 @@
 #c# 2015-12-05 <RC, 2018-10-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A006886
+#n# OEIS:A006886 Kaprekar numbers: n such that n = q+r and n^2 = q*10^m+r, for some m >= 1, q >= 0 and 0 <= r < 10^m, with n != 10^a, a >= 1
 
 sub kaprekar( Int $n, Int :$base = 10 ) {
     my $hi = $n ** 2;
