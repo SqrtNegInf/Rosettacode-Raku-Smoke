@@ -6267,6 +6267,15 @@ File: G/Generate_Chess960_starting_position-2
 #j# JVM:  OK
 #n# from SPID
 
+File: G/Generate_Chess960_starting_position_exp
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Generate_Chess960_starting_position
+#c# 2016-06-02 <RC, 2018-03-28 >RC, 2018-04-03 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2021-06-04 results for test #2 changed
+#n# 2023-02-09 test #2 again, replace it with 'myRNG'
+
 File: G/Generate_lower_case_ASCII_alphabet
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Generate_lower_case_ASCII_alphabet
@@ -6659,7 +6668,7 @@ File: H/Happy_numbers-1
 #c# 2015-12-03 <RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# OEIS:A007770
+#n# OEIS:A007770 Happy numbers: numbers whose trajectory under iteration of sum of squares of digits map (see A003132) includes 1.
 #n# MoarVM/JVM differ in their handling of state variable scope, see .jvm version with work-around
 
 File: H/Happy_numbers-1.jvm
@@ -6677,7 +6686,7 @@ File: H/Happy_numbers-2
 #c# 2015-12-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A007770
+#n# OEIS:A007770 Happy numbers: numbers whose trajectory under iteration of sum of squares of digits map (see A003132) includes 1.
 
 File: H/Happy_numbers-3
 #!/usr/bin/env perl6
@@ -6685,7 +6694,7 @@ File: H/Happy_numbers-3
 #c# 2015-12-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A007770
+#n# OEIS:A007770 Happy numbers: numbers whose trajectory under iteration of sum of squares of digits map (see A003132) includes 1.
 
 File: H/Harmonic_series
 #!/usr/bin/env raku
@@ -6707,7 +6716,7 @@ File: H/Harshad_or_Niven_series
 #c# 2016-08-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A005349
+#n# OEIS:A005349 Niven (or Harshad) numbers: numbers that are divisible by the sum of their digits.
 
 File: H/Harshad_or_Niven_series.1
 #!/usr/bin/env perl6
@@ -7684,7 +7693,7 @@ File: K/Kaprekar_numbers-1
 #c# 2015-12-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A006886
+#n# OEIS:A006886 Kaprekar numbers: n such that n = q+r and n^2 = q*10^m+r, for some m >= 1, q >= 0 and 0 <= r < 10^m, with n != 10^a, a >= 1
 #n# String version is slowest of the three, don't attempt base-17
 
 File: K/Kaprekar_numbers-2
@@ -7693,7 +7702,7 @@ File: K/Kaprekar_numbers-2
 #c# 2015-12-05 <RC, 2018-10-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A006886
+#n# OEIS:A006886 Kaprekar numbers: n such that n = q+r and n^2 = q*10^m+r, for some m >= 1, q >= 0 and 0 <= r < 10^m, with n != 10^a, a >= 1
 
 File: K/Kaprekar_numbers-2.jvm
 #!/usr/bin/env perl6
@@ -7708,7 +7717,7 @@ File: K/Kaprekar_numbers-3
 #c# 2015-12-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A006886
+#n# OEIS:A006886 Kaprekar numbers: n such that n = q+r and n^2 = q*10^m+r, for some m >= 1, q >= 0 and 0 <= r < 10^m, with n != 10^a, a >= 1
 #n# with JVM 2021.12, now works
 
 File: K/Kernighans_large_earthquake_problem
@@ -9032,6 +9041,15 @@ File: M/Mastermind
 #n# 2021-06-17 yesterday/today: hangs in automated testing, more srand drift? [yes, it was]
 #n# new-disp 'srand' shift
 
+File: M/Mastermind_exp
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Mastermind
+#c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#=# RC pipe: C B A E\nC A B F\nC A F E
+#n# better testing again
+
 File: M/Matrix-exponentiation_operator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Matrix-exponentiation_operator
@@ -9887,7 +9905,8 @@ File: N/Narcissistic_decimal_number-1
 #c# 2015-12-19 <RC, 2022-08-05 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A005188
+#n# OEIS:A005188 Narcissistic numbers: m-digit positive numbers equal to sum of the m-th powers of their digits.
+#n# also called:  Armstrong pluperfect, Plus Perfect
 #n# takes ~4min for full run of 25
 
 File: N/Narcissistic_decimal_number-2
@@ -9896,7 +9915,8 @@ File: N/Narcissistic_decimal_number-2
 #c# 2015-12-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A005188
+#n# OEIS:A005188 Narcissistic numbers: m-digit positive numbers equal to sum of the m-th powers of their digits.
+#n# also called:  Armstrong pluperfect, Plus Perfect
 #n# purportedly 'faster' version now overtaken by concurrency (see -1 version)
 
 File: N/Natural_sorting
@@ -11797,7 +11817,7 @@ File: P/Practical_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# for some inputs with many factors, glacial... (but doesn't hog memory)
-#n# OEIS:A005153
+#n# OEIS:A005153 Practical numbers (aka panarithmic): positive integers m such that every k <= sigma(m) is a sum of distinct divisors of m.
 
 File: P/Practical_numbers.jvm
 #!/usr/bin/env raku
@@ -13620,7 +13640,7 @@ File: S/Sequence:_smallest_number_with_exactly_n_divisors
 #c# 2019-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A005179
+#n# OEIS:A005179 Smallest number with exactly n divisors.
 
 File: S/Sequence_of_non-squares
 #!/usr/bin/env perl6
@@ -14186,7 +14206,7 @@ File: S/Smith_numbers
 #c# 2016-04-17 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A006753
+#n# OEIS:A006753 Smith (or 'joke') numbers: composites n such that sum digits(n) = sum digits(prime factors of n) [counted with multiplicity]
 #n# error gone after switching 'factors' algorithm (cf Count_in_factors')
 
 File: S/Snake.0
@@ -15129,6 +15149,13 @@ File: S/Strip_comments_from_a_string
 #j#  JVM: OK
 
 File: S/Strip_control_codes_and_extended_characters_from_a_string
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Strip_control_codes_and_extended_characters_from_a_string
+#c# 2016-03-19 <RC, 2018-04-08 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+File: S/Strip_control_codes_and_extended_characters_from_a_string_exp
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Strip_control_codes_and_extended_characters_from_a_string
 #c# 2016-03-19 <RC, 2018-04-08 <RC
@@ -16197,7 +16224,7 @@ File: T/Topswops-2
 #c# 2020-10-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000375
+#n# OEIS:A000375 shuffle n cards, 1..n. If top card is m, reverse order of top m cards, repeat. a(n): maximal steps before top card is 1.
 #n# yeah, still slow-ish on 10
 
 File: T/Topswops.jvm
@@ -16615,10 +16642,10 @@ File: U/Untouchable_numbers
 #c# 2021-02-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A005114 Untouchable numbers (or 'nonaliquot'): impossible values for the sum of aliquot parts function (A001065).
 #n# full results slow, ~26m, so limit the number of values calculated
 #n# need to update RC with future-proofed version [ question to self: which means what? ]
 #n# 2022-01-23 added back in 'total found' results
-#n# OEIS:A005114
 
 File: U/Untrusted_environment
 #!/usr/bin/env perl6
