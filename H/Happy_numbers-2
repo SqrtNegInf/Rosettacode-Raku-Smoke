@@ -3,9 +3,9 @@
 #c# 2015-12-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A007770
+#n# OEIS:A007770 Happy numbers: numbers whose trajectory under iteration of sum of squares of digits map (see A003132) includes 1.
 
-#Here's another approach that uses a different set of tricks including lazy lists, gather/take, repeat-until, and the cross metaoperator X.
+# Here's another approach that uses a different set of tricks including lazy lists, gather/take, repeat-until, and the cross metaoperator X.
 
 my @happy = lazy gather for 1..* -> $number {
     my %stopper = 1 => 1;
