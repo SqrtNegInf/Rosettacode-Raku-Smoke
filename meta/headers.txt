@@ -3149,6 +3149,8 @@ File: C/Consecutive_Primes_With_Ascending_Or_Descending_Differences
 #c# 2021-04-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# some similarities to:
+#n# OEIS A094749 Triangle read by rows in which the n-th row contains the least set of n successive primes whose successive difference forms an arithmetic progression with common difference 2, (successive even numbers).
 
 File: C/Constrained_genericity
 #!/usr/bin/env perl6
@@ -3999,8 +4001,8 @@ File: D/Digital_root
 #c# 2016-02-09 <RC, 2022-09-16 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A010888
-#n# OEIS:A031286
+#n# OEIS:A010888 repeatedly add the digits of n until a single digit is reached
+#n# OEIS:A031286 Additive persistence: number of summations of digits needed to obtain a single digit (the additive digital root).
 #n# test both versions of the algorithm
 
 File: D/Digital_root_Multiplicative_digital_root
@@ -4071,7 +4073,7 @@ File: D/Disarium_numbers
 #c# 2022-02-12 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A032799
+#n# OEIS:A032799 Numbers n such that n equals the sum of its digits raised to the consecutive powers (1,2,3,...).
 #n# Not an efficient algorithm. First 18 in less than 1/4 second. 19th in around 45 seconds. Pretty much unusable for the 20th.
 #n# locally: 624.27s user 202.78s system 486% cpu 2:50.12 total
 
@@ -6386,8 +6388,8 @@ File: G/Giuga_numbers
 #c# 2022-07-xx NOT ON RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A007850
-#n# hyper no help
+#n# OEIS:A007850 Giuga numbers: composite numbers n such that p divides n/p - 1 for every prime divisor p of n.
+#n# .hyper is no help
 
 File: G/Giuga_numbers-2
 #!/usr/bin/env raku
@@ -6395,7 +6397,7 @@ File: G/Giuga_numbers-2
 #c# 2022-07-02 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A007850
+#n# OEIS:A007850 Giuga numbers: composite numbers n such that p divides n/p - 1 for every prime divisor p of n.
 
 File: G/Globally_replace_text_in_several_files
 #!/usr/bin/env perl6
@@ -6635,7 +6637,7 @@ File: H/Hamming_numbers-1
 #c# 2015-11-04 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A051037
+#n# OEIS:A051037 5-smooth numbers, numbers whose prime divisors are all <= 5 (cf N/N-smooth_numbers)
 
 File: H/Hamming_numbers-2
 #!/usr/bin/env perl6
@@ -6643,7 +6645,7 @@ File: H/Hamming_numbers-2
 #c# 2019-04-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A051037
+#n# OEIS:A051037 5-smooth numbers, numbers whose prime divisors are all <= 5 (cf N/N-smooth_numbers)
 
 File: H/Hamming_numbers-3
 #!/usr/bin/env perl6
@@ -6651,7 +6653,7 @@ File: H/Hamming_numbers-3
 #c# 2023-01-02 NOT ON RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A051037
+#n# OEIS:A051037 5-smooth numbers, numbers whose prime divisors are all <= 5 (cf N/N-smooth_numbers)
 #n# just demo use of the module in this context
 
 File: H/Handle_a_signal
@@ -8884,6 +8886,8 @@ File: M/Magic_numbers
 #c# 2023-02-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A144688 0-9, any n >= 10 is magic if it is divisible by the number of its digits and the number obtained by deleting the final digit is also magic.
+#n# OEIS:A143671 Number of terms in A144688 of length n.
 
 File: M/Magic_squares_Raku
 #!/usr/bin/env perl6
@@ -9751,7 +9755,7 @@ File: M/Munchausen_numbers
 #c# 2016-09-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A046253
+#n# OEIS:A046253 Equal to the sum of its nonzero digits raised to its own power.
 
 File: M/Munching_squares-1
 #!/usr/bin/env perl6
@@ -11941,11 +11945,12 @@ File: P/Prime_numbers_which_contain_123
 File: P/Prime_triangle
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Prime_triangle
-#c# 2022-04-12
+#c# 2022-04-12 <RC, 2023-02-10 >RC
 #m# MOAR: OK
 #j#  JVM: BROKEN
-#n# OEIS:A036440
+#n# OEIS:A036440 Number of ways of arranging row n of the prime pyramid.
 #n# 'sample' results vary, so just test totals (and limit testing for speed)
+#n# 2023-02-10 add link to OEIS
 
 File: P/Prime_triangle.jvm
 #!/usr/bin/env perl6
@@ -11960,7 +11965,7 @@ File: P/Prime_tripets-1
 #c# 2021-04-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A022004
+#n# OEIS:A022004 Initial members of prime triples (p, p+2, p+6).
 
 File: P/Prime_tripets-2
 #!/usr/bin/env raku
@@ -11968,7 +11973,7 @@ File: P/Prime_tripets-2
 #c# 2021-04-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A022004
+#n# OEIS:A022004 Initial members of prime triples (p, p+2, p+6).
 
 File: P/Prime_words
 #!/usr/bin/env raku
@@ -13339,6 +13344,22 @@ File: S/SEDOLs
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: S/SEND_+_MORE_=_MONEY-1
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/SEND_+_MORE_=_MONEY
+#c# 2023-02-10 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+#n# Idiomatic
+
+File: S/SEND_+_MORE_=_MONEY-2
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/SEND_+_MORE_=_MONEY
+#c# 2023-02-10 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+#n# Fast
+
 File: S/SHA-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/SHA-1
@@ -14140,10 +14161,11 @@ File: S/Smallest_multiple
 File: S/Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k
-#c# 2022-01-11 <RC
+#c# 2022-01-11 <RC, 2023-02-10 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A033939
+#n# OEIS:A033919 Odd k for which k+2^m is composite for all m < k.
+#n# fixed typo on RC page, OEIS ref ended in '39'
 
 File: S/Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k.jvm
 #!/usr/bin/env raku
@@ -15580,7 +15602,12 @@ File: S/Super-d_numbers-1
 #n# 2..6 : 17.679u   0.469s  0:25.69 70.5%
 #n# 2..8 : 648.901u 12.444s 17:32.68 62.8%
 #n# */×: replacing '* * **' with '* × **' is clarifying (for humans)
-#n# OEIS:A014569
+#n# OEIS:A032743 Super-2 Numbers (2 * n^2 contains substring '22' in its decimal expansion).
+#n# OEIS:A014569 Super-3 Numbers (3n^3 contains substring '333' in its decimal expansion).
+#n# OEIS:A032744 Super-4 Numbers (4 * n^4 contains substring '4444' in its decimal expansion).
+#n# OEIS:A032745 Super-5 Numbers (5 * n^5 contains substring '55555' in its decimal expansion).
+#n# OEIS:A032746 Super-6 Numbers (6 * n^6 contains substring '666666' in its decimal expansion).
+my @res;
 
 File: S/Super-d_numbers-2
 #!/usr/bin/env perl6
@@ -15589,7 +15616,12 @@ File: S/Super-d_numbers-2
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# now with concurrency, as fast as my version (Super-d_numbers-3)
-#n# OEIS:A014569
+#n# OEIS:A032743 Super-2 Numbers (2 * n^2 contains substring '22' in its decimal expansion).
+#n# OEIS:A014569 Super-3 Numbers (3n^3 contains substring '333' in its decimal expansion).
+#n# OEIS:A032744 Super-4 Numbers (4 * n^4 contains substring '4444' in its decimal expansion).
+#n# OEIS:A032745 Super-5 Numbers (5 * n^5 contains substring '55555' in its decimal expansion).
+#n# OEIS:A032746 Super-6 Numbers (6 * n^6 contains substring '666666' in its decimal expansion).
+#n# OEIS:A032747 Super-7 Numbers (7 x n^7 contains substring '7777777' in its decimal expansion).
 
 File: S/Super-d_numbers-2.jvm
 #!/usr/bin/env perl6
@@ -15612,7 +15644,12 @@ File: S/Super-d_numbers-3
 #n# Due to overhead, concurrency makes little sense for d < 6, but code does return correct results for all d
 #n# $chunk, $max-plus are tunable parameters, that scale with $d; depending how these are set there's the danger 
 #n# of missing a value in the 'first N' series, but maybe I can have just a little bit of peril?
-#n# OEIS:A014569
+#n# OEIS:A032743 Super-2 Numbers (2 * n^2 contains substring '22' in its decimal expansion).
+#n# OEIS:A014569 Super-3 Numbers (3n^3 contains substring '333' in its decimal expansion).
+#n# OEIS:A032744 Super-4 Numbers (4 * n^4 contains substring '4444' in its decimal expansion).
+#n# OEIS:A032745 Super-5 Numbers (5 * n^5 contains substring '55555' in its decimal expansion).
+#n# OEIS:A032746 Super-6 Numbers (6 * n^6 contains substring '666666' in its decimal expansion).
+#n# OEIS:A032747 Super-7 Numbers (7 x n^7 contains substring '7777777' in its decimal expansion).
 
 File: S/Super-d_numbers-3.0
 #!/usr/bin/env perl6
@@ -16327,6 +16364,13 @@ File: T/Tree_traversal
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: T/Triangular_numbers
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Triangular_numbers
+#c# 2023-02-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: T/Trigonometric_functions
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Trigonometric_functions
@@ -16753,7 +16797,7 @@ File: V/Vampire_number
 #c# 2016-09-07 <RC, 2018-11-10 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A014575
+#n# OEIS:A014575 n with an even number of digits which have a factorization n = i*j where i and j have the same number of digits and the multiset of the digits of n coincides with the multiset of the digits of i and j.
 #n# thundergnat's additions do more (25 vs 8) in same time
 
 File: V/Vampire_number.1
