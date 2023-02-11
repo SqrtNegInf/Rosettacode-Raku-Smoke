@@ -9,7 +9,12 @@
 #n# Due to overhead, concurrency makes little sense for d < 6, but code does return correct results for all d
 #n# $chunk, $max-plus are tunable parameters, that scale with $d; depending how these are set there's the danger 
 #n# of missing a value in the 'first N' series, but maybe I can have just a little bit of peril?
-#n# OEIS:A014569
+#n# OEIS:A032743 Super-2 Numbers (2 * n^2 contains substring '22' in its decimal expansion).
+#n# OEIS:A014569 Super-3 Numbers (3n^3 contains substring '333' in its decimal expansion).
+#n# OEIS:A032744 Super-4 Numbers (4 * n^4 contains substring '4444' in its decimal expansion).
+#n# OEIS:A032745 Super-5 Numbers (5 * n^5 contains substring '55555' in its decimal expansion).
+#n# OEIS:A032746 Super-6 Numbers (6 * n^6 contains substring '666666' in its decimal expansion).
+#n# OEIS:A032747 Super-7 Numbers (7 x n^7 contains substring '7777777' in its decimal expansion).
 
 # 7:  119.011u   2.402s  2:18.58  87.6% no concurrency
 # 8: 2246.582u  46.147s 50:03.70  76.3%      "
