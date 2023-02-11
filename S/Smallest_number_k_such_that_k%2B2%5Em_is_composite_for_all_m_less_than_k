@@ -1,9 +1,10 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k
-#c# 2022-01-11 <RC
+#c# 2022-01-11 <RC, 2023-02-10 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A033939
+#n# OEIS:A033919 Odd k for which k+2^m is composite for all m < k.
+#n# fixed typo on RC page, OEIS ref ended in '39'
 
 say my $result = (1..∞).hyper(:250batch).map(* × 2 + 1).grep( -> $k { !(1 ..^ $k).first: ($k + 1 +< *).is-prime } )[^5];
 
