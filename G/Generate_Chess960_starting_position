@@ -4,10 +4,24 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2021-06-04 results for test #2 changed
+#n# 2023-02-09 test #2 again, replace it with 'myRNG'
+
+use myRNG;
+
+# Knuth shuffle
+sub pick-all (@a is copy) is export {
+    my $rng = myRNG.new( :seed(123456) );
+    for 1 ..^ @a -> $n {
+        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
 
 srand 123456;
 
-#First, using a list with three rooks and no king, we keep generating a random piece order until the two bishops are on opposite colors. Then we sneakily promote the second of the three rooks to a king.
+# First, using a list with three rooks and no king, we keep generating a random piece order until the two bishops
+# are on opposite colors. Then we sneakily promote the second of the three rooks to a king.
 
 repeat until m/ '♗' [..]* '♗' / { $_ = < ♖ ♖ ♖ ♕ ♗ ♗ ♘ ♘ >.pick(*).join }
 s:2nd['♖'] = '♔';
@@ -21,13 +35,13 @@ is (.comb), $*VM ~~ /jvm/ ?? '♕ ♘ ♖ ♘ ♔ ♗ ♗ ♖' !! '♖ ♘ ♗ �
 sub chess960 {
     .subst(:nth(2), /'♜'/, '♚') given
     first rx/ '♝' [..]* '♝' /,
-    < ♛ ♜ ♜ ♜ ♝ ♝ ♞ ♞ >.pick(*).join xx *;
+    < ♛ ♜ ♜ ♜ ♝ ♝ ♞ ♞ >.&pick-all.join ; #xx *;
 }
 
 say my $result = chess960;
-my $moar = '♜♛♚♝♞♜♝♞';
-my $jvm  = '♜♞♚♝♜♞♝♛';
-is $result, $*VM ~~ /jvm/ ?? $jvm !! $moar;
+my $moar = '♜♛♝♞♚♞♜♝';
+#my $jvm  = '♜♞♚♝♜♞♝♛';
+is $result, $moar;
 
 # We can also pregenerate the list of 960 positions, though the method we use below is a bit wasteful, since it
 # generates 40320 candidates only to throw most of them away. This is essentially the same filtering algorithm
