@@ -7,8 +7,11 @@
 #n# 2..6 : 17.679u   0.469s  0:25.69 70.5%
 #n# 2..8 : 648.901u 12.444s 17:32.68 62.8%
 #n# */×: replacing '* * **' with '* × **' is clarifying (for humans)
-#n# OEIS:A014569
-
+#n# OEIS:A032743 Super-2 Numbers (2 * n^2 contains substring '22' in its decimal expansion).
+#n# OEIS:A014569 Super-3 Numbers (3n^3 contains substring '333' in its decimal expansion).
+#n# OEIS:A032744 Super-4 Numbers (4 * n^4 contains substring '4444' in its decimal expansion).
+#n# OEIS:A032745 Super-5 Numbers (5 * n^5 contains substring '55555' in its decimal expansion).
+#n# OEIS:A032746 Super-6 Numbers (6 * n^6 contains substring '666666' in its decimal expansion).
 my @res;
 
 sub super ($d) {
