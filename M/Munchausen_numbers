@@ -3,7 +3,7 @@
 #c# 2016-09-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A046253
+#n# OEIS:A046253 Equal to the sum of its nonzero digits raised to its own power.
 
 sub is_munchausen ( Int $n ) {
     constant @powers = 0, |(1..9) »**» (1..9);
