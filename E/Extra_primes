@@ -3,11 +3,9 @@
 #c# 2020-12-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A062088
+#n# OEIS:A062088 Primes with every digit a prime and the sum of the digits a prime.
 
 my @res;
-
-# For the time being, (Doctor?), I'm going to assume that the task is really "Sequence of primes with every digit a prime and the sum of the digits a prime". Outputting my own take on a reasonable display of results, compact and easily doable but exercising it a bit.
 
 my @ppp = lazy flat 2, 3, 5, 7, 23, grep { .is-prime && .comb.sum.is-prime },
                flat (2..*).map: { flat ([X~] (2, 3, 5, 7) xx $_) X~ (3, 7) };
