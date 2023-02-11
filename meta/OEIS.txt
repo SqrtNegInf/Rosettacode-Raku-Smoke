@@ -228,11 +228,11 @@ D/Descending_primes
 A052014 Primes with distinct digits in descending order
 
 D/Digital_root
-A010888
-A031286
+A010888 repeatedly add the digits of n until a single digit is reached
+A031286 Additive persistence: number of summations of digits needed to obtain a single digit (the additive digital root).
 
 D/Disarium_numbers
-A032799
+A032799 Numbers n such that n equals the sum of its digits raised to the consecutive powers (1,2,3,...).
 
 D/Distinct_Palindromes_Within_Decimal_Numbers
 A262188
@@ -376,22 +376,22 @@ G/Gapful_numbers
 A108343
 
 G/Giuga_numbers
-A007850
+A007850 Giuga numbers: composite numbers n such that p divides n/p - 1 for every prime divisor p of n.
 
 G/Giuga_numbers-2
-A007850
+A007850 Giuga numbers: composite numbers n such that p divides n/p - 1 for every prime divisor p of n.
 
 G/Goldbach%27s_comet
 A045917 Goldbach problem: number of decompositions of 2n into unordered sums of two primes
 
 H/Hamming_numbers-1
-A051037
+A051037 5-smooth numbers, numbers whose prime divisors are all <= 5 (cf N/N-smooth_numbers)
 
 H/Hamming_numbers-2
-A051037
+A051037 5-smooth numbers, numbers whose prime divisors are all <= 5 (cf N/N-smooth_numbers)
 
 H/Hamming_numbers-3
-A051037
+A051037 5-smooth numbers, numbers whose prime divisors are all <= 5 (cf N/N-smooth_numbers)
 
 H/Happy_numbers-1
 A007770 Happy numbers: numbers whose trajectory under iteration of sum of squares of digits map (see A003132) includes 1.
@@ -480,6 +480,10 @@ A023108 Positive integers that never result in a palindrome when iterating A0569
 M/Magic_constant
 A006003 is a similar sequence, though it includes terms for <0 1 2>
 
+M/Magic_numbers
+A144688 0-9, any n >= 10 is magic if it is divisible by the number of its digits and the number obtained by deleting the final digit is also magic.
+A143671 Number of terms in A144688 of length n.
+
 M/Magnanimous_numbers
 A252996
 
@@ -528,7 +532,7 @@ M/Motzkin_numbers-2
 A001006 
 
 M/Munchausen_numbers
-A046253
+A046253 Equal to the sum of its nonzero digits raised to its own power.
 
 N/N-queens_minimum_and_knights_and_bishops
 A075324
@@ -678,13 +682,13 @@ P/Practical_numbers
 A005153 Practical numbers (aka panarithmic): positive integers m such that every k <= sigma(m) is a sum of distinct divisors of m.
 
 P/Prime_triangle
-A036440
+A036440 Number of ways of arranging row n of the prime pyramid.
 
 P/Prime_tripets-1
-A022004
+A022004 Initial members of prime triples (p, p+2, p+6).
 
 P/Prime_tripets-2
-A022004
+A022004 Initial members of prime triples (p, p+2, p+6).
 
 P/Primorial_numbers
 A002110 Primorial numbers (first definition): product of first n primes. Sometimes written prime(n)#.
@@ -804,7 +808,7 @@ S/Sierpinski_triangle_Graphical
 A001317 Sierpiński's triangle (Pascal's triangle mod 2) converted to decimal.
 
 S/Smallest_number_k_such_that_k%2B2%5Em_is_composite_for_all_m_less_than_k
-A033939
+A033919 Odd k for which k+2^m is composite for all m < k.
 
 S/Smarandache_prime-digital_sequence
 A019546 Primes whose digits are primes
@@ -858,13 +862,27 @@ S/Super-Poulet_numbers
 A050217 Super-Poulet numbers
 
 S/Super-d_numbers-1
-A014569
+A032743 Super-2 Numbers (2 * n^2 contains substring '22' in its decimal expansion).
+A014569 Super-3 Numbers (3n^3 contains substring '333' in its decimal expansion).
+A032744 Super-4 Numbers (4 * n^4 contains substring '4444' in its decimal expansion).
+A032745 Super-5 Numbers (5 * n^5 contains substring '55555' in its decimal expansion).
+A032746 Super-6 Numbers (6 * n^6 contains substring '666666' in its decimal expansion).
 
 S/Super-d_numbers-2
-A014569
+A032743 Super-2 Numbers (2 * n^2 contains substring '22' in its decimal expansion).
+A014569 Super-3 Numbers (3n^3 contains substring '333' in its decimal expansion).
+A032744 Super-4 Numbers (4 * n^4 contains substring '4444' in its decimal expansion).
+A032745 Super-5 Numbers (5 * n^5 contains substring '55555' in its decimal expansion).
+A032746 Super-6 Numbers (6 * n^6 contains substring '666666' in its decimal expansion).
+A032747 Super-7 Numbers (7 x n^7 contains substring '7777777' in its decimal expansion).
 
 S/Super-d_numbers-3
-A014569
+A032743 Super-2 Numbers (2 * n^2 contains substring '22' in its decimal expansion).
+A014569 Super-3 Numbers (3n^3 contains substring '333' in its decimal expansion).
+A032744 Super-4 Numbers (4 * n^4 contains substring '4444' in its decimal expansion).
+A032745 Super-5 Numbers (5 * n^5 contains substring '55555' in its decimal expansion).
+A032746 Super-6 Numbers (6 * n^6 contains substring '666666' in its decimal expansion).
+A032747 Super-7 Numbers (7 x n^7 contains substring '7777777' in its decimal expansion).
 
 S/Superpermutation_minimisation
 A180632 Minimum length of a string over the alphabet A = {1,2,...,n}
@@ -913,7 +931,7 @@ U/Untouchable_numbers
 A005114 Untouchable numbers (or 'nonaliquot'): impossible values for the sum of aliquot parts function (A001065).
 
 V/Vampire_number
-A014575
+A014575 n with an even number of digits which have a factorization n = i*j where i and j have the same number of digits and the multiset of the digits of n coincides with the multiset of the digits of i and j.
 
 V/Van_Eck_sequence
 A181391 Van Eck sequence with the first term: 0
