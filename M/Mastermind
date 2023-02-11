@@ -3,25 +3,35 @@
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: D B C E\nC B D A\nA B D C
-#z# RC pipe: A B C D\nC A F B\nF A C B
+#=# RC pipe: C B A E\nC A B F\nC A F E
 #n# better testing again
-#n# 2021-06-17 yesterday/today: hangs in automated testing, more srand drift? [yes, it was]
-#n# new-disp 'srand' shift
 
 use Test;  
 
-#By default, plays classic Mastermind using letters in place of colors. ( 4 chosen from 6, no repeats, 10 guess limit. ) Pass in parameters to modify the game. Enter a string of --length (default 4) letters with or without spaces. Guesses accept lower or upper case.
+# By default, plays classic Mastermind using letters in place of colors. ( 4 chosen from 6, no repeats, 10 guess limit.) 
+# Pass in parameters to modify the game. Enter a string of --length (default 4) letters with or without spaces. 
+# Guesses accept lower or upper case.
+
+use myRNG;
+
+# Knuth shuffle
+sub pick-all (@a is copy) is export {
+    my $rng = myRNG.new( :seed(123456) );
+    for 1 ..^ @a -> $n {
+        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
 
 sub MAIN (
     Int :$colors  where 1 < * < 21 = 6,  Int :$length  where 3 < * < 11 = 4,
     Int :$guesses where 7 < * < 21 = 10, Bool :$repeat = False
   ) {
     my @valid = ('A' .. 'T')[^$colors];
-srand 1; say rand;
-srand 123456;
-    my $puzzle = $repeat ?? @valid.roll($length) !! @valid.pick($length);
-say "Puzzle answer is: $puzzle"; # DH leave this in, or when run as cronjob, fails?
+   #my $puzzle = $repeat ?? @valid.roll($length) !! @valid.pick($length);
+    my $puzzle = @valid.&pick-all.head($length);
+    say "Puzzle answer is: $puzzle"; # DH leave this in, or when run as cronjob, fails?
     my @guesses;
 
     my $black = '●';
@@ -69,8 +79,8 @@ say "Puzzle answer is: $puzzle"; # DH leave this in, or when run as cronjob, fai
 
     sub clearscr { $*KERNEL ~~ /'win32'/ ?? run('cls') !! run('clear') }
 
-    #sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! <E F B A> }
-    sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! (uc prompt 'Your guess?: ').comb(/@valid/) }
+    sub get-guess { (uc prompt 'Your guess?: ').comb(/@valid/) }
+   #sub get-guess { $*VM ~~ /jvm/ ?? <C E B F> !! <E F B A> }
 
     sub is-valid (@guess) { so $length == @guess }
 
