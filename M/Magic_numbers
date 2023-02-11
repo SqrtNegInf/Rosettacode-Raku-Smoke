@@ -3,6 +3,8 @@
 #c# 2023-02-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A144688 0-9, any n >= 10 is magic if it is divisible by the number of its digits and the number obtained by deleting the final digit is also magic.
+#n# OEIS:A143671 Number of terms in A144688 of length n.
 
 my @res;
 
@@ -60,5 +62,4 @@ All magic numbers that are pan-digital in 0 through 9 with no repeats: 381654729
 END
 
 use Test;
-#is @res.join("\n"), chomp $ref;
-is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
+is @res.join("\n"), chomp $ref;
