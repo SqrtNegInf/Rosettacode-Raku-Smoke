@@ -4,23 +4,24 @@
 #m# MOAR: OK
 #j#  JVM: OK
 
-srand 123456;
+use myRNG;
 
-my $str = (0..400).roll(80)».chr.join;
+# Knuth shuffle
+sub pick-all (@a is copy) is export {
+    my $rng = myRNG.new( :seed(123456) );
+    for 1 ..^ @a -> $n {
+        my $k = (0 .. $n)[($n+1) × $rng.next-rat];
+        $k == $n or @a[$k, $n] = @a[$n, $k];
+    }
+    @a
+}
+
+my $str = (0..400).&pick-all.head(80)».chr.join;
 
 say $str;
 say $str.subst(/<:Cc>/,     '', :g); # unicode property: control character
 say '----';
 say my $result = $str.subst(/<-[ \ ..~ ]>/, '', :g);
 
-my $moar-terminal = 'PHGJh 2)G[yrlJnq3hY^:=';
-my $moar-cronjob  = 'Yh 2)G[yrlJnq3hY^:=a';
-my $linux         = 'PHGJh 2)G[yrlJnq3hY^:=';
-my $jvm           = q[zk{k)ug_%S!Yj'mp#?0$i];
-
 use Test;
-if $*KERNEL eq 'linux' {
-is $result, chomp $linux;
-} else {
-is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob;
-}
+is $result, 'whB{;ME^sp1d!jm=Yk';
