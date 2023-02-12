@@ -5024,7 +5024,7 @@ File: E/Extra_primes
 #c# 2020-12-01 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A062088
+#n# OEIS:A062088 Primes with every digit a prime and the sum of the digits a prime.
 
 File: E/Extract_file_extension
 #!/usr/bin/env perl6
@@ -5584,7 +5584,7 @@ File: F/Find_palindromic_numbers_in_both_binary_and_ternary_bases
 #c# 2016-09-27 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A060792
+#n# OEIS:A060792 Numbers that are palindromic in bases 2 and 3.
 
 File: F/Find_palindromic_numbers_in_both_binary_and_ternary_bases.1
 #!/usr/bin/env perl6
@@ -5987,7 +5987,7 @@ File: F/Four_is_the_number_of_letters_in_the_...
 #c# 2017-10-04 <RC, 2019-06-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A072425
+#n# OEIS:A072425 The four-is sequence counts the letters in the words of the generating sentence.
 #n# full run: 6469.673u 124.008s 2:12:20.72 83.0%
 
 File: F/Four_sides_of_square
@@ -6260,6 +6260,7 @@ File: G/Generate_Chess960_starting_position
 #m# MOAR: OK
 #j#  JVM: OK
 #n# 2021-06-04 results for test #2 changed
+#n# 2023-02-09 test #2 again, replace it with 'myRNG'
 
 File: G/Generate_Chess960_starting_position-2
 #!/usr/bin/env raku
@@ -6268,15 +6269,6 @@ File: G/Generate_Chess960_starting_position-2
 #m# MOAR: OK
 #j# JVM:  OK
 #n# from SPID
-
-File: G/Generate_Chess960_starting_position_exp
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Generate_Chess960_starting_position
-#c# 2016-06-02 <RC, 2018-03-28 >RC, 2018-04-03 <RC
-#m# MOAR: OK
-#j#  JVM: OK
-#n# 2021-06-04 results for test #2 changed
-#n# 2023-02-09 test #2 again, replace it with 'myRNG'
 
 File: G/Generate_lower_case_ASCII_alphabet
 #!/usr/bin/env perl6
@@ -9039,18 +9031,6 @@ File: M/Mastermind
 #c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#=# RC pipe: D B C E\nC B D A\nA B D C
-#z# RC pipe: A B C D\nC A F B\nF A C B
-#n# better testing again
-#n# 2021-06-17 yesterday/today: hangs in automated testing, more srand drift? [yes, it was]
-#n# new-disp 'srand' shift
-
-File: M/Mastermind_exp
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Mastermind
-#c# 2017-01-29 <RC, 2017-02-25 <RC, 2018-04-18 <RC
-#m# MOAR: OK
-#j#  JVM: OK
 #=# RC pipe: C B A E\nC A B F\nC A F E
 #n# better testing again
 
@@ -9226,7 +9206,7 @@ File: M/Meissel–Mertens_constant
 #c# 2022-10-11 <RC, 2022-10-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A077761 
+#n# OEIS:A077761 Decimal expansion of Mertens's constant, which is the limit of (Sum_{i=1..k} 1/prime(i)) - log(log(prime(k))) as k goes to infinity, where prime(i) is the i-th prime number.
 #n# see also: 'E/Euler%27s_constant_0.5772...'
 
 File: M/Memory_allocation
@@ -9593,7 +9573,7 @@ File: M/Motzkin_numbers-1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# Using binomial coefficients and Catalan numbers
-#n# OEIS:A001006 
+#n# OEIS:A001006 Motzkin numbers: number of ways of drawing any number of nonintersecting chords joining n (labeled) points on a circle.
 
 File: M/Motzkin_numbers-1.jvm
 #!/usr/bin/env raku
@@ -9601,6 +9581,7 @@ File: M/Motzkin_numbers-1.jvm
 #c# 2021-08-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A001006 Motzkin numbers: number of ways of drawing any number of nonintersecting chords joining n (labeled) points on a circle.
 #n# Using binomial coefficients and Catalan numbers
 
 File: M/Motzkin_numbers-2
@@ -9609,7 +9590,7 @@ File: M/Motzkin_numbers-2
 #c# 2021-08-14 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A001006 
+#n# OEIS:A001006 Motzkin numbers: number of ways of drawing any number of nonintersecting chords joining n (labeled) points on a circle.
 
 File: M/Motzkin_numbers-2.jvm
 #!/usr/bin/env raku
@@ -9834,8 +9815,8 @@ File: N/N-queens_minimum_and_knights_and_bishops
 #m# MOAR: OK
 #j# JVM:  OK
 #n# slow, so limit testing; a few minor tweaks not on RC
-#n# OEIS:A075324
-#n# OEIS:A342576
+#n# OEIS:A075324 Independent domination number for queens' graph Q(n).
+#n# OEIS:A342576 Independent domination number for knight's graph on an n X n board.
 
 File: N/N-queens_problem
 #!/usr/bin/env perl6
@@ -10851,7 +10832,8 @@ File: P/Pancake_numbers
 #c# 2020-11-10 <RC, 2021-02-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A058986
+#n# OEIS:A058986 Sorting by prefix reversal ("flipping pancakes").  a(n) is # of reversals to transform to the identity permutation.
+#n# You can only reverse segments that include the initial term of the current permutation; 
 
 File: P/Pandigital_prime
 #!/usr/bin/env raku
@@ -11361,7 +11343,7 @@ File: P/Perfect_totient_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# see .jvm for previous method of calculation
-#n# OEIS:A082897
+#n# OEIS:A082897 Perfect totient numbers.
 
 File: P/Perfect_totient_numbers.jvm
 #!/usr/bin/env perl6
@@ -11562,15 +11544,15 @@ File: P/Pierpont_primes-2
 #n# OEIS:A005109 Pierpont primes 1st
 #n# OEIS:A005105 Pierpont primes 2nd
 #n# OEIS:A077497
-#n# OEIS:A077313
+#n# OEIS:A077313 Primes of the form 2^r*5^s - 1.
 #n# OEIS:A002200 Hamming primes 1st
 #n# OEIS:A293194 Hamming primes 2nd
 #n# OEIS:A077498
-#n# OEIS:A077314
+#n# OEIS:A077314 Primes of the form 2^r*7^s - 1.
 #n# OEIS:A174144 Humble primes 1st
 #n# OEIS:A299171 Humble primes 2nd
 #n# OEIS:A077499
-#n# OEIS:A077315
+#n# OEIS:A077315 Primes of the form 2^r * 11^s - 1.
 #n# OEIS:A173236
 #n# OEIS:A173062
 
@@ -13634,7 +13616,7 @@ File: S/Sequence:_nth_number_with_exactly_n_divisors
 #c# 2019-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A073916
+#n# OEIS:A073916 The n-th number with n divisors.
 #n# 2022-05-24 '$iterator.first' idiom not working in JVM
 
 File: S/Sequence:_nth_number_with_exactly_n_divisors.jvm
@@ -13653,7 +13635,7 @@ File: S/Sequence:_smallest_number_greater_than_previous_term_with_exactly_n_divi
 #c# 2019-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A069654
+#n# OEIS:A069654 a(1) = 1; for n > 1, a(n) = smallest number > a(n-1) having exactly n divisors.
 
 File: S/Sequence:_smallest_number_with_exactly_n_divisors
 #!/usr/bin/env perl6
@@ -13684,8 +13666,9 @@ File: S/Sequence_of_primorial_primes
 #c# 2016-05-10 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A088411 A088257 indexed by A002110.
+#n# where: A088257 Primorials P which have at least one prime neighbor; i.e., P+1 or P-1 (or both) are primes.
 #n# this version show indices, not that values themselves
-#n# OEIS:A088411
 
 File: S/Sequence_of_primorial_primes-2
 #!/usr/bin/env raku
@@ -13693,8 +13676,8 @@ File: S/Sequence_of_primorial_primes-2
 #c# 2022-08-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A088257 Primorials P which have at least one prime neighbor; i.e., P+1 or P-1 (or both) are primes.
 #n# moved from deleted/dup task, show the primes themselves (cf main version)
-#n# OEIS:A088411
 
 File: S/Set
 #!/usr/bin/env perl6
@@ -15177,13 +15160,6 @@ File: S/Strip_control_codes_and_extended_characters_from_a_string
 #m# MOAR: OK
 #j#  JVM: OK
 
-File: S/Strip_control_codes_and_extended_characters_from_a_string_exp
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Strip_control_codes_and_extended_characters_from_a_string
-#c# 2016-03-19 <RC, 2018-04-08 <RC
-#m# MOAR: OK
-#j#  JVM: OK
-
 File: S/Strip_whitespace_from_a_string_Top_and_tail
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Strip_whitespace_from_a_string/Top_and_tail
@@ -15290,7 +15266,7 @@ File: S/Substring_primes
 #c# 2021-04-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A085823
+#n# OEIS:A085823 Numbers in which all substrings are primes.
 
 File: S/Subtractive_generator
 #!/usr/bin/env perl6
