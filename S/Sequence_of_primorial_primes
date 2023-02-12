@@ -3,8 +3,9 @@
 #c# 2016-05-10 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A088411 A088257 indexed by A002110.
+#n# where: A088257 Primorials P which have at least one prime neighbor; i.e., P+1 or P-1 (or both) are primes.
 #n# this version show indices, not that values themselves
-#n# OEIS:A088411
 
 constant @primes     = |grep *.is-prime, 2..*;
 constant @primorials = [\×] 1, @primes;
