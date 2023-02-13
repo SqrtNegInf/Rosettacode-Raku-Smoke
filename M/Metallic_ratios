@@ -3,15 +3,15 @@
 #c# 2019-10-31 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A001622 golden
-#n# OEIS:A014176 silver
-#n# OEIS:A098316 bronze
-#n# OEIS:A098317 copper
-#n# OEIS:A098318 nickel
-#n# OEIS:A176398 aluminum
-#n# OEIS:A176439 iron
-#n# OEIS:A176458 tin
-#n# OEIS:A176522 lead
+#n# OEIS:A001622 Decimal expansion of golden ratio phi (or tau) = (1 + sqrt(5))/2.
+#n# OEIS:A014176 Decimal expansion of the silver mean, 1+sqrt(2).
+#n# OEIS:A098316 Decimal expansion of [3, 3, ...] = (3 + sqrt(13))/2.
+#n# OEIS:A098317 Decimal expansion of phi^3 = 2 + sqrt(5). (aka copper)
+#n# OEIS:A098318 Decimal expansion of [5, 5, ...] = (5 + sqrt(29))/2. (aka nickel)
+#n# OEIS:A176398 Decimal expansion of 3+sqrt(10). (aka aluminum)
+#n# OEIS:A176439 Decimal expansion of (7+sqrt(53))/2. (aka iron)
+#n# OEIS:A176458 Decimal expansion of 4+sqrt(17). (aka tin)
+#n# OEIS:A176522 Decimal expansion of (9+sqrt(85))/2. (aka lead)
 
 my @res;
 
@@ -97,5 +97,4 @@ Golden ratio to 256 decimal places:Approximated value: 1.61803398874989484820458
 END
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
 is @res.join("\n"), chomp $ref;
