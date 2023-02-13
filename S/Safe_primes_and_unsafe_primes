@@ -3,8 +3,8 @@
 #c# 2018-09-28 <RC, 2018-10-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN, and the EVAL trick not working...
-#n# OEIS:A005385 safe
-#n# OEIS:A059456 unsafe
+#n# OEIS:A005385 Safe primes p: (p-1)/2 is also prime.
+#n# OEIS:A059456 Unsafe primes: primes not in A005385.
 
 BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
 
