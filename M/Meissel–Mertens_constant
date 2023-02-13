@@ -3,7 +3,7 @@
 #c# 2022-10-11 <RC, 2022-10-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A077761 
+#n# OEIS:A077761 Decimal expansion of Mertens's constant, which is the limit of (Sum_{i=1..k} 1/prime(i)) - log(log(prime(k))) as k goes to infinity, where prime(i) is the i-th prime number.
 #n# see also: 'E/Euler%27s_constant_0.5772...'
 
 #loop ($_=2,my $s;;.++) { .is-prime and $s += log(1-1/$_)+1/$_; $result = $s+.57721566490153286 and last if $_ > 1e7 }
