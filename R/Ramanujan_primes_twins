@@ -3,6 +3,7 @@
 #c# 2021-09-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A181678 Number of twin Ramanujan prime pairs less than 10^n.
 
 my @res;
 
@@ -11,12 +12,13 @@ use Lingua::EN::Numbers;
 
 my @rp = ramanujan_primes nth_ramanujan_prime 1_000_000;
 
+# to show prime pairs:
+#say @rp[$_] ~ ' ' ~ @rp[$_+1] if @rp[$_+1] == @rp[$_]+2  for 1..1000; exit;
+
 for (1e5, 1e6)».Int -> $limit {
     @res.push: "\nThe {comma $limit}th Ramanujan prime is { comma @rp[$limit-1]}";
     @res.push: "There are { comma +(^($limit-1)).race.grep: { @rp[$_+1] == @rp[$_]+2 } } twins in the first {comma $limit} Ramanujan primes.";
 }
-
-#say (now - INIT now).fmt('%.3f') ~ ' seconds';
 
 .say for @res;
 
