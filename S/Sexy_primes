@@ -3,15 +3,16 @@
 #c# 2018-09-27 <RC, 2018-10-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A023201 pairs, lower
-#n# OEIS:A046117 pairs, upper
-#n# OEIS:A046118 triples, lower
-#n# OEIS:A046119 triples, middle
-#n# OEIS:A046120 triples, upper
-#n# OEIS:A023271 First member of a sexy prime quadruple: p such that p, p+6, p+12, p+18 are all primes.
-#n# OEIS:A046122 Second member of a sexy prime quadruple: value of p+6 such that p, p+6, p+12 and p+18 are all prime.
-#n# OEIS:A046123 Third member of a sexy prime quadruple: value of p+12 such that p, p+6, p+12 and p+18 are all prime.
-#n# OEIS:A046124 Last member of a sexy prime quadruple: value of p+18 such that p, p+6, p+12 and p+18 are all prime.
+#n# OEIS:A023201 Primes p such that p+6 is also prime. (Lesser of a pair of sexy primes.)
+#n# OEIS:A046117 Primes p such that p-6 is also prime. (Upper of a pair of sexy primes.)
+#n# OEIS:A046118 Smallest member of triple: value of p    such that p, p+6 and p+12 are all prime, but p+18 is not (although p-6 might be).
+#n# OEIS:A046119 Middle   member of triple: value of p+6  such that p, p+6 and p+12 are all prime, but p+18 is not (although p-6 might be).
+#n# OEIS:A046120 Largest  member of triple: value of p+12 such that p, p+6 and p+12 are all prime, but p+18 is not.
+#n# OEIS:A023271 First  member of a sexy prime quadruple:          p    such that p, p+6, p+12 and p+18 are all prime.
+#n# OEIS:A046122 Second member of a sexy prime quadruple: value of p+6  such that p, p+6, p+12 and p+18 are all prime.
+#n# OEIS:A046123 Third  member of a sexy prime quadruple: value of p+12 such that p, p+6, p+12 and p+18 are all prime.
+#n# OEIS:A046124 Last   member of a sexy prime quadruple: value of p+18 such that p, p+6, p+12 and p+18 are all prime.
+#n#
 #n# for JVM: module, and the EVAL trick not working...
 #n# CANNOT substitute 'classify' for 'categorize', error is:
 #n#    mapper on classify-list computed to an item with different number of elements in it than previous items, 
