@@ -1630,8 +1630,9 @@ File: B/Bell_numbers-1
 #c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000110 Bell or exponential numbers
-#n# OEIS:A011971 Aitken's array
+#n# OEIS:A000110 Bell or exponential numbers: number of ways to partition a set of n labeled elements.
+#n# OEIS:A011971 Aitken's array: triangle of numbers {a(n,k), n >= 0, 0 <= k <= n} read by rows, defined by a(0,0)=1, a(n,0) = a(n-1,n-1), a(n,k) = a(n,k-1) + a(n-1,k-1).
+#n# via Aitken's array
 
 File: B/Bell_numbers-2
 #!/usr/bin/env perl6
@@ -1639,7 +1640,8 @@ File: B/Bell_numbers-2
 #c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000110 Bell or exponential numbers
+#n# OEIS:A000110 Bell or exponential numbers: number of ways to partition a set of n labeled elements.
+#n# via recurrence relation
 
 File: B/Bell_numbers-3
 #!/usr/bin/env perl6
@@ -1647,7 +1649,8 @@ File: B/Bell_numbers-3
 #c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000110 Bell or exponential numbers
+#n# OEIS:A000110 Bell or exponential numbers: number of ways to partition a set of n labeled elements.
+#n# via Stirling sums
 
 File: B/Benford%27s_law
 #!/usr/bin/env perl6
@@ -1743,9 +1746,7 @@ File: B/Bioinformatics_Subsequence
 #c# 2021-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# new-disp 'srand' shift
-#n# nb: output has tabs, so when updating don't copy/paste, pull from file output
-#n# twiddling with srand value otherwise end up with no matches to report
+#n# 2022-12-31 replace call to built-in 'rand' for output stability
 
 File: B/Bioinformatics_base_count
 #!/usr/bin/env perl6
@@ -3482,10 +3483,10 @@ File: C/Cullen_and_Woodall_numbers
 #c# 2022-01-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A002064 Cullen 
-#n# OEIS:A003261 Woodall
-#n# OEIS:A005849 Cullen primes
-#n# OEIS:A002234 Woodall primes
+#n# OEIS:A002064 Cullen numbers: a(n) = n*2^n + 1.
+#n# OEIS:A003261 Woodall (or Riesel) numbers: n*2^n - 1.
+#n# OEIS:A005849 Indices of prime Cullen numbers: numbers k such that k*2^k + 1 is prime.
+#n# OEIS:A002234 Numbers k such that the Woodall number k*2^k - 1 is prime.
 
 File: C/Cumulative_standard_deviation
 #!/usr/bin/env perl6
@@ -4128,8 +4129,8 @@ File: D/Distinct_Palindromes_Within_Decimal_Numbers
 #c# 2021-04-06 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A262188
-#n# OEIS:A151997
+#n# OEIS:A262188 Table read by rows: row n contains all distinct palindromes contained as substrings in decimal representation of n.
+#n# OEIS:A151997 a(n) = (n 1's followed by a 3)^2.
 
 File: D/Distinct_power_numbers
 #!/usr/bin/env raku
@@ -5272,8 +5273,8 @@ File: F/Fermat_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# thundergnat: I gave up on factoring F₉ after about 20 minutes.
-#n# OEIS:A000215 Fermat numbers
-#n# OEIS:A019434 Fermat primes
+#n# OEIS:A000215 Fermat numbers: a(n) = 2^(2^n) + 1.
+#n# OEIS:A019434 Fermat primes: primes of the form 2^(2^k) + 1, for some k >= 0.
 
 File: F/Fermat_numbers.jvm
 #!/usr/bin/env perl6
@@ -6197,7 +6198,7 @@ File: G/Gapful_numbers
 #c# 2019-11-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A108343
+#n# OEIS:A108343 Gapful numbers >= 100: numbers that are divisible by the number formed by their first and last digit. 
 
 File: G/Gauss-Jordan_matrix_inversion
 #!/usr/bin/env raku
@@ -6987,7 +6988,7 @@ File: H/Honaker_primes
 #c# 2022-09-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A033548 Honaker primes
+#n# OEIS:A033548 Honaker primes: primes P(k) such that sum of digits of P(k) equals sum of digits of k.
 
 File: H/Horizontal_sundial_calculations
 #!/usr/bin/env perl6
@@ -8704,8 +8705,8 @@ File: L/Lucky_and_even_lucky_numbers
 #c# 2016-05-12 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000959 lucky numbers
-#n# OEIS:A045954 even lucky numbers 
+#n# OEIS:A000959 Lucky numbers
+#n# OEIS:A045954 Even lucky numbers 
 
 File: L/Ludic_numbers
 #!/usr/bin/env perl6
@@ -8921,7 +8922,7 @@ File: M/Magnanimous_numbers
 #c# 2020-03-19 <RC, 2020-10-03 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A252996
+#n# OEIS:A252996 Magnanimous numbers: numbers such that the sum obtained by inserting a "+" anywhere between two digits gives a prime.
 
 File: M/Main_step_of_GOST_28147-89
 #!/usr/bin/env perl6
@@ -9284,15 +9285,15 @@ File: M/Metallic_ratios
 #c# 2019-10-31 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A001622 golden
-#n# OEIS:A014176 silver
-#n# OEIS:A098316 bronze
-#n# OEIS:A098317 copper
-#n# OEIS:A098318 nickel
-#n# OEIS:A176398 aluminum
-#n# OEIS:A176439 iron
-#n# OEIS:A176458 tin
-#n# OEIS:A176522 lead
+#n# OEIS:A001622 Decimal expansion of golden ratio phi (or tau) = (1 + sqrt(5))/2.
+#n# OEIS:A014176 Decimal expansion of the silver mean, 1+sqrt(2).
+#n# OEIS:A098316 Decimal expansion of [3, 3, ...] = (3 + sqrt(13))/2.
+#n# OEIS:A098317 Decimal expansion of phi^3 = 2 + sqrt(5). (aka copper)
+#n# OEIS:A098318 Decimal expansion of [5, 5, ...] = (5 + sqrt(29))/2. (aka nickel)
+#n# OEIS:A176398 Decimal expansion of 3+sqrt(10). (aka aluminum)
+#n# OEIS:A176439 Decimal expansion of (7+sqrt(53))/2. (aka iron)
+#n# OEIS:A176458 Decimal expansion of 4+sqrt(17). (aka tin)
+#n# OEIS:A176522 Decimal expansion of (9+sqrt(85))/2. (aka lead)
 
 File: M/Metaprogramming
 #!/usr/bin/env perl6
@@ -10774,7 +10775,7 @@ File: P/Palindromic_gapful_numbers
 #n#  * the same code runs fine on Ubuntu (no matter how memory/CPU stressed the system is)
 #n#  * no error when generating only one block of values, which implicates the nested hypers?
 #n#  * same error seen even when outer/display .hyper is removed (or converted to plain 'for' loop)
-#n# OEIS:A108343
+#n# OEIS:A108343 Gapful numbers >= 100: numbers that are divisible by the number formed by their first and last digit.
 
 File: P/Palindromic_gapful_numbers.jvm
 #!/usr/bin/env perl6
@@ -11145,12 +11146,13 @@ File: P/Pell_numbers
 #c# 2022-03-05 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000129 Pell numbers
-#n# OEIS:A002203 Companion Pell numbers (Pell-Lucas numbers)
+#n# OEIS:A000129 Pell numbers: a(0) = 0, a(1) = 1; for n > 1, a(n) = 2*a(n-1) + a(n-2).
+#n# OEIS:A002203 Companion Pell numbers: a(n) = 2*a(n-1) + a(n-2), a(0) = a(1) = 2.
 #n# OEIS:A001333 Numerators of continued fraction convergents to sqrt(2) (Companion Pell numbers / 2)
 #n# OEIS:A086383 Prime terms in the sequence of Pell numbers
 #n# OEIS:A096650 Indices of prime Pell numbers
-#n# OEIS:A002315 NSW numbers (Newman-Shank-Williams numbers)
+#n# OEIS:A002315 NSW numbers: a(n) = 6*a(n-1) - a(n-2); also a(n)^2 - 2*b(n)^2 = -1 with b(n) = A001653(n+1).
+#n# where: A001653 = Numbers k such that 2*k^2 - 1 is a square.
 
 File: P/Penholodigital_squares
 #!/usr/bin/env raku
@@ -11159,6 +11161,7 @@ File: P/Penholodigital_squares
 #m# MOAR: OK
 #j# JVM:  OK
 #n# full run just too slow for testing
+#n# OEIS:A036744 Penholodigital squares: squares containing each of the digits 1..9 exactly once.
 
 File: P/Penney%27s_game
 #!/usr/bin/env perl6
@@ -11543,18 +11546,18 @@ File: P/Pierpont_primes-2
 #n# OEIS:A000668 Mersenne primes
 #n# OEIS:A005109 Pierpont primes 1st
 #n# OEIS:A005105 Pierpont primes 2nd
-#n# OEIS:A077497
+#n# OEIS:A077497 Primes of the form 2^r*5^s + 1.
 #n# OEIS:A077313 Primes of the form 2^r*5^s - 1.
 #n# OEIS:A002200 Hamming primes 1st
 #n# OEIS:A293194 Hamming primes 2nd
-#n# OEIS:A077498
+#n# OEIS:A077498 Primes of the form 2^r*7^s + 1.
 #n# OEIS:A077314 Primes of the form 2^r*7^s - 1.
 #n# OEIS:A174144 Humble primes 1st
 #n# OEIS:A299171 Humble primes 2nd
-#n# OEIS:A077499
-#n# OEIS:A077315 Primes of the form 2^r * 11^s - 1.
-#n# OEIS:A173236
-#n# OEIS:A173062
+#n# OEIS:A077499 Primes of the form 2^r*11^s + 1.
+#n# OEIS:A077315 Primes of the form 2^r*11^s - 1.
+#n# OEIS:A173236 Primes of the form 2^r*13^s + 1.
+#n# OEIS:A173062 Primes of the form 2^r*13^s - 1.
 
 File: P/Pig_the_dice_game
 #!/usr/bin/env perl6
@@ -12126,7 +12129,7 @@ File: P/Product_of_divisors
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000005 Tau function
+#n# OEIS:A000005 Tau function ('sigma_0'): the number of divisors of n.
 #n# all listed tasks are hard-linked
 
 File: P/Product_of_min_and_max_prime_factors
@@ -12454,7 +12457,7 @@ File: R/Ramanujan_primes
 #j# JVM:  BROKEN
 #n# not testing 10_000 as much, much slower than suggested on RC
 #n# cf 'Twin_Primes' for use of '.count'
-#n# OEIS:A104272
+#n# OEIS:A104272 a(n) is the smallest number such that if x >= a(n), then pi(x) - pi(x/2) >= n, where pi(x) is the number of primes <= x.
 
 File: R/Ramanujan_primes-2
 #!/usr/bin/env raku
@@ -12462,7 +12465,7 @@ File: R/Ramanujan_primes-2
 #c# 2021-09-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A104272
+#n# OEIS:A104272 a(n) is the smallest number such that if x >= a(n), then pi(x) - pi(x/2) >= n, where pi(x) is the number of primes <= x.
 
 File: R/Ramanujan_primes_twins
 #!/usr/bin/env raku
@@ -12470,6 +12473,7 @@ File: R/Ramanujan_primes_twins
 #c# 2021-09-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A181678 Number of twin Ramanujan prime pairs less than 10^n.
 
 File: R/Ramer-Douglas-Peucker_line_simplification
 #!/usr/bin/env perl6
@@ -13424,8 +13428,8 @@ File: S/Safe_primes_and_unsafe_primes
 #c# 2018-09-28 <RC, 2018-10-11 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN, and the EVAL trick not working...
-#n# OEIS:A005385 safe
-#n# OEIS:A059456 unsafe
+#n# OEIS:A005385 Safe primes p: (p-1)/2 is also prime.
+#n# OEIS:A059456 Unsafe primes: primes not in A005385.
 
 File: S/Safe_primes_and_unsafe_primes.jvm
 #!/usr/bin/env perl6
@@ -13759,15 +13763,16 @@ File: S/Sexy_primes
 #c# 2018-09-27 <RC, 2018-10-02 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A023201 pairs, lower
-#n# OEIS:A046117 pairs, upper
-#n# OEIS:A046118 triples, lower
-#n# OEIS:A046119 triples, middle
-#n# OEIS:A046120 triples, upper
-#n# OEIS:A023271 quads, lower
-#n# OEIS:A046122 quads, 2nd
-#n# OEIS:A046123 quads, 3rd
-#n# OEIS:A046124 quads, upper
+#n# OEIS:A023201 Primes p such that p+6 is also prime. (Lesser of a pair of sexy primes.)
+#n# OEIS:A046117 Primes p such that p-6 is also prime. (Upper of a pair of sexy primes.)
+#n# OEIS:A046118 Smallest member of triple: value of p    such that p, p+6 and p+12 are all prime, but p+18 is not (although p-6 might be).
+#n# OEIS:A046119 Middle   member of triple: value of p+6  such that p, p+6 and p+12 are all prime, but p+18 is not (although p-6 might be).
+#n# OEIS:A046120 Largest  member of triple: value of p+12 such that p, p+6 and p+12 are all prime, but p+18 is not.
+#n# OEIS:A023271 First  member of a sexy prime quadruple:          p    such that p, p+6, p+12 and p+18 are all prime.
+#n# OEIS:A046122 Second member of a sexy prime quadruple: value of p+6  such that p, p+6, p+12 and p+18 are all prime.
+#n# OEIS:A046123 Third  member of a sexy prime quadruple: value of p+12 such that p, p+6, p+12 and p+18 are all prime.
+#n# OEIS:A046124 Last   member of a sexy prime quadruple: value of p+18 such that p, p+6, p+12 and p+18 are all prime.
+#n#
 #n# for JVM: module, and the EVAL trick not working...
 #n# CANNOT substitute 'classify' for 'categorize', error is:
 #n#    mapper on classify-list computed to an item with different number of elements in it than previous items, 
@@ -14649,7 +14654,7 @@ File: S/Special_factorials
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A000178 super-factorial
-#n# OEIS:A002109 hyper-factorial 
+#n# OEIS:A002109 Hyperfactorials: Product_{k = 1..n} k^k.
 #n# OEIS:A005165 alternating factorial
 #n# OEIS:A049384 exponential factorial 
 
@@ -15174,8 +15179,8 @@ File: S/Strong_and_weak_primes
 #c# 2018-12-03 <RC, 2019-01-31 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A051634 strong primes
-#n# OEIS:A051635 weak primes
+#n# OEIS:A051634 Strong primes: prime(n) > (prime(n-1) + prime(n+1))/2.
+#n# OEIS:A051635 Weak primes:   prime(n) < (prime(n-1) + prime(n+1))/2.
 
 File: S/Strong_and_weak_primes.1
 #!/usr/bin/env perl6
@@ -15426,7 +15431,7 @@ File: S/Sum_of_divisors
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000005 Tau function
+#n# OEIS:A000005 Tau function ('sigma_0'): the number of divisors of n.
 #n# all listed tasks are hard-linked
 
 File: S/Sum_of_elements_below_main_diagonal_of_matrix
@@ -15745,7 +15750,7 @@ File: T/Tau_function
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000005 Tau function
+#n# OEIS:A000005 Tau function ('sigma_0'): the number of divisors of n.
 #n# all listed tasks are hard-linked
 
 File: T/Tau_number
@@ -15757,7 +15762,7 @@ File: T/Tau_number
 #c# 2020-12-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000005 Tau function
+#n# OEIS:A000005 Tau function ('sigma_0'): the number of divisors of n.
 #n# all listed tasks are hard-linked
 
 File: T/Taxicab_numbers
@@ -16647,7 +16652,7 @@ File: U/Unprimeable_numbers
 #c# 2019-12-01 <RC,  2022-05-30 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A118118
+#n# OEIS:A118118 Composite numbers that always remain composite when a single decimal digit of the number is changed.
 
 File: U/Unprimeable_numbers.jvm
 #!/usr/bin/env perl6
@@ -17043,9 +17048,10 @@ File: W/Wasteful,_equidigital_and_frugal_numbers
 #j# JVM:  BROKEN
 #n# using lower limits than on RC (for these cache provides limited, if any, benefit)
 #n# full run with 10e4/10e6 limits > 5 min
-#n# OEIS:A046760 Wasteful numbers
-#n# OEIS:A046758 Equidigital numbers
-#n# OEIS:A046759 Frugal numbers
+#n# For all: write n as a product of primes raised to powers, let D(n) = number of digits in product, l(n) = number of digits in n; 
+#n# OEIS:A046760 Extravangant (aka 'wasteful') numbers: sequence gives n such that D(n) > l(n).
+#n# OEIS:A046758 Equidigital numbers:                   sequence gives n such that D(n) = l(n).
+#n# OEIS:A046759 Economical (aka 'frugal') numbers:     sequence gives n such that D(n) < l(n).
 
 File: W/Wasteful,_equidigital_and_frugal_numbers.1
 #!/usr/bin/env raku
@@ -17453,7 +17459,7 @@ File: Y/Yellowstone_sequence
 #m# MOAR: OK
 #j# JVM:  OK
 #f# RC file: yellowstone-sequence.svg
-#n# OEIS:A098550
+#n# OEIS:A098550 smallest number (not occurring earlier) having at least one common factor with a(n-2), but none with a(n-1).
 
 File: Y/Yin_and_yang
 #!/usr/bin/env perl6
