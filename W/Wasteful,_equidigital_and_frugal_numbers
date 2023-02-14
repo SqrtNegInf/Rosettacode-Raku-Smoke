@@ -5,9 +5,10 @@
 #j# JVM:  BROKEN
 #n# using lower limits than on RC (for these cache provides limited, if any, benefit)
 #n# full run with 10e4/10e6 limits > 5 min
-#n# OEIS:A046760 Wasteful numbers
-#n# OEIS:A046758 Equidigital numbers
-#n# OEIS:A046759 Frugal numbers
+#n# For all: write n as a product of primes raised to powers, let D(n) = number of digits in product, l(n) = number of digits in n; 
+#n# OEIS:A046760 Extravangant (aka 'wasteful') numbers: sequence gives n such that D(n) > l(n).
+#n# OEIS:A046758 Equidigital numbers:                   sequence gives n such that D(n) = l(n).
+#n# OEIS:A046759 Economical (aka 'frugal') numbers:     sequence gives n such that D(n) < l(n).
 
 my @res;
 
