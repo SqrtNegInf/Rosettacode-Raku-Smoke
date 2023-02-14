@@ -3,11 +3,8 @@
 #c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000110 Bell or exponential numbers
-
-my @res;
-
-# via Stirling sums
+#n# OEIS:A000110 Bell or exponential numbers: number of ways to partition a set of n labeled elements.
+#n# via Stirling sums
 
 my @Stirling_numbers_of_the_second_kind =
     (1,),
@@ -15,7 +12,7 @@ my @Stirling_numbers_of_the_second_kind =
 ;
 my @bell = @Stirling_numbers_of_the_second_kind.map: *.sum;
 
-@res.push: $_ for @bell.head(15), @bell[50 - 1];
+my @res.push: $_ for @bell.head(15), @bell[50 - 1];
 
 .say for @res;
 
