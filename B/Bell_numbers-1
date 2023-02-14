@@ -3,12 +3,11 @@
 #c# 2019-07-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000110 Bell or exponential numbers
-#n# OEIS:A011971 Aitken's array
+#n# OEIS:A000110 Bell or exponential numbers: number of ways to partition a set of n labeled elements.
+#n# OEIS:A011971 Aitken's array: triangle of numbers {a(n,k), n >= 0, 0 <= k <= n} read by rows, defined by a(0,0)=1, a(n,0) = a(n-1,n-1), a(n,k) = a(n,k-1) + a(n-1,k-1).
+#n# via Aitken's array
 
 my @res;
-
-# via Aitken's array
 
 my @Aitkens-array = lazy [1], -> @b {
      my @c = @b.tail;
