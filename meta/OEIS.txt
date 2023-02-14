@@ -141,14 +141,14 @@ A297346 list of successive x-coordinates in the Babylonian Spiral
 A297347 list of successive y-coordinates in the Babylonian Spiral
 
 B/Bell_numbers-1
-A000110 Bell or exponential numbers
-A011971 Aitken's array
+A000110 Bell or exponential numbers: number of ways to partition a set of n labeled elements.
+A011971 Aitken's array: triangle of numbers {a(n,k), n >= 0, 0 <= k <= n} read by rows, defined by a(0,0)=1, a(n,0) = a(n-1,n-1), a(n,k) = a(n,k-1) + a(n-1,k-1).
 
 B/Bell_numbers-2
-A000110 Bell or exponential numbers
+A000110 Bell or exponential numbers: number of ways to partition a set of n labeled elements.
 
 B/Bell_numbers-3
-A000110 Bell or exponential numbers
+A000110 Bell or exponential numbers: number of ways to partition a set of n labeled elements.
 
 B/Bernoulli_numbers
 A027641 numerator of Bernoulli number B_n
@@ -200,10 +200,10 @@ C/Cuban_primes-3
 A002407 Primes which are the difference of two consecutive cubes
 
 C/Cullen_and_Woodall_numbers
-A002064 Cullen 
-A003261 Woodall
-A005849 Cullen primes
-A002234 Woodall primes
+A002064 Cullen numbers: a(n) = n*2^n + 1.
+A003261 Woodall (or Riesel) numbers: n*2^n - 1.
+A005849 Indices of prime Cullen numbers: numbers k such that k*2^k + 1 is prime.
+A002234 Numbers k such that the Woodall number k*2^k - 1 is prime.
 
 C/Curzon_numbers
 A224486 Numbers k such that 2*k+1 divides 2^k+1
@@ -235,8 +235,8 @@ D/Disarium_numbers
 A032799 Numbers n such that n equals the sum of its digits raised to the consecutive powers (1,2,3,...).
 
 D/Distinct_Palindromes_Within_Decimal_Numbers
-A262188
-A151997
+A262188 Table read by rows: row n contains all distinct palindromes contained as substrings in decimal representation of n.
+A151997 a(n) = (n 1's followed by a 3)^2.
 
 D/Duffinian_numbers
 A003624 Duffinian numbers: composite numbers k relatively prime to sigma(k).
@@ -308,8 +308,8 @@ A006843 denominators of Farey series of order 1, 2, ···
 A005728 number of fractions in Farey series of order n
 
 F/Fermat_numbers
-A000215 Fermat numbers
-A019434 Fermat primes
+A000215 Fermat numbers: a(n) = 2^(2^n) + 1.
+A019434 Fermat primes: primes of the form 2^(2^k) + 1, for some k >= 0.
 
 F/Fermat_pseudoprimes
 A002808 - Composite numbers
@@ -373,7 +373,7 @@ F/Fusc_sequence
 A002487 a(2*n) = a(n), a(2*n+1) = a(n) + a(n+1) (aka Stern's diatomic series)
 
 G/Gapful_numbers
-A108343
+A108343 Gapful numbers >= 100: numbers that are divisible by the number formed by their first and last digit. 
 
 G/Giuga_numbers
 A007850 Giuga numbers: composite numbers n such that p divides n/p - 1 for every prime divisor p of n.
@@ -409,7 +409,7 @@ H/Home_primes
 A037274 prime that is reached when you start with n, concatenate its prime factors (for n >= 2)
 
 H/Honaker_primes
-A033548 Honaker primes
+A033548 Honaker primes: primes P(k) such that sum of digits of P(k) equals sum of digits of k.
 
 H/Humble_numbers
 A002473 7-smooth numbers: positive numbers whose prime divisors are all <= 7.
@@ -471,8 +471,8 @@ L/Lucas-Lehmer_test
 A000043 (agrees with...)
 
 L/Lucky_and_even_lucky_numbers
-A000959 lucky numbers
-A045954 even lucky numbers 
+A000959 Lucky numbers
+A045954 Even lucky numbers 
 
 L/Lychrel_numbers
 A023108 Positive integers that never result in a palindrome when iterating A056964(x) = x + (x with digits reversed)
@@ -485,7 +485,7 @@ A144688 0-9, any n >= 10 is magic if it is divisible by the number of its digits
 A143671 Number of terms in A144688 of length n.
 
 M/Magnanimous_numbers
-A252996
+A252996 Magnanimous numbers: numbers such that the sum obtained by inserting a "+" anywhere between two digits gives a prime.
 
 M/Maximum_triangle_path_sum
 A002024 k appears k times; a(n) = floor(sqrt(2n) + 1/2).
@@ -500,15 +500,15 @@ M/Mertens_function
 A002321 Mertens's function: Sum_{k=1..n} mu(k), where mu is the Moebius function A008683.
 
 M/Metallic_ratios
-A001622 golden
-A014176 silver
-A098316 bronze
-A098317 copper
-A098318 nickel
-A176398 aluminum
-A176439 iron
-A176458 tin
-A176522 lead
+A001622 Decimal expansion of golden ratio phi (or tau) = (1 + sqrt(5))/2.
+A014176 Decimal expansion of the silver mean, 1+sqrt(2).
+A098316 Decimal expansion of [3, 3, ...] = (3 + sqrt(13))/2.
+A098317 Decimal expansion of phi^3 = 2 + sqrt(5). (aka copper)
+A098318 Decimal expansion of [5, 5, ...] = (5 + sqrt(29))/2. (aka nickel)
+A176398 Decimal expansion of 3+sqrt(10). (aka aluminum)
+A176439 Decimal expansion of (7+sqrt(53))/2. (aka iron)
+A176458 Decimal expansion of 4+sqrt(17). (aka tin)
+A176522 Decimal expansion of (9+sqrt(85))/2. (aka lead)
 
 M/Mian-Chowla_sequence
 A005282 Mian-Chowla sequence
@@ -596,7 +596,7 @@ P/Pairs_with_common_factors
 A185670 Number of pairs (x,y) with 1 <= x < y <= n with at least one common factor
 
 P/Palindromic_gapful_numbers
-A108343
+A108343 Gapful numbers >= 100: numbers that are divisible by the number formed by their first and last digit.
 
 P/Palindromic_primes
 A002385 Palindromic primes
@@ -617,12 +617,15 @@ P/Peaceful_chess_queen_armies
 A250000 Peaceable coexisting armies of queens
 
 P/Pell_numbers
-A000129 Pell numbers
-A002203 Companion Pell numbers (Pell-Lucas numbers)
+A000129 Pell numbers: a(0) = 0, a(1) = 1; for n > 1, a(n) = 2*a(n-1) + a(n-2).
+A002203 Companion Pell numbers: a(n) = 2*a(n-1) + a(n-2), a(0) = a(1) = 2.
 A001333 Numerators of continued fraction convergents to sqrt(2) (Companion Pell numbers / 2)
 A086383 Prime terms in the sequence of Pell numbers
 A096650 Indices of prime Pell numbers
-A002315 NSW numbers (Newman-Shank-Williams numbers)
+A002315 NSW numbers: a(n) = 6*a(n-1) - a(n-2); also a(n)^2 - 2*b(n)^2 = -1 with b(n) = A001653(n+1).
+
+P/Penholodigital_squares
+A036744 Penholodigital squares: squares containing each of the digits 1..9 exactly once.
 
 P/Perfect_numbers-1
 A000396 Perfect numbers k: k is equal to the sum of the proper divisors of k.
@@ -645,18 +648,18 @@ A092506 2 + Fermat primes
 A000668 Mersenne primes
 A005109 Pierpont primes 1st
 A005105 Pierpont primes 2nd
-A077497
+A077497 Primes of the form 2^r*5^s + 1.
 A077313 Primes of the form 2^r*5^s - 1.
 A002200 Hamming primes 1st
 A293194 Hamming primes 2nd
-A077498
+A077498 Primes of the form 2^r*7^s + 1.
 A077314 Primes of the form 2^r*7^s - 1.
 A174144 Humble primes 1st
 A299171 Humble primes 2nd
-A077499
-A077315 Primes of the form 2^r * 11^s - 1.
-A173236
-A173062
+A077499 Primes of the form 2^r*11^s + 1.
+A077315 Primes of the form 2^r*11^s - 1.
+A173236 Primes of the form 2^r*13^s + 1.
+A173062 Primes of the form 2^r*13^s - 1.
 
 P/Piprimes
 A000720 pi(n), the number of primes <= n. Sometimes called PrimePi(n) to distinguish it from the number 3.14159...
@@ -694,7 +697,7 @@ P/Primorial_numbers
 A002110 Primorial numbers (first definition): product of first n primes. Sometimes written prime(n)#.
 
 P/Product_of_divisors
-A000005 Tau function
+A000005 Tau function ('sigma_0'): the number of divisors of n.
 
 P/Product_of_min_and_max_prime_factors
 A066048 - Product of smallest and greatest prime factors of n
@@ -710,10 +713,13 @@ R/Ramanujan%27s_constant-2
 A003173 Heegner number (see also https://en.wikipedia.org/wiki/Heegner_number)
 
 R/Ramanujan_primes
-A104272
+A104272 a(n) is the smallest number such that if x >= a(n), then pi(x) - pi(x/2) >= n, where pi(x) is the number of primes <= x.
 
 R/Ramanujan_primes-2
-A104272
+A104272 a(n) is the smallest number such that if x >= a(n), then pi(x) - pi(x/2) >= n, where pi(x) is the number of primes <= x.
+
+R/Ramanujan_primes_twins
+A181678 Number of twin Ramanujan prime pairs less than 10^n.
 
 R/Random_Latin_Squares
 A002860 Number of Latin squares of order n; or labeled quasigroups.
@@ -756,8 +762,8 @@ S/Safe_and_Sophie_Germain_primes
 A005384 Sophie Germain primes p: 2p+1 is also prime
 
 S/Safe_primes_and_unsafe_primes
-A005385 safe
-A059456 unsafe
+A005385 Safe primes p: (p-1)/2 is also prime.
+A059456 Unsafe primes: primes not in A005385.
 
 S/Self-describing_numbers
 A046043 aka autobiographical numbers
@@ -791,15 +797,15 @@ S/Sequence_of_primorial_primes-2
 A088257 Primorials P which have at least one prime neighbor; i.e., P+1 or P-1 (or both) are primes.
 
 S/Sexy_primes
-A023201 pairs, lower
-A046117 pairs, upper
-A046118 triples, lower
-A046119 triples, middle
-A046120 triples, upper
-A023271 quads, lower
-A046122 quads, 2nd
-A046123 quads, 3rd
-A046124 quads, upper
+A023201 Primes p such that p+6 is also prime. (Lesser of a pair of sexy primes.)
+A046117 Primes p such that p-6 is also prime. (Upper of a pair of sexy primes.)
+A046118 Smallest member of triple: value of p    such that p, p+6 and p+12 are all prime, but p+18 is not (although p-6 might be).
+A046119 Middle   member of triple: value of p+6  such that p, p+6 and p+12 are all prime, but p+18 is not (although p-6 might be).
+A046120 Largest  member of triple: value of p+12 such that p, p+6 and p+12 are all prime, but p+18 is not.
+A023271 First  member of a sexy prime quadruple:          p    such that p, p+6, p+12 and p+18 are all prime.
+A046122 Second member of a sexy prime quadruple: value of p+6  such that p, p+6, p+12 and p+18 are all prime.
+A046123 Third  member of a sexy prime quadruple: value of p+12 such that p, p+6, p+12 and p+18 are all prime.
+A046124 Last   member of a sexy prime quadruple: value of p+18 such that p, p+6, p+12 and p+18 are all prime.
 
 S/Sierpinski_triangle
 A001317 Sierpiński's triangle (Pascal's triangle mod 2) converted to decimal.
@@ -824,7 +830,7 @@ A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!×1!×2!×...×n
 
 S/Special_factorials
 A000178 super-factorial
-A002109 hyper-factorial 
+A002109 Hyperfactorials: Product_{k = 1..n} k^k.
 A005165 alternating factorial
 A049384 exponential factorial 
 
@@ -846,8 +852,8 @@ S/Stirling_numbers_of_the_second_kind
 A008277 Stirling numbers of the second kind
 
 S/Strong_and_weak_primes
-A051634 strong primes
-A051635 weak primes
+A051634 Strong primes: prime(n) > (prime(n-1) + prime(n+1))/2.
+A051635 Weak primes:   prime(n) < (prime(n-1) + prime(n+1))/2.
 
 S/Sub-unit_squares
 A061844 - Squares that remain squares if you decrease every digit by 1
@@ -856,7 +862,7 @@ S/Substring_primes
 A085823 Numbers in which all substrings are primes.
 
 S/Sum_of_divisors
-A000005 Tau function
+A000005 Tau function ('sigma_0'): the number of divisors of n.
 
 S/Super-Poulet_numbers
 A050217 Super-Poulet numbers
@@ -892,10 +898,10 @@ S/Sylvester%27s_sequence
 A000058 Sylvester's_sequence: a(n+1) = a(n)^2 - a(n) + 1, with a(0) = 2
 
 T/Tau_function
-A000005 Tau function
+A000005 Tau function ('sigma_0'): the number of divisors of n.
 
 T/Tau_number
-A000005 Tau function
+A000005 Tau function ('sigma_0'): the number of divisors of n.
 
 T/Taxicab_numbers
 A001235 Taxi-cab numbers: sums of 2 cubes in more than 1 way.
@@ -925,7 +931,7 @@ U/Ultra_useful_primes
 A058220 Ultra-useful primes: smallest k such that 2^(2^n) - k is prime
 
 U/Unprimeable_numbers
-A118118
+A118118 Composite numbers that always remain composite when a single decimal digit of the number is changed.
 
 U/Untouchable_numbers
 A005114 Untouchable numbers (or 'nonaliquot'): impossible values for the sum of aliquot parts function (A001065).
@@ -949,9 +955,9 @@ A000978 Wagstaff numbers
 A000979 Wagstaff primes
 
 W/Wasteful,_equidigital_and_frugal_numbers
-A046760 Wasteful numbers
-A046758 Equidigital numbers
-A046759 Frugal numbers
+A046760 Extravangant (aka 'wasteful') numbers: sequence gives n such that D(n) > l(n).
+A046758 Equidigital numbers:                   sequence gives n such that D(n) = l(n).
+A046759 Economical (aka 'frugal') numbers:     sequence gives n such that D(n) < l(n).
 
 W/Weird_numbers
 A006037 abundant (A005101) but not pseudoperfect (A005835)
@@ -960,7 +966,7 @@ W/Wieferich_primes
 A001220 Wieferich primes: primes p such that p^2 divides 2^(p-1) - 1.
 
 Y/Yellowstone_sequence
-A098550
+A098550 smallest number (not occurring earlier) having at least one common factor with a(n-2), but none with a(n-1).
 
 Z/Zeckendorf_number_representation
 A014417 Representation of n in base of Fibonacci numbers
