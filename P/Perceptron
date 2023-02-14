@@ -4,10 +4,12 @@
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #x# xx file: perceptron.png
-#n# before 'zef install': (cd /usr/local/lib; ln -s /opt/local/lib/libMagickWand-6.Q16.dylib libMagickWand-7.Q16HDRI.dylib)
+#n# On Mac-Pro before 'zef install': 
+#n#     (cd /usr/local/lib; ln -s /opt/local/lib/libMagickWand-6.Q16.dylib libMagickWand-7.Q16HDRI.dylib)
 #n# srand issues ref/run files will not stay in sync, so use similarity testing
 
-srand 123456;
+use myRNG;
+my $rng = myRNG.new( :seed(123456) );
 
 use MagickWand;
 
@@ -22,9 +24,9 @@ class Perceptron {
    has ( @.weights, Trainer @.training ) is rw ;
 
    submethod BUILD(:n($n), :w($w), :h($h)) {
-      @!weights  = [ rand × 2-1 xx ^$n ];
+      @!weights  = [ $rng.next-rat × 2-1 xx ^$n ];
       @!training = (^runs).map: {
-          my (\x,\y) = rand × $w , rand × $h ;
+          my (\x,\y) = $rng.next-rat × $w , $rng.next-rat × $h ;
           my \a      = y < linear(x) ?? 1 !! -1;
           Trainer.new: inputs => (x,y,1), answer => a 
       }
