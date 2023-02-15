@@ -1,11 +1,12 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Zumkeller_numbers
 #c# 2019-08-20 <RC, 2022-05-29 >RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #n# */×: replacing '* * 2' with '* × 2' is clarifying (for humans)
 #n# OEIS:A083207 integer-perfect numbers: numbers n whose divisors can be partitioned into two disjoint sets with equal sum
 #n# OEIS:A174865 Odd Zumkeller numbers
+#n# runs forever, disable temporarily unti moar-blead gets fixed
 
 my @res;
 
