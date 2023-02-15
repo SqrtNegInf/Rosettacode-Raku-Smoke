@@ -3,7 +3,8 @@
 #c# 2019-03-12 <RC, 2019-03-22 <RC, 2019-06-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A005282 Mian-Chowla sequence
+#n# OEIS:A005282 a(1) = 1; for n>1, a(n) = smallest number > a(n-1) such that the pairwise sums of elements are all distinct.
+#n# B_2 sequences, see also: A010672, A011185, A025582
 #n# changes make this twice as fast
 
 my @res;
