@@ -166,7 +166,7 @@ A000744 - Boustrophedon transform of Fibonacci numbers
 A230960 - Boustrophedon transform of factorials
 
 B/Brazilian_numbers
-A125134 Brazilian numbers
+A125134 n where exists b with 1 < b < n-1 such that the representation of n in base b has all equal digits.
 A257521 Odd Brazilian numbers
 A085104 Prime Brazilian numbers
 
@@ -210,9 +210,9 @@ A224486 Numbers k such that 2*k+1 divides 2^k+1
 A230076 a(n) = (A007521(n)-1)/4 (Generalized Curzon numbers with a base 4, where A007521: Primes of the form 8k + 5
 
 C/Cyclops_numbers
-A134808 Cyclops numbers
-A134809 Cyclops primes
-A329737 Cyclops primes that remain prime after being "blinded"
+A134808 Cyclops numbers: Numbers with an odd number of digits with middle digit 0 that have only one digit 0
+A134809 Cyclops primes: Cyclops numbers that are prime
+A329737 Cyclops primes that remain prime after being "blinded" (zero removed)
 A136098 Prime palindromic cyclops numbers
 
 D/De_Bruijn_sequences
@@ -312,7 +312,7 @@ A000215 Fermat numbers: a(n) = 2^(2^n) + 1.
 A019434 Fermat primes: primes of the form 2^(2^k) + 1, for some k >= 0.
 
 F/Fermat_pseudoprimes
-A002808 - Composite numbers
+A002808 - composite numbers: n of the form x*y for x > 1 and y > 1.
 A001567 - Fermat pseudoprimes to base 2
 A005935 - Fermat pseudoprimes to base 3
 A020136 - Fermat pseudoprimes to base 4
@@ -360,8 +360,8 @@ F/First_perfect_square_in_base_N_with_N_unique_digits
 A260182 smallest square that is pandigital in base n
 
 F/Fortunate_numbers
-A005235 Fortunate numbers
-A046066 Fortunate numbers, sorted with duplicates removed
+A005235 Fortunate numbers: least m>1 such that m + prime(n)# is prime, where p# denotes the product of all primes <= p
+A046066 Fortunate primes in numerical order with duplicates removed.
 
 F/Four_is_the_number_of_letters_in_the_...
 A072425 The four-is sequence counts the letters in the words of the generating sentence.
@@ -494,6 +494,7 @@ M/Meissel–Mertens_constant
 A077761 Decimal expansion of Mertens's constant, which is the limit of (Sum_{i=1..k} 1/prime(i)) - log(log(prime(k))) as k goes to infinity, where prime(i) is the i-th prime number.
 
 M/Mersenne_primes
+A000668 Mersenne primes (primes of the form 2^n - 1).
 A000043 Mersenne exponents: primes p such that 2^p - 1 is prime. Then 2^p - 1 is called a Mersenne prime (base 2)
 
 M/Mertens_function
@@ -542,15 +543,15 @@ N/N-queens_problem
 A000170 Number of ways of placing n non-attacking queens on an n X n board.
 
 N/N-smooth_numbers
-A000079 2-smooth numbers non-negative powers of two
-A003586 3-smooth numbers
-A051037 5-smooth numbers Hamming numbers (cf H/Hamming_numbers)
-A002473 7-smooth numbers Humble numbers  (cf H/Humble_numbers)
-A051038 11-smooth numbers
-A080197 13-smooth numbers
-A080681 17-smooth numbers
-A080682 19-smooth numbers
-A080683 23-smooth numbers
+A000079  2-smooth numbers: non-negative powers of two
+A003586  3-smooth numbers: numbers of the form 2^i*3^j with i, j >= 0.
+A051037  5-smooth numbers: prime divisors are all <= 5 (cf H/Hamming_numbers)
+A002473  7-smooth numbers: prime divisors are all <= 7 (cf H/Humble_numbers)
+A051038 11-smooth numbers: numbers whose prime divisors are all <= 11.
+A080197 13-smooth numbers: numbers whose prime divisors are all <= 13.
+A080681 17-smooth numbers: numbers whose prime divisors are all <= 17.
+A080682 19-smooth numbers: numbers whose prime divisors are all <= 19.
+A080683 23-smooth numbers: numbers whose prime divisors are all <= 23.
 
 N/Narcissistic_decimal_number-1
 A005188 Narcissistic numbers: m-digit positive numbers equal to sum of the m-th powers of their digits.
@@ -640,26 +641,26 @@ P/Pernicious_numbers
 A052294 numbers with a prime number of 1's in their binary expansion
 
 P/Pierpont_primes-1
-A005109 class 1 -, Pierpont primes
-A005105 class 1 +, Pierpont primes of the second kind
+A005109 class 1-, Pierpont primes of the first kind
+A005105 class 1+, Pierpont primes of the second kind
 
 P/Pierpont_primes-2
 A092506 2 + Fermat primes
-A000668 Mersenne primes
-A005109 Pierpont primes 1st
-A005105 Pierpont primes 2nd
-A077497 Primes of the form 2^r*5^s + 1.
-A077313 Primes of the form 2^r*5^s - 1.
+A000668 Mersenne primes (primes of the form 2^n - 1).
+A005109 Primes of the form 2^r*3^s - 1 (Pierpont 1st kind, class 1-)
+A005105 Primes of the form 2^r*3^s + 1 (Pierpont 2nd kind, class 1+) 
+A077497 Primes of the form 2^r*5^s + 1
+A077313 Primes of the form 2^r*5^s - 1
 A002200 Hamming primes 1st
 A293194 Hamming primes 2nd
-A077498 Primes of the form 2^r*7^s + 1.
-A077314 Primes of the form 2^r*7^s - 1.
+A077498 Primes of the form 2^r*7^s + 1
+A077314 Primes of the form 2^r*7^s - 1
 A174144 Humble primes 1st
 A299171 Humble primes 2nd
-A077499 Primes of the form 2^r*11^s + 1.
-A077315 Primes of the form 2^r*11^s - 1.
-A173236 Primes of the form 2^r*13^s + 1.
-A173062 Primes of the form 2^r*13^s - 1.
+A077499 Primes of the form 2^r*11^s + 1
+A077315 Primes of the form 2^r*11^s - 1
+A173236 Primes of the form 2^r*13^s + 1
+A173062 Primes of the form 2^r*13^s - 1
 
 P/Piprimes
 A000720 pi(n), the number of primes <= n. Sometimes called PrimePi(n) to distinguish it from the number 3.14159...
@@ -752,7 +753,7 @@ A255732 Rhonda numbers in vigesimal number system (base 20)
 A255736 Integers n that are Rhonda numbers to base 30
 
 R/Riordan_numbers
-A005043 Riordan numbers
+A005043 Riordan numbers: a(n) = (n-1)*(2*a(n-1) + 3*a(n-2))/(n+1).
 
 R/Ruth-Aaron_numbers
 A006145 Ruth-Aaron numbers (1): sum of prime divisors of n = sum of prime divisors of n+1
@@ -829,14 +830,14 @@ S/Solve_hanging_lantern_problem-2
 A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!×1!×2!×...×n!)
 
 S/Special_factorials
-A000178 super-factorial
+A000178 Superfactorials: product of first n factorials.
 A002109 Hyperfactorials: Product_{k = 1..n} k^k.
-A005165 alternating factorial
-A049384 exponential factorial 
+A005165 Alternating factorials: n! - (n-1)! + (n-2)! - ... 1!.
+A049384 a(0)=1, a(n+1) = (n+1)^a(n).
 
 S/Sphenic_numbers
-A007304 Sphenic numbers
-A165936 Sphenic triplets
+A007304 Sphenic numbers: products of 3 distinct primes.
+A165936 Sphenic triplets: sequence of triples of squarefree consecutive integers each composed of exactly three primes.
 
 S/Square-free_integers
 A005117 Squarefree numbers, numbers that are not divisible by a square greater than 1
@@ -951,8 +952,8 @@ A171917 Van Eck sequence with the first term: 7
 A171918 Van Eck sequence with the first term: 8
 
 W/Wagstaff_primes
-A000978 Wagstaff numbers
-A000979 Wagstaff primes
+A000978 Wagstaff numbers: numbers k such that (2^k + 1)/3 is prime.
+A000979 Wagstaff primes: primes of form (2^p + 1)/3.
 
 W/Wasteful,_equidigital_and_frugal_numbers
 A046760 Extravangant (aka 'wasteful') numbers: sequence gives n such that D(n) > l(n).
