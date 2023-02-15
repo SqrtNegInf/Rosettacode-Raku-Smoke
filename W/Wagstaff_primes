@@ -3,8 +3,8 @@
 #c# 2022-09-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000978 Wagstaff numbers
-#n# OEIS:A000979 Wagstaff primes
+#n# OEIS:A000978 Wagstaff numbers: numbers k such that (2^k + 1)/3 is prime.
+#n# OEIS:A000979 Wagstaff primes: primes of form (2^p + 1)/3.
 #n# single-threaded nearly half the speed of Perl, and with .hyper, easily beats
 
 my @wagstaff = (^∞).grep: { .is-prime && ((1 + 1 +< $_)/3).is-prime };
