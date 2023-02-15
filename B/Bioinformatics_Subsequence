@@ -3,20 +3,19 @@
 #c# 2021-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-12-31 replace call to built-in 'rand' for output stability
+#n# 2023-02-13 replace call to built-in 'rand' for output stability
 
 my @res;
 
-srand $*VM ~~ /jvm/ ?? 123 !! 123456;
 use myRNG;
 my $rng = myRNG.new( :seed(123456) );
 
 use String::Splice; #:ver<0.0.3>; moar-HEAD-HEAD-HEAD didn't like 
 
 my $line = 80;
-my $haystack = [~] <A C G T>[4*$rng.next-rat] xx $line × 8;
+my $haystack = [~] <A C G T>[4×$rng.next-rat] xx $line × 8;
 
-@res.push: 'Needle: ' ~ my $needle = [~] <A C G T>[4*$rng.next-rat] xx 4;
+@res.push: 'Needle: ' ~ my $needle = [~] <A C G T>[4×$rng.next-rat] xx 4;
 my $these = $haystack ~~ m:g/<$needle>/;
 my @match = $these.map: { .from, .pos }
 @res.push: sprintf "From: %3s to %3s", |$_ for @match;
