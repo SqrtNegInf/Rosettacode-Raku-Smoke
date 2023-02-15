@@ -1746,7 +1746,7 @@ File: B/Bioinformatics_Subsequence
 #c# 2021-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2022-12-31 replace call to built-in 'rand' for output stability
+#n# 2023-02-13 replace call to built-in 'rand' for output stability
 
 File: B/Bioinformatics_base_count
 #!/usr/bin/env perl6
@@ -2031,7 +2031,7 @@ File: B/Brazilian_numbers
 #c# 2019-08-12 <RC, 2019-08-14 <RC, 2020-07-19 >RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A125134 Brazilian numbers
+#n# OEIS:A125134 n where exists b with 1 < b < n-1 such that the representation of n in base b has all equal digits.
 #n# OEIS:A257521 Odd Brazilian numbers
 #n# OEIS:A085104 Prime Brazilian numbers
 
@@ -2417,7 +2417,7 @@ File: C/Chaos_game
 File: C/Character_codes
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Character_codes
-#c# 2019-11-07 <RC, 2019-11-09 <RC, 2020-03-12 <RC
+#c# 2019-11-07 <RC, 2019-11-09 <RC, 2020-03-12 <RC, 2023-02-14 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 
@@ -3575,9 +3575,9 @@ File: C/Cyclops_numbers
 #c# 2021-06-23 <RC, 2021-06-25 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A134808 Cyclops numbers
-#n# OEIS:A134809 Cyclops primes
-#n# OEIS:A329737 Cyclops primes that remain prime after being "blinded"
+#n# OEIS:A134808 Cyclops numbers: Numbers with an odd number of digits with middle digit 0 that have only one digit 0
+#n# OEIS:A134809 Cyclops primes: Cyclops numbers that are prime
+#n# OEIS:A329737 Cyclops primes that remain prime after being "blinded" (zero removed)
 #n# OEIS:A136098 Prime palindromic cyclops numbers
 
 File: C/Cyclops_numbers.1
@@ -5290,7 +5290,7 @@ File: F/Fermat_pseudoprimes
 #c# 2022-08-16 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A002808 - Composite numbers
+#n# OEIS:A002808 - composite numbers: n of the form x*y for x > 1 and y > 1.
 #n# OEIS:A001567 - Fermat pseudoprimes to base 2
 #n# OEIS:A005935 - Fermat pseudoprimes to base 3
 #n# OEIS:A020136 - Fermat pseudoprimes to base 4
@@ -5950,8 +5950,8 @@ File: F/Fortunate_numbers
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# Limit of 75 primorials to get first 50 unique fortunates is arbitrary, found through trial and error.
-#n# OEIS:A005235 Fortunate numbers
-#n# OEIS:A046066 Fortunate numbers, sorted with duplicates removed
+#n# OEIS:A005235 Fortunate numbers: least m>1 such that m + prime(n)# is prime, where p# denotes the product of all primes <= p
+#n# OEIS:A046066 Fortunate primes in numerical order with duplicates removed.
 
 File: F/Fortunate_numbers.jvm
 #!/usr/bin/env raku
@@ -9249,9 +9249,9 @@ File: M/Mersenne_primes
 #c# 2018-01-27 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A000668 Mersenne primes (primes of the form 2^n - 1).
 #n# OEIS:A000043 Mersenne exponents: primes p such that 2^p - 1 is prime. Then 2^p - 1 is called a Mersenne prime (base 2)
-#n# network connection failure (since before 'new-disp') 
-#n# Oh well, not like it's changing from day-to-day anyhow
+#n# Mac-Pro: network connection failure (since before 'new-disp'; oh well, not like it's changing from day-to-day anyhow)
 die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: M/Mertens_function
@@ -9834,15 +9834,15 @@ File: N/N-smooth_numbers
 #c# 2019-08-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000079 2-smooth numbers non-negative powers of two
-#n# OEIS:A003586 3-smooth numbers
-#n# OEIS:A051037 5-smooth numbers Hamming numbers (cf H/Hamming_numbers)
-#n# OEIS:A002473 7-smooth numbers Humble numbers  (cf H/Humble_numbers)
-#n# OEIS:A051038 11-smooth numbers
-#n# OEIS:A080197 13-smooth numbers
-#n# OEIS:A080681 17-smooth numbers
-#n# OEIS:A080682 19-smooth numbers
-#n# OEIS:A080683 23-smooth numbers
+#n# OEIS:A000079  2-smooth numbers: non-negative powers of two
+#n# OEIS:A003586  3-smooth numbers: numbers of the form 2^i*3^j with i, j >= 0.
+#n# OEIS:A051037  5-smooth numbers: prime divisors are all <= 5 (cf H/Hamming_numbers)
+#n# OEIS:A002473  7-smooth numbers: prime divisors are all <= 7 (cf H/Humble_numbers)
+#n# OEIS:A051038 11-smooth numbers: numbers whose prime divisors are all <= 11.
+#n# OEIS:A080197 13-smooth numbers: numbers whose prime divisors are all <= 13.
+#n# OEIS:A080681 17-smooth numbers: numbers whose prime divisors are all <= 17.
+#n# OEIS:A080682 19-smooth numbers: numbers whose prime divisors are all <= 19.
+#n# OEIS:A080683 23-smooth numbers: numbers whose prime divisors are all <= 23.
 
 File: N/NYSIIS
 #!/usr/bin/env perl6
@@ -11248,9 +11248,10 @@ File: P/Perceptron
 #c# 2020-11-15 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#x# xx file: perceptron.png
-#n# before 'zef install': (cd /usr/local/lib; ln -s /opt/local/lib/libMagickWand-6.Q16.dylib libMagickWand-7.Q16HDRI.dylib)
-#n# srand issues ref/run files will not stay in sync, so use similarity testing
+#f# RC file: perceptron.png
+#n# On Mac-Pro before 'zef install': 
+#n#     (cd /usr/local/lib; ln -s /opt/local/lib/libMagickWand-6.Q16.dylib libMagickWand-7.Q16HDRI.dylib)
+#n# 2023-02-13 replace call to built-in 'rand' for output stability
 
 File: P/Percolation_Bond_percolation
 #!/usr/bin/env perl6
@@ -11525,8 +11526,8 @@ File: P/Pierpont_primes-1
 #j# JVM:  BROKEN
 #n# dropped calc of 1000th
 #n# cf 'E/Erdos-Selfridge_categorization_of_primes'
-#n# OEIS:A005109 class 1 -, Pierpont primes
-#n# OEIS:A005105 class 1 +, Pierpont primes of the second kind
+#n# OEIS:A005109 class 1-, Pierpont primes of the first kind
+#n# OEIS:A005105 class 1+, Pierpont primes of the second kind
 
 File: P/Pierpont_primes-1.jvm
 #!/usr/bin/env perl6
@@ -11543,21 +11544,21 @@ File: P/Pierpont_primes-2
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A092506 2 + Fermat primes
-#n# OEIS:A000668 Mersenne primes
-#n# OEIS:A005109 Pierpont primes 1st
-#n# OEIS:A005105 Pierpont primes 2nd
-#n# OEIS:A077497 Primes of the form 2^r*5^s + 1.
-#n# OEIS:A077313 Primes of the form 2^r*5^s - 1.
+#n# OEIS:A000668 Mersenne primes (primes of the form 2^n - 1).
+#n# OEIS:A005109 Primes of the form 2^r*3^s - 1 (Pierpont 1st kind, class 1-)
+#n# OEIS:A005105 Primes of the form 2^r*3^s + 1 (Pierpont 2nd kind, class 1+) 
+#n# OEIS:A077497 Primes of the form 2^r*5^s + 1
+#n# OEIS:A077313 Primes of the form 2^r*5^s - 1
 #n# OEIS:A002200 Hamming primes 1st
 #n# OEIS:A293194 Hamming primes 2nd
-#n# OEIS:A077498 Primes of the form 2^r*7^s + 1.
-#n# OEIS:A077314 Primes of the form 2^r*7^s - 1.
+#n# OEIS:A077498 Primes of the form 2^r*7^s + 1
+#n# OEIS:A077314 Primes of the form 2^r*7^s - 1
 #n# OEIS:A174144 Humble primes 1st
 #n# OEIS:A299171 Humble primes 2nd
-#n# OEIS:A077499 Primes of the form 2^r*11^s + 1.
-#n# OEIS:A077315 Primes of the form 2^r*11^s - 1.
-#n# OEIS:A173236 Primes of the form 2^r*13^s + 1.
-#n# OEIS:A173062 Primes of the form 2^r*13^s - 1.
+#n# OEIS:A077499 Primes of the form 2^r*11^s + 1
+#n# OEIS:A077315 Primes of the form 2^r*11^s - 1
+#n# OEIS:A173236 Primes of the form 2^r*13^s + 1
+#n# OEIS:A173062 Primes of the form 2^r*13^s - 1
 
 File: P/Pig_the_dice_game
 #!/usr/bin/env perl6
@@ -13025,7 +13026,7 @@ File: R/Riordan_numbers
 #c# 2022-08-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A005043 Riordan numbers
+#n# OEIS:A005043 Riordan numbers: a(n) = (n-1)*(2*a(n-1) + 3*a(n-2))/(n+1).
 
 File: R/Robots
 #!/usr/bin/env perl6
@@ -14653,10 +14654,10 @@ File: S/Special_factorials
 #c# 2021-03-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000178 super-factorial
+#n# OEIS:A000178 Superfactorials: product of first n factorials.
 #n# OEIS:A002109 Hyperfactorials: Product_{k = 1..n} k^k.
-#n# OEIS:A005165 alternating factorial
-#n# OEIS:A049384 exponential factorial 
+#n# OEIS:A005165 Alternating factorials: n! - (n-1)! + (n-2)! - ... 1!.
+#n# OEIS:A049384 a(0)=1, a(n+1) = (n+1)^a(n).
 
 File: S/Special_neighbor_primes
 #!/usr/bin/env raku
@@ -14708,8 +14709,8 @@ File: S/Sphenic_numbers
 #c# 2023-01-17 <RC, 2023-01-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A007304 Sphenic numbers
-#n# OEIS:A165936 Sphenic triplets
+#n# OEIS:A007304 Sphenic numbers: products of 3 distinct primes.
+#n# OEIS:A165936 Sphenic triplets: sequence of triples of squarefree consecutive integers each composed of exactly three primes.
 
 File: S/Sphenic_numbers.jvm
 #!/usr/bin/env raku
@@ -16699,6 +16700,20 @@ File: U/Update_a_configuration_file.1
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: U/Upside-down_numbers
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Upside-down_numbers
+#c# 2023-02-14 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: U/Upside-down_numbers.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Upside-down_numbers
+#c# 2023-02-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: U/Use_another_language_to_call_a_function
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Use_another_language_to_call_a_function
@@ -17011,8 +17026,8 @@ File: W/Wagstaff_primes
 #c# 2022-09-14 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000978 Wagstaff numbers
-#n# OEIS:A000979 Wagstaff primes
+#n# OEIS:A000978 Wagstaff numbers: numbers k such that (2^k + 1)/3 is prime.
+#n# OEIS:A000979 Wagstaff primes: primes of form (2^p + 1)/3.
 #n# single-threaded nearly half the speed of Perl, and with .hyper, easily beats
 
 File: W/Walk_a_directory_Non-recursively
@@ -17597,11 +17612,12 @@ File: Z/Zumkeller_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Zumkeller_numbers
 #c# 2019-08-20 <RC, 2022-05-29 >RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #n# */×: replacing '* * 2' with '* × 2' is clarifying (for humans)
 #n# OEIS:A083207 integer-perfect numbers: numbers n whose divisors can be partitioned into two disjoint sets with equal sum
 #n# OEIS:A174865 Odd Zumkeller numbers
+#n# runs forever, disable temporarily unti moar-blead gets fixed
 
 File: Z/Zumkeller_numbers.jvm
 #!/usr/bin/env perl6
