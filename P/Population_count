@@ -3,9 +3,9 @@
 #c# 2015-11-03 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A000120 aka binary/Hamming weight
-#n# OEIS:A000069 odd population count
-#n# OEIS:A001969 even population count
+#n# OEIS:A000120 1's-counting sequence: number of 1's in binary expansion of n (aka binary/Hamming weight of n).
+#n# OEIS:A000069 Odious numbers: integers with an odd number of 1's in their binary expansion (aka 'odd population count')
+#n# OEIS:A001969 Evil numbers: integers with an even number of 1's in their binary expansion. (aka 'even population count')
 
 sub population-count1(Int $n where * >= 0) { 
     [+] $n.base(2).comb 
