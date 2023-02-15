@@ -3,12 +3,12 @@
 #c# 2022-09-18 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000111 - Euler, or up/down numbers
-#n# OEIS:A000667 - Boustrophedon transform of all-1's sequence
-#n# OEIS:A062162 - Boustrophedon transform of (-1)^n
-#n# OEIS:A000747 - Boustrophedon transform of primes
-#n# OEIS:A000744 - Boustrophedon transform of Fibonacci numbers
-#n# OEIS:A230960 - Boustrophedon transform of factorials
+#n# OEIS:A000111 Boustrophedon transform of 1 followed by 0's sequence (aka 'Euler' or 'up/down')
+#n# OEIS:A000667 Boustrophedon transform of all-1's sequence
+#n# OEIS:A062162 Boustrophedon transform of (-1)^n
+#n# OEIS:A000747 Boustrophedon transform of primes
+#n# OEIS:A000744 Boustrophedon transform of Fibonacci numbers
+#n# OEIS:A230960 Boustrophedon transform of factorials
 
 #use v6.e.PREVIEW;
 #sub boustrophedon-transform (@seq) { map *.tail, (@seq[0], {[[\+] flat @seq[++$ ], .reverse.snitch]}…*) }
