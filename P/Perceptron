@@ -3,10 +3,10 @@
 #c# 2020-11-15 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#x# xx file: perceptron.png
+#f# RC file: perceptron.png
 #n# On Mac-Pro before 'zef install': 
 #n#     (cd /usr/local/lib; ln -s /opt/local/lib/libMagickWand-6.Q16.dylib libMagickWand-7.Q16HDRI.dylib)
-#n# srand issues ref/run files will not stay in sync, so use similarity testing
+#n# 2023-02-13 replace call to built-in 'rand' for output stability
 
 use myRNG;
 my $rng = myRNG.new( :seed(123456) );
@@ -66,7 +66,8 @@ $o.write('run/perceptron.png') or die;
 my $compare = chomp qx/which compare/ or die 'Required testing tool <compare> not found';
 say my $result = qqx!$compare -metric MAE ref/perceptron.png run/perceptron.png null: 2>&1!;
 
+# 2023-02-14 probably redundant, can remove?
 # allow for exact equivalence or close similarity
 use Test;
 my ($mae,$percent)  = $result.split(' ');
-ok $result eq '0 (0)' || $mae < 2000 and $percent.starts-with('(0.');
+ok $result eq '0 (0)'; # || $mae < 2000 and $percent.starts-with('(0.');
