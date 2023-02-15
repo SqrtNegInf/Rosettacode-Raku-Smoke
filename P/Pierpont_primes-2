@@ -3,22 +3,24 @@
 #c# 2019-08-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A092506 2 + Fermat primes
+#n# OEIS:A092506 Prime numbers of the form 2^n + 1.
 #n# OEIS:A000668 Mersenne primes (primes of the form 2^n - 1).
 #n# OEIS:A005109 Primes of the form 2^r*3^s - 1 (Pierpont 1st kind, class 1-)
 #n# OEIS:A005105 Primes of the form 2^r*3^s + 1 (Pierpont 2nd kind, class 1+) 
 #n# OEIS:A077497 Primes of the form 2^r*5^s + 1
 #n# OEIS:A077313 Primes of the form 2^r*5^s - 1
-#n# OEIS:A002200 Hamming primes 1st
-#n# OEIS:A293194 Hamming primes 2nd
+#n# OEIS:A002200 Primes of the form 2^q*3^r*5^s + 1 (Hamming 1st kind)
+#n# OEIS:A293194 Primes of the form 2^q*3^r*5^s - 1 (Hamming 2nd kind)
 #n# OEIS:A077498 Primes of the form 2^r*7^s + 1
 #n# OEIS:A077314 Primes of the form 2^r*7^s - 1
-#n# OEIS:A174144 Humble primes 1st
-#n# OEIS:A299171 Humble primes 2nd
+#n# OEIS:A174144 Primes of the form 2^p*3^q*5^r*7^s + 1 (Humble 1st kind)
+#n# OEIS:A347977 Primes of the form 2^p*3^q*5^r*7^s - 1 (Humble 2nd kind)
 #n# OEIS:A077499 Primes of the form 2^r*11^s + 1
 #n# OEIS:A077315 Primes of the form 2^r*11^s - 1
 #n# OEIS:A173236 Primes of the form 2^r*13^s + 1
 #n# OEIS:A173062 Primes of the form 2^r*13^s - 1
+
+#n# mistake: A299171 
 
 my @res;
 
@@ -53,7 +55,7 @@ for   'OEIS:A092506 - 2 + Fermat primes:',        (2),        1,  6,
     "\nOEIS:A077498:",                            (2,7),      1, 20,
     "\nOEIS:A077314:",                            (2,7),     -1, 20,
     "\nOEIS:A174144 - (\"Humble\" primes 1st):",  (2,3,5,7),  1, 20,
-    "\nOEIS:A299171 - (\"Humble\" primes 2nd):",  (2,3,5,7), -1, 20,
+    "\nOEIS:A347977 - (\"Humble\" primes 2nd):",  (2,3,5,7), -1, 20,
     "\nOEIS:A077499:",                            (2,11),     1, 20,
     "\nOEIS:A077315:",                            (2,11),    -1, 20,
     "\nOEIS:A173236:",                            (2,13),     1, 20,
