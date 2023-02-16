@@ -1,0 +1,20 @@
+#!/usr/bin/env raku
+#t# skiptest
+#c# 2023-02-13 initial, 2023-02-16 issue opened (not me, thundergnat++)
+#n# summing lists in scalar containers fails (cf GH5205)
+#n# bug sources: A/Abundant_odd_numbers, B/Bell_numbers-3 (and over a dozen in RC, PWC)
+#n# the initial fix handles most of the errors, but not 'R/Rare_numbers' or 'PWC/020/2/simon-proctor.raku'?
+
+say (^10 X ^10).grep: { .flat.sum == 10 };  # OK
+say (^10 X ^10).grep: {      .sum == 10 };  # OK
+
+say (^10 X ^10).grep( *.flat.sum == 10 );   # OK
+say (^10 X ^10).grep(      *.sum == 10 );   # OK
+
+my @a = ^10 X ^10;
+
+say @a.grep: { .flat.sum == 10 };           # OK
+say @a.grep: {      .sum == 10 };           # fails in MoarVM ≥ v2022.12-1200-g615b9bf929
+
+say @a.grep( *.flat.sum == 10 );            # OK
+say @a.grep(      *.sum == 10 );            # fails in MoarVM ≥ v2022.12-1200-g615b9bf929
