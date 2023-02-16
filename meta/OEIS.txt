@@ -37,7 +37,7 @@ A023108 Positive integers that never result in a palindrome when iterating A0569
 
 2/OEIS-A024785
 A024785 Left-truncatable primes: every suffix is prime and no digits are zero
-A033664 Every suffix is prime.
+A033664 Every suffix is prime (where zero is allowed).
 
 2/OEIS-A028840
 A028840 Numbers k such that sum of digits of k is a Fibonacci number.
@@ -264,7 +264,7 @@ A053767 Sum of first n composite numbers
 A294174 Numbers that can be expressed both as the sum of first primes and as the sum of first composites
 
 E/Erdos-Nicolas_numbers
-A194472 Erdős–Nicolas numbers
+A194472 Abundant numbers n such that the sum of the first k divisors is equal to n for some k
 
 E/Erdos-Selfridge_categorization_of_primes
 A005105 Class 1+ primes: primes of the form 2^i*3^j - 1 with i, j >= 0
@@ -273,7 +273,7 @@ A005107 Class 3+ primes
 A005108 Class 4+ primes
 
 E/Erdos-Woods_numbers
-A059756 Erdős–Woods numbers
+A059756 length of an interval of consecutive integers such that every element has a factor in common with one of the endpoints.
 A059757 smallest values of a for a given E-W number k
 A111042 odd terms of sequence (not calculated here)
 
@@ -299,8 +299,8 @@ F/Factorial_primes
 A088054 Factorial primes: primes which are within 1 of a factorial number.
 
 F/Factorions
-A014080 Factorions in base 10
-A193163 Factorions in base n
+A014080 Factorions: equal to the sum of the factorials of their digits in base 10.
+A193163 Irregular table read by rows, in which row n lists the factorions in base n, for n >= 2.
 
 F/Farey_sequence
 A006842 numerators of Farey series of order 1, 2, ···
@@ -339,12 +339,24 @@ A000073 Tribonacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) for n >= 3 with a(0)
 A000078 Tetranacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) for n >= 4 with a(0) = a(1) = a(2) = 0 and a(3) = 1.
 A001591 Pentanacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5), a(0)=a(1)=a(2)=a(3)=0, a(4)=1.
 A000383 Hexanacci numbers with a(0) = ... = a(5) = 1.
-A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0),...,a(6) = 0,0,0,0,0,0,1.
+A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0) - a(5) = 0, a(6) = 1
 A079262 Octanacci numbers: a(0)=a(1)=...=a(6)=0, a(7)=1; for n >= 8, a(n) = Sum_{i=1..8} a(n-i).
 A104144 Nonanacci numbers: a(n) = Sum_{k=1..9} a(n-k); a(8) = 1, a(n) = 0 for n < 8.
 A122265 Decanacci numbers: a(n+1) = a(n)+...+a(n-9) with a(0) = ... = a(8) = 0, a(9) = 1.
-A168082 Fibonacci 11-step numbers
-A168083 Fibonacci 12-step numbers
+A168082 Fibonacci 11-step numbers: each term is the sum of the preceding 11 terms, with a(0) -  a(9) = 0, a(10) = 1
+A168083 Fibonacci 12-step numbers: each term is the sum of the preceding 12 terms, with a(0) - a(10) = 0, a(11) = 1
+A000032 Lucas numbers beginning at 2: L(n) = L(n-1) + L(n-2), L(0) = 2, L(1) = 1.
+
+F/Fibonacci_n-step_number_sequences-2
+A000045 Fibonacci numbers: F(n) = F(n-1) + F(n-2) with F(0) = 0 and F(1) = 1.
+A000073 Tribonacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) for n >= 3 with a(0) = a(1) = 0 and a(2) = 1.
+A000078 Tetranacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) for n >= 4 with a(0) = a(1) = a(2) = 0 and a(3) = 1.
+A001591 Pentanacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5), a(0)=a(1)=a(2)=a(3)=0, a(4)=1.
+A000383 Hexanacci numbers with a(0) = ... = a(5) = 1.
+A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0) - a(5) = 0, a(6) = 1
+A079262 Octanacci numbers: a(0)=a(1)=...=a(6)=0, a(7)=1; for n >= 8, a(n) = Sum_{i=1..8} a(n-i).
+A104144 Nonanacci numbers: a(n) = Sum_{k=1..9} a(n-k); a(8) = 1, a(n) = 0 for n < 8.
+A122265 Decanacci numbers: a(n+1) = a(n)+...+a(n-9) with a(0) = ... = a(8) = 0, a(9) = 1.
 A000032 Lucas numbers beginning at 2: L(n) = L(n-1) + L(n-2), L(0) = 2, L(1) = 1.
 
 F/Fibonacci_sequence
@@ -421,9 +433,9 @@ I/Inconsummate_numbers_in_base_10
 A003635 - Inconsummate numbers in base 10
 
 J/Jacobsthal_numbers
-A001045 Jacobsthal sequence (or Jacobsthal numbers)
-A014551 Jacobsthal-Lucas numbers.
-A084175 Jacobsthal oblong numbers
+A001045 Jacobsthal numbers: J(n) = J(n-1) + 2 × J(n-2), where J(0) = 0
+A014551 Jacobsthal-Lucas numbers: J(n) = J(n-1) + 2 × J(n-2), where J(0) = 2
+A084175 Jacobsthal oblong numbers: multiply each Jacobsthal number J(n) by its direct successor J(n+1).
 A049883 Primes in the Jacobsthal sequence
 
 J/Josephus_problem
@@ -449,7 +461,7 @@ L/Largest_number_divisible_by_its_digits
 A115569 n such that the digits are all different (and do not include 0) and n is divisible by each of its individual digits.
 
 L/Largest_proper_divisor_of_n
-A032742 largest proper divisor of n
+A032742 a(1) = 1; for n > 1, a(n) = largest proper divisor of n (that is, for n>1, maximum divisor d of n in range 1 <= d < n).
 
 L/Latin_Squares_in_reduced_form
 A002860 Number of Latin squares of order n; or labeled quasigroups.
@@ -574,10 +586,10 @@ O/Odd_squarefree_semiprimes
 A046388 Odd numbers of the form p*q where p and q are distinct primes.
 
 O/Ormiston_pairs
-A072274 Ormiston prime pairs
+A072274 Ormiston prime pairs: two consecutive prime numbers which are anagrams.
 
 O/Ormiston_pairs-2
-A072274 Ormiston prime pairs
+A072274 Ormiston prime pairs: two consecutive prime numbers which are anagrams.
 
 O/Ormiston_triples
 A075093 Smallest member of Ormiston prime triple [but here all members of triple]
@@ -586,9 +598,9 @@ O/Ormiston_triples-2
 A075093 Smallest member of Ormiston prime triple
 
 P/Padovan_n-step_number_sequences
-A134816 Padovan's spiral numbers
+A134816 a(n) is the length of the edge of the n-th equilateral triangle in the Padovan triangle spiral.
 A000930 Narayana's cows sequence: a(0) = a(1) = a(2) = 1; thereafter a(n) = a(n-1) + a(n-3).
-A072465 Fibonacci-like model
+A072465 A Fibonacci-like sequence: a(n) = a(n-2) + a(n-3) + a(n-4) + a(n-5).
 A060961 Number of compositions (ordered partitions) of n into 1's, 3's and 5's
 A117760 Expansion of 1/(1 - x - x^3 - x^5 - x^7)
 
@@ -634,7 +646,7 @@ P/Perfect_numbers-2
 A000396 Perfect numbers k: k is equal to the sum of the proper divisors of k.
 
 P/Perfect_totient_numbers
-A082897 Perfect totient numbers.
+A082897 Perfect totient numbers: integers that are equal to the sum of their iterated totients
 
 P/Pernicious_numbers
 A052294 numbers with a prime number of 1's in their binary expansion
@@ -742,13 +754,13 @@ A100968 Integers n that are Rhonda numbers to base 4
 A100969 Integers n that are Rhonda numbers to base 6
 A100970 Integers n that are Rhonda numbers to base 8
 A100973 Integers n that are Rhonda numbers to base 9
-A099542 Rhonda numbers to base 10
+A099542 Integers n that ar eRhonda numbers to base 10
 A100971 Integers n that are Rhonda numbers to base 12
 A100972 Integers n that are Rhonda numbers to base 14
 A100974 Integers n that are Rhonda numbers to base 15
 A100975 Integers n that are Rhonda numbers to base 16
 A255735 Integers n that are Rhonda numbers to base 18
-A255732 Rhonda numbers in vigesimal number system (base 20)
+A255732 Integers n that are Rhonda numbers in base 20 (vigesimal number system)
 A255736 Integers n that are Rhonda numbers to base 30
 
 R/Riordan_numbers
@@ -766,11 +778,11 @@ A005385 Safe primes p: (p-1)/2 is also prime.
 A059456 Unsafe primes: primes not in A005385.
 
 S/Self-describing_numbers
-A046043 aka autobiographical numbers
+A046043 m = x{0} x{1} x{2} ... x_{b-1} such that x_i is the number of "digits" in m that are equal to i, for all i=0,...,b-1.
 A138480 as above, but 1st digit describes # of zeros present [super-set of previous]
 
 S/Self_numbers
-A003052 Self / Colombian numbers
+A003052 Self (or Colombian) numbers: not of the form m + sum of digits of m, for any m.
 
 S/Semiprime-1
 A001358 Semiprimes (or biprimes): products of two primes. 
@@ -829,10 +841,10 @@ S/Solve_hanging_lantern_problem-2
 A022915 Multinomial coefficients (0, 1, ..., n)! = C(n+1,2)!/(0!×1!×2!×...×n!)
 
 S/Special_factorials
-A000178 Superfactorials: product of first n factorials.
-A002109 Hyperfactorials: Product_{k = 1..n} k^k.
+A000178 Super-factorials: product of first n factorials.
+A002109 Hyper-factorials: Product_{k = 1..n} k^k.
 A005165 Alternating factorials: n! - (n-1)! + (n-2)! - ... 1!.
-A049384 a(0)=1, a(n+1) = (n+1)^a(n).
+A049384 Exponential factorials: a(0)=1, a(n+1) = (n+1)^a(n).
 
 S/Sphenic_numbers
 A007304 Sphenic numbers: products of 3 distinct primes.
@@ -891,8 +903,8 @@ A032746 Super-6 Numbers (6 * n^6 contains substring '666666' in its decimal expa
 A032747 Super-7 Numbers (7 x n^7 contains substring '7777777' in its decimal expansion).
 
 S/Superpermutation_minimisation
-A180632 Minimum length of a string over the alphabet A = {1,2,...,n}
-A007489 a(n) = Sum_{k=1..n} k!
+A180632 Minimum length of a string where every permutation of N characters found as a substring.
+A007489 a(n) = Sum_{k=1..n} k! 
 
 S/Sylvester%27s_sequence
 A000058 Sylvester's_sequence: a(n+1) = a(n)^2 - a(n) + 1, with a(0) = 2
