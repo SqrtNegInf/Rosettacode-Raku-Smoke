@@ -3,11 +3,11 @@
 #c# 2019-08-12 <RC, 2019-09-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A014080 Factorions: equal to the sum of the factorials of their digits in base 10.
+#n# OEIS:A193163 Irregular table read by rows, in which row n lists the factorions in base n, for n >= 2.
 #n# 2021-08-25 .race starts causing failure
 #n# 2021-09-10 pre-allocating @result, making @factorial non-lazy does not help
 #n# 2022-05-20 .race slows things down?
-#n# OEIS:A014080 Factorions in base 10
-#n# OEIS:A193163 Factorions in base n
 
 constant @factorial = 1, |[\×] 1..*;
 #constant @factorial = 1, |[\×] 1..10000;
