@@ -306,7 +306,7 @@ File: 2/OEIS-A024785
 #j#  JVM: OK
 #n# mirrored from ~/PWC/147/1/bruce-gray.raku
 #n# OEIS:A024785 Left-truncatable primes: every suffix is prime and no digits are zero
-#n# OEIS:A033664 Every suffix is prime.
+#n# OEIS:A033664 Every suffix is prime (where zero is allowed).
 
 File: 2/OEIS-A028840
 #!/usr/bin/env raku
@@ -4612,6 +4612,7 @@ File: E/Engel_expansion
 #c# 2022-08-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# sum of reciprocals of the cumulative product of the expansion: x = 1/a1 + 1/a1a2  + 1/a1a2a3 ...
 #n# OEIS:A006784 Engel expansion of Pi
 #n# OEIS:A028310 Engel expansion of 𝑒
 #n# OEIS:A028254 Engel expansion of sqrt(2)
@@ -4671,7 +4672,7 @@ File: E/Erdos-Nicolas_numbers
 #j# JVM:  BROKEN
 #n# rc-get Erdd%C5%91s-Nicolas_numbers; rename to 'Erdos*'
 #n# slow, limit testing
-#n# OEIS:A194472 Erdős–Nicolas numbers
+#n# OEIS:A194472 Abundant numbers n such that the sum of the first k divisors is equal to n for some k
 
 File: E/Erdos-Nicolas_numbers.jvm
 #!/usr/bin/env raku
@@ -4711,7 +4712,7 @@ File: E/Erdos-Woods_numbers
 #c# 2022-03-07 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A059756 Erdős–Woods numbers
+#n# OEIS:A059756 length of an interval of consecutive integers such that every element has a factor in common with one of the endpoints.
 #n# OEIS:A059757 smallest values of a for a given E-W number k
 #n# OEIS:A111042 odd terms of sequence (not calculated here)
 #n# 2022-07-13 some tweaks, not on RC
@@ -5129,11 +5130,11 @@ File: F/Factorions
 #c# 2019-08-12 <RC, 2019-09-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A014080 Factorions: equal to the sum of the factorials of their digits in base 10.
+#n# OEIS:A193163 Irregular table read by rows, in which row n lists the factorions in base n, for n >= 2.
 #n# 2021-08-25 .race starts causing failure
 #n# 2021-09-10 pre-allocating @result, making @factorial non-lazy does not help
 #n# 2022-05-20 .race slows things down?
-#n# OEIS:A014080 Factorions in base 10
-#n# OEIS:A193163 Factorions in base n
 
 File: F/Factorions.0
 #!/usr/bin/env perl6
@@ -5348,13 +5349,14 @@ File: F/Fibonacci_n-step_number_sequences
 #n# OEIS:A000078 Tetranacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) for n >= 4 with a(0) = a(1) = a(2) = 0 and a(3) = 1.
 #n# OEIS:A001591 Pentanacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5), a(0)=a(1)=a(2)=a(3)=0, a(4)=1.
 #n# OEIS:A000383 Hexanacci numbers with a(0) = ... = a(5) = 1.
-#n# OEIS:A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0),...,a(6) = 0,0,0,0,0,0,1.
+#n# OEIS:A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0) - a(5) = 0, a(6) = 1
 #n# OEIS:A079262 Octanacci numbers: a(0)=a(1)=...=a(6)=0, a(7)=1; for n >= 8, a(n) = Sum_{i=1..8} a(n-i).
 #n# OEIS:A104144 Nonanacci numbers: a(n) = Sum_{k=1..9} a(n-k); a(8) = 1, a(n) = 0 for n < 8.
 #n# OEIS:A122265 Decanacci numbers: a(n+1) = a(n)+...+a(n-9) with a(0) = ... = a(8) = 0, a(9) = 1.
-#n# OEIS:A168082 Fibonacci 11-step numbers
-#n# OEIS:A168083 Fibonacci 12-step numbers
+#n# OEIS:A168082 Fibonacci 11-step numbers: each term is the sum of the preceding 11 terms, with a(0) -  a(9) = 0, a(10) = 1
+#n# OEIS:A168083 Fibonacci 12-step numbers: each term is the sum of the preceding 12 terms, with a(0) - a(10) = 0, a(11) = 1
 #n# OEIS:A000032 Lucas numbers beginning at 2: L(n) = L(n-1) + L(n-2), L(0) = 2, L(1) = 1.
+#n# output here drops the 'givens' (all leading 0's, some leading 1's) unlike what's given on OEIS site.
 
 File: F/Fibonacci_n-step_number_sequences-2
 #!/usr/bin/env perl6
@@ -5362,6 +5364,17 @@ File: F/Fibonacci_n-step_number_sequences-2
 #c# 2016-01-23 <>RC, 2020-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A000045 Fibonacci numbers: F(n) = F(n-1) + F(n-2) with F(0) = 0 and F(1) = 1.
+#n# OEIS:A000073 Tribonacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) for n >= 3 with a(0) = a(1) = 0 and a(2) = 1.
+#n# OEIS:A000078 Tetranacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) for n >= 4 with a(0) = a(1) = a(2) = 0 and a(3) = 1.
+#n# OEIS:A001591 Pentanacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5), a(0)=a(1)=a(2)=a(3)=0, a(4)=1.
+#n# OEIS:A000383 Hexanacci numbers with a(0) = ... = a(5) = 1.
+#n# OEIS:A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0) - a(5) = 0, a(6) = 1
+#n# OEIS:A079262 Octanacci numbers: a(0)=a(1)=...=a(6)=0, a(7)=1; for n >= 8, a(n) = Sum_{i=1..8} a(n-i).
+#n# OEIS:A104144 Nonanacci numbers: a(n) = Sum_{k=1..9} a(n-k); a(8) = 1, a(n) = 0 for n < 8.
+#n# OEIS:A122265 Decanacci numbers: a(n+1) = a(n)+...+a(n-9) with a(0) = ... = a(8) = 0, a(9) = 1.
+#n# OEIS:A000032 Lucas numbers beginning at 2: L(n) = L(n-1) + L(n-2), L(0) = 2, L(1) = 1.
+#n# output here drops the 'givens' (all leading 0's, some leading 1's) unlike what's given on OEIS site.
 
 File: F/Fibonacci_n-step_number_sequences.0
 #!/usr/bin/env perl6
@@ -7545,9 +7558,9 @@ File: J/Jacobsthal_numbers
 #c# 2022-02-26 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A001045 Jacobsthal sequence (or Jacobsthal numbers)
-#n# OEIS:A014551 Jacobsthal-Lucas numbers.
-#n# OEIS:A084175 Jacobsthal oblong numbers
+#n# OEIS:A001045 Jacobsthal numbers: J(n) = J(n-1) + 2 × J(n-2), where J(0) = 0
+#n# OEIS:A014551 Jacobsthal-Lucas numbers: J(n) = J(n-1) + 2 × J(n-2), where J(0) = 2
+#n# OEIS:A084175 Jacobsthal oblong numbers: multiply each Jacobsthal number J(n) by its direct successor J(n+1).
 #n# OEIS:A049883 Primes in the Jacobsthal sequence
 
 File: J/Jaro-Winkler_Distance
@@ -8116,7 +8129,7 @@ File: L/Largest_proper_divisor_of_n
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# 2021-10-01 new-disp concurrency problem? MoarVM oops: MVM_str_hash_lvalue_fetch_nocheck called concurrently on the same hash [resolved]
-#n# OEIS:A032742 largest proper divisor of n
+#n# OEIS:A032742 a(1) = 1; for n > 1, a(n) = largest proper divisor of n (that is, for n>1, maximum divisor d of n in range 1 <= d < n).
 
 File: L/Largest_proper_divisor_of_n.jvm
 #!/usr/bin/env raku
@@ -10501,7 +10514,7 @@ File: O/Ormiston_pairs
 #c# 2023-01-29 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A072274 Ormiston prime pairs
+#n# OEIS:A072274 Ormiston prime pairs: two consecutive prime numbers which are anagrams.
 
 File: O/Ormiston_pairs-2
 #!/usr/bin/env raku
@@ -10509,7 +10522,7 @@ File: O/Ormiston_pairs-2
 #c# 2023-01-29 <RC, 2023-01-31 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#n# OEIS:A072274 Ormiston prime pairs
+#n# OEIS:A072274 Ormiston prime pairs: two consecutive prime numbers which are anagrams.
 #n# thundergnat: slightly more efficient, move computation out of the hot loop
 
 File: O/Ormiston_pairs-2.jvm
@@ -10652,9 +10665,9 @@ File: P/Padovan_n-step_number_sequences
 #c# 2021-03-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A134816 Padovan's spiral numbers
+#n# OEIS:A134816 a(n) is the length of the edge of the n-th equilateral triangle in the Padovan triangle spiral.
 #n# OEIS:A000930 Narayana's cows sequence: a(0) = a(1) = a(2) = 1; thereafter a(n) = a(n-1) + a(n-3).
-#n# OEIS:A072465 Fibonacci-like model
+#n# OEIS:A072465 A Fibonacci-like sequence: a(n) = a(n-2) + a(n-3) + a(n-4) + a(n-5).
 #n# OEIS:A060961 Number of compositions (ordered partitions) of n into 1's, 3's and 5's
 #n# OEIS:A117760 Expansion of 1/(1 - x - x^3 - x^5 - x^7)
 
@@ -11347,8 +11360,8 @@ File: P/Perfect_totient_numbers
 #c# 2018-12-05 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A082897 Perfect totient numbers: integers that are equal to the sum of their iterated totients
 #n# see .jvm for previous method of calculation
-#n# OEIS:A082897 Perfect totient numbers.
 
 File: P/Perfect_totient_numbers.jvm
 #!/usr/bin/env perl6
@@ -12999,18 +13012,19 @@ File: R/Rhonda_numbers
 #c# 2022-02-09 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# n is a Rhonda number to base b if the product of its digits in base b equals b*(sum of prime factors of n) [including multiplicity].
 #n# full run works, but slow, so limit to 5 for testing
 #n# OEIS:A100968 Integers n that are Rhonda numbers to base 4
 #n# OEIS:A100969 Integers n that are Rhonda numbers to base 6
 #n# OEIS:A100970 Integers n that are Rhonda numbers to base 8
 #n# OEIS:A100973 Integers n that are Rhonda numbers to base 9
-#n# OEIS:A099542 Rhonda numbers to base 10
+#n# OEIS:A099542 Integers n that ar eRhonda numbers to base 10
 #n# OEIS:A100971 Integers n that are Rhonda numbers to base 12
 #n# OEIS:A100972 Integers n that are Rhonda numbers to base 14
 #n# OEIS:A100974 Integers n that are Rhonda numbers to base 15
 #n# OEIS:A100975 Integers n that are Rhonda numbers to base 16
 #n# OEIS:A255735 Integers n that are Rhonda numbers to base 18
-#n# OEIS:A255732 Rhonda numbers in vigesimal number system (base 20)
+#n# OEIS:A255732 Integers n that are Rhonda numbers in base 20 (vigesimal number system)
 #n# OEIS:A255736 Integers n that are Rhonda numbers to base 30
 
 File: R/Rhonda_numbers.jvm
@@ -13541,8 +13555,9 @@ File: S/Self-describing_numbers
 #c# 2015-10-28 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A046043 aka autobiographical numbers
+#n# OEIS:A046043 m = x{0} x{1} x{2} ... x_{b-1} such that x_i is the number of "digits" in m that are equal to i, for all i=0,...,b-1.
 #n# OEIS:A138480 as above, but 1st digit describes # of zeros present [super-set of previous]
+#n# aka autobiographical numbers
 #n# now mirrors what's on RC, but reduced limit to keep run-time down
 
 File: S/Self-describing_numbers.0
@@ -13561,7 +13576,7 @@ File: S/Self_numbers
 #j# JVM:  OK
 #n# hard-coding '50' sub-optimal
 #n# 2022-05-28 minor changes not on RC
-#n# OEIS:A003052 Self / Colombian numbers
+#n# OEIS:A003052 Self (or Colombian) numbers: not of the form m + sum of digits of m, for any m.
 
 File: S/Self_numbers-2
 #!/usr/bin/env raku
@@ -14655,10 +14670,10 @@ File: S/Special_factorials
 #c# 2021-03-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A000178 Superfactorials: product of first n factorials.
-#n# OEIS:A002109 Hyperfactorials: Product_{k = 1..n} k^k.
+#n# OEIS:A000178 Super-factorials: product of first n factorials.
+#n# OEIS:A002109 Hyper-factorials: Product_{k = 1..n} k^k.
 #n# OEIS:A005165 Alternating factorials: n! - (n-1)! + (n-2)! - ... 1!.
-#n# OEIS:A049384 a(0)=1, a(n+1) = (n+1)^a(n).
+#n# OEIS:A049384 Exponential factorials: a(0)=1, a(n+1) = (n+1)^a(n).
 
 File: S/Special_neighbor_primes
 #!/usr/bin/env raku
@@ -15661,8 +15676,8 @@ File: S/Superpermutation_minimisation
 #c# 2018-08-30 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A180632 Minimum length of a string over the alphabet A = {1,2,...,n}
-#n# OEIS:A007489 a(n) = Sum_{k=1..n} k!
+#n# OEIS:A180632 Minimum length of a string where every permutation of N characters found as a substring.
+#n# OEIS:A007489 a(n) = Sum_{k=1..n} k! 
 
 File: S/Sutherland-Hodgman_polygon_clipping
 #!/usr/bin/env perl6
@@ -17614,12 +17629,12 @@ File: Z/Zumkeller_numbers
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Zumkeller_numbers
 #c# 2019-08-20 <RC, 2022-05-29 >RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# */×: replacing '* * 2' with '* × 2' is clarifying (for humans)
 #n# OEIS:A083207 integer-perfect numbers: numbers n whose divisors can be partitioned into two disjoint sets with equal sum
 #n# OEIS:A174865 Odd Zumkeller numbers
-#n# runs forever, disable temporarily unti moar-blead gets fixed
+#n# XXX 2023-02-13 runs forever, disable temporarily unti moar-blead gets fixed [resolved] XXX
 
 File: Z/Zumkeller_numbers.jvm
 #!/usr/bin/env perl6
