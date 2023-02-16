@@ -8,13 +8,14 @@
 #n# OEIS:A000078 Tetranacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) for n >= 4 with a(0) = a(1) = a(2) = 0 and a(3) = 1.
 #n# OEIS:A001591 Pentanacci numbers: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5), a(0)=a(1)=a(2)=a(3)=0, a(4)=1.
 #n# OEIS:A000383 Hexanacci numbers with a(0) = ... = a(5) = 1.
-#n# OEIS:A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0),...,a(6) = 0,0,0,0,0,0,1.
+#n# OEIS:A122189 Heptanacci numbers: each term is the sum of the preceding 7 terms, with a(0) - a(5) = 0, a(6) = 1
 #n# OEIS:A079262 Octanacci numbers: a(0)=a(1)=...=a(6)=0, a(7)=1; for n >= 8, a(n) = Sum_{i=1..8} a(n-i).
 #n# OEIS:A104144 Nonanacci numbers: a(n) = Sum_{k=1..9} a(n-k); a(8) = 1, a(n) = 0 for n < 8.
 #n# OEIS:A122265 Decanacci numbers: a(n+1) = a(n)+...+a(n-9) with a(0) = ... = a(8) = 0, a(9) = 1.
-#n# OEIS:A168082 Fibonacci 11-step numbers
-#n# OEIS:A168083 Fibonacci 12-step numbers
+#n# OEIS:A168082 Fibonacci 11-step numbers: each term is the sum of the preceding 11 terms, with a(0) -  a(9) = 0, a(10) = 1
+#n# OEIS:A168083 Fibonacci 12-step numbers: each term is the sum of the preceding 12 terms, with a(0) - a(10) = 0, a(11) = 1
 #n# OEIS:A000032 Lucas numbers beginning at 2: L(n) = L(n-1) + L(n-2), L(0) = 2, L(1) = 1.
+#n# output here drops the 'givens' (all leading 0's, some leading 1's) unlike what's given on OEIS site.
 
 my @res;
 
@@ -44,22 +45,3 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-
-#`{{ previous version:
-
-use MONKEY-SEE-NO-EVAL;
-
-sub fibo ($n) {
-    constant @starters = 1,1,2,4 ... *;
-    nacci @starters[^$n];
-}
-
-sub nacci (*@starter) {
-    EVAL "|@starter, { join '+', '*' xx @starter } ... *";
-    #"|@starter, { join '+', '*' xx @starter } ... *".EVAL; # deprecated?
-}
-
-my @res; 
-for 2..10 -> $n { @res.push: fibo($n)[^20] }
-.say for @res; 
-}}
