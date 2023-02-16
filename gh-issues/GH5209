@@ -5,6 +5,10 @@
 #n# bug sources: A/Abundant_odd_numbers, B/Bell_numbers-3 (and over a dozen in RC, PWC)
 #n# the initial fix handles most of the errors, but not 'R/Rare_numbers' or 'PWC/020/2/simon-proctor.raku'?
 
+# similar problem, but involving the '[+]' form, e.g. 077/1/laurent-rosenfeld.raku:
+my @fib = 1, 2, * + *  ... ^ * >= 89;
+for @fib.combinations -> $s { say $s if 89 == [+] $s } # works if 'sum' used, or '|$s'
+
 say (^10 X ^10).grep: { .flat.sum == 10 };  # OK
 say (^10 X ^10).grep: {      .sum == 10 };  # OK
 
@@ -14,7 +18,7 @@ say (^10 X ^10).grep(      *.sum == 10 );   # OK
 my @a = ^10 X ^10;
 
 say @a.grep: { .flat.sum == 10 };           # OK
-say @a.grep: {      .sum == 10 };           # fails in MoarVM ≥ v2022.12-1200-g615b9bf929
+say @a.grep: {      .sum == 10 };  # now OK # fails in MoarVM ≥ v2022.12-1200-g615b9bf929 (but < v2022.12-1210-g6b6c0ec8a6)
 
 say @a.grep( *.flat.sum == 10 );            # OK
-say @a.grep(      *.sum == 10 );            # fails in MoarVM ≥ v2022.12-1200-g615b9bf929
+say @a.grep(      *.sum == 10 );   # now OK # fails in MoarVM ≥ v2022.12-1200-g615b9bf929 (but < v2022.12-1210-g6b6c0ec8a6)
