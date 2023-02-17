@@ -1,3 +1,8 @@
+2023-02-17
+GH5209 fix required only one RC task to change, 'R/Rare_numbers'
+Ultimately still had to 'rakubrew nuke moar-blead' as yesterday's fix didn't help PWC tasks that have <use lib '.'>, 
+e.g. ~/PWC/{129,130}/2/arne-sommer.raku
+
 2023-02-16
 To deal with 'Missing or wrong version of dependency 'gen/moar/BOOTSTRAP/v6c.nqp', this worked:
     cd ~/.rakubrew/versions/moar-blead
