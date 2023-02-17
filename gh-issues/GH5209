@@ -5,9 +5,11 @@
 #n# bug sources: A/Abundant_odd_numbers, B/Bell_numbers-3 (and over a dozen in RC, PWC)
 #n# the initial fix handles most of the errors, but not 'R/Rare_numbers' or 'PWC/020/2/simon-proctor.raku'?
 
-# similar problem, but involving the '[+]' form, e.g. 077/1/laurent-rosenfeld.raku:
+# 2023-02-16 as per comment in GH5209:
+#   $s is an itemized scalar, so it doesn't iterate, so it takes the number of elements in $s. You should use a @s
+#   cf: 077/1/laurent-rosenfeld.raku
 my @fib = 1, 2, * + *  ... ^ * >= 89;
-for @fib.combinations -> $s { say $s if 89 == [+] $s } # works if 'sum' used, or '|$s'
+for @fib.combinations -> @s { say @s if 89 == [+] @s }
 
 say (^10 X ^10).grep: { .flat.sum == 10 };  # OK
 say (^10 X ^10).grep: {      .sum == 10 };  # OK
