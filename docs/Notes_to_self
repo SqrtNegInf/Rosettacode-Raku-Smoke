@@ -1,3 +1,9 @@
+2023-02-16
+To deal with 'Missing or wrong version of dependency 'gen/moar/BOOTSTRAP/v6c.nqp', this worked:
+    cd ~/.rakubrew/versions/moar-blead
+    rm -rf install/share/perl6/core/precomp/*
+    ./tools/nuke-precomps.raku
+
 2023-02-14
 Same as yesterday...  Spectest was fine, so needs an issue.
 
