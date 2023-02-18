@@ -1,6 +1,6 @@
 9/9_billion_names_of_God_the_integer
-A008284 Triangle of partition numbers
 A000041 The number of partitions of n (the partition numbers)
+A008284 Triangle of partition numbers: T(n,k) = number of partitions of n in which the greatest part is k, 1 <= k <= n. 
 
 2/OEIS-A000058
 A000058 Sylvester's_sequence: a(n+1) = a(n)^2 - a(n) + 1, with a(0) = 2
@@ -151,8 +151,8 @@ B/Bell_numbers-3
 A000110 Bell or exponential numbers: number of ways to partition a set of n labeled elements.
 
 B/Bernoulli_numbers
-A027641 numerator of Bernoulli number B_n
-A027642 denominator of Bernoulli number B_n 
+A027641 numerator of Bernoulli number B(n)
+A027642 denominator of Bernoulli number B(n)
 
 B/Birthday_problem
 A014088 Minimal number of people to give a 50% probability of having at least n coincident birthdays in one year.
@@ -275,7 +275,7 @@ A005108 Class 4+ primes
 E/Erdos-Woods_numbers
 A059756 length of an interval of consecutive integers such that every element has a factor in common with one of the endpoints.
 A059757 smallest values of a for a given E-W number k
-A111042 odd terms of sequence (not calculated here)
+A111042 odd terms of A059757 sequence [not calculated below]
 
 E/Esthetic_numbers
 A033075 Positive numbers all of whose pairs of consecutive decimal digits differ by 1
@@ -430,7 +430,7 @@ I/Idoneal_numbers
 A000926 - Euler's "numerus idoneus" (or "numeri idonei", or suitable/convenient)
 
 I/Inconsummate_numbers_in_base_10
-A003635 - Inconsummate numbers in base 10
+A003635 Inconsummate numbers in base 10: no number is this multiple of the sum of its digits (in base 10).
 
 J/Jacobsthal_numbers
 A001045 Jacobsthal numbers: J(n) = J(n-1) + 2 × J(n-2), where J(0) = 0
@@ -571,7 +571,7 @@ N/Narcissistic_decimal_number-2
 A005188 Narcissistic numbers: m-digit positive numbers equal to sum of the m-th powers of their digits.
 
 N/Nice_primes
-A078403 primes such that digital root is prime
+A078403 Primes such that digital root (A038194) is prime.
 
 N/Numbers_which_are_not_the_sum_of_distinct_squares
 A001422 Numbers which are not the sum of distinct squares.
@@ -652,8 +652,8 @@ P/Pernicious_numbers
 A052294 numbers with a prime number of 1's in their binary expansion
 
 P/Pierpont_primes-1
-A005109 class 1-, Pierpont primes of the first kind
-A005105 class 1+, Pierpont primes of the second kind
+A005109 Primes of the form 2^r*3^s - 1 (Pierpont 1st kind, class 1-)
+A005105 Primes of the form 2^r*3^s + 1 (Pierpont 2nd kind, class 1+)
 
 P/Pierpont_primes-2
 A092506 Prime numbers of the form 2^n + 1.
@@ -861,7 +861,7 @@ A008275 Signed Stirling numbers of the first kind
 A130534 Unsigned Stirling numbers of the first kind
 
 S/Stirling_numbers_of_the_second_kind
-A008277 Stirling numbers of the second kind
+A008277 Triangle of Stirling numbers of the second kind, S2(n,k), n >= 1, 1 <= k <= n.
 
 S/Strong_and_weak_primes
 A051634 Strong primes: prime(n) > (prime(n-1) + prime(n+1))/2.
