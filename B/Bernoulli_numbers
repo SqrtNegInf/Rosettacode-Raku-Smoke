@@ -3,8 +3,8 @@
 #c# 2016-04-07 <>RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A027641 numerator of Bernoulli number B_n
-#n# OEIS:A027642 denominator of Bernoulli number B_n 
+#n# OEIS:A027641 numerator of Bernoulli number B(n)
+#n# OEIS:A027642 denominator of Bernoulli number B(n)
 #n# 2018-04-18 thundergnat adds 'code to make runnable block', similar to my changes
 
 # First, a straighforward implementation of the naïve algorithm in the task description.
@@ -28,9 +28,16 @@ my $form = "B(%2d) = \%{$width}d/%d";
 my @res1.push: sprintf $form, .key, .value.nude for @bpairs;
 .say for @res1;
 
-# Here is a much faster way, following the Perl solution that avoids recalculating previous values each time through the function. We do this in Raku by not defining it as a function at all, but by defining it as an infinite sequence that we can read however many values we like from (52, in this case, to get up to B(100)). In this solution we've also avoided subscripting operations; rather we use a sequence operator (...) iterated over the list of the previous solution to find the next solution. We reverse the array in this case to make reference to the previous value in the list more natural, which means we take the last value of the list rather than the first value, and do so conditionally to avoid 0 values.
-
-# Works with: Rakudo version 2015.12
+# Here is a much faster way, following the Perl solution that avoids
+# recalculating previous values each time through the function. We do this in
+# Raku by not defining it as a function at all, but by defining it as an
+# infinite sequence that we can read however many values we like from (52, in
+# this case, to get up to B(100)). In this solution we've also avoided
+# subscripting operations; rather we use a sequence operator (...) iterated
+# over the list of the previous solution to find the next solution. We
+# reverse the array in this case to make reference to the previous value in
+# the list more natural, which means we take the last value of the list
+# rather than the first value, and do so conditionally to avoid 0 values.
 
 constant bernoulli2 = gather {
     my @a;
@@ -51,7 +58,15 @@ $form = "B(%d)\t= \%{$width}d/%d";
 
 my @res2.push: sprintf $form, .key, .value.nude for @bpairs2;
 
-# And if you're a pure enough FP programmer to dislike destroying and reconstructing the array each time, here's the same algorithm without side effects. We use zip with the pair constructor => to keep values associated with their indices. This provides sufficient local information that we can define our own binary operator "bop" to reduce between each two terms, using the "triangle" form (called "scan" in Haskell) to return the intermediate results that will be important to compute the next Bernoulli number. Output is identical to the previous solution, but runs about 3.5 times slower in rakudo, as of this writing (2014-03).
+# And if you're a pure enough FP programmer to dislike destroying and
+# reconstructing the array each time, here's the same algorithm without side
+# effects. We use zip with the pair constructor => to keep values associated
+# with their indices. This provides sufficient local information that we can
+# define our own binary operator "bop" to reduce between each two terms,
+# using the "triangle" form (called "scan" in Haskell) to return the
+# intermediate results that will be important to compute the next Bernoulli
+# number. Output is identical to the previous solution, but runs about 3.5
+# times slower in rakudo, as of this writing (2014-03).
 
 my sub infix:<bop>(\prev,\this) { this.key => this.key × (this.value - prev.value) }
 
