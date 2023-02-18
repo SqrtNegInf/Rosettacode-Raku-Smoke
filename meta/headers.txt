@@ -171,8 +171,8 @@ File: 0/9_billion_names_of_God_the_integer
 #c# 2016-07-25 <RC, 2020-11-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A008284 Triangle of partition numbers
 #n# OEIS:A000041 The number of partitions of n (the partition numbers)
+#n# OEIS:A008284 Triangle of partition numbers: T(n,k) = number of partitions of n in which the greatest part is k, 1 <= k <= n. 
 #n# no time/memory issues any longer
 
 File: 0/9_billion_names_of_God_the_integer.1
@@ -1667,8 +1667,8 @@ File: B/Bernoulli_numbers
 #c# 2016-04-07 <>RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# OEIS:A027641 numerator of Bernoulli number B_n
-#n# OEIS:A027642 denominator of Bernoulli number B_n 
+#n# OEIS:A027641 numerator of Bernoulli number B(n)
+#n# OEIS:A027642 denominator of Bernoulli number B(n)
 #n# 2018-04-18 thundergnat adds 'code to make runnable block', similar to my changes
 
 File: B/Best_shuffle
@@ -4714,7 +4714,7 @@ File: E/Erdos-Woods_numbers
 #j# JVM:  BROKEN
 #n# OEIS:A059756 length of an interval of consecutive integers such that every element has a factor in common with one of the endpoints.
 #n# OEIS:A059757 smallest values of a for a given E-W number k
-#n# OEIS:A111042 odd terms of sequence (not calculated here)
+#n# OEIS:A111042 odd terms of A059757 sequence [not calculated below]
 #n# 2022-07-13 some tweaks, not on RC
 
 File: E/Erdos-Woods_numbers.jvm
@@ -7264,7 +7264,7 @@ File: I/Inconsummate_numbers_in_base_10
 #c# 2022-09-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A003635 - Inconsummate numbers in base 10
+#n# OEIS:A003635 Inconsummate numbers in base 10: no number is this multiple of the sum of its digits (in base 10).
 
 File: I/Inconsummate_numbers_in_base_10.jvm
 #!/usr/bin/env raku
@@ -7578,14 +7578,14 @@ File: J/Jaro-Winkler_Distance.jvm
 #j# JVM:  OK
 #n# cut down the words tested, as very, very slow
 
-File: J/Jaro_distance
+File: J/Jaro_similarity
 #!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Jaro_distance
-#c# 2018-03-20 <RC, 2020-08-09 >RC
+#u# http://rosettacode.org/wiki/Jaro_similarity
+#c# 2018-03-20 <RC, 2020-08-09 >RC, 2023-02-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# fiddle a little, more idiomatic
-#n# on RC now called 'Jaro similarity'
+#n# 2023-02-17 kebab-case, and renamed to match RC
 
 File: J/Jensen%27s_Device
 #!/usr/bin/env perl6
@@ -10020,7 +10020,9 @@ File: N/Nice_primes
 #c# 2021-03-14 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A078403 primes such that digital root is prime
+#n# OEIS:A078403 Primes such that digital root (A038194) is prime.
+#n# where A038194 Iterated sum-of-digits of n-th prime, i.e. digital root of n-th prime
+#n# cf. D/Digital_root
 
 File: N/Nice_primes-2
 #!/usr/bin/env raku
@@ -11539,9 +11541,9 @@ File: P/Pierpont_primes-1
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# dropped calc of 1000th
+#n# OEIS:A005109 Primes of the form 2^r*3^s - 1 (Pierpont 1st kind, class 1-)
+#n# OEIS:A005105 Primes of the form 2^r*3^s + 1 (Pierpont 2nd kind, class 1+)
 #n# cf 'E/Erdos-Selfridge_categorization_of_primes'
-#n# OEIS:A005109 class 1-, Pierpont primes of the first kind
-#n# OEIS:A005105 class 1+, Pierpont primes of the second kind
 
 File: P/Pierpont_primes-1.jvm
 #!/usr/bin/env perl6
@@ -12605,6 +12607,7 @@ File: R/Rare_numbers
 #c# 2022-03-15 <RC, 2022-03-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-02-16 GH5209 can't use '[+]' any longer, must switch to 'sum'? (line 59)
 
 File: R/Rare_numbers.1
 #!/usr/bin/env raku
@@ -15020,7 +15023,7 @@ File: S/Stirling_numbers_of_the_second_kind
 #c# 2019-08-20 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# OEIS:A008277 Stirling numbers of the second kind
+#n# OEIS:A008277 Triangle of Stirling numbers of the second kind, S2(n,k), n >= 1, 1 <= k <= n.
 
 File: S/Straddling_checkerboard
 #!/usr/bin/env perl6
