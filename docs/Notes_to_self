@@ -2,6 +2,7 @@
 GH5209 fix required only one RC task to change, 'R/Rare_numbers'
 Ultimately still had to 'rakubrew nuke moar-blead' as yesterday's fix didn't help PWC tasks that have <use lib '.'>, 
 e.g. ~/PWC/{129,130}/2/arne-sommer.raku
+p.s. 'cleanup-precomp' doesn't find /perl6/Rosetta-Code/lib/.precomp, maybe that's why PWC tasks croaked?
 
 2023-02-16
 To deal with 'Missing or wrong version of dependency 'gen/moar/BOOTSTRAP/v6c.nqp', this worked:
