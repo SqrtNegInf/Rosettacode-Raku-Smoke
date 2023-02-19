@@ -17,20 +17,25 @@ bin/rakubrew mode shim
 
 # update Rakudo/MoarVM
 bin/rakubrew build moar-blead >    out.moar  2>    err.moar
-bin/rakubrew rehash
 bin/rakubrew switch moar-blead
+bin/rakubrew build zef >    out.zef  2>    err.zef
+bin/rakubrew rehash
+rehash
 
-# NOW clear out the old
+# nuke ALL precomp we can find (or might get the dreaded missing/wrong 'v6c.nqp' error)
 echo 'clear out old precomp files'
-cleanup-precomp
-
-# keep as a backup step for now
-#rm -rf $HOME/.raku/precomp # new bug, old solution?
+cd ~/.rakubrew/versions/moar-blead
+./install/share/perl6/site/bin/cleanup-precomp
+rm -rf install/share/perl6/core/precomp/*
+./tools/nuke-precomps.raku
 rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
 
 cd $HOME/perl6/Rosetta-Code
 bin/rc-jvm-cleanup
 rm -f run/*
+
+# upgrade modules
+bin/Zef-Upgrade
 
 # run them all
 echo 'MOAR'
