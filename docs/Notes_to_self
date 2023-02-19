@@ -1,11 +1,12 @@
 2023-02-18
+Wrapped up the OEIS revisions.
 'Missing or wrong version of dependency 'gen/moar/BOOTSTRAP/v6c.nqp' keeps coming back, affects 'zef', cannot get anywhere.
-This pre-dated the Moar 'bump', so can't blame that (any everything's fine on iMac/Ubuntu).
-Clean-install/merge procedure for moar-blead:
-    cd ~; mv .rakubrew rakubrew-safe; curl https://rakubrew.org/install-on-macos.sh | sh
+This pre-dated the Moar 'bump', so can't blame that (and everything's fine on iMac/Ubuntu).
+Nuke/install/merge procedure for moar-blead (takes 2-3 hours):
+    cd ~; mv .rakubrew rakubrew-prev; curl https://rakubrew.org/install-on-macos.sh | sh
     cd .rakubrew ; rakubrew mode shim; rakubrew build moar-blead > out.moar 2> err.moar  
-    rakubrew build zef; Zef-install-all > out.zef 2> err.zef
-    mv ~/rakubrew-safe/versions/*-20*} versions
+    rakubrew build zef; Zef-install-all > out.zef 2> err.zef; rakubrew rehash; rehash
+    cp -pr ~/rakubrew-prev/versions/*-20* versions; rm -rf ~/rakubrew-prev
 
 2023-02-17
 GH5209 fix required only one RC task to change, 'R/Rare_numbers'
