@@ -1,3 +1,6 @@
+2023-02-19
+AND IT CAME BACK AGAIN... Work harder to ensure ALL precomp's are removed? Not the whole problem though...
+
 2023-02-18
 Wrapped up the OEIS revisions.
 'Missing or wrong version of dependency 'gen/moar/BOOTSTRAP/v6c.nqp' keeps coming back, affects 'zef', cannot get anywhere.
@@ -5,7 +8,7 @@ This pre-dated the Moar 'bump', so can't blame that (and everything's fine on iM
 Nuke/install/merge procedure for moar-blead (takes 2-3 hours):
     cd ~; mv .rakubrew rakubrew-prev; curl https://rakubrew.org/install-on-macos.sh | sh
     cd .rakubrew ; rakubrew mode shim; rakubrew build moar-blead > out.moar 2> err.moar  
-    rakubrew build zef; Zef-install-all > out.zef 2> err.zef; rakubrew rehash; rehash
+    rakubrew build zef; cd ~/perl6/Rosetta-Code; bin/Zef-install-all > out.zef 2> err.zef; rakubrew rehash; rehash
     cp -pr ~/rakubrew-prev/versions/*-20* versions; rm -rf ~/rakubrew-prev
 
 2023-02-17
@@ -16,9 +19,7 @@ p.s. 'cleanup-precomp' doesn't find /perl6/Rosetta-Code/lib/.precomp, maybe that
 
 2023-02-16
 To deal with 'Missing or wrong version of dependency 'gen/moar/BOOTSTRAP/v6c.nqp', this worked:
-    cd ~/.rakubrew/versions/moar-blead
-    rm -rf install/share/perl6/core/precomp/*
-    ./tools/nuke-precomps.raku
+(cd ~/.rakubrew/versions/moar-blead; rm -rf install/share/perl6/core/precomp/*; ./tools/nuke-precomps.raku)
 
 2023-02-14
 Same as yesterday...  Spectest was fine, so needs an issue.
