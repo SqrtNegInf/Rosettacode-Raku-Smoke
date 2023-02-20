@@ -28,12 +28,12 @@ raku -v
 
 # NOW clear out old
 echo 'clear out old precomp files'
-#cleanup-precomp
 cd ~/.rakubrew/versions/moar-blead
 ./install/share/perl6/site/bin/cleanup-precomp
 rm -rf install/share/perl6/core/precomp/*
 ./tools/nuke-precomps.raku
 rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
+rm -rf $HOME/perl6/Rosetta-Code/libtest/.precomp
 
 # keep as a backup step for now
 #rm -rf $HOME/.raku/precomp # new bug, old solution?
