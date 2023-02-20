@@ -1,0 +1,9 @@
+#!/usr/bin/zsh
+## xxx
+#    2023-02-20
+
+cd ~/.rakubrew/versions/moar-blead
+./install/share/perl6/site/bin/cleanup-precomp
+rm -rf install/share/perl6/core/precomp/*
+./tools/nuke-precomps.raku
+rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
