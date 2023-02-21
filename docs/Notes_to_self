@@ -1,11 +1,18 @@
+2023-02-20
+A bit of a PITA, but Raku won't manage consistently precomp files, so end-user must.  Of course
+my habit of re-building moar-blead in-place daily, or more, probably streses the toolchain.
+
 2023-02-19
-AND IT CAME BACK AGAIN... Work harder to ensure ALL precomp's are removed? Not the whole problem though...
+AND IT CAME BACK AGAIN... Starts failing right away with 'zef install Repository::Precomp::Cleanup'
+When the dust settled, it may be that version v2022.12-1219 got past some sort of bug in code and/or toolchain...
+But for reference the step that helped the most (even if not 100%):
+    ~/.rakubrew/versions/moar-blead/tools/nuke-precomps.raku
 
 2023-02-18
 Wrapped up the OEIS revisions.
 'Missing or wrong version of dependency 'gen/moar/BOOTSTRAP/v6c.nqp' keeps coming back, affects 'zef', cannot get anywhere.
 This pre-dated the Moar 'bump', so can't blame that (and everything's fine on iMac/Ubuntu).
-Nuke/install/merge procedure for moar-blead (takes 2-3 hours):
+Nuke/install/merge procedure for moar-blead (takes 2+ hours):
     cd ~; mv .rakubrew rakubrew-prev; curl https://rakubrew.org/install-on-macos.sh | sh
     cd .rakubrew ; rakubrew mode shim; rakubrew build moar-blead > out.moar 2> err.moar  
     rakubrew build zef; cd ~/perl6/Rosetta-Code; bin/Zef-install-all > out.zef 2> err.zef; rakubrew rehash; rehash
