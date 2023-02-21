@@ -29,6 +29,7 @@ cd ~/.rakubrew/versions/moar-blead
 rm -rf install/share/perl6/core/precomp/*
 ./tools/nuke-precomps.raku
 rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
+rm -rf $HOME/perl6/Rosetta-Code/libtest/.precomp
 
 cd $HOME/perl6/Rosetta-Code
 bin/rc-jvm-cleanup
