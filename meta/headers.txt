@@ -206,6 +206,8 @@ File: 1/SqrtNegInf
 #j#  JVM: BROKEN
 #n# fun with infinity
 #n# 2023-02-20 in v6.e 
+use v6.e.PREVIEW;
+die 'BROKEN on iMac (no v6.e)' if qx/uname -a/ ~~ /'iMac'/;
 
 File: 2/OEIS-A000058
 #!/usr/bin/env raku
@@ -11164,6 +11166,9 @@ File: P/Pell%27s_equation
 #m# MOAR: OK
 #j# JVM:  OK
 #n# not tracking latest change (comma-in-biiiig ints) as breaks JVM
+#n# OEIS:A033316 Value of D for incrementally largest values of minimal x satisfying Pell equation x^2-Dy^2 = 1
+#n# OEIS:A174762 x-values in the solution to x^2-61*y^2 = 1
+#n# OEIS:A176364 y-values in the solution to x^2-61*y^2 = 1
 
 File: P/Pell_numbers
 #!/usr/bin/env raku
