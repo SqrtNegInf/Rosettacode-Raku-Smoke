@@ -5,8 +5,8 @@
 #j#  JVM: BROKEN
 #n# fun with infinity
 #n# 2023-02-20 in v6.e 
-
 use v6.e.PREVIEW;
+die 'BROKEN on iMac (no v6.e)' if qx/uname -a/ ~~ /'iMac'/;
 
 my @res;
 
