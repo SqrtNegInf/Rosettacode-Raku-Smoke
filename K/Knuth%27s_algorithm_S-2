@@ -27,7 +27,8 @@ for ^100000 {
 say my $result = @bin.join: ' ';
 
 my $moar-terminal-mac-pro = '29762 29796 30111 30244 29897 29908 29867 29885 30379 30151';
-my $moar-cronjob-mac-pro  = '29763 29795 30108 30241 29899 29909 29862 29886 30384 30153';
+my $moar-cronjob-mac-pro1 = '29763 29795 30108 30241 29899 29909 29862 29886 30384 30153'; # flap 1
+my $moar-cronjob-mac-pro2 = '29763 29793 30107 30243 29897 29908 29866 29884 30384 30155'; # flap 2
 my $moar-terminal-imac    = '29761 29793 30106 30243 29898 29913 29864 29883 30384 30155';
 my $moar-cronjob-imac     = '29761 29794 30107 30244 29895 29914 29864 29883 30382 30156';
 my $moar-cronjob-ubuntu   = '29762 29796 30111 30244 29897 29908 29867 29885 30379 30151';
@@ -37,8 +38,10 @@ use Test;
 
 if      qx/uname -a/ ~~ /'osboxes'/ {
     is $result, chomp $moar-cronjob-ubuntu;
+} elsif qx/uname -a/ ~~ /'Mac-Pro'/ && not $*IN.t && not $*VM ~~ /jvm/ {
+    ok (($result eq chomp $moar-cronjob-mac-pro1) || ($result eq chomp $moar-cronjob-mac-pro2));
 } elsif qx/uname -a/ ~~ /'Mac-Pro'/ {
-    is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal-mac-pro !! $moar-cronjob-mac-pro;
+    is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal-mac-pro !! $moar-cronjob-mac-pro1;
 } else {
     is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal-imac    !! $moar-cronjob-imac;
 }
