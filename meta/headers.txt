@@ -833,6 +833,8 @@ File: A/Aliquot_sequence_classifications
 #j#  JVM: OK
 #n# 2018-11-03 at one point 'state @seq' brought a huge speed-up?  Now no diff.
 #n# .race doesn't help here
+#n# the basis of all the answers: (but not the sequence explicitly calculated)
+#n# OEIS:A001065 Sum of proper divisors (or aliquot parts) of n: sum of divisors of n that are less than n.
 
 File: A/Aliquot_sequence_classifications.1
 #!/usr/bin/env perl6
@@ -2242,6 +2244,7 @@ File: C/Calkin-Wilf_sequence
 #c# 2020-12-06 <RC, 2020-12-29 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# this can be defined in terms of 'S/Stern-Brocot_sequence': a(n) / a(n+1)
 
 File: C/Call_a_foreign-language_function
 #!/usr/bin/env perl6
@@ -6631,7 +6634,7 @@ File: H/Hailstone_sequence
 #c# 2016-09-04 <RC, 2018-10-17 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# A008884
+#n# OEIS:A008884 3x+1 sequence starting at 27.
 
 File: H/Hailstone_sequence.jvm
 #!/usr/bin/env perl6
@@ -6944,6 +6947,7 @@ File: H/Hofstadter-Conway_10,000_sequence
 #c# 2016-05-08 <RC, 2018-10-16 >RC, 2018-10-16 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A004001 a(n) = a(a(n-1)) + a(n-a(n-1)) with a(1) = a(2) = 1.
 #n# .race provides no benefit here
 
 File: H/Hofstadter-Conway_10,000_sequence.1
@@ -6963,6 +6967,7 @@ File: H/Hofstadter_Figure-Figure_sequences
 #c# 2018-04-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A005228 Sequence and first differences (A030124) together list all positive numbers exactly once.
 
 File: H/Hofstadter_Figure-Figure_sequences.1
 #!/usr/bin/env perl6
@@ -7427,6 +7432,8 @@ File: I/Integer_sequence
 #t# interactive
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A000027 The positive integers
+#n# OEIS:A001477 The nonnegative integers.
 
 File: I/Interactive_Help
 #!/usr/bin/env perl6 do-not-check
@@ -7786,6 +7793,7 @@ File: K/Klarner-Rado_sequence
 #c# 2022-08-17 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A002977 a(1) = 1; subsequent terms are defined by the rule that if m is present so are 2m+1 and 3m+1.
 
 File: K/Knapsack_problem_0_1-1
 #!/usr/bin/env perl6
@@ -7918,6 +7926,7 @@ File: K/Kolakoski_sequence
 #c# 2018-05-23 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000002 a(n) is length of n-th run; a(1) = 1 (with this seed, sequence consists just of 1's and 2's)
 
 File: K/Kosaraju
 #!/usr/bin/env perl6
@@ -10690,6 +10699,7 @@ File: P/Padovan_sequence
 #c# 2021-02-27 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000931 a(n) = a(n-2) + a(n-3) with a(0) = 1, a(1) = a(2) = 0.
 
 File: P/Padovan_sequence-1
 #!/usr/bin/env raku
@@ -10697,6 +10707,7 @@ File: P/Padovan_sequence-1
 #c# 2021-02-27 NOT ON RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000931 a(n) = a(n-2) + a(n-3) with a(0) = 1, a(1) = a(2) = 0.
 #n# https://gfldex.wordpress.com/2022/03/01/pushing/ (prompted by PWC 154/2)
 
 File: P/Pairs_with_common_factors
@@ -12720,6 +12731,7 @@ File: R/Recaman%27s_sequence
 #c# 2018-08-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A005132 a(0) = 0; for n > 0, a(n) = a(n-1) - n if nonnegative and not already in the sequence, otherwise a(n) = a(n-1) + n.
 
 File: R/Record_sound
 #!/usr/bin/env perl6
