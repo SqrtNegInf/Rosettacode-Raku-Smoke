@@ -1,44 +1,44 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Exponentiation_with_infix_operators_in_(or_operating_on)_the_base
-#c# 2020-11-05 <RC, 2022-09-27 >RC
+#c# 2020-11-05 <RC, 2022-09-27 >RC, 2023-02-xx >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# Unicode symbol '↑' is what sinks use of .EVAL syntax.
-#n# 2022-12-19 disabled: does not work with blead as of 2022-12-18
-die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
-die 'BROKEN on Ubuntu'  if qx/uname -a/ ~~ /'osboxes'/;
-
-#die 'BROKEN on Ubuntu (testing moar-blead)' if $*EXECUTABLE ~~ /'moar-blead'/;
-
-use MONKEY-SEE-NO-EVAL;
+#n# Unicode symbols no longer work with .EVAL syntax (cf .0 version), re-write without
 
 my @res;
 
 sub infix:<↑> is looser(&prefix:<->) { $^a ** $^b }
-sub infix:<∧> is looser(&infix:<->)  { $^a ** $^b } # use of ASCII caret '^' conflicts, see error message at end
+sub infix:<∧> is looser(&infix:<->)  { $^a ** $^b }
 
-for 'Default precedence: infix exponentiation is tighter (higher) precedence than unary negation.',
-    ('1 + -$x**$p', '1 + (-$x)**$p', '1 + (-($x)**$p)', '(1 + -$x)**$p', '1 + -($x**$p)'),
+for 
+   ('Default precedence: infix exponentiation is tighter (higher) precedence than unary negation.',
+       '1 + -$x**$p', {1 + -$^a**$^b},   '1 + (-$x)**$p', {1 + (-$^a)**$^b}, '1 + (-($x)**$p)', {1 + (-($^a)**$^b)}, 
+     '(1 + -$x)**$p', {(1 + -$^a)**$^b}, '1 + -($x**$p)', {1 + -($^a**$^b)}),
 
-    "\nEasily modified: custom loose infix exponentiation is looser (lower) precedence than unary negation.",
-    ('1 + -$x↑$p ', '1 + (-$x)↑$p ', '1 + (-($x)↑$p) ', '(1 + -$x)↑$p ', '1 + -($x↑$p) '),
+   ("\nEasily modified: custom loose infix exponentiation is looser (lower) precedence than unary negation.",
+     '1 + -$x↑$p',   {1 + -$^a↑$^b},     '1 + (-$x)↑$p',  {1 + (-$^a)↑$^b}, '1 + (-($x)↑$p)', {1 + (-($^a)↑$^b)}, 
+     '(1 + -$x)↑$p', {(1 + -$^a)↑$^b},   '1 + -($x↑$p)',  {1 + -($^a↑$^b)}),
 
-    "\nEven moreso: custom looser infix exponentiation is looser (lower) precedence than infix subtraction.",
-    ('1 + -$x∧$p ', '1 + (-$x)∧$p ', '1 + (-($x)∧$p) ', '(1 + -$x)∧$p ', '1 + -($x∧$p) ')
-    -> $message, $ops {
-    @res.push: $message;
+   ("\nEven more so: custom looser infix exponentiation is looser (lower) precedence than infix subtraction.",
+     '1 + -$x∧$p',   {1 + -$^a∧$^b},     '1 + (-$x)∧$p',  {1 + (-$^a)∧$^b}, '1 + (-($x)∧$p)', {1 + (-($^a)∧$^b)}, 
+     '(1 + -$x)∧$p', {(1 + -$^a)∧$^b},   '1 + -($x∧$p)',  {1 + -($^a∧$^b)})
+-> $case {
+    my ($title, @text) = $case<>;
+    @res.push: $title;
     for -5, 5 X 2, 3 -> ($x, $p) {
         my $line = sprintf "x = %2d  p = %d", $x, $p;
-        -> $op { $line ~= sprintf " │ %s = %4d", $op, EVAL $op } for |$ops;
-        #-> $op { $line ~= sprintf " │ %s = %4d", $op, $op.EVAL } for |$ops;
-        #for |$ops -> $op { $line ~= sprintf " │ %s = %4d", $op, EVAL $op } 
+        for @text -> $label, &code { $line ~= " | $label " ~ $x.&code($p) }
         @res.push: $line;
     }
 }
 
 .say for @res;
+exit;
 
 my $ref = q:to/END/;
+END
+
+my $xef = q:to/END/;
 Default precedence: infix exponentiation is tighter (higher) precedence than unary negation.
 x = -5  p = 2 │ 1 + -$x**$p =  -24 │ 1 + (-$x)**$p =   26 │ 1 + (-($x)**$p) =  -24 │ (1 + -$x)**$p =   36 │ 1 + -($x**$p) =  -24
 x = -5  p = 3 │ 1 + -$x**$p =  126 │ 1 + (-$x)**$p =  126 │ 1 + (-($x)**$p) =  126 │ (1 + -$x)**$p =  216 │ 1 + -($x**$p) =  126
@@ -60,16 +60,3 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-
-=finish 
-
-Bogus postfix
-at /home/osboxes/perl6/Rosettacode-Raku-Smoke/EVAL_20:1
-------> 1 + -$x⏏↑$p 
-    expecting any of:
-        infix
-        infix stopper
-        statement end
-        statement modifier
-        statement modifier loop
-
