@@ -1,5 +1,12 @@
 2023-02-22
-Update to moar-2023.02, hopefully not a big deal...  For 'env' mode, update:
+Steps to take to update to latest release (moar-2023.02):
+    rakubrew mode shim
+    rakubrew build moar-2023.02; rakubrew switch moar-2023.02; rakubrew build zef; rakubrew rehash
+    Zef-install-all-iMac > out.zef 2> err.zef
+    (cd ~/source; zef --force-install --/test install ./raku-primesieve)
+    rakubrew mode env
+
+For 'env' mode, update:
     (cd /usr/local/bin; rm raku; ln -s ~/.rakubrew/versions/moar-2023.02/install/bin/raku .)
 
 2023-02-06
