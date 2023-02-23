@@ -3,11 +3,12 @@
 #c# 2019-02-10 <RC, 2019-06-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#f# RC file: spelling_ordinals.HOST.txt
+#f# RC file: spelling_ordinals.mpro.txt
 #n# results cause 'malformed UTF' problems, output to file instead
 #n# 2020-05-15 https://github.com/rakudo/rakudo/issues/3694 thundergnat++
 #n# 2021-03-23 removed Allomorph '123+0i'
 #n# 2023-01-17 output changed with Unicode 15 update? [so testing host-specific: Mac-Pro/Ubuntu vs iMac]
+#n# 2023-02-23 with moar-2023.02 release, output same on all testing hosts
 
 my @res;
 
