@@ -115,6 +115,9 @@ A046704 sum of digits is a prime
 A/Additive_primes-2
 A046704 sum of digits is a prime
 
+A/Aliquot_sequence_classifications
+A001065 Sum of proper divisors (or aliquot parts) of n: sum of divisors of n that are less than n.
+
 A/Anti-primes
 A002182 highly composite numbers, the natural numbers with more factors than any smaller than itself.
 
@@ -396,6 +399,9 @@ A007850 Giuga numbers: composite numbers n such that p divides n/p - 1 for every
 G/Goldbach%27s_comet
 A045917 Goldbach problem: number of decompositions of 2n into unordered sums of two primes
 
+H/Hailstone_sequence
+A008884 3x+1 sequence starting at 27.
+
 H/Hamming_numbers-1
 A051037 5-smooth numbers, numbers whose prime divisors are all <= 5 (cf N/N-smooth_numbers)
 
@@ -417,6 +423,12 @@ A007770 Happy numbers: numbers whose trajectory under iteration of sum of square
 H/Harshad_or_Niven_series
 A005349 Niven (or Harshad) numbers: numbers that are divisible by the sum of their digits.
 
+H/Hofstadter-Conway_10,000_sequence
+A004001 a(n) = a(a(n-1)) + a(n-a(n-1)) with a(1) = a(2) = 1.
+
+H/Hofstadter_Figure-Figure_sequences
+A005228 Sequence and first differences (A030124) together list all positive numbers exactly once.
+
 H/Home_primes
 A037274 prime that is reached when you start with n, concatenate its prime factors (for n >= 2)
 
@@ -431,6 +443,10 @@ A000926 Euler's "numerus idoneus" (or "numeri idonei", or suitable/convenient)
 
 I/Inconsummate_numbers_in_base_10
 A003635 Inconsummate numbers in base 10: no number is this multiple of the sum of its digits (in base 10).
+
+I/Integer_sequence
+A000027 The positive integers
+A001477 The nonnegative integers.
 
 J/Jacobsthal_numbers
 A001045 Jacobsthal numbers: J(n) = J(n-1) + 2 × J(n-2), where J(0) = 0
@@ -453,6 +469,12 @@ A006886 Kaprekar numbers: n such that n = q+r and n^2 = q*10^m+r, for some m >= 
 
 K/Kaprekar_numbers-3
 A006886 Kaprekar numbers: n such that n = q+r and n^2 = q*10^m+r, for some m >= 1, q >= 0 and 0 <= r < 10^m, with n != 10^a, a >= 1
+
+K/Klarner-Rado_sequence
+A002977 a(1) = 1; subsequent terms are defined by the rule that if m is present so are 2m+1 and 3m+1.
+
+K/Kolakoski_sequence
+A000002 a(n) is length of n-th run; a(1) = 1 (with this seed, sequence consists just of 1's and 2's)
 
 L/Lah_numbers
 A105278 Unsigned Lah numbers: number of ways a set of n elements can be partitioned into k non-empty linearly ordered subsets.
@@ -604,6 +626,12 @@ A072465 A Fibonacci-like sequence: a(n) = a(n-2) + a(n-3) + a(n-4) + a(n-5).
 A060961 Number of compositions (ordered partitions) of n into 1's, 3's and 5's
 A117760 Expansion of 1/(1 - x - x^3 - x^5 - x^7)
 
+P/Padovan_sequence
+A000931 a(n) = a(n-2) + a(n-3) with a(0) = 1, a(1) = a(2) = 0.
+
+P/Padovan_sequence-1
+A000931 a(n) = a(n-2) + a(n-3) with a(0) = 1, a(1) = a(2) = 0.
+
 P/Pairs_with_common_factors
 A185670 Number of pairs (x,y) with 1 <= x < y <= n with at least one common factor
 
@@ -740,6 +768,9 @@ A181678 Number of twin Ramanujan prime pairs less than 10^n.
 
 R/Random_Latin_Squares
 A002860 Number of Latin squares of order n; or labeled quasigroups.
+
+R/Recaman%27s_sequence
+A005132 a(0) = 0; for n > 0, a(n) = a(n-1) - n if nonnegative and not already in the sequence, otherwise a(n) = a(n-1) + n.
 
 R/Repunit_primes
 A000043 Mersenne exponents: primes p such that 2^p - 1 is prime. Then 2^p - 1 is called a Mersenne prime (base 2)
