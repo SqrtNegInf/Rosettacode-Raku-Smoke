@@ -4,7 +4,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# this version on RC; using 'srand', so will periodically have to update results  
-die 'BROKEN on iMac - just flaps endlessly' if qx/uname -a/ ~~ /'iMac'/;
 
 srand 123456;
 
@@ -26,6 +25,13 @@ for ^100000 {
 }
 
 say my $result = @bin.join: ' ';
+
+use Test;
+is $result, '29763 29793 30107 30243 29897 29908 29866 29884 30384 30155';
+
+=finish
+
+hopefully find a way to skip all this complexity
 
 my $moar-terminal-mac-pro = '29762 29796 30111 30244 29897 29908 29867 29885 30379 30151';
 my $moar-cronjob-mac-pro1 = '29763 29795 30108 30241 29899 29909 29862 29886 30384 30153'; # flap 1
