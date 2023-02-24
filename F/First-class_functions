@@ -5,8 +5,10 @@
 #j#  JVM: OK
 #n# downgraded Unicode names to ASCII
 #n# JVM output float-point issues required is-approx testing
+#n# NB: No parentheses allowed around '$v, &op', Callable makes it special?
 
-#Here we use the Z ("zipwith") metaoperator to zip the A and B lists with a user-defined compose function, expressed as an infix operator, ∘. The .() construct invokes the function contained in the $_ (current topic) variable.
+# Here we use the Z ("zipwith") metaoperator to zip the A and B lists with a user-defined compose function, 
+# expressed as an infix operator, ∘. The .() construct invokes the function contained in the $_ (current topic) variable.
 
 sub infix:<∘> (&g, &f) { -> \x { g f x } }
 
@@ -21,6 +23,6 @@ my @b;
 for flat @a Z @op -> $v, &op { say 42.&op($v); push @b, 42.&op($v)}
 
 use Test;
-for (.(.5) for A Z∘ B) -> $result { say $result; is-approx $result, 0.5 }
+for (.(.5) for A Z∘ B) -> $result { say $result; is-approx $result, 0.5 }  # 'for.*for' no need for temp. array
 #is (.(.5) for A Z∘ B), '0.5 0.5 0.5';
 is @b, '43 40 126';
