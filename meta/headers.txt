@@ -4403,6 +4403,7 @@ File: E/EKG_sequence_convergence
 #c# 2018-08-08 <RC, 2018-10-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A064413 a(1) = 1; a(2) = 2; for n > 2, a(n) = smallest number not already used which shares a factor with a(n-1).
 
 File: E/EKG_sequence_convergence.1
 #!/usr/bin/env perl6
@@ -4997,13 +4998,20 @@ File: E/Exponentiation_order.1
 File: E/Exponentiation_with_infix_operators_in_or_operating_on_the_base
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Exponentiation_with_infix_operators_in_(or_operating_on)_the_base
-#c# 2020-11-05 <RC, 2022-09-27 >RC
+#c# 2020-11-05 <RC, 2022-09-27 >RC, 2023-02-23 >RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# Unicode symbols no longer work with EVAL approach (cf .0 version), re-write without it, now good for all Raku releases
+#n# struggled a bit with this, see note at end
+
+File: E/Exponentiation_with_infix_operators_in_or_operating_on_the_base.0
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Exponentiation_with_infix_operators_in_(or_operating_on)_the_base
+#c# 2020-11-05 <RC, 2022-09-27 >RC
+#m# MOAR: BROKEN
+#j# JVM:  OK
 #n# Unicode symbol '↑' is what sinks use of .EVAL syntax.
-#n# 2022-12-19 disabled: does not work with blead as of 2022-12-18
-die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
-die 'BROKEN on Ubuntu'  if qx/uname -a/ ~~ /'osboxes'/;
+#n# only works with MoarVM 2022.12 and earlier
 
 File: E/Extend_your_language
 #!/usr/bin/env perl6
@@ -5762,6 +5770,7 @@ File: F/First-class_functions
 #j#  JVM: OK
 #n# downgraded Unicode names to ASCII
 #n# JVM output float-point issues required is-approx testing
+#n# NB: No parentheses allowed around '$v, &op', Callable makes it special?
 
 File: F/First-class_functions_Use_numbers_analogously
 #!/usr/bin/env perl6
@@ -8580,6 +8589,7 @@ File: L/Look-and-say_sequence
 #c# 2018-04-04 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A005150 Describe the previous term: initial term is 1, 'frequency' + 'digit'-indication
 
 File: L/Look-and-say_sequence.1
 #!/usr/bin/env perl6
@@ -14735,11 +14745,12 @@ File: S/Spelling_of_ordinal_numbers
 #c# 2019-02-10 <RC, 2019-06-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-#f# RC file: spelling_ordinals.HOST.txt
+#f# RC file: spelling_ordinals.mpro.txt
 #n# results cause 'malformed UTF' problems, output to file instead
 #n# 2020-05-15 https://github.com/rakudo/rakudo/issues/3694 thundergnat++
 #n# 2021-03-23 removed Allomorph '123+0i'
 #n# 2023-01-17 output changed with Unicode 15 update? [so testing host-specific: Mac-Pro/Ubuntu vs iMac]
+#n# 2023-02-23 with moar-2023.02 release, output same on all testing hosts
 
 File: S/Spelling_of_ordinal_numbers.jvm
 #!/usr/bin/env perl6
