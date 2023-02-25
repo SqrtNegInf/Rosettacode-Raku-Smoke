@@ -27,8 +27,8 @@ The whole time I kept plugging away with Perl 5, and happy to be doing so, but w
 dream of merging the **Perl Way** with enhancements drawn from *APL*...
 
 But at the end of 2015 with the 6.c release looking like it really was going to happen, 
-I decided to put some effort into learning the current state of Perl 6 (as it was then called) via the examples on Rosetta-Code.
-And one of the first tasks I looked at was **broken**. Oh the horror! Checked the docs, saw the problem, thought:
+I decided to put some effort into learning the current state of Perl 6 (as it was then called) via the examples on Rosetta Code.
+And one of the first tasks I looked at was **broken**. O the horror! Checked the docs, saw the problem, thought:
 I can fix that!  Have kept pulling the thread on that sweater for many years...
 
 ## Smoking is Good (for Raku)
@@ -79,7 +79,7 @@ reliable.
 
 Include testing of Javascript backend.
 
-Currently daily testing is just on macOS, could expand to Linux, Windows?
+Currently daily testing is on macOS (two OS's) and Linux (Ubuntu), could expand to Windows?
 
 ## MTYEWTKATLORST
 ##### (more than you ever wanted to know about the logistics of Raku smoke testing)
@@ -175,3 +175,14 @@ If the task involves `.rand`, `.pick`, `.roll` or any other sort of randomness, 
 a fixed seed, e.g. `srand 123456`, to get consistent output for testing. 
 MoarVM and JVM differ in the random sequence they emit, 
 so separate results must be tested for each.
+
+But it turns out that this is not enough...
+
+The optimizer sometimes juggles the code in such a way that the results still change, with new Raku 
+releases, with interactive terminal runs vs. cron-initiated jobs, and quite possibly with the
+phase of the moon. To handle this I've made several types of changes:
+
+* entirely removed randomness (when it wasn't crucial to the task at hand)
+* hard-coded the 'random' values
+* mimic-ed the native random calls with a simple, but *stable*, pseudo-random generator
+* passed `--optimize=0` to Raku
