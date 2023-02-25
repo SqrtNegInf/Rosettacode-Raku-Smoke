@@ -1,10 +1,13 @@
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/URL_parser
-#c# 2016-01-26 <RC
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/URL_parser
+#c# 2016-01-26 <RC, 2023-02-25 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
+
+my @res;
 
 use URI;
+use URI::Escape;
 
 my @test-uris = <
     foo://example.com:8042/over/there?name=ferret#nose
@@ -18,83 +21,105 @@ my @test-uris = <
     tel:+1-816-555-1212
     telnet://192.0.2.16:80/
     urn:oasis:names:specification:docbook:dtd:xml:4.1.2
+    ssh://alice@example.com
+    https://bob:pass@example.com/place
+    http://example.com/?a=1&b=2+2&c=3&c=4&d=%65%6e%63%6F%64%65%64
 >;
 
 my $u = URI.new;
 
-my @res;
-
 for @test-uris -> $uri {
-    my $temp = ("URI:", $uri); $temp ~= "\n";
+    @res.push: "URI:\t", $uri;
         $u.parse($uri);
         for <scheme host port path query frag> -> $t {
            my $token = try {$u."$t"()} || '';
-           if ($token) { $temp ~= ("$t:", $token); $temp ~=  "\n" }
+           @res.push: "$t:\t", uri-unescape $token.Str if $token;
         }
-    @res.push: "$temp";
+    @res.push: '';
 }
 
-my $ref = qq:to/END/;
-URI: foo://example.com:8042/over/there?name=ferret#nose
-scheme: foo
-host: example.com
-port: 8042
-path: /over/there
-query: name=ferret
-frag: nose
+.say for @res;
 
-URI: urn:example:animal:ferret:nose
-scheme: urn
-path: example:animal:ferret:nose
+my $ref = q:to/END/;
+URI:	foo://example.com:8042/over/there?name=ferret#nose
+scheme:	foo
+host:	example.com
+port:	8042
+path:	/over/there
+query:	name=ferret
+frag:	nose
 
-URI: jdbc:mysql://test_user:ouupppssss@localhost:3306/sakila?profileSQL=true
-scheme: jdbc
-path: mysql://test_user:ouupppssss@localhost:3306/sakila
-query: profileSQL=true
+URI:	urn:example:animal:ferret:nose
+scheme:	urn
+path:	example:animal:ferret:nose
 
-URI: ftp://ftp.is.co.za/rfc/rfc1808.txt
-scheme: ftp
-host: ftp.is.co.za
-port: 21
-path: /rfc/rfc1808.txt
+URI:	jdbc:mysql://test_user:ouupppssss@localhost:3306/sakila?profileSQL=true
+scheme:	jdbc
+path:	mysql://test_user:ouupppssss@localhost:3306/sakila
+query:	profileSQL=true
 
-URI: http://www.ietf.org/rfc/rfc2396.txt#header1
-scheme: http
-host: www.ietf.org
-port: 80
-path: /rfc/rfc2396.txt
-frag: header1
+URI:	ftp://ftp.is.co.za/rfc/rfc1808.txt
+scheme:	ftp
+host:	ftp.is.co.za
+port:	21
+path:	/rfc/rfc1808.txt
 
-URI: ldap://[2001:db8::7]/c=GB?objectClass?one
-scheme: ldap
-host: [2001:db8::7]
-port: 389
-path: /c=GB
-query: objectClass?one
+URI:	http://www.ietf.org/rfc/rfc2396.txt#header1
+scheme:	http
+host:	www.ietf.org
+port:	80
+path:	/rfc/rfc2396.txt
+frag:	header1
 
-URI: mailto:John.Doe@example.com
-scheme: mailto
-path: John.Doe@example.com
+URI:	ldap://[2001:db8::7]/c=GB?objectClass?one
+scheme:	ldap
+host:	[2001:db8::7]
+port:	389
+path:	/c=GB
+query:	objectClass?one
 
-URI: news:comp.infosystems.www.servers.unix
-scheme: news
-port: 119
-path: comp.infosystems.www.servers.unix
+URI:	mailto:John.Doe@example.com
+scheme:	mailto
+path:	John.Doe@example.com
 
-URI: tel:+1-816-555-1212
-scheme: tel
-path: +1-816-555-1212
+URI:	news:comp.infosystems.www.servers.unix
+scheme:	news
+port:	119
+path:	comp.infosystems.www.servers.unix
 
-URI: telnet://192.0.2.16:80/
-scheme: telnet
-host: 192.0.2.16
-port: 80
-path: /
+URI:	tel:+1-816-555-1212
+scheme:	tel
+path:	 1-816-555-1212
 
-URI: urn:oasis:names:specification:docbook:dtd:xml:4.1.2
-scheme: urn
-path: oasis:names:specification:docbook:dtd:xml:4.1.2
+URI:	telnet://192.0.2.16:80/
+scheme:	telnet
+host:	192.0.2.16
+port:	80
+path:	/
+
+URI:	urn:oasis:names:specification:docbook:dtd:xml:4.1.2
+scheme:	urn
+path:	oasis:names:specification:docbook:dtd:xml:4.1.2
+
+URI:	ssh://alice@example.com
+scheme:	ssh
+host:	example.com
+port:	22
+path:	
+
+URI:	https://bob:pass@example.com/place
+scheme:	https
+host:	example.com
+port:	443
+path:	/place
+
+URI:	http://example.com/?a=1&b=2+2&c=3&c=4&d=%65%6e%63%6F%64%65%64
+scheme:	http
+host:	example.com
+port:	80
+path:	/
+query:	a=1&b=2 2&c=3&c=4&d=encoded
 END
 
 use Test;
-is (join "\n", @res), $ref;
+is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
