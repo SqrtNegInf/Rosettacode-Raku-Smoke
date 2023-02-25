@@ -19,6 +19,7 @@
 # NB: currently all tasks are run in 'solo' mode due to precompilation issues
 
 use warnings;
+use feature 'say';
 
 use Parallel::ForkManager;
 
@@ -79,7 +80,10 @@ for my $prog (@ARGV) {
     next if $mode eq 'moar' && $hostname =~ /Mac-Pro/ && grep { /BROKEN on Mac-Pro/i } @status;
     next if $mode eq 'moar' && $hostname =~ /iMac/    && grep { /BROKEN on iMac/i    } @status;
     next if $mode eq 'moar' && $hostname =~ /osboxes/ && grep { /BROKEN on Ubuntu/i  } @status;
-    #next if $mode eq 'jvm'  && grep { /^#j#.*BROKEN/i } @status; # always run to see if now un-breaks
+#next if $mode eq 'jvm'  && grep { /^#j#.*BROKEN/i } @status; # always run to see if now un-breaks
+
+    my($switch) = join("\n", @status) =~ /#s# (.*?)\n/;
+    $Switch{$prog} = $switch if $switch;
 
     $clargs = `grep 'RC.cli' $prog`; chomp $clargs; 
     $clargs =~ s/^.*RC.cli:\s+//; 
@@ -135,9 +139,8 @@ for my $prog (@P_one_at_a_time) {
         printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
         close E;
     } else {
-        my $opt = $task =~ /Knuth%27s_algorithm_S-2/ ? '--optimize=0 ' : '';
-        print "task:$task:   opt:$opt:\n";
-        system qq{rc-runone '$exe $opt $run' > $task.out 2> $task.err};
+        my $switch = defined $Switch{$prog} ? $Switch{$prog} : '';
+        system qq{rc-runone '$exe $switch $run' > $task.out 2> $task.err};
     }
     system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> $task.out" if defined $Pfile{$prog};
 
