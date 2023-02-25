@@ -135,7 +135,9 @@ for my $prog (@P_one_at_a_time) {
         printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
         close E;
     } else {
-        system qq{rc-runone '$exe $run' > $task.out 2> $task.err};
+        my $opt = $task =~ /Knuth%27s_algorithm_S-2/ ? '--optimize=0 ' : '';
+        print "task:$task:   opt:$opt:\n";
+        system qq{rc-runone '$exe $opt $run' > $task.out 2> $task.err};
     }
     system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> $task.out" if defined $Pfile{$prog};
 
