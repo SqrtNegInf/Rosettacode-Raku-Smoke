@@ -169,7 +169,7 @@ The simplest tests then are just:
 @res.join("\n"), chomp $ref;
 ```
 
-### Random-ness
+### Random-ness, random-less...
 
 If the task involves `.rand`, `.pick`, `.roll` or any other sort of randomness, I set
 a fixed seed, e.g. `srand 123456`, to get consistent output for testing. 
