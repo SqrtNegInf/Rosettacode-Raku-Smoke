@@ -5130,6 +5130,7 @@ File: F/Factor-perfect_numbers
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A163272 Numbers k such that k = A074206(k), the number of ordered factorizations of k
+#n# OEIS:A074206 Kalmár's problem: number of ordered factorizations of n.
 
 File: F/Factorial
 #!/usr/bin/env perl6
@@ -6353,7 +6354,9 @@ File: G/Generate_random_numbers_without_repeating_a_value-2
 #c# 2021-08-28 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#s# --optimize=0
 #n# illustrate use of enhanced 'pick' (and illustrate another 'srand' fragility...)
+#n# 2023-02-25 answer doesn't change despite '#s#' switch,  terminal/cron results still differ
 
 File: G/Generate_random_numbers_without_repeating_a_value.1
 #!/usr/bin/env raku
@@ -7885,6 +7888,7 @@ File: K/Knuth%27s_algorithm_S-2
 #c# 2016-01-05 <RC,  2022-08-21 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#s# --optimize=2
 #n# this version on RC; using 'srand', so will periodically have to update results  
 
 File: K/Knuth%27s_power_tree
@@ -16419,6 +16423,9 @@ File: T/Triangular_numbers
 #c# 2023-02-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A000217 Triangular numbers:  a(n) = binomial(n+1,2)
+#n# OEIS:A000292 Tetrahedral numbers: a(n) = binomial(n+2,3)
+#n# OEIS:A000332 Pentatope numbers:   a(n) = binomial(n+3,4)
 
 File: T/Trigonometric_functions
 #!/usr/bin/env raku
@@ -16587,11 +16594,11 @@ File: U/URL_encoding
 #j#  JVM: OK
 
 File: U/URL_parser
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/URL_parser
-#c# 2016-01-26 <RC
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/URL_parser
+#c# 2016-01-26 <RC, 2023-02-25 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
 
 File: U/URL_shortener
 #!/usr/bin/env perl6
