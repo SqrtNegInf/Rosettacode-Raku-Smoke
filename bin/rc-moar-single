@@ -139,7 +139,7 @@ for my $prog (@P_one_at_a_time) {
         printf E "real\t%.3f\nuser\t%.3f\nsys\t%.3f\n", 0.4+$r1-$r0, $u1-$u0, $s1-$s0;
         close E;
     } else {
-        my $switch = defined $Switch{$prog} ? $Switch{$prog} : '';
+        my $switch = $Switch{$prog} // '';
         system qq{rc-runone '$exe $switch $run' > $task.out 2> $task.err};
     }
     system "diff -s -wb -q ref/$Pfile{$prog} run/$Pfile{$prog} >> $task.out" if defined $Pfile{$prog};
