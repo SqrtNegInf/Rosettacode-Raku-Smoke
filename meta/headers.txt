@@ -984,6 +984,8 @@ File: A/Anaprimes
 #j# JVM:  BROKEN
 #n# skip ' <1000' groups, as 3 candidates, any could be reported
 #n# skip '<10000' groups, as 2 candidates, either could be reported
+#n# OEIS:A046890 a(n) is the least integer that has exactly n anagrams that are primes.
+#n# many OEIS sequences touch on this group, but none exactly
 
 File: A/Angle_difference_between_two_bearings
 #!/usr/bin/env perl6
@@ -7888,8 +7890,9 @@ File: K/Knuth%27s_algorithm_S-2
 #c# 2016-01-05 <RC,  2022-08-21 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#s# --optimize=2
+#s# --optimize=0
 #n# this version on RC; using 'srand', so will periodically have to update results  
+#n# no luck, even with: env MVM_SPESH_DISABLE=1 MVM_JIT_DISABLE=1 perl6 --optimize=0
 
 File: K/Knuth%27s_power_tree
 #!/usr/bin/env perl6
@@ -16780,6 +16783,7 @@ File: U/Upside-down_numbers
 #c# 2023-02-14 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#n# OEIS:A299539 Numbers n = d_1 d_2 ... d_k (in base 10) such that d_i + d_{k+1-i} = 10 for i = 1..k.
 
 File: U/Upside-down_numbers.jvm
 #!/usr/bin/env raku
