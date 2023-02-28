@@ -1,9 +1,9 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Triangular_numbers
-#c# 2023-02-10 <RC
+#c# 2023-02-10 <RC,  2023-02-27 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# 2023-02-26 root functions now in module, better to start rounding results
+#n# 2023-02-26 root functions now in module, better to start rounding results [with ε!]
 #n# OEIS:A000217 Triangular numbers:  a(n) = binomial(n+1,2)
 #n# OEIS:A000292 Tetrahedral numbers: a(n) = binomial(n+2,3)
 #n# OEIS:A000332 Pentatope numbers:   a(n) = binomial(n+3,4)
@@ -42,14 +42,13 @@ for 2, 'triangular', 3, 'tetrahedral', 4, 'pentatopic', 12, '12-simplex'
 for 7140, 21408696, 26728085384, 14545501785001 {
   @res.push: qq:to/R/;
   Roots of $_:
-    triangular-root: {.&triangular-root.round(.0000000000001)}
-   tetrahedral-root: {.&tetrahedral-root.round(.0000000000001)}
-    pentatopic-root: {.&pentatopic-root.round(.0000000000001)}
+    triangular-root: {.&triangular-root.round:  ε }
+   tetrahedral-root: {.&tetrahedral-root.round: ε }
+    pentatopic-root: {.&pentatopic-root.round:  ε }
   R
 }
 
 .say for @res;
-exit;
 
 my $ref = q:to/END/;
 
@@ -84,21 +83,21 @@ First 30 12-simplex numbers:
 Roots of 7140:
   triangular-root: 119
  tetrahedral-root: 34
-  pentatopic-root: 18.876646615928
+  pentatopic-root: 18.876646615928006607901783
 
 Roots of 21408696:
   triangular-root: 6543
- tetrahedral-root: 503.5618269746365
-  pentatopic-root: 149.0609473752659
+ tetrahedral-root: 503.56182697463651404819613
+  pentatopic-root: 149.060947375265867484387575
 
 Roots of 26728085384:
-  triangular-root: 231205.405565255837
+  triangular-root: 231205.405565255836957291031961
  tetrahedral-root: 5432
-  pentatopic-root: 893.4424567516849
+  pentatopic-root: 893.442456751684869888466212
 
 Roots of 14545501785001:
-  triangular-root: 5393607.1581451723165
- tetrahedral-root: 44355.7773840732561
+  triangular-root: 5393607.158145172316497304724655
+ tetrahedral-root: 44355.777384073256052620916903
   pentatopic-root: 4321
 END
 
