@@ -9,7 +9,7 @@
 
 my @res;
 
-# subtract min x/y coordiates of polyomino
+# subtract min x/y coordinates of polyomino
 sub translate2origin(\poly) {
   my $minx = min poly>>.[0];      # 
   my $miny = min poly.map: *.[1]; # or 
