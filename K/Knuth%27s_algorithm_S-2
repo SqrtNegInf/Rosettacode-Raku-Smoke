@@ -45,5 +45,5 @@ if      qx/uname -a/ ~~ /'osboxes'/ {
 } elsif qx/uname -a/ ~~ /'Mac-Pro'/ {
     is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal-mac-pro !! $moar-cronjob-mac-pro1;
 } else {
-    is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal-imac    !! $moar-cronjob-imac;
+    is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal-imac    !! $moar-cronjob-mac-pro1; #$moar-cronjob-imac;
 }
