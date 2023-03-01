@@ -3,10 +3,12 @@
 #c# 2016-06-04 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# module broken in blead (2022-12-18) so in-line code to keep it working 
+#n# based on module Digest::MD5:auth<cosimo>:ver<0.05> 
+#n# which broken in newer versions Raku (2022-12-18 and beyond) so in-line code to keep it working 
 #n# (module seemingly abandon-ware, so this will be a permanent kludge)
 
-class Digest::MD5:auth<cosimo>:ver<0.05> {
+
+class Digest::MD5 {
     sub prefix:<¬>(\x)       {   (+^ x) % 2**32 }
     sub infix:<⊞>(\x, \y)    {  (x + y) % 2**32 }
     sub infix:«<<<»(\x, \n)  { (x +< n) % 2**32 +| (x +> (32-n)) }
