@@ -32,7 +32,7 @@ for 1..MAX -> \i {
 
 %po5.keys.sort.race.map: -> \p {
     for %sum2.keys.sort -> \s {
-        if p > s and %sum2{p - s} {
+        if p > s and %sum2{p - s} {    # white-space sensitive 
             say $result = ((sort |%sum2{s},|%sum2{p - s}) X~ '⁵').join(' + ') ~ " = %po5{p}" ~ '⁵';
             use Test;
             is $result, '27⁵ + 84⁵ + 110⁵ + 133⁵ = 144⁵';
