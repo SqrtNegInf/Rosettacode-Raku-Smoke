@@ -10,7 +10,7 @@ my @res;
 use myRNG;
 my $rng = myRNG.new( :seed(123456) );
 
-use String::Splice; #:ver<0.0.3>; moar-HEAD-HEAD-HEAD didn't like 
+use String::Splice:ver<0.0.3+>;
 
 my $line = 80;
 my $haystack = [~] <A C G T>[4×$rng.next-rat] xx $line × 8;
