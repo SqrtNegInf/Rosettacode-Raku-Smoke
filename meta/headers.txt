@@ -230,11 +230,12 @@ File: 2/OEIS-A000119
 File: 2/OEIS-A000788
 #!/usr/bin/env raku
 #u# https://oeis.org/A000788
-#c# 2023-02-04 NOT ON RC
+#c# 2023-03-02 NOT ON RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# mirrored from ~/PWC/079/1/wambash.raku
-#n# OEIS:A000788 Total number of 1's in binary expansions of 0, ..., n
+#n# mirrored from ~/PWC/079/1/stuart-little.raku (bits1)
+#n# mirrored from ~/PWC/079/1/simon-proctor.raku (bits2)
+#n# OEIS:A000788 Total number of 1's in binary expansions of 0, ..., n.
 
 File: 2/OEIS-A001318
 #!/usr/bin/env raku
@@ -831,10 +832,9 @@ File: A/Aliquot_sequence_classifications
 #c# 2016-01-02 <>RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2018-11-03 at one point 'state @seq' brought a huge speed-up?  Now no diff.
-#n# .race doesn't help here
-#n# the basis of all the answers: (but not the sequence explicitly calculated)
+#n# 2018-11-03 at one point 'state @seq' brought a huge speed-up, but no longer and difference; .race doesn't help here either.
 #n# OEIS:A001065 Sum of proper divisors (or aliquot parts) of n: sum of divisors of n that are less than n.
+#n# (above is the basis of all the answers, but not the sequence explicitly calculated)
 
 File: A/Aliquot_sequence_classifications.1
 #!/usr/bin/env perl6
@@ -12660,6 +12660,7 @@ File: R/Rare_numbers
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2023-02-16 GH5209 can't use '[+]' any longer, must switch to 'sum'? (line 59)
+#n# OEIS:A035519 Rare numbers: k-r and k+r are both perfect squares, where r is reverse of k and k is non-palindromic.
 
 File: R/Rare_numbers.1
 #!/usr/bin/env raku
