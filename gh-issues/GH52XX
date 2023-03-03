@@ -1,0 +1,20 @@
+#!/usr/bin/env raku
+#t# skiptest
+#c# 2019-03-03 issue opened
+#n# wacky errors with
+#u# bug source: A/Approximate_Equality
+#n# failure starting with v2023.02-27-g66f7afed1
+
+for 1.0000000000000000000  -> $a { say $a } # 1                     OK
+for 1.000000000000001      -> $a { say $a } # 1.000000000000001     OK
+for 1.0000000000000001     -> $a { say $a } # 2                     should be 1.0000000000000001
+for 2.0000000000000000000  -> $a { say $a } # 2                     OK
+for 2.0000000000000000001  -> $a { say $a } # 2.0000000000000000001 OK
+for 2.00000000000000000001 -> $a { say $a } # ERROR                 should be 2.00000000000000000001 
+# Type check failed in binding to parameter '$fract'; expected Rational but got Num (1e-20)
+
+=finish
+
+#for 3.1415926535897932384  -> $a { say $a } # 3.1415926535897932384
+#for 3.14159265358979323846 -> $a { say $a } # error
+#Type check failed in binding to parameter '$fract'; expected Rational but got Num (0.14159265358979323e0)
