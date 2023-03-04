@@ -1,9 +1,13 @@
+2023-03-04
+Separate 'Go-MoarVM' drivers for each platform, simpler than trying to unify & add switches.
+
 2023-03-03
 GH5225 definitely fails for me, mysteriously works on M1? [confirmed: hardware/platform bug]
 
 2023-02-28
 'E/Earliest_difference_between_prime_gaps' hung in cronjob (killed by hand). Works fine from command line, issue
 with 'Math::Primesieve::iterator' maybe? (but 'F/Find_adjacent_primes_which_differ_by_a_square_integer' ran ok)
+[p.s. Was just a one-off, can't recall a similar situation. Wait and see...]
 
 2023-02-24
 Experiment with --optimize=0|1|2 as a way of avoiding 'srand' troubles.  Maybe will help with 
