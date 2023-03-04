@@ -1,15 +1,16 @@
 #!/usr/bin/env raku
 #t# skiptest
-#c# 2023-03-03 issue opened
+#c# 2023-03-03 issue opened and closed
 #n# wacky errors with Rat.Str (as flips over to FatRat)
 #u# bug source: A/Approximate_Equality
 #n# failure starting with v2023.02-27-g66f7afed1
+#n# this behavior not seen on M1 hardware? [confirmed: hardware/platform bug]
 
 say 1.0000000000000000000;  # 1                     OK
 say 1.000000000000001;      # 1.000000000000001     OK
 say 1.0000000000000001;     # 2                     should be 1.0000000000000001
 say 2.0000000000000000001;  # 2.0000000000000000001 OK
-say 2.00000000000000000001; # ERROR:                should be 2.00000000000000000001 
+#say 2.00000000000000000001; # ERROR:                should be 2.00000000000000000001 
                             # Type check failed in binding to parameter '$fract'; expected Rational but got Num (1e-20)
 
 # operations on values are fine
