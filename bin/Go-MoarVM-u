@@ -1,0 +1,96 @@
+#!/bin/zsh
+## update MoarVM backend 
+#  This version specifically for Ubuntu [which is testing moar-blead]
+
+# prereq. for fresh Ubuntu VMware image (config with 2Gb)
+#  sudo apt upgrade
+#  sudo apt install build-essential default-jdk vim git
+
+# not .profile?
+source $HOME/.zshrc
+
+git pull
+
+cd $HOME/.rakubrew
+rakubrew mode shim
+rakubrew switch moar-blead
+raku -v
+
+# NOW clear out old
+echo 'clear out old precomp files'
+cd ~/.rakubrew/versions/moar-blead
+./install/share/perl6/site/bin/cleanup-precomp
+rm -rf install/share/perl6/core/precomp/*
+./tools/nuke-precomps.raku
+rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
+rm -rf $HOME/perl6/Rosetta-Code/libtest/.precomp
+
+cd $HOME/perl6/Rosetta-Code
+rm -f run/*
+
+# upgrade modules
+bin/Zef-Upgrade
+
+# smoking
+echo 'MOAR'
+bin/rc-moar-single [0-Z]/*
+
+# track stats
+/bin/echo -n `date +%Y-%m-%d` >> bench/rakudo-builds.txt
+/bin/echo -n ' '              >> bench/rakudo-builds.txt
+raku -v | head -1            >> bench/rakudo-builds.txt
+bin/rc-stats 10 > meta-i/stats.txt
+
+# track 'srand' drift
+tail -1 bench/rakudo-builds.txt >> meta-i/srand-drift.txt
+raku -e 'srand 123456; say <A B C D E F G>.roll(1000).join' >> meta-i/srand-drift.txt
+grep -v '^20' meta*/srand-drift.txt | sortcnt | cut -c1-80
+
+echo ' '
+echo 'Comparison of recent runs:'
+rc-stats 4 | grep '^20' - | grep -v Welcome | grep -v 'j Secs'
+
+echo ' '
+echo 'Task success/failure change over last two runs:'
+rc-stats 2 | grep -v '^20' - | pcregrep -v '^\s*$' | grep -v '==' | sortcnt | pcregrep -v '^\s+2'
+
+# keep tabs on status
+#echo ' '
+#cd meta-i
+#cp -p task.txt task.txt~
+#$HOME/bin/rotate_log -d logs -b -r -f task.txt
+#../bin/rc-task-status > task.txt
+#diff task.txt~ task.txt
+#cd ..
+
+# see how slow the usual suspects are
+echo ' '
+bin/rc-timings | sort -r -n > meta-i/timings.txt
+head -10 meta-i/timings.txt
+
+echo ' '
+echo '--'
+echo 'Excessive line count in timings (if any)'
+wc -l bench/moar/*err | grep -v '^ *[0-4] ' | grep -v total
+echo '--'
+
+# combine task headers for easy grep
+$HOME/bin/grep-paragraph -H '#u# http' [0-Z]/* | $HOME/bin/grep-paragraph -v ReadMe.md - > meta-i/headers.txt
+
+# leaderboard
+echo ' '
+head -20 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | $HOME/bin/drop -4
+
+# non-ascii usage
+echo ' '
+mv meta-i/non-ascii.txt meta-i/non-ascii.txt~
+bin/rc-non-ascii [0-Z]/* > meta-i/non-ascii.txt
+diff meta-i/non-ascii.txt~ meta-i/non-ascii.txt
+
+# extract list of citations
+bin/rc-oeis > meta-i/OEIS.txt
+
+# see any further 'srand drift'? (compare meta and meta-i versions; this is not on Mac-Pro)
+echo ' '
+git pull
+grep -v '^20' meta*/srand-drift.txt | $HOME/bin/sortcnt | cut -c1-75
