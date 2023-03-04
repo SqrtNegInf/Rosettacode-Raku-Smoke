@@ -1,59 +1,34 @@
 #!/bin/zsh
 ## update MoarVM backend 
-#  This version specifically for iMac (original one is for Mac-Pro)
+# 2023-03-04 cleaned up, specifically for iMac (testing a the static/monthly release)
 
-# prereq. for fresh Ubuntu VMware image (config with 2Gb)
-#  sudo apt upgrade
-#  sudo apt install build-essential default-jdk vim git
-
-source $HOME/.zshrc
-#source $HOME/.profile
+# not .zshrc?
+source $HOME/.profile 
 
 git pull
 
 cd $HOME/.rakubrew
 rakubrew mode shim
-#rakubrew switch moar-blead
-#rakubrew switch moar-2022.12
 rakubrew switch moar-2023.02
 raku -v
 
-# update Rakudo/MoarVM
-#bin/rakubrew self-upgrade > out.rb    2> err.rb
-#(cd versions; rm -rf moar-yesterday; cp -pr moar-blead moar-yesterday)
-#bin/rakubrew build moar-blead >    out.moar  2>    err.moar
-#bin/rakubrew rehash
-#(cd versions/moar-blead; make spectest   > ../out.mtest 2> ../err.mtest )
-#bin/rakubrew switch moar-blead >> out.moar 2>> err.moar
-#bin/rakubrew build zef
-
-# NOW clear out old
+# NOW clear out old precomp files
 echo 'clear out old precomp files'
-cd ~/.rakubrew/versions/moar-blead
+cd ~/.rakubrew/versions/moar-2023.02
 ./install/share/perl6/site/bin/cleanup-precomp
 rm -rf install/share/perl6/core/precomp/*
 ./tools/nuke-precomps.raku
 rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
 rm -rf $HOME/perl6/Rosetta-Code/libtest/.precomp
 
-# keep as a backup step for now
-#rm -rf $HOME/.raku/precomp # new bug, old solution?
-#rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
-
 cd $HOME/perl6/Rosetta-Code
-#bin/rc-jvm-cleanup
 rm -f run/*
 
 # upgrade modules
 bin/Zef-Upgrade
 
-# but only as long as 'rc-moar-srand' is being run in the early-morning hours
-#rm -f bench/moar/*
-
 # smoking
 echo 'MOAR'
-#zef --force-install install Clifford
-#bin/rc-moar-parallel [0-Z]/*
 bin/rc-moar-single [0-Z]/*
 
 # track stats
@@ -76,13 +51,13 @@ echo 'Task success/failure change over last two runs:'
 rc-stats 2 | grep -v '^20' - | pcregrep -v '^\s*$' | grep -v '==' | sortcnt | pcregrep -v '^\s+2'
 
 # keep tabs on status
-echo ' '
-cd meta-i
-cp -p task.txt task.txt~
-$HOME/bin/rotate_log -d logs -b -r -f task.txt
-../bin/rc-task-status > task.txt
-diff task.txt~ task.txt
-cd ..
+#echo ' '
+#cd meta-i
+#cp -p task.txt task.txt~
+#$HOME/bin/rotate_log -d logs -b -r -f task.txt
+#../bin/rc-task-status > task.txt
+#diff task.txt~ task.txt
+#cd ..
 
 # see how slow the usual suspects are
 echo ' '
@@ -102,12 +77,6 @@ $HOME/bin/grep-paragraph -H '#u# http' [0-Z]/* | $HOME/bin/grep-paragraph -v Rea
 echo ' '
 head -20 bench/moar/Rosetta_Code_Rank_languages_by_popularity-1.out | $HOME/bin/drop -4
 
-# not a race, not a race, ...
-#echo ' '
-#mv meta-i/horse-race.txt meta-i/horse-race.txt~
-#bin/rc-horse-race | sort -r > meta-i/horse-race.txt
-#diff meta-i/horse-race.txt~ meta-i/horse-race.txt
-
 # non-ascii usage
 echo ' '
 mv meta-i/non-ascii.txt meta-i/non-ascii.txt~
@@ -121,25 +90,3 @@ bin/rc-oeis > meta-i/OEIS.txt
 echo ' '
 git pull
 grep -v '^20' meta*/srand-drift.txt | $HOME/bin/sortcnt | cut -c1-75
-
-# how did the spectest go?
-#echo ' '
-#$HOME/bin/grep-paragraph Summary $HOME/.rakubrew/versions/out.mtest
-
-#XXX skip next to sections on iMac, see Mac-Pro instead XXX#
-
-# latest Rakudo commits 
-#echo ' '
-#cd $HOME/.rakubrew/versions/moar-blead
-#git log | head -100
-
-# push changes to github
-#echo ' '
-#echo 'boring stuff...'
-#echo ' '
-#$HOME/perl6/Rosetta-Code/bin/Task-git
-
-#echo 'Switch rakubrew mode back to env'
-#cd $HOME
-#rakubrew mode env
-#rakubrew mode
