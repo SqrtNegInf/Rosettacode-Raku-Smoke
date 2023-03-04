@@ -1,0 +1,53 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Checksumcolor
+#c# 2019-04-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: checksumcolor.html
+#n# by defining $*OUT to point to a file, say/print statements can be left alone
+#n# default input was created with: 
+#n#   md5 -r ref/test/*txt > ref/checksumcolor.dat
+#n# 2023-03-04 test 'comb' with rotor capabilities
+
+use v6.e.PREVIEW;
+
+my @res;
+
+# To determine the colors, rather than breaking the md5sum into groups of 3 characters, (which leaves two lonely character at the end), I elected to replicate the first 5 characters onto the end, then for each character, used it and the 5 characters following as a true-color index. I also added an option to output as HTML code for ease of pasting in here.
+
+unit sub MAIN ($mode = 'HTML');
+
+#my $in   = open('ref/checksumcolor.dat');
+my $in   = 'ref/checksumcolor.dat'.IO.open(:r)  orelse .die;
+my $*OUT = 'run/checksumcolor_exp.html'.IO.open(:w) orelse .die;
+
+if $*OUT.t or $mode eq 'HTML' {
+    say '<div style="background-color:black; font-size:125%; font-family: Monaco, monospace;">' if $mode eq 'HTML';
+
+    while my $line = $in.get() {
+        my $cs  = $line.words[0];
+        my $css = $cs ~ $cs.substr(0,5);
+        given $mode {
+            when 'ANSI' {
+                print "\e[48;5;232m";
+                .print for $css.comb(6 => -5)>>.map({ ($^a, $^b).join })\
+               #.print for $css.comb.rotor(6 => -5)>>.map({ ($^a, $^b).join })\
+                .map( { sprintf "\e[38;2;%d;%d;%dm", |$_».parse-base(16) } ) Z~ $cs.comb;
+                say "\e[0m {$line.words[1..*]}";
+            }
+            when 'HTML' {
+                print "$_\</span>" for $css.comb.rotor(6 => -5)\
+                #.map( { sprintf "<span style=\"color:#%s;\">", $_.join } ) Z~ $cs.comb;
+                .map( { "<span style=\"color:#{.join};\">" } ) Z~ $cs.comb;
+                say " <span style=\"color:#ffffff\">{$line.words[1..*]}</span>";
+                say '<br>';
+            }
+            default { say $line; }
+        }
+    }
+
+    say '</div>' if $mode eq 'HTML';
+} else {
+    .say while $_ = $in.get();
+}
+
