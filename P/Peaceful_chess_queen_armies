@@ -10,6 +10,7 @@
 #n# big  win: got rid of all globals
 #n# big wart: in 'place' routine using literal '◦•' in regex because I cannot figure out a
 #n#             way to efficiently create a regex object which is built from $empty-square
+#n# 2023-03-04 comb.rotor was never needed [line 60]
 
 use MONKEY-SEE-NO-EVAL;
 
@@ -55,7 +56,8 @@ sub place ($board, $n, $m, $empty-square) {
 
 my ($m, $n) = @*ARGS == 2 ?? @*ARGS !! (4, 5);
 my $empty-square = '◦•';
-my $board = ($empty-square x $n**2).comb.rotor($n)>>.join[^$n].join: "\n";
+my $board = ($empty-square x $n**2).comb($n)>>.join[^$n].join: "\n";
+#my $board = ($empty-square x $n**2).comb.rotor($n)>>.join[^$n].join: "\n";
 
 say (my $solution = place( $board, $n, $m, $empty-square ))
     ?? "Solution to $m $n\n\n{S:g/(\N)/$0 / with $solution}"
