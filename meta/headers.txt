@@ -2540,6 +2540,18 @@ File: C/Checksumcolor
 #n# default input was created with: 
 #n#   md5 -r ref/test/*txt > ref/checksumcolor.dat
 
+File: C/Checksumcolor_exp
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Checksumcolor
+#c# 2019-04-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#f# RC file: checksumcolor.html
+#n# by defining $*OUT to point to a file, say/print statements can be left alone
+#n# default input was created with: 
+#n#   md5 -r ref/test/*txt > ref/checksumcolor.dat
+#n# 2023-03-04 test 'comb' with rotor capabilities
+
 File: C/Chemical_Calculator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Chemical_Calculator
@@ -11167,6 +11179,7 @@ File: P/Peaceful_chess_queen_armies
 #n# big  win: got rid of all globals
 #n# big wart: in 'place' routine using literal '◦•' in regex because I cannot figure out a
 #n#             way to efficiently create a regex object which is built from $empty-square
+#n# 2023-03-04 comb.rotor was never needed [line 60]
 
 File: P/Peaceful_chess_queen_armies.0
 #!/usr/bin/env perl6
@@ -16055,6 +16068,16 @@ File: T/Text_Completion-2.jvm
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2022-09-28 corrected spelling to  'sorensen' (cf 'S/Sorensen–Dice_coefficient')
+
+File: T/Text_Completion-2_exp
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Text_Completion
+#c# 2020-07-30 <RC, 2020-08-xx >RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# reduced size of 'sorenson' by over 1%! (neither '+' in ratio was needed)
+#n# 2022-09-28 corrected spelling in code to 'sorensen' (cf 'S/Sorensen–Dice_coefficient') but not data
+#n# 2023-03-04 test 'comb' with rotor capabilities
 
 File: T/Text_between
 #!/usr/bin/env perl6
