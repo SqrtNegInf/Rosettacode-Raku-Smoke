@@ -36,8 +36,7 @@ zef --/test install Lingua::EN::Sentence
 zef --/test install LWP::Simple
 #zef --/test install Math::Matrix  # wedged: 'Cannot modify an immutable Rat (3.142857)', 'cannot find Math::Matrix::Type'
 zef --force-test --force-install install https://github.com/pierre-vigier/Perl6-Math-Matrix.git
-#zef --/test install Math::Primesieve
-(cd ~/source; zef --force-install --/test install ./raku-primesieve)
+zef --/test install Math::Primesieve
 #zef --/test install Modular  # hasn't installed properly in years, no longer in use by any RC task
 zef --/test install Net::DNS
 zef --/test install Net::FTP
@@ -88,6 +87,7 @@ zef install LibXML
 zef install Linenoise
 zef install Lingua::EN::Numbers
 zef install Lingua::EN::Sentence
+zef install List::Allmax
 zef install List::Divvy
 zef install Log::Syslog::Native
 zef install MagickWand
