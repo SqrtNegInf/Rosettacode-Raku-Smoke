@@ -181,7 +181,7 @@ $pm->wait_all_children;
 # clean up
 system('bin/rc-ts');
 system "date";
-system "rakubrew switch moar-blead";
+#system "rakubrew switch moar-blead";
 
 sub cpu_time {
   my ($user,$system,$cuser,$csystem) = times;
