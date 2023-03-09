@@ -28,8 +28,9 @@ Int.^add_method( 'h', method (@a)
                     { state $x; die if @a != [2,3,4] || 1 != self; @h3.push: "h3-" ~ ++$x } );
 
 my $ref   =  &f;  # soft ref
-my $f    :=  &f;  # hard ref
-my $g    :=  &g;  # hard ref
+my :($f, $g) :=  (&f, &g);        # see jnthn's comment in https://github.com/rakudo/rakudo/issues/5194
+#y $f    :=  &f;  # hard ref
+#y $g    :=  &g;  # hard ref
 my $f-sym = '&f'; # symbolic ref
 my $g-sym = '&g'; # symbolic ref
 my $j-sym =  'j'; # symbolic ref
