@@ -8864,15 +8864,6 @@ File: M/MD5
 #n# which broken in newer versions Raku (2022-12-18 and beyond) so in-line code to keep it working 
 #n# (module seemingly abandon-ware, so this will be a permanent kludge)
 
-File: M/MD5.0
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/MD5
-#c# 2016-06-04 <RC
-#m# MOAR: BROKEN
-#j#  JVM: OK
-#n# MoarVM disabled: does not work with blead as of 2022-12-18 (JVM uses code in 'lib', so OK)
-
 File: M/MD5_Implementation
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/MD5/Implementation
@@ -9313,6 +9304,8 @@ File: M/Merge_and_aggregate_datasets
 #c# 2020-12-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+use v6.e.PREVIEW;
+die 'BROKEN on iMac (no v6.e)' if qx/uname -a/ ~~ /'iMac'/;
 
 File: M/Mersenne_primes
 #!/usr/bin/env perl6
@@ -17226,15 +17219,6 @@ File: W/Web_scraping
 #n# ultimately has to do with SSL, which involves NativeCall
 #n# old Naval time server was failing...
 die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
-
-File: W/Web_scraping.0
-#!/usr/bin/env raku
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Web_scraping
-#c# 2021-03-01 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
-#n# current on RC
 
 File: W/Web_scraping.1
 #!/usr/bin/env perl6
