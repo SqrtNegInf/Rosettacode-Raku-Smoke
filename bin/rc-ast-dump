@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 ## dump AST of RC tasks
-#  2019-04-13 static list, 2019-09-23 complete re-write, 2020-05-30 properly ID 
+#  2019-04-13 static list, 2019-09-23 complete re-write, 2020-05-30 properly ID,  2023-03-10 block more known failures
 #  slow, lots of (ignorable) errors
 #  NB: always run by-hand, catch any new tasks that must be skipped, as per: less -p2019-04-12 docs/Notes_to_self 
 #  STDOUT: taks that use '*' where '×' is possible instead
@@ -12,8 +12,10 @@ shell 'rm -f ast/*';
 # 'R[X=>]' works too, as does 'RX=>'; which is most clear / least confusing?
 my %runs-forever = 1 R[X[=>]] split /\s*\n/, q:to/END/;
 OEIS-A000058
+OEIS-A032799
 OEIS-A033075
 OEIS-A078972
+OEIS-A082897
 Bernoulli_numbers 
 Catalan_numbers_Pascal%27s_triangle
 Fibonacci_word
@@ -28,7 +30,7 @@ Sequence_of_primorial_primes
 END
 
 # MultiVector (nee Clifford), Math::Matrix
-my %module-conflict = 1 R[X[=>]] split /\s*\n/, q:to/END/;
+my %multivector-conflict = 1 R[X[=>]] split /\s*\n/, q:to/END/;
 Fibonacci_matrix-exponentiation
 Find_the_intersection_of_a_line_with_a_plane-1
 Find_the_intersection_of_two_lines-1
@@ -39,6 +41,39 @@ Orbital_elements
 Polynomial_regression
 END
 
+# other module conflicts
+# problem with 'Merge_and_aggregate_datasets' is actualy '6e.PREVIEW'
+my %module-conflict = 1 R[X[=>]] split /\s*\n/, q:to/END/;
+Abelian_sandpile_model-2
+Active_Directory_Search_for_a_user
+Animate_a_pendulum
+Animation
+Color_of_a_screen_pixel-2
+Draw_a_pixel
+Draw_pixel_2
+Forest_fire-2
+GUI_Maximum_window_dimensions
+GUI_component_interaction
+GUI_enabling_disabling_of_controls
+Geohash-1
+Hello_world_Graphical
+Image_noise
+Merge_and_aggregate_datasets
+Mouse_position
+Polyspiral-2
+Raster_bars
+Record_sound
+Simple_windowed_application
+Simulate_input_Keyboard
+Simulate_input_Mouse
+Singular_value_decomposition
+Strassen%27s_algorithm
+Terminal_control_Positional_read
+Vibrating_rectangles-2
+Window_creation
+Window_management
+END
+
 for flat '0'..'9', 'A'..'Z' -> $dir {
     next unless $dir.IO.e;
     for run('find', $dir, :out).out.lines -> $path {
@@ -47,6 +82,7 @@ for flat '0'..'9', 'A'..'Z' -> $dir {
        #my $file = ($path ~~ /'/' (.*) $$/)».Str;
        #my $file = $0 given $path ~~ /'/' (.*) $$/;
         next if %runs-forever{$file};
+        next if %multivector-conflict{$file};
         next if %module-conflict{$file};
         next if $file ~~ /\. ( \d+ | jvm ) $/;
        #say "======> perl6 --target=AST $path > ast/$file"; # for debugging
