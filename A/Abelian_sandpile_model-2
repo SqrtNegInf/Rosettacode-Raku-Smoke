@@ -14,10 +14,10 @@ unit sub MAIN ($stack = 10000);
 
 my int ($w, $h) = 160, 160;
 
-my $buf = $w * $h;
+my $buf = $w × $h;
 my @buffer = 0 xx $buf;
 
-@buffer[$w * ($h div 2) + ($w div 2) - 1] = $stack;
+@buffer[$w × ($h div 2) + ($w div 2) - 1] = $stack;
 
 SDL_Init(VIDEO);
 
@@ -47,7 +47,7 @@ sub render {
     $pixdata = nativecast(CArray[int8], Pointer.new($pixdatabuf[0]));
 
     loop (my int $row; $row < $h; $row = $row + 1) {
-        my int $rs = $row * $w; # row start
+        my int $rs = $row × $w; # row start
         my int $re = $rs  + $w; # row end
         loop (my int $idx = $rs; $idx < $re; $idx = $idx + 1) {
             $pixdata[$idx] =  @buffer[$idx] < 4 ?? @color[@buffer[$idx]] !! @color[4];
