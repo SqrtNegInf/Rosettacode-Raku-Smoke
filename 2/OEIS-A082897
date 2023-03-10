@@ -1,0 +1,31 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A082897
+#c# 2023-03-09 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/175/2/bruce-gray.raku
+#n# OEIS:A082897 Perfect totient numbers
+
+# Simple version:
+sub totient         ( UInt $n --> UInt ) { +grep { $n gcd $_ == 1 }, 1..$n }
+sub totients_sum    ( UInt $n --> UInt ) { sum $n, &totient ^… 1  }
+sub perfect_totient ( UInt $n --> Bool ) { $n == $n.&totients_sum }
+
+
+# High-speed version; 1/10th the time of Simple, due to caching and the factor algorithm:
+sub fast-perfect_totient ( UInt $n --> Bool ) {
+    use Prime::Factor;
+    constant @totients = flat 0, (1..^Inf).map: -> $n {
+        ( $n * [*] $n.&prime-factors.unique.map: 1 - 1/* ).narrow
+    }
+    return $n == [+] $n, { @totients[$^prev] } ^… 1;
+}
+
+constant @perfect_totients = grep &perfect_totient, 1 ..^ Inf;
+put my $result1 = @perfect_totients.head(12);
+my @res.push: $_ if .&fast-perfect_totient for 1..2200;
+say my $result2 = @res.join(' ');
+
+use Test;
+is $result1, '3 9 15 27 39 81 111 183 243 255 327 363';
+is $result2, '3 9 15 27 39 81 111 183 243 255 327 363 471 729 2187 2199';
