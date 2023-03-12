@@ -1,0 +1,14 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A003422
+#c# 2023-03-11 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# modified from ~/PWC/153/1/arne-sommer.raku
+#n# A003422 Left factorials: !n = Sum_{k=0..n-1} k!.
+
+my $lf := ( $ = 1, ( * + ([*] 1 .. ++$) ) ... Inf );
+
+say my $result = $lf[^16].join(' ');
+
+use Test;
+is  $result, '1 2 4 10 34 154 874 5914 46234 409114 4037914 43954714 522956314 6749977114 93928268314 1401602636314';
