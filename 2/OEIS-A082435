@@ -1,0 +1,19 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A082435
+#c# 2023-03-11 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# modified from ~/PWC/177/2/bruce-gray.raku
+#n# A082435 Palindromic primes with middle digit 0.
+
+constant @Palindromic_Prime_Cyclops_Numbers =
+    grep &is-prime,
+    map { $_ ~ '0' ~ .flip },
+    ^Inf;
+
+# Could optimize by only generating 1|3|7|9 as initial digit, but this already runs in under 1 second.
+
+say my $result = @Palindromic_Prime_Cyclops_Numbers.head(20).join: ' ';
+
+use Test;
+is  $result, '101 16061 31013 35053 38083 73037 74047 91019 94049 1120211 1150511 1160611 1180811 1190911 1250521 1280821 1300031 1360631 1390931 1490941';
