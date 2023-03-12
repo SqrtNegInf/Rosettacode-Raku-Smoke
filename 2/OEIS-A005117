@@ -1,0 +1,26 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A005117
+#c# 2023-03-11 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# modified from ~/PWC/150/2/athanasius.raku
+#n# A005117 Squarefree numbers: numbers that are not divisible by a square greater than 1.
+
+my @res;
+
+my $MAX = 60;
+my Bool @sieve = True xx ($MAX + 1);
+
+for 2 .. $MAX -> UInt $i {
+    if @sieve[ $i ] {
+        @res.push: $i;
+        for $i * 2, * + $i ... * >= $MAX -> UInt $j {
+            @sieve[ $j ] = !@sieve[ $j ];
+        }
+    }
+}
+
+say @res.join(' ');
+
+use Test;
+is @res.join(' '), '2 3 5 6 7 10 11 13 14 15 17 19 21 22 23 26 29 30 31 33 34 35 37 38 39 41 42 43 46 47 51 53 55 57 58 59';
