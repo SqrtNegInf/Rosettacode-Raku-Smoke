@@ -1,0 +1,14 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A052294
+#c# 2023-03-12 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# modified from ~/PWC/156/1/arne-sommer.raku
+#n# OEIS:A052294 numbers with a prime number of 1's in their binary expansion
+
+my $pn := (1..Inf).grep({ $_.fmt('%b').comb.sum.is-prime });
+
+say my $result = $pn.head(30).join(' ');
+
+use Test;
+is  $result, '3 5 6 7 9 10 11 12 13 14 17 18 19 20 21 22 24 25 26 28 31 33 34 35 36 37 38 40 41 42';
