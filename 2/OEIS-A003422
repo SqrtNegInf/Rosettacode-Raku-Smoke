@@ -6,7 +6,7 @@
 #n# modified from ~/PWC/153/1/arne-sommer.raku
 #n# A003422 Left factorials: !n = Sum_{k=0..n-1} k!.
 
-my $lf := ( $ = 1, ( * + ([*] 1 .. ++$) ) ... Inf );
+my $lf := ( $ = 1, ( * + ([×] 1 .. ++$) ) ... Inf );
 
 say my $result = $lf[^16].join(' ');
 
