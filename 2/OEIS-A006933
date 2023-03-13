@@ -1,0 +1,16 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A006933
+#c# 2023-03-12 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# modified from ~/PWC/148/1/bruce-gray.raku
+#n# A006933
+
+use Lingua::EN::Numbers;
+
+say join ' ', grep { ! /<[135789]>$/ and ! /<[12789]>\d/ }, 1..99; # laurent-rosenfeld.raku
+
+my $result = grep *.&cardinal.contains('e').not, 0..100;
+
+use Test;
+is $result, '2 4 6 30 32 34 36 40 42 44 46 50 52 54 56 60 62 64 66';
