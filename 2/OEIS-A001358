@@ -1,0 +1,14 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A001358
+#c# 2023-03-12 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# modified from ~/PWC/144/1/mark-senn.raku
+#n# OEIS:A001358 Semiprimes (or biprimes): products of two primes.
+
+my $n = 100;
+my @prime = (2 .. $n/2).grep(*.is-prime);
+put my $result = (@prime X× @prime).grep(* <= 100).sort(+*).unique;
+
+use Test;
+is $result, '4 6 9 10 14 15 21 22 25 26 33 34 35 38 39 46 49 51 55 57 58 62 65 69 74 77 82 85 86 87 91 93 94 95';
