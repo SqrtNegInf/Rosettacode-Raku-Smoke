@@ -1,0 +1,18 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A002407
+#c# 2023-03-12 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# modified from ~/PWC/158/2/bruce-gray.raku
+#n# OEIS:A002407 Primes which are the difference of two consecutive cubes
+
+sub up-thru ( @a, $n ) { gather for @a { $_ <= $n ?? .take !! last } }
+
+constant @cubes  = ^Inf X** 3;
+constant @cubans = @cubes.skip Z- @cubes;
+constant @cubans_primes = @cubans.grep: &is-prime;
+
+put my $result = @cubans_primes.&up-thru(1000).join: ', ';
+
+use Test;
+is $result, '7, 19, 37, 61, 127, 271, 331, 397, 547, 631, 919';
