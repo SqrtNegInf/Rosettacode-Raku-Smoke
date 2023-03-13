@@ -1,0 +1,25 @@
+#!/usr/bin/env raku
+#u# https://oeis.org/A006753
+#c# 2023-03-12 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# mirrored from ~/PWC/133/2/ben-davies.raku
+#n# OEIS:A006753 Smith (or 'joke') numbers: composites n such that sum digits(n) = sum digits(prime factors of n) [counted with multiplicity]
+
+my @res.push: $_  for (1..*).grep(*.&is-smith-number: 10).head(10);
+
+sub is-smith-number(Int:D $x, Int:D $base) {
+    not $x.is-prime and $x.&digits($base).sum == $x.&prime-factors».&digits($base).flat.sum
+}
+sub digits(Int:D $x, Int:D $base) {
+    $x.polymod($base xx $x.log: $base).reverse
+}
+sub prime-factors(Int:D $x is copy) {
+    state Int:D @primes = (2..*).grep(*.is-prime);
+    gather $x div= take @primes.first($x %% *) while $x > 1
+}
+
+say my $result = @res.join(' ');
+
+use Test;
+is  $result, '4 22 27 58 85 94 121 166 202 265';
