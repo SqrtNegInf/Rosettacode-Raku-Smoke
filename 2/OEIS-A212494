@@ -9,10 +9,10 @@
 my @res;
 
 # 1, 2i, -4, -8i, 16, 32i, -64, -128i, 256, 512i...*
-my $left-seq := [Z*] (1, 2, 4...*), |(1, 1, -1, -1) xx *, |(1, i) xx *;
+my $left-seq := [Z×] (1, 2, 4...*), |(1, 1, -1, -1) xx *, |(1, i) xx *;
 
 # -1/2i, -1/4, 1/8i, 1/16, -1/32i, -1/64, 1/128i, 1/256, -1/512i...*
-my $right-seq := [Z*] (1/2, 1/4, 1/8...*), |(-1, -1, 1, 1) xx *, |(i, 1) xx *;
+my $right-seq := [Z×] (1/2, 1/4, 1/8...*), |(-1, -1, 1, 1) xx *, |(i, 1) xx *;
 
 sub quater2decimal($n)
 {
@@ -22,7 +22,7 @@ sub quater2decimal($n)
     my @left  = $left-seq.cache.head(@a).reverse;
     my @right = $right-seq.cache.head(@b);
 
-    [+] |(@a Z* @left), |(@b Z* @right)
+    [+] |(@a Z× @left), |(@b Z× @right)
 }
 
 multi decimal2quater($n where * ~~ Real)
@@ -43,7 +43,7 @@ sub negaquaternary($n)
 }
 
 my @n = 1..16;
-my @base-ten = |@n, |(@n >>*>> -1); #, |(@n >>*>> i), |(@n >>*>> -i);
+my @base-ten = |@n, |(@n >>×>> -1); #, |(@n >>×>> i), |(@n >>×>> -i);
 my @base-two-i = < 1 2 3 10300 10301 10302 10303 10200 10201 10202 10203 
                    10100 10101 10102 10103 10000 >;
 #                                                103 102 101 100 203 202 
