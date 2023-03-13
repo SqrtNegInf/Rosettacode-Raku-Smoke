@@ -14,7 +14,7 @@ my Bool @sieve = True xx ($MAX + 1);
 for 2 .. $MAX -> UInt $i {
     if @sieve[ $i ] {
         @res.push: $i;
-        for $i * 2, * + $i ... * >= $MAX -> UInt $j {
+        for $i × 2, * + $i ... * >= $MAX -> UInt $j {
             @sieve[ $j ] = !@sieve[ $j ];
         }
     }
