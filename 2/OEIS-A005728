@@ -11,8 +11,8 @@ sub farey_sequence ( UInt $n --> Seq ) {
         my $k = ($n + $ab.denominator)
                   div $cd.denominator;
 
-        return ($k * $cd.numerator   - $ab.numerator  )
-             / ($k * $cd.denominator - $ab.denominator);
+        return ($k × $cd.numerator   - $ab.numerator  )
+             / ($k × $cd.denominator - $ab.denominator);
     }
 
     return 0/1, 1/$n, &next_fs ... 1/1;
