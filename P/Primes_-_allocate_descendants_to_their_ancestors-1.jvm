@@ -11,7 +11,6 @@ my @res;
 my $max = 50;
 my @primes = (2 .. $max).grep: *.is-prime;
 my %tree;
-#(1..$max).race(:16batch).map: {
 (1..$max).map: {
     %tree{$_}<ancestor> = ();
     %tree{$_}<descendants> = {};
