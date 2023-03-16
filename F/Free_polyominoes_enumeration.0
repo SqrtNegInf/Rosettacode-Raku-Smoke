@@ -28,8 +28,8 @@ for 2..10 -> $N {
 
 sub bare ($p) { # all had '/m'
   $p ~~ s:g/^ \s* \n//;
-  $p ~~ s:g/^^ // until /^^#/;
-  $p ~~ s:g/ $$// until /#$$/;
+  $p ~~ s:g/^^ // until /^^ '#'/;
+  $p ~~ s:g/ $$// until /'#' $$/;
   $p;
 }
 
