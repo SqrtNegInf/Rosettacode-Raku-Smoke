@@ -41,7 +41,7 @@ sub transpose ($p) {
 
 sub rotate ($p) {
   my $t = '';
-  $t ~= "\n" while $p ~~ s/.$$/ $t ~= $&; '' /gem;
+  $t ~= "\n" while $p ~~ s/.$$/ $t ~= $&; '' /gem; # Perlism
   $t;
 }
 
