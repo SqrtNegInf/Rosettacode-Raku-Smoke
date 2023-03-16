@@ -20,7 +20,7 @@ sub moreMultiples (@toSeq, @fromSeq) {
    my @oneMores = gather for @fromSeq -> \j {
       take @toSeq.clone.push(j) if j > @toSeq[*-1] and j %% @toSeq[*-1] 
    }
-   return () unless @oneMores.Bool;
+   return () unless @oneMores; #.Bool;
    for 0..^@oneMores {
       @oneMores.append: moreMultiples @oneMores[$_], @fromSeq
    }
@@ -38,7 +38,7 @@ sub erdosFactorCount (\n) {
 }
 
 my @listing = moreMultiples [1], propdiv(48);
-given @listing { $_.map: *.push: 48; $_.push: [1,48] }
+given @listing { .map: *.push: 48; .push: [1,48] }  # can omit $_ on map and push
 @res.push: @listing.elems ~ " sequences using first definition:";
 my $out = '';
 for @listing.rotor(4) -> \line { line.map: { $out ~= sprintf "%-20s", $_ } ; $out ~= "\n" }
