@@ -5278,7 +5278,7 @@ File: F/Faces_from_a_mesh
 File: F/Factor-perfect_numbers
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Factor-perfect_numbers
-#c# 2022-10-29 <RC
+#c# 2022-10-29 <RC, 2023-03-16 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A163272 Numbers k such that k = A074206(k), the number of ordered factorizations of k
@@ -6233,10 +6233,10 @@ File: F/Free_polyominoes_enumeration
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Free_polyominoes_enumeration
 #t# inprogress
-#c# 2022-08-06 >RC
+#c# 2023-03-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# from Sidef/Ruby
+#n# from Sidef (ultimately Ruby)
 #n# OEIS:A000105 Number of free polyominoes (or square animals) with n cells.
 
 File: F/Free_polyominoes_enumeration.0
@@ -16659,11 +16659,13 @@ File: T/Truth_table
 #    1st vs 2nd/3rd output screwy
 
 File: T/Twelve_statements
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Twelve_statements
-#c# 2015-11-14 <>RC
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Twelve_statements
+#c# 2015-11-14 <>RC, 2023-03-16 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
+#n# oops, missed the update (by many years)
+my @res;
 
 File: T/Twelve_statements-2
 #!/usr/bin/env raku
@@ -16672,6 +16674,14 @@ File: T/Twelve_statements-2
 #m# MOAR: OK
 #j#  JVM: OK
 #n# this version on RC (Smls)
+
+File: T/Twelve_statements.1
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Twelve_statements
+#c# 2015-11-14 <>RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2023-03-16 'improved' older version, cf current
 
 File: T/Twin_Primes
 #!/usr/bin/env raku
@@ -17071,11 +17081,11 @@ File: V/Van_der_Corput_sequence
 #j#  JVM: OK
 
 File: V/Variable-length_quantity
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Variable-length_quantity
-#c# 2015-11-01 <RC
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Variable-length_quantity
+#c# 2015-11-01 <RC, 2023-03-16 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
 
 File: V/Variable_declaration_reset
 #!/usr/bin/env raku
