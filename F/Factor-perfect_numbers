@@ -10,7 +10,7 @@ my @res;
 
 sub propdiv (\x) {
    my @l = 1 if x > 1;
-   for (2 .. x.sqrt.floor) -> \d {
+   for 2 .. x.sqrt.floor -> \d {
       unless x % d { @l.push: d; my \y = x div d; @l.push: y if y != d }
    }
    @l
@@ -21,7 +21,7 @@ sub moreMultiples (@toSeq, @fromSeq) {
       take @toSeq.clone.push(j) if j > @toSeq[*-1] and j %% @toSeq[*-1] 
    }
    return () unless @oneMores; #.Bool;
-   for 0..^@oneMores {
+   for ^@oneMores {
       @oneMores.append: moreMultiples @oneMores[$_], @fromSeq
    }
    @oneMores
@@ -44,7 +44,7 @@ my $out = '';
 for @listing.rotor(4) -> \line { line.map: { $out ~= sprintf "%-20s", $_ } ; $out ~= "\n" }
 @res.push: $out;
 
-my @listing2 = gather for (0..^@listing) -> \j {
+my @listing2 = gather for ^@listing -> \j {
    my @seq = |@listing[j];
    @seq.append: 48 if @seq[*-1] != 48;
    take (1..^@seq).map: { @seq[$_] div @seq[$_-1] }
@@ -56,7 +56,7 @@ for @listing2.rotor(4) -> \line { line.map: { $out  ~= sprintf "%-20s", $_ } ; $
 
 @res.push: "\nOEIS A163272:";
 my ($n,@fpns) = 4, 0, 1;
-while (@fpns < 7) { @fpns.push($n) if erdosFactorCount($n) == $n; $n += 4 }
+while @fpns < 7 { @fpns.push($n) if erdosFactorCount($n) == $n; $n += 4 }
 @res.push: ~@fpns;
 
 .say for @res;
