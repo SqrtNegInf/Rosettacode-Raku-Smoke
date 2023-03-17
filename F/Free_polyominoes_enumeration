@@ -1,10 +1,10 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Free_polyominoes_enumeration
 #t# inprogress
-#c# 2022-08-06 >RC
+#c# 2023-03-xx >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# from Sidef/Ruby
+#n# from Sidef (ultimately Ruby)
 #n# OEIS:A000105 Number of free polyominoes (or square animals) with n cells.
 
 my @res;
@@ -81,16 +81,15 @@ sub text_representation(\poly) {
 
 #say 8.of { rank(_).len }
 
-my $n = 3;
+my $n = 2;
 printf "\nAll free polyominoes of rank %d:\n", $n;
 say rank($n); #.sort.each{|poly| say text_representation(poly).join("\n")+"\n" }
 
 # [1, 1, 1, 2, 5, 12, 35, 108]
 
 use Test;
-#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
-#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);$
 #is @res.join("\n"), chomp $ref;
+#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);$
 
 =finish
 
