@@ -13551,17 +13551,26 @@ File: S/SEND_+_MORE_=_MONEY-1
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/SEND_+_MORE_=_MONEY
 #c# 2023-02-10 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#m# MOAR: OK
+#j# JVM:  OK
 #n# Idiomatic
 
 File: S/SEND_+_MORE_=_MONEY-2
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/SEND_+_MORE_=_MONEY
 #c# 2023-02-10 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#m# MOAR: OK
+#j# JVM:  OK
 #n# Fast
+
+File: S/SEND_+_MORE_=_MONEY-3
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/SEND_+_MORE_=_MONEY
+#c# 2023-02-10 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# junctions slow down the 'fast' version a bit, but removing 'int' speeds things back up, ends up a wash
+#n# (verify this on other plaforms...)
 
 File: S/SHA-1
 #!/usr/bin/env perl6
