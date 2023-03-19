@@ -1,0 +1,54 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/SEND_+_MORE_=_MONEY
+#c# 2023-02-10 NOT ON RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# junctions slow down the 'fast' version a bit, but removing 'int' speeds things back up, ends up a wash
+#n# (verify this on other plaforms...)
+
+my @res;
+
+my $s = 7;
+while ++$s ≤ 9 {
+#   next if $s == 0; # never the case here
+    my $e = -1;
+    while ++$e ≤ 9 {
+        next if $e == $s;
+        my $n = -1;
+        while ++$n ≤ 9 {
+            next if $n == $s|$e;
+            my $d = -1;
+            while ++$d ≤ 9 {
+                next if $d == $s|$e|$n;
+                my $send = $s×10³ + $e×10² + $n×10 + $d;
+                my ($m, $o) = 1, -1;
+                while ++$o ≤ 9 {
+                    next if $o == $s|$e|$n|$d|$m;
+                    my $r = -1;
+                    while ++$r ≤ 9 {
+                        next if $r == $s|$e|$n|$d|$m|$o;
+                        my $more = $m×10³ + $o×10² + $r×10 + $e;
+                        my $y = -1;
+                        while ++$y ≤ 9 {
+                            next if $y == $s|$e|$n|$d|$m|$o|$r;
+                            my $money = $m×10⁴ + $o×10³ + $n×10² + $e×10 + $y;
+                            next unless $send + $more == $money;
+                            @res.push: 'SEND + MORE == MONEY';
+                            @res.push: "$send + $more == $money";
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+SEND + MORE == MONEY
+9567 + 1085 == 10652
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
