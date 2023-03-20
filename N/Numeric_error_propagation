@@ -3,8 +3,10 @@
 #c# 2016-01-03 <RC, 2018-03-26 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# original by TimToady, not going to mess excessively with this...
 
 #Translation of: Perl
+
 # cache of independent sources so we can make them all the same length.
 # (Because Raku does not yet have a longest-zip metaoperator.)
 my @INDEP;
@@ -21,68 +23,64 @@ class Approx does Numeric {
 }
 
 multi approx($x,$c) { Approx.new: :$x, :$c }
-multi approx($x) { Approx.new: :$x, :c[0 xx +@INDEP] }
+multi approx($x)    { Approx.new: :$x, :c[0 xx +@INDEP] }
 
 # Each ± gets its own source slot.
 multi infix:<±>($a, $b) {
-    .push: 0 for @INDEP; # lengthen older component lists
+    .push: 0 for @INDEP;                # lengthen older component lists
     my $c = [ flat 0 xx @INDEP, $b ];
-    @INDEP.push: $c;	 # add new component list
-
+    @INDEP.push: $c;	                # add new component list
     approx $a, $c;
 }
 
 multi prefix:<->(Approx $a) { approx -$a.x, [$a.c.map: -*] }
 
-multi infix:<+>($a, Approx $b) { approx($a) + $b }
-multi infix:<+>(Approx $a, $b) { $a + approx($b) }
-multi infix:<+>(Approx $a, Approx $b) { approx $a.x + $b.x, [$a.c Z+ $b.c] }
+multi infix:<+>(       $a, Approx $b)   { approx($a) + $b }
+multi infix:<+>(Approx $a,        $b)   { $a + approx($b) }
+multi infix:<+>(Approx $a, Approx $b)   { approx $a.x + $b.x, [$a.c Z+ $b.c] }
 
-multi infix:<->($a, Approx $b) { approx($a) - $b }
-multi infix:<->(Approx $a, $b) { $a - approx($b) }
-multi infix:<->(Approx $a, Approx $b) { approx $a.x - $b.x, [$a.c Z- $b.c] }
+multi infix:<->(       $a, Approx $b)   { approx($a) - $b }
+multi infix:<->(Approx $a,        $b)   { $a - approx($b) }
+multi infix:<->(Approx $a, Approx $b)   { approx $a.x - $b.x, [$a.c Z- $b.c] }
 
-multi covariance(Real   $a, Real   $b) { 0 }
-multi covariance(Approx $a, Approx $b) { [+] $a.c Z× $b.c }
+multi covariance(Real   $a, Real   $b)  { 0 }
+multi covariance(Approx $a, Approx $b)  { [+] $a.c Z× $b.c }
 
 multi infix:«<=>»(Approx $a, Approx $b) { $a.x <=> $b.x }
 multi infix:<cmp>(Approx $a, Approx $b) { $a.x <=> $b.x }
 
-multi infix:<×>($a, Approx $b) { approx($a) × $b }
-multi infix:<×>(Approx $a, $b) { $a × approx($b) }
-multi infix:<×>(Approx $a, Approx $b) {
+multi infix:<×>(       $a, Approx $b)   { approx($a) × $b }
+multi infix:<×>(Approx $a,        $b)   { $a × approx($b) }
+multi infix:<×>(Approx $a, Approx $b)   {
     approx $a.x × $b.x,
            [$a.c.map({$b.x × $_}) Z+ $b.c.map({$a.x × $_})];
 }
 
-multi infix:</>($a, Approx $b) { approx($a) / $b }
-multi infix:</>(Approx $a, $b) { $a / approx($b) }
-multi infix:</>(Approx $a, Approx $b) {
+multi infix:</>(       $a, Approx $b)  { approx($a) / $b }
+multi infix:</>(Approx $a,        $b)  { $a / approx($b) }
+multi infix:</>(Approx $a, Approx $b)  {
     approx $a.x / $b.x,
            [ $a.c.map({ $_ / $b.x }) Z+ $b.c.map({ $a.x × $_ / $b.x / $b.x }) ];
 }
 
 multi sqrt(Approx $a) {
-    my $x = sqrt($a.x);
+    my $x = sqrt $a.x;
     approx $x, [ $a.c.map: { $_ / 2 / $x } ];
 }
 
-multi infix:<**>(Approx $a, Real $b) { $a ** approx($b) }
+multi infix:<**>(Approx $a,           Real $b) { $a ** approx($b) }
 multi infix:<**>(Approx $a is copy, Approx $b) {
-	my $ax = $a.x;
-	my $bx = $b.x;
+	my ($ax, $bx) = $a.x, $b.x;
 	my $fbx = floor $b.x;
 	if $ax < 0 {
-	    if $fbx != $bx or $fbx +& 1 {
-		die "Can't take power of negative number $ax";
-	    }
+		die "Can't take power of negative number $ax" if $fbx != $bx or $fbx +& 1;
 	    $a = -$a;
 	}
 	exp($b × log $a);
 }
 
 multi exp(Approx $a) {
-	my $x = exp($a.x);
+	my $x = exp $a.x;
 	approx $x, [ $a.c.map: { $x × $_ } ];
 }
 
