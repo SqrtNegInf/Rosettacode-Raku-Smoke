@@ -1,16 +1,15 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/SEND_+_MORE_=_MONEY
-#c# 2023-02-10 NOT ON RC
+#c# 2023-03-19 >RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# junctions slow down the 'fast' version a bit, but removing 'int' speeds things back up, ends up a wash
-#n# (verify this on other plaforms...)
+#n# (verified this on other plaforms...)
 
 my @res;
 
 my $s = 7;
 while ++$s ≤ 9 {
-#   next if $s == 0; # never the case here
     my $e = -1;
     while ++$e ≤ 9 {
         next if $e == $s;
