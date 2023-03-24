@@ -13,16 +13,16 @@ use TrigPi;
 
 sub comma { $^i.flip.comb(3).join(',').flip }
 
-my ($m,$n)= 7, 8;
-my $arrangements = 1;
+my ($m,$n, $arrangements) = 7,8, 1;
 my $arrangements2 = 1;
 for 1 .. $m/2 -> $j {
-  for 1 .. $n/2  -> $k {
-    $arrangements ×= 4×cos(π×$j/($m+1))² + 4×cos(π×$k/($n+1))²;
-    $arrangements2×= 4×cosPi($j/($m+1))² + 4×cosPi($k/($n+1))²;
-  }
+    for 1 .. $n/2  -> $k {
+        $arrangements  ×= 4×cos(π×$j/($m+1))² + 4×cos(π×$k/($n+1))²;
+        $arrangements2 ×= 4×cosPi($j/($m+1))² + 4×cosPi($k/($n+1))²;
+    }
 }
 
+@res.push: $arrangements;
 @res.push: $arrangements2;
 
 @res.push: comma $arrangements.round(1);
@@ -34,7 +34,8 @@ for 1 .. $m/2 -> $j {
 
 .say for @res;
 
-my $moar = qq:to/END/;
+my $moar-macos= qq:to/END/;
+1292697.000000003
 1292697.000000003
 1,292,697
 304,888,344,611,713,860,501,504,000,000
@@ -42,7 +43,7 @@ my $moar = qq:to/END/;
 105,797,996,085,635,281,181,632,579,889,767,907,328,000,000
 END
 
-my $linux = qq:to/END/;
+my $moar-linux = qq:to/END/;
 1292697.0000000026
 1,292,697
 304,888,344,611,713,860,501,504,000,000
@@ -52,6 +53,7 @@ END
 
 my $jvm = qq:to/END/;
 1292697.0000000026
+1292697.0000000026
 1,292,697
 304,888,344,611,713,860,501,504,000,000
 268,435,456
@@ -59,7 +61,7 @@ my $jvm = qq:to/END/;
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*KERNEL eq 'linux' ?? $linux !! $moar;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*KERNEL eq 'linux' ?? $moar-linux !! $moar-macos;
 
 =finish
 
