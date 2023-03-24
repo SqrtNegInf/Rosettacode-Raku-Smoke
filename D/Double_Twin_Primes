@@ -1,0 +1,32 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Double_Twin_Primes
+#c# 2023-03-24 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A007530 Prime quadruples: numbers k such that k, k+2, k+6, k+8 are all prime
+#n# cf A257124 septuples (entry lists many N-tuples)
+
+#`{ for RC:
+
+;See also
+:* [[oeis:A007530|OEIS:A007530]]
+
+}
+
+my @res;
+
+sub dt { $^p, $p+2, $p+6, $p+8 }
+@res.push: .&dt for (^1000).grep: { all .&dt».is-prime };
+
+.say for @res;
+
+my $ref = q:to/END/;
+5 7 11 13
+11 13 17 19
+101 103 107 109
+191 193 197 199
+821 823 827 829
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
