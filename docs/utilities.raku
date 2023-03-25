@@ -4,6 +4,7 @@
 
 ;See also
 :* [[oeis:A000000|OEIS:A000000]]
+:* [[wp:xxx|Wikipedia:xxx]]
 
 
 #==== elide middle of something long
