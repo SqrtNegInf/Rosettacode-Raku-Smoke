@@ -4,18 +4,12 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# OEIS:A007530 Prime quadruples: numbers k such that k, k+2, k+6, k+8 are all prime
-#n# aka 'prime quadruplets', see also: A257124 septuples (entry lists many N-tuples)
-
-#`{ for RC:
-
-;See also
-:* [[oeis:A007530|OEIS:A007530]]
-:* [[wp:Prime_k-tuple|Wikipedia:Prime_k-tuple]]
-}
+#n# aka 'prime quadruplets', see also: A257124 septuples (entry lists many N-tuples), Wikipedia:Prime_k-tuple
 
 my @res;
 
-sub dt { $^p, $p+2, $p+6, $p+8 }
+#ub dt { $^p, $^p+2, $^p+6, $^p+8 }
+sub dt { $^p,  $p+2,  $p+6,  $p+8 } # huh
 @res.push: .&dt for (^1000).grep: { all .&dt».is-prime };
 
 .say for @res;
