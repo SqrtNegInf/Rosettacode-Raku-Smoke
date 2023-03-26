@@ -32,7 +32,8 @@ sub show(@data) {
 }
 
 sub MAIN ($maxside = 200, $first = 10, $witharea = 210) {
-    my @hh[1000];
+   #my @hh[1000];
+    my @hh; sink @hh[1000]; # better with 'sink'?
     my atomicint $i;
     #(flat (^$maxside X ^$maxside).grep: {.[0] < .[1]}).race.map: -> $c, $b {  # much slower than no .race at all?
     (1 .. $maxside).race(:12batch).map: -> $c {
