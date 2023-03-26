@@ -9886,6 +9886,7 @@ File: M/Multidimensional_Newton-Raphson_method
 #j# JVM:  OK
 #n# 2022-04-03 When JVM runs, 'Math::Matrix' generates annoying but harmless error
 #n# the 'Math' routines in 'lib' directory purposefully disabled (early 2020, in .tar.gz)?  Investigate sometime...
+#n# 2023-03-25 minor clean-up, not on RC
 
 File: M/Multifactorial
 #!/usr/bin/env perl6
@@ -14442,6 +14443,22 @@ File: S/Smallest_square_that_begins_with_n-2
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Smallest_square_that_begins_with_n
 #c# 2021-03-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: S/Smarandache-Wellin_primes
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Smarandache-Wellin_primes
+#c# 2023-03-25 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# OEIS:A019518 - Smarandache-Wellin numbers
+#n# OEIS:A069151 - Smarandache-Wellin primes
+
+File: S/Smarandache-Wellin_primes.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Smarandache-Wellin_primes
+#c# 2023-03-25 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
