@@ -109,7 +109,7 @@ sub solve (@numbers, $goal = 24) {
     my @perms = @numbers.permutations.unique( :with(&[eqv]) );
     my @order = (^(@numbers - 1)).permutations;
     my @sol;
-    @sol[250]; # preallocate some stack space
+    sink @sol[250]; # preallocate some stack space ## better with 'sink'?
     my $batch = ceiling @perms/4;
 
     my atomicint $i;
