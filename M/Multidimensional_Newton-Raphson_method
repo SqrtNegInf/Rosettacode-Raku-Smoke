@@ -5,69 +5,64 @@
 #j# JVM:  OK
 #n# 2022-04-03 When JVM runs, 'Math::Matrix' generates annoying but harmless error
 #n# the 'Math' routines in 'lib' directory purposefully disabled (early 2020, in .tar.gz)?  Investigate sometime...
+#n# 2023-03-25 minor clean-up, not on RC
 
 my @res;
 
 sub solve_funcs ($funcs, @guesses, $iterations, $epsilon) {
-   my ($error_value, @values, @delta, @jacobian); my $eps = $epsilon;
+   my ($error_value, @values, @delta, @jacobian); 
    for 1 .. $iterations {
       for ^+$funcs { @values[$^i] = $funcs[$^i](|@guesses); }
       $error_value = 0;
       for ^+$funcs { $error_value += @values[$^i].abs }
-      return @guesses if $error_value ≤ $eps;
+      return @guesses if $error_value ≤ $epsilon;
       for ^+$funcs { @delta[$^i] = -@values[$^i] }
-      @jacobian = jacobian $funcs, @guesses, $eps;
+      @jacobian = jacobian $funcs, @guesses, $epsilon;
       @delta = solve_matrix @jacobian, @delta;
       loop (my $j = 0, $error_value = 0; $j < +$funcs; $j++) {
-         $error_value += @delta[$j].abs ;
+         $error_value += @delta[$j].abs;
          @guesses[$j] += @delta[$j];
       }
-      return @guesses if $error_value ≤ $eps;
+      return @guesses if $error_value ≤ $epsilon;
    }
-   return @guesses;
+   @guesses
 }
 
-sub jacobian ($funcs is copy, @points is copy, $epsilon is copy) {
+sub jacobian ($funcs, @points, $epsilon) {
    my ($Δ, @P, @M, @plusΔ, @minusΔ);
-   my Array @jacobian; my $eps = $epsilon;
+   my Array @jacobian; 
    for ^+@points -> $i {
       @plusΔ = @minusΔ = @points;
-      $Δ = ($eps × @points[$i].abs) || $eps;
+      $Δ = ($epsilon × @points[$i].abs) || $epsilon;
       @plusΔ[$i] = @points[$i] + $Δ;
       @minusΔ[$i] = @points[$i] - $Δ;
-      for ^+$funcs { @P[$^k] = $funcs[$^k](|@plusΔ); }
-      for ^+$funcs { @M[$^k] = $funcs[$^k](|@minusΔ); }
+      for ^+$funcs { @P[$^k] = $funcs[$^k](|@plusΔ)  }
+      for ^+$funcs { @M[$^k] = $funcs[$^k](|@minusΔ) }
       for ^+$funcs -> $j {
          @jacobian[$j][$i] = (@P[$j] - @M[$j]) / (2 × $Δ);
       }
    }
-   return @jacobian;
+   @jacobian
 }
 
-sub solve_matrix (@matrix_array is copy, @delta is copy) {
-   # https://github.com/pierre-vigier/Perl6-Math-Matrix/issues/56
-   { use Math::Matrix;
-      my $matrix = Math::Matrix.new(@matrix_array);
-      my $vector = Math::Matrix.new(@delta.map({.list}));
-      die 'Matrix is not invertible' unless $matrix.is-invertible;
-      my @result = ( $matrix.inverted dot $vector ).transposed;
-      return @result.split(' ');
-   }
+sub solve_matrix (@matrix_array, @delta) {
+   use Math::Matrix; # https://github.com/pierre-vigier/Perl6-Math-Matrix/issues/56
+   my $matrix = Math::Matrix.new(@matrix_array);
+   my $vector = Math::Matrix.new(@delta.map({.list}));
+   die 'Matrix is not invertible' unless $matrix.is-invertible;
+   @(($matrix.inverted dot $vector).transposed).split: ' ';
 }
 
 my $funcs = [
-   { 9×$^x² + 36×$^yy² + 4×$^z² - 36 }
-   { $^x² - 2×$^yy² - 20×$^z }
-   { $^x² - $^yy² + $^z² }
+   { 9×$^x² + 36×$^yy² + 4×$^z²        - 36 }
+   {   $^x² -  2×$^yy² -        20×$^z      }
+   {   $^x² -    $^yy² +  $^z²              }
 ];
 
-my @guesses = (1,1,0);
-
+my @guesses = 1, 1, 0;
 my @solution = solve_funcs $funcs, @guesses, 20, 1e-8;
 
-say my $result = 'Solution: ' ~ join ' ', @solution;
-
-my $ref = 'Solution: 0.8936282344764825 0.8945270103905782 -0.04008928615915281';
+say my $result = 'Solution: ' ~ @solution;
 
 use Test;
-is $result, $ref;
+is $result, 'Solution: 0.8936282344764825 0.8945270103905782 -0.04008928615915281';
