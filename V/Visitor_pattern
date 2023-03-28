@@ -1,0 +1,103 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Visitor_pattern
+#c# 2023-03-27 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+# Raku implements multiple dispatch so the visitor pattern is perhaps not as useful/necessary there. 
+# That said, it can be done fairly easily (largely based on an example published by Johnathan Stowe).
+
+role CarElementVisitor { ... }
+
+class CarElement {
+    method accept(CarElementVisitor $visitor) {
+        $visitor.visit: self
+    }
+}
+
+class Body is CarElement { }
+
+class Engine is CarElement { }
+
+class Wheel is CarElement {
+    has Str $.name is required;
+}
+
+class Car is CarElement {
+    has CarElement @.elements = ( 
+        Wheel.new(name => "front left"),
+        Wheel.new(name => "front right"),
+        Wheel.new(name => "rear left"),
+        Wheel.new(name => "rear right"),
+        Body.new,
+        Engine.new
+    );
+
+    method accept(CarElementVisitor $visitor) {
+        for @.elements -> $element { $element.accept: $visitor };
+        $visitor.visit: self;
+    }
+}
+
+role CarElementVisitor {
+    method visit(CarElement $e) { ... }
+}
+
+class CarElementDoVisitor does CarElementVisitor {
+    multi method visit(Body $e) {
+        @res.push: "Moving my body.";
+    }
+    multi method visit(Car $e) {
+        @res.push: "Starting my car.";
+    }
+    multi method visit(Wheel $e) {
+        @res.push: "Kicking my { $e.name } wheel.";
+    }
+    multi method visit(Engine $e) {
+        @res.push: "Starting my engine.";
+    }
+}
+
+class CarElementPrintVisitor does CarElementVisitor {
+    multi method visit(Body $e) {
+        @res.push: "Visiting body.";
+    }
+    multi method visit(Car $e) {
+        @res.push: "Visiting car.";
+    }
+    multi method visit(Wheel $e) {
+        @res.push: "Visiting { $e.name } wheel.";
+    }
+    multi method visit(Engine $e) {
+        @res.push: "Visiting engine.";
+    }
+}
+
+my Car $car = Car.new;
+
+$car.accept: CarElementPrintVisitor.new;
+$car.accept: CarElementDoVisitor.new;
+
+.say for @res;
+
+my $ref = q:to/END/;
+Visiting front left wheel.
+Visiting front right wheel.
+Visiting rear left wheel.
+Visiting rear right wheel.
+Visiting body.
+Visiting engine.
+Visiting car.
+Kicking my front left wheel.
+Kicking my front right wheel.
+Kicking my rear left wheel.
+Kicking my rear right wheel.
+Moving my body.
+Starting my engine.
+Starting my car.
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
