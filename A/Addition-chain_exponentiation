@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Addition-chain_exponentiation
-#c# 2023-03-27 <RC
+#c# 2023-03-28 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -15,7 +15,7 @@ class AdditionChains { has ( $.idx, $.pos, @.chains, @.lvl, %.pat ) is rw;
       return gather given self { 
          take my $newchain = .chains[.idx].clone.append: 
             .chains[.idx][*-1] + .chains[.idx][.pos];
-	     .chains.append: $newchain;
+         .chains.append: $newchain;
          .pos == +.chains[.idx]-1 ?? ( .idx += 1 && .pos = 0 ) !! .pos += 1;
       }
    }
@@ -53,7 +53,7 @@ class AdditionChains { has ( $.idx, $.pos, @.chains, @.lvl, %.pat ) is rw;
          ?? Math::Matrix.new([ [ 1 xx xbase.size[1] ] xx xbase.size[0] ]) !! 1;
 
       for chain.Array -> \i {
-	 %products{i} = %products{$pows} * %products{i - $pows};
+         %products{i} = %products{$pows} * %products{i - $pows};
          $pows = i
       }
       return %products{ chain[*-1] }
@@ -69,18 +69,19 @@ my $chn =  AdditionChains.new( idx    =>      0, pos =>      0,
 my %chns = (31415, 27182).map: { $_ => $chn.knuth_path: $_ };
 
 @res.push: "\nKnuth chains for addition chains of 31415 and 27182:";
+@res.push: "Exponent: $_\n  Addition Chain: %chns{$_}[0..*-2]" for %chns.keys.sort;
 @res.push: '1.00002206445416^31415 = ', $chn.cpow(1.00002206445416, %chns{31415});
 @res.push: '1.00002550055251^27182 = ', $chn.cpow(1.00002550055251, %chns{27182});
 @res.push: '(1.000025 + 0.000058i)^27182 = ', $chn.cpow: 1.000025+0.000058i, %chns{27182};
 @res.push: '(1.000022 + 0.000050i)^31415 = ', $chn.cpow: 1.000022+0.000050i, %chns{31415};
 
 my \sq05 = 0.5.sqrt;
-my \mat  = Math::Matrix.new( [[sq05,    0, sq05,     0, 0, 0], 
-                             [    0, sq05,    0,  sq05, 0, 0], 
-			                 [    0, sq05,    0, -sq05, 0, 0],
-                             [-sq05,    0, sq05,     0, 0, 0], 
-			                 [    0,    0,    0,     0, 0, 1], 
-			                 [    0,    0,    0,     0, 1, 0]] );
+my \mat  = Math::Matrix.new( [[sq05,    0, sq05,     0, 0, 0],
+                             [    0, sq05,    0,  sq05, 0, 0],
+                             [    0, sq05,    0, -sq05, 0, 0],
+                             [-sq05,    0, sq05,     0, 0, 0],
+                             [    0,    0,    0,     0, 0, 1],
+                             [    0,    0,    0,     0, 1, 0]] );
 
 @res.push: 'matrix A ^ 27182 =';
 @res.push: my $res27182 = $chn.cpow(mat, %chns{27182});
@@ -105,10 +106,18 @@ First one hundred addition chain lengths:
 9 8 9 9 9 7 8 8 8 8
 
 Knuth chains for addition chains of 31415 and 27182:
-1.00002206445416^31415 = 1.9999999998924638
-1.00002550055251^27182 = 1.999999999974053
-(1.000025 + 0.000058i)^27182 = -0.01128636963542673+1.9730308496660347i
-(1.000022 + 0.000050i)^31415 = 0.00016144681325535107+1.9960329014194498i
+Exponent: 27182
+  Addition Chain: 1 2 3 5 7 14 21 35 70 140 143 283 566 849 1698 3396 6792 6799 13591
+Exponent: 31415
+  Addition Chain: 1 2 3 5 7 14 28 56 61 122 244 488 976 1952 3904 7808 15616 15677 31293
+1.00002206445416^31415 = 
+1.9999999998924638
+1.00002550055251^27182 = 
+1.999999999974053
+(1.000025 + 0.000058i)^27182 = 
+-0.01128636963542673+1.9730308496660347i
+(1.000022 + 0.000050i)^31415 = 
+0.00016144681325535107+1.9960329014194498i
 matrix A ^ 27182 =
   0  0  0  0  0  0
   0  0  0  0  0  0
@@ -146,6 +155,10 @@ First one hundred addition chain lengths:
 9 8 9 9 9 7 8 8 8 8
 
 Knuth chains for addition chains of 31415 and 27182:
+Exponent: 31415
+  Addition Chain: 1 2 3 5 7 14 28 56 61 122 244 488 976 1952 3904 7808 15616 15677 31293
+Exponent: 27182
+  Addition Chain: 1 2 3 5 7 14 21 35 70 140 143 283 566 849 1698 3396 6792 6799 13591
 1.00002206445416^31415 = 
 1.9999999998924638
 1.00002550055251^27182 = 
