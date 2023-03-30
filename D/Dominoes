@@ -3,7 +3,7 @@
 #c# 2022-12-05 NOT ON RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# just extra credit combinatorics, to demonstrate numeric issue
+#n# just extra credit combinatorics, to demonstrate numeric issue (which occurs with all grid sizes)
 #n# repeated operations with cos values accumulates errors, even with 'cosPi'
 #n# unsurprisingly, different floating point errors on Linux
 
@@ -33,6 +33,7 @@ for 1 .. $m/2 -> $j {
 @res.push: comma sprintf "%d", $flips × $permutations × $arrangements.round(1);
 
 .say for @res;
+exit;
 
 my $moar-macos= qq:to/END/;
 1292697.000000003
@@ -44,7 +45,6 @@ my $moar-macos= qq:to/END/;
 END
 
 my $moar-linux = qq:to/END/;
-1292697.0000000026
 1292697.0000000026
 1,292,697
 304,888,344,611,713,860,501,504,000,000
