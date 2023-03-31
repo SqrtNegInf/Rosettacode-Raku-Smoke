@@ -3,9 +3,17 @@
 #c# 2016-06-12 <RC, 2018-04-15 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# 2023-03-30 ms/ => m:s/ as per GH5236
 
-# Translation of: Perl
-# The only tricky thing here is the use of the ms form of match, short for m:sigspace. This causes whitespace in the regex to be considered "significant", that is, it matches optional whitespace at those positions, as if you'd put \s* there. Of course, the regexes themselves are in Raku syntax, which is quite different from Perl 5 regex syntax (and arguably much cleaner). Regex syntax is perhaps the area in which Raku diverges most from Perl 5.
+#`{
+The only tricky thing here is the use of the <m:s> form of match, short for
+<m:sigspace>. This causes whitespace in the regex to be considered
+"significant", that is, it matches optional whitespace at those positions,
+as if you'd put \s* there. Of course, the regexes themselves are in Raku
+syntax, which is quite different from Perl 5 regex syntax (and arguably
+much cleaner). Regex syntax is perhaps the area in which Raku diverges most
+from Perl 5.
+}
 
 my $lang = '(no language)';
 my $total = 0;
@@ -29,7 +37,7 @@ for split "\n", $text {
     %blanks{$lang}++;
     $total++;
   }
-  when ms/ '==' '{{' 'header' '|' ( <-[}]>+? ) '}}' '==' / {
+  when m:s/ '==' '{{' 'header' '|' ( <-[}]>+? ) '}}' '==' / {
     $lang = $0.lc;
   }
 }
