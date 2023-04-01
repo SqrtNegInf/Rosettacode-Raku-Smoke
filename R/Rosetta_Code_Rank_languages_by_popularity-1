@@ -27,7 +27,7 @@ my @res.push: $_ for
 
     .map({ last if .<count>==0; sprintf "%3d. %3d - %s", ++$, .<count name> });
 
-.say for @res[0..15]; say '...'; .say for @res[*-15..*];
+.say for @res[0..9]; say '...'; .say for @res[*-9..*];
 
 sub mediawiki-query ($site, $type, *%query) {
     my $url = "$site/api.php?" ~ uri-query-string(
