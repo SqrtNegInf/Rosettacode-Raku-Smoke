@@ -10,37 +10,37 @@ use Lingua::EN::Numbers;
 
 my @primes = (^∞).grep: &is-prime;
 
-my @Smarandache-Whellen = [\~] @primes;
+my @Smarandache-Wellen = [\~] @primes;
 
-sink @Smarandache-Whellen[1500]; # pre-reify for concurrency
+sink @Smarandache-Wellen[1500]; # pre-reify for concurrency
 
 sub derived ($n) { my %digits = $n.comb.Bag; (0..9).map({ %digits{$_} // 0 }).join }
 
 sub abbr ($_) { .chars < 41 ?? $_ !! .substr(0,20) ~ '…' ~ .substr(*-20) ~ " ({.chars} digits)" }
 
-@res.push: "Smarandache-Whellen primes:";
+@res.push: "Smarandache-Wellen primes:";
 @res.push: ordinal-digit(++$,:u).fmt("%4s") ~ $_ for (^∞).map({
-    next unless (my $sw = @Smarandache-Whellen[$_]).is-prime;
+    next unless (my $sw = @Smarandache-Wellen[$_]).is-prime;
     sprintf ": Index: %4d, Last prime: %5d, %s", $_, @primes[$_], $sw.&abbr
 })[^5];
 
-@res.push: "\nSmarandache-Whellen derived primes:";
+@res.push: "\nSmarandache-Wellen derived primes:";
 @res.push: ordinal-digit(++$,:u).fmt("%4s") ~ $_ for (^∞).map({
-    next unless (my $sw = @Smarandache-Whellen[$_].&derived).is-prime;
+    next unless (my $sw = @Smarandache-Wellen[$_].&derived).is-prime;
     sprintf ": Index: %4d, %s", $_, $sw
 })[^20];
 
 .say for @res;
 
 my $ref = q:to/END/;
-Smarandache-Whellen primes:
+Smarandache-Wellen primes:
  1ˢᵗ: Index:    0, Last prime:     2, 2
  2ⁿᵈ: Index:    1, Last prime:     3, 23
  3ʳᵈ: Index:    3, Last prime:     7, 2357
  4ᵗʰ: Index:  127, Last prime:   719, 23571113171923293137…73677683691701709719 (355 digits)
  5ᵗʰ: Index:  173, Last prime:  1033, 23571113171923293137…10131019102110311033 (499 digits)
 
-Smarandache-Whellen derived primes:
+Smarandache-Wellen derived primes:
  1ˢᵗ: Index:   31, 4194123321127
  2ⁿᵈ: Index:   71, 547233879626521
  3ʳᵈ: Index:   72, 547233979727521
