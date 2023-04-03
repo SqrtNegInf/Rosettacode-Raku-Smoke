@@ -1,12 +1,14 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Prime_numbers_which_contain_123
-#c# 2021-07-12 <RC
+#c# 2021-07-12 <RC, 2023-04-03 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# reversing test supposed to be faster, but isn't for me (esp. as limit is increased)
 
 my @res;
 
-my @p123 = ^∞ .grep: { .is-prime && .contains: 123 };
+#my @p123 = ^∞ .grep: { .is-prime && .contains: 123 };
+my @p123 = ^∞ .grep: { (.contains: 123) && .is-prime };
 
 @res.push: display @p123[^(@p123.first: * > 1e5, :k)];
 
