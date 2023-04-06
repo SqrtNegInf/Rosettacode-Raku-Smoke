@@ -7,8 +7,8 @@
 
 my @res;
 
-#my @p123 = ^∞ .grep: { .is-prime && .contains: 123 };
-my @p123 = ^∞ .grep: { (.contains: 123) && .is-prime }; # hmmmm
+my @p123 = ^∞ .grep: { .is-prime && .contains: 123 };
+#my @p123 = ^∞ .grep: { (.contains: 123) && .is-prime }; # hmmmm
 
 @res.push: display @p123[^(@p123.first: * > 1e5, :k)];
 
