@@ -14,6 +14,12 @@ my $Δ = 1;
 $Δ++;
 @res.push: $Δ;
 
+# 2023-04-07 NOT ON RC
+my \Δ = $ = 1;
+Δ++;
+Δ++;
+@res.push: Δ;
+
 #Function and subroutine names can also use Unicode characters: (as can methods, classes, packages, whatever...)
 
 my @ᐁ = (0, 45, 60, 90);
@@ -32,6 +38,7 @@ for @ᐁ -> $ಠ_ಠ { @res.push: sin $ಠ_ಠ° };
 
 my $ref = qq:to/END/;
 2
+3
 0
 0.7071067811865475
 0.8660254037844386
