@@ -1,11 +1,10 @@
-#!/usr/bin/env raku do-not-check
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Strassen%27s_algorithm
-#t# inprogress
 #c# 2021-01-26 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#n# was not able to get modules to work on my old Mac...
-#n# 2021-02-18 code now OK, current
+die 'BROKEN on Mac-Pro (OK only on Unbuntu)' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on iMac (OK only on Ubuntu)'     if qx/uname -a/ ~~ /'iMac'/;
 
 my @res;
 
