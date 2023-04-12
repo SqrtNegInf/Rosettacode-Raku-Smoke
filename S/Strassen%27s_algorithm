@@ -3,8 +3,8 @@
 #c# 2021-01-26 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
-die 'BROKEN on Mac-Pro (OK only on Unbuntu)' if qx/uname -a/ ~~ /'Mac-Pro'/;
-die 'BROKEN on iMac (OK only on Ubuntu)'     if qx/uname -a/ ~~ /'iMac'/;
+#n# was not able to get modules to work on my old Mac...
+#n# 2021-02-18 code now OK, current
 
 my @res;
 
@@ -83,13 +83,13 @@ for @M.rotor(2) {
    my $product = @_[0] ⊗ @_[1];
 #   $product.get-row($_)».round(1).fmt('%2d').put for ^$product.size1;
     
-    say "Regular multiply:";
-    $product.get-row($_)».fmt('%.10g').put for ^$product.size1;
+    @res.push: "Regular multiply:";
+    @res.push: $product.get-row($_)».fmt('%.10g') for ^$product.size1;
 
     $product = Strassen @_[0], @_[1];
 
-    say "Strassen multiply:";
-    $product.get-row($_)».fmt('%.10g').put for ^$product.size1;
+    @res.push: "Strassen multiply:";
+    @res.push: $product.get-row($_)».fmt('%.10g') for ^$product.size1;
 } 
 
 =begin code   
@@ -133,4 +133,4 @@ Strassen multiply:
 END
 
 use Test;
-#is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp $ref;
