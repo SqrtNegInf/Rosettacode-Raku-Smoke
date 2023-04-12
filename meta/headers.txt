@@ -4931,7 +4931,6 @@ File: E/Erdos-Selfridge_categorization_of_primes
 File: E/Erdos-Selfridge_categorization_of_primes.jvm
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Erdös-Selfridge_categorization_of_primes
-#t# inprogress
 #c# 2022-04-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -6366,15 +6365,6 @@ File: F/Functional_coverage_tree-1
 #c# 2019-11-14 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-
-File: F/Functional_coverage_tree-2
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Functional_coverage_tree
-#t# inprogress
-#c# 2019-11-xx >RC
-#m# MOAR: OK
-#j#  JVM: OK
-#n# a more Raku-ish version
 
 File: F/Functional_coverage_tree.0
 #!/usr/bin/env perl6
@@ -9457,13 +9447,15 @@ File: M/McNuggets_Problem.1
 #j# JVM:  OK
 
 File: M/Median_filter
-#!/usr/bin/env perl6 # do-not-check
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Median_filter
 #c# 2019-10-12 >RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #f# RC file: plasma_median.png
-#n# busted until I can fix my v5.36 issues
+#n# busted on Mac-Pro until I can fix my v5.36 issues with PDL
+die 'BROKEN on Mac-Pro (OK only on Unbuntu)' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on iMac (OK only on Ubuntu)'     if qx/uname -a/ ~~ /'iMac'/;
 
 File: M/Meissel–Mertens_constant
 #!/usr/bin/env raku
@@ -13205,7 +13197,7 @@ File: R/Retrieve_and_search_chat_history
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Retrieve_and_search_chat_history
 #c# 2017-05-06 <RC, 2018-04-25 <RC
-#t# inprogress
+#t# skiptest
 #m# MOAR: OK
 #j#  JVM: OK
 #n# see .0 version for 'live' filter
@@ -14405,12 +14397,13 @@ File: S/Singly-linked_list_Traversal
 #j#  JVM: OK
 
 File: S/Singular_value_decomposition
-#!/usr/bin/env raku do-not-check
+#!/usr/bin/env raku 
 #u# https://rosettacode.org/wiki/Singular_value_decomposition
-#t# inprogress
 #c# 2023-01-08 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
+die 'BROKEN on Mac-Pro (OK only on Unbuntu)' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on iMac (OK only on Ubuntu)'     if qx/uname -a/ ~~ /'iMac'/;
 
 File: S/Sleep
 #!/usr/bin/env perl6
@@ -15367,14 +15360,13 @@ File: S/Strange_unique_prime_triplets
 #j# JVM:  OK
 
 File: S/Strassen%27s_algorithm
-#!/usr/bin/env raku do-not-check
+#!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Strassen%27s_algorithm
-#t# inprogress
 #c# 2021-01-26 <RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
-#n# was not able to get modules to work on my old Mac...
-#n# 2021-02-18 code now OK, current
+die 'BROKEN on Mac-Pro (OK only on Unbuntu)' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on iMac (OK only on Ubuntu)'     if qx/uname -a/ ~~ /'iMac'/;
 
 File: S/Stream_Merge
 #!/usr/bin/env perl6
