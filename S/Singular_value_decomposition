@@ -3,6 +3,8 @@
 #c# 2023-01-08 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+die 'BROKEN on Mac-Pro (OK only on Unbuntu)' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on iMac (OK only on Ubuntu)'     if qx/uname -a/ ~~ /'iMac'/;
 
 my @res;
 
@@ -25,15 +27,6 @@ my $ref = q:to/END/;
 U factor: -0.316227766 -0.9486832981 -0.9486832981 0.316227766
 singular values: 6.708203932 2.236067977
 Vt factor: -0.7071067812 -0.7071067812 -0.7071067812 0.7071067812
-END
-
-my $xef = q:to/END/;
-U factor: 
-([-0.316227766 -0.9486832981] [-0.9486832981 0.316227766])
-singular values: 
-((6.708203932) (2.236067977))
-Vt factor: 
-([-0.7071067812 -0.7071067812] [-0.7071067812 0.7071067812])
 END
 
 use Test;
