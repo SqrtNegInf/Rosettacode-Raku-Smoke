@@ -1,10 +1,12 @@
-#!/usr/bin/env perl6 # do-not-check
+#!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Median_filter
 #c# 2019-10-12 >RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j#  JVM: BROKEN
 #f# RC file: plasma_median.png
-#n# busted until I can fix my v5.36 issues
+#n# busted on Mac-Pro until I can fix my v5.36 issues with PDL
+die 'BROKEN on Mac-Pro (OK only on Unbuntu)' if qx/uname -a/ ~~ /'Mac-Pro'/;
+die 'BROKEN on iMac (OK only on Ubuntu)'     if qx/uname -a/ ~~ /'iMac'/;
 
 use PDL:from<Perl5>;
 use PDL::Image2D:from<Perl5>;
