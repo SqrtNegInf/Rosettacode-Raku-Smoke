@@ -7452,13 +7452,14 @@ File: I/Image_convolution
 #!/usr/bin/env perl6 # do-not-check
 #u# http://rosettacode.org/wiki/Image_convolution
 #c# 2019-10-13 >RC
-#m# MOAR: BROKEN
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #f# RC file: frog_convolution.png
 #n# 2019-11-11 thundergnat gives a fix for native version, but no time to fiddle with it now
 #n# made an effort to get the MagickWand version to work, but just kept seg faulting...
 #n# just cloning from Perl until something better comes along
 #n# busted until I can fix my v5.36 issues
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: I/Image_noise
 #!/usr/bin/env perl6
@@ -14397,7 +14398,7 @@ File: S/Singly-linked_list_Traversal
 #j#  JVM: OK
 
 File: S/Singular_value_decomposition
-#!/usr/bin/env raku 
+#!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Singular_value_decomposition
 #c# 2023-01-08 <RC
 #m# MOAR: OK
