@@ -1,0 +1,32 @@
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Erdős-primes
+#c# 2023-04-14 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+use Lingua::EN::Numbers;
+use List::Divvy;
+
+my @factorial = 1, |[\*] 1..*;
+my @Erdős = ^∞ .grep: { .is-prime and none($_ «-« @factorial.&upto: $_).is-prime }
+
+@res.push: "Erdős primes < 2500:\n" ~ @Erdős.&before(2500)».&comma.batch(8)».fmt("%5s").join: "\n";
+@res.push: "\nThe largest Erdős prime less than {comma 1e6.Int} is {comma .[*-1]} in {.&ordinal-digit} position."
+  given @Erdős.&before(1e6);
+
+.say for @res;
+
+my $ref = q:to/END/;
+Erdős primes < 2500:
+    2   101   211   367   409   419   461   557
+  673   709   769   937   967 1,009 1,201 1,259
+1,709 1,831 1,889 2,141 2,221 2,309 2,351 2,411
+2,437
+
+The largest Erdős prime less than 1,000,000 is 999,721 in 7875th position.
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
