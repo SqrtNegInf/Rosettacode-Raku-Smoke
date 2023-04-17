@@ -9,7 +9,7 @@ my @res;
 use Lingua::EN::Numbers;
 use List::Divvy;
 
-my @factorial = 1, |[\*] 1..*;
+my @factorial = 1, |[\×] 1..*;
 my @Erdős = ^∞ .grep: { .is-prime and none($_ «-« @factorial.&upto: $_).is-prime }
 
 @res.push: "Erdős primes < 2500:\n" ~ @Erdős.&before(2500)».&comma.batch(8)».fmt("%5s").join: "\n";
