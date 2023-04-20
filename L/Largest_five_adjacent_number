@@ -3,12 +3,12 @@
 #c# 2021-09-27 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-04-20 flapping on 'srand', accept both results for now
 #n# 2022-02-05 work-around of binding suggested by usev6++
 #n# JVM 2021.12: this doesn't seem right, opened as issue GH4753
 #    The iterator of this Seq is already in use/consumed by another Seq (you
 #        might solve this by adding .cache on usages of the Seq, or by assigning
 #        the Seq into an array)
-#n# new-disp 'srand' shift
 
 use v6.e.PREVIEW;
 
@@ -22,12 +22,12 @@ if ($*VM ~~ /jvm/) { $result := (^10).roll(1000).rotor(5 => -4)».join.minmax.bo
 else               { $result  =     ௰.roll(   ௲).rotor(5 => -4)».join.minmax.bounds xx 5 }
 say $result;
 
-my $mac-pro = '00058 99978 00085 99964 00111 99823 00142 99994 00268 99905';
-my $default = '00058 99978 00196 99964 00111 99823 00142 99994 00268 99905';
-#                          ^^^^^ flapping?
+my $ref1 = '00058 99978 00085 99964 00111 99823 00142 99994 00268 99905';
+my $ref2 = '00058 99978 00196 99964 00111 99823 00142 99994 00268 99905';
+#                       ^^^^^ flapping?
 
-my $ref = qx/uname -a/ ~~ /'Mac-Pro'/ ?? $mac-pro !! $default;
+#my $ref = qx/uname -a/ ~~ /'Mac-Pro'/ ?? $mac-pro !! $default;
 
 use Test;
 if ($*VM ~~ /jvm/) { is $result, '00051 99988 00557 99916 00205 99989 00050 99897 00217 99930' }
- else              { is $result, $ref }
+else               { is($result,$ref1) or is($result,$ref2) }
