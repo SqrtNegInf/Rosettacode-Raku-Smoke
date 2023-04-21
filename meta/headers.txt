@@ -1801,6 +1801,14 @@ File: B/Base64_encode_data
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: B/Base_16_numbers_needing_a_to_f
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Base_16_numbers_needing_a_to_f
+#c# 2023-04-19 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# big sigh: poorly specced, poorly named, trivial task; 'Base 16' is not hexadecimal. Hexadecimal is an implementation of base 16. 
+
 File: B/Bell_numbers-1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Bell_numbers
@@ -8280,12 +8288,12 @@ File: L/Largest_five_adjacent_number
 #c# 2021-09-27 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2023-04-20 flapping on 'srand', accept both results for now
 #n# 2022-02-05 work-around of binding suggested by usev6++
 #n# JVM 2021.12: this doesn't seem right, opened as issue GH4753
 #    The iterator of this Seq is already in use/consumed by another Seq (you
 #        might solve this by adding .cache on usages of the Seq, or by assigning
 #        the Seq into an array)
-#n# new-disp 'srand' shift
 
 File: L/Largest_int_from_concatenated_ints
 #!/usr/bin/env perl6
