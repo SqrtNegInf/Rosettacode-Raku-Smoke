@@ -1,0 +1,21 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/N-grams
+#c# 2023-04-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub n-gram ($this, $N=2) { Bag.new( flat $this.uc.map: { .comb.rotor($N => -($N-1))».join } ) }
+@res.push: 'Live and let live'.&n-gram.sort.raku;    # bi-gram
+@res.push: 'Live and let live'.&n-gram(3).sort.raku; # tri-gram
+
+.say for @res;
+
+my $ref = q:to/END/;
+(" A" => 1, " L" => 2, :AN(1), "D " => 1, "E " => 1, :ET(1), :IV(2), :LE(1), :LI(2), :ND(1), "T " => 1, :VE(2)).Seq
+(" AN" => 1, " LE" => 1, " LI" => 1, :AND(1), "D L" => 1, "E A" => 1, "ET " => 1, :IVE(2), :LET(1), :LIV(2), "ND " => 1, "T L" => 1, "VE " => 1).Seq
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
