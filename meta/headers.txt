@@ -461,16 +461,6 @@ File: 2/OEIS-A048050
 #n# mirrored from ~/PWC/109/1/feng-chang.raku
 #n# OEIS:A048050 Chowla's function: sum of divisors of n except for 1 and n.
 
-File: 2/OEIS-A050255
-#!/usr/bin/env raku
-#u# https://oeis.org/A050255
-#t# inprogress
-#c# 2023-01-05 NOT ON RC
-#m# MOAR: OK
-#j#  JVM: OK
-#n# OEIS:A050255 Diaconis-Mosteller approximation to the Birthday problem function
-#n# https://mathworld.wolfram.com/BirthdayProblem.html
-
 File: 2/OEIS-A050256
 #!/usr/bin/env raku
 #u# https://oeis.org/A050256
@@ -2479,6 +2469,7 @@ File: C/CalmoSoft_primes
 #j# JVM:  OK
 #n# Longest sliding window prime sums
 #n# strange, not on OEIS...
+#n# 2023-04-23 code on RC is fine, but output didn't match: mark as correct and update
 
 File: C/Calmo_numbers
 #!/usr/bin/env raku
@@ -3233,16 +3224,6 @@ File: C/Compile-time_calculation
 #m# MOAR: OK
 #j# JVM:  OK
 
-File: C/Compiler_Verifying_Syntax
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Compiler__Verifying_Syntax
-#t# inprogress
-#c# 2020-01-xx >RC
-#m# MOAR: BROKEN
-#j# JVM:  BROKEN
-#n# note the stupid space in the URL...
-#n# not even close... is the P6 'EBNF' parsing getting it wrong?
-
 File: C/Compiler_code_generator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Compiler/code_generator
@@ -3286,15 +3267,6 @@ File: C/Compiler_virtual_machine_interpreter
 #n# the ugly: It can't do byte-level VM simulation because Raku's 'pack' can't do signed integers?
 #n#           (but maybe someone better with pack/unpack skills could figure that out...)
 #n# 2020-11-24: '&value' no longer works, use 'value()' in all instances
-
-File: C/Compiler_virtual_machine_interpreter-2
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Compiler/virtual_machine_interpreter
-#n# inprogress
-#c# 2019-12-11 
-#m# MOAR: BROKEN
-#j#  JVM: BROKEN
-#n# using 'P5pack' module to do required byte-level processing
 
 File: C/Composite_numbers_k_with_no_single_digit_factors_whose_factors_are_all_substrings_of_k
 #!/usr/bin/env raku
@@ -15270,6 +15242,7 @@ File: S/Statistics_Chi-squared_distribution
 #n#   sudo apt install libplplot-dev
 #n#   sudo ln -s /usr/lib/x86_64-linux-gnu/libplplot.so /usr/lib/x86_64-linux-gnu/libplplotd.so
 #n# MPro/iMac images have very slight differences, so can't use exact-match file testing
+#n# Unbuntu isn't always logged-in to console, so skip graph there
 
 File: S/Statistics_Chi-squared_distribution.jvm
 #!/usr/bin/env raku
