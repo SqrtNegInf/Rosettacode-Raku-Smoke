@@ -1,18 +1,18 @@
-Welcome to Rakudo™ v2023.04-1-ge1c49a407.
+Welcome to Rakudo™ v2023.04-9-g7267e7f1b.
 Implementing the Raku® Programming Language v6.d.
 Built on MoarVM version 2023.04-1-g965be0af5.
-+--------------> Moar: Good/Bad [377/8]
-|+-------------> JVM: Good/Bad [311/74]
++--------------> Moar: Good/Bad [377/6]
+|+-------------> JVM: Good/Bad [311/72]
 ||+------------> Smoke testing [358]
-|||+-----------> sKipping validation [22]
+|||+-----------> sKipping validation [21]
 ||||+----------> Interactive [10]
-|||||+---------> Touched (modified by me) [79]
+|||||+---------> Touched (modified by me) [78]
 ||||||+--------> Concurrent/Async [24]
 |||||||+-------> Random seed []
 ||||||||+------> File output [32]
 |||||||||+-----> Draft [199]
 ||||||||||+----> Ignoring [40]
-|||||||||||+---> Void (no local copy) [49]
+|||||||||||+---> Void (no local copy) [50]
 ||||||||||||+--> Un-implemented/reliable []
 |||||||||||||
 .........D.V. 10001th_prime
@@ -278,12 +278,11 @@ GGS.......... Compile-time_calculation
 ...........V. Compiler_AST_interpreter
 .........D.V. Compiler_Preprocessor
 .........D.V. Compiler_Simple_file_inclusion_pre_processor
-BB.K.T...D... Compiler_Verifying_syntax
+.........D.V. Compiler_Verifying_syntax
 GGS..T....... Compiler_code_generator
 GGS.......... Compiler_lexical_analyzer
 ...........V. Compiler_syntax_analyzer
 GGS..T....... Compiler_virtual_machine_interpreter
-BB........... Compiler_virtual_machine_interpreter-2
 GBS...C...... Composite_numbers_k_with_no_single_digit_factors_whose_factors_are_all_substrings_of_k
 GGS.......... Compound_data_type
 GGS......D... Concatenate_two_primes_is_also_prime
