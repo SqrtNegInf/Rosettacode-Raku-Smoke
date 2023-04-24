@@ -11,10 +11,13 @@
 #n#   sudo apt install libplplot-dev
 #n#   sudo ln -s /usr/lib/x86_64-linux-gnu/libplplot.so /usr/lib/x86_64-linux-gnu/libplplotd.so
 #n# MPro/iMac images have very slight differences, so can't use exact-match file testing
+#n# Unbuntu isn't always logged-in to console, so skip graph there
 
 my @res;
 
 use Graphics::PLplot;
+
+my $make-graph = qx/uname -a/ !~~ /'Linux'/;
 
 sub Γ(\z) { # https://rosettacode.org/wiki/Gamma_function#Raku
     constant g = 9;
@@ -54,6 +57,8 @@ my \dtotal    = ( (airport »-« expected)»² »/» expected )».List.flat.sum;
 
 say my $result = "\nFor the airport data, diff total is "~dtotal~", χ² is "~ χ2(dtotal, 3)~ ", p value "~ cdf_χ2(dtotal, 3);
 
+my ($mae,$percent,$pcent-diff);
+if $make-graph {
 given Graphics::PLplot.new( device => 'png', file-name => 'run/chi-squared.png' ) {
    .begin;
    .pen-width: 3 ;
@@ -68,8 +73,9 @@ given Graphics::PLplot.new( device => 'png', file-name => 'run/chi-squared.png' 
 }
 
 my $compare = chomp qx/which compare/ or die 'Required testing tool <compare> not found';
-say my $pcent-diff = qqx!$compare -metric MAE ref/chi-squared.png run/chi-squared.png null: 2>&1!;
-my ($mae,$percent)  = $pcent-diff.split(' ');
+say $pcent-diff = qqx!$compare -metric MAE ref/chi-squared.png run/chi-squared.png null: 2>&1!;
+($mae,$percent)  = $pcent-diff.split(' ');
+}
 
 my $ref = qq:to/END/;
 x           χ² 
@@ -102,4 +108,5 @@ my $ans = "\nFor the airport data, diff total is 4.512821, χ² is 0.08875392598
 use Test;
 is @res.join("\n"), chomp $ref;
 is $result, chomp $ans;
+exit unless $make-graph;
 ok $pcent-diff eq '0 (0)' || $mae < 2220 and $percent.starts-with('(0.00'); # allow for exact equivalence or close similarity
