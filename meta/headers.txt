@@ -5269,6 +5269,15 @@ File: E/Extreme_floating_point_values
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: E/Extreme_primes
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Extreme_primes
+#c# 2023-04-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A013918 Primes equal to the sum of the first k primes for some k.
+#n# slow enough that testing limited
+
 File: F/FASTA_format
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/FASTA_format
@@ -15833,7 +15842,9 @@ File: S/Summarize_primes
 #c# 2021-04-15 <RC, 2021-07-08 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# on RC 'Prime_numbers_p_which_sum_of_prime_numbers_less_or_equal_to_p_is_prime' is a dup (may get removed?)
+#n# OEIS:A013918 Primes equal to the sum of the first k primes for some k.
+#n# on RC 'Prime_numbers_p_which_sum_of_prime_numbers_less_or_equal_to_p_is_prime' is a dup (may get removed?) [not tracking task]
+#n# 2023-04-25 Extreme_primes is another dup
 
 File: S/Summarize_primes.1
 #!/usr/bin/env raku
