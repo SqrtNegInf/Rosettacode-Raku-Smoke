@@ -1,0 +1,30 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Extreme_primes
+#c# 2023-04-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A013918 Primes equal to the sum of the first k primes for some k.
+#n# slow enough that testing limited
+
+my @res;
+
+use Lingua::EN::Numbers;
+
+@res.push: $_».&comma».fmt("%7s").batch(10).join: "\n" for
+(([\+] (^∞).grep: &is-prime).grep: &is-prime)[^30,999,1999]; #,2999,3999,4999];
+
+.say for @res;
+
+my $ref = q:to/END/;
+      2       5      17      41     197     281   7,699   8,893  22,039  24,133
+ 25,237  28,697  32,353  37,561  38,921  43,201  44,683  55,837  61,027  66,463
+ 70,241  86,453 102,001 109,147 116,533 119,069 121,631 129,419 132,059 263,171
+1,657,620,079
+9,744,982,591
+END
+#24,984,473,177
+#49,394,034,691
+#82,195,983,953
+
+use Test;
+is @res.join("\n"), chomp $ref;
