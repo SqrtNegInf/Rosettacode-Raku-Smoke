@@ -1,6 +1,5 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Forbidden_numbers
-#t# inprogress
 #c# 2023-04-27 <RC
 #m# MOAR: OK
 #j# JVM:  OK
@@ -18,13 +17,11 @@ my @forbidden = lazy flat @f[0], gather for ^∞ {
     take (@f[$p0] < @forbidden[$p1]×4) ?? @f[$p0++] !! @forbidden[$p1++]×4;
 }
 
-put "First fifty forbidden numbers: \n" ~
+@res.push: "First fifty forbidden numbers: \n" ~
   @forbidden[^50].batch(10)».fmt("%3d").join: "\n";
 
-put "\nForbidden number count up to {.Int.&cardinal}: " ~
-  comma +@forbidden.&upto: $_ for 5e2, 5e3, 5e4, 5e5, 5e6;
-
-exit;
+@res.push: "\nForbidden number count up to {.Int.&cardinal}: " ~
+  comma +@forbidden.&upto: $_ for 5e2, 5e3, 5e4, 5e5; #, 5e6;
 
 .say for @res;
 
@@ -43,9 +40,9 @@ Forbidden number count up to five thousand: 831
 Forbidden number count up to fifty thousand: 8,330
 
 Forbidden number count up to five hundred thousand: 83,331
-
-Forbidden number count up to five million: 833,329
 END
+
+#Forbidden number count up to five million: 833,329
 
 use Test;
 is @res.join("\n"), chomp $ref;
