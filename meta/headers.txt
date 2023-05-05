@@ -4822,6 +4822,17 @@ File: E/Engel_expansion
 #n# OEIS:A028254 Engel expansion of sqrt(2)
 #n# with regard to 𝑒, see also: C/Calculating_the_value_of_e
 
+File: E/English_cardinal_anagrams
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/English_cardinal_anagrams
+#c# 2023-05-04 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# OEIS:A169936 Numbers whose name in English is an anagram of the name of another number
+#n# JVM error: 
+#   Type check failed in binding to parameter '&by'; expected Callable[Callable] but got WhateverCode (WhateverCode.new)
+#      in sub all-max at ./lib/List/Allmax.rakumod (List::Allmax) line 7
+
 File: E/Entropy
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Entropy
