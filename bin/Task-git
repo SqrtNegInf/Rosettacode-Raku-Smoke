@@ -14,6 +14,9 @@ $msg_stat = 'daily update of task status';
 $msg_new  = 'initial commit of task';
 $msg_ref  = 'update of reference data';
 
+# always commit from main branch
+system "git switch master";
+
 # new tasks
 for $new (`$git status | grep -v modified: | grep '^\t'`) {
     chomp $new;
