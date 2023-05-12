@@ -1,9 +1,11 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Inventory_sequence
-#t# inprogress
 #c# 2023-05-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# RC file: inventory-raku.svg
+
+my @res;
 
 use SVG;
 use SVG::Plot;
@@ -29,9 +31,9 @@ for (1..10).map: * × 1000 {
       .&comma, @inventory[$k].&comma, comma $k;
 }
 
-my @x = ^10000;
+my @x = ^5000; # ^10000;
 
-'Inventory-raku.svg'.IO.spurt:
+'run/inventory-raku.svg'.IO.spurt:
  SVG.serialize: SVG::Plot.new(
     background  => 'white',
     width       => 1000,
@@ -67,4 +69,3 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
