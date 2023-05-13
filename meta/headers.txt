@@ -12269,6 +12269,24 @@ File: P/Prime_numbers_which_contain_123
 #j# JVM:  OK
 #n# reversing test supposed to be faster, but isn't for me (esp. as limit is increased)
 
+File: P/Prime_reciprocal_sum
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Prime_reciprocal_sum
+#c# 2023-05-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A075442 - Slowest-growing sequence of primes whose reciprocals sum to 1
+#n# The sixteenth is very slow to emerge: 3064.66s user 22.94s system 167% cpu 30:44.92 total
+
+File: P/Prime_reciprocal_sum.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Prime_reciprocal_sum
+#c# 2023-05-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A075442 - Slowest-growing sequence of primes whose reciprocals sum to 1
+#n# The sixteenth is very slow to emerge: 3064.66s user 22.94s system 167% cpu 30:44.92 total
+
 File: P/Prime_triangle
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Prime_triangle
