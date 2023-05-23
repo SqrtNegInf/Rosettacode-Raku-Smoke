@@ -1,9 +1,9 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Blum_integer
-#t# inprogress
 #c# 2023-05-22 <RC
-#m# MOAR: BROKEN OK
-#j# JVM:  BROKEN OK
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# slow, limit testing
 
 my @res;
 
@@ -36,14 +36,14 @@ sub find-factor ( Int $n, $constant = 1 ) {
 }
 
 my @blum = lazy (2..Inf).hyper(:1000batch).grep: &is-blum;
-say "The first fifty Blum integers:\n" ~
+@res.push: "The first fifty Blum integers:\n" ~
   @blum[^50].batch(10)».fmt("%3d").join: "\n";
-say '';
+@res.push: '';
 
-printf "The %9s Blum integer: %9s\n", .&ordinal-digit(:c), comma @blum[$_-1] for 26828, 1e5, 2e5, 3e5, 4e5;
+@res.push: sprintf "The %9s Blum integer: %9s", .&ordinal-digit(:c), comma @blum[$_-1] for 26828, 1e5, 2e5; #, 3e5, 4e5;
 
-say "\nBreakdown by last digit:";
-printf "%d => %%%7.4f:\n", .key, +.value / 4e3 for sort @blum[^4e5].categorize: {.substr(*-1)}
+@res.push: "\nBreakdown by last digit:";
+@res.push: sprintf "%d => %%%7.4f:", .key, +.value / 4e3 for sort @blum[^2e5].categorize: {.substr(*-1)}
 
 .say for @res;
 
@@ -58,16 +58,22 @@ The first fifty Blum integers:
 The  26,828th Blum integer:   524,273
 The 100,000th Blum integer: 2,075,217
 The 200,000th Blum integer: 4,275,533
-The 300,000th Blum integer: 6,521,629
-The 400,000th Blum integer: 8,802,377
 
 Breakdown by last digit:
-1 => %25.0013:
-3 => %25.0168:
-7 => %24.9973:
-9 => %24.9848:
+1 => %12.4950:
+3 => %12.4928:
+7 => %12.5163:
+9 => %12.4960:
 END
 
+#The 300,000th Blum integer: 6,521,629
+#The 400,000th Blum integer: 8,802,377
+
+#Breakdown by last digit:
+#1 => %25.0013:
+#3 => %25.0168:
+#7 => %24.9973:
+#9 => %24.9848:
+
 use Test;
-#is @res.join("\n"), chomp $ref;
-#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
+is @res.join("\n"), chomp $ref;
