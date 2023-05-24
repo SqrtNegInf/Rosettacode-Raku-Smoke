@@ -2150,6 +2150,22 @@ File: B/Bitwise_operations
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: B/Blum_integer
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Blum_integer
+#c# 2023-05-22 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# slow, limit testing
+
+File: B/Blum_integer.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Blum_integer
+#c# 2023-05-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# slow, limit testing
+
 File: B/Boolean_values
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Boolean_values
@@ -12785,6 +12801,21 @@ File: R/RSA_code.1
 #m# MOAR: OK
 #j#  JVM: OK
 #n# works fine, but feels somewhat dated...
+
+File: R/Radical_of_an_integer
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Radical_of_an_integer
+#c# 2023-05-22 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+File: R/Radical_of_an_integer.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Radical_of_an_integer
+#c# 2023-05-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# very, very slow, limit testing
 
 File: R/Railway_circuit
 #!/usr/bin/env raku
