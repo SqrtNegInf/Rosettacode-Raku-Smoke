@@ -7,10 +7,10 @@
 
 sub eval_with_x($code, *@x) { [R-] @x.map: -> \x { $code.EVAL } }
 
-say eval_with_x('3 * x', 5, 10);      # Says "15".
-say eval_with_x('3 * x', 5, 10, 50);  # Says "105".
+say eval_with_x('3 × x', 5, 10);      # Says "15".
+say eval_with_x('3 × x', 5, 10, 50);  # Says "105".
 
 
 use Test;
-is eval_with_x('3 * x', 5, 10), 15;
-is eval_with_x('3 * x', 5, 10, 50), 105;
+is eval_with_x('3 × x', 5, 10), 15;
+is eval_with_x('3 × x', 5, 10, 50), 105;
