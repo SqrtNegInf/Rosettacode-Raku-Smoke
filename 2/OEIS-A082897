@@ -16,7 +16,7 @@ sub perfect_totient ( UInt $n --> Bool ) { $n == $n.&totients_sum }
 sub fast-perfect_totient ( UInt $n --> Bool ) {
     use Prime::Factor;
     constant @totients = flat 0, (1..^Inf).map: -> $n {
-        ( $n * [*] $n.&prime-factors.unique.map: 1 - 1/* ).narrow
+        ( $n × [×] $n.&prime-factors.unique.map: 1 - 1/* ).narrow
     }
     return $n == [+] $n, { @totients[$^prev] } ^… 1;
 }
