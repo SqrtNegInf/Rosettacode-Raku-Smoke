@@ -11,7 +11,7 @@ multi sub is-fibonacci ( UInt $n --> Bool ) {
     constant φ = ( 1 + 5.sqrt ) / 2;
     constant @fib = 0, 1, { $^a + $^b } … Inf;
 
-    # my $k = ( ($n * 5.sqrt).log / φ.log ).round;    #  20% Faster
+    # my $k = ( ($n × 5.sqrt).log / φ.log ).round;    #  20% Faster
     my $k = @fib.first: :k, * >= $n;              # 100% Clearer
 
     return @fib[$k] == $n;
