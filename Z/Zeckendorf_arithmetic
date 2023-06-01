@@ -3,7 +3,8 @@
 #c# 2018-03-20 <RC, 2019-04-04 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# fixed add/subtract/divide
+#n# 2023-05-31 cosmetic upgrade: '×' for '*' in the custom-defined operator
+#n# 2019-04-04 fixed add/subtract/divide
 
 my $z1 = '1'; # glyph to use for a '1'
 my $z0 = '0'; # glyph to use for a '0'
@@ -50,7 +51,7 @@ sub infix:<+z>($a is copy, $b is copy) { $a++z; $a++z while $b--z nez $z0; $a }
 sub infix:<-z>($a is copy, $b is copy) { $a--z; $a--z while $b--z nez $z0; $a }
 
 # multiplication
-sub infix:<*z>($a, $b) { 
+sub infix:<×z>($a, $b) {
     return $z0 if $a eqz $z0 or $b eqz $z0;
     return $a if $b eqz $z1;
     return $b if $a eqz $z1;
@@ -79,7 +80,6 @@ sub infix:</z>($a is copy, $b is copy) {
     $c
 }
 
-
 ###################### Testing ######################
 
 # helper sub to translate constants into the particular glyphs you used
@@ -95,10 +95,10 @@ my @res;
 @res.push: sprintf( $fmt, "$zeck++z", $zeck++z, '# increment' ) for 1 .. 10;
 @res.push: sprintf  $fmt, "$zeck +z {z('1010')}", $zeck +z= z('1010'),      '# addition';
 @res.push: sprintf  $fmt, "$zeck -z {z('100')}", $zeck -z= z('100'),        '# subtraction';
-@res.push: sprintf  $fmt, "$zeck *z {z('100101')}", $zeck *z= z('100101'),  '# multiplication';
+@res.push: sprintf  $fmt, "$zeck ×z {z('100101')}", $zeck ×z= z('100101'),  '# multiplication';
 @res.push: sprintf  $fmt, "$zeck /z {z('100')}", $zeck /z= z('100'),        '# division';
 @res.push: sprintf( $fmt, "$zeck--z", $zeck--z, '# decrement' ) for 1 .. 5;
-@res.push: sprintf  $fmt, "$zeck *z {z('101001')}", $zeck *z= z('101001'),  '# multiplication';
+@res.push: sprintf  $fmt, "$zeck ×z {z('101001')}", $zeck ×z= z('101001'),  '# multiplication';
 @res.push: sprintf  $fmt, "$zeck /z {z('100')}", $zeck /z= z('100'),        '# division';
 
 .say for @res; 
@@ -116,14 +116,14 @@ my $ref = qq:to/END/;
 10010++z               =           10100  # increment
 10100 +z 1010          =          101000  # addition
 101000 -z 100          =          100010  # subtraction
-100010 *z 100101       =    100001000001  # multiplication
+100010 ×z 100101       =    100001000001  # multiplication
 100001000001 /z 100    =       101010001  # division
 101010001--z           =       101010000  # decrement
 101010000--z           =       101001010  # decrement
 101001010--z           =       101001001  # decrement
 101001001--z           =       101001000  # decrement
 101001000--z           =       101000101  # decrement
-101000101 *z 101001    = 101010000010101  # multiplication
+101000101 ×z 101001    = 101010000010101  # multiplication
 101010000010101 /z 100 = 1001010001001 remainder 10  # division
 END
 
