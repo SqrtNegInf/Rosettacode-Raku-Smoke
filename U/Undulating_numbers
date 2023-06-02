@@ -1,0 +1,105 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Undulating_numbers
+#c# 2023-06-02 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# OEIS:A046075 Non-trivial undulants
+
+my @res;
+
+sub undulating ($base, \n) {
+   my \limit = 2**(my \mpow = 53) - 1;
+   my (\bsquare,@u3,@u4) = $base*$base; 
+   for 1..^$base X 0..^$base -> (\a,\b) {
+      next if b == a;
+      @u3.push(a * bsquare + b * $base + a);
+      @u4.push((my \v = a * $base + b) * bsquare + v)
+   }
+   @res.push: "\nAll 3 digit undulating numbers in base $base:";
+   @res.push: @u3».fmt('%3d').batch(9).join: "\n";
+   @res.push: "\nAll 4 digit undulating numbers in base $base:";
+   @res.push: @u4».fmt('%4d').batch(9).join: "\n";
+   @res.push: "\nAll 3 digit undulating numbers which are primes in base $base:";
+   my @primes = @u3.grep: *.is-prime; 
+   @res.push: @primes».fmt('%3d').batch(10).join: "\n";
+   my \unc = (my @un = @u3.append: @u4).elems;
+   my ($j, $done) = 0, False;
+   loop {
+      for 0..^unc {
+         my  \u = @un[$j * unc + $_] * bsquare + @un[$j * unc + $_] % bsquare;
+	 u > limit ?? ( $done = True and last ) !! ( @un.push: u );
+      }
+      $done ?? ( last ) !! $j++ 
+   }
+   @res.push: "\nThe {n} undulating number in $base $base is: @un[n-1]";
+   @res.push: "or expressed in base $base : {@un[n-1].base($base)}" unless $base == 10;
+   @res.push: "\nTotal number of undulating numbers in base $base < 2**{mpow} = {+@un}";
+   @res.push: "of which the largest is: ", @un[*-1];
+   @res.push: "or expressed in base $base : {@un[*-1].base($base)}" unless $base == 10;
+}
+
+undulating $_, 600 for 10, 7;
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+All 3 digit undulating numbers in base 10:
+101 121 131 141 151 161 171 181 191
+202 212 232 242 252 262 272 282 292
+303 313 323 343 353 363 373 383 393
+404 414 424 434 454 464 474 484 494
+505 515 525 535 545 565 575 585 595
+606 616 626 636 646 656 676 686 696
+707 717 727 737 747 757 767 787 797
+808 818 828 838 848 858 868 878 898
+909 919 929 939 949 959 969 979 989
+
+All 4 digit undulating numbers in base 10:
+1010 1212 1313 1414 1515 1616 1717 1818 1919
+2020 2121 2323 2424 2525 2626 2727 2828 2929
+3030 3131 3232 3434 3535 3636 3737 3838 3939
+4040 4141 4242 4343 4545 4646 4747 4848 4949
+5050 5151 5252 5353 5454 5656 5757 5858 5959
+6060 6161 6262 6363 6464 6565 6767 6868 6969
+7070 7171 7272 7373 7474 7575 7676 7878 7979
+8080 8181 8282 8383 8484 8585 8686 8787 8989
+9090 9191 9292 9393 9494 9595 9696 9797 9898
+
+All 3 digit undulating numbers which are primes in base 10:
+101 131 151 181 191 313 353 373 383 727
+757 787 797 919 929
+
+The 600 undulating number in 10 10 is: 4646464646
+
+Total number of undulating numbers in base 10 < 2**53 = 1125
+of which the largest is: 
+8989898989898989
+
+All 3 digit undulating numbers in base 7:
+ 50  64  71  78  85  92 100 107 121
+128 135 142 150 157 164 178 185 192
+200 207 214 221 235 242 250 257 264
+271 278 292 300 307 314 321 328 335
+
+All 4 digit undulating numbers in base 7:
+ 350  450  500  550  600  650  700  750  850
+ 900  950 1000 1050 1100 1150 1250 1300 1350
+1400 1450 1500 1550 1650 1700 1750 1800 1850
+1900 1950 2050 2100 2150 2200 2250 2300 2350
+
+All 3 digit undulating numbers which are primes in base 7:
+ 71 107 157 257 271 307
+
+The 600 undulating number in 7 7 is: 8074217422972642
+or expressed in base 7 : 4646464646464646464
+
+Total number of undulating numbers in base 7 < 2**53 = 603
+of which the largest is: 
+8786648372058464
+or expressed in base 7 : 5252525252525252525
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
