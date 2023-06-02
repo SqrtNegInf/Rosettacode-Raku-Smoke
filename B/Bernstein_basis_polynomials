@@ -8,17 +8,17 @@ my @res;
 
 sub toBern2 { [ @_[0], @_[0]+@_[1]/2, @_[0..2].sum ] }
 
-sub toBern3 (@a) { @a[0], @a[0]+@a[1]/3, @a[0]+@a[1]*2/3+@a[2]/3, @a[0..3].sum }
+sub toBern3 (@a) { @a[0], @a[0]+@a[1]/3, @a[0]+@a[1]×2/3+@a[2]/3, @a[0..3].sum }
 
 sub evalBern-N (@b, $t) { # uses de Casteljau's algorithm
    my ($s, @bern) = 1 - $t, @b.Slip;
    while ( @bern.elems > 2 ) { 
-      @bern = @bern.rotor(2 => -1).map: { $s * .[0] + $t * .[1] };
+      @bern = @bern.rotor(2 => -1).map: { $s × .[0] + $t × .[1] };
    }
-   return $s * @bern[0] + $t * @bern[1] 
+   return $s × @bern[0] + $t × @bern[1] 
 }
 
-sub bern2to3 (@a) { @a[0], @a[0]/3+@a[1]*2/3, @a[1]*2/3+@a[2]/3, @a[2] }
+sub bern2to3 (@a) { @a[0], @a[0]/3+@a[1]×2/3, @a[1]×2/3+@a[2]/3, @a[2] }
 
 my (@pm,@qm,@rm) := ([1, 0, 0], [1, 2, 3], [1, 2, 3, 4]);
 
@@ -32,7 +32,7 @@ my (@pb2,@qb2) := (@pm,@qm).map: { toBern2 $_ };
 for (@pm,@pb2,@qm,@qb2).rotor(2) X (0.25,7.5) {
    my $x = .[1];
    my $y = evalBern-N .[0][1], $x;
-   my $m = ([o] map { $_ + $x * * }, .[0][0])(0); # Horner's rule 
+   my $m = ([o] map { $_ + $x × * }, .[0][0])(0); # Horner's rule 
    @res.push: "p({$x.fmt: '%.2f'}) = $y (mono $m)";
 }
 
@@ -47,7 +47,7 @@ my (@pb3,@qb3,@rb3) := (@pm,@qm,@rm).map: { toBern3 $_ };
 for (@pm,@pb3,@qm,@qb3,@rm,@rb3).rotor(2) X (0.25,7.5) {
    my $x = .[1];
    my $y = evalBern-N .[0][1], $x;
-   my $m = ([o] map { $_ + $x * * }, .[0][0])(0); # Horner's rule
+   my $m = ([o] map { $_ + $x × * }, .[0][0])(0); # Horner's rule
    @res.push: "p({$x.fmt: '%.2f'}) = $y (mono $m)";
 }
 
