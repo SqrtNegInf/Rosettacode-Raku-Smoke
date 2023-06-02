@@ -41,8 +41,7 @@ use Parallel::ForkManager;
 
 # with new rakubrew, simpler switching
 $mode = $0 =~ /moar/i ? 'moar' : 'jvm';
-#my $shim = $mode eq 'moar' ?  '-blead' : '-2022.12'; #'-2020.11';
-#system "rakubrew switch $mode${shim}";
+system "rakubrew switch jvm-2022.12" if $mode eq 'jvm';
 
 chdir "$ENV{HOME}/perl6/Rosetta-Code" || die;
 
@@ -181,7 +180,7 @@ $pm->wait_all_children;
 # clean up
 system('bin/rc-ts');
 system "date";
-#system "rakubrew switch moar-blead";
+system "rakubrew switch moar-blead" if $mode eq 'jvm';
 
 sub cpu_time {
   my ($user,$system,$cuser,$csystem) = times;
