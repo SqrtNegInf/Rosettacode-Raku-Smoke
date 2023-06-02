@@ -1,6 +1,7 @@
 #!/bin/zsh
 ## update MoarVM backend 
 # 2023-03-04 cleaned up, specifically for iMac (testing a the static/monthly release)
+# 2023-06-02 now iMac tests moar-blead
 
 # not .zshrc?
 source $HOME/.profile 
@@ -9,12 +10,14 @@ git pull
 
 cd $HOME/.rakubrew
 rakubrew mode shim
-rakubrew switch moar-2023.02
+rakubrew switch moar-blead
+#rakubrew switch moar-2023.02
 raku -v
 
 # NOW clear out old precomp files
 echo 'clear out old precomp files'
-cd ~/.rakubrew/versions/moar-2023.02
+cd ~/.rakubrew/versions/moar-blead
+#cd ~/.rakubrew/versions/moar-2023.02
 ./install/share/perl6/site/bin/cleanup-precomp
 rm -rf install/share/perl6/core/precomp/*
 ./tools/nuke-precomps.raku
