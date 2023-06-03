@@ -12,24 +12,24 @@ source $HOME/.profile
 # 2022-06-03 re-revert                [and the people responsible for the sacking have been sacked...]
 # 2022-12-23 Using 'Go-finish' (which doesn't do this) confirms that still sometimes needed
 
-cd $HOME/.rakubrew
-bin/rakubrew mode shim
+#cd $HOME/.rakubrew
+#bin/rakubrew mode shim
 
 # update Rakudo/MoarVM
-bin/rakubrew build moar-blead >    out.moar  2>    err.moar
-bin/rakubrew switch moar-blead
-bin/rakubrew build zef >    out.zef  2>    err.zef
-bin/rakubrew rehash
-rehash
+#bin/rakubrew build moar-blead >    out.moar  2>    err.moar
+#bin/rakubrew switch moar-blead
+#bin/rakubrew build zef >    out.zef  2>    err.zef
+#bin/rakubrew rehash
+#rehash
 
 # nuke ALL precomp we can find (or might get the dreaded missing/wrong 'v6c.nqp' error)
 echo 'clear out old precomp files'
-cd ~/.rakubrew/versions/moar-blead
-./install/share/perl6/site/bin/cleanup-precomp
-rm -rf install/share/perl6/core/precomp/*
-./tools/nuke-precomps.raku
-rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
-rm -rf $HOME/perl6/Rosetta-Code/libtest/.precomp
+#cd ~/.rakubrew/versions/moar-blead
+#./install/share/perl6/site/bin/cleanup-precomp
+#rm -rf install/share/perl6/core/precomp/*
+#./tools/nuke-precomps.raku
+#rm -rf $HOME/perl6/Rosetta-Code/lib/.precomp
+#rm -rf $HOME/perl6/Rosetta-Code/libtest/.precomp
 
 cd $HOME/perl6/Rosetta-Code
 bin/rc-jvm-cleanup
