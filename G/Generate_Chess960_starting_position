@@ -5,6 +5,7 @@
 #j#  JVM: OK
 #n# 2021-06-04 results for test #2 changed
 #n# 2023-02-09 test #2 again, replace it with 'myRNG'
+#n# 2023-06-03 test #1 this time, replace it too
 
 use myRNG;
 
@@ -18,17 +19,15 @@ sub pick-all (@a is copy) is export {
     @a
 }
 
-srand 123456;
-
 # First, using a list with three rooks and no king, we keep generating a random piece order until the two bishops
 # are on opposite colors. Then we sneakily promote the second of the three rooks to a king.
 
-repeat until m/ '♗' [..]* '♗' / { $_ = < ♖ ♖ ♖ ♕ ♗ ♗ ♘ ♘ >.pick(*).join }
+repeat until m/ '♗' [..]* '♗' / { $_ = < ♖ ♖ ♖ ♕ ♗ ♗ ♘ ♘ >.&pick-all.join }
 s:2nd['♖'] = '♔';
 put .comb;
 
 use Test;
-is (.comb), $*VM ~~ /jvm/ ?? '♕ ♘ ♖ ♘ ♔ ♗ ♗ ♖' !! '♖ ♘ ♗ ♔ ♖ ♘ ♕ ♗';
+is (.comb), $*VM ~~ /jvm/ ?? '♕ ♘ ♖ ♘ ♔ ♗ ♗ ♖' !! '♖ ♔ ♗ ♘ ♖ ♘ ♕ ♗';
 
 # Here's a more "functional" solution that avoids side effects
 

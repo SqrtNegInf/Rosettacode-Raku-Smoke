@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# new-disp 'srand' shift (2021-10-22: further shift)
+#n# no test for terminal (only works on MacPro)
 
 srand 123456;
 
@@ -28,9 +29,13 @@ my $moar-terminal = qq:to/END/;
  12 2 13 20
 END
 
-my $moar-cronjob = qq:to/END/;
+my $moar-cronjob-mac-pro = qq:to/END/;
  13 17 19 3 10 3 11 19 6 5
  6 5 9 9 12 2 13 20
+END
+
+my $moar-cronjob-imac = qq:to/END/;
+ 3 10 3 11 19 6 5 17 10 20
 END
 
 my $linux-cronjob = qq:to/END/;
@@ -45,7 +50,13 @@ END
 
 use Test;
 if $*KERNEL eq 'linux' {
-is @res.join("\n"), chomp $linux-cronjob
+    is @res.join("\n"), chomp $linux-cronjob
+} elsif (qx/uname -a/ ~~ /'iMac'/) {
+    is @res.join("\n"), chomp $moar-cronjob-imac 
 } else {
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob
-} 
+    is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar-cronjob-mac-pro;
+}
+
+#} else {
+#is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob
+#} 
