@@ -1,0 +1,10 @@
+#!/bin/sh
+## sometimes need to reinstall all modules…
+
+# 2023-06-03
+# just the extra modules required past what 'Zef-install-all-iMac' provides
+
+zef install use Math::Libgsl::LinearAlgebra
+zef install use Math::Libgsl::Constants
+zef install use Math::Libgsl::Matrix
+zef install use Math::Libgsl::BLAS
