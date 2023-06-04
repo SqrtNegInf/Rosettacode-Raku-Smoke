@@ -11,6 +11,7 @@ source $HOME/.profile
 # 2022-04-06 how about now?           [Seemingly not...]
 # 2022-06-03 re-revert                [and the people responsible for the sacking have been sacked...]
 # 2022-12-23 Using 'Go-finish' (which doesn't do this) confirms that still sometimes needed
+# 2023-06-03 moar-blead doesn't compile any longer, stick with whatever is current
 
 #cd $HOME/.rakubrew
 #bin/rakubrew mode shim
@@ -22,8 +23,9 @@ source $HOME/.profile
 #bin/rakubrew rehash
 #rehash
 
+# [if raku version is static, existing precomp's are OK]
 # nuke ALL precomp we can find (or might get the dreaded missing/wrong 'v6c.nqp' error)
-echo 'clear out old precomp files'
+#echo 'clear out old precomp files'
 #cd ~/.rakubrew/versions/moar-blead
 #./install/share/perl6/site/bin/cleanup-precomp
 #rm -rf install/share/perl6/core/precomp/*
