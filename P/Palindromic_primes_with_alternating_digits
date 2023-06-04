@@ -7,12 +7,13 @@
 #n# essentially 'smoothly undulating palindromic primes': a(ba){1,}, (but allowing a == b)
 #n# 3,5,...1501:  564.97s user 7.89s system 
 #n#               536.58s user 8.57s system
-#n#     "      :  537.64s user 7.62s system 91%  cpu 9:55.11 total # .hyper inner loop
+#n#     "      :  537.64s user 7.62s system  91% cpu 9:55.11 total # .hyper inner loop
 #n#     "      :  491.13s user 6.86s system 281% cpu 2:56.60 total # .hyper outer loop
 #n# b=0 only once, never a=7, b=6 (proved) but 3/4, 7/1?
 #n# 18181 is a 'SUPER' prime: (smoothly undulating|strobogrammatic unlucky) palindromic emirp-adjacent rotatable|reflectable
 #n# (A345905 Primes p such that 11×p is the concatenation of an emirp and its reverse)
 #n# (A178654 Palprimes of the form (q//R(q))/11 where q is an emirp, R() denotes digit-reversal and // concatenation)
+#n# cf 'U/Undulating_numbers'
 
 use experimental :cached; # definitely helps
 
