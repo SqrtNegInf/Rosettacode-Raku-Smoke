@@ -1,0 +1,28 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Golden_ratio/Convergence
+#c# 2023-06-04 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# the iteration count is higher than it needs to be
+
+my @res;
+
+#constant phi = 1.FatRat, 1 + 1/* ... { abs($^a-$^b)≤1e-5 };
+constant phi = 1, 1 + 1/* ... { abs($^a-$^b)≤1e-5 };            # .FatRat not required
+
+@res.push: "It took {phi.elems} iterations to reach {phi.tail}";
+@res.push: "The error is {{ ($^a - $^b)/$^b }(phi.tail, (1+sqrt(5))/2)}";
+
+.say for @res;
+
+say '--';
+constant φ = (1 + 5.sqrt) / 2;
+say ($_, (φ-$_).abs)».fmt('%9.7f') for phi;
+
+my $ref = q:to/END/;
+It took 15 iterations to reach 1.618033
+The error is -7.427932029059675e-07
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
