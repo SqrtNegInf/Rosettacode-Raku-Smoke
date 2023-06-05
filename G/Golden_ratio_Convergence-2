@@ -1,0 +1,51 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Golden_ratio/Convergence
+#c# 2023-06-03 NOT ON RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+my @res;
+
+constant φ = (1 + 5.sqrt) / 2;
+
+multi GR(1)  { 2 }
+multi GR($n) { 1 + 1 / GR($n - 1) }
+
+@res.push: .fmt('%2d') ~ ': ' ~ (.&GR, (φ - .&GR).abs)».fmt('%8.6f') for 1..15;
+
+my $ref = q:to/END/;
+ 1: 2.000000 0.381966
+ 2: 1.500000 0.118034
+ 3: 1.666667 0.048633
+ 4: 1.600000 0.018034
+ 5: 1.625000 0.006966
+ 6: 1.615385 0.002649
+ 7: 1.619048 0.001014
+ 8: 1.617647 0.000387
+ 9: 1.618182 0.000148
+10: 1.617978 0.000056
+11: 1.618056 0.000022
+12: 1.618026 0.000008
+13: 1.618037 0.000003
+14: 1.618033 0.000001
+15: 1.618034 0.000000
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+=finish
+
+# run as Perl or Raku
+my $oldPhi = 1;
+my ($phi, $iters);
+my $limit = 1e-5;
+while (++$iters) {
+    $phi = 1 + 1 / $oldPhi;
+    last if abs($phi - $oldPhi) <= $limit;
+    $oldPhi = $phi;
+}
+
+printf "Final value of phi : %.14f\n", $phi;
+printf "Number of iterations : %d\n", $iters;
+printf "Error (approx) : %16.14f\n", $phi - (1 + sqrt 5) / 2;
