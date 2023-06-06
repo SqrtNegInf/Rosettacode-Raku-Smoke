@@ -6,15 +6,20 @@
 # not .zshrc?
 source $HOME/.profile 
 
-git pull
-
 cd $HOME/.rakubrew
-rakubrew mode shim
-rakubrew switch moar-blead
-#rakubrew switch moar-2023.02
-raku -v
+bin/rakubrew mode shim
 
-# NOW clear out old precomp files
+# update Rakudo/MoarVM
+bin/rakubrew build moar-blead >    out.moar  2>    err.moar
+bin/rakubrew switch moar-blead
+bin/rakubrew build zef >    out.zef  2>    err.zef
+bin/rakubrew rehash
+rehash
+
+#rakubrew mode shim
+#rakubrew switch moar-blead
+#X#rakubrew switch moar-2023.02
+
 echo 'clear out old precomp files'
 cd ~/.rakubrew/versions/moar-blead
 #cd ~/.rakubrew/versions/moar-2023.02
@@ -26,6 +31,9 @@ rm -rf $HOME/perl6/Rosetta-Code/libtest/.precomp
 
 cd $HOME/perl6/Rosetta-Code
 rm -f run/*
+
+raku -v
+git pull
 
 # upgrade modules
 bin/Zef-Upgrade
