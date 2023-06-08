@@ -180,7 +180,7 @@ $pm->wait_all_children;
 # clean up
 system('bin/rc-ts');
 system "date";
-system "rakubrew switch moar-blead" if $mode eq 'jvm';
+system "rakubrew switch moar-2023.04" if $mode eq 'jvm';
 
 sub cpu_time {
   my ($user,$system,$cuser,$csystem) = times;
