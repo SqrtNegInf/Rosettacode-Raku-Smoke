@@ -36,6 +36,8 @@ my $moar-cronjob-imac     = '29763 29793 30107 30243 29897 29908 29866 29884 303
 my $moar-cronjob-ubuntu   = '29762 29796 30111 30244 29897 29908 29867 29885 30379 30151'; # same as Mac-Pro/terminal, oddly enough
 my $jvm                   = '30155 30207 30016 30169 30044 29973 29725 29932 30041 29738';
 
+# 29763 29795 30108 30241 29899 29909 29862 29886 30384 30153
+
 use Test;
 
 if      qx/uname -a/ ~~ /'osboxes'/ {
@@ -45,5 +47,5 @@ if      qx/uname -a/ ~~ /'osboxes'/ {
 } elsif qx/uname -a/ ~~ /'Mac-Pro'/ {
     is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal-mac-pro !! $moar-cronjob-mac-pro1;
 } else {
-    is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal-imac    !! $moar-cronjob-mac-pro1; #$moar-cronjob-imac;
+    is $result, chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal-imac    !! $moar-cronjob-imac;
 }
