@@ -2,7 +2,8 @@
 #u# https://rosettacode.org/wiki/Sisyphus_sequence
 #c# 2023-0x-xx NOT ON RC
 #n# just skip saving the sequence, grab only the checkpoints, much faster
-#n# 3..7: 341.29s user 2.08s system 116% cpu 4:54.46
+#n# 3..7:  341.29s user  2.08s system 116% cpu    4:54.46
+#n# 3..8: 3948.59s user 39.25s system 104% cpu 1:03:24.44 # slowing down
 
 my @res;
 
@@ -11,7 +12,7 @@ use Lingua::EN::Numbers;
 
 my $iterator = Math::Primesieve::iterator.new;
 
-my ($i, $j, $p, %H) = (3, 7, 1);
+my ($i, $j, $p, %H) = (3, 8, 1);
 my @v = map { 10**$_ - 1 }, $i..$j;
 
 my $n = 0;
@@ -31,6 +32,7 @@ repeat {
 push @res, sprintf "%12s member is: %10s with prime: %10s", ($_+1, %H{$_}{'value'}, %H{$_}{'prime'})».&comma for @v;
 
 say my $result = join "\n", @res;
+exit;
 
 my $ref = q:to/END/;
        1,000 member is:        990 with prime:      2,273
@@ -39,6 +41,7 @@ my $ref = q:to/END/;
    1,000,000 member is:  8,820,834 with prime:  4,761,697
   10,000,000 member is: 41,369,713 with prime: 55,900,829
 END
+#100,000,000 member is: 1,179,614,168 with prime: 640,692,323
 
 use Test;
 is @res.join("\n"), chomp $ref;
