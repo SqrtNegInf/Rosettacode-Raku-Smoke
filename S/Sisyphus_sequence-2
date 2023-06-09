@@ -1,0 +1,54 @@
+#!/usr/bin/env perl6
+#u# https://rosettacode.org/wiki/Sisyphus_sequence
+#c# 2023-0x-xx NOT ON RC
+#n# just skip saving the sequence, grab only the checkpoints, much faster
+#n# 3..7: 341.29s user 2.08s system 116% cpu 4:54.46
+
+my @res;
+
+use Math::Primesieve;
+use Lingua::EN::Numbers;
+
+my $iterator = Math::Primesieve::iterator.new;
+
+my ($i, $j, $p, %H) = (3, 7, 1);
+my @v = map { 10**$_ - 1 }, $i..$j;
+
+my $n = 0;
+my $s = 1;
+my $sn;
+repeat {
+    $sn = $s %% 2 ??  $s div 2 !! $s + ($p = $iterator.next);
+    $n++;
+    if $n == @v.any { %H{$n}{'value'} = $sn; %H{$n}{'prime'} = $p } 
+    $s = $sn;
+} until $n == 10**$j;
+
+#@res.push: 'The first 100 members of the Sisyphus sequence are:';
+#@res.push: @S[^100].batch(10)».fmt('%4d').join("\n");
+#@res.push: '';
+
+push @res, sprintf "%12s member is: %10s with prime: %10s", ($_+1, %H{$_}{'value'}, %H{$_}{'prime'})».&comma for @v;
+
+say my $result = join "\n", @res;
+
+my $ref = q:to/END/;
+       1,000 member is:        990 with prime:      2,273
+      10,000 member is:     24,975 with prime:     30,713
+     100,000 member is:    265,781 with prime:    392,111
+   1,000,000 member is:  8,820,834 with prime:  4,761,697
+  10,000,000 member is: 41,369,713 with prime: 55,900,829
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+
+=finish
+
+=={{header|Raku}}==
+{{libheader|ntheory}}
+<syntaxhighlight lang="perl" line>
+</syntaxhighlight>
+{{out}}
+<pre>
+</pre>
