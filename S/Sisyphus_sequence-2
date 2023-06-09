@@ -15,7 +15,7 @@ my ($i, $j, $p, @S, %H) = (3, 5, 1, 1);
 my @v = map { 10**$_ }, $i..$j;
 
 repeat {
-   @S.push: @S[*-1] %% 2 ?? (@S[*-1]/2).Int !! @S[*-1] + ($p = $iterator.next);
+   @S.push: @S[*-1] %% 2 ?? @S[*-1] div 2 !! @S[*-1] + ($p = $iterator.next);
    (%H{+@S}{'value'} = @S[*-1] and %H{+@S}{'prime'} = $p) if @S == @v.any;      # [or] { 10**$_ == @S }, $i..$j;
 } until 10**$j == @S;
 
