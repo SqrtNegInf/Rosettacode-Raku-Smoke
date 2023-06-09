@@ -1,7 +1,8 @@
 #!/usr/bin/env perl6
 #u# https://rosettacode.org/wiki/Sisyphus_sequence
 #c# 2023-0x-xx NOT ON RC
-#n# direct from Perl, will be slower but by how much?
+#n# direct from Perl, will be slower but by how much? [much!]
+#n# 3..7: 1586.50s user 34.83s system 104% cpu 25:48.86
 
 my @res;
 
@@ -9,19 +10,19 @@ use Lingua::EN::Numbers;
 use ntheory:from<Perl5> qw[next_prime];
 
 my ($i, $j, $p, @S, %H) = (3, 5, 1, 1);
+my @v = map { 10**$_ }, $i..$j;
 
-loop {
+repeat {
    @S.push: @S[*-1] %% 2 ?? (@S[*-1]/2).Int !! @S[*-1] + ($p = next_prime($p));
-   (%H{+@S}{'value'} = @S[*-1] and %H{+@S}{'prime'} = $p) if [or] { 10**$_ == @S }, $i..$j;
-   last if 10**$j == @S;
-}
+   (%H{+@S}{'value'} = @S[*-1] and %H{+@S}{'prime'} = $p) if @S == @v.any;      # [or] { 10**$_ == @S }, $i..$j;
+} until 10**$j == @S;
 
 @res.push: 'The first 100 members of the Sisyphus sequence are:';
-@res.push: @S[^100].batch(10)».fmt("%4d").join("\n");
+@res.push: @S[^100].batch(10)».fmt('%4d').join("\n");
 @res.push: '';
 
-push @res, sprintf "%12s member is: %10s with prime: %10s", ($_, %H{$_}{'value'}, %H{$_}{'prime'})>>.&comma
-    for map { 10**$_ }, $i..$j;
+push @res, sprintf "%12s member is: %10s with prime: %10s", ($_, %H{$_}{'value'}, %H{$_}{'prime'})».&comma
+    for @v; #map { 10**$_ }, $i..$j;
 
 say my $result = join "\n", @res;
 
