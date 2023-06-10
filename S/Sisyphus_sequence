@@ -1,28 +1,42 @@
 #!/usr/bin/env perl6
 #u# https://rosettacode.org/wiki/Sisyphus_sequence
-#c# 2023-0x-xx NOT ON RC
-#n# direct from Perl, will be slower but by how much? [not that much!]
-#n# 3..7: 1586.50s user 34.83s system 104% cpu 25:48.86
+#c# 2023-06-10 >RC
+#n# slow, limit testing; doesn't work on iMac, see -2 version
+#n# 3..7:  139.95s user  1.53s system  95% cpu  2:27.51
+#n# 3..8: 1429.53s user 13.33s system  95% cpu 25:03.61
 
 my @res;
 
+use Math::Primesieve;
 use Lingua::EN::Numbers;
-use ntheory:from<Perl5> qw[next_prime];
 
-my ($i, $j, $p, @S, %H) = (3, 5, 1, 1);
-my @v = map { 10**$_ }, $i..$j;
+my $iterator = Math::Primesieve::iterator.new;
+
+my ($exp1, $exp2, $limit1, $limit2)  = 3, 5, 100, 250;
+my ($n, $s0, $s1, $p, @S1, %S) =  1, 1, Any, Any, 1;
+my @Nth = ($exp1..$exp2)».exp(10);
+my $S2 = BagHash.new; 
 
 repeat {
-   @S.push: @S[*-1] %% 2 ?? @S[*-1] div 2 !! @S[*-1] + ($p = next_prime($p));
-   (%H{+@S}{'value'} = @S[*-1] and %H{+@S}{'prime'} = $p) if @S == @v.any;      # [or] { 10**$_ == @S }, $i..$j;
-} until 10**$j == @S;
+    $n++;
+    $s1 = $s0 %% 2 ?? $s0 div 2 !! $s0 + ($p = $iterator.next);
+    push @S1, $s1 if  $n ≤ $limit1;
+    $S2.add($s1)  if $s1 ≤ $limit2;
+    %S{$n}{'value', 'prime'} = $s1, $p if $n ∈ @Nth;
+    $s0 = $s1;
+} until $n == 10**$exp2;
 
-@res.push: 'The first 100 members of the Sisyphus sequence are:';
-@res.push: @S[^100].batch(10)».fmt('%4d').join("\n");
+@res.push: "The first $limit1 members of the Sisyphus sequence are:";
+@res.push: @S1.batch(10)».fmt('%4d').join("\n");
 @res.push: '';
 
-push @res, sprintf "%12s member is: %10s with prime: %10s", ($_, %H{$_}{'value'}, %H{$_}{'prime'})».&comma
-    for @v; #map { 10**$_ }, $i..$j;
+@res.push: sprintf "%12sth member is: %10s with prime: %10s", ($_, %S{$_}{'value'}, %S{$_}{'prime'})».&comma for @Nth;
+
+@res.push: "\nNumbers under $limit2 that do not occur in the first {comma 10**$exp2} terms:";
+@res.push: (1..$limit2).grep: * ∉ $S2.keys;
+
+@res.push: "\nNumbers under $limit2 occur the most ({$S2.values.max} times) in the first {comma 10**$exp2} terms:";
+@res.push: $S2.keys.grep({ $S2{$_} == $S2.values.max}).sort;
 
 say my $result = join "\n", @res;
 
@@ -39,12 +53,16 @@ The first 100 members of the Sisyphus sequence are:
  204  102   51  178   89  220  110   55  192   96
   48   24   12    6    3  142   71  220  110   55
 
-       1,000 member is:        990 with prime:      2,273
-      10,000 member is:     24,975 with prime:     30,713
-     100,000 member is:    265,781 with prime:    392,111
+       1,000th member is:        990 with prime:      2,273
+      10,000th member is:     24,975 with prime:     30,713
+     100,000th member is:    265,781 with prime:    392,111
+
+Numbers under 250 that do not occur in the first 100,000 terms:
+27 36 54 60 72 97 107 108 115 120 127 144 157 167 184 189 194 195 211 212 214 216 223 230 231 232 239 240
+
+Numbers under 250 occur the most (6 times) in the first 100,000 terms:
+3 57 114 228
 END
-#  1,000,000 member is:  8,820,834 with prime:  4,761,697
-# 10,000,000 member is: 41,369,713 with prime: 55,900,829
 
 use Test;
 is @res.join("\n"), chomp $ref;
@@ -52,7 +70,6 @@ is @res.join("\n"), chomp $ref;
 =finish
 
 =={{header|Raku}}==
-{{libheader|ntheory}}
 <syntaxhighlight lang="perl" line>
 </syntaxhighlight>
 {{out}}
