@@ -12,7 +12,7 @@ use Lingua::EN::Numbers;
 
 my $iterator = Math::Primesieve::iterator.new;
 
-my ($i, $j, $p, %H) = (3, 8, 1);
+my ($i, $j, $p, %H) = (3, 5, 1);
 my @v = map { 10**$_ - 1 }, $i..$j;
 
 my $n = 0;
@@ -32,15 +32,14 @@ repeat {
 push @res, sprintf "%12s member is: %10s with prime: %10s", ($_+1, %H{$_}{'value'}, %H{$_}{'prime'})».&comma for @v;
 
 say my $result = join "\n", @res;
-exit;
 
 my $ref = q:to/END/;
        1,000 member is:        990 with prime:      2,273
       10,000 member is:     24,975 with prime:     30,713
      100,000 member is:    265,781 with prime:    392,111
-   1,000,000 member is:  8,820,834 with prime:  4,761,697
-  10,000,000 member is: 41,369,713 with prime: 55,900,829
 END
+#  1,000,000 member is:  8,820,834 with prime:  4,761,697
+# 10,000,000 member is: 41,369,713 with prime: 55,900,829
 #100,000,000 member is: 1,179,614,168 with prime: 640,692,323
 
 use Test;
