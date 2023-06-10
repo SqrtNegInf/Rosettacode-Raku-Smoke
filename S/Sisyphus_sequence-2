@@ -2,9 +2,8 @@
 #u# https://rosettacode.org/wiki/Sisyphus_sequence
 #c# 2023-0x-xx NOT ON RC
 #n# just skip saving the sequence, grab only the checkpoints, much faster
-#n# 3..7:  341.29s user  2.08s system 116% cpu    4:54.46
-#n# 3..7:  156.47s user  2.73s system  68% cpu    3:53.76 # not on idle system
-#n# 3..8: 3948.59s user 39.25s system 104% cpu 1:03:24.44 # slowing down
+#n# 3..7:  139.95s user  1.53s system  95% cpu  2:27.51
+#n# 3..8: 1429.53s user 13.33s system  95% cpu 25:03.61
 
 my @res;
 
@@ -13,22 +12,22 @@ use Lingua::EN::Numbers;
 
 my $iterator = Math::Primesieve::iterator.new;
 
-my ($i, $j, $p, $n, $s, $sn, @S, %H) = 3, 7, 1, 1, 1, Any, 1;
-my @save = map { 10**$_ - 1 }, $i..$j;
+my ($lo, $hi, $n, $s0, $s1, $p, @S100, %S) = 3, 5, 1, 1, Any, Any, 1;
+my @Nth = ($lo..$hi)».exp(10);
 
 repeat {
-    $sn = $s %% 2 ??  $s div 2 !! $s + ($p = $iterator.next);
-    push @S, $sn if $n <= 100;
-    %H{$n}{'value', 'prime'} = $sn, $p if $n ∈ @save;
     $n++;
-    $s = $sn;
-} until $n == 10**$j;
+    $s1 = $s0 %% 2 ?? $s0 div 2 !! $s0 + ($p = $iterator.next);
+    push @S100, $s1 if $n ≤ 100;
+    %S{$n}{'value', 'prime'} = $s1, $p if $n ∈ @Nth;
+    $s0 = $s1;
+} until $n == 10**$hi;
 
 @res.push: 'The first 100 members of the Sisyphus sequence are:';
-@res.push: @S[^100].batch(10)».fmt('%4d').join("\n");
+@res.push: @S100.batch(10)».fmt('%4d').join("\n");
 @res.push: '';
 
-push @res, sprintf "%12s member is: %10s with prime: %10s", ($_+1, %H{$_}{'value'}, %H{$_}{'prime'})».&comma for @save;
+push @res, sprintf "%12sth member is: %10s with prime: %10s", ($_, %S{$_}{'value'}, %S{$_}{'prime'})».&comma for @Nth;
 
 say my $result = join "\n", @res;
 #exit;
@@ -46,13 +45,13 @@ The first 100 members of the Sisyphus sequence are:
  204  102   51  178   89  220  110   55  192   96
   48   24   12    6    3  142   71  220  110   55
 
-       1,000 member is:        990 with prime:      2,273
-      10,000 member is:     24,975 with prime:     30,713
-     100,000 member is:    265,781 with prime:    392,111
-   1,000,000 member is:  8,820,834 with prime:  4,761,697
-  10,000,000 member is: 41,369,713 with prime: 55,900,829
+       1,000th member is:        990 with prime:      2,273
+      10,000th member is:     24,975 with prime:     30,713
+     100,000th member is:    265,781 with prime:    392,111
 END
-#100,000,000 member is: 1,179,614,168 with prime: 640,692,323
+#  1,000,000th member is:  8,820,834 with prime:  4,761,697
+# 10,000,000th member is: 41,369,713 with prime: 55,900,829
+#100,000,000th member is: 1,179,614,168 with prime: 640,692,323
 
 use Test;
 is @res.join("\n"), chomp $ref;
