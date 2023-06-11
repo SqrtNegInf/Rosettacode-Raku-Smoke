@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 #u# https://rosettacode.org/wiki/Sisyphus_sequence
-#c# 2023-0x-xx NOT ON RC
-#n# works on iMac
+#c# 2023-06-10 >RC
+#n# Perl5/ntheory replaces Primesieve (b/c works on iMac, this exact version not on RC)
 
 my @res;
 
@@ -16,8 +16,8 @@ my $S2 = BagHash.new;
 repeat {
     $n++;
     $s1 = $s0 %% 2 ?? $s0 div 2 !! $s0 + ($p = next_prime($p));
-    push @S1, $s1 if $n ≤ $limit1;
-    $S2.add($s1) if $s1 ≤ $limit2;
+    @S1.push: $s1 if  $n ≤ $limit1;
+    $S2.add:  $s1 if $s1 ≤ $limit2;
     %S{$n}{'value', 'prime'} = $s1, $p if $n ∈ @Nth;
     $s0 = $s1;
 } until $n == 10**$exp2;
