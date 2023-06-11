@@ -3,7 +3,9 @@
 #c# 2023-06-10 >RC
 #n# slow, limit testing; doesn't work on iMac, see -2 version
 #n# 3..7:  139.95s user  1.53s system  95% cpu  2:27.51
-#n# 3..8: 1429.53s user 13.33s system  95% cpu 25:03.61
+#n# 3..8: 1413.63s user  8.79s system  96% cpu 24:35.43
+#n# OEIS:A350877 Sisyphus sequence
+die 'BROKEN on iMac ($iterator.next fails)' if qx/uname -a/ ~~ /'iMac'/;
 
 my @res;
 
@@ -20,11 +22,11 @@ my $S2 = BagHash.new;
 repeat {
     $n++;
     $s1 = $s0 %% 2 ?? $s0 div 2 !! $s0 + ($p = $iterator.next);
-    push @S1, $s1 if  $n ≤ $limit1;
-    $S2.add($s1)  if $s1 ≤ $limit2;
+    @S1.push: $s1 if  $n ≤ $limit1;
+    $S2.add:  $s1 if $s1 ≤ $limit2;
     %S{$n}{'value', 'prime'} = $s1, $p if $n ∈ @Nth;
     $s0 = $s1;
-} until $n == 10**$exp2;
+} until $n == @Nth[*-1];
 
 @res.push: "The first $limit1 members of the Sisyphus sequence are:";
 @res.push: @S1.batch(10)».fmt('%4d').join("\n");
@@ -32,10 +34,10 @@ repeat {
 
 @res.push: sprintf "%12sth member is: %10s with prime: %10s", ($_, %S{$_}{'value'}, %S{$_}{'prime'})».&comma for @Nth;
 
-@res.push: "\nNumbers under $limit2 that do not occur in the first {comma 10**$exp2} terms:";
+@res.push: "\nNumbers under $limit2 that do not occur in the first {comma @Nth[*-1]} terms:";
 @res.push: (1..$limit2).grep: * ∉ $S2.keys;
 
-@res.push: "\nNumbers under $limit2 occur the most ({$S2.values.max} times) in the first {comma 10**$exp2} terms:";
+@res.push: "\nNumbers under $limit2 that occur the most ({$S2.values.max} times) in the first {comma @Nth[*-1]} terms:";
 @res.push: $S2.keys.grep({ $S2{$_} == $S2.values.max}).sort;
 
 say my $result = join "\n", @res;
@@ -60,18 +62,9 @@ The first 100 members of the Sisyphus sequence are:
 Numbers under 250 that do not occur in the first 100,000 terms:
 27 36 54 60 72 97 107 108 115 120 127 144 157 167 184 189 194 195 211 212 214 216 223 230 231 232 239 240
 
-Numbers under 250 occur the most (6 times) in the first 100,000 terms:
+Numbers under 250 that occur the most (6 times) in the first 100,000 terms:
 3 57 114 228
 END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-
-=finish
-
-=={{header|Raku}}==
-<syntaxhighlight lang="perl" line>
-</syntaxhighlight>
-{{out}}
-<pre>
-</pre>
