@@ -4,7 +4,8 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A007422 product of divisors of j is j^2
-#n# dup task of 'S/Semiprime', more or less
+#n# dup task of 'S/Semiprime', more or less (but see also: 'B/Blum_integer')
+#n# some code tidying, not on RC [yet, anyhow]
 
 my @res;
 
@@ -14,22 +15,18 @@ use Lingua::EN::Numbers;
 constant @primes = (^∞).grep: &is-prime;
 constant @cubes  = @primes.map: *³;
 
-state $cube = 0;
 sub is-mpn(Int $n ) {
+    state $cube = 0;
     return False if $n.is-prime;
-    if $n == @cubes[$cube] {
-        ++$cube;
-        return True
-    }
-    my $factor = find-factor($n);
-    return True if ($factor.is-prime && ( my $div = $n div $factor ).is-prime && ($div != $factor));
-    False;
+    ++$cube, return True if $n == @cubes[$cube];
+   #my $factor = find-factor($n);
+   #return True if $factor.is-prime and ( my $div = $n div $factor ).is-prime and $div != $factor;
+    return True if .is-prime and ( my $div = $n div $_ ).is-prime and $div != $_ given find-factor($n);
+    False
 }
 
 sub find-factor ( Int $n, $constant = 1 ) {
-    my $x      = 2;
-    my $rho    = 1;
-    my $factor = 1;
+    my ($x, $rho, $factor) = 2, 1, 1;
     while $factor == 1 {
         $rho ×= 2;
         my $fixed = $x;
@@ -40,7 +37,7 @@ sub find-factor ( Int $n, $constant = 1 ) {
         }
     }
     $factor = find-factor( $n, $constant + 1 ) if $n == $factor;
-    $factor;
+    $factor
 }
 
 constant @mpn = lazy 1, |(2..*).grep: &is-mpn;
