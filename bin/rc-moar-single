@@ -19,8 +19,6 @@
 # NB: currently all tasks are run in 'solo' mode due to precompilation issues
 
 use warnings;
-use feature 'say';
-
 use Parallel::ForkManager;
 
 # some tasks need to run solo (slow and/or use .race [latter applied only Rakudo/Moar])
