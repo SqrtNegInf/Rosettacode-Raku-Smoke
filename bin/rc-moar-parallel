@@ -6,19 +6,17 @@
 #  trivial - some have no tests, which is OK
 #
 #  Programs not tested are tagged:
-#  toodamnslow      extract timings embedded in programs with:
+#  toodamnslow      life is short
 #  nocode           have no runnable code
 #  skiptest         hard to test
+#  network          sometimes fails (HTTP::UserAgent, LWP, URI, WWW)
 #  inprogress       WIP
 #  interactive      requires user input
 #  gui              requires windowing system (X11,Tk,GTK,SDL)
 #  forever          hangs/never terminates
 #  broken           just plain doesn't work
 
-# NB: currently all tasks are run in 'solo' mode due to precompilation issues
-
 use warnings;
-
 use Parallel::ForkManager;
 
 # some tasks need to run solo (slow and/or use .race [latter applied only Rakudo/Moar])
@@ -39,8 +37,7 @@ use Parallel::ForkManager;
 
 # with new rakubrew, simpler switching
 $mode = $0 =~ /moar/i ? 'moar' : 'jvm';
-my $shim = $mode eq 'moar' ?  '-blead' : '-2020.11';
-system "rakubrew switch $mode${shim}";
+system "rakubrew switch jvm-2022.12" if $mode eq 'jvm';
 
 chdir "$ENV{HOME}/perl6/Rosetta-Code" || die;
 
@@ -69,11 +66,15 @@ for my $prog (@ARGV) {
         die "No such program $prog" if ! -e $prog;
     }
 
-    @status = `head -12 $prog`;
+    @status = `head -15 $prog`;
     next unless $status[0] =~ /env (perl6|raku)/;
     next if grep { /^#t#.*($skip)/ } @status;
-    next if $mode eq 'moar' && grep { /^#m#.*BROKEN/i } @status;
-    #next if $mode eq 'jvm'  && grep { /^#j#.*BROKEN/i } @status; # always run to see if now un-breaks
+    next if $mode eq 'moar' && grep { /^#m#.*BROKEN/i      } @status;
+    my $hostname = `uname -a`;
+    next if $mode eq 'moar' && $hostname =~ /Mac-Pro/ && grep { /BROKEN on Mac-Pro/i } @status;
+    next if $mode eq 'moar' && $hostname =~ /iMac/    && grep { /BROKEN on iMac/i    } @status;
+    next if $mode eq 'moar' && $hostname =~ /osboxes/ && grep { /BROKEN on Ubuntu/i  } @status;
+#next if $mode eq 'jvm'  && grep { /^#j#.*BROKEN/i } @status; # always run to see if now un-breaks
 
     $clargs = `grep 'RC.cli' $prog`; chomp $clargs; 
     $clargs =~ s/^.*RC.cli:\s+//; 
@@ -95,6 +96,8 @@ for my $prog (@ARGV) {
     $difftest =~ s/\s+$//;
     $difftest =~ s/\.BEND/.moar/ if $mode ne 'jvm';
     $difftest =~ s/\.BEND/.jvm/  if $mode eq 'jvm';
+    $difftest =~ s/\.HOST/.mpro/ if `uname -a` =~ /Mac-Pro|Linux/;
+    $difftest =~ s/\.HOST/.imac/ if `uname -a` =~ /Mac/;
     $Pfile{$prog} = $difftest if $difftest ne '';
 
     if ($mode eq 'jvm' and -e "$prog.jvm") { push @Programs, "$prog.jvm" }
