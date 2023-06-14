@@ -15,8 +15,9 @@ use Lingua::EN::Numbers;
 constant @primes = (^∞).grep: &is-prime;
 constant @cubes  = @primes.map: *³;
 
+# must be called with range 1..$limit
 sub is-mpn(Int $n ) {
-    state $cube = 0;
+    state $cube = 0; $cube = 0 if $n == 2;
     return False if $n.is-prime;
     ++$cube, return True if $n == @cubes[$cube];
    #my $factor = find-factor($n);
