@@ -38,7 +38,7 @@ my $moar-cronjob-imac = qq:to/END/;
  20
 END
 
-my $linux-cronjob = qq:to/END/;
+my $moar-cronjob-linux = qq:to/END/;
  19 6 5 17 10 20
 END
 
@@ -48,13 +48,9 @@ END
 
 use Test;
 if $*KERNEL eq 'linux' {
-    is @res.join("\n"), chomp $linux-cronjob
+    is @res.join("\n"), chomp $moar-cronjob-linux
 } elsif (qx/uname -a/ ~~ /'iMac'/) {
     is @res.join("\n"), chomp $moar-cronjob-imac 
 } else {
     is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $moar-cronjob-mac-pro;
 }
-
-#} else {
-#is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? $moar-terminal !! $moar-cronjob
-#} 
