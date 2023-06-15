@@ -22,18 +22,18 @@ print "\n";
 
 # no $moar-terminal, isn't run interactively
 
-my $moar-cronjob = qq:to/END/;
-My reply is no
-Without a doubt
-Concentrate and ask again
-My reply is no
-END
-
-my $xoar-cronjob = qq:to/END/;
+my $moar-cronjob-mac-pro = qq:to/END/;
 Better not tell you now
 Outlook good
 Concentrate and ask again
 Reply hazy, try again
+END
+
+my $moar-cronjob-imac = qq:to/END/; # also Linux
+My reply is no
+Without a doubt
+Concentrate and ask again
+My reply is no
 END
 
 my $jvm = qq:to/END/;
@@ -44,4 +44,4 @@ Concentrate and ask again
 END
 
 use Test;
-is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! $*IN.t ?? '' !! $moar-cronjob;
+is @res.join("\n"), chomp $*VM ~~ /jvm/ ?? $jvm !! qx/uname -a/ ~~ /'Mac-Pro'/ ?? $moar-cronjob-mac-pro !! $moar-cronjob-imac;
