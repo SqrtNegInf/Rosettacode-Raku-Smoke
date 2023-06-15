@@ -43,8 +43,8 @@ bin/Zef-Upgrade
 # run them all
 echo 'MOAR'
 raku -v
-#bin/rc-moar-parallel [0-Z]/*
-bin/rc-moar-single [0-Z]/*
+bin/rc-moar-parallel [0-Z]/*
+#bin/rc-moar-single [0-Z]/*
 
 # track stats
 /bin/echo -n `date +%Y-%m-%d` >> meta/rakudo-builds.txt
