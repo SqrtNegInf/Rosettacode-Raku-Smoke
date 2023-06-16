@@ -13,7 +13,14 @@ git pull
 
 cd $HOME/.rakubrew
 rakubrew mode shim
-rakubrew switch moar-blead
+ 
+# update Rakudo/MoarVM
+bin/rakubrew build moar-blead >    out.moar  2>    err.moar
+bin/rakubrew switch moar-blead
+bin/rakubrew build zef >    out.zef  2>    err.zef
+bin/rakubrew rehash
+#rehash
+ 
 raku -v
 
 # NOW clear out old
