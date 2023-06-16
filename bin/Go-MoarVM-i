@@ -102,3 +102,8 @@ bin/rc-oeis > meta-i/OEIS.txt
 echo ' '
 git pull
 grep -v '^20' meta*/srand-drift.txt | $HOME/bin/sortcnt | cut -c1-75
+
+# latest Rakudo commits
+echo ' '
+cd $HOME/.rakubrew/versions/moar-blead
+git log | head -100
