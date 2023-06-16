@@ -23,6 +23,12 @@ my $moar = qq:to/END/;
 0.05908300058517646
 END
 
+my $moar-blead = qq:to/END/;
+0.5521347779007098
+0.8879085733313159
+0.2673377025321073
+END
+
 my $jvm = qq:to/END/;
 0.4132192266296165
 0.990414373129817
@@ -30,7 +36,7 @@ my $jvm = qq:to/END/;
 END
 
 use Test;
-my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+my $ref = $*VM ~~ /jvm/ ?? $jvm !! qx/uname -a/ ~~ /'Mac-Pro'/ ?? $moar !! $moar-blead;
 is @res.join("\n"), chomp $ref;
 
 #`{
