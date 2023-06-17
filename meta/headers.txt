@@ -11994,6 +11994,16 @@ File: P/Pig_the_dice_game_Player
 #c# 2016-06-11 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# new-disp 'srand' shift
+#n# double-call to 'srand' in hope of getting stable output
+
+File: P/Pig_the_dice_game_Player.jvm
+#!/usr/bin/env perl6
+# /usr/bin/env -v MVM_SPESH_DISABLE=1 raku
+#u# http://rosettacode.org/wiki/Pig_the_dice_game/Player
+#c# 2016-06-11 <RC
+#m# MOAR: OK
+#j#  JVM: OK
 #f# RC file: pig_dice_player.BEND
 #n# new-disp 'srand' shift
 #n# double-call to 'srand' in hope of getting stable output
