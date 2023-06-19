@@ -11,12 +11,10 @@ sub norm    (@p) { @p[0]² - @p[0]×@p[1] + @p[1]² }
 sub display (@p) { (@p[0] + ω×@p[1]).reals».fmt('%+8.4f').join ~ 'i' }
 
 my @E = gather (-10..10 X -10..10).map: -> (\a,\b) {
-    next unless a == -1 and b == 1 or a == 1 and b == -1;
     take (a,b) if 0 == a|b || a == b ?? (.is-prime and 2 == $_ mod 3 given (a,b)».abs.max) !! norm((a,b)).is-prime
 }
 
-say norm(@$_).fmt('%4d') ~ ' | ' ~ (.[0],.[1])>>.fmt('%3d') ~ ' | ' ~ display(@$_) for @E.sort: *.&norm; # debugging
-exit;
+#say norm(@$_).fmt('%4d') ~ ' | ' ~ (.[0],.[1])>>.fmt('%3d') ~ ' | ' ~ display(@$_) for @E.sort: *.&norm; # debugging
  
 say my $result = (@E.sort: *.&norm).head(100).map(*.&display).batch(4).join("\n");
 
