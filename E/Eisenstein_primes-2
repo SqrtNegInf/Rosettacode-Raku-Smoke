@@ -5,6 +5,7 @@
 #j#  JVM: OK
 #n# an attempt to make a lazy/infinite stream  
 #n# NB: cannot use 'X' approach with infinite list
+#n# OEIS:A055664 Norms of Eisenstein-Jacobi primes
 
 my \ω = exp 2i × π/3;
 #my \ω = (-1 + i×3.sqrt)/2;  # differs only in sign on real zero
@@ -25,7 +26,7 @@ my @E = lazy gather (0..∞).map: -> \a {
   }
 }
 
-#say norm(@$_).fmt('%4d') ~ ' | ' ~ (.[0],.[1])>>.fmt('%3d') ~ ' | ' ~ display(@$_) for @E[^200].sort: *.&norm; exit;
+#say norm(@$_).fmt('%4d') ~ ' | ' ~ (.[0],.[1])>>.fmt('%3d') ~ ' | ' ~ display(@$_) for @E[^200].sort: *.&norm; exit; # norms for OEIS sequence
 
 my $result = (@E[^136].sort: *.&norm).head(100).map(*.&display).batch(4).join("\n");
 #say $result; exit;
