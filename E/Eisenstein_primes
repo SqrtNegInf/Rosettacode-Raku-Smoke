@@ -3,6 +3,7 @@
 #c# 2023-06-18 >RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A055664 Norms of Eisenstein-Jacobi primes
 #n# see note at end
 
 my \ω = exp 2i × π/3;
@@ -10,11 +11,11 @@ my \ω = exp 2i × π/3;
 sub norm    (@p) { @p[0]² - @p[0]×@p[1] + @p[1]² } 
 sub display (@p) { (@p[0] + ω×@p[1]).reals».fmt('%+8.4f').join ~ 'i' }
 
-my @E = gather (-10..10 X -10..10).map: -> (\a,\b) {
+my @E = gather (-20..20 X -20..20).map: -> (\a,\b) {
     take (a,b) if 0 == a|b || a == b ?? (.is-prime and 2 == $_ mod 3 given (a,b)».abs.max) !! norm((a,b)).is-prime
 }
 
-#say norm(@$_).fmt('%4d') ~ ' | ' ~ (.[0],.[1])>>.fmt('%3d') ~ ' | ' ~ display(@$_) for @E.sort: *.&norm; # debugging
+#say norm(@$_).fmt('%4d') ~ ' | ' ~ (.[0],.[1])>>.fmt('%3d') ~ ' | ' ~ display(@$_) for @E.sort: *.&norm; exit; # norms for OEIS sequence
  
 #say my $result =  @E.sort({norm($_)}).head(100).map({display($_)}).batch(4).join("\n");
  say my $result = (@E.sort: *.&norm)  .head(100).map(*.&display)   .batch(4).join: "\n";
