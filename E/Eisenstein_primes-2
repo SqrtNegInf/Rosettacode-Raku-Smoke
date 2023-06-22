@@ -19,9 +19,8 @@ my @E = lazy gather (0..∞).map: -> \a {
        #(.take for (a,b), (a,-b)) if 0 == a;
         (.take for (a,b), (-a,b)) if 0 == b;
         (.take for (b,a), (-b,a), (b,-a), (-b,-a)) if a == b;
-    } else {
-        (.take for (b,a), (-b,a), (b,-a), (-b,-a)) if norm((a,b)).is-prime;
-        (.take for (a,b), (-a,b), (a,-b), (-a,-b)) if norm((a,b)).is-prime 
+    } elsif (a,b).&norm.is-prime {
+        .take for (b,a), (-b,a), (b,-a), (-b,-a), (a,b), (-a,b), (a,-b), (-a,-b)
     }
   }
 }
@@ -29,7 +28,6 @@ my @E = lazy gather (0..∞).map: -> \a {
 #say norm(@$_).fmt('%4d') ~ ' | ' ~ (.[0],.[1])>>.fmt('%3d') ~ ' | ' ~ display(@$_) for @E[^200].sort: *.&norm; exit; # norms for OEIS sequence
 
 my $result = (@E[^136].sort: *.&norm).head(100).map(*.&display).batch(4).join("\n");
-#say $result; exit;
 
 my $ref = q:to/END/;                                                        # :   vim-kludge
  +0.0000 +1.7321i  -0.0000 -1.7321i  +1.5000 +0.8660i  -1.5000 -0.8660i
