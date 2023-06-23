@@ -13,7 +13,7 @@ my $k = Int.new: 2.4 × $nth × log($nth) / 2;
 
 my int @sieve;
 
-@sieve[$k] = 0;
+#@sieve[$k] = 0; # not using concurrency, so no reason for this [and may be behind the long running times?]
 
 #hyper for 1 .. $k -> \i {
 for 1 .. $k -> \i {
