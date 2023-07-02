@@ -18,8 +18,9 @@ sub pick-all (@a is copy) is export {
     @a
 }
 
-enum Pip <A 2 3 4 5 6 7 8 9 10 J Q K>;
-enum Suit<♦ ♣ ♥ ♠>;
+#enum Pip 🃁A 2 3 4 5 6 7 8 9 10 J Q K🃁; # no, but cf Perl version
+enum Pip « A 2 3 4 5 6 7 8 9 10 J Q K »; # spaces fine
+enum Suit<♦ ♣ ♥ ♠>;                      # no space fine too
 
 class Card {
     has Pip $.pip;
