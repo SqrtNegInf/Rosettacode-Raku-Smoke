@@ -6625,6 +6625,7 @@ File: G/Generate_random_numbers_without_repeating_a_value-2
 #s# --optimize=0
 #n# illustrate use of enhanced 'pick' (and illustrate another 'srand' fragility...)
 #n# 2023-02-25 answer doesn't change despite '#s#' switch,  terminal/cron results still differ
+#n# 2023-07-07 odd, $moar-terminal and $linux are now the same (may not last)
 
 File: G/Generate_random_numbers_without_repeating_a_value.1
 #!/usr/bin/env raku
@@ -13597,9 +13598,10 @@ File: R/Rosetta_Code_Count_examples
 #u# http://rosettacode.org/wiki/Rosetta_Code/Count_examples
 #t# skiptest
 #c# 2018-03-30 <RC, 2018-11-19 >RC, 2019-01-21 <RC, 2019-05-12 <RC
-#m# MOAR: OK
+#m# MOAR: BROKEN
 #j# JVM:  BROKEN
 #n# skipping 2020-12-29 update
+#n# since haven't been testing, don't know for how long it's been failing
 
 File: R/Rosetta_Code_Count_examples.1
 #!/usr/bin/env perl6
