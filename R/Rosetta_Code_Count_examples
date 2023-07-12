@@ -1,11 +1,11 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/Count_examples
-#t# skiptest
-#c# 2018-03-30 <RC, 2018-11-19 >RC, 2019-01-21 <RC, 2019-05-12 <RC
-#m# MOAR: BROKEN
+#c# 2018-03-30 <RC, 2018-11-19 >RC, 2019-01-21 <RC, 2019-05-12 <RC, 2023-07-12 <RC
+#m# MOAR: OK
 #j# JVM:  BROKEN
 #n# skipping 2020-12-29 update
 #n# since haven't been testing, don't know for how long it's been failing
+die 'BROKEN on Mac-Pro (OK in iMac/Linux)' if qx/uname -a/ ~~ /'Mac-Pro'/
 
 # Retrieves counts for both Tasks and Draft Tasks. Save / Display results as a sortable wikitable rather than a static list. Click on a column header to sort on that column. To do a secondary sort, hold down the shift key and click on a second column header. Tasks have a gray (default) background, Draft Tasks have a yellow background.
 
@@ -26,7 +26,7 @@ my %cat = (
 
 my $client = HTTP::UserAgent.new;
 
-my $url = 'https://rosettacode.org/mw';
+my $url = 'https://rosettacode.org/w';
 
 my $hashfile  = './RC_Task_count.json';
 my $tablefile = './RC_Task_count.txt';
