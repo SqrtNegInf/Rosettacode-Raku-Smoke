@@ -3,9 +3,11 @@
 #c# 2018-03-30 <RC, 2018-11-19 >RC, 2019-01-21 <RC, 2019-05-12 <RC, 2023-07-12 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
+#f# RC-file: RC_Task_count.txt
 #n# skipping 2020-12-29 update
-#n# since haven't been testing, don't know for how long it's been failing
-die 'BROKEN on Mac-Pro (OK in iMac/Linux)' if qx/uname -a/ ~~ /'Mac-Pro'/
+#n# 2022-xx since haven't been testing, don't know for how long it's been failing
+#n# 2023-07-12 now testing the 'top 10' part on the 'top 10' part on iMac/Linux (probably broken forever on Mac-Pro)
+die 'BROKEN on Mac-Pro (OK in iMac/Linux)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 # Retrieves counts for both Tasks and Draft Tasks. Save / Display results as a sortable wikitable rather than a static list. Click on a column header to sort on that column. To do a secondary sort, hold down the shift key and click on a second column header. Tasks have a gray (default) background, Draft Tasks have a yellow background.
 
@@ -13,7 +15,7 @@ use HTTP::UserAgent;
 use URI::Escape;
 use JSON::Fast;
 
-unit sub MAIN ( Str $no-fetch = '' );
+unit sub MAIN ( Str $no-fetch = 'True' );
 
 my $lo = 1;
 my $hi = 10;
@@ -29,7 +31,7 @@ my $client = HTTP::UserAgent.new;
 my $url = 'https://rosettacode.org/w';
 
 my $hashfile  = './RC_Task_count.json';
-my $tablefile = './RC_Task_count.txt';
+my $tablefile = 'run/RC_Task_count.txt';
 
 my %tasks;
 
@@ -51,7 +53,7 @@ my @top10 = %counts.sort( -*.value ).head(10).map: *.key;
 
 # dump a copy to STDOUT, mostly for debugging purposes
 say '<pre>Top ten programming language by number of task examples completed:';
-say "{($lo .. $hi)[$_]} {@top10[$_]}" for ^@top10;
+say "{($lo .. $hi)[$_]} {@top10[$_]}" for ^@top10; # DH ties disrupt as no fixed order
 say "</pre>\n";
 
 unless $no-fetch {
@@ -95,7 +97,7 @@ unless $no-fetch {
 %tasks = $hashfile.IO.e ?? $hashfile.IO.slurp.&from-json !! ( );
 
 # Convert saved task info to a table
-note "\nBuilding table...";
+#note "\nBuilding table...";
 my $count    = +%tasks;
 my $taskcnt  = +%tasks.grep: *.value.<cat> eq %cat<Programming_Tasks>;
 my $draftcnt = $count - $taskcnt;
@@ -104,17 +106,19 @@ my $total    = sum %tasks{*}>><count>;
 # Dump table to a file
 my $out = open($tablefile, :w)  or die "$!\n";
 
-$out.say: '<pre>Top ten programming language by number of task examples completed:';
-$out.say: "{($lo .. $hi)[$_]} {@top10[$_]}" for ^@top10;
-$out.say: "</pre>\n\n<div style=\"height:40em;overflow:scroll;\">";
+$out.say: '<pre>Top ten programming language in no particular order:';
+$out.say: $_ for @top10.sort;
+#$out.say: '<pre>Top ten programming language by number of task examples completed:';
+#$out.say: "{($lo .. $hi)[$_]} {@top10[$_]}" for ^@top10; # DH ties disrupt testing, no fixed order
+#$out.say: "</pre>\n\n<div style=\"height:40em;overflow:scroll;\">";
 
 # Add table boilerplate and caption
-$out.say:
-    '{|class="wikitable sortable"', "\n",
-    "|+ As of { DateTime.new(time) } :: Tasks: { $taskcnt } ::<span style=\"background-color:#ffd\"> Draft Tasks:",
-    "{ $draftcnt } </span>:: Total Tasks: { $count } :: Total Examples: { $total }\n",
-    "!Count!!Task!!{($lo .. $hi).join('!!')}"
-;
+#$out.say:
+#    '{|class="wikitable sortable"', "\n",
+#    "|+ As of { DateTime.new(time) } :: Tasks: { $taskcnt } ::<span style=\"background-color:#ffd\"> Draft Tasks:",
+#    "{ $draftcnt } </span>:: Total Tasks: { $count } :: Total Examples: { $total }\n",
+#    "!Count!!Task!!{($lo .. $hi).join('!!')}"
+#;
 
 # Sort tasks by count then add row
 for %tasks.sort: { [-.value<count>, .key] } -> $task {
@@ -134,7 +138,7 @@ for %tasks.sort: { [-.value<count>, .key] } -> $task {
 $out.say( "|}\n</div>" );
 $out.close;
 
-note "Table file saved as: {$tablefile.IO.absolute}";
+#note "Table file saved as: {$tablefile.IO.absolute}";
 
 sub mediawiki-query ($site, $type, *%query) {
     my $url = "$site/api.php?" ~ uri-query-string(
