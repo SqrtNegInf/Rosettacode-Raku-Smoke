@@ -3243,7 +3243,7 @@ File: C/Compare_sorting_algorithms%27_performance
 File: C/Compile-time_calculation
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Compile-time_calculation
-#c# 2018-03-20 <RC
+#c# 2018-03-20 <RC, 2023-07-12 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -13598,12 +13598,14 @@ File: R/Roots_of_unity
 File: R/Rosetta_Code_Count_examples
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Rosetta_Code/Count_examples
-#t# skiptest
-#c# 2018-03-30 <RC, 2018-11-19 >RC, 2019-01-21 <RC, 2019-05-12 <RC
-#m# MOAR: BROKEN
+#c# 2018-03-30 <RC, 2018-11-19 >RC, 2019-01-21 <RC, 2019-05-12 <RC, 2023-07-12 <RC
+#m# MOAR: OK
 #j# JVM:  BROKEN
+#f# RC-file: RC_Task_count.txt
 #n# skipping 2020-12-29 update
-#n# since haven't been testing, don't know for how long it's been failing
+#n# 2022-xx since haven't been testing, don't know for how long it's been failing
+#n# 2023-07-12 now testing the 'top 10' part on the 'top 10' part on iMac/Linux (probably broken forever on Mac-Pro)
+die 'BROKEN on Mac-Pro (OK in iMac/Linux)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: R/Rosetta_Code_Count_examples.1
 #!/usr/bin/env perl6
