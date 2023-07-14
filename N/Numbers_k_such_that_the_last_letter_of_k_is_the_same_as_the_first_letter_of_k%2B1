@@ -1,0 +1,94 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Numbers_k_such_that_the_last_letter_of_k_is_the_same_as_the_first_letter_of_k%2B1
+#c# 2023-07-13 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+constant @I = <zero one    two    three    four     five    six     seven     eight    nine
+               ten  eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen>;
+constant @X = <0    X      twenty thirty   forty    fifty   sixty   seventy   eighty   ninety>;
+constant @C = @I X~ ' hundred';
+constant @M = (<0 thousand>,
+    ((<m b tr quadr quint sext sept oct non>,
+    (map { ('', <un duo tre quattuor quin sex septen octo novem>).flat X~ $_ },
+    <dec vigint trigint quadragint quinquagint sexagint septuagint octogint nonagint>),
+    'cent').flat X~ 'illion')).flat;
+
+sub int-name ($num) {
+    if $num.substr(0,1) eq '-' { return "negative {int-name($num.substr(1))}" }
+    if $num eq '0' { return @I[0] }
+    my $m = 0;
+    return join ', ', reverse gather for $num.flip.comb(/\d ** 1..3/) {
+        my ($i,$x,$c) = .comb».Int;
+        if $i or $x or $c {
+            take join ' ', gather {
+                if $c { take @C[$c] }
+                if $x and $x == 1 { take @I[$i+10] }
+                else {
+                    if $x { take @X[$x] }
+                    if $i { take @I[$i] }
+                }
+                take @M[$m] // die "WOW! ZILLIONS!\n" if $m;
+            }
+        }
+        $m++;
+    }
+}
+
+my ($i, $c, $limit, $prev, @nums, @lastDigs) = 0, 0, 1000, int-name(0);
+
+while $limit <= 1e3 {
+   my $next = int-name $i+1;
+   if $prev.substr(*-1) eq $next.substr(0,1) {
+      if ($c < 50) { @nums.append: $i };
+      @lastDigs[$i % 10] += 1;
+      $c++;
+      if $c == 50 {
+         @res.push: "First 50 numbers:";
+         @res.push: [~] $_>>.fmt('%4s') for @nums.rotor(10);
+         @res.push: ''; 
+      } elsif $c == $limit {
+         @res.push: "The {$c}th number is $i.";
+         @res.push: "Breakdown by last digit of first {$c}th numbers";
+         @res.push: 'N Freq';
+         for 0..9 -> $d { 
+            @res.push: "$d {@lastDigs[$d].fmt('%4s')} " ~ '█' x (@lastDigs[$d]/@lastDigs.max*72).Int;
+         }
+         @res.push: ''; 
+         $limit *= 10
+      }
+   }
+   $prev = $next;
+   $i++;
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+First 50 numbers:
+   0  18  28  38  79  81  83  85  97 102
+ 122 132 142 152 162 172 182 192 208 228
+ 238 248 258 268 278 288 298 308 328 338
+ 348 358 368 378 388 398 799 801 803 805
+ 809 812 821 823 825 829 831 833 835 839
+
+The 1000th number is 10988.
+Breakdown by last digit of first 1000th numbers
+N Freq
+0   12 ██
+1  111 ██████████████████████████
+2  110 ██████████████████████████
+3  111 ██████████████████████████
+4   11 ██
+5  111 ██████████████████████████
+6   11 ██
+7  111 ██████████████████████████
+8  301 ████████████████████████████████████████████████████████████████████████
+9  111 ██████████████████████████
+
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
