@@ -54,10 +54,10 @@ while $limit <= 1e3 {
          @res.push: "Breakdown by last digit of first {$c}th numbers";
          @res.push: 'N Freq';
          for 0..9 -> $d { 
-            @res.push: "$d {@lastDigs[$d].fmt('%4s')} " ~ '█' x (@lastDigs[$d]/@lastDigs.max*72).Int;
+            @res.push: "$d {@lastDigs[$d].fmt('%4s')} " ~ '█' x (@lastDigs[$d]/@lastDigs.max×72).Int;
          }
          @res.push: ''; 
-         $limit *= 10
+         $limit ×= 10
       }
    }
    $prev = $next;
