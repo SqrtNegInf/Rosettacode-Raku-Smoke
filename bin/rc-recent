@@ -9,7 +9,8 @@ curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges
 pcregrep -v --buffer-size=22K footer recent.html  | \
 pcregrep 'data-mw-revid.*data-target-page' | \
 strip-html - | \
-pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Trizen|Hkdtam|Waxrat|Raku|Perl\b' | \
+pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Hkdtam|Waxrat|Raku|Perl\b' | \
+#pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Trizen|Hkdtam|Waxrat|Raku|Perl\b' | \
 pcregrep -v 'markup|bizarre|full.list' | \
 perl -npe 's/\Q‎\E.*?\Q‎\E//' | \
 perl -npe 's/\Q→‎\E{{header.(.*?)}}/$1/' | \
