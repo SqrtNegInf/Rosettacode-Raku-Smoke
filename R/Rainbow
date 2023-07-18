@@ -1,0 +1,21 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Rainbow
+#c# 2023-07-17 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: rainbow.dat
+
+use Color::Names:api<2>;
+use Color::Names::X11 :colors;
+
+#for 'Rainbow'
+#   'Another phrase that happens to contain the word "Rainbow".'
+#  -> $rainbow-text {
+my $text;
+    for 'Rainbow'.comb Z, flat(<red orange yellow green blue indigo violet> xx *) -> ($l, $c) {
+        print "\e[38;2;{COLORS{"{$c}-X11"}<rgb>.join(';')}m$l\e[0";
+        $text ~= "\e[38;2;{COLORS{"{$c}-X11"}<rgb>.join(';')}m$l\e[0";
+    }
+#}
+say "\n$text\n";
+'run/rainbow.dat'.IO.open(:w).write: $text.encode('ascii');
