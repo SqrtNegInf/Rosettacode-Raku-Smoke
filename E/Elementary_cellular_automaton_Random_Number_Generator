@@ -1,13 +1,13 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Elementary_cellular_automaton/Random_Number_Generator
-#c# 2016-05-18 <>RC
+#c# 2016-05-18 <>RC, 2023-07-19 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #   class copied from 'Elementary_cellular_automaton'
 
 class Automaton {
     has $.rule;
-    has @.cells;
+    has @.cells handles <AT-POS>;                   # allows the simplifiction below
     has @.code = $!rule.fmt('%08b').flip.comb».Int;
 
     method gist { "|{ @!cells.map({$_ ?? '#' !! ' '}).join }|" }
@@ -26,7 +26,8 @@ class Automaton {
 
 my Automaton $a .= new: :rule(30), :cells( flat 1, 0 xx 100 );
 
-say my $result = :2[$a++.cells[0] xx 8] xx 10;
+#ay my $result = :2[$a++.cells[0] xx 8] xx 10;
+say my $result = :2[$a++[0] xx 8] xx 10;
 
 use Test;
 is $result, '220 197 147 174 117 97 149 171 240 241';
