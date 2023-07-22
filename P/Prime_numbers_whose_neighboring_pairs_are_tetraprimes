@@ -1,0 +1,127 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Prime_numbers_whose_neighboring_pairs_are_tetraprimes
+#c# 2023-07-21 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# full run is slow, limit to 1e6
+
+my @res;
+
+my @primes = (2..1e6).grep: *.is-prime; # cannot do lazy here  [DH: was 1e7]
+
+sub median {
+   return { ( .[(*-1) div 2] + .[* div 2] ) / 2 }(@_) # for already sorted
+}
+
+sub isTetraPrime ($n is copy) { # is cached {
+   my ($count,$prevFact) = 0, 1;
+   for @primes -> \p {
+      my $limit = p * p;
+      if $count == 0 {
+         $limit = $limit * $limit
+      } elsif $count == 1 {
+         $limit *= p
+      }
+      if $limit <= $n {
+         while $n %% p {
+            return False if ( $count == 4 or p == $prevFact );
+            $count++;
+            $n div= p;
+            $prevFact = p
+         }
+      } else {
+         last      
+      }
+   }
+   if $n > 1 {
+      return False if ( $count == 4 or $n == $prevFact );
+      $count++
+   }
+   return $count == 4
+}
+
+my ( $j, @tetras1, @tetras2, $sevens1, $sevens2 ) = 1e5;
+
+#y \highest7 = @primes.[*-1];
+#y \highest6 = @primes.first: * < 1e6, :end;
+my \highest6 = @primes.[*-1];
+my \highest5 = @primes.first: * < 1e5, :end; 
+
+for @primes -> \p {
+   if isTetraPrime p-1 and isTetraPrime p-2 {
+      @tetras1.push: p;
+      $sevens1++ if ( (p-1) %% 7 or (p-2) %% 7 );
+   }
+   if isTetraPrime p+1 and isTetraPrime p+2 {
+      @tetras2.push: p;
+      $sevens2++ if ( (p+1) %% 7 or (p+2) %% 7 ); 
+   }
+   if p == highest5 | highest6 { #| highest7 {
+      for 0,1 -> \i {
+         my (\sevens, \t, @tetras) := i == 0 
+            ?? ( $sevens1, "preceding", @tetras1 )
+            !! ( $sevens2, "following", @tetras2 ); 
+         my \c = @tetras.elems;
+
+         @res.push: "Found {c} primes under $j whose {t} neighboring pair are tetraprimes:";
+         if p == highest5 {
+            @res.push: [~] $_>>.fmt('%6s') for @tetras.rotor(10,:partial);       
+         }
+         @res.push: "of which {sevens} have a neighboring pair one of whose factors is 7.\n";
+         my \gaps = ( @tetras[^c].rotor(2=>-1).map: { ( [-] $_ ).abs } ).sort;
+
+         my (\Min,\Max,\Med) = gaps[0], gaps[*-1], median(gaps);
+         @res.push: "Minimum gap between those {c} primes : {Min}";
+         @res.push: "Median  gap between those {c} primes : {Med}";
+         @res.push: "Maximum gap between those {c} primes : {Max}"; 
+         @res.push: '';
+      }
+      $j *= 10
+   } 
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+Found 49 primes under 100000 whose preceding neighboring pair are tetraprimes:
+  8647 15107 20407 20771 21491 23003 23531 24767 24971 27967
+ 29147 33287 34847 36779 42187 42407 42667 43331 43991 46807
+ 46867 51431 52691 52747 53891 54167 58567 63247 63367 69379
+ 71711 73607 73867 74167 76507 76631 76847 80447 83591 84247
+ 86243 87187 87803 89387 93887 97547 97847 98347 99431
+of which 31 have a neighboring pair one of whose factors is 7.
+
+Minimum gap between those 49 primes : 56
+Median  gap between those 49 primes : 1208
+Maximum gap between those 49 primes : 6460
+
+Found 46 primes under 100000 whose following neighboring pair are tetraprimes:
+  8293 16553 17389 18289 22153 26893 29209 33409 35509 36293
+ 39233 39829 40493 41809 45589 48109 58393 59629 59753 59981
+ 60493 60913 64013 64921 65713 66169 69221 71329 74093 75577
+ 75853 77689 77933 79393 79609 82913 84533 85853 87589 87701
+ 88681 91153 93889 96017 97381 98453
+of which 36 have a neighboring pair one of whose factors is 7.
+
+Minimum gap between those 46 primes : 112
+Median  gap between those 46 primes : 1460
+Maximum gap between those 46 primes : 10284
+
+Found 885 primes under 1000000 whose preceding neighboring pair are tetraprimes:
+of which 503 have a neighboring pair one of whose factors is 7.
+
+Minimum gap between those 885 primes : 4
+Median  gap between those 885 primes : 756
+Maximum gap between those 885 primes : 7712
+
+Found 866 primes under 1000000 whose following neighboring pair are tetraprimes:
+of which 492 have a neighboring pair one of whose factors is 7.
+
+Minimum gap between those 866 primes : 4
+Median  gap between those 866 primes : 832
+Maximum gap between those 866 primes : 10284
+
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
