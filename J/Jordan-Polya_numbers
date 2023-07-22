@@ -1,0 +1,54 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Jordan-Pólya_numbers
+#c# 2023-07-19 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+my \factorials = 1, | [\*] 1..18; # with 0!
+
+sub JordanPolya (\limit) {
+   my \ix = (factorials.keys.first: factorials[*] >= limit) // factorials.end; 
+   my ($k, @res) = 2, |factorials[0..ix];
+
+   while $k < @res.elems {
+      my \rk = @res[$k];
+      for 2 .. @res.elems -> \l {
+         my \kl = $ = @res[l] * rk;
+         last if kl > limit;
+         loop {
+            my \p = @res.keys.first: { @res[$_] >= kl } # performance
+            if p < @res.elems and @res[p] != kl {
+               @res = |@res[^p], kl, |@res[p..*]        
+            } elsif p == @res.elems { 
+               @res.append: kl 
+            }
+            kl > limit/rk ?? ( last ) !! kl *= rk
+         }
+      }
+      $k++
+   }
+   return @res[1..*]
+}
+
+my @JP = JordanPolya 2**30; 
+@res.push: "First 50 Jordan-Pólya numbers:";
+@res.push: [~] $_>>.fmt('%5s') for @JP[^50].rotor(10);
+@res.push: "\nThe largest Jordan-Pólya number before 100 million: " ~ @JP.first: * < 100_000_000, :end;
+
+.say for @res;
+
+my $ref = q:to/END/;
+First 50 Jordan-Pólya numbers:
+    1    2    4    6    8   12   16   24   32   36
+   48   64   72   96  120  128  144  192  216  240
+  256  288  384  432  480  512  576  720  768  864
+  960 1024 1152 1296 1440 1536 1728 1920 2048 2304
+ 2592 2880 3072 3456 3840 4096 4320 4608 5040 5184
+
+The largest Jordan-Pólya number before 100 million: 99532800
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
