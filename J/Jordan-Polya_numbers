@@ -6,7 +6,7 @@
 
 my @res;
 
-my \factorials = 1, | [\*] 1..18; # with 0!
+my \factorials = 1, | [\×] 1..18; # with 0!
 
 sub JordanPolya (\limit) {
    my \ix = (factorials.keys.first: factorials[*] >= limit) // factorials.end; 
@@ -15,7 +15,7 @@ sub JordanPolya (\limit) {
    while $k < @res.elems {
       my \rk = @res[$k];
       for 2 .. @res.elems -> \l {
-         my \kl = $ = @res[l] * rk;
+         my \kl = $ = @res[l] × rk;
          last if kl > limit;
          loop {
             my \p = @res.keys.first: { @res[$_] >= kl } # performance
@@ -24,7 +24,7 @@ sub JordanPolya (\limit) {
             } elsif p == @res.elems { 
                @res.append: kl 
             }
-            kl > limit/rk ?? ( last ) !! kl *= rk
+            kl > limit/rk ?? ( last ) !! kl ×= rk
          }
       }
       $k++
