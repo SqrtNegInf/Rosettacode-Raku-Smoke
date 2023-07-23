@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# https://rosettacode.org/wiki/Prime_numbers_whose_neighboring_pairs_are_tetraprimes
-#c# 2023-07-21 <RC
+#c# 2023-07-22 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# full run is slow, limit to 1e6
@@ -16,11 +16,11 @@ sub median {
 sub isTetraPrime ($n is copy) { # is cached {
    my ($count,$prevFact) = 0, 1;
    for @primes -> \p {
-      my $limit = p * p;
+      my $limit = p × p;
       if $count == 0 {
-         $limit = $limit * $limit
+         $limit = $limit × $limit
       } elsif $count == 1 {
-         $limit *= p
+         $limit ×= p
       }
       if $limit <= $n {
          while $n %% p {
@@ -68,7 +68,8 @@ for @primes -> \p {
             @res.push: [~] $_>>.fmt('%6s') for @tetras.rotor(10,:partial);       
          }
          @res.push: "of which {sevens} have a neighboring pair one of whose factors is 7.\n";
-         my \gaps = ( @tetras[^c].rotor(2=>-1).map: { ( [-] $_ ).abs } ).sort;
+        #my \gaps = ( @tetras[^c].rotor(2=>-1).map: { ( [-] $_ ).abs } ).sort;
+         my \gaps = ( @tetras.rotor(2=>-1).map: { .[1] - .[0] } ).sort;
 
          my (\Min,\Max,\Med) = gaps[0], gaps[*-1], median(gaps);
          @res.push: "Minimum gap between those {c} primes : {Min}";
@@ -76,7 +77,7 @@ for @primes -> \p {
          @res.push: "Maximum gap between those {c} primes : {Max}"; 
          @res.push: '';
       }
-      $j *= 10
+      $j ×= 10
    } 
 }
 
