@@ -1,7 +1,7 @@
 #!/bin/zsh
 ## temporary, hopefully
 #  2022-09-02 initial version
-#  2023-07-15 skip Trizen for right now (mass update of 'sidef' tasks)
+#  2023-07-15 [XXX skip Trizen for right now (mass update of 'sidef' tasks) XXX]
 #  nb: trying to catch both Raku and Perl tasks
 
 cd ~/perl6/Rosetta-Code
@@ -10,8 +10,8 @@ curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges
 pcregrep -v --buffer-size=22K footer recent.html  | \
 pcregrep 'data-mw-revid.*data-target-page' | \
 strip-html - | \
-pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Hkdtam|Waxrat|Raku|Perl\b' | \
-#pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Trizen|Hkdtam|Waxrat|Raku|Perl\b' | \
+#pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Hkdtam|Waxrat|Raku|Perl\b' | \
+pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Trizen|Hkdtam|Waxrat|Raku|Perl\b' | \
 pcregrep -v 'markup|bizarre|full.list' | \
 perl -npe 's/\Q‎\E.*?\Q‎\E//' | \
 perl -npe 's/\Q→‎\E{{header.(.*?)}}/$1/' | \
