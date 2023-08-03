@@ -2319,6 +2319,14 @@ File: B/Burrows-Wheeler_transform.jvm
 #j# JVM:  OK
 #n# same output as main version, but different value for 'STX'
 
+File: C/CORDIC
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/CORDIC
+#c# 2023-08-02 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for JVM: Method 'parameterize' not found for invocant of class 'Perl6::Metamodel::ClassHOW' (line 20)
+
 File: C/CRC-32
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/CRC-32
