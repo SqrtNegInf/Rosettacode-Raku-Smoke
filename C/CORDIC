@@ -1,0 +1,42 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/CORDIC
+#c# 2023-08-02 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for JVM: Method 'parameterize' not found for invocant of class 'Perl6::Metamodel::ClassHOW' (line 20)
+
+my @res;
+
+sub CORDIC ($A is copy) {
+
+   my (\Ten, $K, $X, $Y) = ( 1, * * 1/10 ... * )[^6], 0, 1, 0;
+
+   my \Tbl = < 7.853981633974480e-1 9.966865249116200e-2 9.999666686665240e-3 
+               9.999996666668670e-4 9.999999966666670e-5 9.999999999666670e-6 0.0>;
+
+   while $A > 1e-5 { 
+      $K++ while $A < Tbl[$K];
+      $A -= Tbl[$K];
+      ($X,$Y) = $X - Ten[$K]*$Y, $Y + Ten[$K]*$X;
+   }
+   return $X, sqrt($X*$X + $Y*$Y)
+}
+
+@res = "Angle    CORDIC       Cosine       Error";
+for <-9 0 1.5 6> { 
+   my \result = [/] CORDIC .abs;
+   @res.push: sprintf "% 2.1f  "~"% 2.8f  " x 3~"", $_, result, .cos, .cos - result
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+Angle    CORDIC       Cosine       Error
+-9.0  -0.91112769  -0.91113026  -0.00000257  
+ 0.0   1.00000000   1.00000000   0.00000000  
+ 1.5   0.07073880   0.07073720  -0.00000160  
+ 6.0   0.96016761   0.96017029   0.00000268  
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
