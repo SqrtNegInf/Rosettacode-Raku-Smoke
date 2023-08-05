@@ -8084,6 +8084,7 @@ File: K/Kaprekar_numbers-2
 #m# MOAR: OK
 #j#  JVM: OK
 #n# OEIS:A006886 Kaprekar numbers: n such that n = q+r and n^2 = q*10^m+r, for some m >= 1, q >= 0 and 0 <= r < 10^m, with n != 10^a, a >= 1
+#n# has a race condition that shows up only rarely (e.g. 14 times in 10000 runs)
 
 File: K/Kaprekar_numbers-2.jvm
 #!/usr/bin/env perl6
