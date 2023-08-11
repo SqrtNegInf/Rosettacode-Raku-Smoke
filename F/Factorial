@@ -3,17 +3,25 @@
 #c# 2015-12-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A000142 factorial numbers: n! = 1*2*3*4*...*n (order of symmetric group S_n, number of permutations of n letters)
 
-#via User-defined Postfix Operator
+# via User-defined Postfix Operator
 
-#[×] is a reduction operator that multiplies all the following values together. Note that we don't need to start at 1, since the degenerate case of [×]() correctly returns 1, and multiplying by 1 to start off with is silly in any case.
+# [×] is a reduction operator that multiplies all the following values
+# together. Note that we don't need to start at 1, since the degenerate case
+# of [×]() correctly returns 1, and multiplying by 1 to start off with is
+# silly in any case.
 
 sub postfix:<!> ( UInt:D $n ) is looser(&prefix:<->) { [×] 2..$n }
 say 5!;
 
-#via Memoized Constant Sequence
+# via Memoized Constant Sequence
 
-#This approach is much more efficient for repeated use, since it automatically caches. [\×] is the so-called triangular version of [×]. It returns the intermediate results as a list. Note that Raku allows you to define constants lazily, which is rather helpful when your constant is of infinite size...
+# This approach is much more efficient for repeated use, since it
+# automatically caches. [\×] is the so-called triangular version of [×]. It
+# returns the intermediate results as a list. Note that Raku allows you to
+# define constants lazily, which is rather helpful when your constant is of
+# infinite size...
 
 constant fact = 1, |[\×] 1..*;
 say fact[5];
