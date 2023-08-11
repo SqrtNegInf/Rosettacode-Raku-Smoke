@@ -2712,6 +2712,20 @@ File: C/Check_Machin-like_formulas.0
 #j#  JVM: OK
 #n# this is the version on RC
 
+File: C/Check_if_a_polygon_overlaps_with_a_rectangle
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Check_if_a_polygon_overlaps_with_a_rectangle
+#c# 2023-08-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+File: C/Check_if_two_polygons_overlap
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Check_if_two_polygons_overlap
+#c# 2023-08-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
 File: C/Check_input_device_is_a_terminal
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Check_input_device_is_a_terminal
@@ -5254,6 +5268,14 @@ File: E/Execute_a_system_command
 #m# MOAR: OK
 #j#  JVM: OK
 
+File: E/Exponential_digital_sums
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Exponential_digital_sums
+#c# 2023-08-10 <RC
+#m# MOAR: BROKEN OK
+#j# JVM:  BROKEN OK
+#n# for reasons of speed, lowered 2nd limit , 30->10
+
 File: E/Exponentiation_operator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Exponentiation_operator
@@ -5421,6 +5443,7 @@ File: F/Factorial
 #c# 2015-12-07 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+#n# OEIS:A000142 factorial numbers: n! = 1*2*3*4*...*n (order of symmetric group S_n, number of permutations of n letters)
 
 File: F/Factorial_base_numbers_indexing_permutations_of_a_collection
 #!/usr/bin/env perl6
@@ -7973,6 +7996,7 @@ File: J/Jordan-Polya_numbers
 #c# 2023-07-19 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# OEIS:A001013: Jordan-Pólya numbers: products of factorial numbers A000142
 
 File: J/Josephus_problem
 #!/usr/bin/env perl6
