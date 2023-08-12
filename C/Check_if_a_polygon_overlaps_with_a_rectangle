@@ -7,7 +7,7 @@
 my @res;
 
 class Vector2 { has ( $.x, $.y );
-   method dot ( \other ) { self.x * other.x + self.y * other.y }
+   method dot ( \other ) { self.x × other.x + self.y × other.y }
 }; 
 
 class Rectangle { has ( $.x, $.y, $.w, $.h ) }
