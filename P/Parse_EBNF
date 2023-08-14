@@ -3,12 +3,17 @@
 #c# 2018-03-21 <RC, 2018-11-17 >RC, 2019-05-16 >RC
 #m# MOAR: OK
 #j# JVM:  OK
-#f# RC file: ebnf.dat
+#f# RC file: ebnf-blead.dat
 #n# for JVM: just a trivial difference in output
+#n# 2023-08-13 moar-blead makes slightly different output, older releases match 'ref/ebnf.dat'
+die 'BROKEN on Mac-Pro (no, not really)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
-# Works with: Rakudo version 2013.09
-#This parses the EBNF rule set using a perl 6 grammar, then if it parses as valid EBNF, constructs a grammar and parses the test strings with that. EBNF rule sets that are naively syntactically correct but missing rules will parse as valid but will give a runtime failure warning about missing methods.
-#It is implemented and exercised using the flavor of EBNF and test cases specified on the test page.
+# This parses the EBNF rule set using a perl 6 grammar, then if it parses as
+# valid EBNF, constructs a grammar and parses the test strings with that.
+# EBNF rule sets that are naively syntactically correct but missing rules
+# will parse as valid but will give a runtime failure warning about missing
+# methods.  It is implemented and exercised using the flavor of EBNF and test
+# cases specified on the test page.
 
 # A perl 6 grammar to parse EBNF
 grammar EBNF {
