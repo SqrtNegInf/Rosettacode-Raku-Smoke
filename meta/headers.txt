@@ -5275,6 +5275,16 @@ File: E/Exponential_digital_sums
 #m# MOAR: OK
 #j# JVM:  OK
 
+File: E/Exponential_digital_sums.1
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Exponential_digital_sums
+#c# 2023-08-15 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# gives 'correct' results, but hard to test with concurrency: even with 'hyper' the final different results in list differ
+#n# (could over-produce and truncate, but that's a lot of fussing for not much gain)
+#n# full run of 30 'three-or-more' is pretty slow.
+
 File: E/Exponentiation_operator
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Exponentiation_operator
