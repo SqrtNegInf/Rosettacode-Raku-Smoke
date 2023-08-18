@@ -5,13 +5,14 @@
 #  nb: trying to catch both Raku and Perl tasks
 
 cd ~/perl6/Rosetta-Code
-curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=750&namespace=0' > recent.html
+#curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=750&namespace=0' > recent.html
+curl -o - 'https://rosettacode.org/wiki/Special:RecentChanges?hidebots=1&limit=100&days=7&enhanced=1&urlversion=2' > recent.html
 
 pcregrep -v --buffer-size=22K footer recent.html  | \
 pcregrep 'data-mw-revid.*data-target-page' | \
 strip-html - | \
-#pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Hkdtam|Waxrat|Raku|Perl\b' | \
-pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Trizen|Hkdtam|Waxrat|Raku|Perl\b' | \
+#pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Hkdtam|Raku|Perl\b' | \
+pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Trizen|Hkdtam|Raku|Perl\b' | \
 pcregrep -v 'markup|bizarre|full.list' | \
 perl -npe 's/\Q‎\E.*?\Q‎\E//' | \
 perl -npe 's/\Q→‎\E{{header.(.*?)}}/$1/' | \
@@ -21,7 +22,7 @@ perl -npe "s/&#039;/'/g"
 echo ' '
 
 pcregrep 'mw-enhanced-rc-nested" data-target-page' recent.html | \
-pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Trizen|Hkdtam|Waxrat|Raku|Perl\b' | \
+pcregrep -i 'Thunder|SqrtNegInf|Grondilu|Trizen|Hkdtam|Raku|Perl\b' | \
 cut -c 1-100 - | \
 perl -npe 's/^.*?data-target-page="(.*?)".*$/$1/' | \
 sort -u
