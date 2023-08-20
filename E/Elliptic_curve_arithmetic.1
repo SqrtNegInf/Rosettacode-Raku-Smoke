@@ -1,11 +1,11 @@
 #!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Elliptic_curve_arithmetic
-#c# 2016-04-03 <>RC, 2020-02-05 <RC
+#c# 2016-04-03 <>RC, 2020-02-05 <RC, 2022-12-06 >RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# 2022-12-06 turns out to be mostly dead code (at least for the supplied example) 
-#n#            (runs substantially faster without all the overhead of the multi's being defined)
+#n# for JVM 2021.12: now matches Moar output exactly
+#n# using Unicode for custom math operations disambiguates, but are regular symbols better? (like Perl example 'overload')
+#n# 2022-12-06 for clarity, eliminate all uses of '*', replace with more expressive Unicode (see .1 regarding dead code)
 
 unit module EC;
 our ($A, $B) = 0, 7;
@@ -21,25 +21,25 @@ class Point {
     method gist { "EC Point at x=$.x, y=$.y" }
 }
 
-#multi prefix:<—> (Point $p)            { Point.new: x => $p.x, y => -$p.y }
-#multi  infix:<—> (Point $a, Point $b)  { $a + —$b }
-#multi prefix:<—> (Horizon $)           { Horizon } # not needed?
+multi prefix:<—> (Point $p)            { Point.new: x => $p.x, y => -$p.y }
+multi  infix:<—> (Point $a, Point $b)  { $a + —$b }
+multi prefix:<—> (Horizon $)           { Horizon  }
 
-#multi  infix:<+> (Horizon $, Point $p) { $p }
-#multi  infix:<+> ( Point $p,  Horizon) { $p }
+multi  infix:<+> (Horizon $, Point $p) { $p }
+multi  infix:<+> ( Point $p,  Horizon) { $p }
 
-#multi  infix:<⨯> (Point $u, Int $n)    { $n × $u }
-#multi  infix:<⨯> (Int $n, Horizon)     { Horizon }
-#multi  infix:<⨯> (0, Point)            { Horizon }
-#multi  infix:<⨯> (1, Point $p)         { $p }
-#multi  infix:<⨯> (2, Point $p) {
-#    my $l = (3⨯$p.x² + $A) / (2 ⨯ $p.y);
-#    my $y = $l ⨯ ($p.x — my $x = $l² — 2⨯$p.x) — $p.y;
-#    $p.bless(:$x, :$y);
-#}
-#multi  infix:<⨯> (Int $n where $n > 2, Point $p) {
-#    2 × ($n div 2 × $p) + $n % 2 × $p;
-#}
+multi  infix:<⨯> (Point $u, Int $n)    { $n × $u }
+multi  infix:<⨯> (Int $n, Horizon)     { Horizon }
+multi  infix:<⨯> (0, Point)            { Horizon }
+multi  infix:<⨯> (1, Point $p)         { $p }
+multi  infix:<⨯> (2, Point $p) {
+    my $l = (3⨯$p.x² + $A) / (2 ⨯ $p.y);
+    my $y = $l ⨯ ($p.x — my $x = $l² — 2⨯$p.x) — $p.y;
+    $p.bless(:$x, :$y);
+}
+multi  infix:<⨯> (Int $n where $n > 2, Point $p) {
+    2 × ($n div 2 × $p) + $n % 2 × $p;
+}
 
 multi  infix:<⊕> (Point $p, Point $q) {
     if $p.x ~~ $q.x {
