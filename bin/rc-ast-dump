@@ -86,6 +86,7 @@ for flat '0'..'9', 'A'..'Z' -> $dir {
         next if %multivector-conflict{$file};
         next if %module-conflict{$file};
         next if $file ~~ /\. ( \d+ | jvm ) $/;
+        next if $file ~~ / 'Elliptic_Curve_Digital_Signature' /;  # overloading of '*'
        #say "======> perl6 --target=AST $path > ast/$file"; # for debugging
         shell "/usr/local/bin/raku --target=AST $path > ast/$file; fgrep -l '&infix:<*>' ast/$file | cut -c5-";
     }
