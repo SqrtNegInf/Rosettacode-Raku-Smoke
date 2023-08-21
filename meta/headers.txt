@@ -4795,6 +4795,20 @@ File: E/Elementary_cellular_automaton_Random_Number_Generator
 #   class copied from 'Elementary_cellular_automaton'
 
 File: E/Elliptic_Curve_Digital_Signature_Algorithm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm
+#c# 2020-02-24 <RC, 2020-02-28 <RC, 2023-08-20 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# 2020-10-18 'srand' problems strikes intermittantly (but only in non-interactive runs?)
+#n# 2020-10-19 output bi-stable, test for which version of results present
+#n# 2020-12-06 OK now? Maybe? Hopefully? We'll see...
+#n# 2021-03-02 still unstable
+#n# 2023-01-27 replace call to built-in 'rand' for output stability
+#n# 2023-08-20 updated with Grondilu's big re-working, still need to substitute 'myRNG' to test key/signature each run
+#n#            the remaining uses of '*' for "multiplication" are the one re-defined in EC module
+
+File: E/Elliptic_Curve_Digital_Signature_Algorithm.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm
 #c# 2020-02-24 <RC, 2020-02-28 <RC
@@ -4806,7 +4820,7 @@ File: E/Elliptic_Curve_Digital_Signature_Algorithm
 #n# 2021-03-02 still unstable
 #n# 2023-01-27 replace call to built-in 'rand' for output stability
 
-File: E/Elliptic_Curve_Digital_Signature_Algorithm.1
+File: E/Elliptic_Curve_Digital_Signature_Algorithm.2
 #!/usr/bin/env perl6
 #n# NOT CURRENT, NOT SMOKE-TESTED
 #u# http://rosettacode.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm
@@ -4815,6 +4829,17 @@ File: E/Elliptic_Curve_Digital_Signature_Algorithm.1
 #j# JVM:  BROKEN
 
 File: E/Elliptic_curve_arithmetic
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Elliptic_curve_arithmetic
+#c# 2016-04-03 <>RC, 2020-02-05 <RC, 2022-12-06 >RC, 2023-08-20 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# for JVM 2021.12: now matches Moar output exactly
+#n# using Unicode for custom math operations disambiguates, but are regular symbols better? (like Perl example 'overload')
+#n# 2022-12-06 for clarity, eliminate all uses of '*', replace with more expressive Unicode '⨯' [and '⊕' for '+' too]
+#n#            p.s. and as always '×' is used in place of '*' for regular multiplication
+
+File: E/Elliptic_curve_arithmetic.1
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Elliptic_curve_arithmetic
 #c# 2016-04-03 <>RC, 2020-02-05 <RC, 2022-12-06 >RC
@@ -4823,25 +4848,6 @@ File: E/Elliptic_curve_arithmetic
 #n# for JVM 2021.12: now matches Moar output exactly
 #n# using Unicode for custom math operations disambiguates, but are regular symbols better? (like Perl example 'overload')
 #n# 2022-12-06 for clarity, eliminate all uses of '*', replace with more expressive Unicode (see .1 regarding dead code)
-
-File: E/Elliptic_curve_arithmetic.0
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Elliptic_curve_arithmetic
-#c# 2016-04-03 <>RC
-#m# MOAR: OK
-#j#  JVM: OK
-#n# note: '⨯' [VECTOR OR CROSS PRODUCT] used for custom product, '×' [MULTIPLICATION SIGN] for regular product
-
-File: E/Elliptic_curve_arithmetic.1
-#!/usr/bin/env perl6
-#n# NOT CURRENT, NOT SMOKE-TESTED
-#u# http://rosettacode.org/wiki/Elliptic_curve_arithmetic
-#c# 2016-04-03 <>RC, 2020-02-05 <RC
-#m# MOAR: OK
-#j#  JVM: OK
-#n# 2022-12-06 turns out to be mostly dead code (at least for the supplied example) 
-#n#            (runs substantially faster without all the overhead of the multi's being defined)
 
 File: E/Emirp_primes
 #!/usr/bin/env perl6
