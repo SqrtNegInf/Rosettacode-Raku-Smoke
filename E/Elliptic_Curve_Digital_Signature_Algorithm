@@ -45,10 +45,10 @@ module EC {
       return Point.new: $_, $λ×($A.x - $_) - $A.y;
     }
   }
-  multi infix:<*>(0, Point     ) is export { Point }
-  multi infix:<*>(1, Point   $p) is export { $p }
-  multi infix:<*>(2, Point:D $p) is export { $p + $p }
-  multi infix:<*>(Int $n, Point $p) is export { 2*(($n div 2)*$p) + ($n mod 2)*$p }
+  multi infix:<*>(0, Point        ) is export { Point }
+  multi infix:<*>(1, Point      $p) is export { $p }
+  multi infix:<*>(2, Point      $p) is export { $p + $p }                           # :D not really required
+  multi infix:<*>(Int $n, Point $p) is export { 2*(($n div 2)×$p) + ($n mod 2)*$p }
 }
 
 import EC;
