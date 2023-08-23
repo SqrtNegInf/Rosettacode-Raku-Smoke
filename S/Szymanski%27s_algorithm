@@ -1,0 +1,59 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Szymański%27s_algorithm
+#t# skiptest
+#c# 2023-08-22 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# inherently fragile due to concurrency, test fails more often than succeeds
+
+srand 123456;
+
+my @res;
+
+use OO::Monitors;
+
+my \N = 10;
+
+monitor Szymański {
+
+   has @.tasks;
+   my $critical = 0;
+
+   method runSzymański($id) {
+      @.tasks[$id] = 1; 
+      ( my @others = @.tasks ).splice: $id,1;
+      until @others.all ~~ 0|1|2 { $*THREAD.yield }
+      @.tasks[$id] = 3; 
+      if @others.any ~~ 1 {
+         @.tasks[$id] = 2;
+         until @others.any ~~ 4 { $*THREAD.yield }
+      }
+      @.tasks[$id] = 4;
+      until @.tasks[^$id].all ~~ 0|1 { $*THREAD.yield }
+      $critical = ((my $previous = $critical) + $id * 3) div 2;
+      @res.push: "Thread $id changed the critical value from $previous to $critical";
+      until @.tasks[$id^..*-1].all ~~ 0|1|4 { $*THREAD.yield }
+      @.tasks[$id] = 0
+   }
+}
+
+my $flag = Szymański.new: tasks => 0 xx N;
+await Promise.allof( ^N .pick(*).map: { start { $flag.runSzymański: $_ } } );
+
+.say for @res;
+
+my $ref = q:to/END/;
+Thread 2 changed the critical value from 0 to 3
+Thread 9 changed the critical value from 3 to 15
+Thread 4 changed the critical value from 15 to 13
+Thread 6 changed the critical value from 13 to 15
+Thread 7 changed the critical value from 15 to 18
+Thread 3 changed the critical value from 18 to 13
+Thread 0 changed the critical value from 13 to 6
+Thread 8 changed the critical value from 6 to 15
+Thread 1 changed the critical value from 15 to 9
+Thread 5 changed the critical value from 9 to 12
+END
+
+use Test;
+#is @res.join("\n"), chomp $ref;
