@@ -30,7 +30,7 @@ monitor Szymański {
       }
       @.tasks[$id] = 4;
       until @.tasks[^$id].all ~~ 0|1 { $*THREAD.yield }
-      $critical = ((my $previous = $critical) + $id * 3) div 2;
+      $critical = ((my $previous = $critical) + $id × 3) div 2;
       @res.push: "Thread $id changed the critical value from $previous to $critical";
       until @.tasks[$id^..*-1].all ~~ 0|1|4 { $*THREAD.yield }
       @.tasks[$id] = 0
