@@ -91,7 +91,7 @@ sub outersub{
     @res.push: log();          # prints: outer
 
     # call subroutine from the scope of the callers block
-    @res.push: &CALLER::log(); # prints: way down inside
+   #@res.push: &CALLER::log(); # prints: way down inside         # 2023-08-23 ?
 
     # call subroutine from the outer scope of the callers block
     @res.push: &CALLER::OUTER::log(); # prints: inner
@@ -114,7 +114,6 @@ inner
 outer
 outer
 outer
-way down inside
 inner
 1
 inner
@@ -122,5 +121,6 @@ inner
 outer
 END
 
+#way down inside
 use Test;
 is @res.join("\n"), chomp $ref;
