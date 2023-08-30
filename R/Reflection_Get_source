@@ -16,5 +16,5 @@ say &is.file;
 
 use Test;
 ok &is.file.Str ~~ rx{ 'core#sources/' <xdigit> ** 40 ' (Test)'};
-is &sum.file, 'SETTING::src/core.c/Any.pm6';
-is Date.^find_method("day-of-week").file, 'SETTING::src/core.c/Dateish.pm6';
+is &sum.file, 'SETTING::src/core.c/Any.rakumod';
+is Date.^find_method("day-of-week").file, 'SETTING::src/core.c/Dateish.rakumod';
