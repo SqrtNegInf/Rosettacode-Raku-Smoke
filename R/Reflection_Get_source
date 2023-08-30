@@ -16,5 +16,6 @@ say &is.file;
 
 use Test;
 ok &is.file.Str ~~ rx{ 'core#sources/' <xdigit> ** 40 ' (Test)'};
-is &sum.file, 'SETTING::src/core.c/Any.rakumod';
-is Date.^find_method("day-of-week").file, 'SETTING::src/core.c/Dateish.rakumod';
+my $suffix = qx/uname -a/ ~~ /'Mac-Pro'/ ?? 'pm6' !! 'rakumod';
+is &sum.file, "SETTING::src/core.c/Any.$suffix";
+is Date.^find_method("day-of-week").file, "SETTING::src/core.c/Dateish.$suffix";
