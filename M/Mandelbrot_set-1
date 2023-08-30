@@ -1,0 +1,43 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Mandelbrot_set
+#c# 2023-08-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#f# RC file: mandelbrot-1.ppm
+
+use Color;
+
+constant MAX_ITERATIONS = 100;
+my $width = my $height = +(@*ARGS[0] // 400);
+
+sub cut(Range $r, UInt $n where $n > 1 --> Seq) {
+    $r.min, * + ($r.max - $r.min) / ($n - 1) ... $r.max
+}
+
+my @re = cut(-2 .. 1/2, $height);
+my @im = cut( 0 .. 5/4, $width div 2 + 1) X× 1i;
+
+sub mandelbrot(Complex $z is copy, Complex $c --> Int) {
+    for 1 .. MAX_ITERATIONS {
+	$z = $z×$z + $c;
+	return $_ if $z.abs > 2;
+    }
+    return 0;
+}
+
+#say "P3";
+#say "{@re.elems} {@im.elems}";
+#say "255";
+
+my $out = open('run/mandelbrot-1.ppm', :w);
+$out.put("P3\n{@re.elems} {@im.elems}\n255");
+
+await my @half-screen =
+  (@im.reverse X+ @re).map:
+    { start { mandelbrot(0i, $_) } }
+  ;
+
+for @half-screen.rotor(@im.elems)>>.result {
+  $out.put: .map(* × 255 div (MAX_ITERATIONS + 1))
+  .map(-> $i { Color.new(hsv => ($i, $i, $i)).rgb });
+}
