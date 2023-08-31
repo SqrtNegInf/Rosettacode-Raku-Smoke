@@ -5,24 +5,24 @@
 #j# JVM:  BROKEN OK
 #n# need to replace 'srand'
 
-my @res;
-
 srand 123456;
+
+my @res;
 
 my @attributes = <one two three>, <solid striped open>, <red green purple>, <diamond oval squiggle>;
 
-sub face ($_) { .polymod(3 xx 3).kv.map: { @attributes[$^k;$^v] } }
+sub face ($_) { .polymod(3 xx 3).kv.map({ @attributes[$^k;$^v] }) ~ ($_%3??'s'!!'') }
 
 sub sets (@cards) {
-    @cards.combinations(3).race(:10batch).map: { (sum ([Z+] $_».polymod(3 xx 3)) »%» 3) ?? (next) !! $_ }
+    @cards.combinations(3).race.map: { (sum ([Z+] $_».polymod(3 xx 3)) »%» 3) ?? (next) !! $_ }
 }
 
 for 4,8,12 -> $deal {
     my @cards = (^81).pick($deal);
     my @sets = @cards.&sets;
-    say "\n$deal cards dealt:";
-    for @cards { put .map(&face).join("\n") };
-    say "\n{+@sets} Sets found:";
+    say "\nCards dealt: $deal";
+    for @cards { put .&face };
+    say "\nSets found: {+@sets}";
     for @sets { put .map(&face).join("\n"), "\n" };
 }
 
