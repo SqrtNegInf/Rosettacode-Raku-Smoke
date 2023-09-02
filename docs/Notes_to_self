@@ -1,3 +1,11 @@
+2023-09-01
+The distribution unpacked 'flat', with Windows-style back-slash directory separators ending up in file names. 
+Code works fine after I fixed things up by hand:
+cd <blahblahblah>.tar.gz/dist 
+mkdir doc; mv doc\\Sentence.rakudoc doc/Sentence.rakudoc
+mkpath lib/Lingua/EN; mv lib\\Lingua\\EN\\Sentence.rakumod lib/Lingua/EN/Sentence.rakumod
+etc, etc.
+
 2023-08-31
 Something goofed up about 'Lingua::EN::Sentence' after it's recent update.
 

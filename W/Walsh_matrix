@@ -28,9 +28,9 @@ for &natural, 'natural', &sign-changes, 'sequency' -> &sort, $sort {
         my %C = ' 1' => '#0F0', '-1' => '#F00';
 
         for walsh($order).sort: &sort -> @row {
-            my \x = $row++ * $scale;
+            my \x = $row++ × $scale;
             for @row.kv {
-                my \y = $^k * $scale;
+                my \y = $^k × $scale;
                 @blocks.push: (:rect[:x(x),:y(y),:width($scale),:height($scale),:fill(%C{$^v})]);
             }
         }

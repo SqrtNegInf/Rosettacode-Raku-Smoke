@@ -1,16 +1,19 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/First-class_functions
-#c# 2015-10-29 <RC
+#c# 2015-10-29 <RC, 2023-09-01 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #n# downgraded Unicode names to ASCII
 #n# JVM output float-point issues required is-approx testing
 #n# NB: No parentheses allowed around '$v, &op', Callable makes it special?
+#n# 2023-09-01 Was user-defined needed in 2015? Not sure, but Grondilu rightly points out is isn't required now.
 
-# Here we use the Z ("zipwith") metaoperator to zip the A and B lists with a user-defined compose function, 
-# expressed as an infix operator, ∘. The .() construct invokes the function contained in the $_ (current topic) variable.
+#`{ THIS DOC IS OBSOLETE
+ Here we use the Z ("zipwith") metaoperator to zip the A and B lists with a user-defined compose function, 
+ expressed as an infix operator, ∘. The .() construct invokes the function contained in the $_ (current topic) variable.
+}
 
-sub infix:<∘> (&g, &f) { -> \x { g f x } }
+#sub infix:<∘> (&g, &f) { -> \x { g f x } }
 
 my \A = &sin,  &cos,  { $_ ** <3/1> }
 my \B = &asin, &acos, { $_ ** <1/3> }
