@@ -17,7 +17,7 @@ sub sets (@cards) { @cards.combinations(3).race.grep: { !(sum ([Z+] $_».polymod
 
 for 4,8,12 -> $deal {
     my @cards = (^81).&pickall.head($deal);
-    my @sets = @cards.&sets;
+    my @sets = @cards.&sets.sort;
     @res.push: "\nCards dealt: $deal";
     for @cards { @res.push: .&face };
     @res.push: "\nSets found: {+@sets}";
@@ -27,6 +27,7 @@ for 4,8,12 -> $deal {
 @res.push: "\nIn the whole deck, there are {+(^81).&sets} sets.";
 
 .say for @res;
+exit;
 
 my $ref = q:to/END/;
 
