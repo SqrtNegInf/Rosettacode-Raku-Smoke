@@ -91,4 +91,3 @@ END
 
 use Test;
 is @res.join("\n"), chomp $ref;
-#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
