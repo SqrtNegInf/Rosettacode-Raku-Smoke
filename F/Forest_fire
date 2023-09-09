@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Forest_fire
-#c# 2015-11-11 <RC
+#c# 2015-11-11 <RC, 2023-09-08 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 #f# RC file: forest_fire.dat
@@ -18,10 +18,10 @@ real forests are mutable.
 
 use myRNG;
 
-my $RED = "\e[1;31m";
-my $YELLOW = "\e[1;33m";
-my $GREEN = "\e[1;32m";
-my $CLEAR = "\e[0m";
+constant $RED = "\e[1;31m";
+constant $YELLOW = "\e[1;33m";
+constant $GREEN = "\e[1;32m";
+constant $CLEAR = "\e[0m";
 
 enum Cell-State <Empty Tree Heating Burning>;
 my @pix = '  ', $GREEN ~ '木', $YELLOW ~ '木', $RED ~ '木';
