@@ -1,0 +1,99 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Average_loop_length
+#c# 2016-05-09 <>RC, 2018-05-31 <RC, 2022-11-03 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2017-08-10 'random' output changed on 
+#n# 2019-??-?? with hash key order now variable, testing upgraded with ArrayHash
+#n# 2020-09-01 something is unstable, run #2 flips between: 2.00% vs. 2.67%;
+#n# 2020-10-07 different answers when run from interactive shell vs cron-launch? [update: now they've re-converged]
+#n# 2021-03-01 still unstable when cron-launched
+#n# 2021-03-10 problem mostly in #2, 1.33% (98+%), or 0.67%, and very rarely 0.00% (then #3-6 are different too)
+#n# 2022-09-22 code is fixed, but results still completely unstable (MoarVM and JVM)
+#n# 2022-10-02 d'oh, was using out-of-date module, not new/precompiled version
+#n# 2022-10-06 dare I hope this is now working and stable?  Been the single most troublesome Raku task on RC...
+
+srand 123456;
+
+use ArrayHash;
+
+constant MAX_N  = 20;
+constant TRIALS = 100;
+
+my @res;
+
+for 1 .. MAX_N -> $N {
+    my $empiric = TRIALS R/ [+] find-loop(random-mapping($N)).elems xx TRIALS;
+    my $theoric = [+] map -> $k { $N ** ($k + 1) R/ [×] flat $k**2, $N - $k + 1 .. $N }, 1 .. $N;
+
+    FIRST say " N    empiric      theoric      (error)";
+    FIRST say "===  =========  ============  =========";
+
+    @res.push: sprintf "%3d  %9.4f  %12.4f    (%4.2f%%)",
+            $N,  $empiric, $theoric, 100 × abs($theoric - $empiric) / $theoric;
+}
+
+.say for @res;
+
+sub random-mapping ($n) {
+    my %temp = random-mapping-orig($n);
+    my %pair := array-hash();
+    %pair{$_} = %temp{$_} for sort %temp.keys;
+    return %pair;
+}
+
+sub random-mapping-orig { hash .list Z=> .roll($_) given ^$^size }
+
+sub find-loop { 0, | %^mapping{*} ...^ { (%){$_}++ } }
+
+#exit;
+
+my $moar-terminal = qq:to/END/;
+  1     1.0000        1.0000    (0.00%)
+  2     1.4800        1.5000    (1.33%)
+  3     1.8400        1.8889    (2.59%)
+  4     2.3100        2.2188    (4.11%)
+  5     2.3500        2.5104    (6.39%)
+  6     2.6900        2.7747    (3.05%)
+  7     2.8800        3.0181    (4.58%)
+  8     3.6500        3.2450    (12.48%)
+  9     3.3900        3.4583    (1.98%)
+ 10     3.4400        3.6602    (6.02%)
+ 11     3.8800        3.8524    (0.72%)
+ 12     4.2900        4.0361    (6.29%)
+ 13     4.7100        4.2123    (11.81%)
+ 14     4.4200        4.3820    (0.87%)
+ 15     4.4800        4.5458    (1.45%)
+ 16     4.4400        4.7043    (5.62%)
+ 17     5.0200        4.8579    (3.34%)
+ 18     4.7300        5.0071    (5.53%)
+ 19     5.1800        5.1522    (0.54%)
+ 20     6.0600        5.2936    (14.48%)
+END
+
+my $moar-cronjob = qq:to/END/;
+  1     1.0000        1.0000    (0.00%)
+  2     1.5500        1.5000    (3.33%)
+  3     1.8200        1.8889    (3.65%)
+  4     2.1700        2.2188    (2.20%)
+  5     2.4700        2.5104    (1.61%)
+  6     2.7300        2.7747    (1.61%)
+  7     3.0100        3.0181    (0.27%)
+  8     3.2000        3.2450    (1.39%)
+  9     3.1300        3.4583    (9.49%)
+ 10     3.3000        3.6602    (9.84%)
+ 11     4.0200        3.8524    (4.35%)
+ 12     3.9800        4.0361    (1.39%)
+ 13     4.0500        4.2123    (3.85%)
+ 14     4.3700        4.3820    (0.27%)
+ 15     4.3900        4.5458    (3.43%)
+ 16     4.6500        4.7043    (1.15%)
+ 17     4.6200        4.8579    (4.90%)
+ 18     4.7300        5.0071    (5.53%)
+ 19     5.1800        5.1522    (0.54%)
+ 20     6.0600        5.2936    (14.48%)
+END
+
+use Test;
+my $ref = $*IN.t ?? $moar-terminal !! $moar-cronjob;
+is @res.join('').lc.subst(/<ws>/, '', :g), $ref.lc.subst(/<ws>/, '', :g);
