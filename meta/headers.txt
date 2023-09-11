@@ -608,6 +608,30 @@ File: 2/OEIS-A320843
 #n# mirrored from ~/PWC/191/2/bruce-gray.raku
 #n# OEIS:A320843 Number of permutations sigma of {1,2,...,n} such that sigma(i) divides i or i divides sigma(i) for 1 <= i <= n
 
+File: 3/Average_loop_length
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Average_loop_length
+#c# 2016-05-09 <>RC, 2018-05-31 <RC, 2022-11-03 >RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# 2017-08-10 'random' output changed on 
+#n# 2019-??-?? with hash key order now variable, testing upgraded with ArrayHash
+#n# 2020-09-01 something is unstable, run #2 flips between: 2.00% vs. 2.67%;
+#n# 2020-10-07 different answers when run from interactive shell vs cron-launch? [update: now they've re-converged]
+#n# 2021-03-01 still unstable when cron-launched
+#n# 2021-03-10 problem mostly in #2, 1.33% (98+%), or 0.67%, and very rarely 0.00% (then #3-6 are different too)
+#n# 2022-09-22 code is fixed, but results still completely unstable (MoarVM and JVM)
+#n# 2022-10-02 d'oh, was using out-of-date module, not new/precompiled version
+#n# 2022-10-06 dare I hope this is now working and stable?  Been the single most troublesome Raku task on RC...
+
+File: 3/Bifid_cipher
+#!/usr/bin/env raku
+#u# http://rosettacode.org/wiki/Bifid_cipher
+#c# 2022-07-13 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# 2022-12-27 replace call to built-in 'rand' for output stability
+
 File: A/A%2BB
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/A+B
