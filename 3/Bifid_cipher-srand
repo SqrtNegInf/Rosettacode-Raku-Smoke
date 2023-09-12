@@ -64,19 +64,57 @@ Encrypted : UAEOLWRINS
 Decrypted : FLEEATONCE
 
 Using polybius:
-	Y u i g _ F V 2
-	q C f K H w X b
-	7 m e N L c o 4
-	O R A Z 8 . M G
-	S h z s l 3 B 1
-	v U W d I Q 0 P
-	x 6 T n t y 5 k
-	9 r a D j J E p
+	Y 8 v D j L I 2
+	a f n r i P M g
+	u G R U A e t .
+	O 3 W z l s S 1
+	B y C o 0 X 4 5
+	6 E 9 m T Z q p
+	Q h w 7 F x V c
+	b d J k N K _ H
 
   Message : The_invasion_will_start_on_the_first_of_January_2023.
-Encrypted : t7VPSou_SBpxoVzu2BiqpxpxF_AfzONo8WlszHB8hLeKlT3Nfw1kQ
+Encrypted : q.f83y_r1Wf.yJwdfWNgdnf5jDAPFRLotA0xQS7thqisV3wvY3c5g
+Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
+
+Using polybius:
+	A B C D E
+	F G H I K
+	L M N O P
+	Q R S T U
+	V W X Y Z
+
+  Message : ATTACKATDAWN
+Encrypted : DQBDAXDQPDQH
+Decrypted : ATTACKATDAWN
+
+Using polybius:
+	B G W K Z
+	Q P N D S
+	I O A X E
+	F C L U M
+	T H Y V R
+
+  Message : FLEEATONCE
+Encrypted : UAEOLWRINS
+Decrypted : FLEEATONCE
+
+Using polybius:
+	Y 8 v D j L I 2
+	a f n r i P M g
+	u G R U A e t .
+	O 3 W z l s S 1
+	B y C o 0 X 4 5
+	6 E 9 m T Z q p
+	Q h w 7 F x V c
+	b d J k N K _ H
+
+  Message : The_invasion_will_start_on_the_first_of_January_2023.
+Encrypted : q.f83y_r1Wf.yJwdfWNgdnf5jDAPFRLotA0xQS7thqisV3wvY3c5g
 Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
 END
+
+.say for @res;
 
 use Test;
 is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
