@@ -186,8 +186,6 @@ Encrypted : 9Jai8XovlFxtX.m.xFJtonx03pG1hzPiuhJHXlhuoDgS_vmn2z2Xk
 Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
 END
 
-.say for @res;
-
 use Test;
 my $ref = qx/uname -a/ ~~ /'Mac-Pro'/ ?? $moar-macpro !! $moar-blead;
 is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
