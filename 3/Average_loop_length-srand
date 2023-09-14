@@ -12,6 +12,7 @@
 #n# 2022-09-22 code is fixed, but results still completely unstable (MoarVM and JVM)
 #n# 2022-10-02 d'oh, was using out-of-date module, not new/precompiled version
 #n# 2022-10-06 dare I hope this is now working and stable?  Been the single most troublesome Raku task on RC...
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 srand 123456;
 
