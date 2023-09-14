@@ -4,6 +4,7 @@
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2023-09-11 results are for cronjob, not terminal
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 my @res;
 
