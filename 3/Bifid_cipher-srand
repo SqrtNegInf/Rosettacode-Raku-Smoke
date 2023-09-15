@@ -37,10 +37,46 @@ for 'ABCDEFGHIKLMNOPQRSTUVWXYZ', 'ATTACKATDAWN',
 
 .say for @res;
 
-my $moar-macpro = q:to/END/;
+my $moar-ubuntu = q:to/END/;
+
+Using polybius:
+	A B C D E
+	F G H I K
+	L M N O P
+	Q R S T U
+	V W X Y Z
+
+  Message : ATTACKATDAWN
+Encrypted : DQBDAXDQPDQH
+Decrypted : ATTACKATDAWN
+
+Using polybius:
+	B G W K Z
+	Q P N D S
+	I O A X E
+	F C L U M
+	T H Y V R
+
+  Message : FLEEATONCE
+Encrypted : UAEOLWRINS
+Decrypted : FLEEATONCE
+
+Using polybius:
+	T 0 x y 4 r l G
+	. s Y o 6 q n c
+	u S f e J d I 8
+	D 2 L h O V 7 X
+	m C B 9 v k b M
+	a p w i Z Q g W
+	z K t U A 5 1 E
+	N P R 3 H F _ j
+
+  Message : The_invasion_will_start_on_the_first_of_January_2023.
+Encrypted : y8pkqsFaGnaEs_LRanP8dYaGDX.hUA0h1e1KuwU1e7epILAlTiKsD
+Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
 END
 
-my $moar-blead = q:to/END/;
+my $moar-imac = q:to/END/;
 
 Using polybius:
 	A B C D E
@@ -80,5 +116,5 @@ Decrypted : The_invasion_will_start_on_the_first_of_January_2023.
 END
 
 use Test;
-my $ref = qx/uname -a/ ~~ /'Mac-Pro'/ ?? $moar-macpro !! $moar-blead;
+my $ref = qx/uname -a/ ~~ /'Linux'/ ?? $moar-ubuntu !! $moar-imac;
 is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
