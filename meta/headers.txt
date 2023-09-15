@@ -623,6 +623,7 @@ File: 3/Average_loop_length-srand
 #n# 2022-09-22 code is fixed, but results still completely unstable (MoarVM and JVM)
 #n# 2022-10-02 d'oh, was using out-of-date module, not new/precompiled version
 #n# 2022-10-06 dare I hope this is now working and stable?  Been the single most troublesome Raku task on RC...
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: 3/Bifid_cipher-srand
 #!/usr/bin/env raku
@@ -631,6 +632,7 @@ File: 3/Bifid_cipher-srand
 #m# MOAR: OK
 #j# JVM:  OK
 #n# 2023-09-11 results are for cronjob, not terminal
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: A/A%2BB
 #!/usr/bin/env perl6
