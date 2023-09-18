@@ -1,0 +1,23 @@
+#!/usr/bin/env perl6
+## xxx
+#    2023-09-17
+
+say 343.is-prime;
+say 34543.is-prime; # T
+say 3456543.is-prime;
+say 345676543.is-prime; # T
+say 34567876543.is-prime; # T
+say 3456789876543.is-prime;
+say 345678909876543.is-prime;
+
+=finish
+say '';
+# all False
+say 121.is-prime;
+say 12321.is-prime;
+say 1234321.is-prime;
+say 123454321.is-prime;
+say 12345654321.is-prime;
+say 1234567654321.is-prime;
+say 123456787654321.is-prime;
+say 123456789876543.is-prime;
