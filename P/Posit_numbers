@@ -1,0 +1,65 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Posit_numbers
+#c# 2023-09-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# re-write from same day
+
+unit role Posit[UInt $N, UInt $es];
+
+has UInt $.UInt;
+method sign { self.UInt > 2**($N - 1) ?? -1 !! +1 }
+
+method FatRat {
+  return 0   if self.UInt == 0;
+  my UInt $mask = 2**($N - 1);
+  return Inf if self.UInt == $mask;
+  my UInt $n = self.UInt;
+  my $sign = $n +& $mask ?? -1 !! +1;
+  my $r = $sign;
+  $n = ((2**$n - 1) +^ $n) + 1 if self.sign < 0;
+  my int $count = 0;
+  $mask +>= 1;
+  my Bool $first-bit = ?($n +& $mask);
+  repeat { $count++; $mask +>= 1;
+  } while ?($n +& $mask) == $first-bit && $mask;
+  my $m = $count;
+  my $k = $first-bit ?? $m - 1 !! -$m;
+  $r *= 2**($k*2**$es);
+  return $r unless $mask > 1;
+  $mask +>= 1;
+  $count = 0;
+  my UInt $exponent = 0;
+  while $mask && $count++ < $es {
+    $exponent +<= 1;
+    $exponent +|= 1 if $n +& $mask;
+    $mask +>= 1;
+  }
+  $r *= 2**$exponent;
+  my $fraction = 1.FatRat;
+  while $mask {
+    (state $power-of-two = 1) +<= 1;
+    $fraction += 1/$power-of-two if $n +& $mask;
+    $mask +>= 1;
+  }
+  $r *= $fraction;
+
+  return $r;
+}
+
+CHECK {
+  use Test;
+  # example from http://www.johngustafson.net/pdfs/BeatingFloatingPoint.pdf
+  is Posit[16, 3]
+    .new(UInt => 0b0000110111011101)
+    .FatRat, 477.FatRat/134217728;
+}
+
+=finish
+
+.say for @res;
+my $ref = q:to/END/;
+END
+
+use Test;
+#is @res.join("\n"), chomp $ref;
