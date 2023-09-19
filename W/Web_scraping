@@ -13,7 +13,7 @@ die 'BROKEN on Mac-Pro (OK in iMac)' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 use HTTP::UserAgent;
 
-my $site = 'http://rosettacode.org/wiki/Niecza';
+my $site = 'http://www.rosettacode.org/wiki/Niecza';
 
 say my $result = HTTP::UserAgent.new.get($site).content.match(/'This page is a stub'/);
 
