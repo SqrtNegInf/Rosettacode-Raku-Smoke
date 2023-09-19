@@ -7,7 +7,7 @@
 
 cd ~/perl6/Rosetta-Code
 #curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=750&namespace=0' > recent.html
-curl -s -o - 'https://rosettacode.org/wiki/Special:RecentChanges?hidebots=1&limit=100&days=7&enhanced=1&urlversion=2' > recent.html
+curl -s -o - 'https://www.rosettacode.org/wiki/Special:RecentChanges?hidebots=1&limit=100&days=7&enhanced=1&urlversion=2' > recent.html
 
 pcregrep -v --buffer-size=22K footer recent.html  | \
 pcregrep 'data-mw-revid.*data-target-page' | \
