@@ -25,7 +25,7 @@ method FatRat {
   } while ?($n +& $mask) == $first-bit && $mask;
   my $m = $count;
   my $k = $first-bit ?? $m - 1 !! -$m;
-  $r *= 2**($k*2**$es);
+  $r ×= 2**($k×2**$es);
   return $r unless $mask > 1;
   $mask +>= 1;
   $count = 0;
@@ -35,14 +35,14 @@ method FatRat {
     $exponent +|= 1 if $n +& $mask;
     $mask +>= 1;
   }
-  $r *= 2**$exponent;
+  $r ×= 2**$exponent;
   my $fraction = 1.FatRat;
   while $mask {
     (state $power-of-two = 1) +<= 1;
     $fraction += 1/$power-of-two if $n +& $mask;
     $mask +>= 1;
   }
-  $r *= $fraction;
+  $r ×= $fraction;
 
   return $r;
 }
