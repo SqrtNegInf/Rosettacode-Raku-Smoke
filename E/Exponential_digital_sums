@@ -3,19 +3,18 @@
 #c# 2023-08-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# single  7.03s user 0.42s system  68  cpu 10.872 total
+#n# hyper  12.52s user 0.81s system 241% cpu  5.515 total
 
 my @res;
 
 # Implement a lazy generator. Made some assumptions about search limits. 
 # May be poor assumptions, but haven't been able to find any counterexamples. (Edit: and some were bad.)
 
-#my @expsum = lazy (2..*).hyper.map( -> $Int {
-#    my atomicint $miss = 0;
-my @expsum = (2..*).map( -> $Int {
-    my $miss = 0;
+my @expsum = lazy (2..*).hyper.map( -> $Int {
+    my atomicint $miss = 0;
     (2..$Int).map( -> $exp {
-       #if (my $sum = ($Int ** $exp).comb.sum) > $Int { last if ++⚛$miss > 20 }
-        if (my $sum = ($Int ** $exp).comb.sum) > $Int { last if ++$miss > 20 }
+        if (my $sum = ($Int ** $exp).comb.sum) > $Int { last if ++⚛$miss > 20 }
         $sum == $Int ?? "$Int^$exp" !! Empty;
     }) || Empty;
 });
