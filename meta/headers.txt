@@ -5297,6 +5297,8 @@ File: E/Exponential_digital_sums
 #c# 2023-08-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# single  7.03s user 0.42s system  68  cpu 10.872 total
+#n# hyper  12.52s user 0.81s system 241% cpu  5.515 total
 
 File: E/Exponential_digital_sums.1
 #!/usr/bin/env raku
@@ -5307,6 +5309,13 @@ File: E/Exponential_digital_sums.1
 #n# gives 'correct' results, but hard to test with concurrency: even with 'hyper' the final different results in list differ
 #n# (could over-produce and truncate, but that's a lot of fussing for not much gain)
 #n# full run of 30 'three-or-more' is pretty slow.
+
+File: E/Exponential_digital_sums.jvm
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Exponential_digital_sums
+#c# 2023-08-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
 
 File: E/Exponentiation_operator
 #!/usr/bin/env perl6
