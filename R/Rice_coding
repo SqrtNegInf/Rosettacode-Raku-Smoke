@@ -24,7 +24,7 @@ our sub decode(@bits is copy, UInt :$k = 2) {
   my $m = 1;
   $m++ while @bits and @bits.shift == $b;
   my $q = $b ?? $m - 1 !! -$m;
-  $q*$d + @bits.reduce(2 * * + *);
+  $q×$d + @bits.reduce(2 × * + *);
 }
 
 use Test;
