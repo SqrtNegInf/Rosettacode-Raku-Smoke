@@ -1,0 +1,75 @@
+#!/usr/bin/env raku
+#u# https://rosettacode.org/wiki/Posit_numbers
+#c# 2023-09-18 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+unit role Posit[UInt $nbits, UInt $es];
+
+has Bool @.bits[$nbits];
+
+method Str { sprintf('%0b' x $nbits, @!bits) }
+sub useed { 2**(2**$es) }
+
+sub two-complement(Str $n where /^<[01]>+$/) {
+  (
+   (
+    $n
+    .trans("01" => "10")
+    .parse-base(2)
+    + 1
+   ) +& (2**$n.chars - 1)
+  ).polymod(2 xx $n.chars - 1)
+  .reverse
+  .join
+}
+
+method Real {
+  return 0 unless @!bits.any;
+  return Inf if self ~~ /^10*$/;
+  my $sign = @!bits.head ?? -1 !! +1;
+  $sign *
+    grammar {
+      token TOP { ^ <regime> <exponent>? <fraction>? $ }
+      token regime { [ 1+ 0? ] | [ 0+ 1? ] }
+      token exponent { <.bit> ** {1..$es} }
+      token fraction { <.bit>+ }
+      token bit { <[01]> }
+    }.parse(
+      ($sign > 0 ?? {$_} !! &two-complement)(self.Str.substr(1)),
+      actions => class {
+        method TOP($/) {
+          make $<regime>.made *
+            ($<exponent> ?? $<exponent>.made !! 1) *
+            ($<fraction> ?? $<fraction>.made !! 1);
+        }
+        method regime($/) {
+          my $first-bit = $/.Str.substr(0,1);
+          my $m = $/.comb.Bag{$first-bit};
+          make useed**($first-bit eq '1' ?? $m - 1 !! -$m);
+        }
+        method exponent($/) { make 2**($/.Str.parse-base: 2); }
+        method fraction($/) {
+          make reduce { $^a + $^b / ($*=2.FatRat) }, 1, |$/.comb;
+        }
+      }
+    )
+    .made
+}
+
+# example from http://www.johngustafson.net/pdfs/BeatingFloatingPoint.pdf
+CHECK {
+  use Test;
+  is Posit[16, 3]
+    .new(bits => '0000110111011101'.comb.map({.Int.Bool})).Real.nude,
+    (477, 134217728);
+}
+
+=finish
+
+.say for @res;
+my $ref = q:to/END/;
+END
+
+use Test;
+#is @res.join("\n"), chomp $ref;
