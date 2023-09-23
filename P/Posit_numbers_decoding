@@ -3,7 +3,6 @@
 #c# 2023-09-21 <RC
 #m# MOAR: OK
 #j# JVM:  OK
-#n# ugh, fully re-write!
 
 constant nbits = 16;
 constant es    = 3;
@@ -59,4 +58,4 @@ sub p2x(UInt $p where posit-range) {
 say my $result = p2x(0b0000110111011101).nude;
 
 use Test;
-is  $result, '477 134217728';
+is $result, '477 134217728';
