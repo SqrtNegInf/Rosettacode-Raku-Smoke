@@ -10,8 +10,8 @@ constant npat  = 2**nbits;
 constant useed = 2**2**es;
 constant minpos = useed**(-nbits + 2);
 constant maxpos = useed**(+nbits - 2);
-constant qsize  = 2**((nbits-2)*2**(es+2)+5).log2.ceiling;
-constant qextra = qsize - (nbits - 2)*2**(es+2);
+constant qsize  = 2**((nbits-2)×2**(es+2)+5).log2.ceiling;
+constant qextra = qsize - (nbits - 2)×2**(es+2);
 
 constant posit-range = 0..^2**nbits;
 
@@ -46,12 +46,12 @@ sub p2x(UInt $p where posit-range) {
   my @e = exponent-bits $p;
   my @f = fraction-bits $p;
   @e.push: 0 until @e == es;
-  my $e = @e.reduce: 2 * * + *;
-  my $f = @f == 0 ?? 1 !! 1.FatRat + @f.reduce(2 * * + *)/2**@f;
+  my $e = @e.reduce: 2 × * + *;
+  my $f = @f == 0 ?? 1 !! 1.FatRat + @f.reduce(2 × * + *)/2**@f;
   given $p {
     when 0          { 0   }
     when npat div 2 { Inf }
-    default         { $s * useed**$k * 2**$e * $f }
+    default         { $s × useed**$k × 2**$e × $f }
   }
 }
 
