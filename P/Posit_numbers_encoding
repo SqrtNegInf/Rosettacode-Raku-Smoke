@@ -10,8 +10,8 @@ constant npat  = 2**nbits;
 constant useed = 2**2**es;
 constant minpos = useed**(-nbits + 2);
 constant maxpos = useed**(+nbits - 2);
-constant qsize  = 2**((nbits-2)*2**(es+2)+5).log2.ceiling;
-constant qextra = qsize - (nbits - 2)*2**(es+2);
+constant qsize  = 2**((nbits-2)×2**(es+2)+5).log2.ceiling;
+constant qextra = qsize - (nbits - 2)×2**(es+2);
 
 constant posit-range = 0..^npat;  # ^2**nbits;
 subset posit of UInt where posit-range;
@@ -29,19 +29,19 @@ sub x2p(Real $x --> posit) {
   if $y ≥ 1 { # north-east quadrant
     ($p, $i) = 1, 2;
     # Shift in 1s from the right and scale down.
-    ($p, $y, $i) = 2*$p+1, $y/useed, $i+1 while $y ≥ useed && $i ≤ nbits; 
-    $p *= 2; $i++;
+    ($p, $y, $i) = 2×$p+1, $y/useed, $i+1 while $y ≥ useed && $i ≤ nbits; 
+    $p ×= 2; $i++;
   } else { # south-east quadrant
     ($p, $i) = 0, 1;
     # Shift in 0 s from the right and scale up.
-    ($y, $i) = $y*useed, $i+1 while $y < 1 && $i ≤ nbits;
+    ($y, $i) = $y×useed, $i+1 while $y < 1 && $i ≤ nbits;
     if $i ≥ nbits {
       $p = 2; $i = nbits + 1;
     } else { $p = 1; $i++; }
   }
   # Extract exponent bits:
   while $e > 1/2 and $i ≤ nbits {
-    $p *= 2;
+    $p ×= 2;
     if $y ≥ 2**$e { $y /= 2**$e; $p++ }
     $e /= 2;
     $i++;
@@ -49,12 +49,12 @@ sub x2p(Real $x --> posit) {
   $y--;
   # Fraction bits; substract the hidden bit
   while $y > 0 and $i ≤ nbits {
-    $y *= 2;
-    $p = 2*$p + $y.floor;
+    $y ×= 2;
+    $p = 2×$p + $y.floor;
     $y -= $y.floor;
     $i++
   }
-  $p *= 2**(nbits+1-$i);
+  $p ×= 2**(nbits+1-$i);
   $i++;
 
   # Round to nearest; tie goes to even
