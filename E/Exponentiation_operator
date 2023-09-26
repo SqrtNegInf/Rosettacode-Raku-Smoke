@@ -1,0 +1,19 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Exponentiation_operator
+#c# 2015-11-27 <RC, 2018-04-01 <RC, 2023-09-25 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+
+proto pow (Real, Int --> Real) {*}
+multi pow (0,     0)         { fail '0**0 is undefined' }
+multi pow ($base, UInt $exp) { [*] $base xx $exp }
+multi pow ($base, $exp)  { 1 / samewith $base, -$exp }
+
+multi infix:<**> (Real $a, Int $b) { pow $a, $b }
+
+say pow .75, -5;
+say .75 ** -5;
+
+use Test;
+is (pow .75, -5), 4.213992;
+is (0.75 ** -5), 4.213992;
