@@ -1,0 +1,16 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Arithmetic-geometric_mean
+#c# 2023-09-27 <RC
+#m# MOAR: OK
+#j#  JVM: OK
+#n# we can also get a bit fancy and use a converging sequence of complex numbers:
+
+sub agm {
+  ($^z, {(.re+.im)/2 + (.re*.im).sqrt*1i} ... * ≅ *)
+  .tail.re
+}
+ 
+say my $result = agm 1 + 1i/2.sqrt;
+
+use Test;
+is $result, 0.8472130847939792;
