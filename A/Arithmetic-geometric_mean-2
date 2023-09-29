@@ -6,7 +6,7 @@
 #n# we can also get a bit fancy and use a converging sequence of complex numbers:
 
 sub agm {
-  ($^z, {(.re+.im)/2 + (.re*.im).sqrt*1i} ... * ≅ *)
+  ($^z, {(.re+.im)/2 + (.re×.im).sqrt*1i} ... * ≅ *)
   .tail.re
 }
  
