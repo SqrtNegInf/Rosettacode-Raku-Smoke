@@ -1,0 +1,74 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Steffensen%27s_method
+#c# 2023-09-28 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub aitken($f, $p0) {
+   my $p2   = $f( my $p1 = $f($p0) ); 
+   my $p1m0 = $p1 - $p0;
+   return $p0 - $p1m0×$p1m0/($p2-2.0×$p1+$p0);
+}
+
+sub steffensenAitken($f, $pinit, $tol, $maxiter) {
+   my ($iter, $p) = 1, aitken($f, my $p0 = $pinit);
+   while abs($p-$p0) > $tol and $iter < $maxiter {
+      $p = aitken($f, $p0 = $p);
+      $iter++
+   }
+   return abs($p-$p0) > $tol ?? NaN !! $p
+}
+
+sub deCasteljau($c0, $c1, $c2, $t) {
+   my $s = 1.0 - $t;
+   return $s×($s×$c0 + $t×$c1) + $t×($s×$c1 + $t×$c2)
+}
+
+sub xConvexLeftParabola($t) { return deCasteljau(2.0, -8.0, 2.0, $t) }
+
+sub yConvexRightParabola($t) { return deCasteljau(1.0, 2.0, 3.0, $t) }
+
+sub implicitEquation($x, $y) { return 5.0×$x×$x + $y - 5.0 }
+
+sub f($t) {
+   implicitEquation(xConvexLeftParabola($t), yConvexRightParabola($t)) + $t
+}
+
+my $t0 = 0.0;
+for ^11 {
+  #print "t0 = {$t0.fmt: '%0.1f'} : ";
+   my $t = steffensenAitken(&f, $t0, 0.00000001, 1000);
+   if $t.isNaN {
+      @res.push: "no answer";
+   } else {
+      my ($x, $y) = xConvexLeftParabola($t), yConvexRightParabola($t);
+      if abs(implicitEquation($x, $y)) <= 0.000001 {
+         @res.push: sprintf "intersection at (%f, %f)", $x, $y;
+      } else {
+         @res.push: "spurious solution";
+      }
+   }
+   $t0 += 0.1;
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+no answer
+intersection at (0.881025, 1.118975)
+no answer
+no answer
+no answer
+no answer
+no answer
+no answer
+no answer
+intersection at (-0.681025, 2.681025)
+no answer
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
+#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
