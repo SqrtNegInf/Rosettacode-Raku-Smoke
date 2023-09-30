@@ -1,0 +1,74 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Sorting_algorithms/Quicksort
+#c# 2023-09-29 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+
+my @res;
+
+
+# Empty list sorts to the empty list
+multi quicksort([]) { () }
+
+ # Otherwise, extract first item as pivot...
+multi quicksort([$pivot, *@rest]) {
+     # Partition.
+     my $before := @rest.grep(* before $pivot);
+	 my $equiv  := @rest.grep(* eqv $pivot);
+	 my $after  := @rest.grep(* after $pivot);
+
+	 # Sort the partitions.
+	 flat quicksort($before), $pivot, $equiv, quicksort($after)
+}
+
+#Note that $before and $after are bound to lazy lists, so the partitions can (at least in theory) be sorted in parallel.
+
+#|« Recursive, parallel quicksort implementation.
+
+concurrency applied
+  * in partitioning step by .hyper or .race
+  * in recursion steps by start {}
+»
+
+sub quicksort-recursive-parallel(@input) {
+	return @input if @input.elems < 2;
+	my $pivot = @input.pick;
+	@input.race.classify(-> $element { $element cmp $pivot })
+	andthen
+	{
+		my %partiton = $_;
+		my $less = start { %partiton{Less}:exists ?? samewith(%partiton{Less}) !! [] };
+		my $more = start { %partiton{More}:exists ?? samewith(%partiton{More}) !! [] };
+		await $less, $more;
+
+		|$less.result, |%partiton{Same}, |$more.result
+	}
+}
+
+#=« Implementation notes:
+  * samewith() refactors out the actual name of the routine.
+  * andthen passes output of previous block as $_ to the next block, alternatively use ==>
+»
+
+use Test;
+my @testcases =
+		() => (),
+		<a>.List => <a>.List,
+		<a a> => <a a>,
+		<b a> => <a b>,
+		<h b a c d f e g> => <a b c d e f g h>,
+		(2, 3, 1, 4, 5) => (1, 2, 3, 4, 5),
+		<a 🎮 3 z 4 🐧> => <a 🎮 3 z 4 🐧>.sort,
+;
+for &quicksort, &quicksort-recursive-parallel ->  &fun {
+	is-deeply &fun(.key), .value, .key ~ "\t->\t" ~ .value for @testcases;
+}
+
+#.say for @res;
+#my $ref = q:to/END/;
+#END
+
+#use Test;
+#my $ref = $*VM ~~ /jvm/ ?? $jvm !! $moar;
+#is @res.join("\n"), chomp $ref;
+#is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
