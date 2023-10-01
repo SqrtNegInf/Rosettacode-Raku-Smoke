@@ -1,0 +1,58 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Sorting_algorithms/Quicksort
+#c# 2023-09-30 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# tune the parallel execution by limiting the number of worker threads and introducing a minimum batch size.
+
+constant $BATCH-SIZE = 2**10;
+my atomicint $worker = $*KERNEL.cpu-cores;
+#| Recursive, parallel, tuned, single-pass, quicksort implementation
+proto quicksort-parallel(| --> Positional) {*}
+multi quicksort-parallel(@unsorted where @unsorted.elems < 2) { @unsorted }
+multi quicksort-parallel(@unsorted) {
+    # separate unsorted input into Order Less, Same and More compared to a random $pivot
+    my $pivot = @unsorted.pick;
+    my %partitions{Order} is default([]) = @unsorted.classify( * cmp $pivot );
+
+    # atomically decide if we sort the Less partition on a new thread
+    my $less = ⚛$worker > 0 &&
+                %partitions{Less}.elems > $BATCH-SIZE
+                    ?? (  
+                          $worker⚛--;
+                          start {
+                                   LEAVE $worker⚛++;
+                                   samewith(%partitions{Less})
+                          }
+                        )
+                    !! samewith(%partitions{Less});
+
+    # meanwhile use current thread for sorting the More partition
+    my $more = samewith(%partitions{More});
+
+    # if we went parallel, we need to await the result
+    await $less andthen $less = $less.result if $less ~~ Promise;
+
+    # concat all sorted partitions into a list and return
+    |$less, |%partitions{Same}, |$more;
+}
+
+use Test;
+my @testcases =
+#       () => (),
+#       <a>.List => <a>.List,
+#       <a a> => <a a>,
+#       <a b> => <a b>,
+#       <b a> => <a b>,
+        <h b a c d f e g> => <a b c d e f g h>,
+        (2, 3, 1, 4, 5) => (1, 2, 3, 4, 5),
+        <a 🎮 3 z 4 🐧> => <a 🎮 3 z 4 🐧>.sort
+;
+
+my @implementations = &quicksort-parallel;
+plan @testcases.elems * @implementations.elems;
+for @implementations ->  &fun {
+    say &fun.name;
+    is-deeply &fun(.key), .value, .key ~ "  =>  " ~ .value for @testcases;
+}
+done-testing;
