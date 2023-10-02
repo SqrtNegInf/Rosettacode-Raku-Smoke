@@ -1,0 +1,47 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Sorting_algorithms/Merge_sort
+#c# 2023-10-01 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+#| Recursive, single-thread, merge-sort implementation
+sub merge-sort ( @a ) {
+    return @a if @a <= 1;
+
+    # recursion step
+    my $m = @a.elems div 2;
+    my @l = samewith @a[  0 ..^ $m ];
+    my @r = samewith @a[ $m ..^ @a ];
+
+    # short cut - in case of no overlapping left and right parts
+	return flat @l, @r if @l[*-1] !after @r[0];
+	return flat @r, @l if @r[*-1] !after @l[0];
+
+	# merge step
+    return flat gather {
+        take @l[0] before @r[0] 
+                 ?? @l.shift
+                 !! @r.shift
+             while @l and @r;
+
+        take @l, @r;
+    }
+}
+
+use Test;
+my @testcases =
+		() => (),
+		<a>.List => <a>.List,
+		<a a> => <a a>,
+		("b", "a", 3) => (3, "a", "b"),
+		<h b a c d f e g> => <a b c d e f g h>,
+		<a 🎮 3 z 4 🐧> => <a 🎮 3 z 4 🐧>.sort
+		;
+
+sub test-and-benchmark(&function) {
+	say &function.name;
+	say "Testing";
+	is-deeply &function(.key), .value, .key ~ "  =>  " ~ .value for @testcases;
+}
+
+&test-and-benchmark(&merge-sort);
