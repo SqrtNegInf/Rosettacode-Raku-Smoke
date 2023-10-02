@@ -1,26 +1,32 @@
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Sorting_algorithms/Quicksort
-#c# 2016-05-06 <RC
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Sorting_algorithms/Quicksort
+#c# 2023-10-02 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
 
-# Empty list sorts to the empty list
- multi quicksort([]) { () }
+#| Recursive, single-thread, single-pass, quicksort implementation
+sub quicksort(@a) {
+    return @a if @a.elems < 2;
+    my $pivot = @a.pick;
+    my %prt{Order} is default([]) = @a.classify: * cmp $pivot;
+    |samewith(%prt{Less}), |%prt{Same}, |samewith(%prt{More})
+}
 
- # Otherwise, extract first item as pivot...
- multi quicksort([$pivot, *@rest]) {
-     # Partition.
-     my $before := @rest.grep(* before $pivot);
-     my $after  := @rest.grep(* !before $pivot);
-
-     # Sort the partitions.
-     flat quicksort($before), $pivot, quicksort($after)
- }
-
-my @weights = (^50).map: { 100 + ( 1000.rand.Int / 10 ) };
-put @weights.&quicksort;
-
+say "x" x 10 ~ " Testing " ~ "x" x 10;
 use Test;
-is @weights.sort, @weights.&quicksort;
+my @functions-under-test = &quicksort;
+my @testcases =
+#        () => (),
+#        <a>.List => <a>.List,
+#        <a a> => <a a>,
+        ("b", "a", 3) => (3, "a", "b"),
+        <h b a c d f e g> => <a b c d e f g h>,
+        <a 🎮 3 z 4 🐧> => <a 🎮 3 z 4 🐧>.sort
+        ;
 
-# Note that $before and $after are bound to lazy lists, so the partitions can (at least in theory) be sorted in parallel.
+plan @testcases.elems * @functions-under-test.elems;
+for @functions-under-test -> &fun {
+    say &fun.name;
+    is-deeply &fun(.key), .value, .key ~ "  =>  " ~ .value for @testcases;
+}
+done-testing;
