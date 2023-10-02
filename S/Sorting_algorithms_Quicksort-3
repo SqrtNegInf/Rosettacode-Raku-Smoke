@@ -50,7 +50,7 @@ my @testcases =
 ;
 
 my @implementations = &quicksort-parallel;
-plan @testcases.elems * @implementations.elems;
+plan @testcases.elems × @implementations.elems;
 for @implementations ->  &fun {
     say &fun.name;
     is-deeply &fun(.key), .value, .key ~ "  =>  " ~ .value for @testcases;
