@@ -24,7 +24,7 @@ my @testcases =
         <a 🎮 3 z 4 🐧> => <a 🎮 3 z 4 🐧>.sort
         ;
 
-plan @testcases.elems * @functions-under-test.elems;
+plan @testcases.elems × @functions-under-test.elems;
 for @functions-under-test -> &fun {
     say &fun.name;
     is-deeply &fun(.key), .value, .key ~ "  =>  " ~ .value for @testcases;
