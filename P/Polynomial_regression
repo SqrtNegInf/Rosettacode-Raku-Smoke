@@ -4,15 +4,13 @@
 #m# MOAR: OK
 #j#  JVM: BROKEN
 #n# the */× switch doesn't work here due to 'MultiVector' module
-#n# slow:  113.82s user 9.80s system 100% cpu 2:03.01 total
-
-#BEGIN { die 'ecosystem...' if $*VM ~~ /jvm/; }  # wait for zef-j
+#n# no longer slow
 
 #use lib 'lib'; use Clifford; # some version prior to 7.*
 use MultiVector; # was Clifford
 
 constant @x1 = <0 1 2 3 4 5 6 7 8 9 10>;
-constant @y = <1 6 17 34 57 86 121 162 209 262 321>;
+constant @y  = <1 6 17 34 57 86 121 162 209 262 321>;
 
 constant $x0 = [+] @e[^@x1];
 constant $x1 = [+] @x1 Z* @e;
@@ -20,24 +18,18 @@ constant $x2 = [+] @x1 »**» 2 Z* @e;
 
 constant $y  = [+] @y Z* @e;
 
-my $J = $x1 ∧ $x2;
-my $I = $x0 ∧ $J;
+say my $r1 = $y∧$x1∧$x2/($x0∧$x1∧$x2),
+say my $r2 = $y∧$x2∧$x0/($x1∧$x2∧$x0),
+say my $r3 = $y∧$x0∧$x1/($x2∧$x0∧$x1);
 
-my $I2 = ($I*$I).Real;
+#my $J = $x1 ∧ $x2;
+#my $I = $x0 ∧ $J;
+#
+#my $I2 = ($I*$I).Real;
 
-say my $r1 = (($y ∧ $J)*$I)/$I2;
-say my $r2 = (($y ∧ ($x2 ∧ $x0))*$I)/$I2;
-say my $r3 = (($y ∧ ($x0 ∧ $x1))*$I)/$I2;
+#say my $r1 = (($y ∧ $J)*$I)/$I2;
+#say my $r2 = (($y ∧ ($x2 ∧ $x0))*$I)/$I2;
+#say my $r3 = (($y ∧ ($x0 ∧ $x1))*$I)/$I2;
 
 use Test;
 is ($r1.gist, $r2.gist, $r3.gist), '1 2 3';
-
-=finish
-my $J = $x1 ∧ $x2;
-my $I = $x0 ∧ $J;
-
-my $I2 = ($I·$I.reversion).Real;
-
-say my $r1 = (($y ∧ $J)·$I.reversion)/$I2;
-say my $r2 = (($y ∧ ($x2 ∧ $x0))·$I.reversion)/$I2;
-say my $r3 = (($y ∧ ($x0 ∧ $x1))·$I.reversion)/$I2;
