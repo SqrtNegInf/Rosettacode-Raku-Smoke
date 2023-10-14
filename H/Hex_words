@@ -1,13 +1,14 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Hex_words
-#c# 2021-11-10 <RC
+#c# 2021-11-10 <RC, 2023-10-13 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 #n# Sorted by digital root with a secondary alphabetical sort.
 
 my @res;
 
-sub dr (Int $_ is copy) { $_ = dr(.comb.sum) while .chars > 1; $_ }
+sub dr (Int $_ is copy) { $_ = .comb.sum while .chars > 1; $_ }
+#ub dr (Int $_ is copy) { $_ = dr(.comb.sum) while .chars > 1; $_ } # somehow wasn't an infinite regress?
 
 my %hex = 'ref/unixdict.txt'.IO.slurp.words.grep( *.chars > 3 )\
   .grep({ not / <-[abcdef]> / }).map: { $_ => dr :16($_).comb.sum }
