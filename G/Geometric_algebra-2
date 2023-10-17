@@ -16,7 +16,7 @@ class MultiVector is Mix {
   method grades { self.keys.map: *.base(2).comb.sum }
 
   multi method new(Real $x) returns ::?CLASS { self.new-from-pairs: 0 => $x }
-  multi method new(Str $ where /^^e(\d+)$$/) { self.new-from-pairs: (1 +< (2*$0)) => 1 }
+  multi method new(Str $ where /^^e(\d+)$$/) { self.new-from-pairs: (1 +< (2×$0)) => 1 } # this is a plain-old-multiply
 
   our @e is export = map { ::?CLASS.new: "e$_" }, ^Inf;
 
@@ -44,17 +44,17 @@ class MultiVector is Mix {
   multi infix:<*>(::?CLASS $,  0) is export { 0  }
   multi infix:<*>(::?CLASS $A, 1) returns ::?CLASS is export { $A }
   multi infix:<*>(::?CLASS $A, Real $s) returns ::?CLASS is export {
-    ::?CLASS.new-from-pairs: $A.pairs.map({Pair.new: .key, $s*.value})
+    ::?CLASS.new-from-pairs: $A.pairs.map({Pair.new: .key, $s×.value})  # this is a plain-old-multiply
   }
   multi infix:<*>(::?CLASS $A, ::?CLASS $B) returns ::?CLASS is export {
     ::?CLASS.new-from-pairs: gather
       for $A.pairs -> $a {
 	for $B.pairs -> $b {
-	  take ($a.key +^ $b.key) => [*]
+	  take ($a.key +^ $b.key) => [×] # this is a plain-old-multiply
 	    $a.value, $b.value,
 	    order($a.key, $b.key),
 	    |grep +*, (
-		|(1, -1) xx * Z*
+		|(1, -1) xx * Z× # this is a plain-old-multiply
 		($a.key +& $b.key).polymod(2 xx *)
 	    )
 	}
@@ -95,7 +95,7 @@ use Test;
 constant N = 10;
 plan 5;
 
-sub infix:<·>(Vector $x, Vector $y) { ($x*$y + $y*$x)/2 }
+sub infix:<·>(Vector $x, Vector $y) { ($x×$y + $y×$x)/2 } # this is a plain-old-multiply
 
 subtest "Orthonormality", {
   my @ON;
@@ -112,5 +112,5 @@ ok ($a*$b)*$c == $a*($b*$c), 'associativity';
 ok $a*($b + $c) == $a*$b + $a*$c, 'left distributivity';
 ok ($a + $b)*$c == $a*$c + $b*$c, 'right distributivity';
 my @coeff = (.5 - rand) xx 5;
-my $v = [+] @coeff Z* @e[^5];
+my $v = [+] @coeff Z× @e[^5];  # this is a plain-old-multiply
 ok ($v**2).narrow ~~ Real, 'contraction';
