@@ -17,9 +17,9 @@ class Workset { has QuadCurve ($.p, $.q) }
 sub subdivideQuadSpline($q, $t) {
    my $s = 1.0 - $t;
    my ($c0,$c1,$c2) = do given $q { .c0, .c1, .c2 }; 
-   my $u_c1 = $s*$c0 + $t*$c1;
-   my $v_c1 = $s*$c1 + $t*$c2;
-   my $u_c2 = $s*$u_c1 + $t*$v_c1;
+   my $u_c1 = $s×$c0 + $t×$c1;
+   my $v_c1 = $s×$c1 + $t×$c2;
+   my $u_c2 = $s×$u_c1 + $t×$v_c1;
    return ($c0, $u_c1, $u_c2), ($u_c2, $v_c1, $c2)
 }
 
@@ -64,7 +64,7 @@ sub testIntersect($p,$q,$tol,$exclude is rw,$accept is rw,$intersect is rw) {
       if ($ymax < $ymin) { die "Assertion failure: $ymax < $ymin\n" }
       if $xmax - $xmin <= $tol and $ymax - $ymin <= $tol {
          $accept = True;
-         given $intersect { (.x, .y) = 0.5 X* $xmin+$xmax, $ymin+$ymax }
+         given $intersect { (.x, .y) = 0.5 X× $xmin+$xmax, $ymin+$ymax }
       }
    }
 }
@@ -96,7 +96,7 @@ my $p = QuadCurve.new( x => QuadSpline.new(c0 => -1.0,c1 =>  0.0,c2 => 1.0),
                        y => QuadSpline.new(c0 =>  0.0,c1 => 10.0,c2 => 0.0));
 my $q = QuadCurve.new( x => QuadSpline.new(c0 =>  2.0,c1 => -8.0,c2 => 2.0),
                        y => QuadSpline.new(c0 =>  1.0,c1 =>  2.0,c2 => 3.0));
-my $spacing = ( my $tol = 0.0000001 ) * 10;
+my $spacing = ( my $tol = 0.0000001 ) × 10;
 
 @res.push: $_.gist for find-intersects($p, $q, $tol, $spacing);
 
