@@ -3,11 +3,12 @@
 #  2022-09-02 initial version
 #  2023-07-15 [XXX skip Trizen for right now (mass update of 'sidef' tasks) XXX]
 #  2023-08-17 new hosting for RC, new URL
+#  2023-10-26 drop 'www' prefix again
 #  nb: trying to catch both Raku and Perl tasks
 
 cd ~/perl6/Rosetta-Code
-#curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=750&namespace=0' > recent.html
-curl -s -o - 'https://www.rosettacode.org/wiki/Special:RecentChanges?hidebots=1&limit=100&days=7&enhanced=1&urlversion=2' > recent.html
+#curl -s --netrc 'https://rosettacode.org/w/index.php?title=Special:RecentChanges&days=7&from=&limit=100&namespace=0' > recent.html
+curl -s -o - 'https://rosettacode.org/wiki/Special:RecentChanges?hidebots=1&limit=100&days=7&enhanced=1&urlversion=2' > recent.html
 
 pcregrep -v --buffer-size=22K footer recent.html  | \
 pcregrep 'data-mw-revid.*data-target-page' | \
