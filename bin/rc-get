@@ -1,6 +1,7 @@
 #!/usr/local/bin/perl
 ## download a RC page, extract Raku entry
 #c# 2015-10-22 2015-11-03 2016-08-01 2018-03-30 2018-03-31 2018-04-05 2020-03-13
+#n# 2023-11-02 no 'www' prefix
 
 use utf8;
 binmode STDOUT, ":utf8";
@@ -28,7 +29,8 @@ system "mv $f $f.1"
 
 $w =~ s/'/\\'/g;
 
-my $raku = `curl -s -o - 'https://www.rosettacode.org/wiki/$w' | tee _download.html | perl -0 -npe 's/^.*id="Raku".(.*?)<h2>.*/\$1/s; s/&#160;/ /sg;s#<br */>#<br/>\\n#sg' | strip-html - `;
+my $raku = `curl -s -o - 'https://rosettacode.org/wiki/$w' | tee _download.html | perl -0 -npe 's/^.*id="Raku".(.*?)<h2>.*/\$1/s; s/&#160;/ /sg;s#<br */>#<br/>\\n#sg' | strip-html - `;
+#my $raku = `curl -s -o - 'https://www.rosettacode.org/wiki/$w' | tee _download.html | perl -0 -npe 's/^.*id="Raku".(.*?)<h2>.*/\$1/s; s/&#160;/ /sg;s#<br */>#<br/>\\n#sg' | strip-html - `;
 die "No text!" if $raku =~ /currently no text/i;
 
 $raku =~ s/^Raku\[edit\]//;
