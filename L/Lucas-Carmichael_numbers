@@ -1,0 +1,123 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Lucas-Carmichael_numbers
+#c# 2023-12-24 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# slow, limit testing
+
+my @res;
+
+use Math::Root;
+use Math::Primesieve;
+
+my @primes = Math::Primesieve.primes(100_000); # Primorial_numbers#Raku
+sub primorial($n) { [*] @primes[^$n] }
+
+sub divceil ($x, $y) { ($x %% $y ?? 0 !! 1) + $x div $y } # ceil(x/y)
+
+sub invmod($n, $modulo) { # rosettacode.org/wiki/Modular_inverse#Raku
+   my ($c, $d, $uc, $vc, $ud, $vd, $q) = ($n % $modulo, $modulo, 1, 0, 0, 1);
+   while $c != 0 {
+      ($q, $c, $d) = ($d div $c, $d % $c, $c);
+      ($uc, $vc, $ud, $vd) = ($ud - $q×$uc, $vd - $q×$vc, $uc, $vc);
+   }
+   return $ud % $modulo;
+}
+
+sub LC_in_range ($A is copy, $B, $k) {
+
+   my ($max_p, @LC) = sqrt($B + 1) - 1;
+   $A = max(primorial($k + 1) +> 1, $A);
+
+   sub SUB($m, $L, $lo is copy, $k) {
+
+      my $hi = ( $k == 1 ) ?? ($B div $m) !! iroot ($B div $m), $k; 
+      return if $lo > $hi;
+
+      if $k == 1 {
+
+         $hi = $max_p if $hi > $max_p;
+         $lo = max($lo, divceil($A, $m));
+         return if $lo > $hi;
+
+         my $t = $L - invmod($m, $L);
+         $t += $L while $t < $lo;
+
+         for $t, $t+$L ... $hi -> $p {
+            if $p.is-prime {
+               my $n = $m * $p;
+               @LC.push($n) if ($n + 1) %% ($p + 1);
+            }
+         }
+         return;
+      }
+
+      for Math::Primesieve.primes($lo, $hi) -> $p {
+         if ($m gcd ($p + 1)) == 1 {
+            SUB($m * $p, ($L lcm ($p + 1)), $p + 1, $k - 1)
+         }
+      }
+   }; 
+
+   SUB(1, 1, 3, $k);
+
+   return @LC.sort;
+}
+
+sub LC_with_n_primes ($n) {
+   return if $n < 3;
+
+   my $y = 2 * ( my $x = primorial($n + 1) +> 1);
+
+   loop {
+      my @LC = LC_in_range($x, $y, $n);
+      return @LC[0] if @LC.Bool;
+      $x = $y + 1;
+      $y = 2 * $x;
+   }
+}
+
+sub LC_count ($A, $B) {
+   my $count = 0;
+   for 3 .. Inf -> $k {
+      last if primorial($k + 1) / 2 > $B;
+      $count += LC_in_range($A, $B, $k).elems
+   }
+   return $count;
+}
+
+@res.push: 'Least Lucas-Carmichael number with n prime factors:';
+
+for 3 .. 7 -> $n { @res.push: sprintf("%2d: %d", $n, LC_with_n_primes($n)) }
+
+@res.push: "\nNumber of Lucas-Carmichael numbers less than 10^n:";
+
+my $acc = 0;
+for 1 .. 7 -> $n {
+   my $c = LC_count(10**($n - 1), 10**$n);
+   @res.push: sprintf("%2d: %s", $n, $acc + $c);
+   $acc += $c
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+Least Lucas-Carmichael number with n prime factors:
+ 3: 399
+ 4: 8855
+ 5: 588455
+ 6: 139501439
+ 7: 3512071871
+
+Number of Lucas-Carmichael numbers less than 10^n:
+ 1: 0
+ 2: 0
+ 3: 2
+ 4: 8
+ 5: 26
+ 6: 60
+ 7: 135
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
