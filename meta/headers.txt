@@ -9318,6 +9318,14 @@ File: M/MAC_vendor_lookup
 #n# VMArray representation does not implement bind_pos_native
 #n# ultimately has to do with SSL, which involves NativeCall
 
+File: M/MD4
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/MD4
+#c# 2023-12-31 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# for JVM: 'write-uint64' fails
+
 File: M/MD4-2
 #!/usr/bin/env raku
 #u# https://www.rosettacode.org/wiki/MD4
@@ -9623,7 +9631,7 @@ File: M/Matrix_chain_multiplication
 File: M/Matrix_multiplication
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Matrix_multiplication
-#c# 2016-02-16 <RC, 2020-03-31 <RC, 2022-09-10 <RC
+#c# 2016-02-16 <RC, 2020-03-31 <RC, 2022-09-10 <RC, 2023-12-31
 #m# MOAR: OK
 #j#  JVM: OK
 
