@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Matrix_multiplication
-#c# 2016-02-16 <RC, 2020-03-31 <RC, 2022-09-10 <RC
+#c# 2016-02-16 <RC, 2020-03-31 <RC, 2022-09-10 <RC, 2023-12-31
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -49,12 +49,17 @@ multi infix:<×> (@A, @B) {
 my @res3.push: $_ for @a × @b;
 
 # version 4
-# Here is an even more concise version, expressing the product of two matrices as the cross dot product 
-# of the first matrix with the transpose of the second :
+# Here is an even more functional version, expressing the product of two matrices as the cross dot product 
+# of the first matrix with the transpose of the second:
+sub infix:<·> { [+] @^a Z× @^b }    # this is plain multiplications (works because distinct signature for use of '×' above)
 sub infix:<⨯>(@A, @B) {
-  cross(@A, ([Z] @B), with => { [+] @^a Z* @^b })
+  cross(@A, ([Z] @B), with => &[·])
   .rotor(@B);
 }
+#sub infix:<⨯>(@A, @B) {
+#  cross(@A, ([Z] @B), with => { [+] @^a Z× @^b })
+#  .rotor(@B);
+#}
 
 my @res4.push: $_ for @a ⨯ @b;
 
