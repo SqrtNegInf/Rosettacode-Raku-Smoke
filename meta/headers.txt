@@ -9317,6 +9317,8 @@ File: M/MAC_vendor_lookup
 #j#  JVM: BROKEN
 #n# VMArray representation does not implement bind_pos_native
 #n# ultimately has to do with SSL, which involves NativeCall
+#n# Apparently there is some rate limiting on place now, sleep a bit between requests.
+die 'BROKEN on Mac-Pro' if qx/uname -a/ ~~ /'Mac-Pro'/;
 
 File: M/MD4
 #!/usr/bin/env raku
