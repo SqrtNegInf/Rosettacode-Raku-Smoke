@@ -1,0 +1,22 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Euclidean_rhythm
+#c# 2024-02-07 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+say my $result = sub ($k is copy, $n is copy) {
+   my @s = [ [1] xx $k ].append: [0] xx ($n - $k); 
+   my $z = my $d = $n - $k;
+   ($k, $n) = ($d, $k).minmax.bounds;
+
+   while $z > 0 || $k > 1 {
+      ^$k .map: { @s[$_].append: |@s[*-1 - $_] }
+      @s.splice(*-$k);
+      ($z, $d) = ($z, $n) >>->> $k;
+      ($k, $n) = ($d, $k).minmax.bounds;
+   }
+   return [~] @s>>.List.flat;
+}(5, 13);
+
+use Test;
+is $result, '1001010010100';
