@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# https://www.rosettacode.org/wiki/Euclidean_rhythm
-#c# 2024-02-07 <RC
+#c# 2024-02-07 <RC, 2024-02-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -10,9 +10,8 @@ say my $result = sub ($k is copy, $n is copy) {
    ($k, $n) = ($d, $k).minmax.bounds;
 
    while $z > 0 || $k > 1 {
-      ^$k .map: { @s[$_].append: |@s[*-1 - $_] }
-      @s.splice(*-$k);
-      ($z, $d) = ($z, $n) >>->> $k;
+      ^$k .map: { @s[$_].append: @s.splice(*-1) } 
+      ($z, $d) = ($z, $n) X- $k;
       ($k, $n) = ($d, $k).minmax.bounds;
    }
    return [~] @s>>.List.flat;
