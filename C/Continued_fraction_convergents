@@ -1,0 +1,41 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Continued_fraction_convergents
+#c# 2024-02-10 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub convergents(Real $x is copy, Int $maxcount) {
+   my @components = gather for ^$maxcount {
+      my $fpart = $x - take $x.Int;
+      $fpart == 0 ?? ( last ) !! ( $x = 1 / $fpart )
+   }
+   my ($numa, $denoma, $numb, $denomb) = 1, 0, @components[0], 1;
+   return [ Rat.new($numb, $denomb) ].append: gather for @components[1..*] -> $comp {
+      ( $numa, $denoma, $numb                , $denomb                  ) 
+      = $numb, $denomb, $numa + $comp * $numb, $denoma + $comp * $denomb;
+      take Rat.new($numb, $denomb);
+   }
+}
+
+my @tests = [ "415/93", 415/93, "649/200", 649/200, "sqrt(2)", sqrt(2),
+              "sqrt(5)", sqrt(5), "golden ratio", (sqrt(5) + 1) / 2     ];
+
+say "The continued fraction convergents for the following (maximum 8 terms) are:";
+for @tests -> $s, $x {
+   @res.push: $s.fmt('%15s') ~ " = { convergents($x, 8).map: *.nude.join('/') } ";
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+         415/93 = 4/1 9/2 58/13 415/93 
+        649/200 = 3/1 13/4 159/49 649/200 
+        sqrt(2) = 1/1 3/2 7/5 17/12 41/29 99/70 239/169 577/408 
+        sqrt(5) = 2/1 9/4 38/17 161/72 682/305 2889/1292 12238/5473 51841/23184 
+   golden ratio = 1/1 2/1 3/2 5/3 8/5 13/8 21/13 34/21 
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
