@@ -14,7 +14,7 @@ sub convergents(Real $x is copy, Int $maxcount) {
    my ($numa, $denoma, $numb, $denomb) = 1, 0, @components[0], 1;
    return [ Rat.new($numb, $denomb) ].append: gather for @components[1..*] -> $comp {
       ( $numa, $denoma, $numb                , $denomb                  ) 
-      = $numb, $denomb, $numa + $comp * $numb, $denoma + $comp * $denomb;
+      = $numb, $denomb, $numa + $comp × $numb, $denoma + $comp × $denomb;
       take Rat.new($numb, $denomb);
    }
 }
