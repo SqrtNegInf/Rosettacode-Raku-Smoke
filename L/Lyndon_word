@@ -1,0 +1,49 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Lyndon_word
+#c# 2024-02-11 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub nextword($n, $w, $alphabet) {
+   my $x = ($w x ($n div $w.chars + 1)).substr(0, $n);
+   while $x.Bool && $x.substr(*-1) eq $alphabet.substr(*-1) {
+      $x.substr-rw(*-1) = ''
+   }
+   if $x.Bool {
+      my $next_char_index  = ($alphabet.index($x.substr(*-1)) // 0) + 1;
+      $x.substr-rw(*-1, 1) = $alphabet.substr($next_char_index, 1);
+   }
+   return $x;
+}
+
+@res.push: $_ for sub ($n, $alphabet) {
+   my $w = $alphabet.substr(0, 1);
+   return gather while $w.chars <= $n {
+      take $w;
+      last unless $w = nextword($n, $w, $alphabet);
+   }
+}(5, '01');
+
+.say for @res;
+
+my $ref = q:to/END/;
+0
+00001
+0001
+00011
+001
+00101
+0011
+00111
+01
+01011
+011
+0111
+01111
+1
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
