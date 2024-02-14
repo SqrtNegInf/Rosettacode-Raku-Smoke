@@ -1,0 +1,42 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Factorize_string_into_Lyndon_words
+#c# 2024-02-13 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+sub chenfoxlyndonfactorization(Str $s) {
+   my ($n, $i, @factorization) = $s.chars, 1;
+   while $i <= $n {
+      my ($j, $k) = $i X+ (1, 0);
+      while $j <= $n && substr($s, $k-1, 1) <= substr($s, $j-1, 1) {
+         substr($s, $k-1, 1) < substr($s, $j++ -1, 1) ?? ( $k = $i ) !! $k++;
+      }
+      while $i <= $k {
+         @factorization.push: substr($s, $i-1, $j-$k);
+         $i += $j - $k
+      }
+   }
+   die unless $s eq [~] @factorization;
+   return @factorization
+}
+
+my $m = "0";
+for ^7 { $m ~= $m.trans('0' => '1', '1' => '0') }
+my @res = chenfoxlyndonfactorization($m);
+
+.say for @res;
+
+my $ref = q:to/END/;
+011
+01
+0011
+00101101
+0010110011010011
+00101100110100101101001100101101
+001011001101001011010011001011001101001100101101
+001011001101
+001
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
