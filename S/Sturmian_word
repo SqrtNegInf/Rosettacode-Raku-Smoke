@@ -9,8 +9,8 @@ my @res;
 sub sturmian-word($m, $n) {
    return sturmian-word($n, $m).trans('0' => '1', '1' => '0') if $m > $n; 
    my ($res, $k, $prev) = '', 1, 0;
-   while ($k * $m) % $n > 0 {
-      my $curr = ($k * $m) div $n;
+   while ($k × $m) % $n > 0 {
+      my $curr = ($k × $m) div $n;
       $res ~= $prev == $curr ?? '0' !! '10';
       $prev = $curr;
       $k++;
@@ -30,10 +30,10 @@ my $sturmian = sturmian-word(13, 21);
 
 sub cfck($a, $b, $m, $n, $k) {
    my (@p, @q) := [0, 1], [1, 0]; 
-   my $r = (sqrt($a) * $b + $m) / $n;
+   my $r = (sqrt($a) × $b + $m) / $n;
    for ^$k {
       my $whole = $r.Int;
-      my ($pn, $qn) = $whole * @p[*-1] + @p[*-2], $whole * @q[*-1] + @q[*-2];
+      my ($pn, $qn) = $whole × @p[*-1] + @p[*-2], $whole × @q[*-1] + @q[*-2];
       @p.push($pn);
       @q.push($qn);
       $r = 1/($r - $whole);
