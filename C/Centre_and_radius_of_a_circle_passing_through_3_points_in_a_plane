@@ -1,0 +1,23 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Centre_and_radius_of_a_circle_passing_through_3_points_in_a_plane
+#c# 2024-02-23 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# but skip the version with fancier Unicode symbols
+
+my @res;
+
+sub circle( (\x, \y), (\X, \Y), (\Х, \У) ) {
+    :center(
+        my $cx = ((x² + y²) × (У - Y) + (X² + Y²) × (y - У) + (Х² + У²) × (Y - y)) /
+                  (x × (У - Y) + X × (y - У) + Х × (Y - y)) / 2,
+        my $cy = ((x² + y²) × (Х - X) + (X² + Y²) × (x - Х) + (Х² + У²) × (X - x)) /
+                  (y × (Х - X) + Y × (x - Х) + У × (X - x)) / 2
+    ),
+    radius => (($cx - x)² + ($cy - y)²).sqrt
+}
+
+say my $result = circle (22.83,2.07), (14.39,30.24), (33.65,17.31);
+
+use Test;
+is $result.gist, '(center => (18.97851566 16.2654108) radius => 14.70862397833418)'
