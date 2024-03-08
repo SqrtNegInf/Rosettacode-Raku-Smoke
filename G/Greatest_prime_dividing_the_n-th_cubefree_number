@@ -1,0 +1,52 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Greatest_prime_dividing_the_n-th_cubefree_number
+#c# 2024-03-07 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# dropped the Unicode in variable name
+#n# OEIS:A370833 a(n) is the greatest prime dividing the n-th cubefree number, for n >= 2
+
+my @res;
+
+use Prime::Factor;
+
+sub max_factor_if_cubefree ($i) {
+    my @f = prime-factors($i);
+    return @f.tail if @f.elems          < 3
+                   or @f.Bag.values.all < 3;
+}
+
+constant @A = lazy flat 1, map &max_factor_if_cubefree, 2..*;
+
+@res.push: 'The first terms of A370833 are:';
+@res.push: .fmt('%3d') for @A.head(100).batch(10);
+
+@res.push: '';
+
+for 10 X** (3..5) -> $k {
+    @res.push: sprintf "The %8dth term of A370833 is %7d", $k, @A[$k-1];
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+The first terms of A370833 are:
+  1   2   3   2   5   3   7   3   5  11
+  3  13   7   5  17   3  19   5   7  11
+ 23   5  13   7  29   5  31  11  17   7
+  3  37  19  13  41   7  43  11   5  23
+ 47   7   5  17  13  53  11  19  29  59
+  5  61  31   7  13  11  67  17  23   7
+ 71  73  37   5  19  11  13  79  41  83
+  7  17  43  29  89   5  13  23  31  47
+ 19  97   7  11   5 101  17 103   7  53
+107 109  11  37 113  19  23  29  13  59
+
+The     1000th term of A370833 is     109
+The    10000th term of A370833 is     101
+The   100000th term of A370833 is    1693
+END
+#The  1000000th term of A370833 is 1202057
+
+use Test;
+is @res.join("\n"), chomp $ref;
