@@ -5,6 +5,7 @@
 #j# JVM:  OK
 #n# MOAR: not fully OK, last test won't run under 'Test::Output': No exception handler located for catch
 #n# JVM:  gets correct values, but doesn't do any testing ('out' or 'err')
+die 'BROKEN on iMac (errors fatal at compile-time)' if qx/uname -a/ ~~ /'iMac'/;
 
 # Works with: Rakudo version 2018.05
 #`{
