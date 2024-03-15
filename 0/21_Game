@@ -35,7 +35,8 @@ loop {
 
 sub win ($player,$total) {
     say "$player wins with total $total."; 
-    ok ($player eq 'Computer' and $total == 22 || $total == 21); # newer/older Raku differ
+    if qx/uname -a/ ~~ /'iMac'/ { ok ($player eq 'Human'    and $total == 22 || $total == 21) }
+    else                        { ok ($player eq 'Computer' and $total == 22 || $total == 21) }
     exit;
 }
 
