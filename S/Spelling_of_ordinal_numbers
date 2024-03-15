@@ -14,9 +14,9 @@ my @res;
 
 use Lingua::EN::Numbers;
 
-#my $ext = qx/uname -a/ ~~ /'Mac-Pro'/ || qx/uname/ ~~ /'Linux'/ ?? 'mpro' !! 'imac';
-#my $fh = open("run/spelling_ordinals.$ext.txt", :w);
-my $fh = open("run/spelling_ordinals.mpro.txt", :w);
+my $ext = qx/uname -a/ ~~ /'Mac-Pro'/ || qx/uname/ ~~ /'Linux'/ ?? 'mpro' !! 'imac';
+my $fh = open("run/spelling_ordinals.$ext.txt", :w);
+#my $fh = open("run/spelling_ordinals.mpro.txt", :w);
 
 #$fh.printf( "\%16s : %s\n", $_, ordinal($_) ) for
 
