@@ -1463,6 +1463,7 @@ File: A/Assertions_in_design_by_contract
 #j# JVM:  OK
 #n# MOAR: not fully OK, last test won't run under 'Test::Output': No exception handler located for catch
 #n# JVM:  gets correct values, but doesn't do any testing ('out' or 'err')
+die 'BROKEN on iMac (errors fatal at compile-time)' if qx/uname -a/ ~~ /'iMac'/;
 
 File: A/Associative_array_Creation
 #!/usr/bin/env perl6
