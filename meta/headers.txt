@@ -4573,6 +4573,7 @@ File: D/Doubly-linked_list_Definition
 #c# 2015-12-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+die 'BROKEN on iMac (memhog?)' if qx/uname -a/ ~~ /'iMac'/;
 
 File: D/Doubly-linked_list_Element_definition
 #!/usr/bin/env perl6
@@ -4582,6 +4583,7 @@ File: D/Doubly-linked_list_Element_definition
 #m# MOAR: OK
 #j#  JVM: OK
 #n# see 'D/Doubly-linked_list_Definition' for working example
+die 'BROKEN on iMac (memhog?)' if qx/uname -a/ ~~ /'iMac'/;
 
 File: D/Doubly-linked_list_Element_insertion
 #!/usr/bin/env perl6
@@ -4589,6 +4591,7 @@ File: D/Doubly-linked_list_Element_insertion
 #c# 2015-12-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+die 'BROKEN on iMac (memhog?)' if qx/uname -a/ ~~ /'iMac'/;
 
 File: D/Dragon_curve
 #!/usr/bin/env perl6
