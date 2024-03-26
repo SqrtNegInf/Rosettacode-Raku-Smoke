@@ -3,6 +3,7 @@
 #c# 2015-12-05 <RC
 #m# MOAR: OK
 #j#  JVM: OK
+die 'BROKEN on iMac (memhog?)' if qx/uname -a/ ~~ /'iMac'/;
 
 # This shows a complete example. (Other entries in the section focus on aspects of this solution.)
 
