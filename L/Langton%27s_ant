@@ -39,7 +39,10 @@ for 0,2,4 ... $size - 2 -> $y {
     }
 }
 
-#.say for @res; 
+if qx/uname -a/ ~~ /'iMac'/ {
+    .say for @res ;
+    exit;
+}
 
 my $moar-blead = qq:to/END/;
 Out of bounds after 11669 moves at (-1, 74)
