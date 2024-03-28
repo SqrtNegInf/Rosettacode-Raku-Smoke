@@ -5,7 +5,6 @@
 #m# MOAR: OK
 #j#  JVM: OK
 #n# see 'D/Doubly-linked_list_Definition' for working example
-die 'BROKEN on iMac (memhog?)' if qx/uname -a/ ~~ /'iMac'/;
 
 role DLElem[::T] {
     has DLElem[T] $.prev is rw;
