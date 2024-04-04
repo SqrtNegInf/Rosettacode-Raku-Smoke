@@ -52,7 +52,8 @@ sub find-factor ( Int $n, $constant = 1 ) {
 .map: -> $n {
     my $start = now;
     @res.push: "factors of $n: "~ prime-factors($n).join(' × ');
-    say @res[*-1] ~ " \t in "~ (now - $start).fmt("%0.3f")~ " sec."
+    say @res[*-1];
+   #say @res[*-1] ~ " \t in "~ (now - $start).fmt("%0.3f")~ " sec."
 }
 
 #.say for @res.sort;
@@ -94,9 +95,10 @@ for 2²⁹-1, 2⁴¹-1, 2⁵⁹-1, 2⁷¹-1, 2⁷⁹-1, 2⁹⁷-1, 2¹¹⁷-1,
  ->  $n {
     my $start = now;
     @res-p5.push: "factors of $n: "~ prime-factors5($n).join(' × ');
-    say @res-p5[*-1] ~ " \t in ", (now - $start).fmt("%0.3f"), " sec."
-    #say "factors of $n: ",
-    #prime-factors($n).join(' × '), " \t in ", (now - $start).fmt("%0.3f"), " sec."
+    say @res-p5[*-1];
+   #say @res-p5[*-1] ~ " \t in ", (now - $start).fmt("%0.3f"), " sec."
+   #say "factors of $n: ",
+   #prime-factors($n).join(' × '), " \t in ", (now - $start).fmt("%0.3f"), " sec."
 }
 
 is @res-p5.join("\n"), chomp $ref;
