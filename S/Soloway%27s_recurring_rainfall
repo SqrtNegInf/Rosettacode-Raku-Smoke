@@ -3,6 +3,8 @@
 #c# 2022-09-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2024-04-04 all the inputs fail?
+die 'BROKEN on iMac' if qx/uname -a/ ~~ /'iMac'/;
 
 my @res;
 
