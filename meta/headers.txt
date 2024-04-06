@@ -15094,6 +15094,8 @@ File: S/Soloway%27s_recurring_rainfall
 #c# 2022-09-11 <RC
 #m# MOAR: OK
 #j# JVM:  OK
+#n# 2024-04-04 all the inputs fail?
+die 'BROKEN on iMac' if qx/uname -a/ ~~ /'iMac'/;
 
 File: S/Solve_a_Hidato_puzzle
 #!/usr/bin/env perl6
