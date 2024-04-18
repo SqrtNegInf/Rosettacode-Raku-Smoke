@@ -1,0 +1,34 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/L-system
+#c# 2024-04-16 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+# L-system functionality 
+role Lindenmayer {
+    has %.rules;
+    method succ {
+        self.comb.map( { %!rules{$^c} // $c } ).join but Lindenmayer(%!rules)
+    }
+}
+
+# Testing
+my $rabbits = 'I' but Lindenmayer({I => 'M', M => 'MI'});
+
+push @res, $_ for $rabbits++ xx 6;
+
+.say for @res;
+
+my $ref = q:to/END/;
+I
+M
+MI
+MIM
+MIMMI
+MIMMIMIM
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
