@@ -16524,6 +16524,7 @@ File: S/Super-d_numbers-3
 #n# $chunk, $max-plus are tunable parameters, that scale with $d; depending how these are set there's the danger 
 #n# of missing a value in the 'first N' series, but maybe I can have just a little bit of peril?
 #n# 2023-04-08 On Ubuntu, '2' case failing, so  just test '3' and up
+#n# 2024-05-14 Failed, instead of  '1471 1645' got '1645 1752', likely 'race' condition (happened once before, 2023-10-24)
 #n# OEIS:A032743 Super-2 Numbers (2 * n^2 contains substring '22' in its decimal expansion).
 #n# OEIS:A014569 Super-3 Numbers (3n^3 contains substring '333' in its decimal expansion).
 #n# OEIS:A032744 Super-4 Numbers (4 * n^4 contains substring '4444' in its decimal expansion).
