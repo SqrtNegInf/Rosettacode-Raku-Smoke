@@ -3,7 +3,7 @@
 #c# 2016-08-06 <RC, 2018-05-06 <RC
 #m# MOAR: OK
 #j#  JVM: OK
-#n# updated test as output format changed
+#n# 2024-05-27 updated test as output format changed
 
 # You can get a list of an object's methods using .^methods, which is part of the Meta Object Protocol.
 # Each is represented as a Method object that contains a bunch of info:
@@ -22,18 +22,19 @@ for $object.^methods {
     @res.push: join ', ', .name, .arity, .count, .signature.gist;
 }
 
-my $ref = q:to/END/;
+my $mac-pro = q:to/END/;
 foo, 2, 2, (Foo: $x, *%_)
 bar, 3, 3, (Foo: $x, $y, *%_)
 baz, 2, 3, (Foo: $x, $y?, *%_)
 BUILDALL, 3, 3, (Any:D: ;; @auto, %init, *%_)
 END
 
-my $refx = q:to/END/;
-foo, 2, 2, (Foo: $x, *%_)
-bar, 3, 3, (Foo: $x, $y, *%_)
-baz, 2, 3, (Foo: $x, $y?, *%_)
+my $imac = q:to/END/;
+foo, 2, 2, (Foo $:: $x, *%_)
+bar, 3, 3, (Foo $:: $x, $y, *%_)
+baz, 2, 3, (Foo $:: $x, $y?, *%_)
+BUILDALL, 3, 3, (Any:D $:: ;; @auto, %init, *%_)
 END
 
 use Test;
-is @res.join("\n"), chomp $ref;
+is @res.join("\n"), chomp qx/uname -a/ ~~ /iMac|Linux/ ?? $imac !! $mac-pro;
