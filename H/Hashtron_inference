@@ -1,0 +1,43 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Hashtron_inference
+#c# 2024-05-31 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+sub Inference($command, $bits, @program) {
+   my  $out = 0;
+
+   return $out unless @program.Bool;
+
+   for ^$bits -> $j { # Iterate over the bits
+      my $input = $command +| ($j +< 16);
+      $input = Hashtron($input, @program[0][0], my $maxx = @program[0][1]);
+      for @program[1..*] -> ($s, $max) {
+         $input = Hashtron($input, $s, $maxx -= $max);
+      }
+      if ( $input +&= 1 ) != 0 { $out +|= 1 +< $j }
+   }
+   return $out;
+}
+
+sub Hashtron($n, $s, $max) {
+   # Mixing stage, mix input with salt using subtraction
+   my $m = $n - $s;
+
+   # Hashing stage, use xor shift with prime coefficients
+   for <-2 -3 +5 +7 -11 -13 +17 -19> -> $p {
+      $m = ($m +^ ($m +> $p)) +& 0xFFFFFFFF; 
+   }
+
+   # Mixing stage 2, mix input with salt using addition
+   $m = ($m + $s) +& 0xFFFFFFFF;
+
+   # Modular stage using Lemire's fast alternative to modulo reduction
+   return (($m * $max) +> 32) +& 0xFFFFFFFF;
+   return (($m * $max) +> 32) +& 0xFFFFFFFF;
+}
+
+say my $result = Inference(42, 64, (<0 2>,));
+
+use Test;
+is $result, 14106184687260844995;
