@@ -7,7 +7,7 @@
 my @res;
 
 sub MAIN() {
-   my @lines = $*IN.lines;
+   my @lines = 'ref/movie.srt'.IO.slurp;
    for 9, -9 -> $seconds {
       say "Original subtitle adjusted by {$seconds.fmt('%+d')} seconds.";
       for @lines -> $line {
