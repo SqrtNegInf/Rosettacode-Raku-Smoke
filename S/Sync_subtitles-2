@@ -1,0 +1,171 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Sync_subtitles
+#c# 2024-06-22 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# less brutal
+
+my @res;
+
+grammar SRT { # loc.gov/preservation/digital/formats/fdd/fdd000569.shtml
+   token TOP { ^ <subtitle>+ % \n $ }
+   token subtitle { <index> \n <timecode> \n <text> \n? }
+   token index { \d+ }
+   token timecode { <timestamp> ' --> ' <timestamp> }
+   token timestamp { \d ** 2 ':' \d ** 2 ':' \d ** 2 ',' \d ** 3 }
+   token text { <line>+ % \n }
+   token line { <-[\n]>+ }
+}
+
+sub parse-srt($srt-content) {
+   my $parsed = SRT.parse($srt-content);
+   return $parsed 
+      ?? $parsed<subtitle>.map(-> $sub { {
+            index    => $sub<index>.Str,
+            start    => $sub<timecode><timestamp>[0].Str,
+            end      => $sub<timecode><timestamp>[1].Str,
+            text     => $sub<text>.Str
+         }})
+      !! Nil;
+} 
+
+sub adjust-time($time, $seconds) {
+   my ($time_str, $milliseconds_str) = $time.split(',');
+   my (\hh, \mm, \ss) = $time_str.split(':')>>.Int;
+   my $milliseconds = $milliseconds_str.Int;
+   my $datetime = DateTime.new(:year,     :month,      :day, 
+                               :hour(hh), :minute(mm), :second(ss));
+   given $datetime .= later(:seconds($seconds)) {
+      return sprintf('%02d:%02d:%02d,%03d',.hour,.minute,.second,$milliseconds)
+   }
+}
+
+sub adjust-subtitles(@subtitles, Int $seconds) {
+   @subtitles.map({ $_<start> = adjust-time($_<start>, $seconds);
+                    $_<end>   = adjust-time($_<end>  , $seconds);
+                    $_                                        });
+}
+
+sub format-srt(@subtitles) {
+   @subtitles.map({
+       $_<index> ~ "\n" ~ $_<start> ~ " --> " ~ $_<end> ~ "\n" ~ $_<text> ~ "\n"
+   }).join("\n");
+}
+
+my @subtitles = parse-srt( 'ref/movie.srt'.IO.slurp ) or die;
+
+for 9, -9 -> \N {
+   my @adjusted-subtitles = adjust-subtitles(@subtitles.deepmap(*.clone), N);
+   @res.push: "Original subtitle adjusted by {N.fmt('%+d')} seconds.";
+   @res.push: format-srt(@adjusted-subtitles);
+}
+
+#.say for @res;
+
+my $ref = q:to/END/;
+Original subtitle adjusted by +9 seconds.
+1
+00:01:40,550 --> 00:01:45,347
+Four billion years ago,
+the first marine life forms.
+
+2
+00:01:45,555 --> 00:01:51,019
+First came the fish...then slowly
+other life forms evolved.
+
+3
+00:01:51,144 --> 00:01:52,979
+Therefore, our ancestors...
+
+4
+00:01:52,979 --> 00:01:54,898
+...came from fish.
+
+5
+00:01:55,232 --> 00:01:56,608
+Everyone, come and see this.
+
+6
+00:01:56,733 --> 00:01:59,361
+Cretaceous Tyrannosaurus.
+
+7
+00:01:59,736 --> 00:02:01,488
+Ferocious!
+
+8
+00:02:07,035 --> 00:02:07,869
+Red,
+
+9
+00:02:08,203 --> 00:02:09,079
+Pong!
+
+10
+00:02:11,540 --> 00:02:12,999
+Isn't this a gecko?
+
+11
+00:02:13,416 --> 00:02:16,419
+How else can I get a 15 ton T-Rex in here?
+
+12
+00:02:16,503 --> 00:02:20,048
+With our advanced technology, I shrank it down.
+
+Original subtitle adjusted by -9 seconds.
+1
+00:01:22,550 --> 00:01:27,347
+Four billion years ago,
+the first marine life forms.
+
+2
+00:01:27,555 --> 00:01:33,019
+First came the fish...then slowly
+other life forms evolved.
+
+3
+00:01:33,144 --> 00:01:34,979
+Therefore, our ancestors...
+
+4
+00:01:34,979 --> 00:01:36,898
+...came from fish.
+
+5
+00:01:37,232 --> 00:01:38,608
+Everyone, come and see this.
+
+6
+00:01:38,733 --> 00:01:41,361
+Cretaceous Tyrannosaurus.
+
+7
+00:01:41,736 --> 00:01:43,488
+Ferocious!
+
+8
+00:01:49,035 --> 00:01:49,869
+Red,
+
+9
+00:01:50,203 --> 00:01:51,079
+Pong!
+
+10
+00:01:53,540 --> 00:01:54,999
+Isn't this a gecko?
+
+11
+00:01:55,416 --> 00:01:58,419
+How else can I get a 15 ton T-Rex in here?
+
+12
+00:01:58,503 --> 00:02:02,048
+With our advanced technology, I shrank it down.
+
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
