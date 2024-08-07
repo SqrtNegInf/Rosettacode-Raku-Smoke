@@ -1,0 +1,72 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/ABC_incremental_counts
+#c# 2024-08-07 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+@res.push: "\nUsing ", my $dict = 'ref/unixdict.txt';
+my @tests = <a b c>, 1, <t h e>, 1, <c i o>, 2;
+filter $dict.IO.words;
+
+#say "\n\nUsing ", $dict = 'words_alpha.txt';
+#@tests[1,3,5]».++;
+#filter $dict.IO.words;
+
+sub filter (@words) {
+    for @tests -> ($a, $b, $c), $min {
+        @res.push: "\nLetters: ($a $b $c) -- Minimum count $min",
+          @words.race.grep(&incremental).sort.join("\n") || '<none>';
+
+        sub incremental ($word) {
+            my @v = $word.comb.Bag{$a,$b,$c}.values.sort;
+            (@v[0] >= $min) && (@v[0]+1 == @v[1]) && (@v[0]+2 == @v[2])
+        }
+    }
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+
+Using 
+ref/unixdict.txt
+
+Letters: (a b c) -- Minimum count 1
+baccarat
+canvasback
+sabbatical
+
+Letters: (t h e) -- Minimum count 1
+aesthete
+afterthought
+authenticate
+bethlehem
+cheesecloth
+diethylstilbestrol
+eratosthenes
+heathenish
+letterhead
+liechtenstein
+mephistopheles
+nineteenth
+orthophosphate
+seventieth
+sweetheart
+teethe
+teethed
+thereafter
+theretofore
+thirtieth
+triphenylphosphine
+twentieth
+westchester
+wholehearted
+
+Letters: (c i o) -- Minimum count 2
+socioeconomic
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
