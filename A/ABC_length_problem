@@ -1,0 +1,21 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/ABC_length_problem
+#c# 2024-07-31 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+#n# no .race for sake of JVM; make it 'a b e'
+
+# I've elected to do 'or something' as specified in the task instructions. Rather than just feeding a few words in to check if there are equal counts of 'a', 'b', and 'c'; instead, reads in the words_alpha.txt word list and returns the words that have equal counts of 'a', 'b', and 'c', and, (to make things a little less verbose,) have more than one of each.
+
+my @res;
+
+@res.push: $_ for 'ref/unixdict.txt'.IO.lines.grep({+(my \b = .comb.Bag)<a> > 1 and [==] b<a b e>}) X~ " True";
+
+.say for @res;
+
+my $ref = q:to/END/;
+abbreviate True
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
