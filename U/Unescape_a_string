@@ -1,0 +1,61 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Unescape_a_string
+#c# 2024-08-17 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+grammar JSON-Unescape {
+   token TOP             { ^ <value> $ }
+   token value           { [ <str> | \\ <str=.str_escape> ]* }
+   token str             { <-["\\\t\x[0A]]>+ }
+   token str_escape      { <["\\/bfnrt]> | 'u' <utf16_codepoint>+ % '\u' }
+   token utf16_codepoint { <.xdigit>**4 }
+}
+
+class JSON-Unescape-Actions {
+   my %h = '\\' => "\\", '/'  => "/",  'b'  => "\b", 'n'  => "\n",
+           't'  => "\t", 'f'  => "\f", 'r'  => "\r", '"'  => "\"";
+   method        TOP($/) { make $<value>.made };
+   method        str($/) { make ~$/ }
+   method      value($/) {
+      make +@$<str> == 1 ?? $<str>[0].made !! $<str>>>.made.join;
+   }
+   method str_escape($/) {
+      make $<utf16_codepoint> 
+         ?? make utf16.new( $<utf16_codepoint>.map({:16(~$_)}) ).decode()
+         !! make %h{~$/}
+   }
+}
+
+for < abc  a☺c  a\"c \u0061\u0062\u0063 a\\\c   a\u263Ac  a\\\u263Ac 
+      a\uD834\uDD1Ec a\ud834\udd1ec     a\\u263 a\\u263Xc 
+      a\\uDD1Ec      a\\uD834c          a\\uD834\\u263Ac > -> $input { 
+   my $a = JSON-Unescape-Actions.new();
+   my $o = JSON-Unescape.parse($input, :actions($a));
+   CATCH { default { @res.push: "Error: $_" } }
+   @res.push: $o.defined ?? $o.made !! "Error"
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+abc
+a☺c
+a"c
+abc
+a\c
+a☺c
+a\u263Ac
+a𝄞c
+a𝄞c
+Error
+Error
+Error: Malformed UTF-16; unexpected low surrogate
+Error: Malformed UTF-16; incomplete surrogate pair
+Error: Malformed UTF-16; incomplete surrogate pair
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
