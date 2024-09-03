@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+#u# http://rosettacode.org/wiki/Sorting_algorithms/Pancake_sort
+#c# 2024-09-03
+#m# MOAR: OK
+#j#  JVM: OK
+
+use Test;
+
+sub pancake-sort(@data is copy) {
+   for @data.elems - 1 ... 1 {
+      @data[0 .. @data[0..$_].maxpairs[*-1].key] .= reverse;
+      @data[0 .. $_] .= reverse;
+   }
+   return @data
+}
+
+for <4 5 7 1 46 78 2 2 1 9 10>, <0 -9 -8 2 -7 8 6 -2 -8 3> -> @data {
+   say 'input  = ' ~ @data;
+   say 'output = ' ~ @data.&pancake-sort ~ "\n";
+}
+
+for <4 5 7 1 46 78 2 2 1 9 10>, <0 -9 -8 2 -7 8 6 -2 -8 3> -> @data {
+   is @data.sort, @data.&pancake-sort;
+}
