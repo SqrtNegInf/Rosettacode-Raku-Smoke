@@ -1,0 +1,57 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/JSON_pointer
+#c# 2024-09-06 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+use JSON::Fast;
+use JSON::Pointer;
+
+my $json = from-json q:to/END/;
+{
+  "wiki": {
+    "links": [
+      "https://rosettacode.org/wiki/Rosetta_Code",
+      "https://discord.com/channels/1011262808001880065"
+    ]
+  },
+  "": "Rosetta",
+  " ": "Code",
+  "g/h": "chrestomathy",
+  "i~j": "site",
+  "abc": ["is", "a"],
+  "def": { "": "programming" }
+}
+END
+
+#for "",  "/",  "/ ", "/abc",   "/def", "/g~1h", "/i~0j",
+for      "/",  "/ ", "/abc",   "/def", "/g~1h", "/i~0j",
+    "/wiki/links/0", "/wiki/links/1" , "/wiki/links/2" ,
+    "/wiki/name"   , "/no/such/thing", "bad/pointer"     -> $input {
+   @res.push: join '', "{$input.fmt: '%13s'} => ", ( $input eq "/" and $json{""}.defined )
+      ?? $json{""} # :-P 
+      !! JSON::Pointer.parse($input).resolve($json);
+   CATCH { default { @res.push: "Error: $_" } }
+}
+
+.say for @res;
+
+my $ref = q:to/END/;
+            / => Rosetta
+           /  => Code
+         /abc => is a
+         /def => 	programming
+        /g~1h => chrestomathy
+        /i~0j => site
+/wiki/links/0 => https://rosettacode.org/wiki/Rosetta_Code
+/wiki/links/1 => https://discord.com/channels/1011262808001880065
+Error: Element does not exist at 2
+Error: Element does not exist at name
+Error: Element does not exist at no
+Error: Invalid syntax at 0 when trying to resolve 「bad/pointer」
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
