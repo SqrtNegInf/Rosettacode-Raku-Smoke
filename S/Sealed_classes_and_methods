@@ -1,41 +1,35 @@
 #!/usr/bin/env raku
 #u# https://www.rosettacode.org/wiki/Sealed_classes_and_methods
-#c# 2024-06-27 <RC
+#c# 2024-06-27 <RC, 2024-09-06 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
 my @res;
 
 role MovieWatcherRole { has Str $.name;
-   method WatchMovie() { @res.push: "$.name is watching the movie"   }
-   method EatPopcorn() { @res.push: "$.name is enjoying the popcorn" }
+   method WatchMovie() { @res.push: "$.name is watching the movie."   }
+   method EatPopcorn() { @res.push: "$.name is enjoying the popcorn." }
 }
 
 class MovieWatcher does MovieWatcherRole {
    method new(Str $name) { self.bless(:$name) }
 }
 
-class ParentMovieWatcher is MovieWatcher {
-   method new(Str $name) { self.bless(:$name) }
-}
+class ParentMovieWatcher is MovieWatcher { }
 
 role ChildMovieWatcherRole {
-   method EatPopcorn() { @res.push: "$.name is eating too much popcorn" }
+   method EatPopcorn() { @res.push: "$.name is eating too much popcorn." }
 }
 
-class ChildMovieWatcher is MovieWatcher does ChildMovieWatcherRole {
-   method new(Str $name) { self.bless(:$name) }
-}
+class ChildMovieWatcher is MovieWatcher does ChildMovieWatcherRole { }
 
 role YoungChildMovieWatcherRole {
    method WatchMovie() { 
-      @res.push: "Sorry, $.name, you are too young to watch the movie."; 
+      @res.push: "Sorry, $.name, you are too young to watch the movie." 
    }
 }
 
-class YoungChildMovieWatcher is ChildMovieWatcher does YoungChildMovieWatcherRole {
-   method new(Str $name) { self.bless(:$name) }
-}
+class YoungChildMovieWatcher is ChildMovieWatcher does YoungChildMovieWatcherRole { }
 
 for ParentMovieWatcher.new('Donald'),
     ChildMovieWatcher.new('Lisa'),
@@ -45,12 +39,12 @@ for ParentMovieWatcher.new('Donald'),
 .say for @res;
 
 my $ref = q:to/END/;
-Donald is watching the movie
-Donald is enjoying the popcorn
-Lisa is watching the movie
-Lisa is eating too much popcorn
+Donald is watching the movie.
+Donald is enjoying the popcorn.
+Lisa is watching the movie.
+Lisa is eating too much popcorn.
 Sorry, Fred, you are too young to watch the movie.
-Fred is eating too much popcorn
+Fred is eating too much popcorn.
 END
 
 use Test;
