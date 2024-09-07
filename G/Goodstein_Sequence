@@ -1,0 +1,64 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Goodstein_Sequence
+#c# 2024-09-07 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+sub bump($n is copy, $b) {
+   loop ( my ($res, $i) = 0, 0; $n.Bool or return $res; $i++,$n div= $b) {
+      if my $d = $n % $b { $res += $d * ($b+1) ** bump($i,$b) }
+   }
+}
+
+sub goodstein($n, $maxterms = 10) {
+   my @res = $n;
+   while @res.elems < $maxterms && @res[*-1] != 0 {
+      @res.push(bump(@res[*-1], (@res.elems + 1)) - 1)
+   }
+   return @res
+}
+
+@res.push: "Goodstein(n) sequence (first 10) for values of n from 0 through 7:";
+for 0..7 -> $i { @res.push: "Goodstein of $i: " ~ goodstein($i) }
+
+my $max = 16;
+@res.push: "\nThe Nth term of Goodstein(N) sequence counting from 0, for values of N from 0 through $max :";
+for 0..$max -> $i { @res.push: "Term $i of Goodstein($i): {goodstein($i, $i+1)[*-1]}" }
+
+.say for @res;
+
+my $ref = q:to/END/;
+Goodstein(n) sequence (first 10) for values of n from 0 through 7:
+Goodstein of 0: 0
+Goodstein of 1: 1 0
+Goodstein of 2: 2 2 1 0
+Goodstein of 3: 3 3 3 2 1 0
+Goodstein of 4: 4 26 41 60 83 109 139 173 211 253
+Goodstein of 5: 5 27 255 467 775 1197 1751 2454 3325 4382
+Goodstein of 6: 6 29 257 3125 46655 98039 187243 332147 555551 885775
+Goodstein of 7: 7 30 259 3127 46657 823543 16777215 37665879 77777775 150051213
+
+The Nth term of Goodstein(N) sequence counting from 0, for values of N from 0 through 16 :
+Term 0 of Goodstein(0): 0
+Term 1 of Goodstein(1): 0
+Term 2 of Goodstein(2): 1
+Term 3 of Goodstein(3): 2
+Term 4 of Goodstein(4): 83
+Term 5 of Goodstein(5): 1197
+Term 6 of Goodstein(6): 187243
+Term 7 of Goodstein(7): 37665879
+Term 8 of Goodstein(8): 20000000211
+Term 9 of Goodstein(9): 855935016215
+Term 10 of Goodstein(10): 44580503598539
+Term 11 of Goodstein(11): 2120126221988686
+Term 12 of Goodstein(12): 155568095557812625
+Term 13 of Goodstein(13): 6568408355712901455
+Term 14 of Goodstein(14): 295147905179358418247
+Term 15 of Goodstein(15): 14063084452070776884879
+Term 16 of Goodstein(16): 2771517379996516970665566613559367879596937714713289695169887161862950129194382447127464877388711781205972046374648603545513430106433206876557475731408608398953667881600740852227698037876781766310900319669456854530159244376159780346700931210394158247781113134808720678004134212529413831368888355854503034587880113970541681685966414888841800498150131839091463034162026108960280455620621355407543489960326268155088833218122810217973039385643494213235664908254695964740257569988152978579630435471016976693529875691083071137361386386918409765002837648351746984484967203877495399596876291343126699827442908994036031608979805166915596436929638418152127561722561465793969723556331679336828840983098559789555364076924597258115780567651772009250336359472037679350612341393780002377587368649157608579801815531133644879180066181854487069796160774056572568941004114162614925
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
