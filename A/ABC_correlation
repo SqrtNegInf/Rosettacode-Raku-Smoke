@@ -1,0 +1,34 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/ABC_correlation
+#c# 2024-09-08 <RC
+#m# MOAR: OK
+#j# JVM:  BROKEN
+#n# I've elected to do 'or something' as specified in the task instructions. Rather than just feeding a few words in to check if there are equal counts of 'a', 'b', and 'c'; instead, reads in the words_alpha.txt word list and returns the words that have equal counts of 'a', 'b', and 'c', and, (to make things a little less verbose,) have more than one of each.
+
+my @res;
+
+@res.push: $_ for 'ref/words.txt'.IO.lines.hyper.grep({+(my \b = .comb.Bag)<a> > 1 and [==] b<a b c>}) X~ " True";
+
+.say for @res;
+
+my $ref = q:to/END/;
+abboccato True
+back-to-back True
+bambocciade True
+beccabunga True
+blackback True
+black-backed True
+bombacaceous True
+brachiocubital True
+bric-a-brac True
+bric-a-brackery True
+buccolabial True
+cabbalistic True
+subbrachycephaly True
+subcarbonaceous True
+tobacco-abusing True
+tobacco-breathed True
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
