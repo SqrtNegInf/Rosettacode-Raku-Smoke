@@ -1,12 +1,12 @@
-#!/usr/bin/env perl6
-#u# http://rosettacode.org/wiki/Sorting_algorithms/Pancake_sort
-#c# 2024-09-03
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Sorting_algorithms/Pancake_sort
+#c# 2024-09-08 <RC
 #m# MOAR: OK
-#j#  JVM: OK
+#j# JVM:  OK
 
-use Test;
+my @res;
 
-sub pancake-sort(@data is copy) {
+sub pancake-sort(@data is copy) { # imperative
    for @data.elems - 1 ... 1 {
       @data[0 .. @data[0..$_].maxpairs[*-1].key] .= reverse;
       @data[0 .. $_] .= reverse;
@@ -14,11 +14,33 @@ sub pancake-sort(@data is copy) {
    return @data
 }
 
-for <4 5 7 1 46 78 2 2 1 9 10>, <0 -9 -8 2 -7 8 6 -2 -8 3> -> @data {
-   say 'input  = ' ~ @data;
-   say 'output = ' ~ @data.&pancake-sort ~ "\n";
+sub pancake_sort(@data is copy) { # recursive
+   return @data if @data.elems <= 1;
+   @data[0 .. @data.maxpairs[*-1].key] .= reverse;
+   return pancake_sort(@data[1..*-1]).append: @data[0]
 }
 
-for <4 5 7 1 46 78 2 2 1 9 10>, <0 -9 -8 2 -7 8 6 -2 -8 3> -> @data {
-   is @data.sort, @data.&pancake-sort;
+for <6 7 2 1 8 9 5 3 4>,
+    <4 5 7 1 46 78 2 2 1 9 10>,
+    <0 -9 -8 2 -7 8 6 -2 -8 3> -> @data {
+   @res.push: 'input  = ' ~ @data;
+   @res.push: 'output = ' ~ pancake-sort(@data);
+   @res.push: 'output = ' ~ pancake_sort(@data); # ~ "\n"
 }
+
+.say for @res;
+
+my $ref = q:to/END/;
+input  = 6 7 2 1 8 9 5 3 4
+output = 1 2 3 4 5 6 7 8 9
+output = 1 2 3 4 5 6 7 8 9
+input  = 4 5 7 1 46 78 2 2 1 9 10
+output = 1 1 2 2 4 5 7 9 10 46 78
+output = 1 1 2 2 4 5 7 9 10 46 78
+input  = 0 -9 -8 2 -7 8 6 -2 -8 3
+output = -9 -8 -8 -7 -2 0 2 3 6 8
+output = -9 -8 -8 -7 -2 0 2 3 6 8
+END
+
+use Test;
+is @res.join("\n"), chomp $ref;
