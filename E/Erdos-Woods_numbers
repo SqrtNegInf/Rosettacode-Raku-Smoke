@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# http://rosettacode.org/wiki/Erdős–Woods_numbers
-#c# 2022-03-07 <RC
+#c# 2022-03-07 <RC, 2024-09-16 <RC
 #m# MOAR: OK
 #j# JVM:  BROKEN
 #n# OEIS:A059756 length of an interval of consecutive integers such that every element has a factor in common with one of the endpoints.
@@ -9,15 +9,6 @@
 #n# 2022-07-13 some tweaks, not on RC
 
 my @res;
-
-sub invmod($n, $modulo) { # rosettacode.org/wiki/Modular_inverse#Raku
-   my ($c, $d, $uc, $vc, $ud, $vd, $q) = ($n % $modulo, $modulo, 1, 0, 0, 1);
-   while $c != 0 {
-      ($q, $c, $d) = ($d div $c, $d % $c, $c);
-      ($uc, $vc, $ud, $vd) = ($ud - $q×$uc, $vd - $q×$vc, $uc, $vc);
-   }
-   return $ud % $modulo;
-}
 
 sub ew (\n) {
 
@@ -60,7 +51,8 @@ sub ew (\n) {
          $py % 2 and $y ×= $p;
          ($px,$py) >>div=>> 2
       }
-      my \newresult = ((n × invmod($x, $y)) % $y) × $x - n;
+     #my \newresult = ((n × invmod($x, $y)) % $y) × $x - n;
+      my \newresult = ((n × expmod($x, -1, $y)) % $y) × $x - n;
       result = result == -1 ?? newresult !! min(result, newresult)
    }
    return result 
