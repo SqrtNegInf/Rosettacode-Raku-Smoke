@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Modular_inverse
-#c# 2015-10-25 <RC
+#c# 2015-10-25 <RC, 2024-09-15 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -16,6 +16,9 @@ sub inverse($n, :$modulo) {
 
 say inverse 42, :modulo(2017);
 
+# or use a built-in routine - https://docs.raku.org/routine/expmod , kudos to trizen++
+say expmod(42, -1, 2017);
 
 use Test;
-is (inverse 42, :modulo(2017)), 1969, 'inv of 42 mod 2017 = 1969';
+is (inverse 42, :modulo(2017)), 1969;
+is (expmod(42, -1, 2017)     ), 1969;
