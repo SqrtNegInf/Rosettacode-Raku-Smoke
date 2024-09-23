@@ -52,7 +52,7 @@ bin/rc-stats 10 > meta-i/stats.txt
 # track 'srand' drift
 tail -1 bench/rakudo-builds.txt >> meta-i/srand-drift.txt
 raku -e 'srand 123456; say <A B C D E F G>.roll(1000).join' >> meta-i/srand-drift.txt
-grep -v '^20' meta*/srand-drift.txt | sortcnt | cut -c1-80
+#grep -v '^20' meta*/srand-drift.txt | sortcnt | cut -c1-80
 
 echo ' '
 echo 'Comparison of recent runs:'
