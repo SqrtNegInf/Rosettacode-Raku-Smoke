@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 #u# https://www.rosettacode.org/wiki/Unescape_a_string
-#c# 2024-08-17 <RC
+#c# 2024-08-17 <RC, 2024-10-10 <RC
 #m# MOAR: OK
 #j# JVM:  OK
 
@@ -15,25 +15,23 @@ grammar JSON-Unescape {
 }
 
 class JSON-Unescape-Actions {
-   my %h = '\\' => "\\", '/'  => "/",  'b'  => "\b", 'n'  => "\n",
-           't'  => "\t", 'f'  => "\f", 'r'  => "\r", '"'  => "\"";
-   method        TOP($/) { make $<value>.made };
+   method        TOP($/) { make $<value>.made }
    method        str($/) { make ~$/ }
-   method      value($/) {
-      make +@$<str> == 1 ?? $<str>[0].made !! $<str>>>.made.join;
-   }
+   method      value($/) { make $<str>».made.join }
    method str_escape($/) {
-      make $<utf16_codepoint> 
-         ?? make utf16.new( $<utf16_codepoint>.map({:16(~$_)}) ).decode()
-         !! make %h{~$/}
+      make $<utf16_codepoint>.Bool 
+         ?? utf16.new( $<utf16_codepoint>.map({:16(~$_)}) ).decode()
+         !! %(< \\ / b n t f r " > Z=> < \\ / \b \n \t \f \r " >).{~$/}
    }
 }
 
-for < abc  a☺c  a\"c \u0061\u0062\u0063 a\\\c   a\u263Ac  a\\\u263Ac 
-      a\uD834\uDD1Ec a\ud834\udd1ec     a\\u263 a\\u263Xc 
-      a\\uDD1Ec      a\\uD834c          a\\uD834\\u263Ac > -> $input { 
+for < abc  a☺c  a\"c \u0061\u0062\u0063 a\\\c   a\u263Ac  a\\\u263Ac
+      a\uD834\uDD1Ec a\ud834\udd1ec     a"c     a\\u263   a\\u263Xc 
+      a\\uDD1Ec      a\\uD834c          a\\uD834\\u263Ac > -> $input {
+  #printf "%20s => ", $input;
    my $a = JSON-Unescape-Actions.new();
    my $o = JSON-Unescape.parse($input, :actions($a));
+   fail "Invalid JSON string" unless $o.defined;
    CATCH { default { @res.push: "Error: $_" } }
    @res.push: $o.defined ?? $o.made !! "Error"
 }
@@ -50,8 +48,9 @@ a☺c
 a\u263Ac
 a𝄞c
 a𝄞c
-Error
-Error
+Error: Invalid JSON string
+Error: Invalid JSON string
+Error: Invalid JSON string
 Error: Malformed UTF-16; unexpected low surrogate
 Error: Malformed UTF-16; incomplete surrogate pair
 Error: Malformed UTF-16; incomplete surrogate pair
