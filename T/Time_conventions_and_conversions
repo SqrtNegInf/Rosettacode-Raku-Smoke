@@ -1,0 +1,173 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Time_conventions_and_conversions
+#c# 2024-10-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+#When using the Instant class for leap second operations in Raku, the
+#results may be version-dependent as it is preloaded with leap seconds
+#adjustments at the then current point in time. Users should be aware of
+#this and take it into consideration, as the knowledge of future leap
+#seconds can vary between different Raku compiler versions.
+
+my (\UNIX_EPOCH, \NTP_EPOCH, \TAI_EPOCH, \GPS_EPOCH) = map { DateTime.new: $_ },
+   < 1970-01-01  1900-01-01  1958-01-01  1980-01-06 >;
+
+my %NTP_TO_LS = ( my @CHANGE_TIMES = < 
+   2272060800 2287785600 2303683200 2335219200 2366755200 2398291200 2429913600
+   2461449600 2492985600 2524521600 2571782400 2603318400 2634854400 2698012800
+   2776982400 2840140800 2871676800 2918937600 2950473600 2982009600 3029443200
+   3076704000 3124137600 3345062400 3439756800 3550089600 3644697600 3692217600 
+> ) Z=> 10 .. * ;
+
+# The conversions without leap second adjustments
+
+my &utc2unix = -> $utcStr { 
+   do given DateTime.new($utcStr).posix { * < 0 ?? $_ !! $_ - UNIX_EPOCH }
+}
+
+my &utc2ntp  = -> $utcStr   { utc2unix($utcStr) + UNIX_EPOCH - NTP_EPOCH }
+
+my &ntp2unix = -> $ntpSecs  { $ntpSecs + NTP_EPOCH - UNIX_EPOCH }
+
+my &unix2ntp = -> $unixSecs { $unixSecs + UNIX_EPOCH - NTP_EPOCH }
+
+my &unix2utc = -> $unixSecs { Instant.from-posix($unixSecs).DateTime }
+
+my &ntp2utc  = -> $ntpSecs  { unix2utc(ntp2unix($ntpSecs)) }
+
+my &tai2gps  = -> $taiSecs  { $taiSecs + TAI_EPOCH - GPS_EPOCH - 10 }
+
+my &gps2tai  = -> $gpsSecs  { $gpsSecs + GPS_EPOCH - TAI_EPOCH + 10 }
+
+# Conversions requiring leap-second adjustments
+
+my &ntp2tai = sub ($ntpSecs) {
+   my $tai =  $ntpSecs + NTP_EPOCH - TAI_EPOCH;
+
+   return $tai if $ntpSecs < @CHANGE_TIMES[0];
+
+   return $tai+%NTP_TO_LS{@CHANGE_TIMES[*-1]} if $ntpSecs >= @CHANGE_TIMES[*-1];
+
+   for 1 .. @CHANGE_TIMES.elems - 1 {
+      if $ntpSecs < @CHANGE_TIMES[$_] {
+         return $tai + %NTP_TO_LS{@CHANGE_TIMES[$_-1]}
+      }
+   }
+}
+
+my &tai2ntp = sub ($taiSecs) {
+   my $ntp = $taiSecs + TAI_EPOCH - NTP_EPOCH;
+
+   return $ntp if $ntp < @CHANGE_TIMES[0];
+
+   my ($idx, $delta) = (0, 0);
+
+   if $ntp >= @CHANGE_TIMES[*-1] {
+      $delta = %NTP_TO_LS{@CHANGE_TIMES[*-1]}
+   } else {
+      for 1 .. @CHANGE_TIMES.elems - 1 {
+         if $ntp < @CHANGE_TIMES[$_] {
+            $delta = %NTP_TO_LS{@CHANGE_TIMES[$_-1]};
+            $idx = $_;
+            last;
+         }
+      }
+   }
+
+   return do given $ntp - $delta {
+      when * < @CHANGE_TIMES[0]      { @CHANGE_TIMES[0] - 1 + $ntp.fraction }
+      when * < @CHANGE_TIMES[$idx-1] { $_ + 1 }
+      default                        { $_ } 
+   }
+}
+
+my &ntp2gps  = -> $ntpSecs  { tai2gps(ntp2tai($ntpSecs)) }
+
+my &gps2ntp  = -> $gpsSecs  { tai2ntp(gps2tai($gpsSecs)) }
+
+my &tai2unix = -> $taiSecs  { ntp2unix(tai2ntp($taiSecs)) }
+
+my &unix2tai = -> $unixSecs { ntp2tai(unix2ntp($unixSecs)) }
+
+my &tai2utc  = -> $taiSecs  { ntp2utc(tai2ntp($taiSecs)) }
+
+my &utc2tai  = -> $utcStr   { ntp2tai(utc2ntp($utcStr)) }
+
+my &gps2unix = -> $gpsSecs  { tai2unix(gps2tai($gpsSecs)) }
+
+my &unix2gps = -> $unixSecs { tai2gps(unix2tai($unixSecs)) }
+
+my &utc2gps  = -> $utcStr   { tai2gps(utc2tai($utcStr)) }
+
+my &gps2utc  = -> $gpsSecs  { tai2utc(gps2tai($gpsSecs)) }
+
+# Output formatting
+push @res, "      UTC                            Unix               NTP               TAI               GPS\n";
+push @res, '_' x 100, "\n";
+
+my $fmt = "%-28s%18.4f%18.4f%18.4f%18.4f\n";
+
+for < 0001-01-01T00:00:00 1900-01-01T00:00:00 1958-01-01T00:00:00
+      1970-01-01T00:00:00 1980-01-06T00:00:00 1989-12-31T00:00:00
+      1990-01-06T00:00:00 2025-06-01T00:00:00 2050-01-01T00:00:00 > {
+   push @res, sprintf $fmt, $_, .&utc2unix, .&utc2ntp, .&utc2tai, .&utc2gps
+}
+
+for < 1810753809.806 154956295.688 780673454.121 > {
+   push @res, sprintf $fmt, .&unix2utc, $_, .&unix2ntp, .&unix2tai, .&unix2gps
+}
+
+for < 2871676795 2335219189 3029443171 3124137599 3124137600 > {
+   push @res, sprintf $fmt, .&ntp2utc, .&ntp2unix, $_, .&ntp2tai, .&ntp2gps
+}
+
+for <  996796823  996796824  996796825  996796826 
+      1293840030 1293840031 1293840032 1293840033 > {
+   push @res, sprintf $fmt, .&tai2utc, .&tai2unix, .&tai2ntp, $_, .&tai2gps  
+}
+
+for < 996796804.250 996796805.5 996796806.750 996796807.9999 > {
+   push @res, sprintf $fmt, .&gps2utc, .&gps2unix, .&gps2ntp, .&gps2tai, $_
+}
+
+.print for @res;
+
+my $ref = q:to/END/;
+      UTC                            Unix               NTP               TAI               GPS
+____________________________________________________________________________________________________
+0001-01-01T00:00:00          -62135596800.0000 -59926608000.0000 -61756905600.0000 -62451561619.0000
+1900-01-01T00:00:00           -2208988800.0000            0.0000  -1830297600.0000  -2524953619.0000
+1958-01-01T00:00:00            -378691200.0000   1830297600.0000            0.0000   -694656019.0000
+1970-01-01T00:00:00                     0.0000   2208988800.0000    378691200.0000   -315964819.0000
+1980-01-06T00:00:00             315964800.0000   2524953600.0000    694656019.0000            0.0000
+1989-12-31T00:00:00             631065600.0000   2840054400.0000   1009756824.0000    315100805.0000
+1990-01-06T00:00:00             631584000.0000   2840572800.0000   1010275225.0000    315619206.0000
+2025-06-01T00:00:00            1748736000.0000   3957724800.0000   2127427237.0000   1432771218.0000
+2050-01-01T00:00:00            2524608000.0000   4733596800.0000   2903299237.0000   2208643218.0000
+2027-05-19T19:10:09.806000Z    1810753809.8060   4019742609.8060   2189445046.8060   1494789027.8060
+1974-11-29T11:24:55.688000Z     154956295.6880   2363945095.6880    533647508.6880   -161008510.3120
+1994-09-27T13:44:14.121000Z     780673454.1210   2989662254.1210   1159364683.1210    464708664.1210
+1990-12-31T23:59:55Z            662687995.0000   2871676795.0000   1041379220.0000    346723201.0000
+1973-12-31T23:59:49Z            126230389.0000   2335219189.0000    504921601.0000   -189734418.0000
+1995-12-31T23:59:31Z            820454371.0000   3029443171.0000   1199145600.0000    504489581.0000
+1998-12-31T23:59:59Z            915148799.0000   3124137599.0000   1293840030.0000    599184011.0000
+1999-01-01T00:00:00Z            915148800.0000   3124137600.0000   1293840032.0000    599184013.0000
+1989-08-02T23:59:59Z            618105599.0000   2827094399.0000    996796823.0000    302140804.0000
+1989-08-03T00:00:00Z            618105600.0000   2827094400.0000    996796824.0000    302140805.0000
+1989-08-03T00:00:01Z            618105601.0000   2827094401.0000    996796825.0000    302140806.0000
+1989-08-03T00:00:02Z            618105602.0000   2827094402.0000    996796826.0000    302140807.0000
+1998-12-31T23:59:59Z            915148799.0000   3124137599.0000   1293840030.0000    599184011.0000
+1999-01-01T00:00:00Z            915148800.0000   3124137600.0000   1293840031.0000    599184012.0000
+1999-01-01T00:00:00Z            915148800.0000   3124137600.0000   1293840032.0000    599184013.0000
+1999-01-01T00:00:01Z            915148801.0000   3124137601.0000   1293840033.0000    599184014.0000
+2011-08-07T23:59:49.250000Z    1312761589.2500   3521750389.2500   1691452823.2500    996796804.2500
+2011-08-07T23:59:50.500000Z    1312761590.5000   3521750390.5000   1691452824.5000    996796805.5000
+2011-08-07T23:59:51.750000Z    1312761591.7500   3521750391.7500   1691452825.7500    996796806.7500
+2011-08-07T23:59:52.999900Z    1312761592.9999   3521750392.9999   1691452826.9999    996796807.9999
+END
+
+use Test;
+is @res.join('').subst(/<ws>/, '', :g), $ref.subst(/<ws>/, '', :g);
