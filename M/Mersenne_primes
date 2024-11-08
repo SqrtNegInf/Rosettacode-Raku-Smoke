@@ -21,12 +21,12 @@ say 'All known Mersenne primes as of ' ~ now.Date; # Date(now);
 say 'All known Mersenne primes as of ' ~ Date(now);
 
 my @res.push: 'M'~ ++$~ ": 2$_ - 1"
-  for $table[1]».[*][0][*].comb(/'exp_lo='\d+/)».subst(/\D/, '',:g)
+  for $table[1]».[*][0][*].comb(/'perfect'\d+/)».subst(/\D/, '',:g)
   .trans([<0123456789>.comb] => [<⁰¹²³⁴⁵⁶⁷⁸⁹>.comb]).words;
 
 .say for @res;
 
-# All known Mersenne primes as of 2020-02-29 [2023-02-06 no change]
+# All known Mersenne primes as of 2020-02-29 [2023-02-06 no change] [2024-10-0? new one!]
 my $ref = qq:to/END/;
 M1: 2² - 1
 M2: 2³ - 1
@@ -79,6 +79,7 @@ M48: 2⁵⁷⁸⁸⁵¹⁶¹ - 1
 M49: 2⁷⁴²⁰⁷²⁸¹ - 1
 M50: 2⁷⁷²³²⁹¹⁷ - 1
 M51: 2⁸²⁵⁸⁹⁹³³ - 1
+M52: 2¹³⁶²⁷⁹⁸⁴¹ - 1
 END
 
 use Test;
