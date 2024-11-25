@@ -1,0 +1,25 @@
+#!/usr/bin/env raku
+#u# https://www.rosettacode.org/wiki/Hierholzer%27s_algorithm
+#c# 2024-11-25 <RC
+#m# MOAR: OK
+#j# JVM:  OK
+
+my @res;
+
+@res.push: join ' -> ', .&hierholser for ([1],[2],[0]), ([1,6],[2],[0,3],[4],[2,5],[0],[4]);
+
+sub hierholser (@graph) {
+    my @cycle = 0;
+    @cycle.push: @graph[@cycle.tail].pop while @graph[@cycle.tail].elems;
+    @cycle; 
+}
+
+my $ref = q:to/END/;
+0 -> 1 -> 2 -> 0
+0 -> 6 -> 4 -> 5 -> 0 -> 1 -> 2 -> 3 -> 4 -> 2 -> 0
+END
+
+.say for @res;
+
+use Test;
+is @res.join("\n"), chomp $ref;
