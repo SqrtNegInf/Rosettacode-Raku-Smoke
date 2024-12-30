@@ -1,6 +1,6 @@
 #!/usr/bin/env perl6
 #u# http://rosettacode.org/wiki/Horner's_rule_for_polynomial_evaluation
-#c# 2015-12-11 <RC
+#c# 2015-12-11 <RC, 2024-12-23 <RC
 #m# MOAR: OK
 #j#  JVM: OK
 
@@ -11,14 +11,12 @@ sub horner1 ( @coeffs, $x ) {
 
 say horner1( [ -19, 7, -4, 6 ], 3 );
 
-#A recursive version would spare us the need for reversing the list of coefficients. However, special care must be taken in order to write it, because the way Raku implements lists is not optimized for this kind of treatment. Lisp-style lists are, and fortunately it is possible to emulate them with Pairs and the reduction meta-operator:
-
-multi horner2(Numeric $c, $) { $c }
-multi horner2(Pair $c, $x) {
-    $c.key + $x × horner2( $c.value, $x ) 
+# recursive
+multi horner2(@coeffs, $x) {
+    @coeffs > 1 ?? @coeffs.head + $x * samewith(@coeffs.tail(*-1), $x) !! @coeffs.pick
 }
-
-say horner2( [=>](-19, 7, -4, 6 ), 3 );
+ 
+say horner2( [-19, 7, -4, 6 ], 3 );
 
 #We can also use the composition operator:
 
@@ -38,6 +36,6 @@ say horner4( [ 1 X/ (1, |[\×] 1 .. *) ], i×π )[20];
 
 use Test;
 is horner1( [ -19, 7, -4, 6 ], 3 ), 128;
-is horner2( [=>](-19, 7, -4, 6 ), 3 ), 128;
+is horner2( [-19, 7, -4, 6 ], 3 ), 128;
 is horner3( [ -19, 7, -4, 6 ], 3 ), 128;
 is-approx horner4( [ 1 X/ (1, |[\×] 1 .. *) ], i×π )[20], -0.9999999999243492-5.289185159542186E-10i
